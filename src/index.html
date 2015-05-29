@@ -1,0 +1,71 @@
+<!doctype html>
+<!--[if lt IE 7]>
+<html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>
+<html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>
+<html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js"> <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <title>ory-editor</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+
+    <!-- build:css assets/styles/vendors.css -->
+    <!-- bower:css -->
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css"/>
+    <!-- endbower -->
+    <!-- endbuild -->
+
+    <link type="text/css" rel="stylesheet" href="assets/styles/main.css">
+</head>
+<body id="ory-editor">
+<!--[if lt IE 8]>
+<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
+    your browser</a> to improve your experience.</p>
+<![endif]-->
+
+<div>
+    <div class="editable-area">
+        <div data-app="contenteditable">
+            I am an editable <strong>content</strong>.
+        </div>
+        <div data-app="placeholder">
+            I am not editable
+        </div>
+    </div>
+</div>
+<p>
+    Some random content
+</p>
+
+<div>
+    <div class="editable-area" data-foo="bar">
+        <div data-app="contenteditable" data-foo-bar="baz">
+            I am another editable <strong>content</strong>.
+        </div>
+    </div>
+</div>
+
+<div id="ory-toolbar"></div>
+
+<!-- build:js scripts/vendor.js -->
+<!-- bower:js -->
+<script src="bower_components/es5-shim/es5-shim.js"></script>
+<script src="bower_components/jquery/dist/jquery.js"></script>
+<script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+<script src="bower_components/Cookies/dist/cookies.js"></script>
+<script src="bower_components/moment/moment.js"></script>
+<script src="bower_components/es6-shim/es6-shim.js"></script>
+<script src="bower_components/underscore/underscore.js"></script>
+<script src="bower_components/base-64/base64.js"></script>
+<!-- endbower -->
+<!-- endbuild -->
+<script type="text/javascript" src="scripts/app.js"></script>
+<script type="text/javascript">
+    var editor = new ory.Editor();
+</script>
+</body>
+</html>

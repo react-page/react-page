@@ -1,0 +1,17 @@
+{
+  "name": "ory-editor",
+  "version": "0.0.1",
+  "authors": [
+    "Aeneas Rekkas"
+  ],
+  "dependencies": {
+    "jquery": "~2.1.0",
+    "bootstrap": "~3.2.0",
+    "Cookies": "",
+    "moment": "",
+    "es5-shim": "",
+    "es6-shim": "",
+    "underscore": "~1.8.3",
+    "base-64": "~0.1.0"
+  }
+}

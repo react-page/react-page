@@ -1,0 +1,17 @@
+{
+	"name": "base-64",
+	"version": "0.1.0",
+	"main": "base64.js",
+	"ignore": [
+		"coverage",
+		"data",
+		"scripts",
+		"src",
+		"tests",
+		".*",
+		"component.json",
+		"Gruntfile.js",
+		"node_modules",
+		"package.json"
+	]
+}

@@ -1,0 +1,10 @@
+{
+    "name"      : "cookies-js",
+    "version"   : "1.2.1",
+    "main"      : "dist/cookies.js",
+    "ignore"    : [
+        "**/*",
+        "!dist/*",
+        "!bower.json"
+    ]
+}

@@ -1,0 +1,12 @@
+### OSX ###
+.DS_Store
+
+### Windows ###
+# Windows image file caches
+Thumbs.db
+ehthumbs.db
+
+node_modules/
+/dist
+
+.idea
