@@ -15,7 +15,7 @@
 
     <!-- build:css assets/styles/vendors.css -->
     <!-- bower:css -->
-    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css"/>
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
     <!-- endbower -->
     <!-- endbuild -->
 
@@ -29,27 +29,23 @@
 
 <div>
     <div class="editable-area">
-        <div data-app="contenteditable">
+        <div data-extension="contenteditable">
             I am an editable <strong>content</strong>.
         </div>
-        <div data-app="placeholder">
+        <div data-extension="placeholder">
             I am not editable
         </div>
     </div>
 </div>
-<p>
-    Some random content
-</p>
-
 <div>
     <div class="editable-area" data-foo="bar">
-        <div data-app="contenteditable" data-foo-bar="baz">
+        <div data-extension="contenteditable" data-foo-bar="baz">
             I am another editable <strong>content</strong>.
         </div>
     </div>
 </div>
 
-<div id="ory-toolbar"></div>
+<div id="toolbar"></div>
 
 <!-- build:js scripts/vendor.js -->
 <!-- bower:js -->

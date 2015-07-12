@@ -1,26 +1,36 @@
+'use strict';
+
 var React = require('react'),
-    ReactScriptLoaderMixin = require('react-script-loader').ReactScriptLoaderMixin,
-    Editable,
     _ = require('underscore');
 
-Editable = React.createClass({
+module.exports = React.createClass({
     getInitialProps: function() {
         return {
-            src: 'apps/default'
+            extension: 'fallback'
         };
     },
     componentWillMount: function() {
-        console.log(this.props);
     },
     render: function () {
+        var components = [],
+            registry = this.props.editor.extensions;
 
+        _.each(this.props.children, function(child, key){
+            var Extension = registry.get('fallback');
+            if (registry.has(child.dataset.extension)) {
+                Extension = registry.get(child.dataset.extension)
+            }
+            components.push(<Extension key={key} content={child.innerHTML}/>);
+        });
 
         return (
             /*jshint ignore:start */
-            <div dangerouslySetInnerHTML={{__html: this.props.content}}/>
+            <div>
+                {components}
+            </div>
             /*jshint ignore:end */
         );
     }
 });
 
-module.exports = Editable;
+// <div editor={ this.props.editor } data={ this.props.data } content={ e.innerHTML } children={ e.children }/>

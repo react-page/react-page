@@ -1,63 +1,40 @@
-var Registry,
-    instance;
-    //_ = require('underscore'),
-    //AppNotFound = require('errors/appNotFound'),
-    //Repository = require('services/app/repository');
+'use strict';
 
-Registry = function () {
+var Registry,
+    _ = require('underscore');
+
+Registry = function (extensions) {
     this.extensions = {};
+    if (extensions !== undefined) {
+        this.registerAll(extensions);
+    }
 };
 
-// register adds an app instance to the registry.
-Registry.prototype.register = function (name, app) {
+Registry.prototype.registerAll = function (extensions) {
+    var self = this;
+    _.each(extensions, function (extension, name) {
+        self.register(name, extension);
+    });
+};
+
+// register adds an extension instance to the registry.
+Registry.prototype.register = function (name, extension) {
     if (this.has(name)) {
         throw 'Extension identifier ' + name + ' already exists, please choose a unique name.';
     }
-    this.apps.name = app;
+    this.extensions[name] = extension;
 };
 
-// has returns true, if an app id is known to the registry.
+// has returns true, if an extension id is known to the registry.
 Registry.prototype.has = function (name) {
-    return this.apps[name] !== undefined;
+    return this.extensions[name] !== undefined;
 };
 
-module.exports = function () {
-    // There should only be one registry => singleton
-    if (!instance) {
-        instance = new Registry();
+Registry.prototype.get = function (name) {
+    if (!this.has(name)) {
+        throw 'Extension ' + name + ' does not exist.';
     }
-    return instance;
+    return this.extensions[name];
 };
 
-
-// find searches for an app instance in the registry.
-// If no app is found, the app registries are going to be checked.
-/*Registry.prototype.find = function (name) {
-    var p = new Promise(), self = this, checkRepository;
-
-    if (this.has(name)) {
-        p.resolve(this.apps.name);
-        return;
-    }
-
-    checkRepository = function (r, k) {
-        r.find(name).then(function (app) {
-            self.add(name, app);
-            p.resolve(app);
-        }).reject(function () {
-            if (k === self.repositories.length - 1) {
-                p.reject(new AppNotFound());
-            }
-        });
-    };
-    _.each(this.repositories, checkRepository);
-};*/
-
-
-// registerRepository adds an app repository.
-/*Registry.prototype.registerRepository = function (repository) {
-    if (!repository instanceof Repository) {
-        throw new Error('Requires an instance of `Repository`')
-    }
-    this.repositories.push(repository);
-};*/
+module.exports = Registry;

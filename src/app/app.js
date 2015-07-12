@@ -5,24 +5,22 @@ var React = require('react'),
     Editable = require('./components/editable'),
     Toolbar = require('./components/toolbar'),
     ExtensionRegistry = require('./services/extensions/registry'),
-    Editor,
-    defaultConfig = {
+    Editor;
+
+Editor = function (config) {
+    var defaultConfig = {
         selectors: {
             editableArea: '.editable-area',
             toolbar: '#toolbar'
         },
-        autoStart: true,
         extensions: {
-
+            contenteditable: require('./components/extensions/contenteditable'),
+            fallback: require('./components/extensions/fallback')
         }
     };
-
-Editor = function (config) {
     this.config = _.extend(config || {}, defaultConfig);
     this.extensions = new ExtensionRegistry(this.config.extensions);
-    if (this.config.autoStart) {
-        this.start();
-    }
+    this.render();
 };
 
 Editor.prototype.render = function () {
@@ -35,6 +33,7 @@ Editor.prototype.startToolbar = function () {
     if (toolbar.length !== 1) {
         console.warn('You should provide exactly one toolbar.');
     }
+
     React.render(
         /*jshint ignore:start */
         <Toolbar />,
@@ -55,7 +54,7 @@ Editor.prototype.startEditableAreas = function () {
     _.each(editableAreas, function (e) {
         React.render(
             /*jshint ignore:start */
-            <Editable editor={ self } options={ e.dataset } content={ e.innerHTML } children={ e.children }/>,
+            <Editable extensions={ self.extensions } editor={ self } data={ e.dataset } children={ e.children }/>,
             /*jshint ignore:end */
             e
         );
