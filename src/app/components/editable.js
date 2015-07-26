@@ -25,7 +25,7 @@ module.exports = React.createClass({
 
         return (
             /*jshint ignore:start */
-            <div>
+            <div className="editable-component">
                 {components}
             </div>
             /*jshint ignore:end */
