@@ -1,0 +1,19 @@
+@import 'themes/blue';
+
+.editable-component {
+  outline: 1px solid rgba($editor-color-light, 0.3);
+  cursor: pointer;
+
+  &:hover, &:active, &:focus {
+    outline: 2px solid $editor-color-light;
+    background: rgba($editor-color-lightest, 0.2) none repeat scroll 0% 0%;
+  }
+
+  &.active {
+    cursor: default;
+  }
+}
+
+.hidden {
+  display: none;
+}

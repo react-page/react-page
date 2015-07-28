@@ -15,7 +15,8 @@ Editor = function (config) {
         },
         extensions: {
             contenteditable: require('./components/extensions/contenteditable'),
-            fallback: require('./components/extensions/fallback')
+            fallback: require('./components/extensions/fallback'),
+            aloha: require('./components/extensions/aloha')
         }
     };
     this.config = _.extend(config || {}, defaultConfig);

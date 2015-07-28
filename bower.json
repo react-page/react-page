@@ -12,6 +12,7 @@
     "es5-shim": "",
     "es6-shim": "",
     "underscore": "~1.8.3",
-    "base-64": "~0.1.0"
+    "base-64": "~0.1.0",
+    "requirejs": "~2.1.19"
   }
 }

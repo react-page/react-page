@@ -6,7 +6,7 @@ module.exports = React.createClass({
     render: function () {
         return (
             /*jshint ignore:start */
-            <div style={{backgroundColor: 'red'}}>
+            <div className="editable-component" style={{backgroundColor: 'red'}}>
                 Component not found.
             </div>
             /*jshint ignore:end */
