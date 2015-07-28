@@ -15,25 +15,25 @@ module.exports = React.createClass({
             editable: aloha(element)
         });
     },
-    toggleBold: function () {
-        aloha.ui.command(this.state.editable, aloha.ui.commands.bold);
+    toggleBold: function (event) {
+        console.log(event.type);
+        aloha.ui.command([this.state.editable], aloha.ui.commands.bold);
+        console.log(aloha.ui.states(aloha.ui.commands, event));
     },
     toggleItalic: function () {
         aloha.ui.command(this.state.editable, aloha.ui.commands.italic);
     },
     toggleUnderline: function () {
-        console.log(this.state.editable);
         aloha.ui.command(aloha.ui.commands.underline, this.state.editable);
     },
     unformat: function () {
-        console.log(this.state.editable);
         aloha.ui.command(aloha.ui.commands.unformat, this.state.editable);
     },
     render: function () {
         return (
             /*jshint ignore:start */
             <div>
-                <div className="editable-component" ref="content"
+                <div className="editable-component aloha" ref="content"
                      dangerouslySetInnerHTML={{__html: this.props.content}}>
                 </div>
                 <div ref="toolbar" className={this.state.editable ? '': ' hidden'}>
