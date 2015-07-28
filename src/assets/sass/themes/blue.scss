@@ -3,3 +3,20 @@ $editor-color-light: #63E1E5;
 $editor-color-normal: #54BFC3;
 $editor-color-strong: #429699;
 $editor-color-heavy: #1B3F40;
+
+$gray-base: #000;
+$gray-darker: lighten($gray-base, 13.5%);
+$gray-dark: lighten($gray-base, 20%);
+$gray: lighten($gray-base, 33.5%);
+$gray-light: lighten($gray-base, 46.7%);
+$gray-lighter: lighten($gray-base, 93.5%);
+
+$brand-primary: $editor-color-normal;
+$brand-success: $editor-color-light;
+$brand-info: $editor-color-lightest;
+$brand-warning: $editor-color-strong;
+$brand-danger: $editor-color-heavy;
+
+$border-radius-base: 0;
+$border-radius-large: 0;
+$border-radius-small: 0;
