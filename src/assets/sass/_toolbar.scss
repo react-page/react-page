@@ -5,7 +5,6 @@
 .slideout-menu {
     background-color: $toolbar-upper-color;
     background-image: linear-gradient(145deg, $toolbar-upper-color, $toolbar-lower-color);
-    z-index: 100;
     position: fixed;
     left: 0;
     top: 0;
@@ -48,11 +47,24 @@
 }
 
 .slideout-open {
-    overflow: hidden;
+    overflow-x: hidden;
     & body, & .slideout-panel {
         overflow: hidden;
     }
     & .slideout-menu {
         display: block;
     }
+}
+
+.toolbar-toggler {
+    background-color: $toolbar-lower-color;
+    position: fixed;
+    bottom: 0;
+    padding: 5px 7px;
+    overflow-y: auto;
+    text-align: center;
+    -webkit-overflow-scrolling: touch;
+    font-family: $font-family;
+    color: $text-color-primary-inverted;
+    cursor: pointer;
 }

@@ -8,7 +8,8 @@ var React = require('react'),
 module.exports = React.createClass({
     getInitialState: function () {
         return {
-            slideout: null
+            slideout: null,
+            togglerOpacity: 1
         }
     },
     getDefaultProps: function () {
@@ -87,9 +88,15 @@ module.exports = React.createClass({
         });
         return sections;
     },
+    toggleToolbar: function() {
+        this.state.slideout.toggle();
+
+        var opacity = this.state.slideout.isOpen() ? 1 : .3;
+        this.setState({
+            togglerOpcaity: opacity
+        });
+    },
     render: function () {
-
-
         return (
             /*jshint ignore:start */
             <div>
@@ -101,12 +108,9 @@ module.exports = React.createClass({
                         {this.renderToolbarSections()}
                     </div>
                 </nav>
-
-                <main ref="panel">
-                    <header>
-                        <h2>Panel</h2>
-                    </header>
-                </main>
+                <div ref="panel" className="toolbar-toggler" style={{zIndex: this.props.zIndex + 1, opacity: this.state.togglerOpacity}}>
+                    <span onClick={this.toggleToolbar} className="fa fa-bars fa-2x"></span>
+                </div>
             </div>
             /*jshint ignore:end */
         );
