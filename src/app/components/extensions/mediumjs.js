@@ -11,7 +11,53 @@ require('rangy/lib/rangy-classapplier.js');
 var React = require('react'),
     Medium = require('Medium.js'),
     _ = require('underscore'),
-    Animate = require('rc-animate');
+    Animate = require('rc-animate'),
+    DragSource = require('react-dnd').DragSource;
+
+
+// Drag sources and drop targets only interact
+// if they have the same string type.
+// You want to keep types in a separate file with
+// the rest of your app's constants.
+var Types = {
+    CARD: 'card'
+};
+
+/**
+ * Specifies the drag source contract.
+ * Only `beginDrag` function is required.
+ */
+var cardSource = {
+    beginDrag: function (props) {
+        // Return the data describing the dragged item
+        var item = { id: props.id };
+        return item;
+    },
+
+    endDrag: function (props, monitor, component) {
+        if (!monitor.didDrop()) {
+            return;
+        }
+
+        // When dropped on a compatible target, do something
+        var item = monitor.getItem();
+        var dropResult = monitor.getDropResult();
+        CardActions.moveCardToList(item.id, dropResult.listId);
+    }
+};
+
+/**
+ * Specifies which props to inject into your component.
+ */
+function collect(connect, monitor) {
+    return {
+        // Call this function inside render()
+        // to let React DnD handle the drag events:
+        connectDragSource: connect.dragSource(),
+        // You can ask the monitor about the current drag state:
+        isDragging: monitor.isDragging()
+    };
+}
 
 
 module.exports = React.createClass({
@@ -36,8 +82,6 @@ module.exports = React.createClass({
                 }
             ]
         };
-    },
-    componentWillMount: function () {
     },
     componentDidMount: function () {
         var editable = React.findDOMNode(this.refs.editable);
@@ -75,7 +119,7 @@ module.exports = React.createClass({
         }.bind(this);
     },
     listAction: function (outer) {
-        outer = outer === 'ul' ? outer : 'ol';
+        outer = outer === 'ul' ? 'ul' : 'ol';
         return function (event) {
             var outer = document.createElement(outer || 'ul'),
                 inner = document.createElement('li');

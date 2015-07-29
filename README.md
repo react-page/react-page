@@ -1,5 +1,10 @@
 # editor
 
+3 stages of content loading
+- html
+- json
+- backend
+
 ## How to save?
 
 * Using events/callbacks like *onChange* or *onUpdate*

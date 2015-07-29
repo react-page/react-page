@@ -10,8 +10,7 @@ var React = require('react'),
 Editor = function (config) {
     var defaultConfig = {
         selectors: {
-            editableArea: '.editable-area',
-            toolbar: '#toolbar'
+            editableArea: '.editable-area'
         },
         extensions: {
             contenteditable: require('./components/extensions/contenteditable'),
@@ -31,16 +30,13 @@ Editor.prototype.render = function () {
 };
 
 Editor.prototype.startToolbar = function () {
-    var toolbar = document.querySelectorAll(this.config.selectors.toolbar);
-    if (toolbar.length !== 1) {
-        console.warn('You should provide exactly one toolbar.');
-    }
-
+    this.toolbar = document.createElement('div');
+    document.body.appendChild(this.toolbar);
     React.render(
         /*jshint ignore:start */
         <Toolbar />,
         /*jshint ignore:end */
-        toolbar[0]
+        this.toolbar
     );
 };
 

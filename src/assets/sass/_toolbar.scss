@@ -35,6 +35,12 @@
         cursor: pointer;
         margin: 5px 0;
         text-align: center;
+        &:hover, &:focus {
+            color: darken($editor-color-lightest, 10%);
+        }
+        &:active {
+            color: darken($editor-color-light, 20%);
+        }
     }
     .toolbar-section-group {
         margin: 5px 0;
