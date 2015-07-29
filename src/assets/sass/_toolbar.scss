@@ -18,6 +18,7 @@
 }
 
 .toolbar {
+    font-family: $font-family;
     color: $text-color-primary-inverted;
     .toolbar-header {
         padding: 20px;
@@ -27,12 +28,14 @@
         margin: 25px 0;
         .toolbar-section-header {
             color: darken($text-color-primary-inverted, 10%);
+            border-bottom: 1px dashed  lighten($toolbar-upper-color, 10%);
         }
     }
     .toolbar-section-action {
         height: auto;
-        padding: 5px;
-        border: 1px solid darken($text-color-primary-inverted, 10%);
+        cursor: pointer;
+        margin: 5px 0;
+        text-align: center;
     }
     .toolbar-section-group {
         margin: 5px 0;
