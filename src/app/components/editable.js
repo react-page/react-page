@@ -8,11 +8,6 @@ function preventDefault(event) {
 }
 
 module.exports = React.createClass({
-    getInitialProps: function() {
-        return {
-            extension: 'fallback'
-        };
-    },
     getDefaultState: function() {
         return {
             components: []
@@ -33,6 +28,7 @@ module.exports = React.createClass({
             }
             components.push(<Extension key={key} content={child.innerHTML}/>);
         }.bind(this));
+
         this.setState({
             components: components
         });
