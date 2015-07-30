@@ -6,22 +6,12 @@
 window.rangy = require('rangy');
 window.Undo = require('undo.js');
 require('rangy/lib/rangy-classapplier.js');
-// Do not remove the above
 
 var React = require('react'),
     Medium = require('Medium.js'),
     _ = require('underscore'),
     Animate = require('rc-animate'),
     DragSource = require('react-dnd').DragSource;
-
-
-// Drag sources and drop targets only interact
-// if they have the same string type.
-// You want to keep types in a separate file with
-// the rest of your app's constants.
-var Types = {
-    CARD: 'card'
-};
 
 /**
  * Specifies the drag source contract.
