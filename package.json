@@ -2,6 +2,8 @@
   "name": "ory-editor",
   "version": "0.0.1",
   "dependencies": {
+    "decouple": "0.0.1",
+    "emitter": "git+https://github.com/Mango/emitter.git#0.0.7",
     "htmltojsx": "^0.2.2",
     "medium-editor": "^5.5.1",
     "medium.js": "^1.0.1",

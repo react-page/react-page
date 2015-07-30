@@ -1,7 +1,7 @@
 'use strict';
 
 var React = require('react'),
-    Slideout = require('slideout'),
+    Slideout = require('../libs/slideout'),
     DragSource = require('react-dnd').DragSource,
     Sections = require('./toolbar/sections'),
     _ = require('underscore');
@@ -16,15 +16,13 @@ module.exports = React.createClass({
     getDefaultProps: function () {
         return {
             padding: 256,
-            tolerance: 70,
-            zIndex: 9000
+            tolerance: 70
         };
     },
     componentDidMount: function () {
         var menu = React.findDOMNode(this.refs.menu),
-            panel = React.findDOMNode(this.refs.panel),
             slideout = new Slideout({
-                panel: panel,
+                panel: document.querySelector('.push'),
                 menu: menu,
                 padding: this.props.padding,
                 tolerance: this.props.tolerance
@@ -45,10 +43,10 @@ module.exports = React.createClass({
         return (
             /*jshint ignore:start */
             <div>
-                <nav ref="menu" className="toolbar" style={{zIndex: this.props.zIndex}}>
+                <nav ref="menu" className="toolbar">
                     <Sections></Sections>
                 </nav>
-                <div ref="panel" className="toolbar-toggler" style={{zIndex: this.props.zIndex + 1, opacity: this.state.togglerOpcaity}}>
+                <div className="toolbar-toggler" style={{opacity: this.state.togglerOpcaity}}>
                     <span onClick={this.toggleToolbar} className="fa fa-bars fa-2x"></span>
                 </div>
             </div>

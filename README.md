@@ -1,10 +1,5 @@
 # editor
 
-3 stages of content loading
-- html
-- json
-- backend
-
 ## How to save?
 
 * Using events/callbacks like *onChange* or *onUpdate*
@@ -130,3 +125,15 @@ What happens if I update the Text?
     </row>
 </layout>
 ```
+
+todo
+* why isn't IE working?
+* 3 stages of content import
+  - html data attribute + json (preferred)
+  - html data id + json backend (future)
+  - plain html(bad, basically "import")
+  - some other format import (future, maybe backend service...)
+- render service should have options (POST /render)
+  - **injectSource:** Should the json source be saved in HTML?
+  - **filters:** Some sophisticated filters to prevent XSS, maybe use ML to detect malicious behaviour
+  - model could look like: `{id:123, data: {/*..*/}, options: {injectSource: true}}`
