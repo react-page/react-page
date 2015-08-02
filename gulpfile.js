@@ -7,6 +7,8 @@ var gulp = require('gulp'),
     browserify = require('browserify'),
     watchify = require('watchify'),
     source = require('vinyl-source-stream'),
+    mocha = require('gulp-mocha'),
+    istanbul = require('gulp-istanbul'),
     connect = $.connectMulti,
     wiredep = require('wiredep').stream,
     devServer = connect(),
@@ -194,4 +196,23 @@ gulp.task('deploy', ['compress'], function() {
 
 gulp.task('production', ['clean'], function() {
     gulp.start('deploy');
+});
+
+gulp.task('test', function () {
+    return gulp.src(['test/*.js', 'test/**/*.js'], {read: false})
+        // gulp-mocha needs filepaths so you can't have any plugins before it
+        .pipe(mocha({reporter: 'nyan'}));
+});
+
+gulp.task('test', function (cb) {
+    gulp.src(['src/scripts/app.js'])
+        .pipe(istanbul()) // Covering files
+        .pipe(istanbul.hookRequire()) // Force `require` to return covered files
+        .on('finish', function () {
+            gulp.src(['test/*.js', 'test/**/*.js'])
+                .pipe(mocha())
+                .pipe(istanbul.writeReports()) // Creating the reports after tests ran
+                .pipe(istanbul.enforceThresholds({ thresholds: { global: 90 } })) // Enforce a coverage of at least 90%
+                .on('end', cb);
+        });
 });
