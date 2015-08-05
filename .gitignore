@@ -12,3 +12,4 @@ src/bower_components/
 
 .idea/
 .sass-cache/
+coverage/
