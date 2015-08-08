@@ -7,10 +7,34 @@
 * How do we decide if we save nested objects as html etc?
 
 ```js
-editor = new Editor();
+// myStrategy = new MyStrategy();
+editor = new Editor($('.editable'), {
+    endpoint: "http://editor.ory.am/api/unstable",
+    
+    // Three levels is actually to much, maybe just do:
+    // storage.put: []
+    // storage.get: []
+    // or
+    // save: []
+    // load: []
+    strategies: {
+        storage: {
+            put: ['DOMImport','Foo','Bar',myStrategy],
+            get: []
+        },
+    }
+});
 
-editor.onUpdate(function() {
 
+// This is actually covered by the strategies in a better way (with priorities)
+// maybe use https://github.com/Olical/EventEmitter
+editor.storage.addEventListener('get:before', function(id, data) {
+    // transform stuff
+    return data;
+});
+editor.storage.addEventListener('put:after', function(id, data) {
+    // Hook into this, save in your own backend, ...
+    return data;
 });
 ```
 
