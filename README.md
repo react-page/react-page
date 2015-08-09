@@ -148,3 +148,9 @@ PluginManager.prototype.load(plugin, version) {
 }
 
 ```
+
+### Licenses
+
+**Slideout**
+* https://github.com/Mango/slideout/blob/master/LICENSE
+* The MIT License (MIT) - Copyright (c) 2015 Mango

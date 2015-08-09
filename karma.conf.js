@@ -1,51 +1,61 @@
-var webpack = require("webpack"),
-    path = require("path");
+var webpack = require('webpack'),
+    path = require('path');
 
 // Karma configuration
 // Generated on Mon May 11 2015 14:13:57 GMT-0600 (MDT)
 
-module.exports = function(config) {
+module.exports = function (config) {
     config.set({
-        basePath: "/",
-        frameworks: ["jasmine"],
+        basePath: './',
+        frameworks: ['jasmine'],
         files: [
-            "test/**/*.js",
-            "test/*.js"
+            'test/**/*.js',
+            {
+                pattern: 'src/app/*.js',
+                watched: true, included: false, served: false
+            },
+            {
+                pattern: 'src/app/**/*.js',
+                watched: true, included: false, served: false
+            }
         ],
         preprocessors: {
-            "test/**/*.js": ["webpack"],
-            "test/*.js": ["webpack"]
+            'test/**/*.js': ['webpack']
         },
         webpack: {
             module: {
                 loaders: [
-                    { test: /\.js$/, loader: "jsx-loader" },
-                    { test: /\.less$/, loader: "style!css!less" }
+                    {test: /\.js$/, loader: 'jsx-loader'},
+                    {test: /\.less$/, loader: 'style!css!less'}
                 ]
             },
             plugins: [
                 new webpack.ResolverPlugin([
-                    new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin("bower.json", ["main"])
+                    new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin('bower.json', ['main'])
                 ])
             ],
             resolve: {
-                root: ["src/bower_components", "src"]
+                root: ['src/bower_components', 'src']
             }
         },
         webpackMiddleware: {
             noInfo: true
         },
         plugins: [
-            require("karma-webpack"),
-            require("karma-jasmine"),
-            require("karma-chrome-launcher")
+            require('karma-webpack'),
+            require('karma-jasmine'),
+            require('karma-chrome-launcher'),
+            require('karma-firefox-launcher'),
+            require('karma-safari-launcher')
+            // TODO add opera launcher
+            // TODO add IE launcher
         ],
-        reporters: ["dots"],
+        reporters: ['dots'],
         port: 9876,
         colors: true,
         logLevel: config.LOG_INFO,
         autoWatch: true,
-        browsers: ["Chrome"],
+        browsers: ['Chrome', 'Firefox', 'Safari'],
         singleRun: false
     });
 };

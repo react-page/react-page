@@ -26,22 +26,22 @@
 /**
  * Module dependencies
  */
-var decouple = require('decouple');
-var Emitter = require('emitter');
+var decouple = require('decouple'),
+    Emitter = require('emitter');
 
 /**
  * Privates
  */
-var scrollTimeout;
-var scrolling = false;
-var doc = window.document;
-var html = doc.documentElement;
-var msPointerSupported = window.navigator.msPointerEnabled;
-var touch = {
-    'start': msPointerSupported ? 'MSPointerDown' : 'touchstart',
-    'move': msPointerSupported ? 'MSPointerMove' : 'touchmove',
-    'end': msPointerSupported ? 'MSPointerUp' : 'touchend'
-};
+var scrollTimeout,
+    scrolling = false,
+    doc = window.document,
+    html = doc.documentElement,
+    msPointerSupported = window.navigator.msPointerEnabled,
+    touch = {
+        'start': msPointerSupported ? 'MSPointerDown' : 'touchstart',
+        'move': msPointerSupported ? 'MSPointerMove' : 'touchmove',
+        'end': msPointerSupported ? 'MSPointerUp' : 'touchend'
+    };
 var prefix = (function prefix() {
     var regex = /^(Webkit|Khtml|Moz|ms|O)(?=[A-Z])/;
     var styleDeclaration = doc.getElementsByTagName('script')[0].style;
@@ -312,3 +312,4 @@ Slideout.prototype.disableTouch = function () {
  * Expose Slideout
  */
 module.exports = Slideout;
+

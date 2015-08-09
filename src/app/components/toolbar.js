@@ -1,9 +1,8 @@
 'use strict';
-
 var React = require('react'),
-    Slideout = require('../libs/slideout'),
     DragSource = require('react-dnd').DragSource,
     Sections = require('./toolbar/sections'),
+    Slideout = require('../libs/slideout'),
     _ = require('underscore');
 
 module.exports = React.createClass({

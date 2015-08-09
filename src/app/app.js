@@ -8,7 +8,6 @@ var React = require('react'),
     NoEditablesFound = require('./exception/noEditablesFound'),
     Editor;
 
-
 Editor = function (elements, config) {
     var defaultConfig = {
         clientID: '',
@@ -26,15 +25,15 @@ Editor = function (elements, config) {
 
 Editor.prototype.render = function (elements) {
     var length = 0;
-    if (typeof elements === 'object' && elements.length !== undefined) {
+    if (elements instanceof Object && elements.length !== undefined) {
         length = elements.length;
-    } else if (Array.isArray(elements)) {
+    } else if (elements instanceof Array) {
         length = elements.length;
     }
+
     if (length > 0) {
-        console.log('doing it', length > 0);
         _.each(elements, this.startEditable.bind(this));
-    } else if (typeof elements === 'object') {
+    } else if (elements instanceof HTMLElement) {
         this.startEditable(elements);
     } else {
         throw new NoEditablesFound();
@@ -59,10 +58,10 @@ Editor.prototype.startEditable = function (element) {
     );
 };
 
-module.exports = Editor;
-
 if (window !== undefined) {
     window.ory = {
         Editor: Editor
     };
 }
+
+module.exports = Editor;

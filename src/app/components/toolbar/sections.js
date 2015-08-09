@@ -1,7 +1,6 @@
 'use strict';
 
 var React = require('react'),
-    Slideout = require('slideout'),
     _ = require('underscore');
 
 module.exports = React.createClass({
