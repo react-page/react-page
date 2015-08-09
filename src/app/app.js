@@ -5,13 +5,13 @@ var React = require('react'),
     Editable = require('./components/editable'),
     Toolbar = require('./components/toolbar'),
     ExtensionRegistry = require('./services/extensions/registry'),
+    NoEditablesFound = require('./exception/noEditablesFound'),
     Editor;
 
-Editor = function (config) {
+
+Editor = function (elements, config) {
     var defaultConfig = {
-        selectors: {
-            editableArea: '.editable-area'
-        },
+        clientID: '',
         extensions: {
             contenteditable: require('./components/extensions/contenteditable'),
             fallback: require('./components/extensions/fallback'),
@@ -21,15 +21,25 @@ Editor = function (config) {
     };
     this.config = _.extend(config || {}, defaultConfig);
     this.extensions = new ExtensionRegistry(this.config.extensions);
-    this.render();
+    this.render(elements);
 };
 
-Editor.prototype.render = function () {
-    this.startToolbar();
-    this.startEditableAreas();
-};
+Editor.prototype.render = function (elements) {
+    var length = 0;
+    if (typeof elements === 'object' && elements.length !== undefined) {
+        length = elements.length;
+    } else if (Array.isArray(elements)) {
+        length = elements.length;
+    }
+    if (length > 0) {
+        console.log('doing it', length > 0);
+        _.each(elements, this.startEditable.bind(this));
+    } else if (typeof elements === 'object') {
+        this.startEditable(elements);
+    } else {
+        throw new NoEditablesFound();
+    }
 
-Editor.prototype.startToolbar = function () {
     this.toolbar = document.createElement('div');
     document.body.appendChild(this.toolbar);
     React.render(
@@ -40,23 +50,13 @@ Editor.prototype.startToolbar = function () {
     );
 };
 
-Editor.prototype.startEditableAreas = function () {
-    var config = this.config.selectors,
-        editableAreas = document.querySelectorAll(config.editableArea),
-        self = this;
-
-    if (editableAreas.length === 0) {
-        console.warn('No editable areas found.');
-    }
-
-    _.each(editableAreas, function (e) {
-        React.render(
-            /*jshint ignore:start */
-            <Editable extensions={ self.extensions } editor={ self } data={ e.dataset } children={ e.children }/>,
-            /*jshint ignore:end */
-            e
-        );
-    });
+Editor.prototype.startEditable = function (element) {
+    React.render(
+        /*jshint ignore:start */
+        <Editable extensions={ this.extensions } editor={ this } data={ element.dataset } children={ element.children }/>,
+        /*jshint ignore:end */
+        element
+    );
 };
 
 module.exports = Editor;

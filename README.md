@@ -8,21 +8,10 @@
 
 ```js
 // myStrategy = new MyStrategy();
-editor = new Editor($('.editable'), {
+editor = new Editor($('.editable'), 'client-id-f29plAIbz10', {
     endpoint: "http://editor.ory.am/api/unstable",
-    
-    // Three levels is actually to much, maybe just do:
-    // storage.put: []
-    // storage.get: []
-    // or
-    // save: []
-    // load: []
-    strategies: {
-        storage: {
-            put: ['DOMImport','Foo','Bar',myStrategy],
-            get: []
-        },
-    }
+    save: ['DOMImport','Foo','Bar',myStrategy],
+    load: []
 });
 
 
