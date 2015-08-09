@@ -8,7 +8,7 @@ window.Undo = require('undo.js');
 require('rangy/lib/rangy-classapplier.js');
 
 var React = require('react'),
-    Medium = require('Medium.js'),
+    Medium = require('medium.js'),
     _ = require('underscore'),
     Animate = require('rc-animate'),
     DragSource = require('react-dnd').DragSource;
