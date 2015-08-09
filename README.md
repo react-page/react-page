@@ -2,6 +2,32 @@
 
 [![Build Status](https://travis-ci.org/ory-am/editor.svg?branch=master)](https://travis-ci.org/ory-am/editor)
 
+## Develop
+
+You'll need [NodeJS and npm](https://nodejs.org) installed on your machine.  
+Then run in the project root:
+
+```
+npm install
+bower install
+gulp dev
+```
+
+This should open up a browser window with live reload enabled.
+
+To build the project, do `gulp production`.
+
+### Test
+
+There are two types of tests: unit and (simple) integration tests. When creating a PR make sure to add and fix tests!  
+All tests are in `test/`.
+
+Run the tests once with: `npm test`.
+
+Test documentation is [here](test/README.md).
+
+## stuff
+
 ## How to save?
 
 * Using events/callbacks like *onChange* or *onUpdate*
