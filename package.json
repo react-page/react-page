@@ -44,6 +44,7 @@
     "karma-jasmine": "^0.3.6",
     "karma-safari-launcher": "^0.1.1",
     "karma-webpack": "^1.7.0",
+    "medium.js": "^1.0.1",
     "mocha": "^2.2.5",
     "react": "^0.13.0",
     "react-router": "~0.13.3",
