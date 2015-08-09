@@ -1,5 +1,7 @@
 # editor
 
+[![Build Status](https://travis-ci.org/ory-am/editor.svg?branch=master)](https://travis-ci.org/ory-am/editor)
+
 ## How to save?
 
 * Using events/callbacks like *onChange* or *onUpdate*
