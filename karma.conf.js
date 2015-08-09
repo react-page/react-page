@@ -6,15 +6,15 @@ var webpack = require("webpack"),
 
 module.exports = function(config) {
     config.set({
-        basePath: "",
+        basePath: "/",
         frameworks: ["jasmine"],
         files: [
-            "./test/**/*.js",
-            "./test/*.js"
+            "test/**/*.js",
+            "test/*.js"
         ],
         preprocessors: {
-            "./test/**/*.js": ["webpack"],
-            "./test/*.js": ["webpack"]
+            "test/**/*.js": ["webpack"],
+            "test/*.js": ["webpack"]
         },
         webpack: {
             module: {
@@ -29,7 +29,7 @@ module.exports = function(config) {
                 ])
             ],
             resolve: {
-                root: [path.join(__dirname, "./bower_components"), path.join(__dirname, "./src")]
+                root: ["src/bower_components", "src"]
             }
         },
         webpackMiddleware: {

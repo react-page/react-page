@@ -54,7 +54,7 @@
         "wiredep": "~1.8.5"
     },
     "engines": {
-        "node": ">=0.10.0"
+        "node": ">=0.12.0"
     },
     "scripts": {
         "test": "./node_modules/.bin/karma start --browsers Firefox --single-run"
