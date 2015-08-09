@@ -47,8 +47,8 @@ module.exports = function (config) {
             require('karma-chrome-launcher'),
             require('karma-firefox-launcher'),
             require('karma-safari-launcher')
-            // TODO add opera launcher
-            // TODO add IE launcher
+            // TODO add opera launcher: https://github.com/ory-am/editor/issues/5
+            // TODO add IE launcher: https://github.com/ory-am/editor/issues/6
         ],
         reporters: ['dots'],
         port: 9876,
