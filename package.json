@@ -4,16 +4,16 @@
     "dependencies": {
         "decouple": "0.0.1",
         "emitter": "git+https://github.com/Mango/emitter.git#0.0.7",
-        "htmltojsx": "0.2.2",
-        "medium-editor": "5.5.1",
-        "medium.js": "1.0.1",
-        "rangy": "1.3.0",
-        "rc-animate": "1.0.4",
-        "react-dnd": "1.1.4",
+        "htmltojsx": "^0.2.2",
+        "medium-editor": "^5.5.1",
+        "medium.js": "^1.0.1",
+        "rangy": "^1.3.0",
+        "rc-animate": "^1.0.4",
+        "react-dnd": "^1.1.4",
         "react-script-loader": "0.0.1",
-        "slideout": "0.1.9",
-        "underscore": "1.8.3",
-        "undo.js": "0.2.0"
+        "slideout": "^0.1.9",
+        "underscore": "^1.8.3",
+        "undo.js": "^0.2.0"
     },
     "devDependencies": {
         "babelify": "~6.0.2",
