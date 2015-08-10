@@ -1,20 +1,24 @@
 'use strict';
 
 var React = require('react'),
-    _ = require('underscore');
+    _ = require('underscore'),
+    DragDropContext = require('react-dnd').DragDropContext,
+    HTML5Backend = require('react-dnd/modules/backends/HTML5'),
+    NativeTypes = HTML5Backend.NativeTypes,
+    Editable;
 
 function preventDefault(event) {
     event.preventDefault()
 }
 
-module.exports = React.createClass({
+Editable = React.createClass({
     getDefaultState: function() {
         return {
             components: []
         };
     },
-    drop: function(event) {
-        console.log('dropped!');
+    handleDrop(index, item) {
+        console.log(index, item);
     },
     componentWillMount: function() {
         this.prepareComponents(this.props.editor.extensions);
@@ -36,13 +40,15 @@ module.exports = React.createClass({
     render: function () {
         return (
             /*jshint ignore:start */
-            <div onDragOver={preventDefault} onDrop={this.drop}>
+            <div onDrop={this.handleDrop}>
                 {this.state.components}
             </div>
             /*jshint ignore:end */
         );
     }
 });
+
+module.exports = DragDropContext(HTML5Backend)(Editable);
 
 // <div editor={ this.props.editor } data={ this.props.data } content={ e.innerHTML } children={ e.children }/>
 

@@ -1,7 +1,8 @@
 'use strict';
 
 var React = require('react'),
-    _ = require('underscore');
+    _ = require('underscore'),
+    Action = require('./action');
 
 module.exports = React.createClass({
     getDefaultProps: function () {
@@ -48,12 +49,7 @@ module.exports = React.createClass({
         _.each(this.props.sections, function(group, i){
             var actions = [];
             _.each(group.actions, function(action, y) {
-                actions.push(
-                    <div key={y} className="col-xs-4 toolbar-section-action text-center">
-                        <div draggable="true" dangerouslySetInnerHTML={{__html: action.innerHTML}}>
-                        </div>
-                    </div>
-                );
+                actions.push(<Action innerHTML={action.innerHTML} y={y} />);
             });
 
             sections.push((

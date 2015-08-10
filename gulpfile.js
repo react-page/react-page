@@ -87,6 +87,7 @@ gulp.task('scripts', ['lint'], function () {
         debug: true,
         cache: {},
         packageCache: {},
+        paths: ['./src/'],
         fullPaths: true
     });
     var watcher = watchify(bundler);
@@ -131,6 +132,7 @@ gulp.task('browserify', function () {
         entries: ['./src/app/app.js'],
         transform: ['babelify'],
         extensions: ['.jsx'],
+        paths: ['./src'],
         debug: true,
         cache: {},
         packageCache: {}, options: {
