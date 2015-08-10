@@ -4,8 +4,8 @@ var React = require('react'),
     _ = require('underscore'),
     Editable = require('./components/editable'),
     Toolbar = require('./components/toolbar'),
-    ExtensionRegistry = require('./services/extensions/registry'),
-    NoEditablesFound = require('./exception/noEditablesFound'),
+    ExtensionRegistry = require('./service/extension/registry'),
+    NoEditablesFound = require('./exception/NoEditablesFound'),
     Editor;
 
 Editor = function (elements, config) {
