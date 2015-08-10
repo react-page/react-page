@@ -3,16 +3,20 @@
  * DOMImport is an extraction strategy for transforming a DOM subtree into a normalized data model
  * the editor can work with.
  */
-var DOMImport,
-    _ = require('underscore'),
-    ExtractionException = require('../../../exception/ExtractionException');
+var DOMImport, _ = require('underscore'),
+    ExtractionException = require('app/exception/ExtractionException'),
+    Editable = require('app/entity/Editable'),
+    Section = require('app/entity/Section'),
+    $ = require('jquery');
 
 /**
  * The DOMImport constructor does not have anything special.
  *
  * @constructor
  */
-DOMImport = function() {};
+DOMImport = function (pluginManager) {
+    this.pluginManager = pluginManager;
+};
 
 /**
  *
@@ -20,26 +24,40 @@ DOMImport = function() {};
  * @param data
  * @returns {*}
  */
-DOMImport.prototype.extract = function(element, data) {
-    var dataset = element.dataset;
-    data = data || {};
+DOMImport.prototype.extract = function (element, data, options) {
+    var dataset = element.dataset,
+        children = [],
+        field = dataset.field || 'default',
+        sections = element.querySelectorAll('[data-section]'),
+        editable = new Editable(dataset.id, field);
+
     if (dataset.id === undefined) {
         throw new ExtractionException('Editable object does not have an id');
     }
 
-    _.each(element.children, function() {
-        // scan_for_fields
-        // scan_for_plugins
-        // scan_for_nonspecific_html
-    });
+    if (element.innerHTML.length === 0) {
+        var div = document.createElement('div'),
+            plugin = this.pluginManager.get('fallback', null);
+        element.appendChild(div);
+        extract(dataset.id, 1, div);
+        children.push(new Section('fallback', null, plugin.extract(dataset.id, 1, div, options)));
+    } else {
+        if (sections.length < 1) {
+            $(element).contents().wrap('<div data-section="fallback"></div>');
+            sections = element.querySelectorAll('[data-section]');
+        }
 
-    if (element.children.length === 0) {
-
+        _.each(sections, function (section, i) {
+            var extracted = this.pluginManager.get(section.dataset.section, section.dataset.version).extract(dataset.id, i, section, options);
+            children.push(new Section(section.dataset.section, section.dataset.version, extracted));
+        }.bind(this));
     }
-    return data;
+
+    editable.sections = children;
+    return editable;
 };
 
-DOMImport.prototype.canExtract = function(element, data) {
+DOMImport.prototype.canExtract = function (element, data) {
     try {
         this.extract(element, data);
         return true;

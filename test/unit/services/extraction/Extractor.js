@@ -1,7 +1,7 @@
 var React = require('react'),
-    Extractor = require('../../../../src/app/service/extraction/Extractor'),
+    Extractor = require('app/service/extraction/Extractor'),
     Strategy,
-    InvalidArgumentException = require('../../../../src/app/exception/InvalidArgumentException');
+    InvalidArgumentException = require('app/exception/InvalidArgumentException');
 
 Strategy = function (can, extract) {
     this.can = can;
@@ -27,6 +27,7 @@ describe('Unit:', function () {
                     expect(e instanceof InvalidArgumentException).toBe(true);
                 }
             });
+
             it('should throw an error if no strategies are given', function(){
                 try {
                     new Extractor();
@@ -36,6 +37,7 @@ describe('Unit:', function () {
                 }
             });
         });
+
         it('should choose the right strategies', function () {
             var called = {can: false, cannot: false},
                 can = new Strategy(function () {

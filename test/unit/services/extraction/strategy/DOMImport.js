@@ -1,44 +1,50 @@
 var React = require('react'),
-    DOMImport = require('../../../../../src/app/service/extraction/strategy/DOMImport'),
-    ExtractionException = require('../../../../../src/app/exception/ExtractionException'),
+    DOMImport = require('app/service/extraction/strategy/DOMImport'),
+    ExtractionException = require('app/exception/ExtractionException'),
     _ = require('underscore'),
-    Editable = require('../../../../../src/app/entity/Editable'),
-    Field = require('../../../../../src/app/entity/Field'),
-    Section = require('../../../../../src/app/entity/Section'),
-    broken = [
-        // Should not work because of duplicate title field
-        '<div class="editable" data-id="1">' +
-        '<div data-field="title"><div data-plugin="fallback">Title</div></div>' +
-        '<div data-field="title"><div data-plugin="fallback">Title</div></div>' +
-        '</div>',
-        // No data-id
-        '<div class="editable"></div>'
-    ],
+    Editable = require('app/entity/Editable'),
+    Section = require('app/entity/Section'),
+    broken = [],
     working = [
         {
-            html: '<div class="editable" data-id="1"><div data-plugin="fallback">Content</div></div>',
-            expected: new Editable(1, [
-                new Field('default', [
-                    new Section('fallback')
-                ])
+            html: '<div class="editable" data-id="1"><div data-section="fallback">Content</div></div>',
+            expected: new Editable('1', 'default', [
+                new Section('fallback', null, '<div data-section="fallback">Content</div>')
             ])
         },
         {
-            html: '<div class="editable" data-id="1">' +
-            '<div data-field="title"><div data-plugin="fallback">Title</div></div>' +
-            '<div data-field="content"><div data-plugin="fallback">Content</div></div>' +
+            html: '<div class="editable" data-id="15" data-field="title">' +
+            '<div data-section="foobar">Title</div>' +
+            '<div data-section="foobar" data-version="1.0">Content</div>' +
             '</div>',
-            expected: {}
+            expected: new Editable('15', 'title', [
+                new Section('foobar', null, '<div data-section="foobar">Title</div>'),
+                new Section('foobar', "1.0", '<div data-section="foobar" data-version="1.0">Content</div>')
+            ])
         },
         {
             html: '<div class="editable" data-id="1"><span>foobar</span></div>',
-            expected: {}
+            expected: new Editable('1', 'default', [
+                new Section('fallback', null, '<div data-section="fallback"><span>foobar</span></div>')
+            ])
         },
         {
             html: '<div class="editable" data-id="1">foobar</div>',
-            expected: {}
+            expected: new Editable('1', 'default', [
+                new Section('fallback', null, '<div data-section="fallback">foobar</div>')
+            ])
         }
-    ];
+    ],
+    PluginManager;
+
+PluginManager = function () {};
+PluginManager.prototype.get = function () {
+    return {
+        extract: function (a, b, data) {
+            return data.outerHTML;
+        }
+    }
+};
 
 function createDummyHTMLElement(html) {
     var div = document.createElement('div');
@@ -53,16 +59,18 @@ describe('Unit:', function () {
             it('should be instantiable', function () {
                 new DOMImport();
             });
+
             it('should properly extract data', function () {
-                var domImport = new DOMImport();
-                _.each(working, function(v) {
+                var pm = new PluginManager(),
+                    domImport = new DOMImport(pm);
+                _.each(working, function (v) {
                     var element = createDummyHTMLElement(v.html);
                     expect(domImport.extract(element)).toEqual(v.expected);
                 });
             });
             it('should properly reject data it does not understand', function () {
                 var domImport = new DOMImport();
-                _.each(broken, function(v) {
+                _.each(broken, function (v) {
                     try {
                         var element = createDummyHTMLElement(v);
                         domImport.extract(element);
@@ -71,7 +79,7 @@ describe('Unit:', function () {
                         expect(e instanceof ExtractionException).toBe(true);
                     }
                 });
-            })
+            });
         });
     });
 });

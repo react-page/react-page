@@ -1,6 +1,6 @@
-var Editor = require("../../src/app/app"),
-    React = require("react"),
-    NoEditablesFound = require('../../src/app/exception/noEditablesFound');
+var Editor = require('app/app'),
+    React = require('react'),
+    NoEditablesFound = require('app/exception/NoEditablesFound');
 
 function createDummyMarkup() {
     var div = document.createElement('div');

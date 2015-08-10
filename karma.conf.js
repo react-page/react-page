@@ -35,7 +35,7 @@ module.exports = function (config) {
                 ])
             ],
             resolve: {
-                root: ['src/bower_components', 'src']
+                root: [path.resolve('src/bower_components'), path.resolve('./src')]
             }
         },
         webpackMiddleware: {

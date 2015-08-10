@@ -154,7 +154,6 @@ Slideout.prototype.close = function () {
     this._translateXTo(0);
     this._opened = false;
     setTimeout(function () {
-        console.log('timed out close');
         html.className = html.className.replace(/ slideout-open/, '');
         self.panel.style.transition = self.panel.style['-webkit-transition'] = self.panel.style[prefix + 'transform'] = self.panel.style.transform = '';
         self.menu.style.transition = self.menu.style['-webkit-transition'] = self.menu.style[prefix + 'transform'] = self.menu.style.transform = '';

@@ -24,7 +24,8 @@ module.exports = React.createClass({
                 panel: document.querySelector('.push'),
                 menu: menu,
                 padding: this.props.padding,
-                tolerance: this.props.tolerance
+                tolerance: this.props.tolerance,
+                fx: 'ease'
             });
         this.setState({
             slideout: slideout

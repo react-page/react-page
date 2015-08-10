@@ -1,6 +1,6 @@
-var Editor = require("../../src/app/app"),
+var Editor = require("app/app"),
     React = require("react"),
-    NoEditablesFound = require('../../src/app/exception/noEditablesFound');
+    NoEditablesFound = require('app/exception/NoEditablesFound');
 
 describe('Unit:', function () {
     describe('(new Editor())', function () {
