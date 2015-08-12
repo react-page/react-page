@@ -6,7 +6,10 @@ var React = require('react'),
     Toolbar = require('./components/toolbar'),
     ExtensionRegistry = require('./service/extension/registry'),
     NoEditablesFound = require('./exception/NoEditablesFound'),
+    interact = require('interact.js'),
     Editor;
+
+interact.dynamicDrop(true);
 
 Editor = function (elements, config) {
     var defaultConfig = {
@@ -65,3 +68,4 @@ if (window !== undefined) {
 }
 
 module.exports = Editor;
+

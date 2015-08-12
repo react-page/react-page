@@ -1,6 +1,5 @@
 'use strict';
 var React = require('react'),
-    DragSource = require('react-dnd').DragSource,
     Sections = require('./toolbar/sections'),
     Slideout = require('../libs/slideout'),
     _ = require('underscore');

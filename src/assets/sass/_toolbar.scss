@@ -11,7 +11,6 @@
     bottom: 0;
     right: 0;
     width: 256px;
-    overflow-y: auto;
     -webkit-overflow-scrolling: touch;
 }
 
@@ -29,6 +28,12 @@
             border-bottom: 1px dashed  lighten($toolbar-upper-color, 10%);
         }
     }
+    .toolbar-section-tile {
+        &.missing {
+            background-color: lighten($toolbar-lower-color, 10%);
+            border-radius: 5px;
+        }
+    }
     .toolbar-section-action {
         height: auto;
         cursor: pointer;
@@ -40,23 +45,11 @@
         &:active {
             color: darken($editor-color-light, 20%);
         }
+
+        transform: translate(0px, 0px);
     }
     .toolbar-section-group {
         margin: 5px 0;
-    }
-}
-
-.slideout-panel {
-    position: relative;
-}
-
-.slideout-open {
-    overflow-x: hidden;
-    & body, & .slideout-panel {
-        overflow: hidden;
-    }
-    & .slideout-menu {
-        display: block;
     }
 }
 

@@ -287,7 +287,7 @@ Slideout.prototype._initTouchEvents = function () {
             }
 
             // TODO Slideout.prototype._translateXTo
-            self.panel.style[prefix + 'transform'] = self.panel.style.transform = 'translate3d(' + translateX + 'px, 0, 0)';
+            self.panel.style[prefix + 'transform'] = self.panel.style.transform = 'translate(' + translateX + 'px, 0, 0)';
             //self.menu.style[prefix + 'transform'] = self.menu.style.transform = 'translate3d(' + translateX + 'px, 0, 0)';
             self.emit('translate', translateX);
             self._moved = true;

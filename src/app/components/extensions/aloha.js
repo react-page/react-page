@@ -33,7 +33,7 @@ module.exports = React.createClass({
         return (
             /*jshint ignore:start */
             <div>
-                <div className="editable-component aloha" ref="content"
+                <div className="aloha" ref="content"
                      dangerouslySetInnerHTML={{__html: this.props.content}}>
                 </div>
                 <div ref="toolbar" className={this.state.editable ? '': ' hidden'}>

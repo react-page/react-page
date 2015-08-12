@@ -178,7 +178,8 @@ gulp.task('watch', ['connect-dev'], function () {
         'src/assets/styles/*.css',
         'src/assets/images/*',
         'src/app/*.js',
-        'src/app/**/*.js'
+        'src/app/**/*.js',
+        'node_modules/interact.js/**/*.js'
     ], function (event) {
         return gulp.src(event.path)
             .pipe(devServer.reload());

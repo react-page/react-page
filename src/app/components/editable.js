@@ -2,53 +2,108 @@
 
 var React = require('react'),
     _ = require('underscore'),
-    DragDropContext = require('react-dnd').DragDropContext,
-    HTML5Backend = require('react-dnd/modules/backends/HTML5'),
-    NativeTypes = HTML5Backend.NativeTypes,
+    interact = require('interact.js'),
     Editable;
 
-function preventDefault(event) {
-    event.preventDefault()
-}
-
 Editable = React.createClass({
-    getDefaultState: function() {
+    getInitialState: function () {
+        var children = [];
+        _.each(this.props.children, function(v){
+            children.push(v);
+        });
         return {
-            components: []
+            components: [],
+            children: children
         };
     },
-    handleDrop(index, item) {
-        console.log(index, item);
+    getInitialProps: function () {
+        return {
+            overlap: 0.50,
+            accept: '.toolbar-section-action'
+        }
     },
-    componentWillMount: function() {
-        this.prepareComponents(this.props.editor.extensions);
-    },
-    prepareComponents: function(registry) {
-        var components = [];
-        _.each(this.props.children, function(child, key){
-            var Extension = registry.get('fallback');
-            if (registry.has(child.dataset.extension)) {
-                Extension = registry.get(child.dataset.extension)
+    componentDidUpdate: function () {
+        for (var i = 0; i <= this.state.children.length; i++) {
+            var element = React.findDOMNode(this.refs['placeholder' + (i).toString()]);
+            if (element === null) {
+                console.log('Could not find editable section placeholder: placeholder' + (i).toString());
+                continue;
             }
-            components.push(<Extension key={key} content={child.innerHTML}/>);
-        }.bind(this));
-
-        this.setState({
-            components: components
+            this.initializeDroppableZones(element);
+        }
+    },
+    componentDidMount: function () {
+        for (var i = 0; i <= this.state.children.length; i++) {
+            var element = React.findDOMNode(this.refs['placeholder' + (i).toString()]);
+            if (element === null) {
+                console.log('Could not find editable section placeholder: placeholder' + (i).toString());
+                continue;
+            }
+            this.initializeDroppableZones(element);
+        }
+    },
+    initializeDroppableZones: function (e) {
+        var self = this;
+        interact(e).dropzone({
+            overlap: this.props.overlap,
+            ondropactivate: function (event) {
+                event.target.classList.add('drop-active');
+            },
+            ondragenter: function (event) {
+                var draggable = event.relatedTarget, dropzone = event.target;
+                dropzone.classList.add('drop-target');
+                draggable.classList.add('can-drop');
+            },
+            ondragleave: function (event) {
+                event.target.classList.remove('drop-target');
+                event.relatedTarget.classList.remove('can-drop');
+            },
+            ondrop: function (event) {
+                console.log('drop');
+                self.setState({
+                    children: self.state.children.concat(self.state.children[0])
+                });
+            },
+            ondropdeactivate: function (event) {
+                event.target.classList.remove('drop-active');
+                event.target.classList.remove('drop-target');
+            }
         });
+    },
+    prepareComponents: function (child, key) {
+        var registry = this.props.editor.extensions,
+            Extension = registry.get('fallback'),
+            ref = 'placeholder' + key.toString();
+
+        if (registry.has(child.dataset.extension)) {
+            Extension = registry.get(child.dataset.extension)
+        }
+        return (
+            <div key={key}>
+                <div className="editable-section">
+                    <Extension content={child.innerHTML}/>
+                </div>
+                <div ref={ref} className="editable-section-placeholder">
+                    <span className="fa fa-plus"></span>
+                </div>
+            </div>
+        );
     },
     render: function () {
         return (
             /*jshint ignore:start */
-            <div onDrop={this.handleDrop}>
-                {this.state.components}
+            <div className="editable-object">
+                <div ref={'placeholder0'} className="editable-section-placeholder">
+                    <span className="fa fa-plus"></span>
+                </div>
+                {_.map(this.state.children, function (child, key) {
+                    return this.prepareComponents(child, key + 1);
+                }.bind(this))}
             </div>
             /*jshint ignore:end */
         );
     }
 });
 
-module.exports = DragDropContext(HTML5Backend)(Editable);
-
-// <div editor={ this.props.editor } data={ this.props.data } content={ e.innerHTML } children={ e.children }/>
+module.exports = Editable;
 

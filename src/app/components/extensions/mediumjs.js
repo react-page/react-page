@@ -10,8 +10,7 @@ require('rangy/lib/rangy-classapplier.js');
 var React = require('react'),
     Medium = require('medium.js'),
     _ = require('underscore'),
-    Animate = require('rc-animate'),
-    DragSource = require('react-dnd').DragSource;
+    Animate = require('rc-animate');
 
 /**
  * Specifies the drag source contract.
@@ -20,7 +19,7 @@ var React = require('react'),
 var cardSource = {
     beginDrag: function (props) {
         // Return the data describing the dragged item
-        var item = { id: props.id };
+        var item = {id: props.id};
         return item;
     },
 
@@ -154,17 +153,13 @@ module.exports = React.createClass({
                 <Animate showProp="visible" transitionName="fade">
                     <div visible={this.state.focus}
                          style={{margin: '10px 0', display: this.state.focus ? 'block' : 'none'}}>
-                        <div className="panel panel-default">
-                            <div className="panel-body">
-                                <div className="btn-group">
-                                    {buttons}
-                                </div>
-                            </div>
+                        <div className="btn-group">
+                            {buttons}
                         </div>
                     </div>
                 </Animate>
 
-                <div className="editable-component" ref="editable" onFocus={focus}
+                <div ref="editable" onFocus={focus}
                      dangerouslySetInnerHTML={{__html: this.props.content}}>
                 </div>
             </div>

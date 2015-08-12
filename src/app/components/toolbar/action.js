@@ -1,44 +1,53 @@
 'use strict';
 
-var React = require('react'),
-    _ = require('underscore'),
-    DragSource = require('react-dnd').DragSource,
-    PropTypes = React.PropTypes,
-    ItemTypes = require('app/types'),
-    Action;
-
-var actionSource = {
-    beginDrag: function (props) {
-        return {
-            name: props.name
-        };
-    }
-};
-
-function collect(connect, monitor) {
-    return {
-        connectDragSource: connect.dragSource(),
-        isDragging: monitor.isDragging()
-    };
-}
+var React = require('react'), Action,
+    interact = require('interact.js');
 
 Action = React.createClass({
-    propTypes: {
-        connectDragSource: PropTypes.func.isRequired,
-        isDragging: PropTypes.bool.isRequired,
-        name: PropTypes.string.isRequired,
-        type: PropTypes.string.isRequired,
-        isDropped: PropTypes.bool.isRequired
+    componentDidMount: function () {
+        var action = React.findDOMNode(this.refs.action),
+            origin = React.findDOMNode(this.refs.origin);
+        interact(action).draggable({
+            onmove: function (event) {
+                var target = event.target,
+                        x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx,
+                        y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
+
+                target.style.webkitTransform =
+                    target.style.transform =
+                        'translate(' + x + 'px, ' + y + 'px)';
+
+                target.setAttribute('data-x', x);
+                target.setAttribute('data-y', y);
+            },
+            onstart: function(event) {
+                origin.classList.add('missing');
+            },
+            onend: function (event) {
+                origin.classList.remove('missing');
+                event.target.style.webkitTransform =
+                    event.target.style.transform = 'none';
+                event.target.setAttribute('data-x', '0');
+                event.target.setAttribute('data-y', '0');
+            },
+            restrict: {
+                restriction: 'parent',
+                endOnly: true
+            }
+        });
     },
     render: function () {
-        var connectDragSource = this.props.connectDragSource;
-        return connectDragSource(
-            <div key={this.props.y} className="col-xs-4 toolbar-section-action text-center">
-                <div draggable="true" dangerouslySetInnerHTML={{__html: this.props.innerHTML}}>
+        return (
+            <div key={this.props.y} className="col-xs-4 toolbar-section-tile" ref="origin">
+                <div>
+                    <div className="toolbar-section-action text-center" ref="action">
+                        <div dangerouslySetInnerHTML={{__html: this.props.innerHTML}}>
+                        </div>
+                    </div>
                 </div>
             </div>
         );
     }
 });
 
-module.exports = DragSource(ItemTypes.PLUGIN, actionSource, collect)(Action);
+module.exports = Action;

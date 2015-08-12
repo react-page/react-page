@@ -2,22 +2,11 @@
     "name": "ory-editor",
     "version": "0.0.1",
     "dependencies": {
-        "decouple": "0.0.1",
-        "emitter": "git+https://github.com/Mango/emitter.git#0.0.7",
-        "htmltojsx": "^0.2.2",
-        "medium-editor": "^5.5.1",
-        "medium.js": "^1.0.1",
-        "rangy": "^1.3.0",
-        "rc-animate": "^1.0.4",
-        "react-dnd": "^1.1.4",
-        "react-script-loader": "0.0.1",
-        "underscore": "^1.8.3",
-        "undo.js": "^0.2.0"
     },
     "devDependencies": {
         "babelify": "~6.0.2",
         "browserify": "10.0.0",
-        "gulp": "~3.8.8",
+        "gulp": "~3.9.0",
         "gulp-autoprefixer": "~1.0.0",
         "gulp-bower": "0.0.6",
         "gulp-compass": "2.0.4",
@@ -46,12 +35,22 @@
         "karma-webpack": "^1.7.0",
         "mocha": "^2.2.5",
         "react": "^0.13.0",
-        "react-router": "~0.13.3",
         "reflux": "~0.2.7",
         "vinyl-source-stream": "1.1.0",
         "watchify": "~3.2.1",
         "webpack": "^1.10.5",
-        "wiredep": "~1.8.5"
+        "wiredep": "~1.8.5",
+        "decouple": "0.0.1",
+        "emitter": "git+https://github.com/Mango/emitter.git#0.0.7",
+        "htmltojsx": "^0.2.2",
+        "interact.js": "^1.2.4",
+        "medium-editor": "^5.5.1",
+        "medium.js": "^1.0.1",
+        "rangy": "^1.3.0",
+        "rc-animate": "^1.0.4",
+        "react-script-loader": "0.0.1",
+        "underscore": "^1.8.3",
+        "undo.js": "^0.2.0"
     },
     "engines": {
         "node": ">=0.12.0"
