@@ -133,7 +133,6 @@ Slideout.prototype.open = function () {
     this._translateXTo(this._translateTo);
     this._opened = true;
     setTimeout(function () {
-        console.log('timed out open');
         self.panel.style.transition = self.panel.style['-webkit-transition'] = '';
         self.menu.style.transition = self.menu.style['-webkit-transition'] = '';
         self.emit('open');

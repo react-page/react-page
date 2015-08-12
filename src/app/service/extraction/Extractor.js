@@ -85,6 +85,7 @@ Extractor.prototype.extract = function (element, strategies) {
             data = strategy.extract(element, data);
         }
     });
+
     return data;
 };
 

@@ -43,7 +43,7 @@ module.exports = React.createClass({
             /*jshint ignore:start */
             <div>
                 <nav ref="menu" className="toolbar">
-                    <Sections></Sections>
+                    <Sections editor={this.props.editor}></Sections>
                 </nav>
                 <div className="toolbar-toggler" style={{opacity: this.state.togglerOpcaity}}>
                     <span onClick={this.toggleToolbar} className="fa fa-bars fa-2x"></span>

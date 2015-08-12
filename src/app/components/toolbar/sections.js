@@ -11,9 +11,14 @@ module.exports = React.createClass({
                 {
                     title: 'Text',
                     actions: [
-                        {innerHTML: '<span class="fa fa-th-large fa-3x"></span>'},
-                        {innerHTML: '<span class="fa fa-th fa-3x"></span>'},
-                        {innerHTML: '<span class="fa fa-columns fa-3x"></span>'}
+                        {
+                            innerHTML: '<span class="fa fa-align-left fa-3x"></span>',
+                            plugin: 'fallback'
+                        },
+                        {
+                            innerHTML: '<span class="fa fa-medium fa-3x"></span>',
+                            plugin: 'mediumjs'
+                        }
                     ]
                 },
                 {
@@ -49,8 +54,8 @@ module.exports = React.createClass({
         _.each(this.props.sections, function(group, i){
             var actions = [];
             _.each(group.actions, function(action, y) {
-                actions.push(<Action innerHTML={action.innerHTML} y={y} />);
-            });
+                actions.push(<Action editor={this.props.editor} plugin={action.plugin || 'fallback'} options={action.options || {}} innerHTML={action.innerHTML} y={y} />);
+            }.bind(this));
 
             sections.push((
                 <section className="toolbar-section" key={i}>
@@ -61,7 +66,7 @@ module.exports = React.createClass({
                 </section>
             ));
 
-        });
+        }.bind(this));
         return sections;
     },
     render: function () {

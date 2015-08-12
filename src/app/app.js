@@ -2,27 +2,38 @@
 
 var React = require('react'),
     _ = require('underscore'),
-    Editable = require('./components/editable'),
-    Toolbar = require('./components/toolbar'),
-    ExtensionRegistry = require('./service/extension/registry'),
-    NoEditablesFound = require('./exception/NoEditablesFound'),
+    Editable = require('app/components/editable'),
+    Toolbar = require('app/components/toolbar'),
+    PluginManager = require('app/service/plugin/PluginManager'),
+    NoEditablesFound = require('app/exception/NoEditablesFound'),
+    Extractor = require('app/service/extraction/Extractor'),
+    DOMImport = require('app/service/extraction/strategy/DOMImport'),
     interact = require('interact.js'),
+    Reflux = require('Reflux'),
     Editor;
 
 interact.dynamicDrop(true);
 
 Editor = function (elements, config) {
-    var defaultConfig = {
-        clientID: '',
-        extensions: {
-            contenteditable: require('./components/extensions/contenteditable'),
-            fallback: require('./components/extensions/fallback'),
-            aloha: require('./components/extensions/aloha'),
-            mediumjs: require('./components/extensions/mediumjs')
-        }
-    };
+    var self = this,
+        defaultConfig = {
+            clientID: ''
+        };
+    this.plugins = new PluginManager();
+    this.extractor = new Extractor([new DOMImport(this.plugins)]);
     this.config = _.extend(config || {}, defaultConfig);
-    this.extensions = new ExtensionRegistry(this.config.extensions);
+    this.actions = {section: Reflux.createActions(['drag'])};
+    this.stores = {
+        drag: Reflux.createStore({
+            init: function () {
+                // Register statusUpdate action
+                this.listenTo(self.actions.section.drag, this.drag);
+            },
+            drag: function (plugin, version, options) {
+                this.trigger(plugin, version, options);
+            }
+        })
+    };
     this.render(elements);
 };
 
@@ -46,16 +57,17 @@ Editor.prototype.render = function (elements) {
     document.body.appendChild(this.toolbar);
     React.render(
         /*jshint ignore:start */
-        <Toolbar />,
+        <Toolbar editor={ this }/>,
         /*jshint ignore:end */
         this.toolbar
     );
 };
 
 Editor.prototype.startEditable = function (element) {
+    var model = this.extractor.extract(element);
     React.render(
         /*jshint ignore:start */
-        <Editable extensions={ this.extensions } editor={ this } data={ element.dataset } children={ element.children }/>,
+        <Editable editor={ this } data={ element.dataset } model={ model }/>,
         /*jshint ignore:end */
         element
     );

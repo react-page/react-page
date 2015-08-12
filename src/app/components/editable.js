@@ -3,17 +3,22 @@
 var React = require('react'),
     _ = require('underscore'),
     interact = require('interact.js'),
+    Section = require('app/entity/Section'),
     Editable;
 
 Editable = React.createClass({
     getInitialState: function () {
         var children = [];
-        _.each(this.props.children, function(v){
+        _.each(this.props.model.sections, function (v) {
             children.push(v);
         });
         return {
-            components: [],
-            children: children
+            children: children,
+            drag: {
+                plugin: '',
+                version: '',
+                options: {}
+            }
         };
     },
     getInitialProps: function () {
@@ -29,7 +34,7 @@ Editable = React.createClass({
                 console.log('Could not find editable section placeholder: placeholder' + (i).toString());
                 continue;
             }
-            this.initializeDroppableZones(element);
+            this.initializeDroppableZone(element, i);
         }
     },
     componentDidMount: function () {
@@ -39,11 +44,21 @@ Editable = React.createClass({
                 console.log('Could not find editable section placeholder: placeholder' + (i).toString());
                 continue;
             }
-            this.initializeDroppableZones(element);
+            this.initializeDroppableZone(element);
         }
+
+        var stores = this.props.editor.stores;
+        stores.drag.listen(function (plugin, version, options) {
+            this.setState({
+                drag: {
+                    plugin: plugin,
+                    version: version,
+                    options: options
+                }
+            });
+        }.bind(this));
     },
-    initializeDroppableZones: function (e) {
-        var self = this;
+    initializeDroppableZone: function (e, key) {
         interact(e).dropzone({
             overlap: this.props.overlap,
             ondropactivate: function (event) {
@@ -59,11 +74,16 @@ Editable = React.createClass({
                 event.relatedTarget.classList.remove('can-drop');
             },
             ondrop: function (event) {
-                console.log('drop');
-                self.setState({
-                    children: self.state.children.concat(self.state.children[0])
+                var pluginName = this.state.drag.plugin,
+                    version = this.state.drag.version,
+                    options = this.state.drag.options,
+                    children = this.state.children.slice(),
+                    plugin = this.props.editor.plugins.get(pluginName, version, options).create(pluginName, version, options);
+                children.splice(key,0,plugin);
+                this.setState({
+                    children: children
                 });
-            },
+            }.bind(this),
             ondropdeactivate: function (event) {
                 event.target.classList.remove('drop-active');
                 event.target.classList.remove('drop-target');
@@ -71,17 +91,17 @@ Editable = React.createClass({
         });
     },
     prepareComponents: function (child, key) {
-        var registry = this.props.editor.extensions,
-            Extension = registry.get('fallback'),
+        var plugins = this.props.editor.plugins,
+            Section = plugins.get('fallback'),
             ref = 'placeholder' + key.toString();
 
-        if (registry.has(child.dataset.extension)) {
-            Extension = registry.get(child.dataset.extension)
+        if (plugins.has(child.plugin)) {
+            Section = plugins.get(child.plugin).Component;
         }
         return (
             <div key={key}>
                 <div className="editable-section">
-                    <Extension content={child.innerHTML}/>
+                    <Section model={child}/>
                 </div>
                 <div ref={ref} className="editable-section-placeholder">
                     <span className="fa fa-plus"></span>

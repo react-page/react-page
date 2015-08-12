@@ -12,43 +12,6 @@ var React = require('react'),
     _ = require('underscore'),
     Animate = require('rc-animate');
 
-/**
- * Specifies the drag source contract.
- * Only `beginDrag` function is required.
- */
-var cardSource = {
-    beginDrag: function (props) {
-        // Return the data describing the dragged item
-        var item = {id: props.id};
-        return item;
-    },
-
-    endDrag: function (props, monitor, component) {
-        if (!monitor.didDrop()) {
-            return;
-        }
-
-        // When dropped on a compatible target, do something
-        var item = monitor.getItem();
-        var dropResult = monitor.getDropResult();
-        CardActions.moveCardToList(item.id, dropResult.listId);
-    }
-};
-
-/**
- * Specifies which props to inject into your component.
- */
-function collect(connect, monitor) {
-    return {
-        // Call this function inside render()
-        // to let React DnD handle the drag events:
-        connectDragSource: connect.dragSource(),
-        // You can ask the monitor about the current drag state:
-        isDragging: monitor.isDragging()
-    };
-}
-
-
 module.exports = React.createClass({
     getInitialState: function () {
         return {
@@ -146,7 +109,6 @@ module.exports = React.createClass({
         }.bind(this));
         buttons.push(this.createListButton(buttons.length, 'ul'));
         buttons.push(this.createListButton(buttons.length, 'ol'));
-
         return (
             /*jshint ignore:start */
             <div onFocus={this.focus} onBlur={this.blur}>
@@ -160,7 +122,7 @@ module.exports = React.createClass({
                 </Animate>
 
                 <div ref="editable" onFocus={focus}
-                     dangerouslySetInnerHTML={{__html: this.props.content}}>
+                     dangerouslySetInnerHTML={{__html: this.props.model.data.innerHTML}}>
                 </div>
             </div>
             /*jshint ignore:end */

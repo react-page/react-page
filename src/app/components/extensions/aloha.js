@@ -15,6 +15,9 @@ module.exports = React.createClass({
             editable: aloha(element)
         });
     },
+    extract: function() {
+
+    },
     toggleBold: function (event) {
         console.log(event.type);
         aloha.ui.command([this.state.editable], aloha.ui.commands.bold);

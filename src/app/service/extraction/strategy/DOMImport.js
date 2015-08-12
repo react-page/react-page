@@ -22,17 +22,20 @@ DOMImport = function (pluginManager) {
  *
  * @param element
  * @param data
+ * @param options
  * @returns {*}
  */
 DOMImport.prototype.extract = function (element, data, options) {
     var dataset = element.dataset,
         children = [],
-        field = dataset.field || 'default',
+        field = dataset.field || '',
         sections = element.querySelectorAll('[data-section]'),
         editable = new Editable(dataset.id, field);
 
     if (dataset.id === undefined) {
-        throw new ExtractionException('Editable object does not have an id');
+        // TODO how to ids
+        //throw new ExtractionException('Editable object does not have an id');
+        dataset.id = 0;
     }
 
     if (element.innerHTML.length === 0) {
@@ -40,7 +43,7 @@ DOMImport.prototype.extract = function (element, data, options) {
             plugin = this.pluginManager.get('fallback', null);
         element.appendChild(div);
         extract(dataset.id, 1, div);
-        children.push(new Section('fallback', null, plugin.extract(dataset.id, 1, div, options)));
+        children.push(new Section('fallback', null, plugin.extract(dataset.id || 1, 1, div, options)));
     } else {
         if (sections.length < 1) {
             $(element).contents().wrap('<div data-section="fallback"></div>');
@@ -52,8 +55,8 @@ DOMImport.prototype.extract = function (element, data, options) {
             children.push(new Section(section.dataset.section, section.dataset.version, extracted));
         }.bind(this));
     }
-
     editable.sections = children;
+
     return editable;
 };
 

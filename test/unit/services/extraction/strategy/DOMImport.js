@@ -8,7 +8,7 @@ var React = require('react'),
     working = [
         {
             html: '<div class="editable" data-id="1"><div data-section="fallback">Content</div></div>',
-            expected: new Editable('1', 'default', [
+            expected: new Editable('1', '', [
                 new Section('fallback', null, '<div data-section="fallback">Content</div>')
             ])
         },
@@ -24,13 +24,13 @@ var React = require('react'),
         },
         {
             html: '<div class="editable" data-id="1"><span>foobar</span></div>',
-            expected: new Editable('1', 'default', [
+            expected: new Editable('1', '', [
                 new Section('fallback', null, '<div data-section="fallback"><span>foobar</span></div>')
             ])
         },
         {
             html: '<div class="editable" data-id="1">foobar</div>',
-            expected: new Editable('1', 'default', [
+            expected: new Editable('1', '', [
                 new Section('fallback', null, '<div data-section="fallback">foobar</div>')
             ])
         }

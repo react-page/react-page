@@ -6,7 +6,8 @@ var React = require('react'), Action,
 Action = React.createClass({
     componentDidMount: function () {
         var action = React.findDOMNode(this.refs.action),
-            origin = React.findDOMNode(this.refs.origin);
+            origin = React.findDOMNode(this.refs.origin),
+            self = this;
         interact(action).draggable({
             onmove: function (event) {
                 var target = event.target,
@@ -22,6 +23,7 @@ Action = React.createClass({
             },
             onstart: function(event) {
                 origin.classList.add('missing');
+                self.props.editor.actions.section.drag(self.props.plugin, self.props.version, self.props.options);
             },
             onend: function (event) {
                 origin.classList.remove('missing');
