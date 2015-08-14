@@ -8,7 +8,7 @@ var Section = require('app/entity/Section'),
                     };
                 },
                 create: function (plugin, version, options) {
-                    return new Section(plugin, version, {innerHTML: '<p>Insert text here</p>'});
+                    return new Section(plugin, version, {innerHTML: '<p>Insert some text here.</p><p>This is the <b>fallback</b> plugin</p>'});
                 },
                 Component: require('app/components/extensions/contenteditable')
             },
@@ -19,7 +19,7 @@ var Section = require('app/entity/Section'),
                     };
                 },
                 create: function (plugin, version, options) {
-                    return new Section(plugin, version, {innerHTML: '<p>Insert text here</p>'});
+                    return new Section(plugin, version, {innerHTML: '<p>Insert some text here.</p><p>This is the <b>fallback</b> plugin</p>'});
                 },
                 Component: require('app/components/extensions/contenteditable')
             },
@@ -30,7 +30,7 @@ var Section = require('app/entity/Section'),
                     };
                 },
                 create: function (plugin, version, options) {
-                    return new Section(plugin, version, {innerHTML: '<p>Insert text here</p>'});
+                    return new Section(plugin, version, {innerHTML: '<p>So awesome medium</p>'});
                 },
                 Component: require('app/components/extensions/mediumjs')
             }
