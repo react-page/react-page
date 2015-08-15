@@ -1,0 +1,9 @@
+@import 'themes/blue';
+@import '../../bower_components/boostrap-sass/assets/stylesheets/bootstrap';
+
+@import 'toolbar';
+@import 'editable';
+
+.hidden {
+    display: none;
+}

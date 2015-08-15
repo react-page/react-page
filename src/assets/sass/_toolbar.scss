@@ -1,0 +1,102 @@
+$toolbar-outline: lighten($editor-color-strong, 10%);
+
+.toolbar-push {
+    width: 100%;
+    transition: height 400ms ease, transform 400ms ease;
+}
+
+.toolbar {
+    color: $text-color-primary-inverted;
+    transition: opacity 400ms ease, transform 400ms ease;
+    position: fixed;
+    left: 0;
+    width: 100%;
+
+    .toolbar-toggler {
+        font-family: $font-family;
+        color: $text-color-primary-inverted;
+        cursor: pointer;
+        padding: 6px 10px;
+        position: absolute;
+        top: -31px;
+        right: 0;
+        background: $editor-color-strong;
+
+        &:hover {
+            color: darken($text-color-primary-inverted, 5%);
+        }
+        &:active {
+            color: darken($text-color-primary-inverted, 10%);
+        }
+
+        .fa {
+            padding-right: 2px;
+        }
+    }
+
+    .toolbar-body {
+        background-color: $editor-color-strong;
+        outline: 10px solid $toolbar-outline;
+        position: relative;
+
+
+        .toolbar-tiles {
+            position: absolute;
+            height: 110px;
+            bottom: 110px;
+            left: 0;
+            background-color: $editor-color-normal;
+            width: 100%;
+        }
+
+        .toolbar-groups {
+            height: 100%;
+        }
+
+        .toolbar-group {
+            height: 100%;
+            padding: 10px;
+
+            .toolbar-group-inner {
+                background-color: $editor-color-heavy;
+                outline: 3px solid darken( $editor-color-strong, 10%);
+                width: 100%;
+                height: 100%;
+                text-align: center;
+                font-size: 2em;
+                cursor: pointer;
+
+                .fa {
+                    margin-top: .5em;
+                }
+                &:hover {
+                    outline: 3px solid darken( $editor-color-strong, 15%);
+                    background-color: darken($editor-color-heavy, 5%);
+                }
+                &:active {
+                    outline: 3px solid darken( $editor-color-strong, 20%);
+                    background-color: darken($editor-color-heavy, 10%);
+                }
+            }
+
+            .toolbar-group-tile {
+                margin: 5px;
+                height: auto;
+                cursor: pointer;
+                text-align: center;
+                transform: translate(0px, 0px);
+
+                &:hover, &:focus {
+                    color: darken($editor-color-lightest, 10%);
+                }
+                &:active {
+                    color: darken($editor-color-light, 20%);
+                }
+                &.missing {
+                    background-color: lighten($toolbar-lower-color, 10%);
+                    border-radius: 5px;
+                }
+            }
+        }
+    }
+}

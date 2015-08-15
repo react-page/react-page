@@ -1,0 +1,30 @@
+$editor-color-lightest: #FFFFFF;
+$editor-color-light: #4AF4BD;
+$editor-color-normal: #54BFC3;
+$editor-color-strong: #54535D;
+$editor-color-heavy: #2F323D;
+
+$gray-base: #000;
+$gray-darker: lighten($gray-base, 13.5%);
+$gray-dark: lighten($gray-base, 20%);
+$gray: lighten($gray-base, 33.5%);
+$gray-light: lighten($gray-base, 46.7%);
+$gray-lighter: lighten($gray-base, 93.5%);
+
+$brand-primary: $editor-color-normal;
+$brand-success: $editor-color-light;
+$brand-info: $editor-color-lightest;
+$brand-warning: $editor-color-strong;
+$brand-danger: $editor-color-heavy;
+
+$border-radius-base: 0;
+$border-radius-large: 0;
+$border-radius-small: 0;
+
+$toolbar-lower-color:  lighten(#1d1f20, 5%);
+$toolbar-upper-color: lighten($editor-color-heavy, 15%);
+
+$text-color-primary: lighten(#000000, 5%);
+$text-color-primary-inverted: darken($editor-color-lightest, 5%);
+
+$font-family: Verdana;

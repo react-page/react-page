@@ -1,0 +1,14 @@
+{
+  "name": "ory-editor",
+  "version": "0.0.1",
+  "authors": [
+    "Aeneas Rekkas"
+  ],
+    "dependencies": {
+        "boostrap-sass": "~3.3.5",
+        "font-awesome": "~4.3.0"
+    },
+  "devDependencies": {
+    "jquery": "~2.1.0"
+  }
+}

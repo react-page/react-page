@@ -1,0 +1,14 @@
+### OSX ###
+.DS_Store
+
+### Windows ###
+# Windows image file caches
+Thumbs.db
+ehthumbs.db
+
+node_modules/
+src/bower_components/
+
+.idea/
+.sass-cache/
+coverage/
