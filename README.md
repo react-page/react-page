@@ -201,3 +201,13 @@ describe('foo', function() {
     });
 });
 ```
+
+To fix commit history:
+
+```
+git fetch origin
+git diff origin/master > ~/diff.patch # any path outside the repo
+git reset --hard origin/master
+git apply ~/diff.patch
+git commit -a
+```
