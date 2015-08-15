@@ -19,6 +19,13 @@ class Strategy extends ParsingStrategy {
     }
 }
 
+function createDummyHTMLElement(html) {
+    var div = document.createElement('div');
+    div.insertAdjacentHTML('afterbegin', html);
+    document.body.appendChild(div);
+    return div.children[0];
+}
+
 describe('Unit', function () {
     describe('Parser', function () {
         describe('constructor', function () {
@@ -41,7 +48,7 @@ describe('Unit', function () {
                 }),
                 parser = new Parser([can, cannot]);
 
-            parser.parse();
+            parser.parse(createDummyHTMLElement('<div></div>'));
             expect(called.can).toBe(true);
             expect(called.cannot).toBe(false);
         });

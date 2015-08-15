@@ -5,7 +5,7 @@ export default class ParsingStrategy {
      * @constructor
      */
     constructor(pluginManager) {
-        this.pluginManager = pluginManager
+        this.pluginManager = pluginManager;
     }
 
     parse(element, data, options) {
