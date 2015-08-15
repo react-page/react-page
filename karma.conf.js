@@ -37,8 +37,14 @@ module.exports = function (config) {
             // TODO add IE launcher: https://github.com/ory-am/editor/issues/6
         ],
         coverageReporter: {
-            type: 'html',
-            sourceStore: require('istanbul').Store.create('fslookup')
+            dir : 'coverage/',
+            sourceStore: require('istanbul').Store.create('fslookup'),
+            reporters: [
+                {
+                    type: 'lcov',
+                    subdir: '.'
+                }
+            ]
         },
         reporters: [
             'dots',

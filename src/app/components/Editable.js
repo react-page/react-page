@@ -25,7 +25,7 @@ Editable = React.createClass({
         return {
             overlap: 0.50,
             accept: '.toolbar-section-action'
-        }
+        };
     },
     componentDidUpdate: function () {
         for (var i = 0; i <= this.state.children.length; i++) {
@@ -100,6 +100,7 @@ Editable = React.createClass({
             Section = pluginManager.get(child.plugin).plugin;
         }
         return (
+            /*jshint ignore:start */
             <div key={key}>
                 <div className="editable-section">
                     <Section model={child}/>
@@ -108,6 +109,7 @@ Editable = React.createClass({
                     <span className="fa fa-plus"></span>
                 </div>
             </div>
+            /*jshint ignore:end */
         );
     },
     render: function () {

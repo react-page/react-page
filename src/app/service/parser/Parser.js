@@ -1,3 +1,4 @@
+'use strict';
 import InvalidArgumentException from 'app/exception/InvalidArgumentException';
 import u from 'underscore';
 import ParsingStrategy from './strategy/ParsingStrategy';
@@ -67,7 +68,7 @@ export default class Parser {
         } else {
             strategies = this.strategies;
         }
-        if (!element instanceof HTMLElement) {
+        if (!(element instanceof HTMLElement)) {
             throw new InvalidArgumentException('element', 'HTMLElement', element);
         }
 

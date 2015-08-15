@@ -1,0 +1,11 @@
+languages:
+   Ruby: true
+   JavaScript: true
+   Python: true
+   PHP: true
+
+exclude_paths:
+- src/example/**
+- dist/**
+- node_modules/**
+- src/bower_components/**
