@@ -14,12 +14,12 @@ export default class Toolbar extends React.Component {
 
     toggleToolbar() {
         var closing = !this.state.closed,
-            opacity = closing ? .3 : 1,
+            opacity = closing ? 0.3 : 1,
             height = (this.props.height).toString() + 'px',
             pushHeight = closing ? 0 : height,
             translate = (closing ? 0 : (-this.props.height).toString()) + 'px',
-            toolbar = React.findDOMNode(this.refs['toolbar']),
-            push = React.findDOMNode(this.refs['push']);
+            toolbar = React.findDOMNode(this.refs.toolbar),
+            push = React.findDOMNode(this.refs.push);
 
         toolbar.style.transform = 'translate(0, ' + translate + ')';
         toolbar.style.opacity = opacity;
@@ -33,14 +33,16 @@ export default class Toolbar extends React.Component {
     renderGroups() {
         return u.map(this.props.groups, group => {
             return (
+                /*jshint ignore:start */
                 <div className="col-xs-4 col-sm-2 col-md-2 col-lg-1 toolbar-group"
                      onClick={this.toggleTiles(group).bind(this)}>
                     <div className="toolbar-group-inner">
                         <div className={group.icon}></div>
                     </div>
                 </div>
+                /*jshint ignore:end */
             );
-        })
+        });
     }
 
     toggleTiles(group) {
@@ -55,6 +57,7 @@ export default class Toolbar extends React.Component {
             var plugin = this.props.editor.plugins.get(group.plugin, group.version),
                 tiles = plugin.getToolbarTiles();
             return (
+                /*jshint ignore:start */
                 <div>
                     {u.map(group.tiles, (t) => {
                         return (
@@ -63,6 +66,7 @@ export default class Toolbar extends React.Component {
                         )
                     })}
                 </div>
+                /*jshint ignore:end */
             );
         });
     }

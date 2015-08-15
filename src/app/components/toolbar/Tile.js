@@ -38,10 +38,12 @@ export default class Tile extends React.Component {
     }
     render () {
         return (
+            /*jshint ignore:start */
             <div key={this.props.y} className="col-xs-1 toolbar-section-tile" ref="origin">
                 <div className="toolbar-section-action text-center" ref="action" dangerouslySetInnerHTML={{__html: this.props.tileHTML}}>
                 </div>
             </div>
+            /*jshint ignore:end */
         );
     }
 }
