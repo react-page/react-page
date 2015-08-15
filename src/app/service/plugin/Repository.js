@@ -17,7 +17,7 @@ export default class Repository {
      */
     constructor(plugins) {
         u.each(plugins, plugin => this.constructor.assertPlugin(plugin));
-        this.plugins = plugins
+        this.plugins = plugins;
     }
 
     static assertPlugin(plugin) {

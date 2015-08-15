@@ -1,7 +1,7 @@
 import u from 'underscore';
-import ParserException from'app/exception/ParserException'
-import Editable from'app/entity/Editable'
-import Section from'app/entity/Section'
+import ParserException from'app/exception/ParserException';
+import Editable from'app/entity/Editable';
+import Section from'app/entity/Section';
 import ParsingStrategy from './ParsingStrategy';
 import $ from'jquery';
 

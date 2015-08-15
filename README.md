@@ -1,30 +1,31 @@
 # editor
 
 [![Build Status](https://travis-ci.org/ory-am/editor.svg?branch=master)](https://travis-ci.org/ory-am/editor)
+[![Test Coverage](https://codeclimate.com/github/ory-am/editor/badges/coverage.svg)](https://codeclimate.com/github/ory-am/editor/coverage)
+[![Code Climate](https://codeclimate.com/github/ory-am/editor/badges/gpa.svg)](https://codeclimate.com/github/ory-am/editor)
 
-## Develop
+## Contributing
+
+We welcome and encourage community contributions.  
+Please familiarize yourself with the [Contribution Guidelines](CONTRIBUTING.md) before contributing.
 
 You'll need [NodeJS and npm](https://nodejs.org) installed on your machine.  
 Then run in the project root:
 
 ```
+npm install -g karma bower gulp-cli
 npm install
 bower install
 gulp dev
 ```
 
-This should open up a browser window with live reload enabled.
-
+This should open up a browser window with live reload enabled.  
 To build the project, do `gulp production`.
 
-### Test
+### [Testing](test/README.md)
 
-There are two types of tests: unit and (simple) integration tests. When creating a PR make sure to add and fix tests!  
-All tests are in `test/`.
+Currently, there are two types of tests: unit and (simple) integration. More on testing [here](test/README.md).
 
-Run the tests once with: `npm test`.
-
-Test documentation is [here](test/README.md).
 
 ## stuff
 
@@ -179,9 +180,9 @@ PluginManager.prototype.load(plugin, version) {
 
 ### Licenses
 
-**Slideout**
-* https://github.com/Mango/slideout/blob/master/LICENSE
-* The MIT License (MIT) - Copyright (c) 2015 Mango
+* [Cleanblog example template](http://startbootstrap.com/template-overviews/clean-blog/)   
+  License: [Apache 2.0](https://github.com/IronSummitMedia/startbootstrap-clean-blog/blob/gh-pages/LICENSE)
+* Font Awesome
 
 ### Good practices
 

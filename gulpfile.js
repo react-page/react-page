@@ -34,7 +34,8 @@ gulp.task('clean', function () {
 gulp.task('lint', function () {
     return gulp.src(['src/app/*.js', 'src/app/**/*.js'])
         .pipe($.jshint('.jshintrc'))
-        .pipe($.jshint.reporter('jshint-stylish'));
+        .pipe($.jshint.reporter('jshint-stylish'))
+        .pipe($.jshint.reporter('fail'));
 });
 
 gulp.task('robots', function () {
@@ -74,10 +75,10 @@ gulp.task('compass', function () {
             css: 'src/assets/styles'
         }))
         .pipe($.minifyCss())
-        .pipe(gulp.dest('src/assets/styles'))
+        .pipe(gulp.dest('src/assets/styles'));
 });
 
-gulp.task('base', ['robots', 'static', 'config', 'fonts', 'images', 'styles']);
+gulp.task('base', ['robots', 'static', 'config', 'fonts', 'images', 'styles', 'lint']);
 
 gulp.task('scripts', ['lint'], function () {
     var bundler = browserify({
@@ -210,9 +211,4 @@ gulp.task('deploy', ['compress'], function () {
 
 gulp.task('production', ['clean'], function () {
     gulp.start('deploy');
-});
-
-gulp.task('doc', function () {
-    gulp.src(['src/app/*.js', 'src/app/**/*.js'])
-        .pipe(jsdoc('./docs'))
 });

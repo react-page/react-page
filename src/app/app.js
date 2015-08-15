@@ -7,7 +7,7 @@ var React = require('react'),
     PluginManager = require('app/service/plugin/PluginManager'),
     NoEditablesFound = require('app/exception/NoEditablesFound'),
     Parser = require('app/service/parser/Parser'),
-    DOMParser = require('app/service/parser/strategy/DOMParser'),
+    DomParser = require('app/service/parser/strategy/DOMParser'),
     interact = require('interact.js'),
     Reflux = require('reflux'),
     DefaultPluginManagerFactory = require('app/factory/DefaultPluginManagerFactory'),
@@ -20,7 +20,7 @@ Editor = function (elements, config) {
 
     this.plugins = DefaultPluginManagerFactory.create();
 
-    this.Parser = new Parser([new DOMParser(this.plugins)]);
+    this.Parser = new Parser([new DomParser(this.plugins)]);
     this.config = _.extend(config || {}, defaultConfig);
     this.actions = {section: Reflux.createActions(['drag'])};
     this.stores = {
