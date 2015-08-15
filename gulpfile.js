@@ -32,7 +32,7 @@ gulp.task('clean', function () {
 });
 
 gulp.task('lint', function () {
-    return gulp.src(['src/app/*.js', 'src/app/**/*.js'])
+    return gulp.src(['test/**.js', 'src/app/**.js'])
         .pipe($.jshint('.jshintrc'))
         .pipe($.jshint.reporter('jshint-stylish'))
         .pipe($.jshint.reporter('fail'));
