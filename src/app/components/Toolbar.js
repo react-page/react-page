@@ -1,96 +1,95 @@
 import React from 'react';
 import u from 'underscore';
 import Tile from './toolbar/Tile';
+import transform from 'app/pkg/transform';
+import ToolbarStore from 'app/store/Toolbar';
 
 export default class Toolbar extends React.Component {
     constructor() {
         super();
-        this.state = {opacity: 0, closed: true, tiles: [], tilesClosed: true};
-    }
-
-    componentDidMount() {
-        this.toggleToolbar();
-    }
-
-    toggleToolbar() {
-        var closing = !this.state.closed,
-            opacity = closing ? 0.3 : 1,
-            height = (this.props.height).toString() + 'px',
-            pushHeight = closing ? 0 : height,
-            translate = (closing ? 0 : (-this.props.height).toString()) + 'px',
-            toolbar = React.findDOMNode(this.refs.toolbar),
-            push = React.findDOMNode(this.refs.push);
-
-        toolbar.style.transform = 'translate(0, ' + translate + ')';
-        toolbar.style.opacity = opacity;
-        toolbar.style.height = height;
-        toolbar.style.bottom = '-' + height;
-        push.style.height = pushHeight;
-
-        this.setState({opacity: opacity, closed: closing});
-    }
-
-    renderGroups() {
-        return u.map(this.props.groups, group => {
-            return (
-                /*jshint ignore:start */
-                <div className="col-xs-4 col-sm-2 col-md-2 col-lg-1 toolbar-group"
-                     onClick={this.toggleTiles(group).bind(this)}>
-                    <div className="toolbar-group-inner">
-                        <div className={group.icon}></div>
-                    </div>
-                </div>
-                /*jshint ignore:end */
-            );
-        });
-    }
-
-    toggleTiles(group) {
-        return () => {
-            var tiles = this.renderTiles(group);
-            this.setState({tiles: tiles});
+        this.state = {
+            closed: true,
+            pluginToolbarClosed: true,
+            tiles: [],
+            tilesClosed: true,
+            pluginToolbar: null
         };
     }
 
-    renderTiles(group) {
-        return u.map(group.items, group => {
-            var plugin = this.props.editor.plugins.get(group.plugin, group.version),
-                tiles = plugin.getToolbarTiles();
-            return (
-                /*jshint ignore:start */
-                <div>
-                    {u.map(group.tiles, (t) => {
-                        return (
-                            <Tile editor={this.props.editor} plugin={tiles[t].plugin}
-                                  options={tiles[t].options || {}} tileHTML={tiles[t].tileHTML}/>
-                        )
-                    })}
-                </div>
-                /*jshint ignore:end */
-            );
+    componentDidMount() {
+        this.toggleToolbar(this.refs.toolbar, !this.state.closed);
+        this.setState({closed: !this.state.closed});
+
+        ToolbarStore.listen((state) => {
+            var plugin = state.plugin, pluginToolbar = null, closed, toolbarClosed;
+            if (plugin && plugin.name) {
+                // this id is required to prevent REACT from wrongfully not updating the toolbar.
+                var id = Math.random();
+                var PluginToolbar = this.props.editor.plugins.get(plugin.name, plugin.version, plugin.args).Toolbar;
+                pluginToolbar = (
+                    /*jshint ignore:start */
+                    <PluginToolbar key={id} context={state.context.props}/>
+                    /*jshint ignore:end */
+                );
+                closed = true;
+                toolbarClosed = false;
+            } else {
+                closed = false;
+                toolbarClosed = true;
+            }
+
+            // nothing changed in the state, so no need to toggle the toolbars.
+            if (this.state.closed === closed) {
+                this.setState({pluginToolbar: pluginToolbar});
+                this.forceUpdate();
+                return;
+            }
+
+            this.toggleToolbar(this.refs.pluginToolbar, toolbarClosed);
+            this.toggleToolbar(this.refs.toolbar, closed);
+            this.setState({
+                pluginToolbarClosed: toolbarClosed,
+                closed: closed,
+                pluginToolbar: pluginToolbar
+            });
         });
     }
 
+    toggleToolbar(ref, closing) {
+        var toolbar = React.findDOMNode(ref);
+        var opacity = closing ? 0.3 : 0.97;
+        var height = (this.props.height).toString() + 'px',
+            pushHeight = closing ? 0 : height,
+            translate = (closing ? 0 : (-this.props.height).toString()) + 'px',
+            push = React.findDOMNode(this.refs.push);
+
+        transform(toolbar, 'translate(0, ' + translate + ')');
+
+        toolbar.style.height = height;
+        toolbar.style.bottom = '-' + height;
+        toolbar.style.opacity = opacity;
+
+        push.style.height = pushHeight;
+    }
 
     render() {
         return (
             /*jshint ignore:start */
             <div>
-                <nav ref="toolbar" className="toolbar">
-                    <div className="toolbar-toggler" onClick={this.toggleToolbar.bind(this)}>
-                        <span className={'fa ' + (this.state.closed ? 'fa-plus' : 'fa-times')}></span>
+                <div ref="pluginToolbar" className="toolbar">
+                    <div className="toolbar-body">
+                        {this.state.pluginToolbar}
                     </div>
+                </div>
+                <nav ref="toolbar" className="toolbar">
                     <div className="container-fluid toolbar-body" style={{height: this.props.height + 'px'}}>
-                        <div className="toolbar-tiles" ref="tiles">
-                            <div className="row">
-                                {this.state.tiles}
-                            </div>
-                        </div>
-                        <div className="toolbar-groups">
-                            <div className="row">
-                                {this.renderGroups()}
-                            </div>
-                        </div>
+                        {u.map(this.props.groups, (group, y) => {
+                            return (
+                                <Tile key={y} icon={group.icon} editor={this.props.editor} name={group.plugin}
+                                      version={group.version || ''} options={group.options || {}}>
+                                </Tile>
+                            );
+                        })}
                     </div>
                 </nav>
                 <div className="toolbar-push" ref="push"></div>
@@ -101,17 +100,22 @@ export default class Toolbar extends React.Component {
 }
 
 Toolbar.defaultProps = {
-    height: 100,
+    height: 70,
     groups: [
         {
-            title: 'Medium',
-            icon: 'fa fa-medium',
+            title: 'Embed media',
+            icon: 'fa fa-paperclip',
+            plugin: 'embed'
+        },
+        {
+            title: 'Rich',
+            icon: 'fa fa-align-left',
             plugin: 'mediumjs'
         },
         {
-            title: 'Default',
-            icon: 'fa fa-font',
-            plugin: 'mediumjs'
+            title: 'Image',
+            icon: 'fa fa-picture-o',
+            plugin: 'default'
         }
     ]
 };

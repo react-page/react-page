@@ -22,7 +22,7 @@ export default class DOMParser extends ParsingStrategy {
             children = [],
             field = dataset.field || '',
             sections = element.querySelectorAll('[data-section]'),
-            editable = new Editable(dataset.id, field);
+            editable = new Editable(dataset.id, [], field);
 
         if (dataset.id === undefined) {
             // TODO how to ids
@@ -34,7 +34,7 @@ export default class DOMParser extends ParsingStrategy {
             var div = document.createElement('div'),
                 plugin = this.pluginManager.get('default');
             element.appendChild(div);
-            children.push(new Section('default', null, plugin.parse(div, options)));
+            children.push(new Section('default', null, null, plugin.parse(div, options)));
         } else {
             if (sections.length < 1) {
                 $(element).contents().wrap('<div data-section="default"></div>');
@@ -45,7 +45,7 @@ export default class DOMParser extends ParsingStrategy {
                 var plugin = this.pluginManager.get(section.dataset.section, section.dataset.version),
                     data = plugin.parse(section, options);
 
-                children.push(new Section(section.dataset.section, section.dataset.version, data));
+                children.push(new Section(section.dataset.section, section.dataset.version, section.dataset.args, data));
             }.bind(this));
         }
         editable.sections = children;

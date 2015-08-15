@@ -1,30 +1,22 @@
-$editor-color-lightest: #FFFFFF;
-$editor-color-light: #4AF4BD;
-$editor-color-normal: #54BFC3;
-$editor-color-strong: #54535D;
-$editor-color-heavy: #2F323D;
 
-$gray-base: #000;
-$gray-darker: lighten($gray-base, 13.5%);
-$gray-dark: lighten($gray-base, 20%);
-$gray: lighten($gray-base, 33.5%);
-$gray-light: lighten($gray-base, 46.7%);
-$gray-lighter: lighten($gray-base, 93.5%);
+$color-primary: #4AF4BD;
 
-$brand-primary: $editor-color-normal;
-$brand-success: $editor-color-light;
-$brand-info: $editor-color-lightest;
-$brand-warning: $editor-color-strong;
-$brand-danger: $editor-color-heavy;
+$text-color-primary: #ffffff;
+$text-color-inverted: #000000;
 
-$border-radius-base: 0;
-$border-radius-large: 0;
-$border-radius-small: 0;
+$editable-outline: 1px solid rgba($color-primary, 0.3);
+$editable-active-outline: 1px solid rgba($color-primary, 0.8);
+$editable-background-color: rgba($color-primary, 0.3);
 
-$toolbar-lower-color:  lighten(#1d1f20, 5%);
-$toolbar-upper-color: lighten($editor-color-heavy, 15%);
+$toolbar-border-color: rgba(0,0,0,0.8);
+$toolbar-lower-color: rgba(0,0,0,0.95);
+$toolbar-upper-color: rgba(0,0,0,0.95);
 
-$text-color-primary: lighten(#000000, 5%);
-$text-color-primary-inverted: darken($editor-color-lightest, 5%);
+$toolbar-button-color: black;
+$toolbar-button-missing-color: lighten($toolbar-button-color, 10%);
+$toolbar-button-active-color: lighten(black, 10%);
 
-$font-family: Verdana;
+$toolbar-text-color: $text-color-primary;
+$toolbar-text-active-color: darken($text-color-primary, 35%);
+
+$border-radius-normal: 5px;

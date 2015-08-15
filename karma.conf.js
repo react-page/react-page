@@ -21,7 +21,7 @@ module.exports = function (config) {
         },
         browserify: {
             debug: true,
-            transform: ['babelify', 'browserify-istanbul'],
+            transform: ['browserify-css', 'babelify', 'browserify-istanbul'],
             extensions: ['.js', '.jsx'],
             paths: ['./src']
         },

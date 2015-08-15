@@ -82,16 +82,17 @@ gulp.task('base', ['robots', 'static', 'config', 'fonts', 'images', 'styles', 'l
 
 gulp.task('scripts', ['lint'], function () {
     var bundler = browserify({
-        entries: ['./src/app/app.js'],
-        transform: ['babelify'],
-        extensions: ['.jsx'],
-        debug: true,
-        cache: {},
-        packageCache: {},
-        paths: ['./src/'],
-        fullPaths: true
-    });
-    var watcher = watchify(bundler);
+            entries: ['./src/app/app.js'],
+            transform: ['babelify'],
+            extensions: ['.jsx'],
+            debug: true,
+            cache: {},
+            packageCache: {},
+            paths: ['./src/'],
+            fullPaths: true
+        }),
+        watcher = watchify(bundler);
+
     return watcher
         .on('prebundle', function (bundler) {
             bundler.require('react');
@@ -130,27 +131,30 @@ gulp.task('wiredep', function () {
 
 gulp.task('browserify', function () {
     var bundler = browserify({
-        entries: ['./src/app/app.js'],
-        transform: ['babelify'],
-        extensions: ['.jsx'],
-        paths: ['./src'],
-        debug: true,
-        cache: {},
-        packageCache: {}, options: {
-            plugin: [
-                [
-                    'remapify',
-                    [{
-                        src: '.src/app/components/**/*.js',  // glob for the files to remap
-                        expose: 'app', // this will expose `__dirname + /client/views/home.js` as `views/home.js`
-                        cwd: __dirname  // defaults to process.cwd()
-                    }]
+            entries: ['./src/app/app.js'],
+            transform: ['babelify'],
+            extensions: ['.jsx'],
+            paths: ['./src'],
+            debug: true,
+            cache: {},
+            packageCache: {}, options: {
+                plugin: [
+                    [
+                        'remapify',
+                        [{
+                            src: '.src/app/components/**/*.js',  // glob for the files to remap
+                            expose: 'app', // this will expose `__dirname + /client/views/home.js` as `views/home.js`
+                            cwd: __dirname  // defaults to process.cwd()
+                        }]
+                    ]
                 ]
-            ]
-        },
-        fullPaths: true
-    });
-    var watcher = watchify(bundler);
+            },
+            fullPaths: true
+        }).transform(require('browserify-css'), {
+            rootDir: './src'
+        }),
+        watcher = watchify(bundler);
+
     return watcher
         .on('prebundle', function (bundler) {
             bundler.require('react');
@@ -178,13 +182,13 @@ gulp.task('watch', ['connect-dev'], function () {
         'src/*.html',
         'src/assets/styles/**',
         'src/assets/images/**',
-        'src/app/**'
+        'src/app/**/*'
     ], function (event) {
         return gulp.src(event.path)
             .pipe(devServer.reload());
     });
 
-    gulp.watch('src/assets/sass/**.scss', ['compass']);
+    gulp.watch(['src/assets/sass/**/*', 'src/assets/sass/*'], ['compass']);
     gulp.watch('src/app/**.js', ['refresh']);
     gulp.watch('bower.json', ['wiredep']);
 });
