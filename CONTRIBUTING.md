@@ -1,6 +1,6 @@
 # Contribution Guide
 
-We welcome and encourage community contributions to Flynn.
+We welcome and encourage community contributions!
 
 ## Contributing Code
 
