@@ -32,9 +32,10 @@ gulp.task('clean', function () {
 });
 
 gulp.task('lint', function () {
-    return gulp.src(['src/app/*.js', 'src/app/**/*.js'])
+    return gulp.src(['test/**.js', 'src/app/**.js'])
         .pipe($.jshint('.jshintrc'))
-        .pipe($.jshint.reporter('jshint-stylish'));
+        .pipe($.jshint.reporter('jshint-stylish'))
+        .pipe($.jshint.reporter('fail'));
 });
 
 gulp.task('robots', function () {
@@ -74,10 +75,10 @@ gulp.task('compass', function () {
             css: 'src/assets/styles'
         }))
         .pipe($.minifyCss())
-        .pipe(gulp.dest('src/assets/styles'))
+        .pipe(gulp.dest('src/assets/styles'));
 });
 
-gulp.task('base', ['robots', 'static', 'config', 'fonts', 'images', 'styles']);
+gulp.task('base', ['robots', 'static', 'config', 'fonts', 'images', 'styles', 'lint']);
 
 gulp.task('scripts', ['lint'], function () {
     var bundler = browserify({
@@ -175,22 +176,20 @@ gulp.task('refresh', ['browserify'], function () {
 gulp.task('watch', ['connect-dev'], function () {
     gulp.watch([
         'src/*.html',
-        'src/assets/styles/*.css',
-        'src/assets/images/*',
-        'src/app/*.js',
-        'src/app/**/*.js',
-        'node_modules/interact.js/**/*.js'
+        'src/assets/styles/**',
+        'src/assets/images/**',
+        'src/app/**'
     ], function (event) {
         return gulp.src(event.path)
             .pipe(devServer.reload());
     });
 
-    gulp.watch(['src/assets/sass/*.scss', 'src/assets/sass/**/*.scss'], ['compass']);
-    gulp.watch(['src/app/*.js', 'src/app/**/*.js'], ['refresh']);
+    gulp.watch('src/assets/sass/**.scss', ['compass']);
+    gulp.watch('src/app/**.js', ['refresh']);
     gulp.watch('bower.json', ['wiredep']);
 });
 
-gulp.task('dev', ['browserify'], function () {
+gulp.task('dev', ['base', 'browserify'], function () {
     gulp.start('watch');
 });
 
@@ -210,9 +209,4 @@ gulp.task('deploy', ['compress'], function () {
 
 gulp.task('production', ['clean'], function () {
     gulp.start('deploy');
-});
-
-gulp.task('doc', function () {
-    gulp.src(['src/app/*.js', 'src/app/**/*.js'])
-        .pipe(jsdoc('./docs'))
 });

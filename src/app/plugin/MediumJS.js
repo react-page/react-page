@@ -1,3 +1,4 @@
+'use strict';
 /* global window, require */
 import React from 'react';
 import u from 'underscore';
@@ -13,7 +14,7 @@ import Medium from 'medium.js';
     require('rangy/lib/rangy-classapplier.js');
 })();
 
-class Component extends React.Component {
+class Section extends React.Component {
     constructor() {
         super();
         this.state = {instance: null, focus: false};
@@ -31,7 +32,7 @@ class Component extends React.Component {
                 keyContext: {
                     enter: function (e, element) {
                         var sib = element.previousSibling;
-                        if (sib && sib.tagName == 'LI') {
+                        if (sib && sib.tagName === 'LI') {
                             element.style.color = sib.style.color;
                             element.className = sib.className;
                             this.cursor.caretToBeginning(element);
@@ -78,16 +79,24 @@ class Component extends React.Component {
     }
 
     createButton(action, i) {
-        return (<button key={i} className="btn btn-primary" onMouseDown={this.toolbarAction(action).bind(this)}>
-            <span className={action.icon}></span>
-        </button>);
+        return (
+            /*jshint ignore:start */
+            <button key={i} className="btn btn-primary" onMouseDown={this.toolbarAction(action).bind(this)}>
+                <span className={action.icon}></span>
+            </button>
+            /*jshint ignore:end */
+        );
     }
 
     createListButton(index, outer) {
         var cn = 'fa fa-list' + (outer === 'ul' ? '' : '-ol');
-        return (<button key={index+1} className="btn btn-primary" onMouseDown={this.listAction(outer).bind(this)}>
-            <span className={cn}></span>
-        </button>)
+        return (
+            /*jshint ignore:start */
+            <button key={index+1} className="btn btn-primary" onMouseDown={this.listAction(outer).bind(this)}>
+                <span className={cn}></span>
+            </button>
+            /*jshint ignore:end */
+        );
     }
 
     render() {
@@ -115,7 +124,26 @@ class Component extends React.Component {
     }
 }
 
-Component.defaultProps = {
+class Actions extends React.Component {
+    constructor() {
+        super();
+        this.state = {instance: null, focus: false};
+    }
+
+    render() {
+        return (
+            /*jshint ignore:start */
+            <ul>
+                <li>
+                    <a class=""></a>
+                </li>
+            </ul>
+            /*jshint ignore:end */
+        );
+    }
+}
+
+Section.defaultProps = {
     actions: [
         {invoke: 'strong', icon: 'fa fa-bold'},
         {invoke: 'em', icon: 'fa fa-italic'}
@@ -127,14 +155,14 @@ export default class MediumJS extends Plugin {
         super({
             name: 'mediumjs',
             version: '0.0.1',
-            plugin: Component,
+            plugin: Section,
             toolbar: {
-                tile: () => {innerHTML: '<span class="fa fa-medium"></span>'},
-                actions: () => [
-                    {
+                tile: () => {
+                    return {
                         innerHTML: '<span class="fa fa-medium"></span>'
-                    }
-                ]
+                    };
+                },
+                actions: Actions
             }
         });
     }

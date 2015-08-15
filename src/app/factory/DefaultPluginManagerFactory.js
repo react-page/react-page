@@ -10,6 +10,6 @@ export default class DefaultPluginManagerFactory {
             new Default(),
             new MediumJS()
         ]);
-        return new PluginManager([repository])
+        return new PluginManager([repository]);
     }
 }
