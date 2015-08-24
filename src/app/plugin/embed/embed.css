@@ -1,0 +1,38 @@
+.embed-container {
+    position: relative;
+}
+
+.embed-container .config-toggler {
+    position: absolute;
+    top: 5px;
+    left: 10px;
+    padding: 5px;
+    border: 0;
+    margin: 0;
+    background: none;
+    opacity: 0.7;
+    z-index: 1;
+}
+
+.embed-body {
+}
+
+.embed-container .config-toggler .fa {
+    font-size: 1.5em;
+}
+
+.embed-container .config-toggler:hover, .config-toggler:active {
+    opacity: 1;
+}
+
+.embed-input {
+    width: 80%;
+    margin: 15px;
+    border: 1px black solid;
+    height: 40px;
+    padding: 0 20px;
+}
+
+.embed-input:hover, .embed-input:active, .embed-input:focus {
+    border: 1px #55d8ff solid;
+}

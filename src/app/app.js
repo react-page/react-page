@@ -1,82 +1,75 @@
 'use strict';
 
-var React = require('react'),
-    _ = require('underscore'),
-    Editable = require('app/components/Editable'),
-    Toolbar = require('app/components/Toolbar'),
-    PluginManager = require('app/service/plugin/PluginManager'),
-    NoEditablesFound = require('app/exception/NoEditablesFound'),
-    Parser = require('app/service/parser/Parser'),
-    DomParser = require('app/service/parser/strategy/DOMParser'),
-    interact = require('interact.js'),
-    Reflux = require('reflux'),
-    DefaultPluginManagerFactory = require('app/factory/DefaultPluginManagerFactory'),
-    Editor;
+import React from 'react';
+import _ from 'underscore';
+import Editable from 'app/components/Editable';
+import Toolbar from 'app/components/Toolbar';
+import PluginManager from 'app/service/plugin/PluginManager';
+import NoEditablesFound from 'app/exception/NoEditablesFound';
+import Parser from 'app/service/parser/Parser';
+import DomParser from 'app/service/parser/strategy/DOMParser';
+import interact from 'interact.js';
+import Reflux from 'reflux';
+import DefaultPluginManagerFactory from 'app/factory/DefaultPluginManagerFactory';
 
+// Enable interact's dynamic drop feature.
 interact.dynamicDrop(true);
 
-Editor = function (elements, config) {
-    var self = this, defaultConfig = {};
-
-    this.plugins = DefaultPluginManagerFactory.create();
-
-    this.Parser = new Parser([new DomParser(this.plugins)]);
-    this.config = _.extend(config || {}, defaultConfig);
-    this.actions = {section: Reflux.createActions(['drag'])};
-    this.stores = {
-        drag: Reflux.createStore({
-            init: function () {
-                // Register statusUpdate action
-                this.listenTo(self.actions.section.drag, this.drag);
-            },
-            drag: function (plugin, version, options) {
-                this.trigger(plugin, version, options);
-            }
-        })
-    };
-    this.render(elements);
-};
-
-Editor.prototype.render = function (elements) {
-    var length = 0;
-    if (elements instanceof Object && elements.length) {
-        length = elements.length;
-    } else if (elements instanceof Array) {
-        length = elements.length;
+/**
+ *
+ * @example
+ * // var Editor = window.ory.Editor;
+ * // or
+ * // var Editor = require //...
+ * var editor = new Editor(document.querySelectAll('.editable-area'));
+ */
+class Editor {
+    constructor(elements, options) {
+        this.plugins = DefaultPluginManagerFactory.create();
+        this.parser = new Parser([new DomParser(this.plugins)]);
+        this.render(elements);
     }
 
-    if (length > 0) {
-        _.each(elements, this.startEditable.bind(this));
-    } else if (elements instanceof HTMLElement) {
-        this.startEditable(elements);
-    } else {
-        throw new NoEditablesFound();
+    render(elements) {
+        var length = 0;
+        if (elements instanceof Object && elements.length) {
+            length = elements.length;
+        } else if (elements instanceof Array) {
+            length = elements.length;
+        }
+
+        if (length > 0) {
+            _.each(elements, this.startEditable.bind(this));
+        } else if (elements instanceof HTMLElement) {
+            this.startEditable(elements);
+        } else {
+            throw new NoEditablesFound();
+        }
+
+        this.toolbar = document.createElement('div');
+        document.body.appendChild(this.toolbar);
+        React.render(
+            /*jshint ignore:start */
+            <Toolbar editor={ this }/>,
+            /*jshint ignore:end */
+            this.toolbar
+        );
     }
 
-    this.toolbar = document.createElement('div');
-    document.body.appendChild(this.toolbar);
-    React.render(
-        /*jshint ignore:start */
-        <Toolbar editor={ this }/>,
-        /*jshint ignore:end */
-        this.toolbar
-    );
-};
-
-Editor.prototype.startEditable = function (element) {
-    var model = this.Parser.parse(element);
-    React.render(
-        /*jshint ignore:start */
-        <Editable editor={ this } data={ element.dataset } model={ model }/>,
-        /*jshint ignore:end */
-        element
-    );
-};
-
-if (window !== undefined) {
-    window.ory = {
-        Editor: Editor
-    };
+    startEditable(element) {
+        var model = this.parser.parse(element);
+        React.render(
+            /*jshint ignore:start */
+            <Editable editor={ this } model={ model }/>,
+            /*jshint ignore:end */
+            element
+        );
+    }
 }
 
-module.exports = Editor;
+// This is useful if no AMD system is used.
+if (window !== undefined) {
+    window.ory = {Editor: Editor};
+}
+
+export default Editor;

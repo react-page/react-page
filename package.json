@@ -5,6 +5,7 @@
   "devDependencies": {
     "babelify": "~6.0.2",
     "browserify": "10.0.0",
+    "browserify-css": "^0.6.1",
     "browserify-istanbul": "^0.2.1",
     "codeclimate-test-reporter": "^0.1.0",
     "decouple": "0.0.1",

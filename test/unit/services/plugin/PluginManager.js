@@ -10,7 +10,7 @@ describe('Unit', function () {
                 name: 'foo',
                 version: '0.1',
                 compatibility: '0.0.1',
-                plugin: React.createClass({
+                section: React.createClass({
                     render: function () {
                         return false;
                     }

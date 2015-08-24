@@ -1,16 +1,26 @@
 import React from 'react';
 import interact from 'interact.js';
+import Actions from 'app/Actions';
 
 export default class Tile extends React.Component {
-    componentDidMount () {
+    componentDidMount() {
+        this.startDraggable();
+    }
+
+    componentDidUpdate() {
+        this.startDraggable();
+    }
+
+    startDraggable() {
         var action = React.findDOMNode(this.refs.action),
             origin = React.findDOMNode(this.refs.origin),
             self = this;
+
         interact(action).draggable({
             onmove (event) {
                 var target = event.target,
-                        x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx,
-                        y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
+                    x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx,
+                    y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
 
                 target.style.webkitTransform =
                     target.style.transform =
@@ -20,11 +30,13 @@ export default class Tile extends React.Component {
                 target.setAttribute('data-y', y);
             },
             onstart(event) {
-                origin.classList.add('missing');
-                self.props.editor.actions.section.drag(self.props.plugin, self.props.version, self.props.options);
+                origin.classList.add('is-missing');
+                event.target.classList.add('is-dragging');
+                Actions.toolbar.pluginDragBegin(self.props.name, self.props.version, self.props.options);
             },
             onend (event) {
-                origin.classList.remove('missing');
+                origin.classList.remove('is-missing');
+                event.target.classList.remove('is-dragging');
                 event.target.style.webkitTransform =
                     event.target.style.transform = 'none';
                 event.target.setAttribute('data-x', '0');
@@ -36,11 +48,13 @@ export default class Tile extends React.Component {
             }
         });
     }
-    render () {
+
+    render() {
         return (
             /*jshint ignore:start */
-            <div key={this.props.y} className="col-xs-1 toolbar-section-tile" ref="origin">
-                <div className="toolbar-section-action text-center" ref="action" dangerouslySetInnerHTML={{__html: this.props.tileHTML}}>
+            <div className="toolbar-button" ref="origin">
+                <div className="toolbar-button-inner toolbar-draggable" ref="action">
+                    <div className={this.props.icon}></div>
                 </div>
             </div>
             /*jshint ignore:end */

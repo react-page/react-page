@@ -8,14 +8,14 @@ import u from 'underscore';
 const cases = {
     working: [
         {
-            version: '1.1', name: 'foo', plugin: React.createClass({
+            version: '1.1', name: 'foo', section: React.createClass({
             render: function () {
                 return false;
             }
         })
         },
         {
-            version: '1.1.3', name: 'foo', plugin: React.createClass({
+            version: '1.1.3', name: 'foo', section: React.createClass({
             render: function () {
                 return false;
             }
@@ -25,41 +25,41 @@ const cases = {
     exception: [
         {},
         {
-            version: '0.1', plugin: React.createClass({
+            version: '0.1', section: React.createClass({
             render: function () {
                 return false;
             }
         })
         },
         {
-            version: '1', name: 'foo', plugin: React.createClass({
+            version: '1', name: 'foo', section: React.createClass({
             render: function () {
                 return false;
             }
         })
         },
         {
-            version: '1.a', name: 'foo', plugin: React.createClass({
+            version: '1.a', name: 'foo', section: React.createClass({
             render: function () {
                 return false;
             }
         })
         },
         {
-            version: 'a', name: 'foo', plugin: React.createClass({
+            version: 'a', name: 'foo', section: React.createClass({
             render: function () {
                 return false;
             }
         })
         },
         {
-            version: 'a.1', name: 'foo', plugin: React.createClass({
+            version: 'a.1', name: 'foo', section: React.createClass({
             render: function () {
                 return false;
             }
         })
         },
-        {version: 'a.1', name: 'foo', plugin: {}},
+        {version: 'a.1', name: 'foo', section: {}},
         {version: '0.1', name: 'foo'}
     ]
 };

@@ -1,19 +1,32 @@
 .editable-object {
+
     .editable-section {
-        outline: 1px solid rgba($editor-color-light, 0.3);
+        outline: $editable-outline;
+        transition: all 250ms ease;
         cursor: pointer;
+
         &:hover, &:active, &:focus {
-            outline: 2px solid $editor-color-light;
-            background: rgba($editor-color-lightest, 0.2) none repeat scroll 0% 0%;
+            outline: $editable-active-outline;
+            background: $editable-background-color;
         }
+
         &.active {
             cursor: default;
         }
     }
+
     .editable-section-placeholder {
         position: relative;
         width: 100%;
         height: auto;
+
+        .fa {
+            text-align: center;
+            display: none;
+            transition: all 250ms ease;
+            font-size: 0.7em;
+        }
+
         &.drop-active {
             margin: 5px 0;
             padding: 5px 0;
@@ -21,22 +34,20 @@
                 display: block;
             }
         }
+
         &.drop-target {
             vertical-align: middle;
             padding: 50px;
-            outline: 2px solid $editor-color-light;
-            background: rgba($editor-color-lightest, 0.3) none repeat scroll 0% 0%;
+
+            outline: $editable-active-outline;
+            background: $editable-background-color;
+
             .fa {
                 font-size: 3em;
             }
         }
-
-        .fa {
-            text-align: center;
-            display: none;
-            transition: all 200ms ease;
-        }
     }
+
     .editable-section-placeholder {
         transition: all 200ms ease;
     }
