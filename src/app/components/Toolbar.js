@@ -1,5 +1,5 @@
 import React from 'react';
-import u from 'underscore';
+import map from 'lodash/collection/map';
 import Tile from './toolbar/Tile';
 import transform from 'app/pkg/transform';
 import ToolbarStore from 'app/store/Toolbar';
@@ -83,7 +83,7 @@ export default class Toolbar extends React.Component {
                 </div>
                 <nav ref="toolbar" className="toolbar">
                     <div className="container-fluid toolbar-body" style={{height: this.props.height + 'px'}}>
-                        {u.map(this.props.groups, (group, y) => {
+                        {map(this.props.groups, (group, y) => {
                             return (
                                 <Tile key={y} icon={group.icon} editor={this.props.editor} name={group.plugin}
                                       version={group.version || ''} options={group.options || {}}>

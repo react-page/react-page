@@ -1,6 +1,6 @@
 /* global window, require */
 import React from 'react';
-import Medium from 'medium.js';
+import Scribe from 'scribe-editor';
 import Store from './Store';
 
 export default class Section extends React.Component {
@@ -11,26 +11,10 @@ export default class Section extends React.Component {
 
     componentDidMount() {
         var editable = React.findDOMNode(this.refs.editable);
-        var medium = new Medium({
-            element: editable,
-            mode: Medium.richMode,
-            attributes: null,
-            tags: null,
-            pasteAsText: false,
-            keyContext: {
-                enter: function (e, element) {
-                    var sib = element.previousSibling;
-                    if (sib && sib.tagName === 'LI') {
-                        element.style.color = sib.style.color;
-                        element.className = sib.className;
-                        this.cursor.caretToBeginning(element);
-                    }
-                }
-            }
-        });
+        var scribe = new Scribe(editable);
 
         this.setState({
-            instance: medium,
+            instance: scribe,
             editable: editable
         });
 
@@ -39,7 +23,7 @@ export default class Section extends React.Component {
             if (action === null || !this.isInFocus()) {
                 return;
             }
-            medium.invokeElement(action.invoke, action.options || {});
+            //scribe.invokeElement(action.invoke, action.options || {});
         })
     }
 

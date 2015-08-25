@@ -1,11 +1,10 @@
 'use strict';
 
 import React  from 'react';
-import u from 'underscore';
+import map from 'lodash/collection/map';
 import interact from'interact.js';
 import Section from 'app/entity/Section';
 import EditableStore from 'app/store/Editable';
-
 
 var Editable = React.createClass({
     getInitialState () {
@@ -100,7 +99,7 @@ var Editable = React.createClass({
                 <div ref={'placeholder0'} className="editable-section-placeholder">
                     <span className="fa fa-plus"></span>
                 </div>
-                {u.map(this.state.children, (child, key) => this.prepareComponents(child, key + 1))}
+                {map(this.state.children, (child, key) => this.prepareComponents(child, key + 1))}
             </div>
             /*jshint ignore:end */
         );

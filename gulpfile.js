@@ -90,7 +90,9 @@ gulp.task('scripts', ['lint'], function () {
             packageCache: {},
             paths: ['./src/'],
             fullPaths: true
-        }),
+        }).transform(require('browserify-css'), {
+            rootDir: './src'
+        }).transform('deamdify', {global: true}),
         watcher = watchify(bundler);
 
     return watcher
@@ -152,7 +154,7 @@ gulp.task('browserify', function () {
             fullPaths: true
         }).transform(require('browserify-css'), {
             rootDir: './src'
-        }),
+        }).transform('deamdify', {global: true}),
         watcher = watchify(bundler);
 
     return watcher

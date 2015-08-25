@@ -1,6 +1,6 @@
 'use strict';
 import InvalidArgumentException from 'app/exception/InvalidArgumentException';
-import u from 'underscore';
+import forEach from 'lodash/collection/forEach';
 import ParsingStrategy from './strategy/ParsingStrategy';
 
 /**
@@ -42,7 +42,7 @@ export default class Parser {
      * @constructor
      */
     constructor(strategies) {
-        u.each(strategies, strategy => assertStrategy(strategy));
+        forEach(strategies, strategy => assertStrategy(strategy));
         this.strategies = strategies || [];
     }
 
@@ -64,7 +64,7 @@ export default class Parser {
      */
     parse(element, strategies) {
         if (strategies instanceof Array) {
-            u.each(strategies, strategy => assertStrategy(strategy));
+            forEach(strategies, strategy => assertStrategy(strategy));
         } else {
             strategies = this.strategies;
         }
@@ -73,7 +73,7 @@ export default class Parser {
         }
 
         var data = {};
-        u.each(strategies, function (strategy) {
+        forEach(strategies, function (strategy) {
             if (strategy.parseable(element, data)) {
                 data = strategy.parse(element, data);
             }

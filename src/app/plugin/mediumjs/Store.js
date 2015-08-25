@@ -1,16 +1,15 @@
 import Reflux from 'reflux';
 import Actions from './Actions';
-import u from 'underscore';
+import assign from 'lodash/object/assign';
 
 export default {
     action: Reflux.createStore({
         init () {
             this.state = {triggeredAction: null};
             this.listenTo(Actions.action.triggerAction, this.triggerAction);
-            //this.listenTo(Actions.action.clearAction, this.clearAction);
         },
         setState (delta) {
-            this.state = u.extend(this.state, delta || {});
+            this.state =assign(this.state, delta || {});
             this.trigger(this.state);
         },
         clearAction () {

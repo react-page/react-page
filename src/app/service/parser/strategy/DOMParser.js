@@ -1,9 +1,9 @@
-import u from 'underscore';
+import forEach from 'lodash/collection/forEach';
 import ParserException from'app/exception/ParserException';
 import Editable from'app/entity/Editable';
 import Section from'app/entity/Section';
 import ParsingStrategy from './ParsingStrategy';
-import $ from'jquery';
+import 'app/pkg/wrap';
 
 /**
  * DOMParser is an parser strategy for transforming a DOM subtree into a normalized data model
@@ -37,11 +37,13 @@ export default class DOMParser extends ParsingStrategy {
             children.push(new Section('default', null, null, plugin.parse(div, options)));
         } else {
             if (sections.length < 1) {
-                $(element).contents().wrap('<div data-section="default"></div>');
+                var wrap = document.createElement('div');
+                wrap.dataset.section = 'default';
+                wrap.wrap(element);
                 sections = element.querySelectorAll('[data-section]');
             }
 
-            u.each(sections, function (section) {
+            forEach(sections, function (section) {
                 var plugin = this.pluginManager.get(section.dataset.section, section.dataset.version),
                     data = plugin.parse(section, options);
 

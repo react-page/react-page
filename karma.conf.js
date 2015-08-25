@@ -17,12 +17,12 @@ module.exports = function (config) {
         ],
         preprocessors: {
             'test/**/*.js': ['browserify'],
-            'src/app/**.js': ['babel', 'browserify', 'coverage']
+            'src/app/**.js': ['browserify', 'coverage']
         },
         browserify: {
             debug: true,
-            transform: ['browserify-css', 'babelify', 'browserify-istanbul'],
-            extensions: ['.js', '.jsx'],
+            transform: ['babelify',[{global: true}, 'deamdify'], 'browserify-css', 'browserify-istanbul'],
+            extensions: ['.js'],
             paths: ['./src']
         },
         plugins: [
@@ -37,14 +37,9 @@ module.exports = function (config) {
             // TODO add IE launcher: https://github.com/ory-am/editor/issues/6
         ],
         coverageReporter: {
-            dir : 'coverage/',
+            dir: 'coverage/',
             sourceStore: require('istanbul').Store.create('fslookup'),
-            reporters: [
-                {
-                    type: 'lcov',
-                    subdir: '.'
-                }
-            ]
+            reporters: [{type: 'lcov', subdir: '.'}]
         },
         reporters: [
             'dots',

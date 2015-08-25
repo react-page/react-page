@@ -1,5 +1,5 @@
 import React from 'react';
-import u from 'underscore';
+import map from 'lodash/collection/map';
 import Actions from './Actions';
 
 export default class Toolbar extends React.Component {
@@ -39,7 +39,7 @@ export default class Toolbar extends React.Component {
         return (
             /*jshint ignore:start */
             <div>
-                { u.map(this.props.actions, (action, i) => {
+                { map(this.props.actions, (action, i) => {
                     return (
                         <div key={i} className="toolbar-button">
                             <div className="toolbar-button-inner"

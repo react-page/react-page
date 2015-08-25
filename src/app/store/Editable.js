@@ -1,6 +1,6 @@
 import Reflux from 'reflux';
 import Actions from 'app/Actions';
-import u from 'underscore';
+import assign from 'lodash/object/assign';
 
 export default Reflux.createStore({
     init () {
@@ -8,7 +8,7 @@ export default Reflux.createStore({
         this.listenTo(Actions.toolbar.pluginDragBegin, this.pluginDrag);
     },
     setState (delta) {
-        this.state = u.extend(this.state, delta || {});
+        this.state = assign(this.state, delta || {});
         this.trigger(this.state);
     },
     pluginDrag (name, version, options) {

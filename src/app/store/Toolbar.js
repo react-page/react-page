@@ -1,6 +1,5 @@
 import Reflux from 'reflux';
 import Actions from 'app/Actions';
-import u from 'underscore';
 
 export default Reflux.createStore({
     init () {

@@ -3,7 +3,7 @@ import PluginNotFoundException from 'app/exception/PluginNotFoundException';
 import Repository from 'app/service/plugin/Repository';
 import InvalidArgumentException from 'app/exception/InvalidArgumentException';
 import React from 'react';
-import u from 'underscore';
+import _ from 'lodash';
 
 const cases = {
     working: [
@@ -67,10 +67,10 @@ const cases = {
 describe('Unit', function () {
     describe('Plugin', function () {
         it('should properly instantiate', function () {
-            u.each(cases.working, p => expect(new Plugin(p)).toBeDefined());
+            _.forEach(cases.working, p => expect(new Plugin(p)).toBeDefined());
         });
         it('should throw an exception when being passed invalid arguments', function () {
-            u.each(cases.exception, p => expect(() => new Plugin(p)).toThrowError(InvalidArgumentException));
+            _.forEach(cases.exception, p => expect(() => new Plugin(p)).toThrowError(InvalidArgumentException));
         });
     });
 });
