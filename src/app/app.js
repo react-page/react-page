@@ -29,7 +29,9 @@ class Editor {
 
     render(selector) {
         var elements = document.querySelectorAll(selector);
-        forEach(elements, this.startEditable.bind(this));
+        forEach(elements, (element) => {
+            this.startEditable(element);
+        });
 
         this.toolbar = document.createElement('div');
         document.body.appendChild(this.toolbar);

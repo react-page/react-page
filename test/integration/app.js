@@ -19,8 +19,8 @@ function createDummyMarkup(html) {
 
 describe('Integration:', function () {
     describe('Editor', function () {
-        it('should not throw an exception when passing a dom element', function () {
-            _.forEach(tests, html => {
+        _.forEach(tests, html => {
+            it('should not properly instantiate test case: ' + html, function () {
                 createDummyMarkup(html);
                 expect(new Editor('.editable')).toBeDefined()
             });

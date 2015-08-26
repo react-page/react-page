@@ -8,6 +8,10 @@ import PluginManager from 'app/service/plugin/PluginManager';
 import Repository from 'app/service/plugin/Repository';
 import Plugin from 'app/service/plugin/Plugin';
 
+jasmine.pp = function (obj) {
+    return JSON.stringify(obj, undefined, 2);
+};
+
 const broken = [];
 const cases = [
     // Automatically wrap unknown content in paragraphs
@@ -18,24 +22,10 @@ const cases = [
         '   <span>pfa</span>' +
         '   <p>p2</p>' +
         '</div>',
-        expected: new Editable('1', [
-            new Section('default', null, {tag: 'p'}, '<p>p1</p>'),
-            new Section('default', null, {tag: 'p'}, '<p>pfa</p>'),
-            new Section('default', null, {tag: 'p'}, '<p>p2</p>')
-        ], '')
-    },
-    // Automatically wrap unknown content in paragraphs, remove unwanted tags and attributes
-    {
-        html: '' +
-        '<div class="editable">' +
-        '   <p>p1</p>' +
-        '   <span style="background: blue;"><iframe></iframe><strong  width="100" style="background: green;">strong</strong></span>' +
-        '   <p>p2</p>' +
-        '</div>',
-        expected: new Editable('1', [
-            new Section('default', null, {tag: 'p'}, '<p>p1</p>'),
-            new Section('default', null, {tag: 'p'}, '<p><strong>strong</strong></p>'),
-            new Section('default', null, {tag: 'p'}, '<p>p2</p>')
+        expected: new Editable(null, [
+            new Section('default', null, null, '<p>p1</p>'),
+            new Section('default', null, null, '<p>pfa</p>'),
+            new Section('default', null, null, '<p>p2</p>')
         ], '')
     },
     // Detect images and split the sections automatically
@@ -46,12 +36,12 @@ const cases = [
         '   <div>abc<img src="foobar.png">def</div>' +
         '   <p>p2</p>' +
         '</div>',
-        expected: new Editable('1', [
-            new Section('default', null, {tag: 'p'}, '<p>p1</p>'),
-            new Section('default', null, {tag: 'p'}, '<p>abc</p>'),
+        expected: new Editable(null, [
+            new Section('default', null, null, '<p>p1</p>'),
+            new Section('default', null, null, '<p>abc</p>'),
             new Section('figure', null, null, '<figure><img src="foobar.png"></figure>'),
-            new Section('default', null, {tag: 'p'}, '<p>def</p>'),
-            new Section('default', null, {tag: 'p'}, '<p>p2</p>')
+            new Section('default', null, null, '<p>def</p>'),
+            new Section('default', null, null, '<p>p2</p>')
         ], '')
     },
     // An editable with paragraphs only
@@ -61,9 +51,9 @@ const cases = [
         '   <p>p1</p>' +
         '   <p>p2</p>' +
         '</div>',
-        expected: new Editable('1', [
-            new Section('default', null, {tag: 'p'}, '<p>p1</p>'),
-            new Section('default', null, {tag: 'p'}, '<p>p2</p>')
+        expected: new Editable(null, [
+            new Section('default', null, null, '<p>p1</p>'),
+            new Section('default', null, null, '<p>p2</p>')
         ], '')
     },
     // An editable with sections only
@@ -73,9 +63,9 @@ const cases = [
         '   <section data-extension="foobar">Title</section>' +
         '   <section data-extension="foobar" data-version="1.0">Content</section>' +
         '</div>',
-        expected: new Editable('2', [
-            new Section('foobar', null, null, '<div data-extension="foobar">Title</div>'),
-            new Section('foobar', '1.0', null, '<div data-extension="foobar" data-version="1.0">Content</div>')
+        expected: new Editable(null, [
+            new Section('foobar', null, null, '<section data-extension="foobar">Title</section>'),
+            new Section('foobar', '1.0', null, '<section data-extension="foobar" data-version="1.0">Content</section>')
         ], 'title')
     },
     // An editable paragraphs and other text nodes
@@ -88,12 +78,42 @@ const cases = [
         '   <p>p2</p>' +
         '   <blockquote>block</blockquote>' +
         '</div>',
-        expected: new Editable('3', [
-            new Section('default', null, {tag: 'h1'}, '<h1>h1</h1>'),
-            new Section('default', null, {tag: 'p'}, '<p>p1</p>'),
-            new Section('default', null, {tag: 'h3'}, '<h3>h3</h3>'),
-            new Section('default', null, {tag: 'p'}, '<p>p2</p>'),
-            new Section('default', null, {tag: 'blockquote'}, '<blockquote>block</blockquote>')
+        expected: new Editable(null, [
+            new Section('default', null, null, '<h1>h1</h1>'),
+            new Section('default', null, null, '<p>p1</p>'),
+            new Section('default', null, null, '<h3>h3</h3>'),
+            new Section('default', null, null, '<p>p2</p>'),
+            new Section('default', null, null, '<blockquote>block</blockquote>')
+        ], '')
+    },
+    {
+        html: '' +
+        '<div class="editable">' +
+        '   foo' +
+        '   <h1>h1</h1>' +
+        '   bar' +
+        '   <h1>h1</h1>' +
+        '   baz <b>foo</b>bar' +
+        '</div>',
+        expected: new Editable(null, [
+            new Section('default', null, null, '<p>foo</p>'),
+            new Section('default', null, null, '<h1>h1</h1>'),
+            new Section('default', null, null, '<p>bar</p>'),
+            new Section('default', null, null, '<h1>h1</h1>'),
+            new Section('default', null, null, '<p>baz <b>foo</b>bar</p>')
+        ], '')
+    },
+    {
+        html: '' +
+        '<div class="editable">' +
+        '   foo' +
+        '   <p>foo <b>bar</b></p>' +
+        '   bar' +
+        '</div>',
+        expected: new Editable(null, [
+            new Section('default', null, null, '<p>foo</p>'),
+            new Section('default', null, null, '<p>foo <b>bar</b></p>'),
+            new Section('default', null, null, '<p>bar</p>')
         ], '')
     },
     // An editable paragraphs, other text nodes and extensions
@@ -107,13 +127,13 @@ const cases = [
         '   <p>p2</p>' +
         '   <blockquote>block</blockquote>' +
         '</div>',
-        expected: new Editable('3', [
-            new Section('default', null, {tag: 'h1'}, '<h1>h1</h1>'),
-            new Section('default', null, {tag: 'p'}, '<p>p1</p>'),
+        expected: new Editable(null, [
+            new Section('default', null, null, '<h1>h1</h1>'),
+            new Section('default', null, null, '<p>p1</p>'),
             new Section('foobar', '1.0', null, '<div data-extension="foobar" data-version="1.0">Content</div>'),
-            new Section('default', null, {tag: 'h3'}, '<h3>h3</h3>'),
-            new Section('default', null, {tag: 'p'}, '<p>p2</p>'),
-            new Section('default', null, {tag: 'blockquote'}, '<blockquote>block</blockquote>')
+            new Section('default', null, null, '<h3>h3</h3>'),
+            new Section('default', null, null, '<p>p2</p>'),
+            new Section('default', null, null, '<blockquote>block</blockquote>')
         ], '')
     },
     // An editable paragraphs, other text nodes and extensions
@@ -127,13 +147,13 @@ const cases = [
         '   <p>p2</p>' +
         '   <blockquote>block</blockquote>' +
         '</div>',
-        expected: new Editable('3', [
-            new Section('default', null, {tag: 'h1'}, '<h1>h1</h1>'),
-            new Section('default', null, {tag: 'p'}, '<p>p1</p>'),
+        expected: new Editable(null, [
+            new Section('default', null, null, '<h1>h1</h1>'),
+            new Section('default', null, null, '<p>p1</p>'),
             new Section('foobar', '1.0', null, '<div data-extension="foobar" data-version="1.0">Content</div>'),
-            new Section('default', null, {tag: 'h3'}, '<h3>h3</h3>'),
-            new Section('default', null, {tag: 'p'}, '<p>p2</p>'),
-            new Section('default', null, {tag: 'blockquote'}, '<blockquote>block</blockquote>')
+            new Section('default', null, null, '<h3>h3</h3>'),
+            new Section('default', null, null, '<p>p2</p>'),
+            new Section('default', null, null, '<blockquote>block</blockquote>')
         ], '')
     }
 ];
@@ -181,9 +201,10 @@ describe('Unit', function () {
             var pm = new PluginManager([repository]);
 
             var dp = new DOMParser(pm);
-            _.forEach(cases, function (d) {
-                var element = createDummyHTMLElement(d.html), p = dp.parse(element);
-                it('should properly parse: ' + d.html, function () {
+            _.forEach(cases, function (d, num) {
+                it('should properly parse set ' + num + ': ' + d.html, function () {
+                    var element = createDummyHTMLElement(d.html),
+                        p = dp.parse(element);
                     // Clean up, because IDs are generated randomly.
                     // TODO Fix hack
                     d.expected.sections = _.map(d.expected.sections, (v, k) => {
@@ -194,7 +215,7 @@ describe('Unit', function () {
                 });
             });
 
-            it('should properly reject data it does not understand', function () {
+            xit('should properly reject data it does not understand', function () {
                 var dp = new DOMParser(pm);
                 _.forEach(broken, v => expect(dp.parse(createDummyHTMLElement(v))).toThrowError(ParserException));
             });
