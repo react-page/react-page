@@ -1,6 +1,6 @@
 .editable-object {
 
-    .editable-section {
+    .deprecated.editable-section {
         outline: $editable-outline;
         transition: all 250ms ease;
         cursor: pointer;
@@ -12,6 +12,13 @@
 
         &.active {
             cursor: default;
+        }
+    }
+
+    [contenteditable=true], input, textarea {
+        &:focus {
+            border: none;
+            outline: none;
         }
     }
 

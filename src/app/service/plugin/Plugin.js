@@ -50,6 +50,7 @@ export default class Plugin {
         this.toolbarcb = options.toolbar;
         this.parsecb = options.parse;
         this.createcb = options.create;
+        this.join = options.join || false;
     }
 
     focus(context) {
@@ -62,6 +63,7 @@ export default class Plugin {
 
     parse(element, options) {
         if (typeof this.parsecb === 'function') {
+            console.log('cb parse',this.name, this.parsecb(element, options));
             return this.parsecb(element, options);
         }
         return {innerHTML: element.innerHTML};

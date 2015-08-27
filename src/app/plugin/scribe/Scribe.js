@@ -3,13 +3,14 @@ import Plugin from 'app/service/plugin/Plugin';
 import Section from './Section';
 import Toolbar from './Toolbar';
 
-export default class MediumJS extends Plugin {
+export default class Scribe extends Plugin {
     constructor() {
         super({
-            name: 'mediumjs',
+            name: 'default',
             version: '0.0.1',
             section: Section,
-            toolbar: Toolbar
+            toolbar: Toolbar,
+            join: true
         });
     }
 }

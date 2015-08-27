@@ -32,7 +32,6 @@ class Editor {
         forEach(elements, (element) => {
             this.startEditable(element);
         });
-
         this.toolbar = document.createElement('div');
         document.body.appendChild(this.toolbar);
         /*jshint ignore:start */
@@ -47,7 +46,6 @@ class Editor {
         /*jshint ignore:end */
     }
 }
-
 // FIXME
 if (window !== undefined) {
     window.ory = {

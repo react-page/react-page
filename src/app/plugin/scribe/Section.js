@@ -4,8 +4,8 @@ import Scribe from 'scribe-editor';
 import Store from './Store';
 
 export default class Section extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {instance: null, focus: false};
     }
 
@@ -39,6 +39,9 @@ export default class Section extends React.Component {
 
     isInFocus() {
         return this.state.focus;
+    }
+
+    keyPress() {
     }
 
     render() {

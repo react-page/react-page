@@ -23,9 +23,7 @@ export default class DOMParser extends ParsingStrategy {
     parse(element, data, options) {
         var dataset = element.dataset, children = [],
             field = dataset.field || '',
-            nodes = element.childNodes,
-            editable = new Editable(dataset.id, [], field),
-            plugin = this.pluginManager.get('default');
+            nodes = element.childNodes;
 
         if (dataset.id === undefined) {
             // TODO how to ids
@@ -33,21 +31,25 @@ export default class DOMParser extends ParsingStrategy {
             dataset.id = 0;
         }
 
+
+        // FIXME
+        /**
+         * ...
+         */
         if (nodes.length < 1) {
-            console.log('1');
-            var div = document.createElement('p');
+            var div = document.createElement('p'),
+                plugin = this.pluginManager.get('default');
             div.innerHTML = '<br>';
-            element.appendChild(div);
             children.push(new Section('default', null, null, plugin.parse(div, options)));
         } else {
-            forEach(nodes, function (node) {
+            forEach(nodes, (node, k) => {
+                var plugin = this.pluginManager.get('default');
                 if (node.nodeType === Node.TEXT_NODE) {
                     if (node.textContent.trim().length < 1) {
                         return;
                     }
                     var e = document.createElement('p');
                     e.innerText = node.textContent.trim();
-                    element.appendChild(e);
                     children.push(new Section('default', null, null, plugin.parse(e, options)));
                     return;
                 }
@@ -55,32 +57,39 @@ export default class DOMParser extends ParsingStrategy {
                 var extension = node.dataset.extension,
                     version = node.dataset.version;
 
-                if (!extension && editables.indexOf(node.tagName) > -1) {
-                    extension = 'default';
-                    version = null;
+                if (extension === undefined && editables.indexOf(node.tagName.toLowerCase()) > -1) {
+                    var div = document.createElement('div');
+                    div.innerHTML = node.outerHTML;
+                    children.push(new Section('default', null, null, plugin.parse(div, options)));
+                    return;
                 } else if (!extension) {
                     var p = document.createElement('p');
                     p.innerText = node.textContent.trim();
-                    element.appendChild(p);
                     children.push(new Section('default', null, null, plugin.parse(node, options)));
                     return;
                 }
 
                 plugin = this.pluginManager.get(extension, version);
-                children.push(new Section(extension, version, node.dataset.args,  plugin.parse(node, options)));
-            }.bind(this));
+                children.push(new Section(extension, version, node.dataset.args, plugin.parse(node, options)));
+            });
         }
-        editable.sections = children;
 
-        return editable;
+        // FIXME
+        //for (var k = 0; k < children.length - 1; k++) {
+        //    if (this.pluginManager.get(children[k].name, children[k].version).join !== true) {
+        //        continue;
+        //    }
+        //    for (var z = k; z < children.length; z++) {
+        //        if (children[k].name !== children[z].name || children[k].version !== children[z].version) {
+        //            break;
+        //        }
+        //    }
+        //}
+
+        return new Editable(dataset.id, children, field);
     }
 
     parseable(element, options) {
-        try {
-            this.parse(element, options);
-            return true;
-        } catch (e) {
-            return false;
-        }
+        return true;
     }
 }

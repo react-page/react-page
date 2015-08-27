@@ -6,25 +6,26 @@ import interact from'interact.js';
 import Section from 'app/entity/Section';
 import EditableStore from 'app/store/Editable';
 
-var Editable = React.createClass({
-    getInitialState () {
-        return {
-            children: this.props.model.sections,
+export default class Editable extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            children: props.model.sections || [],
             drag: {plugin: '', version: '', options: {}}
         };
-    },
-    getInitialProps() {
-        return {overlap: 0.5}
-    },
-    componentDidUpdate(){
+    }
+
+    componentDidUpdate() {
         this.initializeDroppableZones(this.state.children);
-    },
-    componentDidMount(){
+    }
+
+    componentDidMount() {
         this.initializeDroppableZones(this.state.children);
         EditableStore.listen((plugin) => {
             this.setState({drag: plugin.lastDraggedPlugin});
         });
-    },
+    }
+
     initializeDroppableZones() {
         for (var i = 0; i <= this.state.children.length; i++) {
             var element = React.findDOMNode(this.refs['placeholder' + (i).toString()]);
@@ -34,7 +35,8 @@ var Editable = React.createClass({
             }
             this.interact(element, i);
         }
-    },
+    }
+
     interact(element, key) {
         interact(element).dropzone({
             overlap: this.props.overlap,
@@ -62,8 +64,9 @@ var Editable = React.createClass({
                 this.setState({children: children});
             }.bind(this)
         });
-    },
-    prepareComponents(child, key) {
+    }
+
+    renderComponent(child, key) {
         var pluginManager = this.props.editor.plugins,
             plugin = pluginManager.get('default'),
             Section = plugin.Section,
@@ -91,19 +94,23 @@ var Editable = React.createClass({
             </div>
             /*jshint ignore:end */
         );
-    },
-    render(){
+    }
+
+    render() {
         return (
             /*jshint ignore:start */
             <div className="editable-object">
                 <div ref={'placeholder0'} className="editable-section-placeholder">
                     <span className="fa fa-plus"></span>
                 </div>
-                {map(this.state.children, (child, key) => this.prepareComponents(child, key + 1))}
+                {map(this.state.children, (child, key) => this.renderComponent(child, key + 1))}
             </div>
             /*jshint ignore:end */
         );
     }
-});
+}
 
-module.exports = Editable;
+
+Editable.initialProps = {
+    overlap: 0.5
+};

@@ -28,6 +28,18 @@ const cases = [
             new Section('default', null, null, '<p>p2</p>')
         ], '')
     },
+    {
+        html: '' +
+        '<div class="editable">' +
+        '   <p>p1</p>' +
+        '   <span>pfa</span>' +
+        '   <p>p2</p>' +
+        '</div>',
+        joins: [true, false],
+        expected: new Editable(null, [
+            new Section('default', null, null, '<p>p1</p><p>pfa</p><p>p2</p>')
+        ], '')
+    },
     // Detect images and split the sections automatically
     {
         html: '' +
@@ -136,6 +148,23 @@ const cases = [
             new Section('default', null, null, '<blockquote>block</blockquote>')
         ], '')
     },
+    {
+        html: '' +
+        '<div class="editable">' +
+        '   <h1>h1</h1>' +
+        '   <p>p1</p>' +
+        '   <div data-extension="foobar" data-version="1.0">Content</div>' +
+        '   <h3>h3</h3>' +
+        '   <p>p2</p>' +
+        '   <blockquote>block</blockquote>' +
+        '</div>',
+        joins: [true, false],
+        expected: new Editable(null, [
+            new Section('default', null, null, '<h1>h1</h1><p>p1</p>'),
+            new Section('foobar', '1.0', null, '<div data-extension="foobar" data-version="1.0">Content</div>'),
+            new Section('default', null, null, '<h3>h3</h3><p>p2</p><blockquote>block</blockquote>'),
+        ], '')
+    },
     // An editable paragraphs, other text nodes and extensions
     {
         html: '' +
@@ -178,7 +207,7 @@ describe('Unit', function () {
                 new DOMParser();
             });
 
-            var repository = new Repository([
+            var plugins = [
                 new MockPlugin({
                     version: '0.0.1',
                     name: 'default',
@@ -197,11 +226,16 @@ describe('Unit', function () {
                         }
                     })
                 })
-            ]);
+            ];
+            var repository = new Repository(plugins);
             var pm = new PluginManager([repository]);
 
             var dp = new DOMParser(pm);
             _.forEach(cases, function (d, num) {
+                var joins = d.joins || [false, false];
+                _.forEach(joins, (join, k) => {
+                    plugins[k].join = join;
+                });
                 it('should properly parse set ' + num + ': ' + d.html, function () {
                     var element = createDummyHTMLElement(d.html),
                         p = dp.parse(element);
