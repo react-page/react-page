@@ -46,6 +46,7 @@ class Editor {
         /*jshint ignore:end */
     }
 }
+
 // FIXME
 if (window !== undefined) {
     window.ory = {

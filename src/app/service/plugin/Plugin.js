@@ -63,7 +63,6 @@ export default class Plugin {
 
     parse(element, options) {
         if (typeof this.parsecb === 'function') {
-            console.log('cb parse',this.name, this.parsecb(element, options));
             return this.parsecb(element, options);
         }
         return {innerHTML: element.innerHTML};
@@ -87,3 +86,4 @@ export default class Plugin {
         throw 'You need to implement getReactComponent!';
     }
 }
+

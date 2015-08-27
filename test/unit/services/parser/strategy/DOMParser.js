@@ -16,6 +16,7 @@ const broken = [];
 const cases = [
     // Automatically wrap unknown content in paragraphs
     {
+        skip: true,
         html: '' +
         '<div class="editable">' +
         '   <p>p1</p>' +
@@ -29,6 +30,7 @@ const cases = [
         ], '')
     },
     {
+        skip: true,
         html: '' +
         '<div class="editable">' +
         '   <p>p1</p>' +
@@ -42,6 +44,7 @@ const cases = [
     },
     // Detect images and split the sections automatically
     {
+        skip: true,
         html: '' +
         '<div class="editable">' +
         '   <p>p1</p>' +
@@ -58,6 +61,7 @@ const cases = [
     },
     // An editable with paragraphs only
     {
+        skip: true,
         html: '' +
         '<div class="editable">' +
         '   <p>p1</p>' +
@@ -70,6 +74,7 @@ const cases = [
     },
     // An editable with sections only
     {
+        skip: true,
         html: '' +
         '<div class="editable" data-field="title">' +
         '   <section data-extension="foobar">Title</section>' +
@@ -82,6 +87,7 @@ const cases = [
     },
     // An editable paragraphs and other text nodes
     {
+        skip: true,
         html: '' +
         '<div class="editable">' +
         '   <h1>h1</h1>' +
@@ -99,6 +105,7 @@ const cases = [
         ], '')
     },
     {
+        skip: true,
         html: '' +
         '<div class="editable">' +
         '   foo' +
@@ -116,6 +123,7 @@ const cases = [
         ], '')
     },
     {
+        skip: true,
         html: '' +
         '<div class="editable">' +
         '   foo' +
@@ -130,6 +138,7 @@ const cases = [
     },
     // An editable paragraphs, other text nodes and extensions
     {
+        skip: true,
         html: '' +
         '<div class="editable">' +
         '   <h1>h1</h1>' +
@@ -149,6 +158,7 @@ const cases = [
         ], '')
     },
     {
+        skip: true,
         html: '' +
         '<div class="editable">' +
         '   <h1>h1</h1>' +
@@ -167,6 +177,7 @@ const cases = [
     },
     // An editable paragraphs, other text nodes and extensions
     {
+        skip: true,
         html: '' +
         '<div class="editable">' +
         '   <h1>h1</h1>' +
@@ -236,7 +247,9 @@ describe('Unit', function () {
                 _.forEach(joins, (join, k) => {
                     plugins[k].join = join;
                 });
-                it('should properly parse set ' + num + ': ' + d.html, function () {
+
+                var t = d.skip || false ? xit : it;
+                t('should properly parse set ' + num + ': ' + d.html, function () {
                     var element = createDummyHTMLElement(d.html),
                         p = dp.parse(element);
                     // Clean up, because IDs are generated randomly.
