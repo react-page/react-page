@@ -2,29 +2,50 @@ import React from 'react';
 import Parser from 'app/service/parser/Parser';
 import InvalidArgumentException from 'app/exception/InvalidArgumentException';
 import ParsingStrategy from 'app/service/parser/strategy/ParsingStrategy';
+import DummyDOM from 'app/pkg/dummyDOM';
+import forEach from 'lodash/collection/forEach';
 
 class Strategy extends ParsingStrategy {
-    constructor(parseable, parse) {
-        super(null);
+    constructor(parseable, parse, expectedCalls) {
+        super();
         this.can = parseable;
         this.do = parse;
+        this.expectedCalls = expectedCalls;
+        this.actualCalls = 0;
     }
 
-    parse(element, previous) {
-        return this.do(element, previous);
+    parse(element) {
+        var result = this.do(element);
+        this.actualCalls += 4;
+        return new Promise(function (resolve) {
+            return resolve(result);
+        });
     }
 
-    parseable(element, previous) {
-        return this.can(element, previous);
+    parseable(element) {
+        var result = this.can(element);
+        this.actualCalls += 2;
+        return new Promise(function (resolve, reject) {
+            if (result) {
+                return resolve();
+            }
+            return reject();
+        });
     }
 }
 
-function createDummyHTMLElement(html) {
-    var div = document.createElement('div');
-    div.insertAdjacentHTML('afterbegin', html);
-    document.body.appendChild(div);
-    return div.children[0];
-}
+const empty = {};
+var cannot = new Strategy(() => false, () => empty, 2);
+var can = new Strategy(() => true, () => {
+    return {foo: 'bar'};
+}, 6);
+var unreachable = new Strategy(() => false, () => empty, 0);
+var cases = [
+    {strategies: [can], expects: {foo: 'bar'}},
+    {strategies: [can, unreachable], expects: {foo: 'bar'}},
+    {strategies: [cannot, can], expects: {foo: 'bar'}},
+    {strategies: [cannot], error: true}
+];
 
 describe('Unit', function () {
     describe('Parser', function () {
@@ -34,23 +55,35 @@ describe('Unit', function () {
             });
         });
 
-        it('should choose the right strategies', function () {
-            var called = {can: false, cannot: false},
-                can = new Strategy(function () {
-                    return true;
-                }, function () {
-                    called.can = true;
-                }),
-                cannot = new Strategy(function () {
-                    return false;
-                }, function () {
-                    called.cannot = true;
-                }),
-                parser = new Parser([can, cannot]);
+        forEach(cases, (c, num) => {
+            describe('parse case ' + num, function () {
+                var strategies = c.strategies,
+                    data, error = false;
+                beforeEach(function (done) {
+                    var parser = new Parser(strategies);
+                    var p = parser.parse(DummyDOM.appendHTML('<div></div>'));
+                    p.then((d) => {
+                        data = d;
+                        done();
+                    });
+                    p.catch(() => {
+                        error = true;
+                        done();
+                    });
+                });
 
-            parser.parse(createDummyHTMLElement('<div></div>'));
-            expect(called.can).toBe(true);
-            expect(called.cannot).toBe(false);
-        });
+                it('should choose the right strategies', function () {
+                    forEach(strategies, (strategy) => {
+                        expect(strategy.expectedCalls).toBe(strategy.actualCalls);
+                        strategy.actualCalls = 0;
+                    });
+                    if (c.error) {
+                        expect(error).toBeTruthy();
+                        return;
+                    }
+                    expect(data).toEqual(c.expects);
+                });
+            });
+        })
     });
 });

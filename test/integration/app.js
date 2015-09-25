@@ -20,7 +20,7 @@ function createDummyMarkup(html) {
 describe('Integration:', function () {
     describe('Editor', function () {
         _.forEach(tests, html => {
-            it('should not properly instantiate test case: ' + html, function () {
+            xit('should properly instantiate test case: ' + html, function () {
                 createDummyMarkup(html);
                 expect(new Editor('.editable')).toBeDefined()
             });

@@ -8,11 +8,11 @@ export default class ParsingStrategy {
         this.pluginManager = pluginManager;
     }
 
-    parse(element, data, options) {
+    parse(element) {
         throw 'Not implemented';
     }
 
-    parseable(element, data) {
+    parseable(element) {
         throw 'Not implemented';
     }
 }

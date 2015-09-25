@@ -1,7 +1,9 @@
 'use strict';
 import InvalidArgumentException from 'app/exception/InvalidArgumentException';
 import forEach from 'lodash/collection/forEach';
+import map from 'lodash/collection/map';
 import ParsingStrategy from './strategy/ParsingStrategy';
+import async from 'async';
 
 /**
  * Checks if the given array consists of valid strategies. Throws an error,
@@ -23,9 +25,9 @@ function assertStrategy(strategy) {
  *     // var myStrategy = new MyStrategy();
  *     var Parser = new Parser([myStrategy]);
  *     var element = document.getElementById('some-editable-object');
- *     var data = Parser.extract(element);
+ *     var data = Parser.parse(element);
  *     // if you want to run the extract command with different strategies do:
- *     var data = Parser.extract(element, [myOtherStrategy]);
+ *     var data = Parser.parse(element, [myOtherStrategy]);
  * </code>
  */
 export default class Parser {
@@ -53,9 +55,9 @@ export default class Parser {
      *
      * <code>
      *     var element = document.getElementById('some-editable-object');
-     *     var data = Parser.extract(element);
+     *     var data = Parser.parse(element);
      *     // if you want to run the extract command with different strategies do:
-     *     var data = Parser.extract(element, [myOtherStrategy]);
+     *     var data = Parser.parse(element, [myOtherStrategy]);
      * </code>
      *
      * @param element usually an editable object (should be of type HTMLElement)
@@ -72,12 +74,25 @@ export default class Parser {
             throw new InvalidArgumentException('element', 'HTMLElement', element);
         }
 
-        var data = {};
-        forEach(strategies, function (strategy) {
-            if (strategy.parseable(element, data)) {
-                data = strategy.parse(element, data);
-            }
+        return new Promise(function (resolve, reject) {
+            var series = map(strategies, function (strategy) {
+                return function (callback) {
+                    var parseable = strategy.parseable(element);
+
+                    parseable.then(() => {
+                        strategy.parse(element).then(resolve);
+                        callback(true, null);
+                    });
+                    parseable.catch(() => {
+                        callback(null, null);
+                    });
+                }
+            });
+            async.series(series, function(finished) {
+                if (finished !== true) {
+                    reject();
+                }
+            });
         });
-        return data;
     }
 }

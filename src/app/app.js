@@ -2,15 +2,12 @@
 import React from 'react';
 import forEach from 'lodash/collection/forEach';
 import Editable from 'app/components/Editable';
-import Toolbar from 'app/components/Toolbar';
 import PluginManager from 'app/service/plugin/PluginManager';
 import Parser from 'app/service/parser/Parser';
 import DomParser from 'app/service/parser/strategy/DOMParser';
 import interact from 'interact.js';
 import DefaultPluginManagerFactory from 'app/factory/DefaultPluginManagerFactory';
-
-// Enable interact's dynamic drop feature.
-interact.dynamicDrop(true);
+import SelectionChange from 'app/lib/selectionchange-polyfill';
 
 /**
  *
@@ -22,6 +19,9 @@ interact.dynamicDrop(true);
  */
 class Editor {
     constructor(selector, options) {
+        // Enable interact's dynamic drop feature.
+        interact.dynamicDrop(true);
+        SelectionChange().start();
         this.plugins = DefaultPluginManagerFactory.create();
         this.parser = new Parser([new DomParser(this.plugins)]);
         this.render(selector);
@@ -32,11 +32,6 @@ class Editor {
         forEach(elements, (element) => {
             this.startEditable(element);
         });
-        this.toolbar = document.createElement('div');
-        document.body.appendChild(this.toolbar);
-        /*jshint ignore:start */
-        React.render(<Toolbar editor={ this }/>, this.toolbar);
-        /*jshint ignore:end */
     }
 
     startEditable(element) {

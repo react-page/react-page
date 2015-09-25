@@ -1,3 +1,7 @@
+import uuid from 'app/pkg/uuid';
+import forEach from 'lodash/collection/forEach';
+import Section from './Section';
+
 /**
  * Editable is the model for all editable objects, such as articles or blog posts.
  */
@@ -6,16 +10,32 @@ export default class Editable {
      * Creates a new Editable entity.
      *
      * @example
-     * // var sections = [new Section(....
-     * var e = new Editable('123', sections, 'title');
+     * var sections = [
+     *      new Section({
+     *          uuid: '02912fd7-94c2-4779-b2df-2397e35f5e66'
+     *          plugin: 'myPlugin',
+     *          version: '1.0',
+     *          options: {enableTables: true},
+     *          data: {innerHTML: '...'}
+     *      })
+     * ];
      *
-     * @param {string} uuid A unique ID to identify this editable area
-     * @param {Section[]} sections
-     * @param {string} field A field name (compare form fields). E.g. title, description, content. Can be empty.
+     * var editable = new Editable({
+     *      uuid: '02912fd7-94c2-4779-b2df-2397e35f5e66',
+     *      field: 'title',
+     *      sections: sections
+     * });
+     *
+     * @param {data} data
      */
-    constructor(uuid, sections, field) {
-        this.uuid = uuid || '';
-        this.field = field || '';
-        this.sections = sections || [];
+    constructor(data) {
+        data = data || {};
+        this.uuid = data.uuid;
+        this.tid = data.uuid ? '' : uuid();
+        this.field = data.field || '';
+        this.sections = [];
+        forEach(data.sections || [], (section) => {
+            this.sections.push(new Section(section));
+        });
     }
 }

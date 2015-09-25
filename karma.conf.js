@@ -11,7 +11,11 @@ module.exports = function (config) {
         files: [
             'test/**/*.js',
             {
-                pattern: 'src/app/**.js',
+                pattern: 'src/app/*.js',
+                watched: true, included: false, served: false
+            },
+            {
+                pattern: 'src/app/**/*.js',
                 watched: true, included: false, served: false
             }
         ],
