@@ -4,18 +4,6 @@ import {Component} from 'react';
 import React from 'react';
 import Actions from 'app/Actions';
 
-class Toolbar extends React.Component {
-    render() {
-        return (
-            /*jshint ignore:start */
-            <div className="text-center">
-                Plugin does not provide a toolbar, sorry :(
-            </div>
-            /*jshint ignore:end */
-        );
-    }
-}
-
 export default class Plugin {
     constructor(options) {
         var reg = /([0-9]\.)+[0-9]/i;
@@ -73,17 +61,6 @@ export default class Plugin {
             return this.createcb();
         }
         return new Section(this.name, this.version, this.args, {innerHTML: '<p>Click in this area to write text</p>'});
-    }
-
-    toolbar() {
-        if (typeof this.toolbarcb === 'function') {
-            return this.toolbarcb();
-        }
-        return {};
-    }
-
-    getReactComponent() {
-        throw 'You need to implement getReactComponent!';
     }
 }
 

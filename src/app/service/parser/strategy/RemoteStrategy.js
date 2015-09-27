@@ -1,29 +1,29 @@
 import ParsingStrategy from './ParsingStrategy';
 import request from 'superagent';
+import isEmpty from 'lodash/lang/isEmpty';
+
+function parseable(element) {
+    return new Promise(function (resolve, reject) {
+        var resource = element.dataset.resource || {};
+        if (resource.length > 0) {
+            resolve();
+        } else {
+            reject();
+        }
+    });
+}
 
 export default class DOMParser extends ParsingStrategy {
-    parseable(element) {
-        return new Promise(function (resolve, reject) {
-            var resource = element.dataset.resource;
-            if (resource !== undefined && resource.length > 0) {
-                resolve();
-            } else {
-                reject();
-            }
-        });
-    }
-
     parse(element) {
+        var attr = element.attributes;
+
         return new Promise(function (resolve, reject) {
-            request
-                .get(element.dataset.resource)
-                .end(function(err, res){
-                    if (err === null && res.ok) {
-                        resolve(res.body);
-                    } else {
-                        reject(res.text);
-                    }
-                });
+            parseable(element).then(() => {
+                request.get(element.dataset.resource)
+                    .end((err, res) => isEmpty(err) ? resolve(res) : reject({message: res.text}));
+            }).catch(() => {
+                reject()
+            });
         });
     }
 }

@@ -51,6 +51,7 @@
     "react": "^0.13.0",
     "reflux": "~0.2.7",
     "scribe-editor": "^2.0.0",
+    "superagent-mock": "^1.7.0",
     "superagent-mocker": "^0.1.6",
     "undo.js": "^0.2.0",
     "vinyl-source-stream": "1.1.0",

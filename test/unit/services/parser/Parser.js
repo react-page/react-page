@@ -4,47 +4,49 @@ import InvalidArgumentException from 'app/exception/InvalidArgumentException';
 import ParsingStrategy from 'app/service/parser/strategy/ParsingStrategy';
 import DummyDOM from 'app/pkg/dummyDOM';
 import forEach from 'lodash/collection/forEach';
+import isEmpty from 'lodash/lang/isEmpty';
 
 class Strategy extends ParsingStrategy {
-    constructor(parseable, parse, expectedCalls) {
+    constructor(parse) {
         super();
-        this.can = parseable;
         this.do = parse;
-        this.expectedCalls = expectedCalls;
-        this.actualCalls = 0;
+        this.called = 0;
     }
 
     parse(element) {
-        var result = this.do(element);
-        this.actualCalls += 4;
-        return new Promise(function (resolve) {
-            return resolve(result);
-        });
-    }
-
-    parseable(element) {
-        var result = this.can(element);
-        this.actualCalls += 2;
-        return new Promise(function (resolve, reject) {
-            if (result) {
-                return resolve();
-            }
-            return reject();
-        });
+        this.called++;
+        var result = this.do(element),
+            options = result.options || {},
+            data = result.data || {};
+        if (isEmpty(options) && isEmpty(data.length)) {
+            return new Promise((resolve, reject) => reject());
+        }
+        return new Promise((resolve) => resolve({data: data, options: options}));
     }
 }
 
-const empty = {};
-var cannot = new Strategy(() => false, () => empty, 2);
-var can = new Strategy(() => true, () => {
-    return {foo: 'bar'};
-}, 6);
-var unreachable = new Strategy(() => false, () => empty, 0);
+const results = {
+    cannot: {options: {}, data: {}},
+    can: {
+        options: {
+            foo: {foo: 'bar'}
+        },
+        data: {
+            baz: {'boo': {faz: 'bez'}}
+        }
+    }
+};
+
+var cannot = new Strategy(() => results.cannot),
+    can = new Strategy(() => results.can, 1);
+
 var cases = [
-    {strategies: [can], expects: {foo: 'bar'}},
-    {strategies: [can, unreachable], expects: {foo: 'bar'}},
-    {strategies: [cannot, can], expects: {foo: 'bar'}},
-    {strategies: [cannot], error: true}
+    {strategies: [can], expects: results.can, called: 1},
+    {strategies: [can, cannot, can], expects: results.can, called: 1},
+    {strategies: [cannot, cannot, can], expects: results.can, called: 3},
+    {strategies: [cannot, cannot, can, can], expects: results.can, called: 3},
+    {strategies: [cannot, cannot, can, cannot], expects: results.can, called: 3},
+    {strategies: [cannot], error: true, called: 1}
 ];
 
 describe('Unit', function () {
@@ -57,13 +59,15 @@ describe('Unit', function () {
 
         forEach(cases, (c, num) => {
             describe('parse case ' + num, function () {
-                var strategies = c.strategies,
-                    data, error = false;
+                var data, options, strategies = c.strategies, error = false;
+
                 beforeEach(function (done) {
-                    var parser = new Parser(strategies);
-                    var p = parser.parse(DummyDOM.appendHTML('<div></div>'));
-                    p.then((d) => {
-                        data = d;
+                    var parser = new Parser(strategies),
+                        p = parser.parse(DummyDOM.appendHTML('<div></div>'));
+
+                    p.then((result) => {
+                        data = result.data;
+                        options = result.options;
                         done();
                     });
                     p.catch(() => {
@@ -73,15 +77,19 @@ describe('Unit', function () {
                 });
 
                 it('should choose the right strategies', function () {
+                    var called = 0;
                     forEach(strategies, (strategy) => {
-                        expect(strategy.expectedCalls).toBe(strategy.actualCalls);
-                        strategy.actualCalls = 0;
+                        called += strategy.called;
+                        strategy.called = 0;
                     });
+                    expect(c.called).toEqual(called);
+
                     if (c.error) {
                         expect(error).toBeTruthy();
                         return;
                     }
-                    expect(data).toEqual(c.expects);
+                    expect(data).toEqual(c.expects.data);
+                    expect(options).toEqual(c.expects.options);
                 });
             });
         })

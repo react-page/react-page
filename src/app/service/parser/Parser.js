@@ -77,13 +77,10 @@ export default class Parser {
         return new Promise(function (resolve, reject) {
             var series = map(strategies, function (strategy) {
                 return function (callback) {
-                    var parseable = strategy.parseable(element);
-
-                    parseable.then(() => {
-                        strategy.parse(element).then(resolve);
+                    strategy.parse(element).then((result) => {
+                        resolve(result);
                         callback(true, null);
-                    });
-                    parseable.catch(() => {
+                    }).catch(() => {
                         callback(null, null);
                     });
                 }
