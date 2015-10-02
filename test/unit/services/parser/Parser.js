@@ -39,7 +39,6 @@ const results = {
 
 var cannot = new Strategy(() => results.cannot),
     can = new Strategy(() => results.can, 1);
-
 var cases = [
     {strategies: [can], expects: results.can, called: 1},
     {strategies: [can, cannot, can], expects: results.can, called: 1},
@@ -49,49 +48,47 @@ var cases = [
     {strategies: [cannot], error: true, called: 1}
 ];
 
-describe('Unit', function () {
-    describe('Parser', function () {
-        describe('constructor', function () {
-            it('should be instantiable', function () {
-                new Parser();
+describe('Unit::Service::Parser', function () {
+    describe('constructor', function () {
+        it('should be instantiable', function () {
+            new Parser();
+        });
+    });
+
+    forEach(cases, (c, num) => {
+        describe('parse case ' + num, function () {
+            var data, options, strategies = c.strategies, error = false;
+
+            beforeEach(function (done) {
+                var parser = new Parser(strategies),
+                    p = parser.parse(DummyDOM.appendHTML('<div></div>'));
+
+                p.then((result) => {
+                    data = result.data;
+                    options = result.options;
+                    done();
+                });
+                p.catch(() => {
+                    error = true;
+                    done();
+                });
+            });
+
+            it('should choose the right strategies', function () {
+                var called = 0;
+                forEach(strategies, (strategy) => {
+                    called += strategy.called;
+                    strategy.called = 0;
+                });
+                expect(c.called).toEqual(called);
+
+                if (c.error) {
+                    expect(error).toBeTruthy();
+                    return;
+                }
+                expect(data).toEqual(c.expects.data);
+                expect(options).toEqual(c.expects.options);
             });
         });
-
-        forEach(cases, (c, num) => {
-            describe('parse case ' + num, function () {
-                var data, options, strategies = c.strategies, error = false;
-
-                beforeEach(function (done) {
-                    var parser = new Parser(strategies),
-                        p = parser.parse(DummyDOM.appendHTML('<div></div>'));
-
-                    p.then((result) => {
-                        data = result.data;
-                        options = result.options;
-                        done();
-                    });
-                    p.catch(() => {
-                        error = true;
-                        done();
-                    });
-                });
-
-                it('should choose the right strategies', function () {
-                    var called = 0;
-                    forEach(strategies, (strategy) => {
-                        called += strategy.called;
-                        strategy.called = 0;
-                    });
-                    expect(c.called).toEqual(called);
-
-                    if (c.error) {
-                        expect(error).toBeTruthy();
-                        return;
-                    }
-                    expect(data).toEqual(c.expects.data);
-                    expect(options).toEqual(c.expects.options);
-                });
-            });
-        })
     });
 });

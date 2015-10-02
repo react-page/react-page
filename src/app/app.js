@@ -5,7 +5,6 @@ import Editable from 'app/components/Editable';
 import PluginManager from 'app/service/plugin/PluginManager';
 import Parser from 'app/service/parser/Parser';
 import DomParser from 'app/service/parser/strategy/DOMParser';
-import interact from 'interact.js';
 import DefaultPluginManagerFactory from 'app/factory/DefaultPluginManagerFactory';
 import SelectionChange from 'app/lib/selectionchange-polyfill';
 
@@ -20,8 +19,8 @@ import SelectionChange from 'app/lib/selectionchange-polyfill';
 class Editor {
     constructor(selector, options) {
         // Enable interact's dynamic drop feature.
-        interact.dynamicDrop(true);
         SelectionChange().start();
+
         this.plugins = DefaultPluginManagerFactory.create();
         this.parser = new Parser([new DomParser(this.plugins)]);
         this.render(selector);

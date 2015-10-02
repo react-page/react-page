@@ -16,16 +16,12 @@ const cases = [
     }
 ];
 
-describe('Unit', function () {
-    describe('pkg', function () {
-        describe('dummyDOM', function () {
-            forEach(cases, (c, i) => {
-                it('appendElement should pass case ' + i, function () {
-                    dummyDOM.appendHTML(c.html, c.parent);
-                    var e = c.parent.querySelectorAll(':scope > ' + c.query);
-                    expect(e.length).toBe(c.amount);
-                });
-            });
+describe('Unit::pkg::dummyDOM', function () {
+    forEach(cases, (c, i) => {
+        it('appendElement should pass case ' + i, function () {
+            dummyDOM.appendHTML(c.html, c.parent);
+            var e = c.parent.querySelectorAll(':scope > ' + c.query);
+            expect(e.length).toBe(c.amount);
         });
     });
 });
