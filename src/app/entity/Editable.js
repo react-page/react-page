@@ -1,4 +1,3 @@
-import uuid from 'app/pkg/uuid';
 import forEach from 'lodash/collection/forEach';
 import Section from './Section';
 
@@ -12,7 +11,7 @@ export default class Editable {
      * @example
      * var sections = [
      *      new Section({
-     *          uuid: '02912fd7-94c2-4779-b2df-2397e35f5e66'
+     *          id: '02912fd7-94c2-4779-b2df-2397e35f5e66'
      *          plugin: 'myPlugin',
      *          version: '1.0',
      *          options: {enableTables: true},
@@ -21,7 +20,7 @@ export default class Editable {
      * ];
      *
      * var editable = new Editable({
-     *      uuid: '02912fd7-94c2-4779-b2df-2397e35f5e66',
+     *      id: '02912fd7-94c2-4779-b2df-2397e35f5e66',
      *      field: 'title',
      *      sections: sections
      * });
@@ -30,9 +29,7 @@ export default class Editable {
      */
     constructor(data) {
         data = data || {};
-        this.uuid = data.uuid;
-        this.tid = data.uuid ? '' : uuid();
-        this.field = data.field || '';
+        this.id = data.id || Math.random();
         this.sections = [];
         forEach(data.sections || [], (section) => {
             this.sections.push(new Section(section));

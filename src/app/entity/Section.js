@@ -1,4 +1,3 @@
-import uuid from 'app/pkg/uuid';
 import cloneDeep from 'lodash/lang/cloneDeep';
 
 /**
@@ -13,19 +12,17 @@ export default class Section {
      *      id: '02912fd7-94c2-4779-b2df-2397e35f5e66'
      *      plugin: 'myPlugin',
      *      version: '1.0',
-     *      options: {enableTables: true},
      *      data: {innerHTML: '...'}
      * });
      *
      * @param {string} data
      */
     constructor(data) {
-        this.uuid = data.uuid;
-        this.tid = data.uuid ? '' : uuid();
+        data = data || {};
+        this.id = data.id || Math.random();
 
         this.plugin = data.plugin || '';
-        this.version = data.version || '';
-        this.options = data.options ? cloneDeep(data.options) : {};
+        this.version = data.version;
         this.data = data.data ? cloneDeep(data.data) : {};
     }
 }

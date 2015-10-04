@@ -1,5 +1,5 @@
 import forEach from 'lodash/collection/forEach';
-import find from 'lodash/collection/find';
+import lfind from 'lodash/collection/find';
 import Plugin from './Plugin';
 import PluginNotFoundException from 'app/exception/PluginNotFoundException';
 import InvalidArgumentException from 'app/exception/InvalidArgumentException';
@@ -40,14 +40,11 @@ export default class Repository {
     }
 
     find(name, version) {
-        if (version) {
-            return find(this.plugins, p => p.name === name && (p.version === version || this.constructor.isCompatible(version, p.compatibility)));
-        } else {
-            return find(this.plugins, p => p.name === name);
-        }
+        version = version || 0;
+        return lfind(this.plugins, p => p.name === name && this.constructor.isCompatible(version, p.version));
     }
 
-    static isCompatible(version, compatibles) {
-        return compatibles ? compatibles.indexOf(version) > -1 : false;
+    static isCompatible(version, head) {
+        return version <= head;
     }
 }

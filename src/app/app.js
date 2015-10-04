@@ -1,12 +1,13 @@
 'use strict';
 import React from 'react';
-import forEach from 'lodash/collection/forEach';
+import async from 'async';
+import isString from 'lodash/lang/isString';
+import isArray from 'lodash/lang/isArray';
 import Editable from 'app/components/Editable';
 import PluginManager from 'app/service/plugin/PluginManager';
 import Parser from 'app/service/parser/Parser';
-import DomParser from 'app/service/parser/strategy/DOMParser';
+import RemoteStrategy from 'app/service/parser/strategy/RemoteStrategy';
 import DefaultPluginManagerFactory from 'app/factory/DefaultPluginManagerFactory';
-import SelectionChange from 'app/lib/selectionchange-polyfill';
 
 /**
  *
@@ -18,34 +19,26 @@ import SelectionChange from 'app/lib/selectionchange-polyfill';
  */
 class Editor {
     constructor(selector, options) {
-        // Enable interact's dynamic drop feature.
-        SelectionChange().start();
-
         this.plugins = DefaultPluginManagerFactory.create();
-        this.parser = new Parser([new DomParser(this.plugins)]);
+        this.parser = new Parser([new RemoteStrategy()]);
         this.render(selector);
     }
 
     render(selector) {
-        var elements = document.querySelectorAll(selector);
-        forEach(elements, (element) => {
-            this.startEditable(element);
+        var elements = isString(selector) ? document.querySelectorAll(selector) : [selector];
+        async.each(elements, (element) => {
+            this.parser.parse(element).then((entity) => {
+                /*jshint ignore:start */
+                React.render(<Editable plugins={ this.plugins } sections={ entity.sections }/>, element);
+                /*jshint ignore:end */
+            });
         });
-    }
-
-    startEditable(element) {
-        var model = this.parser.parse(element);
-        /*jshint ignore:start */
-        React.render(<Editable editor={ this } model={ model }/>, element);
-        /*jshint ignore:end */
     }
 }
 
 // FIXME
 if (window !== undefined) {
-    window.ory = {
-        Editor: Editor
-    };
+    window.ory = {Editor: Editor};
 }
 
 export default Editor;
