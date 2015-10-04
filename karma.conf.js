@@ -1,5 +1,8 @@
 var webpack = require('webpack'),
-    path = require('path');
+    path = require('path'),
+    jasmine = require('jasmine-core');
+
+jasmine.DEFAULT_TIMEOUT_INTERVAL = 500;
 
 // Karma configuration
 // Generated on Mon May 11 2015 14:13:57 GMT-0600 (MDT)
@@ -25,7 +28,7 @@ module.exports = function (config) {
         },
         browserify: {
             debug: true,
-            transform: ['babelify',[{global: true}, 'deamdify'], 'browserify-css', 'browserify-istanbul'],
+            transform: ['babelify', [{global: true}, 'deamdify'], 'browserify-css', 'browserify-istanbul'],
             extensions: ['.js'],
             paths: ['./src']
         },

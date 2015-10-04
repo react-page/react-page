@@ -3,7 +3,7 @@ import NoEditablesFound from 'app/exception/NoEditablesFound';
 import ParserException from 'app/exception/ParserException';
 import PluginNotFoundException from 'app/exception/PluginNotFoundException';
 
-describe('Unit Exception', function () {
+describe('Unit\\Exception', function () {
     describe('InvalidArgumentException', function () {
         it('should be a throwable error', function () {
             expect(function () {

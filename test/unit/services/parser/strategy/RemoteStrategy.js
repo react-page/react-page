@@ -3,48 +3,26 @@ import request from 'superagent';
 import dummyDOM from 'app/pkg/dummyDOM';
 import RemoteStrategy from 'app/service/parser/strategy/RemoteStrategy';
 import forEach from 'lodash/collection/forEach';
+import Editable from 'app/entity/Editable';
 
 var mock = Mock(request);
 
-const heading = {
-    "uuid": "39a13f96-ac2a-441a-be1a-b26d581c09b2",
-    "field": "heading",
+const resource = {
+    "id": "39a13f96-ac2a-441a-be1a-b26d581c09b2",
     "sections": [
         {
-            "uuid": "02912fd7-94c2-4779-b2df-2397e35f5e66",
+            "id": "02912fd7-94c2-4779-b2df-2397e35f5e66",
             "plugin": "text",
             "data": {
                 "inner": "About Me"
-            },
-            "options": {
-                "tag": "h1"
             }
         }
     ]
 };
 
-const resource = {
-    "uuid": "39a13f96-ac2a-441a-be1a-b26d581c09b2",
-    "fields": {
-        "heading": [
-            {
-                "uuid": "02912fd7-94c2-4779-b2df-2397e35f5e66",
-                "plugin": "text",
-                "data": {
-                    "inner": "About Me"
-                },
-                "options": {
-                    "tag": "h1"
-                }
-            }
-        ]
-    }
-};
+mock.get('/resource', () => ({body: resource}));
 
-mock.get('/resource/heading', () => heading);
-mock.get('/resource', () => resource);
-
-describe('Unit::Service::Parser::Strategy::RemoteStrategy', function () {
+describe('Unit\\Service\\Parser\\Strategy\\RemoteStrategy', function () {
     beforeEach(function () {
         // Guarentee each test knows exactly which routes are defined
     });
@@ -61,15 +39,11 @@ describe('Unit::Service::Parser::Strategy::RemoteStrategy', function () {
             },
             {
                 html: '<div data-resource="404"></div>',
-                pass: false, fail: true, expected: {message: 'NOT FOUND'}
-            },
-            {
-                html: '<div data-resource="/resource/heading"></div>',
-                pass: true, fail: false, expected: heading
+                pass: false, fail: true
             },
             {
                 html: '<div data-resource="/resource"></div>',
-                pass: true, fail: false, expected: resource
+                pass: true, fail: false, expected: new Editable(resource)
             }
         ];
 
@@ -93,7 +67,9 @@ describe('Unit::Service::Parser::Strategy::RemoteStrategy', function () {
             it('should pass test case ' + i, () => {
                 expect(failed).toBe(tc.fail);
                 expect(passed).toBe(tc.pass);
-                expect(result).toEqual(tc.expected);
+                if (tc.pass) {
+                    expect(result).toEqual(tc.expected);
+                }
             });
         });
     });

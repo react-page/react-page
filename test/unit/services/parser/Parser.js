@@ -48,7 +48,7 @@ var cases = [
     {strategies: [cannot], error: true, called: 1}
 ];
 
-describe('Unit::Service::Parser', function () {
+describe('Unit\\Service\\Parser', function () {
     describe('constructor', function () {
         it('should be instantiable', function () {
             new Parser();

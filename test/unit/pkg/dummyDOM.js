@@ -13,10 +13,16 @@ const cases = [
         query: 'div.foo > div.bar',
         parent: document.body,
         amount: 1
+    },
+    {
+        html: '<div class="dummy-1"></div><div class="dummy-2"></div>',
+        query: '.dummy-1, .dummy-2',
+        parent: document.body,
+        amount: 2
     }
 ];
 
-describe('Unit::pkg::dummyDOM', function () {
+describe('Unit\\pkg\\dummyDOM', function () {
     forEach(cases, (c, i) => {
         it('appendElement should pass case ' + i, function () {
             dummyDOM.appendHTML(c.html, c.parent);

@@ -1,8 +1,6 @@
 import timeout from 'app/pkg/timeout';
 
-describe('Unit', function () {
-    describe('pkg', function () {
-        describe('timeout', function () {
+describe('Unit\\pkg\\timeout', function () {
             var called = false;
 
             beforeEach(function (done) {
@@ -15,6 +13,4 @@ describe('Unit', function () {
             it('should properly use the browsers timeout function', function () {
                 expect(called).toBe(true);
             })
-        });
-    });
 });

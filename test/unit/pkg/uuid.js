@@ -1,8 +1,6 @@
 import uuid from 'app/pkg/uuid';
 
-describe('Unit', function () {
-    describe('pkg', function () {
-        describe('uuid', function () {
+describe('Unit\\pkg\\uuid', function () {
             var ids = [];
             for (var i = 0; i < 10; i++) {
                 it('case ' + i + ' should be unique-ish and a valid uuid', function () {
@@ -12,6 +10,4 @@ describe('Unit', function () {
                     ids.push(id);
                 });
             }
-        });
-    });
 });

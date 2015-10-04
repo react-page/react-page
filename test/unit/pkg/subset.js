@@ -19,14 +19,10 @@ const cases = [
     }
 ];
 
-describe('Unit', function () {
-    describe('pkg', function () {
-        describe('subset', function () {
-            forEach(cases, (c, i) => {
-                it('should pass case ' + i, function () {
-                    expect(subset(c.a, c.comp)).toEqual(c.expected);
-                });
-            });
+describe('Unit\\pkg\\subset', function () {
+    forEach(cases, (c, i) => {
+        it('should pass case ' + i, function () {
+            expect(subset(c.a, c.comp)).toEqual(c.expected);
         });
     });
 });

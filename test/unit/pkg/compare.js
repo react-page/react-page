@@ -28,14 +28,10 @@ const cases = [
     }
 ];
 
-describe('Unit', function () {
-    describe('pkg', function () {
-        describe('compare', function () {
+describe('Unit::pkg::compare', function () {
             forEach(cases, (c, i) => {
                 it('should pass case ' + i, function () {
                     expect(compare(c.a, c.b, c.comp)).toBe(c.expected);
                 });
-            });
-        });
     });
 });

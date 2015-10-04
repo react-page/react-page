@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "dependencies": {
     "async": "^1.4.2",
+    "medium-editor": "^5.8.2",
     "quill": "^0.20.0",
     "superagent": "^1.4.0"
   },
