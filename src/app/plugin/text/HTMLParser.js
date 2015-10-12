@@ -4,8 +4,8 @@ import trim from 'lodash/string/trim';
 import Section from 'app/entity/Section';
 
 export default class HTMLParser {
-    static parse(area) {
-        var elements = area.querySelectorAll(':scope > *'), r = [];
+    static parse(elements) {
+        var r = [];
         forEach(elements, (e) => {
             var o, d = clone(e.attributes, 1);
             d.inner = e.innerHTML;

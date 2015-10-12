@@ -5,6 +5,7 @@
     "async": "^1.4.2",
     "medium-editor": "^5.8.2",
     "quill": "^0.20.0",
+    "redux": "^3.0.2",
     "superagent": "^1.4.0"
   },
   "devDependencies": {
@@ -50,7 +51,6 @@
     "mocha": "^2.2.5",
     "rangy": "^1.3.0",
     "react": "^0.13.0",
-    "reflux": "~0.2.7",
     "scribe-editor": "^2.0.0",
     "superagent-mock": "^1.7.0",
     "superagent-mocker": "^0.1.6",

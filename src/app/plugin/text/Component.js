@@ -3,6 +3,10 @@ import map from 'lodash/collection/map';
 import cloneDeep from 'lodash/lang/cloneDeep';
 import Editor from 'medium-editor';
 import async from 'async';
+import HTMLParser from './HTMLParser';
+import isEmpty from 'lodash/lang/isEmpty';
+import store from 'app/store/Editable';
+import Actions from 'app/actions/Editable';
 
 import './css/medium-editor.css';
 import './css/themes/default.css';
@@ -13,11 +17,24 @@ function unwrap(elements) {
         var parent = el.parentNode;
 
         // move all children out of the element
-        while (el.firstChild) parent.insertBefore(el.firstChild, el);
+        while (el.firstChild) {
+            parent.insertBefore(el.firstChild, el);
+        }
 
         // remove the empty element
         parent.removeChild(el);
     });
+}
+
+// mapEmptyLinesToPlugin maps empty lines from plugin text to plugin placeholder
+function mapEmptyLinesToPlugin(sections) {
+    return map(sections, (section) => {
+        if (isEmpty(section.data)) {
+            // FIXME make this configurable or something
+            section.plugin = 'placeholder';
+        }
+        return section;
+    })
 }
 
 export default class Component extends React.Component {
@@ -41,21 +58,24 @@ export default class Component extends React.Component {
         var all = editable.querySelectorAll(':scope > *')[0];
 
         editor.subscribe('editableInput', (event, editable) => {
+            // TODO FIXME upstream https://github.com/yabwe/medium-editor/issues/543
             unwrap(editable.querySelectorAll(':scope [style]'));
 
             var sections = editable.querySelectorAll(':scope > *');
-            if (sections.length > this.props.sections.length) {
+
+            // TODO find id...
+            store.dispatch({
+                type: Actions.update,
+                id: this.props.id,
+                sections: HTMLParser.parse(sections)
+            });
+
+            if (sections.length !== this.props.sections.length) {
                 // transform HTML to sections
                 // create a diff
                 // patch the sections, new sections == 'new' plugin, update
-
-                // added
-                var newlines = editable.querySelectorAll(':scope > p > br');
-                async.each(newlines, (newline) => {
-                    console.log('an empty was found', newline.parentNode, newline.parentNode.dataset);
-                });
-            } else if (sections.length < this.props.sections.length) {
-                // removed
+            } else {
+                // something else happened (text update)
             }
         });
         this.setState({editor: editor});
