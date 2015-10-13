@@ -5,8 +5,8 @@ import Editor from 'medium-editor';
 import async from 'async';
 import HTMLParser from './HTMLParser';
 import isEmpty from 'lodash/lang/isEmpty';
-import store from 'app/store/Editable';
-import Actions from 'app/actions/Editable';
+import Actions from 'app/actions/Partition';
+import find from 'lodash/collection/find';
 
 import './css/medium-editor.css';
 import './css/themes/default.css';
@@ -26,17 +26,6 @@ function unwrap(elements) {
     });
 }
 
-// mapEmptyLinesToPlugin maps empty lines from plugin text to plugin placeholder
-function mapEmptyLinesToPlugin(sections) {
-    return map(sections, (section) => {
-        if (isEmpty(section.data)) {
-            // FIXME make this configurable or something
-            section.plugin = 'placeholder';
-        }
-        return section;
-    })
-}
-
 export default class Component extends React.Component {
     componentWillMount() {
         this.setState({
@@ -48,40 +37,35 @@ export default class Component extends React.Component {
         });
     }
 
-    componentDidMount() {
-        var editable = React.findDOMNode(this.refs.area);
-        var editor = new Editor(editable, {
-            toolbar: {
-                buttons: ['bold', 'italic', 'anchor', 'h2', 'h3', 'quote']
-            }
-        });
-        var all = editable.querySelectorAll(':scope > *')[0];
+    shouldComponentUpdate(nextProps, nextState) {
+        var e = React.findDOMNode(this.refs.area);
+        return e.innerHTML !== nextState.inner;
+    }
 
+    componentDidMount() {
+        var editable = React.findDOMNode(this.refs.area),
+            editor = new Editor(editable, {toolbar: {buttons: ['bold', 'italic', 'anchor', 'h2', 'h3', 'quote']}});
+        this.setState({editor: editor});
         editor.subscribe('editableInput', (event, editable) => {
             // TODO FIXME upstream https://github.com/yabwe/medium-editor/issues/543
             unwrap(editable.querySelectorAll(':scope [style]'));
+            let sections = HTMLParser.parse(editable.querySelectorAll(':scope > *'), 'placeholder');
 
-            var sections = editable.querySelectorAll(':scope > *');
-
-            // TODO find id...
-            store.dispatch({
-                type: Actions.update,
-                id: this.props.id,
-                sections: HTMLParser.parse(sections)
-            });
-
-            if (sections.length !== this.props.sections.length) {
-                // transform HTML to sections
-                // create a diff
-                // patch the sections, new sections == 'new' plugin, update
-            } else {
-                // something else happened (text update)
+            // TODO FIXME this is a sort-of hack to prevent re-rendering the sections on every input change.
+            let shouldUpdate = !isEmpty(find(sections, (s) => s.plugin === 'placeholder'));
+            if (shouldUpdate) {
+                this.props.store.dispatch({
+                    type: Actions.replace,
+                    // FIXME make this configurable or something
+                    with: sections
+                });
             }
         });
-        this.setState({editor: editor});
     }
 
     render() {
+        console.log('so render');
+
         return (
             /*jshint ignore:start */
             <div ref="area" dangerouslySetInnerHTML={{__html: this.state.inner}}/>

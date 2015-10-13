@@ -8,7 +8,7 @@ function ns(plugin, tag, inner, id) {
 }
 
 function ne(id) {
-    return new Section({id: id, plugin: 'new'});
+    return new Section({id: id, plugin: 'placeholder'});
 }
 
 const cases = [
@@ -44,7 +44,7 @@ describe('Test\\Plugin\\Text\\HTMLParser', () => {
     forEach(cases, (c, k) => {
         it('parse should pass test case ' + k, () => {
             var e = dummyDOM.appendHTML('<div>' + c.html + '</div>', document.body),
-                r = HTMLParser.parse(e.querySelectorAll(':scope > *'));
+                r = HTMLParser.parse(e.querySelectorAll(':scope > *'), 'placeholder');
             fakeIds(r, c.expected);
             expect(c.expected).toEqual(r);
         });

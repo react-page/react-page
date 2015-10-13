@@ -1,9 +1,10 @@
-import Editable from 'app/entity/Editable';
 import isEmpty from 'lodash/lang/isEmpty';
-import Actions from 'app/actions/Editable';
+import Actions from 'app/actions/Partition';
+import cloneDeep from 'lodash/lang/cloneDeep';
 
 const initialState = {
-    editable: null
+    index: 0,
+    sections: []
 };
 
 export default (state, action) => {
@@ -13,6 +14,7 @@ export default (state, action) => {
 
     switch (action.type) {
         case Actions.replace:
+            state.sections = cloneDeep(action.with);
             break;
     }
     return state;

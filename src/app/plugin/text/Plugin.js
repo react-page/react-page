@@ -7,9 +7,9 @@ export default class TextPlugin extends AbstractPlugin {
         super({name: 'text', version: 0});
     }
 
-    render(sections) {
+    render(sections, store) {
         /*jshint ignore:start */
-        return <Sections sections={sections}></Sections>;
+        return <Sections sections={sections} store={store}></Sections>;
         /*jshint ignore:end */
     }
 }
