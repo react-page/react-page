@@ -8,6 +8,12 @@ import isEmpty from 'lodash/lang/isEmpty';
 import Actions from 'app/actions/Partition';
 import find from 'lodash/collection/find';
 
+import {ProseMirror} from "prosemirror/dist/edit"
+import "prosemirror/dist/inputrules/autoinput"
+import "prosemirror/dist/menu/inlinemenu"
+import "prosemirror/dist/menu/buttonmenu"
+import "prosemirror/dist/menu/menubar"
+
 import './css/medium-editor.css';
 import './css/themes/default.css';
 
@@ -44,31 +50,43 @@ export default class Component extends React.Component {
 
     componentDidMount() {
         var editable = React.findDOMNode(this.refs.area),
-            editor = new Editor(editable, {toolbar: {buttons: ['bold', 'italic', 'anchor', 'h2', 'h3', 'quote']}});
+            editor = new ProseMirror({
+                place: editable,
+                menuBar: false,
+                inlineMenu: true,
+                buttonMenu: true,
+                autoInput: true,
+                doc: this.state.inner,
+                docFormat: "html"
+            });
         this.setState({editor: editor});
-        editor.subscribe('editableInput', (event, editable) => {
+
+        //var editor = new Editor(editable, {toolbar: {buttons: ['bold', 'italic', 'anchor', 'h2', 'h3', 'quote']}});
+        //this.setState({editor: editor});
+        //editor.subscribe('editableInput', (event, editable) => {
+
             // TODO FIXME upstream https://github.com/yabwe/medium-editor/issues/543
-            unwrap(editable.querySelectorAll(':scope [style]'));
-            let sections = HTMLParser.parse(editable.querySelectorAll(':scope > *'), 'placeholder');
+            //unwrap(editable.querySelectorAll(':scope [style]'));
+
+            // Sanitize the current input
+            //let sections = HTMLParser.parse(editable.querySelectorAll(':scope > *'), 'placeholder');
 
             // TODO FIXME this is a sort-of hack to prevent re-rendering the sections on every input change.
-            let shouldUpdate = !isEmpty(find(sections, (s) => s.plugin === 'placeholder'));
-            if (shouldUpdate) {
-                this.props.store.dispatch({
-                    type: Actions.replace,
-                    // FIXME make this configurable or something
-                    with: sections
-                });
-            }
-        });
+            //let shouldUpdate = !isEmpty(find(sections, (s) => s.plugin === 'placeholder'));
+            //if (shouldUpdate) {
+            //    this.props.store.dispatch({
+            //        type: Actions.replace,
+            //        // FIXME make this configurable or something
+            //        with: sections
+            //    });
+            //}
+        //});
     }
 
     render() {
-        console.log('so render');
-
         return (
             /*jshint ignore:start */
-            <div ref="area" dangerouslySetInnerHTML={{__html: this.state.inner}}/>
+            <div ref="area"/>
             /*jshint ignore:end */
         );
     }

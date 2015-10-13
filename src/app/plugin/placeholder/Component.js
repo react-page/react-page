@@ -2,20 +2,20 @@ import React from 'react';
 
 export default class Component extends React.Component {
     componentDidMount() {
-        console.log('focus2');
-        let e = React.findDOMNode(this.refs.field);
-        console.log('focus3', e);
+        let e = React.findDOMNode(this.refs.area);
         e.focus();
-        console.log('focus');
+    }
+
+    change() {
+
     }
 
     render() {
-        console.log('123123');
         return (
             /*jshint ignore:start */
             <p>
-                +
-                <input ref="field" type="text"></input>
+                <input type="button" value="+" />
+                <textarea ref="area" onChange={this.change}></textarea>
             </p>
             /*jshint ignore:end */
         );

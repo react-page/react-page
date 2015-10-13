@@ -13,7 +13,7 @@ export default class PlaceholderPlugin extends AbstractPlugin {
 
     render(sections, store) {
         /*jshint ignore:start */
-        return <div>{map(sections, () => <Placeholder />)}</div>;
+        return <div>{map(sections, () => <Placeholder store={store}/>)}</div>;
         /*jshint ignore:end */
     }
 }
