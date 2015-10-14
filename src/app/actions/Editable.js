@@ -1,3 +1,4 @@
 export default {
-    replace: 'replace'
+    replace: 'replace',
+    replaceAndRerender: 'replaceAndRerender'
 };

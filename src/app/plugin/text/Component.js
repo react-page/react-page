@@ -59,8 +59,18 @@ export default class Component extends React.Component {
             });
         this.setState({editor: editor});
 
-        editor.on("change", () => {
-            console.log(editor.getContent("json"));
+        editor.on('change', () => {
+            let model = editor.getContent('json');
+
+            // Transforms ProseMirror content model into a section.
+            model = map(model.content, (section) => ({plugin: 'text', data: {...model, content: section}}));
+
+            // Tell the store that something changed
+            this.props.store.dispatch({
+                type: Actions.replace,
+                with: model,
+                model: 'json'
+            });
         });
 
         //var editor = new Editor(editable, {toolbar: {buttons: ['bold', 'italic', 'anchor', 'h2', 'h3', 'quote']}});

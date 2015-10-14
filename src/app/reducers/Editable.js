@@ -3,7 +3,9 @@ import isEmpty from 'lodash/lang/isEmpty';
 import Actions from 'app/actions/Editable';
 
 const initialState = {
-    editable: null
+    editable: null,
+    model: 'html',
+    render: false
 };
 
 export default (state, action) => {
@@ -13,7 +15,9 @@ export default (state, action) => {
 
     switch (action.type) {
         case Actions.replace:
-            break;
+            return {...state, render: false};
+        case Actions.replaceAndRerender:
+            return {...state, render: true};
     }
-    return state;
+    return {...state, render: false};
 }

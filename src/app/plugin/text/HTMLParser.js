@@ -4,7 +4,7 @@ import trim from 'lodash/string/trim';
 import Section from 'app/entity/Section';
 
 export default class HTMLParser {
-    static parse(elementsW) {
+    static parse(elements) {
         var r = [];
         forEach(elements, (e) => {
             var o, d = clone(e.attributes, 1);
