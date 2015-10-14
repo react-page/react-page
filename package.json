@@ -4,9 +4,7 @@
   "dependencies": {
     "async": "^1.4.2",
     "crc-32": "^0.3.0",
-    "medium-editor": "^5.8.2",
     "prosemirror": "git://github.com/ProseMirror/prosemirror.git",
-    "quill": "^0.20.0",
     "redux": "^3.0.2",
     "superagent": "^1.4.0"
   },

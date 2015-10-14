@@ -6,7 +6,7 @@
             "plugin": "text",
             "data": {
                 "inner": "This is what I do.",
-                "tag": "span",
+                "tag": "p",
                 "attrs": {
                     "class": "subheading"
                 }
