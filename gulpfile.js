@@ -7,8 +7,6 @@ var gulp = require('gulp'),
     browserify = require('browserify'),
     watchify = require('watchify'),
     source = require('vinyl-source-stream'),
-    mocha = require('gulp-mocha'),
-    istanbul = require('gulp-istanbul'),
     connect = $.connectMulti,
     wiredep = require('wiredep').stream,
     devServer = connect(),
@@ -90,7 +88,9 @@ gulp.task('scripts', ['lint'], function () {
             packageCache: {},
             paths: ['./src/'],
             fullPaths: true
-        }),
+        }).transform(require('browserify-css'), {
+            rootDir: './src'
+        }).transform('deamdify', {global: true}),
         watcher = watchify(bundler);
 
     return watcher
@@ -152,7 +152,7 @@ gulp.task('browserify', function () {
             fullPaths: true
         }).transform(require('browserify-css'), {
             rootDir: './src'
-        }),
+        }).transform('deamdify', {global: true}),
         watcher = watchify(bundler);
 
     return watcher

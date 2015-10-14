@@ -2,55 +2,93 @@ import React from 'react';
 import Parser from 'app/service/parser/Parser';
 import InvalidArgumentException from 'app/exception/InvalidArgumentException';
 import ParsingStrategy from 'app/service/parser/strategy/ParsingStrategy';
+import DummyDOM from 'app/pkg/dummyDOM';
+import forEach from 'lodash/collection/forEach';
+import isEmpty from 'lodash/lang/isEmpty';
 
 class Strategy extends ParsingStrategy {
-    constructor(parseable, parse) {
-        super(null);
-        this.can = parseable;
+    constructor(parse) {
+        super();
         this.do = parse;
+        this.called = 0;
     }
 
-    parse(element, previous) {
-        return this.do(element, previous);
-    }
-
-    parseable(element, previous) {
-        return this.can(element, previous);
+    parse(element) {
+        this.called++;
+        var result = this.do(element),
+            options = result.options || {},
+            data = result.data || {};
+        if (isEmpty(options) && isEmpty(data.length)) {
+            return new Promise((resolve, reject) => reject());
+        }
+        return new Promise((resolve) => resolve({data: data, options: options}));
     }
 }
 
-function createDummyHTMLElement(html) {
-    var div = document.createElement('div');
-    div.insertAdjacentHTML('afterbegin', html);
-    document.body.appendChild(div);
-    return div.children[0];
-}
+const results = {
+    cannot: {options: {}, data: {}},
+    can: {
+        options: {
+            foo: {foo: 'bar'}
+        },
+        data: {
+            baz: {'boo': {faz: 'bez'}}
+        }
+    }
+};
 
-describe('Unit', function () {
-    describe('Parser', function () {
-        describe('constructor', function () {
-            it('should be instantiable', function () {
-                new Parser();
-            });
+var cannot = new Strategy(() => results.cannot),
+    can = new Strategy(() => results.can, 1);
+var cases = [
+    {strategies: [can], expects: results.can, called: 1},
+    {strategies: [can, cannot, can], expects: results.can, called: 1},
+    {strategies: [cannot, cannot, can], expects: results.can, called: 3},
+    {strategies: [cannot, cannot, can, can], expects: results.can, called: 3},
+    {strategies: [cannot, cannot, can, cannot], expects: results.can, called: 3},
+    {strategies: [cannot], error: true, called: 1}
+];
+
+describe('Unit\\Service\\Parser', function () {
+    describe('constructor', function () {
+        it('should be instantiable', function () {
+            new Parser();
         });
+    });
 
-        it('should choose the right strategies', function () {
-            var called = {can: false, cannot: false},
-                can = new Strategy(function () {
-                    return true;
-                }, function () {
-                    called.can = true;
-                }),
-                cannot = new Strategy(function () {
-                    return false;
-                }, function () {
-                    called.cannot = true;
-                }),
-                parser = new Parser([can, cannot]);
+    forEach(cases, (c, num) => {
+        describe('parse case ' + num, function () {
+            var data, options, strategies = c.strategies, error = false;
 
-            parser.parse(createDummyHTMLElement('<div></div>'));
-            expect(called.can).toBe(true);
-            expect(called.cannot).toBe(false);
+            beforeEach(function (done) {
+                var parser = new Parser(strategies),
+                    p = parser.parse(DummyDOM.appendHTML('<div></div>'));
+
+                p.then((result) => {
+                    data = result.data;
+                    options = result.options;
+                    done();
+                });
+                p.catch(() => {
+                    error = true;
+                    done();
+                });
+            });
+
+            it('should choose the right strategies', function () {
+                var called = 0;
+                forEach(strategies, (strategy) => {
+                    called += strategy.called;
+                    strategy.called = 0;
+                });
+                expect(c.called).toEqual(called);
+
+                if (c.error) {
+                    expect(error).toBeTruthy();
+                    return;
+                }
+                expect(data).toEqual(c.expects.data);
+                expect(options).toEqual(c.expects.options);
+            });
         });
     });
 });

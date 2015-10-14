@@ -1,5 +1,8 @@
 var webpack = require('webpack'),
-    path = require('path');
+    path = require('path'),
+    jasmine = require('jasmine-core');
+
+jasmine.DEFAULT_TIMEOUT_INTERVAL = 500;
 
 // Karma configuration
 // Generated on Mon May 11 2015 14:13:57 GMT-0600 (MDT)
@@ -11,18 +14,22 @@ module.exports = function (config) {
         files: [
             'test/**/*.js',
             {
-                pattern: 'src/app/**.js',
+                pattern: 'src/app/*.js',
+                watched: true, included: false, served: false
+            },
+            {
+                pattern: 'src/app/**/*.js',
                 watched: true, included: false, served: false
             }
         ],
         preprocessors: {
             'test/**/*.js': ['browserify'],
-            'src/app/**.js': ['babel', 'browserify', 'coverage']
+            'src/app/**.js': ['browserify', 'coverage']
         },
         browserify: {
             debug: true,
-            transform: ['browserify-css', 'babelify', 'browserify-istanbul'],
-            extensions: ['.js', '.jsx'],
+            transform: ['babelify', [{global: true}, 'deamdify'], 'browserify-css', 'browserify-istanbul'],
+            extensions: ['.js'],
             paths: ['./src']
         },
         plugins: [
@@ -31,20 +38,15 @@ module.exports = function (config) {
             require('karma-jasmine'),
             require('karma-coverage'),
             require('karma-chrome-launcher'),
-            require('karma-firefox-launcher'),
-            require('karma-safari-launcher')
+            require('karma-firefox-launcher')
+            // require('karma-safari-launcher')
             // TODO add opera launcher: https://github.com/ory-am/editor/issues/5
             // TODO add IE launcher: https://github.com/ory-am/editor/issues/6
         ],
         coverageReporter: {
-            dir : 'coverage/',
+            dir: 'coverage/',
             sourceStore: require('istanbul').Store.create('fslookup'),
-            reporters: [
-                {
-                    type: 'lcov',
-                    subdir: '.'
-                }
-            ]
+            reporters: [{type: 'lcov', subdir: '.'}]
         },
         reporters: [
             'dots',
@@ -54,7 +56,7 @@ module.exports = function (config) {
         colors: true,
         logLevel: config.LOG_INFO,
         autoWatch: true,
-        browsers: ['Chrome', 'Firefox', 'Safari'],
+        browsers: ['Chrome'],
         singleRun: false
     });
 };

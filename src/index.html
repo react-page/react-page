@@ -15,10 +15,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Clean Blog - About</title>
 
-    <!-- Custom CSS -->
-    <link href="example/css/clean-blog.min.css" rel="stylesheet">
-    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet'
-          type='text/css'>
     <link
         href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800'
         rel='stylesheet' type='text/css'>
@@ -29,6 +25,14 @@
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+    </script>
+    <script type="text/javascript"
+            src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    </script>
 
     <!-- build:css assets/styles/vendors.css -->
     <!-- bower:css -->
@@ -37,6 +41,9 @@
     <!-- endbuild -->
 
     <link type="text/css" rel="stylesheet" href="assets/styles/main.css">
+
+    <link type="text/css" rel="stylesheet" href="example/css/clean-blog.min.css">
+    <link type="text/css" rel="stylesheet" href="example/css/extra.css">
 </head>
 <body>
 
@@ -84,16 +91,12 @@
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 <div class="page-heading">
-                    <div class="editable-area">
-                        <div data-section="default">
-                            <h1>About Me</h1>
-                        </div>
+                    <div class="editable-area" data-resource="/mock/1.json">
+                        <h1>About Me</h1>
                     </div>
                     <hr class="small">
-                    <div class="editable-area">
-                        <div data-section="default">
-                            <span class="subheading">This is what I do.</span>
-                        </div>
+                    <div class="editable-area" data-resource="/mock/4.json">
+                        <span class="subheading">This is what I do.</span>
                     </div>
                 </div>
             </div>
@@ -101,48 +104,12 @@
     </div>
 </header>
 
+
 <!-- Main Content -->
 <div class="container">
-
     <div class="row">
         <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-            <div class="editable-area">
-                <div data-section="embed" data-href="https://vimeo.com/50061391">
-                    <a class="embedly-card" href="https://vimeo.com/50061391">Very Little Stars</a>
-
-                    <script async src="//cdn.embedly.com/widgets/platform.js" charset="UTF-8"></script>
-                </div>
-                <div data-section="mediumjs">
-                    <p>Lorem ipsum <b>dolor</b> sit amet, consectetur adipisicing elit. Eius praesentium recusandae
-                        illo
-                        eaque
-                        architecto error, repellendus iusto reprehenderit, doloribus, minus sunt. Numquam at quae
-                        voluptatum
-                        in officia voluptas voluptatibus, minus!
-                    </p>
-
-                    <p>Lorem ipsum <b>dolor</b> sit amet, consectetur adipisicing elit. Eius praesentium recusandae
-                        illo
-                        eaque
-                        architecto error, repellendus iusto reprehenderit, doloribus, minus sunt. Numquam at quae
-                        voluptatum
-                        in officia voluptas voluptatibus, minus!
-                    </p>
-                </div>
-                <div data-section="mediumjs">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Saepe nostrum ullam eveniet
-                        pariatur
-                        voluptates odit, fuga atque ea nobis sit soluta odio, adipisci quas excepturi maxime quae
-                        totam
-                        ducimus consectetur?</p>
-                </div>
-                <div data-section="default">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nostrum molestiae debitis nobis,
-                        quod
-                        sapiente qui voluptatum, placeat magni repudiandae accusantium fugit quas labore non rerum
-                        possimus,
-                        corrupti enim modi! Et.</p>
-                </div>
+            <div class="editable-area container-fluid" data-resource="/mock/2.json">
             </div>
         </div>
     </div>
@@ -193,10 +160,12 @@
 <script src="bower_components/boostrap-sass/assets/javascripts/bootstrap.js"></script>
 <!-- endbower -->
 
+<script async src="//cdn.embedly.com/widgets/platform.js" charset="UTF-8"></script>
+
 <!-- endbuild -->
 <script type="text/javascript" src="scripts/app.js"></script>
 <script type="text/javascript">
-    var editor = new ory.Editor($('.editable-area'));
+    var editor = new ory.Editor('.editable-area');
 </script>
 
 </body>

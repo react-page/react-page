@@ -1,110 +1,65 @@
 'use strict';
 
-import React  from 'react';
-import u from 'underscore';
-import interact from'interact.js';
+import React from 'react';
+import map from 'lodash/collection/map';
+import isEmpty from 'lodash/lang/isEmpty';
+import merge from 'app/pkg/merge';
+import reduce from 'lodash/collection/reduce'
+import Partitioner from 'app/service/partitioner/Partitioner';
+import PartitionStore from 'app/stores/Partition';
+import crc32 from 'crc-32';
 import Section from 'app/entity/Section';
-import EditableStore from 'app/store/Editable';
 
+let partitioner = new Partitioner();
 
-var Editable = React.createClass({
-    getInitialState () {
-        return {
-            children: this.props.model.sections,
-            drag: {plugin: '', version: '', options: {}}
+export default class Editable extends React.Component {
+    constructor(props) {
+        super(props);
+        let partitions = partitioner.partition(props.sections);
+        this.state = {
+            partitions: partitions
         };
-    },
-    getInitialProps() {
-        return {overlap: 0.5}
-    },
-    componentDidUpdate(){
-        this.initializeDroppableZones(this.state.children);
-    },
-    componentDidMount(){
-        this.initializeDroppableZones(this.state.children);
-        EditableStore.listen((plugin) => {
-            this.setState({drag: plugin.lastDraggedPlugin});
-        });
-    },
-    initializeDroppableZones() {
-        for (var i = 0; i <= this.state.children.length; i++) {
-            var element = React.findDOMNode(this.refs['placeholder' + (i).toString()]);
-            if (element === null) {
-                console.log('Could not find editable section placeholder: placeholder' + (i).toString());
-                continue;
-            }
-            this.interact(element, i);
-        }
-    },
-    interact(element, key) {
-        interact(element).dropzone({
-            overlap: this.props.overlap,
-            ondropactivate (event) {
-                event.target.classList.add('drop-active');
-            },
-            ondragenter (event) {
-                var draggable = event.relatedTarget, dropzone = event.target;
-                dropzone.classList.add('drop-target');
-                draggable.classList.add('can-drop');
-            },
-            ondragleave (event) {
-                event.target.classList.remove('drop-target');
-                event.relatedTarget.classList.remove('can-drop');
-            },
-            ondropdeactivate (event) {
-                event.target.classList.remove('drop-active');
-                event.target.classList.remove('drop-target');
-            },
-            ondrop: function (event) {
-                var drag = this.state.drag, pluginName = drag.name, version = drag.version, args = drag.args,
-                    plugin = this.props.editor.plugins.get(pluginName, version, args).createSection(pluginName, version, args),
-                    children = this.state.children.slice();
-                children.splice(key, 0, plugin);
-                this.setState({children: children});
-            }.bind(this)
-        });
-    },
-    prepareComponents(child, key) {
-        var pluginManager = this.props.editor.plugins,
-            plugin = pluginManager.get('default'),
-            Section = plugin.Section,
-            ref = 'placeholder' + key.toString();
-
-        if (pluginManager.has(child.name)) {
-            plugin = pluginManager.get(child.name);
-            Section = plugin.Section;
-        }
-
-        return (
-            /*jshint ignore:start */
-            <div key={child.id}>
-                <div className="editable-section">
-                    <Section name={child.name}
-                             id={child.id}
-                             plugin={plugin}
-                             version={child.version}
-                             args={child.args}
-                             data={child.data}/>
-                </div>
-                <div ref={ref} className="editable-section-placeholder">
-                    <span className="fa fa-plus"></span>
-                </div>
-            </div>
-            /*jshint ignore:end */
-        );
-    },
-    render(){
-        return (
-            /*jshint ignore:start */
-            <div className="editable-object">
-                <div ref={'placeholder0'} className="editable-section-placeholder">
-                    <span className="fa fa-plus"></span>
-                </div>
-                {u.map(this.state.children, (child, key) => this.prepareComponents(child, key + 1))}
-            </div>
-            /*jshint ignore:end */
-        );
     }
-});
 
-module.exports = Editable;
+    renderPartitions(sections, index) {
+        // [0] because we simply check the first item in the array as all following items have the same
+        // plugin name and version (check out the Service\Partitioner\Partitioner docs)
+        let plugin = this.props.plugins.get(sections[0].plugin, sections[0].version);
+
+        // The partitionStore is a dedicated Redux store for each and every partition.
+        let partitionStore = new PartitionStore(sections, index);
+
+        // Subscribe to any changes the partitionStore might encounter.
+        partitionStore.subscribe(() => {
+            let state = partitionStore.getState();
+            let partitions = this.state.partitions;
+            let updated = state.sections;
+
+            if (isEmpty(state.sections)) {
+                // Remove this partition if all of it's children have been deleted
+                partitions = partitions.splice(state.index, 1);
+            } else {
+                // Update the specified partition with it's new contents
+                // Re-partition the editable.
+                partitions[state.index] = updated;
+                partitions = merge(partitions);
+                partitions = partitioner.partition(partitions);
+            }
+
+            this.setState({partitions: partitions});
+        });
+
+        return plugin.render(sections, partitionStore);
+    }
+
+    render() {
+        /*jshint ignore:start */
+        return <div>{map(this.state.partitions, (partition, k) => {
+            // Generate a unique string id by concatenating all ids of this partition together and use CRC32
+            // to make things shorter
+            let id = crc32.str(reduce(partition, (total, n) => total.concat(n.id), ''));
+            return <div key={id}>{this.renderPartitions(partition, k)}</div>;
+        })}</div>;
+        /*jshint ignore:end */
+    }
+}

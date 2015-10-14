@@ -1,4 +1,5 @@
-import u from 'underscore';
+import forEach from 'lodash/collection/forEach';
+import find from 'lodash/collection/find';
 import PluginNotFoundException from 'app/exception/PluginNotFoundException';
 import InvalidArgumentException from 'app/exception/InvalidArgumentException';
 import Repository from './Repository';
@@ -19,7 +20,7 @@ export default class PluginManager {
      * @throws {InvalidArgumentException}
      */
     constructor(repositories) {
-        u.each(repositories, repository => this.constructor.assertRepository(repository));
+        forEach(repositories, repository => this.constructor.assertRepository(repository));
         this.repositories = repositories;
     }
 
@@ -50,7 +51,7 @@ export default class PluginManager {
      * @return {bool}
      */
     has(name, version) {
-        return u.find(this.repositories, r => r.has(name, version)) !== undefined;
+        return find(this.repositories, r => r.has(name, version)) !== undefined;
     }
 
     /**
@@ -66,7 +67,7 @@ export default class PluginManager {
      * @return {bool}
      */
     get(name, version) {
-        var repository = u.find(this.repositories, r => r.has(name, version));
+        var repository = find(this.repositories, r => r.has(name, version));
         if (repository !== undefined) {
             return repository.get(name, version);
         }

@@ -1,4 +1,5 @@
-import u from 'underscore';
+import forEach from 'lodash/collection/forEach';
+import lfind from 'lodash/collection/find';
 import Plugin from './Plugin';
 import PluginNotFoundException from 'app/exception/PluginNotFoundException';
 import InvalidArgumentException from 'app/exception/InvalidArgumentException';
@@ -16,7 +17,7 @@ export default class Repository {
      * @param plugins []Plugin
      */
     constructor(plugins) {
-        u.each(plugins, plugin => this.constructor.assertPlugin(plugin));
+        forEach(plugins, plugin => this.constructor.assertPlugin(plugin));
         this.plugins = plugins;
     }
 
@@ -39,14 +40,11 @@ export default class Repository {
     }
 
     find(name, version) {
-        if (version) {
-            return u.find(this.plugins, p => p.name === name && (p.version === version || this.constructor.isCompatible(version, p.compatibility)));
-        } else {
-            return u.find(this.plugins, p => p.name === name);
-        }
+        version = version || 0;
+        return lfind(this.plugins, p => p.name === name && this.constructor.isCompatible(version, p.version));
     }
 
-    static isCompatible(version, compatibles) {
-        return compatibles ? compatibles.indexOf(version) > -1 : false;
+    static isCompatible(version, head) {
+        return version <= head;
     }
 }
