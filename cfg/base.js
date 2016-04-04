@@ -5,7 +5,7 @@ import webpack from 'webpack'
 const root = path.join(__dirname, '..')
 
 const config = {
-  entry: [path.join(root, 'src')],
+  entry: [path.join(root, 'src', 'client')],
   output: {
     path: path.join(root, 'dist'),
     publicPath: '/',
@@ -50,11 +50,11 @@ const config = {
   // postcss: () => ([
   //   autoprefixer
   // ]),
-  devServer: {
-    proxy: {
-      '*': 'http://localhost:4000'
-    }
-  }
+  // devServer: {
+  //   proxy: {
+  //     '*': 'http://localhost:4000'
+  //   }
+  // }
 }
 
 export default config
