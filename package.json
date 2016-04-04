@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "cross-env NODE_PATH=. mocha --require .babel-require --recursive \"src/**/*.test.js\"",
+    "test-e2e": "node bin/nightwatch",
     "start": "cross-env NODE_PATH=. webpack-dev-server --hot --inline --port 3000 --content-base dist/",
     "lint": "eslint \"+(cfg|src)/**/*.js\" --fix",
     "build": "cross-env NODE_PATH=. NODE_ENV=production webpack"
@@ -27,6 +28,7 @@
     "eslint-config-ory-am-react": "2.0.0",
     "eslint-plugin-react": "4.2.3",
     "mocha": "2.4.5",
+    "nightwatch": "0.8.18",
     "unexpected": "10.11.1",
     "webpack-dev-server": "2.0.0-beta"
   }
