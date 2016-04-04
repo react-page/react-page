@@ -1,0 +1,10 @@
+{
+  "extends": [
+    "eslint-config-ory-am",
+    "eslint-config-ory-am-react"
+  ],
+  "env": {
+    "node": true,
+    "browser": true
+  }
+}
