@@ -30,7 +30,7 @@ build/Release
 node_modules
 
 # Compiled code
-dist/*
+public/bundle*
 
 # Selenium reports
 reports
