@@ -1,0 +1,19 @@
+language: node_js
+
+node_js:
+  - "5"
+
+cache:
+    directories:
+        - node_modules
+
+script:
+  - npm run lint
+  - npm test
+
+addons:
+  code_climate:
+    repo_token: aba9a7c425743c514e33ffee7629e71f7efee72cbd98c8be6e302c85e780658f
+
+after_script:
+  - codeclimate-test-reporter < coverage/lcov.info
