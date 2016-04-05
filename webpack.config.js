@@ -19,7 +19,12 @@ module.exports = {
     new webpack.optimize.OccurrenceOrderPlugin(),
     isProduction ? new webpack.optimize.UglifyJsPlugin() : new webpack.HotModuleReplacementPlugin()
   ].filter((s) => s),
-  modules: [__dirname, 'node_modules'],
+  resolve: {
+    modules: [
+      __dirname,
+      'node_modules'
+    ]
+  },
   module: {
     loaders: [{
       test: /\.js$/,

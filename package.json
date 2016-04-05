@@ -22,6 +22,8 @@
     "babel-preset-stage-2": "6.5.0",
     "babel-register": "6.7.2",
     "cross-env": "1.0.7",
+    "react": "15.0.0-rc.2",
+    "react-dom": "15.0.0-rc.2",
     "webpack": "2.1.0-beta.4"
   },
   "devDependencies": {
