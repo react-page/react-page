@@ -16,6 +16,7 @@
   "license": "ISC",
   "dependencies": {
     "babel-loader": "6.2.4",
+    "babel-plugin-transform-inline-environment-variables": "6.5.0",
     "babel-polyfill": "6.7.4",
     "babel-preset-es2015-webpack": "6.4.0",
     "babel-preset-react": "6.5.0",
@@ -37,6 +38,7 @@
     "nightwatch": "0.8.18",
     "nodemon": "1.9.1",
     "npm-run-all": "1.7.0",
+    "redbox-react": "1.2.2",
     "unexpected": "10.11.1",
     "webpack-dev-middleware": "1.6.1",
     "webpack-hot-middleware": "2.10.0"

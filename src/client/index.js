@@ -1,9 +1,32 @@
 import React from 'react'
-import { render } from 'react-dom'
+import ReactDOM from 'react-dom'
 
-import App from 'src/common/components/App'
+const renderComponent = (component) => ReactDOM.render(component, document.getElementById('app'))
 
-render(
-  <App />,
-  document.getElementById('app')
-)
+let render = () => {
+  const App = require('src/common/components/App').default
+
+  renderComponent(<App />)
+}
+
+if (module.hot) {
+  const renderApp = render
+  const renderError = (error) => {
+    const RedBox = require('redbox-react')
+    renderComponent(<RedBox error={error} />)
+  }
+
+  render = () => {
+    try {
+      renderApp()
+    } catch (error) {
+      renderError(error)
+    }
+  }
+
+  module.hot.accept('src/common/components/App', () => {
+    setTimeout(render)
+  })
+}
+
+render()

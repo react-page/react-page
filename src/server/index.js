@@ -32,5 +32,5 @@ app.get((req, res, next) => {
 })
 
 app.listen(port, () => {
-  console.log('Listening on port %d', port) // eslint-disable-line no-console
+  console.log('Listening on port %d. Open up http://localhost:%s/ in your browser', port, port) // eslint-disable-line no-console
 })

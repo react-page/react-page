@@ -17,7 +17,9 @@ module.exports = {
   devtool: 'source-map',
   plugins: [
     new webpack.optimize.OccurrenceOrderPlugin(),
-    isProduction ? new webpack.optimize.UglifyJsPlugin() : new webpack.HotModuleReplacementPlugin()
+    isDevelopment ? new webpack.HotModuleReplacementPlugin() : null,
+    isProduction ? new webpack.DefinePlugin({ 'process.env.NODE_ENV': '"production"' }) : null,
+    isProduction ? new webpack.optimize.UglifyJsPlugin() : null
   ].filter((s) => s),
   resolve: {
     modules: [
@@ -29,7 +31,12 @@ module.exports = {
     loaders: [{
       test: /\.js$/,
       loader: 'babel',
-      exclude: /node_modules/
+      exclude: /node_modules/,
+      query: {
+        plugins: [
+          'transform-inline-environment-variables'
+        ]
+      }
     }]
   }
 }
