@@ -8,8 +8,6 @@ const isProduction = process.env.NODE_ENV === 'production'
 
 const root = path.join(__dirname, '../../public')
 
-app.use(express.static(root))
-
 if (!isProduction) {
   const webpack = require('webpack')
   const webpackConfig = require('webpack.config')
@@ -17,11 +15,14 @@ if (!isProduction) {
   const compiler = webpack(webpackConfig)
 
   app.use(require('webpack-dev-middleware')(compiler, {
+    noInfo: true,
     publicPath: webpackConfig.output.publicPath
   }))
 
   app.use(require('webpack-hot-middleware')(compiler))
 }
+
+app.use(express.static(root))
 
 app.get((req, res, next) => {
   if (req.accepts('html')) {
@@ -32,5 +33,5 @@ app.get((req, res, next) => {
 })
 
 app.listen(port, () => {
-  console.log('Listening on port %d. Open up http://localhost:%s/ in your browser', port, port) // eslint-disable-line no-console
+  console.log(`Listening on port ${port}. Open up http://localhost:${port}/ in your browser`) // eslint-disable-line no-console
 })
