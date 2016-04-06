@@ -33,6 +33,11 @@ module.exports = {
       loader: 'babel',
       exclude: /node_modules/,
       query: {
+        presets: [
+          'es2015-webpack',
+          'stage-2',
+          'react'
+        ],
         plugins: [
           'transform-inline-environment-variables'
         ]
