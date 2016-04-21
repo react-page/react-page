@@ -1,26 +1,38 @@
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 const path = require('path')
+const R = require('ramda')
 const webpack = require('webpack')
 
 const isProduction = process.env.NODE_ENV === 'production'
 const isDevelopment = !isProduction
+const createEnvAwareArray = R.reject(R.isNil)
+
+const ifProduction = (x) => isProduction ? x : null
+const ifDevelopment = (x) => isDevelopment ? x : null
 
 module.exports = {
-  entry: [
-    isDevelopment ? 'webpack-hot-middleware/client' : null,
+  entry: createEnvAwareArray([
+    ifDevelopment('webpack-hot-middleware/client'),
     path.join(__dirname, 'src', 'client')
-  ].filter((s) => s),
+  ]),
   output: {
     path: path.join(__dirname, 'public'),
     publicPath: '/',
     filename: 'bundle.js'
   },
   devtool: 'source-map',
-  plugins: [
+  plugins: createEnvAwareArray([
+    new HtmlWebpackPlugin({
+      template: path.join(__dirname, 'src', 'client', 'index.ejs'),
+      inject: 'body'
+    }),
     new webpack.optimize.OccurrenceOrderPlugin(),
-    isDevelopment ? new webpack.HotModuleReplacementPlugin() : null,
-    isProduction ? new webpack.DefinePlugin({ 'process.env.NODE_ENV': '"production"' }) : null,
-    isProduction ? new webpack.optimize.UglifyJsPlugin() : null
-  ].filter((s) => s),
+    ifDevelopment(new webpack.HotModuleReplacementPlugin()),
+    ifProduction(new webpack.DefinePlugin({ 'process.env.NODE_ENV': '"production"' })),
+    ifProduction(new webpack.optimize.UglifyJsPlugin()),
+    ifProduction(new ExtractTextPlugin('styles.css'))
+  ]),
   resolve: {
     modules: [
       __dirname,
@@ -42,6 +54,9 @@ module.exports = {
           'transform-inline-environment-variables'
         ]
       }
+    }, {
+      test: /\.css$/,
+      loaders: isProduction ? ExtractTextPlugin.extract('style', ['css']) : ['style', 'css']
     }]
   }
 }

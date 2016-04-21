@@ -1,6 +1,8 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 
+import './index.css'
+
 const renderComponent = (component) => ReactDOM.render(component, document.getElementById('app'))
 
 let render = () => {
