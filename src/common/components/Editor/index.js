@@ -1,16 +1,75 @@
-import React, { Component, PropTypes } from 'react'
 import {
+  AtomicBlockUtils,
   convertFromRaw,
   convertToRaw,
   ContentState,
   Editor as DraftEditor,
   EditorState,
+  Entity,
   getDefaultKeyBinding,
   KeyBindingUtil,
-  RichUtils
+  Modifier,
+  RichUtils,
+  SelectionState
 } from 'draft-js'
-
+import { Map } from 'immutable'
+import React, { Component, PropTypes } from 'react'
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 import 'draft-js/dist/Draft.css'
+
+
+import Katex from 'src/common/components/Katex'
+
+import './styles.css'
+
+const focusOnMount = (input) => {
+  if (input) {
+    input.focus()
+  }
+}
+
+class LatexEquation extends Component {
+  render() {
+    const { block, blockProps } = this.props
+
+    const { src } = Entity.get(block.getEntityAt(0)).getData()
+    const editing = blockProps.editing
+
+    let editor
+
+    if (editing) {
+      editor = (
+        <textarea onChange={blockProps.onChange}
+                  onBlur={blockProps.onBlur}
+                  ref={focusOnMount}
+                  style={{
+                    width: '100%',
+                    height: '3em'
+                  }}
+                  value={src} />
+      )
+    }
+
+    return (
+      <div>
+        <Katex onClick={blockProps.onClick} src={src} />
+        <ReactCSSTransitionGroup transitionName="example" transitionEnterTimeout={500} transitionLeaveTimeout={300}>
+          {editor}
+        </ReactCSSTransitionGroup>
+      </div>
+    )
+  }
+}
+
+LatexEquation.propTypes = {
+  block: PropTypes.shape({
+    getEntityAt: PropTypes.func.isRequired
+  }).isRequired,
+  blockProps: PropTypes.shape({
+    onBlur: PropTypes.func,
+    onChange: PropTypes.func
+  }).isRequired
+}
 
 class Editor extends Component {
   constructor(props) {
@@ -28,12 +87,112 @@ class Editor extends Component {
     } catch (e) {
       editorState = EditorState.createEmpty()
     } finally {
-      this.state = { editorState }
+      this.state = {
+        editorState,
+        liveBlockEdits: Map()
+      }
     }
 
+    this.blockRenderer = this.blockRenderer.bind(this)
     this.handleKeyCommand = this.handleKeyCommand.bind(this)
     this.keyBindingFn = this.keyBindingFn.bind(this)
     this.onChange = (editorState) => this.setState({ editorState })
+
+    this.addLatexEquation = this.addLatexEquation.bind(this)
+    this.removeLatexEquation = this.removeLatexEquation.bind(this)
+  }
+
+  blockRenderer(block) {
+    switch (block.getType()) {
+      case 'atomic': {
+        const blockKey = block.getKey()
+
+        return {
+          component: LatexEquation,
+          editable: false,
+          props: {
+            editing: this.state.liveBlockEdits.get(blockKey, false),
+
+            onBlur: () => {
+              const { editorState, liveBlockEdits } = this.state
+
+              this.setState({
+                liveBlockEdits: liveBlockEdits.remove(blockKey),
+                editorState: EditorState.forceSelection(editorState, editorState.getSelection())
+              })
+            },
+
+            onChange: (e) => {
+              const { editorState } = this.state
+
+              const entityKey = block.getEntityAt(0)
+
+              Entity.mergeData(entityKey, {
+                src: e.target.value
+              })
+
+              this.setState({
+                editorState: EditorState.forceSelection(editorState, editorState.getSelection())
+              })
+            },
+
+            onClick: () => {
+              const { editorState, liveBlockEdits } = this.state
+
+              this.setState({
+                editorState: EditorState.forceSelection(editorState, editorState.getSelection()),
+                liveBlockEdits: liveBlockEdits.set(blockKey, true)
+              })
+            }
+          }
+        }
+      }
+      default:
+        return null
+    }
+  }
+
+  addLatexEquation() {
+    const { editorState } = this.state
+
+    const entityKey = Entity.create(
+      'LATEX_EQUATION',
+      'IMMUTABLE',
+      { src: '' }
+    )
+
+    this.setState({
+      liveBlockEdits: Map(),
+      editorState: AtomicBlockUtils.insertAtomicBlock(editorState, entityKey, ' ')
+    })
+  }
+
+  removeLatexEquation(blockKey) {
+    const { editorState, liveBlockEdits } = this.state
+
+    const content = editorState.getCurrentContent()
+    const block = content.getBlockForKey(blockKey)
+
+    const targetRange = new SelectionState({
+      anchorKey: blockKey,
+      anchorOffset: 0,
+      focusKey: blockKey,
+      focusOffset: block.getLength()
+    })
+
+    const withoutEquation = Modifier.removeRange(content, targetRange, 'backward')
+    const resetBlock = Modifier.setBlockType(
+      withoutEquation,
+      withoutEquation.getSelectionAfter(),
+      'unstyled'
+    )
+
+    const newState = EditorState.push(editorState, resetBlock, 'remove-range')
+
+    this.setState({
+      liveBlockEdits: liveBlockEdits.remove(blockKey),
+      editorState: EditorState.forceSelection(newState, resetBlock.getSelectionAfter())
+    })
   }
 
   handleKeyCommand(command) {
@@ -69,11 +228,17 @@ class Editor extends Component {
 
   render() {
     return (
-      <DraftEditor editorState={this.state.editorState}
-                   handleKeyCommand={this.handleKeyCommand}
-                   keyBindingFn={this.keyBindingFn}
-                   onChange={this.onChange}
-                   placeholder="Tell your story..." />
+      <div>
+        <button onClick={this.addLatexEquation}>Insert Equation</button>
+        <DraftEditor blockRendererFn={this.blockRenderer}
+                     editorState={this.state.editorState}
+                     handleKeyCommand={this.handleKeyCommand}
+                     keyBindingFn={this.keyBindingFn}
+                     onChange={this.onChange}
+                     placeholder="Tell your story..."
+                     readOnly={this.state.liveBlockEdits.count()}
+                     spellCheck />
+      </div>
     )
   }
 }

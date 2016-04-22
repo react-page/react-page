@@ -6,5 +6,11 @@
   "env": {
     "node": true,
     "browser": true
+  },
+  "rules": {
+    "new-cap": [
+      "error", {
+      "capIsNewExceptions": ["Map"]
+    }]
   }
 }

@@ -28,11 +28,15 @@
     "draft-js": "0.5.0",
     "express": "4.13.4",
     "extract-text-webpack-plugin": "1.0.1",
+    "file-loader": "0.8.5",
     "html-webpack-plugin": "2.16.0",
+    "katex": "0.6.0",
     "ramda": "0.21.0",
     "react": "15.0.1",
+    "react-addons-css-transition-group": "15.0.1",
     "react-dom": "15.0.1",
     "style-loader": "0.13.1",
+    "url-loader": "0.5.7",
     "webpack": "2.1.0-beta.4"
   },
   "devDependencies": {
