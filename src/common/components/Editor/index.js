@@ -80,8 +80,7 @@ class Editor extends Component {
     let editorState
 
     try {
-      const blocks = convertFromRaw(rawContent)
-      const content = ContentState.createFromBlockArray(blocks)
+      const content = convertFromRaw(rawContent)
 
       editorState = EditorState.createWithContent(content)
     } catch (e) {
