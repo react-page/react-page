@@ -2,7 +2,6 @@ import {
   AtomicBlockUtils,
   convertFromRaw,
   convertToRaw,
-  ContentState,
   Editor as DraftEditor,
   EditorState,
   Entity,
@@ -105,45 +104,51 @@ class Editor extends Component {
     switch (block.getType()) {
       case 'atomic': {
         const blockKey = block.getKey()
+        const entity = Entity.get(block.getEntityAt(0))
 
-        return {
-          component: LatexEquation,
-          editable: false,
-          props: {
-            editing: this.state.liveBlockEdits.get(blockKey, false),
+        switch (entity.getType()) {
+          case 'LATEX_EQUATION':
+            return {
+              component: LatexEquation,
+              editable: false,
+              props: {
+                editing: this.state.liveBlockEdits.get(blockKey, false),
 
-            onBlur: () => {
-              const { editorState, liveBlockEdits } = this.state
+                onBlur: () => {
+                  const { editorState, liveBlockEdits } = this.state
 
-              this.setState({
-                liveBlockEdits: liveBlockEdits.remove(blockKey),
-                editorState: EditorState.forceSelection(editorState, editorState.getSelection())
-              })
-            },
+                  this.setState({
+                    liveBlockEdits: liveBlockEdits.remove(blockKey),
+                    editorState: EditorState.forceSelection(editorState, editorState.getSelection())
+                  })
+                },
 
-            onChange: (e) => {
-              const { editorState } = this.state
+                onChange: (e) => {
+                  const { editorState } = this.state
 
-              const entityKey = block.getEntityAt(0)
+                  const entityKey = block.getEntityAt(0)
 
-              Entity.mergeData(entityKey, {
-                src: e.target.value
-              })
+                  Entity.mergeData(entityKey, {
+                    src: e.target.value
+                  })
 
-              this.setState({
-                editorState: EditorState.forceSelection(editorState, editorState.getSelection())
-              })
-            },
+                  this.setState({
+                    editorState: EditorState.forceSelection(editorState, editorState.getSelection())
+                  })
+                },
 
-            onClick: () => {
-              const { editorState, liveBlockEdits } = this.state
+                onClick: () => {
+                  const { editorState, liveBlockEdits } = this.state
 
-              this.setState({
-                editorState: EditorState.forceSelection(editorState, editorState.getSelection()),
-                liveBlockEdits: liveBlockEdits.set(blockKey, true)
-              })
+                  this.setState({
+                    editorState: EditorState.forceSelection(editorState, editorState.getSelection()),
+                    liveBlockEdits: liveBlockEdits.set(blockKey, true)
+                  })
+                }
+              }
             }
-          }
+          default:
+            return null
         }
       }
       default:
