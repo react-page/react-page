@@ -10,7 +10,7 @@ class Katex extends Component {
   }
 
   componentDidMount() {
-    this.update()
+    this.update(this.props.src)
   }
 
   componentWillReceiveProps(nextProps) {
