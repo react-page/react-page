@@ -12,57 +12,70 @@ import {
   RichUtils,
   SelectionState
 } from 'draft-js'
-import { List, Map, Repeat } from 'immutable'
+import { Map } from 'immutable'
 import React, { Component, PropTypes } from 'react'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
+import Modal from 'react-modal'
 import 'draft-js/dist/Draft.css'
 
 import Katex from 'src/common/components/Katex'
 
 import './styles.css'
 
-const focusOnMount = (input) => {
-  if (input) {
-    input.focus()
-  }
-}
-
 class LatexInline extends Component {
+  constructor(props) {
+    super(props)
+
+    const { src } = Entity.get(props.entityKey).getData()
+
+    this.state = {
+      src
+    }
+
+    this.onChange = (e) => this.setState({ src: e.target.value })
+  }
+
   render() {
-    const { entityKey } = this.props
-    // const { block, blockProps } = this.props
-    //
+    const { editing, entityKey, onBlur, onClick } = this.props
+    const { src } = this.state
 
-    console.log(Entity.get(entityKey))
-    const { src } = Entity.get(entityKey).getData()
+    const katex = <Katex src={src} />
 
-    console.log(src)
-    // const editing = blockProps.editing
-    //
-    // let editor
-    //
-    // if (editing) {
-    //   editor = (
-    //     <textarea onChange={blockProps.onChange}
-    //               onBlur={blockProps.onBlur}
-    //               ref={focusOnMount}
-    //               style={{
-    //                 width: '100%',
-    //                 height: '3em'
-    //               }}
-    //               value={src} />
-    //   )
-    // }
+    if (editing) {
+      return (
+        <Modal isOpen={editing}
+               onAfterOpen={() => {
+                 if (this.input) {
+                   this.input.focus()
+                 }
+               }}
+               onRequestClose={() => onBlur(src)}
+               style={{ overlay: { zIndex: 99 } }}>
+          {katex}
+          <textarea ref={(c) => this.input = c}
+                    onChange={this.onChange}
+                    style={{
+                      width: '100%',
+                      height: '3em'
+                    }}
+                    value={src} />
+        </Modal>
+      )
+    }
 
     return (
-      <span onClick={() => console.log('yo')}>
-        <Katex src={src}/>
-        {/*<ReactCSSTransitionGroup transitionName="example" transitionEnterTimeout={500} transitionLeaveTimeout={300}>
-          {editor}
-        </ReactCSSTransitionGroup>*/}
+      <span onClick={onClick}>
+        {katex}
       </span>
     )
   }
+}
+
+LatexInline.propTypes = {
+  editing: PropTypes.bool.isRequired,
+  entityKey: PropTypes.string.isRequired,
+  onBlur: PropTypes.func,
+  onClick: PropTypes.func
 }
 
 class LatexEquation extends Component {
@@ -76,9 +89,9 @@ class LatexEquation extends Component {
 
     if (editing) {
       editor = (
-        <textarea onChange={blockProps.onChange}
+        <textarea autoFocus
+                  onChange={blockProps.onChange}
                   onBlur={blockProps.onBlur}
-                  ref={focusOnMount}
                   style={{
                     width: '100%',
                     height: '3em'
@@ -127,7 +140,42 @@ class Editor extends Component {
           callback
         )
       },
-      component: LatexInline
+      component: (props) => {
+        const { entityKey } = props // eslint-disable-line react/prop-types
+
+        const editing = this.state.liveBlockEdits.get(entityKey, false)
+
+        const onClick = () => {
+          const { editorState, liveBlockEdits } = this.state
+
+          this.setState({
+            editorState: EditorState.forceSelection(editorState, editorState.getSelection()),
+            liveBlockEdits: liveBlockEdits.set(entityKey, true)
+          })
+        }
+
+        const onBlur = (src) => {
+          const { editorState, liveBlockEdits } = this.state
+
+          Entity.mergeData(entityKey, {
+            src
+          })
+
+          this.setState({
+            liveBlockEdits: liveBlockEdits.remove(entityKey),
+            editorState: EditorState.forceSelection(editorState, editorState.getSelection())
+          })
+        }
+
+        const newProps = {
+          ...props,
+          editing,
+          onBlur,
+          onClick
+        }
+
+        return <LatexInline {...newProps} />
+      }
     }])
 
     const rawContent = props.storage.get()
@@ -161,8 +209,8 @@ class Editor extends Component {
   blockRenderer(block) {
     switch (block.getType()) {
       case 'atomic': {
-        const blockKey = block.getKey()
-        const entity = Entity.get(block.getEntityAt(0))
+        const entityKey = block.getEntityAt(0)
+        const entity = Entity.get(entityKey)
 
         switch (entity.getType()) {
           case 'LATEX_EQUATION':
@@ -170,21 +218,19 @@ class Editor extends Component {
               component: LatexEquation,
               editable: false,
               props: {
-                editing: this.state.liveBlockEdits.get(blockKey, false),
+                editing: this.state.liveBlockEdits.get(entityKey, false),
 
                 onBlur: () => {
                   const { editorState, liveBlockEdits } = this.state
 
                   this.setState({
-                    liveBlockEdits: liveBlockEdits.remove(blockKey),
+                    liveBlockEdits: liveBlockEdits.remove(entityKey),
                     editorState: EditorState.forceSelection(editorState, editorState.getSelection())
                   })
                 },
 
                 onChange: (e) => {
                   const { editorState } = this.state
-
-                  const entityKey = block.getEntityAt(0)
 
                   Entity.mergeData(entityKey, {
                     src: e.target.value
@@ -200,7 +246,7 @@ class Editor extends Component {
 
                   this.setState({
                     editorState: EditorState.forceSelection(editorState, editorState.getSelection()),
-                    liveBlockEdits: liveBlockEdits.set(blockKey, true)
+                    liveBlockEdits: liveBlockEdits.set(entityKey, true)
                   })
                 }
               }
@@ -304,8 +350,6 @@ class Editor extends Component {
       case 'editor-save': {
         const { storage } = this.props
         const { editorState } = this.state
-
-        console.log(convertToRaw(editorState.getCurrentContent()))
 
         storage.set(convertToRaw(editorState.getCurrentContent()))
 

@@ -35,6 +35,7 @@
     "react": "15.0.2",
     "react-addons-css-transition-group": "15.0.2",
     "react-dom": "15.0.2",
+    "react-modal": "1.2.1",
     "style-loader": "0.13.1",
     "url-loader": "0.5.7",
     "webpack": "2.1.0-beta.4"
