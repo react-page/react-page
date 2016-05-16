@@ -1,5 +1,6 @@
 import {
   AtomicBlockUtils,
+  CompositeDecorator,
   convertFromRaw,
   convertToRaw,
   Editor as DraftEditor,
@@ -11,11 +12,10 @@ import {
   RichUtils,
   SelectionState
 } from 'draft-js'
-import { Map } from 'immutable'
+import { List, Map, Repeat } from 'immutable'
 import React, { Component, PropTypes } from 'react'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 import 'draft-js/dist/Draft.css'
-
 
 import Katex from 'src/common/components/Katex'
 
@@ -24,6 +24,44 @@ import './styles.css'
 const focusOnMount = (input) => {
   if (input) {
     input.focus()
+  }
+}
+
+class LatexInline extends Component {
+  render() {
+    const { entityKey } = this.props
+    // const { block, blockProps } = this.props
+    //
+
+    console.log(Entity.get(entityKey))
+    const { src } = Entity.get(entityKey).getData()
+
+    console.log(src)
+    // const editing = blockProps.editing
+    //
+    // let editor
+    //
+    // if (editing) {
+    //   editor = (
+    //     <textarea onChange={blockProps.onChange}
+    //               onBlur={blockProps.onBlur}
+    //               ref={focusOnMount}
+    //               style={{
+    //                 width: '100%',
+    //                 height: '3em'
+    //               }}
+    //               value={src} />
+    //   )
+    // }
+
+    return (
+      <span onClick={() => console.log('yo')}>
+        <Katex src={src}/>
+        {/*<ReactCSSTransitionGroup transitionName="example" transitionEnterTimeout={500} transitionLeaveTimeout={300}>
+          {editor}
+        </ReactCSSTransitionGroup>*/}
+      </span>
+    )
   }
 }
 
@@ -51,7 +89,7 @@ class LatexEquation extends Component {
 
     return (
       <div>
-        <Katex onClick={blockProps.onClick} src={src} />
+        <Katex displayMode onClick={blockProps.onClick} src={src} />
         <ReactCSSTransitionGroup transitionName="example" transitionEnterTimeout={500} transitionLeaveTimeout={300}>
           {editor}
         </ReactCSSTransitionGroup>
@@ -74,6 +112,24 @@ class Editor extends Component {
   constructor(props) {
     super(props)
 
+    const decorator = new CompositeDecorator([{
+      strategy: (contentBlock, callback) => {
+        contentBlock.findEntityRanges(
+          (character) => {
+            const entityKey = character.getEntity()
+
+            if (!entityKey) {
+              return false
+            }
+
+            return Entity.get(entityKey).getType() === 'INLINE_LATEX_EQUATION'
+          },
+          callback
+        )
+      },
+      component: LatexInline
+    }])
+
     const rawContent = props.storage.get()
 
     let editorState
@@ -81,9 +137,9 @@ class Editor extends Component {
     try {
       const content = convertFromRaw(rawContent)
 
-      editorState = EditorState.createWithContent(content)
+      editorState = EditorState.createWithContent(content, decorator)
     } catch (e) {
-      editorState = EditorState.createEmpty()
+      editorState = EditorState.createEmpty(decorator)
     } finally {
       this.state = {
         editorState,
@@ -98,6 +154,8 @@ class Editor extends Component {
 
     this.addLatexEquation = this.addLatexEquation.bind(this)
     this.removeLatexEquation = this.removeLatexEquation.bind(this)
+
+    this.addInlineLatexEquation = this.addInlineLatexEquation.bind(this)
   }
 
   blockRenderer(block) {
@@ -156,6 +214,48 @@ class Editor extends Component {
     }
   }
 
+  addInlineLatexEquation() {
+    const { editorState } = this.state
+
+    const entityKey = Entity.create(
+      'INLINE_LATEX_EQUATION',
+      'IMMUTABLE',
+      { src: 'x^2 + 5' }
+    )
+
+    const contentState = editorState.getCurrentContent()
+    const selectionState = editorState.getSelection()
+
+    const firstBlank = Modifier.insertText(
+      contentState,
+      selectionState,
+      ' ',
+      null,
+      null
+    )
+
+    const withEntity = Modifier.insertText(
+      firstBlank,
+      selectionState,
+      ' ',
+      null,
+      entityKey
+    )
+
+    const withBlank = Modifier.insertText(
+      withEntity,
+      selectionState,
+      ' ',
+      null,
+      null
+    )
+
+    this.setState({
+      liveBlockEdits: Map(),
+      editorState: EditorState.push(editorState, withBlank, 'insert-text')
+    })
+  }
+
   addLatexEquation() {
     const { editorState } = this.state
 
@@ -205,6 +305,8 @@ class Editor extends Component {
         const { storage } = this.props
         const { editorState } = this.state
 
+        console.log(convertToRaw(editorState.getCurrentContent()))
+
         storage.set(convertToRaw(editorState.getCurrentContent()))
 
         return true
@@ -234,6 +336,7 @@ class Editor extends Component {
     return (
       <div>
         <button onClick={this.addLatexEquation}>Insert Equation</button>
+        <button onClick={this.addInlineLatexEquation}>Insert Inline Equation</button>
         <DraftEditor blockRendererFn={this.blockRenderer}
                      editorState={this.state.editorState}
                      handleKeyCommand={this.handleKeyCommand}

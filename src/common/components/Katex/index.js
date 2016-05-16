@@ -25,6 +25,8 @@ class Katex extends Component {
   }
 
   update(src) {
+    const { displayMode, throwOnError, errorColor } = this.props
+
     if (this.timer) {
       clearTimeout(this.timer)
     }
@@ -33,8 +35,9 @@ class Katex extends Component {
       try {
         const html = katex.renderToString(
           (src && src.length > 0) ? src : '\\text{empty formula}', {
-            displayMode: true,
-            throwOnError: false
+            displayMode,
+            throwOnError,
+            errorColor
           }
         )
 
@@ -47,17 +50,31 @@ class Katex extends Component {
 
   render() {
     return (
-      <div dangerouslySetInnerHTML={this.state}
-           onClick={this.props.onClick} />
+      <span dangerouslySetInnerHTML={this.state}
+            onClick={this.props.onClick} />
     )
   }
 }
 
 Katex.propTypes = {
+  displayMode: PropTypes.bool.isRequired,
   src: PropTypes.string.isRequired,
+  throwOnError: PropTypes.bool.isRequired,
+  errorColor: (props, propName, componentName) => {
+    if (!(/#([0-9A-Fa-f]{3}|[0-9A-Fa-f]{6})/).test(props[propName])) {
+      return new Error(
+        `Invalid prop ${propName} supplied to ${componentName}. Should be a color string`
+      )
+    }
+  },
   onClick: PropTypes.func
 }
 
-Katex.defaultProps = { src: '' }
+Katex.defaultProps = {
+  displayMode: false,
+  src: '',
+  throwOnError: false,
+  errorColor: '#cc0000'
+}
 
 export default Katex
