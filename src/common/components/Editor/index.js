@@ -19,6 +19,7 @@ import Modal from 'react-modal'
 import 'draft-js/dist/Draft.css'
 
 import Katex from 'src/common/components/Katex'
+import { createEntityTypeStrategy } from './strategies'
 
 import './styles.css'
 
@@ -36,7 +37,7 @@ class LatexInline extends Component {
   }
 
   render() {
-    const { editing, entityKey, onBlur, onClick } = this.props
+    const { editing, onBlur, onClick } = this.props
     const { src } = this.state
 
     const katex = <Katex src={src} />
@@ -126,20 +127,7 @@ class Editor extends Component {
     super(props)
 
     const decorator = new CompositeDecorator([{
-      strategy: (contentBlock, callback) => {
-        contentBlock.findEntityRanges(
-          (character) => {
-            const entityKey = character.getEntity()
-
-            if (!entityKey) {
-              return false
-            }
-
-            return Entity.get(entityKey).getType() === 'INLINE_LATEX_EQUATION'
-          },
-          callback
-        )
-      },
+      strategy: createEntityTypeStrategy('INLINE_LATEX_EQUATION'),
       component: (props) => {
         const { entityKey } = props // eslint-disable-line react/prop-types
 
