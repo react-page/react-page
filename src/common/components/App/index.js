@@ -1,7 +1,8 @@
 import React from 'react'
+import Editor from 'src/common/editor'
 
 const App = () => (
-  <p>I'm the Ory Editor</p>
+  <Editor />
 )
 
 export default App

@@ -25,6 +25,7 @@
     "babel-register": "6.9.0",
     "cross-env": "1.0.7",
     "css-loader": "0.23.1",
+    "draft-js": "0.7.0",
     "express": "4.13.4",
     "extract-text-webpack-plugin": "1.0.1",
     "html-webpack-plugin": "2.17.0",
