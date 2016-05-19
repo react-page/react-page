@@ -1,7 +1,10 @@
 import React from 'react'
 
+import Editor from 'src/common/components/Editor'
+import createLocalStorage from 'src/common/storage/LocalStorage'
+
 const App = () => (
-  <p>I'm the Ory Editor</p>
+  <Editor storage={createLocalStorage('content')} />
 )
 
 export default App

@@ -1,7 +1,5 @@
 import { configure } from '@kadira/storybook'
 
-const loadStories = () => {
-  require('../src/common/components/App/stories')
-}
+const loadStories = () => {}
 
 configure(loadStories(), module)
