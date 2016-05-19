@@ -7,6 +7,7 @@ import 'draft-js/dist/Draft.css'
 
 import { replaceEditorState } from './actions'
 import { editorState } from './selectors'
+import Toolbar from './Toolbar'
 
 class Editable extends Component {
   constructor(props) {
@@ -28,19 +29,18 @@ class Editable extends Component {
     }
   }
 
-  componentDidMount() {
-    this.focus()
-  }
-
   render() {
     const { editorState, onChange } = this.props
 
     return (
-      <Editor editorState={editorState}
-              handleKeyCommand={this.handleKeyCommand}
-              onChange={onChange}
-              placeholder="Tell your story..."
-              ref="editor" />
+      <div>
+        <Toolbar />
+        <Editor editorState={editorState}
+                handleKeyCommand={this.handleKeyCommand}
+                onChange={onChange}
+                placeholder="Tell your story..."
+                ref="editor" />
+      </div>
     )
   }
 }
