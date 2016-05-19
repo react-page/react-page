@@ -12,20 +12,24 @@ class Editable extends Component {
   constructor(props) {
     super(props)
 
-    this.handleKeyCommand = this.handleKeyCommand.bind(this)
+    this.focus = () => this.refs.editor.focus()
+
+    this.handleKeyCommand = (command) => {
+      const { editorState, onChange } = this.props
+
+      const newState = RichUtils.handleKeyCommand(editorState, command)
+
+      if (newState) {
+        onChange(newState)
+        return true
+      }
+
+      return false
+    }
   }
 
-  handleKeyCommand(command) {
-    const { editorState, onChange } = this.props
-
-    const newState = RichUtils.handleKeyCommand(editorState, command)
-
-    if (newState) {
-      onChange(newState)
-      return true
-    }
-
-    return false
+  componentDidMount() {
+    this.focus()
   }
 
   render() {
@@ -33,9 +37,10 @@ class Editable extends Component {
 
     return (
       <Editor editorState={editorState}
-               handleKeyCommand={this.handleKeyCommand}
-               onChange={onChange}
-               placeholder="Tell your story..." />
+              handleKeyCommand={this.handleKeyCommand}
+              onChange={onChange}
+              placeholder="Tell your story..."
+              ref="editor" />
     )
   }
 }
@@ -48,7 +53,6 @@ Editable.propTypes = {
 const mapStateToProps = (state) => ({
   editorState: editorState(state)
 })
-
 const mapDispatchToProps = (dispatch) => bindActionCreators({ onChange: replaceEditorState }, dispatch)
 
 export default connect(mapStateToProps, mapDispatchToProps)(Editable)
