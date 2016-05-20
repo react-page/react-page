@@ -2,10 +2,33 @@ import { Entity, EditorState, Modifier } from 'draft-js'
 import { combineReducers } from 'redux'
 
 import {
-  INSERT_INLINE_ENTITY,
-  REPLACE_EDITOR_STATE
+  BEGIN_EDITING_ENTITY,
+  FINISH_EDITING_ENTITY,
+  MERGE_ENTITY_DATA,
+  REPLACE_EDITOR_STATE,
+  INSERT_INLINE_ENTITY
 } from './actions'
 import decorator from './decorator'
+
+const editedEntities = (
+  state = {},
+  action
+) => {
+  switch (action.type) {
+    case BEGIN_EDITING_ENTITY:
+      return {
+        ...state,
+        [action.payload]: true
+      }
+    case FINISH_EDITING_ENTITY:
+      return {
+        ...state,
+        [action.payload]: false
+      }
+    default:
+      return state
+  }
+}
 
 const editorState = (
   state = EditorState.createEmpty(decorator),
@@ -40,7 +63,21 @@ const editorState = (
         ' '
       )
 
-      return EditorState.push(state, withBlankAfter, 'insert-text')
+      const newState = EditorState.push(state, withBlankAfter, 'insert-text')
+
+      const newSelectionState = selectionState.merge({
+        anchorOffset: selectionState.getAnchorOffset() + 3,
+        focusOffset: selectionState.getFocusOffset() + 3
+      })
+
+      return EditorState.forceSelection(newState, newSelectionState)
+    }
+    case MERGE_ENTITY_DATA: {
+      const { entityKey, data } = action.payload
+
+      Entity.mergeData(entityKey, data)
+
+      return EditorState.forceSelection(state, state.getSelection())
     }
     case REPLACE_EDITOR_STATE:
       return action.payload
@@ -49,4 +86,4 @@ const editorState = (
   }
 }
 
-export default combineReducers({ editorState })
+export default combineReducers({ editorState, editedEntities })

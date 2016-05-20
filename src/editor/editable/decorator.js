@@ -1,11 +1,15 @@
 import { CompositeDecorator } from 'draft-js'
-import React from 'react'
 
+import InlineMath, { InlineMathEditor } from 'src/plugins/math/InlineMath'
+import createModalPlugin from './custom/ModalPlugin'
 import { createEntityTypeStrategy } from './strategies'
 
 const decorator = new CompositeDecorator([{
   strategy: createEntityTypeStrategy('INLINE_LATEX_EQUATION'),
-  component: () => <span>inline formula</span> // eslint-disable-line
+  component: createModalPlugin(
+    InlineMath,
+    InlineMathEditor
+  )
 }])
 
 export default decorator

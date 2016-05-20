@@ -1,7 +1,7 @@
 import React from 'react'
 import { Provider } from 'react-redux'
 
-import Editable from './editable'
+import Editable from './Editable'
 import createStore from './store'
 
 const store = createStore()

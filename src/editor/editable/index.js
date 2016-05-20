@@ -6,7 +6,7 @@ import { Editor, RichUtils } from 'draft-js'
 import 'draft-js/dist/Draft.css'
 
 import { replaceEditorState } from './actions'
-import { editorState } from './selectors'
+import { editorState, readOnly } from './selectors'
 import Toolbar from './Toolbar'
 
 class Editable extends Component {
@@ -30,7 +30,7 @@ class Editable extends Component {
   }
 
   render() {
-    const { editorState, onChange } = this.props
+    const { editorState, onChange, readOnly } = this.props
 
     return (
       <div>
@@ -39,6 +39,7 @@ class Editable extends Component {
                 handleKeyCommand={this.handleKeyCommand}
                 onChange={onChange}
                 placeholder="Tell your story..."
+                readOnly={readOnly}
                 ref="editor" />
       </div>
     )
@@ -47,11 +48,13 @@ class Editable extends Component {
 
 Editable.propTypes = {
   editorState: PropTypes.object.isRequired,
-  onChange: PropTypes.func.isRequired
+  onChange: PropTypes.func.isRequired,
+  readOnly: PropTypes.bool.isRequired
 }
 
 const mapStateToProps = (state) => ({
-  editorState: editorState(state)
+  editorState: editorState(state),
+  readOnly: readOnly(state)
 })
 const mapDispatchToProps = (dispatch) => bindActionCreators({ onChange: replaceEditorState }, dispatch)
 
