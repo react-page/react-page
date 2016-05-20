@@ -8,6 +8,7 @@ import 'draft-js/dist/Draft.css'
 import { replaceEditorState } from './actions'
 import { editorState, readOnly } from './selectors'
 import Toolbar from './Toolbar'
+import blockRenderer from './blockRenderer'
 
 class Editable extends Component {
   constructor(props) {
@@ -35,7 +36,8 @@ class Editable extends Component {
     return (
       <div>
         <Toolbar />
-        <Editor editorState={editorState}
+        <Editor blockRendererFn={blockRenderer}
+                editorState={editorState}
                 handleKeyCommand={this.handleKeyCommand}
                 onChange={onChange}
                 placeholder="Tell your story..."

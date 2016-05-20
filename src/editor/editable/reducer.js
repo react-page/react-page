@@ -1,4 +1,4 @@
-import { Entity, EditorState, Modifier } from 'draft-js'
+import { AtomicBlockUtils, Entity, EditorState, Modifier } from 'draft-js'
 import { combineReducers } from 'redux'
 
 import {
@@ -6,7 +6,8 @@ import {
   FINISH_EDITING_ENTITY,
   MERGE_ENTITY_DATA,
   REPLACE_EDITOR_STATE,
-  INSERT_INLINE_ENTITY
+  INSERT_INLINE_ENTITY,
+  INSERT_BLOCK_ENTITY
 } from './actions'
 import decorator from './decorator'
 
@@ -71,6 +72,13 @@ const editorState = (
       })
 
       return EditorState.forceSelection(newState, newSelectionState)
+    }
+    case INSERT_BLOCK_ENTITY: {
+      const { type, mutability, data } = action.payload
+
+      const entityKey = Entity.create(type, mutability, data)
+
+      return AtomicBlockUtils.insertAtomicBlock(state, entityKey, ' ')
     }
     case MERGE_ENTITY_DATA: {
       const { entityKey, data } = action.payload

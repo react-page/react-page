@@ -37,3 +37,14 @@ export const insertInlineEntity = (type, mutability, data) => ({
     data
   }
 })
+
+export const INSERT_BLOCK_ENTITY = 'INSERT_BLOCK_ENTITY'
+
+export const insertBlockEntity = (type, mutability, data) => ({
+  type: INSERT_BLOCK_ENTITY,
+  payload: {
+    type,
+    mutability,
+    data
+  }
+})
