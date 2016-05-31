@@ -1,11 +1,10 @@
 import React from 'react'
 
 import configureStore from 'common/store'
-import createLocalStorage from 'src/common/storage/LocalStorage'
 
 const Editable = () => {
     // TODO plugins could apply middlewares here...? #38
-    const storage = configureStore()({})
+    const store = configureStore()({})
 
     return (
         <div>
