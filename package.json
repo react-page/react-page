@@ -28,9 +28,10 @@
     "express": "4.13.4",
     "extract-text-webpack-plugin": "1.0.1",
     "html-webpack-plugin": "2.16.0",
-    "ramda": "0.21.0",
+    "ramda": "^0.21.0",
     "react": "15.0.1",
     "react-dom": "15.0.1",
+    "redux": "^3.5.2",
     "style-loader": "0.13.1",
     "webpack": "2.1.0-beta.4"
   },

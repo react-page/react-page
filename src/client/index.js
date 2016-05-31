@@ -3,19 +3,19 @@ import ReactDOM from 'react-dom'
 
 import './index.css'
 
-const renderComponent = (component) => ReactDOM.render(component, document.getElementById('app'))
+const renderComponent = (component, element) => ReactDOM.render(component, element)
 
-let render = () => {
-  const App = require('src/common/components/App').default
+let render = (elements) => {
+  const Editable = require('src/common/components/Editable').default
 
-  renderComponent(<App />)
+  elements.forEach((e) => renderComponent(<Editable />, e))
 }
 
 if (module.hot) {
   const renderApp = render
   const renderError = (error) => {
     const RedBox = require('redbox-react')
-    renderComponent(<RedBox error={error} />)
+    renderComponent(<RedBox error={error} />, document.getElementById('app'))
   }
 
   render = () => {
@@ -31,4 +31,4 @@ if (module.hot) {
   })
 }
 
-render()
+render(document.querySelectorAll('editable'))
