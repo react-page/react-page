@@ -1,7 +1,7 @@
 import React from 'react'
 
-const App = () => (
+const Editable = () => (
   <p>I'm the Ory Editor</p>
 )
 
-export default App
+export default Editable
