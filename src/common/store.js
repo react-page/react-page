@@ -1,7 +1,7 @@
 import { identity } from 'ramda'
 import { createStore } from 'redux'
 
-import rootReducer from './Editable/reducer'
+import rootReducer from './reducers'
 
 export default (initialState) => (
   createStore(

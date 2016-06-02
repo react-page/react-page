@@ -1,32 +1,223 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import {forEach} from 'ramda'
+import uuid from 'node-uuid'
 
-const renderComponent = (component) => ReactDOM.render(component, document.getElementById('app'))
+import TextArea from 'src/common/Plugins/TextArea'
+import Spacer from 'src/common/Plugins/Spacer'
 
-let render = () => {
-  const App = require('src/editor').default
+const renderComponent = (component, element) => ReactDOM.render(component, element)
 
-  renderComponent(<App />)
+const dummyContent = [
+  {
+    rows: [
+      {
+        id: uuid.v4(),
+        wrap: {
+          component: 'div',
+          props: {
+            className: 'row',
+            style: {
+              backgroundColor: 'blue',
+              padding: '10px'
+            }
+          }
+        },
+        cells: [
+          {
+            id: uuid.v4(),
+            rows: [
+              {
+                id: uuid.v4(),
+                cells: [
+                  {
+                    id: uuid.v4(),
+                    plugin: TextArea,
+                    data: {
+                      content: 'cool content bro'
+                    }
+                  }
+                ]
+              },
+              {
+                cells: [
+                  {
+                    id: uuid.v4(),
+                    plugin: TextArea,
+                    data: {
+                      content: 'cool content bro'
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        id: uuid.v4(),
+        wrap: {
+          component: 'div',
+          props: {
+            className: 'row',
+            style: {
+              backgroundColor: 'grey',
+              padding: '10px'
+            }
+          }
+        },
+        cells: [
+          {
+            id: uuid.v4(),
+            wrap: {
+              component: 'div',
+              props: {
+                className: 'col-sm-6',
+                style: {
+                  backgroundColor: 'red',
+                  padding: '10px'
+                }
+              }
+            },
+            plugin: TextArea,
+            data: {
+              content: 'cool content bro'
+            }
+          },
+          {
+            id: uuid.v4(),
+            wrap: {
+              component: 'div',
+              props: {
+                className: 'col-sm-6'
+              }
+            },
+            rows: [
+              {
+                id: uuid.v4(),
+                wrap: {
+                  component: 'div',
+                  props: {
+                    className: 'row'
+                  }
+                },
+                cells: [
+                  {
+                    id: uuid.v4(),
+                    wrap: {
+                      component: 'div',
+                      props: {
+                        className: 'col-sm-6'
+                      }
+                    },
+                    plugin: TextArea,
+                    data: {
+                      content: 'left'
+                    }
+                  },
+                  {
+                    id: uuid.v4(),
+                    wrap: {
+                      component: 'div',
+                      props: {
+                        className: 'col-sm-3'
+                      }
+                    },
+                    plugin: Spacer,
+                    data: {
+                      height: '15'
+                    }
+                  },
+                  {
+                    id: uuid.v4(),
+                    wrap: {
+                      component: 'div',
+                      props: {
+                        className: 'col-sm-3'
+                      }
+                    },
+                    plugin: TextArea,
+                    data: {
+                      content: 'right'
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        cells: [
+          {
+            id: uuid.v4(),
+            wrap: {
+              component: 'div',
+              props: {
+                className: 'row',
+                style: {
+                  backgroundColor: 'green',
+                  padding: '25px'
+                }
+              }
+            },
+            plugin: TextArea,
+            data: {content: 'old content man'}
+          }
+        ]
+      }
+    ]
+  },
+  {
+    rows: [
+      {
+        id: uuid.v4(),
+        cells: [
+          {
+            id: uuid.v4(),
+            wrap: {
+              component: 'div',
+              props: {
+                className: 'row',
+                style: {
+                  backgroundColor: 'yellow',
+                  padding: '25px'
+                }
+              }
+            },
+            plugin: TextArea,
+            data: {content: 'this is the second editor'}
+          }
+        ]
+      }
+    ]
+  }
+]
+
+let render = (elements) => {
+  const Editor = require('src/common').default
+
+  forEach((element) => renderComponent(<Editor content={dummyContent[element.dataset.id]}/>, element), elements)
 }
 
 if (module.hot) {
   const renderApp = render
   const renderError = (error) => {
     const RedBox = require('redbox-react')
-    renderComponent(<RedBox error={error} />)
+    renderComponent(<RedBox error={error}/>, document.getElementById("app"))
   }
 
-  render = () => {
+  render = (elements) => {
     try {
-      renderApp()
+      renderApp(elements)
     } catch (error) {
       renderError(error)
     }
   }
 
-  module.hot.accept('src/editor', () => {
+  module.hot.accept('src/common', () => {
     setTimeout(render)
   })
 }
 
-render()
+render(document.querySelectorAll('.editable'))

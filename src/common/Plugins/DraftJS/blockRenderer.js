@@ -1,6 +1,6 @@
 import { Entity } from 'draft-js'
 
-import BlockMath, { BlockMathEditor } from 'src/plugins/math/BlockMath'
+import BlockMath, { BlockMathEditor } from './plugins/math/BlockMath'
 import createBlockPlugin from './custom/BlockPlugin'
 
 const BlockLatex = createBlockPlugin(BlockMath, BlockMathEditor)
