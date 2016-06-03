@@ -5,35 +5,46 @@ import {CELL} from 'src/common/items'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 import {createStructuredSelector} from 'reselect'
-import {hoverCellOver} from 'src/common/actions/cell'
+import {hoverCellOverCell, cancelCellDrag} from 'src/common/actions/cell'
+import throttle from 'lodash.throttle'
+
+let lastHover = {}
 
 const cellTarget = {
-  hover(props, monitor, component) {
+  hover: throttle((props, monitor, component) => {
     const item = monitor.getItem()
-    if (item.id === props.id) {
+    if (props.id === lastHover.id) {
+      return
+    } else if (item.id === props.id) {
+      return
+    } else if (!monitor.isOver({shallow: true})) {
+      return
+    } else if (props.isPlaceholder) {
+      return
+    } else if (!Boolean(props.id)) {
       return
     }
 
-    props.hoverCellOver(props.id, item.id)
-  },
+    lastHover = props
+    props.hoverCellOverCell(item.id, props.id)
+  }, 50, {trailing: false}),
 
   drop(props, monitor, component) {
+    lastHover = {}
     const item = monitor.getItem()
     if (item.id === props.id) {
       return
     }
-    console.log('dropped!!!', props.id)
   }
 }
 
 const cellSource = {
   beginDrag(props) {
-    console.log('dargging!!!', props.id)
     return {...props};
   },
 
   endDrag(props, monitor) {
-    console.log('endDrag', props)
+    props.cancelCellDrag(props.id)
   }
 };
 
@@ -48,47 +59,57 @@ const dnd = {
 }
 
 const inner = ({rows, plugin, data}) => {
-  if (Boolean(rows)) {
+  if (rows.length) {
     return (
-      <div>{ rows.map((row, position) => <Row key={row.id} {...row} />) }</div>
+      <div className="col-xs-12">{ rows.map((row, position) => <Row key={row.id} {...row} />) }</div>
     )
   }
 
   const {EditView, RenderView} = plugin
   return (
-    <EditView {...data} />
+    <div>
+      <EditView {...data} />
+    </div>
   )
 }
 
-const Cell = ({wrap, isDragging, connectDragSource, connectDropTarget, ...data}) => {
-  const opacity = isDragging ? 0.4 : 1
+const Cell = ({wrap, dragging, connectDragSource, connectDropTarget, size, ...data}) => {
+  if (dragging) {
+    return null
+  }
+
+  // only leafs can be dropped onto
+  let connect = (e) => connectDragSource(connectDropTarget(e))
+  if (data.rows.length > 0) {
+    connect = (e) => (e)
+  }
 
   if (Boolean(wrap)) {
     const {component: WrapComponent, props: wrapProps} = wrap
-    return (
-      connectDragSource(connectDropTarget(
-        <div style={{ opacity, cursor: 'move' }}>
-          <WrapComponent {...wrapProps}>
-            {inner(data)}
-          </WrapComponent>
-        </div>
-      ))
+    return connect(
+      <div className={`col-md-${size}`}>
+        <WrapComponent {...wrapProps}>
+          {inner(data)}
+        </WrapComponent>
+      </div>
     )
   }
 
-  return connectDragSource(<div style={{opacity}}>{inner(data)}</div>)
+  return connect(<div className={`col-md-${size}`}>{inner(data)}</div>)
 }
 
 Cell.propTypes = {
   isDragging: PropTypes.bool.isRequired,
   connectDragSource: PropTypes.func.isRequired,
-  hoverCellOver: PropTypes.func.isRequired
+  hoverCellOverCell: PropTypes.func.isRequired,
+  cancelCellDrag: PropTypes.func.isRequired,
 }
 
 const mapStateToProps = createStructuredSelector({})
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
-  hoverCellOver
+  hoverCellOverCell,
+  cancelCellDrag
 }, dispatch)
 
 export default connect(mapStateToProps, mapDispatchToProps)(DropTarget(CELL, cellTarget, dnd.connect)(DragSource(CELL, cellSource, dnd.collect)(Cell)))

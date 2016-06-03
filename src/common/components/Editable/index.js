@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {CELL} from 'src/common/items'
+import {CELL, ROW} from 'src/common/items'
 import Row from 'src/common/components/Row'
 import {rows} from 'src/common/selectors/rows'
 import {DropTarget} from 'react-dnd';
@@ -39,29 +39,15 @@ const collect = (connect, monitor)=> ({
 })
 
 const Editable = ({rows, canDrop, isOver, connectDropTarget}) => {
-  const isActive = canDrop && isOver;
-  let backgroundColor = '#222';
-  if (isActive) {
-    backgroundColor = 'darkgreen';
-  } else if (canDrop) {
-    backgroundColor = 'darkkhaki';
-  }
-
   return (
-    <div style={{ backgroundColor }}>
+    <div>
       { rows.map((row) => <Row key={row.id} {...row} />) }
     </div>
   )
 }
 
-const mapDispatchToProps = (dispatch) => bindActionCreators({
-  createContact,
-  requestContactsQuery,
-  notify: mercurius.notify
-}, dispatch)
-
 const mapStateToProps = (state) => ({
   rows: rows(state)
 })
 
-export default  connect(mapStateToProps)(DropTarget([CELL], target, collect)(Editable))
+export default  connect(mapStateToProps)(DropTarget([ROW, CELL], target, collect)(Editable))

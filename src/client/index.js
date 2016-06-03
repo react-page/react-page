@@ -13,16 +13,6 @@ const dummyContent = [
     rows: [
       {
         id: uuid.v4(),
-        wrap: {
-          component: 'div',
-          props: {
-            className: 'row',
-            style: {
-              backgroundColor: 'blue',
-              padding: '10px'
-            }
-          }
-        },
         cells: [
           {
             id: uuid.v4(),
@@ -59,7 +49,6 @@ const dummyContent = [
         wrap: {
           component: 'div',
           props: {
-            className: 'row',
             style: {
               backgroundColor: 'grey',
               padding: '10px'
@@ -72,7 +61,6 @@ const dummyContent = [
             wrap: {
               component: 'div',
               props: {
-                className: 'col-sm-6',
                 style: {
                   backgroundColor: 'red',
                   padding: '10px'
@@ -86,30 +74,12 @@ const dummyContent = [
           },
           {
             id: uuid.v4(),
-            wrap: {
-              component: 'div',
-              props: {
-                className: 'col-sm-6'
-              }
-            },
             rows: [
               {
                 id: uuid.v4(),
-                wrap: {
-                  component: 'div',
-                  props: {
-                    className: 'row'
-                  }
-                },
                 cells: [
                   {
                     id: uuid.v4(),
-                    wrap: {
-                      component: 'div',
-                      props: {
-                        className: 'col-sm-6'
-                      }
-                    },
                     plugin: TextArea,
                     data: {
                       content: 'left'
@@ -117,12 +87,6 @@ const dummyContent = [
                   },
                   {
                     id: uuid.v4(),
-                    wrap: {
-                      component: 'div',
-                      props: {
-                        className: 'col-sm-3'
-                      }
-                    },
                     plugin: Spacer,
                     data: {
                       height: '15'
@@ -130,12 +94,6 @@ const dummyContent = [
                   },
                   {
                     id: uuid.v4(),
-                    wrap: {
-                      component: 'div',
-                      props: {
-                        className: 'col-sm-3'
-                      }
-                    },
                     plugin: TextArea,
                     data: {
                       content: 'right'
@@ -151,16 +109,6 @@ const dummyContent = [
         cells: [
           {
             id: uuid.v4(),
-            wrap: {
-              component: 'div',
-              props: {
-                className: 'row',
-                style: {
-                  backgroundColor: 'green',
-                  padding: '25px'
-                }
-              }
-            },
             plugin: TextArea,
             data: {content: 'old content man'}
           }
