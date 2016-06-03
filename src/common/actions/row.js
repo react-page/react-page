@@ -4,8 +4,8 @@ export const ROW_CANCEL_DRAG = 'CELL_CANCEL_DRAG'
 export const ROW_DRAG = 'CELL_DRAG'
 export const ROW_REMOVE = 'CELL_REMOVE'
 
-export const hoverCellOverRow = (id, hover) =>({
+export const rowAncestorHover = (id, ancestors) =>({
   type: CELL_HOVER_ROW,
   id,
-  hover
+  ancestors
 })

@@ -10,6 +10,7 @@ const renderComponent = (component, element) => ReactDOM.render(component, eleme
 
 const dummyContent = [
   {
+    id: uuid.v4(),
     rows: [
       {
         id: uuid.v4(),
@@ -58,19 +59,27 @@ const dummyContent = [
         cells: [
           {
             id: uuid.v4(),
-            wrap: {
-              component: 'div',
-              props: {
-                style: {
-                  backgroundColor: 'red',
-                  padding: '10px'
+            rows: [
+              {
+                wrap: {
+                  component: 'div',
+                  props: {
+                    style: {
+                      backgroundColor: 'red',
+                      padding: '10px'
+                    }
+                  }
+                },
+                id: uuid.v4(),
+                cells: [{
+                  plugin: TextArea,
+                  data: {
+                    content: 'cool content bro'
+                  }
                 }
+                ]
               }
-            },
-            plugin: TextArea,
-            data: {
-              content: 'cool content bro'
-            }
+            ]
           },
           {
             id: uuid.v4(),
@@ -106,6 +115,7 @@ const dummyContent = [
         ]
       },
       {
+        id: uuid.v4(),
         cells: [
           {
             id: uuid.v4(),
@@ -117,6 +127,7 @@ const dummyContent = [
     ]
   },
   {
+    id: uuid.v4(),
     rows: [
       {
         id: uuid.v4(),

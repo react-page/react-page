@@ -6,16 +6,14 @@ import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 import {createStructuredSelector} from 'reselect'
 import {hoverCellOverCell, cancelCellDrag} from 'src/common/actions/cell'
+import {rowAncestorHover} from 'src/common/actions/row'
+import {all, ancestors} from 'src/common/selectors/rows'
 import throttle from 'lodash.throttle'
-
-let lastHover = {}
 
 const cellTarget = {
   hover: throttle((props, monitor, component) => {
     const item = monitor.getItem()
-    if (props.id === lastHover.id) {
-      return
-    } else if (item.id === props.id) {
+    if (item.id === props.id) {
       return
     } else if (!monitor.isOver({shallow: true})) {
       return
@@ -25,12 +23,11 @@ const cellTarget = {
       return
     }
 
-    lastHover = props
     props.hoverCellOverCell(item.id, props.id)
+    props.rowAncestorHover(item.id, props.ancestors)
   }, 50, {trailing: false}),
 
   drop(props, monitor, component) {
-    lastHover = {}
     const item = monitor.getItem()
     if (item.id === props.id) {
       return
@@ -58,10 +55,14 @@ const dnd = {
   })
 }
 
-const inner = ({rows, plugin, data}) => {
+const inner = ({rows, plugin, data, id, path}) => {
   if (rows.length) {
     return (
-      <div className="col-xs-12">{ rows.map((row, position) => <Row key={row.id} {...row} />) }</div>
+      <div className="col-xs-12">{ rows.map((row, position) => <Row
+        ancestors={path}
+        parent={id}
+        key={row.id}
+        {...row} />) }</div>
     )
   }
 
@@ -73,7 +74,8 @@ const inner = ({rows, plugin, data}) => {
   )
 }
 
-const Cell = ({wrap, dragging, connectDragSource, connectDropTarget, size, ...data}) => {
+const Cell = ({wrap, dragging, connectDragSource, connectDropTarget, size, ancestors = [], ...data}) => {
+  const path = [...ancestors, data.id]
   if (dragging) {
     return null
   }
@@ -89,13 +91,13 @@ const Cell = ({wrap, dragging, connectDragSource, connectDropTarget, size, ...da
     return connect(
       <div className={`col-md-${size}`}>
         <WrapComponent {...wrapProps}>
-          {inner(data)}
+          {inner({...data,path})}
         </WrapComponent>
       </div>
     )
   }
 
-  return connect(<div className={`col-md-${size}`}>{inner(data)}</div>)
+  return connect(<div className={`col-md-${size}`}>{inner({...data,path})}</div>)
 }
 
 Cell.propTypes = {
@@ -103,13 +105,16 @@ Cell.propTypes = {
   connectDragSource: PropTypes.func.isRequired,
   hoverCellOverCell: PropTypes.func.isRequired,
   cancelCellDrag: PropTypes.func.isRequired,
+  rowAncestorHover:  PropTypes.func.isRequired
 }
 
-const mapStateToProps = createStructuredSelector({})
+const mapStateToProps = createStructuredSelector({
+})
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
   hoverCellOverCell,
-  cancelCellDrag
+  cancelCellDrag,
+  rowAncestorHover
 }, dispatch)
 
 export default connect(mapStateToProps, mapDispatchToProps)(DropTarget(CELL, cellTarget, dnd.connect)(DragSource(CELL, cellSource, dnd.collect)(Cell)))

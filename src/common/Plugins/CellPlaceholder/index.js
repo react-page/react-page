@@ -5,6 +5,7 @@ const style = {
   borderRadius: '4px',
   width: '100%',
   padding: '4px',
+  margin: '4px',
   textAlign: 'center',
   opacity: 0.8
 }

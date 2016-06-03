@@ -4,26 +4,6 @@ import uuid from 'node-uuid'
 import CellPlaceholder from 'src/common/Plugins/CellPlaceholder'
 
 const placeholders = {
-  rows: [
-    {
-      id: uuid.v4(),
-      isPlaceholder: true,
-      cells: [{
-        id: uuid.v4(),
-        plugin: CellPlaceholder,
-        isPlaceholder: true
-      }]
-    },
-    {
-      id: uuid.v4(),
-      isPlaceholder: true,
-      cells: [{
-        id: uuid.v4(),
-        plugin: CellPlaceholder,
-        isPlaceholder: true
-      }]
-    }
-  ],
   cells: [
     {
       id: uuid.v4(),
@@ -43,12 +23,30 @@ export const rows = (state = [], action) => {
   switch (action.type) {
     case CELL_HOVER_ROW:
       state.filter(({isPlaceholder}) => !isPlaceholder).forEach(item => {
-        if (item.id !== action.hover) {
+        if (!action.ancestors.find((a) => a === item.id)) {
           items.push(item)
           return
         }
 
-        items.push(placeholders.rows[0], item, placeholders.rows[1])
+        items.push(
+          {
+            id: uuid.v4(),
+            isPlaceholder: true,
+            cells: [{
+              id: uuid.v4(),
+              plugin: CellPlaceholder,
+              isPlaceholder: true
+            }]
+          }, item,
+          {
+            id: uuid.v4(),
+            isPlaceholder: true,
+            cells: [{
+              id: uuid.v4(),
+              plugin: CellPlaceholder,
+              isPlaceholder: true
+            }]
+          })
       })
       return items.map((item) => row(item, action))
     case CELL_CANCEL_DRAG:
@@ -65,7 +63,7 @@ const row = (state = {
 }, action) => {
   switch (action.type) {
     default:
-      return {...state, cells: cells(state.cells, action)}
+      return {...state, id: state.id || uuid.v4(), cells: cells(state.cells, action)}
   }
 }
 
@@ -111,6 +109,6 @@ const cell = (state = {
     case CELL_CANCEL_DRAG:
       return {...state, dragging: false, rows: rows(state.rows, action)}
     default:
-      return {...state, rows: rows(state.rows, action)}
+      return {...state, id: state.id || uuid.v4(), rows: rows(state.rows, action)}
   }
 }
