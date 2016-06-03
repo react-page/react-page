@@ -76,8 +76,11 @@ const inner = ({rows, plugin, data, id, path}) => {
 
 const Cell = ({wrap, dragging, connectDragSource, connectDropTarget, size, ancestors = [], ...data}) => {
   const path = [...ancestors, data.id]
-  if (dragging) {
-    return null
+  const wrapProps = {
+    className:`col-md-${size}`,
+    style: {
+      visibility: dragging ? 'hidden': 'visible'
+    }
   }
 
   // only leafs can be dropped onto
@@ -89,7 +92,7 @@ const Cell = ({wrap, dragging, connectDragSource, connectDropTarget, size, ances
   if (Boolean(wrap)) {
     const {component: WrapComponent, props: wrapProps} = wrap
     return connect(
-      <div className={`col-md-${size}`}>
+      <div {...wrapProps}>
         <WrapComponent {...wrapProps}>
           {inner({...data,path})}
         </WrapComponent>
@@ -97,7 +100,7 @@ const Cell = ({wrap, dragging, connectDragSource, connectDropTarget, size, ances
     )
   }
 
-  return connect(<div className={`col-md-${size}`}>{inner({...data,path})}</div>)
+  return connect(<div {...wrapProps}>{inner({...data,path})}</div>)
 }
 
 Cell.propTypes = {
