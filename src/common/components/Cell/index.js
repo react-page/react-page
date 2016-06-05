@@ -74,7 +74,7 @@ const dnd = {
   })
 }
 
-const inner = ({rows = [], plugin, data, id, path}) => {
+const inner = ({rows = [], plugin, data, id, path, ...props}) => {
   if (rows.length > 0) {
     return (
       <div>
@@ -87,6 +87,11 @@ const inner = ({rows = [], plugin, data, id, path}) => {
         }
       </div>
     )
+  }
+
+  if (!Boolean(plugin)) {
+    console.log('Neither rows nor plugin defined in object',{rows, plugin, data, id, path, ...props})
+    return <div style={{backgroundColor: 'red'}}>missing plugin</div>
   }
 
   const {EditView, RenderView} = plugin

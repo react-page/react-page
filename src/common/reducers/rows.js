@@ -78,12 +78,11 @@ const cells = (state = [], action) => {
       cells.push(cellPlaceholder())
       return cells.map((c) => c.isPlaceholder ? c : cell(c, action))
     case CELL_DROP:
-      console.log(action.item.id, state.map(({id}) => id).indexOf(action.item.id))
       return state
         .filter(({id}) => action.item.id !== id)
         .map((c) => action.dropOn.id === c.id ? action.item : c)
-        .filter(({isPlaceholder, plugin, rows = []}) => !isPlaceholder && (plugin || rows.length > 0))
         .map((c) => cell(c, action))
+        .filter(({isPlaceholder, plugin, rows = []}) => !isPlaceholder && (Boolean(plugin) || rows.length > 0))
     case CELL_CANCEL_DRAG:
       return state
         .filter(({isPlaceholder, plugin, rows = []}) => !isPlaceholder && (plugin || rows.length > 0))
