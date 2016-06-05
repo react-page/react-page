@@ -41,7 +41,7 @@ const collect = (connect, monitor)=> ({
 const Editable = ({rows, canDrop, isOver, connectDropTarget}) => {
   return (
     <div>
-      { rows.map((row) => <Row key={row.id} {...row} />) }
+      { rows.map((row) => <Row level={1} key={row.id} {...row} />) }
     </div>
   )
 }

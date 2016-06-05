@@ -225,6 +225,1162 @@ const renderComponent = (component, element) => ReactDOM.render(component, eleme
             ]
           }
         ]
+      },
+      {
+        id: uuid.v4(),
+        wrap: {
+          component: 'div',
+          props: {
+            style: {
+              backgroundColor: 'grey',
+              padding: '10px'
+            }
+          }
+        },
+        cells: [
+          {
+            id: uuid.v4(),
+            rows: [
+              {
+                wrap: {
+                  component: 'div',
+                  props: {
+                    style: {
+                      padding: '10px'
+                    }
+                  }
+                },
+                id: uuid.v4(),
+                cells: [{
+                  plugin: TextArea,
+                  data: {
+                    content: 'cool content bro'
+                  }
+                }
+                ]
+              }
+            ]
+          },
+          {
+            id: uuid.v4(),
+            rows: [
+              {
+                id: uuid.v4(),
+                cells: [
+                  {
+                    id: uuid.v4(),
+                    plugin: TextArea,
+                    data: {
+                      content: 'left'
+                    }
+                  },
+                  {
+                    id: uuid.v4(),
+                    plugin: Spacer,
+                    data: {
+                      height: '15'
+                    }
+                  },
+                  {
+                    id: uuid.v4(),
+                    plugin: TextArea,
+                    data: {
+                      content: 'right'
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        id: uuid.v4(),
+        wrap: {
+          component: 'div',
+          props: {
+            style: {
+              backgroundColor: 'grey',
+              padding: '10px'
+            }
+          }
+        },
+        cells: [
+          {
+            id: uuid.v4(),
+            rows: [
+              {
+                wrap: {
+                  component: 'div',
+                  props: {
+                    style: {
+                      padding: '10px'
+                    }
+                  }
+                },
+                id: uuid.v4(),
+                cells: [{
+                  plugin: TextArea,
+                  data: {
+                    content: 'cool content bro'
+                  }
+                }
+                ]
+              }
+            ]
+          },
+          {
+            id: uuid.v4(),
+            rows: [
+              {
+                id: uuid.v4(),
+                cells: [
+                  {
+                    id: uuid.v4(),
+                    plugin: TextArea,
+                    data: {
+                      content: 'left'
+                    }
+                  },
+                  {
+                    id: uuid.v4(),
+                    plugin: Spacer,
+                    data: {
+                      height: '15'
+                    }
+                  },
+                  {
+                    id: uuid.v4(),
+                    plugin: TextArea,
+                    data: {
+                      content: 'right'
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        id: uuid.v4(),
+        wrap: {
+          component: 'div',
+          props: {
+            style: {
+              backgroundColor: 'grey',
+              padding: '10px'
+            }
+          }
+        },
+        cells: [
+          {
+            id: uuid.v4(),
+            rows: [
+              {
+                wrap: {
+                  component: 'div',
+                  props: {
+                    style: {
+                      padding: '10px'
+                    }
+                  }
+                },
+                id: uuid.v4(),
+                cells: [{
+                  plugin: TextArea,
+                  data: {
+                    content: 'cool content bro'
+                  }
+                }
+                ]
+              }
+            ]
+          },
+          {
+            id: uuid.v4(),
+            rows: [
+              {
+                id: uuid.v4(),
+                cells: [
+                  {
+                    id: uuid.v4(),
+                    plugin: TextArea,
+                    data: {
+                      content: 'left'
+                    }
+                  },
+                  {
+                    id: uuid.v4(),
+                    plugin: Spacer,
+                    data: {
+                      height: '15'
+                    }
+                  },
+                  {
+                    id: uuid.v4(),
+                    plugin: TextArea,
+                    data: {
+                      content: 'right'
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        id: uuid.v4(),
+        wrap: {
+          component: 'div',
+          props: {
+            style: {
+              backgroundColor: 'grey',
+              padding: '10px'
+            }
+          }
+        },
+        cells: [
+          {
+            id: uuid.v4(),
+            rows: [
+              {
+                wrap: {
+                  component: 'div',
+                  props: {
+                    style: {
+                      padding: '10px'
+                    }
+                  }
+                },
+                id: uuid.v4(),
+                cells: [{
+                  plugin: TextArea,
+                  data: {
+                    content: 'cool content bro'
+                  }
+                }
+                ]
+              }
+            ]
+          },
+          {
+            id: uuid.v4(),
+            rows: [
+              {
+                id: uuid.v4(),
+                cells: [
+                  {
+                    id: uuid.v4(),
+                    plugin: TextArea,
+                    data: {
+                      content: 'left'
+                    }
+                  },
+                  {
+                    id: uuid.v4(),
+                    plugin: Spacer,
+                    data: {
+                      height: '15'
+                    }
+                  },
+                  {
+                    id: uuid.v4(),
+                    plugin: TextArea,
+                    data: {
+                      content: 'right'
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        id: uuid.v4(),
+        wrap: {
+          component: 'div',
+          props: {
+            style: {
+              backgroundColor: 'grey',
+              padding: '10px'
+            }
+          }
+        },
+        cells: [
+          {
+            id: uuid.v4(),
+            rows: [
+              {
+                wrap: {
+                  component: 'div',
+                  props: {
+                    style: {
+                      padding: '10px'
+                    }
+                  }
+                },
+                id: uuid.v4(),
+                cells: [{
+                  plugin: TextArea,
+                  data: {
+                    content: 'cool content bro'
+                  }
+                }
+                ]
+              }
+            ]
+          },
+          {
+            id: uuid.v4(),
+            rows: [
+              {
+                id: uuid.v4(),
+                cells: [
+                  {
+                    id: uuid.v4(),
+                    plugin: TextArea,
+                    data: {
+                      content: 'left'
+                    }
+                  },
+                  {
+                    id: uuid.v4(),
+                    plugin: Spacer,
+                    data: {
+                      height: '15'
+                    }
+                  },
+                  {
+                    id: uuid.v4(),
+                    plugin: TextArea,
+                    data: {
+                      content: 'right'
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        id: uuid.v4(),
+        wrap: {
+          component: 'div',
+          props: {
+            style: {
+              backgroundColor: 'grey',
+              padding: '10px'
+            }
+          }
+        },
+        cells: [
+          {
+            id: uuid.v4(),
+            rows: [
+              {
+                wrap: {
+                  component: 'div',
+                  props: {
+                    style: {
+                      padding: '10px'
+                    }
+                  }
+                },
+                id: uuid.v4(),
+                cells: [{
+                  plugin: TextArea,
+                  data: {
+                    content: 'cool content bro'
+                  }
+                }
+                ]
+              }
+            ]
+          },
+          {
+            id: uuid.v4(),
+            rows: [
+              {
+                id: uuid.v4(),
+                cells: [
+                  {
+                    id: uuid.v4(),
+                    plugin: TextArea,
+                    data: {
+                      content: 'left'
+                    }
+                  },
+                  {
+                    id: uuid.v4(),
+                    plugin: Spacer,
+                    data: {
+                      height: '15'
+                    }
+                  },
+                  {
+                    id: uuid.v4(),
+                    plugin: TextArea,
+                    data: {
+                      content: 'right'
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        id: uuid.v4(),
+        wrap: {
+          component: 'div',
+          props: {
+            style: {
+              backgroundColor: 'grey',
+              padding: '10px'
+            }
+          }
+        },
+        cells: [
+          {
+            id: uuid.v4(),
+            rows: [
+              {
+                wrap: {
+                  component: 'div',
+                  props: {
+                    style: {
+                      padding: '10px'
+                    }
+                  }
+                },
+                id: uuid.v4(),
+                cells: [{
+                  plugin: TextArea,
+                  data: {
+                    content: 'cool content bro'
+                  }
+                }
+                ]
+              }
+            ]
+          },
+          {
+            id: uuid.v4(),
+            rows: [
+              {
+                id: uuid.v4(),
+                cells: [
+                  {
+                    id: uuid.v4(),
+                    plugin: TextArea,
+                    data: {
+                      content: 'left'
+                    }
+                  },
+                  {
+                    id: uuid.v4(),
+                    plugin: Spacer,
+                    data: {
+                      height: '15'
+                    }
+                  },
+                  {
+                    id: uuid.v4(),
+                    plugin: TextArea,
+                    data: {
+                      content: 'right'
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        id: uuid.v4(),
+        wrap: {
+          component: 'div',
+          props: {
+            style: {
+              backgroundColor: 'grey',
+              padding: '10px'
+            }
+          }
+        },
+        cells: [
+          {
+            id: uuid.v4(),
+            rows: [
+              {
+                wrap: {
+                  component: 'div',
+                  props: {
+                    style: {
+                      padding: '10px'
+                    }
+                  }
+                },
+                id: uuid.v4(),
+                cells: [{
+                  plugin: TextArea,
+                  data: {
+                    content: 'cool content bro'
+                  }
+                }
+                ]
+              }
+            ]
+          },
+          {
+            id: uuid.v4(),
+            rows: [
+              {
+                id: uuid.v4(),
+                cells: [
+                  {
+                    id: uuid.v4(),
+                    plugin: TextArea,
+                    data: {
+                      content: 'left'
+                    }
+                  },
+                  {
+                    id: uuid.v4(),
+                    plugin: Spacer,
+                    data: {
+                      height: '15'
+                    }
+                  },
+                  {
+                    id: uuid.v4(),
+                    plugin: TextArea,
+                    data: {
+                      content: 'right'
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        id: uuid.v4(),
+        wrap: {
+          component: 'div',
+          props: {
+            style: {
+              backgroundColor: 'grey',
+              padding: '10px'
+            }
+          }
+        },
+        cells: [
+          {
+            id: uuid.v4(),
+            rows: [
+              {
+                wrap: {
+                  component: 'div',
+                  props: {
+                    style: {
+                      padding: '10px'
+                    }
+                  }
+                },
+                id: uuid.v4(),
+                cells: [{
+                  plugin: TextArea,
+                  data: {
+                    content: 'cool content bro'
+                  }
+                }
+                ]
+              }
+            ]
+          },
+          {
+            id: uuid.v4(),
+            rows: [
+              {
+                id: uuid.v4(),
+                cells: [
+                  {
+                    id: uuid.v4(),
+                    plugin: TextArea,
+                    data: {
+                      content: 'left'
+                    }
+                  },
+                  {
+                    id: uuid.v4(),
+                    plugin: Spacer,
+                    data: {
+                      height: '15'
+                    }
+                  },
+                  {
+                    id: uuid.v4(),
+                    plugin: TextArea,
+                    data: {
+                      content: 'right'
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        id: uuid.v4(),
+        wrap: {
+          component: 'div',
+          props: {
+            style: {
+              backgroundColor: 'grey',
+              padding: '10px'
+            }
+          }
+        },
+        cells: [
+          {
+            id: uuid.v4(),
+            rows: [
+              {
+                wrap: {
+                  component: 'div',
+                  props: {
+                    style: {
+                      padding: '10px'
+                    }
+                  }
+                },
+                id: uuid.v4(),
+                cells: [{
+                  plugin: TextArea,
+                  data: {
+                    content: 'cool content bro'
+                  }
+                }
+                ]
+              }
+            ]
+          },
+          {
+            id: uuid.v4(),
+            rows: [
+              {
+                id: uuid.v4(),
+                cells: [
+                  {
+                    id: uuid.v4(),
+                    plugin: TextArea,
+                    data: {
+                      content: 'left'
+                    }
+                  },
+                  {
+                    id: uuid.v4(),
+                    plugin: Spacer,
+                    data: {
+                      height: '15'
+                    }
+                  },
+                  {
+                    id: uuid.v4(),
+                    plugin: TextArea,
+                    data: {
+                      content: 'right'
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        id: uuid.v4(),
+        wrap: {
+          component: 'div',
+          props: {
+            style: {
+              backgroundColor: 'grey',
+              padding: '10px'
+            }
+          }
+        },
+        cells: [
+          {
+            id: uuid.v4(),
+            rows: [
+              {
+                wrap: {
+                  component: 'div',
+                  props: {
+                    style: {
+                      padding: '10px'
+                    }
+                  }
+                },
+                id: uuid.v4(),
+                cells: [{
+                  plugin: TextArea,
+                  data: {
+                    content: 'cool content bro'
+                  }
+                }
+                ]
+              }
+            ]
+          },
+          {
+            id: uuid.v4(),
+            rows: [
+              {
+                id: uuid.v4(),
+                cells: [
+                  {
+                    id: uuid.v4(),
+                    plugin: TextArea,
+                    data: {
+                      content: 'left'
+                    }
+                  },
+                  {
+                    id: uuid.v4(),
+                    plugin: Spacer,
+                    data: {
+                      height: '15'
+                    }
+                  },
+                  {
+                    id: uuid.v4(),
+                    plugin: TextArea,
+                    data: {
+                      content: 'right'
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        id: uuid.v4(),
+        wrap: {
+          component: 'div',
+          props: {
+            style: {
+              backgroundColor: 'grey',
+              padding: '10px'
+            }
+          }
+        },
+        cells: [
+          {
+            id: uuid.v4(),
+            rows: [
+              {
+                wrap: {
+                  component: 'div',
+                  props: {
+                    style: {
+                      padding: '10px'
+                    }
+                  }
+                },
+                id: uuid.v4(),
+                cells: [{
+                  plugin: TextArea,
+                  data: {
+                    content: 'cool content bro'
+                  }
+                }
+                ]
+              }
+            ]
+          },
+          {
+            id: uuid.v4(),
+            rows: [
+              {
+                id: uuid.v4(),
+                cells: [
+                  {
+                    id: uuid.v4(),
+                    plugin: TextArea,
+                    data: {
+                      content: 'left'
+                    }
+                  },
+                  {
+                    id: uuid.v4(),
+                    plugin: Spacer,
+                    data: {
+                      height: '15'
+                    }
+                  },
+                  {
+                    id: uuid.v4(),
+                    plugin: TextArea,
+                    data: {
+                      content: 'right'
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        id: uuid.v4(),
+        wrap: {
+          component: 'div',
+          props: {
+            style: {
+              backgroundColor: 'grey',
+              padding: '10px'
+            }
+          }
+        },
+        cells: [
+          {
+            id: uuid.v4(),
+            rows: [
+              {
+                wrap: {
+                  component: 'div',
+                  props: {
+                    style: {
+                      padding: '10px'
+                    }
+                  }
+                },
+                id: uuid.v4(),
+                cells: [{
+                  plugin: TextArea,
+                  data: {
+                    content: 'cool content bro'
+                  }
+                }
+                ]
+              }
+            ]
+          },
+          {
+            id: uuid.v4(),
+            rows: [
+              {
+                id: uuid.v4(),
+                cells: [
+                  {
+                    id: uuid.v4(),
+                    plugin: TextArea,
+                    data: {
+                      content: 'left'
+                    }
+                  },
+                  {
+                    id: uuid.v4(),
+                    plugin: Spacer,
+                    data: {
+                      height: '15'
+                    }
+                  },
+                  {
+                    id: uuid.v4(),
+                    plugin: TextArea,
+                    data: {
+                      content: 'right'
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        id: uuid.v4(),
+        wrap: {
+          component: 'div',
+          props: {
+            style: {
+              backgroundColor: 'grey',
+              padding: '10px'
+            }
+          }
+        },
+        cells: [
+          {
+            id: uuid.v4(),
+            rows: [
+              {
+                wrap: {
+                  component: 'div',
+                  props: {
+                    style: {
+                      padding: '10px'
+                    }
+                  }
+                },
+                id: uuid.v4(),
+                cells: [{
+                  plugin: TextArea,
+                  data: {
+                    content: 'cool content bro'
+                  }
+                }
+                ]
+              }
+            ]
+          },
+          {
+            id: uuid.v4(),
+            rows: [
+              {
+                id: uuid.v4(),
+                cells: [
+                  {
+                    id: uuid.v4(),
+                    plugin: TextArea,
+                    data: {
+                      content: 'left'
+                    }
+                  },
+                  {
+                    id: uuid.v4(),
+                    plugin: Spacer,
+                    data: {
+                      height: '15'
+                    }
+                  },
+                  {
+                    id: uuid.v4(),
+                    plugin: TextArea,
+                    data: {
+                      content: 'right'
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        id: uuid.v4(),
+        wrap: {
+          component: 'div',
+          props: {
+            style: {
+              backgroundColor: 'grey',
+              padding: '10px'
+            }
+          }
+        },
+        cells: [
+          {
+            id: uuid.v4(),
+            rows: [
+              {
+                wrap: {
+                  component: 'div',
+                  props: {
+                    style: {
+                      padding: '10px'
+                    }
+                  }
+                },
+                id: uuid.v4(),
+                cells: [{
+                  plugin: TextArea,
+                  data: {
+                    content: 'cool content bro'
+                  }
+                }
+                ]
+              }
+            ]
+          },
+          {
+            id: uuid.v4(),
+            rows: [
+              {
+                id: uuid.v4(),
+                cells: [
+                  {
+                    id: uuid.v4(),
+                    plugin: TextArea,
+                    data: {
+                      content: 'left'
+                    }
+                  },
+                  {
+                    id: uuid.v4(),
+                    plugin: Spacer,
+                    data: {
+                      height: '15'
+                    }
+                  },
+                  {
+                    id: uuid.v4(),
+                    plugin: TextArea,
+                    data: {
+                      content: 'right'
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        id: uuid.v4(),
+        wrap: {
+          component: 'div',
+          props: {
+            style: {
+              backgroundColor: 'grey',
+              padding: '10px'
+            }
+          }
+        },
+        cells: [
+          {
+            id: uuid.v4(),
+            rows: [
+              {
+                wrap: {
+                  component: 'div',
+                  props: {
+                    style: {
+                      padding: '10px'
+                    }
+                  }
+                },
+                id: uuid.v4(),
+                cells: [{
+                  plugin: TextArea,
+                  data: {
+                    content: 'cool content bro'
+                  }
+                }
+                ]
+              }
+            ]
+          },
+          {
+            id: uuid.v4(),
+            rows: [
+              {
+                id: uuid.v4(),
+                cells: [
+                  {
+                    id: uuid.v4(),
+                    plugin: TextArea,
+                    data: {
+                      content: 'left'
+                    }
+                  },
+                  {
+                    id: uuid.v4(),
+                    plugin: Spacer,
+                    data: {
+                      height: '15'
+                    }
+                  },
+                  {
+                    id: uuid.v4(),
+                    plugin: TextArea,
+                    data: {
+                      content: 'right'
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        id: uuid.v4(),
+        wrap: {
+          component: 'div',
+          props: {
+            style: {
+              backgroundColor: 'grey',
+              padding: '10px'
+            }
+          }
+        },
+        cells: [
+          {
+            id: uuid.v4(),
+            rows: [
+              {
+                wrap: {
+                  component: 'div',
+                  props: {
+                    style: {
+                      padding: '10px'
+                    }
+                  }
+                },
+                id: uuid.v4(),
+                cells: [{
+                  plugin: TextArea,
+                  data: {
+                    content: 'cool content bro'
+                  }
+                }
+                ]
+              }
+            ]
+          },
+          {
+            id: uuid.v4(),
+            rows: [
+              {
+                id: uuid.v4(),
+                cells: [
+                  {
+                    id: uuid.v4(),
+                    plugin: TextArea,
+                    data: {
+                      content: 'left'
+                    }
+                  },
+                  {
+                    id: uuid.v4(),
+                    plugin: Spacer,
+                    data: {
+                      height: '15'
+                    }
+                  },
+                  {
+                    id: uuid.v4(),
+                    plugin: TextArea,
+                    data: {
+                      content: 'right'
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
       }
     ]
   }

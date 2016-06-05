@@ -6,6 +6,7 @@ import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 import {createStructuredSelector} from 'reselect'
 import {rowAncestorHover} from 'src/common/actions/row'
+import {isLayoutMode} from 'src/common/selectors/mode'
 import throttle from 'lodash.throttle'
 
 const gridSize = 12
@@ -37,18 +38,20 @@ const dnd = {
   })
 }
 
-const inner = ({cells = [], id, path}) => (
-  <div className="row" style={{display: 'flex', backgroundColor: 'rgba(100,100,100,0.4)', margin: '4px'}}>{
-    cells.map((item) => ({
-      ...item,
-      size: item.size > 0 ? item.size : Math.floor(gridSize / cells.filter(({isPlaceholder}) => !isPlaceholder).length)
-    })).map((cell) => <Cell
-      siblings={cells.filter((c) => cell.id !== c.id)}
-      path={path}
-      parent={id}
-      key={cell.id}
-      {...cell} />)
-  }</div>
+const inner = ({cells = [], level, id, path, isLayoutMode}) => (
+  <div className="row" style={{display: 'flex', backgroundColor: 'rgba(100,100,100,0.4)'}}>
+      { cells.map((item) => ({
+        ...item,
+        size: item.size > 0 ? item.size : Math.floor(gridSize / cells.filter(({isPlaceholder}) => !isPlaceholder).length)
+      })).map((cell) => <Cell
+        siblings={cells.filter((c) => cell.id !== c.id)}
+        path={path}
+        parent={id}
+        key={cell.id}
+        level={level}
+        {...cell} />)
+      }
+  </div>
 )
 
 const Row = ({wrap, connectDropTarget, path = [], ...data}) => {
@@ -57,19 +60,21 @@ const Row = ({wrap, connectDropTarget, path = [], ...data}) => {
     const {component: WrapComponent, props: wrapProps} = wrap
     return (
       <WrapComponent {...wrapProps}>
-        {inner({...data,path})}
+        {inner({...data, path})}
       </WrapComponent>
     )
   }
 
   return (
     <div>
-      {inner({...data,path})}
+      {inner({...data, path})}
     </div>
   )
 }
 
-const mapStateToProps = createStructuredSelector({})
+const mapStateToProps = createStructuredSelector({
+  isLayoutMode
+})
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
   rowAncestorHover

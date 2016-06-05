@@ -9,6 +9,7 @@ import {hoverCellOverCell, cancelCellDrag, dropCell, dragCell} from 'src/common/
 import {rowAncestorHover} from 'src/common/actions/row'
 import throttle from 'lodash.throttle'
 import {isLayoutMode} from 'src/common/selectors/mode'
+import tinycolor from 'tinycolor2'
 
 let lastHover = {}
 
@@ -74,7 +75,7 @@ const dnd = {
   })
 }
 
-const inner = ({rows = [], plugin, data, id, path, ...props}) => {
+const inner = ({rows = [], level, plugin, data, id, path, isEditView, ...props}) => {
   if (rows.length > 0) {
     return (
       <div>
@@ -83,6 +84,7 @@ const inner = ({rows = [], plugin, data, id, path, ...props}) => {
             path={path}
             parent={id}
             key={row.id}
+            level={level + 1}
             {...row} />)
         }
       </div>
@@ -90,37 +92,40 @@ const inner = ({rows = [], plugin, data, id, path, ...props}) => {
   }
 
   if (!Boolean(plugin)) {
-    console.log('Neither rows nor plugin defined in object',{rows, plugin, data, id, path, ...props})
-    return <div style={{backgroundColor: 'red'}}>missing plugin</div>
+    console.log('Neither rows nor plugin defined in object', {rows, plugin, data, id, path, ...props})
+    return <div style={{backgroundColor: 'red', padding: '16px', margin: '8px', borderRadius: '4px'}}>Empty row</div>
   }
 
   const {EditView, RenderView} = plugin
   return (
     <div style={{backgroundColor: 'rgba(0,100,100,0.4)', padding: '4px'}}>
-      <EditView {...data} id={id}/>
+      {
+        isEditView ? <EditView {...data} id={id}/>
+          : <RenderView {...data} id={id}/>
+      }
     </div>
   )
 }
 
-const PlaceHolder = ({width, isOverCurrent, connectDropTarget}) => {
+const PlaceHolder = ({id, width, isOverCurrent, connectDropTarget, level = 1}) => {
   const style = {
     float: 'left',
     width,
-    minHeight: '18px',
-    backgroundColor: isOverCurrent ? 'yellow' : '#31fa41',
+    minHeight: '14px',
+    backgroundColor: isOverCurrent ? 'yellow' : tinycolor('#305010').lighten(level).toString(),
     boxShadow: '0 0 2px 2px',
-    padding: 0,
     position: 'relative',
     textAlign: 'center',
-    verticalAlign: 'middle'
+    verticalAlign: 'middle',
+    margin: '2px',
+    overflow: 'hidden'
   }
   return connectDropTarget(
     <div {...{style}} />
   )
 }
 
-const Cell = ({wrap, isLayoutMode, isOverCurrent, isDragging, isPlaceholder, connectDragSource, connectDropTarget, size, siblings = [], path = [], rows = [], ...data}) => {
-  path.push(data.id)
+const Cell = ({level, wrap, isLayoutMode, isOverCurrent, isDragging, isPlaceholder, connectDragSource, connectDropTarget, size, siblings = [], path = [], rows = [], ...data}) => {
   const cellProps = {
     className: `col-md-${size}`,
     style: {
@@ -138,7 +143,7 @@ const Cell = ({wrap, isLayoutMode, isOverCurrent, isDragging, isPlaceholder, con
   }
 
   if (isPlaceholder) {
-    return <PlaceHolder {...{width: siblings.length > 0 ? '16px' : '100%',isOverCurrent, connectDropTarget}} />
+    return <PlaceHolder {...{...data, level, width: siblings.length > 0 ? '16px' : '100%', isOverCurrent, connectDropTarget}} />
   }
 
   if (Boolean(wrap)) {
