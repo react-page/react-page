@@ -1,11 +1,11 @@
 import React from 'react'
 
-export const EditView = () => (
-  <div>spacer</div>
+export const EditView = ({id}) => (
+  <div>spacer {id}</div>
 )
 
-export const RenderView = () => (
-  <div>spacer</div>
+export const RenderView = ({id}) => (
+  <div>spacer {id}</div>
 )
 
 export default {

@@ -1,12 +1,12 @@
 import React from 'react'
 
-const EditView = ({content}) => (
-  <textarea readOnly className="form-control" value={ content } />
+const EditView = ({content, id}) => (
+  <textarea readOnly className="form-control" value={ `${content} ${id}` } />
 )
 
-const RenderView = ({content}) => (
+const RenderView = ({content, id}) => (
   <div>
-    { content }
+    { content } {id}
   </div>
 )
 

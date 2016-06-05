@@ -1,3 +1,5 @@
+import uuid from 'node-uuid'
+
 export const CELL_HOVER_CELL = 'CELL_HOVER_CELL'
 export const CELL_DROP = 'CELL_DROP'
 export const CELL_CANCEL_DRAG = 'CELL_CANCEL_DRAG'
@@ -14,9 +16,15 @@ export const cancelCellDrag = (id) =>({
   id
 })
 
-export const dropCell = (id) =>({
+export const dropCell = (dropOn, item) =>({
   type: CELL_DROP,
-  id
+  dropOn,
+  remove: item.id,
+  item: {
+    ...item,
+    id: uuid.v4(),
+    size: 0
+  }
 })
 
 export const hoverCellOverCell = (id, hover) =>({

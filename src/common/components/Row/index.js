@@ -6,7 +6,6 @@ import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 import {createStructuredSelector} from 'reselect'
 import {rowAncestorHover} from 'src/common/actions/row'
-import {ancestors} from 'src/common/selectors/rows'
 import throttle from 'lodash.throttle'
 
 const gridSize = 12
@@ -25,7 +24,7 @@ const rowTarget = {
       return
     }
 
-    props.rowAncestorHover(item.id, ancestors(props.id))
+    //props.rowAncestorHover(item.id, path(props.id))
   }, 50, {trailing: false}),
 
   drop(props, monitor, component) {
@@ -38,21 +37,21 @@ const dnd = {
   })
 }
 
-const inner = ({cells, id, path}) => (
-  <div className="row">{
+const inner = ({cells = [], id, path}) => (
+  <div className="row" style={{backgroundColor: 'rgba(100,100,100,0.4)', margin: '4px'}}>{
     cells.map((item) => ({
       ...item,
-      size: item.size > 0 ? item.size : Math.ceil(gridSize / cells.length)
+      size: item.size > 0 ? item.size : Math.floor(gridSize / cells.length)
     })).map((cell) => <Cell
-      ancestors={path}
+      path={path}
       parent={id}
       key={cell.id}
       {...cell} />)
   }</div>
 )
 
-const Row = ({wrap, connectDropTarget, ancestors = [], ...data}) => {
-  const path = [...ancestors, data.id]
+const Row = ({wrap, connectDropTarget, path = [], ...data}) => {
+  path.push(data.id)
   if (Boolean(wrap)) {
     const {component: WrapComponent, props: wrapProps} = wrap
     return (
