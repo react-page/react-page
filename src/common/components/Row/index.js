@@ -38,11 +38,12 @@ const dnd = {
 }
 
 const inner = ({cells = [], id, path}) => (
-  <div className="row" style={{backgroundColor: 'rgba(100,100,100,0.4)', margin: '4px'}}>{
+  <div className="row" style={{display: 'flex', backgroundColor: 'rgba(100,100,100,0.4)', margin: '4px'}}>{
     cells.map((item) => ({
       ...item,
-      size: item.size > 0 ? item.size : Math.floor(gridSize / cells.length)
+      size: item.size > 0 ? item.size : Math.floor(gridSize / cells.filter(({isPlaceholder}) => !isPlaceholder).length)
     })).map((cell) => <Cell
+      siblings={cells.filter((c) => cell.id !== c.id)}
       path={path}
       parent={id}
       key={cell.id}

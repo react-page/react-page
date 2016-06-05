@@ -20,11 +20,7 @@ export const dropCell = (dropOn, item) =>({
   type: CELL_DROP,
   dropOn,
   remove: item.id,
-  item: {
-    ...item,
-    id: uuid.v4(),
-    size: 0
-  }
+  item
 })
 
 export const hoverCellOverCell = (id, hover) =>({

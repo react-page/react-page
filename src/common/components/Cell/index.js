@@ -5,9 +5,10 @@ import {CELL} from 'src/common/items'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 import {createStructuredSelector} from 'reselect'
-import {hoverCellOverCell, cancelCellDrag, dropCell} from 'src/common/actions/cell'
+import {hoverCellOverCell, cancelCellDrag, dropCell, dragCell} from 'src/common/actions/cell'
 import {rowAncestorHover} from 'src/common/actions/row'
 import throttle from 'lodash.throttle'
+import {isLayoutMode} from 'src/common/selectors/mode'
 
 let lastHover = {}
 
@@ -47,6 +48,8 @@ const cellTarget = {
 
 const cellSource = {
   beginDrag(props) {
+    // delay drag propagation or risk a bug with react-dnd html5 backend
+    setTimeout(() => props.dragCell(props), 50)
     return {...props};
   },
 
@@ -89,18 +92,37 @@ const inner = ({rows = [], plugin, data, id, path}) => {
   const {EditView, RenderView} = plugin
   return (
     <div style={{backgroundColor: 'rgba(0,100,100,0.4)', padding: '4px'}}>
-      <EditView {...data} id={id} />
+      <EditView {...data} id={id}/>
     </div>
   )
 }
 
-const Cell = ({wrap, isOverCurrent, isDragging, isPlaceholder, connectDragSource, connectDropTarget, size, path = [], rows = [], ...data}) => {
+const PlaceHolder = ({width, isOverCurrent, connectDropTarget}) => {
+  const style = {
+    float: 'left',
+    width,
+    minHeight: '18px',
+    backgroundColor: isOverCurrent ? 'yellow' : '#31fa41',
+    boxShadow: '0 0 2px 2px',
+    padding: 0,
+    position: 'relative',
+    textAlign: 'center',
+    verticalAlign: 'middle'
+  }
+  return connectDropTarget(
+    <div {...{style}} />
+  )
+}
+
+const Cell = ({wrap, isLayoutMode, isOverCurrent, isDragging, isPlaceholder, connectDragSource, connectDropTarget, size, siblings = [], path = [], rows = [], ...data}) => {
   path.push(data.id)
-  const wrapProps = {
+  const cellProps = {
     className: `col-md-${size}`,
     style: {
-      display: isDragging ? 'none' : 'block',
-      background: isOverCurrent && isPlaceholder ? 'yellow' : 'none'
+      width: !isDragging && isLayoutMode ? `calc(${size / 12 * 100}% - 30px)` : null,
+      padding: !isDragging && isLayoutMode ? '0 16px' : null,
+      visibility: isDragging ? 'hidden' : null,
+      background: isOverCurrent && isPlaceholder ? 'yellow' : null
     }
   }
 
@@ -110,10 +132,14 @@ const Cell = ({wrap, isOverCurrent, isDragging, isPlaceholder, connectDragSource
     connect = (e) => (e)
   }
 
+  if (isPlaceholder) {
+    return <PlaceHolder {...{width: siblings.length > 0 ? '16px' : '100%',isOverCurrent, connectDropTarget}} />
+  }
+
   if (Boolean(wrap)) {
-    const {component: WrapComponent, props: wrapProps} = wrap
+    const {component: WrapComponent = 'div', props: wrapProps = {}} = wrap
     return connect(
-      <div {...wrapProps}>
+      <div {...cellProps}>
         <WrapComponent {...wrapProps}>
           {inner({...data, rows, path})}
         </WrapComponent>
@@ -121,7 +147,7 @@ const Cell = ({wrap, isOverCurrent, isDragging, isPlaceholder, connectDragSource
     )
   }
 
-  return connect(<div {...wrapProps}>{inner({...data, rows, path})}</div>)
+  return connect(<div {...cellProps}>{inner({...data, rows, path})}</div>)
 }
 
 Cell.propTypes = {
@@ -130,16 +156,21 @@ Cell.propTypes = {
   hoverCellOverCell: PropTypes.func.isRequired,
   cancelCellDrag: PropTypes.func.isRequired,
   rowAncestorHover: PropTypes.func.isRequired,
-  dropCell: PropTypes.func.isRequired
+  dragCell: PropTypes.func.isRequired,
+  dropCell: PropTypes.func.isRequired,
+  isLayoutMode: PropTypes.bool.isRequired
 }
 
-const mapStateToProps = createStructuredSelector({})
+const mapStateToProps = createStructuredSelector({
+  isLayoutMode
+})
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
   hoverCellOverCell,
   cancelCellDrag,
   rowAncestorHover,
-  dropCell
+  dropCell,
+  dragCell
 }, dispatch)
 
 export default connect(mapStateToProps, mapDispatchToProps)(DropTarget(CELL, cellTarget, dnd.connect)(DragSource(CELL, cellSource, dnd.collect)(Cell)))
