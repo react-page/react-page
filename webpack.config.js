@@ -69,6 +69,9 @@ module.exports = {
     }, {
       test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
       loader: 'url?limit=10000&minetype=image/svg+xml'
+    }, {
+      test: /\.json$/,
+      loader: 'json'
     }]
   }
 }
