@@ -1,4 +1,5 @@
 import React from 'react'
+import {findDOMNode} from 'react-dom'
 import Cell from 'src/common/components/Cell'
 import {DragSource, DropTarget} from 'react-dnd'
 import {CELL} from 'src/common/items'
@@ -12,21 +13,38 @@ import throttle from 'lodash.throttle'
 const gridSize = 12
 
 const rowTarget = {
-  hover: throttle((props, monitor, component) => {
-    console.log('hover', props.id)
-    const item = monitor.getItem()
-    if (item.id === props.id) {
-      return
-    } else if (!monitor.isOver({shallow: true})) {
-      return
-    } else if (props.isPlaceholder) {
-      return
-    } else if (!Boolean(props.id)) {
-      return
-    }
-
-    //props.rowAncestorHover(item.id, path(props.id))
-  }, 50, {trailing: false}),
+  // hover: throttle((props, monitor, component) => {
+  //   const item = monitor.getItem()
+  //
+  //   if (item.id === props.id) {
+  //     return
+  //   } else if (!monitor.isOver({shallow: true})) {
+  //     return
+  //   } else if (props.isPlaceholder) {
+  //     return
+  //   } else if (!Boolean(props.id)) {
+  //     return
+  //   }
+  //
+  //   const mousePosition =  monitor.getClientOffset()
+  //   const domPosition = findDOMNode(component).getBoundingClientRect()
+  //   console.log('mouse',mousePosition)
+  //   console.log('dom',domPosition)
+  //
+  //   if (domPosition.bottom - mousePosition.y > (domPosition.bottom - domPosition.top) /2){
+  //     console.log('top')
+  //   } else {
+  //     console.log('bottom')
+  //   }
+  //
+  //   if (domPosition.right - mousePosition.x > (domPosition.right - domPosition.left) /2){
+  //     console.log('left')
+  //   } else {
+  //     console.log('right')
+  //   }
+  //
+  //   //props.rowAncestorHover(item.id, path(props.id))
+  // }, 50, {trailing: false}),
 
   drop(props, monitor, component) {
   }
@@ -34,40 +52,46 @@ const rowTarget = {
 
 const dnd = {
   connect: (connect, monitor) => ({
-    connectDropTarget: connect.dropTarget()
+    connectDropTarget: connect.dropTarget(),
+    //isOverCurrent: monitor.isOver({shallow: true})
   })
 }
 
-const inner = ({cells = [], level, id, path, isLayoutMode}) => (
-  <div className="row" style={{display: 'flex', backgroundColor: 'rgba(100,100,100,0.4)'}}>
+const cn = (hover) => 'row' + (hover ? `drag-hover drag-hover-${hover}` : '')
+
+const inner = ({cells = [], hover, level, isOverCurrent, id, isLayoutMode}) => {
+  if (Boolean(hover)) {
+    console.log('hover', hover)
+  }
+  return (
+    <div className={cn(hover)}>
       { cells.map((item) => ({
         ...item,
         size: item.size > 0 ? item.size : Math.floor(gridSize / cells.filter(({isPlaceholder}) => !isPlaceholder).length)
       })).map((cell) => <Cell
         siblings={cells.filter((c) => cell.id !== c.id)}
-        path={path}
         parent={id}
         key={cell.id}
         level={level}
         {...cell} />)
       }
-  </div>
-)
+    </div>
+  )
+}
 
-const Row = ({wrap, connectDropTarget, path = [], ...data}) => {
-  path.push(data.id)
+const Row = ({wrap, connectDropTarget, ...data}) => {
   if (Boolean(wrap)) {
     const {component: WrapComponent, props: wrapProps} = wrap
-    return (
+    return connectDropTarget(
       <WrapComponent {...wrapProps}>
-        {inner({...data, path})}
+        {inner({...data})}
       </WrapComponent>
     )
   }
 
-  return (
+  return connectDropTarget(
     <div>
-      {inner({...data, path})}
+      {inner({...data})}
     </div>
   )
 }

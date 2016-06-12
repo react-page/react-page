@@ -1,9 +1,11 @@
-import React from 'react'
+import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {CELL, ROW} from 'src/common/items'
 import Row from 'src/common/components/Row'
 import {rows} from 'src/common/selectors/rows'
-import {DropTarget} from 'react-dnd';
+import {DropTarget} from 'react-dnd'
+import {createPlaceholders} from 'src/common/actions/placeholders'
+import {bindActionCreators} from 'redux'
 
 const target = {
   drop(props, monitor, component) {
@@ -38,16 +40,27 @@ const collect = (connect, monitor)=> ({
   itemType: monitor.getItemType()
 })
 
-const Editable = ({rows, canDrop, isOver, connectDropTarget}) => {
-  return (
-    <div>
-      { rows.map((row) => <Row level={1} key={row.id} {...row} />) }
-    </div>
-  )
+class Editable extends Component {
+  componentDidMount() {
+    // this.props.createPlaceholders()
+  }
+
+  render() {
+    const {rows, canDrop, isOver, connectDropTarget} = this.props
+    return (
+      <div>
+        { rows.map((row) => <Row level={1} key={row.id} {...row} />) }
+      </div>
+    )
+  }
 }
 
 const mapStateToProps = (state) => ({
   rows: rows(state)
 })
 
-export default  connect(mapStateToProps)(DropTarget([ROW, CELL], target, collect)(Editable))
+const mapDispatchToProps = (dispatch) => bindActionCreators({
+  createPlaceholders
+}, dispatch)
+
+export default connect(mapStateToProps, mapDispatchToProps)(DropTarget([ROW, CELL], target, collect)(Editable))

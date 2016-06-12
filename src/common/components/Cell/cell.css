@@ -1,0 +1,34 @@
+.drag-hover:before {
+    content: ' ';
+    position: absolute;
+    z-index: 100;
+    background: darkslategrey;
+}
+
+.drag-hover-top:before {
+    top: 0;
+    right: 0;
+    left: 0;
+    height: 2px;
+}
+
+.drag-hover-bottom:before {
+    bottom: 0;
+    right: 0;
+    left: 0;
+    height: 2px;
+}
+
+.drag-hover-left:before {
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 2px;
+}
+
+.drag-hover-right:before {
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 2px;
+}
