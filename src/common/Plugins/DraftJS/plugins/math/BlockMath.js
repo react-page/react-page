@@ -1,32 +1,32 @@
-import React, {Component, PropTypes} from 'react'
-import KaTeX from './KaTeX'
+import React, {Component, PropTypes} from "react";
+import KaTeX from "./KaTeX";
 
 const dataShape = PropTypes.shape({
-    src: PropTypes.string.isRequired
+  src: PropTypes.string.isRequired
 }).isRequired
 
-const BlockMath = ({ data }) => <KaTeX src={data.src} displayMode/>
+const BlockMath = ({data}) => <KaTeX src={data.src} displayMode/>
 
 BlockMath.propTypes = {
-    data: dataShape
+  data: dataShape
 }
 
 export default BlockMath
 
 export class BlockMathEditor extends Component {
-    constructor(props) {
-        super(props)
+  constructor(props) {
+    super(props)
 
-        this.onChange = (e) => props.onChange({ src: e.target.value })
-        this.focus = () => this.refs.editor.focus()
-    }
+    this.onChange = (e) => props.onChange({src: e.target.value})
+    this.focus = () => this.refs.editor.focus()
+  }
 
-    render() {
-        const { autoFocus, data, onBlur } = this.props
+  render() {
+    const {autoFocus, data, onBlur} = this.props
 
-        return (
-            <div>
-                <BlockMath data={data}/>
+    return (
+      <div>
+        <BlockMath data={data}/>
         <textarea autoFocus={autoFocus}
                   onChange={this.onChange}
                   onBlur={onBlur}
@@ -36,14 +36,14 @@ export class BlockMathEditor extends Component {
                   }}
                   value={data.src}
                   ref="editor"/>
-            </div>
-        )
-    }
+      </div>
+    )
+  }
 }
 
 BlockMathEditor.propTypes = {
-    autoFocus: PropTypes.bool,
-    data: dataShape,
-    onBlur: PropTypes.func.isRequired,
-    onChange: PropTypes.func.isRequired
+  autoFocus: PropTypes.bool,
+  data: dataShape,
+  onBlur: PropTypes.func.isRequired,
+  onChange: PropTypes.func.isRequired
 }

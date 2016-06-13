@@ -5,7 +5,7 @@ export const ROW_DRAG = 'CELL_DRAG'
 export const ROW_REMOVE = 'CELL_REMOVE'
 
 export const rowAncestorHover = (id, path) =>({
-    type: CELL_HOVER_ANCESTOR,
-    id,
-    path
+  type: CELL_HOVER_ANCESTOR,
+  id,
+  path
 })

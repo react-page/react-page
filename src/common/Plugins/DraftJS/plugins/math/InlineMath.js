@@ -1,32 +1,32 @@
-import React, {Component, PropTypes} from 'react'
-import KaTeX from './KaTeX'
+import React, {Component, PropTypes} from "react";
+import KaTeX from "./KaTeX";
 
 const dataShape = PropTypes.shape({
-    src: PropTypes.string.isRequired
+  src: PropTypes.string.isRequired
 }).isRequired
 
-const InlineMath = ({ data }) => <KaTeX src={data.src}/>
+const InlineMath = ({data}) => <KaTeX src={data.src}/>
 
 InlineMath.propTypes = {
-    data: dataShape
+  data: dataShape
 }
 
 export default InlineMath
 
 export class InlineMathEditor extends Component {
-    constructor(props) {
-        super(props)
+  constructor(props) {
+    super(props)
 
-        this.onChange = (e) => props.onChange({ src: e.target.value })
-        this.focus = () => this.refs.editor.focus()
-    }
+    this.onChange = (e) => props.onChange({src: e.target.value})
+    this.focus = () => this.refs.editor.focus()
+  }
 
-    render() {
-        const { data } = this.props
+  render() {
+    const {data} = this.props
 
-        return (
-            <div>
-                <InlineMath data={data}/>
+    return (
+      <div>
+        <InlineMath data={data}/>
         <textarea onChange={this.onChange}
                   style={{
                     width: '100%',
@@ -34,12 +34,12 @@ export class InlineMathEditor extends Component {
                   }}
                   value={data.src}
                   ref="editor"/>
-            </div>
-        )
-    }
+      </div>
+    )
+  }
 }
 
 InlineMathEditor.propTypes = {
-    data: dataShape,
-    onChange: PropTypes.func.isRequired
+  data: dataShape,
+  onChange: PropTypes.func.isRequired
 }
