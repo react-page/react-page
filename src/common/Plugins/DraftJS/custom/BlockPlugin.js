@@ -1,16 +1,16 @@
-import React, {Component, PropTypes} from "react";
-import {connect} from "react-redux";
-import {bindActionCreators} from "redux";
-import {beginEditingEntity, finishEditingEntity, mergeEntityData} from "../actions";
-import {entityData, entityIsEdited} from "../selectors";
+import React, { Component, PropTypes } from "react";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import { beginEditingEntity, finishEditingEntity, mergeEntityData } from "../actions";
+import { entityData, entityIsEdited } from "../selectors";
 
 const createBlockPlugin = (RenderedComponent, EditedComponent) => {
   class BlockPlugin extends Component {
     constructor(props) {
       super(props)
 
-      const {beginEditingEntity, finishEditingEntity, mergeEntityData, blockProps} = props
-      const {entityKey} = blockProps
+      const { beginEditingEntity, finishEditingEntity, mergeEntityData, blockProps } = props
+      const { entityKey } = blockProps
 
       // this.onAfterOpen = () => this.refs.editor.focus()
       this.onChange = (data) => mergeEntityData(entityKey, data)
@@ -19,7 +19,7 @@ const createBlockPlugin = (RenderedComponent, EditedComponent) => {
     }
 
     render() {
-      const {data, edited} = this.props
+      const { data, edited } = this.props
 
       if (edited) {
         return (
@@ -50,7 +50,7 @@ const createBlockPlugin = (RenderedComponent, EditedComponent) => {
     mergeEntityData: PropTypes.func.isRequired
   }
 
-  const mapStateToProps = (state, {blockProps}) => ({
+  const mapStateToProps = (state, { blockProps }) => ({
     data: entityData(blockProps.entityKey)(state),
     edited: entityIsEdited(blockProps.entityKey)(state)
   })

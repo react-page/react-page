@@ -1,5 +1,5 @@
-import {Entity} from "draft-js";
-import {any, compose, identity, propOr, prop, values} from "ramda";
+import { Entity } from "draft-js";
+import { any, compose, identity, propOr, prop, values } from "ramda";
 
 export const editorState = (state) => state.editorState
 

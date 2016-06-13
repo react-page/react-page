@@ -1,15 +1,15 @@
-import React, {PropTypes, Component} from "react";
-import {findDOMNode} from "react-dom";
+import React, { PropTypes, Component } from "react";
+import { findDOMNode } from "react-dom";
 import Row from "src/common/components/Row";
-import {DragSource, DropTarget} from "react-dnd";
-import {CELL} from "src/common/items";
-import {connect} from "react-redux";
-import {bindActionCreators} from "redux";
-import {createStructuredSelector} from "reselect";
-import {hoverCellOverCell, cancelCellDrag, dropCell, dragCell} from "src/common/actions/cell";
-import {rowAncestorHover} from "src/common/actions/row";
+import { DragSource, DropTarget } from "react-dnd";
+import { CELL } from "src/common/items";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import { createStructuredSelector } from "reselect";
+import { hoverCellOverCell, cancelCellDrag, dropCell, dragCell } from "src/common/actions/cell";
+import { rowAncestorHover } from "src/common/actions/row";
 import throttle from "lodash.throttle";
-import {isLayoutMode} from "src/common/selectors/mode";
+import { isLayoutMode } from "src/common/selectors/mode";
 import tinycolor from "tinycolor2";
 import "./cell.css";
 
@@ -43,7 +43,7 @@ const computeLevel = (props, monitor, component) => {
     }
     level = props.parents.length - Math.round(level)
   }
-  return {level, position}
+  return { level, position }
 }
 
 const cellTarget = {
@@ -51,24 +51,24 @@ const cellTarget = {
     const item = monitor.getItem()
     if (item.id === props.id) {
       return
-    } else if (!monitor.isOver({shallow: true})) {
+    } else if (!monitor.isOver({ shallow: true })) {
       return
     } else if (!Boolean(props.id)) {
       return
     }
 
-    const {position, level} = computeLevel(props, monitor, component)
+    const { position, level } = computeLevel(props, monitor, component)
     props.hoverCellOverCell({
       item: item,
       hover: props,
       position,
       level
     })
-  }, 200, {leading: true, trailing: false}),
+  }, 200, { leading: true, trailing: false }),
 
   drop(props, monitor, component) {
     const item = monitor.getItem()
-    const {position, level} = computeLevel(props, monitor, component)
+    const { position, level } = computeLevel(props, monitor, component)
     if (item.id === props.id) {
       props.cancelCellDrag(item.id)
     } else {
@@ -86,7 +86,7 @@ const cellSource = {
   beginDrag(props) {
     // delay drag propagation or risk a bug with react-dnd html5 backend
     setTimeout(() => props.dragCell(props), 50)
-    return {...props};
+    return { ...props };
   },
 
   endDrag(props, monitor) {
@@ -101,7 +101,7 @@ const dnd = {
   connect: (connect, monitor) => ({
     connectDropTarget: connect.dropTarget(),
     isOver: monitor.isOver(),
-    isOverCurrent: monitor.isOver({shallow: true}),
+    isOverCurrent: monitor.isOver({ shallow: true }),
   }),
   collect: (connect, monitor) => ({
     connectDragSource: connect.dragSource(),
@@ -109,7 +109,7 @@ const dnd = {
   })
 }
 
-const inner = ({rows = [], level, plugin, data, id, path, isEditView, ...props}) => {
+const inner = ({ rows = [], level, plugin, data, id, path, isEditView, ...props }) => {
   if (rows.length > 0) {
     return (
       <div>
@@ -122,12 +122,12 @@ const inner = ({rows = [], level, plugin, data, id, path, isEditView, ...props})
   }
 
   if (!Boolean(plugin)) {
-    console.log('Neither rows nor plugin defined in object', {rows, plugin, data, id, path, ...props})
+    console.log('Neither rows nor plugin defined in object', { rows, plugin, data, id, path, ...props })
     return <div style={{backgroundColor: 'red', padding: '16px', margin: '8px', borderRadius: '4px'}}>Empty
       row</div>
   }
 
-  const {EditView, RenderView} = plugin
+  const { EditView, RenderView } = plugin
   return (
     <div>
       {
@@ -138,7 +138,7 @@ const inner = ({rows = [], level, plugin, data, id, path, isEditView, ...props})
   )
 }
 
-const PlaceHolder = ({id, width, isOverCurrent, connectDropTarget, level = 1}) => {
+const PlaceHolder = ({ id, width, isOverCurrent, connectDropTarget, level = 1 }) => {
   if (isOverCurrent) {
 
   }
@@ -155,7 +155,7 @@ const PlaceHolder = ({id, width, isOverCurrent, connectDropTarget, level = 1}) =
     overflow: 'hidden'
   }
   return connectDropTarget(
-    <div {...{style}} />
+    <div {...{ style }} />
   )
 }
 
@@ -163,9 +163,9 @@ const cap = (s) => (s || '').charAt(0).toUpperCase() + (s || '').slice(1)
 
 class Cell extends Component {
   render() {
-    const {level, wrap, isLayoutMode, hover, isOverCurrent, isDragging, isPlaceholder, connectDragSource, connectDropTarget, size, siblings = [], rows = [], ...props} = this.props
+    const { level, wrap, isLayoutMode, hover, isOverCurrent, isDragging, isPlaceholder, connectDragSource, connectDropTarget, size, siblings = [], rows = [], ...props } = this.props
     const cellProps = {
-      className: `col-md-${size}`,
+      className: `col-md-${size} editable-cell`,
       style: {
         //width: !isDragging && isLayoutMode ? `calc(${size / 12 * 100}% - 30px)` : null,
         //padding: !isDragging && isLayoutMode ? '0 16px' : null,
@@ -212,11 +212,11 @@ class Cell extends Component {
     }
 
     if (Boolean(wrap)) {
-      const {component: WrapComponent = 'div', props: wrapProps = {}} = wrap
+      const { component: WrapComponent = 'div', props: wrapProps = {} } = wrap
       return connect(
         <div {...cellProps}>
           <WrapComponent {...wrapProps}>
-            {inner({...props, rows})}
+            {inner({ ...props, rows })}
           </WrapComponent>
         </div>
       )
@@ -224,7 +224,7 @@ class Cell extends Component {
 
     return connect(
       <div{...cellProps}>
-        {inner({...props, rows})}
+        {inner({ ...props, rows })}
       </div>
     )
   }

@@ -1,11 +1,11 @@
-import React, {Component, PropTypes} from "react";
+import React, { Component, PropTypes } from "react";
 import KaTeX from "./KaTeX";
 
 const dataShape = PropTypes.shape({
   src: PropTypes.string.isRequired
 }).isRequired
 
-const InlineMath = ({data}) => <KaTeX src={data.src}/>
+const InlineMath = ({ data }) => <KaTeX src={data.src}/>
 
 InlineMath.propTypes = {
   data: dataShape
@@ -17,12 +17,12 @@ export class InlineMathEditor extends Component {
   constructor(props) {
     super(props)
 
-    this.onChange = (e) => props.onChange({src: e.target.value})
+    this.onChange = (e) => props.onChange({ src: e.target.value })
     this.focus = () => this.refs.editor.focus()
   }
 
   render() {
-    const {data} = this.props
+    const { data } = this.props
 
     return (
       <div>

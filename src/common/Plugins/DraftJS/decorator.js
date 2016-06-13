@@ -1,7 +1,7 @@
-import {CompositeDecorator} from "draft-js";
-import InlineMath, {InlineMathEditor} from "./plugins/math/InlineMath";
+import { CompositeDecorator } from "draft-js";
+import InlineMath, { InlineMathEditor } from "./plugins/math/InlineMath";
 import createModalPlugin from "./custom/ModalPlugin";
-import {createEntityTypeStrategy} from "./strategies";
+import { createEntityTypeStrategy } from "./strategies";
 
 const decorator = new CompositeDecorator([{
   strategy: createEntityTypeStrategy('INLINE_LATEX_EQUATION'),

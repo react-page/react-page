@@ -1,8 +1,8 @@
 import React from "react";
 
-const Controls = ({controls}) => (
+const Controls = ({ controls }) => (
   <div>
-    { controls.map(controls, ({Control, props}) => <Control {{...props}} />) }
+    { controls.map(controls, ({ Control, props }) => <Control {{ ...props }} />) }
   </div>
 )
 

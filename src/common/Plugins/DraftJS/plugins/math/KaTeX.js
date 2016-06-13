@@ -1,5 +1,5 @@
 import katex from "katex";
-import React, {Component, PropTypes} from "react";
+import React, { Component, PropTypes } from "react";
 import "katex/dist/katex.min.css";
 
 class KaTeX extends Component {
@@ -12,7 +12,7 @@ class KaTeX extends Component {
     this.update(this.props.src)
   }
 
-  componentWillReceiveProps({src}) {
+  componentWillReceiveProps({ src }) {
     if (src !== this.props.src) {
       this.update(src)
     }
@@ -24,7 +24,7 @@ class KaTeX extends Component {
   }
 
   update(src) {
-    const {displayMode, throwOnError, errorColor} = this.props
+    const { displayMode, throwOnError, errorColor } = this.props
 
     if (this.timer) {
       clearTimeout(this.timer)

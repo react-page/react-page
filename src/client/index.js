@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import {forEach} from "ramda";
+import { forEach } from "ramda";
 import uuid from "node-uuid";
 import TextArea from "src/common/Plugins/TextArea";
 import Spacer from "src/common/Plugins/Spacer";

@@ -1,9 +1,9 @@
-import React, {Component, PropTypes} from "react";
+import React, { Component, PropTypes } from "react";
 import Modal from "react-modal";
-import {connect} from "react-redux";
-import {bindActionCreators} from "redux";
-import {beginEditingEntity, finishEditingEntity, mergeEntityData} from "../actions";
-import {entityData, entityIsEdited} from "../selectors";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import { beginEditingEntity, finishEditingEntity, mergeEntityData } from "../actions";
+import { entityData, entityIsEdited } from "../selectors";
 
 const createModalPlugin = (RenderedComponent, EditedComponent) => {
   class ModalPlugin extends Component {
@@ -12,7 +12,7 @@ const createModalPlugin = (RenderedComponent, EditedComponent) => {
 
       this.state = props.data
 
-      const {beginEditingEntity, finishEditingEntity, mergeEntityData, entityKey} = props
+      const { beginEditingEntity, finishEditingEntity, mergeEntityData, entityKey } = props
 
       this.onAfterOpen = () => this.refs.editor.focus()
       this.onChange = (data) => this.setState(data)
@@ -24,7 +24,7 @@ const createModalPlugin = (RenderedComponent, EditedComponent) => {
     }
 
     render() {
-      const {data, edited} = this.props
+      const { data, edited } = this.props
 
       if (edited) {
         return (
@@ -56,7 +56,7 @@ const createModalPlugin = (RenderedComponent, EditedComponent) => {
     mergeEntityData: PropTypes.func.isRequired
   }
 
-  const mapStateToProps = (state, {entityKey}) => ({
+  const mapStateToProps = (state, { entityKey }) => ({
     data: entityData(entityKey)(state),
     edited: entityIsEdited(entityKey)(state)
   })

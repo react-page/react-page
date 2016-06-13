@@ -1,11 +1,11 @@
-import React, {Component} from "react";
-import {connect} from "react-redux";
-import {CELL, ROW} from "src/common/items";
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { CELL, ROW } from "src/common/items";
 import Row from "src/common/components/Row";
-import {rows} from "src/common/selectors/rows";
-import {DropTarget} from "react-dnd";
-import {createPlaceholders} from "src/common/actions/placeholders";
-import {bindActionCreators} from "redux";
+import { rows } from "src/common/selectors/rows";
+import { DropTarget } from "react-dnd";
+import { createPlaceholders } from "src/common/actions/placeholders";
+import { bindActionCreators } from "redux";
 
 const target = {
   drop(props, monitor, component) {
@@ -35,7 +35,7 @@ const collect = (connect, monitor)=> ({
   connectDropTarget: connect.dropTarget(),
   // You can ask the monitor about the current drag state:
   isOver: monitor.isOver(),
-  isOverCurrent: monitor.isOver({shallow: true}),
+  isOverCurrent: monitor.isOver({ shallow: true }),
   canDrop: monitor.canDrop(),
   itemType: monitor.getItemType()
 })
@@ -46,7 +46,7 @@ class Editable extends Component {
   }
 
   render() {
-    const {rows, canDrop, isOver, connectDropTarget} = this.props
+    const { rows, canDrop, isOver, connectDropTarget } = this.props
     return (
       <div>
         { rows.map((row) => <Row level={1} key={row.id} {...row} />) }

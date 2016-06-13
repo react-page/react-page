@@ -1,5 +1,5 @@
-import {AtomicBlockUtils, Entity, EditorState, Modifier} from "draft-js";
-import {combineReducers} from "redux";
+import { AtomicBlockUtils, Entity, EditorState, Modifier } from "draft-js";
+import { combineReducers } from "redux";
 import {
   BEGIN_EDITING_ENTITY,
   FINISH_EDITING_ENTITY,
@@ -33,7 +33,7 @@ const editorState = (state = EditorState.createEmpty(decorator),
   switch (action.type) {
     case INSERT_INLINE_ENTITY:
     {
-      const {type, mutability, data} = action.payload
+      const { type, mutability, data } = action.payload
 
       const entityKey = Entity.create(type, mutability, data)
 
@@ -71,7 +71,7 @@ const editorState = (state = EditorState.createEmpty(decorator),
     }
     case INSERT_BLOCK_ENTITY:
     {
-      const {type, mutability, data} = action.payload
+      const { type, mutability, data } = action.payload
 
       const entityKey = Entity.create(type, mutability, data)
 
@@ -79,7 +79,7 @@ const editorState = (state = EditorState.createEmpty(decorator),
     }
     case MERGE_ENTITY_DATA:
     {
-      const {entityKey, data} = action.payload
+      const { entityKey, data } = action.payload
 
       Entity.mergeData(entityKey, data)
 
@@ -92,4 +92,4 @@ const editorState = (state = EditorState.createEmpty(decorator),
   }
 }
 
-export default combineReducers({editorState, editedEntities})
+export default combineReducers({ editorState, editedEntities })

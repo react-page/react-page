@@ -1,5 +1,5 @@
-import {Entity} from "draft-js";
-import BlockMath, {BlockMathEditor} from "./plugins/math/BlockMath";
+import { Entity } from "draft-js";
+import BlockMath, { BlockMathEditor } from "./plugins/math/BlockMath";
 import createBlockPlugin from "./custom/BlockPlugin";
 
 const BlockLatex = createBlockPlugin(BlockMath, BlockMathEditor)
@@ -15,7 +15,7 @@ export default (block) => {
         case 'BLOCK_LATEX_EQUATION':
           return {
             component: BlockLatex,
-            props: {entityKey}
+            props: { entityKey }
           }
         default:
           return null

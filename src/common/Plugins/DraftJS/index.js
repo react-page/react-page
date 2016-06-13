@@ -1,10 +1,10 @@
-import React, {Component, PropTypes} from "react";
-import {connect} from "react-redux";
-import {bindActionCreators} from "redux";
-import {Editor, RichUtils} from "draft-js";
+import React, { Component, PropTypes } from "react";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import { Editor, RichUtils } from "draft-js";
 import "draft-js/dist/Draft.css";
-import {replaceEditorState} from "./actions";
-import {editorState, readOnly} from "./selectors";
+import { replaceEditorState } from "./actions";
+import { editorState, readOnly } from "./selectors";
 import Toolbar from "./Toolbar";
 import blockRenderer from "./blockRenderer";
 
@@ -15,7 +15,7 @@ class Editable extends Component {
     this.focus = () => this.refs.editor.focus()
 
     this.handleKeyCommand = (command) => {
-      const {editorState, onChange} = this.props
+      const { editorState, onChange } = this.props
 
       const newState = RichUtils.handleKeyCommand(editorState, command)
 
@@ -29,7 +29,7 @@ class Editable extends Component {
   }
 
   render() {
-    const {editorState, onChange, readOnly} = this.props
+    const { editorState, onChange, readOnly } = this.props
 
     return (
       <div>
@@ -56,6 +56,6 @@ const mapStateToProps = (state) => ({
   editorState: editorState(state),
   readOnly: readOnly(state)
 })
-const mapDispatchToProps = (dispatch) => bindActionCreators({onChange: replaceEditorState}, dispatch)
+const mapDispatchToProps = (dispatch) => bindActionCreators({ onChange: replaceEditorState }, dispatch)
 
 export default connect(mapStateToProps, mapDispatchToProps)(Editable)

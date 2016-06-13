@@ -14,7 +14,7 @@ export const cancelCellDrag = (id) =>({
   id
 })
 
-export const dropCell = ({hover, item, level, position}) =>({
+export const dropCell = ({ hover, item, level, position }) =>({
   type: CELL_DROP,
   hover,
   item,
@@ -22,7 +22,7 @@ export const dropCell = ({hover, item, level, position}) =>({
   level
 })
 
-export const hoverCellOverCell = ({item, hover, position, level}) =>({
+export const hoverCellOverCell = ({ item, hover, position, level }) =>({
   type: CELL_HOVER_CELL,
   item,
   hover,

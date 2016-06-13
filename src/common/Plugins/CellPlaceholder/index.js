@@ -10,13 +10,13 @@ const style = {
   opacity: 0.8
 }
 
-export const EditView = ({id}) => (
+export const EditView = ({ id }) => (
   <div style={style}>
     Drop here {id}
   </div>
 )
 
-export const RenderView = ({id}) => (
+export const RenderView = ({ id }) => (
   <div style={style}>
     Drop here {id}
   </div>

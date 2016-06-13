@@ -1,4 +1,4 @@
-import {Entity} from "draft-js";
+import { Entity } from "draft-js";
 
 // entityTypeFilter :: String -> CharacterMetaData -> Bool
 const entityTypeFilter = (type) => (value) => {

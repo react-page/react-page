@@ -1,6 +1,6 @@
-import {CELL_HOVER_CELL, CELL_DRAG, CELL_CANCEL_DRAG, CELL_REMOVE, CELL_DROP} from "src/common/actions/cell";
-import {CREATE_PLACEHOLDERS, DESTROY_PLACEHOLDERS} from "src/common/actions/placeholders";
-import {CELL_HOVER_ANCESTOR} from "src/common/actions/row";
+import { CELL_HOVER_CELL, CELL_DRAG, CELL_CANCEL_DRAG, CELL_REMOVE, CELL_DROP } from "src/common/actions/cell";
+import { CREATE_PLACEHOLDERS, DESTROY_PLACEHOLDERS } from "src/common/actions/placeholders";
+import { CELL_HOVER_ANCESTOR } from "src/common/actions/row";
 import uuid from "node-uuid";
 
 const cellPlaceholder = () => ({
@@ -14,7 +14,7 @@ const rowPlaceholder = () => ({
   cells: [cellPlaceholder()]
 })
 
-const isDropAncestor = (find, rows = []) => rows.filter((row) => Boolean(row.cells.find(({id, rows = []}) => id === find || isDropAncestor(find, rows)))).length > 0
+const isDropAncestor = (find, rows = []) => rows.filter((row) => Boolean(row.cells.find(({ id, rows = [] }) => id === find || isDropAncestor(find, rows)))).length > 0
 
 export const rows = (state = [], action, parents = []) => {
   switch (action.type) {
@@ -23,7 +23,7 @@ export const rows = (state = [], action, parents = []) => {
         .map((r) => {
           return row({
             ...r,
-            hover: isActive({action, e: r, level: action.level}) ? action.position : null
+            hover: isActive({ action, e: r, level: action.level }) ? action.position : null
           }, action, parents)
         })
     // case CELL_HOVER_CELL:
@@ -53,12 +53,12 @@ const row = (state = {
   cells: [],
   wrap: {}
 }, action, parents) => {
-  let cs = state.cells
-  if (state.cells.length === 1) {
-    if ((state.cells[0].rows || []).length > 0) {
-      cs = [].concat.apply([], state.cells[0].rows.map((r) => r.cells))
-    }
-  }
+  // let cs = state.cells
+  // if (state.cells.length === 1) {
+  //   if ((state.cells[0].rows || []).length > 0) {
+  //     cs = [].concat.apply([], state.cells[0].rows.map((r) => r.cells))
+  //   }
+  // }
   switch (action.type) {
     // case CELL_DROP:
     //   if (isDropAncestor(action.hover.id, [state])) {
@@ -74,28 +74,28 @@ const row = (state = {
         ...state,
         id: state.id || uuid.v4(),
         parents,
-        cells: cells(cs, action, [...parents, state.id])
+        cells: cells(state.cells, action, [...parents, state.id])
+        // cells: cells(cs, action, [...parents, state.id])
       }
   }
 }
 
-const isActive = ({action, e = {}, level = 0}) => {
+const isActive = ({ action, e = {}, level = 0 }) => {
   const children = e.rows || e.cells || []
   if (level > 0 && children.length > 0) {
-    return Boolean(children.find((c) => isActive({
+    return Boolean(children.find((child) => isActive({
       action,
-      row: c,
+      e: child,
       level: level - 1
     })))
   }
-  console.log('isActive', action, e)
   if (action.hover.id === e.id) {
     console.log('isActive', action.hover.id === e.id)
   }
   return action.hover.id === e.id
 }
 
-const isCellActive = ({action, cell = {}, level = 0}) => {
+const isCellActive = ({ action, cell = {}, level = 0 }) => {
   if (level > 0) {
     return cell.rows.filter((r) => r.cells.filter((c) => isCellActive({
         action,
@@ -113,7 +113,7 @@ export const cells = (state = [], action, parents = []) => {
         .map((c) => {
           return cell({
             ...c,
-            hover: isCellActive({action, cell: c, level: action.level}) ? action.position : null
+            hover: isActive({ action, e: c, level: action.level }) ? action.position : null
           }, action, parents)
         })
     // case CELL_REMOVE:
@@ -208,9 +208,9 @@ const cell = (state = {
     //     return {...(action.item), size: 0, id: uuid.v4(), rows: rows(state.rows, action)}
     //   }
     //   return {...state, size: 0, id: state.id || uuid.v4(), rows: rows(state.rows, action)}
-    case CELL_DROP:
-    case CELL_CANCEL_DRAG:
-      return {...state, hover: null, rows: rows(state.rows, action)}
+    // case CELL_DROP:
+    // case CELL_CANCEL_DRAG:
+    //   return { ...state, hover: null, rows: rows(state.rows, action) }
     default:
       return {
         ...state, id: state.id || uuid.v4(),

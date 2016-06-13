@@ -1,0 +1,37 @@
+.editable-row {
+    position: relative;
+    background: rgba(0,0,0,.1)
+}
+
+.editable-row.drag-hover:before {
+    content: ' ';
+    position: absolute;
+    z-index: 100;
+    background: darkslategrey;
+}
+
+.editable-row.drag-hover-top:before {
+    top: 0;
+    height: 2px;
+    width: 100%;
+}
+
+.editable-row.drag-hover-bottom:before {
+    bottom: 0;
+    height: 2px;
+    width: 100%;
+}
+
+.editable-row.drag-hover-left:before {
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 2px;
+}
+
+.editable-row.drag-hover-right:before {
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 2px;
+}

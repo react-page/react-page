@@ -1,1 +1,1 @@
-export const rows = ({rows}) => rows || []
+export const rows = ({ rows }) => rows || []

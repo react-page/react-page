@@ -1,10 +1,10 @@
 import React from "react";
 
-export const EditView = ({id}) => (
+export const EditView = ({ id }) => (
   <div>spacer {id}</div>
 )
 
-export const RenderView = ({id}) => (
+export const RenderView = ({ id }) => (
   <div>spacer {id}</div>
 )
 
