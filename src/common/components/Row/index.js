@@ -1,13 +1,13 @@
 import React from "react";
-import { findDOMNode } from "react-dom";
+import {findDOMNode} from "react-dom";
 import Cell from "src/common/components/Cell";
-import { DropTarget } from "react-dnd";
-import { CELL } from "src/common/items";
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
-import { createStructuredSelector } from "reselect";
-import { rowAncestorHover } from "src/common/actions/row";
-import { isLayoutMode } from "src/common/selectors/mode";
+import {DropTarget} from "react-dnd";
+import {CELL} from "src/common/items";
+import {connect} from "react-redux";
+import {bindActionCreators} from "redux";
+import {createStructuredSelector} from "reselect";
+import {rowAncestorHover} from "src/common/actions/row";
+import {isLayoutMode} from "src/common/selectors/mode";
 
 import './row.css'
 
@@ -58,17 +58,12 @@ const dnd = {
   })
 }
 
-const cn = (hover) => 'row editable-row' + (hover ? ` drag-hover drag-hover-${hover}` : '')
-
-const inner = ({ cells = [], hover, level, isOverCurrent, id, isLayoutMode }) => {
-  if (Boolean(hover)) {
-    console.log('hover', hover)
-  }
+const inner = ({cells = [], hover, level, isOverCurrent, id, isLayoutMode}) => {
   return (
-    <div className={cn(hover)}>
+    <div className="row">
       { cells.map((item) => ({
         ...item,
-        size: item.size > 0 ? item.size : Math.floor(gridSize / cells.filter(({ isPlaceholder }) => !isPlaceholder).length)
+        size: item.size > 0 ? item.size : Math.floor(gridSize / cells.filter(({isPlaceholder}) => !isPlaceholder).length)
       })).map((cell) => <Cell
         siblings={cells.filter((c) => cell.id !== c.id)}
         parent={id}
@@ -80,19 +75,21 @@ const inner = ({ cells = [], hover, level, isOverCurrent, id, isLayoutMode }) =>
   )
 }
 
-const Row = ({ wrap, connectDropTarget, ...data }) => {
+const Row = ({wrap, connectDropTarget, ...data}) => {
   if (Boolean(wrap)) {
-    const { component: WrapComponent, props: wrapProps } = wrap
+    const {component: WrapComponent, props: wrapProps} = wrap
     return connectDropTarget(
-      <WrapComponent {...wrapProps}>
-        {inner({ ...data })}
-      </WrapComponent>
+      <div className={data.hover ? `editable-row drag-hover drag-hover-${data.hover}` : 'editable-row '}>
+        <WrapComponent {...wrapProps}>
+          {inner({...data})}
+        </WrapComponent>
+      </div>
     )
   }
 
   return connectDropTarget(
-    <div>
-      {inner({ ...data })}
+    <div className={data.hover ? `editable-row drag-hover drag-hover-${data.hover}` : 'editable-row '}>
+      {inner({...data})}
     </div>
   )
 }

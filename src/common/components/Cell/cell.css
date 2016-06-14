@@ -15,12 +15,14 @@
 
 .editable-cell.drag-hover-top:before {
     top: 0;
+    left: 0;
     width: 100%;
     height: 2px;
 }
 
 .editable-cell.drag-hover-bottom:before {
     bottom: 0;
+    left: 0;
     width: 100%;
     height: 2px;
 }
