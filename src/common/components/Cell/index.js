@@ -6,6 +6,9 @@ import {CELL} from "src/common/items";
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
 import {createStructuredSelector} from "reselect";
+import {ResizableBox} from 'react-resizable'
+import Dimensions from 'react-dimensions'
+
 import {
   hoverCellOverCell,
   cancelCellDrag,
@@ -18,7 +21,6 @@ import {
 import {rowAncestorHover} from "src/common/actions/row";
 import throttle from "lodash.throttle";
 import {isLayoutMode} from "src/common/selectors/mode";
-import tinycolor from "tinycolor2";
 import "./cell.css";
 
 const computeDropArea = (props, monitor, component) => {
@@ -137,69 +139,34 @@ const inner = ({rows = [], level, plugin: Plugin, data, id, path, readOnly = fal
 
   if (!Boolean(Plugin)) {
     console.log('Neither rows nor plugin defined in object', {rows, plugin, data, id, path, ...props})
-    return <div style={{backgroundColor: 'red', padding: '16px', margin: '8px', borderRadius: '4px'}}>Empty
-      row</div>
+    return <div style={{backgroundColor: 'red', padding: '16px', margin: '8px', borderRadius: '4px'}}>
+      Empty row
+    </div>
   }
 
   return (
-    <div onClick={() => {}}>
-      <Plugin {...data} readOnly={readOnly} id={id} onChange={(newState) => props.updateCell(id, newState)}/>
-    </div>
+    <ResizableBox width={Math.floor(props.containerWidth / Math.floor(12 /props.size))}>
+      <div onClick={() => {}}>
+        <Plugin {...data} readOnly={readOnly} id={id} onChange={(newState) => props.updateCell(id, newState)}/>
+      </div>
+    </ResizableBox>
   )
 }
 
-const PlaceHolder = ({id, width, isOverCurrent, connectDropTarget, level = 1}) => {
-  const style = {
-    float: 'left',
-    width,
-    minHeight: '14px',
-    backgroundColor: isOverCurrent ? 'yellow' : tinycolor('#305010').lighten(level).toString(),
-    boxShadow: '0 0 2px 2px',
-    position: 'relative',
-    textAlign: 'center',
-    verticalAlign: 'middle',
-    margin: '2px',
-    overflow: 'hidden'
-  }
-  return connectDropTarget(<div {...{style}} />)
-}
-
-const cap = (s) => (s || '').charAt(0).toUpperCase() + (s || '').slice(1)
-
 class Cell extends Component {
   render() {
-    const {level, wrap, isLayoutMode, hover, isOverCurrent, isDragging, isPlaceholder, connectDragSource, connectDropTarget, size, siblings = [], rows = [], blurCell, focusCell, ...props} = this.props
+    const {isLayoutMode, hover, isDragging, connectDragSource, connectDropTarget, size, rows = [], blurCell, focusCell, ...props} = this.props
     const cellProps = {
       blurCell,
       focusCell,
       className: `col-md-${size} editable-cell ${isLayoutMode ? 'layout-mode' : ''} ${rows.length === 0 ? 'leaf' : ''}`,
       style: {
-        //width: !isDragging && isLayoutMode ? `calc(${size / 12 * 100}% - 30px)` : null,
-        //padding: !isDragging && isLayoutMode ? '0 16px' : null,
         opacity: isDragging ? '.3' : '1',
         padding: 0
-        //outline: '1px solid #aaa'
-        //borderRadius: '4px',
-        //background: isOverCurrent ? ' rgba(255,255,255,1) 72%, rgba(188,224,238,1) 100%);' : null
-        // [`margin${cap(hover)}`]: Boolean(hover) ? `-2px` : null
       }
     }
 
-    let helper = null
-    if (hover === 'center') {
-      helper = (
-        <div style={{
-        boxShadow: 'inset 0px 0px 17px 10px #aaa',
-        backgroundColor: 'rgba(255,255,255,0.8)',
-        zIndex: 9999,
-        position: 'absolute',
-        top: 0,
-        bottom: 0,
-        left: 0,
-        right: 0,
-        }}></div>
-      )
-    } else if (Boolean(hover)) {
+    if (Boolean(hover)) {
       cellProps.className += ` drag-hover drag-hover-${hover}`
     }
 
@@ -215,19 +182,9 @@ class Cell extends Component {
       props.readOnly = true
     }
 
-    if (isPlaceholder) {
-      return <PlaceHolder {...{
-        ...props,
-        level,
-        width: siblings.length > 0 ? '16px' : '100%',
-        isOverCurrent,
-        connectDropTarget
-      }} />
-    }
-
     return connect(
-      <div{...cellProps}>
-        {inner({...props, rows})}
+      <div {...cellProps}>
+        {inner({...props, size, rows})}
       </div>
     )
   }
@@ -261,4 +218,4 @@ const mapDispatchToProps = (dispatch) => bindActionCreators({
   updateCell
 }, dispatch)
 
-export default connect(mapStateToProps, mapDispatchToProps)(DropTarget(CELL, cellTarget, dnd.connect)(DragSource(CELL, cellSource, dnd.collect)(Cell)))
+export default Dimensions()(connect(mapStateToProps, mapDispatchToProps)(DropTarget(CELL, cellTarget, dnd.connect)(DragSource(CELL, cellSource, dnd.collect)(Cell))))

@@ -78,7 +78,6 @@ const inner = ({cells = [], hover, level, isOverCurrent, id, isLayoutMode}) => {
 const Row = ({wrap, connectDropTarget, ...data}) => {
   if (Boolean(wrap)) {
     const {component: WrapComponent = null, props: wrapProps = {}} = wrap
-    console.log(WrapComponent, wrapProps)
     return connectDropTarget(
       <div className={data.hover ? `editable-row drag-hover drag-hover-${data.hover}` : 'editable-row '}>
         <WrapComponent {...wrapProps}>

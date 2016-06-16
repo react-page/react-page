@@ -2,11 +2,11 @@
     border: 1px dashed rgba(0,0,0,.6);
 }
 
-.react-resizable {
+.spacer .react-resizable {
     position: relative;
 }
 
-.react-resizable-handle {
+.spacer .react-resizable-handle {
     position: absolute;
     width: 20px;
     height: 20px;
