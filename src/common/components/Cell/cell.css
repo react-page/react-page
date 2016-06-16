@@ -2,6 +2,10 @@
     background: rgba(0,0,0,0.1);
 }
 
+.editable-cell.leaf.layout-mode {
+    cursor: move
+}
+
 .editable-cell>* {
     margin: 8px;
 }

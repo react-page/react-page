@@ -2,7 +2,7 @@ import React from "react";
 import {findDOMNode} from "react-dom";
 import Cell from "src/common/components/Cell";
 import {DropTarget} from "react-dnd";
-import {CELL} from "src/common/items";
+import {ROW} from "src/common/items";
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
 import {createStructuredSelector} from "reselect";
@@ -77,7 +77,8 @@ const inner = ({cells = [], hover, level, isOverCurrent, id, isLayoutMode}) => {
 
 const Row = ({wrap, connectDropTarget, ...data}) => {
   if (Boolean(wrap)) {
-    const {component: WrapComponent, props: wrapProps} = wrap
+    const {component: WrapComponent = null, props: wrapProps = {}} = wrap
+    console.log(WrapComponent, wrapProps)
     return connectDropTarget(
       <div className={data.hover ? `editable-row drag-hover drag-hover-${data.hover}` : 'editable-row '}>
         <WrapComponent {...wrapProps}>
@@ -102,4 +103,4 @@ const mapDispatchToProps = (dispatch) => bindActionCreators({
   rowAncestorHover
 }, dispatch)
 
-export default connect(mapStateToProps, mapDispatchToProps)(DropTarget(CELL, rowTarget, dnd.connect)(Row))
+export default connect(mapStateToProps, mapDispatchToProps)(DropTarget(ROW, rowTarget, dnd.connect)(Row))

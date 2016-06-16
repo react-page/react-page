@@ -7,12 +7,17 @@ import { replaceEditorState } from "./actions";
 import { editorState, readOnly } from "./selectors";
 import Toolbar from "./Toolbar";
 import blockRenderer from "./blockRenderer";
+import {updateCell} from "src/common/actions/cell";
 
-class Editable extends Component {
+export const RenderView = ({ id, height }) => (
+  <div>content</div>
+)
+
+class EditView extends Component {
   constructor(props) {
     super(props)
 
-    this.focus = () => this.refs.editor.focus()
+    this.readOnly = () => this.refs.editor.readOnly()
 
     this.handleKeyCommand = (command) => {
       const { editorState, onChange } = this.props
@@ -20,7 +25,7 @@ class Editable extends Component {
       const newState = RichUtils.handleKeyCommand(editorState, command)
 
       if (newState) {
-        onChange(newState)
+        onChange({editorState: newState})
         return true
       }
 
@@ -33,11 +38,10 @@ class Editable extends Component {
 
     return (
       <div>
-        <Toolbar />
         <Editor blockRendererFn={blockRenderer}
                 editorState={editorState}
                 handleKeyCommand={this.handleKeyCommand}
-                onChange={onChange}
+                onChange={(editorState) => onChange({editorState})}
                 placeholder="Tell your story..."
                 readOnly={readOnly}
                 ref="editor"/>
@@ -46,16 +50,10 @@ class Editable extends Component {
   }
 }
 
-Editable.propTypes = {
+EditView.propTypes = {
   editorState: PropTypes.object.isRequired,
   onChange: PropTypes.func.isRequired,
-  readOnly: PropTypes.bool.isRequired
+  readOnly: PropTypes.bool.isRequired,
 }
 
-const mapStateToProps = (state) => ({
-  editorState: editorState(state),
-  readOnly: readOnly(state)
-})
-const mapDispatchToProps = (dispatch) => bindActionCreators({ onChange: replaceEditorState }, dispatch)
-
-export default connect(mapStateToProps, mapDispatchToProps)(Editable)
+export default EditView

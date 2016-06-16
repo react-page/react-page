@@ -1,16 +1,13 @@
 import React from "react";
 
-const EditView = ({ content, id }) => (
-  <textarea className="form-control" value={ `${content} ${id}` }/>
-)
-
-const RenderView = ({ content, id }) => (
+const EditView = ({content, id, readOnly}) => (
   <div>
-    { content } {id}
+    {
+      readOnly
+        ? <div dangerouslySetInnerHTML={{__html: content}}/>
+        : <textarea className="form-control" value={content}/>
+    }
   </div>
 )
 
-export default {
-  EditView,
-  RenderView
-}
+export default EditView

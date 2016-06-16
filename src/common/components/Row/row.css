@@ -1,6 +1,10 @@
 .editable-row {
     position: relative;
-    background: rgba(0,0,0,.1)
+    background: rgba(0,0,0,0.1);
+}
+
+.editable-row .row {
+    margin: 0;
 }
 
 .editable-row.drag-hover:before {

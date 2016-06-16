@@ -1,11 +1,17 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { CELL, ROW } from "src/common/items";
+import React, {Component} from "react";
+import {connect} from "react-redux";
+import {CELL, ROW} from "src/common/items";
 import Row from "src/common/components/Row";
-import { rows } from "src/common/selectors/rows";
-import { DropTarget } from "react-dnd";
-import { createPlaceholders } from "src/common/actions/placeholders";
-import { bindActionCreators } from "redux";
+import {rows} from "src/common/selectors/rows";
+import {mode} from "src/common/selectors/mode";
+import {DropTarget} from "react-dnd";
+import {createPlaceholders} from "src/common/actions/placeholders";
+import {bindActionCreators} from "redux";
+import {setMode} from "src/common/actions/mode";
+import ReactCSSTransitionGroup from "react-addons-css-transition-group";
+import {isLayoutMode} from "src/common/selectors/mode";
+
+import "./editable.css"
 
 const target = {
   drop(props, monitor, component) {
@@ -35,20 +41,60 @@ const collect = (connect, monitor)=> ({
   connectDropTarget: connect.dropTarget(),
   // You can ask the monitor about the current drag state:
   isOver: monitor.isOver(),
-  isOverCurrent: monitor.isOver({ shallow: true }),
+  isOverCurrent: monitor.isOver({shallow: true}),
   canDrop: monitor.canDrop(),
   itemType: monitor.getItemType()
 })
 
+var FirstChild = React.createClass({
+  render: function () {
+    var children = React.Children.toArray(this.props.children);
+    return children[0] || null;
+  }
+});
+
 class Editable extends Component {
-  componentDidMount() {
-    // this.props.createPlaceholders()
+  constructor(props) {
+    super(props)
+    this.onClick = this.onClick.bind(this)
+    this.lastClick = new Date()
+    this.state = {
+      mouse: {}
+    }
+  }
+
+  onClick(e) {
+    if (this.lastClick.getTime() + 450 > (new Date()).getTime()) {
+      this.props.setMode('layout')
+      this.setState({
+        mouse: {
+          x: e.pageX,
+          y: e.pageY
+        },
+        showIndicator: true
+      })
+      setTimeout(() => this.setState({showIndicator: false}), 300)
+      return
+    }
+
+    this.props.setMode('edit')
+    this.lastClick = new Date()
   }
 
   render() {
-    const { rows, canDrop, isOver, connectDropTarget } = this.props
+    const {rows, canDrop, isOver, connectDropTarget, isLayoutMode} = this.props
     return (
-      <div>
+      <div onClick={this.onClick}>
+        {
+          <ReactCSSTransitionGroup
+            component="div" className="mouse-indicator" transitionName="mouse-indicator"
+                                   transitionAppeas={true}
+                                   transitionEnterTimeout={200} transitionLeaveTimeout={200}>
+            {
+              this.state.showIndicator ? (<div style={{ top: this.state.mouse.y, left: this.state.mouse.x }}></div>) : null
+            }
+          </ReactCSSTransitionGroup>
+        }
         { rows.map((row) => <Row level={1} key={row.id} {...row} />) }
       </div>
     )
@@ -56,11 +102,13 @@ class Editable extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  rows: rows(state)
+  rows: rows(state),
+  mode: mode(state)
 })
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
-  createPlaceholders
+  createPlaceholders,
+  setMode
 }, dispatch)
 
 export default connect(mapStateToProps, mapDispatchToProps)(DropTarget([ROW, CELL], target, collect)(Editable))

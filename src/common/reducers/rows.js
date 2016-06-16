@@ -1,4 +1,13 @@
-import {CELL_HOVER_CELL, CELL_DRAG, CELL_CANCEL_DRAG, CELL_REMOVE, CELL_DROP} from "src/common/actions/cell";
+import {
+  CELL_HOVER_CELL,
+  CELL_DRAG,
+  CELL_CANCEL_DRAG,
+  CELL_REMOVE,
+  CELL_DROP,
+  CELL_FOCUS,
+  CELL_BLUR,
+  CELL_UPDATE
+} from "src/common/actions/cell";
 import {CREATE_PLACEHOLDERS, DESTROY_PLACEHOLDERS} from "src/common/actions/placeholders";
 import {CELL_HOVER_ANCESTOR} from "src/common/actions/row";
 import uuid from "node-uuid";
@@ -14,6 +23,43 @@ const rowPlaceholder = () => ({
   cells: [cellPlaceholder()]
 })
 
+const isEmpty = ({cells = [], rows = [], plugin = null}) => {
+  if (cells.length > 0) {
+    return cells.filter((c) => !isEmpty(c)).length === 0
+  } else if (rows.length > 0) {
+    return rows.filter((r) => !isEmpty(r)).length === 0
+  }
+  return !Boolean(plugin)
+}
+
+const flattenCells = (cells = []) => {
+  return [].concat.apply([], cells.map((c) => {
+    const {rows = []} = c
+    if (rows.length !== 1) {
+      return [c]
+    }
+    const {cells: rowCells = []} = rows[0]
+    if (rowCells.length === 1) {
+      return rowCells
+    }
+    return [c]
+  }))
+}
+
+const flattenRows = (rows = []) => {
+  return [].concat.apply([], rows.map((r) => {
+    const {cells = []} = r
+    if (cells.length !== 1 || (Boolean(r.wrap) && cells.length > 0)) {
+      return [r]
+    }
+    const {rows: cellRows = []} = cells[0]
+    if (cellRows.length > 0) {
+      return cellRows
+    }
+    return [r]
+  }))
+}
+
 // const isDropAncestor = (find, rows = []) => rows.filter((row) => Boolean(row.cells.find(({ id, rows = [] }) => id === find || isDropAncestor(find, rows)))).length > 0
 
 export const rows = (state = [], action, parents = []) => {
@@ -27,43 +73,49 @@ export const rows = (state = [], action, parents = []) => {
           }, action, parents)
         })
     case CELL_DROP:
-      return [].concat.apply([], state.map((r) => {
-        if (isActive({action, e: r, level: action.level})) {
-          switch (action.position) {
-            case 'top':
-              return [
-                {
-                  id: uuid.v4(),
-                  cells: [
+      return flattenRows(
+        [].concat
+          .apply([], state.map((r) => {
+            if (isActive({action, e: r, level: action.level})) {
+              switch (action.position) {
+                case 'top':
+                  return [
                     {
-                      ...(action.item),
+                      id: uuid.v4(),
+                      cells: [
+                        {
+                          ...(action.item),
+                          id: uuid.v4()
+                        }
+                      ]
+                    },
+                    {
+                      ...r,
                       id: uuid.v4()
                     }
                   ]
-                },
-                {
-                  ...r,
-                  id: uuid.v4()
-                }
-              ]
-            case 'bottom':
-              return [
-                {
-                  ...r,
-                  id: uuid.v4()
-                },
-                {
-                  id: uuid.v4(),
-                  cells: [{...(action.item), id: uuid.v4()}]
-                }
-              ]
-          }
-        }
-        return [r]
-      })).map((r) => row({...r, hover: null}, action, parents))
+                case 'bottom':
+                  return [
+                    {
+                      ...r,
+                      id: uuid.v4()
+                    },
+                    {
+                      id: uuid.v4(),
+                      cells: [{...(action.item), id: uuid.v4()}]
+                    }
+                  ]
+              }
+            }
+            return [r]
+          }))
+          .map((r) => row({...r, hover: null}, action, parents))
+          .filter((r) => !isEmpty(r))
+      )
     default:
-      return state
+      return flattenRows(state
         .map((r) => row(r, action, parents))
+      )
   }
 }
 
@@ -106,6 +158,12 @@ const row = (state = {
         parents,
         cells: cells(state.cells, action, [...parents, state.id])
       }
+    case CELL_CANCEL_DRAG:
+      return {
+        ...state,
+        hover: null,
+        cells: cells(state.cells, action, [...parents, state.id])
+      }
     default:
       return {
         ...state,
@@ -144,47 +202,61 @@ export const cells = (state = [], action, parents = []) => {
     case CELL_HOVER_CELL:
       return state
         .map((c) => {
+          const active = isActive({action, e: c, level: action.level})
           return cell({
             ...c,
-            hover: isActive({action, e: c, level: action.level}) ? action.position : null
+            hover: active ? action.position : null,
+            readOnly: c.id === action.hover.id
           }, action, parents)
         })
-    case CELL_DROP:
-      return [].concat
-        .apply([], state.map((c) => {
-          if (isActive({action, e: c, level: action.level})) {
-            switch (action.position) {
-              case 'left':
-                return [
-                  {
-                    ...(action.item),
-                    id: uuid.v4()
-                  },
-                  {
-                    ...c,
-                    id: uuid.v4()
-                  }
-                ]
-              case 'right':
-                return [
-                  {
-                    ...c,
-                    id: uuid.v4()
-                  },
-                  {
-                    ...(action.item),
-                    id: uuid.v4(),
-                  }
-                ]
-            }
-          }
-          return [{...c, hover: null}]
-        }))
-        .filter((c) => c.id !== action.item.id && (Boolean(c.plugin) || c.rows.length > 0))
-        .map((c) => cell({...c, hover: null, size: 0}, action, parents))
-    default:
+    case CELL_FOCUS:
       return state
+        .map((c) => c.id === action.id ? cell({...c, readOnly: false}, action, parents) : cell(c, action, parents))
+    case CELL_BLUR:
+      return state
+        .map((c) => c.id === action.id ? cell({...c, readOnly: true}, action, parents) : cell(c, action, parents))
+    case CELL_UPDATE:
+      return state
+        .map((c) => c.id === action.id ? cell({...c, data: action.data}, action, parents) : cell(c, action, parents))
+    case CELL_DROP:
+      return flattenCells(
+        [].concat
+          .apply([], state.map((c) => {
+            if (isActive({action, e: c, level: action.level})) {
+              switch (action.position) {
+                case 'left':
+                  return [
+                    {
+                      ...(action.item),
+                      id: uuid.v4()
+                    },
+                    {
+                      ...c,
+                      id: uuid.v4()
+                    }
+                  ]
+                case 'right':
+                  return [
+                    {
+                      ...c,
+                      id: uuid.v4()
+                    },
+                    {
+                      ...(action.item),
+                      id: uuid.v4(),
+                    }
+                  ]
+              }
+            }
+            return [{...c, hover: null}]
+          }))
+          .map((c) => cell({...c, hover: null, size: 0, readOnly: false}, action, parents))
+          .filter((c) => c.id !== action.item.id && !isEmpty(c))
+      )
+    default:
+      return flattenCells(state
         .map((c) => cell(c, action, parents))
+      )
   }
 }
 
@@ -193,37 +265,14 @@ const cell = (state = {
   isPlaceholder: false,
   isNestedPlaceholder: false,
   plugin: null,
+  readOnly: true,
   data: {},
   wrap: {},
   rows: []
 }, action, parents = []) => {
   switch (action.type) {
-    // case CREATE_PLACEHOLDERS:
-    //   if (state.rows.length > 0) {
-    //     return {...state, size: 0, id: state.id || uuid.v4(), rows: rows(state.rows, action)}
-    //   }
-    //   return {
-    //     id: uuid.v4(),
-    //     isNestedPlaceholder: true,
-    //     rows: [
-    //       rowPlaceholder(),
-    //       {
-    //         id: uuid.v4(),
-    //         cells: [
-    //           {...state, size: 0, id: state.id || uuid.v4()}
-    //         ]
-    //       },
-    //       rowPlaceholder(),
-    //     ]
-    //   }
-    // case CELL_DROP:
-    //   if (action.hover.id === state.id) {
-    //     return {...(action.item), size: 0, id: uuid.v4(), rows: rows(state.rows, action)}
-    //   }
-    //   return {...state, size: 0, id: state.id || uuid.v4(), rows: rows(state.rows, action)}
-    // case CELL_DROP:
-    // case CELL_CANCEL_DRAG:
-    //   return { ...state, hover: null, rows: rows(state.rows, action) }
+    case CELL_CANCEL_DRAG:
+      return {...state, hover: null, readOnly: false, rows: rows(state.rows, action)}
     case CELL_DROP:
       if (isActive({action, e: state, level: action.level})) {
         const id = uuid.v4()
@@ -231,6 +280,7 @@ const cell = (state = {
           case 'top':
             return {
               id,
+              flatten: true,
               rows: rows([
                 {
                   id: uuid.v4(),
@@ -252,6 +302,7 @@ const cell = (state = {
           case 'bottom':
             return {
               id,
+              flatten: true,
               rows: rows([
                 {
                   id: uuid.v4(),
