@@ -6,7 +6,14 @@ export const CELL_REMOVE = 'CELL_REMOVE'
 
 export const CELL_FOCUS = 'CELL_FOCUS'
 export const CELL_UPDATE = 'CELL_UPDATE'
+export const CELL_RESIZE = 'CELL_RESIZE'
 export const CELL_BLUR = 'CELL_BLUR'
+
+export const resizeCell = (id, size) =>({
+  type: CELL_RESIZE,
+  id,
+  size
+})
 
 export const blurCell = (id) =>({
   type: CELL_BLUR,

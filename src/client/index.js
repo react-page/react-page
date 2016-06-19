@@ -1,15 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { forEach } from "ramda";
+import Editor from "./editor"
 import uuid from "node-uuid";
-import TextArea from "src/common/Plugins/TextArea";
 import Spacer from "src/common/Plugins/Spacer";
 import Image from "src/common/Plugins/Image";
-import Draft, {EditorState, convertFromHTML, ContentState} from "draft-js"
+import {EditorState, convertFromHTML, ContentState} from "draft-js"
 import DraftJS from "src/common/Plugins/DraftJS"
 import Spoiler from "src/common/Layouts/Spoiler"
-
-const renderComponent = (component, element) => ReactDOM.render(component, element)
 
 const dummyContent = [
   {
@@ -156,22 +153,19 @@ const dummyContent = [
   }
 ]
 
-let render = (elements) => {
-  const Editor = require('src/common').default
-
-  forEach((element) => renderComponent(<Editor content={dummyContent[element.dataset.id]}/>, element), elements)
-}
+const editor = new Editor({
+  editables: dummyContent
+})
 
 if (module.hot) {
-  const renderApp = render
   const renderError = (error) => {
     const RedBox = require('redbox-react')
-    renderComponent(<RedBox error={error}/>, document.getElementById("app"))
+    ReactDOM.render(<RedBox error={error}/>, document.getElementById("app"))
   }
 
-  render = (elements) => {
+  const render = (elements) => {
     try {
-      renderApp(elements)
+      editor.render(elements)
     } catch (error) {
       renderError(error)
     }
@@ -182,4 +176,4 @@ if (module.hot) {
   })
 }
 
-render(document.querySelectorAll('.editable'))
+editor.render(document.querySelectorAll('.editable'))

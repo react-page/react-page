@@ -58,18 +58,17 @@ const dnd = {
   })
 }
 
-const inner = ({cells = [], hover, level, isOverCurrent, id, isLayoutMode}) => {
+const inner = ({cells = [], level, id}) => {
   return (
     <div className="row">
-      { cells.map((item) => ({
-        ...item,
-        size: item.size > 0 ? item.size : Math.floor(gridSize / cells.filter(({isPlaceholder}) => !isPlaceholder).length)
-      })).map((cell) => <Cell
-        siblings={cells.filter((c) => cell.id !== c.id)}
-        parent={id}
-        key={cell.id}
-        level={level}
-        {...cell} />)
+      {
+        cells.map((cell) => (
+          <Cell {...cell}
+            siblings={cells.filter((c) => cell.id !== c.id)}
+            parent={id}
+            key={cell.id}
+            level={level}/>
+        ))
       }
     </div>
   )

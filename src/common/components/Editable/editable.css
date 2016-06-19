@@ -42,3 +42,18 @@
     width: 48px;
     height: 48px;
 }
+
+.editable-actions {
+    position: fixed;
+    bottom: 6%;
+    right: 3%;
+    z-index: 10;
+}
+
+.editable-actions > * {
+    margin-right: 12px;
+}
+
+.editable-actions > *:last-child {
+    margin-right: 0
+}

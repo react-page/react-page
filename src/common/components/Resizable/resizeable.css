@@ -1,0 +1,19 @@
+.resizeable {
+    position: relative;
+}
+
+.resizeable>.react-resizable-handle {
+    position: absolute;
+    z-index: 1;
+    width: 8px;
+    top: 0;
+    bottom: 0;
+    right: -4px;
+    padding: 0 3px 3px 0;
+    box-sizing: border-box;
+    cursor: e-resize;
+}
+
+.resizeable.is-resizing>.react-resizable-handle, .resizeable>.react-resizable-handle:hover {
+    background: linear-gradient(90deg, rgba(0,0,0,0), black 40%, rgba(0,0,0,0) 60%);
+}

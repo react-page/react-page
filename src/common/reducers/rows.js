@@ -1,16 +1,15 @@
+import uuid from "node-uuid"
 import {
   CELL_HOVER_CELL,
-  CELL_DRAG,
   CELL_CANCEL_DRAG,
-  CELL_REMOVE,
   CELL_DROP,
   CELL_FOCUS,
   CELL_BLUR,
-  CELL_UPDATE
-} from "src/common/actions/cell";
-import {CREATE_PLACEHOLDERS, DESTROY_PLACEHOLDERS} from "src/common/actions/placeholders";
-import {CELL_HOVER_ANCESTOR} from "src/common/actions/row";
-import uuid from "node-uuid";
+  CELL_UPDATE,
+  CELL_RESIZE
+} from "src/common/actions/cell"
+
+export const MAX_CELLS_PER_ROW = 12
 
 const cellPlaceholder = () => ({
   id: uuid.v4(),
@@ -46,6 +45,29 @@ const flattenCells = (cells = []) => {
   }))
 }
 
+const isActive = ({action, e = {}, level = 0}) => {
+  const children = e.rows || e.cells || []
+  if (level > 0) {
+    return Boolean(children.find((child) => isActive({
+      action,
+      e: child,
+      level: level - 1
+    })))
+  }
+  return action.hover.id === e.id
+}
+
+const isCellActive = ({action, cell = {}, level = 0}) => {
+  if (level > 0) {
+    return cell.rows.filter((r) => r.cells.filter((c) => isCellActive({
+        action,
+        cell: c,
+        level: level - 2
+      })).length > 0).length > 0
+  }
+  return action.hover.id === cell.id
+}
+
 const flattenRows = (rows = []) => {
   return [].concat.apply([], rows.map((r) => {
     const {cells = []} = r
@@ -59,8 +81,6 @@ const flattenRows = (rows = []) => {
     return [r]
   }))
 }
-
-// const isDropAncestor = (find, rows = []) => rows.filter((row) => Boolean(row.cells.find(({ id, rows = [] }) => id === find || isDropAncestor(find, rows)))).length > 0
 
 export const rows = (state = [], action, parents = []) => {
   switch (action.type) {
@@ -80,30 +100,13 @@ export const rows = (state = [], action, parents = []) => {
               switch (action.position) {
                 case 'top':
                   return [
-                    {
-                      id: uuid.v4(),
-                      cells: [
-                        {
-                          ...(action.item),
-                          id: uuid.v4()
-                        }
-                      ]
-                    },
-                    {
-                      ...r,
-                      id: uuid.v4()
-                    }
+                    {id: uuid.v4(), cells: [{...(action.item), id: uuid.v4()}]},
+                    {...r, id: uuid.v4()}
                   ]
                 case 'bottom':
                   return [
-                    {
-                      ...r,
-                      id: uuid.v4()
-                    },
-                    {
-                      id: uuid.v4(),
-                      cells: [{...(action.item), id: uuid.v4()}]
-                    }
+                    {...r, id: uuid.v4()},
+                    {id: uuid.v4(), cells: [{...(action.item), id: uuid.v4()}]}
                   ]
               }
             }
@@ -133,10 +136,7 @@ const row = (state = {
             return {
               ...state,
               cells: cells([
-                {
-                  ...(action.item),
-                  id: uuid.v4()
-                },
+                {...(action.item), id: uuid.v4()},
                 ...(state.cells)
               ], action, [...parents, state.id])
             }
@@ -145,10 +145,7 @@ const row = (state = {
               ...state,
               cells: cells([
                 ...(state.cells),
-                {
-                  ...(action.item),
-                  id: uuid.v4()
-                }
+                {...(action.item), id: uuid.v4()}
               ], action, [...parents, state.id])
             }
         }
@@ -174,29 +171,6 @@ const row = (state = {
   }
 }
 
-const isActive = ({action, e = {}, level = 0}) => {
-  const children = e.rows || e.cells || []
-  if (level > 0) {
-    return Boolean(children.find((child) => isActive({
-      action,
-      e: child,
-      level: level - 1
-    })))
-  }
-  return action.hover.id === e.id
-}
-
-const isCellActive = ({action, cell = {}, level = 0}) => {
-  if (level > 0) {
-    return cell.rows.filter((r) => r.cells.filter((c) => isCellActive({
-        action,
-        cell: c,
-        level: level - 2
-      })).length > 0).length > 0
-  }
-  return action.hover.id === cell.id
-}
-
 export const cells = (state = [], action, parents = []) => {
   switch (action.type) {
     case CELL_HOVER_CELL:
@@ -209,63 +183,80 @@ export const cells = (state = [], action, parents = []) => {
             readOnly: c.id === action.hover.id
           }, action, parents)
         })
-    case CELL_FOCUS:
+    case CELL_RESIZE:
+      let wasPrevious = 0
       return state
-        .map((c) => c.id === action.id ? cell({...c, readOnly: false}, action, parents) : cell(c, action, parents))
-    case CELL_BLUR:
-      return state
-        .map((c) => c.id === action.id ? cell({...c, readOnly: true}, action, parents) : cell(c, action, parents))
+        .map((c) => {
+          if (wasPrevious > 0) {
+            return cell({
+              ...c,
+              size: c.size + wasPrevious - action.size
+            }, action, parents)
+          } else if (action.id === c.id ) {
+            wasPrevious = c.size
+            return cell({...c, size: action.size}, action, parents)
+          }
+          return cell(c, action, parents)
+        })
     case CELL_UPDATE:
       return state
         .map((c) => c.id === action.id ? cell({...c, data: action.data}, action, parents) : cell(c, action, parents))
     case CELL_DROP:
-      return flattenCells(
+      return computeSizes(flattenCells(
         [].concat
           .apply([], state.map((c) => {
             if (isActive({action, e: c, level: action.level})) {
               switch (action.position) {
                 case 'left':
                   return [
-                    {
-                      ...(action.item),
-                      id: uuid.v4()
-                    },
-                    {
-                      ...c,
-                      id: uuid.v4()
-                    }
+                    {...(action.item), id: uuid.v4()},
+                    {...c, id: uuid.v4()}
                   ]
                 case 'right':
                   return [
-                    {
-                      ...c,
-                      id: uuid.v4()
-                    },
-                    {
-                      ...(action.item),
-                      id: uuid.v4(),
-                    }
+                    {...c, id: uuid.v4()},
+                    {...(action.item), id: uuid.v4()}
                   ]
               }
             }
             return [{...c, hover: null}]
           }))
-          .map((c) => cell({...c, hover: null, size: 0, readOnly: false}, action, parents))
+          .map((c) => cell({...c, hover: null, readOnly: false}, action, parents))
           .filter((c) => c.id !== action.item.id && !isEmpty(c))
-      )
+      ))
     default:
-      return flattenCells(state
-        .map((c) => cell(c, action, parents))
-      )
+      return computeSizes(flattenCells(state
+        .map((c, k) => cell({
+          ...c,
+          resizeable: state.length > 1 ? k < state.length - 1 : false
+        }, action, parents))
+      ))
   }
+}
+
+const computeSizes = (cells = []) => {
+  if (cells.reduce(({size: p = 99}, {size: c = 99}) => ({size: p + c}), {size: 0}).size === MAX_CELLS_PER_ROW) {
+    return cells
+  }
+
+  const size = Math.floor(MAX_CELLS_PER_ROW / cells.length)
+  let currentSize = 0
+  return cells.map((c, k) => {
+    if (k === cells.length - 1) {
+      return {...c, size: MAX_CELLS_PER_ROW - currentSize}
+    }
+
+    currentSize += size
+    return {...c, size}
+  })
 }
 
 const cell = (state = {
   id: null,
-  isPlaceholder: false,
-  isNestedPlaceholder: false,
   plugin: null,
   readOnly: true,
+  resizeable: false,
+  size: 0,
   data: {},
   wrap: {},
   rows: []
@@ -280,21 +271,14 @@ const cell = (state = {
           case 'top':
             return {
               id,
-              flatten: true,
               rows: rows([
                 {
                   id: uuid.v4(),
-                  cells: [{
-                    ...(action.item),
-                    id: uuid.v4()
-                  }]
+                  cells: [{...(action.item), id: uuid.v4()}]
                 },
                 {
                   id: uuid.v4(),
-                  cells: [{
-                    ...state,
-                    id: uuid.v4()
-                  }]
+                  cells: [{...state, id: uuid.v4()}]
                 }
               ], {...action, hover: {}}, [...parents, id]),
               hover: null
@@ -302,21 +286,14 @@ const cell = (state = {
           case 'bottom':
             return {
               id,
-              flatten: true,
               rows: rows([
                 {
                   id: uuid.v4(),
-                  cells: [{
-                    ...state,
-                    id: uuid.v4()
-                  }]
+                  cells: [{...state, id: uuid.v4()}]
                 },
                 {
                   id: uuid.v4(),
-                  cells: [{
-                    ...(action.item),
-                    id: uuid.v4()
-                  }]
+                  cells: [{...(action.item), id: uuid.v4()}]
                 }
               ], {...action, hover: {}}, [...parents, id]),
               hover: null
@@ -329,8 +306,9 @@ const cell = (state = {
       }
     default:
       return {
-        ...state, id: state.id || uuid.v4(),
+        ...state,
         parents,
+        id: state.id || uuid.v4(),
         rows: rows(state.rows, action, [...parents, state.id])
       }
   }

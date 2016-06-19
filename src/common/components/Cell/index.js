@@ -1,14 +1,12 @@
-import React, {PropTypes, Component} from "react";
-import {findDOMNode} from "react-dom";
-import Row from "src/common/components/Row";
-import {DragSource, DropTarget} from "react-dnd";
-import {CELL} from "src/common/items";
-import {connect} from "react-redux";
-import {bindActionCreators} from "redux";
-import {createStructuredSelector} from "reselect";
-import {ResizableBox} from 'react-resizable'
-import Dimensions from 'react-dimensions'
-
+import React, {PropTypes, Component} from "react"
+import {findDOMNode} from "react-dom"
+import Row from "src/common/components/Row"
+import {DragSource, DropTarget} from "react-dnd"
+import {CELL} from "src/common/items"
+import {connect} from "react-redux"
+import {bindActionCreators} from "redux"
+import {createStructuredSelector} from "reselect"
+import Resizable from "src/common/components/Resizable"
 import {
   hoverCellOverCell,
   cancelCellDrag,
@@ -16,11 +14,14 @@ import {
   dragCell,
   focusCell,
   blurCell,
-  updateCell
-} from "src/common/actions/cell";
-import {rowAncestorHover} from "src/common/actions/row";
-import throttle from "lodash.throttle";
-import {isLayoutMode} from "src/common/selectors/mode";
+  updateCell,
+  resizeCell
+} from "src/common/actions/cell"
+import {rowAncestorHover} from "src/common/actions/row"
+import throttle from "lodash.throttle"
+import {isLayoutMode,isEditMode} from "src/common/selectors/mode"
+import Dimensions from "react-dimensions"
+
 import "./cell.css";
 
 const computeDropArea = (props, monitor, component) => {
@@ -94,13 +95,11 @@ const cellTarget = {
 
 const cellSource = {
   beginDrag(props) {
-    props.blurCell(props.id)
     props.dragCell(props)
     return {...props};
   },
 
   endDrag(props, monitor) {
-    //props.focusCell(props.id)
     if (monitor.didDrop()) {
       return
     }
@@ -120,10 +119,11 @@ const dnd = {
   })
 }
 
-const inner = ({rows = [], level, plugin: Plugin, data, id, path, readOnly = false, ...props}) => {
+const inner = ({rows = [], isLayoutMode, level, plugin: Plugin, data, id, path, resizeable = false, readOnly = false, ...props}) => {
   if (rows.length > 0) {
     return (
-      <div>
+      <Resizable enabled={resizeable && !isLayoutMode} rowWidth={props.containerWidth} cellWidth={props.size}
+                 onChange={(width) => props.resizeCell(id, width)}>
         {
           rows.map((row, position) => (
             <Row
@@ -133,7 +133,7 @@ const inner = ({rows = [], level, plugin: Plugin, data, id, path, readOnly = fal
               level={level + 1} {...row} />)
           )
         }
-      </div>
+      </Resizable>
     )
   }
 
@@ -145,21 +145,21 @@ const inner = ({rows = [], level, plugin: Plugin, data, id, path, readOnly = fal
   }
 
   return (
-    <ResizableBox width={Math.floor(props.containerWidth / Math.floor(12 /props.size))}>
-      <div onClick={() => {}}>
-        <Plugin {...data} readOnly={readOnly} id={id} onChange={(newState) => props.updateCell(id, newState)}/>
-      </div>
-    </ResizableBox>
+    <Resizable enabled={resizeable && !isLayoutMode} rowWidth={props.containerWidth} cellWidth={props.size}
+               onChange={(width) => props.resizeCell(id, width)}>
+      <Plugin {...data} readOnly={readOnly} id={id} onChange={(newState) => props.updateCell(id, newState)}/>
+    </Resizable>
   )
 }
 
 class Cell extends Component {
   render() {
-    const {isLayoutMode, hover, isDragging, connectDragSource, connectDropTarget, size, rows = [], blurCell, focusCell, ...props} = this.props
+    const {...props} = this.props
+    const {isEditMode, isLayoutMode, hover, isDragging, connectDragSource, connectDropTarget, size, autoSize, rows = [], blurCell, focusCell} = this.props
     const cellProps = {
       blurCell,
       focusCell,
-      className: `col-md-${size} editable-cell ${isLayoutMode ? 'layout-mode' : ''} ${rows.length === 0 ? 'leaf' : ''}`,
+      className: `col-md-${size || autoSize} editable-cell ${isLayoutMode ? 'layout-mode' : ''} ${rows.length === 0 ? 'leaf' : ''}`,
       style: {
         opacity: isDragging ? '.3' : '1',
         padding: 0
@@ -178,13 +178,13 @@ class Cell extends Component {
     }
 
     // disable dnd if we're not in layoutmode
-    if (isLayoutMode) {
+    if (!isEditMode) {
       props.readOnly = true
     }
 
     return connect(
       <div {...cellProps}>
-        {inner({...props, size, rows})}
+        {inner({...props})}
       </div>
     )
   }
@@ -200,11 +200,13 @@ Cell.propTypes = {
   dragCell: PropTypes.func.isRequired,
   dropCell: PropTypes.func.isRequired,
   blurCell: PropTypes.func.isRequired,
-  focusCell: PropTypes.func.isRequired
+  focusCell: PropTypes.func.isRequired,
+  isEditMode: PropTypes.bool.isRequired
 }
 
 const mapStateToProps = createStructuredSelector({
-  isLayoutMode
+  isLayoutMode,
+  isEditMode
 })
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
@@ -215,6 +217,7 @@ const mapDispatchToProps = (dispatch) => bindActionCreators({
   dragCell,
   focusCell,
   blurCell,
+  resizeCell,
   updateCell
 }, dispatch)
 

@@ -1,7 +1,7 @@
 import React from "react";
 
 export const EditView = ({ id, src, readOnly }) => (
-  <div>
+  <div style={{margin: '8px'}}>
     {
       readOnly ? null : (<div style={{position: 'absolute', zIndex: 1, top: '50%', width: '90%', right: '5%'}}><input style={{width: '100%'}} value={src} /></div>)
     }
