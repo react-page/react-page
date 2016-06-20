@@ -5,12 +5,15 @@
   "main": "",
   "scripts": {
     "test": "npm-run-all test:*",
-    "test:unit": "cross-env NODE_PATH=. mocha --require .babel-require --recursive \"src/**/*.test.js\"",
+    "test:unit": "cross-env NODE_PATH=. mocha --require .babel-require --recursive \"+(src|test)/**/*.test.js\"",
     "test:e2e": "node bin/nightwatch",
+    "test:watch": "npm run watch:js -- -c \"npm run test:unit -- --reporter min\"",
     "start": "cross-env NODE_PATH=. NODE_ENV=production node src/server",
     "dev": "cross-env NODE_PATH=. nodemon src/server",
-    "lint": "eslint \"src/**/*.js\" --fix",
-    "build": "cross-env NODE_PATH=. NODE_ENV=production webpack"
+    "lint": "eslint \"+(src|test)/**/*.js\" --fix",
+    "lint:watch": "npm run watch:js -- -c \"npm run lint\"",
+    "build": "cross-env NODE_PATH=. NODE_ENV=production webpack",
+    "watch:js": "chokidar \"+(src|test)/**/*.js\" --initial"
   },
   "author": "",
   "license": "ISC",
@@ -35,6 +38,7 @@
   },
   "devDependencies": {
     "babel-preset-es2015": "6.9.0",
+    "chokidar-cli": "^1.2.0",
     "eslint": "2.13.0",
     "eslint-config-ory-am": "2.0.0",
     "eslint-config-ory-am-react": "2.0.0",
