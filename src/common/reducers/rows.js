@@ -11,6 +11,8 @@ import {
 
 export const MAX_CELLS_PER_ROW = 12
 
+// Holy 💩
+
 const isEmpty = ({ cells = [], rows = [], plugin = null }) => {
   if (cells.length > 0) {
     return cells.filter((c) => !isEmpty(c)).length === 0
@@ -82,12 +84,18 @@ export const rows = (state = [], action, parents = []) => {
         )
     case CELL_DROP:
       return flattenRows(
-        [].concat
+        [].concat // You won't need this. `map` already creates a new array, so `state.map(...).map(...).filter(...) is enough.
           .apply([], state.map((r) => {
             if (isActive({ action, e: r, level: action.level })) {
               switch (action.position) {
                 case 'top':
                   return [
+                    // This is problematic since your reducer isn't pure anymore!
+                    // You should execute the side effects before, e.g. by generating the uuid in the action creator.
+                    // And why do you need new ids, anyway?
+                    // Btw: this is the logic I would move into a plugin for my layout generalization proposal.
+                    // I.e., instead of executing the low level details in the reducer, provide more general actions.
+                    // In this case, something like `CELL_INSERT_ABOVE` and `CELL_INSERT_BELOW` that will be dispatched by the plugin.
                     { id: uuid.v4(), cells: [{ ...(action.item), id: uuid.v4() }] },
                     { ...r, id: uuid.v4() }
                   ]
@@ -118,6 +126,7 @@ const row = (state = {
     case CELL_DROP:
       if (isActive({ action, e: state, level: action.level })) {
         switch (action.position) {
+          // see above, `CELL_INSERT_SIBLING` or something like that.
           case 'left':
             return {
               ...state,

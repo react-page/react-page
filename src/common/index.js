@@ -5,6 +5,7 @@ import { DragDropContext } from "react-dnd";
 import Editable from "./components/Editable";
 import createStore from "./store";
 
+// This might lead to a problem since you create a new store in each rendering
 class Editor extends Component {
   render() {
     return (
