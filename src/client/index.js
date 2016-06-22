@@ -4,7 +4,7 @@ import Editor from "./editor"
 import uuid from "node-uuid";
 import Spacer from "src/common/Plugins/Spacer";
 import Image from "src/common/Plugins/Image";
-import {EditorState, convertFromHTML, ContentState} from "draft-js"
+import { EditorState, convertFromHTML, ContentState } from "draft-js"
 import DraftJS from "src/common/Plugins/DraftJS"
 import Spoiler from "src/common/Layouts/Spoiler"
 
@@ -89,20 +89,21 @@ const dummyContent = [
                                     data: {
                                       editorState: EditorState.createWithContent(ContentState.createFromBlockArray(convertFromHTML('If Britain votes to leave, it will be in large part because of strong anti-Europe sentiment in much of England, the heart of the movement to divorce Britain from the Continent. Pollsters and analysts say that while Scotland and Northern Ireland are expected to vote overwhelmingly to stay in the bloc, England, far more populous, is likely to go the other way, reflecting a broad and often bluntly expressed view that English identity and values are being washed away by subordination to the bureaucrats of Brussels.')))
                                     }
-                                  },
+                                  }
                                 ]
-                              },
+                              }
                             ]
-                          },
+                          }
                         ]
-                      },]
+                      }
+                    ]
                   },
                   {
                     plugin: Image,
                     data: {
-                      src: `https://static01.nyt.com/images/2016/06/16/world/16England-web2/16England-web2-master675.jpg`
+                      src: 'https://static01.nyt.com/images/2016/06/16/world/16England-web2/16England-web2-master675.jpg'
                     }
-                  },
+                  }
                 ]
               }
             ]
@@ -110,38 +111,47 @@ const dummyContent = [
         ]
       },
       {
-        wrap: {
-          component: Spoiler
-        },
         cells: [
           {
-            rows: [
-              {
-                cells: [{
-                  plugin: DraftJS,
-                  data: {
-                    editorState: EditorState.createWithContent(ContentState.createFromBlockArray(convertFromHTML( 'That sense of resurgent Englishness is palpable in places like South Benfleet, in the heart of a district that is the most ethnically English part of the United Kingdom, according to the Office of National Statistics based on the 2011 census, with nearly 80 percent describing themselves as purely English, while 95 percent are white. They are older than the national average, and only about one-quarter of 1 percent are foreign nationals, very low compared with the rest of Britain.')))
-                  }
-                }               ]
-              }
-            ]
-          },
-          {
+            id: 'foobar',
+            wrap: {
+              component: Spoiler
+            },
             rows: [
               {
                 cells: [
                   {
-                    plugin: DraftJS,
-                    data: {
-                      editorState: EditorState.createWithContent(ContentState.createFromBlockArray(convertFromHTML('Castle Point district of Essex, full of people who have made it out of London’s tough East End to a kind of English paradise with lots of single-family homes, lawns, beaches, seaside amusement parks and fish-and-chip shops.')))
-                    }
+                    rows: [
+                      {
+                        cells: [{
+                          plugin: DraftJS,
+                          data: {
+                            editorState: EditorState.createWithContent(ContentState.createFromBlockArray(convertFromHTML('That sense of resurgent Englishness is palpable in places like South Benfleet, in the heart of a district that is the most ethnically English part of the United Kingdom, according to the Office of National Statistics based on the 2011 census, with nearly 80 percent describing themselves as purely English, while 95 percent are white. They are older than the national average, and only about one-quarter of 1 percent are foreign nationals, very low compared with the rest of Britain.')))
+                          }
+                        }]
+                      }
+                    ]
                   },
                   {
-                    id: uuid.v4(),
-                    plugin: DraftJS,
-                    data: {
-                      editorState: EditorState.createWithContent(ContentState.createFromBlockArray(convertFromHTML( 'The people here are fiercely English, fiercely Conservative and fiercely pro-Brexit, as the possible exit is being called, and many feel that their sovereignty and identity are being diluted by a failing European Union and an “uncontrolled” influx of foreigners.')))
-                    }
+                    rows: [
+                      {
+                        cells: [
+                          {
+                            plugin: DraftJS,
+                            data: {
+                              editorState: EditorState.createWithContent(ContentState.createFromBlockArray(convertFromHTML('Castle Point district of Essex, full of people who have made it out of London’s tough East End to a kind of English paradise with lots of single-family homes, lawns, beaches, seaside amusement parks and fish-and-chip shops.')))
+                            }
+                          },
+                          {
+                            id: uuid.v4(),
+                            plugin: DraftJS,
+                            data: {
+                              editorState: EditorState.createWithContent(ContentState.createFromBlockArray(convertFromHTML('The people here are fiercely English, fiercely Conservative and fiercely pro-Brexit, as the possible exit is being called, and many feel that their sovereignty and identity are being diluted by a failing European Union and an “uncontrolled” influx of foreigners.')))
+                            }
+                          }
+                        ]
+                      }
+                    ]
                   }
                 ]
               }

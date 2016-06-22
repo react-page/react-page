@@ -1,11 +1,11 @@
-import React, {Component} from "react";
-import {connect} from "react-redux";
+import React, { Component } from "react";
+import { connect } from "react-redux";
 import Row from "src/common/components/Row";
-import {rows} from "src/common/selectors/rows";
-import {createPlaceholders} from "src/common/actions/placeholders";
-import {bindActionCreators} from "redux";
-import {setMode} from "src/common/actions/mode";
-import {isLayoutMode} from "src/common/selectors/mode";
+import { rows } from "src/common/selectors/rows";
+import { createPlaceholders } from "src/common/actions/placeholders";
+import { bindActionCreators } from "redux";
+import { setMode } from "src/common/actions/mode";
+import { isLayoutMode } from "src/common/selectors/mode";
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 import Dashboard from 'material-ui/svg-icons/action/dashboard';
@@ -37,7 +37,7 @@ class Editable extends Component {
   }
 
   render() {
-    const {rows, isLayoutMode} = this.props
+    const { rows, isLayoutMode } = this.props
     return (
       <MuiThemeProvider muiTheme={getMuiTheme()}>
         <div>
@@ -50,7 +50,7 @@ class Editable extends Component {
             </FloatingActionButton>
           </div>
           <div>
-            { rows.map((row) => <Row level={1} key={row.id} {...row} />) }
+            {rows.map((row) => <Row level={1} key={row.id} {...row} />)}
           </div>
         </div>
       </MuiThemeProvider>

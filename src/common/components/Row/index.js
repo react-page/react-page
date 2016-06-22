@@ -1,96 +1,49 @@
-import React from "react";
-import {findDOMNode} from "react-dom";
-import Cell from "src/common/components/Cell";
-import {DropTarget} from "react-dnd";
-import {ROW} from "src/common/items";
-import {connect} from "react-redux";
-import {bindActionCreators} from "redux";
-import {createStructuredSelector} from "reselect";
-import {rowAncestorHover} from "src/common/actions/row";
-import {isLayoutMode} from "src/common/selectors/mode";
+import React, { PropTypes } from 'react';
+import { findDOMNode } from 'react-dom';
+import Cell from 'src/common/components/Cell';
+import { DropTarget } from 'react-dnd';
+import { ROW } from 'src/common/items';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { createStructuredSelector } from 'reselect';
+import { rowAncestorHover } from 'src/common/actions/row';
+import { isLayoutMode } from 'src/common/selectors/mode';
 
 import './row.css'
 
-const gridSize = 12
-
 const rowTarget = {
-  // hover: throttle((props, monitor, component) => {
-  //   const item = monitor.getItem()
-  //
-  //   if (item.id === props.id) {
-  //     return
-  //   } else if (!monitor.isOver({shallow: true})) {
-  //     return
-  //   } else if (props.isPlaceholder) {
-  //     return
-  //   } else if (!Boolean(props.id)) {
-  //     return
-  //   }
-  //
-  //   const mousePosition =  monitor.getClientOffset()
-  //   const domPosition = findDOMNode(component).getBoundingClientRect()
-  //   console.log('mouse',mousePosition)
-  //   console.log('dom',domPosition)
-  //
-  //   if (domPosition.bottom - mousePosition.y > (domPosition.bottom - domPosition.top) /2){
-  //     console.log('top')
-  //   } else {
-  //     console.log('bottom')
-  //   }
-  //
-  //   if (domPosition.right - mousePosition.x > (domPosition.right - domPosition.left) /2){
-  //     console.log('left')
-  //   } else {
-  //     console.log('right')
-  //   }
-  //
-  //   //props.rowAncestorHover(item.id, path(props.id))
-  // }, 50, {trailing: false}),
-
   drop(props, monitor, component) {
   }
 }
 
 const dnd = {
   connect: (connect, monitor) => ({
-    connectDropTarget: connect.dropTarget(),
+    connectDropTarget: connect.dropTarget()
     //isOverCurrent: monitor.isOver({shallow: true})
   })
 }
 
-const inner = ({cells = [], level, id}) => {
-  return (
+const Row = ({ connectDropTarget, cells = [], level, id, hover }) => connectDropTarget(
+  <div className={hover ? `editable-row drag-hover drag-hover-${hover}` : 'editable-row '}>
     <div className="row">
       {
         cells.map((cell) => (
           <Cell {...cell}
             siblings={cells.filter((c) => cell.id !== c.id)}
-            parent={id}
             key={cell.id}
             level={level}/>
         ))
       }
     </div>
-  )
-}
+  </div>
+)
 
-const Row = ({wrap, connectDropTarget, ...data}) => {
-  if (Boolean(wrap)) {
-    const {component: WrapComponent = null, props: wrapProps = {}} = wrap
-    return connectDropTarget(
-      <div className={data.hover ? `editable-row drag-hover drag-hover-${data.hover}` : 'editable-row '}>
-        <WrapComponent {...wrapProps}>
-          {inner({...data})}
-        </WrapComponent>
-      </div>
-    )
-  }
-
-  return connectDropTarget(
-    <div className={data.hover ? `editable-row drag-hover drag-hover-${data.hover}` : 'editable-row '}>
-      {inner({...data})}
-    </div>
-  )
+Row.propTypes = {
+  connectDropTarget: PropTypes.func.isRequired,
+  cells: PropTypes.array.isRequired,
+  level: PropTypes.number.isRequired,
+  id: PropTypes.string.isRequired,
+  hover: PropTypes.string
 }
 
 const mapStateToProps = createStructuredSelector({

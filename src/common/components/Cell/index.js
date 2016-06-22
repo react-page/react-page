@@ -1,11 +1,11 @@
-import React, {PropTypes, Component} from "react"
-import {findDOMNode} from "react-dom"
+import React, { PropTypes, Component } from "react"
+import { findDOMNode } from "react-dom"
 import Row from "src/common/components/Row"
-import {DragSource, DropTarget} from "react-dnd"
-import {CELL} from "src/common/items"
-import {connect} from "react-redux"
-import {bindActionCreators} from "redux"
-import {createStructuredSelector} from "reselect"
+import { DragSource, DropTarget } from "react-dnd"
+import { CELL } from "src/common/items"
+import { connect } from "react-redux"
+import { bindActionCreators } from "redux"
+import { createStructuredSelector } from "reselect"
 import Resizable from "src/common/components/Resizable"
 import {
   hoverCellOverCell,
@@ -17,12 +17,12 @@ import {
   updateCell,
   resizeCell
 } from "src/common/actions/cell"
-import {rowAncestorHover} from "src/common/actions/row"
+import { rowAncestorHover } from "src/common/actions/row"
 import throttle from "lodash.throttle"
-import {isLayoutMode,isEditMode} from "src/common/selectors/mode"
+import { isLayoutMode, isEditMode } from "src/common/selectors/mode"
 import Dimensions from "react-dimensions"
 
-import "./cell.css";
+import "./cell.css"
 
 const computeDropArea = (props, monitor, component) => {
   const treshold = 0.40
@@ -54,7 +54,7 @@ const computeDropArea = (props, monitor, component) => {
     }
     level = props.parents.length - Math.round(level)
   }
-  return {level, position}
+  return { level, position }
 }
 
 const cellTarget = {
@@ -62,24 +62,24 @@ const cellTarget = {
     const item = monitor.getItem()
     if (item.id === props.id) {
       return
-    } else if (!monitor.isOver({shallow: true})) {
+    } else if (!monitor.isOver({ shallow: true })) {
       return
     } else if (!Boolean(props.id)) {
       return
     }
 
-    const {position, level} = computeDropArea(props, monitor, component)
+    const { position, level } = computeDropArea(props, monitor, component)
     props.hoverCellOverCell({
       item: item,
       hover: props,
       position,
       level
     })
-  }, 200, {leading: true, trailing: false}),
+  }, 200, { leading: true, trailing: false }),
 
   drop(props, monitor, component) {
     const item = monitor.getItem()
-    const {position, level} = computeDropArea(props, monitor, component)
+    const { position, level } = computeDropArea(props, monitor, component)
     if (item.id === props.id) {
       props.cancelCellDrag(item.id)
     } else {
@@ -96,7 +96,7 @@ const cellTarget = {
 const cellSource = {
   beginDrag(props) {
     props.dragCell(props)
-    return {...props};
+    return { ...props };
   },
 
   endDrag(props, monitor) {
@@ -111,7 +111,7 @@ const dnd = {
   connect: (connect, monitor) => ({
     connectDropTarget: connect.dropTarget(),
     isOver: monitor.isOver(),
-    isOverCurrent: monitor.isOver({shallow: true}),
+    isOverCurrent: monitor.isOver({ shallow: true }),
   }),
   collect: (connect, monitor) => ({
     connectDragSource: connect.dragSource(),
@@ -119,7 +119,7 @@ const dnd = {
   })
 }
 
-const inner = ({rows = [], isLayoutMode, level, plugin: Plugin, data, id, path, resizeable = false, readOnly = false, ...props}) => {
+const inner = ({ rows = [], isLayoutMode, level, plugin: Plugin, data, id, path, resizeable = false, readOnly = false, ...props }) => {
   if (rows.length > 0) {
     return (
       <Resizable enabled={resizeable && !isLayoutMode} rowWidth={props.containerWidth} cellWidth={props.size}
@@ -138,10 +138,12 @@ const inner = ({rows = [], isLayoutMode, level, plugin: Plugin, data, id, path, 
   }
 
   if (!Boolean(Plugin)) {
-    console.log('Neither rows nor plugin defined in object', {rows, plugin, data, id, path, ...props})
-    return <div style={{backgroundColor: 'red', padding: '16px', margin: '8px', borderRadius: '4px'}}>
-      Empty row
-    </div>
+    console.log('Neither rows nor plugin defined in object', { rows, plugin, data, id, path, ...props })
+    return (
+      <div style={{backgroundColor: 'red', padding: '16px', margin: '8px', borderRadius: '4px'}}>
+        Empty row
+      </div>
+    )
   }
 
   return (
@@ -154,12 +156,12 @@ const inner = ({rows = [], isLayoutMode, level, plugin: Plugin, data, id, path, 
 
 class Cell extends Component {
   render() {
-    const {...props} = this.props
-    const {isEditMode, isLayoutMode, hover, isDragging, connectDragSource, connectDropTarget, size, autoSize, rows = [], blurCell, focusCell} = this.props
+    const { ...props } = this.props
+    const { wrap, isEditMode, isLayoutMode, hover, isDragging, connectDragSource, connectDropTarget, size, autoSize, rows = [], blurCell, focusCell } = this.props
     const cellProps = {
       blurCell,
       focusCell,
-      className: `col-md-${size || autoSize} editable-cell ${isLayoutMode ? 'layout-mode' : ''} ${rows.length === 0 ? 'leaf' : ''}`,
+      className: `col-md-${size || autoSize} editable-cell ${isLayoutMode ? 'layout-mode' : ''} ${rows.length === 0 ? 'leaf' : ''} ${wrap ? 'wrap' : ''}`,
       style: {
         opacity: isDragging ? '.3' : '1',
         padding: 0
@@ -172,19 +174,35 @@ class Cell extends Component {
 
     let connect = (e) => connectDragSource(connectDropTarget(e))
 
-    // only leafs can be d'n'd
-    if (rows.length > 0 || !isLayoutMode) {
-      connect = (e) => (e)
-    }
-
     // disable dnd if we're not in layoutmode
     if (!isEditMode) {
       props.readOnly = true
     }
 
+    // only leafs can be d'n'd
+    if (rows.length > 0 || !isLayoutMode) {
+      connect = (e) => (e)
+    }
+
+    if (wrap && isLayoutMode) {
+      // but also allow wrapped cells to be dnd'ed
+      connect = (e) => connectDragSource(e)
+    }
+
+    if (wrap) {
+      const { component: WrapComponent = null, props: wrapProps = {} } = wrap
+      return connect(
+        <div {...cellProps}>
+          <WrapComponent {...wrapProps}>
+            {inner({ ...props })}
+          </WrapComponent>
+        </div>
+      )
+    }
+
     return connect(
       <div {...cellProps}>
-        {inner({...props})}
+        {inner({ ...props })}
       </div>
     )
   }
@@ -201,7 +219,9 @@ Cell.propTypes = {
   dropCell: PropTypes.func.isRequired,
   blurCell: PropTypes.func.isRequired,
   focusCell: PropTypes.func.isRequired,
-  isEditMode: PropTypes.bool.isRequired
+  isEditMode: PropTypes.bool.isRequired,
+  wrap: PropTypes.object,
+  id: PropTypes.string.isRequired
 }
 
 const mapStateToProps = createStructuredSelector({

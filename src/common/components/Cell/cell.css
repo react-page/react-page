@@ -2,7 +2,8 @@
     background: rgba(0,0,0,0.1);
 }
 
-.editable-cell.leaf.layout-mode {
+.editable-cell.leaf.layout-mode,
+.editable-cell.wrap.layout-mode {
     cursor: move
 }
 
