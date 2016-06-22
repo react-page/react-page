@@ -1,0 +1,60 @@
+.debug .editable-cell {
+    background: rgba(0,0,0,0.1);
+}
+
+.editable-cell.leaf.layout-mode,
+.editable-cell.wrap.layout-mode {
+    cursor: move
+}
+
+.editable-cell {
+    padding: 8px;
+}
+
+.editable-cell:before {
+    content: " ";
+    transition: opacity 400ms ease;
+    background: black;
+    opacity: 0;
+    display: none;
+}
+
+.editable-cell.drag-hover:before {
+    display: block;
+    position: absolute;
+    z-index: 100;
+    background: black;
+    box-shadow: 0 0 8px 8px white;
+}
+
+.editable-cell.drag-hover-top:before {
+    opacity: 1;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+}
+
+.editable-cell.drag-hover-bottom:before {
+    opacity: 1;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+}
+
+.editable-cell.drag-hover-left:before {
+    opacity: 1;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 2px;
+}
+
+.editable-cell.drag-hover-right:before {
+    opacity: 1;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 2px;
+}

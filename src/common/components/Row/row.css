@@ -1,0 +1,57 @@
+.editable-row {
+    position: relative;
+}
+
+.debug .editable-row {
+    background: rgba(0,0,0,0.1);
+}
+
+.editable-row .row {
+    margin: 0;
+}
+
+.editable-row:before {
+    content: " ";
+    transition: opacity 400ms ease;
+    background: black;
+    opacity: 0;
+    display: none;
+}
+
+.editable-row.drag-hover:before {
+    display: block;
+    position: absolute;
+    z-index: 100;
+    background: black;
+    box-shadow: 0 0 8px 8px white;
+}
+
+.editable-row.drag-hover-top:before {
+    opacity: 1;
+    top: 0;
+    height: 2px;
+    width: 100%;
+}
+
+.editable-row.drag-hover-bottom:before {
+    opacity: 1;
+    bottom: 0;
+    height: 2px;
+    width: 100%;
+}
+
+.editable-row.drag-hover-left:before {
+    opacity: 1;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 2px;
+}
+
+.editable-row.drag-hover-right:before {
+    opacity: 1;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 2px;
+}

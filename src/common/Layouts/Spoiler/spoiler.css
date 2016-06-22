@@ -1,0 +1,21 @@
+.spoiler {
+    border: solid 1px #111;
+    padding-top: 24px;
+    position: relative;
+}
+
+.spoiler-control {
+    position: absolute;
+    right: 12px;
+    top: 2px;
+    cursor: pointer;
+    z-index: 1;
+}
+
+.spoiler-hidden {
+    display: none;
+}
+
+.spoiler-inner {
+    border-top: 1px solid #111;
+}

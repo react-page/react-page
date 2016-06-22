@@ -1,0 +1,59 @@
+.mouse-indicator {
+}
+
+.mouse-indicator > div {
+    position: absolute;
+    border-radius: 24px;
+    margin: 0;
+    width: 12px;
+    height: 12px;
+    background: rgba(0,0,0,.4);
+    transition: all ease 300ms;
+    z-index: 10000;
+}
+
+.mouse-indicator-enter {
+    opacity: 0.01;
+}
+
+.mouse-indicator-enter.mouse-indicator-enter-active {
+    opacity: 1;
+    margin: -24px 0 0 -24px;
+    width: 48px;
+    height: 48px;
+}
+
+.mouse-indicator-leave {
+    opacity: 1;
+}
+
+.mouse-indicator-leave.mouse-indicator-leave-active {
+    width: 12px;
+    height: 12px;
+    opacity: 0.01;
+}
+
+.mouse-indicator-appear {
+     opacity: 0.01;
+ }
+
+.mouse-indicator-appear.mouse-indicator-appear-active {
+    margin: -12px 0 0 -12px;
+    width: 48px;
+    height: 48px;
+}
+
+.editable-actions {
+    position: fixed;
+    bottom: 6%;
+    right: 3%;
+    z-index: 10;
+}
+
+.editable-actions > * {
+    margin-right: 12px;
+}
+
+.editable-actions > *:last-child {
+    margin-right: 0
+}
