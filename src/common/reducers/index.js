@@ -5,5 +5,5 @@ import { combineReducers } from "redux";
 export default combineReducers({
   rows,
   mode,
-  id: (state = '') => state
+  id: (state = '') => state // What's this?
 })
