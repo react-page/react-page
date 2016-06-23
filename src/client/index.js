@@ -6,7 +6,7 @@ import './index.css'
 const renderComponent = (component) => ReactDOM.render(component, document.getElementById('app'))
 
 let render = () => {
-  const App = require('src/common/components/App').default
+  const App = require('src/editor/components/Editor').default
 
   renderComponent(<App />)
 }
@@ -14,7 +14,7 @@ let render = () => {
 if (module.hot) {
   const renderApp = render
   const renderError = (error) => {
-    const RedBox = require('redbox-react')
+    const RedBox = require('redbox-react').default
     renderComponent(<RedBox error={error} />)
   }
 
@@ -26,7 +26,7 @@ if (module.hot) {
     }
   }
 
-  module.hot.accept('src/common/components/App', () => {
+  module.hot.accept('src/editor/components/Editor', () => {
     setTimeout(render)
   })
 }
