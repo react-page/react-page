@@ -4,7 +4,7 @@
   "description": "",
   "main": "",
   "scripts": {
-    "test": "npm-run-all test:*",
+    "test": "npm-run-all test:unit test:e2e",
     "test:unit": "cross-env NODE_PATH=. mocha --require .babel-require --recursive \"+(src|test)/**/*.test.js\"",
     "test:e2e": "node bin/nightwatch",
     "test:watch": "npm run watch:js -- -c \"npm run test:unit -- --reporter min\"",
