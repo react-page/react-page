@@ -1,6 +1,6 @@
 const flatten = (c, n) => ([...c, ...n])
 
-export const optimizeCellLevel = ({ rows = [], ...other }) => ({
+export const optimizeCell = ({ rows = [], ...other }) => ({
   ...other,
   rows: rows.map((r) => {
     const { cells = [] } = r
@@ -15,7 +15,7 @@ export const optimizeCellLevel = ({ rows = [], ...other }) => ({
   }).reduce(flatten, [])
 })
 
-export const optimizeRowLevel = ({ cells = [], ...other }) => ({
+export const optimizeRow = ({ cells = [], ...other }) => ({
   ...other,
   cells: cells.map((c) => {
     const { rows = [], layout } = c

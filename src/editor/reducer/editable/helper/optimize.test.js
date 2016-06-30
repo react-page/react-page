@@ -1,11 +1,11 @@
 /* eslint-env mocha */
 import unexpected from 'unexpected'
 import equal from 'deep-equal'
-import { optimizeCellLevel, optimizeRowLevel } from './optimize'
+import { optimizeCell, optimizeRow } from './optimize'
 
 const expect = unexpected.clone()
 
-describe('optimizeRowLevel', () => {
+describe('optimizeRow', () => {
   [
     {
       in: {
@@ -51,12 +51,12 @@ describe('optimizeRowLevel', () => {
     }
   ].forEach((c, k) => {
     it(`should pass test case ${k}`, () => {
-      expect(optimizeRowLevel(c.in), 'to equal', c.out)
+      expect(optimizeRow(c.in), 'to equal', c.out)
     })
   })
 })
 
-describe('optimizeCellLevel', () => {
+describe('optimizeCell', () => {
   [
     {
       in: {
@@ -84,7 +84,7 @@ describe('optimizeCellLevel', () => {
     },
   ].forEach((c, k) => {
     it(`should pass test case ${k}`, () => {
-      expect(equal(c.out, optimizeCellLevel(c.in)), 'to be truthy')
+      expect(equal(c.out, optimizeCell(c.in)), 'to be truthy')
     })
   })
 })
