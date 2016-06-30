@@ -1,42 +1,42 @@
-export const defaultPlugins = []
+import { satisfies } from 'semver'
+import Missing from 'src/editor/plugins/content/missing'
 
-const matchesVersion = (needle, match) => {}
+export const defaultContentPlugins = []
+export const defaultLayoutPlugins = []
+export const missingContentPlugin = Missing
 
-const find = (name = '', version = '') => (plugin) => plugin.getName() === name && matchesVersion(version, plugin.getVersion())
+const find = (name = '', version = '') => (plugin) => plugin.name === name && satisfies(plugin.version, version)
 
 export default class PluginRepository {
-  constructor(plugins = defaultPlugins, layoutBlocks = []) {
-    this.plugins = plugins
-    this.layoutBlocks = layoutBlocks
+  constructor(contentPlugins = defaultContentPlugins, layoutPlugins = defaultLayoutPlugins) {
+    this.plugins = {
+      content: contentPlugins,
+      layout: layoutPlugins
+    }
+
+    this.unserialize = this.unserialize.bind(this)
+    this.serialize = this.serialize.bind(this)
   }
 
-  findPlugin(name = '', version = '*') {
-    return this.plugins.find(find(name, version))
-  }
-
-  findLayoutBlock(name = '', version = '*') {
-    return this.layoutBlocks.find(find(name, version))
+  find(plugins) {
+    return (name, version) => plugins.find(find(name, version))
   }
 
   unserialize({
     rows = [],
     cells = [],
-    plugin: {
-      name: pluginName = null,
-      version: pluginVersion = null
-    },
-    layout: {
-      name: layoutName = null,
-      version: layoutVersion = null
-    },
+    plugin = {},
+    layout = {},
     ...props
   }) {
+    const { name: pluginName = null, version: pluginVersion = null } = plugin
     if (pluginName) {
-      props.plugin = this.findPlugin(pluginName, pluginVersion)
+      props.plugin = this.find(this.plugins.content)(pluginName, pluginVersion) || missingContentPlugin
     }
 
+    const { name: layoutName = null, version: layoutVersion = null } = layout
     if (layoutName) {
-      props.wrap = this.findLayoutBlock(layoutName, layoutVersion)
+      props.layout = this.find(this.plugins.layout)(layoutName, layoutVersion) || null
     }
 
     return {
@@ -55,22 +55,22 @@ export default class PluginRepository {
   }) {
     if (plugin) {
       props.plugin = {
-        name: plugin.getName(),
-        version: plugin.getVersion()
+        name: plugin.name,
+        version: plugin.version || '*'
       }
     }
 
     if (layout) {
       props.layout = {
-        name: layout.getName(),
-        version: layout.getVersion()
+        name: layout.name,
+        version: layout.version || '*'
       }
     }
 
     return {
       ...props,
-      rows: rows.map(this.unserialize),
-      cells: cells.map(this.unserialize)
+      rows: rows.map(this.serialize),
+      cells: cells.map(this.serialize)
     }
   }
 }

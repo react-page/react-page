@@ -1,5 +1,5 @@
-import { LocalStoreAdapter } from './adapter/local'
-import uuid from 'node-uuid'
+import { LocalStoreAdapter } from "./adapter/local";
+import uuid from "node-uuid";
 
 const localStorageAdapter = new LocalStoreAdapter()
 
@@ -11,9 +11,9 @@ const localStorageAdapter = new LocalStoreAdapter()
  * @param {string} id
  * @param {{}} props
  */
-export const hydrate = ({ rows = [], cells = [], id, ...props }) => ({
+export const hydrate = ({ rows = [], cells = [], id = uuid.v4(), ...props }) => ({
   ...props,
-  id: id || uuid.v4(),
+  id,
   rows: rows.map(hydrate),
   cells: cells.map(hydrate)
 })
@@ -32,29 +32,42 @@ class ContentService {
   }
 
   /**
-   * Pass a DOM entity and fetch
+   * Pass a DOM entity and fetch it's content tree.
    *
-   * @param {{}} domEntity
-   * @returns {{}}
+   * @param {{}} domEntity a DOM entity returned by, for example, document.getElementById()
+   * @returns {Promise}
    */
   fetch(domEntity) {
-    const found = this.adapters.find((adapter) => adapter.fetch(domEntity))
-    if (!found) {
-      console.warn('No content state found for DOM entity:', domEntity)
-      return {
-        rows: []
-      }
-    }
+    return new Promise((res) => {
+      const found = this.adapters.find((adapter) => adapter.fetch(domEntity))
 
-    const { rows = [], ...content } = found
-    return {
-      ...content,
-      rows: rows.map(hydrate)
-    }
+      if (!found) {
+        console.warn('No content state found for DOM entity:', domEntity)
+        return res({
+          id: uuid.v4(),
+          rows: []
+        })
+      }
+
+      const { rows = [], id = uuid.v4(), ...content } = found
+      return res({
+        ...content,
+        id,
+        rows: rows.map(hydrate)
+      })
+    })
   }
 
+  /**
+   * Persist a DOM entity's content tree.
+   *
+   * @param state
+   */
   store(state = {}) {
-    this.adapters.forEach((adapter) => adapter.store(state))
+    return new Promise((res) => {
+      this.adapters.forEach((adapter) => adapter.store(state))
+      res()
+    })
   }
 }
 

@@ -27,6 +27,7 @@
     "babel-register": "6.9.0",
     "cross-env": "1.0.8",
     "css-loader": "0.23.1",
+    "draft-js": "^0.7.0",
     "express": "4.14.0",
     "extract-text-webpack-plugin": "1.0.1",
     "html-webpack-plugin": "2.21.0",
@@ -36,6 +37,7 @@
     "react-dom": "^15.1.0",
     "react-redux": "^4.4.5",
     "redux": "^3.5.2",
+    "semver": "^5.2.0",
     "style-loader": "0.13.1",
     "webpack": "2.1.0-beta.9"
   },
