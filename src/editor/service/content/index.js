@@ -1,7 +1,9 @@
-import { LocalStoreAdapter } from "./adapter/local";
-import uuid from "node-uuid";
+import { LocalStoreAdapter } from './adapter/local'
+import uuid from 'node-uuid'
+import PluginService from 'src/editor/service/plugin'
 
 const localStorageAdapter = new LocalStoreAdapter()
+const defaultPluginService = new PluginService()
 
 /**
  * Iterate through an editable content tree and generate ids where missing.
@@ -11,12 +13,15 @@ const localStorageAdapter = new LocalStoreAdapter()
  * @param {string} id
  * @param {{}} props
  */
-export const hydrate = ({ rows = [], cells = [], id = uuid.v4(), ...props }) => ({
-  ...props,
-  id,
-  rows: rows.map(hydrate),
-  cells: cells.map(hydrate)
-})
+export const hydrate = ({ rows = [], cells = [], id = uuid.v4(), ...props }) => {
+  if (rows.length) {
+    props.rows = rows.map(hydrate)
+  } else if (cells.length) {
+    props.cells = cells.map(hydrate)
+  }
+
+  return ({ ...props, id })
+}
 
 /**
  * ContentService is an abstraction layer for fetching and storing editable content trees.
@@ -26,9 +31,14 @@ class ContentService {
    * Pass a list of adapters to use.
    *
    * @param {[]} adapters
+   * @param {PluginService} plugins
    */
-  constructor(adapters = [localStorageAdapter]) {
+  constructor(adapters = [localStorageAdapter], plugins = defaultPluginService) {
     this.adapters = adapters
+    this.plugins = plugins
+
+    this.unserialize = this.unserialize.bind(this)
+    this.serialize = this.serialize.bind(this)
   }
 
   /**
@@ -43,18 +53,11 @@ class ContentService {
 
       if (!found) {
         console.warn('No content state found for DOM entity:', domEntity)
-        return res({
-          id: uuid.v4(),
-          rows: []
-        })
+        return res({ id: uuid.v4(), rows: [] })
       }
 
-      const { rows = [], id = uuid.v4(), ...content } = found
-      return res({
-        ...content,
-        id,
-        rows: rows.map(hydrate)
-      })
+      const { rows = [], id = uuid.v4() } = found
+      return res({ ...found, id, rows: rows.map(hydrate) })
     })
   }
 
@@ -68,6 +71,61 @@ class ContentService {
       this.adapters.forEach((adapter) => adapter.store(state))
       res()
     })
+  }
+
+  unserialize({
+    rows = [],
+    cells = [],
+    plugin = {},
+    layout = {},
+    ...props
+  }) {
+    const { name: pluginName = null, version: pluginVersion = '*' } = plugin
+    const { name: layoutName = null, version: layoutVersion = '*' } = layout
+
+    if (pluginName) {
+      props.plugin = this.plugins.findContentPlugin(pluginName, pluginVersion)
+    }
+
+    if (layoutName) {
+      props.layout = this.plugins.findLayoutPlugin(layoutName, layoutVersion)
+    }
+
+    if (rows.length) {
+      props.rows = rows.map(this.unserialize)
+    }
+
+    if (cells.length) {
+      props.cells = cells.map(this.unserialize)
+    }
+
+    return { ...props }
+  }
+
+  serialize({
+    rows = [],
+    cells = [],
+    plugin = null,
+    layout = null,
+    ...props
+  }) {
+    if (plugin) {
+      props.plugin = { name: plugin.name, version: plugin.version }
+    }
+
+    if (layout) {
+      props.layout = { name: layout.name, version: layout.version }
+    }
+
+    if (rows.length) {
+      props.rows = rows.map(this.serialize)
+    }
+
+    if (cells.length) {
+      props.cells = cells.map(this.serialize)
+    }
+
+    return { ...props }
   }
 }
 

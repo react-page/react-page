@@ -1,4 +1,4 @@
-import {rows} from './tree.js'
+import { rows } from './tree.js'
 
 export const editable = (state = {
   id: null,

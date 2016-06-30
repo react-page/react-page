@@ -1,3 +1,5 @@
+/* eslint-disable no-use-before-define */
+
 export const cell = (state = {
   id: null,
   rows: []

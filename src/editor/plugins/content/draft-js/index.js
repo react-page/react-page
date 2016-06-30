@@ -1,18 +1,17 @@
 import React, { PropTypes } from 'react'
 
-const Missing = ({ name, version }) => (
-  <div style={{ backgroundColor: 'red' }}>
-    Plugin <code>{name}:{version}</code> not found.
+const DraftJS = ({ importFromHtml }) => (
+  <div>
+    <textarea>{importFromHtml}</textarea>
   </div>
 )
 
-Missing.propTypes = {
-  name: PropTypes.string.isRequired,
-  version: PropTypes.string.isRequired
+DraftJS.propTypes = {
+  importFromHtml: PropTypes.string
 }
 
 export default {
-  Missing,
-  name: 'ory/content/missing',
-  version: '0.1'
+  Component: DraftJS,
+  name: 'ory/content/draft-js',
+  version: '0.0.1'
 }

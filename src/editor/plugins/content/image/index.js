@@ -1,18 +1,17 @@
 import React, { PropTypes } from 'react'
 
-const Missing = ({ name, version }) => (
-  <div style={{ backgroundColor: 'red' }}>
-    Plugin <code>{name}:{version}</code> not found.
+const Image = ({ src }) => (
+  <div>
+    <img src={src} />
   </div>
 )
 
-Missing.propTypes = {
-  name: PropTypes.string.isRequired,
-  version: PropTypes.string.isRequired
+Image.propTypes = {
+  src: PropTypes.string.isRequired
 }
 
 export default {
-  Missing,
-  name: 'ory/content/missing',
-  version: '0.1'
+  Component: Image,
+  name: 'ory/content/image',
+  version: '0.0.1'
 }

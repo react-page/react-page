@@ -1,16 +1,19 @@
 /* eslint-env mocha */
 import unexpected from 'unexpected'
-import PluginRepository from './index'
-import { content } from 'src/editor/service/content/adapter/debug'
-import { hydrate } from 'src/editor/service/content'
+import PluginService, { defaultContentPlugins, defaultLayoutPlugins } from './index'
 
 const expect = unexpected.clone()
 
-const plugins = new PluginRepository()
+const plugins = new PluginService()
 
-describe('PluginRepository', () => {
-  it('serialize and unserialize should work', () => {
-    const c = hydrate(content['1'])
-    expect(plugins.serialize(plugins.unserialize(c)), 'to be', c)
+describe('PluginService', () => {
+  it('should find plugins', () => {
+    defaultContentPlugins.forEach((p) => {
+      expect(plugins.findContentPlugin(p.name, p.version), 'to be', p)
+    })
+
+    defaultLayoutPlugins.forEach((p) => {
+      expect(plugins.findLayoutPlugin(p.name, p.version), 'to be', p)
+    })
   })
 })
