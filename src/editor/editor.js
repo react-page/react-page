@@ -17,8 +17,7 @@ class Editor {
     }
 
     instance = this
-    this.editables = editables
-    this.store = createStore(this.props.content)
+    this.store = createStore(editables)
     this.options = { ...options }
   }
 

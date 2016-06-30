@@ -6,5 +6,8 @@
   "env": {
     "node": true,
     "browser": true
+  },
+  "rules": {
+    "no-console": ["error", { "allow": ["warn", "error"] }]
   }
 }

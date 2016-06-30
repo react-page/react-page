@@ -3,10 +3,15 @@ import { createStore } from 'redux'
 
 import rootReducer from './reducer'
 
-export default (initialState) => (
-  createStore(
+export default (initialState) => {
+  let devTools = identity
+  if (typeof window !== 'undefined' && window.devToolsExtension) {
+    devTools = window.devToolsExtension()
+  }
+
+  return createStore(
     rootReducer,
     initialState,
-    window.devToolsExtension ? window.devToolsExtension() : identity
+    devTools
   )
-)
+}

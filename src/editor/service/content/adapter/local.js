@@ -1,3 +1,1 @@
-class LocalStoreAdapter {}
-
-export default LocalStoreAdapter
+export class LocalStoreAdapter {}
