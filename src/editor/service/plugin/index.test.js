@@ -9,7 +9,7 @@ const expect = unexpected.clone()
 const plugins = new PluginRepository()
 
 describe('PluginRepository', () => {
-  xit('serialize and unserialize should work', () => {
+  it('serialize and unserialize should work', () => {
     const c = hydrate(content['1'])
     expect(plugins.serialize(plugins.unserialize(c)), 'to be', c)
   })
