@@ -1,8 +1,3 @@
-export const isEmpty = ({ cells = [], rows = [], plugin = null }) => {
-  if (cells.length > 0) {
-    return !cells.filter((c) => !isEmpty(c)).length
-  } else if (rows.length > 0) {
-    return !rows.filter((r) => !isEmpty(r)).length
-  }
-  return !plugin
-}
+export const isEmpty = ({ cells = [], rows = [], plugin = false }) => !cells.filter((c) => !isEmpty(c)).length && !rows.filter((r) => !isEmpty(r)).length && !plugin
+
+export const emptyFilter = (state) => !isEmpty(state)
