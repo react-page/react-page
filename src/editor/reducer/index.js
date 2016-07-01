@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux'
+import { editables } from './editables'
 
 export default combineReducers({
-  foo: (state = 'bar') => state
+  editables
 })

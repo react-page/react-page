@@ -3,7 +3,6 @@ import unexpected from 'unexpected'
 import Editor from './editor'
 
 const expect = unexpected.clone()
-
 const editor = new Editor()
 
 describe('Editor', () => {

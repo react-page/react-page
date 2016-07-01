@@ -8,32 +8,37 @@ import {
 import { optimizeCell, optimizeRow } from './helper/optimize'
 import { isHoveringThis } from './helper/hover'
 
-const inner = (cb, action, ancestors) => (state) => cb(state, action, ancestors)
+const inner = (cb, action, ancestors) => (state) => {
+  console.log(cb, action, ancestors, state)
+
+  return cb(state, action, ancestors)
+}
 
 export const cell = (state = {
   id: null,
   rows: []
-}, action, ancestors) => optimizeCell((() => {
+}, action, ancestors) => optimizeCell(((state, action, ancestors) => {
+  const reduce = () => ({
+    ...state,
+    rows: rows(state.rows, action, [...ancestors, state.id])
+  })
+
   switch (action.type) {
     case CELL_UPDATE:
-      return {
-        ...state,
-        data: action.data,
-        rows: state.rows.map(inner(rows, action, [...ancestors, state.id]))
+      if (action.id === state.id) {
+        return { ...(reduce()), data: action.data }
       }
-
+      return reduce()
     default:
-      return {
-        ...state,
-        rows: state.rows.map(inner(rows, action, [...ancestors, state.id]))
-      }
+      return reduce()
   }
-})())
+})(state, action, ancestors))
 
 export const cells = (state = [], action, ancestors) => {
+  console.log(state)
   switch (action.type) {
     case CELL_REMOVE:
-      return state.filter(({ id }) => id === action.id).map(inner(cell, action, ancestors))
+      return state.filter(({ id }) => id !== action.id).map(inner(cell, action, ancestors))
 
     default:
       return state.map(inner(cell, action, ancestors))
@@ -43,11 +48,11 @@ export const cells = (state = [], action, ancestors) => {
 export const row = (state = {
   id: null,
   cells: []
-}, action, ancestors) => optimizeRow((() => {
+}, action, ancestors) => optimizeRow(((state, action, ancestors) => {
   const reduce = () => ({
     ...state,
     ancestors,
-    cells: state.cells.map(inner(cells, action, [...ancestors, state.id]))
+    cells: cells(state.cells, action, [...ancestors, state.id])
   })
 
   switch (action.type) {
@@ -78,7 +83,7 @@ export const row = (state = {
     default:
       return reduce()
   }
-})())
+})(state, action, ancestors))
 
 export const rows = (state = [], action, ancestors = []) => {
   switch (action.type) {
@@ -86,3 +91,4 @@ export const rows = (state = [], action, ancestors = []) => {
       return state.map(inner(row, action, ancestors))
   }
 }
+
