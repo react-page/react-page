@@ -8,6 +8,19 @@ import * as actions from 'src/editor/actions/cell'
 
 const expect = unexpected.clone()
 
+const defaultState = {
+  editable: {
+    rows: [
+      {
+        id: '2',
+        cells: [
+          { id: '1', plugin: 'foo', ancestors: ['2'] }
+        ]
+      }
+    ]
+  }
+}
+
 describe('editor/reducer/editable', () => {
   [
     {
@@ -18,27 +31,29 @@ describe('editor/reducer/editable', () => {
     },
     {
       d: 'cell update',
-      s: {
-        editable: {
-          rows: [
-            {
-              cells: [
-                { id: '1', plugin: 'foo' }
-              ]
-            }
-          ]
-        }
-      },
+      s: defaultState,
       a: () => actions.updateCell({ id: '1' }, 'foo'),
       e: {
         editable: {
           rows: [
             {
+              id: '2',
+              ancestors: [],
               cells: [
-                { id: '1', plugin: 'foo', data: 'foo' }
+                { id: '1', plugin: 'foo', data: 'foo', rows: [], ancestors: ['2'] }
               ]
             }
           ]
+        }
+      }
+    },
+    {
+      d: 'cell remove',
+      s: defaultState,
+      a: () => actions.removeCell({ id: '1' }),
+      e: {
+        editable: {
+          rows: []
         }
       }
     }
@@ -46,9 +61,7 @@ describe('editor/reducer/editable', () => {
     describe(`test case ${c.d}`, () => {
       it('should dispatch the action and return the expected result', () => {
         const reducer = combineReducers({ editable })
-        console.log(c.s, c.d)
         const store = createStore(reducer, c.s, identity)
-        console.log(store.getState(), c.s, c.d)
         store.dispatch(c.a())
         expect(store.getState(), 'to equal', c.e)
       })

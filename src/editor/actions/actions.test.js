@@ -9,30 +9,23 @@ describe('actions', () => {
   const creators = []
   const all = [cellActions]
 
-
-  all.map((actions, x) => Object.keys(actions).forEach((key) => {
+  all.map((actions) => Object.keys(actions).forEach((key) => {
     if (typeof actions[key] === 'function') {
       creators.push(actions[key])
     }
   }))
 
-  describe('', () => {
-    all.map((actions, x) => Object.keys(actions).forEach((key) => {
-      if (typeof actions[key] === 'function') {
-        const { type } = actions[key]()
-        describe(`action set ${x} -`, () => {
-          it(`${key} (${type}) should be unique`, () => {
-            expect(fired.indexOf(type) === -1, 'to be truthy')
-            fired.push(type)
-          })
-        })
-      }
-    }))
-  })
+  all.map((actions) => Object.keys(actions).forEach((key) => {
+    if (typeof actions[key] === 'function') {
+      const { type } = actions[key]()
+      it(`${key} (${type}) should be unique`, () => {
+        expect(fired.indexOf(type) === -1, 'to be truthy')
+        fired.push(type)
+      })
+    }
+  }))
 
-  describe('tests', () => {
-    it('must have fired at least once', () => {
-      expect(fired.length, 'to be', creators.length)
-    })
+  it('must have fired at least once', () => {
+    expect(fired.length, 'to be', creators.length)
   })
 })

@@ -7,12 +7,14 @@ const expect = unexpected.clone()
 const plugins = new PluginService()
 
 describe('PluginService', () => {
-  it('should find plugins', () => {
-    defaultContentPlugins.forEach((p) => {
+  defaultContentPlugins.forEach((p) => {
+    it(`should find plugin ${p.name} ${p.version}`, () => {
       expect(plugins.findContentPlugin(p.name, p.version), 'to be', p)
     })
+  })
 
-    defaultLayoutPlugins.forEach((p) => {
+  defaultLayoutPlugins.forEach((p) => {
+    it(`should find plugin ${p.name} ${p.version}`, () => {
       expect(plugins.findLayoutPlugin(p.name, p.version), 'to be', p)
     })
   })

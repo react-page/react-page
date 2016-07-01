@@ -5,14 +5,10 @@ import {
   CELL_INSERT_LEFT_OF,
   CELL_INSERT_RIGHT_OF
 } from 'src/editor/actions/cell'
-import { optimizeCell, optimizeRow } from './helper/optimize'
+import { optimizeCell, optimizeRow, optimizeRows, optimizeCells } from './helper/optimize'
 import { isHoveringThis } from './helper/hover'
 
-const inner = (cb, action, ancestors) => (state) => {
-  console.log(cb, action, ancestors, state)
-
-  return cb(state, action, ancestors)
-}
+const inner = (cb, action, ancestors) => (state) => cb(state, action, ancestors)
 
 export const cell = (state = {
   id: null,
@@ -34,8 +30,7 @@ export const cell = (state = {
   }
 })(state, action, ancestors))
 
-export const cells = (state = [], action, ancestors) => {
-  console.log(state)
+export const cells = (state = [], action, ancestors) => optimizeCells(((state, action, ancestors) => {
   switch (action.type) {
     case CELL_REMOVE:
       return state.filter(({ id }) => id !== action.id).map(inner(cell, action, ancestors))
@@ -43,7 +38,7 @@ export const cells = (state = [], action, ancestors) => {
     default:
       return state.map(inner(cell, action, ancestors))
   }
-}
+})(state, action, ancestors))
 
 export const row = (state = {
   id: null,
@@ -85,10 +80,10 @@ export const row = (state = {
   }
 })(state, action, ancestors))
 
-export const rows = (state = [], action, ancestors = []) => {
+
+export const rows = (state = [], action, ancestors = []) => optimizeRows(((state, action, ancestors) => {
   switch (action.type) {
     default:
       return state.map(inner(row, action, ancestors))
   }
-}
-
+})(state, action, ancestors))

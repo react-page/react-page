@@ -81,7 +81,7 @@ describe('optimizeCell', () => {
           { cells: [{ plugin: 'foo' }] }
         ]
       }
-    },
+    }
   ].forEach((c, k) => {
     it(`should pass test case ${k}`, () => {
       expect(equal(c.out, optimizeCell(c.in)), 'to be truthy')

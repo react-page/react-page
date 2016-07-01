@@ -1,5 +1,9 @@
 const flatten = (c, n) => ([...c, ...n])
 
+export const optimizeCells = (cells = []) => cells.filter(({ plugin = false, rows = [], layout = false }) => plugin || layout || rows.length)
+
+export const optimizeRows = (rows = []) => rows.filter(({ cells = [] }) => cells.length)
+
 export const optimizeCell = ({ rows = [], ...other }) => ({
   ...other,
   rows: rows.map((r) => {

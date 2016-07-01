@@ -95,17 +95,14 @@ describe('isHoveringThis', () => {
       }
     }
   ].forEach((c, k) => {
-    describe(`test case ${k}`, () => {
-      const runner = (level) => (props) =>
-        describe('isHoveringThis', () => {
-          it(`should pass level ${level}`, () => {
-            const { cells = [], rows = [], h = false } = props
-            expect(isHoveringThis(props, c.action), 'to equal', h)
-            rows.map(runner(level + 1))
-            cells.map(runner(level + 1))
-          })
-        })
-      runner(0)(c.in)
+    const runner = (level) => (props) => describe('isHoveringThis', () => {
+      it(`case ${k} should pass level ${level}`, () => {
+        const { cells = [], rows = [], h = false } = props
+        expect(isHoveringThis(props, c.action), 'to equal', h)
+        rows.map(runner(level + 1))
+        cells.map(runner(level + 1))
+      })
     })
+    runner(0)(c.in)
   })
 })
