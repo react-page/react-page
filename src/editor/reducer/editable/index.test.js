@@ -56,6 +56,74 @@ describe('editor/reducer/editable', () => {
           rows: []
         }
       }
+    },
+    {
+      d: 'cell cancel drag',
+      s: {
+        editable: {
+          rows: [
+            {
+              id: '2',
+              cells: [
+                { id: '1', plugin: 'foo', ancestors: ['2'], hover: true }
+              ]
+            }
+          ]
+        }
+      },
+      a: () => actions.cancelCellDrag({ id: '1' }),
+      e: {
+        editable: {
+          rows: [
+            {
+              id: '2',
+              ancestors: [],
+              hover: null,
+              cells: [
+                { id: '1', plugin: 'foo', ancestors: ['2'], rows: [], hover: null }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      d: 'cell resize',
+      s: defaultState,
+      a: () => actions.resizeCell({ id: '' }, 4),
+      e: {
+        editable: {
+          rows: [
+            {
+              id: '2',
+              ancestors: [],
+              hover: 'left',
+              cells: [
+                { id: '1', plugin: 'foo', ancestors: ['2'], rows: [], size: 4 }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      d: 'cell hover',
+      s: defaultState,
+      a: () => actions.cellHover({ id: '' }, { id: '1' }, 1),
+      e: {
+        editable: {
+          rows: [
+            {
+              id: '2',
+              ancestors: [],
+              hover: 'left',
+              cells: [
+                { id: '1', plugin: 'foo', ancestors: ['2'], rows: [], hover: null }
+              ]
+            }
+          ]
+        }
+      }
     }
   ].forEach((c) => {
     describe(`test case ${c.d}`, () => {

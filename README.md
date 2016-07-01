@@ -14,12 +14,12 @@ Depending on whether you use ECMAScript 6 or ECMAScript 5, the setup looks as fo
 
 ```js
 // ECMAScript 6
-import Editor from 'ory-editor'
-const editor = new Editor()
+import Editor from 'ory-editor';
+const editor = new Editor();
 
 // ECMAScript 5
-var Editor = require('ory-editor')
-var editor = new Editor()
+var Editor = require('ory-editor');
+var editor = new Editor();
 ```
 
 ## Contribute
@@ -50,7 +50,7 @@ $ open http://localhost:3000/
 
 ### How can I run E2E tests using chrome?
 
-To run E2E tests in Chrome, you'll need the Chrome Driver in $PATH, see https://github.com/nightwatchjs/nightwatch/wiki/chrome-setup
+To run E2E tests in Chrome, you need the Chrome Driver in $PATH, see https://github.com/nightwatchjs/nightwatch/wiki/chrome-setup
 
 ### How can I install the editor using bower?
 
@@ -60,10 +60,9 @@ bower install ory-editor
 
 ### How can I install the editor using the CDN?
 
-```
+```html
 <script src="https://cdn.foobar.com/ory/latest/ory-editor.js"></script>
-```
-
-```js
-var editor = new Editor()
+<script type="text/javascript">
+  var editor = new Editor();
+</script>
 ```

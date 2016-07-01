@@ -13,7 +13,9 @@
     "lint": "eslint \"+(src|test)/**/*.js\" --fix",
     "lint:watch": "npm run watch:js -- -c \"npm run lint\"",
     "build": "cross-env NODE_PATH=. NODE_ENV=production webpack",
-    "watch:js": "chokidar \"+(src|test)/**/*.js\" --initial"
+    "watch:js": "chokidar \"+(src|test)/**/*.js\" --initial",
+    "doc": "esdoc -c esdoc.json",
+    "doc:watch": "npm run watch:js -- -c \"esdoc -c esdoc.json\""
   },
   "author": "",
   "license": "ISC",

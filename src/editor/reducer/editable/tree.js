@@ -3,7 +3,9 @@ import {
   CELL_REMOVE,
   CELL_UPDATE,
   CELL_INSERT_LEFT_OF,
-  CELL_INSERT_RIGHT_OF
+  CELL_INSERT_RIGHT_OF,
+  CELL_DRAG_CANCEL,
+  CELL_DRAG_HOVER
 } from 'src/editor/actions/cell'
 import { optimizeCell, optimizeRow, optimizeRows, optimizeCells } from './helper/optimize'
 import { isHoveringThis } from './helper/hover'
@@ -20,11 +22,21 @@ export const cell = (state = {
   })
 
   switch (action.type) {
+    case CELL_DRAG_CANCEL:
+      return { ...reduce(), hover: null }
+
     case CELL_UPDATE:
       if (action.id === state.id) {
         return { ...(reduce()), data: action.data }
       }
       return reduce()
+
+    case CELL_DRAG_HOVER:
+      if (isHoveringThis(state, action)) {
+        return { ...reduce(), hover: action.position }
+      }
+      return { ...reduce(), hover: null }
+
     default:
       return reduce()
   }
@@ -51,6 +63,9 @@ export const row = (state = {
   })
 
   switch (action.type) {
+    case CELL_DRAG_CANCEL:
+      return { ...reduce(), hover: null }
+
     case CELL_INSERT_LEFT_OF:
       if (!isHoveringThis(state, action)) {
         return reduce()

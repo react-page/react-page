@@ -3,7 +3,7 @@ export const CELL_DRAG = 'CELL_DRAG'
 export const CELL_DRAG_CANCEL = 'CELL_DRAG_CANCEL'
 
 /**
- * Dispatch when a cell hovers another item
+ * Dispatch when a cell hovers another item.
  *
  * @param {{id}} drag
  * @param {{id}} hover
@@ -17,7 +17,7 @@ export const cellHover = ({ id: drag } = {}, { id: hover } = {}, level = 0) => (
 })
 
 /**
- * Set a cell's dragging state
+ * Dispatch when a cell is being dragged.
  *
  * @param {{id}} id
  */
@@ -27,7 +27,7 @@ export const dragCell = ({ id } = {}) => ({
 })
 
 /**
- * Cancel the dragging state of a cell
+ * Dispatch when cell dragging ends.
  *
  * @param {{id}} id
  */

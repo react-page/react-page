@@ -1,11 +1,13 @@
 export const CELL_UPDATE = 'CELL_UPDATE'
 export const CELL_REMOVE = 'CELL_REMOVE'
+export const CELL_RESIZE = 'CELL_RESIZE'
 
 /**
- * Update a cell
+ * Dispatch to update cell data.
  *
- * @param {{id}} id
+ * @param {{id: string}} id
  * @param {object} data
+ * @return {object}
  */
 export const updateCell = ({ id } = {}, data = {}) => ({
   type: CELL_UPDATE,
@@ -14,11 +16,25 @@ export const updateCell = ({ id } = {}, data = {}) => ({
 })
 
 /**
- * Remove a cell
+ * Dispatch to remove a cell.
  *
- * @param {{id}} id
+ * @param {{id: string}} id
+ * @return {object}
  */
 export const removeCell = ({ id } = {}) => ({
   type: CELL_REMOVE,
   id
+})
+
+/**
+ * Dispatch to resize a cell.
+ *
+ * @param {{id: string}} id
+ * @param {int} size
+ * @return {object}
+ */
+export const resizeCell = ({ id } = {}, size = 1) => ({
+  type: CELL_RESIZE,
+  id,
+  size
 })
