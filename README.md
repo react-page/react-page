@@ -1,12 +1,34 @@
 # ![Ory editor](logo.png)
 
 [![Build Status](https://travis-ci.com/ory-am/editor.svg?token=gtodfPz6nLDS6xphYxdJ&branch=master)](https://travis-ci.com/ory-am/editor)
+ 
+Build interactive, responsive content in minutes. Empower designers to enforce design. Let developers focus
+on important issues. Amaze authors with easy of use and control. Keep an ease of mind and let us worry about scaling.
 
-The Ory Editing Platform is not another contenteditable hack. With state of the art browser technology and tooling,
+The Ory Content Toolchain is not another contenteditable hack. With state of the art browser technology, cloud native design, and well designed tooling,
 you can finally say goodbye to contenteditable hacks, html purifiers, steep learning curves and poorly designed plugin APIs.
 
-Build interactive, responsive content in minutes. Empower designers to enforce design. Let developers focus
-on important issues. Amaze authors with easy of use and control.
+The Ory Content Toolchain consists of two major components:
+* This content editor written in ECMAScript 6.
+* A cloud platform, which you can host yourself or let us run it for you.
+
+Using technology from Facebook like [React](https://facebook.github.io/react/) and [Draft.js](https://facebook.github.io/draft-js/),
+[Redux]() state management, a well-tested layout editor and lightweight design, there is no more HTML parsing, markdown converting
+or other hacks. The content state does not know HTML. It is pure JSON and can be ex- and imported from a variety of sources, including HTML.
+
+Enhance your user experience by writing custom plugins for content editing (video, audio, twitter feed, ...) and layouts blocks (yellow alert box, tabs, ...) in no-time:
+
+```js
+import React from 'react'
+
+// layout box plugin
+const YellowAlertBox = (props) => (<div style={{ backgorundColor: 'yellow' }} {...props} />);
+
+// content editing plugin
+const RemoteImage = ({ src, readOnly, onChange }) => readOnly
+  ? <img src={src} />
+  : <input type="text" onChange={onChange} value={src} />
+```
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
