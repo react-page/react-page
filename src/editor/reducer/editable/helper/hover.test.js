@@ -30,7 +30,7 @@ describe('isHoveringThis', () => {
         ]
       },
       action: {
-        hover: { id: '1' }
+        hover: '1'
       }
     },
     {
@@ -57,7 +57,7 @@ describe('isHoveringThis', () => {
         ]
       },
       action: {
-        hover: { id: '1' },
+        hover: '1',
         level: 1
       }
     },
@@ -90,7 +90,7 @@ describe('isHoveringThis', () => {
         ]
       },
       action: {
-        hover: { id: '1' },
+        hover: '1',
         level: 3
       }
     }

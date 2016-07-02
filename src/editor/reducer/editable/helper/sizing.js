@@ -14,7 +14,7 @@ export const sumSizes = (cells = []) => cells.reduce(({ size: p = 99 } = {}, { s
  * @param {[...cell]} cells
  * @@return {[...cell]}
  */
-export const setMaxSizes = (cells = []) => cells.map((c, k) => ({
+export const computeBounds = (cells = []) => cells.map((c, k) => ({
   ...c,
   bounds: {
     left: k > 0 ? cells[k - 1].size + c.size - 1 : 0,
@@ -22,7 +22,35 @@ export const setMaxSizes = (cells = []) => cells.map((c, k) => ({
   }
 }))
 
-export const computeCellSizes = (cells = []) => {
+/**
+ * Resize cells.
+ *
+ * @param {[]} cells
+ * @param {Object} action
+ * @param {numeric} action.id
+ * @param {numeric} action.size
+ * @returns {Array}
+ */
+export const resizeCells = (cells = [], { id, size }) => {
+  let prev = 0
+  return cells.map((c) => {
+    if (prev > 0) {
+      return { ...c, size: c.size + prev - size }
+    } else if (id === c.id) {
+      prev = c.size
+      return { ...c, size }
+    }
+    return c
+  })
+}
+
+/**
+ * Balance cell sizes.
+ *
+ * @param {[...cell]} cells
+ * @@return {[...cell]}
+ */
+export const computeSizes = (cells = []) => {
   const total = sumSizes(cells)
   if (total === MAX_CELLS_PER_ROW) {
     return cells

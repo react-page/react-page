@@ -5,10 +5,12 @@ import {
   CELL_INSERT_LEFT_OF,
   CELL_INSERT_RIGHT_OF,
   CELL_DRAG_CANCEL,
-  CELL_DRAG_HOVER
+  CELL_DRAG_HOVER,
+CELL_RESIZE
 } from 'src/editor/actions/cell'
 import { optimizeCell, optimizeRow, optimizeRows, optimizeCells } from './helper/optimize'
 import { isHoveringThis } from './helper/hover'
+import { computeSizes, computeBounds, resizeCells } from './helper/sizing'
 
 const inner = (cb, action, ancestors) => (state) => cb(state, action, ancestors)
 
@@ -42,15 +44,18 @@ export const cell = (state = {
   }
 })(state, action, ancestors))
 
-export const cells = (state = [], action, ancestors) => optimizeCells(((state, action, ancestors) => {
+export const cells = (state = [], action, ancestors) => computeBounds(computeSizes(optimizeCells(((state, action, ancestors) => {
   switch (action.type) {
+    case CELL_RESIZE:
+      return resizeCells(state.map(inner(cell, action, ancestors)), action)
+
     case CELL_REMOVE:
       return state.filter(({ id }) => id !== action.id).map(inner(cell, action, ancestors))
 
     default:
       return state.map(inner(cell, action, ancestors))
   }
-})(state, action, ancestors))
+})(state, action, ancestors))))
 
 export const row = (state = {
   id: null,
@@ -89,6 +94,12 @@ export const row = (state = {
           { ...(action.item), id: action.ids[0] }
         ], action, ancestors))
       }
+
+    case CELL_DRAG_HOVER:
+      if (isHoveringThis(state, action)) {
+        return { ...reduce(), hover: action.position }
+      }
+      return { ...reduce(), hover: null }
 
     default:
       return reduce()

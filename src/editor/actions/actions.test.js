@@ -8,6 +8,14 @@ describe('actions', () => {
   const fired = []
   const creators = []
   const all = [cellActions]
+  const faillist = [
+    'cellHoverLeftOf',
+    'cellHoverRightOf',
+    'cellHoverBelow',
+    'cellHoverAbove',
+    'cellHoverInlineRight',
+    'cellHoverInlineLeft'
+  ]
 
   all.map((actions) => Object.keys(actions).forEach((key) => {
     if (typeof actions[key] === 'function') {
@@ -19,7 +27,7 @@ describe('actions', () => {
     if (typeof actions[key] === 'function') {
       const { type } = actions[key]()
       it(`${key} (${type}) should be unique`, () => {
-        expect(fired.indexOf(type) === -1, 'to be truthy')
+        expect(fired.indexOf(type) === -1, 'to be', faillist.indexOf(key) === -1)
         fired.push(type)
       })
     }

@@ -40,7 +40,15 @@ describe('editor/reducer/editable', () => {
               id: '2',
               ancestors: [],
               cells: [
-                { id: '1', plugin: 'foo', data: 'foo', rows: [], ancestors: ['2'] }
+                {
+                  id: '1',
+                  plugin: 'foo',
+                  data: 'foo',
+                  rows: [],
+                  ancestors: ['2'],
+                  size: 12,
+                  bounds: { left: 0, right: 0 }
+                }
               ]
             }
           ]
@@ -65,7 +73,7 @@ describe('editor/reducer/editable', () => {
             {
               id: '2',
               cells: [
-                { id: '1', plugin: 'foo', ancestors: ['2'], hover: true }
+                { id: '1', plugin: 'foo', ancestors: ['2'], hover: true, size: 12, bounds: { left: 0, right: 0 } }
               ]
             }
           ]
@@ -80,7 +88,15 @@ describe('editor/reducer/editable', () => {
               ancestors: [],
               hover: null,
               cells: [
-                { id: '1', plugin: 'foo', ancestors: ['2'], rows: [], hover: null }
+                {
+                  id: '1',
+                  plugin: 'foo',
+                  ancestors: ['2'],
+                  rows: [],
+                  hover: null,
+                  size: 12,
+                  bounds: { left: 0, right: 0 }
+                }
               ]
             }
           ]
@@ -89,8 +105,22 @@ describe('editor/reducer/editable', () => {
     },
     {
       d: 'cell resize',
-      s: defaultState,
-      a: () => actions.resizeCell({ id: '' }, 4),
+      s: {
+        editable: {
+          rows: [
+            {
+              id: '2',
+              ancestors: [],
+              hover: 'left',
+              cells: [
+                { id: '3', plugin: 'foo', ancestors: ['2'], rows: [], size: 6 },
+                { id: '1', plugin: 'foo', ancestors: ['2'], rows: [], size: 6 }
+              ]
+            }
+          ]
+        }
+      },
+      a: () => actions.resizeCell({ id: '3' }, 4),
       e: {
         editable: {
           rows: [
@@ -99,7 +129,8 @@ describe('editor/reducer/editable', () => {
               ancestors: [],
               hover: 'left',
               cells: [
-                { id: '1', plugin: 'foo', ancestors: ['2'], rows: [], size: 4 }
+                { id: '3', plugin: 'foo', ancestors: ['2'], rows: [], size: 4, bounds: { left: 0, right: 11 } },
+                { id: '1', plugin: 'foo', ancestors: ['2'], rows: [], size: 8, bounds: { left: 11, right: 0 } }
               ]
             }
           ]
@@ -109,16 +140,24 @@ describe('editor/reducer/editable', () => {
     {
       d: 'cell hover',
       s: defaultState,
-      a: () => actions.cellHover({ id: '' }, { id: '1' }, 1),
+      a: () => actions.cellHoverLeftOf({ id: '' }, { id: '1' }, 1),
       e: {
         editable: {
           rows: [
             {
               id: '2',
               ancestors: [],
-              hover: 'left',
+              hover: 'left-of',
               cells: [
-                { id: '1', plugin: 'foo', ancestors: ['2'], rows: [], hover: null }
+                {
+                  id: '1',
+                  plugin: 'foo',
+                  ancestors: ['2'],
+                  rows: [],
+                  hover: null,
+                  size: 12,
+                  bounds: { left: 0, right: 0 }
+                }
               ]
             }
           ]

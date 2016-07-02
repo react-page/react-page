@@ -1,6 +1,6 @@
 /* eslint-env mocha */
 import unexpected from 'unexpected'
-import { sumSizes, setMaxSizes } from './sizing'
+import { sumSizes, computeBounds, resizeCells } from './sizing'
 
 const expect = unexpected.clone()
 
@@ -21,7 +21,19 @@ describe('sumSizes', () => {
   })
 })
 
-describe('setMaxSizes', () => {
+describe('resizeCells', () => {
+  [{
+    a: { id: 2, size: 6 },
+    cells: [{ id: 1, size: 4 }, { id: 2, size: 4 }, { id: 3, size: 4 }],
+    e: [{ id: 1, size: 4 }, { id: 2, size: 6 }, { id: 3, size: 2 }]
+  }].forEach((c, k) => {
+    it(`should pass test case ${k}`, () => {
+      expect(resizeCells(c.cells, c.a), 'to equal', c.e)
+    })
+  })
+})
+
+describe('computeBounds', () => {
   [{
     cells: [{ size: 6 }, { size: 6 }],
     e: [{ size: 6, bounds: { left: 0, right: 11 } }, { size: 6, bounds: { left: 11, right: 0 } }]
@@ -38,7 +50,7 @@ describe('setMaxSizes', () => {
     ]
   }].forEach((c, k) => {
     it(`should pass test case ${k}`, () => {
-      expect(setMaxSizes(c.cells), 'to equal', c.e)
+      expect(computeBounds(c.cells), 'to equal', c.e)
     })
   })
 })
