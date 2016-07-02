@@ -1,8 +1,7 @@
 /* eslint-env mocha */
 import { editable } from './index'
 import unexpected from 'unexpected'
-import { combineReducers } from 'redux'
-import { createStore } from 'redux'
+import { combineReducers, createStore } from 'redux'
 import { identity } from 'ramda'
 import * as actions from 'src/editor/actions/cell'
 
