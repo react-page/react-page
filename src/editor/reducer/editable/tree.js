@@ -12,11 +12,11 @@ import {
   CELL_DRAG_HOVER,
   CELL_RESIZE
 } from 'src/editor/actions/cell'
-import { optimizeCell, optimizeRow, optimizeRows, optimizeCells } from './helper/optimize'
+import { optimizeCell, optimizeRow, optimizeRows, optimizeCells, flatten } from './helper/optimize'
 import { isHoveringThis } from './helper/hover'
 import { computeSizes, computeBounds, resizeCells, computeResponsive } from './helper/sizing'
 
-const inner = (cb, action, ancestors) => (state) => cb(state, action, ancestors)
+const inner = (cb, action) => (state) => cb(state, action)
 
 export const cell = (state = {
   id: null,
@@ -26,11 +26,11 @@ export const cell = (state = {
   inline: false,
   bounds: { left: 0, right: 0 },
   rows: []
-}, action, ancestors) => optimizeCell(((state, action, ancestors) => {
+}, action) => optimizeCell(((state, action) => {
   const reduce = () => ({
     ...state,
     hover: null,
-    rows: rows(state.rows, action, [...ancestors, state.id])
+    rows: rows(state.rows, action)
   })
 
   switch (action.type) {
@@ -51,33 +51,65 @@ export const cell = (state = {
         return { ...reduce(), hover: action.position }
       }
       // or remove it if not
-      return { ...reduce(), hover: null }
+      return reduce()
+
+    case CELL_INSERT_ABOVE:
+      if (isHoveringThis(state, action)) {
+        return {
+          id: action.ids[0],
+          hover: null,
+          rows: rows([{
+            id: action.ids[1],
+            cells: [{ ...(action.item), id: action.ids[2] }]
+          }, {
+            id: action.ids[3],
+            cells: [{ ...reduce(), id: action.ids[4] }]
+          }], action)
+        }
+      }
+      return reduce()
+
+    case CELL_INSERT_BELOW:
+      if (isHoveringThis(state, action)) {
+        return {
+          id: action.ids[0],
+          hover: null,
+          rows: rows([{
+            id: action.ids[1],
+            cells: [{ ...state, id: action.ids[2] }]
+          }, {
+            id: action.ids[3],
+            cells: [{ ...(action.item), id: action.ids[4] }]
+          }], action)
+        }
+      }
+      return reduce()
 
     default:
       return reduce()
   }
-})(state, action, ancestors))
+})(state, action))
 
-export const cells = (state = [], action, ancestors) => computeResponsive(computeBounds(computeSizes(optimizeCells(((state, action, ancestors) => {
+export const cells = (state = [], action) => computeResponsive(computeBounds(computeSizes(optimizeCells(((state, action) => {
   switch (action.type) {
     case CELL_RESIZE:
-      return resizeCells(state.map(inner(cell, action, ancestors)), action)
+      return resizeCells(state.map(inner(cell, action)), action)
 
     case CELL_INSERT_LEFT_OF:
       return state
         .map((c) => isHoveringThis(c, action)
           ? [{ ...(action.item), id: action.ids[0] }, { ...c, id: action.ids[1] }]
           : [c])
-        .reduce((c = [], n = []) => c.push(...n), [])
-        .map(inner(row, action, ancestors))
+        .reduce(flatten, [])
+        .map(inner(cell, action))
 
     case CELL_INSERT_RIGHT_OF:
       return state
         .map((c) => isHoveringThis(c, action)
           ? [{ ...c, id: action.ids[0] }, { ...(action.item), id: action.ids[1] }]
           : [c])
-        .reduce((c = [], n = []) => c.push(...n), [])
-        .map(inner(row, action, ancestors))
+        .reduce(flatten, [])
+        .map(inner(cell, action))
 
     case CELL_INSERT_INLINE_RIGHT:
     case CELL_INSERT_INLINE_LEFT:
@@ -88,32 +120,29 @@ export const cells = (state = [], action, ancestors) => computeResponsive(comput
             inline: action.type === CELL_INSERT_INLINE_RIGHT ? 'right' : 'left',
             id: action.ids[1]
           }] : [c])
-        .reduce((c = [], n = []) => c.push(...n), [])
-        .map(inner(row, action, ancestors))
+        .reduce(flatten, [])
+        .map(inner(cell, action))
 
     case CELL_REMOVE:
-      return state.filter(({ id }) => id !== action.id).map(inner(cell, action, ancestors))
+      return state.filter(({ id }) => id !== action.id).map(inner(cell, action))
 
     default:
-      return state.map(inner(cell, action, ancestors))
+      return state.map(inner(cell, action))
   }
-})(state, action, ancestors)))))
+})(state, action)))))
 
 export const row = (state = {
   id: null,
   hover: null,
   cells: []
-}, action, ancestors) => optimizeRow(((state, action, ancestors) => {
+}, action) => optimizeRow(((state, action) => {
   const reduce = () => ({
     ...state,
-    ancestors,
     hover: null,
-    cells: cells(state.cells, action, [...ancestors, state.id])
+    cells: cells(state.cells, action)
   })
 
   switch (action.type) {
-    case CELL_DRAG_CANCEL:
-      return { ...reduce(), hover: null }
 
     case CELL_INSERT_LEFT_OF:
       if (!isHoveringThis(state, action)) {
@@ -121,10 +150,11 @@ export const row = (state = {
       }
       return {
         ...state,
+        hover: null,
         cells: inner(cells([
           ...(state.cells),
           { ...(action.item), id: action.ids[0] }
-        ], action, ancestors))
+        ], action))
       }
 
     case CELL_INSERT_RIGHT_OF:
@@ -133,10 +163,11 @@ export const row = (state = {
       }
       return {
         ...state,
+        hover: null,
         cells: inner(cells([
           ...(state.cells),
           { ...(action.item), id: action.ids[0] }
-        ], action, ancestors))
+        ], action))
       }
 
     case CELL_DRAG_HOVER:
@@ -145,31 +176,32 @@ export const row = (state = {
       }
       return reduce()
 
+    case CELL_DRAG_CANCEL:
     default:
       return reduce()
   }
-})(state, action, ancestors))
+})(state, action))
 
 
-export const rows = (state = [], action, ancestors = []) => optimizeRows(((state, action, ancestors) => {
-  const reduce = () => state.map(inner(row, action, ancestors))
+export const rows = (state = [], action) => optimizeRows(((state, action) => {
+  const reduce = () => state.map(inner(row, action))
   switch (action.type) {
     case CELL_INSERT_ABOVE:
       return state
         .map((r) => isHoveringThis(r, action)
           ? [{ id: action.ids[0], cells: [{ ...(action.item), id: action.ids[1] }] }, { ...r, id: action.ids[2] }]
           : [r])
-        .reduce((c = [], n = []) => c.push(...n), [])
-        .map(inner(row, action, ancestors))
+        .reduce(flatten, [])
+        .map(inner(row, action))
     case CELL_INSERT_BELOW:
       return state
         .map((r) => isHoveringThis(r, action)
-          ? [{ ...r, id: action.ids[2] }, { id: action.ids[0], cells: [{ ...(action.item), id: action.ids[1] }] }]
+          ? [{ ...r, id: action.ids[0] }, { id: action.ids[1], cells: [{ ...(action.item), id: action.ids[2] }] }]
           : [r])
-        .reduce((c = [], n = []) => c.push(...n), [])
-        .map(inner(row, action, ancestors))
+        .reduce(flatten, [])
+        .map(inner(row, action))
 
     default:
       return reduce()
   }
-})(state, action, ancestors))
+})(state, action))

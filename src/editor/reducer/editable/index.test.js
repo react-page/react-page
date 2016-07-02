@@ -4,21 +4,47 @@ import unexpected from 'unexpected'
 import { combineReducers, createStore } from 'redux'
 import { identity } from 'ramda'
 import * as actions from 'src/editor/actions/cell'
+import { computeSizes, computeResponsive, computeBounds } from './helper/sizing'
 
 const expect = unexpected.clone()
 
+const cells = (state) => computeBounds(computeResponsive(computeSizes(state))).map(({ rows = [], hover = null, ...c }) => ({
+  ...c,
+  rows,
+  hover
+}))
+
+const rows = (state) => state.map(({ ...r, hover = null }) => ({ ...r, hover }))
+
 const defaultState = {
   editable: {
-    rows: [
+    cells: [
       {
-        id: '2',
-        cells: [
-          { id: '1', plugin: 'foo', ancestors: ['2'] }
+        id: '0',
+        rows: [
+          {
+            id: '00',
+            cells: [
+              { id: '000', plugin: 'foo' }
+            ]
+          },
+          {
+            id: '01',
+            cells: [
+              { id: '010', plugin: 'bar' }
+            ]
+          }
         ]
       }
     ]
   }
 }
+
+const insertCell = {
+  id: 'i',
+  plugin: 'insert-baz'
+}
+
 
 describe('editor/reducer/editable', () => {
   [
@@ -26,81 +52,48 @@ describe('editor/reducer/editable', () => {
       d: 'basic',
       s: { editable: {} },
       a: () => ({ type: 'foo' }),
-      e: { editable: { rows: [] } }
+      e: { editable: { cells: [] } }
     },
     {
       d: 'cell update',
-      s: defaultState,
-      a: () => actions.updateCell({ id: '1' }, 'foo'),
+      s: {
+        editable: {
+          id: '1',
+          cells: cells([{ id: '2', plugin: 'foo' }])
+        }
+      },
+      a: () => actions.updateCell({ id: '2' }, 'foo'),
       e: {
         editable: {
-          rows: [
-            {
-              id: '2',
-              ancestors: [],
-              cells: [
-                {
-                  id: '1',
-                  plugin: 'foo',
-                  data: 'foo',
-                  rows: [],
-                  ancestors: ['2'],
-                  size: 12,
-                  bounds: { left: 0, right: 0 },
-                  responsive: [12, 12]
-                }
-              ]
-            }
-          ]
+          id: '1',
+          cells: cells([{ id: '2', plugin: 'foo', data: 'foo' }])
         }
       }
     },
     {
       d: 'cell remove',
-      s: defaultState,
-      a: () => actions.removeCell({ id: '1' }),
-      e: {
+      s: {
         editable: {
-          rows: []
+          id: '1',
+          cells: cells([{ id: '2', plugin: 'foo', hover: true }])
         }
-      }
+      },
+      a: () => actions.removeCell({ id: '2' }),
+      e: { editable: { id: '1', cells: [] } }
     },
     {
       d: 'cell cancel drag',
       s: {
         editable: {
-          rows: [
-            {
-              id: '2',
-              cells: [
-                { id: '1', plugin: 'foo', ancestors: ['2'], hover: true, size: 12, bounds: { left: 0, right: 0 }, responsive: [12, 12] }
-              ]
-            }
-          ]
+          id: '1',
+          cells: cells([{ id: '2', plugin: 'foo', hover: true }])
         }
       },
-      a: () => actions.cancelCellDrag({ id: '1' }),
+      a: () => actions.cancelCellDrag({ id: '2' }),
       e: {
         editable: {
-          rows: [
-            {
-              id: '2',
-              ancestors: [],
-              hover: null,
-              cells: [
-                {
-                  id: '1',
-                  plugin: 'foo',
-                  ancestors: ['2'],
-                  rows: [],
-                  hover: null,
-                  size: 12,
-                  bounds: { left: 0, right: 0 },
-                  responsive: [12, 12]
-                }
-              ]
-            }
-          ]
+          id: '1',
+          cells: cells([{ id: '2', plugin: 'foo' }])
         }
       }
     },
@@ -108,61 +101,168 @@ describe('editor/reducer/editable', () => {
       d: 'cell resize',
       s: {
         editable: {
-          rows: [
-            {
-              id: '2',
-              ancestors: [],
-              hover: 'left',
-              cells: [
-                { id: '3', plugin: 'foo', ancestors: ['2'], rows: [], size: 6, responsive: [12, 12] },
-                { id: '1', plugin: 'foo', ancestors: ['2'], rows: [], size: 6, responsive: [12, 12] }
-              ]
-            }
-          ]
+          cells: [{
+            id: '0',
+            rows: [
+              {
+                id: '00',
+                cells: [
+                  { id: '000', plugin: 'foo', size: 6, responsive: [12, 12] },
+                  { id: '001', plugin: 'bar', size: 6, responsive: [12, 12] }
+                ]
+              }
+            ]
+          }]
         }
       },
-      a: () => actions.resizeCell({ id: '3' }, 4),
+      a: () => actions.resizeCell({ id: '000' }, 4),
       e: {
         editable: {
-          rows: [
-            {
-              id: '2',
-              ancestors: [],
-              hover: 'left',
-              cells: [
-                { id: '3', plugin: 'foo', ancestors: ['2'], rows: [], size: 4, bounds: { left: 0, right: 11 }, responsive: [12, 12] },
-                { id: '1', plugin: 'foo', ancestors: ['2'], rows: [], size: 8, bounds: { left: 11, right: 0 }, responsive: [12, 12] }
-              ]
-            }
-          ]
+          cells: cells([{
+            id: '0',
+            rows: rows([{
+              id: '00',
+              cells: [{
+                id: '000',
+                hover: null,
+                plugin: 'foo',
+                rows: [],
+                size: 4,
+                bounds: { left: 0, right: 11 },
+                responsive: [12, 12]
+              }, {
+                id: '001',
+                hover: null,
+                plugin: 'bar',
+                rows: [],
+                size: 8,
+                bounds: { left: 11, right: 0 },
+                responsive: [12, 12]
+              }]
+            }])
+          }])
         }
       }
     },
     {
-      d: 'cell hover',
+      d: 'cell hover row',
       s: defaultState,
-      a: () => actions.cellHoverLeftOf({ id: '' }, { id: '1' }, 1),
+      a: () => actions.cellHoverLeftOf({ id: '' }, { id: '000' }, 1),
       e: {
         editable: {
-          rows: [
-            {
-              id: '2',
-              ancestors: [],
+          cells: cells([{
+            id: '0',
+            rows: rows([{
+              id: '00',
               hover: 'left-of',
-              cells: [
-                {
-                  id: '1',
-                  plugin: 'foo',
-                  ancestors: ['2'],
-                  rows: [],
-                  hover: null,
-                  size: 12,
-                  bounds: { left: 0, right: 0 },
-                  responsive: [12, 12]
-                }
-              ]
-            }
-          ]
+              cells: cells([{ id: '000', plugin: 'foo' }])
+            }, {
+              id: '01',
+              cells: cells([{ id: '010', plugin: 'bar' }])
+            }])
+          }])
+        }
+      }
+    },
+    {
+      d: 'cell hover ancestor cell',
+      s: defaultState,
+      a: () => actions.cellHoverRightOf({ id: '' }, { id: '000' }, 2),
+      e: {
+        editable: {
+          cells: cells([{
+            id: '0',
+            hover: 'right-of',
+            rows: rows([{
+              id: '00',
+              cells: cells([{ id: '000', plugin: 'foo' }])
+            }, {
+              id: '01',
+              cells: cells([{ id: '010', plugin: 'bar' }])
+            }])
+          }])
+        }
+      }
+    },
+    {
+      d: 'cell insert right of cell',
+      s: defaultState,
+      a: () => actions.insertCellRightOf(insertCell, { id: '000' }, 0, ['i0', 'i00', 'i000', 'i0000', 'i00000']),
+      e: {
+        editable: {
+          cells: cells([{
+            id: '0',
+            rows: rows([{
+              id: '00',
+              cells: cells([{ id: 'i0', plugin: 'foo' }, { ...insertCell, id: 'i00' }])
+            }, {
+              id: '01',
+              cells: cells([{ id: '010', plugin: 'bar' }])
+            }])
+          }])
+        }
+      }
+    },
+    {
+      d: 'cell insert left of cell',
+      s: defaultState,
+      a: () => actions.insertCellLeftOf(insertCell, { id: '000' }, 0, ['i0', 'i00', 'i000', 'i0000', 'i00000']),
+      e: {
+        editable: {
+          cells: cells([{
+            id: '0',
+            rows: rows([{
+              id: '00',
+              cells: cells([{ ...insertCell, id: 'i0' }, { id: 'i00', plugin: 'foo' }])
+            }, {
+              id: '01',
+              cells: cells([{ id: '010', plugin: 'bar' }])
+            }])
+          }])
+        }
+      }
+    },
+    {
+      d: 'cell insert above cell',
+      s: defaultState,
+      a: () => actions.insertCellAbove(insertCell, { id: '000' }, 0, ['i0', 'i00', 'i000', 'i0000', 'i00000']),
+      e: {
+        editable: {
+          cells: cells([{
+            id: '0',
+            rows: rows([{
+              id: 'i00',
+              cells: cells([{ ...insertCell, id: 'i000' }])
+            }, {
+              id: 'i0000',
+              cells: cells([{ id: 'i00000', plugin: 'foo' }])
+            }, {
+              id: '01',
+              cells: cells([{ id: '010', plugin: 'bar' }])
+            }])
+          }])
+        }
+      }
+    },
+    {
+      d: 'cell insert below cell',
+      s: defaultState,
+      a: () => actions.insertCellBelow(insertCell, { id: '000' }, 0, ['i0', 'i00', 'i000', 'i0000', 'i00000']),
+      e: {
+        editable: {
+          cells: cells([{
+            id: '0',
+            rows: rows([{
+              id: 'i00',
+              cells: cells([{ id: 'i000', plugin: 'foo' }])
+            }, {
+              id: 'i0000',
+              cells: cells([{ ...insertCell, id: 'i00000' }])
+            }, {
+              id: '01',
+              cells: cells([{ id: '010', plugin: 'bar' }])
+            }])
+          }])
         }
       }
     }
