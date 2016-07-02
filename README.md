@@ -8,7 +8,6 @@ on important issues. Amaze authors with easy of use and control. Keep an ease of
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
-
 - [Introduction](#introduction)
 - [Quickstart](#quickstart)
 - [Contribute](#contribute)
@@ -53,20 +52,23 @@ const RemoteImage = ({ src, readOnly, onChange }) => readOnly
 If you are using npm, you can install the editor as follows:
 
 ```
-npm install ory-editor
+$ npm install --save ory-editor
 ```
 
-Depending on whether you use ECMAScript 6 or ECMAScript 5, the setup looks as follows:
+You can now run the editor using:
 
 ```js
-// ECMAScript 6
-import Editor from 'ory-editor';
-const editor = new Editor();
-
-// ECMAScript 5
 var Editor = require('ory-editor');
 var editor = new Editor();
 ```
+
+```js
+// Or if you're using ECMAScript 6 / ES6:
+import Editor from 'ory-editor';
+const editor = new Editor();
+```
+
+If you're using bower or not any package manager at all, check the [FAQ Section](#faq) for installation instructions.
 
 ## Contribute
 
