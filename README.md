@@ -5,6 +5,25 @@
 Build interactive, responsive content in minutes. Empower designers to enforce design. Let developers focus
 on important issues. Amaze authors with easy of use and control. Keep an ease of mind and let us worry about scaling.
 
+```
+
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+
+- [Introduction](#introduction)
+- [Contribute](#contribute)
+- [FAQ](#faq)
+  - [How can I run E2E tests using chrome?](#how-can-i-run-e2e-tests-using-chrome)
+  - [How can I install the editor using bower?](#how-can-i-install-the-editor-using-bower)
+  - [How can I install the editor using the CDN?](#how-can-i-install-the-editor-using-the-cdn)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
+-demo gif and url-
+
+## Introduction
+
 The Ory Content Toolchain is not another contenteditable hack. With state of the art browser technology, cloud native design, and well designed tooling,
 you can finally say goodbye to contenteditable hacks, html purifiers, steep learning curves and poorly designed plugin APIs.
 
@@ -28,22 +47,6 @@ const YellowAlertBox = (props) => (<div style={{ backgorundColor: 'yellow' }} {.
 const RemoteImage = ({ src, readOnly, onChange }) => readOnly
   ? <img src={src} />
   : <input type="text" onChange={onChange} value={src} />
-```
-
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-
-- [Demo](#demo)
-- [Quickstart](#quickstart)
-- [Contribute](#contribute)
-- [FAQ](#faq)
-  - [How can I run E2E tests using chrome?](#how-can-i-run-e2e-tests-using-chrome)
-  - [How can I install the editor using bower?](#how-can-i-install-the-editor-using-bower)
-  - [How can I install the editor using the CDN?](#how-can-i-install-the-editor-using-the-cdn)
-
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
-
-## Demo
 
 ## Quickstart
 
