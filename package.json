@@ -33,6 +33,7 @@
     "express": "4.14.0",
     "extract-text-webpack-plugin": "1.0.1",
     "html-webpack-plugin": "2.21.0",
+    "json-loader": "^0.5.4",
     "node-uuid": "^1.4.7",
     "ramda": "0.21.0",
     "react": "^15.1.0",

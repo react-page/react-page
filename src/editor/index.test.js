@@ -1,6 +1,6 @@
 /* eslint-env mocha */
 import unexpected from 'unexpected'
-import Editor from './editor'
+import Editor from './index'
 
 const expect = unexpected.clone()
 const editor = new Editor()

@@ -1,1 +1,1 @@
-export const editable = (id) => ({ editables = [] }) => editables.filter(({ id: current }) => current === id)
+export const editable = ({ editables = [] }) => (id) => editables.find(({ id: current }) => current === id)

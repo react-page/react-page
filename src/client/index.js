@@ -1,14 +1,15 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import Editor from 'src/editor'
 
 import './index.css'
+
+const editor = new Editor()
 
 const renderComponent = (component) => ReactDOM.render(component, document.getElementById('app'))
 
 let render = () => {
-  const App = require('src/editor/components/Editor').default
-
-  renderComponent(<App />)
+  editor.render(document.querySelectorAll('.editable'))
 }
 
 if (module.hot) {
@@ -26,7 +27,7 @@ if (module.hot) {
     }
   }
 
-  module.hot.accept('src/editor/components/Editor', () => {
+  module.hot.accept('src/editor/components/Editable', () => {
     setTimeout(render)
   })
 }

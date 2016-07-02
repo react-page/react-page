@@ -224,9 +224,9 @@ export const content = {
   }
 }
 
-export class DebugAdapter {
+export class DebugStorageAdapter {
   fetch(element) {
-    const id = element.dataset.editableId
+    const id = element.dataset.debugEditable
     return content[id] || null
   }
 

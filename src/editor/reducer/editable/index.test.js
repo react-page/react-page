@@ -66,7 +66,7 @@ describe('editor/reducer/editable', () => {
       e: {
         editable: {
           id: '1',
-          cells: cells([{ id: '2', plugin: 'foo', data: 'foo' }])
+          cells: cells([{ id: '2', plugin: 'foo', props: 'foo' }])
         }
       }
     },

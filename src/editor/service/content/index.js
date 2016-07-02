@@ -1,8 +1,9 @@
-import { LocalStoreAdapter } from './adapter/local'
+import { LocalStoreAdapter, DebugStorageAdapter } from './adapter'
 import uuid from 'node-uuid'
 import PluginService from 'src/editor/service/plugin'
 
 const localStorageAdapter = new LocalStoreAdapter()
+const debugStorageAdapter = new DebugStorageAdapter()
 const defaultPluginService = new PluginService()
 
 /**
@@ -33,7 +34,7 @@ class ContentService {
    * @param {[]} adapters
    * @param {PluginService} plugins
    */
-  constructor(adapters = [localStorageAdapter], plugins = defaultPluginService) {
+  constructor(adapters = [localStorageAdapter, debugStorageAdapter], plugins = defaultPluginService) {
     this.adapters = adapters
     this.plugins = plugins
 
@@ -52,12 +53,12 @@ class ContentService {
       const found = this.adapters.find((adapter) => adapter.fetch(domEntity))
 
       if (!found) {
-        console.warn('No content state found for DOM entity:', domEntity)
-        return res({ id: uuid.v4(), rows: [] })
+        console.error('No content state found for DOM entity:', domEntity)
+        return res({ id: uuid.v4(), cells: [] })
       }
 
-      const { rows = [], id = uuid.v4() } = found
-      return res({ ...found, id, rows: rows.map(hydrate) })
+      const { cells = [], id = uuid.v4() } = found
+      return res({ ...found, id, cells: cells.map(hydrate) })
     })
   }
 

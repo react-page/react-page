@@ -57,6 +57,9 @@ module.exports = {
     }, {
       test: /\.css$/,
       loaders: isProduction ? ExtractTextPlugin.extract('style', ['css']) : ['style', 'css']
+    }, {
+      test: /\.json$/,
+      loader: 'json'
     }]
   }
 }

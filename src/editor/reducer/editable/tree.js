@@ -41,7 +41,7 @@ export const cell = (state = {
     case CELL_UPDATE:
       if (action.id === state.id) {
         // If this cell is being updated, set the data
-        return { ...reduce(), data: action.data }
+        return { ...reduce(), props: action.props }
       }
       return reduce()
 

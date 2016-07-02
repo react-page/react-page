@@ -6,13 +6,13 @@ export const CELL_RESIZE = 'CELL_RESIZE'
  * Dispatch to update cell data.
  *
  * @param {{id: string}} id
- * @param {object} data
+ * @param {object} props
  * @return {object}
  */
-export const updateCell = ({ id } = {}, data = {}) => ({
+export const updateCell = ({ id } = {}, props = {}) => ({
   type: CELL_UPDATE,
   id,
-  data
+  props
 })
 
 /**
