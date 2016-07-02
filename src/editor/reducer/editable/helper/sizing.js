@@ -9,6 +9,14 @@ const MAX_CELLS_PER_ROW = 12
 export const sumSizes = (cells = []) => cells.reduce(({ size: p = 99 } = {}, { size: c = 99 }) => ({ size: p + c }), { size: 0 }).size
 
 /**
+ * Compute responsive classes for each cell
+ *
+ * @param {Array} cells
+ * @return {Array}
+ */
+export const computeResponsive = (cells = []) => cells.map((c) => ({ ...c, responsive: [12, 12] }))
+
+/**
  * Updates each cell's size boundaries.
  *
  * @param {[...cell]} cells

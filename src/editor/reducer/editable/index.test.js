@@ -46,7 +46,8 @@ describe('editor/reducer/editable', () => {
                   rows: [],
                   ancestors: ['2'],
                   size: 12,
-                  bounds: { left: 0, right: 0 }
+                  bounds: { left: 0, right: 0 },
+                  responsive: [12, 12]
                 }
               ]
             }
@@ -72,7 +73,7 @@ describe('editor/reducer/editable', () => {
             {
               id: '2',
               cells: [
-                { id: '1', plugin: 'foo', ancestors: ['2'], hover: true, size: 12, bounds: { left: 0, right: 0 } }
+                { id: '1', plugin: 'foo', ancestors: ['2'], hover: true, size: 12, bounds: { left: 0, right: 0 }, responsive: [12, 12] }
               ]
             }
           ]
@@ -94,7 +95,8 @@ describe('editor/reducer/editable', () => {
                   rows: [],
                   hover: null,
                   size: 12,
-                  bounds: { left: 0, right: 0 }
+                  bounds: { left: 0, right: 0 },
+                  responsive: [12, 12]
                 }
               ]
             }
@@ -112,8 +114,8 @@ describe('editor/reducer/editable', () => {
               ancestors: [],
               hover: 'left',
               cells: [
-                { id: '3', plugin: 'foo', ancestors: ['2'], rows: [], size: 6 },
-                { id: '1', plugin: 'foo', ancestors: ['2'], rows: [], size: 6 }
+                { id: '3', plugin: 'foo', ancestors: ['2'], rows: [], size: 6, responsive: [12, 12] },
+                { id: '1', plugin: 'foo', ancestors: ['2'], rows: [], size: 6, responsive: [12, 12] }
               ]
             }
           ]
@@ -128,8 +130,8 @@ describe('editor/reducer/editable', () => {
               ancestors: [],
               hover: 'left',
               cells: [
-                { id: '3', plugin: 'foo', ancestors: ['2'], rows: [], size: 4, bounds: { left: 0, right: 11 } },
-                { id: '1', plugin: 'foo', ancestors: ['2'], rows: [], size: 8, bounds: { left: 11, right: 0 } }
+                { id: '3', plugin: 'foo', ancestors: ['2'], rows: [], size: 4, bounds: { left: 0, right: 11 }, responsive: [12, 12] },
+                { id: '1', plugin: 'foo', ancestors: ['2'], rows: [], size: 8, bounds: { left: 11, right: 0 }, responsive: [12, 12] }
               ]
             }
           ]
@@ -155,7 +157,8 @@ describe('editor/reducer/editable', () => {
                   rows: [],
                   hover: null,
                   size: 12,
-                  bounds: { left: 0, right: 0 }
+                  bounds: { left: 0, right: 0 },
+                  responsive: [12, 12]
                 }
               ]
             }

@@ -10,7 +10,7 @@ CELL_RESIZE
 } from 'src/editor/actions/cell'
 import { optimizeCell, optimizeRow, optimizeRows, optimizeCells } from './helper/optimize'
 import { isHoveringThis } from './helper/hover'
-import { computeSizes, computeBounds, resizeCells } from './helper/sizing'
+import { computeSizes, computeBounds, resizeCells, computeResponsive } from './helper/sizing'
 
 const inner = (cb, action, ancestors) => (state) => cb(state, action, ancestors)
 
@@ -25,18 +25,22 @@ export const cell = (state = {
 
   switch (action.type) {
     case CELL_DRAG_CANCEL:
+      // If cell drag is canceled, remove all hover
       return { ...reduce(), hover: null }
 
     case CELL_UPDATE:
       if (action.id === state.id) {
-        return { ...(reduce()), data: action.data }
+        // If this cell is being updated, set the data
+        return { ...reduce(), data: action.data }
       }
       return reduce()
 
     case CELL_DRAG_HOVER:
       if (isHoveringThis(state, action)) {
+        // if this is the cell we're hovering, set the hover attribute
         return { ...reduce(), hover: action.position }
       }
+      // or remove it if not
       return { ...reduce(), hover: null }
 
     default:
@@ -44,7 +48,7 @@ export const cell = (state = {
   }
 })(state, action, ancestors))
 
-export const cells = (state = [], action, ancestors) => computeBounds(computeSizes(optimizeCells(((state, action, ancestors) => {
+export const cells = (state = [], action, ancestors) => computeResponsive(computeBounds(computeSizes(optimizeCells(((state, action, ancestors) => {
   switch (action.type) {
     case CELL_RESIZE:
       return resizeCells(state.map(inner(cell, action, ancestors)), action)
@@ -55,7 +59,7 @@ export const cells = (state = [], action, ancestors) => computeBounds(computeSiz
     default:
       return state.map(inner(cell, action, ancestors))
   }
-})(state, action, ancestors))))
+})(state, action, ancestors)))))
 
 export const row = (state = {
   id: null,
