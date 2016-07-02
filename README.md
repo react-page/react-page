@@ -1,4 +1,4 @@
-![Ory editor](logo.png)
+# ![Ory editor](logo.png)
 
 [![Build Status](https://travis-ci.com/ory-am/editor.svg?token=gtodfPz6nLDS6xphYxdJ&branch=master)](https://travis-ci.com/ory-am/editor)
 
