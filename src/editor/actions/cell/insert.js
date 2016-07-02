@@ -1,3 +1,5 @@
+import uuid from 'node-uuid'
+
 export const CELL_INSERT_ABOVE = 'CELL_INSERT_ABOVE'
 export const CELL_INSERT_BELOW = 'CELL_INSERT_BELOW'
 export const CELL_INSERT_LEFT_OF = 'CELL_INSERT_LEFT_OF'
@@ -5,11 +7,14 @@ export const CELL_INSERT_RIGHT_OF = 'CELL_INSERT_RIGHT_OF'
 export const CELL_INSERT_INLINE_LEFT = 'CELL_INSERT_INLINE_LEFT'
 export const CELL_INSERT_INLINE_RIGHT = 'CELL_INSERT_INLINE_RIGHT'
 
-const hover = (type) => ({ id: drag } = {}, { id: hover } = {}, level = 0) => ({
+const ids = (c = 1) => (new Array(c)).map(() => uuid.v4())
+
+const hover = (type, ids) => ({ id: drag } = {}, { id: hover } = {}, level = 0) => ({
   type,
   drag,
   hover,
-  level
+  level,
+  ids
 })
 
 /**
@@ -20,7 +25,7 @@ const hover = (type) => ({ id: drag } = {}, { id: hover } = {}, level = 0) => ({
  * @param {number} level
  * @return {Object}
  */
-export const insertCellBelow = hover(CELL_INSERT_BELOW)
+export const insertCellBelow = hover(CELL_INSERT_BELOW, ids(3))
 
 /**
  * Insert a cell above the active element
@@ -30,7 +35,7 @@ export const insertCellBelow = hover(CELL_INSERT_BELOW)
  * @param {number} level
  * @return {Object}
  */
-export const insertCellAbove = hover(CELL_INSERT_ABOVE)
+export const insertCellAbove = hover(CELL_INSERT_ABOVE, ids(3))
 
 /**
  * Insert a cell right of the active element
@@ -40,7 +45,7 @@ export const insertCellAbove = hover(CELL_INSERT_ABOVE)
  * @param {number} level
  * @return {Object}
  */
-export const insertCellRightOf = hover(CELL_INSERT_RIGHT_OF)
+export const insertCellRightOf = hover(CELL_INSERT_RIGHT_OF, ids(2))
 
 /**
  * Insert a cell left of the active element
@@ -50,7 +55,7 @@ export const insertCellRightOf = hover(CELL_INSERT_RIGHT_OF)
  * @param {number} level
  * @return {Object}
  */
-export const insertCellLeftOf = hover(CELL_INSERT_LEFT_OF)
+export const insertCellLeftOf = hover(CELL_INSERT_LEFT_OF, ids(2))
 
 /**
  * Insert a cell left inside the active element
@@ -60,7 +65,7 @@ export const insertCellLeftOf = hover(CELL_INSERT_LEFT_OF)
  * @param {number} level
  * @return {Object}
  */
-export const insertCellLeftInline = hover(CELL_INSERT_INLINE_LEFT)
+export const insertCellLeftInline = hover(CELL_INSERT_INLINE_LEFT, ids(2))
 
 /**
  * Insert a cell right inside the active element
@@ -70,4 +75,4 @@ export const insertCellLeftInline = hover(CELL_INSERT_INLINE_LEFT)
  * @param {number} level
  * @return {Object}
  */
-export const insertCellRightInline = hover(CELL_INSERT_INLINE_RIGHT)
+export const insertCellRightInline = hover(CELL_INSERT_INLINE_RIGHT, ids(2))
