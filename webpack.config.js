@@ -12,6 +12,11 @@ const createEnvAwareArray = R.reject(R.isNil)
 const ifProduction = (x) => isProduction ? x : null
 const ifDevelopment = (x) => isDevelopment ? x : null
 
+const cssLoaders = [
+  'css?modules&importLoaders=1&localIdentName=[path]___[name]__[local]___[hash:base64:5]',
+  'postcss'
+]
+
 module.exports = {
   entry: createEnvAwareArray([
     ifDevelopment('webpack-hot-middleware/client'),
@@ -58,8 +63,8 @@ module.exports = {
     }, {
       test: /\.css$/,
       loaders: isProduction
-        ? ExtractTextPlugin.extract('style', ['css', 'postcss'])
-        : ['style', 'css', 'postcss']
+        ? ExtractTextPlugin.extract('style', cssLoaders)
+        : ['style', ...cssLoaders]
     }, {
       test: /\.json$/,
       loader: 'json'

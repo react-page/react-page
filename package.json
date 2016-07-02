@@ -39,6 +39,7 @@
     "postcss-loader": "0.9.1",
     "ramda": "0.21.0",
     "react": "^15.1.0",
+    "react-css-modules": "3.7.6",
     "react-dom": "^15.1.0",
     "react-redux": "^4.4.5",
     "redux": "^3.5.2",
