@@ -1,3 +1,4 @@
+const autoprefixer = require('autoprefixer')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const path = require('path')
@@ -56,10 +57,15 @@ module.exports = {
       }
     }, {
       test: /\.css$/,
-      loaders: isProduction ? ExtractTextPlugin.extract('style', ['css']) : ['style', 'css']
+      loaders: isProduction
+        ? ExtractTextPlugin.extract('style', ['css', 'postcss'])
+        : ['style', 'css', 'postcss']
     }, {
       test: /\.json$/,
       loader: 'json'
     }]
+  },
+  postcss() {
+    return [autoprefixer]
   }
 }
