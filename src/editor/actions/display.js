@@ -6,12 +6,13 @@ export const DISPLAY_MODE_LAYOUT = 'layout'
 export const DISPLAY_MODE_EDIT = 'edit'
 export const DISPLAY_MODE_INSERT = 'insert'
 export const DISPLAY_MODE_RESIZING = 'resizing'
-export const DEFAULT_DISPLAY_MODE = DISPLAY_MODE_PREVIEW
+export const DEFAULT_DISPLAY_MODE = DISPLAY_MODE_RESIZING
 
-const setDisplayMode = (mode) => () => ({
+const setDisplayMode = (mode, remember = true) => () => ({
   type: SET_DISPLAY_MODE,
   ts: new Date(),
-  mode
+  mode,
+  remember
 })
 
 export const insertMode = setDisplayMode(DISPLAY_MODE_INSERT)
@@ -22,6 +23,6 @@ export const previewMode = setDisplayMode(DISPLAY_MODE_PREVIEW)
 
 export const layoutMode = setDisplayMode(DISPLAY_MODE_LAYOUT)
 
-export const resizeMode = setDisplayMode(DISPLAY_MODE_RESIZING)
+export const resizeMode = setDisplayMode(DISPLAY_MODE_RESIZING, false)
 
 export const previousMode = (fallback) => ({ type: SET_PREVIOUS_DISPLAY_MODE, fallback })

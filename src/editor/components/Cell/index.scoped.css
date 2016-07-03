@@ -1,0 +1,12 @@
+:global .inline-left {
+  float: left;
+}
+
+:global .has-inline-neighbour {
+  float: none;
+  width: 100%;
+}
+
+:global .inline-right {
+  float: right;
+}

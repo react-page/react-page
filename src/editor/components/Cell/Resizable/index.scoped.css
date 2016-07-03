@@ -2,9 +2,17 @@
   position: relative;
 }
 
+.inline-left {
+  composes: resizable;
+}
+
+.inline-right {
+  composes: resizable;
+}
+
 .resizable :global .react-resizable-handle {
   position: absolute;
-  z-index: 1;
+  z-index: 2;
   width: 8px;
   top: 0;
   bottom: 0;
@@ -12,6 +20,10 @@
   padding: 0 3px 3px 0;
   box-sizing: border-box;
   cursor: e-resize;
+}
+
+.inline-right :global .react-resizable-handle {
+  left: -4px;
 }
 
 .resizable :global .is-resizing > .react-resizable-handle,

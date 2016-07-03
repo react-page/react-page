@@ -5,8 +5,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import cssModules from 'react-css-modules'
 import { createStructuredSelector } from 'reselect'
-import { resizeMode, previousMode, DISPLAY_MODE_EDIT } from 'src/editor/actions/display'
-import { isEditMode, isResizeMode } from 'src/editor/selector/display'
+import { resizeMode, editMode } from 'src/editor/actions/display'
 import styles from './index.scoped.css'
 
 const computeStepWidth = ({ rowWidth, steps = 12 }) => Math.round(rowWidth / steps)
@@ -28,7 +27,7 @@ class Resizable extends React.Component {
   }
 
   componentWillReceiveProps() {
-    const width = this.state.size * this.stepWidth
+    const width = this.props.cellWidth * this.stepWidth
     if (width !== this.state.width) {
       this.setState({ width })
     }
@@ -40,12 +39,16 @@ class Resizable extends React.Component {
   }
 
   onResizeStop() {
-    this.props.previousMode(DISPLAY_MODE_EDIT)
+    this.props.editMode()
     this.setState({ isResizing: false })
   }
 
   onResize(event, { size: result }) {
     let size = Math.round(result.width / this.stepWidth)
+    if (this.props.inline === 'right') {
+      size = this.props.steps - size
+    }
+
     if (size >= this.maxSteps) {
       size = this.maxSteps
     } else if (size < 1) {
@@ -61,15 +64,11 @@ class Resizable extends React.Component {
   }
 
   render() {
-    const { bounds, isResizeMode, isEditMode, resizable, children } = this.props
-
-    if (!(isResizeMode || isEditMode) || !resizable) {
-      return <div children={children} />
-    }
+    const { bounds, children, inline } = this.props
 
     return (
       <ReactResizeable
-        styleName="resizable"
+        styleName={`resizable${inline ? ` inline-${inline}` : ''}`}
         className={this.state.isResizing ? ' is-resizing' : ''}
         onResize={this.onResize}
         width={this.state.width}
@@ -87,9 +86,9 @@ class Resizable extends React.Component {
 Resizable.propTypes = {
   containerWidth: PropTypes.number.isRequired,
   children: PropTypes.array.isRequired,
-  resizable: PropTypes.bool.isRequired,
 
   steps: PropTypes.number,
+  inline: PropTypes.string,
   cellWidth: PropTypes.number.isRequired,
   rowWidth: PropTypes.number.isRequired,
 
@@ -97,20 +96,14 @@ Resizable.propTypes = {
 
   onChange: PropTypes.func.isRequired,
 
-  previousMode: PropTypes.func.isRequired,
   resizeMode: PropTypes.func.isRequired,
-
-  isResizeMode: PropTypes.bool.isRequired,
-  isEditMode: PropTypes.bool.isRequired
+  editMode: PropTypes.func.isRequired
 }
 
-const mapStateToProps = createStructuredSelector({
-  isEditMode,
-  isResizeMode
-})
+const mapStateToProps = createStructuredSelector({})
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
-  resizeMode, previousMode
+  resizeMode, editMode
 }, dispatch)
 
 export default dimensions()(connect(mapStateToProps, mapDispatchToProps)(cssModules(Resizable, styles, { allowMultiple: true })))

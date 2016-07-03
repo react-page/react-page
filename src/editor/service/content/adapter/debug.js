@@ -66,6 +66,12 @@ export const content = {
                 cells: [{
                   rows: [{
                     cells: [{
+                      inline: 'left',
+                      plugin: { name: 'ory/content/image' },
+                      props: {
+                        src: 'https://static01.nyt.com/images/2016/06/16/world/16England-web2/16England-web2-master675.jpg'
+                      }
+                    }, {
                       plugin: { name: 'ory/content/draft-js' },
                       props: {
                         importFromHtml: 'If Britain votes to leave, it will be in large part because of strong anti-Europe sentiment in much of England, the heart of the movement to divorce Britain from the Continent. Pollsters and analysts say that while Scotland and Northern Ireland are expected to vote overwhelmingly to stay in the bloc, England, far more populous, is likely to go the other way, reflecting a broad and often bluntly expressed view that English identity and values are being washed away by subordination to the bureaucrats of Brussels.'
@@ -74,12 +80,6 @@ export const content = {
                   }]
                 }]
               }]
-            }, {
-              inline: 'right',
-              plugin: { name: 'ory/content/image' },
-              props: {
-                src: 'https://static01.nyt.com/images/2016/06/16/world/16England-web2/16England-web2-master675.jpg'
-              }
             }]
           }]
         }]

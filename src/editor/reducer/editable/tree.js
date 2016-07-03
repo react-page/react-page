@@ -14,7 +14,7 @@ import {
 } from 'src/editor/actions/cell'
 import { optimizeCell, optimizeRow, optimizeRows, optimizeCells, flatten } from './helper/optimize'
 import { isHoveringThis } from './helper/hover'
-import { computeSizes, computeBounds, resizeCells, computeResponsive, computeResizeable } from './helper/sizing'
+import { computeSizes, computeInlines, computeBounds, resizeCells, computeResponsive, computeResizeable } from './helper/sizing'
 
 const inner = (cb, action) => (state) => cb(state, action)
 
@@ -23,7 +23,7 @@ export const cell = (state = {
   hover: null,
   responsive: [],
   size: 0,
-  inline: false,
+  inline: null,
   bounds: { left: 0, right: 0 },
   rows: []
 }, action) => optimizeCell(((state, action) => {
@@ -90,7 +90,7 @@ export const cell = (state = {
   }
 })(state, action))
 
-export const cells = (state = [], action) => computeResizeable(computeResponsive(computeBounds(computeSizes(optimizeCells(((state, action) => {
+export const cells = (state = [], action) => computeInlines(computeResizeable(computeResponsive(computeBounds(computeSizes(optimizeCells(((state, action) => {
   switch (action.type) {
     case CELL_RESIZE:
       return resizeCells(state.map(inner(cell, action)), action)
@@ -114,7 +114,7 @@ export const cells = (state = [], action) => computeResizeable(computeResponsive
     case CELL_INSERT_INLINE_RIGHT:
     case CELL_INSERT_INLINE_LEFT:
       return state.map((c) => isHoveringThis(c, action)
-        ? [...state.map((s) => ({ ...s, inline: false })),
+        ? [...state.map((s) => ({ ...s, inline: null })),
           {
             ...(action.item),
             inline: action.type === CELL_INSERT_INLINE_RIGHT ? 'right' : 'left',
@@ -129,7 +129,7 @@ export const cells = (state = [], action) => computeResizeable(computeResponsive
     default:
       return state.map(inner(cell, action))
   }
-})(state, action))))))
+})(state, action)))))))
 
 export const row = (state = {
   id: null,

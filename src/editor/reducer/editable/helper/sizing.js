@@ -6,7 +6,7 @@ const MAX_CELLS_PER_ROW = 12
  * @param {[...cell]} cells
  * @return {number} total size.
  */
-export const sumSizes = (cells = []) => cells.reduce(({ size: p = 99 } = {}, { size: c = 99 }) => ({ size: p + c }), { size: 0 }).size
+export const sumSizes = (cells = []) => cells.reduce(({ size: p = 99, inline: a = false } = {}, { size: c = 99, inline: b = false }) => ({ size: (!Boolean(a) * p) + (!Boolean(b) * c) }), { size: 0 }).size
 
 /**
  * Compute responsive classes for each cell
@@ -42,6 +42,24 @@ export const computeResizeable = (cells = []) => cells.map((c, k) => ({
 }))
 
 /**
+ * Computes sizes an inline element was found
+ *
+ * @param {[...cell]} cells
+ * @@return {[...cell]}
+ */
+export const computeInlines = (cells = []) => {
+  if (cells.length !== 2 || !cells[0].inline) {
+    return cells.map((c) => ({ ...c, inline: null }))
+  }
+
+  return [{
+    ...cells[0], resizable: true, bounds: { left: 11, right: 11 }
+  }, {
+    ...cells[1], bounds: { left: 0, right: 0 }, size: 12, hasInlineNeighbour: true
+  }]
+}
+
+/**
  * Resize cells.
  *
  * @param {[]} cells
@@ -58,7 +76,9 @@ export const resizeCells = (cells = [], { id, size }) => {
       prev = 0
       return ret
     } else if (id === c.id) {
-      prev = c.size
+      if (!c.inline) {
+        prev = c.size
+      }
       return { ...c, size }
     }
     return c
