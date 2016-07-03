@@ -1,8 +1,7 @@
 import React, { PropTypes } from 'react'
 import Cell from 'src/editor/components/Cell'
 import cssModules from 'react-css-modules'
-
-import styles from 'src/editor/styles/grid.css'
+import styles from 'src/editor/styles/grid.scoped.css'
 
 const Row = ({ cells = [] }) => (
   <div styleName="row">

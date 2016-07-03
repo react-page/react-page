@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import cssModules from 'react-css-modules'
 
-import styles from './index.css'
+import styles from './index.scoped.css'
 
 const Image = ({ src }) => (
   <div styleName="box">

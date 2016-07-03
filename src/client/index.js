@@ -9,6 +9,7 @@ const editor = new Editor()
 const renderComponent = (component) => ReactDOM.render(component, document.getElementById('app'))
 
 let render = () => {
+  editor.toolbar()
   editor.render(document.querySelectorAll('.editable'))
 }
 

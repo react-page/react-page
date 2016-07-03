@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react'
 import cssModules from 'react-css-modules'
 
-import styles from './index.css'
+import styles from './index.scoped.css'
 
 const Empty = ({ id = 'no id given', plugin, props = {} }) => <div styleName="empty">
   <strong>An error occurred!</strong>

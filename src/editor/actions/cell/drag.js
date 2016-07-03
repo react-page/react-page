@@ -14,6 +14,7 @@ export const CELL_DRAG_CANCEL = 'CELL_DRAG_CANCEL'
  */
 export const cellHover = ({ id: drag } = {}, { id: hover } = {}, level = 0, position) => ({
   type: CELL_DRAG_HOVER,
+  ts: new Date(),
   drag,
   hover,
   level,
@@ -34,6 +35,7 @@ export const cellHoverInlineRight = (drag, hover, level) => cellHover(drag, hove
  */
 export const dragCell = ({ id } = {}) => ({
   type: CELL_DRAG,
+  ts: new Date(),
   id
 })
 
@@ -44,5 +46,6 @@ export const dragCell = ({ id } = {}) => ({
  */
 export const cancelCellDrag = ({ id } = {}) => ({
   type: CELL_DRAG_CANCEL,
+  ts: new Date(),
   id
 })

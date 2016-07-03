@@ -136,6 +136,7 @@ export const row = (state = {
   hover: null,
   cells: []
 }, action) => optimizeRow(((state, action) => {
+
   const reduce = () => ({
     ...state,
     hover: null,

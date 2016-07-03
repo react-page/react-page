@@ -1,7 +1,3 @@
-.spacer {
-  border: 1px dashed rgba(0, 0, 0, .6);
-}
-
 :global .react-resizable {
   position: relative;
 }
@@ -19,4 +15,13 @@
   background-origin: content-box;
   box-sizing: border-box;
   cursor: se-resize;
+}
+
+.spacer {
+  border: 1px dashed rgba(0, 0, 0, .6);
+}
+
+.read-only {
+  composes: spacer;
+  border: none;
 }

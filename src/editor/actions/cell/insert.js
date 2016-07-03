@@ -11,6 +11,7 @@ const gen = (c = 1) => (new Array(c)).map(() => uuid.v4())
 
 const insert = (type) => (item, { id: hover } = {}, level = 0, ids = []) => ({
   type,
+  ts: new Date(),
   item,
   hover,
   level,

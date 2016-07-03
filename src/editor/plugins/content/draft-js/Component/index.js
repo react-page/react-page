@@ -1,26 +1,27 @@
 import React, { Component, PropTypes } from 'react'
-import { Editor, RichUtils, EditorState } from 'draft-js'
+import { Editor, RichUtils } from 'draft-js'
 import blockRenderer from './blockRenderer'
+import { toEditorState, fromEditorState } from './helper/content'
+import debounce from 'lodash.debounce'
+import 'draft-js/dist/Draft.css'
 
-// import 'draft-js/dist/Draft.css'
-
-export const RenderView = ({ id, height }) => (
-  <div>content</div>
-)
+const fire = debounce(({ data, onChange }) => onChange(data), 1000, { leading: false })
 
 class EditView extends Component {
   constructor(props) {
     super(props)
 
+    this.state = { editorState: toEditorState(props) }
     this.readOnly = () => this.refs.editor.readOnly()
-
+    this.onChange = this.onChange.bind(this)
     this.handleKeyCommand = (command) => {
-      const { editorState, onChange } = this.props
-
+      const { onChange, editorState } = this.props
       const newState = RichUtils.handleKeyCommand(editorState, command)
 
       if (newState) {
-        onChange({ editorState: newState })
+        this.setState({ editorState: newState })
+
+        fire({ onChange, data: { editorState: newState } })
         return true
       }
 
@@ -28,21 +29,24 @@ class EditView extends Component {
     }
   }
 
+  onChange(editorState) {
+    const { onChange } = this.props
+    this.setState({ editorState })
+    fire({ onChange, data: { editorState } })
+  }
+
   render() {
-    const {
-      editorState = EditorState.createEmpty(),
-      onChange,
-      readOnly
-    } = this.props
+    const { readOnly } = this.props
+    const { editorState } = this.state
 
     return (
       <div>
         <Editor blockRendererFn={blockRenderer}
                 editorState={editorState}
                 handleKeyCommand={this.handleKeyCommand}
-                onChange={onChange}
-                placeholder="Tell your story..."
+                onChange={this.onChange}
                 readOnly={readOnly}
+                placeholder="Tell your story..."
                 ref="editor" />
       </div>
     )

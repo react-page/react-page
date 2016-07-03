@@ -4,8 +4,7 @@ import { editable } from 'src/editor/selector/editable'
 import { connect } from 'react-redux'
 import cssModules from 'react-css-modules'
 import { createStructuredSelector } from 'reselect'
-
-import styles from 'src/editor/styles/grid.css'
+import styles from 'src/editor/styles/grid.scoped.css'
 
 const Editable = ({ id, editable }) => {
   const state = editable(id)

@@ -1,8 +1,8 @@
 import React, { PropTypes } from 'react'
 import cssModules from 'react-css-modules'
 import Inner from './inner'
+import styles from 'src/editor/styles/grid.scoped.css'
 
-import styles from 'src/editor/styles/grid.css'
 
 const Cell = ({ size = 12, ...props }) => <div styleName={`cell-sm-${size}`}><Inner {...{ ...props, styles: null }} /></div>
 

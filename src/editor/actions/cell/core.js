@@ -11,6 +11,7 @@ export const CELL_RESIZE = 'CELL_RESIZE'
  */
 export const updateCell = ({ id } = {}, props = {}) => ({
   type: CELL_UPDATE,
+  ts: new Date(),
   id,
   props
 })
@@ -23,6 +24,7 @@ export const updateCell = ({ id } = {}, props = {}) => ({
  */
 export const removeCell = ({ id } = {}) => ({
   type: CELL_REMOVE,
+  ts: new Date(),
   id
 })
 
@@ -35,6 +37,7 @@ export const removeCell = ({ id } = {}) => ({
  */
 export const resizeCell = ({ id } = {}, size = 1) => ({
   type: CELL_RESIZE,
+  ts: new Date(),
   id,
   size
 })

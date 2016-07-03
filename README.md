@@ -148,3 +148,7 @@ class Plugin extends Component {
   // render() {}
 }
 ```
+
+### My plugin has problems handling server side state update
+
+This happens when you are using an internal state that does not update on property changes.

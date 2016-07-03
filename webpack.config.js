@@ -24,6 +24,11 @@ const cssLoaders = [
   'postcss'
 ]
 
+const cssGlobalLoaders = [
+  'css',
+  'postcss'
+]
+
 module.exports = {
   // entry :: [a]
   // Used entry files
@@ -76,11 +81,18 @@ module.exports = {
         ]
       }
     }, {
-      test: /\.css$/,
+      test: /\.scoped\.css$/,
       // Use ExtractTextPlugin only in production for HMR
       loaders: isProduction
         ? ExtractTextPlugin.extract('style', cssLoaders)
         : ['style', ...cssLoaders]
+    }, {
+      test: /\.css$/,
+      exclude: /\.scoped.css$/,
+      // Use ExtractTextPlugin only in production for HMR
+      loaders: isProduction
+        ? ExtractTextPlugin.extract('style', cssGlobalLoaders)
+        : ['style', ...cssGlobalLoaders]
     }, {
       test: /\.json$/,
       loader: 'json'

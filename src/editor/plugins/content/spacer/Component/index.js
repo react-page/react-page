@@ -3,11 +3,19 @@ import cssModules from 'react-css-modules'
 import debounce from 'lodash.debounce'
 import { ResizableBox } from 'react-resizable'
 
-import styles from './index.css'
+import styles from './index.scoped.css'
 
 const compute = ({ height }) => ({ height: height > 24 ? height : 24 })
 
 const fire = debounce(({ state, onChange }) => onChange(state), 1000, { leading: false })
+
+const Solid = ({height}) => <div style={{height}}/>
+
+const Resizable = ({onResize, height}) => (
+  <ResizableBox onResize={onResize} height={height}>
+    <div />
+  </ResizableBox>
+)
 
 class Spacer extends Component {
   constructor(props) {
@@ -25,11 +33,12 @@ class Spacer extends Component {
   }
 
   render() {
+    const { readOnly } = this.props
     return (
-      <div styleName="spacer">
-        <ResizableBox onResize={this.onResize} height={this.state.height}>
-          <div />
-        </ResizableBox>
+      <div styleName={`spacer${readOnly ? ' read-only' : ''}`}>
+        {readOnly
+          ? <Solid height={this.state.height} />
+          : <Resizable onResize={this.onResize} height={this.state.height} />}
       </div>
     )
   }
@@ -37,7 +46,8 @@ class Spacer extends Component {
 
 Spacer.propTypes = {
   onChange: PropTypes.func.isRequired,
-  height: PropTypes.number
+  height: PropTypes.number,
+  readOnly: PropTypes.bool.isRequired
 }
 
-export default cssModules(Spacer, styles)
+export default cssModules(Spacer, styles, { allowMultiple: true })

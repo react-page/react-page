@@ -2,11 +2,18 @@ import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { updateCell } from 'src/editor/actions/cell'
+import { isEditMode, isLayoutMode, isPreviewMode } from 'src/editor/selector/display'
+import { createStructuredSelector } from 'reselect'
 
 const fallback = (...args) => console.error('onChange callback is missing', ...args)
 
-const Content = ({ id, plugin: { Component }, props = {}, updateCell = fallback }) => (
-  <Component {...props} onChange={(state) => updateCell({ id }, state)} />
+const onChange = (id, cb) => (state) => cb({ id }, state)
+
+const Content = ({ isEditMode, id, plugin: { Component }, props = {}, updateCell = fallback }) => (
+  <Component
+    {...props}
+    readOnly={!isEditMode}
+    onChange={onChange(id, updateCell)} />
 )
 
 Content.propTypes = {
@@ -15,10 +22,13 @@ Content.propTypes = {
   }).isRequired,
   id: PropTypes.string.isRequired,
   props: PropTypes.object.isRequired,
-  updateCell: PropTypes.func.isRequired
+  updateCell: PropTypes.func.isRequired,
+  isEditMode: PropTypes.bool.isRequired,
+  isLayoutMode: PropTypes.bool.isRequired,
+  isPreviewMode: PropTypes.bool.isRequired
 }
 
-const mapStateToProps = () => ({})
+const mapStateToProps = createStructuredSelector({ isEditMode, isLayoutMode, isPreviewMode })
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
   updateCell

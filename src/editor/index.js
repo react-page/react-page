@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
 import { forEach } from 'ramda'
 import Editable from 'src/editor/components/Editable'
+import Toolbar from 'src/editor/components/Toolbar'
 import createStore from './store'
 import { updateEditable } from 'src/editor/actions/editables'
 import ContentService from 'src/editor/service/content'
@@ -14,7 +15,7 @@ import ContentService from 'src/editor/service/content'
 let instance
 
 class Editor {
-  constructor(options = {}) {
+  constructor() {
     if (instance) {
       throw new Error('Only one instance of Editor is allowed')
     }
@@ -22,7 +23,20 @@ class Editor {
     instance = this
     this.store = createStore({ editables: [] })
     this.content = new ContentService()
-    this.options = { ...options }
+  }
+
+  toolbar(toolbarHandle) {
+    let toolbar = toolbarHandle
+    if (!toolbar) {
+      toolbar = document.createElement('div')
+      document.body.appendChild(toolbar)
+    }
+
+    ReactDOM.render((
+      <Provider store={this.store}>
+        <Toolbar/>
+      </Provider >
+    ), toolbar)
   }
 
   render(editables) {
