@@ -19,7 +19,7 @@
     "postinstall": "npm run build"
   },
   "engine": {
-    "node": "v.6.2.0",
+    "node": "v6.2.0",
     "npm": "3.8.9"
   }
   "author": "",
