@@ -34,12 +34,12 @@ class Resizable extends React.Component {
   }
 
   onResizeStart() {
-    this.props.resizeMode()
+    // this.props.resizeMode()
     this.setState({ isResizing: true })
   }
 
   onResizeStop() {
-    this.props.editMode()
+    // this.props.editMode()
     this.setState({ isResizing: false })
   }
 
@@ -69,7 +69,7 @@ class Resizable extends React.Component {
     return (
       <ReactResizeable
         styleName={`resizable${inline ? ` inline-${inline}` : ''}`}
-        className={this.state.isResizing ? ' is-resizing' : ''}
+        className={`resizable-cell${this.state.isResizing ? ' is-resizing' : ''}`}
         onResize={this.onResize}
         width={this.state.width}
         onResizeStart={this.onResizeStart}

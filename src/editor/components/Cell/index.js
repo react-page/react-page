@@ -3,7 +3,7 @@ import cssModules from 'react-css-modules'
 import Inner from './inner'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { isPreviewMode, isEditMode, isResizeMode } from 'src/editor/selector/display'
+import { isPreviewMode, isEditMode, isResizeMode, isLayoutMode } from 'src/editor/selector/display'
 import { createStructuredSelector } from 'reselect'
 import Resizable from './Resizable'
 import dimensions from 'react-dimensions'
@@ -17,7 +17,7 @@ const resize = ({ resizeCell, id }) => (width) => resizeCell({ id }, width)
 
 const Cell = (props) => (
   <div className={`${props.hasInlineNeighbour ? 'has-inline-neighbour' : ''}${props.inline ? ` inline-${props.inline}` : ''}`} styleName={gridClass(props)}>
-    {props.resizable && (props.isResizeMode || props.isEditMode)
+    {props.resizable && (props.isResizeMode || props.isLayoutMode)
       ? (
       <Resizable rowWidth={props.containerWidth}
                  cellWidth={props.size}
@@ -48,11 +48,12 @@ Cell.propTypes = {
   resizeCell: PropTypes.func.isRequired,
   hasInlineNeighbour: PropTypes.bool,
   isResizeMode: PropTypes.bool.isRequired,
+  isLayoutMode: PropTypes.bool.isRequired,
   isEditMode: PropTypes.bool.isRequired
 }
 
 const mapStateToProps = createStructuredSelector({
-  isPreviewMode, isEditMode, isResizeMode
+  isPreviewMode, isEditMode, isResizeMode, isLayoutMode
 })
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({

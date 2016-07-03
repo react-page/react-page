@@ -7,7 +7,8 @@
   border: none;
 }
 
-.spacer :global .react-resizable-handle {
+:global .editable-spacer > .react-resizable > .react-resizable-handle,
+:global .editable-spacer > .react-resizable > .react-resizable-handle:hover {
   position: absolute;
   width: 20px;
   height: 20px;

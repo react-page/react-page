@@ -44,7 +44,7 @@ class Spacer extends Component {
   render() {
     const { readOnly } = this.props
     return (
-      <div styleName={`spacer${readOnly ? ' read-only' : ''}`}>
+      <div className="editable-spacer" styleName={`spacer${readOnly ? ' read-only' : ''}`}>
         {readOnly
           ? <Solid height={this.state.height} />
           : <Resizable onResize={this.onResize} height={this.state.height} />}
