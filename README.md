@@ -18,7 +18,9 @@ on important issues. Amaze authors with easy of use and control. Keep an ease of
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
--demo gif and url-
+Go straight to the [demo](http://ory-editor-demo.herokuapp.com/).
+
+-awesome editing gif-
 
 ## Introduction
 
