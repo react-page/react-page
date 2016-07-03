@@ -21,7 +21,7 @@
   "engine": {
     "node": "v6.2.0",
     "npm": "3.8.9"
-  }
+  },
   "author": "",
   "license": "Apache 2.0",
   "dependencies": {
