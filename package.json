@@ -16,7 +16,7 @@
     "watch:js": "chokidar \"+(src|test)/**/*.js\" --initial",
     "doc": "esdoc -c esdoc.json",
     "doc:watch": "npm run watch:js -- -c \"esdoc -c esdoc.json\"",
-    "postinstall": "npm run build"
+    "postinstall": "npm run test:unit && npm run build"
   },
   "author": "",
   "license": "Apache 2.0",
