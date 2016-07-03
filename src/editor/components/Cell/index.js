@@ -7,7 +7,7 @@ import { isPreviewMode } from 'src/editor/selector/display'
 import { createStructuredSelector } from 'reselect'
 import styles from 'src/editor/styles/grid.scoped.css'
 import Resizable from './Resizable'
-import Dimensions from 'react-dimensions'
+import dimensions from 'react-dimensions'
 import { resizeCell } from 'src/editor/actions/cell'
 
 const gridClass = ({ size, isPreviewMode }) => `cell-${isPreviewMode ? 'md' : 'xs'}-${size}`
@@ -44,4 +44,4 @@ const mapDispatchToProps = (dispatch) => bindActionCreators({
   resizeCell
 }, dispatch)
 
-export default Dimensions()(connect(mapStateToProps, mapDispatchToProps)(cssModules(Cell, styles)))
+export default dimensions()(connect(mapStateToProps, mapDispatchToProps)(cssModules(Cell, styles)))

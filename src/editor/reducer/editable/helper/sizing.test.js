@@ -1,8 +1,22 @@
 /* eslint-env mocha */
 import unexpected from 'unexpected'
-import { sumSizes, computeBounds, resizeCells } from './sizing'
+import { sumSizes, computeBounds, resizeCells, computeResizeable } from './sizing'
 
 const expect = unexpected.clone()
+
+describe('computeResizeable', () => {
+  [{
+    cells: [{}],
+    e: [{ resizable: false }]
+  }, {
+    cells: [{}, {}, {}],
+    e: [{ resizable: true }, { resizable: true }, { resizable: false }]
+  }].forEach((c, k) => {
+    it(`should pass test case ${k}`, () => {
+      expect(computeResizeable(c.cells), 'to equal', c.e)
+    })
+  })
+})
 
 describe('sumSizes', () => {
   [{

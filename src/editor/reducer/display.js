@@ -12,7 +12,7 @@ export const display = (state = {
       }
     case SET_DISPLAY_MODE:
       return {
-        previous: action.mode !== state.mode ? action.mode : state.previous,
+        previous: action.mode === state.mode ? state.previous : action.mode,
         mode: action.mode
       }
     default:

@@ -134,7 +134,7 @@ describe('editor/reducer/editable', () => {
               }, {
                 id: '001',
                 hover: null,
-                resizable: true,
+                resizable: false,
                 plugin: 'bar',
                 rows: [],
                 size: 8,

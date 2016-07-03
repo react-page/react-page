@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react'
 import { Resizable as ReactResizeable } from 'react-resizable'
-import Dimensions from 'react-dimensions'
+import dimensions from 'react-dimensions'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import cssModules from 'react-css-modules'
@@ -27,6 +27,13 @@ class Resizable extends React.Component {
     this.onResizeStop = this.onResizeStop.bind(this)
   }
 
+  componentWillReceiveProps() {
+    const width = this.state.size * this.stepWidth
+    if (width !== this.state.width) {
+      this.setState({ width })
+    }
+  }
+
   onResizeStart() {
     this.props.resizeMode()
     this.setState({ isResizing: true })
@@ -35,13 +42,6 @@ class Resizable extends React.Component {
   onResizeStop() {
     this.props.previousMode(DISPLAY_MODE_EDIT)
     this.setState({ isResizing: false })
-  }
-
-  componentWillReceiveProps() {
-    const width = this.state.size * this.stepWidth
-    if (width !== this.state.width) {
-      this.setState({ width })
-    }
   }
 
   onResize(event, { size: result }) {
@@ -61,9 +61,9 @@ class Resizable extends React.Component {
   }
 
   render() {
-    const { bounds, isResizeMode, isEditMode, children } = this.props
+    const { bounds, isResizeMode, isEditMode, resizable, children } = this.props
 
-    if (!(isResizeMode || isEditMode) || bounds.left === bounds.right) {
+    if (!(isResizeMode || isEditMode) || !resizable) {
       return <div children={children} />
     }
 
@@ -86,6 +86,8 @@ class Resizable extends React.Component {
 
 Resizable.propTypes = {
   containerWidth: PropTypes.number.isRequired,
+  children: PropTypes.array.isRequired,
+  resizable: PropTypes.bool.isRequired,
 
   steps: PropTypes.number,
   cellWidth: PropTypes.number.isRequired,
@@ -111,4 +113,4 @@ const mapDispatchToProps = (dispatch) => bindActionCreators({
   resizeMode, previousMode
 }, dispatch)
 
-export default Dimensions()(connect(mapStateToProps, mapDispatchToProps)(cssModules(Resizable, styles, { allowMultiple: true })))
+export default dimensions()(connect(mapStateToProps, mapDispatchToProps)(cssModules(Resizable, styles, { allowMultiple: true })))

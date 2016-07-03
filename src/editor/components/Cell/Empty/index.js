@@ -3,7 +3,7 @@ import cssModules from 'react-css-modules'
 
 import styles from './index.scoped.css'
 
-const Empty = ({ id = 'no id given', plugin, props = {} }) => <div styleName="empty">
+const Empty = ({ id = 'no id given', props = {} }) => <div styleName="empty">
   <strong>An error occurred!</strong>
   <small>
     <dl>

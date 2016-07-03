@@ -11,11 +11,20 @@ const fire = debounce(({ state, onChange }) => onChange(state), 1000, { leading:
 
 const Solid = ({ height }) => <div style={{ height }} />
 
+Solid.propTypes = {
+  height: PropTypes.number
+}
+
 const Resizable = ({ onResize, height }) => (
   <ResizableBox onResize={onResize} height={height}>
     <div />
   </ResizableBox>
 )
+
+Resizable.propTypes = {
+  onResize: PropTypes.func.isRequired,
+  height: PropTypes.number
+}
 
 class Spacer extends Component {
   constructor(props) {

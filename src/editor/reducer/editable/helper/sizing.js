@@ -36,9 +36,9 @@ export const computeBounds = (cells = []) => cells.map((c, k) => ({
  * @param {[...cell]} cells
  * @@return {[...cell]}
  */
-export const computeResizeable = (cells = []) => cells.map((c) => ({
+export const computeResizeable = (cells = []) => cells.map((c, k) => ({
   ...c,
-  resizable: cells.length > 1
+  resizable: cells.length > 1 && k !== cells.length - 1
 }))
 
 /**
