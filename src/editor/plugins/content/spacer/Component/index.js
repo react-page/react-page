@@ -1,11 +1,13 @@
 import React, { Component, PropTypes } from 'react'
 import cssModules from 'react-css-modules'
-import throttle from 'lodash.throttle'
+import debounce from 'lodash.debounce'
 import { ResizableBox } from 'react-resizable'
 
 import styles from './index.css'
 
 const compute = ({ height }) => ({ height: height > 24 ? height : 24 })
+
+const fire = debounce(({ state, onChange }) => onChange(state), 1000, { leading: false })
 
 class Spacer extends Component {
   constructor(props) {
@@ -17,8 +19,9 @@ class Spacer extends Component {
 
   onResize(event, { size }) {
     const { onChange } = this.props
-    this.setState(compute(size))
-    throttle(() => onChange(compute(size)), 100, { trailing: false })()
+    const state = compute(size)
+    this.setState(state)
+    fire({ onChange, state })
   }
 
   render() {
