@@ -1,9 +1,9 @@
 export class LocalStoreAdapter {
-  fetch(element) {
+  fetch() {
     return null
   }
 
-  store(state = {}) {
+  store() {
     return null
   }
 }
