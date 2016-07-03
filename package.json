@@ -1,7 +1,7 @@
 {
-  "name": "ory-am-editor",
+  "name": "ory-editor",
   "version": "0.0.0",
-  "description": "",
+  "description": "The next generation platform for creating well-defined, responsive, digital content - as easy as social media.",
   "main": "",
   "scripts": {
     "test": "npm-run-all test:unit test:e2e",
@@ -15,10 +15,11 @@
     "build": "cross-env NODE_PATH=. NODE_ENV=production webpack",
     "watch:js": "chokidar \"+(src|test)/**/*.js\" --initial",
     "doc": "esdoc -c esdoc.json",
-    "doc:watch": "npm run watch:js -- -c \"esdoc -c esdoc.json\""
+    "doc:watch": "npm run watch:js -- -c \"esdoc -c esdoc.json\"",
+    "postinstall": "npm run build"
   },
   "author": "",
-  "license": "ISC",
+  "license": "Apache 2.0",
   "dependencies": {
     "autoprefixer": "6.3.7",
     "babel-loader": "6.2.4",
