@@ -4,7 +4,7 @@ import cssModules from 'react-css-modules'
 import styles from 'src/editor/styles/grid.scoped.css'
 
 const Row = ({ cells = [] }) => (
-  <div styleName="row">
+  <div styleName="row" className="editable-row">
     {cells.map((c) => <Cell key={c.id} {...c} />)}
   </div>
 )

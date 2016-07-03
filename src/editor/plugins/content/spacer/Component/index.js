@@ -9,9 +9,9 @@ const compute = ({ height }) => ({ height: height > 24 ? height : 24 })
 
 const fire = debounce(({ state, onChange }) => onChange(state), 1000, { leading: false })
 
-const Solid = ({height}) => <div style={{height}}/>
+const Solid = ({ height }) => <div style={{ height }} />
 
-const Resizable = ({onResize, height}) => (
+const Resizable = ({ onResize, height }) => (
   <ResizableBox onResize={onResize} height={height}>
     <div />
   </ResizableBox>

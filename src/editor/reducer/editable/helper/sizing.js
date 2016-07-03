@@ -31,6 +31,17 @@ export const computeBounds = (cells = []) => cells.map((c, k) => ({
 }))
 
 /**
+ * Computes if a cell is resizable
+ *
+ * @param {[...cell]} cells
+ * @@return {[...cell]}
+ */
+export const computeResizeable = (cells = []) => cells.map((c) => ({
+  ...c,
+  resizable: cells.length > 1
+}))
+
+/**
  * Resize cells.
  *
  * @param {[]} cells
@@ -43,7 +54,9 @@ export const resizeCells = (cells = [], { id, size }) => {
   let prev = 0
   return cells.map((c) => {
     if (prev > 0) {
-      return { ...c, size: c.size + prev - size }
+      const ret = { ...c, size: c.size + prev - size }
+      prev = 0
+      return ret
     } else if (id === c.id) {
       prev = c.size
       return { ...c, size }

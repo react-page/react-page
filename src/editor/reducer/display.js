@@ -1,13 +1,18 @@
-import { DEFAULT_DISPLAY_MODE, SET_DISPLAY_MODE } from 'src/editor/actions/display'
+import { DEFAULT_DISPLAY_MODE, SET_DISPLAY_MODE, SET_PREVIOUS_DISPLAY_MODE } from 'src/editor/actions/display'
 
 export const display = (state = {
-  previous: null,
+  previous: DEFAULT_DISPLAY_MODE,
   mode: DEFAULT_DISPLAY_MODE
 }, action) => {
   switch (action.type) {
+    case SET_PREVIOUS_DISPLAY_MODE:
+      return {
+        ...state,
+        mode: state.previous === state.mode ? action.fallback : state.previous
+      }
     case SET_DISPLAY_MODE:
       return {
-        previous: state.mode,
+        previous: action.mode !== state.mode ? action.mode : state.previous,
         mode: action.mode
       }
     default:

@@ -48,6 +48,7 @@
     "react-dom": "15.2.0",
     "react-redux": "4.4.5",
     "react-resizable": "^1.4.2",
+    "react-tap-event-plugin": "^1.0.0",
     "redux": "3.5.2",
     "reselect": "^2.5.1",
     "semver": "5.2.0",

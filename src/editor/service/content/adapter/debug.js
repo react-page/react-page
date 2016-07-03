@@ -38,10 +38,8 @@ export const content = {
               props: {
                 importFromHtml: 'Residents of the Castle Point borough of Essex in England celebrated the queen’s 90th birthday this month. Castle Point is the most ethnically English part of the United Kingdom, with nearly 80 percent describing themselves as purely English, while 95 percent are white. <small>Credit Andrew Testa for The New York Times</small>'
               }
-            }
-            ]
-          }
-          ]
+            }]
+          }]
         }, {
           plugin: { name: 'ory/content/image' },
           props: {
@@ -98,11 +96,7 @@ export const content = {
                   props: {
                     importFromHtml: 'That sense of resurgent Englishness is palpable in places like South Benfleet, in the heart of a district that is the most ethnically English part of the United Kingdom, according to the Office of National Statistics based on the 2011 census, with nearly 80 percent describing themselves as purely English, while 95 percent are white. They are older than the national average, and only about one-quarter of 1 percent are foreign nationals, very low compared with the rest of Britain.'
                   }
-                }]
-              }]
-            }, {
-              rows: [{
-                cells: [{
+                }, {
                   plugin: { name: 'ory/content/draft-js' },
                   props: {
                     importFromHtml: 'Castle Point district of Essex, full of people who have made it out of London’s tough East End to a kind of English paradise with lots of single-family homes, lawns, beaches, seaside amusement parks and fish-and-chip shops.'

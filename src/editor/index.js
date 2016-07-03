@@ -3,14 +3,14 @@ import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
 import { forEach } from 'ramda'
 import Editable from 'src/editor/components/Editable'
-import Toolbar from 'src/editor/components/Toolbar'
+import Controls from 'src/editor/components/Controls'
 import createStore from './store'
 import { updateEditable } from 'src/editor/actions/editables'
 import ContentService from 'src/editor/service/content'
 
 // required for material-ui
-// import injectTapEventPlugin from 'react-tap-event-plugin'
-// injectTapEventPlugin()
+import injectTapEventPlugin from 'react-tap-event-plugin'
+injectTapEventPlugin()
 
 let instance
 
@@ -34,7 +34,7 @@ class Editor {
 
     ReactDOM.render((
       <Provider store={this.store}>
-        <Toolbar/>
+        <Controls />
       </Provider >
     ), toolbar)
   }

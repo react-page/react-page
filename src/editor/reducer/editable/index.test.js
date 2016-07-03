@@ -4,11 +4,11 @@ import unexpected from 'unexpected'
 import { combineReducers, createStore } from 'redux'
 import { identity } from 'ramda'
 import * as actions from 'src/editor/actions/cell'
-import { computeSizes, computeResponsive, computeBounds } from './helper/sizing'
+import { computeSizes, computeResponsive, computeBounds, computeResizeable } from './helper/sizing'
 
 const expect = unexpected.clone()
 
-const cells = (state) => computeBounds(computeResponsive(computeSizes(state))).map(({ rows = [], hover = null, ...c }) => ({
+const cells = (state) => computeResizeable(computeBounds(computeResponsive(computeSizes(state)))).map(({ rows = [], hover = null, ...c }) => ({
   ...c,
   rows,
   hover
@@ -107,8 +107,8 @@ describe('editor/reducer/editable', () => {
               {
                 id: '00',
                 cells: [
-                  { id: '000', plugin: 'foo', size: 6, responsive: [12, 12] },
-                  { id: '001', plugin: 'bar', size: 6, responsive: [12, 12] }
+                  { id: '000', plugin: 'foo', size: 6 },
+                  { id: '001', plugin: 'bar', size: 6 }
                 ]
               }
             ]
@@ -127,12 +127,14 @@ describe('editor/reducer/editable', () => {
                 hover: null,
                 plugin: 'foo',
                 rows: [],
+                resizable: true,
                 size: 4,
                 bounds: { left: 0, right: 11 },
                 responsive: [12, 12]
               }, {
                 id: '001',
                 hover: null,
+                resizable: true,
                 plugin: 'bar',
                 rows: [],
                 size: 8,

@@ -14,7 +14,7 @@ import {
 } from 'src/editor/actions/cell'
 import { optimizeCell, optimizeRow, optimizeRows, optimizeCells, flatten } from './helper/optimize'
 import { isHoveringThis } from './helper/hover'
-import { computeSizes, computeBounds, resizeCells, computeResponsive } from './helper/sizing'
+import { computeSizes, computeBounds, resizeCells, computeResponsive, computeResizeable } from './helper/sizing'
 
 const inner = (cb, action) => (state) => cb(state, action)
 
@@ -90,7 +90,7 @@ export const cell = (state = {
   }
 })(state, action))
 
-export const cells = (state = [], action) => computeResponsive(computeBounds(computeSizes(optimizeCells(((state, action) => {
+export const cells = (state = [], action) => computeResizeable(computeResponsive(computeBounds(computeSizes(optimizeCells(((state, action) => {
   switch (action.type) {
     case CELL_RESIZE:
       return resizeCells(state.map(inner(cell, action)), action)
@@ -129,14 +129,13 @@ export const cells = (state = [], action) => computeResponsive(computeBounds(com
     default:
       return state.map(inner(cell, action))
   }
-})(state, action)))))
+})(state, action))))))
 
 export const row = (state = {
   id: null,
   hover: null,
   cells: []
 }, action) => optimizeRow(((state, action) => {
-
   const reduce = () => ({
     ...state,
     hover: null,

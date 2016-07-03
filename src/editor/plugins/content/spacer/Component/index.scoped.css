@@ -1,8 +1,13 @@
-:global .react-resizable {
-  position: relative;
+.spacer {
+  border: 1px dashed rgba(0, 0, 0, .6);
 }
 
-:global .react-resizable-handle {
+.read-only {
+  composes: spacer;
+  border: none;
+}
+
+.spacer :global .react-resizable-handle {
   position: absolute;
   width: 20px;
   height: 20px;
@@ -17,11 +22,6 @@
   cursor: se-resize;
 }
 
-.spacer {
-  border: 1px dashed rgba(0, 0, 0, .6);
-}
-
-.read-only {
-  composes: spacer;
-  border: none;
+.spacer :global .react-resizable {
+  position: relative;
 }
