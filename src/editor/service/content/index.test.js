@@ -38,6 +38,11 @@ describe('hydrate', () => {
 })
 
 describe('ContentService', () => {
+  it('fetch should work', () => {
+    contentService.fetch({ dataset: { debugEditable: 1 } }).then((c) => expect(c, 'to equal', content[1])).catch(() => expect(true, 'to be falsy'))
+    contentService.fetch({ dataset: { debugEditable: 2 } }).then((c) => expect(c, 'to equal', content[2])).catch(() => expect(true, 'to be falsy'))
+  })
+
   it('serialize and unserialize should work', () => {
     const cleanup = ({ plugin, layout, rows = [], cells = [], ...other }) => {
       if (layout) {

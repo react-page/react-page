@@ -1,12 +1,12 @@
 import React, { PropTypes } from 'react'
+import Cell from 'src/editor/components/Cell'
 import cssModules from 'react-css-modules'
 
-import Cell from 'src/editor/components/Cell'
-import styles from './index.css'
+import styles from 'src/editor/styles/grid.css'
 
 const Row = ({ cells = [] }) => (
-  <div styleName="green">
-    {cells.map(({ id, ...c }) => <Cell key={id} {...c} />)}
+  <div styleName="row">
+    {cells.map((c) => <Cell key={c.id} {...c} />)}
   </div>
 )
 

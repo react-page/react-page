@@ -31,7 +31,7 @@ class Editor {
         this.store.dispatch(updateEditable(state))
         ReactDOM.render((
           <Provider store={this.store}>
-            <Editable {...state} />
+            <Editable id={state.id} />
           </Provider >
         ), editable)
       })

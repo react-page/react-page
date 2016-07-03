@@ -1,26 +1,13 @@
 import React, { PropTypes } from 'react'
-import Rows from './Rows'
-import Layout from './Layout'
-import Content from './Content'
-import Empty from './Empty'
+import cssModules from 'react-css-modules'
+import Inner from './inner'
 
-const Cell = (props) => {
-  const { rows = [], layout, plugin } = props
-  if (rows.length) {
-    return <Rows {...props} />
-  } else if (layout) {
-    return <Layout {...props} />
-  } else if (plugin) {
-    return <Content {...props} />
-  }
+import styles from 'src/editor/styles/grid.css'
 
-  return <Empty />
-}
+const Cell = ({ size = 12, ...props }) => <div styleName={`cell-sm-${size}`}><Inner {...{ ...props, styles: null }} /></div>
 
 Cell.propTypes = {
-  rows: PropTypes.array.isRequired,
-  layout: PropTypes.object,
-  plugin: PropTypes.object
+  size: PropTypes.number
 }
 
-export default Cell
+export default cssModules(Cell, styles)

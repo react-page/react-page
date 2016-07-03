@@ -3,7 +3,7 @@ import Row from 'src/editor/components/Row'
 
 const Layout = ({ rows = [], layout: { Component, props = {} } }) => (
   <Component {...props}>
-    {rows.map(({ id, ...c }) => <Row key={id} {...c} />)}
+    {rows.map((r) => <Row key={r.id} {...r} />)}
   </Component>
 )
 

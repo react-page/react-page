@@ -40,6 +40,7 @@ class ContentService {
 
     this.unserialize = this.unserialize.bind(this)
     this.serialize = this.serialize.bind(this)
+    this.fetch = this.fetch.bind(this)
   }
 
   /**
@@ -50,7 +51,7 @@ class ContentService {
    */
   fetch(domEntity) {
     return new Promise((res) => {
-      const found = this.adapters.find((adapter) => adapter.fetch(domEntity))
+      const found = this.adapters.map((adapter) => adapter.fetch(domEntity)).reduce((p, n) => p || n)
 
       if (!found) {
         console.error('No content state found for DOM entity:', domEntity)
@@ -58,7 +59,11 @@ class ContentService {
       }
 
       const { cells = [], id = uuid.v4() } = found
-      return res({ ...found, id, cells: cells.map(hydrate) })
+      return res(this.unserialize({
+        ...found,
+        id,
+        cells: cells.map(hydrate)
+      }))
     })
   }
 
