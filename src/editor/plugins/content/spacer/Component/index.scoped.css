@@ -4,7 +4,7 @@
 
 .read-only {
   composes: spacer;
-  border: none;
+  border: 1px dashed transparent;
 }
 
 :global .editable-spacer > .react-resizable > .react-resizable-handle,

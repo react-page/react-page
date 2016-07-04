@@ -10,26 +10,41 @@ import styles from './index.scoped.css'
 
 const computeStepWidth = ({ rowWidth, steps = 12 }) => Math.round(rowWidth / steps)
 
+const widthToSize = ({ stepWidth, steps }, { inline }, result) => {
+  let size = Math.round(result.width / stepWidth)
+  if (inline === 'right') {
+    size = steps - size
+  }
+
+  if (size > steps) {
+    size = steps
+  } else if (size < 1) {
+    size = 1
+  }
+
+  return size
+}
+
 class Resizable extends React.Component {
   constructor(props) {
     super(props)
-    this.maxSteps = (props.steps - 1) || 11
-    this.stepWidth = computeStepWidth(props)
-
     this.state = {
+      stepWidth: computeStepWidth(props),
+      steps: (props.steps - 1) || 11,
       isResizing: false,
       width: props.containerWidth,
       size: Math.round(props.containerWidth / this.stepWidth)
     }
+
     this.onResize = this.onResize.bind(this)
     this.onResizeStart = this.onResizeStart.bind(this)
     this.onResizeStop = this.onResizeStop.bind(this)
   }
 
-  componentWillReceiveProps() {
-    const width = this.props.cellWidth * this.stepWidth
+  componentWillReceiveProps(next) {
+    const width = next.cellWidth * this.state.stepWidth
     if (width !== this.state.width) {
-      this.setState({ width })
+      this.setState({ next })
     }
   }
 
@@ -44,23 +59,9 @@ class Resizable extends React.Component {
   }
 
   onResize(event, { size: result }) {
-    let size = Math.round(result.width / this.stepWidth)
-    if (this.props.inline === 'right') {
-      size = this.props.steps - size
-    }
-
-    if (size >= this.maxSteps) {
-      size = this.maxSteps
-    } else if (size < 1) {
-      size = 1
-    }
-
-    const width = size * this.stepWidth
-    if (width !== this.state.width) {
-      this.props.onChange(size)
-    }
-
-    this.setState({ width, size })
+    console.log(result)
+    this.props.onChange(widthToSize(this.state, this.props, result))
+    this.setState({ width: result.width })
   }
 
   render() {
@@ -74,10 +75,11 @@ class Resizable extends React.Component {
         width={this.state.width}
         onResizeStart={this.onResizeStart}
         onResizeStop={this.onResizeStop}
-        minConstraints={[this.stepWidth, 0]}
-        maxConstraints={[bounds.right * this.stepWidth, 0]}
+        //minConstraints={[this.state.stepWidth, Infinity]}
+        //maxConstraints={[bounds.right * this.state.stepWidth, Infinity]}
+        draggableOpts={{ grid: [this.state.stepWidth, 0], position: { x: 0, y: 0 }, axis: 'x' }}
         height={0}>
-        <div children={children} />
+        <div children={children}/>
       </ReactResizeable>
     )
   }

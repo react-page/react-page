@@ -22,7 +22,7 @@
   cursor: e-resize;
 }
 
-.inline-right :global .resizable-cell > .react-resizable-handle {
+.inline-right :global .react-resizable-handle {
   left: -4px;
 }
 
