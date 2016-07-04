@@ -2,7 +2,6 @@ import React, { PropTypes } from 'react'
 import cssModules from 'react-css-modules'
 import Inner from './inner'
 import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
 import { isPreviewMode, isEditMode, isResizeMode, isLayoutMode } from 'src/editor/selector/display'
 import { createStructuredSelector } from 'reselect'
 import Resizable from './Resizable'
@@ -18,7 +17,8 @@ const resize = ({ resizeCell, id }) => (width) => resizeCell({ id }, width)
 const Cell = (props) => (
   <div
     className={`${props.hasInlineNeighbour ? 'has-inline-neighbour' : ''}${props.inline ? ` inline-${props.inline}` : ''}`}
-    styleName={gridClass(props)}>
+    styleName={gridClass(props)}
+  >
     {props.resizable && (props.isResizeMode || props.isLayoutMode)
       ? (
       <Resizable rowWidth={props.containerWidth}
@@ -26,7 +26,8 @@ const Cell = (props) => (
                  bounds={props.bounds}
                  inline={props.inline}
                  steps={12}
-                 onChange={resize(props)}>
+                 onChange={resize(props)}
+      >
         <div className="editable-cell">
           <Inner {...{ ...props, styles: null }} />
         </div>
@@ -58,8 +59,8 @@ const mapStateToProps = createStructuredSelector({
   isPreviewMode, isEditMode, isResizeMode, isLayoutMode
 })
 
-const mapDispatchToProps = (dispatch) => bindActionCreators({
+const mapDispatchToProps = {
   resizeCell
-}, dispatch)
+}
 
 export default dimensions()(connect(mapStateToProps, mapDispatchToProps)(cssModules(Cell, { ...grid, ...styles })))

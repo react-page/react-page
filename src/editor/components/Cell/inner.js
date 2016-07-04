@@ -10,10 +10,10 @@ const Inner = (props) => {
     layout,
     plugin: { Component } = {}
   } = props
-  if (rows.length) {
-    return <Rows {...props} />
-  } else if (layout) {
+  if (layout) {
     return <Layout {...props} />
+  } else if (rows.length) {
+    return <Rows {...props} />
   } else if (Component) {
     return <Content {...props} />
   }

@@ -2,7 +2,6 @@ import React, { PropTypes } from 'react'
 import { Resizable as ReactResizeable } from 'react-resizable'
 import dimensions from 'react-dimensions'
 import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
 import cssModules from 'react-css-modules'
 import { createStructuredSelector } from 'reselect'
 import { resizeMode, editMode } from 'src/editor/actions/display'
@@ -49,17 +48,18 @@ class Resizable extends React.Component {
   }
 
   onResizeStart() {
+    // FIXME
     // this.props.resizeMode()
     this.setState({ isResizing: true })
   }
 
   onResizeStop() {
+    // FIXME
     // this.props.editMode()
     this.setState({ isResizing: false })
   }
 
   onResize(event, { size: result }) {
-    console.log(result)
     this.props.onChange(widthToSize(this.state, this.props, result))
     this.setState({ width: result.width })
   }
@@ -75,11 +75,10 @@ class Resizable extends React.Component {
         width={this.state.width}
         onResizeStart={this.onResizeStart}
         onResizeStop={this.onResizeStop}
-        //minConstraints={[this.state.stepWidth, Infinity]}
-        //maxConstraints={[bounds.right * this.state.stepWidth, Infinity]}
-        draggableOpts={{ grid: [this.state.stepWidth, 0], position: { x: 0, y: 0 }, axis: 'x' }}
-        height={0}>
-        <div children={children}/>
+        minConstraints={[this.state.stepWidth, Infinity]}
+        maxConstraints={[bounds.right * this.state.stepWidth, Infinity]}
+        draggableOpts={{ grid: [this.state.stepWidth, 0], defaultPosition: { x: -1000, y: -1000 }, axis: 'x' }}
+        height={0} children={children}>
       </ReactResizeable>
     )
   }
@@ -104,8 +103,8 @@ Resizable.propTypes = {
 
 const mapStateToProps = createStructuredSelector({})
 
-const mapDispatchToProps = (dispatch) => bindActionCreators({
+const mapDispatchToProps = {
   resizeMode, editMode
-}, dispatch)
+}
 
 export default dimensions()(connect(mapStateToProps, mapDispatchToProps)(cssModules(Resizable, styles, { allowMultiple: true })))

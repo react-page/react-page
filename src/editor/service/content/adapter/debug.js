@@ -6,9 +6,6 @@ export const content = {
     cells: [{
       rows: [{
         cells: [{
-          layout: {
-            name: 'ory/layout/grey'
-          },
           rows: [{
             cells: [{
               plugin: { name: 'ory/content/draft-js' },
@@ -120,7 +117,6 @@ export const content = {
     cells: [{
       rows: [{
         cells: [{
-          layout: { name: 'ory/layout/grey' },
           rows: [{
             cells: [{
               inline: 'right',
