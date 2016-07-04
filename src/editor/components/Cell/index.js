@@ -16,7 +16,9 @@ const gridClass = ({ size, isPreviewMode }) => `cell-${isPreviewMode ? 'md' : 'x
 const resize = ({ resizeCell, id }) => (width) => resizeCell({ id }, width)
 
 const Cell = (props) => (
-  <div className={`${props.hasInlineNeighbour ? 'has-inline-neighbour' : ''}${props.inline ? ` inline-${props.inline}` : ''}`} styleName={gridClass(props)}>
+  <div
+    className={`${props.hasInlineNeighbour ? 'has-inline-neighbour' : ''}${props.inline ? ` inline-${props.inline}` : ''}`}
+    styleName={gridClass(props)}>
     {props.resizable && (props.isResizeMode || props.isLayoutMode)
       ? (
       <Resizable rowWidth={props.containerWidth}
@@ -34,7 +36,6 @@ const Cell = (props) => (
         <Inner {...{ ...props, styles: null }} />
       </div>
     )}
-
   </div>
 )
 
@@ -42,6 +43,7 @@ Cell.propTypes = {
   bounds: PropTypes.object.isRequired,
   size: PropTypes.number.isRequired,
   containerWidth: PropTypes.number.isRequired,
+  containerHeight: PropTypes.number.isRequired,
   resizable: PropTypes.bool.isRequired,
   inline: PropTypes.string,
   isPreviewMode: PropTypes.bool.isRequired,
