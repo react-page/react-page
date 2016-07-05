@@ -17,7 +17,7 @@ const Editable = ({ id, editable }) => {
   return (
     <div styleName="container" className="editor-container">
       <div styleName="row" className="editor-row">
-        {state.cells.map((c) => <Cell key={c.id} {...{ ...c, styles: null }} />)}
+        {state.cells.map((c) => <Cell editable={id} ancestors={[]} key={c.id} {...{ ...c, styles: null }} />)}
       </div>
     </div>
   )

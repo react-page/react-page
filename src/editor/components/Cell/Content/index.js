@@ -18,7 +18,7 @@ const Content = ({ isEditMode, id, plugin: { Component }, props = {}, updateCell
 
 Content.propTypes = {
   plugin: PropTypes.shape({
-    Component: PropTypes.element.isRequired
+    Component: PropTypes.oneOfType([PropTypes.func, PropTypes.element]).isRequired
   }).isRequired,
   id: PropTypes.string.isRequired,
   props: PropTypes.object.isRequired,

@@ -14,7 +14,14 @@ import {
 } from 'src/editor/actions/cell'
 import { optimizeCell, optimizeRow, optimizeRows, optimizeCells, flatten } from './helper/optimize'
 import { isHoveringThis } from './helper/hover'
-import { computeSizes, computeInlines, computeBounds, resizeCells, computeResponsive, computeResizeable } from './helper/sizing'
+import {
+  computeSizes,
+  computeInlines,
+  computeBounds,
+  resizeCells,
+  computeResponsive,
+  computeResizeable
+} from './helper/sizing'
 
 const inner = (cb, action) => (state) => cb(state, action)
 
@@ -95,8 +102,13 @@ export const cells = (state = [], action) => computeInlines(computeResizeable(co
     case CELL_RESIZE:
       return resizeCells(state.map(inner(cell, action)), action)
 
+    case CELL_INSERT_BELOW:
+    case CELL_INSERT_ABOVE:
+      return state.filter((c) => c.id !== action.item.id).map(inner(cell, action))
+
     case CELL_INSERT_LEFT_OF:
       return state
+        .filter((c) => c.id !== action.item.id)
         .map((c) => isHoveringThis(c, action)
           ? [{ ...(action.item), id: action.ids[0] }, { ...c, id: action.ids[1] }]
           : [c])
@@ -105,6 +117,7 @@ export const cells = (state = [], action) => computeInlines(computeResizeable(co
 
     case CELL_INSERT_RIGHT_OF:
       return state
+        .filter((c) => c.id !== action.item.id)
         .map((c) => isHoveringThis(c, action)
           ? [{ ...c, id: action.ids[0] }, { ...(action.item), id: action.ids[1] }]
           : [c])
@@ -113,9 +126,10 @@ export const cells = (state = [], action) => computeInlines(computeResizeable(co
 
     case CELL_INSERT_INLINE_RIGHT:
     case CELL_INSERT_INLINE_LEFT:
-      return state.map((c) => isHoveringThis(c, action)
-        ? [...state.map((s) => ({ ...s, inline: null })),
-          {
+      return state
+        .filter((c) => c.id !== action.item.id)
+        .map((c) => isHoveringThis(c, action)
+          ? [...state.map((s) => ({ ...s, inline: null })), {
             ...(action.item),
             inline: action.type === CELL_INSERT_INLINE_RIGHT ? 'right' : 'left',
             id: action.ids[1]

@@ -1,43 +1,34 @@
-:global .inline-left {
-  float: left;
+.row {
+  position: relative;
 }
 
-:global .has-inline-neighbour {
-  float: none;
-  width: 100%;
+.clearfix {
+  clear: both;
 }
-
-:global .inline-right {
-  float: right;
-}
-
-.cell {}
-
-.is-over-current {}
 
 .is-over-current:before {
   content: " ";
+  transition: opacity 400ms ease;
+  background: black;
+  opacity: 0;
   display: block;
   position: absolute;
   z-index: 100;
-  background: black;
   box-shadow: 0 0 8px 8px white;
 }
 
 .is-over-above:before {
   opacity: 1;
   top: 0;
-  left: 0;
-  width: 100%;
   height: 2px;
+  width: 100%;
 }
 
 .is-over-below:before {
   opacity: 1;
   bottom: 0;
-  left: 0;
-  width: 100%;
   height: 2px;
+  width: 100%;
 }
 
 .is-over-left-of:before {

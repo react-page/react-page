@@ -16,7 +16,7 @@ export const target = {
       return
     }
 
-    computeAndDispatchInsert(props, item, monitor, component)
+    computeAndDispatchHover(props, monitor, component)
   },
 
   drop(props, monitor, component) {
@@ -28,7 +28,7 @@ export const target = {
       return
     }
 
-    computeAndDispatchHover(props, item, monitor, component)
+    computeAndDispatchInsert(props, monitor, component)
   }
 }
 

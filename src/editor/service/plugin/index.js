@@ -36,4 +36,11 @@ export default class PluginService {
   find(plugins) {
     return (name, version) => plugins.find(find(name, version))
   }
+
+  getRegisteredNames() {
+    return [
+      ...this.plugins.content.map((p) => p.name),
+      ...this.plugins.layout.map((p) => p.name)
+    ]
+  }
 }

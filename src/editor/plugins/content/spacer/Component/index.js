@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react'
 import cssModules from 'react-css-modules'
 import debounce from 'lodash.debounce'
 import { ResizableBox } from 'react-resizable'
+import classNames from 'classnames'
 
 import styles from './index.scoped.css'
 
@@ -9,20 +10,9 @@ const compute = ({ height }) => ({ height: height > 24 ? height : 24 })
 
 const fire = debounce(({ state, onChange }) => onChange(state), 1000, { leading: false })
 
-const Solid = ({ height }) => <div style={{ height }} />
+const Solid = ({ height }) => <div style={{ height }}/>
 
 Solid.propTypes = {
-  height: PropTypes.number
-}
-
-const Resizable = ({ onResize, height }) => (
-  <ResizableBox onResize={onResize} height={height}>
-    <div />
-  </ResizableBox>
-)
-
-Resizable.propTypes = {
-  onResize: PropTypes.func.isRequired,
   height: PropTypes.number
 }
 
@@ -44,10 +34,15 @@ class Spacer extends Component {
   render() {
     const { readOnly } = this.props
     return (
-      <div className="editable-spacer" styleName={`spacer${readOnly ? ' read-only' : ''}`}>
+      <div className="editable-spacer" styleName={classNames({ spacer: true, 'read-only': readOnly })}>
         {readOnly
-          ? <Solid height={this.state.height} />
-          : <Resizable onResize={this.onResize} height={this.state.height} />}
+          ? (
+          <Solid height={this.state.height} />
+        ) : (
+          <ResizableBox onResize={this.onResize} height={this.state.height} width={0}>
+            <div />
+          </ResizableBox>
+        )}
       </div>
     )
   }

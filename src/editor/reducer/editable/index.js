@@ -2,7 +2,10 @@ import { cells } from './tree.js'
 
 export const editable = (state = {
   id: null,
-  cells: []
+  cells: [],
+  config: {
+    whitelist: []
+  }
 }, action) => {
   switch (action.type) {
     default:

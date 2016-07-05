@@ -78,15 +78,15 @@ class Resizable extends React.Component {
         minConstraints={[this.state.stepWidth, Infinity]}
         maxConstraints={[bounds.right * this.state.stepWidth, Infinity]}
         draggableOpts={{ grid: [this.state.stepWidth, 0], defaultPosition: { x: -1000, y: -1000 }, axis: 'x' }}
-        height={0} children={children}>
-      </ReactResizeable>
+        height={0} children={children}
+      />
     )
   }
 }
 
 Resizable.propTypes = {
   containerWidth: PropTypes.number.isRequired,
-  children: PropTypes.array.isRequired,
+  children: PropTypes.element.isRequired,
 
   steps: PropTypes.number,
   inline: PropTypes.string,

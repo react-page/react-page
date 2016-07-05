@@ -1,45 +1,94 @@
-export const computeAndDispatchInsert = (hover, item, monitor, component) => ({})
+import { findDOMNode } from 'react-dom'
+import throttle from 'lodash.throttle'
 
-export const computeAndDispatchHover = (props, monitor, component) => {
+const fire = throttle(
+  ({ hover, drag, cb, data }) => cb(drag, hover, data),
+  200,
+  { leading: false }
+)
+
+export const computeCurrentDropPosition = ({
+  above,
+  below,
+  leftOf,
+  rightOf,
+  inlineLeft,
+  inlineRight
+}, { ancestors = [], ...hover }, monitor, component) => {
+  const treshold = 0.40
   const mousePosition = monitor.getClientOffset()
   const componentPosition = findDOMNode(component).getBoundingClientRect()
   const componentHeight = (componentPosition.bottom - componentPosition.top)
   const componentWidth = (componentPosition.right - componentPosition.left)
   const relVer = (mousePosition.y - componentPosition.top) / componentHeight
   const relHor = (mousePosition.x - componentPosition.left) / componentWidth
+  const drag = monitor.getItem()
 
-  // if top -> cellHoverAbove(...)
-}
-
-export const computeDropArea = (props, monitor, component) => {
-  const treshold = 0.40
-  const mousePosition = monitor.getClientOffset()
-  const componentPosition = findDOMNode(component).getBoundingClientRect()
-  const componentHeight = (componentPosition.bottom - componentPosition.top)
-  const componentWidth = (componentPosition.right - componentPosition.left)
-  const relVer = ( mousePosition.y - componentPosition.top) / componentHeight
-  const relHor = (mousePosition.x - componentPosition.left) / componentWidth
-
-  let position = 'center'
-  let level = 0
   if (relVer <= treshold || relVer >= 1 - treshold) {
     if (componentPosition.bottom - mousePosition.y > componentHeight / 2) {
-      level = (mousePosition.y - componentPosition.top) / (componentHeight * treshold / props.parents.length)
-      position = 'top'
+      fire({
+        cb: above,
+        hover,
+        drag,
+        data: ancestors.length - Math.round((mousePosition.y - componentPosition.top) / (componentHeight * treshold / ancestors.length))
+      })
     } else {
-      level = (componentPosition.bottom - mousePosition.y) / (componentHeight * treshold / props.parents.length)
-      position = 'bottom'
+      fire({
+        cb: below,
+        hover,
+        drag,
+        data: ancestors.length - Math.round((componentPosition.bottom - mousePosition.y) / (componentHeight * treshold / ancestors.length))
+      })
     }
-    level = props.parents.length - Math.round(level)
   } else if (relHor <= treshold || relHor >= 1 - treshold) {
     if (componentPosition.right - mousePosition.x > componentWidth / 2) {
-      level = (mousePosition.x - componentPosition.left) / (componentWidth * treshold / props.parents.length)
-      position = 'left'
+      fire({
+        cb: leftOf,
+        hover,
+        drag,
+        data: ancestors.length - Math.round((mousePosition.x - componentPosition.left) / (componentWidth * treshold / ancestors.length))
+      })
     } else {
-      level = (componentPosition.right - mousePosition.x) / (componentWidth * treshold / props.parents.length)
-      position = 'right'
+      fire({
+        cb: rightOf,
+        hover,
+        drag,
+        data: ancestors.length - Math.round((componentPosition.right - mousePosition.x) / (componentWidth * treshold / ancestors.length))
+      })
     }
-    level = props.parents.length - Math.round(level)
   }
-  return { level, position }
 }
+
+export const computeAndDispatchInsert = ({
+  insertCellAbove: above,
+  insertCellBelow: below,
+  insertCellLeftOf: leftOf,
+  insertCellRightOf: rightOf,
+  insertCellInlineLeft: inlineLeft,
+  insertCellInlineRight: inlineRight,
+  ...hover
+}, monitor, component) => computeCurrentDropPosition({
+  above,
+  below,
+  leftOf,
+  rightOf,
+  inlineLeft,
+  inlineRight
+}, hover, monitor, component)
+
+export const computeAndDispatchHover = ({
+  cellHoverAbove: above,
+  cellHoverBelow: below,
+  cellHoverLeftOf: leftOf,
+  cellHoverRightOf: rightOf,
+  cellHoverInlineLeft: inlineLeft,
+  cellHoverInlineRight: inlineRight,
+  ...hover
+}, monitor, component) => computeCurrentDropPosition({
+  above,
+  below,
+  leftOf,
+  rightOf,
+  inlineLeft,
+  inlineRight
+}, hover, monitor, component)

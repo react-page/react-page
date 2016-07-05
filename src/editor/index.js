@@ -42,7 +42,12 @@ class Editor {
   render(editables) {
     forEach((editable) => {
       this.content.fetch(editable).then((state) => {
-        this.store.dispatch(updateEditable(state))
+        this.store.dispatch(updateEditable({
+          ...state,
+          config: {
+            whitelist: this.content.plugins.getRegisteredNames()
+          }
+        }))
         ReactDOM.render((
           <Provider store={this.store}>
             <Editable id={state.id} />

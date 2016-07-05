@@ -48,7 +48,7 @@ class EditView extends Component {
 }
 
 EditView.propTypes = {
-  editorState: PropTypes.object.isRequired,
+  editorState: PropTypes.object,
   onChange: PropTypes.func.isRequired,
   readOnly: PropTypes.bool.isRequired
 }
