@@ -21,7 +21,6 @@
   position: absolute;
   z-index: 100;
   background: black;
-  box-shadow: 0 0 8px 8px white;
 }
 
 .is-over-above:before {

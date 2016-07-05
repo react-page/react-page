@@ -8,6 +8,7 @@ const fire = throttle(
 )
 
 export const computeCurrentDropPosition = ({
+  clear,
   above,
   below,
   leftOf,
@@ -56,6 +57,8 @@ export const computeCurrentDropPosition = ({
         data: ancestors.length - Math.round((componentPosition.right - mousePosition.x) / (componentWidth * treshold / ancestors.length))
       })
     }
+  } else {
+    fire({cb: clear})
   }
 }
 
@@ -66,8 +69,10 @@ export const computeAndDispatchInsert = ({
   insertCellRightOf: rightOf,
   insertCellInlineLeft: inlineLeft,
   insertCellInlineRight: inlineRight,
+  clearHover: clear,
   ...hover
 }, monitor, component) => computeCurrentDropPosition({
+  clear,
   above,
   below,
   leftOf,
@@ -83,8 +88,10 @@ export const computeAndDispatchHover = ({
   cellHoverRightOf: rightOf,
   cellHoverInlineLeft: inlineLeft,
   cellHoverInlineRight: inlineRight,
+  clearHover: clear,
   ...hover
 }, monitor, component) => computeCurrentDropPosition({
+  clear,
   above,
   below,
   leftOf,

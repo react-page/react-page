@@ -13,12 +13,10 @@
 :global .resizable-cell > .react-resizable-handle {
   position: absolute;
   z-index: 2;
-  width: 8px;
+  width: 4px;
   top: 0;
   bottom: 0;
-  right: -4px;
-  padding: 0 3px 3px 0;
-  box-sizing: border-box;
+  right: -2px;
   cursor: e-resize;
 }
 
@@ -28,7 +26,7 @@
 
 :global .resizable-cell > .is-resizing > .react-resizable-handle,
 :global .resizable-cell > .react-resizable-handle:hover {
-  background: linear-gradient(90deg, rgba(0, 0, 0, 0) 40%, black 40%, black 60%, rgba(0, 0, 0, 0) 60%);
+  background: black;
 }
 
 .is-over-current:before {
@@ -36,8 +34,8 @@
   display: block;
   position: absolute;
   z-index: 100;
-  background: black;
-  box-shadow: 0 0 8px 8px white;
+  background: inherit;
+  filter: invert(100%);
 }
 
 .is-over-above:before {

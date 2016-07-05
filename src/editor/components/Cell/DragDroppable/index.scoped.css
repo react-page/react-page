@@ -13,43 +13,4 @@
   outline: none;
 }
 
-.is-over-current:before {
-  content: " ";
-  display: block;
-  position: absolute;
-  z-index: 100;
-  background: black;
-  box-shadow: 0 0 8px 8px white;
-}
-
-.is-over-above:before {
-  opacity: 1;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 2px;
-}
-
-.is-over-below:before {
-  opacity: 1;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 2px;
-}
-
-.is-over-left-of:before {
-  opacity: 1;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  width: 2px;
-}
-
-.is-over-right-of:before {
-  opacity: 1;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  width: 2px;
-}
+.is-over-current:before {}

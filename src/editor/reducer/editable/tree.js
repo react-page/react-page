@@ -71,7 +71,7 @@ export const cell = (state = {
           }, {
             id: action.ids[3],
             cells: [{ ...reduce(), id: action.ids[4] }]
-          }], action)
+          }], { ...action, hover: null })
         }
       }
       return reduce()
@@ -87,7 +87,7 @@ export const cell = (state = {
           }, {
             id: action.ids[3],
             cells: [{ ...(action.item), id: action.ids[4] }]
-          }], action)
+          }], { ...action, hover: null })
         }
       }
       return reduce()
@@ -129,11 +129,13 @@ export const cells = (state = [], action) => computeInlines(computeResizeable(co
       return state
         .filter((c) => c.id !== action.item.id)
         .map((c) => isHoveringThis(c, action)
-          ? [...state.map((s) => ({ ...s, inline: null })), {
+          ? (
+          [...state.map((s) => ({ ...s, inline: null })), {
             ...(action.item),
             inline: action.type === CELL_INSERT_INLINE_RIGHT ? 'right' : 'left',
             id: action.ids[1]
-          }] : [c])
+          }]
+        ) : [c])
         .reduce(flatten, [])
         .map(inner(cell, action))
 
@@ -165,10 +167,10 @@ export const row = (state = {
       return {
         ...state,
         hover: null,
-        cells: inner(cells([
-          ...(state.cells),
-          { ...(action.item), id: action.ids[0] }
-        ], action))
+        cells: cells([
+          { ...(action.item), id: action.ids[0] },
+          ...(state.cells)
+        ], { ...action, hover: null })
       }
 
     case CELL_INSERT_RIGHT_OF:
@@ -178,10 +180,10 @@ export const row = (state = {
       return {
         ...state,
         hover: null,
-        cells: inner(cells([
+        cells: cells([
           ...(state.cells),
           { ...(action.item), id: action.ids[0] }
-        ], action))
+        ], { ...action, hover: null })
       }
 
     case CELL_DRAG_HOVER:
@@ -203,15 +205,25 @@ export const rows = (state = [], action) => optimizeRows(((state, action) => {
     case CELL_INSERT_ABOVE:
       return state
         .map((r) => isHoveringThis(r, action)
-          ? [{ id: action.ids[0], cells: [{ ...(action.item), id: action.ids[1] }] }, { ...r, id: action.ids[2] }]
-          : [r])
+          ? (
+          [{
+            cells: [{ ...(action.item), id: action.ids[1] }],
+            id: action.ids[0]
+          }, {
+            ...r,
+            id: action.ids[2]
+          }]) : [r])
         .reduce(flatten, [])
         .map(inner(row, action))
     case CELL_INSERT_BELOW:
       return state
         .map((r) => isHoveringThis(r, action)
-          ? [{ ...r, id: action.ids[0] }, { id: action.ids[1], cells: [{ ...(action.item), id: action.ids[2] }] }]
-          : [r])
+          ? (
+          [{
+            ...r, id: action.ids[0]
+          }, {
+            cells: [{ ...(action.item), id: action.ids[2] }], id: action.ids[1]
+          }]) : [r])
         .reduce(flatten, [])
         .map(inner(row, action))
 

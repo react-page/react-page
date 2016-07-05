@@ -7,9 +7,15 @@ export const CELL_INSERT_RIGHT_OF = 'CELL_INSERT_RIGHT_OF'
 export const CELL_INSERT_INLINE_LEFT = 'CELL_INSERT_INLINE_LEFT'
 export const CELL_INSERT_INLINE_RIGHT = 'CELL_INSERT_INLINE_RIGHT'
 
-const gen = (c = 1) => (new Array(c)).map(() => uuid.v4())
+const gen = (c = 1) => {
+  const ret = []
+  for (let i = 0; i <= c; i++) {
+    ret.push(uuid.v4())
+  }
+  return ret
+}
 
-const insert = (type) => (item, { id: hover } = {}, level = 0, ids = []) => ({
+const insert = (type) => (item, { id: hover } = {}, level = 0, ids = false) => ({
   type,
   ts: new Date(),
   item,

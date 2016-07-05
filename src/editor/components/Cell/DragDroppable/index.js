@@ -35,7 +35,8 @@ DragDroppable.propTypes = {
   isOverCurrent: PropTypes.bool.isRequired,
   isDragging: PropTypes.bool.isRequired,
   hover: PropTypes.string,
-  dragCell: PropTypes.func.isRequired
+  dragCell: PropTypes.func.isRequired,
+  clearHover: PropTypes.func.isRequired
 }
 
 const mapStateToProps = null
