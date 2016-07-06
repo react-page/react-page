@@ -41,7 +41,7 @@ export const computeResizeable = (cells = []) => cells.map((c, k) => ({
  */
 export const computeInlines = (cells = []) => {
   if (cells.length !== 2 || !cells[0].inline) {
-    return cells.map((c) => ({ ...c, inline: null }))
+    return cells.map((c) => ({ ...c, inline: null, hasInlineNeighbour: null }))
   }
 
   const inline = cells[0].inline

@@ -7,7 +7,7 @@
     "node": true,
     "browser": true
   },
-  "rules": {
+  "matrix": {
     "no-console": ["error", { "allow": ["warn", "error"] }]
   }
 }

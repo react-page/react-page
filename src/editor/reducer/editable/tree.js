@@ -65,7 +65,7 @@ export const cell = (state = {
           hover: null,
           rows: rows([{
             id: action.ids[1],
-            cells: [{ ...(action.item), id: action.ids[2] }]
+            cells: [{ ...(action.item), id: action.ids[2], inline: null }]
           }, {
             id: action.ids[3],
             cells: [{ ...reduce(), id: action.ids[4] }]
@@ -84,7 +84,7 @@ export const cell = (state = {
             cells: [{ ...state, id: action.ids[2] }]
           }, {
             id: action.ids[3],
-            cells: [{ ...(action.item), id: action.ids[4] }]
+            cells: [{ ...(action.item), id: action.ids[4], inline: null }]
           }], { ...action, hover: null })
         }
       }
@@ -108,7 +108,7 @@ export const cells = (state = [], action) => computeInlines(computeResizeable(co
       return state
         .filter((c) => c.id !== action.item.id)
         .map((c) => isHoveringThis(c, action)
-          ? [{ ...(action.item), id: action.ids[0] }, { ...c, id: action.ids[1] }]
+          ? [{ ...(action.item), id: action.ids[0], inline: null }, { ...c, id: action.ids[1] }]
           : [c])
         .reduce(flatten, [])
         .map(inner(cell, action))
@@ -117,7 +117,7 @@ export const cells = (state = [], action) => computeInlines(computeResizeable(co
       return state
         .filter((c) => c.id !== action.item.id)
         .map((c) => isHoveringThis(c, action)
-          ? [{ ...c, id: action.ids[0] }, { ...(action.item), id: action.ids[1] }]
+          ? [{ ...c, id: action.ids[0] }, { ...(action.item), id: action.ids[1], inline: null }]
           : [c])
         .reduce(flatten, [])
         .map(inner(cell, action))
@@ -166,7 +166,7 @@ export const row = (state = {
         ...state,
         hover: null,
         cells: cells([
-          { ...(action.item), id: action.ids[0] },
+          { ...(action.item), id: action.ids[0], inline: null },
           ...(state.cells)
         ], { ...action, hover: null })
       }
@@ -180,7 +180,7 @@ export const row = (state = {
         hover: null,
         cells: cells([
           ...(state.cells),
-          { ...(action.item), id: action.ids[0] }
+          { ...(action.item), id: action.ids[0], inline: null }
         ], { ...action, hover: null })
       }
 
@@ -205,7 +205,7 @@ export const rows = (state = [], action) => optimizeRows(((state, action) => {
         .map((r) => isHoveringThis(r, action)
           ? (
           [{
-            cells: [{ ...(action.item), id: action.ids[1] }],
+            cells: [{ ...(action.item), id: action.ids[1], inline: null }],
             id: action.ids[0]
           }, {
             ...r,
@@ -220,7 +220,7 @@ export const rows = (state = [], action) => optimizeRows(((state, action) => {
           [{
             ...r, id: action.ids[0]
           }, {
-            cells: [{ ...(action.item), id: action.ids[2] }], id: action.ids[1]
+            cells: [{ ...(action.item), id: action.ids[2], inline: null }], id: action.ids[1]
           }]) : [r])
         .reduce(flatten, [])
         .map(inner(row, action))
