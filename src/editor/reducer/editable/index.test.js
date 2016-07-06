@@ -4,47 +4,52 @@ import unexpected from 'unexpected'
 import { combineReducers, createStore } from 'redux'
 import { identity } from 'ramda'
 import * as actions from 'src/editor/actions/cell'
-import { computeSizes, computeResponsive, computeBounds, computeResizeable, computeInlines } from './helper/sizing'
+import { computeSizes, computeBounds, computeResizeable, computeInlines } from './helper/sizing'
 
 const expect = unexpected.clone()
 
-const cells = (state) => computeInlines(computeResizeable(computeBounds(computeResponsive(computeSizes(state)))).map(({ rows = [], hover = null, ...c }) => ({
+const cells = (state) => computeInlines(computeResizeable(computeBounds(computeSizes(state)))).map(({ rows = [], hover = null, ...c }) => ({
   ...c,
   rows,
   hover
-})))
+}))
 
 const rows = (state) => state.map(({ ...r, hover = null }) => ({ ...r, hover }))
 
-const defaultState = {
-  editable: {
-    cells: [
-      {
+const trees = {
+  basic: {
+    editable: {
+      cells: [{
         id: '0',
-        rows: [
-          {
-            id: '00',
-            cells: [
-              { id: '000', plugin: 'foo' }
-            ]
-          },
-          {
-            id: '01',
-            cells: [
-              { id: '010', plugin: 'bar' }
-            ]
-          }
-        ]
-      }
-    ]
+        rows: [{
+          id: '00',
+          cells: [{ id: '000', plugin: 'foo' }]
+        }, {
+          id: '01',
+          cells: [{ id: '010', plugin: 'bar' }]
+        }]
+      }]
+    }
+  },
+  inline: {
+    editable: {
+      cells: [{
+        id: '0',
+        rows: [{
+          id: '00',
+          cells: [{ id: '000', plugin: 'foo', inline: 'left' }, { id: '001', plugin: 'bar' }]
+        }]
+      }]
+    }
   }
 }
+
+const defaultState = trees.basic
 
 const insertCell = {
   id: 'i',
   plugin: 'insert-baz'
 }
-
 
 describe('editor/reducer/editable', () => {
   [{
@@ -221,8 +226,7 @@ describe('editor/reducer/editable', () => {
               rows: [],
               resizable: true,
               size: 4,
-              bounds: { left: 0, right: 11 },
-              responsive: [12, 12]
+              bounds: { left: 0, right: 11 }
             }, {
               id: '001',
               hover: null,
@@ -231,8 +235,40 @@ describe('editor/reducer/editable', () => {
               plugin: 'bar',
               rows: [],
               size: 8,
-              bounds: { left: 11, right: 0 },
-              responsive: [12, 12]
+              bounds: { left: 11, right: 0 }
+            }]
+          }])
+        }])
+      }
+    }
+  }, {
+    d: 'cell resize inline cell (1)',
+    s: trees.inline,
+    a: () => actions.resizeCell({ id: '000' }, 4),
+    e: {
+      editable: {
+        cells: cells([{
+          id: '0',
+          rows: rows([{
+            id: '00',
+            cells: [{
+              id: '000',
+              hover: null,
+              inline: 'left',
+              plugin: 'foo',
+              rows: [],
+              resizable: true,
+              size: 4,
+              bounds: { left: 0, right: 11 }
+            }, {
+              id: '001',
+              hover: null,
+              resizable: false,
+              hasInlineNeighbour: true,
+              plugin: 'bar',
+              rows: [],
+              size: 12,
+              bounds: { left: 0, right: 0 }
             }]
           }])
         }])
@@ -277,7 +313,7 @@ describe('editor/reducer/editable', () => {
       }
     }
   }, {
-    d: 'cell insert right of, deeply nested, proper cleanup',
+    d: 'insert cell right of, clean up tree afterwards',
     s: {
       editable: {
         cells: [{
@@ -366,7 +402,7 @@ describe('editor/reducer/editable', () => {
       }
     }
   }, {
-    d: 'cell insert right of cell 2',
+    d: 'cell insert right of cell',
     s: defaultState,
     a: () => actions.insertCellRightOf(insertCell, { id: '000' }, 0, ['i0', 'i00', 'i000', 'i0000', 'i00000']),
     e: {
@@ -441,6 +477,24 @@ describe('editor/reducer/editable', () => {
       }
     }
   }, {
+    d: 'cell insert left of cell',
+    s: defaultState,
+    a: () => actions.insertCellLeftOf(insertCell, { id: '000' }, 0, ['i0', 'i00', 'i000', 'i0000', 'i00000']),
+    e: {
+      editable: {
+        cells: cells([{
+          id: '0',
+          rows: rows([{
+            id: '00',
+            cells: cells([{ ...insertCell, id: 'i0' }, { id: 'i00', plugin: 'foo' }])
+          }, {
+            id: '01',
+            cells: cells([{ id: '010', plugin: 'bar' }])
+          }])
+        }])
+      }
+    }
+  }, {
     d: 'cell insert above cell',
     s: defaultState,
     a: () => actions.insertCellAbove(insertCell, { id: '000' }, 0, ['i0', 'i00', 'i000', 'i0000', 'i00000']),
@@ -478,6 +532,86 @@ describe('editor/reducer/editable', () => {
           }, {
             id: '01',
             cells: cells([{ id: '010', plugin: 'bar' }])
+          }])
+        }])
+      }
+    }
+  }, {
+    d: 'cell move below another cell',
+    s: defaultState,
+    a: () => actions.insertCellBelow({
+      id: '000',
+      plugin: 'foo'
+    }, { id: '010' }, 0, ['i0', 'i00', 'i000', 'i0000', 'i00000']),
+    e: {
+      editable: {
+        cells: cells([{
+          id: '0',
+          rows: rows([{
+            id: 'i00',
+            cells: cells([{ id: 'i000', plugin: 'bar' }])
+          }, {
+            id: 'i0000',
+            cells: cells([{ id: 'i00000', plugin: 'foo' }])
+          }])
+        }])
+      }
+    }
+  }, {
+    d: 'cell insert inline cell left of',
+    s: defaultState,
+    a: () => actions.insertCellLeftInline(insertCell, { id: '000' }, 0, ['i0', 'i00', 'i000', 'i0000', 'i00000']),
+    e: {
+      editable: {
+        cells: cells([{
+          id: '0',
+          rows: rows([{
+            id: '00',
+            cells: [{
+              ...insertCell,
+              inline: 'left',
+              id: 'i00',
+              hover: null,
+              size: 6,
+              resizable: true,
+              bounds: { left: 0, right: 11 },
+              rows: []
+            }, {
+              id: '000',
+              plugin: 'foo',
+              inline: null,
+              hasInlineNeighbour: true,
+              hover: null,
+              size: 12,
+              resizable: false,
+              bounds: { left: 0, right: 0 },
+              rows: []
+            }]
+          }, {
+            id: '01',
+            cells: cells([{ id: '010', plugin: 'bar' }])
+          }])
+        }])
+      }
+    }
+  }, {
+    d: 'cell insert cell left of inline row',
+    s: trees.inline,
+    a: () => actions.insertCellLeftOf(insertCell, { id: '000' }, 2, ['i0', 'i00', 'i000', 'i0000', 'i00000']),
+    e: {
+      editable: {
+        cells: cells([{
+          ...insertCell,
+          id: 'i0'
+        }, {
+          id: 'i00',
+          rows: rows([{
+            id: '00',
+            cells: cells([{
+              id: '000', plugin: 'foo', inline: 'left'
+            }, {
+              id: '001', plugin: 'bar'
+            }])
           }])
         }])
       }

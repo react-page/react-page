@@ -9,14 +9,6 @@ const MAX_CELLS_PER_ROW = 12
 export const sumSizes = (cells = []) => cells.reduce(({ size: p = 99, inline: a = false } = {}, { size: c = 99, inline: b = false }) => ({ size: (!Boolean(a) * p) + (!Boolean(b) * c) }), { size: 0 }).size
 
 /**
- * Compute responsive classes for each cell
- *
- * @param {Array} cells
- * @return {Array}
- */
-export const computeResponsive = (cells = []) => cells.map((c) => ({ ...c, responsive: [12, 12] }))
-
-/**
  * Updates each cell's size boundaries.
  *
  * @param {[...cell]} cells
@@ -52,8 +44,15 @@ export const computeInlines = (cells = []) => {
     return cells.map((c) => ({ ...c, inline: null }))
   }
 
+  const inline = cells[0].inline
   return [{
-    ...cells[0], resizable: true, bounds: { left: 11, right: 11 }
+    ...cells[0],
+    resizable: true,
+    size: cells[0].size || Math.round(MAX_CELLS_PER_ROW / 2),
+    bounds: {
+      left: inline === 'left' ? 0 : MAX_CELLS_PER_ROW - 1,
+      right: inline === 'right' ? 0 : MAX_CELLS_PER_ROW - 1
+    }
   }, {
     ...cells[1], bounds: { left: 0, right: 0 }, size: 12, hasInlineNeighbour: true
   }]

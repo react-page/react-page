@@ -1,14 +1,16 @@
-:global .inline-left {
+.inline-left {
   float: left;
+  z-index: 2;
+}
+
+.inline-right {
+  float: right;
+  z-index: 2;
 }
 
 :global .has-inline-neighbour {
   float: none;
   width: 100%;
-}
-
-:global .inline-right {
-  float: right;
 }
 
 .cell {}

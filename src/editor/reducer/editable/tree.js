@@ -19,7 +19,6 @@ import {
   computeInlines,
   computeBounds,
   resizeCells,
-  computeResponsive,
   computeResizeable
 } from './helper/sizing'
 
@@ -28,7 +27,6 @@ const inner = (cb, action) => (state) => cb(state, action)
 export const cell = (state = {
   id: null,
   hover: null,
-  responsive: [],
   size: 0,
   inline: null,
   bounds: { left: 0, right: 0 },
@@ -97,7 +95,7 @@ export const cell = (state = {
   }
 })(state, action))
 
-export const cells = (state = [], action) => computeInlines(computeResizeable(computeResponsive(computeBounds(computeSizes(optimizeCells(((state, action) => {
+export const cells = (state = [], action) => computeInlines(computeResizeable(computeBounds(computeSizes(optimizeCells(((state, action) => {
   switch (action.type) {
     case CELL_RESIZE:
       return resizeCells(state.map(inner(cell, action)), action)
@@ -130,11 +128,11 @@ export const cells = (state = [], action) => computeInlines(computeResizeable(co
         .filter((c) => c.id !== action.item.id)
         .map((c) => isHoveringThis(c, action)
           ? (
-          [...state.map((s) => ({ ...s, inline: null })), {
+          [{
             ...(action.item),
             inline: action.type === CELL_INSERT_INLINE_RIGHT ? 'right' : 'left',
             id: action.ids[1]
-          }]
+          }, ...state.map((s) => ({ ...s, inline: null }))]
         ) : [c])
         .reduce(flatten, [])
         .map(inner(cell, action))
@@ -145,7 +143,7 @@ export const cells = (state = [], action) => computeInlines(computeResizeable(co
     default:
       return state.map(inner(cell, action))
   }
-})(state, action)))))))
+})(state, action))))))
 
 export const row = (state = {
   id: null,

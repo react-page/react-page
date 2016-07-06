@@ -27,6 +27,7 @@ const Cell = (props) => (
     })}
     styleName={classNames(gridClass(props), {
       'is-over-current': props.hover,
+      [`inline-${props.inline}`]: props.inline,
       [`is-over-${props.hover}`]: props.hover
     })}
   >
