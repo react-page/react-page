@@ -1,9 +1,9 @@
 import React, { PropTypes } from 'react'
 import Row from 'src/editor/components/Row'
 
-const Layout = ({ rows = [], layout: { Component, props = {} }, editable, ancestors = [] }) => (
+const Layout = ({ id, rows = [], layout: { Component, props = {} }, editable, ancestors = [] }) => (
   <Component {...props}>
-    {rows.map((r) => <Row editable={editable} ancestors={ancestors} key={r.id} {...r} />)}
+    {rows.map((r) => <Row editable={editable} ancestors={[...ancestors, id]} key={r.id} {...r} />)}
   </Component>
 )
 

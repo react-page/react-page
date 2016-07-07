@@ -10,6 +10,9 @@ export const target = {
     } else if (!monitor.isOver({ shallow: true })) {
       // If hovering over ancestor cell, do nothing (we are going to propagate later in the tree anyways)
       return
+    } else if (props.ancestors.indexOf(item.id) > -1) {
+      // If hovering over a child of itself
+      return
     } else if (!props.id) {
       // If hovering over something that isn't a cell or hasn't an id, do nothing. Should be an edge case
       console.warn('Canceled cell.drop.target.hover: no id given.', props, item)
@@ -19,11 +22,21 @@ export const target = {
     computeAndDispatchHover(props, monitor, component)
   },
 
+  canDrop: ({ id, ancestors }, monitor) => {
+    const item = monitor.getItem()
+    console.log(!(item.id === id || ancestors.indexOf(item.id) !== -1), id, item.id, ancestors)
+    return !(item.id === id || ancestors.indexOf(item.id) !== -1)
+  },
+
   drop(props, monitor, component) {
     const item = monitor.getItem()
 
     // If the item being dropped on itself do nothing
     if (item.id === props.id) {
+      props.cancelCellDrag(item.id)
+      return
+    } else if (props.ancestors.indexOf(item.id) > -1) {
+      // If hovering over a child of itself
       props.cancelCellDrag(item.id)
       return
     }
