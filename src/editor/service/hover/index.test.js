@@ -45,7 +45,7 @@ describe('', () => {
         callbacks
       })
 
-      const hover = h.hover({
+      const hover = h.hover({}, {}, {}, {
         room: c.in.room,
         mouse: c.in.mouse,
         ancestors: c.in.ancestors

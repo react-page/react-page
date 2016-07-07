@@ -223,6 +223,7 @@ describe('editor/reducer/editable', () => {
               hover: null,
               inline: null,
               plugin: 'foo',
+              hasInlineNeighbour: null,
               rows: [],
               resizable: true,
               size: 4,
@@ -233,6 +234,7 @@ describe('editor/reducer/editable', () => {
               inline: null,
               resizable: false,
               plugin: 'bar',
+              hasInlineNeighbour: null,
               rows: [],
               size: 8,
               bounds: { left: 11, right: 0 }

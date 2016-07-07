@@ -135,8 +135,21 @@ export const callbacks = {
 
   [c.AH]: (hover, item, { above }) => above(hover, item, 0),
   [c.BH]: (hover, item, { below }) => below(hover, item, 0),
-  [c.LH]: (hover, item, { leftOf }) => leftOf(hover, item, 0),
-  [c.RH]: (hover, item, { rightOf }) => rightOf(hover, item, 0),
+
+  [c.LH]: ({ inline, hasInlineNeighbour, ...hover }, item, { leftOf }) => {
+    if (inline || hasInlineNeighbour) {
+      return leftOf(hover, item, 2)
+    }
+
+    return leftOf(hover, item, 0)
+  },
+  [c.RH]: ({ inline, hasInlineNeighbour, ...hover }, item, { rightOf }) => {
+    if (inline || hasInlineNeighbour) {
+      return rightOf(hover, item, 2)
+    }
+
+    return rightOf(hover, item, 0)
+  },
 
   [c.AA]: (hover, item, { above }, { room, mouse, ancestors, scale }) => {
     const level = 0
@@ -147,11 +160,12 @@ export const callbacks = {
     below(hover, item, level)
     below(level)
   },
-  [c.LA]: (hover, item, { leftOf }, { room, mouse, ancestors, scale }) => {
+
+  [c.LA]: ({ inline, hasInlineNeighbour }, item, { leftOf }, { room, mouse, ancestors, scale }) => {
     const level = 0
     leftOf(hover, item, level)
   },
-  [c.RA]: (hover, item, { rightOf }, { room, mouse, ancestors, scale }) => {
+  [c.RA]: ({ inline, hasInlineNeighbour }, item, { rightOf }, { room, mouse, ancestors, scale }) => {
     const level = 0
     rightOf(hover, item, level)
   },
