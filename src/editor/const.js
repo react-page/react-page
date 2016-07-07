@@ -6,3 +6,5 @@ export const positions = {
   INLINE_LEFT: 'inline-left',
   INLINE_RIGHT: 'inline-right'
 }
+
+export const isProduction = process.env.NODE_ENV === 'production'

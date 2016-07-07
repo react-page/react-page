@@ -1,11 +1,7 @@
 import { findDOMNode } from 'react-dom'
 import throttle from 'lodash.throttle'
 
-const fire = throttle(
-  ({ hover, drag, cb, data }) => cb(drag, hover, data),
-  200,
-  { leading: false }
-)
+const fire = ({ hover, drag, cb, data }) => cb(drag, hover, data)
 
 export const computeCurrentDropPosition = ({
   clear,
@@ -16,7 +12,7 @@ export const computeCurrentDropPosition = ({
   inlineLeft,
   inlineRight
 }, { ancestors = [], ...hover }, monitor, component) => {
-  const treshold = 0.40
+  const treshold = 0.45
   const mousePosition = monitor.getClientOffset()
   const componentPosition = findDOMNode(component).getBoundingClientRect()
   const componentHeight = (componentPosition.bottom - componentPosition.top)

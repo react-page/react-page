@@ -1,10 +1,15 @@
 import { computeAndDispatchHover, computeAndDispatchInsert } from './input'
+import throttle from 'lodash.throttle'
+import {isProduction} from 'src/editor/const'
 
 export const target = {
-  hover: (props, monitor, component) => {
+  hover: throttle((props, monitor, component) => {
     const item = monitor.getItem()
 
-    if (item.id === props.id) {
+    if (!item) {
+      // item undefined, happens when throttle triggers after drop
+      return
+    } else if (item.id === props.id) {
       // If hovering over itself, do nothing
       return
     } else if (!monitor.isOver({ shallow: true })) {
@@ -20,11 +25,10 @@ export const target = {
     }
 
     computeAndDispatchHover(props, monitor, component)
-  },
+  }, isProduction ? 80 : 300, { leading: false }),
 
   canDrop: ({ id, ancestors }, monitor) => {
     const item = monitor.getItem()
-    console.log(!(item.id === id || ancestors.indexOf(item.id) !== -1), id, item.id, ancestors)
     return !(item.id === id || ancestors.indexOf(item.id) !== -1)
   },
 

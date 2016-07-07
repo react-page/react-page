@@ -277,6 +277,25 @@ describe('editor/reducer/editable', () => {
       }
     }
   }, {
+    d: 'cell hover real row',
+    s: defaultState,
+    a: () => actions.cellHoverLeftOf({ id: '' }, { id: '00' }, 0),
+    e: {
+      editable: {
+        cells: cells([{
+          id: '0',
+          rows: rows([{
+            id: '00',
+            hover: 'left-of',
+            cells: cells([{ id: '000', plugin: 'foo' }])
+          }, {
+            id: '01',
+            cells: cells([{ id: '010', plugin: 'bar' }])
+          }])
+        }])
+      }
+    }
+  }, {
     d: 'cell hover row',
     s: defaultState,
     a: () => actions.cellHoverLeftOf({ id: '' }, { id: '000' }, 1),

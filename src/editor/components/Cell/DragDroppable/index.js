@@ -39,8 +39,6 @@ DragDroppable.propTypes = {
   clearHover: PropTypes.func.isRequired
 }
 
-const mapStateToProps = null
-
 const mapDispatchToProps = { ...hoverActions, ...insertActions }
 
-export default (dragType = 'CELL', dropTypes = ['CELL']) => connect(mapStateToProps, mapDispatchToProps)(dropTarget(dropTypes, target, monitorConnect)(dragSource(dragType, source, collect)(cssModules(DragDroppable, styles, { allowMultiple: true }))))
+export default (dragType = 'CELL', dropTypes = ['CELL']) => connect(null, mapDispatchToProps)(dropTarget(dropTypes, target, monitorConnect)(dragSource(dragType, source, collect)(cssModules(DragDroppable, styles, { allowMultiple: true }))))
