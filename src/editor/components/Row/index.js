@@ -1,5 +1,4 @@
 import React, { PropTypes, Component } from 'react'
-import dimensions from 'react-dimensions'
 import droppable from './Droppable'
 import ResizeContainer from './ResizeContainer'
 import { connect } from 'react-redux'
