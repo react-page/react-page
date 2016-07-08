@@ -33,7 +33,10 @@ export const target = {
   drop(props, monitor, component) {
     const item = monitor.getItem()
 
-    if (props.ancestors.indexOf(item.id) > -1) {
+    if (monitor.didDrop()) {
+      // If the item drop occurred deeper down the tree, don't do anything
+      return
+    } else if (props.ancestors.indexOf(item.id) > -1) {
       // If hovering over a child of itself
       props.cancelCellDrag(item.id)
       return
