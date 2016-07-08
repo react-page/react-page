@@ -2,8 +2,8 @@ export const getRoomScale = ({ room, matrix }) => {
   const rows = matrix.length
   const cells = matrix[0].length
 
-  const scalingX = room.x / cells
-  const scalingY = room.y / rows
+  const scalingX = room.width / cells
+  const scalingY = room.height / rows
 
   return {
     x: scalingX,
@@ -12,40 +12,32 @@ export const getRoomScale = ({ room, matrix }) => {
 }
 
 export const getMouseHoverCell = ({ mouse, scale }) => ({
-  cell: Math.round(mouse.x / scale.x),
-  row: Math.round(mouse.y / scale.y)
+  cell: Math.floor(mouse.x / scale.x),
+  row: Math.floor(mouse.y / scale.y)
 })
 
-export const computeHover = (hover, item, actions, { room, mouse, ancestors, matrix, callbacks }) => {
+export const computeHover = (item, hover, actions, { room, mouse, matrix, callbacks }) => {
   const scale = getRoomScale({ room, matrix })
   const hoverCell = getMouseHoverCell({ mouse, scale })
-  const cell = matrix[hoverCell.row][hoverCell.cell]
+  const rows = matrix.length
+  const cells = matrix[0].length
 
-  return callbacks[cell](hover, item, actions, {
+  if (hoverCell.row >= rows) {
+    hoverCell.row = rows - 1
+  }
+  if (hoverCell.cell >= cells) {
+    hoverCell.cell = cells - 1
+  }
+
+  const cell = matrix[hoverCell.row][hoverCell.cell]
+  return callbacks[cell](item, hover, actions, {
     room,
     mouse,
-    ancestors,
+    position: hoverCell,
+    size: { rows, cells },
     scale
   })
 }
-
-export default class HoverService {
-  constructor({ matrix, callbacks }) {
-    this.matrix = matrix
-    this.callbacks = callbacks
-  }
-
-  hover(hover, item, actions, { room, mouse, ancestors }) {
-    return computeHover(hover, item, actions, {
-      room,
-      mouse,
-      ancestors,
-      matrix: this.matrix,
-      callbacks: this.callbacks
-    })
-  }
-}
-
 
 /**
  *
@@ -127,55 +119,125 @@ export const matrices = {
   ]
 }
 
+
+const relativeMousePosition = ({ mouse, position, scale }) => ({
+  x: Math.round(mouse.x - (position.cell * scale.x)),
+  y: Math.round(mouse.y - (position.row * scale.y))
+})
+
+const computeHorizontal = ({ mouse, position, hover, scale, level }, inv = false) => {
+  const { inline, hasInlineNeighbour } = hover
+  const at = relativeMousePosition({ mouse, position, scale }).x % (level + 1)
+  if ((inline || hasInlineNeighbour) && at < 2) {
+    return 2
+  }
+  return inv ? level - at : at
+}
+
+const computeVertical = ({ level, mouse, position, scale }, inv = false) => inv
+  ? level - (relativeMousePosition({ mouse, position, scale }).y % (level + 1))
+  : relativeMousePosition({ mouse, position, scale }).y % (level + 1)
+
 export const callbacks = {
-  [c.C1]: () => ({}),
-  [c.C2]: () => ({}),
-  [c.C3]: () => ({}),
-  [c.C4]: () => ({}),
+  [c.NO]: (item, hover, { cancel }) => (cancel(item.id)),
 
-  [c.AH]: (hover, item, { above }) => above(hover, item, 0),
-  [c.BH]: (hover, item, { below }) => below(hover, item, 0),
+  /* corners */
+  [c.C1]: (item, hover, { leftOf, above }, ctx) => {
+    const mouse = relativeMousePosition(ctx)
+    if (mouse.x < mouse.y) {
+      return leftOf(item, hover, computeHorizontal({ ...ctx, hover, level: hover.levels.left }, true))
+    }
+    above(item, hover, computeVertical({ ...ctx, hover, level: hover.levels.above }, true))
+  },
 
-  [c.LH]: ({ inline, hasInlineNeighbour, ...hover }, item, { leftOf }) => {
+  [c.C2]: (item, hover, { rightOf, above }, ctx) => {
+    const mouse = relativeMousePosition(ctx)
+    if (mouse.x > mouse.y) {
+      return rightOf(item, hover, computeHorizontal({ ...ctx, hover, level: hover.levels.right }))
+    }
+    above(item, hover, computeVertical({ ...ctx, hover, level: hover.levels.above }, true))
+  },
+
+  [c.C3]: (item, hover, { rightOf, below }, ctx) => {
+    const mouse = relativeMousePosition(ctx)
+
+    if (mouse.x > mouse.y) {
+      return rightOf(item, hover, computeHorizontal({ ...ctx, hover, level: hover.levels.right }))
+    }
+    below(item, hover, computeVertical({ ...ctx, hover, level: hover.levels.below }))
+  },
+
+  [c.C4]: (item, hover, { leftOf, below }, ctx) => {
+    const mouse = relativeMousePosition(ctx)
+
+    if (mouse.x < mouse.y) {
+      return leftOf(item, hover, computeHorizontal({ ...ctx, hover, level: hover.levels.left }, true))
+    }
+    below(item, hover, computeVertical({ ...ctx, hover, level: hover.levels.below }))
+  },
+
+  /* heres */
+  [c.AH]: (item, hover, { above }) => above(item, hover, 0),
+  [c.BH]: (item, hover, { below }) => below(item, hover, 0),
+
+  [c.LH]: ({ inline, hasInlineNeighbour, ...item }, hover, { leftOf }) => leftOf(item, hover, inline || hasInlineNeighbour ? 2 : 0),
+  [c.RH]: ({ inline, hasInlineNeighbour, ...item }, hover, { rightOf }) => rightOf(item, hover, inline || hasInlineNeighbour ? 2 : 0),
+
+  /* ancestors */
+  [c.AA]: (item, hover, { above }, ctx) => above(item, hover, computeVertical({
+    ...ctx,
+    hover,
+    level: hover.levels.above
+  }, true)),
+  [c.BA]: (item, hover, { below }, ctx) => below(item, hover, computeVertical({
+    ...ctx,
+    hover,
+    level: hover.levels.below
+  })),
+
+  [c.LA]: (item, hover, { leftOf }, ctx) => leftOf(item, hover, computeHorizontal({
+    ...ctx,
+    hover,
+    level: hover.levels.left
+  }, true)),
+  [c.RA]: (item, hover, { rightOf }, ctx) => rightOf(item, hover, computeHorizontal({
+    ...ctx,
+    hover,
+    level: hover.levels.right
+  })),
+
+  /* inline */
+  [c.IL]: (item, hover, { inlineLeft, leftOf }) => {
+    const { inline, hasInlineNeighbour } = hover
     if (inline || hasInlineNeighbour) {
-      return leftOf(hover, item, 2)
+      return leftOf(item, hover, 2)
     }
 
-    return leftOf(hover, item, 0)
+    inlineLeft(item, hover)
   },
-  [c.RH]: ({ inline, hasInlineNeighbour, ...hover }, item, { rightOf }) => {
+
+  [c.IR]: (item, hover, { inlineRight, rightOf }) => {
+    const { inline, hasInlineNeighbour } = hover
     if (inline || hasInlineNeighbour) {
-      return rightOf(hover, item, 2)
+      return rightOf(item, hover, 2)
     }
 
-    return rightOf(hover, item, 0)
-  },
+    inlineRight(item, hover)
+  }
+}
 
-  [c.AA]: (hover, item, { above }, { room, mouse, ancestors, scale }) => {
-    const level = 0
-    above(hover, item, level)
-  },
-  [c.BA]: (hover, item, { below }, { room, mouse, ancestors, scale }) => {
-    const level = 0
-    below(hover, item, level)
-    below(level)
-  },
+export default class HoverService {
+  constructor({ matrix: m = matrices['10x10'], callbacks: cbs = callbacks } = {}) {
+    this.matrix = m
+    this.callbacks = cbs
+  }
 
-  [c.LA]: ({ inline, hasInlineNeighbour }, item, { leftOf }, { room, mouse, ancestors, scale }) => {
-    const level = 0
-    leftOf(hover, item, level)
-  },
-  [c.RA]: ({ inline, hasInlineNeighbour }, item, { rightOf }, { room, mouse, ancestors, scale }) => {
-    const level = 0
-    rightOf(hover, item, level)
-  },
-
-  [c.IL]: (hover, item, { inlineLeft, leftOf }, { room, mouse, ancestors, scale }) => {
-    const level = 0
-    inlineLeft(hover, item, level)
-  },
-  [c.IR]: (hover, item, { inlineRight, rightOf }, { room, mouse, ancestors, scale }) => {
-    const level = 0
-    inlineRight(hover, item, level)
+  hover(item, hover, actions, { room, mouse }) {
+    return computeHover(item, hover, actions, {
+      room,
+      mouse,
+      matrix: this.matrix,
+      callbacks: this.callbacks
+    })
   }
 }

@@ -13,9 +13,12 @@
   width: 100%;
 }
 
-.cell {}
+.cell {
+  position: relative;
+}
 
-.is-over-current {}
+.is-over-current {
+}
 
 .is-over-current:before {
   content: " ";
@@ -55,4 +58,22 @@
   right: 0;
   bottom: 0;
   width: 2px;
+}
+
+.is-over-inline-left:before {
+  opacity: 1;
+  top: 0;
+  left: 0;
+  width: 50%;
+  height: 4px;
+  background: rgba(0, 0, 0, .9);
+}
+
+.is-over-inline-right:before {
+  opacity: 1;
+  top: 0;
+  right: 0;
+  width: 50%;
+  height: 4px;
+  background: rgba(0, 0, 0, .9);
 }

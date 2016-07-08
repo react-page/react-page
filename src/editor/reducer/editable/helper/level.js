@@ -12,8 +12,8 @@ export const computeDropLevels = ({ rows = [], cells = [], ...props }, { left = 
     props.cells = cells.map((c, k) => computeDropLevels(c, {
       left: k === 0 ? left + 1 : 0,
       right: k === cells.length - 1 ? right + 1 : 0,
-      above: above === 0 ? 0 : above + 1,
-      below: below === 0 ? 0 : below + 1
+      above: above + 1,
+      below: below + 1
     }))
   }
 

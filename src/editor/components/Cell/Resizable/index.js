@@ -86,6 +86,8 @@ class Resizable extends React.Component {
 
 Resizable.propTypes = {
   containerWidth: PropTypes.number.isRequired,
+  containerHeight: PropTypes.number.isRequired,
+  
   children: PropTypes.element.isRequired,
 
   steps: PropTypes.number,

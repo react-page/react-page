@@ -1,11 +1,13 @@
 import React, { PropTypes, Component } from 'react'
 import droppable from './Droppable'
-import ResizeContainer from './ResizeContainer'
 import { connect } from 'react-redux'
 import { isLayoutMode, isResizeMode } from 'src/editor/selector/display'
 import { editableConfig } from 'src/editor/selector/editable'
 import { createStructuredSelector } from 'reselect'
 import Inner from './inner'
+import dimensions from 'react-dimensions'
+
+const InnerResizeContainer = dimensions()(Inner)
 
 class Row extends Component {
   constructor(props) {
@@ -25,11 +27,11 @@ class Row extends Component {
 
     if (isLayoutMode) {
       return <Droppable {...this.props}><Inner {...this.props} /></Droppable>
-    } else if (isResizeMode) {
+    }
+
+    if (isResizeMode) {
       return (
-        <ResizeContainer>
-          <Inner {...this.props} />
-        </ResizeContainer>
+        <InnerResizeContainer {...this.props} />
       )
     }
 
@@ -39,8 +41,7 @@ class Row extends Component {
 
 Row.propTypes = {
   isLayoutMode: PropTypes.bool.isRequired,
-  config: PropTypes.func.isRequired,
-  updateDimensions: PropTypes.func.isRequired
+  config: PropTypes.func.isRequired
 }
 
 const mapStateToProps = createStructuredSelector({ isLayoutMode, config: editableConfig, isResizeMode })

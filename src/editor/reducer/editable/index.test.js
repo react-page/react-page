@@ -5,6 +5,7 @@ import { combineReducers, createStore } from 'redux'
 import { identity } from 'ramda'
 import * as actions from 'src/editor/actions/cell'
 import { computeSizes, computeBounds, computeResizeable, computeInlines } from './helper/sizing'
+import { computeDropLevels } from './helper/level'
 
 const expect = unexpected.clone()
 
@@ -580,37 +581,51 @@ describe('editor/reducer/editable', () => {
     }
   }, {
     d: 'cell insert inline cell left of',
-    s: defaultState,
+    s: {
+      editable: {
+        cells: [{
+          id: '0',
+          rows: [{
+            id: '00',
+            cells: [{ id: '000', plugin: 'foo' }, { id: '001', plugin: 'bar' }]
+          }]
+        }]
+      }
+    },
     a: () => actions.insertCellLeftInline(insertCell, { id: '000' }, 0, ['i0', 'i00', 'i000', 'i0000', 'i00000']),
     e: {
       editable: {
         cells: cells([{
           id: '0',
+
           rows: rows([{
             id: '00',
-            cells: [{
-              ...insertCell,
-              inline: 'left',
-              id: 'i00',
-              hover: null,
-              size: 6,
-              resizable: true,
-              bounds: { left: 0, right: 11 },
-              rows: []
-            }, {
-              id: '000',
-              plugin: 'foo',
-              inline: null,
-              hasInlineNeighbour: true,
-              hover: null,
-              size: 12,
-              resizable: false,
-              bounds: { left: 0, right: 0 },
-              rows: []
-            }]
-          }, {
-            id: '01',
-            cells: cells([{ id: '010', plugin: 'bar' }])
+            cells: cells([{
+              id: 'i0',
+              rows: rows([{
+                id: 'i00',
+                cells: cells([{
+                  ...insertCell,
+                  inline: 'left',
+                  id: 'i000',
+                  hover: null,
+                  size: 6,
+                  resizable: true,
+                  bounds: { left: 0, right: 11 },
+                  rows: []
+                }, {
+                  id: 'i0000',
+                  plugin: 'foo',
+                  inline: null,
+                  hasInlineNeighbour: true,
+                  hover: null,
+                  size: 12,
+                  resizable: false,
+                  bounds: { left: 0, right: 0 },
+                  rows: []
+                }])
+              }])
+            }, { id: '001', plugin: 'bar' }])
           }])
         }])
       }
@@ -643,7 +658,12 @@ describe('editor/reducer/editable', () => {
         const reducer = combineReducers({ editable })
         const store = createStore(reducer, c.s, identity)
         store.dispatch(c.a())
-        expect(store.getState(), 'to equal', c.e)
+        expect(store.getState(), 'to equal', {
+          editable: {
+            ...c.e.editable,
+            cells: c.e.editable.cells.map((c) => computeDropLevels(c))
+          }
+        })
       })
     })
   })

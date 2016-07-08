@@ -126,14 +126,24 @@ export const cells = (state = [], action) => computeInlines(computeResizeable(co
     case CELL_INSERT_INLINE_LEFT:
       return state
         .filter((c) => c.id !== action.item.id)
-        .map((c) => isHoveringThis(c, action)
-          ? (
-          [{
-            ...(action.item),
-            inline: action.type === CELL_INSERT_INLINE_RIGHT ? 'right' : 'left',
-            id: action.ids[1]
-          }, ...state.map((s) => ({ ...s, inline: null }))]
-        ) : [c])
+        .map((c, k) => {
+          if (isHoveringThis(c, action)) {
+            return [{
+              id: action.ids[0],
+              rows: [
+                {
+                  id: action.ids[1],
+                  cells: [{
+                    ...(action.item),
+                    inline: action.type === CELL_INSERT_INLINE_RIGHT ? 'right' : 'left',
+                    id: action.ids[2]
+                  }, { ...state[k], id: action.ids[3], inline: null }]
+                }
+              ]
+            }]
+          }
+          return [c]
+        })
         .reduce(flatten, [])
         .map(inner(cell, action))
 

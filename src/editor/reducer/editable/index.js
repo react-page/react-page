@@ -1,4 +1,5 @@
 import { cells } from './tree.js'
+import { computeDropLevels } from './helper/level'
 
 export const editable = (state = {
   id: null,
@@ -11,7 +12,7 @@ export const editable = (state = {
     default:
       return {
         ...state,
-        cells: cells(state.cells, action)
+        cells: cells(state.cells, action).map((c) => computeDropLevels(c))
       }
   }
 }

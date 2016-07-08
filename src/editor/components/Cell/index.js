@@ -61,13 +61,14 @@ class Cell extends Component {
 }
 
 Cell.propTypes = {
+
+  rowWidth: PropTypes.number.isRequired,
+
   ancestors: PropTypes.array.isRequired,
   bounds: PropTypes.object.isRequired,
   editableConfig: PropTypes.func.isRequired,
   className: PropTypes.string,
   size: PropTypes.number.isRequired,
-  containerWidth: PropTypes.number.isRequired,
-  containerHeight: PropTypes.number.isRequired,
   resizable: PropTypes.bool.isRequired,
   inline: PropTypes.string,
   isPreviewMode: PropTypes.bool.isRequired,

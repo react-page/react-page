@@ -1,4 +1,4 @@
-import { computeAndDispatchHover, computeAndDispatchInsert } from './input'
+import { computeAndDispatchHover, computeAndDispatchInsert } from 'src/editor/service/hover/input'
 import throttle from 'lodash.throttle'
 import { isProduction } from 'src/editor/const'
 

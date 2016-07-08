@@ -1,7 +1,4 @@
-import {
-  computeAndDispatchHover,
-  computeAndDispatchInsert
-} from 'src/editor/components/Cell/DragDroppable/helper/input'
+import { computeAndDispatchHover, computeAndDispatchInsert } from 'src/editor/service/hover/input'
 import throttle from 'lodash.throttle'
 import { isProduction } from 'src/editor/const'
 
@@ -9,6 +6,7 @@ export const target = {
   hover: throttle((props, monitor, component) => {
     const item = monitor.getItem()
 
+    console.log(component, props, item)
     if (!item) {
       return
     } else if (!monitor.isOver({ shallow: true })) {
@@ -16,13 +14,15 @@ export const target = {
     } else if (props.ancestors.indexOf(item.id) > -1) {
       // If hovering over a child of itself
       return
+    } else if (!component) {
+      return
     } else if (!props.id) {
       // If hovering over something that isn't a cell or hasn't an id, do nothing. Should be an edge case
       console.warn('Canceled cell.drop.target.hover: no id given.', props, item)
       return
     }
 
-    props.cellHoverBelow(item, props, 0)
+    computeAndDispatchHover(props, monitor, component)
   }, isProduction ? 80 : 300, { leading: false }),
 
   canDrop: ({ id, ancestors, isOverCurrent }, monitor) => {
@@ -33,8 +33,12 @@ export const target = {
   drop(props, monitor, component) {
     const item = monitor.getItem()
 
+    console.log(component)
+
     if (monitor.didDrop()) {
       // If the item drop occurred deeper down the tree, don't do anything
+      return
+    } else if (!component) {
       return
     } else if (props.ancestors.indexOf(item.id) > -1) {
       // If hovering over a child of itself
@@ -42,7 +46,7 @@ export const target = {
       return
     }
 
-    props.insertCellBelow(item, props, 0)
+    computeAndDispatchInsert(props, monitor, component)
   }
 }
 
