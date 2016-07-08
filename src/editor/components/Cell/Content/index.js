@@ -13,7 +13,8 @@ const Content = ({ isEditMode, id, plugin: { Component }, props = {}, updateCell
   <Component
     {...props}
     readOnly={!isEditMode}
-    onChange={onChange(id, updateCell)} />
+    onChange={onChange(id, updateCell)}
+  />
 )
 
 Content.propTypes = {

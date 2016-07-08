@@ -27,7 +27,8 @@ const createBlockPlugin = (RenderedComponent, EditedComponent) => {
                            data={data}
                            onBlur={this.onBlur}
                            onChange={this.onChange}
-                           ref="editor" />
+                           ref="editor"
+          />
         )
       }
 

@@ -26,7 +26,7 @@ class EditView extends Component {
   }
 
   onChange(editorState) {
-      this.props.onChange({ editorState })
+    this.props.onChange({ editorState })
   }
 
   render() {

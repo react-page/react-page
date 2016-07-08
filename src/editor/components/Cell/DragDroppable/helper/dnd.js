@@ -1,6 +1,6 @@
 import { computeAndDispatchHover, computeAndDispatchInsert } from './input'
 import throttle from 'lodash.throttle'
-import {isProduction} from 'src/editor/const'
+import { isProduction } from 'src/editor/const'
 
 export const target = {
   hover: throttle((props, monitor, component) => {
@@ -38,7 +38,7 @@ export const target = {
     if (monitor.didDrop()) {
       // If the item drop occurred deeper down the tree, don't do anything
       return
-    }  else if (item.id === props.id) {
+    } else if (item.id === props.id) {
       // If the item being dropped on itself do nothing
       props.cancelCellDrag(item.id)
       return

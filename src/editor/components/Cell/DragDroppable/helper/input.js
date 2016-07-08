@@ -54,7 +54,7 @@ export const computeCurrentDropPosition = ({
       })
     }
   } else {
-    fire({cb: clear})
+    fire({ cb: clear })
   }
 }
 

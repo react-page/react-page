@@ -13,7 +13,7 @@ export const optimizeCell = ({ rows = [], ...other }) => ({
     if (cells.length !== 1) {
       return [r]
     }
-    
+
     const { rows: cellRows = [], layout } = cells[0]
     if (cellRows.length > 0 && !layout) {
       return cellRows

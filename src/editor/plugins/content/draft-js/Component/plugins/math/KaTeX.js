@@ -51,7 +51,8 @@ class KaTeX extends Component {
   render() {
     return (
       <span dangerouslySetInnerHTML={this.state}
-            onClick={this.props.onClick} />
+            onClick={this.props.onClick}
+      />
     )
   }
 }

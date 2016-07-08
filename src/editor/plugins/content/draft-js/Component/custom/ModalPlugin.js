@@ -31,10 +31,12 @@ const createModalPlugin = (RenderedComponent, EditedComponent) => {
           <Modal isOpen={edited}
                  onAfterOpen={this.onAfterOpen}
                  onRequestClose={this.onRequestClose}
-                 style={{ overlay: { zIndex: 99 } }}>
+                 style={{ overlay: { zIndex: 99 } }}
+          >
             <EditedComponent data={this.state}
                              onChange={this.onChange}
-                             ref="editor" />
+                             ref="editor"
+            />
           </Modal>
         )
       }

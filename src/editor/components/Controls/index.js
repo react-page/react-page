@@ -33,21 +33,25 @@ const Controls = ({ isLayoutMode, isPreviewMode, isInsertMode, layoutMode, inser
       <div styleName="controls">
         <div styleName="controls-right">
           <FloatingActionButton secondary={isPreviewMode}
-                                onClick={toggleLayoutMode({ check: isPreviewMode, cb: previewMode, fallback: DISPLAY_MODE_EDIT, ...props })}>
+                                onClick={toggleLayoutMode({ check: isPreviewMode, cb: previewMode, fallback: DISPLAY_MODE_EDIT, ...props })}
+          >
             <Devices />
           </FloatingActionButton>
         </div>
         <div styleName="controls-bottom">
           <FloatingActionButton secondary={isEditMode}
-                                onClick={toggleLayoutMode({ check: isEditMode, cb: editMode, fallback: DISPLAY_MODE_PREVIEW, ...props })}>
+                                onClick={toggleLayoutMode({ check: isEditMode, cb: editMode, fallback: DISPLAY_MODE_PREVIEW, ...props })}
+          >
             <Create />
           </FloatingActionButton>
           <FloatingActionButton secondary={isInsertMode}
-                                onClick={toggleLayoutMode({ check: isInsertMode, cb: insertMode, fallback: DISPLAY_MODE_EDIT, ...props })}>
+                                onClick={toggleLayoutMode({ check: isInsertMode, cb: insertMode, fallback: DISPLAY_MODE_EDIT, ...props })}
+          >
             <ContentAdd />
           </FloatingActionButton>
           <FloatingActionButton secondary={isLayoutMode}
-                                onClick={toggleLayoutMode({ check: isLayoutMode, cb: layoutMode, fallback: DISPLAY_MODE_PREVIEW, ...props })}>
+                                onClick={toggleLayoutMode({ check: isLayoutMode, cb: layoutMode, fallback: DISPLAY_MODE_PREVIEW, ...props })}
+          >
             <ViewQuilt />
           </FloatingActionButton>
         </div>

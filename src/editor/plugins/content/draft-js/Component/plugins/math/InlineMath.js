@@ -33,7 +33,8 @@ export class InlineMathEditor extends Component {
                     height: '3em'
                   }}
                   value={data.src}
-                  ref="editor" />
+                  ref="editor"
+        />
       </div>
     )
   }

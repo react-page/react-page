@@ -16,7 +16,7 @@ const Inner = ({ cells = [], editable, ancestors, id, hover, containerHeight, co
             editable={editable} key={c.id} {...c}
       />
     ))}
-    <div styleName="clearfix"/>
+    <div styleName="clearfix" />
   </div>
 )
 
