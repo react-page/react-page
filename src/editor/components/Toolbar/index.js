@@ -100,7 +100,7 @@ class Toolbar extends Component {
             <Divider />
             <List>
               <Subheader>Settings</Subheader>
-              <ListItem primaryText="Sync with cloud" rightToggle={<Toggle />}/>
+              <ListItem primaryText="Back up drafts" rightToggle={<Toggle />} />
             </List>
           </div>
         )}
