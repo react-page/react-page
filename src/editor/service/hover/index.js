@@ -1,3 +1,5 @@
+import deepEqual from 'deep-equal'
+
 export const getRoomScale = ({ room, matrix }) => {
   const rows = matrix.length
   const cells = matrix[0].length
@@ -16,9 +18,9 @@ export const getMouseHoverCell = ({ mouse, scale }) => ({
   row: Math.floor(mouse.y / scale.y)
 })
 
-let last = null
+let last = { '10x10': null, '10x10-no-inline': null }
 
-export const computeHover = (item, hover, actions, { room, mouse, matrix, callbacks }) => {
+export const computeHover = (item, hover, actions, { room, mouse, matrix, callbacks }, m) => {
   const scale = getRoomScale({ room, matrix })
   const hoverCell = getMouseHoverCell({ mouse, scale })
   const rows = matrix.length
@@ -42,20 +44,19 @@ export const computeHover = (item, hover, actions, { room, mouse, matrix, callba
     return
   }
 
-  const all = JSON.stringify({
-    item: item.id, hover: hover.id, ctx: {
+  const all = {
+    item: item.id, hover: hover.id, actions, ctx: {
       room,
       mouse,
       position: hoverCell,
       size: { rows, cells },
       scale
     }
-  })
-  
-  if (all === last) {
+  }
+  if (deepEqual(all, last[m])) {
     return
   }
-  last = all
+  last[m] = all
 
   return callbacks[cell](item, hover, actions, {
     room,
@@ -277,6 +278,6 @@ export default class HoverService {
       mouse,
       matrix: this.matrices[matrix],
       callbacks: this.callbacks
-    })
+    }, matrix)
   }
 }
