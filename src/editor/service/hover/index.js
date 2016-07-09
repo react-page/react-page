@@ -165,21 +165,31 @@ export const relativeMousePosition = ({ mouse, position, scale }) => ({
 })
 
 export const computeHorizontal = ({ mouse, position, room, hover, scale, level }, inv = false) => {
-  const { inline, hasInlineNeighbour } = hover
+  const { inline, hasInlineNeighbour, cells = [] } = hover
   const x = relativeMousePosition({ mouse, position, scale }).x
-  let at = Math.round(x / (room.width / scale.x / level))
+  const at = Math.round(x / (scale.x / level))
   if ((inline || hasInlineNeighbour) && at < 2) {
     return 2
   }
-  if (at > level) {
-    at = level
+
+  if (cells.length) {
+    // Is row, always opt for lowest level
+    return level
   }
+
   return inv ? level - at : at
 }
 
-export const computeVertical = ({ level, mouse, position, scale }, inv = false) => inv
-  ? level - (relativeMousePosition({ mouse, position, scale }).y % level)
-  : relativeMousePosition({ mouse, position, scale }).y % (level + 1)
+export const computeVertical = ({ level, mouse, hover, position, scale }, inv = false) => {
+  const { cells = [] } = hover
+  const at = Math.round(relativeMousePosition({ mouse, position, scale }).y / (scale.x / level))
+
+  if (cells.length) {
+    // Is row, always opt for lowest level
+    return level
+  }
+  return inv ? level - at : at
+}
 
 export const callbacks = {
   [c.NO]: (item, hover, { cancel }) => (cancel(item.id)),
