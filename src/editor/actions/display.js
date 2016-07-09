@@ -6,7 +6,7 @@ export const DISPLAY_MODE_LAYOUT = 'layout'
 export const DISPLAY_MODE_EDIT = 'edit'
 export const DISPLAY_MODE_INSERT = 'insert'
 export const DISPLAY_MODE_RESIZING = 'resizing'
-export const DEFAULT_DISPLAY_MODE = DISPLAY_MODE_RESIZING
+export const DEFAULT_DISPLAY_MODE = DISPLAY_MODE_PREVIEW
 
 const setDisplayMode = (mode, remember = true) => () => ({
   type: SET_DISPLAY_MODE,
