@@ -11,11 +11,13 @@ export const target = {
       return
     } else if (item.id === props.id) {
       // If hovering over itself, do nothing
+      props.clearHover(item)
       return
     } else if (!monitor.isOver({ shallow: true })) {
       // If hovering over ancestor cell, do nothing (we are going to propagate later in the tree anyways)
       return
     } else if (props.ancestors.indexOf(item.id) > -1) {
+      props.clearHover(item)
       // If hovering over a child of itself
       return
     } else if (!props.id) {

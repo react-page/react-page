@@ -4,21 +4,13 @@ import HoverService, { classes as c, callbacks, matrices } from './index'
 
 const expect = unexpected.clone()
 
-const makeMouseMatrix = (rows, cells, mark = []) => {
-  const rs = []
-  for (let ri = 0; ri < rows; ri++) {
-    const cs = []
-    for (let ci = 0; ci < cells; ci++) {
-      cs.push(false)
-    }
-    rs.push(cs)
-  }
+describe('relativeMousePosition', () => {
+  [].forEach((c, l) => {
+    it(`should pass test case ${k}`, () => {
 
-  if (mark.length === 2) {
-    rs[mark[0] - 1][mark[1] - 1] = true
-  }
-  return rs
-}
+    })
+  })
+})
 
 const cases = [{
   d: 'basic left',
@@ -76,7 +68,6 @@ const cases = [{
     room: { width: 100, height: 100 },
     mouse: { x: 89, y: 50 }
   },
-  matrix: matrices['10x10'],
   actions: (done) => ({
     rightOf: (item, hover, level) => {
       expect(level, 'to be', 0)
@@ -89,10 +80,9 @@ const cases = [{
     room: { width: 100, height: 100 },
     mouse: { x: 98, y: 95 }
   },
-  matrix: matrices['10x10'],
   actions: (done) => ({
     rightOf: (item, hover, level) => {
-      expect(level, 'to be', 8)
+      expect(level, 'to be', 0)
       done()
     }
   })
@@ -106,14 +96,13 @@ describe('HoverService', () => {
   cases.forEach((c) => {
     it(`should pass test case ${c.d}`, (done) => {
       const h = new HoverService({
-        matrix: c.matrix,
         callbacks
       })
 
       h.hover({ id: 'foo' }, c.hover || { levels: { right: 10, left: 10, above: 10, below: 10 } }, c.actions(done), {
         room: c.in.room,
         mouse: c.in.mouse,
-        ancestors: c.in.ancestors
+        ancestors: c.in.ancestors,
       })
     })
   })

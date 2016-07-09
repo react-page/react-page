@@ -6,15 +6,13 @@ export const target = {
   hover: throttle((props, monitor, component) => {
     const item = monitor.getItem()
 
-    console.log(component, props, item)
     if (!item) {
       return
     } else if (!monitor.isOver({ shallow: true })) {
       return
     } else if (props.ancestors.indexOf(item.id) > -1) {
       // If hovering over a child of itself
-      return
-    } else if (!component) {
+      props.clearHover(item)
       return
     } else if (!props.id) {
       // If hovering over something that isn't a cell or hasn't an id, do nothing. Should be an edge case
@@ -22,7 +20,7 @@ export const target = {
       return
     }
 
-    computeAndDispatchHover(props, monitor, component)
+    computeAndDispatchHover(props, monitor, component, '10x10-no-inline')
   }, isProduction ? 80 : 300, { leading: false }),
 
   canDrop: ({ id, ancestors, isOverCurrent }, monitor) => {
@@ -33,12 +31,8 @@ export const target = {
   drop(props, monitor, component) {
     const item = monitor.getItem()
 
-    console.log(component)
-
     if (monitor.didDrop()) {
       // If the item drop occurred deeper down the tree, don't do anything
-      return
-    } else if (!component) {
       return
     } else if (props.ancestors.indexOf(item.id) > -1) {
       // If hovering over a child of itself
@@ -46,7 +40,7 @@ export const target = {
       return
     }
 
-    computeAndDispatchInsert(props, monitor, component)
+    computeAndDispatchInsert(props, monitor, component, '10x10-no-inline')
   }
 }
 

@@ -3,7 +3,7 @@ import HoverService from 'src/editor/service/hover'
 
 const hoverService = new HoverService()
 
-export const computeCurrentDropPosition = (actions, hover, monitor, component) => {
+export const computeCurrentDropPosition = (actions, hover, monitor, component, matrix) => {
   const mousePosition = monitor.getClientOffset()
   const componentPosition = findDOMNode(component).getBoundingClientRect()
   const room = {
@@ -16,7 +16,7 @@ export const computeCurrentDropPosition = (actions, hover, monitor, component) =
   }
   const drag = monitor.getItem()
 
-  hoverService.hover(drag, hover, actions, { room, mouse })
+  hoverService.hover(drag, hover, actions, { room, mouse, matrix })
 }
 
 export const computeAndDispatchInsert = ({
@@ -28,7 +28,7 @@ export const computeAndDispatchInsert = ({
   insertCellRightInline: inlineRight,
   clearHover: clear,
   ...hover
-}, monitor, component) => computeCurrentDropPosition({
+}, monitor, component, matrix = '10x10') => computeCurrentDropPosition({
   clear,
   above,
   below,
@@ -36,7 +36,7 @@ export const computeAndDispatchInsert = ({
   rightOf,
   inlineLeft,
   inlineRight
-}, hover, monitor, component)
+}, hover, monitor, component,matrix)
 
 export const computeAndDispatchHover = ({
   cellHoverAbove: above,
@@ -47,7 +47,7 @@ export const computeAndDispatchHover = ({
   cellHoverInlineRight: inlineRight,
   clearHover: clear,
   ...hover
-}, monitor, component) => computeCurrentDropPosition({
+}, monitor, component, matrix = '10x10') => computeCurrentDropPosition({
   clear,
   above,
   below,
@@ -55,4 +55,4 @@ export const computeAndDispatchHover = ({
   rightOf,
   inlineLeft,
   inlineRight
-}, hover, monitor, component)
+}, hover, monitor, component, matrix)
