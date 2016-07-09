@@ -16,6 +16,8 @@ export const getMouseHoverCell = ({ mouse, scale }) => ({
   row: Math.floor(mouse.y / scale.y)
 })
 
+let last = null
+
 export const computeHover = (item, hover, actions, { room, mouse, matrix, callbacks }) => {
   const scale = getRoomScale({ room, matrix })
   const hoverCell = getMouseHoverCell({ mouse, scale })
@@ -39,6 +41,21 @@ export const computeHover = (item, hover, actions, { room, mouse, matrix, callba
     console.error('Matrix callback not found.', { room, mouse, matrix, scale, hoverCell, rows, cells })
     return
   }
+
+  const all = JSON.stringify({
+    item: item.id, hover: hover.id, ctx: {
+      room,
+      mouse,
+      position: hoverCell,
+      size: { rows, cells },
+      scale
+    }
+  })
+  
+  if (all === last) {
+    return
+  }
+  last = all
 
   return callbacks[cell](item, hover, actions, {
     room,
