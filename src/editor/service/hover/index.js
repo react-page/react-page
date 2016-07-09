@@ -167,9 +167,12 @@ export const relativeMousePosition = ({ mouse, position, scale }) => ({
 export const computeHorizontal = ({ mouse, position, room, hover, scale, level }, inv = false) => {
   const { inline, hasInlineNeighbour } = hover
   const x = relativeMousePosition({ mouse, position, scale }).x
-  const at = Math.round(x / (room.width / scale.x / level))
+  let at = Math.round(x / (room.width / scale.x / level))
   if ((inline || hasInlineNeighbour) && at < 2) {
     return 2
+  }
+  if (at > level) {
+    at = level
   }
   return inv ? level - at : at
 }

@@ -36,6 +36,7 @@
     "classnames": "^2.2.5",
     "cross-env": "1.0.8",
     "css-loader": "0.23.1",
+    "deep-equal": "^1.0.1",
     "draft-js": "0.7.0",
     "express": "4.14.0",
     "extract-text-webpack-plugin": "1.0.1",
