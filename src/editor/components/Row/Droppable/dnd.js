@@ -8,6 +8,9 @@ export const target = {
 
     if (!item) {
       return
+    } else if (item.id === props.id) {
+      props.clearHover(item)
+      return
     } else if (!monitor.isOver({ shallow: true })) {
       return
     } else if (props.ancestors.indexOf(item.id) > -1) {
@@ -25,17 +28,20 @@ export const target = {
 
   canDrop: ({ id, ancestors, isOverCurrent }, monitor) => {
     const item = monitor.getItem()
-    return !(item.id === id || ancestors.indexOf(item.id) !== -1)
+    return item.id !== id || ancestors.indexOf(item.id) === -1
   },
 
   drop(props, monitor, component) {
     const item = monitor.getItem()
 
-    if (monitor.didDrop()) {
+    if (monitor.didDrop() || !monitor.isOver({ shallow: true })) {
       // If the item drop occurred deeper down the tree, don't do anything
       return
     } else if (props.ancestors.indexOf(item.id) > -1) {
       // If hovering over a child of itself
+      props.cancelCellDrag(item.id)
+      return
+    } else if (item.id === props.id) {
       props.cancelCellDrag(item.id)
       return
     }

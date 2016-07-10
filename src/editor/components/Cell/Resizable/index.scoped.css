@@ -25,7 +25,8 @@
 }
 
 :global .resizable-cell > .is-resizing > .react-resizable-handle,
-:global .resizable-cell > .react-resizable-handle:hover {
+:global .resizable-cell > .react-resizable-handle:hover,
+:global .resizable-cell > .react-resizable-handle:active {
   background: black;
 }
 
