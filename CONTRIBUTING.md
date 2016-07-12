@@ -1,12 +1,12 @@
 # Contribution Guide
 
-We welcome and encourage community contributions to Fosite.
+We welcome and encourage community contributions to editor.
 
 Since the project is still unstable, there are specific priorities for development. Pull requests that do not address these priorities will not be accepted until Fosite is production ready.
 
 Please familiarize yourself with the Contribution Guidelines and Project Roadmap before contributing.
 
-There are many ways to help Fosite besides contributing code:
+There are many ways to help editor besides contributing code:
 
  - Fix bugs or file issues
  - Improve the documentation
@@ -37,7 +37,7 @@ Reviewers should leave a "LGTM" comment once they are satisfied with the patch. 
 
 Please follow these guidelines when formatting source code:
 
-* Go code should match the output of `gofmt -s`
+* JavaScript should match the ...
 
 ## Developer’s Certificate of Origin
 
