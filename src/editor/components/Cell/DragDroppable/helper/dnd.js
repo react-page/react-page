@@ -72,10 +72,23 @@ export const source = {
   }
 }
 
+const synchronousActions = {
+
+}
+
 export const connect = (connect, monitor) => ({
   connectDropTarget: connect.dropTarget(),
-  isOver: monitor.isOver(),
-  isOverCurrent: monitor.isOver({ shallow: true })
+  isOverCurrent: () => {
+    const isOver = monitor.isOver({ shallow: true })
+    if (!isOver) {
+      return { hover: false }
+    }
+
+    return {
+      hover: true,
+      position: ''
+    }
+  }
 })
 
 export const collect = (connect, monitor) => ({

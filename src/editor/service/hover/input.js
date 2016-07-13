@@ -38,21 +38,16 @@ export const computeAndDispatchInsert = ({
   inlineRight
 }, hover, monitor, component,matrix)
 
-export const computeAndDispatchHover = ({
-  cellHoverAbove: above,
-  cellHoverBelow: below,
-  cellHoverLeftOf: leftOf,
-  cellHoverRightOf: rightOf,
-  cellHoverInlineLeft: inlineLeft,
-  cellHoverInlineRight: inlineRight,
-  clearHover: clear,
-  ...hover
-}, monitor, component, matrix = '10x10') => computeCurrentDropPosition({
-  clear,
-  above,
-  below,
-  leftOf,
-  rightOf,
-  inlineLeft,
-  inlineRight
-}, hover, monitor, component, matrix)
+export const computeAndDispatchHover = (hover, monitor, component, matrix = '10x10') => {
+  const clear = () => ({})
+  
+  computeCurrentDropPosition({
+    clear,
+    above,
+    below,
+    leftOf,
+    rightOf,
+    inlineLeft,
+    inlineRight
+  }, hover, monitor, component, matrix)
+}
