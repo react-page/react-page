@@ -1,4 +1,4 @@
-import { computeAndDispatchHover, computeAndDispatchInsert } from 'src/editor/service/hover/input'
+import { computeAndReturnHoverPosition, computeAndDispatchHover, computeAndDispatchInsert } from 'src/editor/service/hover/input'
 import throttle from 'lodash.throttle'
 import { isProduction } from 'src/editor/const'
 
@@ -74,8 +74,18 @@ export const source = {
 
 export const connect = (connect, monitor) => ({
   connectDropTarget: connect.dropTarget(),
-  isOver: monitor.isOver(),
-  isOverCurrent: monitor.isOver({ shallow: true })
+  isOverCurrent: (props) => {
+    const isOver = monitor.isOver({ shallow: true })
+    if (!isOver) {
+      return { hover: null }
+    }
+
+    console.log(monitor.getItem())
+
+    return {
+      hover: computeAndReturnHoverPosition(props, monitor)
+    }
+  }
 })
 
 export const collect = (connect, monitor) => ({

@@ -22,10 +22,13 @@ const DragDroppable = ({
   connectDragSource,
   connectDropTarget,
   ...props
-}) => allowDrop
+}) => {
+  console.log('is over current', props.isOverCurrent(props))
+  return allowDrop
     // FIXME warning.js:44 Warning: Unknown props `isOver`, `isOverCurrent`, `isDragging`, `cellHover`, `cellHoverLeftOf`, `cellHoverRightOf`, `cellHoverAbove`, `cellHoverBelow`, `cellHoverInlineLeft`, `cellHoverInlineRight`, `dragCell`, `cancelCellDrag`, `styles` on <div> tag. Remove these props from the element. For details, see
     ? connectDragSource(connectDropTarget(<div styleName={cn(props)} className={cn(props)} {...props} />))
     : connectDragSource(<div styleName={cn(props)} className={cn(props)} {...props} />)
+}
 
 DragDroppable.propTypes = {
   allowDrop: PropTypes.bool,
