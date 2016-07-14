@@ -23,7 +23,7 @@ class Cell extends Component {
   render() {
     const props = this.props
     return (
-      <div
+      <div ref={props.id}
         className={classNames({
           [props.className]: props.className,
           'has-inline-neighbour': props.hasInlineNeighbour,
