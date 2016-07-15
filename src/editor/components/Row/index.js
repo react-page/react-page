@@ -7,8 +7,13 @@ import { editableConfig } from 'src/editor/selector/editable'
 import { createStructuredSelector } from 'reselect'
 import Inner from './inner'
 import dimensions from 'react-dimensions'
+import cssModules from 'react-css-modules'
 
-const InnerResizeContainer = dimensions()(Inner)
+import * as commonStyles from 'src/editor/styles'
+import styles from './index.scoped.css'
+
+const innerResizeContainer = (styles) => dimensions()((cssModules(Inner, styles, { allowMultiple: true })))
+const innerContainer = (styles) => (cssModules(Inner, styles, { allowMultiple: true }))
 
 class Row extends Component {
   constructor(props) {
@@ -23,18 +28,25 @@ class Row extends Component {
   render() {
     const { isLayoutMode, isResizeMode } = this.props
     const Droppable = this.Droppable
+    const css = {
+      ...(isLayoutMode ? commonStyles.floating : commonStyles.flexbox),
+      ...commonStyles.common
+      ...styles
+    }
+    const InnerContainer = innerContainer(css)
 
     if (isLayoutMode) {
-      return <Droppable {...this.props}><Inner {...this.props} /></Droppable>
+      return <Droppable {...this.props}><InnerContainer {...this.props} /></Droppable>
     }
 
     if (isResizeMode) {
+      const InnerResizeContainer = innerResizeContainer(css)
       return (
         <InnerResizeContainer {...this.props} />
       )
     }
 
-    return <Inner {...this.props} />
+    return <InnerContainer {...this.props} />
   }
 }
 

@@ -1,35 +1,29 @@
 import React, { PropTypes, Component } from 'react'
 import classNames from 'classnames'
 import Cell from 'src/editor/components/Cell'
-import cssModules from 'react-css-modules'
-import grid from 'src/editor/styles/grid.scoped.css'
-import styles from './index.scoped.css'
 
-class Inner extends Component {
-  render() {
-    const { cells = [], editable, ancestors, id, hover, updateDimensions, containerHeight, containerWidth } = this.props
-    return (
-      <div styleName={classNames('row', {
+const Inner = ({ cells = [], editable, ancestors, id, hover, updateDimensions, containerHeight, containerWidth }) => (
+  <div styleName={classNames('row', {
         'is-over-current': hover,
         [`is-over-${hover}`]: hover
       })} className="editable-row"
-      >
-        {cells.map((c) => (
-          <Cell
-            rowWidth={containerWidth}
-            updateDimensions={updateDimensions}
-            rowHeight={containerHeight}
-            ancestors={[...ancestors, id]}
-            editable={editable}
-            key={c.id}
-            {...c}
-          />
-        ))}
-        <div styleName="clearfix"/>
-      </div>
-    )
-  }
-}
+  >
+    {cells.map((c) => (
+      <Cell
+        rowWidth={containerWidth}
+        updateDimensions={updateDimensions}
+        rowHeight={containerHeight}
+        ancestors={[...ancestors, id]}
+        editable={editable}
+        key={c.id}
+        {...c}
+      />
+    ))}
+    <div styleName="clearfix"/>
+  </div>
+)
+
+
 Inner.propTypes = {
   containerHeight: PropTypes.number,
   containerWidth: PropTypes.number,
@@ -41,4 +35,4 @@ Inner.propTypes = {
   ancestors: PropTypes.array.isRequired
 }
 
-export default (cssModules(Inner, { ...grid, ...styles }, { allowMultiple: true }))
+export default Inner

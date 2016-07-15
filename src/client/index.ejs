@@ -10,10 +10,34 @@
       background: white;
       padding: 0 24px;
     }
+
+    .container {
+      margin-right: auto;
+      margin-left: auto;
+      align-items: stretch;
+    }
+
+    @media (min-width: 768px) {
+      .container {
+        width: 750px;
+      }
+    }
+
+    @media (min-width: 992px) {
+      .container {
+        width: 970px;
+      }
+    }
+
+    @media (min-width: 1200px) {
+      .container {
+        width: 1170px;
+      }
+    }
   </style>
   <link href='https://fonts.googleapis.com/css?family=Bitter:400,400italic,700' rel='stylesheet' type='text/css'>
   <title>Ory.am Editor</title></head>
-<body>
+<body class="container">
 <div class="editable" data-debug-editable="1"></div>
 <hr>
 <div class="editable" data-debug-editable="2"></div>

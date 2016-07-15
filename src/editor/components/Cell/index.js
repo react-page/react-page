@@ -7,7 +7,7 @@ import { isPreviewMode, isEditMode, isResizeMode, isLayoutMode } from 'src/edito
 import { createStructuredSelector } from 'reselect'
 import Resizable from './Resizable'
 import { resizeCell } from 'src/editor/actions/cell'
-import grid from 'src/editor/styles/grid.scoped.css'
+import grid from 'floatgrid.scoped.css'
 import cssModules from 'react-css-modules'
 import classNames from 'classnames'
 import styles from './index.scoped.css'

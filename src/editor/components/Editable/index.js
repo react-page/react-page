@@ -6,10 +6,27 @@ import { connect } from 'react-redux'
 import { createStructuredSelector } from 'reselect'
 import HTML5Backend from 'react-dnd-html5-backend'
 import { DragDropContext as dragDropContext } from 'react-dnd'
-import grid from 'src/editor/styles/grid.scoped.css'
-import flexbox from 'flexboxgrid/css/flexboxgrid.css'
 import { isLayoutMode } from 'src/editor/selector/display'
+import cssModules from 'react-css-modules'
 
+import * as commonStyles from 'src/editor/styles'
+import styles from './index.scoped.css'
+
+const inner = (styles) => cssModules(({ cells = [], id }) => (
+  <div styleName="container" className="editor-container">
+    <div styleName="row" className="editor-row">
+      {cells.map((c) => (
+        <Cell
+          editable={id}
+          ancestors={[]}
+          key={c.id}
+          {...{ ...c, styles: null }}
+        />
+      ))}
+      <div styleName="clearfix"/>
+    </div>
+  </div>
+), styles)
 
 class Editable extends Component {
   shouldComponentUpdate = shouldPureComponentUpdate
@@ -21,23 +38,12 @@ class Editable extends Component {
       throw new Error(`Content state was not initialized for editable ${id}`)
     }
 
-  //const Inner = inner(isLayoutMode ? grid : flexbox)
-
-  return (
-    <div styleName="container" className="editor-container">
-      <div styleName="row" className="editor-row">
-        {state.cells.map((c) => (
-          <Cell
-            editable={id}
-            ancestors={[]}
-            key={c.id}
-            {...{ ...c, styles: null }}
-          />
-        ))}
-        <div styleName="clearfix"/>
-      </div>
-    </div>
-  )
+  const Inner = inner({
+    ...(isLayoutMode ? commonStyles.floating : commonStyles.flexbox),
+    ...commonStyles.common
+    ...styles
+  })
+  return <Inner cells={state.cells} id={id} />
 }
 
 Editable.propTypes = {
@@ -47,4 +53,4 @@ Editable.propTypes = {
 
 const mapStateToProps = createStructuredSelector({ editable, isLayoutMode })
 
-export default dragDropContext(HTML5Backend)(connect(mapStateToProps)(cssModules(Editable, grid)))
+export default dragDropContext(HTML5Backend)(connect(mapStateToProps)(Editable))
