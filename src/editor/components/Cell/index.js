@@ -38,12 +38,16 @@ class Cell extends Component {
       >
         {props.resizable && (props.isResizeMode)
           ? (
-          <Resizable rowWidth={props.rowWidth}
-                     cellWidth={props.size}
-                     bounds={props.bounds}
-                     inline={props.inline}
-                     steps={12}
-                     onChange={resize(props)}
+          <Resizable
+            id={this.props.id}
+            rowWidth={props.rowWidth}
+            updateDimensions={props.updateDimensions}
+            rowHeight={props.rowHeight}
+            size={props.size}
+            bounds={props.bounds}
+            inline={props.inline}
+            steps={12}
+            onChange={resize(props)}
           >
             <div className="editable-cell" styleName="cell">
               <Inner {...{ ...props, styles: null, config: props.editableConfig(props.editable) }} />
@@ -60,8 +64,9 @@ class Cell extends Component {
 }
 
 Cell.propTypes = {
-
-  rowWidth: PropTypes.number.isRequired,
+  rowWidth: PropTypes.number,
+  rowHeight: PropTypes.number,
+  updateDimensions: PropTypes.func,
 
   ancestors: PropTypes.array.isRequired,
   bounds: PropTypes.object.isRequired,

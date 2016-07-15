@@ -2,6 +2,19 @@ import { computeAndDispatchHover, computeAndDispatchInsert } from 'src/editor/se
 import throttle from 'lodash.throttle'
 import { isProduction } from 'src/editor/const'
 
+let last = {
+  props: {},
+  item: {}
+}
+
+const clear = (props = {}, item = {}) => {
+  if (props.id === last.props.id && item.id === last.item.id) {
+    return
+  }
+  last = { props, item }
+  props.clearHover(item)
+}
+
 export const target = {
   hover: throttle((props, monitor, component) => {
     const item = monitor.getItem()
@@ -9,13 +22,13 @@ export const target = {
     if (!item) {
       return
     } else if (item.id === props.id) {
-      props.clearHover(item)
+      clear(props, item)
       return
     } else if (!monitor.isOver({ shallow: true })) {
       return
     } else if (props.ancestors.indexOf(item.id) > -1) {
       // If hovering over a child of itself
-      props.clearHover(item)
+      clear(props, item)
       return
     } else if (!props.id) {
       // If hovering over something that isn't a cell or hasn't an id, do nothing. Should be an edge case

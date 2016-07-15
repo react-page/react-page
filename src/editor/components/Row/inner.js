@@ -7,7 +7,7 @@ import styles from './index.scoped.css'
 
 class Inner extends Component {
   render() {
-    const { cells = [], editable, ancestors, id, hover, containerHeight, containerWidth } = this.props
+    const { cells = [], editable, ancestors, id, hover, updateDimensions, containerHeight, containerWidth } = this.props
     return (
       <div styleName={classNames('row', {
         'is-over-current': hover,
@@ -15,8 +15,14 @@ class Inner extends Component {
       })} className="editable-row"
       >
         {cells.map((c) => (
-          <Cell rowWidth={containerWidth} rowHeight={containerHeight} ancestors={[...ancestors, id]}
-                editable={editable} key={c.id} {...c}
+          <Cell
+            rowWidth={containerWidth}
+            updateDimensions={updateDimensions}
+            rowHeight={containerHeight}
+            ancestors={[...ancestors, id]}
+            editable={editable}
+            key={c.id}
+            {...c}
           />
         ))}
         <div styleName="clearfix"/>
@@ -25,6 +31,9 @@ class Inner extends Component {
   }
 }
 Inner.propTypes = {
+  containerHeight: PropTypes.number,
+  containerWidth: PropTypes.number,
+  updateDimensions: PropTypes.func,
   id: PropTypes.string.isRequired,
   hover: PropTypes.string,
   editable: PropTypes.string.isRequired,

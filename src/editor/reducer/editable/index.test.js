@@ -5,17 +5,25 @@ import { combineReducers, createStore } from 'redux'
 import { identity } from 'ramda'
 import * as actions from 'src/editor/actions/cell'
 import { computeSizes, computeBounds, computeResizeable, computeInlines } from './helper/sizing'
+import { decorate } from './helper/tree'
 import { computeDropLevels } from './helper/level'
 
 const expect = unexpected.clone()
 
-const cells = (state) => computeInlines(computeResizeable(computeBounds(computeSizes(state)))).map(({ rows = [], hover = null, ...c }) => ({
-  ...c,
-  rows,
-  hover
-}))
+const walker = ({ cells = [], rows = [], hover = null, ...other }) => {
+  if (cells.length) {
+    other.cells = cells.map(walker)
+  }
+  if (rows.length) {
+    other.rows = rows.map(walker)
+  }
+  return {
+    ...other,
+    hover
+  }
+}
 
-const rows = (state) => state.map(({ ...r, hover = null }) => ({ ...r, hover }))
+const cells = (state) => decorate(state).map(walker)
 
 const trees = {
   basic: {
@@ -49,7 +57,8 @@ const defaultState = trees.basic
 
 const insertCell = {
   id: 'i',
-  plugin: 'insert-baz'
+  plugin: 'insert-baz',
+  size: 12
 }
 
 describe('editor/reducer/editable', () => {
@@ -90,16 +99,16 @@ describe('editor/reducer/editable', () => {
       editable: {
         cells: cells([{
           id: '0',
-          rows: rows([{
-            cells: cells([{
+          rows: [{
+            cells: [{
               id: 'layout',
               layout: true,
-              rows: rows([{
+              rows: [{
                 id: '00',
-                cells: cells([{ id: '000', plugin: 'foo' }])
-              }])
-            }])
-          }])
+                cells: [{ id: '000', plugin: 'foo' }]
+              }]
+            }]
+          }]
         }])
       }
     }
@@ -138,19 +147,19 @@ describe('editor/reducer/editable', () => {
       editable: {
         cells: cells([{
           id: '0',
-          rows: rows([{
-            cells: cells([{
+          rows: [{
+            cells: [{
               id: 'layout',
               layout: true,
-              rows: rows([{
+              rows: [{
                 id: '00',
-                cells: cells([{ id: '000', plugin: 'foo' }])
+                cells: [{ id: '000', plugin: 'foo' }]
               }, {
                 id: '01',
-                cells: cells([{ id: '010', plugin: 'bar' }])
-              }])
-            }])
-          }])
+                cells: [{ id: '010', plugin: 'bar' }]
+              }]
+            }]
+          }]
         }])
       }
     }
@@ -217,7 +226,7 @@ describe('editor/reducer/editable', () => {
       editable: {
         cells: cells([{
           id: '0',
-          rows: rows([{
+          rows: [{
             id: '00',
             cells: [{
               id: '000',
@@ -240,7 +249,7 @@ describe('editor/reducer/editable', () => {
               size: 8,
               bounds: { left: 11, right: 0 }
             }]
-          }])
+          }]
         }])
       }
     }
@@ -252,7 +261,7 @@ describe('editor/reducer/editable', () => {
       editable: {
         cells: cells([{
           id: '0',
-          rows: rows([{
+          rows: [{
             id: '00',
             cells: [{
               id: '000',
@@ -273,7 +282,7 @@ describe('editor/reducer/editable', () => {
               size: 12,
               bounds: { left: 0, right: 0 }
             }]
-          }])
+          }]
         }])
       }
     }
@@ -285,14 +294,14 @@ describe('editor/reducer/editable', () => {
       editable: {
         cells: cells([{
           id: '0',
-          rows: rows([{
+          rows: [{
             id: '00',
             hover: 'left-of',
-            cells: cells([{ id: '000', plugin: 'foo' }])
+            cells: [{ id: '000', plugin: 'foo' }]
           }, {
             id: '01',
-            cells: cells([{ id: '010', plugin: 'bar' }])
-          }])
+            cells: [{ id: '010', plugin: 'bar' }]
+          }]
         }])
       }
     }
@@ -304,14 +313,14 @@ describe('editor/reducer/editable', () => {
       editable: {
         cells: cells([{
           id: '0',
-          rows: rows([{
+          rows: [{
             id: '00',
             hover: 'left-of',
-            cells: cells([{ id: '000', plugin: 'foo' }])
+            cells: [{ id: '000', plugin: 'foo' }]
           }, {
             id: '01',
-            cells: cells([{ id: '010', plugin: 'bar' }])
-          }])
+            cells: [{ id: '010', plugin: 'bar' }]
+          }]
         }])
       }
     }
@@ -324,13 +333,13 @@ describe('editor/reducer/editable', () => {
         cells: cells([{
           id: '0',
           hover: 'right-of',
-          rows: rows([{
+          rows: [{
             id: '00',
-            cells: cells([{ id: '000', plugin: 'foo' }])
+            cells: [{ id: '000', plugin: 'foo' }]
           }, {
             id: '01',
-            cells: cells([{ id: '010', plugin: 'bar' }])
-          }])
+            cells: [{ id: '010', plugin: 'bar' }]
+          }]
         }])
       }
     }
@@ -367,13 +376,13 @@ describe('editor/reducer/editable', () => {
       editable: {
         cells: cells([{
           id: '0',
-          rows: rows([{
+          rows: [{
             id: '00',
-            cells: cells([{ id: 'i0', plugin: 'foo' }, { ...insertCell, id: 'i00' }])
+            cells: [{ id: 'i0', plugin: 'foo' }, { ...insertCell, id: 'i00' }]
           }, {
             id: '01',
-            cells: cells([{ id: '010', plugin: 'bar' }])
-          }])
+            cells: [{ id: '010', plugin: 'bar' }]
+          }]
         }])
       }
     }
@@ -410,16 +419,16 @@ describe('editor/reducer/editable', () => {
       editable: {
         cells: cells([{
           id: 'i0',
-          rows: rows([{
+          rows: [{
             id: '00',
-            cells: cells([{ id: '000', plugin: 'foo' }])
+            cells: [{ id: '000', plugin: 'foo' }]
           }, {
             id: '01',
-            cells: cells([{ id: '010', plugin: 'bar' }])
+            cells: [{ id: '010', plugin: 'bar' }]
           }, {
             id: 'i0000',
-            cells: cells([{ ...insertCell, id: 'i00000' }])
-          }])
+            cells: [{ ...insertCell, id: 'i00000' }]
+          }]
         }])
       }
     }
@@ -431,13 +440,13 @@ describe('editor/reducer/editable', () => {
       editable: {
         cells: cells([{
           id: '0',
-          rows: rows([{
+          rows: [{
             id: '00',
-            cells: cells([{ id: 'i0', plugin: 'foo' }, { ...insertCell, id: 'i00' }])
+            cells: [{ id: 'i0', plugin: 'foo' }, { ...insertCell, id: 'i00' }]
           }, {
             id: '01',
-            cells: cells([{ id: '010', plugin: 'bar' }])
-          }])
+            cells: [{ id: '010', plugin: 'bar' }]
+          }]
         }])
       }
     }
@@ -449,16 +458,16 @@ describe('editor/reducer/editable', () => {
       editable: {
         cells: cells([{
           id: '0',
-          rows: rows([{
+          rows: [{
             id: 'i0',
-            cells: cells([{ id: '000', plugin: 'foo' }])
+            cells: [{ id: '000', plugin: 'foo' }]
           }, {
             id: 'i00',
-            cells: cells([{ ...insertCell, id: 'i000' }])
+            cells: [{ ...insertCell, id: 'i000' }]
           }, {
             id: '01',
-            cells: cells([{ id: '010', plugin: 'bar' }])
-          }])
+            cells: [{ id: '010', plugin: 'bar' }]
+          }]
         }])
       }
     }
@@ -470,13 +479,13 @@ describe('editor/reducer/editable', () => {
       editable: {
         cells: cells([{
           id: '0',
-          rows: rows([{
+          rows: [{
             id: '00',
-            cells: cells([{ ...insertCell, id: 'i0' }, { id: '000', plugin: 'foo' }])
+            cells: [{ ...insertCell, id: 'i0' }, { id: '000', plugin: 'foo' }]
           }, {
             id: '01',
-            cells: cells([{ id: '010', plugin: 'bar' }])
-          }])
+            cells: [{ id: '010', plugin: 'bar' }]
+          }]
         }])
       }
     }
@@ -488,13 +497,13 @@ describe('editor/reducer/editable', () => {
       editable: {
         cells: cells([{
           id: '0',
-          rows: rows([{
+          rows: [{
             id: '00',
-            cells: cells([{ ...insertCell, id: 'i0' }, { id: 'i00', plugin: 'foo' }])
+            cells: [{ ...insertCell, id: 'i0' }, { id: 'i00', plugin: 'foo' }]
           }, {
             id: '01',
-            cells: cells([{ id: '010', plugin: 'bar' }])
-          }])
+            cells: [{ id: '010', plugin: 'bar' }]
+          }]
         }])
       }
     }
@@ -506,13 +515,13 @@ describe('editor/reducer/editable', () => {
       editable: {
         cells: cells([{
           id: '0',
-          rows: rows([{
+          rows: [{
             id: '00',
-            cells: cells([{ ...insertCell, id: 'i0' }, { id: 'i00', plugin: 'foo' }])
+            cells: [{ ...insertCell, id: 'i0' }, { id: 'i00', plugin: 'foo' }]
           }, {
             id: '01',
-            cells: cells([{ id: '010', plugin: 'bar' }])
-          }])
+            cells: [{ id: '010', plugin: 'bar' }]
+          }]
         }])
       }
     }
@@ -524,16 +533,16 @@ describe('editor/reducer/editable', () => {
       editable: {
         cells: cells([{
           id: '0',
-          rows: rows([{
+          rows: [{
             id: 'i00',
-            cells: cells([{ ...insertCell, id: 'i000' }])
+            cells: [{ ...insertCell, id: 'i000' }]
           }, {
             id: 'i0000',
-            cells: cells([{ id: 'i00000', plugin: 'foo' }])
+            cells: [{ id: 'i00000', plugin: 'foo' }]
           }, {
             id: '01',
-            cells: cells([{ id: '010', plugin: 'bar' }])
-          }])
+            cells: [{ id: '010', plugin: 'bar' }]
+          }]
         }])
       }
     }
@@ -545,16 +554,16 @@ describe('editor/reducer/editable', () => {
       editable: {
         cells: cells([{
           id: '0',
-          rows: rows([{
+          rows: [{
             id: 'i00',
-            cells: cells([{ id: 'i000', plugin: 'foo' }])
+            cells: [{ id: 'i000', plugin: 'foo' }]
           }, {
             id: 'i0000',
-            cells: cells([{ ...insertCell, id: 'i00000' }])
+            cells: [{ ...insertCell, id: 'i00000' }]
           }, {
             id: '01',
-            cells: cells([{ id: '010', plugin: 'bar' }])
-          }])
+            cells: [{ id: '010', plugin: 'bar' }]
+          }]
         }])
       }
     }
@@ -569,13 +578,13 @@ describe('editor/reducer/editable', () => {
       editable: {
         cells: cells([{
           id: '0',
-          rows: rows([{
+          rows: [{
             id: 'i00',
-            cells: cells([{ id: 'i000', plugin: 'bar' }])
+            cells: [{ id: 'i000', plugin: 'bar' }]
           }, {
             id: 'i0000',
-            cells: cells([{ id: 'i00000', plugin: 'foo' }])
-          }])
+            cells: [{ id: 'i00000', plugin: 'foo' }]
+          }]
         }])
       }
     }
@@ -597,14 +606,13 @@ describe('editor/reducer/editable', () => {
       editable: {
         cells: cells([{
           id: '0',
-
-          rows: rows([{
+          rows: [{
             id: '00',
-            cells: cells([{
+            cells: [{
               id: 'i0',
-              rows: rows([{
+              rows: [{
                 id: 'i00',
-                cells: cells([{
+                cells: [{
                   ...insertCell,
                   inline: 'left',
                   id: 'i000',
@@ -623,10 +631,10 @@ describe('editor/reducer/editable', () => {
                   resizable: false,
                   bounds: { left: 0, right: 0 },
                   rows: []
-                }])
-              }])
-            }, { id: '001', plugin: 'bar' }])
-          }])
+                }]
+              }]
+            }, { id: '001', plugin: 'bar' }]
+          }]
         }])
       }
     }
@@ -638,17 +646,18 @@ describe('editor/reducer/editable', () => {
       editable: {
         cells: cells([{
           ...insertCell,
+          size: 6,
           id: 'i0'
         }, {
           id: 'i00',
-          rows: rows([{
+          rows: [{
             id: '00',
-            cells: cells([{
+            cells: [{
               id: '000', plugin: 'foo', inline: 'left'
             }, {
               id: '001', plugin: 'bar'
-            }])
-          }])
+            }]
+          }]
         }])
       }
     }
@@ -661,7 +670,7 @@ describe('editor/reducer/editable', () => {
         expect(store.getState(), 'to equal', {
           editable: {
             ...c.e.editable,
-            cells: c.e.editable.cells.map((c) => computeDropLevels(c))
+            cells: c.e.editable.cells
           }
         })
       })
