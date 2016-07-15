@@ -11,33 +11,19 @@ const insertInlineLaTeX = (insertInlineEntity) => () => {
   )
 }
 
-const insertBlockLaTeX = (insertBlockEntity) => () => {
-  insertBlockEntity(
-    'BLOCK_LATEX_EQUATION',
-    'IMMUTABLE',
-    { src: '' }
-  )
-}
-
-const Toolbar = ({ insertInlineEntity, insertBlockEntity }) => (
+const Toolbar = ({ insertInlineEntity }) => (
   <div>
     <button onClick={insertInlineLaTeX(insertInlineEntity)}>
       Insert Equation
     </button>
-    <button onClick={insertBlockLaTeX(insertBlockEntity)}>
-      Insert Block Equation
-    </button>
   </div>
 )
 
-Toolbar.propTypes = {
-  insertInlineEntity: PropTypes.func,
-  insertBlockEntity: PropTypes.func
-}
+Toolbar.propTypes = { insertInlineEntity: PropTypes.func }
 
+// FIXME: this behaviour should be done w/o Redux
 const mapDispatchToProps = (dispatch) => bindActionCreators({
-  insertInlineEntity,
-  insertBlockEntity
+  insertInlineEntity
 }, dispatch)
 
 export default connect(null, mapDispatchToProps)(Toolbar)

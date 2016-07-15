@@ -7,9 +7,7 @@ const dataShape = PropTypes.shape({
 
 const InlineMath = ({ data }) => <KaTeX src={data.src} />
 
-InlineMath.propTypes = {
-  data: dataShape
-}
+InlineMath.propTypes = { data: dataShape }
 
 export default InlineMath
 
