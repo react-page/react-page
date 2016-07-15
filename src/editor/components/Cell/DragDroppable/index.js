@@ -1,4 +1,6 @@
+import { identity } from 'ramda'
 import React, { Component, PropTypes } from 'react'
+import { shouldPureComponentUpdate } from 'src/editor/helper/shouldComponentUpdate'
 import * as hoverActions from 'src/editor/actions/cell/drag'
 import * as insertActions from 'src/editor/actions/cell/insert'
 import { DragSource as dragSource, DropTarget as dropTarget } from 'react-dnd'
@@ -8,24 +10,32 @@ import { target, source, connect as monitorConnect, collect } from './helper'
 import styles from './index.scoped.css'
 import classNames from 'classnames'
 
-const cn = ({
-  isDragging,
-  hover
-}) => classNames({
-  draggable: true,
-  'is-over-current': hover,
-  'is-dragging': isDragging
-})
+class DragDroppable extends Component {
+  shouldComponentUpdate = shouldPureComponentUpdate
 
-const DragDroppable = ({
-  allowDrop = false,
-  connectDragSource,
-  connectDropTarget,
-  ...props
-}) => allowDrop
-    // FIXME warning.js:44 Warning: Unknown props `isOver`, `isOverCurrent`, `isDragging`, `cellHover`, `cellHoverLeftOf`, `cellHoverRightOf`, `cellHoverAbove`, `cellHoverBelow`, `cellHoverInlineLeft`, `cellHoverInlineRight`, `dragCell`, `cancelCellDrag`, `styles` on <div> tag. Remove these props from the element. For details, see
-    ? connectDragSource(connectDropTarget(<div styleName={cn(props)} className={cn(props)} {...props} />))
-    : connectDragSource(<div styleName={cn(props)} className={cn(props)} {...props} />)
+  render() {
+    const {
+      allowDrop = false,
+      connectDragSource,
+      connectDropTarget,
+      isDragging,
+      hover,
+      ...props
+    } = this.props
+
+    const decorator = allowDrop ? connectDropTarget : identity
+    const classes = classNames(
+      'draggable', {
+        'is-over-current': hover,
+        'is-dragging': isDragging
+      }
+    )
+
+    return connectDragSource(decorator(
+      <div styleName={classes} className={classes} {...props} />
+    ))
+  }
+}
 
 DragDroppable.propTypes = {
   allowDrop: PropTypes.bool,

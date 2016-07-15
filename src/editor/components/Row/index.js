@@ -1,6 +1,7 @@
 import React, { PropTypes, Component } from 'react'
 import droppable from './Droppable'
 import { connect } from 'react-redux'
+import { shouldPureComponentUpdate } from 'src/editor/helper/shouldComponentUpdate'
 import { isLayoutMode, isResizeMode } from 'src/editor/selector/display'
 import { editableConfig } from 'src/editor/selector/editable'
 import { createStructuredSelector } from 'reselect'
@@ -17,9 +18,7 @@ class Row extends Component {
     this.Droppable = droppable(whitelist)
   }
 
-  shouldComponentUpdate(nextProps) {
-    return this.props !== nextProps
-  }
+  shouldComponentUpdate = shouldPureComponentUpdate
 
   render() {
     const { isLayoutMode, isResizeMode } = this.props
