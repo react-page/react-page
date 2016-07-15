@@ -1,6 +1,7 @@
 import React, { PropTypes, Component } from 'react'
 import Inner from './inner'
 import { connect } from 'react-redux'
+import { shouldPureComponentUpdate } from 'src/editor/helper/shouldComponentUpdate'
 import { editableConfig } from 'src/editor/selector/editable'
 import { isPreviewMode, isEditMode, isResizeMode, isLayoutMode } from 'src/editor/selector/display'
 import { createStructuredSelector } from 'reselect'
@@ -16,9 +17,7 @@ const gridClass = ({ size, isPreviewMode, isLayoutMode }) => `cell-${isPreviewMo
 const resize = ({ resizeCell, id }) => (width) => resizeCell({ id }, width)
 
 class Cell extends Component {
-  shouldComponentUpdate(nextProps) {
-    return this.props !== nextProps
-  }
+  shouldComponentUpdate = shouldPureComponentUpdate
 
   render() {
     const props = this.props

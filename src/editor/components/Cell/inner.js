@@ -1,4 +1,5 @@
 import React, { PropTypes, Component } from 'react'
+import { shouldPureComponentUpdate } from 'src/editor/helper/shouldComponentUpdate'
 import dragDroppable from './DragDroppable'
 import Rows from './Rows'
 import Layout from './Layout'
@@ -20,6 +21,8 @@ class Inner extends Component {
       this.DragDroppable = dragDroppable(pluginName, whitelist)
     }
   }
+
+  shouldComponentUpdate = shouldPureComponentUpdate
 
   render() {
     const props = this.props

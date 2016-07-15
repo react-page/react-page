@@ -65,6 +65,8 @@
     "webpack": "2.1.0-beta.9"
   },
   "devDependencies": {
+    "babel-eslint": "6.1.2",
+    "babel-plugin-transform-class-properties": "6.10.2",
     "babel-preset-es2015": "6.9.0",
     "chokidar-cli": "1.2.0",
     "deep-equal": "1.0.1",
