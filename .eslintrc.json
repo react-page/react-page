@@ -3,6 +3,7 @@
     "eslint-config-ory-am",
     "eslint-config-ory-am-react"
   ],
+  "parser": "babel-eslint",
   "env": {
     "node": true,
     "browser": true
