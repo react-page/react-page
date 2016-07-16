@@ -16,8 +16,12 @@ class Inner extends Component {
       })} className="editable-row"
       >
         {cells.map((c) => (
-          <Cell rowWidth={containerWidth} rowHeight={containerHeight} ancestors={[...ancestors, id]}
-                editable={editable} key={c.id} {...c}
+          <Cell
+            rowWidth={containerWidth}
+            rowHeight={containerHeight}
+            ancestors={[...ancestors, id]}
+            editable={editable}
+            key={c.id} {...c}
           />
         ))}
         <div styleName="clearfix"/>

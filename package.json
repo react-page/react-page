@@ -80,6 +80,7 @@
     "nodemon": "1.9.2",
     "npm-run-all": "2.3.0",
     "react-addons-perf": "^15.2.1",
+    "react-addons-shallow-compare": "^15.2.1",
     "redbox-react": "1.2.10",
     "unexpected": "10.14.2",
     "webpack-dev-middleware": "1.6.1",
