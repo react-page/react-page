@@ -1,14 +1,16 @@
 import React, { PropTypes, Component } from 'react'
 import Inner from './inner'
 import { connect } from 'react-redux'
+import { shouldPureComponentUpdate } from 'src/editor/helper/shouldComponentUpdate'
 import { editableConfig } from 'src/editor/selector/editable'
 import { isPreviewMode, isEditMode, isResizeMode, isLayoutMode } from 'src/editor/selector/display'
 import { createStructuredSelector } from 'reselect'
 import Resizable from './Resizable'
 import { resizeCell } from 'src/editor/actions/cell'
-import grid from 'src/editor/styles/grid.scoped.css'
-import cssModules from 'react-css-modules'
 import classNames from 'classnames'
+import cssModules from 'react-css-modules'
+
+import * as commonStyles from 'src/editor/styles'
 import styles from './index.scoped.css'
 
 const gridClass = ({ size, isPreviewMode, isLayoutMode }) => `cell-${isPreviewMode ? 'md' : 'xs'}-${size}`
@@ -16,44 +18,47 @@ const gridClass = ({ size, isPreviewMode, isLayoutMode }) => `cell-${isPreviewMo
 const resize = ({ resizeCell, id }) => (width) => resizeCell({ id }, width)
 
 class Cell extends Component {
-  shouldComponentUpdate(nextProps) {
-    return this.props !== nextProps
-  }
+  shouldComponentUpdate = shouldPureComponentUpdate
 
   render() {
     const props = this.props
+
+    if (props.isLayoutMode) {
+      props.styles = {
+        ...props.styles,
+        ...commonStyles.flexbox,
+        ...styles // override defaults
+      }
+    }
+
     return (
       <div
-        className={classNames({
-          [props.className]: props.className,
-          'has-inline-neighbour': props.hasInlineNeighbour,
-          [`inline-${props.inline}`]: props.inline,
-          'is-over-current': props.hover,
-          [`is-over-${props.hover}`]: props.hover
-        })}
+        styles={props.styles}
         styleName={classNames(gridClass(props), {
           'is-over-current': props.hover,
+          'has-inline-neighbour': props.hasInlineNeighbour,
           [`inline-${props.inline}`]: props.inline,
           [`is-over-${props.hover}`]: props.hover
         })}
+        className="editable-cell"
       >
         {props.resizable && (props.isResizeMode)
           ? (
-          <Resizable rowWidth={props.rowWidth}
-                     cellWidth={props.size}
-                     bounds={props.bounds}
-                     inline={props.inline}
-                     steps={12}
-                     onChange={resize(props)}
+          <Resizable
+            id={props.id}
+            rowWidth={props.rowWidth}
+            updateDimensions={props.updateDimensions}
+            rowHeight={props.rowHeight}
+            size={props.size}
+            bounds={props.bounds}
+            inline={props.inline}
+            steps={12}
+            onChange={resize(props)}
           >
-            <div className="editable-cell" styleName="cell">
-              <Inner {...{ ...props, styles: null, config: props.editableConfig(props.editable) }} />
-            </div>
+            <Inner {...{ ...props, styles: null, config: props.editableConfig(props.editable) }} />
           </Resizable>
         ) : (
-          <div className="editable-cell" styleName="cell">
-            <Inner {...{ ...props, styles: null, config: props.editableConfig(props.editable) }} />
-          </div>
+          <Inner {...{ ...props, styles: null, config: props.editableConfig(props.editable) }} />
         )}
       </div>
     )
@@ -89,4 +94,4 @@ const mapDispatchToProps = {
   resizeCell
 }
 
-export default (connect(mapStateToProps, mapDispatchToProps)(cssModules(Cell, { ...grid, ...styles }, { allowMultiple: true })))
+export default (connect(mapStateToProps, mapDispatchToProps)(cssModules(Cell, { ...commonStyles.floating, ...commonStyles.common, ...styles }, { allowMultiple: true })))

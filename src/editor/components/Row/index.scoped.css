@@ -1,9 +1,5 @@
-.row {
-  position: relative;
-}
-
-.clearfix {
-  clear: both;
+.force-block {
+  display: block !important;
 }
 
 .is-over-current:before {

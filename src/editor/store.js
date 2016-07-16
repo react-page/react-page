@@ -6,7 +6,7 @@ import rootReducer from './reducer'
 
 export default (initialState) => {
   let devTools = identity
-  if (!isProduction && typeof window !== 'undefined' && window.devToolsExtension) {
+  if (typeof window !== 'undefined' && window.devToolsExtension) {
     devTools = window.devToolsExtension()
   }
 

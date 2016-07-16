@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react'
+import React, { PropTypes, Component } from 'react'
 import { Resizable as ReactResizeable } from 'react-resizable'
 import dimensions from 'react-dimensions'
 import { connect } from 'react-redux'
@@ -24,44 +24,29 @@ const widthToSize = ({ stepWidth, steps }, { inline }, result) => {
   return size
 }
 
-class Resizable extends React.Component {
+class Resizable extends Component {
   constructor(props) {
+    const sw = computeStepWidth(props)
     super(props)
+
     this.state = {
-      stepWidth: computeStepWidth(props),
+      stepWidth: sw,
       steps: (props.steps - 1) || 11,
       isResizing: false,
-      width: props.containerWidth,
-      size: Math.round(props.containerWidth / this.stepWidth)
+      width: props.size * sw,
     }
 
     this.onResize = this.onResize.bind(this)
-    this.onResizeStart = this.onResizeStart.bind(this)
-    this.onResizeStop = this.onResizeStop.bind(this)
   }
 
-  componentWillReceiveProps(next) {
-    const width = next.cellWidth * this.state.stepWidth
-    if (width !== this.state.width) {
-      this.setState({ next })
-    }
+  shouldComponentUpdate(nextProps, nextState) {
+    return nextProps !== this.props || nextState !== this.state
   }
 
-  onResizeStart() {
-    // FIXME
-    // this.props.resizeMode()
-    this.setState({ isResizing: true })
-  }
-
-  onResizeStop() {
-    // FIXME
-    // this.props.editMode()
-    this.setState({ isResizing: false })
-  }
-
-  onResize(event, { size: result }) {
-    this.props.onChange(widthToSize(this.state, this.props, result))
-    this.setState({ width: result.width })
+  onResize(event, { size }) {
+    const newSize = widthToSize(this.state, this.props, size)
+    this.props.onChange(newSize)
+    this.setState({ width: newSize * this.state.stepWidth })
   }
 
   render() {
@@ -72,28 +57,28 @@ class Resizable extends React.Component {
         styleName={`resizable${inline ? ` inline-${inline}` : ''}`}
         className={`resizable-cell${this.state.isResizing ? ' is-resizing' : ''}`}
         onResize={this.onResize}
+        minConstraints={inline ? null : [this.state.stepWidth, Infinity]}
+        maxConstraints={inline ? null : [bounds.right * this.state.stepWidth, Infinity]}
+        draggableOpts={{ grid: [this.state.stepWidth, 0], axis: 'none' }}
         width={this.state.width}
-        onResizeStart={this.onResizeStart}
-        onResizeStop={this.onResizeStop}
-        minConstraints={[this.state.stepWidth, Infinity]}
-        maxConstraints={[bounds.right * this.state.stepWidth, Infinity]}
-        draggableOpts={{ grid: [this.state.stepWidth, 0], defaultPosition: { x: -1000, y: -1000 }, axis: 'x' }}
-        height={0} children={children}
+        children={children}
       />
     )
   }
 }
 
 Resizable.propTypes = {
-  containerWidth: PropTypes.number.isRequired,
-  containerHeight: PropTypes.number.isRequired,
-  
+  containerWidth: PropTypes.number,
+  containerHeight: PropTypes.number,
+  updateDimensions: PropTypes.func,
+
   children: PropTypes.element.isRequired,
 
   steps: PropTypes.number,
   inline: PropTypes.string,
-  cellWidth: PropTypes.number.isRequired,
+  size: PropTypes.number.isRequired,
   rowWidth: PropTypes.number.isRequired,
+  rowHeight: PropTypes.number.isRequired,
 
   bounds: PropTypes.shape({ right: PropTypes.number.isRequired }).isRequired,
 

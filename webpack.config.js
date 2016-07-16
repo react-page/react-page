@@ -77,7 +77,8 @@ module.exports = {
           'react'
         ],
         plugins: [
-          'transform-inline-environment-variables'
+          'transform-inline-environment-variables',
+          'transform-class-properties'
         ]
       }
     }, {

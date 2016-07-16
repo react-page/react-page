@@ -1,6 +1,7 @@
 .draggable {
   cursor: move;
   position: relative;
+  height: 100%;
   transition: opacity 200ms ease;
 }
 

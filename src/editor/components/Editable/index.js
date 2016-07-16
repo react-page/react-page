@@ -1,33 +1,55 @@
-import React, { PropTypes } from 'react'
+import React, { PropTypes, Component } from 'react'
 import Cell from 'src/editor/components/Cell'
+import { shouldPureComponentUpdate } from 'src/editor/helper/shouldComponentUpdate'
 import { editable } from 'src/editor/selector/editable'
 import { connect } from 'react-redux'
-import cssModules from 'react-css-modules'
+import { isLayoutMode } from 'src/editor/selector/display'
 import { createStructuredSelector } from 'reselect'
 import HTML5Backend from 'react-dnd-html5-backend'
 import { DragDropContext as dragDropContext } from 'react-dnd'
-import styles from 'src/editor/styles/grid.scoped.css'
+import cssModules from 'react-css-modules'
 
-const Editable = ({ id, editable }) => {
-  const state = editable(id)
-  if (!state) {
-    throw new Error(`Content state was not initialized for editable ${id}`)
-  }
+import * as commonStyles from 'src/editor/styles'
+import styles from './index.scoped.css'
 
-  return (
-    <div styleName="container" className="editor-container">
-      <div styleName="row" className="editor-row">
-        {state.cells.map((c) => <Cell editable={id} ancestors={[]} key={c.id} {...{ ...c, styles: null }} />)}
+class Editable extends Component {
+  shouldComponentUpdate = shouldPureComponentUpdate
+
+  render() {
+    const { id, editable, isLayoutMode, ...props } = this.props
+    const state = editable(id)
+    if (!state) {
+      throw new Error(`Content state was not initialized for editable ${id}`)
+    }
+
+    if (isLayoutMode) {
+      props.styles = {
+        ...props.styles,
+        ...commonStyles.flexbox,
+        ...styles // override defaults
+      }
+    }
+
+    return (
+      <div styles={props.styles} className="editor-container">
+        <div styles={props.styles} styleName="row" className="editor-row">
+          {state.cells.map((c) => <Cell editable={id} ancestors={[]} key={c.id} {...{ ...c, styles: null }} />)}
+        </div>
       </div>
-    </div>
-  )
+    )
+  }
 }
 
 Editable.propTypes = {
   id: PropTypes.string.isRequired,
+  styles: PropTypes.object.isRequired,
   editable: PropTypes.func.isRequired
 }
 
-const mapStateToProps = createStructuredSelector({ editable })
+const mapStateToProps = createStructuredSelector({ editable, isLayoutMode })
 
-export default dragDropContext(HTML5Backend)(connect(mapStateToProps)(cssModules(Editable, styles)))
+export default dragDropContext(HTML5Backend)(connect(mapStateToProps)(cssModules(Editable, {
+  ...commonStyles.floating,
+  ...commonStyles.common,
+  ...styles
+})))

@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { updateCell } from 'src/editor/actions/cell'
+import { shouldPureComponentUpdate } from 'src/editor/helper/shouldComponentUpdate'
 import { isEditMode, isLayoutMode, isPreviewMode } from 'src/editor/selector/display'
 import { createStructuredSelector } from 'reselect'
 
@@ -9,13 +10,21 @@ const fallback = (...args) => console.error('onChange callback is missing', ...a
 
 const onChange = (id, cb) => (state) => cb({ id }, state)
 
-const Content = ({ isEditMode, id, plugin: { Component }, props = {}, updateCell = fallback }) => (
-  <Component
-    {...props}
-    readOnly={!isEditMode}
-    onChange={onChange(id, updateCell)}
-  />
-)
+class Content extends React.Component {
+  shouldComponentUpdate = shouldPureComponentUpdate
+
+  render() {
+    const { isEditMode, id, plugin: { Component }, props = {}, updateCell = fallback } = this.props
+
+    return (
+      <Component
+        {...props}
+        readOnly={!isEditMode}
+        onChange={onChange(id, updateCell)}
+      />
+    )
+  }
+}
 
 Content.propTypes = {
   plugin: PropTypes.shape({

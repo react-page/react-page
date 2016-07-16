@@ -28,9 +28,6 @@ import { List, ListItem } from 'material-ui/List';
 
 import styles from './index.scoped.css'
 
-const theme = getMuiTheme()
-console.log(theme)
-
 const toggleLayoutMode = ({ check, previousMode, cb, fallback }) => () => check ? previousMode(fallback) : cb()
 
 const Controls = ({ isLayoutMode, isPreviewMode, isInsertMode, layoutMode, insertMode, editMode, isEditMode, previewMode, isResizeMode, resizeMode, ...props }) => (
@@ -41,8 +38,13 @@ const Controls = ({ isLayoutMode, isPreviewMode, isInsertMode, layoutMode, inser
 
         <div styleName="controls-right">
           <div styleName="button">
-            <FloatingActionButton secondary={isEditMode}
-                                  onClick={toggleLayoutMode({ check: isEditMode, cb: editMode, fallback: DISPLAY_MODE_PREVIEW, ...props })}
+            <FloatingActionButton
+              secondary={isEditMode}
+              onClick={toggleLayoutMode({
+                check: isEditMode,
+                cb: editMode,
+                fallback: DISPLAY_MODE_PREVIEW, ...props
+              })}
             >
               <Create />
             </FloatingActionButton>
@@ -55,8 +57,13 @@ const Controls = ({ isLayoutMode, isPreviewMode, isInsertMode, layoutMode, inser
 
         <div styleName="controls-right">
           <div styleName="button">
-            <FloatingActionButton secondary={isInsertMode}
-                                  onClick={toggleLayoutMode({ check: isInsertMode, cb: insertMode, fallback: DISPLAY_MODE_EDIT, ...props })}
+            <FloatingActionButton
+              secondary={isInsertMode}
+              onClick={toggleLayoutMode({
+                check: isInsertMode,
+                cb: insertMode,
+                fallback: DISPLAY_MODE_EDIT, ...props
+              })}
             >
               <ContentAdd />
             </FloatingActionButton>
@@ -70,8 +77,13 @@ const Controls = ({ isLayoutMode, isPreviewMode, isInsertMode, layoutMode, inser
         <div>
           <div styleName="controls-right">
             <div styleName="button">
-              <FloatingActionButton secondary={isPreviewMode}
-                                    onClick={toggleLayoutMode({ check: isPreviewMode, cb: previewMode, fallback: DISPLAY_MODE_EDIT, ...props })}
+              <FloatingActionButton
+                secondary={isPreviewMode}
+                onClick={toggleLayoutMode({
+                  check: isPreviewMode,
+                  cb: previewMode,
+                  fallback: DISPLAY_MODE_EDIT, ...props
+                })}
               >
                 <Devices />
               </FloatingActionButton>
@@ -84,8 +96,13 @@ const Controls = ({ isLayoutMode, isPreviewMode, isInsertMode, layoutMode, inser
 
           <div styleName="controls-right">
             <div styleName="button">
-              <FloatingActionButton secondary={isLayoutMode}
-                                    onClick={toggleLayoutMode({ check: isLayoutMode, cb: layoutMode, fallback: DISPLAY_MODE_PREVIEW, ...props })}
+              <FloatingActionButton
+                secondary={isLayoutMode}
+                onClick={toggleLayoutMode({
+                  check: isLayoutMode,
+                  cb: layoutMode,
+                  fallback: DISPLAY_MODE_PREVIEW, ...props
+                })}
               >
                 <ViewQuilt />
               </FloatingActionButton>
@@ -98,8 +115,13 @@ const Controls = ({ isLayoutMode, isPreviewMode, isInsertMode, layoutMode, inser
 
           <div styleName="controls-right">
             <div styleName="button">
-              <FloatingActionButton secondary={isResizeMode}
-                                    onClick={toggleLayoutMode({ check: isResizeMode, cb: resizeMode, fallback: DISPLAY_MODE_PREVIEW, ...props })}
+              <FloatingActionButton
+                secondary={isResizeMode}
+                onClick={toggleLayoutMode({
+                  check: isResizeMode,
+                  cb: resizeMode,
+                  fallback: DISPLAY_MODE_PREVIEW, ...props
+                })}
               >
                 <Resize />
               </FloatingActionButton>
@@ -109,18 +131,6 @@ const Controls = ({ isLayoutMode, isPreviewMode, isInsertMode, layoutMode, inser
             </div>
             <div styleName="clearfix"/>
           </div>
-        </div>
-
-        <div styleName="controls-right">
-          <div styleName="button">
-            <FloatingActionButton>
-              <ViewHeadline />
-            </FloatingActionButton>
-          </div>
-          <div styleName="description">
-            Preview, rearrange, resize and more ...
-          </div>
-          <div styleName="clearfix"/>
         </div>
       </div>
     </div>
