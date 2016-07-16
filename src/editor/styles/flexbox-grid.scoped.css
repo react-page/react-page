@@ -269,10 +269,6 @@
 }
 
 @media only screen and (min-width: 48em) {
-  .container {
-    width: 46rem;
-  }
-
   .cell-sm,
   .cell-sm-1,
   .cell-sm-2,
