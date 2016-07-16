@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react'
+import React, { PropTypes, Component } from 'react'
 import Cell from 'src/editor/components/Cell'
 import { shouldPureComponentUpdate } from 'src/editor/helper/shouldComponentUpdate'
 import { editable } from 'src/editor/selector/editable'
@@ -22,17 +22,17 @@ class Editable extends Component {
       throw new Error(`Content state was not initialized for editable ${id}`)
     }
 
-  if (isLayoutMode) {
-    props.styles = {
-      ...props.styles,
-      ...commonStyles.flexbox,
-      ...styles // override defaults
+    if (isLayoutMode) {
+      props.styles = {
+        ...props.styles,
+        ...commonStyles.flexbox,
+        ...styles // override defaults
+      }
     }
-  }
 
     return (
-    <div styles={props.styles} className="editor-container">
-      <div styles={props.styles} styleName="row" className="editor-row">
+      <div styles={props.styles} className="editor-container">
+        <div styles={props.styles} styleName="row" className="editor-row">
           {state.cells.map((c) => <Cell editable={id} ancestors={[]} key={c.id} {...{ ...c, styles: null }} />)}
         </div>
       </div>
