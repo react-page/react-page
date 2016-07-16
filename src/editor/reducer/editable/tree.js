@@ -164,7 +164,6 @@ export const row = (state = {
   })
 
   switch (action.type) {
-
     case CELL_INSERT_LEFT_OF:
       if (!isHoveringThis(state, action)) {
         return reduce()

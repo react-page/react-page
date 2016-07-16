@@ -944,3 +944,26 @@
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
+
+.container:before,
+.container:after,
+.container-fluid:before,
+.container-fluid:after,
+.row:before,
+.row:after {
+  content: " ";
+  display: table;
+}
+
+.container:after,
+.container-fluid:after,
+.row:after {
+  clear: both;
+}
+
+.clearfix,
+.clearfix:before,
+.clearfix:after {
+  content: " ";
+  clear: both;
+}

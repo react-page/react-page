@@ -7,10 +7,15 @@ import Controls from 'src/editor/components/Controls'
 import createStore from './store'
 import { updateEditable } from 'src/editor/actions/editables'
 import ContentService from 'src/editor/service/content'
+import { isProduction } from './const'
 
 // required for material-ui
 import injectTapEventPlugin from 'react-tap-event-plugin'
 injectTapEventPlugin()
+
+if (!isProduction) {
+  window.Perf = require('react-addons-perf')
+}
 
 let instance
 
@@ -50,7 +55,7 @@ class Editor {
         }))
         ReactDOM.render((
           <Provider store={this.store}>
-            <Editable id={state.id} />
+            <Editable id={state.id}/>
           </Provider >
         ), editable)
       })

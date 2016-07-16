@@ -12,9 +12,6 @@ import cssModules from 'react-css-modules'
 import * as commonStyles from 'src/editor/styles'
 import styles from './index.scoped.css'
 
-const innerResizeContainer = (styles) => dimensions()((cssModules(Inner, styles, { allowMultiple: true })))
-const innerContainer = (styles) => (cssModules(Inner, styles, { allowMultiple: true }))
-
 class Row extends Component {
   constructor(props) {
     super(props)
@@ -26,35 +23,43 @@ class Row extends Component {
   shouldComponentUpdate = shouldPureComponentUpdate
 
   render() {
+    const props = this.props
     const { isLayoutMode, isResizeMode } = this.props
     const Droppable = this.Droppable
-    const css = {
-      ...(isLayoutMode ? commonStyles.floating : commonStyles.flexbox),
-      ...commonStyles.common
-      ...styles
-    }
-    const InnerContainer = innerContainer(css)
 
     if (isLayoutMode) {
-      return <Droppable {...this.props}><InnerContainer {...this.props} /></Droppable>
+      props.styles = {
+        ...props.styles,
+        ...commonStyles.flexbox,
+        ...styles // override defaults
+      }
+    }
+
+    if (isLayoutMode) {
+      return <Droppable {...props}><Inner {...props} /></Droppable>
     }
 
     if (isResizeMode) {
-      const InnerResizeContainer = innerResizeContainer(css)
+      const InnerResizeContainer = dimensions()(Inner)
       return (
-        <InnerResizeContainer {...this.props} />
+        <InnerResizeContainer {...props} />
       )
     }
 
-    return <InnerContainer {...this.props} />
+    return <Inner {...props} />
   }
 }
 
 Row.propTypes = {
   isLayoutMode: PropTypes.bool.isRequired,
+  isResizeMode: PropTypes.bool.isRequired,
   config: PropTypes.func.isRequired
 }
 
 const mapStateToProps = createStructuredSelector({ isLayoutMode, config: editableConfig, isResizeMode })
 
-export default connect(mapStateToProps)(Row)
+export default connect(mapStateToProps)(cssModules(Row, {
+  ...commonStyles.floating,
+  ...commonStyles.common,
+  ...styles
+}, { allowMultiple: true }))

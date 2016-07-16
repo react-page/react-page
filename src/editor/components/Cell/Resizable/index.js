@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react'
+import React, { PropTypes, Component } from 'react'
 import { Resizable as ReactResizeable } from 'react-resizable'
 import dimensions from 'react-dimensions'
 import { connect } from 'react-redux'
@@ -24,7 +24,7 @@ const widthToSize = ({ stepWidth, steps }, { inline }, result) => {
   return size
 }
 
-class Resizable extends React.Component {
+class Resizable extends Component {
   constructor(props) {
     const sw = computeStepWidth(props)
     super(props)
