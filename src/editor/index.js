@@ -8,6 +8,7 @@ import createStore from './store'
 import { updateEditable } from 'src/editor/actions/editables'
 import ContentService from 'src/editor/service/content'
 import { isProduction } from './const'
+import DragDropContext from 'src/editor/components/DragDropContext'
 
 // required for material-ui
 import injectTapEventPlugin from 'react-tap-event-plugin'
@@ -39,7 +40,9 @@ class Editor {
 
     ReactDOM.render((
       <Provider store={this.store}>
-        <Controls />
+        <DragDropContext>
+          <Controls plugins={this.content.plugins} />
+        </DragDropContext>
       </Provider >
     ), toolbar)
   }
@@ -55,8 +58,10 @@ class Editor {
         }))
         ReactDOM.render((
           <Provider store={this.store}>
-            <Editable id={state.id} />
-          </Provider >
+            <DragDropContext>
+              <Editable id={state.id} />
+            </DragDropContext>
+          </Provider>
         ), editable)
       })
     }, editables)

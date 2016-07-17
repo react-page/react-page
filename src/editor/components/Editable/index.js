@@ -5,8 +5,6 @@ import { purifiedEditable } from 'src/editor/selector/editable'
 import { connect } from 'react-redux'
 import { isLayoutMode, isResizeMode } from 'src/editor/selector/display'
 import { createStructuredSelector } from 'reselect'
-import HTML5Backend from 'react-dnd-html5-backend'
-import { DragDropContext as dragDropContext } from 'react-dnd'
 import cssModules from 'react-css-modules'
 
 import * as commonStyles from 'src/editor/styles'
@@ -53,8 +51,8 @@ Editable.propTypes = {
 
 const mapStateToProps = createStructuredSelector({ editable: purifiedEditable, isLayoutMode, isResizeMode })
 
-export default dragDropContext(HTML5Backend)(connect(mapStateToProps)(cssModules(Editable, {
+export default connect(mapStateToProps)(cssModules(Editable, {
   ...commonStyles.floating,
   ...commonStyles.common,
   ...styles
-})))
+}))

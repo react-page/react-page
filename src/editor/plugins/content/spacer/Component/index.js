@@ -39,7 +39,7 @@ class Spacer extends Component {
           ? (
           <Solid height={this.state.height} />
         ) : (
-          <ResizableBox onResize={this.onResize} height={this.state.height} width={0}>
+          <ResizableBox onResize={this.onResize} height={this.state.height}>
             <div />
           </ResizableBox>
         )}

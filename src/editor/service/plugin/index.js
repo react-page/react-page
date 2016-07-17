@@ -6,7 +6,6 @@ import spacer from 'src/editor/plugins/content/spacer'
 import spoiler from 'src/editor/plugins/layout/spoiler'
 
 export const defaultContentPlugins = [
-  missing,
   image,
   spacer,
   draft

@@ -3,7 +3,7 @@ import Inner from './inner'
 import { connect } from 'react-redux'
 import { shouldPureComponentUpdate } from 'src/editor/helper/shouldComponentUpdate'
 import { editableConfig, node } from 'src/editor/selector/editable'
-import { isPreviewMode, isEditMode, isResizeMode, isLayoutMode } from 'src/editor/selector/display'
+import { isPreviewMode, isEditMode, isResizeMode, isLayoutMode, isInsertMode } from 'src/editor/selector/display'
 import { createStructuredSelector } from 'reselect'
 import Resizable from './Resizable'
 import { resizeCell } from 'src/editor/actions/cell'
@@ -29,6 +29,7 @@ class Cell extends Component {
 
       isLayoutMode,
       isResizeMode,
+      isInsertMode,
 
       node: {
         inline,
@@ -39,7 +40,7 @@ class Cell extends Component {
     } = this.props
 
     let styles
-    if (isLayoutMode || isResizeMode) {
+    if (isLayoutMode || isResizeMode || isInsertMode) {
       styles = {
         ...this.props.styles,
         ...commonStyles.flexbox,
@@ -106,11 +107,13 @@ Cell.propTypes = {
   isResizeMode: PropTypes.bool.isRequired,
   isLayoutMode: PropTypes.bool.isRequired,
   isEditMode: PropTypes.bool.isRequired,
+  isInsertMode: PropTypes.bool.isRequired
 }
 
 const mapStateToProps = createStructuredSelector({
   isPreviewMode,
   isEditMode,
+  isInsertMode,
   isResizeMode,
   isLayoutMode,
   config: editableConfig,

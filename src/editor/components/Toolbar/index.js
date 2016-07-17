@@ -4,10 +4,8 @@ import MenuItem from 'material-ui/MenuItem'
 import { connect } from 'react-redux'
 import { isInsertMode } from 'src/editor/selector/display'
 import { createStructuredSelector } from 'reselect'
-import Panorama from 'material-ui/svg-icons/image/panorama'
-import Subject from 'material-ui/svg-icons/action/subject'
-import AspectRatio from 'material-ui/svg-icons/action/aspect-ratio'
-import Movie from 'material-ui/svg-icons/av/movie'
+import draggable from './Draggable'
+
 import Announcement from 'material-ui/svg-icons/action/announcement'
 // import ViewHeadline from 'material-ui/svg-icons/action/view-headline'
 // import ViewCarousel from 'material-ui/svg-icons/action/view-carousel'
@@ -22,25 +20,29 @@ import Divider from 'material-ui/Divider'
 import TextField from 'material-ui/TextField'
 
 const items = {
-  content: [{
-    icon: <Subject />,
-    text: 'Text'
-  }, {
-    icon: <Panorama />,
-    text: 'Image'
-  }, {
-    icon: <Movie />,
-    text: 'Movie'
-  }, {
-    icon: <AspectRatio />,
-    text: 'Spacer'
-  }],
+  content: [],
   layout: [{
     icon: <Announcement />,
-    text: 'Announcement'
+    text: 'Announcement',
+    insert: {
+      plugin: {
+        name: 'ory/content/draft-js',
+        version: '0.0.1'
+      },
+      props: {},
+    },
+    Draggable: draggable('ory/content/draft-js')
   }, {
     icon: <FilterFrames />,
-    text: 'Spoiler'
+    text: 'Spoiler',
+    insert: {
+      plugin: {
+        name: 'ory/content/draft-js',
+        version: '0.0.1'
+      },
+      props: {},
+    },
+    Draggable: draggable('ory/content/draft-js')
   }]
 }
 
@@ -62,9 +64,9 @@ class Toolbar extends Component {
   }
 
   render() {
-    const { isInsertMode } = this.props
+    const { isInsertMode, plugins } = this.props
     const { isSearching, searchFilter } = this.state
-    const content = items.content.filter(searchFilter)
+    const content = plugins.plugins.content.filter(searchFilter)
     const layout = items.layout.filter(searchFilter)
 
     return (
@@ -79,19 +81,25 @@ class Toolbar extends Component {
         </div>
         <List>
           {content.length ? <Subheader>Content</Subheader> : null}
-          {content.map(({ icon, text }, k) => (
-            <ListItem key={k}
-                      leftAvatar={<Avatar icon={icon} />}
-                      primaryText={text}
-            />
-          ))}
+          {content.map(({ Component, icon, text, name, version, insert }, k) => {
+            const Draggable = draggable(name)
+            return (
+              <Draggable key={k} {...{ plugin: { name, version, Component }, props: insert }}>
+                <ListItem
+                  leftAvatar={<Avatar icon={icon} />}
+                  primaryText={text}
+                />
+              </Draggable>
+            )
+          })}
         </List>
         <List>
           {layout.length ? <Subheader>Layout</Subheader> : null}
           {layout.map(({ icon, text }, k) => (
-            <ListItem key={k}
-                      leftAvatar={<Avatar icon={icon} />}
-                      primaryText={text}
+            <ListItem
+              key={k}
+              leftAvatar={<Avatar icon={icon} />}
+              primaryText={text}
             />
           ))}
         </List>
@@ -110,6 +118,7 @@ class Toolbar extends Component {
 }
 
 Toolbar.propTypes = {
+  plugins: PropTypes.array.isRequired,
   isInsertMode: PropTypes.bool.isRequired
 }
 

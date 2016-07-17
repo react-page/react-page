@@ -2,7 +2,7 @@ import React, { PropTypes, Component } from 'react'
 import droppable from './Droppable'
 import { connect } from 'react-redux'
 import { shouldPureComponentUpdate } from 'src/editor/helper/shouldComponentUpdate'
-import { isLayoutMode, isResizeMode } from 'src/editor/selector/display'
+import { isLayoutMode, isResizeMode, isInsertMode } from 'src/editor/selector/display'
 import { editableConfig, node } from 'src/editor/selector/editable'
 import { createStructuredSelector } from 'reselect'
 import Inner from './inner'
@@ -22,14 +22,14 @@ class Row extends Component {
   shouldComponentUpdate = shouldPureComponentUpdate
 
   render() {
-    const { isLayoutMode, isResizeMode } = this.props
+    const { isLayoutMode, isResizeMode, isInsertMode } = this.props
     const Droppable = this.Droppable
     const props = {
       ...(this.props),
       ...(this.props.node)
     }
 
-    if (isLayoutMode || isResizeMode) {
+    if (isLayoutMode || isResizeMode || isInsertMode) {
       props.styles = {
         ...props.styles,
         ...commonStyles.flexbox,
@@ -37,7 +37,7 @@ class Row extends Component {
       }
     }
 
-    if (isLayoutMode) {
+    if (isLayoutMode || isInsertMode) {
       return (
         <Droppable {...props}>
           <Inner {...props} />
@@ -59,6 +59,7 @@ class Row extends Component {
 Row.propTypes = {
   isLayoutMode: PropTypes.bool.isRequired,
   isResizeMode: PropTypes.bool.isRequired,
+  isInsertMode: PropTypes.bool.isRequired,
   config: PropTypes.func.isRequired,
   node: PropTypes.func.isRequired
 }
@@ -67,6 +68,7 @@ const mapStateToProps = createStructuredSelector({
   isLayoutMode,
   config: editableConfig,
   isResizeMode,
+  isInsertMode,
   node
 })
 

@@ -27,6 +27,7 @@
   "dependencies": {
     "autoprefixer": "6.3.7",
     "babel-loader": "6.2.4",
+    "babel-plugin-transform-class-properties": "6.10.2",
     "babel-plugin-transform-inline-environment-variables": "6.8.0",
     "babel-polyfill": "6.9.1",
     "babel-preset-es2015-webpack": "6.4.1",
@@ -37,6 +38,7 @@
     "cross-env": "1.0.8",
     "css-loader": "0.23.1",
     "deep-equal": "^1.0.1",
+    "dnd-core": "^2.0.2",
     "draft-js": "0.7.0",
     "express": "4.14.0",
     "extract-text-webpack-plugin": "1.0.1",
@@ -51,6 +53,7 @@
     "postcss-loader": "0.9.1",
     "ramda": "0.21.0",
     "react": "15.2.0",
+    "react-addons-perf": "^15.2.1",
     "react-css-modules": "3.7.6",
     "react-dimensions": "^1.2.0",
     "react-dnd": "^2.1.4",
@@ -63,8 +66,6 @@
     "reselect": "^2.5.1",
     "semver": "5.2.0",
     "style-loader": "0.13.1",
-    "babel-plugin-transform-class-properties": "6.10.2",
-    "react-addons-perf": "^15.2.1",
     "webpack": "2.1.0-beta.9"
   },
   "devDependencies": {

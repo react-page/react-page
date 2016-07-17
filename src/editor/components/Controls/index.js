@@ -30,10 +30,10 @@ import styles from './index.scoped.css'
 
 const toggleLayoutMode = ({ check, previousMode, cb, fallback }) => () => check ? previousMode(fallback) : cb()
 
-const Controls = ({ isLayoutMode, isPreviewMode, isInsertMode, layoutMode, insertMode, editMode, isEditMode, previewMode, isResizeMode, resizeMode, ...props }) => (
+const Controls = ({ isLayoutMode, isPreviewMode, isInsertMode, layoutMode, insertMode, editMode, isEditMode, previewMode, isResizeMode, resizeMode, plugins, ...props }) => (
   <MuiThemeProvider muiTheme={getMuiTheme()}>
     <div>
-      <Toolbar />
+      <Toolbar plugins={plugins} />
       <div styleName="controls">
 
         <div styleName="controls-right">
@@ -148,7 +148,8 @@ Controls.propTypes = {
   layoutMode: PropTypes.func.isRequired,
   previousMode: PropTypes.func.isRequired,
   insertMode: PropTypes.func.isRequired,
-  resizeMode: PropTypes.func.isRequired
+  resizeMode: PropTypes.func.isRequired,
+  plugins: PropTypes.array.isRequired
 }
 
 const mapStateToProps = createStructuredSelector({

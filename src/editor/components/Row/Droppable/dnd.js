@@ -39,7 +39,7 @@ export const target = {
     computeAndDispatchHover(props, monitor, component, '10x10-no-inline')
   }, isProduction ? 5 : 10, { leading: false }),
 
-  canDrop: ({ id, ancestors, isOverCurrent }, monitor) => {
+  canDrop: ({ id, ancestors }, monitor) => {
     const item = monitor.getItem()
     return item.id !== id || ancestors.indexOf(item.id) === -1
   },

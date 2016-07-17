@@ -44,6 +44,7 @@ export const target = {
 
   canDrop: ({ id, ancestors }, monitor) => {
     const item = monitor.getItem()
+    console.log(item)
     return item.id !== id && ancestors.indexOf(item.id) === -1
   },
 

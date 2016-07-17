@@ -30,16 +30,17 @@ class Inner extends Component {
     const props = this.props
     const {
       isLayoutMode,
+      isInsertMode,
       node: {
         rows = [],
         layout: { Component: LayoutComponent, props: layoutProps = {} } = {},
         plugin: { Component: PluginComponent, } = {},
       }
-    } = props
+    } = this.props
     const DragDroppable = this.DragDroppable
 
     if (rows.length && LayoutComponent) {
-      return isLayoutMode ? (
+      return isLayoutMode || isInsertMode ? (
         <DragDroppable {...{ ...props, ...props.node }}>
           <Layout {...props} {...layoutProps} />
         </DragDroppable>
@@ -49,7 +50,7 @@ class Inner extends Component {
     } else if (rows.length) {
       return <Rows {...props} />
     } else if (PluginComponent) {
-      return isLayoutMode ? (
+      return isLayoutMode || isInsertMode ? (
         <DragDroppable allowDrop {...{ ...props, ...props.node }}>
           <Content {...props} />
         </DragDroppable>
@@ -65,22 +66,28 @@ class Inner extends Component {
 Inner.propTypes = {
   editable: PropTypes.string.isRequired,
   size: PropTypes.number,
-  rows: PropTypes.array,
   config: PropTypes.object.isRequired,
 
-  layout: PropTypes.shape({
-    Component: PropTypes.oneOfType([PropTypes.func, PropTypes.element]),
-    name: PropTypes.string,
-    version: PropTypes.string,
-    props: PropTypes.object
-  }),
+  isInsertMode: PropTypes.bool.isRequired,
+  isLayoutMode: PropTypes.bool.isRequired,
 
-  props: PropTypes.object,
-  plugin: PropTypes.shape({
-    Component: PropTypes.oneOfType([PropTypes.func, PropTypes.element]),
-    name: PropTypes.string,
-    version: PropTypes.string
-  })
+  node: PropTypes.shape({
+    rows: PropTypes.array,
+    props: PropTypes.object,
+
+    layout: PropTypes.shape({
+      Component: PropTypes.oneOfType([PropTypes.func, PropTypes.element]),
+      name: PropTypes.string,
+      version: PropTypes.string,
+      props: PropTypes.object
+    }),
+
+    plugin: PropTypes.shape({
+      Component: PropTypes.oneOfType([PropTypes.func, PropTypes.element]),
+      name: PropTypes.string,
+      version: PropTypes.string
+    })
+  }),
 }
 
 export default Inner
