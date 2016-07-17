@@ -13,7 +13,7 @@ import { isProduction } from './const'
 import injectTapEventPlugin from 'react-tap-event-plugin'
 injectTapEventPlugin()
 
-if (!isProduction) {
+if (!isProduction && typeof window !== 'undefined') {
   window.Perf = require('react-addons-perf')
 }
 
@@ -55,7 +55,7 @@ class Editor {
         }))
         ReactDOM.render((
           <Provider store={this.store}>
-            <Editable id={state.id}/>
+            <Editable id={state.id} />
           </Provider >
         ), editable)
       })

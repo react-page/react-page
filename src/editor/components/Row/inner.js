@@ -7,12 +7,12 @@ import styles from './index.scoped.css'
 
 class Inner extends Component {
   render() {
-    const { cells = [], editable, ancestors, id, hover, hasInlineChildren, containerHeight, containerWidth } = this.props
+    const { cells = [], editable, ancestors, id, hover, containerHeight, containerWidth, hasInlineChildren } = this.props
     return (
       <div styleName={classNames('row', {
         'is-over-current': hover,
         [`is-over-${hover}`]: hover,
-        'force-block': cells.length === 2 && cells[0].inline && cells[1].hasInlineNeighbour,
+        'force-block': hasInlineChildren
       })} className="editable-row"
       >
         {cells.map((c) => (
@@ -21,23 +21,27 @@ class Inner extends Component {
             rowHeight={containerHeight}
             ancestors={[...ancestors, id]}
             editable={editable}
-            key={c.id} {...c}
+            key={c}
+            id={c}
           />
         ))}
-        <div styleName="clearfix"/>
+        <div styleName="clearfix" />
       </div>
     )
   }
 }
+
 Inner.propTypes = {
   id: PropTypes.string.isRequired,
   hover: PropTypes.string,
   editable: PropTypes.string.isRequired,
   cells: PropTypes.array.isRequired,
+
   ancestors: PropTypes.array.isRequired,
   hasInlineChildren: PropTypes.bool.isRequired,
-  containerHeight: PropTypes.bool.isRequired,
-  containerWidth: PropTypes.bool.isRequired
+
+  containerHeight: PropTypes.number.isRequired,
+  containerWidth: PropTypes.number.isRequired
 }
 
 export default (cssModules(Inner, { ...grid, ...styles }, { allowMultiple: true }))

@@ -3,7 +3,7 @@ import cssModules from 'react-css-modules'
 
 import styles from './index.scoped.css'
 
-const Empty = ({ id = 'no id given', props = {} }) => <div styleName="empty">
+const Empty = ({ id = 'no id given', ...props }) => <div styleName="empty">
   <strong>An error occurred!</strong>
   <small>
     <dl>
@@ -18,8 +18,7 @@ const Empty = ({ id = 'no id given', props = {} }) => <div styleName="empty">
 </div>
 
 Empty.propTypes = {
-  id: PropTypes.string,
-  props: PropTypes.object
+  id: PropTypes.string
 }
 
 export default cssModules(Empty, styles)

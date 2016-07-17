@@ -87,7 +87,7 @@ $ npm i
 $ npm run test:watch 
 
 # run eslint in watch mode
-$ npm run lint: watch
+$ npm run lint:watch
 
 # run dev server with live reload
 $ npm run dev
@@ -120,8 +120,7 @@ bower install ory-editor
 ### I wrote a plugin that causes lags
 
 It is important to trigger `onChange` only when you really want to update the editable state. Do not fire
-`onChange` excessively. A good way to reduce calls of `onChange` is to debounce it. Values above 100ms are acceptable,
-depending on the device. If you can afford it, set it to something higher - a second for example. We recommend
+`onChange` excessively. A good way to reduce calls of `onChange` is to debounce it. We recommend
 using lodash: `npm i --save lodash.debounce`.
 
 ```js
@@ -132,8 +131,8 @@ const fire = debounce(
   // debounce only passes the first argument to the callback, which is why fire is using a destructor
   ({ data, onChange }) => onChange(data),
   
-  // only trigger ever second
-  1000,
+  // only trigger every 100ms
+  100,
   
   // pass latest item
   { leading: false }

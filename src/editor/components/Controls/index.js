@@ -24,7 +24,7 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import cssModules from 'react-css-modules'
 import Toolbar from 'src/editor/components/Toolbar'
-import { List, ListItem } from 'material-ui/List';
+import { List, ListItem } from 'material-ui/List'
 
 import styles from './index.scoped.css'
 
@@ -52,7 +52,7 @@ const Controls = ({ isLayoutMode, isPreviewMode, isInsertMode, layoutMode, inser
           <div styleName="description">
             Write
           </div>
-          <div styleName="clearfix"/>
+          <div styleName="clearfix" />
         </div>
 
         <div styleName="controls-right">
@@ -71,7 +71,7 @@ const Controls = ({ isLayoutMode, isPreviewMode, isInsertMode, layoutMode, inser
           <div styleName="description">
             Add things
           </div>
-          <div styleName="clearfix"/>
+          <div styleName="clearfix" />
         </div>
 
         <div>
@@ -91,7 +91,7 @@ const Controls = ({ isLayoutMode, isPreviewMode, isInsertMode, layoutMode, inser
             <div styleName="description">
               Responsive preview
             </div>
-            <div styleName="clearfix"/>
+            <div styleName="clearfix" />
           </div>
 
           <div styleName="controls-right">
@@ -110,7 +110,7 @@ const Controls = ({ isLayoutMode, isPreviewMode, isInsertMode, layoutMode, inser
             <div styleName="description">
               Rearrange layout
             </div>
-            <div styleName="clearfix"/>
+            <div styleName="clearfix" />
           </div>
 
           <div styleName="controls-right">
@@ -129,7 +129,7 @@ const Controls = ({ isLayoutMode, isPreviewMode, isInsertMode, layoutMode, inser
             <div styleName="description">
               Resize cells
             </div>
-            <div styleName="clearfix"/>
+            <div styleName="clearfix" />
           </div>
         </div>
       </div>

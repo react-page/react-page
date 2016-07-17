@@ -13,13 +13,13 @@ import Announcement from 'material-ui/svg-icons/action/announcement'
 // import ViewCarousel from 'material-ui/svg-icons/action/view-carousel'
 // import VoteBox from 'material-ui/svg-icons/action/thumbs-up-down'
 import FilterFrames from 'material-ui/svg-icons/image/filter-frames'
-import Avatar from 'material-ui/Avatar';
-import List from 'material-ui/List/List';
-import ListItem from 'material-ui/List/ListItem';
-import Subheader from 'material-ui/Subheader';
-import Toggle from 'material-ui/Toggle';
-import Divider from 'material-ui/Divider';
-import TextField from 'material-ui/TextField';
+import Avatar from 'material-ui/Avatar'
+import List from 'material-ui/List/List'
+import ListItem from 'material-ui/List/ListItem'
+import Subheader from 'material-ui/Subheader'
+import Toggle from 'material-ui/Toggle'
+import Divider from 'material-ui/Divider'
+import TextField from 'material-ui/TextField'
 
 const items = {
   content: [{
@@ -73,7 +73,7 @@ class Toolbar extends Component {
         <div style={{ padding: '0 16px' }}>
           <TextField
             hintText="Search anything"
-            fullWidth={true}
+            fullWidth
             onChange={this.onSearch}
           />
         </div>

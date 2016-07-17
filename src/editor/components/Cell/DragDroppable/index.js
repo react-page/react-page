@@ -19,13 +19,16 @@ class DragDroppable extends Component {
       connectDragSource,
       connectDropTarget,
       isDragging,
-      hover,
+      node: {
+        hover,
+      },
       ...props
     } = this.props
 
     const decorator = allowDrop ? connectDropTarget : identity
     const classes = classNames(
-      'draggable', {
+      'draggable',
+      {
         'is-over-current': hover,
         'is-dragging': isDragging
       }
@@ -39,12 +42,17 @@ class DragDroppable extends Component {
 
 DragDroppable.propTypes = {
   allowDrop: PropTypes.bool,
-  connectDragSource: PropTypes.func.isRequired,
-  connectDropTarget: PropTypes.func.isRequired,
   isOver: PropTypes.bool.isRequired,
   isOverCurrent: PropTypes.bool.isRequired,
   isDragging: PropTypes.bool.isRequired,
-  hover: PropTypes.string,
+
+  node: PropTypes.shape({
+    hover: PropTypes.string
+  }).isRequired,
+
+  connectDragSource: PropTypes.func.isRequired,
+  connectDropTarget: PropTypes.func.isRequired,
+
   dragCell: PropTypes.func.isRequired,
   clearHover: PropTypes.func.isRequired
 }

@@ -5,35 +5,19 @@ import { connect } from 'react-redux'
 import cssModules from 'react-css-modules'
 import { createStructuredSelector } from 'reselect'
 import { resizeMode, editMode } from 'src/editor/actions/display'
+import { computeStepWidth, widthToSize } from './helper.js'
 import styles from './index.scoped.css'
-
-const computeStepWidth = ({ rowWidth, steps = 12 }) => Math.round(rowWidth / steps)
-
-const widthToSize = ({ stepWidth, steps }, { inline }, result) => {
-  let size = Math.round(result.width / stepWidth)
-  if (inline === 'right') {
-    size = steps - size
-  }
-
-  if (size > steps) {
-    size = steps
-  } else if (size < 1) {
-    size = 1
-  }
-
-  return size
-}
 
 class Resizable extends Component {
   constructor(props) {
-    const sw = computeStepWidth(props)
     super(props)
 
+    const sw = computeStepWidth(props)
     this.state = {
       stepWidth: sw,
-      steps: (props.steps - 1) || 11,
       isResizing: false,
-      width: props.size * sw,
+      width: props.node.size * sw,
+      steps: (props.steps - 1) || 11,
     }
 
     this.onResize = this.onResize.bind(this)
@@ -50,7 +34,7 @@ class Resizable extends Component {
   }
 
   render() {
-    const { bounds, children, inline } = this.props
+    const { node: { bounds, inline }, children } = this.props
 
     return (
       <ReactResizeable
@@ -61,6 +45,7 @@ class Resizable extends Component {
         maxConstraints={inline ? null : [bounds.right * this.state.stepWidth, Infinity]}
         draggableOpts={{ grid: [this.state.stepWidth, 0], axis: 'none' }}
         width={this.state.width}
+        height={0}
         children={children}
       />
     )
@@ -75,15 +60,16 @@ Resizable.propTypes = {
   children: PropTypes.element.isRequired,
 
   steps: PropTypes.number,
-  inline: PropTypes.string,
-  size: PropTypes.number.isRequired,
   rowWidth: PropTypes.number.isRequired,
   rowHeight: PropTypes.number.isRequired,
 
-  bounds: PropTypes.shape({ right: PropTypes.number.isRequired }).isRequired,
+  node: PropTypes.shape({
+    size: PropTypes.number.isRequired,
+    bounds: PropTypes.shape({ right: PropTypes.number.isRequired }).isRequired,
+    inline: PropTypes.string,
+  }),
 
   onChange: PropTypes.func.isRequired,
-
   resizeMode: PropTypes.func.isRequired,
   editMode: PropTypes.func.isRequired
 }

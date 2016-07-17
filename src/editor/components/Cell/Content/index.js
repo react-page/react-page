@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react'
+import React, { PropTypes, Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { updateCell } from 'src/editor/actions/cell'
@@ -10,11 +10,11 @@ const fallback = (...args) => console.error('onChange callback is missing', ...a
 
 const onChange = (id, cb) => (state) => cb({ id }, state)
 
-class Content extends React.Component {
+class Content extends Component {
   shouldComponentUpdate = shouldPureComponentUpdate
 
   render() {
-    const { isEditMode, id, plugin: { Component }, props = {}, updateCell = fallback } = this.props
+    const { isEditMode, id, node: { plugin: { Component }, props = {} }, updateCell = fallback } = this.props
 
     return (
       <Component
@@ -27,15 +27,19 @@ class Content extends React.Component {
 }
 
 Content.propTypes = {
-  plugin: PropTypes.shape({
-    Component: PropTypes.oneOfType([PropTypes.func, PropTypes.element]).isRequired
-  }).isRequired,
   id: PropTypes.string.isRequired,
-  props: PropTypes.object.isRequired,
   updateCell: PropTypes.func.isRequired,
+
   isEditMode: PropTypes.bool.isRequired,
   isLayoutMode: PropTypes.bool.isRequired,
-  isPreviewMode: PropTypes.bool.isRequired
+  isPreviewMode: PropTypes.bool.isRequired,
+
+  node: PropTypes.shape({
+    plugin: PropTypes.shape({
+      Component: PropTypes.oneOfType([PropTypes.func, PropTypes.element]).isRequired
+    }).isRequired,
+    props: PropTypes.object.isRequired,
+  }).isRequired,
 }
 
 const mapStateToProps = createStructuredSelector({ isEditMode, isLayoutMode, isPreviewMode })

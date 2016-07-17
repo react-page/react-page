@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import * as hoverActions from 'src/editor/actions/cell/drag'
 import * as insertActions from 'src/editor/actions/cell/insert'
 import { DropTarget as dropTarget } from 'react-dnd'

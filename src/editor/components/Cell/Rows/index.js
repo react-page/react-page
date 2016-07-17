@@ -6,18 +6,20 @@ class Rows extends Component {
   shouldComponentUpdate = shouldPureComponentUpdate
 
   render() {
-    const { rows = [], editable, id, ancestors = [] } = this.props
+    const { node: { rows = [] }, editable, id, ancestors = [] } = this.props
 
     return (
       <div>
-        {rows.map((r) => <Row editable={editable} ancestors={[...ancestors, id]} key={r.id} {...r} />)}
+        {rows.map((r) => <Row editable={editable} ancestors={[...ancestors, id]} id={r} key={r} />)}
       </div>
     )
   }
 }
 
 Rows.propTypes = {
-  rows: PropTypes.array.isRequired,
+  node: PropTypes.shape({
+    rows: PropTypes.array.isRequired
+  }),
   ancestors: PropTypes.array.isRequired,
   editable: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired

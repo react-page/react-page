@@ -3,40 +3,46 @@ import droppable from './Droppable'
 import { connect } from 'react-redux'
 import { shouldPureComponentUpdate } from 'src/editor/helper/shouldComponentUpdate'
 import { isLayoutMode, isResizeMode } from 'src/editor/selector/display'
-import { editableConfig } from 'src/editor/selector/editable'
+import { editableConfig, node } from 'src/editor/selector/editable'
 import { createStructuredSelector } from 'reselect'
 import Inner from './inner'
 import dimensions from 'react-dimensions'
 import cssModules from 'react-css-modules'
 
 import * as commonStyles from 'src/editor/styles'
-import styles from './index.scoped.css'
+import localStyles from './index.scoped.css'
 
 class Row extends Component {
   constructor(props) {
     super(props)
-    const { config, editable } = props
-    const { whitelist } = config(editable)
+    const { config: { whitelist } } = props
     this.Droppable = droppable(whitelist)
   }
 
   shouldComponentUpdate = shouldPureComponentUpdate
 
   render() {
-    const props = this.props
     const { isLayoutMode, isResizeMode } = this.props
     const Droppable = this.Droppable
+    const props = {
+      ...(this.props),
+      ...(this.props.node)
+    }
 
-    if (isLayoutMode) {
+    if (isLayoutMode || isResizeMode) {
       props.styles = {
         ...props.styles,
         ...commonStyles.flexbox,
-        ...styles // override defaults
+        ...localStyles // override defaults
       }
     }
 
     if (isLayoutMode) {
-      return <Droppable {...props}><Inner {...props} /></Droppable>
+      return (
+        <Droppable {...props}>
+          <Inner {...props} />
+        </Droppable>
+      )
     }
 
     if (isResizeMode) {
@@ -53,13 +59,19 @@ class Row extends Component {
 Row.propTypes = {
   isLayoutMode: PropTypes.bool.isRequired,
   isResizeMode: PropTypes.bool.isRequired,
-  config: PropTypes.func.isRequired
+  config: PropTypes.func.isRequired,
+  node: PropTypes.func.isRequired
 }
 
-const mapStateToProps = createStructuredSelector({ isLayoutMode, config: editableConfig, isResizeMode })
+const mapStateToProps = createStructuredSelector({
+  isLayoutMode,
+  config: editableConfig,
+  isResizeMode,
+  node
+})
 
 export default connect(mapStateToProps)(cssModules(Row, {
   ...commonStyles.floating,
   ...commonStyles.common,
-  ...styles
+  ...localStyles
 }, { allowMultiple: true }))

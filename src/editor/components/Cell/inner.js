@@ -10,8 +10,10 @@ class Inner extends Component {
   constructor(props) {
     super(props)
     const {
-      layout: { Component: LayoutComponent, name: layoutName } = {},
-      plugin: { Component: PluginComponent, name: pluginName } = {},
+      node: {
+        layout: { Component: LayoutComponent, name: layoutName } = {},
+        plugin: { Component: PluginComponent, name: pluginName } = {},
+      },
       config: { whitelist = [] }
     } = props
 
@@ -28,15 +30,17 @@ class Inner extends Component {
     const props = this.props
     const {
       isLayoutMode,
-      rows = [],
-      layout: { Component: LayoutComponent, name: layoutName, props: layoutProps = {} } = {},
-      plugin: { Component: PluginComponent, name: pluginName } = {},
+      node: {
+        rows = [],
+        layout: { Component: LayoutComponent, props: layoutProps = {} } = {},
+        plugin: { Component: PluginComponent, } = {},
+      }
     } = props
     const DragDroppable = this.DragDroppable
 
     if (rows.length && LayoutComponent) {
       return isLayoutMode ? (
-        <DragDroppable {...props}>
+        <DragDroppable {...{ ...props, ...props.node }}>
           <Layout {...props} {...layoutProps} />
         </DragDroppable>
       ) : (
@@ -46,7 +50,7 @@ class Inner extends Component {
       return <Rows {...props} />
     } else if (PluginComponent) {
       return isLayoutMode ? (
-        <DragDroppable allowDrop {...props}>
+        <DragDroppable allowDrop {...{ ...props, ...props.node }}>
           <Content {...props} />
         </DragDroppable>
       ) : (

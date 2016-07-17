@@ -40,7 +40,7 @@ export const target = {
     }
 
     computeAndDispatchHover(props, monitor, component)
-  }, isProduction ? 30 : 50, { leading: false }),
+  }, isProduction ? 5 : 10, { leading: false }),
 
   canDrop: ({ id, ancestors }, monitor) => {
     const item = monitor.getItem()

@@ -18,7 +18,7 @@ export const getMouseHoverCell = ({ mouse, scale }) => ({
   row: Math.floor(mouse.y / scale.y)
 })
 
-let last = { '10x10': null, '10x10-no-inline': null }
+const last = { '10x10': null, '10x10-no-inline': null }
 
 export const computeHover = (item, hover, actions, { room, mouse, matrix, callbacks }, m) => {
   const scale = getRoomScale({ room, matrix })

@@ -36,7 +36,7 @@ export const computeAndDispatchInsert = ({
   rightOf,
   inlineLeft,
   inlineRight
-}, hover, monitor, component,matrix)
+}, hover, monitor, component, matrix)
 
 export const computeAndDispatchHover = ({
   cellHoverAbove: above,

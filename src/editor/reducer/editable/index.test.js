@@ -4,9 +4,7 @@ import unexpected from 'unexpected'
 import { combineReducers, createStore } from 'redux'
 import { identity } from 'ramda'
 import * as actions from 'src/editor/actions/cell'
-import { computeSizes, computeBounds, computeResizeable, computeInlines } from './helper/sizing'
 import { decorate } from './helper/tree'
-import { computeDropLevels } from './helper/level'
 
 const expect = unexpected.clone()
 
