@@ -58,7 +58,6 @@ class Cell extends Component {
           [`inline-${inline}`]: inline,
           [`is-over-${hover}`]: hover
         })}
-        className="editable-cell"
       >
         {resizable && (isResizeMode)
           ? (
@@ -71,13 +70,16 @@ class Cell extends Component {
             steps={12}
             onChange={resize(props)}
           >
-            <div>
+            <div className="editable-cell">
               {/* this div needs to be kept or resize will be broken */}
               <Inner {...props} />
             </div>
           </Resizable>
         ) : (
-          <Inner {...props} />
+          <div className="editable-cell">
+            {/* this div needs to be kept or weird stylings will happen */}
+            <Inner {...props} />
+          </div>
         )}
       </div>
     )
