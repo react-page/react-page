@@ -15,14 +15,36 @@ const gen = (c = 1) => {
   return ret
 }
 
-const insert = (type) => (item, { id: hover } = {}, level = 0, ids = false) => ({
-  type,
-  ts: new Date(),
-  item,
-  hover,
-  level,
-  ids: ids || gen(5)
-})
+const insert = (type) => (item, { id: hover, inline, hasInlineNeighbour } = {}, level = 0, ids = false) => {
+  let l = level
+  switch (type) {
+    case CELL_INSERT_ABOVE:
+    case CELL_INSERT_BELOW: {
+      if ((inline || hasInlineNeighbour) && level < 1) {
+        l = 1
+      }
+      break
+    }
+
+    case CELL_INSERT_LEFT_OF:
+    case CELL_INSERT_RIGHT_OF: {
+      if ((inline || hasInlineNeighbour) && level < 2) {
+        l = 2
+      }
+      break
+    }
+    default:
+  }
+
+  return ({
+    type,
+    ts: new Date(),
+    item,
+    hover,
+    level: l,
+    ids: ids || gen(5)
+  })
+}
 
 /**
  * Insert a cell below the active element

@@ -13,7 +13,7 @@ import cssModules from 'react-css-modules'
 import * as commonStyles from 'src/editor/styles'
 import localStyles from './index.scoped.css'
 
-const gridClass = ({ node: { size }, isPreviewMode }) => `cell-${isPreviewMode ? 'md' : 'xs'}-${size}`
+const gridClass = ({ node: { size = 12 }, isPreviewMode }) => `cell-${isPreviewMode ? 'md' : 'xs'}-${size}`
 
 const resize = ({ resizeCell, id }) => (width) => resizeCell({ id }, width)
 

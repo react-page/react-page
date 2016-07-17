@@ -659,6 +659,58 @@ describe('editor/reducer/editable', () => {
         }])
       }
     }
+  }, {
+    d: 'cell insert below inline row',
+    s: trees.inline,
+    a: () => actions.insertCellBelow(insertCell, { id: '000' }, 1, ['i0', 'i00', 'i000', 'i0000', 'i00000']),
+    e: {
+      editable: {
+        cells: cells([{
+          id: '0',
+          rows: [{
+            id: 'i0',
+            cells: [{
+              id: '000', plugin: 'foo', inline: 'left'
+            }, {
+              id: '001', plugin: 'bar'
+            }]
+          }, {
+            id: 'i00',
+            cells: [{
+              ...insertCell,
+              size: 6,
+              id: 'i000'
+            }]
+          }]
+        }])
+      }
+    }
+  }, {
+    d: 'cell insert below inline row - 2 level',
+    s: trees.inline,
+    a: () => actions.insertCellBelow(insertCell, { id: '000' }, 2, ['i0', 'i00', 'i000', 'i0000', 'i00000']),
+    e: {
+      editable: {
+        cells: cells([{
+          id: 'i0',
+          rows: [{
+            id: '00',
+            cells: [{
+              id: '000', plugin: 'foo', inline: 'left'
+            }, {
+              id: '001', plugin: 'bar'
+            }]
+          }, {
+            id: 'i0000',
+            cells: [{
+              ...insertCell,
+              size: 6,
+              id: 'i00000'
+            }]
+          }]
+        }])
+      }
+    }
   }].forEach((c) => {
     describe(`test case ${c.d}`, () => {
       it('should dispatch the action and return the expected result', () => {

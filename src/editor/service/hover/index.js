@@ -164,13 +164,10 @@ export const relativeMousePosition = ({ mouse, position, scale }) => ({
   y: Math.round(mouse.y - (position.row * scale.y))
 })
 
-export const computeHorizontal = ({ mouse, position, room, hover, scale, level }, inv = false) => {
-  const { inline, hasInlineNeighbour, cells = [] } = hover
+export const computeHorizontal = ({ mouse, position, hover, scale, level }, inv = false) => {
+  const { cells = [] } = hover
   const x = relativeMousePosition({ mouse, position, scale }).x
   const at = Math.round(x / (scale.x / level))
-  if ((inline || hasInlineNeighbour) && at < 2) {
-    return 2
-  }
 
   if (cells.length) {
     // Is row, always opt for lowest level
@@ -230,11 +227,11 @@ export const callbacks = {
   },
 
   /* heres */
-  [c.AH]: (item, hover, { above }) => above(item, hover, 0),
-  [c.BH]: (item, hover, { below }) => below(item, hover, 0),
+  [c.AH]: (item, { inline, hasInlineNeighbour, ...hover }, { above }) => above(item, { inline, hasInlineNeighbour, ...hover }, 0),
+  [c.BH]: (item, { inline, hasInlineNeighbour, ...hover }, { below }) => below(item, { inline, hasInlineNeighbour, ...hover }, 0),
 
-  [c.LH]: (item, { inline, hasInlineNeighbour, ...hover }, { leftOf }) => leftOf(item, hover, inline || hasInlineNeighbour ? 2 : 0),
-  [c.RH]: (item, { inline, hasInlineNeighbour, ...hover }, { rightOf }) => rightOf(item, hover, inline || hasInlineNeighbour ? 2 : 0),
+  [c.LH]: (item, { inline, hasInlineNeighbour, ...hover }, { leftOf }) => leftOf(item, { inline, hasInlineNeighbour, ...hover }, 0),
+  [c.RH]: (item, { inline, hasInlineNeighbour, ...hover }, { rightOf }) => rightOf(item, { inline, hasInlineNeighbour, ...hover }, 0),
 
   /* ancestors */
   [c.AA]: (item, hover, { above }, ctx) => above(item, hover, computeVertical({

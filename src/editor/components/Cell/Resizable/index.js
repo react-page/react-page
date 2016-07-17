@@ -43,7 +43,7 @@ class Resizable extends Component {
         onResize={this.onResize}
         minConstraints={inline ? null : [this.state.stepWidth, Infinity]}
         maxConstraints={inline ? null : [bounds.right * this.state.stepWidth, Infinity]}
-        draggableOpts={{ grid: [this.state.stepWidth, 0], axis: 'none' }}
+        draggableOpts={{ grid: [this.state.stepWidth, 0], axis: 'none', useBodyAsOrigin: true }}
         width={this.state.width}
         height={0}
         children={children}
