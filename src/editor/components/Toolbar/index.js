@@ -1,16 +1,9 @@
 import React, { PropTypes, Component } from 'react'
 import Drawer from 'material-ui/Drawer'
-import MenuItem from 'material-ui/MenuItem'
 import { connect } from 'react-redux'
 import { isInsertMode } from 'src/editor/selector/display'
 import { createStructuredSelector } from 'reselect'
 import draggable from './Draggable'
-
-import Announcement from 'material-ui/svg-icons/action/announcement'
-// import ViewHeadline from 'material-ui/svg-icons/action/view-headline'
-// import ViewCarousel from 'material-ui/svg-icons/action/view-carousel'
-// import VoteBox from 'material-ui/svg-icons/action/thumbs-up-down'
-import FilterFrames from 'material-ui/svg-icons/image/filter-frames'
 import Avatar from 'material-ui/Avatar'
 import List from 'material-ui/List/List'
 import ListItem from 'material-ui/List/ListItem'
@@ -19,32 +12,9 @@ import Toggle from 'material-ui/Toggle'
 import Divider from 'material-ui/Divider'
 import TextField from 'material-ui/TextField'
 
-const items = {
-  content: [],
-  layout: [{
-    icon: <Announcement />,
-    text: 'Announcement',
-    insert: {
-      plugin: {
-        name: 'ory/content/draft-js',
-        version: '0.0.1'
-      },
-      props: {},
-    },
-    Draggable: draggable('ory/content/draft-js')
-  }, {
-    icon: <FilterFrames />,
-    text: 'Spoiler',
-    insert: {
-      plugin: {
-        name: 'ory/content/draft-js',
-        version: '0.0.1'
-      },
-      props: {},
-    },
-    Draggable: draggable('ory/content/draft-js')
-  }]
-}
+// import ViewHeadline from 'material-ui/svg-icons/action/view-headline'
+// import ViewCarousel from 'material-ui/svg-icons/action/view-carousel'
+// import VoteBox from 'material-ui/svg-icons/action/thumbs-up-down'
 
 class Toolbar extends Component {
   constructor(props) {
@@ -67,7 +37,7 @@ class Toolbar extends Component {
     const { isInsertMode, plugins } = this.props
     const { isSearching, searchFilter } = this.state
     const content = plugins.plugins.content.filter(searchFilter)
-    const layout = items.layout.filter(searchFilter)
+    const layout = plugins.plugins.layout.filter(searchFilter)
 
     return (
       <Drawer open={isInsertMode}>
@@ -83,6 +53,10 @@ class Toolbar extends Component {
           {content.length ? <Subheader>Content</Subheader> : null}
           {content.map(({ Component, icon, text, name, version, insert }, k) => {
             const Draggable = draggable(name)
+            if (!icon) {
+              return
+            }
+
             return (
               <Draggable key={k} {...{ plugin: { name, version, Component }, props: insert }}>
                 <ListItem
@@ -95,20 +69,28 @@ class Toolbar extends Component {
         </List>
         <List>
           {layout.length ? <Subheader>Layout</Subheader> : null}
-          {layout.map(({ icon, text }, k) => (
-            <ListItem
-              key={k}
-              leftAvatar={<Avatar icon={icon} />}
-              primaryText={text}
-            />
-          ))}
+          {layout.map(({ Component, icon, text, name, version, insert }, k) => {
+            if (!icon && !text) {
+              return
+            }
+
+            const Draggable = draggable(name)
+            return (
+              <Draggable key={k} {...{ ...insert, layout: { name, version, Component, props: insert }}}>
+                <ListItem
+                  leftAvatar={<Avatar icon={icon} />}
+                  primaryText={text}
+                />
+              </Draggable>
+            )
+          })}
         </List>
         {isSearching ? null : (
           <div>
             <Divider />
             <List>
               <Subheader>Settings</Subheader>
-              <ListItem primaryText="Back up drafts" rightToggle={<Toggle />} />
+              <ListItem primaryText="Back up drafts" rightToggle={<Toggle />}/>
             </List>
           </div>
         )}

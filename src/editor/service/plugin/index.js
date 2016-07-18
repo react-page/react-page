@@ -2,15 +2,18 @@ import { satisfies } from 'semver'
 import missing from 'src/editor/plugins/content/missing'
 import draft from 'src/editor/plugins/content/draft-js'
 import image from 'src/editor/plugins/content/image'
+import placeholder from 'src/editor/plugins/content/placeholder'
 import spacer from 'src/editor/plugins/content/spacer'
 import spoiler from 'src/editor/plugins/layout/spoiler'
+import alert from 'src/editor/plugins/layout/alert'
 
 export const defaultContentPlugins = [
   image,
   spacer,
-  draft
+  draft,
+  placeholder
 ]
-export const defaultLayoutPlugins = [spoiler]
+export const defaultLayoutPlugins = [spoiler, alert]
 
 const find = (name, version) => (plugin) => plugin.name === name && satisfies(plugin.version, version)
 
