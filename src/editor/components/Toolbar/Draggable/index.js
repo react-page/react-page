@@ -6,6 +6,8 @@ import { source, collect } from './helper'
 import classNames from 'classnames'
 import styles from './index.scoped.css'
 
+const instances = {}
+
 class Draggable extends Component {
   shouldComponentUpdate = shouldPureComponentUpdate
 
@@ -22,4 +24,10 @@ Draggable.propTypes = {
   connectDragSource: PropTypes.func.isRequired,
 }
 
-export default (dragType = 'CELL') => dragSource(dragType, source, collect)(cssModules(Draggable, styles, { allowMultiple: true }))
+export default (dragType = 'CELL') => {
+  if (!instances[dragType]) {
+    instances[dragType] = dragSource(dragType, source, collect)(cssModules(Draggable, styles, { allowMultiple: true }))
+  }
+
+  return instances[dragType]
+}

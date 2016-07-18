@@ -2,7 +2,7 @@ import React, { PropTypes, Component } from 'react'
 import Inner from './inner'
 import { connect } from 'react-redux'
 import { shouldPureComponentUpdate } from 'src/editor/helper/shouldComponentUpdate'
-import { editableConfig, node } from 'src/editor/selector/editable'
+import { editableConfig, node, purifiedNode } from 'src/editor/selector/editable'
 import { isPreviewMode, isEditMode, isResizeMode, isLayoutMode, isInsertMode } from 'src/editor/selector/display'
 import { createStructuredSelector } from 'reselect'
 import Resizable from './Resizable'
@@ -119,7 +119,8 @@ const mapStateToProps = createStructuredSelector({
   isResizeMode,
   isLayoutMode,
   config: editableConfig,
-  node
+  node: purifiedNode,
+  rawNode: (state, props) => () => node(state, props)
 })
 
 const mapDispatchToProps = {

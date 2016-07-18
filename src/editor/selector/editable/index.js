@@ -39,6 +39,12 @@ export const node = (state, props) => {
     throw new Error(`Could not find node=${props.id}, editable=${props.editable}`)
   }
 
+  return found
+}
+
+export const purifiedNode = (state, props) => {
+  const found = node(state, props)
+
   if (found.cells) {
     found.hasInlineChildren = found.cells.length === 2 && found.cells[0].inline && found.cells[1].hasInlineNeighbour
     found.cells = found.cells.map((c) => c.id)

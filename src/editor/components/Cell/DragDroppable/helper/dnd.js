@@ -72,7 +72,10 @@ export const source = {
   beginDrag(props) {
     // Beginn draging the cell
     props.dragCell(props)
-    return props
+    return {
+      ...props,
+      ...props.rawNode()
+    }
   },
 
   endDrag({ cancelCellDrag, id }, monitor) {

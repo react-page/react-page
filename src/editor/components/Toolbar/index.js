@@ -2,15 +2,16 @@ import React, { PropTypes, Component } from 'react'
 import Drawer from 'material-ui/Drawer'
 import { connect } from 'react-redux'
 import { isInsertMode } from 'src/editor/selector/display'
+import { clearHover } from 'src/editor/actions/cell/drag'
+import { insertMode, editMode, layoutMode } from 'src/editor/actions/display'
 import { createStructuredSelector } from 'reselect'
-import draggable from './Draggable'
-import Avatar from 'material-ui/Avatar'
 import List from 'material-ui/List/List'
 import ListItem from 'material-ui/List/ListItem'
 import Subheader from 'material-ui/Subheader'
 import Toggle from 'material-ui/Toggle'
 import Divider from 'material-ui/Divider'
 import TextField from 'material-ui/TextField'
+import Item from './Item'
 
 // import ViewHeadline from 'material-ui/svg-icons/action/view-headline'
 // import ViewCarousel from 'material-ui/svg-icons/action/view-carousel'
@@ -34,7 +35,7 @@ class Toolbar extends Component {
   }
 
   render() {
-    const { isInsertMode, plugins } = this.props
+    const { isInsertMode, plugins, layoutMode, insertMode, editMode, clearHover } = this.props
     const { isSearching, searchFilter } = this.state
     const content = plugins.plugins.content.filter(searchFilter)
     const layout = plugins.plugins.layout.filter(searchFilter)
@@ -51,46 +52,42 @@ class Toolbar extends Component {
         </div>
         <List>
           {content.length ? <Subheader>Content</Subheader> : null}
-          {content.map(({ Component, icon, text, name, version, insert }, k) => {
-            const Draggable = draggable(name)
-            if (!icon) {
-              return
-            }
-
-            return (
-              <Draggable key={k} {...{ plugin: { name, version, Component }, props: insert }}>
-                <ListItem
-                  leftAvatar={<Avatar icon={icon} />}
-                  primaryText={text}
-                />
-              </Draggable>
-            )
-          })}
+          {content.map(({ insert, name, version, Component, ...props }, k) => (
+            <Item
+              {...{ ...props, clearHover, layoutMode, insertMode, editMode, name, version, Component }}
+              name={name}
+              version={version}
+              key={k}
+              insert={{
+                plugin: {
+                  name,
+                  version,
+                  Component
+                },
+                props: insert
+              }}
+            />
+          ))}
         </List>
         <List>
           {layout.length ? <Subheader>Layout</Subheader> : null}
-          {layout.map(({ Component, icon, text, name, version, insert }, k) => {
-            if (!icon && !text) {
-              return
-            }
-
-            const Draggable = draggable(name)
-            return (
-              <Draggable key={k} {...{ ...insert, layout: { name, version, Component, props: insert }}}>
-                <ListItem
-                  leftAvatar={<Avatar icon={icon} />}
-                  primaryText={text}
-                />
-              </Draggable>
-            )
-          })}
+          {layout.map(({ insert, name, version, Component, ...props }, k) => (
+            <Item
+              {...{ ...props, clearHover, layoutMode, insertMode, editMode, name, version, Component }}
+              key={k}
+              insert={{
+                ...insert,
+                layout: { name, version, Component, props: insert }
+              }}
+            />
+          ))}
         </List>
         {isSearching ? null : (
           <div>
             <Divider />
             <List>
               <Subheader>Settings</Subheader>
-              <ListItem primaryText="Back up drafts" rightToggle={<Toggle />}/>
+              <ListItem primaryText="Back up drafts" rightToggle={<Toggle />} />
             </List>
           </div>
         )}
@@ -101,11 +98,17 @@ class Toolbar extends Component {
 
 Toolbar.propTypes = {
   plugins: PropTypes.array.isRequired,
-  isInsertMode: PropTypes.bool.isRequired
+  isInsertMode: PropTypes.bool.isRequired,
+  insertMode: PropTypes.func.isRequired,
+  editMode: PropTypes.func.isRequired,
+  layoutMode: PropTypes.func.isRequired,
+  clearHover: PropTypes.func.isRequired,
 }
 
 const mapStateToProps = createStructuredSelector({
   isInsertMode
 })
 
-export default connect(mapStateToProps)(Toolbar)
+const mapDispatchToProps = { insertMode, editMode, layoutMode, clearHover }
+
+export default connect(mapStateToProps, mapDispatchToProps)(Toolbar)
