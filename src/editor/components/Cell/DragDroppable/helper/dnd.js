@@ -74,7 +74,7 @@ export const source = {
     props.dragCell(props)
     return {
       ...props,
-      ...props.rawNode()
+      rows: props.rawNode().rows
     }
   },
 
