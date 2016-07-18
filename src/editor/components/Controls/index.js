@@ -13,18 +13,17 @@ import {
 } from 'src/editor/actions/display'
 import { isEditMode, isLayoutMode, isPreviewMode, isInsertMode, isResizeMode } from 'src/editor/selector/display'
 import { createStructuredSelector } from 'reselect'
-import FloatingActionButton from 'material-ui/FloatingActionButton'
 import Create from 'material-ui/svg-icons/content/create'
 import ContentAdd from 'material-ui/svg-icons/content/add'
 import ViewQuilt from 'material-ui/svg-icons/action/view-quilt'
-import ViewHeadline from 'material-ui/svg-icons/action/view-headline'
 import Resize from 'material-ui/svg-icons/action/settings-overscan'
 import Devices from 'material-ui/svg-icons/device/devices'
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
-import cssModules from 'react-css-modules'
 import Toolbar from 'src/editor/components/Toolbar'
-import { List, ListItem } from 'material-ui/List'
+import Button from './Button'
+import Trash from './Trash'
+import cssModules from 'react-css-modules'
 
 import styles from './index.scoped.css'
 
@@ -33,104 +32,79 @@ const toggleLayoutMode = ({ check, previousMode, cb, fallback }) => () => check 
 const Controls = ({ isLayoutMode, isPreviewMode, isInsertMode, layoutMode, insertMode, editMode, isEditMode, previewMode, isResizeMode, resizeMode, plugins, ...props }) => (
   <MuiThemeProvider muiTheme={getMuiTheme()}>
     <div>
+      <Trash plugins={plugins} isLayoutMode={isLayoutMode} />
+
       <Toolbar plugins={plugins} />
       <div styleName="controls">
 
         <div styleName="controls-right">
-          <div styleName="button">
-            <FloatingActionButton
-              secondary={isEditMode}
-              onClick={toggleLayoutMode({
-                check: isEditMode,
-                cb: editMode,
-                fallback: DISPLAY_MODE_PREVIEW, ...props
-              })}
-            >
-              <Create />
-            </FloatingActionButton>
-          </div>
-          <div styleName="description">
-            Write
-          </div>
+          <Button
+            icon={<Create />}
+            description="Write"
+            active={isEditMode}
+            onClick={toggleLayoutMode({
+              check: isEditMode,
+              cb: editMode,
+              fallback: DISPLAY_MODE_PREVIEW, ...props
+            })}
+          />
           <div styleName="clearfix" />
         </div>
 
         <div styleName="controls-right">
-          <div styleName="button">
-            <FloatingActionButton
-              secondary={isInsertMode}
-              onClick={toggleLayoutMode({
-                check: isInsertMode,
-                cb: insertMode,
-                fallback: DISPLAY_MODE_EDIT, ...props
-              })}
-            >
-              <ContentAdd />
-            </FloatingActionButton>
-          </div>
-          <div styleName="description">
-            Add things
-          </div>
+          <Button
+            icon={<ContentAdd />}
+            description="Add things"
+            active={isInsertMode}
+            onClick={toggleLayoutMode({
+              check: isInsertMode,
+              cb: insertMode,
+              fallback: DISPLAY_MODE_EDIT, ...props
+            })}
+          />
           <div styleName="clearfix" />
         </div>
 
-        <div>
-          <div styleName="controls-right">
-            <div styleName="button">
-              <FloatingActionButton
-                secondary={isPreviewMode}
-                onClick={toggleLayoutMode({
-                  check: isPreviewMode,
-                  cb: previewMode,
-                  fallback: DISPLAY_MODE_EDIT, ...props
-                })}
-              >
-                <Devices />
-              </FloatingActionButton>
-            </div>
-            <div styleName="description">
-              Responsive preview
-            </div>
-            <div styleName="clearfix" />
-          </div>
+        <div styleName="controls-right">
+          <Button
+            icon={<Devices />}
+            description="Responsive preview"
+            active={isPreviewMode}
+            onClick={toggleLayoutMode({
+              check: isPreviewMode,
+              cb: previewMode,
+              fallback: DISPLAY_MODE_EDIT, ...props
+            })}
+          />
+          <div styleName="clearfix" />
+        </div>
 
-          <div styleName="controls-right">
-            <div styleName="button">
-              <FloatingActionButton
-                secondary={isLayoutMode}
-                onClick={toggleLayoutMode({
-                  check: isLayoutMode,
-                  cb: layoutMode,
-                  fallback: DISPLAY_MODE_PREVIEW, ...props
-                })}
-              >
-                <ViewQuilt />
-              </FloatingActionButton>
-            </div>
-            <div styleName="description">
-              Rearrange layout
-            </div>
-            <div styleName="clearfix" />
-          </div>
+        <div styleName="controls-right">
+          <Button
+            icon={<ViewQuilt />}
+            description="Rearrange layout"
+            active={isLayoutMode}
+            onClick={toggleLayoutMode({
+              check: isLayoutMode,
+              cb: layoutMode,
+              fallback: DISPLAY_MODE_PREVIEW, ...props
+            })}
+          />
+          <div styleName="clearfix" />
+        </div>
 
-          <div styleName="controls-right">
-            <div styleName="button">
-              <FloatingActionButton
-                secondary={isResizeMode}
-                onClick={toggleLayoutMode({
-                  check: isResizeMode,
-                  cb: resizeMode,
-                  fallback: DISPLAY_MODE_PREVIEW, ...props
-                })}
-              >
-                <Resize />
-              </FloatingActionButton>
-            </div>
-            <div styleName="description">
-              Resize cells
-            </div>
-            <div styleName="clearfix" />
-          </div>
+        <div styleName="controls-right">
+          <Button
+            icon={<Resize />}
+            description="Resize cells"
+            active={isResizeMode}
+            onClick={toggleLayoutMode({
+              check: isResizeMode,
+              cb: resizeMode,
+              fallback: DISPLAY_MODE_PREVIEW, ...props
+            })}
+          />
+          <div styleName="clearfix" />
         </div>
       </div>
     </div>
@@ -149,7 +123,7 @@ Controls.propTypes = {
   previousMode: PropTypes.func.isRequired,
   insertMode: PropTypes.func.isRequired,
   resizeMode: PropTypes.func.isRequired,
-  plugins: PropTypes.array.isRequired
+  plugins: PropTypes.object.isRequired
 }
 
 const mapStateToProps = createStructuredSelector({

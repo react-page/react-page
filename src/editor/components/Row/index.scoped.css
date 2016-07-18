@@ -1,3 +1,7 @@
+.relative {
+  position: relative;
+}
+
 .force-block {
   display: block !important;
 }

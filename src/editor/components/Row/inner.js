@@ -9,7 +9,7 @@ class Inner extends Component {
   render() {
     const { cells = [], editable, ancestors, id, hover, containerHeight, containerWidth, hasInlineChildren } = this.props
     return (
-      <div styleName={classNames('row', {
+      <div styleName={classNames('row', 'relative', {
         'is-over-current': hover,
         [`is-over-${hover}`]: hover,
         'force-block': hasInlineChildren

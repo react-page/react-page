@@ -59,4 +59,4 @@ DragDroppable.propTypes = {
 
 const mapDispatchToProps = { ...hoverActions, ...insertActions }
 
-export default (dragType = 'CELL', dropTypes = ['CELL']) => connect(null, mapDispatchToProps)(dropTarget(dropTypes, target, monitorConnect)(dragSource(dragType, source, collect)(cssModules(DragDroppable, styles, { allowMultiple: true }))))
+export default connect(null, mapDispatchToProps)(dropTarget(({ dropTypes }) => dropTypes, target, monitorConnect)(dragSource(({ dragType }) => dragType, source, collect)(cssModules(DragDroppable, styles, { allowMultiple: true }))))
