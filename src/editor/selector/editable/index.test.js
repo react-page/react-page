@@ -1,6 +1,6 @@
 /* eslint-env mocha */
 import unexpected from 'unexpected'
-import { node } from './index.js'
+import { purifiedNode } from './index.js'
 
 const expect = unexpected.clone()
 
@@ -306,7 +306,7 @@ const state = {
 
 describe('selectors/editable/node', () => {
   it('should find the right node (cell)', () => {
-    expect(node(state, {
+    expect(purifiedNode(state, {
       id: 'dd419480-aa37-40cd-af97-ba8c3e8ae2df',
       editable: '1'
     }), 'to equal', {
@@ -324,7 +324,7 @@ describe('selectors/editable/node', () => {
   })
 
   it('should find the right node (row)', () => {
-    expect(node(state, {
+    expect(purifiedNode(state, {
       id: 'f394a468-a64a-479c-8318-4ef2f14433a3',
       editable: '2'
     }), 'to equal', {
