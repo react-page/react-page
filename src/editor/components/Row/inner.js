@@ -44,4 +44,4 @@ Inner.propTypes = {
   containerWidth: PropTypes.number.isRequired
 }
 
-export default (cssModules(Inner, { ...grid, ...styles }, { allowMultiple: true }))
+export default cssModules(Inner, { ...grid, ...styles }, { allowMultiple: true })
