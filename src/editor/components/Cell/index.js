@@ -13,7 +13,7 @@ import cssModules from 'react-css-modules'
 import * as commonStyles from 'src/editor/styles'
 import localStyles from './index.scoped.css'
 
-const gridClass = ({ node: { size = 12 }, isPreviewMode }) => `cell-${isPreviewMode ? 'md' : 'xs'}-${size}`
+const gridClass = ({ node: { size = 12 }, isPreviewMode, isEditMode }) => `cell-${isPreviewMode || isEditMode ? 'md' : 'xs'}-${size}`
 
 const resize = ({ resizeCell, id }) => (width) => resizeCell({ id }, width)
 
@@ -55,10 +55,13 @@ class Cell extends Component {
         styleName={classNames(gridClass(this.props), {
           'is-over-current': hover,
           'has-inline-neighbour': hasInlineNeighbour,
-          [`inline-${inline}`]: inline,
-          [`is-over-${hover}`]: hover
+          [`is-over-${hover}`]: hover && !inline
         })}
       >
+        {hover && inline ? <div styleName={classNames({
+          [`inline-${inline}`]: inline,
+          [`is-over-${hover}`]: hover
+        })} /> : null}
         {resizable && (isResizeMode)
           ? (
           <Resizable

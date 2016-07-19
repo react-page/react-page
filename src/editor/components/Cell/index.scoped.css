@@ -57,17 +57,17 @@
 }
 
 .is-over-inline-left:before {
-  opacity: 1;
+  opacity: .6;
   top: 0;
   left: 0;
   width: 50%;
-  height: 4px;
+  height: 25%;
 }
 
 .is-over-inline-right:before {
-  opacity: 1;
+  opacity: .6;
   top: 0;
   right: 0;
   width: 50%;
-  height: 4px;
+  height: 25%;
 }

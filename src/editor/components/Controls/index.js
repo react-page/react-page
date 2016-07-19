@@ -23,6 +23,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import Toolbar from 'src/editor/components/Toolbar'
 import Button from './Button'
 import Trash from './Trash'
+import device from 'device.js'
 import cssModules from 'react-css-modules'
 
 import styles from './index.scoped.css'
@@ -54,8 +55,9 @@ const Controls = ({ isLayoutMode, isPreviewMode, isInsertMode, layoutMode, inser
         <div styleName="controls-right">
           <Button
             icon={<ContentAdd />}
-            description="Add things"
+            description={device().mobile() ? 'Disabled on mobile' : 'Add things'}
             active={isInsertMode}
+            disabled={device().mobile()}
             onClick={toggleLayoutMode({
               check: isInsertMode,
               cb: insertMode,
@@ -82,8 +84,9 @@ const Controls = ({ isLayoutMode, isPreviewMode, isInsertMode, layoutMode, inser
         <div styleName="controls-right">
           <Button
             icon={<ViewQuilt />}
-            description="Rearrange layout"
             active={isLayoutMode}
+            description={device().mobile() ? 'Disabled on mobile' : 'Rearrange layout'}
+            disabled={device().mobile()}
             onClick={toggleLayoutMode({
               check: isLayoutMode,
               cb: layoutMode,
@@ -96,8 +99,9 @@ const Controls = ({ isLayoutMode, isPreviewMode, isInsertMode, layoutMode, inser
         <div styleName="controls-right">
           <Button
             icon={<Resize />}
-            description="Resize cells"
             active={isResizeMode}
+            disabled={device().mobile()}
+            description={device().mobile() ? 'Disabled on mobile' : 'Resize things'}
             onClick={toggleLayoutMode({
               check: isResizeMode,
               cb: resizeMode,
