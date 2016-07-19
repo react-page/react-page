@@ -1,5 +1,6 @@
 import { satisfies } from 'semver'
 import missing from 'src/editor/plugins/content/missing'
+import slate from 'src/editor/plugins/content/slate'
 import draft from 'src/editor/plugins/content/draft-js'
 import image from 'src/editor/plugins/content/image'
 import placeholder from 'src/editor/plugins/content/placeholder'
@@ -11,6 +12,7 @@ export const defaultContentPlugins = [
   image,
   spacer,
   draft,
+  slate,
   placeholder
 ]
 export const defaultLayoutPlugins = [spoiler, alert]

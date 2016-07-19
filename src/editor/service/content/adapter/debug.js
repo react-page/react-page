@@ -8,7 +8,7 @@ export const content = {
         cells: [{
           rows: [{
             cells: [{
-              plugin: { name: 'ory/content/draft-js' },
+              plugin: { name: 'ory/content/slate' },
               props: {
                 importFromHtml: '<h1>European? British? These ‘Brexit’ Voters Identify as English</h1>'
               }
@@ -31,9 +31,9 @@ export const content = {
             }]
           }, {
             cells: [{
-              plugin: { name: 'ory/content/draft-js' },
+              plugin: { name: 'ory/content/slate' },
               props: {
-                importFromHtml: 'Residents of the Castle Point borough of Essex in England celebrated the queen’s 90th birthday this month. Castle Point is the most ethnically English part of the United Kingdom, with nearly 80 percent describing themselves as purely English, while 95 percent are white. <small>Credit Andrew Testa for The New York Times</small>'
+                importFromHtml: '<p>Residents of the Castle Point borough of Essex in England celebrated the queen’s 90th birthday this month. Castle Point is the most ethnically English part of the United Kingdom, with nearly 80 percent describing themselves as purely English, while 95 percent are white. <small>Credit Andrew Testa for The New York Times</small></p>'
               }
             }]
           }]
@@ -48,7 +48,7 @@ export const content = {
           rows: [{
             id: uuid.v4(),
             cells: [{
-              plugin: { name: 'ory/content/draft-js' },
+              plugin: { name: 'ory/content/slate' },
               props: {
                 importFromHtml: `<p>SOUTH BENFLEET, England — The topic of the local debate was Britain’s imminent vote on whether to leave the European Union, and the discussion in this English town on the southeastern coast turned to the influx of European citizens into Britain.</p>
 <p>“Why do they all want to come here?” demanded one woman, angrily making the case for Britain to leave the bloc at the debate in South Benfleet, organized by the local council. “They want our wages and our benefits! We’re too bloody soft!”</p>
