@@ -10,8 +10,14 @@ import { removeCell } from 'src/editor/actions/cell/core'
 import styles from './index.scoped.css'
 
 const target = {
+  hover(props, monitor, component) {
+    const item = monitor.getItem()
+    console.log('hover!')
+  },
+
   drop(props, monitor, component) {
     const item = monitor.getItem()
+    console.log('drop!')
     if (monitor.didDrop() || !monitor.isOver({ shallow: true })) {
       // If the item drop occurred deeper down the tree, don't do anything
       return
@@ -30,9 +36,6 @@ const Trash = ({ isLayoutMode, connectDropTarget, isOverCurrent }) => connectDro
   <div
     styleName={classNames('bar', { active: isLayoutMode })}
   >
-    <div styleName="description">
-      Drag cells here to delete them
-    </div>
     <FloatingActionButton secondary disabled={!isOverCurrent}>
       <Delete />
     </FloatingActionButton>

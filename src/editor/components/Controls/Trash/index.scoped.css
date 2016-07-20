@@ -3,12 +3,12 @@
   bottom: -64px;
   z-index: 100;
   left: 50%;
-  right: 50%;
   transition: bottom 200ms ease;
+  padding: 8px;
 }
 
 .bar.active {
-  bottom: 24px;
+  bottom: 16px;
 }
 
 .bar .description {
