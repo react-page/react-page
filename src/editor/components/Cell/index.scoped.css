@@ -61,7 +61,7 @@
   top: 0;
   left: 0;
   width: 50%;
-  height: 25%;
+  height: 8px;
 }
 
 .is-over-inline-right:before {
@@ -69,5 +69,5 @@
   top: 0;
   right: 0;
   width: 50%;
-  height: 25%;
+  height: 8px;
 }

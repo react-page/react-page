@@ -9,6 +9,7 @@ import Resizable from './Resizable'
 import { resizeCell } from 'src/editor/actions/cell'
 import classNames from 'classnames'
 import cssModules from 'react-css-modules'
+import deepEqual from 'deep-equal'
 
 import * as commonStyles from 'src/editor/styles'
 import localStyles from './index.scoped.css'
@@ -18,7 +19,16 @@ const gridClass = ({ node: { size = 12 }, isPreviewMode, isEditMode }) => `cell-
 const resize = ({ resizeCell, id }) => (width) => resizeCell({ id }, width)
 
 class Cell extends Component {
-  shouldComponentUpdate = shouldPureComponentUpdate
+  shouldComponentUpdate(nextProps) {
+    const blacklist = ['rawNode']
+    const nextKeys = Object.keys(nextProps)
+    const prevKeys = Object.keys(this.props)
+    if (!deepEqual(nextKeys, prevKeys)) {
+      return true
+    }
+
+    return nextKeys.filter((n) => blacklist.indexOf(n) > -1 ? false : !deepEqual(this.props[n], nextProps[n])).length > 0
+  }
 
   render() {
     const {
@@ -61,7 +71,7 @@ class Cell extends Component {
         {hover && inline ? <div styleName={classNames({
           [`inline-${inline}`]: inline,
           [`is-over-${hover}`]: hover
-        })} /> : null}
+        })}/> : null}
         {resizable && (isResizeMode)
           ? (
           <Resizable

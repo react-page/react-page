@@ -6,18 +6,20 @@ import { connect } from 'react-redux'
 import cssModules from 'react-css-modules'
 import classNames from 'classnames'
 import { removeCell } from 'src/editor/actions/cell/core'
+import throttle from 'lodash.throttle'
 
 import styles from './index.scoped.css'
 
 const target = {
-  hover(props, monitor, component) {
+  hover: throttle((props, monitor, component) => {
     const item = monitor.getItem()
-    console.log('hover!')
-  },
+    if (monitor.isOver({ shallow: true })) {
+      item.clearHover()
+    }
+  }, 200, { trailing: false }),
 
   drop(props, monitor, component) {
     const item = monitor.getItem()
-    console.log('drop!')
     if (monitor.didDrop() || !monitor.isOver({ shallow: true })) {
       // If the item drop occurred deeper down the tree, don't do anything
       return

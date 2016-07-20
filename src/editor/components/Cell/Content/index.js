@@ -18,6 +18,7 @@ class Content extends Component {
 
     return (
       <Component
+        id={id}
         {...props}
         readOnly={!isEditMode}
         onChange={onChange(id, updateCell)}
