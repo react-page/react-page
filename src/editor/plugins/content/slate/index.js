@@ -13,10 +13,12 @@ export default {
     editorState: Raw.deserialize({
       nodes: [{
         kind: 'block',
-        type: 'placeholder',
+        type: 'paragraph',
         nodes: [{
           kind: 'text',
-          ranges: []
+          ranges: [{
+            text: 'Placeholder will be fixed soon...'
+          }]
         }]
       }]
     })
