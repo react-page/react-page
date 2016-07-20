@@ -66,6 +66,7 @@ class Slate extends Component {
       <Editor
         readOnly={Boolean(readOnly)}
         renderNode={renderNode}
+        placeholder="Write something..."
         onChange={change(onChange)}
         state={editorState || html.deserialize(importFromHtml)}
       />
