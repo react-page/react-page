@@ -54,7 +54,7 @@ export const computeInlines = (cells = []) => {
       right: inline === 'right' ? 0 : MAX_CELLS_PER_ROW - 1
     }
   }, {
-    ...cells[1], bounds: { left: 0, right: 0 }, size: 12, hasInlineNeighbour: true
+    ...cells[1], bounds: { left: 0, right: 0 }, size: 12, hasInlineNeighbour: cells[0].id
   }]
 }
 

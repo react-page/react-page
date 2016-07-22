@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { Editor, Html, Raw } from 'slate'
 import nodes from './nodes'
-import deepEqual from 'deep-equal'
 
 const change = (onChange) => (state) => {
   onChange({ editorState: state })
@@ -37,8 +36,6 @@ const html = new Html({ rules })
 
 const renderNode = (node) => {
   switch (node.type) {
-    case 'paragraph':
-      return nodes.Paragraph
     case 'heading-one':
       return nodes.HeadingOne
     case 'heading-two':
@@ -48,7 +45,7 @@ const renderNode = (node) => {
     case 'code':
       return nodes.CodeNode
     default:
-      return
+      return nodes.Paragraph
   }
 }
 

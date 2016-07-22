@@ -259,7 +259,7 @@ export const callbacks = {
   /* inline */
   [c.IL]: (item, hover, { inlineLeft, leftOf }) => {
     const { inline, hasInlineNeighbour } = hover
-    if (inline || hasInlineNeighbour) {
+    if (inline || hasInlineNeighbour !== item.id || (hasInlineNeighbour === item.id && item.inline === 'left')) {
       return leftOf(item, hover, 2)
     }
 
@@ -268,7 +268,7 @@ export const callbacks = {
 
   [c.IR]: (item, hover, { inlineRight, rightOf }) => {
     const { inline, hasInlineNeighbour } = hover
-    if (inline || hasInlineNeighbour) {
+    if (inline || hasInlineNeighbour !== item.id || (hasInlineNeighbour === item.id && item.inline === 'right')) {
       return rightOf(item, hover, 2)
     }
 

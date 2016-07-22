@@ -16,9 +16,7 @@ export default {
         type: 'paragraph',
         nodes: [{
           kind: 'text',
-          ranges: [{
-            text: 'Placeholder will be fixed soon...'
-          }]
+          ranges: [{ text: '' }]
         }]
       }]
     })

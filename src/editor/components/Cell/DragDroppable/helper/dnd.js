@@ -73,6 +73,8 @@ export const source = {
     props.dragCell(props)
     return {
       ...props,
+      // we do not want to pass down the react children or we will risk circular dependencies.
+      children: null,
       rows: props.rawNode().rows
     }
   },

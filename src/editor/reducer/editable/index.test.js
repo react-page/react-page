@@ -637,6 +637,25 @@ describe('editor/reducer/editable', () => {
       }
     }
   }, {
+    d: 'move inline cell from left to right',
+    s: trees.inline,
+    a: () => actions.insertCellRightInline({ id: '000', plugin: 'foo', inline: 'left' }, { id: '001' }, 0, ['i0', 'i00', 'i000', 'i0000', 'i00000']),
+    e: {
+      editable: {
+        cells: cells([{
+          id: '0',
+          rows: [{
+            id: 'i00',
+            cells: [{
+              id: 'i000', plugin: 'foo', inline: 'right'
+            }, {
+              id: 'i0000', plugin: 'bar', inline: null
+            }]
+          }]
+        }])
+      }
+    }
+  }, {
     d: 'cell insert cell left of inline row',
     s: trees.inline,
     a: () => actions.insertCellLeftOf(insertCell, { id: '000' }, 2, ['i0', 'i00', 'i000', 'i0000', 'i00000']),

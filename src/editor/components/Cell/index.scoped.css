@@ -1,11 +1,11 @@
 .inline-left {
   float: left;
-  z-index: 2;
+  z-index: 1;
 }
 
 .inline-right {
   float: right;
-  z-index: 2;
+  z-index: 1;
 }
 
 .has-inline-neighbour {

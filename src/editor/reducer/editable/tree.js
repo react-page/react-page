@@ -122,7 +122,7 @@ export const cells = (state = [], action) => optimizeCells(((state, action) => {
     case CELL_INSERT_INLINE_LEFT:
       return state
         .filter((c) => c.id !== action.item.id)
-        .map((c, k) => {
+        .map((c) => {
           if (isHoveringThis(c, action)) {
             return [{
               id: action.ids[0],
@@ -134,7 +134,7 @@ export const cells = (state = [], action) => optimizeCells(((state, action) => {
                     inline: action.type === CELL_INSERT_INLINE_RIGHT ? 'right' : 'left',
                     id: action.ids[2],
                     size: 0,
-                  }, { ...state[k], id: action.ids[3], inline: null, size: 0 }]
+                  }, { ...c, id: action.ids[3], inline: null, hasInlineNeighbour: action.ids[2], size: 0 }]
                 }
               ]
             }]
@@ -164,49 +164,6 @@ export const row = (state = {
   })
 
   switch (action.type) {
-    // case CELL_INSERT_ABOVE:
-    //   if (!isHoveringThis(state, action) && state.cells.length === 2 && state.cells[0].inline && state.cells[1].hasInlineNeighbour) {
-    //     return reduce()
-    //   }
-    //   return {
-    //     ...state,
-    //     hover: null,
-    //     cells: cells([{
-    //       id: action.ids[1],
-    //       rows: [{
-    //         id: action.ids[2],
-    //         cells: [
-    //           { ...(action.item), id: action.ids[3], inline: null },
-    //         ]
-    //       }, {
-    //         id: action.ids[4],
-    //         cells: [...(state.cells.map((i) => i.id === action.hover ? { ...i, id: action.ids[5] } : i))]
-    //       }]
-    //     }], { ...action, hover: null })
-    //   }
-    //
-    // case CELL_INSERT_BELOW:
-    //   if (!isHoveringThis(state, action) && state.cells.length === 2 && state.cells[0].inline && state.cells[1].hasInlineNeighbour) {
-    //     return reduce()
-    //   }
-    //   return {
-    //     ...state,
-    //     hover: null,
-    //     cells: cells([{
-    //       id: action.ids[1],
-    //       rows: [{
-    //         id: action.ids[4],
-    //         cells: [...(state.cells.map((i) => i.id === action.hover ? { ...i, id: action.ids[2] } : i))]
-    //       }, {
-    //         id: action.ids[3],
-    //         cells: [
-    //           { ...(action.item), id: action.ids[4], inline: null },
-    //         ]
-    //       }]
-    //     }], { ...action, hover: null })
-    //   }
-
-
     case CELL_INSERT_LEFT_OF:
       if (!isHoveringThis(state, action)) {
         return reduce()

@@ -65,13 +65,10 @@ class Cell extends Component {
         styleName={classNames(gridClass(this.props), {
           'is-over-current': hover,
           'has-inline-neighbour': hasInlineNeighbour,
-          [`is-over-${hover}`]: hover && !inline
+          [`is-over-${hover}`]: hover,
+          [`inline-${inline}`]: inline,
         })}
       >
-        {hover && inline ? <div styleName={classNames({
-          [`inline-${inline}`]: inline,
-          [`is-over-${hover}`]: hover
-        })}/> : null}
         {resizable && (isResizeMode)
           ? (
           <Resizable
