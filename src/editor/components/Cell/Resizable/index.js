@@ -46,8 +46,10 @@ class Resizable extends Component {
         draggableOpts={{ grid: [this.state.stepWidth, 0], axis: 'none', useBodyAsOrigin: true }}
         width={this.state.width}
         height={0}
-        children={children}
-      />
+      >
+        {/* this div needs to be kept or resize will be broken */}
+        <div>{children}</div>
+      </ReactResizeable>
     )
   }
 }

@@ -22,6 +22,7 @@ class DragDroppable extends Component {
       node: {
         hover,
       },
+      children,
       ...props
     } = this.props
 
@@ -35,7 +36,9 @@ class DragDroppable extends Component {
     )
 
     return connectDragSource(decorator(
-      <div styleName={classes} className={classes} {...props} />
+      <div styleName={classes} {...props}>
+        {children}
+      </div>
     ))
   }
 }

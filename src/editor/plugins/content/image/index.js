@@ -9,4 +9,5 @@ export default {
   icon: <Panorama />,
   text: 'Image',
   insert: {},
+  inlineable: true
 }

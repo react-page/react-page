@@ -45,13 +45,6 @@ class Row extends Component {
       )
     }
 
-    if (isResizeMode) {
-      const InnerResizeContainer = dimensions()(Inner)
-      return (
-        <InnerResizeContainer {...props} />
-      )
-    }
-
     return <Inner {...props} />
   }
 }
@@ -72,7 +65,7 @@ const mapStateToProps = createStructuredSelector({
   node: purifiedNode
 })
 
-export default (connect(mapStateToProps)(cssModules(Row, {
+export default dimensions()(connect(mapStateToProps)(cssModules(Row, {
   ...commonStyles.floating,
   ...commonStyles.common,
   ...localStyles

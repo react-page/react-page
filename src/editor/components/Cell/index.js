@@ -80,16 +80,10 @@ class Cell extends Component {
             steps={12}
             onChange={resize(props)}
           >
-            <div className="editable-cell">
-              {/* this div needs to be kept or resize will be broken */}
-              <Inner {...props} />
-            </div>
+            <Inner {...props} />
           </Resizable>
         ) : (
-          <div className="editable-cell">
-            {/* this div needs to be kept or weird stylings will happen */}
-            <Inner {...props} />
-          </div>
+          <Inner {...props} />
         )}
       </div>
     )

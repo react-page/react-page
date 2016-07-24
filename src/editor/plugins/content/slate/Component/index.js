@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, PropTypes } from 'react'
 import { Editor, Html, Raw } from 'slate'
 import nodes from './nodes'
 
@@ -69,6 +69,13 @@ class Slate extends Component {
       />
     )
   }
+}
+
+Slate.propTypes = {
+  editorState: PropTypes.object,
+  importFromHtml: PropTypes.string,
+  readOnly: PropTypes.bool.isRequired,
+  onChange: PropTypes.func.isRequired
 }
 
 export default Slate

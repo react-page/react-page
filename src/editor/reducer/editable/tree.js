@@ -35,10 +35,6 @@ export const cell = (state = {
   })
 
   switch (action.type) {
-    case CELL_DRAG_CANCEL:
-      // If cell drag is canceled, remove all hover
-      return { ...reduce(), hover: null }
-
     case CELL_UPDATE:
       if (action.id === state.id) {
         // If this cell is being updated, set the data
@@ -196,7 +192,6 @@ export const row = (state = {
       }
       return reduce()
 
-    case CELL_DRAG_CANCEL:
     default:
       return reduce()
   }

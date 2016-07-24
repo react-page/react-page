@@ -39,6 +39,7 @@ export const target = {
       return
     }
 
+    last = { props, item }
     computeAndDispatchHover(props, monitor, component)
   }, isProduction ? 5 : 10, { leading: false }),
 
@@ -63,6 +64,7 @@ export const target = {
       return
     }
 
+    last = { props, item }
     computeAndDispatchInsert(props, monitor, component)
   }
 }

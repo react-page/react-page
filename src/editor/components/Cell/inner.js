@@ -25,24 +25,36 @@ class Inner extends Component {
     if (rows.length && LayoutComponent) {
       return isLayoutMode || isInsertMode ? (
         <DragDroppable {...{ ...props, ...props.node }} dragType={layoutName} dropTypes={whitelist}>
-          <Layout {...props} {...layoutProps} />
+          <div className="editable-cell">
+            <Layout {...props} {...layoutProps} />
+          </div>
         </DragDroppable>
       ) : (
-        <Layout {...props} {...layoutProps} />
+        <div className="editable-cell">
+          <Layout {...props} {...layoutProps} />
+        </div>
       )
     } else if (rows.length) {
       return <Rows {...props} />
     } else if (PluginComponent) {
       return isLayoutMode || isInsertMode ? (
         <DragDroppable {...{ ...props, ...props.node }} dragType={pluginName} dropTypes={whitelist} allowDrop>
-          <Content {...props} />
+          <div className="editable-cell">
+            <Content {...props} />
+          </div>
         </DragDroppable>
       ) : (
-        <Content {...props} />
+        <div className="editable-cell">
+          <Content {...props} />
+        </div>
       )
     }
 
-    return <Empty {...props} />
+    return (
+      <div className="editable-cell">
+        <Empty {...props} />
+      </div>
+    )
   }
 }
 
