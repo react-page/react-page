@@ -21,12 +21,13 @@ class DragDroppable extends Component {
       isDragging,
       node: {
         hover,
+        inline,
       },
       children,
       ...props
     } = this.props
 
-    const decorator = allowDrop ? connectDropTarget : identity
+    const decorator = allowDrop && !inline ? connectDropTarget : identity
     const classes = classNames(
       'draggable',
       {

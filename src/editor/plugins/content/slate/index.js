@@ -9,6 +9,10 @@ export default {
   version: '0.0.1',
   icon: <Subject />,
   text: 'Text (Slate)',
+  hooks: {
+    // join: (states) => states.reduce((p, n) => {}, {}),
+    // split: (state) => state.nodes.map((n) => [], {})
+  },
   insert: {
     editorState: Raw.deserialize({
       nodes: [{
