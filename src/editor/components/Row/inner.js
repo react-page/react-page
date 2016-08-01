@@ -8,6 +8,8 @@ import styles from './index.scoped.css'
 class Inner extends Component {
   render() {
     const { cells = [], editable, ancestors, id, hover, containerHeight, containerWidth, hasInlineChildren } = this.props
+
+    // do not move the css classes or drop will be broken
     return (
       <div styleName={classNames('row', 'relative', {
         'is-over-current': hover,

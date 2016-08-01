@@ -65,7 +65,7 @@ class Slate extends Component {
         renderNode={renderNode}
         placeholder="Write something..."
         onChange={change(onChange)}
-        state={editorState || html.deserialize(importFromHtml)}
+        state={editorState || html.deserialize(importFromHtml, { terse: true })}
       />
     )
   }

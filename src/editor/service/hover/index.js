@@ -167,6 +167,9 @@ export const relativeMousePosition = ({ mouse, position, scale }) => ({
 export const computeHorizontal = ({ mouse, position, hover, scale, level }, inv = false) => {
   const { cells = [] } = hover
   const x = relativeMousePosition({ mouse, position, scale }).x
+
+  // cos(x*pi)*5.5+5.5 (11 level), x = %
+  // (sec(x*1.04)-1)*10
   const at = Math.round(x / (scale.x / level))
 
   if (cells.length) {

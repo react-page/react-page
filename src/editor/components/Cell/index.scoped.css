@@ -13,15 +13,12 @@
   width: 100%;
 }
 
-.is-over-current {
-}
-
 .is-over-current:before {
   content: " ";
   display: block;
   position: absolute;
   z-index: 100;
-  background: black;
+  background: rgba(0,0,0,.8);
 }
 
 .is-over-above:before {
@@ -56,18 +53,7 @@
   width: 2px;
 }
 
-.is-over-inline-left:before {
-  opacity: .6;
-  top: 0;
-  left: 0;
-  width: 50%;
-  height: 8px;
-}
+.is-over-inline-left,
+.is-over-inline-right {
 
-.is-over-inline-right:before {
-  opacity: .6;
-  top: 0;
-  right: 0;
-  width: 50%;
-  height: 8px;
 }

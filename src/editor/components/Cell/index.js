@@ -64,8 +64,8 @@ class Cell extends Component {
         styles={styles}
         styleName={classNames(gridClass(this.props), {
           'is-over-current': hover,
-          'has-inline-neighbour': hasInlineNeighbour,
           [`is-over-${hover}`]: hover,
+          'has-inline-neighbour': hasInlineNeighbour,
           [`inline-${inline}`]: inline,
         })}
       >

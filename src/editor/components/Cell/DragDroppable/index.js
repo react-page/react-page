@@ -31,7 +31,8 @@ class DragDroppable extends Component {
     const classes = classNames(
       'draggable',
       {
-        'is-over-current': hover,
+        'is-over-current': hover && allowDrop,
+        [`is-over-${hover}`]: hover && allowDrop,
         'is-dragging': isDragging
       }
     )

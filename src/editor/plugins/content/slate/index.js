@@ -23,6 +23,6 @@ export default {
           ranges: [{ text: '' }]
         }]
       }]
-    })
+    }, { terse: true })
   },
 }
