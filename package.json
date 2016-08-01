@@ -4,6 +4,7 @@
   "description": "The next generation platform for creating well-defined, responsive, digital content - as easy as social media.",
   "main": "",
   "scripts": {
+    "flow": "flow; test $? -eq 0 -o $? -eq 2",
     "test": "npm-run-all test:unit test:e2e",
     "test:unit": "cross-env NODE_PATH=. mocha --require .babel-require --recursive \"+(src|test)/**/*.test.js\"",
     "test:e2e": "node bin/nightwatch",
@@ -14,8 +15,8 @@
     "lint:watch": "npm run watch:js -- -c \"npm run lint\"",
     "build": "cross-env NODE_PATH=. NODE_ENV=production webpack",
     "watch:js": "chokidar \"+(src|test)/**/*.js\" --initial",
-    "doc": "esdoc -c esdoc.json",
-    "doc:watch": "npm run watch:js -- -c \"esdoc -c esdoc.json\"",
+    "docs": "documentation build ./src/editor/**/*.js --format md --github > API.md",
+    "docs:watch": "documentation serve ./src/editor/**/*.js --watch ./src/editor/**/*.js",
     "postinstall": "npm run build"
   },
   "engines": {
@@ -76,10 +77,13 @@
     "babel-preset-es2015": "6.9.0",
     "chokidar-cli": "1.2.0",
     "deep-equal": "1.0.1",
+    "documentation": "4.0.0-beta9",
     "eslint": "3.0.0",
     "eslint-config-ory-am": "3.0.0",
     "eslint-config-ory-am-react": "3.0.0",
+    "eslint-plugin-flowtype": "2.4.0",
     "eslint-plugin-react": "5.2.2",
+    "flow-bin": "0.30.0",
     "mocha": "2.5.3",
     "nightwatch": "0.9.5",
     "nodemon": "1.9.2",

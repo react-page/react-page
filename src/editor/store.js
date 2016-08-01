@@ -1,6 +1,5 @@
 import { identity } from 'ramda'
 import { createStore } from 'redux'
-import { isProduction } from './const'
 
 import rootReducer from './reducer'
 

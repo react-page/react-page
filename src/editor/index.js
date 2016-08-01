@@ -1,3 +1,4 @@
+// @flow
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
@@ -10,6 +11,8 @@ import ContentService from 'src/editor/service/content'
 import { isProduction } from './const'
 import DragDropContext from 'src/editor/components/DragDropContext'
 
+import type Store from 'types/redux'
+
 // required for material-ui
 import injectTapEventPlugin from 'react-tap-event-plugin'
 injectTapEventPlugin()
@@ -21,6 +24,9 @@ if (!isProduction && typeof window !== 'undefined') {
 let instance
 
 class Editor {
+  store: Store
+  content: any
+
   constructor() {
     if (instance) {
       throw new Error('Only one instance of Editor is allowed')
@@ -31,7 +37,7 @@ class Editor {
     this.content = new ContentService()
   }
 
-  toolbar(toolbarHandle) {
+  toolbar(toolbarHandle: Node) {
     let toolbar = toolbarHandle
     if (!toolbar) {
       toolbar = document.createElement('div')
@@ -47,7 +53,7 @@ class Editor {
     ), toolbar)
   }
 
-  render(editables) {
+  render(editables: NodeList<HTMLElement>) {
     forEach((editable) => {
       this.content.fetch(editable).then((state) => {
         this.store.dispatch(updateEditable({

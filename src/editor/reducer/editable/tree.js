@@ -8,7 +8,6 @@ import {
   CELL_INSERT_BELOW,
   CELL_INSERT_INLINE_LEFT,
   CELL_INSERT_INLINE_RIGHT,
-  CELL_DRAG_CANCEL,
   CELL_DRAG_HOVER,
   CELL_RESIZE
 } from 'src/editor/actions/cell'

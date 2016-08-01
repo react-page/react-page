@@ -1,7 +1,7 @@
 import React, { PropTypes, Component } from 'react'
 import Inner from './inner'
 import { connect } from 'react-redux'
-import { shouldPureComponentUpdate } from 'src/editor/helper/shouldComponentUpdate'
+import { bindActionCreators } from 'redux'
 import { editableConfig, node, purifiedNode } from 'src/editor/selector/editable'
 import { isPreviewMode, isEditMode, isResizeMode, isLayoutMode, isInsertMode } from 'src/editor/selector/display'
 import { createStructuredSelector } from 'reselect'
@@ -15,8 +15,6 @@ import * as commonStyles from 'src/editor/styles'
 import localStyles from './index.scoped.css'
 
 const gridClass = ({ node: { size = 12 }, isPreviewMode, isEditMode }) => `cell-${isPreviewMode || isEditMode ? 'md' : 'xs'}-${size}`
-
-const resize = ({ resizeCell, id }) => (width) => resizeCell({ id }, width)
 
 class Cell extends Component {
   shouldComponentUpdate(nextProps) {
@@ -78,7 +76,7 @@ class Cell extends Component {
             updateDimensions={updateDimensions}
             node={props.node}
             steps={12}
-            onChange={resize(props)}
+            onChange={props.resizeCell}
           >
             <Inner {...props} />
           </Resizable>
@@ -127,8 +125,8 @@ const mapStateToProps = createStructuredSelector({
   rawNode: (state, props) => () => node(state, props)
 })
 
-const mapDispatchToProps = {
-  resizeCell
-}
+const mapDispatchToProps = (dispatch, { id }) => bindActionCreators({
+  resizeCell: resizeCell(id)
+}, dispatch)
 
 export default (connect(mapStateToProps, mapDispatchToProps)(cssModules(Cell, { ...commonStyles.floating, ...commonStyles.common, ...localStyles }, { allowMultiple: true })))

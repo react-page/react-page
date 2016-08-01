@@ -67,7 +67,7 @@ const state = {
             hover: null,
             cells: [{
               levels: { left: 4, right: 2, above: 3, below: 1 },
-              props: { 'height': 50 },
+              props: { height: 50 },
               id: 'e799a338-da9d-49d9-93cf-bc9e356e1186',
               plugin: { name: 'ory/content/spacer', version: '0.0.1' },
               hover: null,
@@ -164,7 +164,7 @@ const state = {
         cells: [{
           levels: { left: 2, right: 2, above: 1, below: 2 },
           id: '092f35a7-ab76-4e17-80db-917a9685a818',
-          'layout': { name: 'ory/layout/spoiler', version: '0.0.1' },
+          layout: { name: 'ory/layout/spoiler', version: '0.0.1' },
           hover: null,
           size: 12,
           bounds: { left: 0, right: 0 },

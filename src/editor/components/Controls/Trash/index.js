@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react'
+import React from 'react'
 import { DropTarget as dropTarget } from 'react-dnd'
 import Delete from 'material-ui/svg-icons/action/delete'
 import FloatingActionButton from 'material-ui/FloatingActionButton'
@@ -11,21 +11,21 @@ import throttle from 'lodash.throttle'
 import styles from './index.scoped.css'
 
 const target = {
-  hover: throttle((props, monitor, component) => {
+  hover: throttle((props, monitor) => {
     const item = monitor.getItem()
     if (monitor.isOver({ shallow: true })) {
       item.clearHover()
     }
   }, 200, { trailing: false }),
 
-  drop(props, monitor, component) {
+  drop(props, monitor) {
     const item = monitor.getItem()
     if (monitor.didDrop() || !monitor.isOver({ shallow: true })) {
       // If the item drop occurred deeper down the tree, don't do anything
       return
     }
 
-    props.removeCell(item)
+    props.removeCell(item.id)
   }
 }
 

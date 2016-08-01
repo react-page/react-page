@@ -1,15 +1,14 @@
+// @flow
+import type { Action } from 'types/redux'
+
 export const CELL_UPDATE = 'CELL_UPDATE'
 export const CELL_REMOVE = 'CELL_REMOVE'
 export const CELL_RESIZE = 'CELL_RESIZE'
 
 /**
  * Dispatch to update cell data.
- *
- * @param {{id: string}} id
- * @param {object} props
- * @return {object}
  */
-export const updateCell = ({ id } = {}, props = {}) => ({
+export const updateCell = (id: string) => (props : {} = {}): Action => ({
   type: CELL_UPDATE,
   ts: new Date(),
   id,
@@ -18,11 +17,8 @@ export const updateCell = ({ id } = {}, props = {}) => ({
 
 /**
  * Dispatch to remove a cell.
- *
- * @param {{id: string}} id
- * @return {object}
  */
-export const removeCell = ({ id } = {}) => ({
+export const removeCell = (id: string): Action => ({
   type: CELL_REMOVE,
   ts: new Date(),
   id
@@ -30,12 +26,8 @@ export const removeCell = ({ id } = {}) => ({
 
 /**
  * Dispatch to resize a cell.
- *
- * @param {{id: string}} id
- * @param {int} size
- * @return {object}
  */
-export const resizeCell = ({ id } = {}, size = 1) => ({
+export const resizeCell = (id: string) => (size : number = 1): Action => ({
   type: CELL_RESIZE,
   ts: new Date(),
   id,

@@ -44,7 +44,8 @@ class KaTeX extends Component {
           __html: html
         })
       } catch (e) {
-      } // eslint-disable-line no-empty
+        // do nothing
+      }
     }, 0)
   }
 

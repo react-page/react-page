@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react'
-import { Editor, Html, Raw } from 'slate'
+import { Editor, Html } from 'slate'
 import nodes from './nodes'
 
 const change = (onChange) => (state) => {

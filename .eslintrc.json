@@ -4,9 +4,22 @@
     "eslint-config-ory-am-react"
   ],
   "parser": "babel-eslint",
+  "plugins": [
+    "flowtype"
+  ],
   "env": {
     "node": true,
     "browser": true
+  },
+  "settings": {
+    "flowtype": {
+      "onlyFilesWithFlowAnnotation": true
+    }
+  },
+  "rules": {
+    "flowtype/space-after-type-colon": ["error", "always"],
+    "flowtype/space-before-type-colon": ["error", "never"],
+    "flowtype/type-id-match": ["error", "^([A-Z][a-z0-9]+)+Type$"]
   },
   "matrix": {
     "no-console": ["error", { "allow": ["warn", "error"] }]
