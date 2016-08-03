@@ -4,7 +4,7 @@
   "description": "The next generation platform for creating well-defined, responsive, digital content - as easy as social media.",
   "main": "",
   "scripts": {
-    "flow": "flow; test $? -eq 0 -o $? -eq 2",
+    "flow": "flow check",
     "test": "npm-run-all test:unit test:e2e",
     "test:unit": "cross-env NODE_PATH=. mocha --require .babel-require --recursive \"+(src|test)/**/*.test.js\"",
     "test:e2e": "node bin/nightwatch",
@@ -16,7 +16,7 @@
     "build": "cross-env NODE_PATH=. NODE_ENV=production webpack",
     "watch:js": "chokidar \"+(src|test)/**/*.js\" --initial",
     "docs": "documentation build ./src/editor/**/*.js --format md --github > API.md",
-    "docs:watch": "documentation serve ./src/editor/**/*.js --watch ./src/editor/**/*.js",
+    "docs:watch": "documentation serve ./src/editor/**/*.js --watch",
     "postinstall": "npm run build"
   },
   "engines": {
