@@ -54,8 +54,8 @@ class Editor {
   }
 
   render(editables: NodeList<HTMLElement>) {
-    forEach((editable) => {
-      this.content.fetch(editable).then((state) => {
+    forEach((editable: Node) => {
+      this.content.fetch(editable).then((state: { id: string }) => {
         this.store.dispatch(updateEditable({
           ...state,
           config: {

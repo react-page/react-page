@@ -11,7 +11,7 @@
     "test:watch": "npm run watch:js -- -c \"npm run test:unit -- --reporter min\"",
     "start": "cross-env NODE_PATH=. NODE_ENV=production node src/server",
     "dev": "cross-env NODE_PATH=. nodemon src/server",
-    "lint": "eslint \"+(src|test)/**/*.js\" --fix",
+    "lint": "eslint \"+(src|test|types)/**/*.js\" --fix",
     "lint:watch": "npm run watch:js -- -c \"npm run lint\"",
     "build": "cross-env NODE_PATH=. NODE_ENV=production webpack",
     "watch:js": "chokidar \"+(src|test)/**/*.js\" --initial",

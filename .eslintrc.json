@@ -17,9 +17,11 @@
     }
   },
   "rules": {
+    "flowtype/define-flow-type": "error",
+    "flowtype/require-parameter-type": "error",
     "flowtype/space-after-type-colon": ["error", "always"],
     "flowtype/space-before-type-colon": ["error", "never"],
-    "flowtype/type-id-match": ["error", "^([A-Z][a-z0-9]+)+Type$"]
+    "flowtype/type-id-match": ["error", "^([A-Z][a-z0-9]+)+$"]
   },
   "matrix": {
     "no-console": ["error", { "allow": ["warn", "error"] }]
