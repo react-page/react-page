@@ -25,7 +25,7 @@ describe('actions', () => {
 
   all.map((actions) => Object.keys(actions).forEach((key) => {
     if (typeof actions[key] === 'function') {
-      const { type, ts } = actions[key]()
+      const { type, ts } = typeof actions[key]() === 'function' ? actions[key]()() : actions[key]()
       it(`${key} (${type}) should be unique`, () => {
         expect(fired.indexOf(type) === -1, 'to be', faillist.indexOf(key) === -1)
         fired.push(type)
