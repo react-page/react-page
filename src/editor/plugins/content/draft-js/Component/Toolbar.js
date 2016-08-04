@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { insertInlineEntity, insertBlockEntity } from './actions'
+import { insertInlineEntity } from './actions'
 
 const insertInlineLaTeX = (insertInlineEntity) => () => {
   insertInlineEntity(

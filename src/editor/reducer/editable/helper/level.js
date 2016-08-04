@@ -17,6 +17,6 @@ export const computeDropLevels = ({ rows = [], cells = [], ...props }, { left = 
     }))
   }
 
-  delete props.levels
+  delete props.levels // eslint-disable-line prefer-reflect
   return { levels: { left, right, above, below }, ...props }
 }

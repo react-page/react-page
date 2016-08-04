@@ -8,8 +8,6 @@ import { createStructuredSelector } from 'reselect'
 
 const fallback = (...args) => console.error('onChange callback is missing', ...args)
 
-const onChange = (id, cb) => (state) => cb({ id }, state)
-
 class Content extends Component {
   shouldComponentUpdate = shouldPureComponentUpdate
 
@@ -21,7 +19,7 @@ class Content extends Component {
         id={id}
         {...props}
         readOnly={!isEditMode}
-        onChange={onChange(id, updateCell)}
+        onChange={updateCell}
       />
     )
   }
@@ -45,8 +43,8 @@ Content.propTypes = {
 
 const mapStateToProps = createStructuredSelector({ isEditMode, isLayoutMode, isPreviewMode })
 
-const mapDispatchToProps = (dispatch) => bindActionCreators({
-  updateCell
+const mapDispatchToProps = (dispatch, { id }) => bindActionCreators({
+  updateCell: updateCell(id)
 }, dispatch)
 
 export default connect(mapStateToProps, mapDispatchToProps)(Content)

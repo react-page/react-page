@@ -1,9 +1,9 @@
-import HTML5Backend from 'react-dnd-html5-backend'
 import { DragDropManager } from 'dnd-core'
+import HTML5Backend from 'react-dnd-html5-backend'
 
 let defaultManager
 
-export default dragDropContext = () => {
+export default () => {
   if (defaultManager) {
     return defaultManager
   }

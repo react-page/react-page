@@ -1,16 +1,8 @@
 /* eslint-env mocha */
 import unexpected from 'unexpected'
-import HoverService, { classes as c, callbacks, matrices } from './index'
+import HoverService, { classes as c, callbacks } from './index'
 
 const expect = unexpected.clone()
-
-describe('relativeMousePosition', () => {
-  [].forEach((c, l) => {
-    it(`should pass test case ${k}`, () => {
-
-    })
-  })
-})
 
 const cases = [{
   d: 'basic left',

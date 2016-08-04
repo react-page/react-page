@@ -169,7 +169,7 @@ describe('editor/reducer/editable', () => {
         cells: cells([{ id: '2', plugin: 'foo' }])
       }
     },
-    a: () => actions.updateCell({ id: '2' }, 'foo'),
+    a: () => actions.updateCell('2')('foo'),
     e: {
       editable: {
         id: '1',
@@ -184,7 +184,7 @@ describe('editor/reducer/editable', () => {
         cells: cells([{ id: '2', plugin: 'foo', hover: true }])
       }
     },
-    a: () => actions.removeCell({ id: '2' }),
+    a: () => actions.removeCell('2'),
     e: { editable: { id: '1', cells: [] } }
   }, {
     d: 'cell cancel drag',
@@ -219,7 +219,7 @@ describe('editor/reducer/editable', () => {
         }]
       }
     },
-    a: () => actions.resizeCell({ id: '000' }, 4),
+    a: () => actions.resizeCell('000')(4),
     e: {
       editable: {
         cells: cells([{
@@ -254,7 +254,7 @@ describe('editor/reducer/editable', () => {
   }, {
     d: 'cell resize inline cell (1)',
     s: trees.inline,
-    a: () => actions.resizeCell({ id: '000' }, 4),
+    a: () => actions.resizeCell('000')(4),
     e: {
       editable: {
         cells: cells([{

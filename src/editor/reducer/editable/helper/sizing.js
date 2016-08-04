@@ -6,13 +6,13 @@ const MAX_CELLS_PER_ROW = 12
  * @param {[...cell]} cells
  * @return {number} total size.
  */
-export const sumSizes = (cells = []) => cells.reduce(({ size: p = 99, inline: a = false } = {}, { size: c = 99, inline: b = false }) => ({ size: (!Boolean(a) * p) + (!Boolean(b) * c) }), { size: 0 }).size
+export const sumSizes = (cells = []) => cells.reduce(({ size: p = 99, inline: a = false } = {}, { size: c = 99, inline: b = false }) => ({ size: (!a * p) + (!b * c) }), { size: 0 }).size
 
 /**
  * Updates each cell's size boundaries.
  *
  * @param {[...cell]} cells
- * @@return {[...cell]}
+ * @return {[...cell]}
  */
 export const computeBounds = (cells = []) => cells.map((c, k) => ({
   ...c,
@@ -26,7 +26,7 @@ export const computeBounds = (cells = []) => cells.map((c, k) => ({
  * Computes if a cell is resizable
  *
  * @param {[...cell]} cells
- * @@return {[...cell]}
+ * @return {[...cell]}
  */
 export const computeResizeable = (cells = []) => cells.map((c, k) => ({
   ...c,
@@ -37,7 +37,7 @@ export const computeResizeable = (cells = []) => cells.map((c, k) => ({
  * Computes sizes an inline element was found
  *
  * @param {[...cell]} cells
- * @@return {[...cell]}
+ * @return {[...cell]}
  */
 export const computeInlines = (cells = []) => {
   if (cells.length !== 2 || !cells[0].inline) {
@@ -88,7 +88,7 @@ export const resizeCells = (cells = [], { id, size }) => {
  * Balance cell sizes.
  *
  * @param {[...cell]} cells
- * @@return {[...cell]}
+ * @return {[...cell]}
  */
 export const computeSizes = (cells = []) => {
   const total = sumSizes(cells)

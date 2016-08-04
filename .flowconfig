@@ -1,0 +1,7 @@
+[options]
+module.system.node.resolve_dirname=node_modules
+module.system.node.resolve_dirname=.
+
+[ignore]
+.*/node_modules/fbjs/.*
+.*/node_modules/match-at/.*
