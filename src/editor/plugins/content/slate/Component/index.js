@@ -4,7 +4,10 @@ import Portal from 'react-portal'
 import position from 'selection-position'
 import { Editor, Html } from 'slate'
 
+import IconButton from 'material-ui/IconButton'
+import HeadIcon from 'material-ui/svg-icons/editor/format-color-text'
 import BoldIcon from 'material-ui/svg-icons/editor/format-bold'
+import ItalicIcon from 'material-ui/svg-icons/editor/format-italic'
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
 import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
@@ -56,9 +59,8 @@ const renderNode = (node) => {
 }
 
 const MARKS = {
-  bold: {
-    fontWeight: 'bold'
-  }
+  bold: ({ children }) => <strong>{children}</strong>,
+  italic: ({ children }) => <em>{children}</em>
 }
 
 /* eslint no-invalid-this: "off" */
@@ -117,15 +119,17 @@ class Slate extends Component {
       )
     }
 
+    const { editorState } = this.props
+    const isActive = editorState && editorState.marks.some((mark) => mark.type === type)
+
     return (
-      <span onMouseDown={onClick}>
+      <IconButton onMouseDown={onClick} iconStyle={isActive ? { color: '#007EC1' } : {}}>
         {icon}
-      </span>
+      </IconButton>
     )
   }
 
   render() {
-    console.log('yo')
     const { readOnly, importFromHtml, editorState } = this.props
     const state = editorState || html.deserialize(importFromHtml, { terse: true })
     const isOpened = state.isExpanded && state.isFocused
@@ -136,6 +140,7 @@ class Slate extends Component {
           <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
             <div styleName="toolbar">
               {this.renderMarkButton('bold', <BoldIcon />)}
+              {this.renderMarkButton('italic', <ItalicIcon />)}
             </div>
           </MuiThemeProvider>
         </Portal>
