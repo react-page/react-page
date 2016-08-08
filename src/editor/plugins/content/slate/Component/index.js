@@ -153,7 +153,7 @@ class Slate extends Component {
           state={state}
         />
         <MuiThemeProvider muiTheme={getMuiTheme()}>
-          <Drawer open={!readOnly && focused}>
+          <Drawer open={focused}>
             blabla
           </Drawer>
         </MuiThemeProvider>
