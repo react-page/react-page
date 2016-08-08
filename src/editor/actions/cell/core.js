@@ -4,6 +4,8 @@ import type { Action } from 'types/redux'
 export const CELL_UPDATE = 'CELL_UPDATE'
 export const CELL_REMOVE = 'CELL_REMOVE'
 export const CELL_RESIZE = 'CELL_RESIZE'
+export const CELL_FOCUS = 'CELL_FOCUS'
+export const CELL_BLUR = 'CELL_BLUR'
 
 /**
  * Dispatch to update cell data.
@@ -32,4 +34,14 @@ export const resizeCell = (id: string) => (size : number = 1): Action => ({
   ts: new Date(),
   id,
   size
+})
+
+export const focusCell = (id: string) => (): Action => ({
+  type: CELL_FOCUS,
+  id
+})
+
+export const blurCell = (id: string) => (): Action => ({
+  type: CELL_BLUR,
+  id
 })

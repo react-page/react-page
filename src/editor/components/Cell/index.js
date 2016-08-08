@@ -6,7 +6,7 @@ import { editableConfig, node, purifiedNode } from 'src/editor/selector/editable
 import { isPreviewMode, isEditMode, isResizeMode, isLayoutMode, isInsertMode } from 'src/editor/selector/display'
 import { createStructuredSelector } from 'reselect'
 import Resizable from './Resizable'
-import { resizeCell } from 'src/editor/actions/cell'
+import { resizeCell, focusCell, blurCell } from 'src/editor/actions/cell'
 import classNames from 'classnames'
 import cssModules from 'react-css-modules'
 import deepEqual from 'deep-equal'
@@ -35,6 +35,7 @@ class Cell extends Component {
       rowHeight,
       updateDimensions,
 
+      isEditMode,
       isLayoutMode,
       isResizeMode,
       isInsertMode,
@@ -47,7 +48,7 @@ class Cell extends Component {
       } = {}
     } = this.props
 
-    let styles
+    let styles, focusProps
     if (isLayoutMode || isResizeMode || isInsertMode) {
       styles = {
         ...this.props.styles,
@@ -56,9 +57,20 @@ class Cell extends Component {
       }
     }
 
+    if (isEditMode) {
+      const { focusCell, blurCell } = this.props
+
+      focusProps = {
+        onBlur: blurCell,
+        onFocus: focusCell,
+        tabIndex: -1
+      }
+    }
+
     const props = { ...this.props, styles: null }
     return (
       <div
+        {...focusProps}
         styles={styles}
         styleName={classNames(gridClass(this.props), {
           'is-over-current': hover,
@@ -126,7 +138,9 @@ const mapStateToProps = createStructuredSelector({
 })
 
 const mapDispatchToProps = (dispatch, { id }) => bindActionCreators({
-  resizeCell: resizeCell(id)
+  resizeCell: resizeCell(id),
+  focusCell: focusCell(id),
+  blurCell: blurCell(id)
 }, dispatch)
 
 export default (connect(mapStateToProps, mapDispatchToProps)(cssModules(Cell, { ...commonStyles.floating, ...commonStyles.common, ...localStyles }, { allowMultiple: true })))

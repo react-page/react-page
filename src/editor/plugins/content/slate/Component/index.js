@@ -5,12 +5,12 @@ import position from 'selection-position'
 import { Editor, Html } from 'slate'
 
 import IconButton from 'material-ui/IconButton'
-import HeadIcon from 'material-ui/svg-icons/editor/format-color-text'
 import BoldIcon from 'material-ui/svg-icons/editor/format-bold'
 import ItalicIcon from 'material-ui/svg-icons/editor/format-italic'
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
 import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
+import Drawer from 'material-ui/Drawer'
 
 import nodes from './nodes'
 import styles from './index.scoped.css'
@@ -130,7 +130,7 @@ class Slate extends Component {
   }
 
   render() {
-    const { readOnly, importFromHtml, editorState } = this.props
+    const { focused, readOnly, importFromHtml, editorState } = this.props
     const state = editorState || html.deserialize(importFromHtml, { terse: true })
     const isOpened = state.isExpanded && state.isFocused
 
@@ -152,6 +152,11 @@ class Slate extends Component {
           onChange={this.onStateChange}
           state={state}
         />
+        <MuiThemeProvider muiTheme={getMuiTheme()}>
+          <Drawer open={!readOnly && focused}>
+            blabla
+          </Drawer>
+        </MuiThemeProvider>
       </div>
     )
   }
