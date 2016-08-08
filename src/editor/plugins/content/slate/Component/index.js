@@ -6,7 +6,7 @@ import { Editor, Html } from 'slate'
 
 import BoldIcon from 'material-ui/svg-icons/editor/format-bold'
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
-import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
+import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 
 import nodes from './nodes'
@@ -80,7 +80,6 @@ class Slate extends Component {
   componentDidUpdate = () => this.updateToolbar()
 
   onStateChange = (editorState) => {
-    console.log(editorState)
     this.props.onChange({ editorState })
   }
 
@@ -89,32 +88,33 @@ class Slate extends Component {
   }
 
   updateToolbar = () => {
-    const rect = position()
     const { toolbar } = this.state
+    const { editorState } = this.props
 
-    if (!toolbar || !rect) {
+    if (!toolbar || editorState.isBlurred || editorState.isCollapsed) {
       return
     }
 
+    const { left, top, width } = position()
+
     toolbar.style.opacity = 1
-    toolbar.style.top = `${rect.top + window.scrollY - toolbar.offsetHeight}px`
-    toolbar.style.left = `${rect.left + window.scrollX - (toolbar.offsetWidth / 2) + (rect.width / 2)}px`
+    toolbar.style.top = `${top + window.scrollY - toolbar.offsetHeight}px`
+    toolbar.style.left = `${left + window.scrollX - (toolbar.offsetWidth / 2) + (width / 2)}px`
   }
 
   renderMarkButton = (type, icon) => {
     const onClick = (e) => {
       e.preventDefault()
 
-      let { editorState } = this.props
+      const { editorState } = this.props
 
-      editorState = editorState
-        .transform()
-        .toggleMark(type)
-        .apply()
-
-      console.log('updated stuff')
-
-      this.onStateChange(editorState)
+      this.onStateChange(
+        // eslint-disable-next-line prefer-reflect
+        editorState
+          .transform()
+          .toggleMark(type)
+          .apply()
+      )
     }
 
     return (
@@ -125,6 +125,7 @@ class Slate extends Component {
   }
 
   render() {
+    console.log('yo')
     const { readOnly, importFromHtml, editorState } = this.props
     const state = editorState || html.deserialize(importFromHtml, { terse: true })
     const isOpened = state.isExpanded && state.isFocused
