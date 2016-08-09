@@ -38,10 +38,12 @@ export const resizeCell = (id: string) => (size : number = 1): Action => ({
 
 export const focusCell = (id: string) => (): Action => ({
   type: CELL_FOCUS,
+  ts: new Date(),
   id
 })
 
 export const blurCell = (id: string) => (): Action => ({
   type: CELL_BLUR,
+  ts: new Date(),
   id
 })
