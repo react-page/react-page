@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react'
 import cssModules from 'react-css-modules'
 import Portal from 'react-portal'
 import position from 'selection-position'
-import { Editor } from 'slate'
+import { Editor, Html } from 'slate'
 import { connect } from 'react-redux'
 import { undo, redo } from 'src/editor/actions/undo'
 import IconButton from 'material-ui/IconButton'
@@ -125,6 +125,37 @@ class Slate extends Component {
     )
   }
 
+  onKeyDown = (e, data) => {
+    if (!data.isMod) {
+      return
+    }
+
+    e.preventDefault()
+
+    let mark
+
+    switch (data.key) {
+      case 'b':
+        mark = 'bold'
+        break
+      case 'i':
+        mark = 'italic'
+        break
+      default:
+        return
+    }
+
+    const { editorState } = this.props
+
+    this.onStateChange(
+      // eslint-disable-next-line prefer-reflect
+      editorState
+        .transform()
+        .toggleMark(mark)
+        .apply()
+    )
+  }
+
   render() {
     const { focused, readOnly, state: { editorState } } = this.props
     const isOpened = editorState.isExpanded && editorState.isFocused
@@ -140,6 +171,7 @@ class Slate extends Component {
           </MuiThemeProvider>
         </Portal>
         <Editor
+          onKeyDown={this.onKeyDown}
           readOnly={Boolean(readOnly)}
           renderNode={renderNode}
           renderMark={renderMark}
