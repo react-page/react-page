@@ -48,7 +48,7 @@ class Cell extends Component {
       } = {}
     } = this.props
 
-    let styles, focusProps
+    let styles
     if (isLayoutMode || isResizeMode || isInsertMode) {
       styles = {
         ...this.props.styles,
@@ -57,6 +57,8 @@ class Cell extends Component {
       }
     }
 
+
+    let focusProps
     if (isEditMode) {
       const { focusCell, blurCell } = this.props
 
