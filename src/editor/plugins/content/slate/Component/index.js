@@ -10,7 +10,7 @@ import ItalicIcon from 'material-ui/svg-icons/editor/format-italic'
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
 import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
-import Drawer from 'material-ui/Drawer'
+import BottomToolbar from 'src/editor/components/BottomToolbar'
 
 import nodes from './nodes'
 import styles from './index.scoped.css'
@@ -152,11 +152,9 @@ class Slate extends Component {
           onChange={this.onStateChange}
           state={state}
         />
-        <MuiThemeProvider muiTheme={getMuiTheme()}>
-          <Drawer open={focused}>
-            blabla
-          </Drawer>
-        </MuiThemeProvider>
+        <BottomToolbar open={focused}>
+          Hier könnte Ihre Werbung stehen!
+        </BottomToolbar>
       </div>
     )
   }
