@@ -9,7 +9,9 @@ import {
   CELL_INSERT_INLINE_LEFT,
   CELL_INSERT_INLINE_RIGHT,
   CELL_DRAG_HOVER,
-  CELL_RESIZE
+  CELL_RESIZE,
+  CELL_FOCUS,
+  CELL_BLUR
 } from 'src/editor/actions/cell'
 import { optimizeCell, optimizeRow, optimizeRows, optimizeCells, flatten } from './helper/optimize'
 import { isHoveringThis } from './helper/hover'
@@ -25,7 +27,8 @@ export const cell = (state = {
   size: 0,
   inline: null,
   bounds: { left: 0, right: 0 },
-  rows: []
+  rows: [],
+  focused: false
 }, action) => optimizeCell(((state, action) => {
   const reduce = () => ({
     ...state,
@@ -38,6 +41,20 @@ export const cell = (state = {
       if (action.id === state.id) {
         // If this cell is being updated, set the data
         return { ...reduce(), props: action.props }
+      }
+      return reduce()
+
+    case CELL_FOCUS:
+      if (action.id === state.id) {
+        // If this cell is being focused, set the data
+        return { ...reduce(), focused: true }
+      }
+      return reduce()
+
+    case CELL_BLUR:
+      if (action.id === state.id) {
+        // If this cell is being blurred, set the data
+        return { ...reduce(), focused: false }
       }
       return reduce()
 

@@ -12,12 +12,13 @@ class Content extends Component {
   shouldComponentUpdate = shouldPureComponentUpdate
 
   render() {
-    const { isEditMode, id, node: { plugin: { Component }, props = {} }, updateCell = fallback } = this.props
+    const { isEditMode, id, node: { plugin: { Component }, props = {}, focused }, updateCell = fallback } = this.props
 
     return (
       <Component
         id={id}
         {...props}
+        focused={isEditMode && focused}
         readOnly={!isEditMode}
         onChange={updateCell}
       />
