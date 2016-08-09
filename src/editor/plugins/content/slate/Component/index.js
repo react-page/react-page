@@ -58,9 +58,18 @@ const renderNode = (node) => {
   }
 }
 
-const MARKS = {
-  bold: ({ children }) => <strong>{children}</strong>,
-  italic: ({ children }) => <em>{children}</em>
+const Bold = (props) => <strong {...props} />
+const Italic = (props) => <em {...props} />
+
+const renderMark = (mark) => {
+  switch (mark.type) {
+    case 'bold':
+      return Bold
+    case 'italic':
+      return Italic
+    default:
+      console.error(`No component specified for mark type ${mark.type}`)
+  }
 }
 
 /* eslint no-invalid-this: "off" */
@@ -147,7 +156,7 @@ class Slate extends Component {
         <Editor
           readOnly={Boolean(readOnly)}
           renderNode={renderNode}
-          renderMark={(mark) => MARKS[mark.type]}
+          renderMark={renderMark}
           placeholder="Write something..."
           onChange={this.onStateChange}
           state={state}
@@ -163,6 +172,7 @@ class Slate extends Component {
 Slate.propTypes = {
   editorState: PropTypes.object,
   importFromHtml: PropTypes.string,
+  focused: PropTypes.bool.isRequired,
   readOnly: PropTypes.bool.isRequired,
   onChange: PropTypes.func.isRequired
 }
