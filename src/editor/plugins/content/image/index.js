@@ -8,6 +8,5 @@ export default {
   version: '0.0.1',
   icon: <Panorama />,
   text: 'Image',
-  insert: {},
   inlineable: true
 }

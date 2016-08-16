@@ -30,6 +30,19 @@ const html = new Html({ rules })
 
 const options = { terse: true }
 
+export const createInitialState = () => ({
+  editorState: Raw.deserialize({
+    nodes: [{
+      kind: 'block',
+      type: 'paragraph',
+      nodes: [{
+        kind: 'text',
+        ranges: [{ text: '' }]
+      }]
+    }]
+  }, options)
+})
+
 export const unserialize = ({ importFromHtml, editorState }) => ({
   editorState: importFromHtml
     ? html.deserialize(importFromHtml, options)
@@ -37,8 +50,5 @@ export const unserialize = ({ importFromHtml, editorState }) => ({
 })
 
 export const serialize = ({ editorState }) => ({
-  editorState: Raw.serialize(state, options)
+  editorState: Raw.serialize(editorState, options)
 })
-
-// join: (states) => states.reduce((p, n) => {}, {}),
-// split: (state) => state.nodes.map((n) => [], {})

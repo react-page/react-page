@@ -10,13 +10,15 @@ const Spoiler = (props) => (
 
 Spoiler.propTypes = {}
 
+const hooks = {
+  createInitialState: createRowPlaceholder
+}
+
 export default {
   Component: Spoiler,
   name: 'ory/layout/spoiler',
   version: '0.0.1',
   icon: <FilterFrames />,
   text: 'Spoiler',
-  insert: {
-    ...createRowPlaceholder()
-  }
+  hooks
 }

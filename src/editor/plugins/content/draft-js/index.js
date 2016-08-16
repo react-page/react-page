@@ -8,5 +8,4 @@ export default {
   version: '0.0.1',
   icon: <Subject />,
   text: 'Text',
-  insert: {},
 }

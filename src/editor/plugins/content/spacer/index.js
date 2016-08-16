@@ -7,6 +7,5 @@ export default {
   name: 'ory/content/spacer',
   version: '0.0.1',
   icon: <AspectRatio />,
-  text: 'Spacer',
-  insert: {},
+  text: 'Spacer'
 }
