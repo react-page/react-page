@@ -49,7 +49,7 @@ class Editor {
         <DragDropContext>
           <Controls plugins={this.content.plugins} />
         </DragDropContext>
-      </Provider >
+      </Provider>
     ), toolbar)
   }
 
