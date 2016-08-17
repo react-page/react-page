@@ -1,0 +1,40 @@
+.controls {
+  position: fixed;
+  z-index: 100;
+  bottom: 0;
+  right: 0;
+  padding: 16px;
+  transition: all 200ms ease;
+}
+
+.controls-right .button {
+  float: right;
+  margin: 8px;
+}
+
+.clearfix {
+  clear: both;
+}
+
+.controls-right .description {
+  font-family: Roboto, sans-serif;
+  font-size: 16px;
+  margin-top: 18px;
+  float: right;
+  background: rgba(0,0,0,0);
+  color: rgba(0,0,0,0);
+  border: 1px transparent solid;
+  padding: 2px 8px;
+  text-align: right;
+  width: 0;
+  transition: all 200ms ease;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.controls-right > *:hover .description {
+  width: calc(100% - 74px);
+  background: rgba(0, 0, 0, 0.7);
+  color: rgba(255, 255, 255, 1);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}

@@ -1,3 +1,36 @@
 body {
   background: #eee;
+
+  color: #333333;
+  font-family: Georgia, serif;
+  font-size: 18px;
+  line-height: 28px;
+}
+
+p {
+  margin: 0 0 28px;
+}
+
+h1 {
+  color: #333333;
+  font-family: 'Bitter', serif;
+  font-size: 50px;
+  font-weight: normal;
+  line-height: 54px;
+  margin: 0 0 54px;
+}
+
+a {
+  color: #c73036;
+  font-family: Georgia, serif;
+  text-decoration: underline;
+}
+
+a:hover {
+  color: #333333;
+  text-decoration: underline;
+}
+
+.editable-cell {
+  padding: 8px;
 }

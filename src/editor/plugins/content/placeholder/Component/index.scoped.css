@@ -1,0 +1,6 @@
+.placeholder {
+  padding: 8px;
+  border: 1px rgba(0,0,0,0.4) dashed;
+  color: #aaa;
+  text-align: center;
+}

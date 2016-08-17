@@ -4,6 +4,7 @@ module.exports = {
       .url(client.launch_url)
       .waitForElementVisible('body', 1000)
       .assert.title('Ory.am Editor')
+      .assert.containsText('SOUTH BENFLEET')
       .end()
   }
 }

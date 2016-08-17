@@ -1,0 +1,14 @@
+.empty {
+  background-color: red;
+  padding: 8px;
+  margin: 2px;
+  overflow: hidden;
+
+  strong {
+    margin: 0 auto;
+  }
+
+  code {
+    overflow: scroll;
+  }
+}
