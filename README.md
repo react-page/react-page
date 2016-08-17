@@ -117,36 +117,6 @@ bower install ory-editor
 </script>
 ```
 
-### I wrote a plugin that causes lags
-
-It is important to trigger `onChange` only when you really want to update the editable state. Do not fire
-`onChange` excessively. A good way to reduce calls of `onChange` is to debounce it. We recommend
-using lodash: `npm i --save lodash.debounce`.
-
-```js
-import React, { Component } from 'react'
-import debounce from 'lodash.debounce'
-
-const fire = debounce(
-  // debounce only passes the first argument to the callback, which is why fire is using a destructor
-  ({ data, onChange }) => onChange(data),
-  
-  // only trigger every 100ms
-  100,
-  
-  // pass latest item
-  { leading: false }
-)
-
-class Plugin extends Component {
-  onUserInput(data) {
-    const { onChange } = this.props
-    fire({ onChange, data })
-  }
-  
-  // render() {}
-}
-```
 
 ### My plugin has problems handling server side state update
 
