@@ -1,7 +1,8 @@
-import React from 'react'
-import Component from './Component'
 import Subject from 'material-ui/svg-icons/action/subject'
-import { Raw } from 'slate'
+import React from 'react'
+
+import Component from './Component'
+import * as hooks from './hooks'
 
 export default {
   Component,
@@ -9,20 +10,5 @@ export default {
   version: '0.0.1',
   icon: <Subject />,
   text: 'Text (Slate)',
-  hooks: {
-    // join: (states) => states.reduce((p, n) => {}, {}),
-    // split: (state) => state.nodes.map((n) => [], {})
-  },
-  insert: {
-    editorState: Raw.deserialize({
-      nodes: [{
-        kind: 'block',
-        type: 'paragraph',
-        nodes: [{
-          kind: 'text',
-          ranges: [{ text: '' }]
-        }]
-      }]
-    }, { terse: true })
-  },
+  hooks
 }

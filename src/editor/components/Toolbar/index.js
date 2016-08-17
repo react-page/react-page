@@ -1,3 +1,4 @@
+import { always, propOr } from 'ramda'
 import React, { PropTypes, Component } from 'react'
 import Drawer from 'material-ui/Drawer'
 import { connect } from 'react-redux'
@@ -52,35 +53,45 @@ class Toolbar extends Component {
         </div>
         <List>
           {content.length ? <Subheader>Content</Subheader> : null}
-          {content.map(({ insert, name, version, Component, ...props }, k) => (
-            <Item
-              {...{ ...props, clearHover, layoutMode, insertMode, editMode, name, version, Component }}
-              name={name}
-              version={version}
-              key={k}
-              insert={{
-                plugin: {
-                  name,
-                  version,
-                  Component
-                },
-                props: insert
-              }}
-            />
-          ))}
+          {content.map(({ hooks, name, version, Component, ...props }, k) => {
+            const createInitialState = propOr(always({}), 'createInitialState', hooks)
+            const initialState = createInitialState()
+
+            return (
+              <Item
+                {...{ ...props, clearHover, layoutMode, insertMode, editMode, name, version, Component }}
+                name={name}
+                version={version}
+                key={k}
+                insert={{
+                  plugin: {
+                    name,
+                    version,
+                    Component
+                  },
+                  props: initialState
+                }}
+              />
+            )
+          })}
         </List>
         <List>
           {layout.length ? <Subheader>Layout</Subheader> : null}
-          {layout.map(({ insert, name, version, Component, ...props }, k) => (
-            <Item
-              {...{ ...props, clearHover, layoutMode, insertMode, editMode, name, version, Component }}
-              key={k}
-              insert={{
-                ...insert,
-                layout: { name, version, Component, props: insert }
-              }}
-            />
-          ))}
+          {layout.map(({ hooks, name, version, Component, ...props }, k) => {
+            const createInitialState = propOr(always({}), 'createInitialState', hooks)
+            const initialState = createInitialState()
+
+            return (
+              <Item
+                {...{ ...props, clearHover, layoutMode, insertMode, editMode, name, version, Component }}
+                key={k}
+                insert={{
+                  ...initialState,
+                  layout: { name, version, Component, props: initialState }
+                }}
+              />
+            )
+          })}
         </List>
         {isSearching ? null : (
           <div>

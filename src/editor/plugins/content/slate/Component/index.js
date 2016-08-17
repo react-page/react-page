@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react'
 import cssModules from 'react-css-modules'
 import Portal from 'react-portal'
 import position from 'selection-position'
-import { Editor, Html } from 'slate'
+import { Editor } from 'slate'
 
 import IconButton from 'material-ui/IconButton'
 import BoldIcon from 'material-ui/svg-icons/editor/format-bold'
@@ -14,34 +14,6 @@ import BottomToolbar from 'src/editor/components/BottomToolbar'
 
 import nodes from './nodes'
 import styles from './index.scoped.css'
-
-const rules = [{
-  deserialize: (el) => el.tagName === 'p' ? {
-    kind: 'block',
-    type: 'paragraph',
-    nodes: [{ kind: 'text', ranges: [{ text: el.children[0].data }] }]
-  } : null
-}, {
-  deserialize: (el) => el.tagName === 'h1' ? {
-    kind: 'block',
-    type: 'heading-one',
-    nodes: [{ kind: 'text', ranges: [{ text: el.children[0].data }] }]
-  } : null
-}, {
-  deserialize: (el) => el.tagName === 'h2' ? {
-    kind: 'block',
-    type: 'heading-two',
-    nodes: [{ kind: 'text', ranges: [{ text: el.children[0].data }] }]
-  } : null
-}, {
-  deserialize: (el) => el.tagName === 'h3' ? {
-    kind: 'block',
-    type: 'heading-three',
-    nodes: [{ kind: 'text', ranges: [{ text: el.children[0].data }] }]
-  } : null
-}]
-
-const html = new Html({ rules })
 
 const renderNode = (node) => {
   switch (node.type) {
@@ -83,7 +55,6 @@ class Slate extends Component {
 
   shouldComponentUpdate = (nextProps, nextState) => (
     nextProps.editorState !== this.props.editorState
-      || nextProps.importFromHtml !== this.props.importFromHtml
       || nextProps.readOnly !== this.props.readOnly
       || nextState.toolbar !== this.state.toolbar
   )
@@ -139,9 +110,8 @@ class Slate extends Component {
   }
 
   render() {
-    const { focused, readOnly, importFromHtml, editorState } = this.props
-    const state = editorState || html.deserialize(importFromHtml, { terse: true })
-    const isOpened = state.isExpanded && state.isFocused
+    const { focused, readOnly, editorState } = this.props
+    const isOpened = editorState.isExpanded && editorState.isFocused
 
     return (
       <div>
@@ -159,7 +129,7 @@ class Slate extends Component {
           renderMark={renderMark}
           placeholder="Write something..."
           onChange={this.onStateChange}
-          state={state}
+          state={editorState}
         />
         <BottomToolbar open={focused}>
           Hier könnte Ihre Werbung stehen!
@@ -171,7 +141,6 @@ class Slate extends Component {
 
 Slate.propTypes = {
   editorState: PropTypes.object,
-  importFromHtml: PropTypes.string,
   focused: PropTypes.bool.isRequired,
   readOnly: PropTypes.bool.isRequired,
   onChange: PropTypes.func.isRequired

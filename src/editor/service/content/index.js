@@ -1,5 +1,7 @@
 import { LocalStoreAdapter, DebugStorageAdapter } from './adapter'
 import uuid from 'node-uuid'
+import { path } from 'ramda'
+
 import PluginService from 'src/editor/service/plugin'
 
 const localStorageAdapter = new LocalStoreAdapter()
@@ -105,6 +107,12 @@ class ContentService {
       props.cells = cells.map(this.unserialize)
     }
 
+    const unserializeProps = path(['plugin', 'hooks', 'unserialize'], props)
+
+    if (unserializeProps) {
+      props.props = unserializeProps(props.props)
+    }
+
     return { ...props }
   }
 
@@ -115,6 +123,12 @@ class ContentService {
     layout = null,
     ...props
   }) {
+    const serializeProps = path(['plugin', 'hooks', 'serialize'], props)
+
+    if (serializeProps) {
+      props.props = serializeProps(props.props)
+    }
+
     if (plugin) {
       props.plugin = { name: plugin.name, version: plugin.version }
     }

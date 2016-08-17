@@ -13,13 +13,15 @@ const Alert = (props) => (
 
 Alert.propTypes = {}
 
+const hooks = {
+  createInitialState: createRowPlaceholder
+}
+
 export default {
   Component: cssModules(Alert, styles),
   name: 'ory/layout/alert',
   version: '0.0.1',
   icon: <Announcement />,
   text: 'Announcement',
-  insert: {
-    ...createRowPlaceholder()
-  }
+  hooks
 }
