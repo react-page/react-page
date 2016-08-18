@@ -5,6 +5,7 @@
   "main": "",
   "scripts": {
     "flow": "flow check",
+    "flow:watch": "npm run watch:js -- -c \"flow check\"",
     "test": "npm-run-all test:unit test:e2e",
     "test:unit": "cross-env NODE_PATH=. mocha --require .babel-require --recursive \"+(src|test)/**/*.test.js\"",
     "test:e2e": "node bin/nightwatch",
