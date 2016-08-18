@@ -1,7 +1,13 @@
 /* eslint no-use-before-define: off */
+import { clearHover, cancelCellDrag, dragCell } from 'src/editor/actions/cell/drag'
+
 export type Cell = {
   id: string,
-  rows: Array<Row>
+  rows: Array<Row>,
+  ancestors: Array<string>,
+  cancelCellDrag: cancelCellDrag,
+  dragCell: dragCell,
+  clearHover: clearHover
 }
 
 export type Row = {

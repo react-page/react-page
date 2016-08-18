@@ -4,7 +4,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import Drawer from 'material-ui/Drawer'
 import React, { PropTypes } from 'react'
 
-const BottomToolbar = ({ open, children }: { open: boolean, children: PropTypes.element }) => (
+const BottomToolbar = ({ open, children }: { open: boolean, children: Object }) => (
   <MuiThemeProvider muiTheme={getMuiTheme()}>
     <Drawer open={open} containerStyle={{
       top: 'inherit',

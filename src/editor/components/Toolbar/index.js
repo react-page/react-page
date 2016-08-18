@@ -14,6 +14,7 @@ import Toggle from 'material-ui/Toggle'
 import Divider from 'material-ui/Divider'
 import TextField from 'material-ui/TextField'
 import Item from './Item'
+import { Plugin } from 'src/editor/service/plugin'
 
 // import ViewHeadline from 'material-ui/svg-icons/action/view-headline'
 // import ViewCarousel from 'material-ui/svg-icons/action/view-carousel'
@@ -31,7 +32,7 @@ class Toolbar extends Component {
 
   state: {
     searchFilter: Function,
-    isSearching: Boolean
+    isSearching: boolean
   }
 
   onSearch(e: any) {

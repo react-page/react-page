@@ -7,7 +7,7 @@ import * as insertActions from 'src/editor/actions/cell/insert'
 import { DragSource as dragSource, DropTarget as dropTarget } from 'react-dnd'
 import { connect } from 'react-redux'
 import cssModules from 'react-css-modules'
-import { target, source, connect as monitorConnect, collect } from './helper'
+import { target, source, connect as monitorConnect, collect } from './helper/dnd'
 import styles from './index.scoped.css'
 import classNames from 'classnames'
 
@@ -65,4 +65,4 @@ DragDroppable.propTypes = {
 
 const mapDispatchToProps = { ...hoverActions, ...insertActions }
 
-export default connect(null, mapDispatchToProps)(dropTarget(({ dropTypes }: { dropTypes: Array }) => dropTypes, target, monitorConnect)(dragSource(({ dragType }: { dragType: string }) => dragType, source, collect)(cssModules(DragDroppable, styles, { allowMultiple: true }))))
+export default connect(null, mapDispatchToProps)(dropTarget(({ dropTypes }: { dropTypes: Array<string> }) => dropTypes, target, monitorConnect)(dragSource(({ dragType }: { dragType: string }) => dragType, source, collect)(cssModules(DragDroppable, styles, { allowMultiple: true }))))

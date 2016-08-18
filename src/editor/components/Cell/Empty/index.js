@@ -4,7 +4,7 @@ import cssModules from 'react-css-modules'
 
 import styles from './index.scoped.css'
 
-const Empty = ({ id = 'no id given', ...props }: { id: String, props: {} }) => {
+const Empty = ({ id = 'no id given', ...props }: { id: string, props: {} }) => {
   console.error('Got empty cell: ', props)
 
   return (

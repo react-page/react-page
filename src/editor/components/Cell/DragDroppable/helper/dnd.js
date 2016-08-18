@@ -1,13 +1,15 @@
+// @flow
 import { computeAndDispatchHover, computeAndDispatchInsert } from 'src/editor/service/hover/input'
 import throttle from 'lodash.throttle'
 import { isProduction } from 'src/editor/const'
+import { Cell } from 'types/editable'
 
 let last = {
   props: {},
   item: {}
 }
 
-const clear = (props = {}, item = {}) => {
+const clear = (props: Cell, item: Cell) => {
   if (props.id === last.props.id && item.id === last.item.id) {
     return
   }
@@ -16,7 +18,7 @@ const clear = (props = {}, item = {}) => {
 }
 
 export const target = {
-  hover: throttle((props, monitor, component) => {
+  hover: throttle((props: Cell, monitor: Object, component: Object) => {
     const item = monitor.getItem()
 
     if (!item) {
@@ -43,12 +45,12 @@ export const target = {
     computeAndDispatchHover(props, monitor, component)
   }, isProduction ? 5 : 10, { leading: false }),
 
-  canDrop: ({ id, ancestors }, monitor) => {
+  canDrop: ({ id, ancestors }: Cell, monitor: Object) => {
     const item = monitor.getItem()
     return item.id !== id && ancestors.indexOf(item.id) === -1
   },
 
-  drop(props, monitor, component) {
+  drop(props: Cell, monitor: Object, component: Object) {
     const item = monitor.getItem()
 
     if (monitor.didDrop() || !monitor.isOver({ shallow: true })) {
@@ -70,7 +72,7 @@ export const target = {
 }
 
 export const source = {
-  beginDrag(props) {
+  beginDrag(props: Cell) {
     // Beginn draging the cell
     props.dragCell(props)
     return {
@@ -81,7 +83,7 @@ export const source = {
     }
   },
 
-  endDrag({ cancelCellDrag, id }, monitor) {
+  endDrag({ cancelCellDrag, id }: Cell, monitor: Object) {
     if (monitor.didDrop()) {
       // If the item drop occurred deeper down the tree, don't do anything
       return
@@ -92,13 +94,13 @@ export const source = {
   }
 }
 
-export const connect = (connect, monitor) => ({
+export const connect = (connect: Object, monitor: Object) => ({
   connectDropTarget: connect.dropTarget(),
   isOver: monitor.isOver(),
   isOverCurrent: monitor.isOver({ shallow: true })
 })
 
-export const collect = (connect, monitor) => ({
+export const collect = (connect: Object, monitor: Object) => ({
   connectDragSource: connect.dragSource(),
   isDragging: monitor.isDragging()
 })

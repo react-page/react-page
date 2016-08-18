@@ -13,8 +13,13 @@ import alert from 'src/editor/plugins/layout/alert'
  * Plugin is the base class for content and layout plugins.
  */
 export class Plugin {
-  name: null
-  version: null
+  name: string
+  version: string
+  Component: Object
+  hooks: Object
+
+  // serialize: Function,
+  // unserialize: Function
 }
 
 /**
@@ -45,8 +50,6 @@ export const defaultLayoutPlugins: Array<LayoutPlugin> = [spoiler, alert]
 
 const find = (name: string, version: string) => (plugin: Plugin): boolean => plugin.name === name && satisfies(plugin.version, version)
 
-const searchPlugins = (plugins: Array<Plugin>): Plugin => (name: string, version: string) => plugins.find(find(name, version))
-
 /**
  * PluginService is a registry of all content and layout plugins known to the editor.
  */
@@ -70,25 +73,28 @@ export default class PluginService {
    * Finds a layout plugin based on its name and version.
    */
   findLayoutPlugin(name: string, version: string): LayoutPlugin {
-    const plugin = searchPlugins(this.plugins.layout)(name, version)
+    const plugin = this.plugins.layout.find(find(name, version))
 
     // TODO return a default layout plugin here instead
     if (!plugin) {
       throw new Error(`Plugin ${name} with version ${version} not found.`)
     }
+
+    return plugin
   }
 
   /**
    * Finds a content plugin based on its name and version.
    */
   findContentPlugin(name: string, version: string): ContentPlugin {
-    return searchPlugins(this.plugins.content)(name, version) || missing
+    const plugin = this.plugins.content.find(find(name, version))
+    return plugin || missing
   }
 
   /**
    * Returns a list of all known plugin names.
    */
-  getRegisteredNames(): Array<String> {
+  getRegisteredNames(): Array<string> {
     return [
       ...this.plugins.content.map(({ name }: Plugin) => name),
       ...this.plugins.layout.map(({ name }: Plugin) => name)
