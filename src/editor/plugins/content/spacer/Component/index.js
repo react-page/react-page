@@ -20,7 +20,7 @@ class Spacer extends Component {
   constructor(props) {
     super(props)
 
-    this.state = compute(props)
+    this.state = compute(props.state)
     this.onResize = this.onResize.bind(this)
   }
 
@@ -50,7 +50,9 @@ class Spacer extends Component {
 
 Spacer.propTypes = {
   onChange: PropTypes.func.isRequired,
-  height: PropTypes.number,
+  state: PropTypes.shape({
+    height: PropTypes.number
+  }),
   readOnly: PropTypes.bool.isRequired
 }
 

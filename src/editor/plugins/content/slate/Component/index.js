@@ -54,7 +54,7 @@ class Slate extends Component {
   componentDidMount = () => this.updateToolbar()
 
   shouldComponentUpdate = (nextProps, nextState) => (
-    nextProps.editorState !== this.props.editorState
+    nextProps.state.editorState !== this.props.state.editorState
       || nextProps.readOnly !== this.props.readOnly
       || nextState.toolbar !== this.state.toolbar
   )
@@ -71,7 +71,7 @@ class Slate extends Component {
 
   updateToolbar = () => {
     const { toolbar } = this.state
-    const { editorState } = this.props
+    const { editorState } = this.props.state
 
     if (!toolbar || editorState.isBlurred || editorState.isCollapsed) {
       return
@@ -88,7 +88,7 @@ class Slate extends Component {
     const onClick = (e) => {
       e.preventDefault()
 
-      const { editorState } = this.props
+      const { editorState } = this.props.state
 
       this.onStateChange(
         // eslint-disable-next-line prefer-reflect
@@ -99,7 +99,7 @@ class Slate extends Component {
       )
     }
 
-    const { editorState } = this.props
+    const { editorState } = this.props.state
     const isActive = editorState && editorState.marks.some((mark) => mark.type === type)
 
     return (
@@ -110,7 +110,8 @@ class Slate extends Component {
   }
 
   render() {
-    const { focused, readOnly, editorState } = this.props
+    const { focused, readOnly, state } = this.props
+    const { editorState } = state
     const isOpened = editorState.isExpanded && editorState.isFocused
 
     return (
@@ -140,7 +141,9 @@ class Slate extends Component {
 }
 
 Slate.propTypes = {
-  editorState: PropTypes.object,
+  state: PropTypes.shape({
+    editorState: PropTypes.object
+  }),
   focused: PropTypes.bool.isRequired,
   readOnly: PropTypes.bool.isRequired,
   onChange: PropTypes.func.isRequired

@@ -25,8 +25,8 @@ class Row extends Component {
     const { isLayoutMode, isResizeMode, isInsertMode } = this.props
     const Droppable = this.Droppable
     const props = {
-      ...(this.props),
-      ...(this.props.node)
+      ...this.props,
+      ...this.props.node
     }
 
     if (isLayoutMode || isResizeMode || isInsertMode) {
