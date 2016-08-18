@@ -17,7 +17,7 @@ class Content extends Component {
     return (
       <Component
         id={id}
-        {...props}
+        state={props}
         focused={isEditMode && focused}
         readOnly={!isEditMode}
         onChange={updateCell}

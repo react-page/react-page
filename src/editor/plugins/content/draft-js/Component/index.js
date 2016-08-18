@@ -32,14 +32,15 @@ class EditView extends Component {
     this.onChange({
       editorState:
         RichUtils.toggleBlockType(
-          this.props.editorState,
+          this.props.state.editorState,
           blockType
         )
     })
   }
 
   render() {
-    const { editorState, onChange, readOnly } = this.props
+    const { state, onChange, readOnly } = this.props
+    const { editorState } = state
 
     return (
       <div>
@@ -55,7 +56,9 @@ class EditView extends Component {
 }
 
 EditView.propTypes = {
-  editorState: PropTypes.object,
+  state: {
+    editorState: PropTypes.object
+  },
   onChange: PropTypes.func.isRequired,
   readOnly: PropTypes.bool.isRequired
 }
