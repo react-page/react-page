@@ -1,9 +1,10 @@
+// @flow
 import React, { PropTypes } from 'react'
 import cssModules from 'react-css-modules'
 
 import styles from './index.scoped.css'
 
-const Empty = ({ id = 'no id given', ...props }) => {
+const Empty = ({ id = 'no id given', ...props }: { id: String, props: {} }) => {
   console.error('Got empty cell: ', props)
 
   return (
@@ -22,6 +23,7 @@ const Empty = ({ id = 'no id given', ...props }) => {
     </div>
   )
 }
+
 Empty.propTypes = {
   id: PropTypes.string
 }

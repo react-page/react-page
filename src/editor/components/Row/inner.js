@@ -1,18 +1,29 @@
+// @flow
 import React, { PropTypes } from 'react'
 import classNames from 'classnames'
 import Cell from 'src/editor/components/Cell'
 import cssModules from 'react-css-modules'
 import grid from 'src/editor/styles/floating-grid.scoped.css'
 import styles from './index.scoped.css'
+import { Row, Cell as CellType } from 'types/editable'
 
-const Inner = ({ cells = [], editable, ancestors, id, hover, containerHeight, containerWidth, hasInlineChildren }) => (
+const Inner = ({
+  cells = [],
+  editable,
+  ancestors,
+  id,
+  hover,
+  containerHeight,
+  containerWidth,
+  hasInlineChildren
+}: Row) => (
   <div styleName={classNames('row', 'relative', {
     'is-over-current': hover,
     [`is-over-${hover}`]: hover,
     'force-block': hasInlineChildren
   })} className="editable-row"
   >
-    {cells.map((c) => (
+    {cells.map((c: CellType) => (
       <Cell
         rowWidth={containerWidth}
         rowHeight={containerHeight}

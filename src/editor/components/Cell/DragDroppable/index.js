@@ -1,3 +1,4 @@
+// @flow
 import { identity } from 'ramda'
 import React, { Component, PropTypes } from 'react'
 import { shouldPureComponentUpdate } from 'src/editor/helper/shouldComponentUpdate'
@@ -64,4 +65,4 @@ DragDroppable.propTypes = {
 
 const mapDispatchToProps = { ...hoverActions, ...insertActions }
 
-export default connect(null, mapDispatchToProps)(dropTarget(({ dropTypes }) => dropTypes, target, monitorConnect)(dragSource(({ dragType }) => dragType, source, collect)(cssModules(DragDroppable, styles, { allowMultiple: true }))))
+export default connect(null, mapDispatchToProps)(dropTarget(({ dropTypes }: { dropTypes: Array }) => dropTypes, target, monitorConnect)(dragSource(({ dragType }: { dragType: string }) => dragType, source, collect)(cssModules(DragDroppable, styles, { allowMultiple: true }))))

@@ -30,22 +30,9 @@ class Cell extends Component {
 
   render() {
     const {
-      id,
-      rowWidth,
-      rowHeight,
-      updateDimensions,
-
-      isEditMode,
-      isLayoutMode,
-      isResizeMode,
-      isInsertMode,
-
-      node: {
-        inline,
-        resizable,
-        hover,
-        hasInlineNeighbour
-      } = {}
+      id, rowWidth, rowHeight, updateDimensions,
+      isLayoutMode, isResizeMode, isInsertMode,
+      node: { inline, resizable, hover, hasInlineNeighbour }
     } = this.props
 
     let styles
@@ -57,22 +44,9 @@ class Cell extends Component {
       }
     }
 
-
-    let focusProps
-    if (isEditMode) {
-      const { focusCell, blurCell } = this.props
-
-      focusProps = {
-        onBlur: blurCell,
-        onFocus: focusCell,
-        tabIndex: -1
-      }
-    }
-
     const props = { ...this.props, styles: null }
     return (
       <div
-        {...focusProps}
         styles={styles}
         styleName={classNames(gridClass(this.props), {
           'is-over-current': hover,

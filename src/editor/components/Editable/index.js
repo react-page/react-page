@@ -1,3 +1,4 @@
+// @flow
 import React, { PropTypes, Component } from 'react'
 import Cell from 'src/editor/components/Cell'
 import { shouldPureComponentUpdate } from 'src/editor/helper/shouldComponentUpdate'
@@ -14,7 +15,7 @@ class Editable extends Component {
   shouldComponentUpdate = shouldPureComponentUpdate
 
   render() {
-    const { id, isLayoutMode, isResizeMode, ...props, editable: { cells = [] } = {} } = this.props
+    const { id, isLayoutMode, isResizeMode, editable: { cells = [] } = {}, ...props } = this.props
 
     if (isLayoutMode || isResizeMode) {
       props.styles = {
@@ -27,7 +28,7 @@ class Editable extends Component {
     return (
       <div styles={props.styles} className="editor-container">
         <div styles={props.styles} styleName="row" className="editor-row">
-          {cells.map((c) => (
+          {cells.map((c: string) => (
             <Cell
               editable={id}
               ancestors={[]}

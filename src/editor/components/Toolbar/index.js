@@ -1,3 +1,4 @@
+// @flow
 import { always, propOr } from 'ramda'
 import React, { PropTypes, Component } from 'react'
 import Drawer from 'material-ui/Drawer'
@@ -19,18 +20,23 @@ import Item from './Item'
 // import VoteBox from 'material-ui/svg-icons/action/thumbs-up-down'
 
 class Toolbar extends Component {
-  constructor(props) {
+  constructor(props: Object) {
     super(props)
     this.state = {
-      searchFilter: (a) => (a),
+      searchFilter: (a: any) => (a),
       isSearching: false
     }
     this.onSearch = this.onSearch.bind(this)
   }
 
-  onSearch(e) {
+  state: {
+    searchFilter: Function,
+    isSearching: Boolean
+  }
+
+  onSearch(e: any) {
     this.setState({
-      searchFilter: ((v) => (a) => a.text.toLowerCase().indexOf(v) > -1)(e.target.value.toLowerCase()),
+      searchFilter: ((v: any) => (a: any) => a.text.toLowerCase().indexOf(v) > -1)(e.target.value.toLowerCase()),
       isSearching: e.target.value.length > 0
     })
   }
@@ -53,7 +59,7 @@ class Toolbar extends Component {
         </div>
         <List>
           {content.length ? <Subheader>Content</Subheader> : null}
-          {content.map(({ hooks, name, version, Component, ...props }, k) => {
+          {content.map(({ hooks, name, version, Component, ...props }: Plugin, k: Number) => {
             const createInitialState = propOr(always({}), 'createInitialState', hooks)
             const initialState = createInitialState()
 
@@ -77,7 +83,7 @@ class Toolbar extends Component {
         </List>
         <List>
           {layout.length ? <Subheader>Layout</Subheader> : null}
-          {layout.map(({ hooks, name, version, Component, ...props }, k) => {
+          {layout.map(({ hooks, name, version, Component, ...props }, k: Number) => {
             const createInitialState = propOr(always({}), 'createInitialState', hooks)
             const initialState = createInitialState()
 
@@ -116,9 +122,7 @@ Toolbar.propTypes = {
   clearHover: PropTypes.func.isRequired,
 }
 
-const mapStateToProps = createStructuredSelector({
-  isInsertMode
-})
+const mapStateToProps = createStructuredSelector({ isInsertMode })
 
 const mapDispatchToProps = { insertMode, editMode, layoutMode, clearHover }
 

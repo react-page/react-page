@@ -1,9 +1,10 @@
+// @flow
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import Drawer from 'material-ui/Drawer'
 import React, { PropTypes } from 'react'
 
-const BottomToolbar = ({ open, children }) => (
+const BottomToolbar = ({ open, children }: { open: boolean, children: PropTypes.element }) => (
   <MuiThemeProvider muiTheme={getMuiTheme()}>
     <Drawer open={open} containerStyle={{
       top: 'inherit',

@@ -1,3 +1,4 @@
+// @flow
 import React, { PropTypes, Component } from 'react'
 import { Resizable as ReactResizeable } from 'react-resizable'
 import dimensions from 'react-dimensions'
@@ -6,6 +7,8 @@ import cssModules from 'react-css-modules'
 import { createStructuredSelector } from 'reselect'
 import { resizeMode, editMode } from 'src/editor/actions/display'
 import { computeStepWidth, widthToSize } from './helper.js'
+import { Cell } from 'types/editable'
+
 import styles from './index.scoped.css'
 
 class Resizable extends Component {
@@ -23,11 +26,18 @@ class Resizable extends Component {
     this.onResize = this.onResize.bind(this)
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
+  state: Object = {
+    stepWidth: Number,
+    isResizing: Boolean,
+    width: Number,
+    steps: Number
+  }
+
+  shouldComponentUpdate(nextProps: Object, nextState: Object) {
     return nextProps !== this.props || nextState !== this.state
   }
 
-  onResize(event, { size }) {
+  onResize(event: Object, { size }: Cell) {
     const newSize = widthToSize(this.state, this.props, size)
     this.props.onChange(newSize)
     this.setState({ width: newSize * this.state.stepWidth })
@@ -78,8 +88,6 @@ Resizable.propTypes = {
 
 const mapStateToProps = createStructuredSelector({})
 
-const mapDispatchToProps = {
-  resizeMode, editMode
-}
+const mapDispatchToProps = { resizeMode, editMode }
 
 export default dimensions()(connect(mapStateToProps, mapDispatchToProps)(cssModules(Resizable, styles, { allowMultiple: true })))
