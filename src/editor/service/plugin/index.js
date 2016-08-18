@@ -1,3 +1,4 @@
+// @flow
 import { satisfies } from 'semver'
 import missing from 'src/editor/plugins/content/missing'
 import slate from 'src/editor/plugins/content/slate'
@@ -8,43 +9,89 @@ import spacer from 'src/editor/plugins/content/spacer'
 import spoiler from 'src/editor/plugins/layout/spoiler'
 import alert from 'src/editor/plugins/layout/alert'
 
-export const defaultContentPlugins = [
+/**
+ * Plugin is the base class for content and layout plugins.
+ */
+export class Plugin {
+  name: null
+  version: null
+}
+
+/**
+ * ContentPlugin is the base class for content plugins.
+ */
+export class ContentPlugin extends Plugin {}
+
+/**
+ * ContentPlugin is the base class for layout plugins.
+ */
+export class LayoutPlugin extends Plugin {}
+
+/**
+ * A list of content plugins that are being loaded by default.
+ */
+export const defaultContentPlugins: Array<ContentPlugin> = [
   image,
   spacer,
   draft,
   slate,
   placeholder
 ]
-export const defaultLayoutPlugins = [spoiler, alert]
 
-const find = (name, version) => (plugin) => plugin.name === name && satisfies(plugin.version, version)
+/**
+ * A list of layout plugins that are being loaded by default.
+ */
+export const defaultLayoutPlugins: Array<LayoutPlugin> = [spoiler, alert]
 
+const find = (name: string, version: string) => (plugin: Plugin): boolean => plugin.name === name && satisfies(plugin.version, version)
+
+const searchPlugins = (plugins: Array<Plugin>): Plugin => (name: string, version: string) => plugins.find(find(name, version))
+
+/**
+ * PluginService is a registry of all content and layout plugins known to the editor.
+ */
 export default class PluginService {
-  constructor(contentPlugins = defaultContentPlugins, layoutPlugins = defaultLayoutPlugins) {
+  plugins: {
+    content: Array<ContentPlugin>,
+    layout: Array<LayoutPlugin>,
+  }
+
+  /**
+   * Instantiate a new PluginService instance. You can provide your own set of content and layout plugins here.
+   */
+  constructor(contentPlugins: Array<ContentPlugin> = defaultContentPlugins, layoutPlugins: Array<LayoutPlugin> = defaultLayoutPlugins) {
     this.plugins = {
       content: contentPlugins,
       layout: layoutPlugins
     }
-
-    this.find = this.find.bind(this)
   }
 
-  findLayoutPlugin(name = '', version = '*') {
-    return this.find(this.plugins.layout)(name, version) || null
+  /**
+   * Finds a layout plugin based on its name and version.
+   */
+  findLayoutPlugin(name: string, version: string): LayoutPlugin {
+    const plugin = searchPlugins(this.plugins.layout)(name, version)
+
+    // TODO return a default layout plugin here instead
+    if (!plugin) {
+      throw new Error(`Plugin ${name} with version ${version} not found.`)
+    }
   }
 
-  findContentPlugin(name = '', version = '*') {
-    return this.find(this.plugins.content)(name, version) || missing
+  /**
+   * Finds a content plugin based on its name and version.
+   */
+  findContentPlugin(name: string, version: string): ContentPlugin {
+    return searchPlugins(this.plugins.content)(name, version) || missing
   }
 
-  find(plugins) {
-    return (name, version) => plugins.find(find(name, version))
-  }
-
-  getRegisteredNames() {
+  /**
+   * Returns a list of all known plugin names.
+   */
+  getRegisteredNames(): Array<String> {
     return [
-      ...this.plugins.content.map((p) => p.name),
-      ...this.plugins.layout.map((p) => p.name)
+      ...this.plugins.content.map(({ name }: Plugin) => name),
+      ...this.plugins.layout.map(({ name }: Plugin) => name)
     ]
   }
 }

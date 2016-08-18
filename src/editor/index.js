@@ -1,4 +1,5 @@
 // @flow
+/* eslint no-use-before-define: off */
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
@@ -21,11 +22,14 @@ if (!isProduction && typeof window !== 'undefined') {
   window.Perf = require('react-addons-perf')
 }
 
-let instance
+let instance: Editor
 
+/**
+ * Editor is the core interface for dealing with the editor.
+ */
 class Editor {
   store: Store
-  content: any
+  content: ContentService
 
   constructor() {
     if (instance) {
@@ -37,6 +41,9 @@ class Editor {
     this.content = new ContentService()
   }
 
+  /**
+   * Renders the editor given a DOM entities.
+   */
   toolbar(toolbarHandle: Node) {
     let toolbar = toolbarHandle
     if (!toolbar) {
@@ -53,6 +60,9 @@ class Editor {
     ), toolbar)
   }
 
+  /**
+   * Renders the editor given a list of DOM entities.
+   */
   render(editables: NodeList<HTMLElement>) {
     forEach((editable: Node) => {
       this.content.fetch(editable).then((state: { id: string }) => {

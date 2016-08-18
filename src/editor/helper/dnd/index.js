@@ -1,9 +1,10 @@
+// @flow
 import { DragDropManager } from 'dnd-core'
 import HTML5Backend from 'react-dnd-html5-backend'
 
-let defaultManager
+let defaultManager: DragDropManager
 
-export default () => {
+export default (): DragDropManager => {
   if (defaultManager) {
     return defaultManager
   }

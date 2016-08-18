@@ -1,3 +1,6 @@
+// @flow
+import type { Action } from 'types/redux'
+import type { Cell } from 'types/editable'
 import { positions } from 'src/editor/const'
 
 export const CELL_DRAG_HOVER = 'CELL_DRAG_HOVER'
@@ -7,14 +10,8 @@ export const CLEAR_CLEAR_HOVER = 'CLEAR_CLEAR_HOVER'
 
 /**
  * Dispatch when a cell hovers another item.
- *
- * @param {{id: string}} drag
- * @param {{id: string}} hover
- * @param {string} position
- * @param {number} level
- * @return {Object} action
  */
-export const cellHover = ({ id: drag } = {}, { id: hover } = {}, level = 0, position) => ({
+export const cellHover = ({ id: drag }: Cell, { id: hover }: Cell, level: number = 0, position: string): Action => ({
   type: CELL_DRAG_HOVER,
   ts: new Date(),
   drag,
@@ -23,42 +20,57 @@ export const cellHover = ({ id: drag } = {}, { id: hover } = {}, level = 0, posi
   position
 })
 
-export const cellHoverLeftOf = (drag, hover, level) => cellHover(drag, hover, level, positions.LEFT_OF)
-export const cellHoverRightOf = (drag, hover, level) => cellHover(drag, hover, level, positions.RIGHT_OF)
-export const cellHoverAbove = (drag, hover, level) => cellHover(drag, hover, level, positions.ABOVE)
-export const cellHoverBelow = (drag, hover, level) => cellHover(drag, hover, level, positions.BELOW)
-export const cellHoverInlineLeft = (drag, hover, level) => cellHover(drag, hover, level, positions.INLINE_LEFT)
-export const cellHoverInlineRight = (drag, hover, level) => cellHover(drag, hover, level, positions.INLINE_RIGHT)
+/**
+ * Dispatch when a cell is hovering another cell on the left.
+ */
+export const cellHoverLeftOf = (drag: Cell, hover: Cell, level: number) => cellHover(drag, hover, level, positions.LEFT_OF)
+
+/**
+ * Dispatch when a cell is hovering another cell on the right.
+ */
+export const cellHoverRightOf = (drag: Cell, hover: Cell, level: number) => cellHover(drag, hover, level, positions.RIGHT_OF)
+
+/**
+ * Dispatch when a cell is hovering another cell above.
+ */
+export const cellHoverAbove = (drag: Cell, hover: Cell, level: number) => cellHover(drag, hover, level, positions.ABOVE)
+
+/**
+ * Dispatch when a cell is hovering another cell below.
+ */
+export const cellHoverBelow = (drag: Cell, hover: Cell, level: number) => cellHover(drag, hover, level, positions.BELOW)
+
+/**
+ * Dispatch when a cell is hovering another cell on the left, but inline ("floating").
+ */
+export const cellHoverInlineLeft = (drag: Cell, hover: Cell, level: number) => cellHover(drag, hover, level, positions.INLINE_LEFT)
+
+/**
+ * Dispatch when a cell is hovering another cell on the right, but inline ("floating").
+ */
+export const cellHoverInlineRight = (drag: Cell, hover: Cell, level: number) => cellHover(drag, hover, level, positions.INLINE_RIGHT)
 
 /**
  * Dispatch when a cell is being dragged.
- *
- * @param {{id}} id
- * @return {Object} action
  */
-export const dragCell = ({ id } = {}) => ({
+export const dragCell = ({ id }: Cell): Action => ({
   type: CELL_DRAG,
   ts: new Date(),
   id
 })
 
 /**
- * Dispatch to clear hover state
- *
- * @return {Object} action
+ * Dispatch to clear hover state of a cell.
  */
-export const clearHover = () => ({
+export const clearHover = (): Action => ({
   type: CLEAR_CLEAR_HOVER,
   ts: new Date(),
 })
 
 /**
  * Dispatch when cell dragging ends.
- *
- * @param {{id}} id
- * @return {Object} action
  */
-export const cancelCellDrag = ({ id } = {}) => ({
+export const cancelCellDrag = ({ id }: Cell): Action => ({
   type: CELL_DRAG_CANCEL,
   ts: new Date(),
   id
