@@ -84,7 +84,7 @@ class Toolbar extends Component {
         </List>
         <List>
           {layout.length ? <Subheader>Layout</Subheader> : null}
-          {layout.map(({ hooks, name, version, Component, ...props }, k: Number) => {
+          {layout.map(({ hooks, name, version, Component, ...props }: Plugin, k: Number) => {
             const createInitialState = propOr(always({}), 'createInitialState', hooks)
             const initialState = createInitialState()
 

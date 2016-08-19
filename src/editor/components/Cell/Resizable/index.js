@@ -12,7 +12,7 @@ import { Cell } from 'types/editable'
 import styles from './index.scoped.css'
 
 class Resizable extends Component {
-  constructor(props) {
+  constructor(props: Cell) {
     super(props)
 
     const sw = computeStepWidth(props)

@@ -18,8 +18,15 @@ export class Plugin {
   Component: Object
   hooks: Object
 
-  // serialize: Function,
-  // unserialize: Function
+  serialize(state: any) {
+    return state
+  }
+
+  unserialize(state: any) {
+    return state
+  }
+
+
 }
 
 /**
