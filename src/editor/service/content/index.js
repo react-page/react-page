@@ -84,19 +84,19 @@ class ContentService {
   unserialize({
     rows = [],
     cells = [],
-    plugin = {},
+    content = {},
     layout = {},
     ...props
   }) {
-    const { name: pluginName = null, version: pluginVersion = '*' } = plugin
-    const { name: layoutName = null, version: layoutVersion = '*' } = layout
+    const { plugin: { name: contentName = null, version: contentVersion = '*' } } = content
+    const { plugin: { name: layoutName = null, version: layoutVersion = '*' } } = layout
 
-    if (pluginName) {
-      props.plugin = this.plugins.findContentPlugin(pluginName, pluginVersion)
+    if (contentName) {
+      props.content = { plugin: this.plugins.findContentPlugin(contentName, contentVersion) }
     }
 
     if (layoutName) {
-      props.layout = this.plugins.findLayoutPlugin(layoutName, layoutVersion)
+      props.layout = { plugin: this.plugins.findLayoutPlugin(layoutName, layoutVersion) }
     }
 
     if (rows.length) {
@@ -119,7 +119,7 @@ class ContentService {
   serialize({
     rows = [],
     cells = [],
-    plugin = null,
+    content = null,
     layout = null,
     ...props
   }) {
@@ -129,12 +129,12 @@ class ContentService {
       props.props = serializeProps(props.props)
     }
 
-    if (plugin) {
-      props.plugin = { name: plugin.name, version: plugin.version }
+    if (content) {
+      props.content = { plugin: { name: content.plugin.name, version: content.plugin.version } }
     }
 
     if (layout) {
-      props.layout = { name: layout.name, version: layout.version }
+      props.layout = { plugin: { name: layout.plugin.name, version: layout.plugin.version } }
     }
 
     if (rows.length) {

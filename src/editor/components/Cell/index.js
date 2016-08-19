@@ -1,3 +1,4 @@
+// @flow
 import React, { PropTypes, Component } from 'react'
 import Inner from './inner'
 import { connect } from 'react-redux'
@@ -10,14 +11,15 @@ import { resizeCell, focusCell, blurCell } from 'src/editor/actions/cell'
 import classNames from 'classnames'
 import cssModules from 'react-css-modules'
 import deepEqual from 'deep-equal'
+import type { CellComponentState } from 'types/editable'
 
 import * as commonStyles from 'src/editor/styles'
 import localStyles from './index.scoped.css'
 
-const gridClass = ({ node: { size = 12 }, isPreviewMode, isEditMode }) => `cell-${isPreviewMode || isEditMode ? 'md' : 'xs'}-${size}`
+const gridClass = ({ node: { size = 12 }, isPreviewMode, isEditMode }: CellComponentState): string => `cell-${isPreviewMode || isEditMode ? 'md' : 'xs'}-${size}`
 
 class Cell extends Component {
-  shouldComponentUpdate(nextProps) {
+  shouldComponentUpdate(nextProps: CellComponentState) {
     const blacklist = ['rawNode']
     const nextKeys = Object.keys(nextProps)
     const prevKeys = Object.keys(this.props)
@@ -25,7 +27,7 @@ class Cell extends Component {
       return true
     }
 
-    return nextKeys.filter((n) => blacklist.indexOf(n) > -1 ? false : !deepEqual(this.props[n], nextProps[n])).length > 0
+    return nextKeys.filter((n: string) => blacklist.indexOf(n) > -1 ? false : !deepEqual(this.props[n], nextProps[n])).length > 0
   }
 
   render() {
@@ -33,7 +35,7 @@ class Cell extends Component {
       id, rowWidth, rowHeight, updateDimensions,
       isLayoutMode, isResizeMode, isInsertMode,
       node: { inline, resizable, hover, hasInlineNeighbour }
-    } = this.props
+    }: CellComponentState = this.props
 
     let styles
     if (isLayoutMode || isResizeMode || isInsertMode) {
@@ -110,10 +112,10 @@ const mapStateToProps = createStructuredSelector({
   isLayoutMode,
   config: editableConfig,
   node: purifiedNode,
-  rawNode: (state, props) => () => node(state, props)
+  rawNode: (state: any, props: any) => () => node(state, props)
 })
 
-const mapDispatchToProps = (dispatch, { id }) => bindActionCreators({
+const mapDispatchToProps = (dispatch: Function, { id }: CellComponentState) => bindActionCreators({
   resizeCell: resizeCell(id),
   focusCell: focusCell(id),
   blurCell: blurCell(id)

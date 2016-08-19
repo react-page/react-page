@@ -13,6 +13,7 @@ import { isProduction } from './const'
 import DragDropContext from 'src/editor/components/DragDropContext'
 
 import type Store from 'types/redux'
+import type { Editable as EditableType } from 'types/editable'
 
 // required for material-ui
 import injectTapEventPlugin from 'react-tap-event-plugin'
@@ -65,7 +66,7 @@ class Editor {
    */
   render(editables: NodeList<HTMLElement>) {
     forEach((editable: Node) => {
-      this.content.fetch(editable).then((state: { id: string }) => {
+      this.content.fetch(editable).then((state: EditableType) => {
         this.store.dispatch(updateEditable({
           ...state,
           config: {

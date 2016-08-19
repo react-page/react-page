@@ -1,23 +1,16 @@
-export const editable = ({ editables = [] }, { id }) => editables.find(({ id: current }) => current === id)
+// @flow
+import type { Editable, Cell, Row, Config } from 'types/editable'
 
-export const purifiedEditable = (state, props) => {
-  const found = editable(state, props)
-  return {
-    ...found,
-    cells: found.cells.map((c) => c.id)
-  }
-}
+type Editables = { editables: Array<Editable> }
 
-export const editableConfig = (state, { editable: id }) => editable(state, { id }).config
-
-const nodeInner = (current, props) => {
+const nodeInner = (current: any, props: Editable): any => {
   const { id, rows = [], cells = [] } = current
   if (id === props.id) {
     return current
   }
 
   let found = false;
-  [...rows, ...cells].find((n) => {
+  [...rows, ...cells].find((n: any) => {
     const f = nodeInner(n, props)
     if (f) {
       found = f
@@ -28,7 +21,19 @@ const nodeInner = (current, props) => {
   return found
 }
 
-export const node = (state, props) => {
+export const editable = ({ editables }: Editables, { id }: { id: string }): Editable => editables.find(({ id: current }: Editable): boolean => current === id)
+
+export const purifiedEditable = (state: Editables, props: Editable) => {
+  const found = editable(state, props)
+  return {
+    ...found,
+    cells: found.cells.map((c: Cell) => c.id)
+  }
+}
+
+export const editableConfig = (state: Editables, { editable: id }: { editable: string }): Config => editable(state, { id }).config
+
+export const node = (state: Object, props: Object): Object => {
   const tree = editable(state, { id: props.editable })
   if (!state) {
     throw new Error(`Could not find editable: ${props.editable}`)
@@ -42,16 +47,16 @@ export const node = (state, props) => {
   return found
 }
 
-export const purifiedNode = (state, props) => {
+export const purifiedNode = (state: Editables, props: Editable): Object => {
   const found = node(state, props)
 
   if (found.cells) {
     found.hasInlineChildren = found.cells.length === 2 && found.cells[0].inline && found.cells[1].hasInlineNeighbour
-    found.cells = found.cells.map((c) => c.id)
+    found.cells = found.cells.map((c: Cell): string => c.id)
   }
 
   if (found.rows) {
-    found.rows = found.rows.map((r) => r.id)
+    found.rows = found.rows.map((r: Row): string => r.id)
   }
 
   return found

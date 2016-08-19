@@ -7,12 +7,12 @@ import cssModules from 'react-css-modules'
 import { createStructuredSelector } from 'reselect'
 import { resizeMode, editMode } from 'src/editor/actions/display'
 import { computeStepWidth, widthToSize } from './helper.js'
-import { Cell } from 'types/editable'
+import type { CellComponentState } from 'types/editable'
 
 import styles from './index.scoped.css'
 
 class Resizable extends Component {
-  constructor(props: Cell) {
+  constructor(props: CellComponentState) {
     super(props)
 
     const sw = computeStepWidth(props)
@@ -37,7 +37,7 @@ class Resizable extends Component {
     return nextProps !== this.props || nextState !== this.state
   }
 
-  onResize(event: Object, { size }: Cell) {
+  onResize(event: Object, { node: { size } }: CellComponentState) {
     const newSize = widthToSize(this.state, this.props, size)
     this.props.onChange(newSize)
     this.setState({ width: newSize * this.state.stepWidth })

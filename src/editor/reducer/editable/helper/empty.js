@@ -1,8 +1,8 @@
 /* eslint no-use-before-define: "off" */
-export const isEmpty = ({ cells = [], rows = [], layout = false, plugin = false }) => (
+export const isEmpty = ({ cells = [], rows = [], layout = false, content = false }) => (
   !cells.filter(emptyFilter).length
   && !rows.filter(emptyFilter).length
-  && !plugin
+  && !content
   && !(layout && rows.filter(emptyFilter).length)
 )
 

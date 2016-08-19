@@ -11,15 +11,17 @@ class Layout extends React.Component {
       node: {
         rows = [],
         layout: {
-          Component,
-          props = {}
+          plugin: {
+            Component,
+            state = {}
+          }
         }
       },
       editable, ancestors = []
     } = this.props
 
     return (
-      <Component state={props}>
+      <Component state={state}>
         {rows.map((r) => <Row editable={editable} ancestors={[...ancestors, id]} key={r} id={r} />)}
       </Component>
     )

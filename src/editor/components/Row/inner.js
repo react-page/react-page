@@ -5,25 +5,27 @@ import Cell from 'src/editor/components/Cell'
 import cssModules from 'react-css-modules'
 import grid from 'src/editor/styles/floating-grid.scoped.css'
 import styles from './index.scoped.css'
-import { Row, Cell as CellType } from 'types/editable'
+import type { RowComponentState } from 'types/editable'
 
 const Inner = ({
-  cells = [],
   editable,
   ancestors,
-  id,
-  hover,
+  node: {
+    id,
+    hover,
+    cells = [],
+    hasInlineChildren
+  },
   containerHeight,
-  containerWidth,
-  hasInlineChildren
-}: Row) => (
+  containerWidth
+}: RowComponentState) => (
   <div styleName={classNames('row', 'relative', {
     'is-over-current': hover,
     [`is-over-${hover}`]: hover,
     'force-block': hasInlineChildren
   })} className="editable-row"
   >
-    {cells.map((c: CellType) => (
+    {cells.map((c: string) => (
       <Cell
         rowWidth={containerWidth}
         rowHeight={containerHeight}

@@ -7,6 +7,7 @@ import { connect } from 'react-redux'
 import { isLayoutMode, isResizeMode } from 'src/editor/selector/display'
 import { createStructuredSelector } from 'reselect'
 import cssModules from 'react-css-modules'
+import type { EditableComponentState } from 'types/editable'
 
 import * as commonStyles from 'src/editor/styles'
 import styles from './index.scoped.css'
@@ -15,7 +16,7 @@ class Editable extends Component {
   shouldComponentUpdate = shouldPureComponentUpdate
 
   render() {
-    const { id, isLayoutMode, isResizeMode, editable: { cells = [] } = {}, ...props } = this.props
+    const { id, isLayoutMode, isResizeMode, node: { cells = [] }, ...props }: EditableComponentState = this.props
 
     if (isLayoutMode || isResizeMode) {
       props.styles = {
@@ -46,11 +47,10 @@ Editable.propTypes = {
   id: PropTypes.string.isRequired,
   isLayoutMode: PropTypes.bool.isRequired,
   isResizeMode: PropTypes.bool.isRequired,
-  cells: PropTypes.array.isRequired,
-  editable: PropTypes.func.isRequired
+  node: PropTypes.object.isRequired
 }
 
-const mapStateToProps = createStructuredSelector({ editable: purifiedEditable, isLayoutMode, isResizeMode })
+const mapStateToProps = createStructuredSelector({ node: purifiedEditable, isLayoutMode, isResizeMode })
 
 export default connect(mapStateToProps)(cssModules(Editable, {
   ...commonStyles.floating,

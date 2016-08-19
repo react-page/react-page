@@ -2,14 +2,14 @@
 import { computeAndDispatchHover, computeAndDispatchInsert } from 'src/editor/service/hover/input'
 import throttle from 'lodash.throttle'
 import { isProduction } from 'src/editor/const'
-import { Cell } from 'types/editable'
+import type { CellComponentState } from 'types/editable'
 
 let last = {
   props: {},
   item: {}
 }
 
-const clear = (props: Cell, item: Cell) => {
+const clear = (props: CellComponentState, item: CellComponentState) => {
   if (props.id === last.props.id && item.id === last.item.id) {
     return
   }
@@ -18,7 +18,7 @@ const clear = (props: Cell, item: Cell) => {
 }
 
 export const target = {
-  hover: throttle((props: Cell, monitor: Object, component: Object) => {
+  hover: throttle((props: CellComponentState, monitor: Object, component: Object) => {
     const item = monitor.getItem()
 
     if (!item) {
@@ -45,12 +45,12 @@ export const target = {
     computeAndDispatchHover(props, monitor, component)
   }, isProduction ? 5 : 10, { leading: false }),
 
-  canDrop: ({ id, ancestors }: Cell, monitor: Object) => {
+  canDrop: ({ id, ancestors }: CellComponentState, monitor: Object) => {
     const item = monitor.getItem()
     return item.id !== id && ancestors.indexOf(item.id) === -1
   },
 
-  drop(props: Cell, monitor: Object, component: Object) {
+  drop(props: CellComponentState, monitor: Object, component: Object) {
     const item = monitor.getItem()
 
     if (monitor.didDrop() || !monitor.isOver({ shallow: true })) {
@@ -72,7 +72,7 @@ export const target = {
 }
 
 export const source = {
-  beginDrag(props: Cell) {
+  beginDrag(props: CellComponentState) {
     // Beginn draging the cell
     props.dragCell(props)
     return {
@@ -83,7 +83,7 @@ export const source = {
     }
   },
 
-  endDrag({ cancelCellDrag, id }: Cell, monitor: Object) {
+  endDrag({ cancelCellDrag, id }: CellComponentState, monitor: Object) {
     if (monitor.didDrop()) {
       // If the item drop occurred deeper down the tree, don't do anything
       return

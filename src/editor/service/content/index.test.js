@@ -44,13 +44,13 @@ describe('ContentService', () => {
   })
 
   it('serialize and unserialize should work', () => {
-    const cleanup = ({ plugin, layout, rows = [], cells = [], ...other }) => {
+    const cleanup = ({ content, layout, rows = [], cells = [], ...other }) => {
       if (layout) {
         other.layout = { name: layout.name }
       }
 
-      if (plugin) {
-        other.plugin = { name: plugin.name }
+      if (content) {
+        other.content = { name: content.name }
       }
 
       if (rows.length) {

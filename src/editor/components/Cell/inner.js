@@ -5,6 +5,7 @@ import Rows from './Rows'
 import Layout from './Layout'
 import Content from './Content'
 import Empty from './Empty'
+import type { CellComponentState } from 'types/editable'
 
 class Inner extends Component {
   shouldComponentUpdate = shouldPureComponentUpdate
@@ -16,29 +17,33 @@ class Inner extends Component {
       isInsertMode,
       node: {
         rows = [],
-        layout: { Component: LayoutComponent, name: layoutName, props: layoutProps = {} } = {},
-        plugin: { Component: PluginComponent, name: pluginName, } = {},
+        layout: { plugin: { Component: LayoutComponent, name: layoutType, state: layoutState = {} } },
+        content: { plugin: { Component: ContentComponent, name: contentType } },
       },
       config: { whitelist = [] }
-    } = this.props
+    }: CellComponentState = this.props
 
     if (rows.length && LayoutComponent) {
       return isLayoutMode || isInsertMode ? (
-        <DragDroppable {...{ ...props, ...props.node, styles: null }} dragType={layoutName} dropTypes={whitelist}>
+        <DragDroppable {...{ ...props, ...props.node, styles: null }} dragType={layoutType} dropTypes={whitelist}>
           <div className="editable-cell">
-            <Layout {...props} {...layoutProps} />
+            <Layout {...props} {...layoutState} />
           </div>
         </DragDroppable>
       ) : (
         <div className="editable-cell">
-          <Layout {...props} {...layoutProps} />
+          <Layout {...props} {...layoutState} />
         </div>
       )
     } else if (rows.length) {
       return <Rows {...props} />
-    } else if (PluginComponent) {
+    } else if (ContentComponent) {
       return isLayoutMode || isInsertMode ? (
-        <DragDroppable {...{ ...props, ...props.node, styles: null }} dragType={pluginName} dropTypes={whitelist} allowDrop>
+        <DragDroppable {...{ ...props, ...props.node, styles: null }}
+          dragType={contentType}
+          dropTypes={whitelist}
+          allowDrop
+        >
           <div className="editable-cell">
             <Content {...props} />
           </div>
@@ -68,20 +73,24 @@ Inner.propTypes = {
 
   node: PropTypes.shape({
     rows: PropTypes.array,
-    props: PropTypes.object,
 
     layout: PropTypes.shape({
-      Component: PropTypes.oneOfType([PropTypes.func, PropTypes.element]),
-      name: PropTypes.string,
-      version: PropTypes.string,
-      props: PropTypes.object
+      plugin: PropTypes.shape({
+        Component: PropTypes.oneOfType([PropTypes.func, PropTypes.element]),
+        name: PropTypes.string,
+        version: PropTypes.string
+      }),
+      state: PropTypes.object
     }),
 
-    plugin: PropTypes.shape({
-      Component: PropTypes.oneOfType([PropTypes.func, PropTypes.element]),
-      name: PropTypes.string,
-      version: PropTypes.string
-    })
+    content: PropTypes.shape({
+      plugin: PropTypes.shape({
+        Component: PropTypes.oneOfType([PropTypes.func, PropTypes.element]),
+        name: PropTypes.string,
+        version: PropTypes.string
+      }),
+      state: PropTypes.object
+    }),
   }),
 }
 

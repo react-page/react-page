@@ -2,7 +2,7 @@
 import React, { Component, PropTypes } from 'react'
 import { shouldPureComponentUpdate } from 'src/editor/helper/shouldComponentUpdate'
 import Row from 'src/editor/components/Row'
-import { Row as RowType } from 'types/editable'
+import type { Row as RowType } from 'types/editable'
 
 class Rows extends Component {
   shouldComponentUpdate = shouldPureComponentUpdate
