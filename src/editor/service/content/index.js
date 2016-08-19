@@ -1,4 +1,5 @@
-import { LocalStoreAdapter, DebugStorageAdapter } from './adapter'
+// @flow
+import { AbstractAdapter, LocalStoreAdapter, DebugStorageAdapter } from './adapter'
 import uuid from 'node-uuid'
 import { path } from 'ramda'
 
@@ -10,13 +11,8 @@ const defaultPluginService = new PluginService()
 
 /**
  * Iterate through an editable content tree and generate ids where missing.
- *
- * @param {[]} rows
- * @param {[]} cells
- * @param {string} id
- * @param {{}} props
  */
-export const hydrate = ({ rows = [], cells = [], id = uuid.v4(), ...props }) => {
+export const hydrate = ({ rows = [], cells = [], id = uuid.v4(), ...props }: Object): Object => {
   if (rows.length) {
     props.rows = rows.map(hydrate)
   } else if (cells.length) {
@@ -30,13 +26,13 @@ export const hydrate = ({ rows = [], cells = [], id = uuid.v4(), ...props }) => 
  * ContentService is an abstraction layer for fetching and storing editable content trees.
  */
 class ContentService {
+  plugins: PluginService
+  adapters: Array<AbstractAdapter>
+
   /**
    * Pass a list of adapters to use.
-   *
-   * @param {[]} adapters
-   * @param {PluginService} plugins
    */
-  constructor(adapters = [localStorageAdapter, debugStorageAdapter], plugins = defaultPluginService) {
+  constructor(adapters: Array<AbstractAdapter> = [localStorageAdapter, debugStorageAdapter], plugins: PluginService = defaultPluginService) {
     this.adapters = adapters
     this.plugins = plugins
 
@@ -51,9 +47,9 @@ class ContentService {
    * @param {{}} domEntity a DOM entity returned by, for example, document.getElementById()
    * @returns {Promise}
    */
-  fetch(domEntity) {
-    return new Promise((res) => {
-      const found = this.adapters.map((adapter) => adapter.fetch(domEntity)).reduce((p, n) => p || n)
+  fetch(domEntity: Object) {
+    return new Promise((res: Function) => {
+      const found = this.adapters.map((adapter: AbstractAdapter) => adapter.fetch(domEntity)).reduce((p: Object, n: Object) => p || n)
 
       if (!found) {
         console.error('No content state found for DOM entity:', domEntity)
@@ -71,12 +67,10 @@ class ContentService {
 
   /**
    * Persist a DOM entity's content tree.
-   *
-   * @param state
    */
-  store(state = {}) {
-    return new Promise((res) => {
-      this.adapters.forEach((adapter) => adapter.store(state))
+  store(state: Object = {}) {
+    return new Promise((res: Function) => {
+      this.adapters.forEach((adapter: AbstractAdapter) => adapter.store(state))
       res()
     })
   }
@@ -87,7 +81,7 @@ class ContentService {
     content = {},
     layout = {},
     ...props
-  }) {
+  }: Object): Object {
     const { plugin: { name: contentName = null, version: contentVersion = '*' } } = content
     const { plugin: { name: layoutName = null, version: layoutVersion = '*' } } = layout
 
@@ -122,7 +116,7 @@ class ContentService {
     content = null,
     layout = null,
     ...props
-  }) {
+  }: Object): Object {
     const serializeProps = path(['plugin', 'hooks', 'serialize'], props)
 
     if (serializeProps) {

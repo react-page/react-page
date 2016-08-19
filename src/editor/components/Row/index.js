@@ -15,8 +15,6 @@ import * as commonStyles from 'src/editor/styles'
 import localStyles from './index.scoped.css'
 
 class Row extends Component {
-  Droppable: Object
-
   constructor(props: RowComponentState) {
     super(props)
     const { config: { whitelist } } = props
@@ -24,6 +22,7 @@ class Row extends Component {
   }
 
   shouldComponentUpdate = shouldPureComponentUpdate
+  Droppable: Object
 
   render() {
     const { isLayoutMode, isResizeMode, isInsertMode }: RowComponentState = this.props

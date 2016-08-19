@@ -1,3 +1,6 @@
+// @flow
+import { AbstractAdapter } from './adapter'
+
 export const content = {
   1: {
     id: '1',
@@ -185,23 +188,13 @@ export const content = {
   }
 }
 
-export class DebugStorageAdapter {
-  fetch(element) {
+export class DebugStorageAdapter extends AbstractAdapter {
+  fetch(element: Object) {
     const id = element.dataset.debugEditable
-    if (!id) {
-      return null
-    }
-
-    const c = content[id]
-    if (!c) {
-      console.error('Could not find document with id', id)
-      return null
-    }
-
-    return c
+    return content[id]
   }
 
-  store(state = {}) {
-    console.warn('Debug adapter can\'t persist state: ', state)
+  store(state: Object) {
+    console.log(state)
   }
 }
