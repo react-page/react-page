@@ -44,10 +44,9 @@ class ContentService {
   /**
    * Pass a DOM entity and fetch it's content tree.
    *
-   * @param {{}} domEntity a DOM entity returned by, for example, document.getElementById()
-   * @returns {Promise}
+   * @param domEntity a DOM entity returned by, for example, document.getElementById()
    */
-  fetch(domEntity: Object) {
+  fetch(domEntity: Object): Promise {
     return new Promise((res: Function) => {
       const found = this.adapters.map((adapter: AbstractAdapter) => adapter.fetch(domEntity)).reduce((p: Object, n: Object) => p || n)
 
@@ -82,8 +81,8 @@ class ContentService {
     layout = {},
     ...props
   }: Object): Object {
-    const { plugin: { name: contentName = null, version: contentVersion = '*' } } = content
-    const { plugin: { name: layoutName = null, version: layoutVersion = '*' } } = layout
+    const { plugin: { name: contentName = null, version: contentVersion = '*' } = {} } = content
+    const { plugin: { name: layoutName = null, version: layoutVersion = '*' } = {} } = layout
 
     if (contentName) {
       props.content = { plugin: this.plugins.findContentPlugin(contentName, contentVersion) }
@@ -101,10 +100,9 @@ class ContentService {
       props.cells = cells.map(this.unserialize)
     }
 
-    const unserializeProps = path(['plugin', 'hooks', 'unserialize'], props)
-
+    const unserializeProps = path(['content', 'plugin', 'hooks', 'unserialize'], props)
     if (unserializeProps) {
-      props.props = unserializeProps(props.props)
+      props.content.state = unserializeProps(content.state)
     }
 
     return { ...props }
@@ -117,10 +115,9 @@ class ContentService {
     layout = null,
     ...props
   }: Object): Object {
-    const serializeProps = path(['plugin', 'hooks', 'serialize'], props)
-
+    const serializeProps = path(['content', 'plugin', 'hooks', 'serialize'], props)
     if (serializeProps) {
-      props.props = serializeProps(props.props)
+      props.content.state = serializeProps(content.state)
     }
 
     if (content) {

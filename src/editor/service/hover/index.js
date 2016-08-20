@@ -1,71 +1,7 @@
+// @flow
 import deepEqual from 'deep-equal'
-
-export const getRoomScale = ({ room, matrix }) => {
-  const rows = matrix.length
-  const cells = matrix[0].length
-
-  const scalingX = room.width / cells
-  const scalingY = room.height / rows
-
-  return {
-    x: scalingX,
-    y: scalingY
-  }
-}
-
-export const getMouseHoverCell = ({ mouse, scale }) => ({
-  cell: Math.floor(mouse.x / scale.x),
-  row: Math.floor(mouse.y / scale.y)
-})
-
-const last = { '10x10': null, '10x10-no-inline': null }
-
-export const computeHover = (item, hover, actions, { room, mouse, matrix, callbacks }, m) => {
-  const scale = getRoomScale({ room, matrix })
-  const hoverCell = getMouseHoverCell({ mouse, scale })
-  const rows = matrix.length
-  const cells = matrix[0].length
-
-  if (hoverCell.row >= rows) {
-    hoverCell.row = rows - 1
-  } else if (hoverCell.row < 0) {
-    hoverCell.row = 0
-  }
-
-  if (hoverCell.cell >= cells) {
-    hoverCell.cell = cells - 1
-  } else if (hoverCell.cell < 0) {
-    hoverCell.cell = 0
-  }
-
-  const cell = matrix[hoverCell.row][hoverCell.cell]
-  if (!callbacks[cell]) {
-    console.error('Matrix callback not found.', { room, mouse, matrix, scale, hoverCell, rows, cells })
-    return
-  }
-
-  const all = {
-    item: item.id, hover: hover.id, actions, ctx: {
-      room,
-      mouse,
-      position: hoverCell,
-      size: { rows, cells },
-      scale
-    }
-  }
-  if (deepEqual(all, last[m])) {
-    return
-  }
-  last[m] = all
-
-  return callbacks[cell](item, hover, actions, {
-    room,
-    mouse,
-    position: hoverCell,
-    size: { rows, cells },
-    scale
-  })
-}
+import type { CellComponentState } from 'types/editable'
+import type { Room, Matrix, Vector, MatrixIndex } from 'types/hover'
 
 /**
  *
@@ -159,13 +95,95 @@ export const matrices = {
   ]
 }
 
-export const relativeMousePosition = ({ mouse, position, scale }) => ({
+export const getRoomScale = ({ room, matrix }: { room: Room, matrix: Matrix }): Vector => {
+  const rows = matrix.length
+  const cells = matrix[0].length
+
+  const scalingX = room.width / cells
+  const scalingY = room.height / rows
+
+  return {
+    x: scalingX,
+    y: scalingY
+  }
+}
+
+export const getMouseHoverCell = ({ mouse, scale }: { mouse: Vector, scale: Vector }): MatrixIndex => ({
+  cell: Math.floor(mouse.x / scale.x),
+  row: Math.floor(mouse.y / scale.y)
+})
+
+const last = { '10x10': null, '10x10-no-inline': null }
+
+export const computeHover = (item: CellComponentState, hover: CellComponentState, actions: CellComponentState, { room, mouse, matrix, callbacks }: {
+  room: Room,
+  mouse: Vector,
+  callbacks: Array<Function>,
+  matrix: Matrix
+}, m): any => {
+  const scale = getRoomScale({ room, matrix })
+  const hoverCell = getMouseHoverCell({ mouse, scale })
+  const rows = matrix.length
+  const cells = matrix[0].length
+
+  if (hoverCell.row >= rows) {
+    hoverCell.row = rows - 1
+  } else if (hoverCell.row < 0) {
+    hoverCell.row = 0
+  }
+
+  if (hoverCell.cell >= cells) {
+    hoverCell.cell = cells - 1
+  } else if (hoverCell.cell < 0) {
+    hoverCell.cell = 0
+  }
+
+  const cell = matrix[hoverCell.row][hoverCell.cell]
+  if (!callbacks[cell]) {
+    console.error('Matrix callback not found.', { room, mouse, matrix, scale, hoverCell, rows, cells })
+    return
+  }
+
+  const all = {
+    item: item.id, hover: hover.id, actions, ctx: {
+      room,
+      mouse,
+      position: hoverCell,
+      size: { rows, cells },
+      scale
+    }
+  }
+  if (deepEqual(all, last[m])) {
+    return
+  }
+  last[m] = all
+
+  return callbacks[cell](item, hover, actions, {
+    room,
+    mouse,
+    position: hoverCell,
+    size: { rows, cells },
+    scale
+  })
+}
+
+export const relativeMousePosition = ({ mouse, position, scale }: {
+  mouse: Vector,
+  scale: Vector,
+  position: MatrixIndex
+}) => ({
   x: Math.round(mouse.x - (position.cell * scale.x)),
   y: Math.round(mouse.y - (position.row * scale.y))
 })
 
-export const computeHorizontal = ({ mouse, position, hover, scale, level }, inv = false) => {
-  const { cells = [] } = hover
+export const computeHorizontal = ({ mouse, position, hover, scale, level }: {
+  mouse: Vector,
+  position: MatrixIndex,
+  scale: Vector,
+  level: number,
+  hover: CellComponentState
+}, inv = false) => {
+  const { node: { cells = [] } } = hover
   const x = relativeMousePosition({ mouse, position, scale }).x
 
   // cos(x*pi)*5.5+5.5 (11 level), x = %
@@ -230,11 +248,23 @@ export const callbacks = {
   },
 
   /* heres */
-  [c.AH]: (item, { inline, hasInlineNeighbour, ...hover }, { above }) => above(item, { inline, hasInlineNeighbour, ...hover }, 0),
-  [c.BH]: (item, { inline, hasInlineNeighbour, ...hover }, { below }) => below(item, { inline, hasInlineNeighbour, ...hover }, 0),
+  [c.AH]: (item, { inline, hasInlineNeighbour, ...hover }, { above }) => above(item, {
+    inline,
+    hasInlineNeighbour, ...hover
+  }, 0),
+  [c.BH]: (item, { inline, hasInlineNeighbour, ...hover }, { below }) => below(item, {
+    inline,
+    hasInlineNeighbour, ...hover
+  }, 0),
 
-  [c.LH]: (item, { inline, hasInlineNeighbour, ...hover }, { leftOf }) => leftOf(item, { inline, hasInlineNeighbour, ...hover }, 0),
-  [c.RH]: (item, { inline, hasInlineNeighbour, ...hover }, { rightOf }) => rightOf(item, { inline, hasInlineNeighbour, ...hover }, 0),
+  [c.LH]: (item, { inline, hasInlineNeighbour, ...hover }, { leftOf }) => leftOf(item, {
+    inline,
+    hasInlineNeighbour, ...hover
+  }, 0),
+  [c.RH]: (item, { inline, hasInlineNeighbour, ...hover }, { rightOf }) => rightOf(item, {
+    inline,
+    hasInlineNeighbour, ...hover
+  }, 0),
 
   /* ancestors */
   [c.AA]: (item, hover, { above }, ctx) => above(item, hover, computeVertical({
@@ -299,7 +329,7 @@ export default class HoverService {
     this.callbacks = cbs
   }
 
-  hover(item, hover, actions, { room, mouse, matrix = '10x10' }) {
+  hover(item: CellComponentState, hover: CellComponentState, actions: Array<Function>, { room, mouse, matrix = '10x10' }) {
     return computeHover(item, hover, actions, {
       room,
       mouse,

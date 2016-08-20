@@ -45,7 +45,7 @@ class Editor {
   /**
    * Renders the editor given a DOM entities.
    */
-  toolbar(toolbarHandle: Node) {
+  toolbar(toolbarHandle: ?HTMLElement) {
     let toolbar = toolbarHandle
     if (!toolbar) {
       toolbar = document.createElement('div')

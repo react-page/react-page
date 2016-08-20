@@ -25,8 +25,6 @@ export class Plugin {
   unserialize(state: any) {
     return state
   }
-
-
 }
 
 /**
