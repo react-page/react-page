@@ -11,11 +11,11 @@ export const CLEAR_CLEAR_HOVER = 'CLEAR_CLEAR_HOVER'
 /**
  * Dispatch when a cell hovers another item.
  */
-export const cellHover = ({ id: drag }: Cell, { id: hover }: Cell, level: number = 0, position: string): Action => ({
+export const cellHover = (dragCell: Cell = {}, hoverCell: Cell = {}, level: number = 0, position: string): Action => ({
   type: CELL_DRAG_HOVER,
   ts: new Date(),
-  drag,
-  hover,
+  drag: dragCell.id,
+  hover: hoverCell.id,
   level,
   position
 })
@@ -53,10 +53,10 @@ export const cellHoverInlineRight = (drag: Cell, hover: Cell, level: number) => 
 /**
  * Dispatch when a cell is being dragged.
  */
-export const dragCell = ({ id }: Cell): Action => ({
+export const dragCell = (cell: Cell = {}): Action => ({
   type: CELL_DRAG,
   ts: new Date(),
-  id
+  id: cell.id
 })
 
 /**
@@ -70,8 +70,8 @@ export const clearHover = (): Action => ({
 /**
  * Dispatch when cell dragging ends.
  */
-export const cancelCellDrag = ({ id }: Cell): Action => ({
+export const cancelCellDrag = (cell: Cell = {}): Action => ({
   type: CELL_DRAG_CANCEL,
   ts: new Date(),
-  id
+  id: cell.id
 })
