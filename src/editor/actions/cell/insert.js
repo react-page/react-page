@@ -18,7 +18,9 @@ const gen = (c: number = 1) => {
   return ret
 }
 
-const insert = (type: string) => (item: Cell, { id: hover, inline, hasInlineNeighbour }: Cell, level: number = 0, ids: Array<string> = []): Action => {
+const insert = (type: string) => (item: Cell, hoverCell: Cell = {}, level: number = 0, ids: Array<string> = []): Action => {
+  const { id: hover, inline, hasInlineNeighbour } = hoverCell
+
   let l = level
   switch (type) {
     case CELL_INSERT_ABOVE:
