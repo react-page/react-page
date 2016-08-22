@@ -11,15 +11,15 @@ import { resizeCell, focusCell, blurCell } from 'src/editor/actions/cell'
 import classNames from 'classnames'
 import cssModules from 'react-css-modules'
 import deepEqual from 'deep-equal'
-import type { CellComponentState } from 'types/editable'
+import type { ComponentizedCell } from 'types/editable'
 
 import * as commonStyles from 'src/editor/styles'
 import localStyles from './index.scoped.css'
 
-const gridClass = ({ node: { size = 12 }, isPreviewMode, isEditMode }: CellComponentState): string => `cell-${isPreviewMode || isEditMode ? 'md' : 'xs'}-${size}`
+const gridClass = ({ node: { size = 12 }, isPreviewMode, isEditMode }: ComponentizedCell): string => `cell-${isPreviewMode || isEditMode ? 'md' : 'xs'}-${size}`
 
 class Cell extends Component {
-  shouldComponentUpdate(nextProps: CellComponentState) {
+  shouldComponentUpdate(nextProps: ComponentizedCell) {
     const blacklist = ['rawNode']
     const nextKeys = Object.keys(nextProps)
     const prevKeys = Object.keys(this.props)
@@ -35,7 +35,7 @@ class Cell extends Component {
       id, rowWidth, rowHeight, updateDimensions,
       isLayoutMode, isResizeMode, isInsertMode,
       node: { inline, resizable, hover, hasInlineNeighbour }
-    }: CellComponentState = this.props
+    }: ComponentizedCell = this.props
 
     let styles
     if (isLayoutMode || isResizeMode || isInsertMode) {
@@ -115,7 +115,7 @@ const mapStateToProps = createStructuredSelector({
   rawNode: (state: any, props: any) => () => node(state, props)
 })
 
-const mapDispatchToProps = (dispatch: Function, { id }: CellComponentState) => bindActionCreators({
+const mapDispatchToProps = (dispatch: Function, { id }: ComponentizedCell) => bindActionCreators({
   resizeCell: resizeCell(id),
   focusCell: focusCell(id),
   blurCell: blurCell(id)

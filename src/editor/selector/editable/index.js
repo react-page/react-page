@@ -27,7 +27,7 @@ export const purifiedEditable = (state: Editables, props: Editable) => {
   const found = editable(state, props)
   return {
     ...found,
-    cells: found.cells.map((c: Cell) => c.id)
+    cells: found.cells.map((c: Cell | string) => typeof c === 'string' ? c : c.id)
   }
 }
 

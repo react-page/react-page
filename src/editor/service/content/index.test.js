@@ -46,11 +46,11 @@ describe('ContentService', () => {
   it('serialize and unserialize should work', () => {
     const cleanup = ({ content, layout, rows = [], cells = [], ...other }) => {
       if (layout) {
-        other.layout = { name: layout.name }
+        other.layout = { plugin: { name: layout.plugin.name } }
       }
 
       if (content) {
-        other.content = { name: content.name }
+        other.content = { plugin: { name: content.plugin.name } }
       }
 
       if (rows.length) {
@@ -64,9 +64,24 @@ describe('ContentService', () => {
       return { ...other }
     }
 
-    const c = hydrate(content['2'])
+    const c = hydrate({
+      id: '1',
+      cells: [{
+        id: '2',
+        rows: [{
+          id: '3',
+          cells: [{
+            id: '4',
+            content: { plugin: { name: 'ory/content/missing' } }
+          }, {
+            id: '5',
+            content: { plugin: { name: 'ory/content/missing' } }
+          }]
+        }]
+      }]
+    })
     const unserialized = contentService.unserialize(c)
     const serialized = cleanup(contentService.serialize(unserialized))
-    expect(equal(serialized, c), 'to be', true)
+    expect(serialized, 'to equal', c)
   })
 })

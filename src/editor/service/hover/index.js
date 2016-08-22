@@ -1,10 +1,12 @@
 // @flow
 import deepEqual from 'deep-equal'
-import type { CellComponentState } from 'types/editable'
-import type { Room, Matrix, Vector, MatrixIndex } from 'types/hover'
+import type { ComponentizedCell, ComponentizedRow } from 'types/editable'
+import type { Room, Matrix, Vector, MatrixIndex, Callbacks } from 'types/hover'
+
+type MatrixList = { [key: string]: Matrix }
+type CallbackList = { [key: number]: Function }
 
 /**
- *
  * NO (None): No drop zone.
  *
  * Corners are counted clockwise, beginning top left
@@ -32,10 +34,8 @@ import type { Room, Matrix, Vector, MatrixIndex } from 'types/hover'
  * Inside / inline
  * IL (Inline left)
  * IR (Inline right)
- *
- * @type {{C1: number, C2: number, C3: number, C4: number, AH: number, AA: number, BH: number, BA: number, LH: number, LA: number, RH: number, RA: number, IL: number, IR: number}}
  */
-export const classes = {
+export const classes: { [key: string]: number } = {
   NO: 0,
 
   C1: 10,
@@ -60,7 +60,8 @@ export const classes = {
 }
 
 const c = classes
-export const matrices = {
+
+export const defaultMatrices: MatrixList = {
   '6x6': [
     [c.C1, c.AA, c.AA, c.AA, c.AA, c.C2],
     [c.LA, c.IL, c.AH, c.AH, c.IR, c.RA],
@@ -115,12 +116,12 @@ export const getMouseHoverCell = ({ mouse, scale }: { mouse: Vector, scale: Vect
 
 const last = { '10x10': null, '10x10-no-inline': null }
 
-export const computeHover = (item: CellComponentState, hover: CellComponentState, actions: CellComponentState, { room, mouse, matrix, callbacks }: {
+export const computeHover = (item: ComponentizedCell, hover: ComponentizedCell, actions: Callbacks, { room, mouse, matrix, callbacks }: {
   room: Room,
   mouse: Vector,
-  callbacks: Array<Function>,
+  callbacks: CallbackList,
   matrix: Matrix
-}, m): any => {
+}, m: string): any => {
   const scale = getRoomScale({ room, matrix })
   const hoverCell = getMouseHoverCell({ mouse, scale })
   const rows = matrix.length
@@ -181,8 +182,8 @@ export const computeHorizontal = ({ mouse, position, hover, scale, level }: {
   position: MatrixIndex,
   scale: Vector,
   level: number,
-  hover: CellComponentState
-}, inv = false) => {
+  hover: ComponentizedRow
+}, inv: boolean = false) => {
   const { node: { cells = [] } } = hover
   const x = relativeMousePosition({ mouse, position, scale }).x
 
@@ -198,8 +199,8 @@ export const computeHorizontal = ({ mouse, position, hover, scale, level }: {
   return inv ? level - at : at
 }
 
-export const computeVertical = ({ level, mouse, hover, position, scale }, inv = false) => {
-  const { cells = [] } = hover
+export const computeVertical = ({ level, mouse, hover, position, scale }: { level: number, mouse: Vector, hover: ComponentizedRow, position: MatrixIndex, scale: Vector }, inv: boolean = false) => {
+  const { node: { cells = [] } } = hover
   const at = Math.round(relativeMousePosition({ mouse, position, scale }).y / (scale.x / level))
 
   if (cells.length) {
@@ -209,132 +210,138 @@ export const computeVertical = ({ level, mouse, hover, position, scale }, inv = 
   return inv ? level - at : at
 }
 
-export const callbacks = {
-  [c.NO]: (item, hover, { cancel }) => (cancel(item.id)),
+export const defaultCallbacks: CallbackList = {
+  [c.NO]: (item: ComponentizedCell, hover: ComponentizedCell, { clear }: Callbacks) => (clear(item.id)),
 
   /* corners */
-  [c.C1]: (item, hover, { leftOf, above }, ctx) => {
+  [c.C1]: (item: ComponentizedCell, hover: ComponentizedCell, { leftOf, above }: Callbacks, ctx: Object) => {
     const mouse = relativeMousePosition(ctx)
     if (mouse.x < mouse.y) {
-      return leftOf(item, hover, 0)
+      return leftOf(item.node, hover.node, 0)
     }
-    above(item, hover, 0)
+    above(item.node, hover.node, 0)
   },
 
-  [c.C2]: (item, hover, { rightOf, above }, ctx) => {
+  [c.C2]: (item: ComponentizedCell, hover: ComponentizedCell, { rightOf, above }: Callbacks, ctx: Object) => {
     const mouse = relativeMousePosition(ctx)
     if (mouse.x > mouse.y) {
-      return rightOf(item, hover, 0)
+      return rightOf(item.node, hover.node, 0)
     }
-    above(item, hover, 0)
+    above(item.node, hover.node, 0)
   },
 
-  [c.C3]: (item, hover, { rightOf, below }, ctx) => {
+  [c.C3]: (item: ComponentizedCell, hover: ComponentizedCell, { rightOf, below }: Callbacks, ctx: Object) => {
     const mouse = relativeMousePosition(ctx)
 
     if (mouse.x > mouse.y) {
-      return rightOf(item, hover, 0)
+      return rightOf(item.node, hover.node, 0)
     }
-    below(item, hover, 0)
+    below(item.node, hover.node, 0)
   },
 
-  [c.C4]: (item, hover, { leftOf, below }, ctx) => {
+  [c.C4]: (item: ComponentizedCell, hover: ComponentizedCell, { leftOf, below }: Callbacks, ctx: Object) => {
     const mouse = relativeMousePosition(ctx)
 
     if (mouse.x < mouse.y) {
-      return leftOf(item, hover, 0)
+      return leftOf(item.node, hover.node, 0)
     }
-    below(item, hover, 0)
+    below(item.node, hover.node, 0)
   },
 
   /* heres */
-  [c.AH]: (item, { inline, hasInlineNeighbour, ...hover }, { above }) => above(item, {
+  [c.AH]: (item: ComponentizedCell, { node: { inline, hasInlineNeighbour, ...hover } }: ComponentizedCell, { above }: Callbacks) => above(item.node, {
     inline,
-    hasInlineNeighbour, ...hover
+    hasInlineNeighbour, ...hover.node
   }, 0),
-  [c.BH]: (item, { inline, hasInlineNeighbour, ...hover }, { below }) => below(item, {
+  [c.BH]: (item: ComponentizedCell, { node: { inline, hasInlineNeighbour, ...hover } }: ComponentizedCell, { below }: Callbacks) => below(item.node, {
     inline,
-    hasInlineNeighbour, ...hover
+    hasInlineNeighbour, ...hover.node
   }, 0),
 
-  [c.LH]: (item, { inline, hasInlineNeighbour, ...hover }, { leftOf }) => leftOf(item, {
+  [c.LH]: (item: ComponentizedCell, { node: { inline, hasInlineNeighbour, ...hover } }: ComponentizedCell, { leftOf }: Callbacks) => leftOf(item.node, {
     inline,
-    hasInlineNeighbour, ...hover
+    hasInlineNeighbour, ...hover.node
   }, 0),
-  [c.RH]: (item, { inline, hasInlineNeighbour, ...hover }, { rightOf }) => rightOf(item, {
+  [c.RH]: (item: ComponentizedCell, { node: { inline, hasInlineNeighbour, ...hover } }: ComponentizedCell, { rightOf }: Callbacks) => rightOf(item.node, {
     inline,
-    hasInlineNeighbour, ...hover
+    hasInlineNeighbour, ...hover.node
   }, 0),
 
   /* ancestors */
-  [c.AA]: (item, hover, { above }, ctx) => above(item, hover, computeVertical({
+  [c.AA]: (item: ComponentizedCell, hover: ComponentizedCell, { above }: Callbacks, ctx: Object) => above(item.node, hover.node, computeVertical({
     ...ctx,
     hover,
-    level: hover.levels.above
+    level: hover.node.levels.above
   }, true)),
-  [c.BA]: (item, hover, { below }, ctx) => below(item, hover, computeVertical({
+  [c.BA]: (item: ComponentizedCell, hover: ComponentizedCell, { below }: Callbacks, ctx: Object) => below(item.node, hover.node, computeVertical({
     ...ctx,
     hover,
-    level: hover.levels.below
+    level: hover.node.levels.below
   })),
 
-  [c.LA]: (item, hover, { leftOf }, ctx) => leftOf(item, hover, computeHorizontal({
+  [c.LA]: (item: ComponentizedCell, hover: ComponentizedCell, { leftOf }: Callbacks, ctx: Object) => leftOf(item.node, hover.node, computeHorizontal({
     ...ctx,
     hover,
-    level: hover.levels.left
+    level: hover.node.levels.left
   }, true)),
-  [c.RA]: (item, hover, { rightOf }, ctx) => rightOf(item, hover, computeHorizontal({
+  [c.RA]: (item: ComponentizedCell, hover: ComponentizedCell, { rightOf }: Callbacks, ctx: Object) => rightOf(item.node, hover.node, computeHorizontal({
     ...ctx,
     hover,
-    level: hover.levels.right
+    level: hover.node.levels.right
   })),
 
   /* inline */
-  [c.IL]: (item, hover, { inlineLeft, leftOf }) => {
-    const { inline, hasInlineNeighbour } = hover
-    const { plugin: { inlineable = false } = {} } = item
+  [c.IL]: (item: ComponentizedCell, hover: ComponentizedCell, { inlineLeft, leftOf }: Callbacks) => {
+    const { node: { inline, hasInlineNeighbour } } = hover
+    const { node: { content: { plugin: { inlineable = false } = {} } } } = item
     if (inline || !inlineable) {
-      return leftOf(item, hover, 2)
+      return leftOf(item.node, hover.node, 2)
     }
     if (hasInlineNeighbour && hasInlineNeighbour !== item.id) {
-      return leftOf(item, hover, 2)
+      return leftOf(item.node, hover.node, 2)
     }
-    if (hasInlineNeighbour && hasInlineNeighbour === item.id && item.inline === 'left') {
-      return leftOf(item, hover, 2)
+    if (hasInlineNeighbour && hasInlineNeighbour === item.id && item.node.inline === 'left') {
+      return leftOf(item.node, hover.node, 2)
     }
 
-    inlineLeft(item, hover)
+    inlineLeft(item.node, hover.node)
   },
 
-  [c.IR]: (item, hover, { inlineRight, rightOf }) => {
-    const { inline, hasInlineNeighbour } = hover
-    const { plugin: { inlineable = false } = {} } = item
+  [c.IR]: (item: ComponentizedCell, hover: ComponentizedCell, { inlineRight, rightOf }: Callbacks) => {
+    const { node: { inline, hasInlineNeighbour } } = hover
+    const { node: { content: { plugin: { inlineable = false } = {} } } } = item
     if (inline || !inlineable) {
-      return rightOf(item, hover, 2)
+      return rightOf(item.node, hover.node, 2)
     }
     if (hasInlineNeighbour && hasInlineNeighbour !== item.id) {
-      return rightOf(item, hover, 2)
+      return rightOf(item.node, hover.node, 2)
     }
-    if (hasInlineNeighbour && hasInlineNeighbour === item.id && item.inline === 'right') {
-      return rightOf(item, hover, 2)
+    if (hasInlineNeighbour && hasInlineNeighbour === item.id && item.node.inline === 'right') {
+      return rightOf(item.node, hover.node, 2)
     }
 
-    inlineRight(item, hover)
+    inlineRight(item.node, hover.node)
   }
 }
 
 export default class HoverService {
-  constructor({ matrix: m = matrices, callbacks: cbs = callbacks } = {}) {
-    this.matrices = m
-    this.callbacks = cbs
+  callbacks: CallbackList = defaultCallbacks
+  matrices: MatrixList = defaultMatrices
+
+  constructor({ matrices, callbacks }: { matrices: MatrixList, callbacks: CallbackList } = {}) {
+    this.matrices = matrices || this.matrices
+    this.callbacks = callbacks || this.callbacks
   }
 
-  hover(item: CellComponentState, hover: CellComponentState, actions: Array<Function>, { room, mouse, matrix = '10x10' }) {
+  hover(item: ComponentizedCell,
+        hover: ComponentizedCell,
+        actions: Callbacks,
+    { room, mouse, matrix: use = '10x10' }: { room: Room, mouse: Vector, matrix: string }) {
     return computeHover(item, hover, actions, {
       room,
       mouse,
-      matrix: this.matrices[matrix],
+      matrix: this.matrices[use],
       callbacks: this.callbacks
-    }, matrix)
+    }, use)
   }
 }

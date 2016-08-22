@@ -1,4 +1,5 @@
 // @flow
+/* eslint no-invalid-this: "off" */
 import { AbstractAdapter, LocalStoreAdapter, DebugStorageAdapter } from './adapter'
 import uuid from 'node-uuid'
 import { path } from 'ramda'
@@ -39,6 +40,7 @@ class ContentService {
     this.unserialize = this.unserialize.bind(this)
     this.serialize = this.serialize.bind(this)
     this.fetch = this.fetch.bind(this)
+    this.store = this.store.bind(this)
   }
 
   /**
@@ -46,46 +48,66 @@ class ContentService {
    *
    * @param domEntity a DOM entity returned by, for example, document.getElementById()
    */
-  fetch(domEntity: Object): Promise {
-    return new Promise((res: Function) => {
-      const found = this.adapters.map((adapter: AbstractAdapter) => adapter.fetch(domEntity)).reduce((p: Object, n: Object) => p || n)
+  fetch = (domEntity: Object) => new Promise((res: Function) => {
+    const found = this.adapters.map((adapter: AbstractAdapter) => adapter.fetch(domEntity)).reduce((p: Object, n: Object) => p || n)
 
-      if (!found) {
-        console.error('No content state found for DOM entity:', domEntity)
-        return res({ id: uuid.v4(), cells: [] })
-      }
+    if (!found) {
+      console.error('No content state found for DOM entity:', domEntity)
+      return res({ id: uuid.v4(), cells: [] })
+    }
 
-      const { cells = [], id = uuid.v4() } = found
-      return res(this.unserialize({
-        ...found,
-        id,
-        cells: cells.map(hydrate)
-      }))
-    })
-  }
+    const { cells = [], id = uuid.v4() } = found
+    return res(this.unserialize({
+      ...found,
+      id,
+      cells: cells.map(hydrate)
+    }))
+  })
 
   /**
    * Persist a DOM entity's content tree.
    */
-  store(state: Object = {}) {
+  store = (state: Object = {}) => {
     return new Promise((res: Function) => {
       this.adapters.forEach((adapter: AbstractAdapter) => adapter.store(state))
       res()
     })
   }
 
-  unserialize({
+  unserialize = ({
     rows = [],
     cells = [],
-    content = {},
-    layout = {},
+    content,
+    layout,
     ...props
-  }: Object): Object {
-    const { plugin: { name: contentName = null, version: contentVersion = '*' } = {} } = content
-    const { plugin: { name: layoutName = null, version: layoutVersion = '*' } = {} } = layout
+  }: {
+    rows: Object[],
+    cells: Object[],
+    content: {
+      plugin: {
+        name: string,
+        version: string
+      },
+      state: Object
+    },
+    layout: {
+      plugin: {
+        name: string,
+        version: string
+      },
+      state: Object
+    },
+    props: any
+  }): Object => {
+    const { plugin: { name: contentName = null, version: contentVersion = '*' } = {} } = content || {}
+    const { plugin: { name: layoutName = null, version: layoutVersion = '*' } = {} } = layout || {}
 
     if (contentName) {
-      props.content = { plugin: this.plugins.findContentPlugin(contentName, contentVersion) }
+      const unserialize = path(['content', 'plugin', 'hooks', 'unserialize'], props)
+      props.content = {
+        plugin: this.plugins.findContentPlugin(contentName, contentVersion),
+        state: unserialize ? unserialize(content.state) : content.state
+      }
     }
 
     if (layoutName) {
@@ -100,28 +122,45 @@ class ContentService {
       props.cells = cells.map(this.unserialize)
     }
 
-    const unserializeProps = path(['content', 'plugin', 'hooks', 'unserialize'], props)
-    if (unserializeProps) {
-      props.content.state = unserializeProps(content.state)
-    }
-
     return { ...props }
   }
 
-  serialize({
+  serialize = ({
     rows = [],
     cells = [],
-    content = null,
-    layout = null,
+    content,
+    layout,
     ...props
-  }: Object): Object {
+  }: {
+    rows: Object[],
+    cells: Object[],
+    content: {
+      plugin: {
+        name: string,
+        version: string
+      },
+      state: Object
+    },
+    layout: {
+      plugin: {
+        name: string,
+        version: string
+      },
+      state: Object
+    },
+    props: any
+  }): Object => {
     const serializeProps = path(['content', 'plugin', 'hooks', 'serialize'], props)
     if (serializeProps) {
       props.content.state = serializeProps(content.state)
     }
 
     if (content) {
-      props.content = { plugin: { name: content.plugin.name, version: content.plugin.version } }
+      const serialize = path(['content', 'plugin', 'hooks', 'serialize'], props)
+      props.content = {
+        plugin: { name: content.plugin.name, version: content.plugin.version },
+        state: serialize ? serialize(content.state) : content.state
+      }
     }
 
     if (layout) {

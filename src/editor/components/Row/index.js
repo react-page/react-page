@@ -9,13 +9,13 @@ import { createStructuredSelector } from 'reselect'
 import Inner from './inner'
 import dimensions from 'react-dimensions'
 import cssModules from 'react-css-modules'
-import type { RowComponentState } from 'types/editable'
+import type { ComponentizedRow } from 'types/editable'
 
 import * as commonStyles from 'src/editor/styles'
 import localStyles from './index.scoped.css'
 
 class Row extends Component {
-  constructor(props: RowComponentState) {
+  constructor(props: ComponentizedRow) {
     super(props)
     const { config: { whitelist } } = props
     this.Droppable = droppable(whitelist)
@@ -25,7 +25,7 @@ class Row extends Component {
   Droppable: Object
 
   render() {
-    const { isLayoutMode, isResizeMode, isInsertMode }: RowComponentState = this.props
+    const { isLayoutMode, isResizeMode, isInsertMode }: ComponentizedRow = this.props
     const Droppable = this.Droppable
     const props = { ...this.props }
 

@@ -1,12 +1,12 @@
 import { findDOMNode } from 'react-dom'
 import HoverService from 'src/editor/service/hover'
-import type { CellComponentState } from 'types/editable'
-import type { Vector, Room } from 'types/hover'
+import type { ComponentizedCell } from 'types/editable'
+import type { Vector, Room, Callbacks } from 'types/hover'
 import type { Monitor } from 'types/react-dnd'
 
 const hoverService = new HoverService()
 
-export const computeCurrentDropPosition = (actions: CellComponentState, hover: CellComponentState, monitor: Monitor, component: Object, matrixName: string) => {
+export const computeCurrentDropPosition = (actions: Callbacks, hover: ComponentizedCell, monitor: Monitor, component: Object, matrixName: string) => {
   const drag = monitor.getItem()
   const mousePosition = monitor.getClientOffset()
   const componentPosition = findDOMNode(component).getBoundingClientRect()
@@ -20,7 +20,7 @@ export const computeCurrentDropPosition = (actions: CellComponentState, hover: C
     x: (mousePosition.x - componentPosition.left)
   }
 
-  hoverService.hover(drag, hover, actions, { room, mouse, matrixName })
+  hoverService.hover(drag, hover, actions, { room, mouse, matrix: matrixName })
 }
 
 export const computeAndDispatchInsert = ({
@@ -32,7 +32,7 @@ export const computeAndDispatchInsert = ({
   insertCellRightInline: inlineRight,
   clearHover: clear,
   ...hover
-}: CellComponentState, monitor: Monitor, component: Object, matrixName: string = '10x10') => computeCurrentDropPosition({
+}: ComponentizedCell, monitor: Monitor, component: Object, matrixName: string = '10x10') => computeCurrentDropPosition({
   clear,
   above,
   below,
@@ -51,7 +51,7 @@ export const computeAndDispatchHover = ({
   cellHoverInlineRight: inlineRight,
   clearHover: clear,
   ...hover
-}: CellComponentState, monitor: Monitor, component: Object, matrixName: string = '10x10') => computeCurrentDropPosition({
+}: ComponentizedCell, monitor: Monitor, component: Object, matrixName: string = '10x10') => computeCurrentDropPosition({
   clear,
   above,
   below,

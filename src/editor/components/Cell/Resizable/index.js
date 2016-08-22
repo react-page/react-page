@@ -1,4 +1,5 @@
 // @flow
+/* eslint no-invalid-this: "off" */
 import React, { PropTypes, Component } from 'react'
 import { Resizable as ReactResizeable } from 'react-resizable'
 import dimensions from 'react-dimensions'
@@ -7,12 +8,12 @@ import cssModules from 'react-css-modules'
 import { createStructuredSelector } from 'reselect'
 import { resizeMode, editMode } from 'src/editor/actions/display'
 import { computeStepWidth, widthToSize } from './helper.js'
-import type { CellComponentState } from 'types/editable'
+import type { ComponentizedCell } from 'types/editable'
 
 import styles from './index.scoped.css'
 
 class Resizable extends Component {
-  constructor(props: CellComponentState) {
+  constructor(props: ComponentizedCell) {
     super(props)
 
     const sw = computeStepWidth(props)
@@ -37,7 +38,7 @@ class Resizable extends Component {
     return nextProps !== this.props || nextState !== this.state
   }
 
-  onResize(event: Object, { node: { size } }: CellComponentState) {
+  onResize = (event: Object, { node: { size } }: ComponentizedCell) => {
     const newSize = widthToSize(this.state, this.props, size)
     this.props.onChange(newSize)
     this.setState({ width: newSize * this.state.stepWidth })

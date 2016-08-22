@@ -1,4 +1,5 @@
 // @flow
+/* eslint no-invalid-this: "off" */
 import { always, propOr } from 'ramda'
 import React, { PropTypes, Component } from 'react'
 import Drawer from 'material-ui/Drawer'
@@ -27,6 +28,7 @@ class Toolbar extends Component {
       searchFilter: (a: any) => (a),
       isSearching: false
     }
+
     this.onSearch = this.onSearch.bind(this)
   }
 
@@ -35,7 +37,7 @@ class Toolbar extends Component {
     isSearching: boolean
   }
 
-  onSearch(e: any) {
+  onSearch = (e: any) => {
     this.setState({
       searchFilter: ((v: any) => (a: any) => a.text.toLowerCase().indexOf(v) > -1)(e.target.value.toLowerCase()),
       isSearching: e.target.value.length > 0

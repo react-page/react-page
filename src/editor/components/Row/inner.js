@@ -5,7 +5,7 @@ import Cell from 'src/editor/components/Cell'
 import cssModules from 'react-css-modules'
 import grid from 'src/editor/styles/floating-grid.scoped.css'
 import styles from './index.scoped.css'
-import type { RowComponentState } from 'types/editable'
+import type { ComponentizedRow, Cell as CellType } from 'types/editable'
 
 const Inner = ({
   editable,
@@ -18,14 +18,14 @@ const Inner = ({
   },
   containerHeight,
   containerWidth
-}: RowComponentState) => (
+}: ComponentizedRow) => (
   <div styleName={classNames('row', 'relative', {
     'is-over-current': hover,
     [`is-over-${hover}`]: hover,
     'force-block': hasInlineChildren
   })} className="editable-row"
   >
-    {cells.map((c: string) => (
+    {cells.map((c: string | CellType) => (
       <Cell
         rowWidth={containerWidth}
         rowHeight={containerHeight}

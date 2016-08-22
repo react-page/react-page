@@ -1,4 +1,5 @@
-import React, { Component } from 'react'
+// @flow
+import React, { Component, PropTypes } from 'react'
 import * as hoverActions from 'src/editor/actions/cell/drag'
 import * as insertActions from 'src/editor/actions/cell/insert'
 import { DropTarget as dropTarget } from 'react-dnd'
@@ -13,6 +14,10 @@ class Droppable extends Component {
   }
 }
 
+Droppable.propTypes = {
+  connectDropTarget: PropTypes.func.isRequired
+}
+
 const mapDispatchToProps = { ...hoverActions, ...insertActions }
 
-export default (dropTypes = ['CELL']) => connect(null, mapDispatchToProps)(dropTarget(dropTypes, target, monitorConnect)(cssModules(Droppable, styles, { allowMultiple: true })))
+export default (dropTypes: string[] = ['CELL']) => connect(null, mapDispatchToProps)(dropTarget(dropTypes, target, monitorConnect)(cssModules(Droppable, styles, { allowMultiple: true })))

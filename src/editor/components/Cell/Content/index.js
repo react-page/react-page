@@ -6,7 +6,7 @@ import { updateCell } from 'src/editor/actions/cell'
 import { shouldPureComponentUpdate } from 'src/editor/helper/shouldComponentUpdate'
 import { isEditMode, isLayoutMode, isPreviewMode } from 'src/editor/selector/display'
 import { createStructuredSelector } from 'reselect'
-import type { CellComponentState } from 'types/editable'
+import type { ComponentizedCell } from 'types/editable'
 
 const fallback = (...args: Array<string>) => console.error('onChange callback is missing', ...args)
 
@@ -14,7 +14,7 @@ class Content extends Component {
   shouldComponentUpdate = shouldPureComponentUpdate
 
   render() {
-    const { isEditMode, id, node: { content: { plugin: { Component }, state = {} }, focused }, updateCell = fallback }: CellComponentState = this.props
+    const { isEditMode, id, node: { content: { plugin: { Component }, state = {} }, focused }, updateCell = fallback }: ComponentizedCell = this.props
 
     return (
       <Component
@@ -48,7 +48,7 @@ Content.propTypes = {
 
 const mapStateToProps = createStructuredSelector({ isEditMode, isLayoutMode, isPreviewMode })
 
-const mapDispatchToProps = (dispatch: Function, { id }: CellComponentState) => bindActionCreators({
+const mapDispatchToProps = (dispatch: Function, { id }: ComponentizedCell) => bindActionCreators({
   updateCell: updateCell(id)
 }, dispatch)
 

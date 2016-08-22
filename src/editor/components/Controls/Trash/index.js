@@ -1,3 +1,4 @@
+// @flow
 import React from 'react'
 import { DropTarget as dropTarget } from 'react-dnd'
 import Delete from 'material-ui/svg-icons/action/delete'
@@ -7,18 +8,19 @@ import cssModules from 'react-css-modules'
 import classNames from 'classnames'
 import { removeCell } from 'src/editor/actions/cell/core'
 import throttle from 'lodash.throttle'
+import type { Monitor } from 'types/react-dnd'
 
 import styles from './index.scoped.css'
 
 const target = {
-  hover: throttle((props, monitor) => {
+  hover: throttle((props: any, monitor: Monitor) => {
     const item = monitor.getItem()
     if (monitor.isOver({ shallow: true })) {
       item.clearHover()
     }
   }, 200, { trailing: false }),
 
-  drop(props, monitor) {
+  drop(props: { removeCell(id: string): void }, monitor: Monitor) {
     const item = monitor.getItem()
     if (monitor.didDrop() || !monitor.isOver({ shallow: true })) {
       // If the item drop occurred deeper down the tree, don't do anything
@@ -34,7 +36,7 @@ const connectMonitor = (connect, monitor) => ({
   isOverCurrent: monitor.isOver({ shallow: true })
 })
 
-const Trash = ({ isLayoutMode, connectDropTarget, isOverCurrent }) => connectDropTarget(
+const Trash = ({ isLayoutMode, connectDropTarget, isOverCurrent }: Object) => connectDropTarget(
   <div
     styleName={classNames('bar', { active: isLayoutMode })}
   >
@@ -44,7 +46,7 @@ const Trash = ({ isLayoutMode, connectDropTarget, isOverCurrent }) => connectDro
   </div>
 )
 
-const types = (props) => [
+const types = (props: Object) => [
   ...Object.keys(props.plugins.plugins.layout),
   ...Object.keys(props.plugins.plugins.content)
 ].map((p) => props.plugins.plugins.content[p].name || props.plugins.plugins.layout[p].name)

@@ -1,6 +1,8 @@
+// @flow
 import React, { PropTypes } from 'react'
 import { shouldPureComponentUpdate } from 'src/editor/helper/shouldComponentUpdate'
 import Row from 'src/editor/components/Row'
+import type { Row as RowType } from 'types/editable'
 
 class Layout extends React.Component {
   shouldComponentUpdate = shouldPureComponentUpdate
@@ -22,7 +24,7 @@ class Layout extends React.Component {
 
     return (
       <Component state={state}>
-        {rows.map((r) => <Row editable={editable} ancestors={[...ancestors, id]} key={r} id={r} />)}
+        {rows.map((r: RowType) => <Row editable={editable} ancestors={[...ancestors, id]} key={r} id={r} />)}
       </Component>
     )
   }

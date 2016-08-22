@@ -1,3 +1,4 @@
+
 import React, { PropTypes, Component } from 'react'
 import { shouldPureComponentUpdate } from 'src/editor/helper/shouldComponentUpdate'
 import DragDroppable from './DragDroppable'
@@ -5,13 +6,13 @@ import Rows from './Rows'
 import Layout from './Layout'
 import Content from './Content'
 import Empty from './Empty'
-import type { CellComponentState } from 'types/editable'
+import type { ComponentizedCell } from 'types/editable'
 
 class Inner extends Component {
   shouldComponentUpdate = shouldPureComponentUpdate
 
   render() {
-    const props = this.props
+    const props: ComponentizedCell = this.props
     const {
       isLayoutMode,
       isInsertMode,
@@ -21,11 +22,11 @@ class Inner extends Component {
         content: { plugin: { Component: ContentComponent, name: contentType } },
       },
       config: { whitelist = [] }
-    }: CellComponentState = this.props
+    } = this.props
 
     if (rows.length && LayoutComponent) {
       return isLayoutMode || isInsertMode ? (
-        <DragDroppable {...{ ...props, ...props.node, styles: null }} dragType={layoutType} dropTypes={whitelist}>
+        <DragDroppable {...{ ...props, styles: null }} dragType={layoutType} dropTypes={whitelist}>
           <div className="editable-cell">
             <Layout {...props} {...layoutState} />
           </div>
@@ -39,7 +40,7 @@ class Inner extends Component {
       return <Rows {...props} />
     } else if (ContentComponent) {
       return isLayoutMode || isInsertMode ? (
-        <DragDroppable {...{ ...props, ...props.node, styles: null }}
+        <DragDroppable {...{ ...props, styles: null }}
           dragType={contentType}
           dropTypes={whitelist}
           allowDrop

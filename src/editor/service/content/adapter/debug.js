@@ -2,7 +2,7 @@
 import { AbstractAdapter } from './adapter'
 
 export const content = {
-  1: {
+  [1]: {
     id: '1',
     cells: [{
       rows: [{
@@ -131,7 +131,7 @@ export const content = {
       }]
     }]
   },
-  2: {
+  [2]: {
     id: '2',
     cells: [{
       rows: [{

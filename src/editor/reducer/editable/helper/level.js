@@ -1,4 +1,6 @@
-export const computeDropLevels = ({ rows = [], cells = [], ...props }, { left = 0, right = 0, above = 0, below = 0 } = {}) => {
+// @flow
+import type { Cell } from 'types/editable'
+export const computeDropLevels = ({ rows = [], cells = [], ...props }: Object, { left = 0, right = 0, above = 0, below = 0 }: Object = {}): Cell => {
   if (rows.length) {
     props.rows = rows.map((r, k) => computeDropLevels(r, {
       left: left + 1,

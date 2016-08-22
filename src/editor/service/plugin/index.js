@@ -17,6 +17,7 @@ export class Plugin {
   version: string
   Component: Object
   hooks: Object
+  state: Object
 
   serialize(state: any) {
     return state
@@ -30,7 +31,9 @@ export class Plugin {
 /**
  * ContentPlugin is the base class for content plugins.
  */
-export class ContentPlugin extends Plugin {}
+export class ContentPlugin extends Plugin {
+  inlineable: number
+}
 
 /**
  * ContentPlugin is the base class for layout plugins.
