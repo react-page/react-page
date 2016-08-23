@@ -3,7 +3,6 @@
 import { AbstractAdapter, LocalStoreAdapter, DebugStorageAdapter } from './adapter'
 import uuid from 'node-uuid'
 import { path } from 'ramda'
-
 import PluginService from 'src/editor/service/plugin'
 
 const localStorageAdapter = new LocalStoreAdapter()
@@ -13,22 +12,22 @@ const defaultPluginService = new PluginService()
 /**
  * Iterate through an editable content tree and generate ids where missing.
  */
-export const hydrate = ({ rows = [], cells = [], id = uuid.v4(), ...props }: Object): Object => {
-  if (rows.length) {
+export const hydrate = ({ rows, cells, id, ...props }: Object): Object => {
+  if ((rows || []).length) {
     props.rows = rows.map(hydrate)
-  } else if (cells.length) {
+  } else if ((cells || []).length) {
     props.cells = cells.map(hydrate)
   }
 
-  return ({ ...props, id })
+  return ({ ...props, id: id || uuid.v4() })
 }
 
 /**
  * ContentService is an abstraction layer for fetching and storing editable content trees.
  */
 class ContentService {
-  plugins: PluginService
-  adapters: Array<AbstractAdapter>
+  plugins:PluginService
+  adapters:Array<AbstractAdapter>
 
   /**
    * Pass a list of adapters to use.
@@ -67,16 +66,14 @@ class ContentService {
   /**
    * Persist a DOM entity's content tree.
    */
-  store = (state: Object = {}) => {
-    return new Promise((res: Function) => {
-      this.adapters.forEach((adapter: AbstractAdapter) => adapter.store(state))
-      res()
-    })
-  }
+  store = (state : Object = {}) => new Promise((res: Function) => {
+    this.adapters.forEach((adapter: AbstractAdapter) => adapter.store(state))
+    res()
+  })
 
   unserialize = ({
-    rows = [],
-    cells = [],
+    rows,
+    cells,
     content,
     layout,
     ...props
@@ -114,11 +111,11 @@ class ContentService {
       props.layout = { plugin: this.plugins.findLayoutPlugin(layoutName, layoutVersion) }
     }
 
-    if (rows.length) {
+    if ((rows || []).length) {
       props.rows = rows.map(this.unserialize)
     }
 
-    if (cells.length) {
+    if ((cells || []).length) {
       props.cells = cells.map(this.unserialize)
     }
 
@@ -126,8 +123,8 @@ class ContentService {
   }
 
   serialize = ({
-    rows = [],
-    cells = [],
+    rows,
+    cells,
     content,
     layout,
     ...props
@@ -167,11 +164,11 @@ class ContentService {
       props.layout = { plugin: { name: layout.plugin.name, version: layout.plugin.version } }
     }
 
-    if (rows.length) {
+    if ((rows || []).length) {
       props.rows = rows.map(this.serialize)
     }
 
-    if (cells.length) {
+    if ((cells || []).length) {
       props.cells = cells.map(this.serialize)
     }
 

@@ -1,13 +1,13 @@
 // @flow
 import { editable } from 'src/editor/reducer/editable'
 import { UPDATE_EDITABLE } from 'src/editor/actions/editables'
-import type { Editable, Row } from 'types/editable'
+import type { Editable } from 'types/editable'
 
-export const editables = (state: Array<Editable> = [], action: {
+export const editables = (state : Editable[] = [], action: {
   type: string,
   id: string,
   editable: Editable
-}) => {
+}): Editable[] => {
   switch (action.type) {
     case UPDATE_EDITABLE:
       return [...state.filter(({ id }: Editable): boolean => id !== action.id), action.editable].map((e: Editable): Editable => editable(e, action))

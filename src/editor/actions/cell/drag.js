@@ -11,7 +11,7 @@ export const CLEAR_CLEAR_HOVER = 'CLEAR_CLEAR_HOVER'
 /**
  * Dispatch when a cell hovers another item.
  */
-export const cellHover = ({ id: drag }: Cell, { id: hover }: Cell, level: number = 0, position: string): Action => ({
+export const cellHover = ({ id: drag }: Cell, { id: hover }: Cell, level : number = 0, position: string): Action => ({
   type: CELL_DRAG_HOVER,
   ts: new Date(),
   drag,

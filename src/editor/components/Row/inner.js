@@ -21,7 +21,7 @@ const Inner = ({
 }: ComponentizedRow) => (
   <div styleName={classNames('row', 'relative', {
     'is-over-current': hover,
-    [`is-over-${hover}`]: hover,
+    [`is-over-${hover || ''}`]: hover,
     'force-block': hasInlineChildren
   })} className="editable-row"
   >

@@ -1,4 +1,5 @@
 // @flow
+/* eslint no-useless-computed-key: "off" */
 import { AbstractAdapter } from './adapter'
 
 export const content = {

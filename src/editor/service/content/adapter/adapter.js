@@ -1,7 +1,7 @@
 // @flow
 export class AbstractAdapter {
   fetch(element: Object): ?Object {
-    return null
+    return element
   }
 
   store(state: Object) {

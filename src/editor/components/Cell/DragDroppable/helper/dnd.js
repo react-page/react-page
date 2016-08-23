@@ -2,7 +2,7 @@
 import { computeAndDispatchHover, computeAndDispatchInsert } from 'src/editor/service/hover/input'
 import throttle from 'lodash.throttle'
 import { isProduction } from 'src/editor/const'
-import type { ComponentizedCell, Cell } from 'types/editable'
+import type { ComponentizedCell } from 'types/editable'
 
 let last: {hover: string, drag: string} = { hover: '', drag: '' }
 

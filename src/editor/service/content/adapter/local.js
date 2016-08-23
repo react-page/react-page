@@ -3,7 +3,7 @@ import { AbstractAdapter } from './adapter'
 
 export class LocalStoreAdapter extends AbstractAdapter {
   fetch(element: Object) {
-    return null
+    return element
   }
 
   store(state: Object) {

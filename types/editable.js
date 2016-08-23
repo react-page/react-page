@@ -6,10 +6,10 @@ export type Config = {
   whitelist: Array<string>,
 }
 
-export type Cell = {
+type AbstractCell<T> = {
   id: string,
 
-  rows: Array<Row>,
+  rows: Array<T>,
 
   content: {
     plugin: ContentPlugin,
@@ -33,14 +33,16 @@ export type Cell = {
     right: number,
     left: number
   }
-}
+};
+
+export type Cell = AbstractCell<Row>
 
 export type ComponentizedCell = {
   id: string,
   ancestors: Array<string>,
   config: Config,
 
-  node: Cell & { rows: Array<string> },
+  node: AbstractCell<string>,
   rawNode(): Cell,
 
   isInsertMode: boolean,
@@ -80,12 +82,14 @@ export type ComponentizedCell = {
   insertCellRightOf(type: string): void
 }
 
-export type Row = {
+type AbstractRow<T> = {
   id: string,
-  hover: string,
-  cells: Array<Cell>,
+  hover: ?string,
+  cells: Array<T>,
   hasInlineChildren: boolean,
 }
+
+export type Row = AbstractRow<Cell>
 
 export type ComponentizedRow = {
   id: string,
@@ -95,7 +99,7 @@ export type ComponentizedRow = {
   containerWidth: number,
   containerHeight: number,
 
-  node: Row & { cells: Array<string> },
+  node: AbstractRow<string>,
 
   isInsertMode: boolean,
   isResizeMode: boolean,
@@ -108,16 +112,17 @@ export type ComponentizedRow = {
   cancelCellDrag(drag: string): void,
 }
 
-export type Editable = {
+type AbstractEditable<T> = {
   id: string,
   config: Config,
-  cells: Array<Cell>
+  cells: Array<T>
 }
+
+export type Editable = AbstractEditable<Cell>
 
 export type EditableComponentState = {
   id: string,
-  node: Editable & { cells: Array<string> },
-
+  node: AbstractEditable<string>,
   isInsertMode: boolean,
   isResizeMode: boolean,
   isDisplayMode: boolean,

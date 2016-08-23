@@ -2,15 +2,17 @@
 import { emptyFilter } from './empty'
 import type { Row, Cell } from 'types/editable'
 
-export const flatten = (c: [], n: []) => ([...c, ...n])
+export const flatten = function <T> (c: Array<T>, n: Array<T>): Array<T> {
+  return ([...c, ...n])
+}
 
-export const optimizeCells = (cells: Array<Cell> = []): Array<Cell> => cells.filter(emptyFilter)
+export const optimizeCells = (cells : Array < Cell > = []): Array<Cell> => cells.filter(emptyFilter)
 
-export const optimizeRows = (rows: Array<Row> = []): Array<Row> => rows.filter(emptyFilter)
+export const optimizeRows = (rows : Array < Row > = []): Array<Row> => rows.filter(emptyFilter)
 
-export const optimizeCell = ({ rows = [], ...other }: Cell): Cell => ({
+export const optimizeCell = ({ rows, ...other }: Cell): Cell => ({
   ...other,
-  rows: rows.map((r: Row): Array<Row> => {
+  rows: (rows || []).map((r: Row): Array<Row> => {
     const { cells = [] } = r
     if (cells.length !== 1) {
       return [r]
@@ -24,9 +26,9 @@ export const optimizeCell = ({ rows = [], ...other }: Cell): Cell => ({
   }).reduce(flatten, [])
 })
 
-export const optimizeRow = ({ cells = [], ...other }: Row): Row => ({
+export const optimizeRow = ({ cells, ...other }: Row): Row => ({
   ...other,
-  cells: cells.map((c: Cell): Array<Cell> => {
+  cells: (cells || []).map((c: Cell) => {
     const { rows = [] } = c
     if (rows.length !== 1 || c.layout) {
       return [c]

@@ -8,7 +8,7 @@ import cssModules from 'react-css-modules'
 import classNames from 'classnames'
 import { removeCell } from 'src/editor/actions/cell/core'
 import throttle from 'lodash.throttle'
-import type { Monitor } from 'types/react-dnd'
+import type { Monitor, Connector } from 'types/react-dnd'
 
 import styles from './index.scoped.css'
 
@@ -31,7 +31,7 @@ const target = {
   }
 }
 
-const connectMonitor = (connect, monitor) => ({
+const connectMonitor = (connect: Connector, monitor: Monitor) => ({
   connectDropTarget: connect.dropTarget(),
   isOverCurrent: monitor.isOver({ shallow: true })
 })
@@ -49,7 +49,7 @@ const Trash = ({ isLayoutMode, connectDropTarget, isOverCurrent }: Object) => co
 const types = (props: Object) => [
   ...Object.keys(props.plugins.plugins.layout),
   ...Object.keys(props.plugins.plugins.content)
-].map((p) => props.plugins.plugins.content[p].name || props.plugins.plugins.layout[p].name)
+].map((p: string) => props.plugins.plugins.content[p].name || props.plugins.plugins.layout[p].name)
 
 const mapDispatchToProps = {
   removeCell

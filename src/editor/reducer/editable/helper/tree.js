@@ -10,9 +10,9 @@ import { computeDropLevels } from './level'
 import type { Cell, Row } from 'types/editable'
 import TypeException from 'src/editor/exceptions/TypeException'
 
-export const decorate = (cells: Array<Cell> = []): Array<Cell> => computeInlines(computeResizeable(computeBounds(computeSizes(optimizeCells(cells))))).map((cell: Cell): Cell => {
+export const decorate = (cells : Array < Cell > = []): Array<Cell> => computeInlines(computeResizeable(computeBounds(computeSizes(optimizeCells(cells))))).map((cell: Cell): Cell => {
   if (cell.rows) {
-    cell.rows = optimizeRows(cell.rows).map((r: Row ): Row => {
+    cell.rows = optimizeRows(cell.rows).map((r: Row): Row => {
       if (!r instanceof Row) {
         throw new TypeException('r', 'Row', r)
       }

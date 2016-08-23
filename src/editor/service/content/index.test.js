@@ -1,6 +1,5 @@
 /* eslint-env mocha */
 import unexpected from 'unexpected'
-import equal from 'deep-equal'
 import ContentService, { hydrate } from './index'
 import { content } from 'src/editor/service/content/adapter/debug'
 

@@ -18,7 +18,7 @@
     "watch:js": "chokidar \"+(src|test|types)/**/*.js\" --initial",
     "docs": "documentation build ./src/editor/**/*.js --format md --github > API.md",
     "docs:watch": "documentation serve ./src/editor/**/*.js --watch",
-    "postinstall": "npm run build"
+    "heroku-postbuild": "npm run build"
   },
   "engines": {
     "node": "v6.2.0",

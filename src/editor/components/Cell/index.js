@@ -16,7 +16,7 @@ import type { ComponentizedCell } from 'types/editable'
 import * as commonStyles from 'src/editor/styles'
 import localStyles from './index.scoped.css'
 
-const gridClass = ({ node: { size = 12 }, isPreviewMode, isEditMode }: ComponentizedCell): string => `cell-${isPreviewMode || isEditMode ? 'md' : 'xs'}-${size}`
+const gridClass = ({ node: { size }, isPreviewMode, isEditMode }: ComponentizedCell): string => `cell-${isPreviewMode || isEditMode ? 'md' : 'xs'}-${size || 12}`
 
 class Cell extends Component {
   shouldComponentUpdate(nextProps: ComponentizedCell) {
@@ -52,9 +52,9 @@ class Cell extends Component {
         styles={styles}
         styleName={classNames(gridClass(this.props), {
           'is-over-current': hover,
-          [`is-over-${hover}`]: hover,
+          [`is-over-${hover || ''}`]: hover,
           'has-inline-neighbour': hasInlineNeighbour,
-          [`inline-${inline}`]: inline,
+          [`inline-${inline || ''}`]: inline
         })}
       >
         {resizable && (isResizeMode)
