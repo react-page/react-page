@@ -44,9 +44,9 @@ Inner.propTypes = {
   editable: PropTypes.string.isRequired,
 
   node: PropTypes.shape({
-    cells: PropTypes.array.isRequired,
-    hasInlineChildren: PropTypes.bool.isRequired,
     id: PropTypes.string.isRequired,
+    cells: PropTypes.array.isRequired,
+    hasInlineChildren: PropTypes.bool,
     hover: PropTypes.string,
   }).isRequired,
 

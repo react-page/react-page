@@ -56,9 +56,9 @@ Content.propTypes = {
     content: PropTypes.shape({
       plugin: PropTypes.shape({
         Component: PropTypes.oneOfType([PropTypes.func, PropTypes.element]).isRequired
-      }).isRequired
+      }).isRequired,
+      state: PropTypes.object.isRequired
     }),
-    props: PropTypes.object.isRequired,
   }).isRequired,
 }
 

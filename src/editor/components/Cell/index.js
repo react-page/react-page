@@ -83,7 +83,6 @@ Cell.propTypes = {
     size: PropTypes.number.isRequired,
     resizable: PropTypes.bool.isRequired,
     inline: PropTypes.string,
-    isPreviewMode: PropTypes.bool.isRequired,
     hasInlineNeighbour: PropTypes.bool,
     bounds: PropTypes.object.isRequired,
     hover: PropTypes.string
@@ -103,6 +102,7 @@ Cell.propTypes = {
   isResizeMode: PropTypes.bool.isRequired,
   isLayoutMode: PropTypes.bool.isRequired,
   isEditMode: PropTypes.bool.isRequired,
+  isPreviewMode: PropTypes.bool.isRequired,
   isInsertMode: PropTypes.bool.isRequired
 }
 

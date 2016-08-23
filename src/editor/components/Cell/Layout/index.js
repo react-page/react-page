@@ -36,8 +36,10 @@ Layout.propTypes = {
   node: PropTypes.shape({
     rows: PropTypes.array.isRequired,
     layout: PropTypes.shape({
-      Component: PropTypes.oneOfType([PropTypes.func, PropTypes.element]).isRequired,
-      props: PropTypes.object
+      plugin: PropTypes.shape({
+        Component: PropTypes.oneOfType([PropTypes.func, PropTypes.element]).isRequired,
+      }),
+      state: PropTypes.object
     }).isRequired
   }).isRequired,
   editable: PropTypes.string.isRequired,

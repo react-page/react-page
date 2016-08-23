@@ -139,6 +139,13 @@ export const content = {
     cells: [{
       rows: [{
         cells: [{
+          content: {
+            plugin: { name: 'ory/content/slate' },
+            state: {}
+          }
+        }]
+      }, {
+        cells: [{
           rows: [{
             cells: [{
               inline: 'right',

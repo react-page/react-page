@@ -86,7 +86,7 @@ type AbstractRow<T> = {
   id: string,
   hover: ?string,
   cells: Array<T>,
-  hasInlineChildren: boolean,
+  hasInlineChildren: boolean
 }
 
 export type Row = AbstractRow<Cell>

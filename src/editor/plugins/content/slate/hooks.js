@@ -43,15 +43,16 @@ export const createInitialState = () => ({
   }, options)
 })
 
-export const unserialize = ({ importFromHtml, editorState } = {}): { editorState: Object } => {
-  if (importFromHtml) {
+export const unserialize = ({ importFromHtml, serialized } = {}): { editorState: Object } => {
+  if (serialized) {
+    return { editorState: Raw.deserialize(serialized, options) }
+  } else if (importFromHtml) {
     return { editorState: html.deserialize(importFromHtml, options) }
-  } else if (editorState) {
-    return { editorState: Raw.deserialize(editorState, options) }
   }
+
   return createInitialState()
 }
 
 export const serialize = ({ editorState }) => ({
-  editorState: Raw.serialize(editorState, options)
+  serialized: Raw.serialize(editorState, options)
 })

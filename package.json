@@ -71,7 +71,7 @@
     "reselect": "^2.5.1",
     "selection-position": "1.0.0",
     "semver": "5.2.0",
-    "slate": "0.11.4",
+    "slate": "0.12.10",
     "style-loader": "0.13.1",
     "webpack": "2.1.0-beta.9"
   },
