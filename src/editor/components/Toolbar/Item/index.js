@@ -11,7 +11,7 @@ const Item = ({ icon, text, name, insert, ...props }: Object, k: number) => {
 
   const Draggable = draggable(name)
   return (
-    <Draggable key={k} {...insert} {...props}>
+    <Draggable key={k} insert={insert} {...props}>
       <ListItem
         leftAvatar={<Avatar icon={icon} />}
         primaryText={text}

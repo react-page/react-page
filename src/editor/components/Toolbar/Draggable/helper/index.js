@@ -2,9 +2,13 @@
 import type { Monitor, Connector } from 'types/react-dnd'
 
 export const source = {
-  beginDrag(props: {layoutMode(): void}) {
+  beginDrag({ insert, ...props }: { layoutMode(): void, insert: Object }) {
     props.layoutMode()
-    return props
+    return {
+      node: insert,
+      rawNode: () => insert,
+      ...props
+    }
   },
 
   endDrag({ id }: { id: string }, monitor: Monitor) {

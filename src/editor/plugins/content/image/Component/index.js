@@ -12,9 +12,9 @@ const Image = ({ state: { src } }: { state: { src: string } }) => (
 
 Image.propTypes = {
   onChange: PropTypes.func.isRequired,
-  state: {
+  state: PropTypes.shape({
     src: PropTypes.string
-  }
+  })
 }
 
 export default cssModules(Image, styles)

@@ -2,7 +2,7 @@
 import React, { PropTypes } from 'react'
 import { ContentPlugin } from 'src/editor/service/plugin/classes'
 
-const Missing = ({ name, version }) => (
+const Missing = ({ name, version }: { name: string, version: string }) => (
   <div style={{ backgroundColor: 'red' }}>
     Plugin <code>{name}:{version}</code> not found.
   </div>

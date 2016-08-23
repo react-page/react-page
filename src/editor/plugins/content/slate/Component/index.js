@@ -54,7 +54,8 @@ class Slate extends Component {
   componentDidMount = () => this.updateToolbar()
 
   shouldComponentUpdate = (nextProps, nextState) => (
-    nextProps.state.editorState !== this.props.state.editorState
+    nextProps.state !== this.props.state
+      || nextProps.focused !== this.props.focused
       || nextProps.readOnly !== this.props.readOnly
       || nextState.toolbar !== this.state.toolbar
   )

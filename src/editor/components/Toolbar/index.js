@@ -71,12 +71,10 @@ class Toolbar extends Component {
                 version={version}
                 key={k}
                 insert={{
-                  plugin: {
-                    name,
-                    version,
-                    Component
-                  },
-                  props: initialState
+                  content: {
+                    plugin: { name, version, Component },
+                    state: initialState
+                  }
                 }}
               />
             )
@@ -93,7 +91,10 @@ class Toolbar extends Component {
                 key={k}
                 insert={{
                   ...initialState,
-                  layout: { name, version, Component, props: initialState }
+                  layout: {
+                    plugin: { name, version, Component },
+                    state: initialState
+                  }
                 }}
               />
             )
@@ -114,7 +115,7 @@ class Toolbar extends Component {
 }
 
 Toolbar.propTypes = {
-  plugins: PropTypes.array.isRequired,
+  plugins: PropTypes.object.isRequired,
   isInsertMode: PropTypes.bool.isRequired,
   insertMode: PropTypes.func.isRequired,
   editMode: PropTypes.func.isRequired,

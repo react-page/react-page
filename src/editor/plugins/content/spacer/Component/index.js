@@ -1,4 +1,5 @@
 // @flow
+/* eslint no-invalid-this: "off" */
 import React, { Component, PropTypes } from 'react'
 import cssModules from 'react-css-modules'
 import debounce from 'lodash.debounce'
@@ -18,12 +19,12 @@ Solid.propTypes = {
 }
 
 class Spacer extends Component {
-  state = {}
-
   constructor(props: Object) {
     super(props)
     this.state = compute(props.state)
   }
+
+  state = {}
 
   onResize = (event: Event, { size }: { size: { height: number, width: number } }) => {
     const { onChange } = this.props

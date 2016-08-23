@@ -84,7 +84,6 @@ Cell.propTypes = {
     resizable: PropTypes.bool.isRequired,
     inline: PropTypes.string,
     isPreviewMode: PropTypes.bool.isRequired,
-    resizeCell: PropTypes.func.isRequired,
     hasInlineNeighbour: PropTypes.bool,
     bounds: PropTypes.object.isRequired,
     hover: PropTypes.string
@@ -93,6 +92,9 @@ Cell.propTypes = {
   rowWidth: PropTypes.number.isRequired,
   rowHeight: PropTypes.number.isRequired,
   updateDimensions: PropTypes.func.isRequired,
+  focusCell: PropTypes.func.isRequired,
+  blurCell: PropTypes.func.isRequired,
+  resizeCell: PropTypes.func.isRequired,
 
   id: PropTypes.string.isRequired,
   styles: PropTypes.object.isRequired,

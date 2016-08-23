@@ -38,7 +38,7 @@ class Resizable extends Component {
     return nextProps !== this.props || nextState !== this.state
   }
 
-  onResize = (event: Object, { node: { size } }: ComponentizedCell) => {
+  onResize(event: Event, { size }: Object) {
     const newSize = widthToSize(this.state, this.props, size)
     this.props.onChange(newSize)
     this.setState({ width: newSize * this.state.stepWidth })

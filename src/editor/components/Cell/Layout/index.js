@@ -2,7 +2,7 @@
 import React, { PropTypes } from 'react'
 import { shouldPureComponentUpdate } from 'src/editor/helper/shouldComponentUpdate'
 import Row from 'src/editor/components/Row'
-import type { Row as RowType } from 'types/editable'
+import type { Row as RowType, ComponetizedCell } from 'types/editable'
 
 class Layout extends React.Component {
   shouldComponentUpdate = shouldPureComponentUpdate
@@ -14,13 +14,13 @@ class Layout extends React.Component {
         rows = [],
         layout: {
           plugin: {
-            Component,
-            state = {}
-          }
+            Component
+          },
+          state = {}
         }
       },
       editable, ancestors = []
-    } = this.props
+    }: ComponetizedCell = this.props
 
     return (
       <Component state={state}>
@@ -31,7 +31,7 @@ class Layout extends React.Component {
 }
 
 Layout.propTypes = {
-  id: PropTypes.array.isRequired,
+  id: PropTypes.string.isRequired,
   ancestors: PropTypes.array.isRequired,
   node: PropTypes.shape({
     rows: PropTypes.array.isRequired,

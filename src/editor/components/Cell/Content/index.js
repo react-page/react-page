@@ -16,21 +16,37 @@ class Content extends Component {
   render() {
     const { isEditMode, id, node: { content: { plugin: { Component }, state = {} }, focused }, updateCell = fallback }: ComponentizedCell = this.props
 
+    let focusProps
+    if (isEditMode) {
+      const { focusCell, blurCell } = this.props
+
+      focusProps = {
+        onBlur: blurCell,
+        onFocus: focusCell,
+        tabIndex: -1
+      }
+    }
+
     return (
-      <Component
-        id={id}
-        state={state}
-        focused={isEditMode && focused}
-        readOnly={!isEditMode}
-        onChange={updateCell}
-      />
+      <div {...focusProps}>
+        <Component
+          id={id}
+          state={state}
+          focused={Boolean(isEditMode && focused)}
+          readOnly={!isEditMode}
+          onChange={updateCell}
+        />
+      </div>
     )
   }
 }
 
 Content.propTypes = {
   id: PropTypes.string.isRequired,
+
   updateCell: PropTypes.func.isRequired,
+  focusCell: PropTypes.func.isRequired,
+  blurCell: PropTypes.func.isRequired,
 
   isEditMode: PropTypes.bool.isRequired,
   isLayoutMode: PropTypes.bool.isRequired,
