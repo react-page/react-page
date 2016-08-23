@@ -18,8 +18,8 @@ class Inner extends Component {
       isInsertMode,
       node: {
         rows = [],
-        layout: { plugin: { Component: LayoutComponent, name: layoutType, state: layoutState = {} } },
-        content: { plugin: { Component: ContentComponent, name: contentType } },
+        layout: { plugin: { Component: LayoutComponent, name: layoutType } = {}, state: layoutState = {} } = {},
+        content: { plugin: { Component: ContentComponent, name: contentType } = {} } = {},
       },
       config: { whitelist = [] }
     } = this.props

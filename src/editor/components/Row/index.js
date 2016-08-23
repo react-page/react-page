@@ -4,7 +4,7 @@ import droppable from './Droppable'
 import { connect } from 'react-redux'
 import { shouldPureComponentUpdate } from 'src/editor/helper/shouldComponentUpdate'
 import { isLayoutMode, isResizeMode, isInsertMode } from 'src/editor/selector/display'
-import { editableConfig, purifiedNode } from 'src/editor/selector/editable'
+import { editableConfig, purifiedNode, node } from 'src/editor/selector/editable'
 import { createStructuredSelector } from 'reselect'
 import Inner from './inner'
 import dimensions from 'react-dimensions'
@@ -53,7 +53,7 @@ Row.propTypes = {
   isLayoutMode: PropTypes.bool.isRequired,
   isResizeMode: PropTypes.bool.isRequired,
   isInsertMode: PropTypes.bool.isRequired,
-  config: PropTypes.func.isRequired,
+  config: PropTypes.object.isRequired,
   node: PropTypes.object.isRequired
 }
 
@@ -62,7 +62,8 @@ const mapStateToProps = createStructuredSelector({
   config: editableConfig,
   isResizeMode,
   isInsertMode,
-  node: purifiedNode
+  node: purifiedNode,
+  rawNode: (state: any, props: any) => () => node(state, props)
 })
 
 export default dimensions()(connect(mapStateToProps)(cssModules(Row, {

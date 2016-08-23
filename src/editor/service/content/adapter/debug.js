@@ -57,12 +57,14 @@ export const content = {
         cells: [{
           rows: [{
             cells: [{
-              content: { plugin: { name: 'ory/content/slate' } },
-              state: {
-                importFromHtml: `<p>SOUTH BENFLEET, England — The topic of the local debate was Britain’s imminent vote on whether to leave the European Union, and the discussion in this English town on the southeastern coast turned to the influx of European citizens into Britain.</p>
+              content: {
+                plugin: { name: 'ory/content/slate' },
+                state: {
+                  importFromHtml: `<p>SOUTH BENFLEET, England — The topic of the local debate was Britain’s imminent vote on whether to leave the European Union, and the discussion in this English town on the southeastern coast turned to the influx of European citizens into Britain.</p>
 <p>“Why do they all want to come here?” demanded one woman, angrily making the case for Britain to leave the bloc at the debate in South Benfleet, organized by the local council. “They want our wages and our benefits! We’re too bloody soft!”</p>
 <p>Paddy Ashdown, a former leader of the Liberal Democrats and a supporter of remaining in the European Union in the vote next Thursday, shook his head and responded with a touch of bitterness: “Well, I’ve not seen much evidence of that here.”</p>`
-              }
+                }
+              },
             }]
           }]
         }, {

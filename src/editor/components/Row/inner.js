@@ -41,12 +41,16 @@ const Inner = ({
 
 Inner.propTypes = {
   id: PropTypes.string.isRequired,
-  hover: PropTypes.string,
   editable: PropTypes.string.isRequired,
-  cells: PropTypes.array.isRequired,
+
+  node: PropTypes.shape({
+    cells: PropTypes.array.isRequired,
+    hasInlineChildren: PropTypes.bool.isRequired,
+    id: PropTypes.string.isRequired,
+    hover: PropTypes.string,
+  }).isRequired,
 
   ancestors: PropTypes.array.isRequired,
-  hasInlineChildren: PropTypes.bool.isRequired,
 
   containerHeight: PropTypes.number.isRequired,
   containerWidth: PropTypes.number.isRequired

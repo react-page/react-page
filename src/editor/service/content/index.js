@@ -13,14 +13,16 @@ const defaultPluginService = new PluginService()
 /**
  * Iterate through an editable content tree and generate ids where missing.
  */
-export const generateMissingIds = ({ rows, cells, id, ...props }: Object): Object => {
-  if ((rows || []).length) {
+export const generateMissingIds = (props: Object): Object => {
+  const { rows, cells, id } = props
+
+  if ((rows || []).length > 0) {
     props.rows = rows.map(generateMissingIds)
-  } else if ((cells || []).length) {
+  } else if ((cells || []).length > 0) {
     props.cells = cells.map(generateMissingIds)
   }
 
-  return ({ ...props, id: id || uuid.v4() })
+  return { ...props, id: id || uuid.v4() }
 }
 
 /**
@@ -97,14 +99,14 @@ class ContentService {
     },
     props: any
   }): Object => {
-    const { plugin: { name: contentName = null, version: contentVersion = '*' } = {} } = content || {}
-    const { plugin: { name: layoutName = null, version: layoutVersion = '*' } = {} } = layout || {}
+    const { plugin: { name: contentName = null, version: contentVersion = '*' } = {}, state: contentState } = content || {}
+    const { plugin: { name: layoutName = null, version: layoutVersion = '*' } = {}, state: layoutState } = layout || {}
 
     if (contentName) {
       const plugin = this.plugins.findContentPlugin(contentName, contentVersion)
       props.content = {
         plugin,
-        state: plugin.unserialize(content.state)
+        state: plugin.unserialize(contentState)
       }
     }
 
@@ -112,7 +114,7 @@ class ContentService {
       const plugin = this.plugins.findLayoutPlugin(layoutName, layoutVersion)
       props.layout = {
         plugin,
-        state: plugin.unserialize(content.state)
+        state: plugin.unserialize(layoutState)
       }
     }
 
@@ -161,7 +163,7 @@ class ContentService {
     if (layout) {
       props.layout = {
         plugin: { name: layout.plugin.name, version: layout.plugin.version },
-        state: layout.plugin.serialize(content.state)
+        state: layout.plugin.serialize(layout.state)
       }
     }
 

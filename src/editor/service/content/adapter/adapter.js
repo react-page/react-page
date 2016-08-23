@@ -1,10 +1,6 @@
 // @flow
+/* eslint no-empty-function: "off" */
 export class AbstractAdapter {
-  fetch(element: Object): ?Object {
-    return element
-  }
-
-  store(state: Object) {
-    console.log(state)
-  }
+  fetch(element: Object): ?Object {}
+  store(state: Object) {}
 }
