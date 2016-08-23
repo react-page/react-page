@@ -183,7 +183,7 @@ export const computeHorizontal = ({ mouse, position, hover, scale, level }: {
   scale: Vector,
   level: number,
   hover: ComponentizedRow
-}, inv : boolean = false) => {
+}, inv: boolean = false) => {
   const { node: { cells = [] } } = hover
   const x = relativeMousePosition({ mouse, position, scale }).x
 
@@ -199,7 +199,7 @@ export const computeHorizontal = ({ mouse, position, hover, scale, level }: {
   return inv ? level - at : at
 }
 
-export const computeVertical = ({ level, mouse, hover, position, scale }: { level: number, mouse: Vector, hover: ComponentizedRow, position: MatrixIndex, scale: Vector }, inv : boolean = false) => {
+export const computeVertical = ({ level, mouse, hover, position, scale }: { level: number, mouse: Vector, hover: ComponentizedRow, position: MatrixIndex, scale: Vector }, inv: boolean = false) => {
   const { node: { cells = [] } } = hover
   const at = Math.round(relativeMousePosition({ mouse, position, scale }).y / (scale.x / level))
 
@@ -249,22 +249,18 @@ export const defaultCallbacks: CallbackList = {
   },
 
   /* heres */
-  [c.AH]: (item: ComponentizedCell, { node: { inline, hasInlineNeighbour, ...hover } }: ComponentizedCell, { above }: Callbacks) => above(item.rawNode(), {
-    inline,
-    hasInlineNeighbour, ...hover.rawNode()
+  [c.AH]: (item: ComponentizedCell, hover: ComponentizedCell, { above }: Callbacks) => above(item.rawNode(), {
+    ...hover.rawNode()
   }, 0),
-  [c.BH]: (item: ComponentizedCell, { node: { inline, hasInlineNeighbour, ...hover } }: ComponentizedCell, { below }: Callbacks) => below(item.rawNode(), {
-    inline,
-    hasInlineNeighbour, ...hover.rawNode()
+  [c.BH]: (item: ComponentizedCell, hover: ComponentizedCell, { below }: Callbacks) => below(item.rawNode(), {
+    ...hover.rawNode()
   }, 0),
 
-  [c.LH]: (item: ComponentizedCell, { node: { inline, hasInlineNeighbour, ...hover } }: ComponentizedCell, { leftOf }: Callbacks) => leftOf(item.rawNode(), {
-    inline,
-    hasInlineNeighbour, ...hover.rawNode()
+  [c.LH]: (item: ComponentizedCell, hover: ComponentizedCell, { leftOf }: Callbacks) => leftOf(item.rawNode(), {
+    ...hover.rawNode()
   }, 0),
-  [c.RH]: (item: ComponentizedCell, { node: { inline, hasInlineNeighbour, ...hover } }: ComponentizedCell, { rightOf }: Callbacks) => rightOf(item.rawNode(), {
-    inline,
-    hasInlineNeighbour, ...hover.rawNode()
+  [c.RH]: (item: ComponentizedCell, hover: ComponentizedCell, { rightOf }: Callbacks) => rightOf(item.rawNode(), {
+    ...hover.rawNode()
   }, 0),
 
   /* ancestors */

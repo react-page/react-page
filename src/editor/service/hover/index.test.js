@@ -91,7 +91,7 @@ describe('HoverService', () => {
         defaultCallbacks
       })
 
-      h.hover({ id: 'foo', node: { id: 'foo' } }, c.hover || {
+      h.hover({ id: 'foo', node: { id: 'foo', levels: {} }, rawNode: () => ({ id: 'foo' }) }, c.hover || {
         node: {
           levels: {
             right: 10,
@@ -99,7 +99,7 @@ describe('HoverService', () => {
             above: 10,
             below: 10
           }
-        }
+        }, rawNode: () => ({ id: 'foo' })
       }, c.actions(done), {
         room: c.in.room,
         mouse: c.in.mouse,

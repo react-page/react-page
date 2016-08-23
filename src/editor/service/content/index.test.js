@@ -1,6 +1,6 @@
 /* eslint-env mocha */
 import unexpected from 'unexpected'
-import ContentService, { hydrate } from './index'
+import ContentService, { generateMissingIds } from './index'
 import { content } from 'src/editor/service/content/adapter/debug'
 
 const expect = unexpected.clone()
@@ -8,7 +8,7 @@ const contentService = new ContentService()
 
 describe('hydrate', () => {
   it('should set missing ids recursively', () => {
-    const hydrated = hydrate({
+    const hydrated = generateMissingIds({
       cells: [
         {
           rows: [
@@ -63,7 +63,7 @@ describe('ContentService', () => {
       return { ...other }
     }
 
-    const c = hydrate({
+    const c = generateMissingIds({
       id: '1',
       cells: [{
         id: '2',

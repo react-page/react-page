@@ -4,6 +4,7 @@ import { AbstractAdapter, LocalStoreAdapter, DebugStorageAdapter } from './adapt
 import uuid from 'node-uuid'
 import { path } from 'ramda'
 import PluginService from 'src/editor/service/plugin'
+import { LayoutPlugin, ContentPlugin } from 'src/editor/service/plugin/classes'
 
 const localStorageAdapter = new LocalStoreAdapter()
 const debugStorageAdapter = new DebugStorageAdapter()
@@ -12,11 +13,11 @@ const defaultPluginService = new PluginService()
 /**
  * Iterate through an editable content tree and generate ids where missing.
  */
-export const hydrate = ({ rows, cells, id, ...props }: Object): Object => {
+export const generateMissingIds = ({ rows, cells, id, ...props }: Object): Object => {
   if ((rows || []).length) {
-    props.rows = rows.map(hydrate)
+    props.rows = rows.map(generateMissingIds)
   } else if ((cells || []).length) {
-    props.cells = cells.map(hydrate)
+    props.cells = cells.map(generateMissingIds)
   }
 
   return ({ ...props, id: id || uuid.v4() })
@@ -59,7 +60,7 @@ class ContentService {
     return res(this.unserialize({
       ...found,
       id,
-      cells: cells.map(hydrate)
+      cells: cells.map(generateMissingIds)
     }))
   })
 
@@ -100,15 +101,19 @@ class ContentService {
     const { plugin: { name: layoutName = null, version: layoutVersion = '*' } = {} } = layout || {}
 
     if (contentName) {
-      const unserialize = path(['content', 'plugin', 'hooks', 'unserialize'], props)
+      const plugin = this.plugins.findContentPlugin(contentName, contentVersion)
       props.content = {
-        plugin: this.plugins.findContentPlugin(contentName, contentVersion),
-        state: unserialize ? unserialize(content.state) : content.state
+        plugin,
+        state: plugin.unserialize(content.state)
       }
     }
 
     if (layoutName) {
-      props.layout = { plugin: this.plugins.findLayoutPlugin(layoutName, layoutVersion) }
+      const plugin = this.plugins.findLayoutPlugin(layoutName, layoutVersion)
+      props.layout = {
+        plugin,
+        state: plugin.unserialize(content.state)
+      }
     }
 
     if ((rows || []).length) {
@@ -132,17 +137,11 @@ class ContentService {
     rows: Object[],
     cells: Object[],
     content: {
-      plugin: {
-        name: string,
-        version: string
-      },
+      plugin: ContentPlugin,
       state: Object
     },
     layout: {
-      plugin: {
-        name: string,
-        version: string
-      },
+      plugin: LayoutPlugin,
       state: Object
     },
     props: any
@@ -153,15 +152,17 @@ class ContentService {
     }
 
     if (content) {
-      const serialize = path(['content', 'plugin', 'hooks', 'serialize'], props)
       props.content = {
         plugin: { name: content.plugin.name, version: content.plugin.version },
-        state: serialize ? serialize(content.state) : content.state
+        state: content.plugin.serialize(content.state)
       }
     }
 
     if (layout) {
-      props.layout = { plugin: { name: layout.plugin.name, version: layout.plugin.version } }
+      props.layout = {
+        plugin: { name: layout.plugin.name, version: layout.plugin.version },
+        state: layout.plugin.serialize(content.state)
+      }
     }
 
     if ((rows || []).length) {

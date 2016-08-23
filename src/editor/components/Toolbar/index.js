@@ -1,6 +1,5 @@
 // @flow
 /* eslint no-invalid-this: "off" */
-import { always, propOr } from 'ramda'
 import React, { PropTypes, Component } from 'react'
 import Drawer from 'material-ui/Drawer'
 import { connect } from 'react-redux'
@@ -15,7 +14,7 @@ import Toggle from 'material-ui/Toggle'
 import Divider from 'material-ui/Divider'
 import TextField from 'material-ui/TextField'
 import Item from './Item'
-import { Plugin } from 'src/editor/service/plugin'
+import { Plugin } from 'src/editor/service/plugin/classes'
 
 // import ViewHeadline from 'material-ui/svg-icons/action/view-headline'
 // import ViewCarousel from 'material-ui/svg-icons/action/view-carousel'
@@ -62,13 +61,12 @@ class Toolbar extends Component {
         </div>
         <List>
           {content.length ? <Subheader>Content</Subheader> : null}
-          {content.map(({ hooks, name, version, Component, ...props }: Plugin, k: Number) => {
-            const createInitialState = propOr(always({}), 'createInitialState', hooks)
-            const initialState = createInitialState()
+          {content.map(({ name, version, Component, ...plugin }: Plugin, k: Number) => {
+            const initialState = plugin.createInitialState()
 
             return (
               <Item
-                {...{ ...props, clearHover, layoutMode, insertMode, editMode, name, version, Component }}
+                {...{ ...plugin, clearHover, layoutMode, insertMode, editMode, name, version, Component }}
                 name={name}
                 version={version}
                 key={k}
@@ -86,13 +84,12 @@ class Toolbar extends Component {
         </List>
         <List>
           {layout.length ? <Subheader>Layout</Subheader> : null}
-          {layout.map(({ hooks, name, version, Component, ...props }: Plugin, k: Number) => {
-            const createInitialState = propOr(always({}), 'createInitialState', hooks)
-            const initialState = createInitialState()
+          {layout.map(({ name, version, Component, ...plugin }: Plugin, k: Number) => {
+            const initialState = plugin.createInitialState()
 
             return (
               <Item
-                {...{ ...props, clearHover, layoutMode, insertMode, editMode, name, version, Component }}
+                {...{ ...plugin, clearHover, layoutMode, insertMode, editMode, name, version, Component }}
                 key={k}
                 insert={{
                   ...initialState,

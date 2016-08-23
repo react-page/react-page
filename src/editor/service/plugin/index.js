@@ -1,60 +1,29 @@
 // @flow
 import { satisfies } from 'semver'
-import missing from 'src/editor/plugins/content/missing'
-import slate from 'src/editor/plugins/content/slate'
-import draft from 'src/editor/plugins/content/draft-js'
-import image from 'src/editor/plugins/content/image'
-import placeholder from 'src/editor/plugins/content/placeholder'
-import spacer from 'src/editor/plugins/content/spacer'
-import spoiler from 'src/editor/plugins/layout/spoiler'
-import alert from 'src/editor/plugins/layout/alert'
-
-/**
- * Plugin is the base class for content and layout plugins.
- */
-export class Plugin {
-  name: string
-  version: string
-  Component: Object
-  hooks: Object
-  state: Object
-
-  serialize(state: any) {
-    return state
-  }
-
-  unserialize(state: any) {
-    return state
-  }
-}
-
-/**
- * ContentPlugin is the base class for content plugins.
- */
-export class ContentPlugin extends Plugin {
-  inlineable: number
-}
-
-/**
- * ContentPlugin is the base class for layout plugins.
- */
-export class LayoutPlugin extends Plugin {}
+import { ContentPlugin, LayoutPlugin, Plugin } from './classes'
+import MissingPlugin from 'src/editor/plugins/content/missing'
+import SlatePlugin from 'src/editor/plugins/content/slate'
+import ImagePlugin from 'src/editor/plugins/content/image'
+import PlaceholderPlugin from 'src/editor/plugins/content/placeholder'
+import SpacerPlugin from 'src/editor/plugins/content/spacer'
+import SpoilerPlugin from 'src/editor/plugins/layout/spoiler'
+import AlertPlugin from 'src/editor/plugins/layout/alert'
 
 /**
  * A list of content plugins that are being loaded by default.
  */
 export const defaultContentPlugins: Array<ContentPlugin> = [
-  image,
-  spacer,
-  draft,
-  slate,
-  placeholder
+  new MissingPlugin(),
+  new ImagePlugin(),
+  new SpacerPlugin(),
+  new SlatePlugin(),
+  new PlaceholderPlugin()
 ]
 
 /**
  * A list of layout plugins that are being loaded by default.
  */
-export const defaultLayoutPlugins: Array<LayoutPlugin> = [spoiler, alert]
+export const defaultLayoutPlugins: Array<LayoutPlugin> = [new SpoilerPlugin(), new AlertPlugin()]
 
 const find = (name: string, version: string) => (plugin: Plugin): boolean => plugin.name === name && satisfies(plugin.version, version)
 
@@ -96,7 +65,7 @@ export default class PluginService {
    */
   findContentPlugin(name: string, version: string): ContentPlugin {
     const plugin = this.plugins.content.find(find(name, version))
-    return plugin || missing
+    return plugin || new MissingPlugin()
   }
 
   /**
