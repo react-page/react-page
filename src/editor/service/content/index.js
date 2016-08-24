@@ -38,11 +38,6 @@ class ContentService {
   constructor(adapters: Array<AbstractAdapter> = [localStorageAdapter, debugStorageAdapter], plugins: PluginService = defaultPluginService) {
     this.adapters = adapters
     this.plugins = plugins
-
-    this.unserialize = this.unserialize.bind(this)
-    this.serialize = this.serialize.bind(this)
-    this.fetch = this.fetch.bind(this)
-    this.store = this.store.bind(this)
   }
 
   /**

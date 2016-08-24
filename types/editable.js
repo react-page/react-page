@@ -39,6 +39,7 @@ export type Cell = AbstractCell<Row>
 
 export type ComponentizedCell = {
   id: string,
+  editable: string,
   ancestors: Array<string>,
   config: Config,
 
@@ -64,7 +65,8 @@ export type ComponentizedCell = {
   resizeCell(id: string): void,
   focusCell(id: string): void,
   blurCell(id: string): void,
-  updateCell(id: string): void,
+  updateCellContent(id: string): void,
+  updateCellLayout(id: string): void,
   cancelCellDrag(drag: string): void,
 
   dragCell(drag: string): void,
@@ -123,6 +125,9 @@ export type Editable = AbstractEditable<Cell>
 export type EditableComponentState = {
   id: string,
   node: AbstractEditable<string>,
+
+  containerHeight: number,
+  containerWidth: number,
   isInsertMode: boolean,
   isResizeMode: boolean,
   isDisplayMode: boolean,

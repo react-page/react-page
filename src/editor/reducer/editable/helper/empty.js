@@ -6,7 +6,7 @@ export const isEmpty = ({ cells, rows, layout, content }: { cells: Array<Cell>, 
   !(cells || []).filter(emptyFilter).length
   && !(rows || []).filter(emptyFilter).length
   && !content
-  && !(layout && rows.filter(emptyFilter).length)
+  && !(layout && (rows || []).filter(emptyFilter).length)
 )
 
 export const emptyFilter = (state: any): boolean => !isEmpty(state)

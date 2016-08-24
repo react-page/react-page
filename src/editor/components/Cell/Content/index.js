@@ -2,7 +2,7 @@
 import React, { PropTypes, Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { updateCell } from 'src/editor/actions/cell'
+import { updateCellContent } from 'src/editor/actions/cell'
 import { shouldPureComponentUpdate } from 'src/editor/helper/shouldComponentUpdate'
 import { isEditMode, isLayoutMode, isPreviewMode } from 'src/editor/selector/display'
 import { createStructuredSelector } from 'reselect'
@@ -14,7 +14,7 @@ class Content extends Component {
   shouldComponentUpdate = shouldPureComponentUpdate
 
   render() {
-    const { isEditMode, id, node: { content: { plugin: { Component }, state = {} }, focused }, updateCell = fallback }: ComponentizedCell = this.props
+    const { isEditMode, id, node: { content: { plugin: { Component }, state = {} }, focused }, updateCellContent = fallback }: ComponentizedCell = this.props
 
     let focusProps
     if (isEditMode) {
@@ -34,7 +34,7 @@ class Content extends Component {
           state={state}
           focused={Boolean(isEditMode && focused)}
           readOnly={!isEditMode}
-          onChange={updateCell}
+          onChange={updateCellContent}
         />
       </div>
     )
@@ -44,7 +44,7 @@ class Content extends Component {
 Content.propTypes = {
   id: PropTypes.string.isRequired,
 
-  updateCell: PropTypes.func.isRequired,
+  updateCellContent: PropTypes.func.isRequired,
   focusCell: PropTypes.func.isRequired,
   blurCell: PropTypes.func.isRequired,
 
@@ -65,7 +65,7 @@ Content.propTypes = {
 const mapStateToProps = createStructuredSelector({ isEditMode, isLayoutMode, isPreviewMode })
 
 const mapDispatchToProps = (dispatch: Function, { id }: ComponentizedCell) => bindActionCreators({
-  updateCell: updateCell(id)
+  updateCellContent: updateCellContent(id)
 }, dispatch)
 
 export default connect(mapStateToProps, mapDispatchToProps)(Content)

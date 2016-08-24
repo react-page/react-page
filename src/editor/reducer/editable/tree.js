@@ -1,7 +1,9 @@
 /* eslint-disable no-use-before-define */
+import { pathOr } from 'ramda'
 import {
   CELL_REMOVE,
-  CELL_UPDATE,
+  CELL_UPDATE_LAYOUT,
+  CELL_UPDATE_CONTENT,
   CELL_INSERT_LEFT_OF,
   CELL_INSERT_RIGHT_OF,
   CELL_INSERT_ABOVE,
@@ -37,12 +39,36 @@ export const cell = (state = {
   })
 
   switch (action.type) {
-    case CELL_UPDATE:
+    case CELL_UPDATE_CONTENT:
       if (action.id === state.id) {
         // If this cell is being updated, set the data
+        const reduced = reduce()
         return {
-          ...reduce(),
-          props: { ...state.props, ...action.props }
+          ...reduced,
+          content: {
+            ...(state.content || {}),
+            state: {
+              ...pathOr({}, ['content', 'state'], reduced),
+              ...action.state
+            }
+          }
+        }
+      }
+      return reduce()
+
+    case CELL_UPDATE_LAYOUT:
+      if (action.id === state.id) {
+        // If this cell is being updated, set the data
+        const reduced = reduce()
+        return {
+          ...reduced,
+          layout: {
+            ...(state.layout || {}),
+            state: {
+              ...pathOr({}, ['layout', 'state'], reduced),
+              ...action.state
+            }
+          }
         }
       }
       return reduce()

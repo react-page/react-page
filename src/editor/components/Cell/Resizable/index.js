@@ -23,8 +23,6 @@ class Resizable extends Component {
       width: props.node.size * sw,
       steps: (props.steps - 1) || 11,
     }
-
-    this.onResize = this.onResize.bind(this)
   }
 
   state: Object = {
@@ -38,7 +36,7 @@ class Resizable extends Component {
     return nextProps !== this.props || nextState !== this.state
   }
 
-  onResize(event: Event, { size }: Object) {
+  onResize = (event: Event, { size }: Object) => {
     const newSize = widthToSize(this.state, this.props, size)
     this.props.onChange(newSize)
     this.setState({ width: newSize * this.state.stepWidth })
