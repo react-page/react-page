@@ -10,7 +10,7 @@ import styles from './index.scoped.css'
 
 const compute = ({ height }: { height: number }) => ({ height: height > 24 ? height : 24 })
 
-const fire = debounce(({ state, onChange }: { state: Object, onChange(state: Object): void }) => onChange(state), 1000, { leading: false })
+const fire = debounce(({ state, onChange }: { state: Object, onChange(state: Object): void }) => onChange(state), 5, { leading: false })
 
 const Solid = ({ height }: { height: number }) => <div style={{ height }} />
 
@@ -19,29 +19,24 @@ Solid.propTypes = {
 }
 
 class Spacer extends Component {
-  constructor(props: Object) {
-    super(props)
-    this.state = compute(props.state)
-  }
-
   state = {}
 
   onResize = (event: Event, { size }: { size: { height: number, width: number } }) => {
     const { onChange } = this.props
     const state = compute(size)
-    this.setState(state)
     fire({ onChange, state })
   }
 
   render() {
     const { readOnly } = this.props
+    const height = compute(this.props.state).height
     return (
       <div className="editable-spacer" styleName={classNames({ spacer: true, 'read-only': readOnly })}>
         {readOnly
           ? (
-          <Solid height={this.state.height} />
+          <Solid height={height} />
         ) : (
-          <ResizableBox onResize={this.onResize} height={this.state.height}>
+          <ResizableBox onResize={this.onResize} height={height}>
             <div />
           </ResizableBox>
         )}
