@@ -37,6 +37,32 @@ type AbstractCell<T> = {
 
 export type Cell = AbstractCell<Row>
 
+export const createCell = (): Cell => ({
+  id: '',
+  rows: [],
+  content: {
+    plugin: new ContentPlugin(),
+    state: {}
+  },
+  layout: {
+    plugin: new LayoutPlugin(),
+    state: {}
+  },
+  size: 12,
+  hover: null,
+  inline: null,
+  focused: false,
+  resizable: false,
+  bounds: { left: 0, right: 0 },
+  hasInlineNeighbour: null,
+  levels: {
+    above: 0,
+    below: 0,
+    right: 0,
+    left: 0
+  }
+})
+
 export type ComponentizedCell = {
   id: string,
   editable: string,
@@ -92,6 +118,13 @@ type AbstractRow<T> = {
 }
 
 export type Row = AbstractRow<Cell>
+
+export const createRow = (): Row => ({
+  id: '',
+  hover: null,
+  cells: [],
+  hasInlineChildren: false
+})
 
 export type ComponentizedRow = {
   id: string,

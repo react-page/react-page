@@ -1,4 +1,6 @@
+// @flow
 /* eslint-disable no-use-before-define */
+/* eslint no-duplicate-imports: "off" */
 import { pathOr } from 'ramda'
 import {
   CELL_REMOVE,
@@ -17,21 +19,14 @@ import {
 } from 'src/editor/actions/cell'
 import { optimizeCell, optimizeRow, optimizeRows, optimizeCells, flatten } from './helper/optimize'
 import { isHoveringThis } from './helper/hover'
-import {
-  resizeCells,
-} from './helper/sizing'
+import { resizeCells } from './helper/sizing'
 
-const inner = (cb, action) => (state) => cb(state, action)
+import type { Cell, Row } from 'types/editable'
+import { createCell, createRow } from 'types/editable'
 
-export const cell = (state = {
-  id: null,
-  hover: null,
-  size: 0,
-  inline: null,
-  bounds: { left: 0, right: 0 },
-  rows: [],
-  focused: false
-}, action) => optimizeCell(((state, action) => {
+const inner = (cb: Function, action: Object) => (state: Object) => cb(state, action)
+
+export const cell = (state: Cell, action: Object): Cell => optimizeCell(((state: Cell, action: Object): Cell => {
   const reduce = () => ({
     ...state,
     hover: null,
@@ -98,12 +93,15 @@ export const cell = (state = {
     case CELL_INSERT_ABOVE:
       if (isHoveringThis(state, action)) {
         return {
+          ...createCell(),
           id: action.ids[0],
           hover: null,
           rows: rows([{
+            ...createRow(),
             id: action.ids[1],
             cells: [{ ...(action.item), id: action.ids[2], inline: null }]
           }, {
+            ...createRow(),
             id: action.ids[3],
             cells: [{ ...reduce(), id: action.ids[4] }]
           }], { ...action, hover: null })
@@ -114,12 +112,15 @@ export const cell = (state = {
     case CELL_INSERT_BELOW:
       if (isHoveringThis(state, action)) {
         return {
+          ...createCell(),
           id: action.ids[0],
           hover: null,
           rows: rows([{
+            ...createRow(),
             id: action.ids[1],
             cells: [{ ...reduce(), id: action.ids[2] }]
           }, {
+            ...createRow(),
             id: action.ids[3],
             cells: [{ ...(action.item), id: action.ids[4], inline: null }]
           }], { ...action, hover: null })
@@ -132,19 +133,19 @@ export const cell = (state = {
   }
 })(state, action))
 
-export const cells = (state = [], action) => optimizeCells(((state, action) => {
+export const cells = (state: Cell[] = [], action: Object): Cell[] => optimizeCells(((state: Cell[], action: Object): Cell[] => {
   switch (action.type) {
     case CELL_RESIZE:
       return resizeCells(state.map(inner(cell, action)), action)
 
     case CELL_INSERT_BELOW:
     case CELL_INSERT_ABOVE:
-      return state.filter((c) => c.id !== action.item.id).map(inner(cell, action))
+      return state.filter((c: Cell) => c.id !== action.item.id).map(inner(cell, action))
 
     case CELL_INSERT_LEFT_OF:
       return state
-        .filter((c) => c.id !== action.item.id)
-        .map((c) => isHoveringThis(c, action)
+        .filter((c: Cell) => c.id !== action.item.id)
+        .map((c: Cell) => isHoveringThis(c, action)
           ? [{ ...(action.item), id: action.ids[0], inline: null }, { ...c, id: action.ids[1] }]
           : [c])
         .reduce(flatten, [])
@@ -152,8 +153,8 @@ export const cells = (state = [], action) => optimizeCells(((state, action) => {
 
     case CELL_INSERT_RIGHT_OF:
       return state
-        .filter((c) => c.id !== action.item.id)
-        .map((c) => isHoveringThis(c, action)
+        .filter((c: Cell) => c.id !== action.item.id)
+        .map((c: Cell) => isHoveringThis(c, action)
           ? [{ ...c, id: action.ids[0] }, { ...(action.item), id: action.ids[1], inline: null }]
           : [c])
         .reduce(flatten, [])
@@ -162,13 +163,15 @@ export const cells = (state = [], action) => optimizeCells(((state, action) => {
     case CELL_INSERT_INLINE_RIGHT:
     case CELL_INSERT_INLINE_LEFT:
       return state
-        .filter((c) => c.id !== action.item.id)
-        .map((c) => {
+        .filter((c: Cell) => c.id !== action.item.id)
+        .map((c: Cell) => {
           if (isHoveringThis(c, action)) {
             return [{
+              ...createCell(),
               id: action.ids[0],
               rows: [
                 {
+                  ...createRow(),
                   id: action.ids[1],
                   cells: [{
                     ...(action.item),
@@ -186,18 +189,14 @@ export const cells = (state = [], action) => optimizeCells(((state, action) => {
         .map(inner(cell, action))
 
     case CELL_REMOVE:
-      return state.filter(({ id }) => id !== action.id).map(inner(cell, action))
+      return state.filter(({ id }: Cell) => id !== action.id).map(inner(cell, action))
 
     default:
       return state.map(inner(cell, action))
   }
 })(state, action))
 
-export const row = (state = {
-  id: null,
-  hover: null,
-  cells: []
-}, action) => optimizeRow(((state, action) => {
+export const row = (state: Row, action: Object): Row => optimizeRow(((state: Row, action: Object): Row => {
   const reduce = () => ({
     ...state,
     hover: null,
@@ -243,14 +242,15 @@ export const row = (state = {
 })(state, action))
 
 
-export const rows = (state = [], action) => optimizeRows(((state, action) => {
+export const rows = (state: Row[] = [], action: Object): Row[] => optimizeRows(((state: Row[], action: Object): Row[] => {
   const reduce = () => state.map(inner(row, action))
   switch (action.type) {
     case CELL_INSERT_ABOVE:
       return state
-        .map((r) => isHoveringThis(r, action)
+        .map((r: Row) => isHoveringThis(r, action)
           ? (
           [{
+            ...createRow(),
             cells: [{ ...(action.item), id: action.ids[1], inline: null }],
             id: action.ids[0]
           }, {
@@ -261,12 +261,14 @@ export const rows = (state = [], action) => optimizeRows(((state, action) => {
         .map(inner(row, action))
     case CELL_INSERT_BELOW:
       return state
-        .map((r) => isHoveringThis(r, action)
+        .map((r: Row) => isHoveringThis(r, action)
           ? (
           [{
             ...r, id: action.ids[0]
           }, {
-            cells: [{ ...(action.item), id: action.ids[2], inline: null }], id: action.ids[1]
+            ...createRow(),
+            cells: [{ ...(action.item), id: action.ids[2], inline: null }],
+            id: action.ids[1]
           }]) : [r])
         .reduce(flatten, [])
         .map(inner(row, action))

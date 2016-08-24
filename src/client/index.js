@@ -1,3 +1,4 @@
+// @flow
 import React from 'react'
 import ReactDOM from 'react-dom'
 import Editor from 'src/editor'
@@ -6,7 +7,7 @@ import './index.css'
 
 const editor = new Editor()
 
-const renderComponent = (component) => ReactDOM.render(component, document.getElementById('app'))
+const renderComponent = (component: Object) => ReactDOM.render(component, document.getElementById('app'))
 
 let render = () => {
   editor.toolbar()
