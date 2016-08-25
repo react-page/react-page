@@ -162,18 +162,33 @@ describe('editor/reducer/editable', () => {
       }
     }
   }, {
-    d: 'cell update',
+    d: 'cell update content',
     s: {
       editable: {
         id: '1',
-        cells: cells([{ id: '2', plugin: 'foo' }])
+        cells: cells([{ id: '2', plugin: 'foo', content: { state: { foo: 1 } } }])
       }
     },
-    a: () => actions.updateCell('2')('foo'),
+    a: () => actions.updateCellContent('2')({ bar: 1 }),
     e: {
       editable: {
         id: '1',
-        cells: cells([{ id: '2', plugin: 'foo', props: 'foo' }])
+        cells: cells([{ id: '2', plugin: 'foo', content: { state: { foo: 1, bar: 1 } } }])
+      }
+    }
+  }, {
+    d: 'cell update layout',
+    s: {
+      editable: {
+        id: '1',
+        cells: cells([{ id: '2', plugin: 'foo', layout: { state: { foo: 1 } } }])
+      }
+    },
+    a: () => actions.updateCellLayout('2')({ bar: 1 }),
+    e: {
+      editable: {
+        id: '1',
+        cells: cells([{ id: '2', plugin: 'foo', layout: { state: { foo: 1, bar: 1 } } }])
       }
     }
   }, {
@@ -639,7 +654,11 @@ describe('editor/reducer/editable', () => {
   }, {
     d: 'move inline cell from left to right',
     s: trees.inline,
-    a: () => actions.insertCellRightInline({ id: '000', plugin: 'foo', inline: 'left' }, { id: '001' }, 0, ['i0', 'i00', 'i000', 'i0000', 'i00000']),
+    a: () => actions.insertCellRightInline({
+      id: '000',
+      plugin: 'foo',
+      inline: 'left'
+    }, { id: '001' }, 0, ['i0', 'i00', 'i000', 'i0000', 'i00000']),
     e: {
       editable: {
         cells: cells([{

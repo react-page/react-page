@@ -42,7 +42,7 @@ describe('isEmpty', () => {
           cells: [
             { rows: [{ cells: [{ rows: [{ cells: [{ rows: [{ cells: [] }] }] }] }] }] },
             { rows: [{ cells: [] }] },
-            { rows: [{ cells: [{ rows: [{ cells: [{ plugin: 'asdf' }] }] }] }] }
+            { rows: [{ cells: [{ rows: [{ cells: [{ content: { plugin: { name: 'asdf' } } }] }] }] }] }
           ]
         }, {
           cells: []
@@ -57,7 +57,23 @@ describe('isEmpty', () => {
             { rows: [{ cells: [{ rows: [{ cells: [{ rows: [{ cells: [] }] }] }] }] }] },
             { rows: [{ cells: [] }] },
             { rows: [{ cells: [{ rows: [{ cells: [{}] }] }] }] },
-            { plugin: 'asdf' }
+            { content: { plugin: { name: 'asdf' } } }
+          ]
+        }, {
+          cells: []
+        }]
+      },
+      empty: false
+    },
+    {
+      in: {
+        rows: [{
+          cells: [
+            { rows: [{ cells: [{ rows: [{ cells: [{ rows: [{ cells: [] }] }] }] }] }] },
+            { rows: [{ cells: [] }] },
+            { rows: [{ cells: [{ rows: [{ cells: [{}] }] }] }] },
+            { layout: { plugin: { name: 'asdf' } },
+              rows: [{ cells: [{ content: { plugin: { name: 'asdf' } } }] }] }
           ]
         }, {
           cells: []

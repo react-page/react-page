@@ -1,10 +1,17 @@
+// @flow
+import type { Monitor, Connector } from 'types/react-dnd'
+
 export const source = {
-  beginDrag(props) {
+  beginDrag({ insert, ...props }: { layoutMode(): void, insert: Object }) {
     props.layoutMode()
-    return props
+    return {
+      node: insert,
+      rawNode: () => insert,
+      ...props
+    }
   },
 
-  endDrag({ id }, monitor) {
+  endDrag({ id }: { id: string }, monitor: Monitor) {
     const item = monitor.getItem()
     if (monitor.didDrop()) {
       item.editMode()
@@ -16,7 +23,7 @@ export const source = {
   }
 }
 
-export const collect = (connect, monitor) => ({
+export const collect = (connect: Connector, monitor: Monitor) => ({
   connectDragSource: connect.dragSource(),
   isDragging: monitor.isDragging()
 })

@@ -4,7 +4,8 @@
   "description": "The next generation platform for creating well-defined, responsive, digital content - as easy as social media.",
   "main": "",
   "scripts": {
-    "flow": "flow check",
+    "flow": "flow check --show-all-errors",
+    "flow:watch": "npm run watch:js -- -c \"flow check --show-all-errors\"",
     "test": "npm-run-all test:unit test:e2e",
     "test:unit": "cross-env NODE_PATH=. mocha --require .babel-require --recursive \"+(src|test)/**/*.test.js\"",
     "test:e2e": "node bin/nightwatch",
@@ -14,10 +15,10 @@
     "lint": "eslint \"+(src|test|types)/**/*.js\" --fix",
     "lint:watch": "npm run watch:js -- -c \"npm run lint\"",
     "build": "cross-env NODE_PATH=. NODE_ENV=production webpack",
-    "watch:js": "chokidar \"+(src|test)/**/*.js\" --initial",
+    "watch:js": "chokidar \"+(src|test|types)/**/*.js\" --initial",
     "docs": "documentation build ./src/editor/**/*.js --format md --github > API.md",
     "docs:watch": "documentation serve ./src/editor/**/*.js --watch",
-    "postinstall": "npm run build"
+    "heroku-postbuild": "npm run build"
   },
   "engines": {
     "node": "v6.2.0",
@@ -70,7 +71,7 @@
     "reselect": "^2.5.1",
     "selection-position": "1.0.0",
     "semver": "5.2.0",
-    "slate": "0.11.4",
+    "slate": "0.12.10",
     "style-loader": "0.13.1",
     "webpack": "2.1.0-beta.9"
   },

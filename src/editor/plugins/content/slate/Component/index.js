@@ -32,6 +32,7 @@ const renderNode = (node) => {
 
 const Bold = (props) => <strong {...props} />
 const Italic = (props) => <em {...props} />
+const Fallback = (props) => <span {...props} />
 
 const renderMark = (mark) => {
   switch (mark.type) {
@@ -40,7 +41,9 @@ const renderMark = (mark) => {
     case 'italic':
       return Italic
     default:
-      console.error(`No component specified for mark type ${mark.type}`)
+      console.warn(`No component specified for mark type ${mark.type}`)
+      return Fallback
+
   }
 }
 
@@ -51,10 +54,13 @@ class Slate extends Component {
     this.state = {}
   }
 
+  state = {}
+
   componentDidMount = () => this.updateToolbar()
 
   shouldComponentUpdate = (nextProps, nextState) => (
     nextProps.state.editorState !== this.props.state.editorState
+      || nextProps.focused !== this.props.focused
       || nextProps.readOnly !== this.props.readOnly
       || nextState.toolbar !== this.state.toolbar
   )

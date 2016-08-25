@@ -11,7 +11,7 @@ export const CLEAR_CLEAR_HOVER = 'CLEAR_CLEAR_HOVER'
 /**
  * Dispatch when a cell hovers another item.
  */
-export const cellHover = ({ id: drag }: Cell, { id: hover }: Cell, level: number = 0, position: string): Action => ({
+export const cellHover = ({ id: drag }: Cell, { id: hover }: Cell, level : number = 0, position: string): Action => ({
   type: CELL_DRAG_HOVER,
   ts: new Date(),
   drag,
@@ -43,17 +43,17 @@ export const cellHoverBelow = (drag: Cell, hover: Cell, level: number) => cellHo
 /**
  * Dispatch when a cell is hovering another cell on the left, but inline ("floating").
  */
-export const cellHoverInlineLeft = (drag: Cell, hover: Cell, level: number) => cellHover(drag, hover, level, positions.INLINE_LEFT)
+export const cellHoverInlineLeft = (drag: Cell, hover: Cell) => cellHover(drag, hover, 0, positions.INLINE_LEFT)
 
 /**
  * Dispatch when a cell is hovering another cell on the right, but inline ("floating").
  */
-export const cellHoverInlineRight = (drag: Cell, hover: Cell, level: number) => cellHover(drag, hover, level, positions.INLINE_RIGHT)
+export const cellHoverInlineRight = (drag: Cell, hover: Cell) => cellHover(drag, hover, 0, positions.INLINE_RIGHT)
 
 /**
  * Dispatch when a cell is being dragged.
  */
-export const dragCell = ({ id }: Cell): Action => ({
+export const dragCell = (id: string): Action => ({
   type: CELL_DRAG,
   ts: new Date(),
   id
@@ -70,7 +70,7 @@ export const clearHover = (): Action => ({
 /**
  * Dispatch when cell dragging ends.
  */
-export const cancelCellDrag = ({ id }: Cell): Action => ({
+export const cancelCellDrag = (id: string): Action => ({
   type: CELL_DRAG_CANCEL,
   ts: new Date(),
   id

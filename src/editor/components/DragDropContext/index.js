@@ -1,3 +1,4 @@
+// @flow
 import HTML5Backend from 'react-dnd-html5-backend'
 import { DragDropContext as dragDropContext } from 'react-dnd'
 import React, { Component } from 'react'

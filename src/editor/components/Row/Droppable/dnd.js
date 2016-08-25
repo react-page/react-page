@@ -1,69 +1,73 @@
+// @flow
 import { computeAndDispatchHover, computeAndDispatchInsert } from 'src/editor/service/hover/input'
 import throttle from 'lodash.throttle'
 import { isProduction } from 'src/editor/const'
+import type { Monitor, Connector } from 'types/react-dnd'
+import type { ComponentizedRow } from 'types/editable'
 
-let last = {
-  props: {},
-  item: {}
+
+let last: {hover: string, drag: string} = {
+  hover: '',
+  drag: ''
 }
 
-const clear = (props = {}, item = {}) => {
-  if (props.id === last.props.id && item.id === last.item.id) {
+const clear = (hover: ComponentizedRow, drag: string) => {
+  if (hover.id === last.hover && drag === last.drag) {
     return
   }
-  last = { props, item }
-  props.clearHover(item)
+  last = { hover: hover.id, drag }
+  hover.clearHover(drag)
 }
 
 export const target = {
-  hover: throttle((props, monitor, component) => {
-    const item = monitor.getItem()
+  hover: throttle((hover: ComponentizedRow, monitor: Monitor, component: Object) => {
+    const drag = monitor.getItem()
 
-    if (!item) {
+    if (!drag) {
       return
-    } else if (item.id === props.id) {
-      clear(props, item)
+    } else if (drag.id === hover.id) {
+      clear(hover, drag.id)
       return
     } else if (!monitor.isOver({ shallow: true })) {
       return
-    } else if (props.ancestors.indexOf(item.id) > -1) {
+    } else if (hover.ancestors.indexOf(drag.id) > -1) {
       // If hovering over a child of itself
-      clear(props, item)
+      clear(hover, drag.id)
       return
-    } else if (!props.id) {
+    } else if (!hover.id) {
       // If hovering over something that isn't a cell or hasn't an id, do nothing. Should be an edge case
-      console.warn('Canceled cell.drop.target.hover: no id given.', props, item)
+      console.warn('Canceled cell.drop.target.hover: no id given.', hover, drag)
       return
     }
 
-    computeAndDispatchHover(props, monitor, component, '10x10-no-inline')
+    computeAndDispatchHover(hover, monitor, component, '10x10-no-inline')
   }, isProduction ? 5 : 10, { leading: false }),
 
-  canDrop: ({ id, ancestors }, monitor) => {
+  canDrop: ({ id, ancestors }: ComponentizedRow, monitor: Monitor) => {
     const item = monitor.getItem()
     return item.id !== id || ancestors.indexOf(item.id) === -1
   },
 
-  drop(props, monitor, component) {
-    const item = monitor.getItem()
+  drop(hover: ComponentizedRow, monitor: Monitor, component: Object) {
+    const drag = monitor.getItem()
 
     if (monitor.didDrop() || !monitor.isOver({ shallow: true })) {
       // If the item drop occurred deeper down the tree, don't do anything
       return
-    } else if (props.ancestors.indexOf(item.id) > -1) {
+    } else if (hover.ancestors.indexOf(drag.id) > -1) {
       // If hovering over a child of itself
-      props.cancelCellDrag(item.id)
+      hover.cancelCellDrag(drag.id)
       return
-    } else if (item.id === props.id) {
-      props.cancelCellDrag(item.id)
+    } else if (drag.id === hover.id) {
+      hover.cancelCellDrag(drag.id)
       return
     }
 
-    computeAndDispatchInsert(props, monitor, component, '10x10-no-inline')
+    computeAndDispatchInsert(hover, monitor, component, '10x10-no-inline')
   }
 }
 
-export const connect = (connect, monitor) => ({
+export const connect = (connect: Connector, monitor: Monitor) => ({
   connectDropTarget: connect.dropTarget(),
   isOverCurrent: monitor.isOver({ shallow: true })
 })

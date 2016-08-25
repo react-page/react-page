@@ -1,3 +1,4 @@
+// @flow
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
@@ -28,9 +29,9 @@ import cssModules from 'react-css-modules'
 
 import styles from './index.scoped.css'
 
-const toggleLayoutMode = ({ check, previousMode, cb, fallback }) => () => check ? previousMode(fallback) : cb()
+const toggleLayoutMode = ({ check, previousMode, cb, fallback }: Object) => () => check ? previousMode(fallback) : cb()
 
-const Controls = ({ isLayoutMode, isPreviewMode, isInsertMode, layoutMode, insertMode, editMode, isEditMode, previewMode, isResizeMode, resizeMode, plugins, ...props }) => (
+const Controls = ({ isLayoutMode, isPreviewMode, isInsertMode, layoutMode, insertMode, editMode, isEditMode, previewMode, isResizeMode, resizeMode, plugins, ...props }: Object) => (
   <MuiThemeProvider muiTheme={getMuiTheme()}>
     <div>
       <Trash plugins={plugins} isLayoutMode={isLayoutMode} />
@@ -134,7 +135,7 @@ const mapStateToProps = createStructuredSelector({
   isEditMode, isLayoutMode, isPreviewMode, isInsertMode, isResizeMode
 })
 
-const mapDispatchToProps = (dispatch) => bindActionCreators({
+const mapDispatchToProps = (dispatch: Function) => bindActionCreators({
   editMode, previewMode, layoutMode, previousMode, insertMode, resizeMode
 }, dispatch)
 

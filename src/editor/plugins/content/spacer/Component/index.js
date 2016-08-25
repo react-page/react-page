@@ -1,3 +1,5 @@
+// @flow
+/* eslint no-invalid-this: "off" */
 import React, { Component, PropTypes } from 'react'
 import cssModules from 'react-css-modules'
 import debounce from 'lodash.debounce'
@@ -6,40 +8,35 @@ import classNames from 'classnames'
 
 import styles from './index.scoped.css'
 
-const compute = ({ height }) => ({ height: height > 24 ? height : 24 })
+const compute = ({ height }: { height: number }) => ({ height: height > 24 ? height : 24 })
 
-const fire = debounce(({ state, onChange }) => onChange(state), 1000, { leading: false })
+const fire = debounce(({ state, onChange }: { state: Object, onChange(state: Object): void }) => onChange(state), 5, { leading: false })
 
-const Solid = ({ height }) => <div style={{ height }} />
+const Solid = ({ height }: { height: number }) => <div style={{ height }} />
 
 Solid.propTypes = {
   height: PropTypes.number
 }
 
 class Spacer extends Component {
-  constructor(props) {
-    super(props)
+  state = {}
 
-    this.state = compute(props.state)
-    this.onResize = this.onResize.bind(this)
-  }
-
-  onResize(event, { size }) {
+  onResize = (event: Event, { size }: { size: { height: number, width: number } }) => {
     const { onChange } = this.props
     const state = compute(size)
-    this.setState(state)
     fire({ onChange, state })
   }
 
   render() {
     const { readOnly } = this.props
+    const height = compute(this.props.state).height
     return (
       <div className="editable-spacer" styleName={classNames({ spacer: true, 'read-only': readOnly })}>
         {readOnly
           ? (
-          <Solid height={this.state.height} />
+          <Solid height={height} />
         ) : (
-          <ResizableBox onResize={this.onResize} height={this.state.height}>
+          <ResizableBox onResize={this.onResize} height={height}>
             <div />
           </ResizableBox>
         )}

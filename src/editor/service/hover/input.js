@@ -1,22 +1,26 @@
 import { findDOMNode } from 'react-dom'
 import HoverService from 'src/editor/service/hover'
+import type { ComponentizedCell } from 'types/editable'
+import type { Vector, Room, Callbacks } from 'types/hover'
+import type { Monitor } from 'types/react-dnd'
 
 const hoverService = new HoverService()
 
-export const computeCurrentDropPosition = (actions, hover, monitor, component, matrix) => {
+export const computeCurrentDropPosition = (actions: Callbacks, hover: ComponentizedCell, monitor: Monitor, component: Object, matrixName: string) => {
+  const drag = monitor.getItem()
   const mousePosition = monitor.getClientOffset()
   const componentPosition = findDOMNode(component).getBoundingClientRect()
-  const room = {
+  const room: Room = {
     height: (componentPosition.bottom - componentPosition.top),
     width: (componentPosition.right - componentPosition.left)
   }
-  const mouse = {
+
+  const mouse: Vector = {
     y: (mousePosition.y - componentPosition.top),
     x: (mousePosition.x - componentPosition.left)
   }
-  const drag = monitor.getItem()
 
-  hoverService.hover(drag, hover, actions, { room, mouse, matrix })
+  hoverService.hover(drag, hover, actions, { room, mouse, matrix: matrixName })
 }
 
 export const computeAndDispatchInsert = ({
@@ -28,7 +32,7 @@ export const computeAndDispatchInsert = ({
   insertCellRightInline: inlineRight,
   clearHover: clear,
   ...hover
-}, monitor, component, matrix = '10x10') => computeCurrentDropPosition({
+}: ComponentizedCell, monitor: Monitor, component: Object, matrixName : string = '10x10') => computeCurrentDropPosition({
   clear,
   above,
   below,
@@ -36,7 +40,7 @@ export const computeAndDispatchInsert = ({
   rightOf,
   inlineLeft,
   inlineRight
-}, hover, monitor, component, matrix)
+}, hover, monitor, component, matrixName)
 
 export const computeAndDispatchHover = ({
   cellHoverAbove: above,
@@ -47,7 +51,7 @@ export const computeAndDispatchHover = ({
   cellHoverInlineRight: inlineRight,
   clearHover: clear,
   ...hover
-}, monitor, component, matrix = '10x10') => computeCurrentDropPosition({
+}: ComponentizedCell, monitor: Monitor, component: Object, matrixName : string = '10x10') => computeCurrentDropPosition({
   clear,
   above,
   below,
@@ -55,4 +59,4 @@ export const computeAndDispatchHover = ({
   rightOf,
   inlineLeft,
   inlineRight
-}, hover, monitor, component, matrix)
+}, hover, monitor, component, matrixName)

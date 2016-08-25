@@ -1,8 +1,10 @@
-import { LocalStoreAdapter, DebugStorageAdapter } from './adapter'
+// @flow
+/* eslint no-invalid-this: "off" */
+import { AbstractAdapter, LocalStoreAdapter, DebugStorageAdapter } from './adapter'
 import uuid from 'node-uuid'
 import { path } from 'ramda'
-
 import PluginService from 'src/editor/service/plugin'
+import { LayoutPlugin, ContentPlugin } from 'src/editor/service/plugin/classes'
 
 const localStorageAdapter = new LocalStoreAdapter()
 const debugStorageAdapter = new DebugStorageAdapter()
@@ -10,138 +12,161 @@ const defaultPluginService = new PluginService()
 
 /**
  * Iterate through an editable content tree and generate ids where missing.
- *
- * @param {[]} rows
- * @param {[]} cells
- * @param {string} id
- * @param {{}} props
  */
-export const hydrate = ({ rows = [], cells = [], id = uuid.v4(), ...props }) => {
-  if (rows.length) {
-    props.rows = rows.map(hydrate)
-  } else if (cells.length) {
-    props.cells = cells.map(hydrate)
+export const generateMissingIds = (props: Object): Object => {
+  const { rows, cells, id } = props
+
+  if ((rows || []).length > 0) {
+    props.rows = rows.map(generateMissingIds)
+  } else if ((cells || []).length > 0) {
+    props.cells = cells.map(generateMissingIds)
   }
 
-  return ({ ...props, id })
+  return { ...props, id: id || uuid.v4() }
 }
 
 /**
  * ContentService is an abstraction layer for fetching and storing editable content trees.
  */
 class ContentService {
+  plugins:PluginService
+  adapters:Array<AbstractAdapter>
+
   /**
    * Pass a list of adapters to use.
-   *
-   * @param {[]} adapters
-   * @param {PluginService} plugins
    */
-  constructor(adapters = [localStorageAdapter, debugStorageAdapter], plugins = defaultPluginService) {
+  constructor(adapters: Array<AbstractAdapter> = [localStorageAdapter, debugStorageAdapter], plugins: PluginService = defaultPluginService) {
     this.adapters = adapters
     this.plugins = plugins
-
-    this.unserialize = this.unserialize.bind(this)
-    this.serialize = this.serialize.bind(this)
-    this.fetch = this.fetch.bind(this)
   }
 
   /**
    * Pass a DOM entity and fetch it's content tree.
    *
-   * @param {{}} domEntity a DOM entity returned by, for example, document.getElementById()
-   * @returns {Promise}
+   * @param domEntity a DOM entity returned by, for example, document.getElementById()
    */
-  fetch(domEntity) {
-    return new Promise((res) => {
-      const found = this.adapters.map((adapter) => adapter.fetch(domEntity)).reduce((p, n) => p || n)
+  fetch = (domEntity: Object) => new Promise((res: Function) => {
+    const found = this.adapters.map((adapter: AbstractAdapter) => adapter.fetch(domEntity)).reduce((p: Object, n: Object) => p || n)
 
-      if (!found) {
-        console.error('No content state found for DOM entity:', domEntity)
-        return res({ id: uuid.v4(), cells: [] })
-      }
+    if (!found) {
+      console.error('No content state found for DOM entity:', domEntity)
+      return res({ id: uuid.v4(), cells: [] })
+    }
 
-      const { cells = [], id = uuid.v4() } = found
-      return res(this.unserialize({
-        ...found,
-        id,
-        cells: cells.map(hydrate)
-      }))
-    })
-  }
+    const { cells = [], id = uuid.v4() } = found
+    return res(this.unserialize({
+      ...found,
+      id,
+      cells: cells.map(generateMissingIds)
+    }))
+  })
 
   /**
    * Persist a DOM entity's content tree.
-   *
-   * @param state
    */
-  store(state = {}) {
-    return new Promise((res) => {
-      this.adapters.forEach((adapter) => adapter.store(state))
-      res()
-    })
-  }
+  store = (state : Object = {}) => new Promise((res: Function) => {
+    this.adapters.forEach((adapter: AbstractAdapter) => adapter.store(state))
+    res()
+  })
 
-  unserialize({
-    rows = [],
-    cells = [],
-    plugin = {},
-    layout = {},
+  unserialize = ({
+    rows,
+    cells,
+    content,
+    layout,
     ...props
-  }) {
-    const { name: pluginName = null, version: pluginVersion = '*' } = plugin
-    const { name: layoutName = null, version: layoutVersion = '*' } = layout
+  }: {
+    rows: Object[],
+    cells: Object[],
+    content: {
+      plugin: {
+        name: string,
+        version: string
+      },
+      state: Object
+    },
+    layout: {
+      plugin: {
+        name: string,
+        version: string
+      },
+      state: Object
+    },
+    props: any
+  }): Object => {
+    const { plugin: { name: contentName = null, version: contentVersion = '*' } = {}, state: contentState } = content || {}
+    const { plugin: { name: layoutName = null, version: layoutVersion = '*' } = {}, state: layoutState } = layout || {}
 
-    if (pluginName) {
-      props.plugin = this.plugins.findContentPlugin(pluginName, pluginVersion)
+    if (contentName) {
+      const plugin = this.plugins.findContentPlugin(contentName, contentVersion)
+      props.content = {
+        plugin,
+        state: plugin.unserialize(contentState)
+      }
     }
 
     if (layoutName) {
-      props.layout = this.plugins.findLayoutPlugin(layoutName, layoutVersion)
+      const plugin = this.plugins.findLayoutPlugin(layoutName, layoutVersion)
+      props.layout = {
+        plugin,
+        state: plugin.unserialize(layoutState)
+      }
     }
 
-    if (rows.length) {
+    if ((rows || []).length) {
       props.rows = rows.map(this.unserialize)
     }
 
-    if (cells.length) {
+    if ((cells || []).length) {
       props.cells = cells.map(this.unserialize)
-    }
-
-    const unserializeProps = path(['plugin', 'hooks', 'unserialize'], props)
-
-    if (unserializeProps) {
-      props.props = unserializeProps(props.props)
     }
 
     return { ...props }
   }
 
-  serialize({
-    rows = [],
-    cells = [],
-    plugin = null,
-    layout = null,
+  serialize = ({
+    rows,
+    cells,
+    content,
+    layout,
     ...props
-  }) {
-    const serializeProps = path(['plugin', 'hooks', 'serialize'], props)
-
+  }: {
+    rows: Object[],
+    cells: Object[],
+    content: {
+      plugin: ContentPlugin,
+      state: Object
+    },
+    layout: {
+      plugin: LayoutPlugin,
+      state: Object
+    },
+    props: any
+  }): Object => {
+    const serializeProps = path(['content', 'plugin', 'hooks', 'serialize'], props)
     if (serializeProps) {
-      props.props = serializeProps(props.props)
+      props.content.state = serializeProps(content.state)
     }
 
-    if (plugin) {
-      props.plugin = { name: plugin.name, version: plugin.version }
+    if (content) {
+      props.content = {
+        plugin: { name: content.plugin.name, version: content.plugin.version },
+        state: content.plugin.serialize(content.state)
+      }
     }
 
     if (layout) {
-      props.layout = { name: layout.name, version: layout.version }
+      props.layout = {
+        plugin: { name: layout.plugin.name, version: layout.plugin.version },
+        state: layout.plugin.serialize(layout.state)
+      }
     }
 
-    if (rows.length) {
+    if ((rows || []).length) {
       props.rows = rows.map(this.serialize)
     }
 
-    if (cells.length) {
+    if ((cells || []).length) {
       props.cells = cells.map(this.serialize)
     }
 

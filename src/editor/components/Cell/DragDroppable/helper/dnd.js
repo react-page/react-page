@@ -1,87 +1,89 @@
+// @flow
 import { computeAndDispatchHover, computeAndDispatchInsert } from 'src/editor/service/hover/input'
 import throttle from 'lodash.throttle'
 import { isProduction } from 'src/editor/const'
+import type { ComponentizedCell } from 'types/editable'
 
-let last = {
-  props: {},
-  item: {}
-}
+let last: {hover: string, drag: string} = { hover: '', drag: '' }
 
-const clear = (props = {}, item = {}) => {
-  if (props.id === last.props.id && item.id === last.item.id) {
+const clear = (hover: ComponentizedCell, drag: string) => {
+  if (hover.id === last.hover && drag === last.drag) {
     return
   }
-  last = { props, item }
-  props.clearHover(item)
+  last = { hover: hover.id, drag }
+  hover.clearHover()
 }
 
 export const target = {
-  hover: throttle((props, monitor, component) => {
-    const item = monitor.getItem()
+  hover: throttle((hover: ComponentizedCell, monitor: Object, component: Object) => {
+    const drag: ComponentizedCell = monitor.getItem()
 
-    if (!item) {
+    if (!drag) {
       // item undefined, happens when throttle triggers after drop
       return
-    } else if (item.id === props.id) {
+    } else if (drag.id === hover.id) {
       // If hovering over itself, do nothing
-      clear(props, item)
+      clear(hover, drag.id)
       return
     } else if (!monitor.isOver({ shallow: true })) {
       // If hovering over ancestor cell, do nothing (we are going to propagate later in the tree anyways)
       return
-    } else if (props.ancestors.indexOf(item.id) > -1) {
+    } else if (hover.ancestors.indexOf(drag.id) > -1) {
       // If hovering over a child of itself
-      clear(props, item)
+      clear(hover, drag.id)
       return
-    } else if (!props.id) {
+    } else if (!hover.id) {
       // If hovering over something that isn't a cell or hasn't an id, do nothing. Should be an edge case
-      console.warn('Canceled cell drop, no id given.', props, item)
+      console.warn('Canceled cell drop, no id given.', hover, drag)
       return
     }
 
-    last = { props, item }
-    computeAndDispatchHover(props, monitor, component)
+    last = { hover: hover.id, drag: drag.id }
+    computeAndDispatchHover(hover, monitor, component)
   }, isProduction ? 5 : 10, { leading: false }),
 
-  canDrop: ({ id, ancestors }, monitor) => {
+  canDrop: ({ id, ancestors }: ComponentizedCell, monitor: Object) => {
     const item = monitor.getItem()
     return item.id !== id && ancestors.indexOf(item.id) === -1
   },
 
-  drop(props, monitor, component) {
-    const item = monitor.getItem()
+  drop(hover: ComponentizedCell, monitor: Object, component: Object) {
+    const drag = monitor.getItem()
 
     if (monitor.didDrop() || !monitor.isOver({ shallow: true })) {
       // If the item drop occurred deeper down the tree, don't do anything
       return
-    } else if (item.id === props.id) {
+    } else if (drag.id === hover.id) {
       // If the item being dropped on itself do nothing
-      props.cancelCellDrag(item.id)
+      hover.cancelCellDrag(drag.id)
       return
-    } else if (props.ancestors.indexOf(item.id) > -1) {
+    } else if (hover.ancestors.indexOf(drag.id) > -1) {
       // If hovering over a child of itself, don't propagate further
-      props.cancelCellDrag(item.id)
+      hover.cancelCellDrag(drag.id)
       return
     }
 
-    last = { props, item }
-    computeAndDispatchInsert(props, monitor, component)
+    last = { hover: hover.id, drag: drag.id }
+    computeAndDispatchInsert(hover, monitor, component)
   }
 }
 
 export const source = {
-  beginDrag(props) {
-    // Beginn draging the cell
-    props.dragCell(props)
+  beginDrag(props: ComponentizedCell) {
+    // Beginn dragging the cell
+    props.dragCell(props.id)
     return {
       ...props,
       // we do not want to pass down the react children or we will risk circular dependencies.
       children: null,
-      rows: props.rawNode().rows
+      node: {
+        ...props.node,
+        rows: props.rawNode().rows
+      }
     }
   },
 
-  endDrag({ cancelCellDrag, id }, monitor) {
+  endDrag({ cancelCellDrag, id }: ComponentizedCell, monitor: Object) {
     if (monitor.didDrop()) {
       // If the item drop occurred deeper down the tree, don't do anything
       return
@@ -92,13 +94,13 @@ export const source = {
   }
 }
 
-export const connect = (connect, monitor) => ({
+export const connect = (connect: Object, monitor: Object) => ({
   connectDropTarget: connect.dropTarget(),
   isOver: monitor.isOver(),
   isOverCurrent: monitor.isOver({ shallow: true })
 })
 
-export const collect = (connect, monitor) => ({
+export const collect = (connect: Object, monitor: Object) => ({
   connectDragSource: connect.dragSource(),
   isDragging: monitor.isDragging()
 })

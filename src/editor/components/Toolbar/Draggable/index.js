@@ -1,3 +1,4 @@
+// @flow
 import React, { Component, PropTypes } from 'react'
 import { shouldPureComponentUpdate } from 'src/editor/helper/shouldComponentUpdate'
 import { DragSource as dragSource } from 'react-dnd'
@@ -24,7 +25,7 @@ Draggable.propTypes = {
   connectDragSource: PropTypes.func.isRequired,
 }
 
-export default (dragType = 'CELL') => {
+export default (dragType : string = 'CELL') => {
   if (!instances[dragType]) {
     instances[dragType] = dragSource(dragType, source, collect)(cssModules(Draggable, styles, { allowMultiple: true }))
   }

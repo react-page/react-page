@@ -1,9 +1,10 @@
+// @flow
 import React, { PropTypes } from 'react'
 import cssModules from 'react-css-modules'
 
 import styles from './index.scoped.css'
 
-const Image = ({ state: { src } }) => (
+const Image = ({ state: { src } }: { state: { src: string } }) => (
   <div styleName="box">
     {src ? <img styleName="image" src={src} /> : <div styleName="placeholder" />}
   </div>
@@ -11,9 +12,9 @@ const Image = ({ state: { src } }) => (
 
 Image.propTypes = {
   onChange: PropTypes.func.isRequired,
-  state: {
+  state: PropTypes.shape({
     src: PropTypes.string
-  }
+  })
 }
 
 export default cssModules(Image, styles)

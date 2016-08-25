@@ -10,7 +10,7 @@ export const CELL_INSERT_RIGHT_OF = 'CELL_INSERT_RIGHT_OF'
 export const CELL_INSERT_INLINE_LEFT = 'CELL_INSERT_INLINE_LEFT'
 export const CELL_INSERT_INLINE_RIGHT = 'CELL_INSERT_INLINE_RIGHT'
 
-const gen = (c: number = 1) => {
+const gen = (c : number = 1) => {
   const ret = []
   for (let i = 0; i <= c; i++) {
     ret.push(uuid.v4())
@@ -18,7 +18,7 @@ const gen = (c: number = 1) => {
   return ret
 }
 
-const insert = (type: string) => (item: Cell, { id: hover, inline, hasInlineNeighbour }: Cell, level: number = 0, ids: Array<string> = []): Action => {
+const insert = (type: string) => (item: Cell, { id: hover, inline, hasInlineNeighbour }: Cell, level : number = 0, ids : Array < string > = []): Action => {
   let l = level
   switch (type) {
     case CELL_INSERT_ABOVE:

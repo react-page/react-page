@@ -1,6 +1,6 @@
 /* eslint-env mocha */
 import unexpected from 'unexpected'
-import HoverService, { classes as c, callbacks } from './index'
+import HoverService, { classes as c, defaultCallbacks } from './index'
 
 const expect = unexpected.clone()
 
@@ -82,16 +82,25 @@ const cases = [{
 
 describe('HoverService', () => {
   it('should have as many classes as callbacks', () => {
-    expect(Object.keys(callbacks).length, 'to be', Object.keys(c).length)
+    expect(Object.keys(defaultCallbacks).length, 'to be', Object.keys(c).length)
   })
 
   cases.forEach((c) => {
     it(`should pass test case ${c.d}`, (done) => {
       const h = new HoverService({
-        callbacks
+        defaultCallbacks
       })
 
-      h.hover({ id: 'foo' }, c.hover || { levels: { right: 10, left: 10, above: 10, below: 10 } }, c.actions(done), {
+      h.hover({ id: 'foo', node: { id: 'foo', levels: {} }, rawNode: () => ({ id: 'foo' }) }, c.hover || {
+        node: {
+          levels: {
+            right: 10,
+            left: 10,
+            above: 10,
+            below: 10
+          }
+        }, rawNode: () => ({ id: 'foo' })
+      }, c.actions(done), {
         room: c.in.room,
         mouse: c.in.mouse,
         ancestors: c.in.ancestors,

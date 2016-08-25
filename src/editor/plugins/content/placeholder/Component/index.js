@@ -1,3 +1,4 @@
+// @flow
 import React from 'react'
 import cssModules from 'react-css-modules'
 

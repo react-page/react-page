@@ -1,3 +1,4 @@
+// @flow
 import React, { PropTypes, Component } from 'react'
 import Inner from './inner'
 import { connect } from 'react-redux'
@@ -10,14 +11,15 @@ import { resizeCell, focusCell, blurCell } from 'src/editor/actions/cell'
 import classNames from 'classnames'
 import cssModules from 'react-css-modules'
 import deepEqual from 'deep-equal'
+import type { ComponentizedCell } from 'types/editable'
 
 import * as commonStyles from 'src/editor/styles'
 import localStyles from './index.scoped.css'
 
-const gridClass = ({ node: { size = 12 }, isPreviewMode, isEditMode }) => `cell-${isPreviewMode || isEditMode ? 'md' : 'xs'}-${size}`
+const gridClass = ({ node: { size }, isPreviewMode, isEditMode }: ComponentizedCell): string => `cell-${isPreviewMode || isEditMode ? 'md' : 'xs'}-${size || 12}`
 
 class Cell extends Component {
-  shouldComponentUpdate(nextProps) {
+  shouldComponentUpdate(nextProps: ComponentizedCell) {
     const blacklist = ['rawNode']
     const nextKeys = Object.keys(nextProps)
     const prevKeys = Object.keys(this.props)
@@ -25,28 +27,15 @@ class Cell extends Component {
       return true
     }
 
-    return nextKeys.filter((n) => blacklist.indexOf(n) > -1 ? false : !deepEqual(this.props[n], nextProps[n])).length > 0
+    return nextKeys.filter((n: string) => blacklist.indexOf(n) > -1 ? false : !deepEqual(this.props[n], nextProps[n])).length > 0
   }
 
   render() {
     const {
-      id,
-      rowWidth,
-      rowHeight,
-      updateDimensions,
-
-      isEditMode,
-      isLayoutMode,
-      isResizeMode,
-      isInsertMode,
-
-      node: {
-        inline,
-        resizable,
-        hover,
-        hasInlineNeighbour
-      } = {}
-    } = this.props
+      id, rowWidth, rowHeight, updateDimensions,
+      isLayoutMode, isResizeMode, isInsertMode,
+      node: { inline, resizable, hover, hasInlineNeighbour }
+    }: ComponentizedCell = this.props
 
     let styles
     if (isLayoutMode || isResizeMode || isInsertMode) {
@@ -57,28 +46,15 @@ class Cell extends Component {
       }
     }
 
-
-    let focusProps
-    if (isEditMode) {
-      const { focusCell, blurCell } = this.props
-
-      focusProps = {
-        onBlur: blurCell,
-        onFocus: focusCell,
-        tabIndex: -1
-      }
-    }
-
     const props = { ...this.props, styles: null }
     return (
       <div
-        {...focusProps}
         styles={styles}
         styleName={classNames(gridClass(this.props), {
           'is-over-current': hover,
-          [`is-over-${hover}`]: hover,
+          [`is-over-${hover || ''}`]: hover,
           'has-inline-neighbour': hasInlineNeighbour,
-          [`inline-${inline}`]: inline,
+          [`inline-${inline || ''}`]: inline
         })}
       >
         {resizable && (isResizeMode)
@@ -107,8 +83,6 @@ Cell.propTypes = {
     size: PropTypes.number.isRequired,
     resizable: PropTypes.bool.isRequired,
     inline: PropTypes.string,
-    isPreviewMode: PropTypes.bool.isRequired,
-    resizeCell: PropTypes.func.isRequired,
     hasInlineNeighbour: PropTypes.bool,
     bounds: PropTypes.object.isRequired,
     hover: PropTypes.string
@@ -117,6 +91,9 @@ Cell.propTypes = {
   rowWidth: PropTypes.number.isRequired,
   rowHeight: PropTypes.number.isRequired,
   updateDimensions: PropTypes.func.isRequired,
+  focusCell: PropTypes.func.isRequired,
+  blurCell: PropTypes.func.isRequired,
+  resizeCell: PropTypes.func.isRequired,
 
   id: PropTypes.string.isRequired,
   styles: PropTypes.object.isRequired,
@@ -125,6 +102,7 @@ Cell.propTypes = {
   isResizeMode: PropTypes.bool.isRequired,
   isLayoutMode: PropTypes.bool.isRequired,
   isEditMode: PropTypes.bool.isRequired,
+  isPreviewMode: PropTypes.bool.isRequired,
   isInsertMode: PropTypes.bool.isRequired
 }
 
@@ -136,10 +114,10 @@ const mapStateToProps = createStructuredSelector({
   isLayoutMode,
   config: editableConfig,
   node: purifiedNode,
-  rawNode: (state, props) => () => node(state, props)
+  rawNode: (state: any, props: any) => () => node(state, props)
 })
 
-const mapDispatchToProps = (dispatch, { id }) => bindActionCreators({
+const mapDispatchToProps = (dispatch: Function, { id }: ComponentizedCell) => bindActionCreators({
   resizeCell: resizeCell(id),
   focusCell: focusCell(id),
   blurCell: blurCell(id)

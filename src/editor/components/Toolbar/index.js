@@ -1,4 +1,5 @@
-import { always, propOr } from 'ramda'
+// @flow
+/* eslint no-invalid-this: "off" */
 import React, { PropTypes, Component } from 'react'
 import Drawer from 'material-ui/Drawer'
 import { connect } from 'react-redux'
@@ -13,24 +14,31 @@ import Toggle from 'material-ui/Toggle'
 import Divider from 'material-ui/Divider'
 import TextField from 'material-ui/TextField'
 import Item from './Item'
+import { Plugin } from 'src/editor/service/plugin/classes'
 
 // import ViewHeadline from 'material-ui/svg-icons/action/view-headline'
 // import ViewCarousel from 'material-ui/svg-icons/action/view-carousel'
 // import VoteBox from 'material-ui/svg-icons/action/thumbs-up-down'
 
 class Toolbar extends Component {
-  constructor(props) {
+  constructor(props: Object) {
     super(props)
     this.state = {
-      searchFilter: (a) => (a),
+      searchFilter: (a: any) => (a),
       isSearching: false
     }
+
     this.onSearch = this.onSearch.bind(this)
   }
 
-  onSearch(e) {
+  state: {
+    searchFilter: Function,
+    isSearching: boolean
+  }
+
+  onSearch = (e: any) => {
     this.setState({
-      searchFilter: ((v) => (a) => a.text.toLowerCase().indexOf(v) > -1)(e.target.value.toLowerCase()),
+      searchFilter: ((v: any) => (a: any) => a.text.toLowerCase().indexOf(v) > -1)(e.target.value.toLowerCase()),
       isSearching: e.target.value.length > 0
     })
   }
@@ -53,23 +61,20 @@ class Toolbar extends Component {
         </div>
         <List>
           {content.length ? <Subheader>Content</Subheader> : null}
-          {content.map(({ hooks, name, version, Component, ...props }, k) => {
-            const createInitialState = propOr(always({}), 'createInitialState', hooks)
-            const initialState = createInitialState()
+          {content.map(({ name, version, Component, ...plugin }: Plugin, k: Number) => {
+            const initialState = plugin.createInitialState()
 
             return (
               <Item
-                {...{ ...props, clearHover, layoutMode, insertMode, editMode, name, version, Component }}
+                {...{ ...plugin, clearHover, layoutMode, insertMode, editMode, name, version, Component }}
                 name={name}
                 version={version}
                 key={k}
                 insert={{
-                  plugin: {
-                    name,
-                    version,
-                    Component
-                  },
-                  props: initialState
+                  content: {
+                    plugin: { name, version, Component },
+                    state: initialState
+                  }
                 }}
               />
             )
@@ -77,17 +82,19 @@ class Toolbar extends Component {
         </List>
         <List>
           {layout.length ? <Subheader>Layout</Subheader> : null}
-          {layout.map(({ hooks, name, version, Component, ...props }, k) => {
-            const createInitialState = propOr(always({}), 'createInitialState', hooks)
-            const initialState = createInitialState()
+          {layout.map(({ name, version, Component, ...plugin }: Plugin, k: Number) => {
+            const initialState = plugin.createInitialState()
 
             return (
               <Item
-                {...{ ...props, clearHover, layoutMode, insertMode, editMode, name, version, Component }}
+                {...{ ...plugin, clearHover, layoutMode, insertMode, editMode, name, version, Component }}
                 key={k}
                 insert={{
                   ...initialState,
-                  layout: { name, version, Component, props: initialState }
+                  layout: {
+                    plugin: { name, version, Component },
+                    state: initialState
+                  }
                 }}
               />
             )
@@ -108,7 +115,7 @@ class Toolbar extends Component {
 }
 
 Toolbar.propTypes = {
-  plugins: PropTypes.array.isRequired,
+  plugins: PropTypes.object.isRequired,
   isInsertMode: PropTypes.bool.isRequired,
   insertMode: PropTypes.func.isRequired,
   editMode: PropTypes.func.isRequired,
@@ -116,9 +123,7 @@ Toolbar.propTypes = {
   clearHover: PropTypes.func.isRequired,
 }
 
-const mapStateToProps = createStructuredSelector({
-  isInsertMode
-})
+const mapStateToProps = createStructuredSelector({ isInsertMode })
 
 const mapDispatchToProps = { insertMode, editMode, layoutMode, clearHover }
 

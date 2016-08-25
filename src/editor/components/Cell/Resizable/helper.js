@@ -1,6 +1,9 @@
-export const computeStepWidth = ({ rowWidth, steps = 12 }) => Math.round(rowWidth / steps)
+// @flow
+import type { ComponentizedCell } from 'types/editable'
 
-export const widthToSize = ({ stepWidth, steps }, { node: { inline } }, result) => {
+export const computeStepWidth = ({ rowWidth, steps }: { rowWidth: number, steps: number }): number => Math.round(rowWidth / (steps || 12))
+
+export const widthToSize = ({ stepWidth, steps }: { stepWidth: number, steps: number }, { node: { inline } }: ComponentizedCell, result: { width: number }): number => {
   let size = Math.round(result.width / stepWidth)
   if (inline === 'right') {
     size = steps - size
