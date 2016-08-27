@@ -2,15 +2,13 @@
 /* eslint no-use-before-define: off */
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { Provider } from 'react-redux'
 import { forEach } from 'ramda'
-import Editable from 'src/editor/components/Editable'
+import EditorComponent from 'src/editor/components/Editor'
 import Controls from 'src/editor/components/Controls'
 import createStore from './store'
 import { updateEditable } from 'src/editor/actions/editables'
 import ContentService from 'src/editor/service/content'
 import { isProduction } from './const'
-import DragDropContext from 'src/editor/components/DragDropContext'
 
 import type Store from 'types/redux'
 import type { Editable as EditableType } from 'types/editable'
@@ -45,7 +43,7 @@ class Editor {
   /**
    * Renders the editor given a DOM entities.
    */
-  toolbar(toolbarHandle: ?HTMLElement) {
+  renderControls(toolbarHandle: ?HTMLElement) {
     let toolbar = toolbarHandle
     if (!toolbar) {
       toolbar = document.createElement('div')
@@ -53,11 +51,7 @@ class Editor {
     }
 
     ReactDOM.render((
-      <Provider store={this.store}>
-        <DragDropContext>
-          <Controls plugins={this.content.plugins} />
-        </DragDropContext>
-      </Provider>
+      <Controls plugins={this.content.plugins} store={this.store} />
     ), toolbar)
   }
 
@@ -73,13 +67,7 @@ class Editor {
             whitelist: this.content.plugins.getRegisteredNames()
           }
         }))
-        ReactDOM.render((
-          <Provider store={this.store}>
-            <DragDropContext>
-              <Editable id={state.id} />
-            </DragDropContext>
-          </Provider>
-        ), editable)
+        ReactDOM.render(<EditorComponent store={this.store} id={state.id} />, editable)
       })
     }, editables)
   }
