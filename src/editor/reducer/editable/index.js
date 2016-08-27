@@ -27,8 +27,9 @@ export const editable = (id) => undoable(rawEditableReducer, {
     if (action.id !== id && previousHistory.length < 2) {
       return false
     }
-    return ['@@INIT', CELL_DRAG_HOVER, CELL_DRAG, CELL_DRAG_CANCEL, CLEAR_CLEAR_HOVER, CELL_FOCUS, CELL_BLUR, UPDATE_EDITABLE].indexOf(action.type) === -1
+    return [CELL_DRAG_HOVER, CELL_DRAG, CELL_DRAG_CANCEL, CLEAR_CLEAR_HOVER, CELL_FOCUS, CELL_BLUR].indexOf(action.type) === -1
   },
+  initTypes: [UPDATE_EDITABLE],
   // FIXME this is required because redux-undo doesn't support multiple undo state otherwise
   undoType: `UNDO/${id}`,
   redoType: `REDO/${id}`,
