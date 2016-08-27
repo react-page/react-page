@@ -1,5 +1,5 @@
 /* eslint-env mocha */
-import { editable } from './index'
+import { rawEditableReducer } from './index'
 import unexpected from 'unexpected'
 import { combineReducers, createStore } from 'redux'
 import { identity } from 'ramda'
@@ -752,7 +752,7 @@ describe('editor/reducer/editable', () => {
   }].forEach((c) => {
     describe(`test case ${c.d}`, () => {
       it('should dispatch the action and return the expected result', () => {
-        const reducer = combineReducers({ editable })
+        const reducer = combineReducers({ editable: rawEditableReducer })
         const store = createStore(reducer, c.s, identity)
         store.dispatch(c.a())
         expect(store.getState(), 'to equal', {

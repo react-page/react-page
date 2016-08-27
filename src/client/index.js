@@ -10,13 +10,13 @@ const editor = new Editor()
 const renderComponent = (component: Object) => ReactDOM.render(component, document.getElementById('app'))
 
 let render = () => {
-  editor.toolbar()
+  editor.renderControls()
   editor.render(document.querySelectorAll('.editable'))
 }
 
 if (module.hot) {
   const renderApp = render
-  const renderError = (error) => {
+  const renderError = (error: string) => {
     const RedBox = require('redbox-react').default
     renderComponent(<RedBox error={error} />)
   }

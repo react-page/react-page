@@ -43,7 +43,12 @@ const renderMark = (mark) => {
     default:
       console.warn(`No component specified for mark type ${mark.type}`)
       return Fallback
+  }
+}
 
+const overrideKeyDefaults = (e: Event, data: { key: string, isMod: bool }) => {
+  if (data.isMod && (data.key === 'y' || data.key === 'z')) {
+    return e.stopPropagation()
   }
 }
 
@@ -60,9 +65,9 @@ class Slate extends Component {
 
   shouldComponentUpdate = (nextProps, nextState) => (
     nextProps.state.editorState !== this.props.state.editorState
-      || nextProps.focused !== this.props.focused
-      || nextProps.readOnly !== this.props.readOnly
-      || nextState.toolbar !== this.state.toolbar
+    || nextProps.focused !== this.props.focused
+    || nextProps.readOnly !== this.props.readOnly
+    || nextState.toolbar !== this.state.toolbar
   )
 
   componentDidUpdate = () => this.updateToolbar()
@@ -136,6 +141,7 @@ class Slate extends Component {
           renderMark={renderMark}
           placeholder="Write something..."
           onChange={this.onStateChange}
+          onKeyDown={overrideKeyDefaults}
           state={editorState}
         />
         <BottomToolbar open={focused}>

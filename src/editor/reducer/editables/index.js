@@ -1,17 +1,28 @@
 // @flow
-import { editable } from 'src/editor/reducer/editable'
+import { editable, rawEditableReducer } from 'src/editor/reducer/editable'
 import { UPDATE_EDITABLE } from 'src/editor/actions/editables'
 import type { Editable } from 'types/editable'
 
-export const editables = (state : Editable[] = [], action: {
+const createHistory = (state) => ({
+  past: [],
+  present: state,
+  future: []
+})
+
+export const editables = (state: { present: Editable }[] = [], action: {
   type: string,
   id: string,
   editable: Editable
 }): Editable[] => {
   switch (action.type) {
     case UPDATE_EDITABLE:
-      return [...state.filter(({ id }: Editable): boolean => id !== action.id), action.editable].map((e: Editable): Editable => editable(e, action))
+      return [
+        ...state.filter(({ present: { id } }: { present: Editable }): boolean => id !== action.id),
+        // we need to run the rawreducer once or the history initial state will be inconsistent.
+        // resolves https://github.com/ory-am/editor/pull/117#issuecomment-242942796
+        createHistory(rawEditableReducer(action.editable, action))
+      ].map((e: { present: Editable }): Editable => editable(e.present.id)(e, action))
     default:
-      return state.map((e: Editable) => editable(e, action))
+      return state.map((e: { present: Editable }) => editable(e.present.id)(e, action))
   }
 }

@@ -1,7 +1,7 @@
 // @flow
 import type { Editable, Cell, Row, Config } from 'types/editable'
 
-type Editables = { editables: Array<Editable> }
+type Editables = { editables: Array<{ present: Editable }> }
 
 const nodeInner = (current: any, props: Editable): any => {
   const { id, rows = [], cells = [] } = current
@@ -21,7 +21,8 @@ const nodeInner = (current: any, props: Editable): any => {
   return found
 }
 
-export const editable = ({ editables }: Editables, { id }: { id: string }): Editable => editables.find(({ id: current }: Editable): boolean => current === id)
+export const editable = ({ editables }: Editables, { id }: { id: string }): Editable =>
+  (editables.find(({ present: { id: current } = {} }: { present: Editable }) => current === id) || {}).present
 
 export const purifiedEditable = (state: Editables, props: Editable) => {
   const found = editable(state, props)
