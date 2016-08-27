@@ -10,7 +10,7 @@ import type { Store } from 'types/redux'
 const Editor = ({ id, store }: {id: string, store: Store }) => (
   <Provider store={store}>
     <DragDropContext>
-      <HotKeyDecorator>
+      <HotKeyDecorator id={id}>
         <Editable id={id} />
       </HotKeyDecorator>
     </DragDropContext>

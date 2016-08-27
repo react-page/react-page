@@ -16,7 +16,7 @@ let render = () => {
 
 if (module.hot) {
   const renderApp = render
-  const renderError = (error) => {
+  const renderError = (error: string) => {
     const RedBox = require('redbox-react').default
     renderComponent(<RedBox error={error} />)
   }

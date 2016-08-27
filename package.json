@@ -69,7 +69,7 @@
     "react-resizable": "^1.4.2",
     "react-tap-event-plugin": "^1.0.0",
     "redux": "3.5.2",
-    "redux-undo": "^0.6.1",
+    "redux-undo": "1.0.0-beta9",
     "reselect": "^2.5.1",
     "selection-position": "1.0.0",
     "semver": "5.2.0",
