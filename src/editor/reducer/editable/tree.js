@@ -15,7 +15,8 @@ import {
   CELL_DRAG_HOVER,
   CELL_RESIZE,
   CELL_FOCUS,
-  CELL_BLUR
+  CELL_BLUR,
+  CELL_BLUR_ALL
 } from 'src/editor/actions/cell'
 import { optimizeCell, optimizeRow, optimizeRows, optimizeCells, flatten } from './helper/optimize'
 import { mergeDecorator } from './helper/merge'
@@ -82,6 +83,9 @@ export const cell = (state: Cell, action: Object): Cell => optimizeCell(((state:
         return { ...reduce(), focused: false }
       }
       return reduce()
+
+    case CELL_BLUR_ALL:
+      return { ...reduce(), focused: false }
 
     case CELL_DRAG_HOVER:
       if (isHoveringThis(state, action)) {

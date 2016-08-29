@@ -4,17 +4,35 @@ import cssModules from 'react-css-modules'
 
 import styles from './index.scoped.css'
 
-const Image = ({ state: { src } }: { state: { src: string } }) => (
-  <div styleName="box">
-    {src ? <img styleName="image" src={src} /> : <div styleName="placeholder" />}
-  </div>
-)
+const Image = ({ state: { src, caption }, focused }: { state: { src: string }, readOnly: boolean }) => {
+  if (!focused && src) {
+    return (
+      <div>
+        <img styleName="image" src={src} />
+        {caption ? <p>{caption}</p> : null}
+      </div>
+    )
+  } else if (!focused && !src) {
+    return <div styleName="placeholder" />
+  } else if (focused && !src) {
+    return (
+      <div>
+        <div styleName="placeholder">
+          Click to upload or drag image here
+        </div>
+        <p>
+          <input type="text" placeholder="Enter image description" />
+        </p>
+      </div>
+    )
+  }
 
-Image.propTypes = {
-  onChange: PropTypes.func.isRequired,
-  state: PropTypes.shape({
-    src: PropTypes.string
-  })
+  return (
+    <div>
+      <img styleName="image" src={src} />
+      <p>Click to upload or drag image here</p>
+    </div>
+  )
 }
 
 export default cssModules(Image, styles)

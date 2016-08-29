@@ -18,12 +18,15 @@ class Content extends Component {
 
     let focusProps
     if (!isPreviewMode) {
-      const { focusCell, blurCell } = this.props
+      const { focusCell, blurAllCells } = this.props
 
       focusProps = {
-        onBlur: blurCell,
-        onFocus: focusCell,
-        tabIndex: -1
+        onMouseUp: () => {
+          if (!focused) {
+            blurAllCells()
+            focusCell()
+          }
+        }
       }
     }
 
@@ -33,7 +36,7 @@ class Content extends Component {
           editable={editable}
           id={id}
           state={state}
-          focused={Boolean(isEditMode && focused)}
+          focused={isEditMode && focused}
           readOnly={!isEditMode}
           onChange={updateCellContent}
         />

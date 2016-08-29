@@ -91,6 +91,7 @@ export type ComponentizedCell = {
   resizeCell(id: string): void,
   focusCell(id: string): void,
   blurCell(id: string): void,
+  blurAllCells(): void,
   updateCellContent(id: string): void,
   updateCellLayout(id: string): void,
   cancelCellDrag(drag: string): void,
@@ -167,4 +168,7 @@ export type EditableComponentState = {
   isEditMode: boolean,
   isLayoutMode: boolean,
   isPreviewMode: boolean,
+
+
+  blurAllCells: Function
 }

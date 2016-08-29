@@ -6,7 +6,7 @@ const hotKeyMap = {
   undo: ['ctrl+z', 'command+z'],
   redo: ['ctrl+shift+z', 'ctrl+y', 'command+shift+z', 'command+y'],
   remove: ['del', 'backspace'],
-  // navigate: ['up', 'down', 'right', 'left'],
+  navigate: ['up', 'down', 'right', 'left'],
   // insert: ['insert']
 }
 

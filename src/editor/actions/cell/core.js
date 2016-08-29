@@ -7,6 +7,7 @@ export const CELL_REMOVE = 'CELL_REMOVE'
 export const CELL_RESIZE = 'CELL_RESIZE'
 export const CELL_FOCUS = 'CELL_FOCUS'
 export const CELL_BLUR = 'CELL_BLUR'
+export const CELL_BLUR_ALL = 'CELL_BLUR_ALL'
 
 /**
  * Dispatch to update cell content data.
@@ -57,10 +58,32 @@ export const focusCell = (id: string) => (): Action => ({
 })
 
 /**
+ * Dispatch to focus a cell.
+ */
+export const focusNextCell = (id: string) => (): Action => ({
+  type: CELL_FOCUS,
+  ts: new Date(),
+  id
+})
+
+/**
+ * Dispatch to focus a cell.
+ */
+export const focusPreviousCell = (id: string) => (): Action => ({
+  type: CELL_FOCUS,
+  ts: new Date(),
+  id
+})
+
+/**
  * Dispatch to blur a cell.
  */
 export const blurCell = (id: string) => (): Action => ({
   type: CELL_BLUR,
   ts: new Date(),
   id
+})
+
+export const blurAllCells = (): Action => ({
+  type: CELL_BLUR_ALL,
 })
