@@ -14,7 +14,7 @@ class Content extends Component {
   shouldComponentUpdate = shouldPureComponentUpdate
 
   render() {
-    const { isPreviewMode, isEditMode, id, node: { content: { plugin: { Component }, state = {} }, focused }, updateCellContent = fallback }: ComponentizedCell = this.props
+    const { isPreviewMode, isEditMode, editable, id, node: { content: { plugin: { Component }, state = {} }, focused }, updateCellContent = fallback }: ComponentizedCell = this.props
 
     let focusProps
     if (!isPreviewMode) {
@@ -30,6 +30,7 @@ class Content extends Component {
     return (
       <div {...focusProps}>
         <Component
+          editable={editable}
           id={id}
           state={state}
           focused={Boolean(isEditMode && focused)}

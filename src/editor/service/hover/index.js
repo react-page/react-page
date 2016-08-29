@@ -183,7 +183,7 @@ export const computeHorizontal = ({ mouse, position, hover, scale, level }: {
   scale: Vector,
   level: number,
   hover: ComponentizedRow
-}, inv: boolean = false) => {
+}, inv : boolean = false) => {
   const { node: { cells = [] } } = hover
   const x = relativeMousePosition({ mouse, position, scale }).x
 
@@ -199,7 +199,7 @@ export const computeHorizontal = ({ mouse, position, hover, scale, level }: {
   return inv ? level - at : at
 }
 
-export const computeVertical = ({ level, mouse, hover, position, scale }: { level: number, mouse: Vector, hover: ComponentizedRow, position: MatrixIndex, scale: Vector }, inv: boolean = false) => {
+export const computeVertical = ({ level, mouse, hover, position, scale }: { level: number, mouse: Vector, hover: ComponentizedRow, position: MatrixIndex, scale: Vector }, inv : boolean = false) => {
   const { node: { cells = [] } } = hover
   const at = Math.round(relativeMousePosition({ mouse, position, scale }).y / (scale.x / level))
 
@@ -289,7 +289,7 @@ export const defaultCallbacks: CallbackList = {
   /* inline */
   [c.IL]: (item: ComponentizedCell, hover: ComponentizedCell, { inlineLeft, leftOf }: Callbacks) => {
     const { node: { inline, hasInlineNeighbour } } = hover
-    const { node: { content: { plugin: { inlineable = false } = {} } } } = item
+    const { node: { content: { plugin: { inlineable = false } = {} } = {} } } = item
     if (inline || !inlineable) {
       return leftOf(item.rawNode(), hover.rawNode(), 2)
     }
@@ -305,7 +305,7 @@ export const defaultCallbacks: CallbackList = {
 
   [c.IR]: (item: ComponentizedCell, hover: ComponentizedCell, { inlineRight, rightOf }: Callbacks) => {
     const { node: { inline, hasInlineNeighbour } } = hover
-    const { node: { content: { plugin: { inlineable = false } = {} } } } = item
+    const { node: { content: { plugin: { inlineable = false } = {} } = {} } } = item
     if (inline || !inlineable) {
       return rightOf(item.rawNode(), hover.rawNode(), 2)
     }

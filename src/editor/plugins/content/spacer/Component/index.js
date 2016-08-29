@@ -3,7 +3,7 @@
 import React, { Component, PropTypes } from 'react'
 import cssModules from 'react-css-modules'
 import debounce from 'lodash.debounce'
-import { ResizableBox } from 'react-resizable'
+import { Resizable } from 'react-resizable'
 import classNames from 'classnames'
 
 import styles from './index.scoped.css'
@@ -30,15 +30,16 @@ class Spacer extends Component {
   render() {
     const { readOnly } = this.props
     const height = compute(this.props.state).height
+
     return (
       <div className="editable-spacer" styleName={classNames({ spacer: true, 'read-only': readOnly })}>
         {readOnly
           ? (
           <Solid height={height} />
         ) : (
-          <ResizableBox onResize={this.onResize} height={height}>
-            <div />
-          </ResizableBox>
+          <Resizable onResize={this.onResize} height={height}>
+            <div style={{ height }} />
+          </Resizable>
         )}
       </div>
     )
