@@ -72,7 +72,8 @@ class Slate extends Component {
     this.props.onChange({ editorState })
   }
 
-  onKeyDown = (e:Event, data:{ key: string, isMod: bool }, state) => {
+  onKeyDown = (e: Event, data: { key: string, isMod: bool }, state) => {
+    // we need to prevent slate from handling undo and redo
     if (data.isMod && (data.key === 'z' || data.key === 'y')) {
       return state
     }

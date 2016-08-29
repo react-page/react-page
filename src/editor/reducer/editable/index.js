@@ -6,13 +6,13 @@ import { CELL_DRAG_HOVER, CELL_DRAG, CELL_DRAG_CANCEL, CLEAR_CLEAR_HOVER } from 
 import { CELL_FOCUS, CELL_BLUR } from 'src/editor/actions/cell/core'
 import { UPDATE_EDITABLE } from 'src/editor/actions/editables'
 
-export const rawEditableReducer = (state = {
+export const rawEditableReducer = (state: Object = {
   id: null,
   cells: [],
   config: {
     whitelist: []
   }
-}, action) => {
+}, action: { type: string }) => {
   switch (action.type) {
     default:
       return {
@@ -22,7 +22,7 @@ export const rawEditableReducer = (state = {
   }
 }
 
-export const editable = (id) => undoable(rawEditableReducer, {
+export const editable = (id: string) => undoable(rawEditableReducer, {
   filter: excludeAction([CELL_DRAG_HOVER, CELL_DRAG, CELL_DRAG_CANCEL, CLEAR_CLEAR_HOVER, CELL_FOCUS, CELL_BLUR]),
   initTypes: [UPDATE_EDITABLE],
   // FIXME this is required because redux-undo doesn't support multiple undo state otherwise
