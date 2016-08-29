@@ -18,6 +18,7 @@ import {
   CELL_BLUR
 } from 'src/editor/actions/cell'
 import { optimizeCell, optimizeRow, optimizeRows, optimizeCells, flatten } from './helper/optimize'
+import { mergeDecorator } from './helper/merge'
 import { isHoveringThis } from './helper/hover'
 import { resizeCells } from './helper/sizing'
 
@@ -242,7 +243,7 @@ export const row = (state: Row, action: Object): Row => optimizeRow(((state: Row
 })(state, action))
 
 
-export const rows = (state: Row[] = [], action: Object): Row[] => optimizeRows(((state: Row[], action: Object): Row[] => {
+export const rows = (state: Row[] = [], action: Object): Row[] => optimizeRows(mergeDecorator(action)(((state: Row[], action: Object): Row[] => {
   const reduce = () => state.map(inner(row, action))
   switch (action.type) {
     case CELL_INSERT_ABOVE:
@@ -276,4 +277,4 @@ export const rows = (state: Row[] = [], action: Object): Row[] => optimizeRows((
     default:
       return reduce()
   }
-})(state, action))
+})(state, action)))
