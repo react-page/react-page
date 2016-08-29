@@ -11,7 +11,12 @@ import { createStructuredSelector } from 'reselect'
 const handlers = ({ id, undo, redo, focus, removeCell, isEditMode }: { id: string, undo: Function, redo: Function, removeCell(id: string): Object, focus: string[] }) => ({
   undo: () => undo(id),
   redo: () => redo(id),
-  remove: () => !isEditMode && focus.map(removeCell)
+  remove: () => {
+    if (!isEditMode) {
+      focus.map(removeCell)
+    }
+    return true
+  }
   // navigate: () => console.log('navigate')
 })
 
