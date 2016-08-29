@@ -3,7 +3,7 @@ import { editable, rawEditableReducer } from 'src/editor/reducer/editable'
 import { UPDATE_EDITABLE } from 'src/editor/actions/editables'
 import type { Editable } from 'types/editable'
 
-const createHistory = (state) => ({
+const createHistory = (state: any) => ({
   past: [],
   present: state,
   future: []

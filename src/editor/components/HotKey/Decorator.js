@@ -4,7 +4,10 @@ import Handler from './Handler'
 
 const hotKeyMap = {
   undo: ['ctrl+z', 'ctrl+z'],
-  redo: ['ctrl+shift+z', 'ctrl+y', 'command+shift+z', 'command+y']
+  redo: ['ctrl+shift+z', 'ctrl+y', 'command+shift+z', 'command+y'],
+  remove: ['del', 'backspace'],
+  // navigate: ['up', 'down', 'right', 'left'],
+  // insert: ['insert']
 }
 
 const Decorator = ({ children, id }: { children: any, id: string }) => (

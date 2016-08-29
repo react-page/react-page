@@ -3,13 +3,19 @@ import React, { PropTypes } from 'react'
 import { HotKeys } from 'react-hotkeys'
 import { connect } from 'react-redux'
 import { undo, redo } from 'src/editor/actions/undo'
+import { removeCell } from 'src/editor/actions/cell'
+import { isEditMode } from 'src/editor/selector/display'
+import { focus } from 'src/editor/selector/focus'
+import { createStructuredSelector } from 'reselect'
 
-const handlers = ({ id, undo, redo }: { id: string, undo: Function, redo: Function }) => ({
+const handlers = ({ id, undo, redo, focus, removeCell, isEditMode }: { id: string, undo: Function, redo: Function, removeCell(id: string): Object, focus: string[] }) => ({
   undo: () => undo(id),
-  redo: () => redo(id)
+  redo: () => redo(id),
+  remove: () => !isEditMode && focus.map(removeCell)
+  // navigate: () => console.log('navigate')
 })
 
-const Decorator = ({ children, ...props }: { children: any, id: string, undo: Function, redo: Function }) => (
+const Decorator = ({ children, ...props }: { children: any, id: string, undo: Function, redo: Function, focus: string[] }) => (
   <HotKeys handlers={handlers(props)}>
     {children}
   </HotKeys>
@@ -22,11 +28,14 @@ Decorator.propTypes = {
   redo: PropTypes.func.isRequired
 }
 
-const mapStateToProps = null
+const mapStateToProps = createStructuredSelector({
+  isEditMode, focus
+})
 
 const mapDispatchToProps = {
   undo,
-  redo
+  redo,
+  removeCell
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Decorator)
