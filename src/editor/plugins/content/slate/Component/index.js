@@ -3,7 +3,8 @@ import cssModules from 'react-css-modules'
 import Portal from 'react-portal'
 import position from 'selection-position'
 import { Editor } from 'slate'
-
+import { connect } from 'react-redux'
+import { undo, redo } from 'src/editor/actions/undo'
 import IconButton from 'material-ui/IconButton'
 import BoldIcon from 'material-ui/svg-icons/editor/format-bold'
 import ItalicIcon from 'material-ui/svg-icons/editor/format-italic'
@@ -11,7 +12,6 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme'
 import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import BottomToolbar from 'src/editor/components/BottomToolbar'
-
 import nodes from './nodes'
 import styles from './index.scoped.css'
 
@@ -46,12 +46,6 @@ const renderMark = (mark) => {
   }
 }
 
-const overrideKeyDefaults = (e: Event, data: { key: string, isMod: bool }) => {
-  if (data.isMod && (data.key === 'y' || data.key === 'z')) {
-    return e.stopPropagation()
-  }
-}
-
 /* eslint no-invalid-this: "off" */
 class Slate extends Component {
   constructor(props) {
@@ -63,17 +57,25 @@ class Slate extends Component {
 
   componentDidMount = () => this.updateToolbar()
 
-  shouldComponentUpdate = (nextProps, nextState) => (
-    nextProps.state.editorState !== this.props.state.editorState
-    || nextProps.focused !== this.props.focused
-    || nextProps.readOnly !== this.props.readOnly
-    || nextState.toolbar !== this.state.toolbar
-  )
+  shouldComponentUpdate = (nextProps, nextState) => {
+    return (
+      nextProps.state.editorState !== this.props.state.editorState
+      || nextProps.focused !== this.props.focused
+      || nextProps.readOnly !== this.props.readOnly
+      || nextState.toolbar !== this.state.toolbar
+    )
+  }
 
   componentDidUpdate = () => this.updateToolbar()
 
   onStateChange = (editorState) => {
     this.props.onChange({ editorState })
+  }
+
+  onKeyDown = (e:Event, data:{ key: string, isMod: bool }, state) => {
+    if (data.isMod && (data.key === 'z' || data.key === 'y')) {
+      return state
+    }
   }
 
   handleOpen = (portal) => {
@@ -121,8 +123,7 @@ class Slate extends Component {
   }
 
   render() {
-    const { focused, readOnly, state } = this.props
-    const { editorState } = state
+    const { focused, readOnly, state: { editorState } } = this.props
     const isOpened = editorState.isExpanded && editorState.isFocused
 
     return (
@@ -141,7 +142,7 @@ class Slate extends Component {
           renderMark={renderMark}
           placeholder="Write something..."
           onChange={this.onStateChange}
-          onKeyDown={overrideKeyDefaults}
+          onKeyDown={this.onKeyDown}
           state={editorState}
         />
         <BottomToolbar open={focused}>
@@ -158,7 +159,13 @@ Slate.propTypes = {
   }),
   focused: PropTypes.bool.isRequired,
   readOnly: PropTypes.bool.isRequired,
-  onChange: PropTypes.func.isRequired
+  onChange: PropTypes.func.isRequired,
+  undo: PropTypes.func.isRequired,
+  redo: PropTypes.func.isRequired
 }
 
-export default cssModules(Slate, styles)
+const mapStateToProps = null
+
+const mapDispatchToProps = { undo, redo }
+
+export default connect(mapStateToProps, mapDispatchToProps)(cssModules(Slate, styles))

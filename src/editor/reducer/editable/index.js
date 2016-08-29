@@ -32,6 +32,5 @@ export const editable = (id) => undoable(rawEditableReducer, {
   initTypes: [UPDATE_EDITABLE],
   // FIXME this is required because redux-undo doesn't support multiple undo state otherwise
   undoType: `UNDO/${id}`,
-  redoType: `REDO/${id}`,
-  debug: !isProduction,
+  redoType: `REDO/${id}`
 })

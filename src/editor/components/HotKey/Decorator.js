@@ -3,7 +3,7 @@ import { HotKeys } from 'react-hotkeys'
 import Handler from './Handler'
 
 const hotKeyMap = {
-  undo: ['ctrl+z', 'ctrl+z'],
+  undo: ['ctrl+z', 'command+z'],
   redo: ['ctrl+shift+z', 'ctrl+y', 'command+shift+z', 'command+y'],
   remove: ['del', 'backspace'],
   // navigate: ['up', 'down', 'right', 'left'],
