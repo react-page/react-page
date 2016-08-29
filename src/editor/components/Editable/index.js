@@ -8,6 +8,7 @@ import { isLayoutMode, isResizeMode } from 'src/editor/selector/display'
 import { createStructuredSelector } from 'reselect'
 import cssModules from 'react-css-modules'
 import dimensions from 'react-dimensions'
+import Notifier from 'src/editor/components/Notifier'
 
 import type { EditableComponentState, Cell as CellType } from 'types/editable'
 
@@ -42,6 +43,7 @@ class Editable extends Component {
             />
           ))}
         </div>
+        <Notifier />
       </div>
     )
   }
