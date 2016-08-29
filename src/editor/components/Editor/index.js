@@ -1,7 +1,6 @@
 // @flow
-import React, { PropTypes, Component } from 'react'
+import React, { PropTypes } from 'react'
 import { Provider } from 'react-redux'
-import { forEach } from 'ramda'
 import Editable from 'src/editor/components/Editable'
 import DragDropContext from 'src/editor/components/DragDropContext'
 import HotKeyDecorator from 'src/editor/components/HotKey/Decorator'
