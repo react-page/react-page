@@ -9,6 +9,12 @@ import IconButton from 'material-ui/IconButton'
 import BoldIcon from 'material-ui/svg-icons/editor/format-bold'
 import ItalicIcon from 'material-ui/svg-icons/editor/format-italic'
 import UnderlinedIcon from 'material-ui/svg-icons/editor/format-underlined'
+import H1Icon from 'material-ui/svg-icons/image/filter-1'
+import H2Icon from 'material-ui/svg-icons/image/filter-2'
+import H3Icon from 'material-ui/svg-icons/image/filter-3'
+import H4Icon from 'material-ui/svg-icons/image/filter-4'
+import H5Icon from 'material-ui/svg-icons/image/filter-5'
+import H6Icon from 'material-ui/svg-icons/image/filter-6'
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
 import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
@@ -16,14 +22,27 @@ import BottomToolbar from 'src/editor/components/BottomToolbar'
 import nodes from './nodes'
 import styles from './index.scoped.css'
 
+const H1 = (props) => <h1 {...props} />
+const H2 = (props) => <h2 {...props} />
+const H3 = (props) => <h3 {...props} />
+const H4 = (props) => <h4 {...props} />
+const H5 = (props) => <h5 {...props} />
+const H6 = (props) => <h6 {...props} />
+
 const renderNode = (node) => {
   switch (node.type) {
     case 'heading-one':
-      return nodes.HeadingOne
+      return H1
     case 'heading-two':
-      return nodes.H2
+      return H2
     case 'heading-three':
-      return nodes.H3
+      return H3
+    case 'heading-four':
+      return H4
+    case 'heading-five':
+      return H5
+    case 'heading-six':
+      return H6
     case 'code':
       return nodes.CodeNode
     default:
@@ -122,6 +141,80 @@ class Slate extends Component {
     )
   }
 
+  renderNodeButton = (type, icon) => {
+    const onClick = (e) => {
+      e.preventDefault()
+
+      // let { state } = this.state
+      // let transform = state.transform()
+      // const { document } = state
+
+      // Handle everything but list buttons.
+      // if (type != 'bulleted-list' && type != 'numbered-list') {
+      //   const isActive = this.hasBlock(type)
+      //   const isList = this.hasBlock('list-item')
+      //
+      //   if (isList) {
+      //     transform = transform
+      //       .setBlock(isActive ? DEFAULT_NODE : type)
+      //       .unwrapBlock('bulleted-list')
+      //       .unwrapBlock('numbered-list')
+      //   }
+      //
+      //   else {
+      //     transform = transform
+      //       .setBlock(isActive ? DEFAULT_NODE : type)
+      //   }
+      // }
+
+      // Handle the extra wrapping required for list buttons.
+      // else {
+      //   const isList = this.hasBlock('list-item')
+      //   const isType = state.blocks.some((block) => {
+      //     return !!document.getClosest(block, parent => parent.type == type)
+      //   })
+      //
+      //   if (isList && isType) {
+      //     transform = transform
+      //       .setBlock(DEFAULT_NODE)
+      //       .unwrapBlock('bulleted-list')
+      //       .unwrapBlock('numbered-list')
+      //   } else if (isList) {
+      //     transform = transform
+      //       .unwrapBlock(type == 'bulleted-list' ? 'numbered-list' : 'bulleted-list')
+      //       .wrapBlock(type)
+      //   } else {
+      //     transform = transform
+      //       .setBlock('list-item')
+      //       .wrapBlock(type)
+      //   }
+      // }
+
+      // state = transform.apply()
+      // this.setState({ state })
+
+      const { editorState } = this.props.state
+      const isActive = editorState.blocks.some((block) => block.type === type)
+
+      this.onStateChange(
+        // eslint-disable-next-line prefer-reflect
+        editorState
+          .transform()
+          .setBlock(isActive ? 'paragraph' : type)
+          .apply()
+      )
+    }
+
+    const { editorState } = this.props.state
+    const isActive = editorState.blocks.some((block) => block.type === type)
+
+    return (
+      <IconButton onMouseDown={onClick} iconStyle={isActive ? { color: '#007EC1' } : {}}>
+        {icon}
+      </IconButton>
+    )
+  }
+
   onKeyDown = (e, data) => {
     if (!data.isMod) {
       return
@@ -181,7 +274,12 @@ class Slate extends Component {
           state={editorState}
         />
         <BottomToolbar open={focused}>
-          Hier könnte Ihre Werbung stehen!
+          {this.renderNodeButton('heading-one', <H1Icon />)}
+          {this.renderNodeButton('heading-two', <H2Icon />)}
+          {this.renderNodeButton('heading-three', <H3Icon />)}
+          {this.renderNodeButton('heading-four', <H4Icon />)}
+          {this.renderNodeButton('heading-five', <H5Icon />)}
+          {this.renderNodeButton('heading-six', <H6Icon />)}
         </BottomToolbar>
       </div>
     )
