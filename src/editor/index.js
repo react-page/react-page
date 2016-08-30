@@ -26,12 +26,16 @@ if (!isProduction && typeof window !== 'undefined') {
   window.Perf = require('react-addons-perf')
 }
 
-consolePlugin(Raven, console)
+if (isProduction) {
+  consolePlugin(Raven, console)
+}
 
 const logException = (ex, context) => {
-  Raven.captureException(ex, {
-    extra: context
-  })
+  if (isProduction) {
+    Raven.captureException(ex, {
+      extra: context
+    })
+  }
   /* eslint no-console:0*/
   return window.console && console.error && console.error(ex)
 }
@@ -65,9 +69,13 @@ class Editor {
       document.body.appendChild(toolbar)
     }
 
-    ReactDOM.render((
-      <Controls plugins={this.content.plugins} store={this.store} />
-    ), toolbar)
+    try {
+      ReactDOM.render((
+        <Controls plugins={this.content.plugins} store={this.store} />
+      ), toolbar)
+    } catch (e) {
+      logException(e)
+    }
   }
 
   /**
@@ -87,7 +95,7 @@ class Editor {
         })
       }, editables)
     } catch (e) {
-      Raven.captureException(e)
+      logException(e)
     }
   }
 }
