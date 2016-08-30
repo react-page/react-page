@@ -11,7 +11,7 @@ const hotKeyMap = {
 }
 
 const Decorator = ({ children, id }: { children: any, id: string }) => (
-  <HotKeys keyMap={hotKeyMap}>
+  <HotKeys keyMap={hotKeyMap} style={{ outline: 'none' }}>
     <Handler id={id}>
       {children}
     </Handler>

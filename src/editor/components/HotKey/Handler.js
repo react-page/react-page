@@ -21,7 +21,7 @@ const handlers = ({ id, undo, redo, focus, removeCell, isEditMode }: { id: strin
 })
 
 const Decorator = ({ children, ...props }: { children: any, id: string, undo: Function, redo: Function, focus: string[] }) => (
-  <HotKeys handlers={handlers(props)}>
+  <HotKeys handlers={handlers(props)} style={{ outline: 'none' }}>
     {children}
   </HotKeys>
 )
