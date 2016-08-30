@@ -2,12 +2,13 @@ import React, { Component, PropTypes } from 'react'
 import cssModules from 'react-css-modules'
 import Portal from 'react-portal'
 import position from 'selection-position'
-import { Editor, Html } from 'slate'
+import { Editor } from 'slate'
 import { connect } from 'react-redux'
 import { undo, redo } from 'src/editor/actions/undo'
 import IconButton from 'material-ui/IconButton'
 import BoldIcon from 'material-ui/svg-icons/editor/format-bold'
 import ItalicIcon from 'material-ui/svg-icons/editor/format-italic'
+import UnderlinedIcon from 'material-ui/svg-icons/editor/format-underlined'
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
 import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
@@ -32,6 +33,7 @@ const renderNode = (node) => {
 
 const Bold = (props) => <strong {...props} />
 const Italic = (props) => <em {...props} />
+const Underline = (props) => <u {...props} />
 const Fallback = (props) => <span {...props} />
 
 const renderMark = (mark) => {
@@ -40,6 +42,8 @@ const renderMark = (mark) => {
       return Bold
     case 'italic':
       return Italic
+    case 'underlined':
+      return Underline
     default:
       console.warn(`No component specified for mark type ${mark.type}`)
       return Fallback
@@ -48,23 +52,16 @@ const renderMark = (mark) => {
 
 /* eslint no-invalid-this: "off" */
 class Slate extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {}
-  }
-
   state = {}
 
   componentDidMount = () => this.updateToolbar()
 
-  shouldComponentUpdate = (nextProps, nextState) => {
-    return (
-      nextProps.state.editorState !== this.props.state.editorState
-      || nextProps.focused !== this.props.focused
-      || nextProps.readOnly !== this.props.readOnly
-      || nextState.toolbar !== this.state.toolbar
-    )
-  }
+  shouldComponentUpdate = (nextProps, nextState) => (
+    nextProps.state.editorState !== this.props.state.editorState
+    || nextProps.focused !== this.props.focused
+    || nextProps.readOnly !== this.props.readOnly
+    || nextState.toolbar !== this.state.toolbar
+  )
 
   componentDidUpdate = () => this.updateToolbar()
 
@@ -141,11 +138,14 @@ class Slate extends Component {
       case 'i':
         mark = 'italic'
         break
+      case 'u':
+        mark = 'underlined'
+        break
       default:
         return
     }
 
-    const { editorState } = this.props
+    const { editorState } = this.props.state
 
     this.onStateChange(
       // eslint-disable-next-line prefer-reflect
@@ -167,6 +167,7 @@ class Slate extends Component {
             <div styleName="toolbar">
               {this.renderMarkButton('bold', <BoldIcon />)}
               {this.renderMarkButton('italic', <ItalicIcon />)}
+              {this.renderMarkButton('underlined', <UnderlinedIcon />)}
             </div>
           </MuiThemeProvider>
         </Portal>
@@ -177,7 +178,6 @@ class Slate extends Component {
           renderMark={renderMark}
           placeholder="Write something..."
           onChange={this.onStateChange}
-          onKeyDown={this.onKeyDown}
           state={editorState}
         />
         <BottomToolbar open={focused}>
@@ -200,7 +200,6 @@ Slate.propTypes = {
 }
 
 const mapStateToProps = null
-
 const mapDispatchToProps = { undo, redo }
 
 export default connect(mapStateToProps, mapDispatchToProps)(cssModules(Slate, styles))
