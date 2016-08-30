@@ -55,6 +55,7 @@
     "node-uuid": "1.4.7",
     "postcss-loader": "0.9.1",
     "ramda": "0.21.0",
+    "raven-js": "^3.5.1",
     "react": "15.2.0",
     "react-addons-perf": "^15.2.1",
     "react-css-modules": "3.7.6",
