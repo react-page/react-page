@@ -54,7 +54,7 @@ const handlers = ({ id, undo, redo, focus, removeCell, focusCell, blurAllCells, 
 
     focus.forEach((cell: string) => {
       const n = node(cell, id)
-      if (hotKeyHandler(n, 'onFocusPrevHotKey')(e, pathOr(pathOr({}, ['layout', 'state'], n), ['content', 'state'], n))) {
+      if (hotKeyHandler(n, 'onFocusNextHotKey')(e, pathOr(pathOr({}, ['layout', 'state'], n), ['content', 'state'], n))) {
         const found = nextLeaf(editable.cellOrder, cell)
         if (found) {
           blurAllCells()
