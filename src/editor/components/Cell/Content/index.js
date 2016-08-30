@@ -1,5 +1,5 @@
 // @flow
-import React, { PropTypes, Component } from 'react'
+import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { updateCellContent } from 'src/editor/actions/cell'
@@ -25,7 +25,7 @@ class Content extends Component {
         onMouseDown: () => {
           if (!focused) {
             blurAllCells()
-            focusCell({ Component, plugin })
+            focusCell()
           }
           return true
         }

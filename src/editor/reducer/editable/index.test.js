@@ -5,6 +5,7 @@ import { combineReducers, createStore } from 'redux'
 import { identity } from 'ramda'
 import * as actions from 'src/editor/actions/cell'
 import { decorate } from './helper/tree'
+import { cellOrder } from './helper/order'
 
 const expect = unexpected.clone()
 
@@ -758,7 +759,8 @@ describe('editor/reducer/editable', () => {
         expect(store.getState(), 'to equal', {
           editable: {
             ...c.e.editable,
-            cells: c.e.editable.cells
+            cells: c.e.editable.cells,
+            cellOrder: cellOrder(c.e.editable.cells),
           }
         })
       })

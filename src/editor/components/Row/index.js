@@ -1,5 +1,5 @@
 // @flow
-import React, { PropTypes, Component } from 'react'
+import React, { Component } from 'react'
 import droppable from './Droppable'
 import { connect } from 'react-redux'
 import { shouldPureComponentUpdate } from 'src/editor/helper/shouldComponentUpdate'
@@ -22,6 +22,7 @@ class Row extends Component {
   }
 
   shouldComponentUpdate = shouldPureComponentUpdate
+  props: ComponentizedRow
   Droppable: Object
 
   render() {
@@ -47,14 +48,6 @@ class Row extends Component {
 
     return <Inner {...props} />
   }
-}
-
-Row.propTypes = {
-  isLayoutMode: PropTypes.bool.isRequired,
-  isResizeMode: PropTypes.bool.isRequired,
-  isInsertMode: PropTypes.bool.isRequired,
-  config: PropTypes.object.isRequired,
-  node: PropTypes.object.isRequired
 }
 
 const mapStateToProps = createStructuredSelector({

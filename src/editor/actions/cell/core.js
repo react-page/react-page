@@ -1,6 +1,5 @@
 // @flow
 import type { Action } from 'types/redux'
-import { Plugin } from 'src/editor/service/plugin'
 
 export const CELL_UPDATE_CONTENT = 'CELL_UPDATE_CONTENT'
 export const CELL_UPDATE_LAYOUT = 'CELL_UPDATE_LAYOUT'
