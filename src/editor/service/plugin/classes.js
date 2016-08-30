@@ -11,9 +11,9 @@ export class Plugin {
   serialize = (raw: Object): Object => raw
   unserialize = (state: Object): Object => state
 
-  onRemoveHotKey = (_: Event, _: Object): boolean => true
-  onFocusNextHotKey = (_: Event, _: Object): boolean => true
-  onFocusPreviousHotKey = (_: Event, _: Object): boolean => true
+  onRemoveHotKey = (_: Event, __: Object): boolean => true
+  onFocusNextHotKey = (_: Event, __: Object): boolean => true
+  onFocusPreviousHotKey = (_: Event, __: Object): boolean => true
 }
 
 /**
