@@ -1,3 +1,4 @@
+/* eslint-disable prefer-reflect */
 import React, { Component, PropTypes } from 'react'
 import cssModules from 'react-css-modules'
 import Portal from 'react-portal'
@@ -88,13 +89,43 @@ class Slate extends Component {
     this.props.onChange({ editorState })
   }
 
-  onKeyDown = (e: Event, data: { key: string, isMod: bool }, state) => {
+  onKeyDown = (e: Event, data: { key: string, isMod: bool, isShift: bool }, state) => {
     // we need to prevent slate from handling undo and redo
     if (data.isMod && (data.key === 'z' || data.key === 'y')) {
       return state
     }
-
     // TODO if empty and backspace, remove cell
+
+    if (data.isShift && data.key === 'enter') {
+      return state.transform().insertText('\n').apply()
+    }
+
+    if (!data.isMod) {
+      return
+    }
+
+    e.preventDefault()
+
+    let mark
+
+    switch (data.key) {
+      case 'b':
+        mark = 'bold'
+        break
+      case 'i':
+        mark = 'italic'
+        break
+      case 'u':
+        mark = 'underlined'
+        break
+      default:
+        return
+    }
+
+    return state
+      .transform()
+      .toggleMark(mark)
+      .apply()
   }
 
   handleOpen = (portal) => {
@@ -123,7 +154,6 @@ class Slate extends Component {
       const { editorState } = this.props.state
 
       this.onStateChange(
-        // eslint-disable-next-line prefer-reflect
         editorState
           .transform()
           .toggleMark(type)
@@ -212,40 +242,6 @@ class Slate extends Component {
       <IconButton onMouseDown={onClick} iconStyle={isActive ? { color: '#007EC1' } : {}}>
         {icon}
       </IconButton>
-    )
-  }
-
-  onKeyDown = (e, data) => {
-    if (!data.isMod) {
-      return
-    }
-
-    e.preventDefault()
-
-    let mark
-
-    switch (data.key) {
-      case 'b':
-        mark = 'bold'
-        break
-      case 'i':
-        mark = 'italic'
-        break
-      case 'u':
-        mark = 'underlined'
-        break
-      default:
-        return
-    }
-
-    const { editorState } = this.props.state
-
-    this.onStateChange(
-      // eslint-disable-next-line prefer-reflect
-      editorState
-        .transform()
-        .toggleMark(mark)
-        .apply()
     )
   }
 
