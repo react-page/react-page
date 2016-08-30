@@ -1,5 +1,5 @@
 // @flow
-import React, { PropTypes, Component } from 'react'
+import React, { Component } from 'react'
 import Inner from './inner'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'

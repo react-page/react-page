@@ -1,5 +1,5 @@
-
-import React, { PropTypes, Component } from 'react'
+// @flow
+import React, { Component } from 'react'
 import { shouldPureComponentUpdate } from 'src/editor/helper/shouldComponentUpdate'
 import DragDroppable from './DragDroppable'
 import Rows from './Rows'

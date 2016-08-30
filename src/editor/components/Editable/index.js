@@ -1,5 +1,5 @@
 // @flow
-import React, { PropTypes, Component } from 'react'
+import React, { Component } from 'react'
 import Cell from 'src/editor/components/Cell'
 import { shouldPureComponentUpdate } from 'src/editor/helper/shouldComponentUpdate'
 import { purifiedEditable } from 'src/editor/selector/editable'

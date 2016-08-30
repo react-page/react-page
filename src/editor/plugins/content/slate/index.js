@@ -13,7 +13,7 @@ export default class SlatePlugin extends ContentPlugin {
   icon = <Subject />
   text = 'Text (Slate)'
 
-  onRemoveHotKey = () => false
+  onRemoveHotKey = hooks.onRemoveHotKey
 
   createInitialState = hooks.createInitialState
   serialize = hooks.serialize
