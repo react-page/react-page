@@ -177,19 +177,39 @@ export const relativeMousePosition = ({ mouse, position, scale }: {
   y: Math.round(mouse.y - (position.row * scale.y))
 })
 
+// computeLevel uses an exponential function to compute the current drop level5
+export const computeLevel = ({ width, levels, position }: {width: number, levels: number, position: number }) => {
+  if (width <= (levels + 1) * 2) {
+    return Math.round(position / (width / levels))
+  }
+
+  const spare = width - ((levels + 1) * 2)
+  const steps = [0]
+  let current = spare
+  for (let i = 0; i <= levels; i++) {
+    steps.push(steps[i] + (current / 2))
+    current /= 2
+    if (position >= steps[i] + (i * 2) && position < steps[i + 1] + ((i + 1) * 2)) {
+      return i
+    }
+  }
+
+  return levels
+}
+
 export const computeHorizontal = ({ mouse, position, hover, scale, level }: {
   mouse: Vector,
   position: MatrixIndex,
   scale: Vector,
   level: number,
   hover: ComponentizedRow
-}, inv : boolean = false) => {
+}, inv: boolean = false) => {
   const { node: { cells = [] } } = hover
   const x = relativeMousePosition({ mouse, position, scale }).x
 
   // cos(x*pi)*5.5+5.5 (11 level), x = %
   // (sec(x*1.04)-1)*10
-  const at = Math.round(x / (scale.x / level))
+  const at = computeLevel({ width: scale.x, position: x, levels: level })
 
   if (cells.length) {
     // Is row, always opt for lowest level
@@ -199,9 +219,10 @@ export const computeHorizontal = ({ mouse, position, hover, scale, level }: {
   return inv ? level - at : at
 }
 
-export const computeVertical = ({ level, mouse, hover, position, scale }: { level: number, mouse: Vector, hover: ComponentizedRow, position: MatrixIndex, scale: Vector }, inv : boolean = false) => {
+export const computeVertical = ({ level, mouse, hover, position, scale }: { level: number, mouse: Vector, hover: ComponentizedRow, position: MatrixIndex, scale: Vector }, inv: boolean = false) => {
   const { node: { cells = [] } } = hover
-  const at = Math.round(relativeMousePosition({ mouse, position, scale }).y / (scale.x / level))
+  const x = relativeMousePosition({ mouse, position, scale }).x
+  const at = computeLevel({ width: scale.x, position: x, levels: level })
 
   if (cells.length) {
     // Is row, always opt for lowest level

@@ -7,7 +7,7 @@ import { editableConfig, node, purifiedNode } from 'src/editor/selector/editable
 import { isPreviewMode, isEditMode, isResizeMode, isLayoutMode, isInsertMode } from 'src/editor/selector/display'
 import { createStructuredSelector } from 'reselect'
 import Resizable from './Resizable'
-import { resizeCell, focusCell, blurCell } from 'src/editor/actions/cell'
+import { resizeCell, focusCell, blurAllCells } from 'src/editor/actions/cell'
 import classNames from 'classnames'
 import cssModules from 'react-css-modules'
 import deepEqual from 'deep-equal'
@@ -30,12 +30,14 @@ class Cell extends Component {
     return nextKeys.filter((n: string) => blacklist.indexOf(n) > -1 ? false : !deepEqual(this.props[n], nextProps[n])).length > 0
   }
 
+  props: ComponentizedCell
+
   render() {
     const {
       id, rowWidth, rowHeight, updateDimensions,
       isLayoutMode, isResizeMode, isInsertMode,
-      node: { inline, resizable, hover, hasInlineNeighbour }
-    }: ComponentizedCell = this.props
+      node: { inline, resizable, hover, hasInlineNeighbour, focused }
+    } = this.props
 
     let styles
     if (isLayoutMode || isResizeMode || isInsertMode) {
@@ -54,7 +56,8 @@ class Cell extends Component {
           'is-over-current': hover,
           [`is-over-${hover || ''}`]: hover,
           'has-inline-neighbour': hasInlineNeighbour,
-          [`inline-${inline || ''}`]: inline
+          [`inline-${inline || ''}`]: inline,
+          focused
         })}
       >
         {resizable && (isResizeMode)
@@ -78,34 +81,6 @@ class Cell extends Component {
   }
 }
 
-Cell.propTypes = {
-  node: PropTypes.shape({
-    size: PropTypes.number.isRequired,
-    resizable: PropTypes.bool.isRequired,
-    inline: PropTypes.string,
-    hasInlineNeighbour: PropTypes.bool,
-    bounds: PropTypes.object.isRequired,
-    hover: PropTypes.string
-  }).isRequired,
-
-  rowWidth: PropTypes.number.isRequired,
-  rowHeight: PropTypes.number.isRequired,
-  updateDimensions: PropTypes.func.isRequired,
-  focusCell: PropTypes.func.isRequired,
-  blurCell: PropTypes.func.isRequired,
-  resizeCell: PropTypes.func.isRequired,
-
-  id: PropTypes.string.isRequired,
-  styles: PropTypes.object.isRequired,
-  ancestors: PropTypes.array.isRequired,
-
-  isResizeMode: PropTypes.bool.isRequired,
-  isLayoutMode: PropTypes.bool.isRequired,
-  isEditMode: PropTypes.bool.isRequired,
-  isPreviewMode: PropTypes.bool.isRequired,
-  isInsertMode: PropTypes.bool.isRequired
-}
-
 const mapStateToProps = createStructuredSelector({
   isPreviewMode,
   isEditMode,
@@ -120,7 +95,7 @@ const mapStateToProps = createStructuredSelector({
 const mapDispatchToProps = (dispatch: Function, { id }: ComponentizedCell) => bindActionCreators({
   resizeCell: resizeCell(id),
   focusCell: focusCell(id),
-  blurCell: blurCell(id)
+  blurAllCells
 }, dispatch)
 
 export default (connect(mapStateToProps, mapDispatchToProps)(cssModules(Cell, { ...commonStyles.floating, ...commonStyles.common, ...localStyles }, { allowMultiple: true })))

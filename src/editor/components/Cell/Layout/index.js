@@ -1,11 +1,17 @@
 // @flow
-import React, { PropTypes } from 'react'
+import React from 'react'
 import { shouldPureComponentUpdate } from 'src/editor/helper/shouldComponentUpdate'
 import Row from 'src/editor/components/Row'
 import type { ComponentizedCell } from 'types/editable'
+import { updateCellLayout } from 'src/editor/actions/cell'
+import { isEditMode } from 'src/editor/selector/display'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import { createStructuredSelector } from 'reselect'
 
 class Layout extends React.Component {
   shouldComponentUpdate = shouldPureComponentUpdate
+  props: ComponentizedCell
 
   render() {
     const {
@@ -19,30 +25,36 @@ class Layout extends React.Component {
           state = {}
         }
       },
-      editable, ancestors = []
+      editable,
+      ancestors = [],
+      updateCellLayout,
+      isEditMode
     }: ComponentizedCell = this.props
 
     return (
-      <Component state={state}>
-        {rows.map((r: string) => <Row editable={editable} ancestors={[...ancestors, id]} key={r} id={r} />)}
+      <Component
+        id={id}
+        state={state}
+        editable={editable}
+        readOnly={!isEditMode}
+        onChange={updateCellLayout}
+      >
+        {rows.map((r: string) => (
+          <Row
+            editable={editable}
+            ancestors={[...ancestors, id]}
+            key={r}
+            id={r}
+          />))}
       </Component>
     )
   }
 }
 
-Layout.propTypes = {
-  id: PropTypes.string.isRequired,
-  ancestors: PropTypes.array.isRequired,
-  node: PropTypes.shape({
-    rows: PropTypes.array.isRequired,
-    layout: PropTypes.shape({
-      plugin: PropTypes.shape({
-        Component: PropTypes.oneOfType([PropTypes.func, PropTypes.element]).isRequired,
-      }),
-      state: PropTypes.object
-    }).isRequired
-  }).isRequired,
-  editable: PropTypes.string.isRequired,
-}
+const mapStateToProps = createStructuredSelector({ isEditMode })
 
-export default Layout
+const mapDispatchToProps = (dispatch: Function, { id }: ComponentizedCell) => bindActionCreators({
+  updateCellLayout: updateCellLayout(id)
+}, dispatch)
+
+export default connect(mapStateToProps, mapDispatchToProps)(Layout)

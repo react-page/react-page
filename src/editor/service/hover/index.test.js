@@ -1,6 +1,6 @@
 /* eslint-env mocha */
 import unexpected from 'unexpected'
-import HoverService, { classes as c, defaultCallbacks } from './index'
+import HoverService, { classes as c, defaultCallbacks, computeLevel } from './index'
 
 const expect = unexpected.clone()
 
@@ -105,6 +105,71 @@ describe('HoverService', () => {
         mouse: c.in.mouse,
         ancestors: c.in.ancestors,
       })
+    })
+  })
+})
+
+describe('computeLevel', () => {
+  [{
+    i: { width: 10, position: 0, levels: 10 },
+    e: 0
+  }, {
+    i: { width: 10, position: 10, levels: 10 },
+    e: 10
+  }, {
+    i: { width: 10, position: 5, levels: 10 },
+    e: 5
+  }, {
+    i: { width: 20, position: 10, levels: 10 },
+    e: 5
+  }].forEach((c) => {
+    it('should compute the right levels when not enough space is available', () => {
+      expect(computeLevel(c.i), 'to equal', c.e)
+    })
+  });
+
+  [{
+    i: { width: 121, position: 50, levels: 10 },
+    e: 0
+  }, {
+    i: { width: 121, position: 51, levels: 10 },
+    e: 0
+  }, {
+    i: { width: 121, position: 120, levels: 10 },
+    e: 10
+  }, {
+    i: { width: 121, position: 52, levels: 10 },
+    e: 1
+  }, {
+    i: { width: 121, position: 79, levels: 10 },
+    e: 2
+  }, {
+    i: { width: 121, position: 94, levels: 10 },
+    e: 3
+  }, {
+    i: { width: 121, position: 102, levels: 10 },
+    e: 4
+  }, {
+    i: { width: 121, position: 107, levels: 10 },
+    e: 5
+  }, {
+    i: { width: 121, position: 111, levels: 10 },
+    e: 6
+  }, {
+    i: { width: 121, position: 114, levels: 10 },
+    e: 7
+  }, {
+    i: { width: 121, position: 116, levels: 10 },
+    e: 8
+  }, {
+    i: { width: 121, position: 118, levels: 10 },
+    e: 9
+  }, {
+    i: { width: 121, position: 119, levels: 10 },
+    e: 10
+  }].forEach((c) => {
+    it('should compute the right levels when in a large cell', () => {
+      expect(computeLevel(c.i), 'to equal', c.e)
     })
   })
 })

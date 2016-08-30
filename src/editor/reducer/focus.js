@@ -1,5 +1,5 @@
 // @flow
-import { CELL_FOCUS, CELL_BLUR } from 'src/editor/actions/cell'
+import { CELL_FOCUS, CELL_BLUR, CELL_BLUR_ALL } from 'src/editor/actions/cell'
 
 export const focus = (state : string[] = [], action: {
   type: string
@@ -9,6 +9,8 @@ export const focus = (state : string[] = [], action: {
       return [...state, action.id]
     case CELL_BLUR:
       return state.filter((id: string) => id !== action.id)
+    case CELL_BLUR_ALL:
+      return []
     default:
       return state
   }

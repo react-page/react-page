@@ -12,18 +12,23 @@ const fallback = (...args: Array<string>) => console.error('onChange callback is
 
 class Content extends Component {
   shouldComponentUpdate = shouldPureComponentUpdate
+  props: ComponentizedCell
 
   render() {
-    const { isPreviewMode, isEditMode, editable, id, node: { content: { plugin: { Component }, state = {} }, focused }, updateCellContent = fallback }: ComponentizedCell = this.props
+    const { isPreviewMode, isEditMode, editable, id, node: { content: { plugin: { Component, ...plugin }, state = {} }, focused }, updateCellContent = fallback } = this.props
 
     let focusProps
     if (!isPreviewMode) {
-      const { focusCell, blurCell } = this.props
+      const { focusCell, blurAllCells } = this.props
 
       focusProps = {
-        onBlur: blurCell,
-        onFocus: focusCell,
-        tabIndex: -1
+        onMouseDown: () => {
+          if (!focused) {
+            blurAllCells()
+            focusCell({ Component, plugin })
+          }
+          return true
+        }
       }
     }
 
@@ -33,34 +38,13 @@ class Content extends Component {
           editable={editable}
           id={id}
           state={state}
-          focused={Boolean(isEditMode && focused)}
+          focused={isEditMode && focused}
           readOnly={!isEditMode}
           onChange={updateCellContent}
         />
       </div>
     )
   }
-}
-
-Content.propTypes = {
-  id: PropTypes.string.isRequired,
-
-  updateCellContent: PropTypes.func.isRequired,
-  focusCell: PropTypes.func.isRequired,
-  blurCell: PropTypes.func.isRequired,
-
-  isEditMode: PropTypes.bool.isRequired,
-  isLayoutMode: PropTypes.bool.isRequired,
-  isPreviewMode: PropTypes.bool.isRequired,
-
-  node: PropTypes.shape({
-    content: PropTypes.shape({
-      plugin: PropTypes.shape({
-        Component: PropTypes.oneOfType([PropTypes.func, PropTypes.element]).isRequired
-      }).isRequired,
-      state: PropTypes.object.isRequired
-    }),
-  }).isRequired,
 }
 
 const mapStateToProps = createStructuredSelector({ isEditMode, isLayoutMode, isPreviewMode })

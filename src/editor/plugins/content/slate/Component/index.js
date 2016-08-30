@@ -77,6 +77,8 @@ class Slate extends Component {
     if (data.isMod && (data.key === 'z' || data.key === 'y')) {
       return state
     }
+
+    // TODO if empty and backspace, remove cell
   }
 
   handleOpen = (portal) => {

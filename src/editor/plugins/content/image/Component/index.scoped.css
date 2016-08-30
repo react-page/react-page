@@ -7,7 +7,29 @@
 }
 
 .placeholder {
+  position: relative;
   width: 100%;
-  min-height: 256px;
-  background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB2aWV3Qm94PSIwIDAge3t3fX0ge3tofX0iPjxkZWZzPjxzeW1ib2wgaWQ9ImEiIHZpZXdCb3g9IjAgMCA5MCA2NiIgb3BhY2l0eT0iMC4zIj48cGF0aCBkPSJNODUgNXY1Nkg1VjVoODBtNS01SDB2NjZoOTBWMHoiIC8+PGNpcmNsZSBjeD0iMTgiIGN5PSIyMCIgcj0iNiIgLz48cGF0aCBkPSJNNTYgMTRMMzcgMzlsLTgtNi0xNyAyM2g2N3oiIC8+PC9zeW1ib2w+PC9kZWZzPjx1c2UgeGxpbms6aHJlZj0iI2EiIHdpZHRoPSIyMCUiIHg9IjQwJSIgLz48L3N2Zz4=');
+  text-align: center;
+}
+
+.placeholder-help {
+  display: block;
+  text-align: center;
+  width: 100%;
+  position: absolute;
+  color: #aaa;
+  font-size: 14px;
+  top: 0;
+}
+
+p.caption {
+  text-align: center;
+}
+
+input.caption {
+  font: inherit;
+  border: none;
+  outline: none;
+  text-align: center;
+  width: 100%;
 }

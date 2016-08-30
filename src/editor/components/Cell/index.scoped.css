@@ -1,3 +1,8 @@
+.focused {
+  box-shadow: 0 0 5px rgb(81, 203, 238);
+  outline: 1px solid rgb(81, 203, 238);
+}
+
 .inline-left {
   float: left;
   z-index: 1;
