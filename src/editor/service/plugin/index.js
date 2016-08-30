@@ -7,7 +7,7 @@ import ImagePlugin from 'src/editor/plugins/content/image'
 import PlaceholderPlugin from 'src/editor/plugins/content/placeholder'
 import SpacerPlugin from 'src/editor/plugins/content/spacer'
 import SpoilerPlugin from 'src/editor/plugins/layout/spoiler'
-import AlertPlugin from 'src/editor/plugins/layout/alert'
+import CardPlugin from 'src/editor/plugins/layout/card'
 
 /**
  * A list of content plugins that are being loaded by default.
@@ -23,7 +23,7 @@ export const defaultContentPlugins: Array<ContentPlugin> = [
 /**
  * A list of layout plugins that are being loaded by default.
  */
-export const defaultLayoutPlugins: Array<LayoutPlugin> = [new SpoilerPlugin(), new AlertPlugin()]
+export const defaultLayoutPlugins: Array<LayoutPlugin> = [new SpoilerPlugin(), new CardPlugin()]
 
 const find = (name: string, version : string = '*') => (plugin: Plugin): boolean => plugin.name === name && satisfies(plugin.version, version)
 

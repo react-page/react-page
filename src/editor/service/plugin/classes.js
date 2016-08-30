@@ -7,10 +7,14 @@ export class Plugin {
   name: string
   version: string
   Component: Object
-  state: Object
+
+  // FIXME come up with better naming
+  preventDefaultRemove: boolean
 
   serialize = (raw: Object): Object => raw
   unserialize = (state: Object): Object => state
+
+  onRemoveHotKey = (e: Event): boolean => true
 }
 
 /**

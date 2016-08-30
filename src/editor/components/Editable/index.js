@@ -4,11 +4,11 @@ import Cell from 'src/editor/components/Cell'
 import { shouldPureComponentUpdate } from 'src/editor/helper/shouldComponentUpdate'
 import { purifiedEditable } from 'src/editor/selector/editable'
 import { connect } from 'react-redux'
-import { isLayoutMode, isResizeMode } from 'src/editor/selector/display'
+import { isLayoutMode, isResizeMode, isPreviewMode } from 'src/editor/selector/display'
 import { createStructuredSelector } from 'reselect'
 import cssModules from 'react-css-modules'
 import dimensions from 'react-dimensions'
-import Notifier from 'src/editor/components/Notifier'
+import Notifier, { dismissedMobilePreviewKey } from 'src/editor/components/Notifier'
 import { blurAllCells } from 'src/editor/actions/cell'
 import NativeListener from 'react-native-listener'
 
@@ -21,7 +21,6 @@ let handling = false
 
 // We need to stop some events from bubbling up
 const stopPropagation = (e: Event) => {
-  console.log('stop propa')
   e.stopPropagation()
   return false
 }
@@ -29,10 +28,7 @@ const stopPropagation = (e: Event) => {
 class Editable extends Component {
   componentDidMount() {
     if (!handling && document && document.body) {
-      window.setTimeout(() => document.body.addEventListener('click', () => {
-        console.log('on click')
-        this.props.blurAllCells()
-      }), 100)
+      window.setTimeout(() => document.body.addEventListener('click', () => this.props.blurAllCells()), 100)
       handling = true
     }
   }
@@ -46,11 +42,10 @@ class Editable extends Component {
     }
   }
 
-
   props: EditableComponentState
 
   render() {
-    const { id, containerWidth, containerHeight, isLayoutMode, isResizeMode, node: { cells = [] }, ...props } = this.props
+    const { id, containerWidth, containerHeight, isLayoutMode, isResizeMode, isPreviewMode, node: { cells = [] }, ...props } = this.props
 
     if (isLayoutMode || isResizeMode) {
       props.styles = {
@@ -75,14 +70,16 @@ class Editable extends Component {
               />
             ))}
           </div>
-          <Notifier />
+          <Notifier message="Resize the browser window for mobile preview." open={isPreviewMode}
+                    id={dismissedMobilePreviewKey}
+          />
         </div>
       </NativeListener>
     )
   }
 }
 
-const mapStateToProps = createStructuredSelector({ node: purifiedEditable, isLayoutMode, isResizeMode })
+const mapStateToProps = createStructuredSelector({ node: purifiedEditable, isLayoutMode, isResizeMode, isPreviewMode })
 
 const mapDispatchToProps = {
   blurAllCells

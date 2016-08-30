@@ -4,7 +4,7 @@ import cssModules from 'react-css-modules'
 import ImageIcon from 'material-ui/svg-icons/image/panorama'
 import UploadIcon from 'material-ui/svg-icons/file/cloud-upload'
 import styles from './index.scoped.css'
-
+import Notifier from 'src/editor/components/Notifier'
 
 type PropTypes = { state: { src: string }, onChange(): void, readOnly: boolean }
 
@@ -39,9 +39,6 @@ const ImageForm = cssModules(({ state: { src, ...state }, ...props }: PropTypes)
   <div>
     <div styleName="placeholder">
       <UploadIcon style={iconStyle} />
-      <small styleName="placeholder-help">
-        Drop, click or paste a url to upload an image.
-      </small>
     </div>
     <p>
       <CaptionInput {...props} state={state} />
@@ -50,7 +47,9 @@ const ImageForm = cssModules(({ state: { src, ...state }, ...props }: PropTypes)
 ), styles, { allowMultiple: true })
 
 const Caption = cssModules(({ state: { caption } }: PropTypes) => caption ? (
-  <p styleName="caption"><small>{caption}</small></p>
+  <p styleName="caption">
+    <small>{caption}</small>
+  </p>
 ) : (
   null
 ), styles, { allowMultiple: true })
@@ -70,12 +69,26 @@ const Display = cssModules(({ state: { src, ...state } }: PropTypes) => src ? (
 ), styles, { allowMultiple: true })
 
 const Image = (props: PropTypes) => {
-  const { focused, readOnly } = props
-  if (focused && !readOnly) {
-    return <ImageForm {...props} />
-  }
+  const { focused, readOnly, state: { src } } = props
 
-  return <Display {...props} />
+  return (
+    <div>
+      {
+        focused && !readOnly ? (
+          <div>
+            <ImageForm {...props} />
+          </div>
+        ) : (
+          <Display {...props} />
+        )
+      }
+      <Notifier
+        message="Drop, click or paste a url to upload an image."
+        open={focused && !readOnly}
+        id="image-upload-hint-dismissed"
+      />
+    </div>
+  )
 }
 
 export default cssModules(Image, styles, { allowMultiple: true })

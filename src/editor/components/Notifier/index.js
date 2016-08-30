@@ -1,46 +1,39 @@
 // @flow
 /* eslint no-invalid-this: "off" */
-import React, { Component } from 'react'
+import React from 'react'
 import Snackbar from 'material-ui/Snackbar'
 import { connect } from 'react-redux'
-import { isPreviewMode } from 'src/editor/selector/display'
 import { createStructuredSelector } from 'reselect'
 import { updateSetting } from 'src/editor/actions/setting'
 import { getSetting } from 'src/editor/selector/setting'
 import i18n from 'src/editor/service/i18n'
 
-export const dismissedMobilePreviewKey = 'notifier.mobile-preview-dismissed'
+export const dismissedMobilePreviewKey = 'mobile-preview-dismissed'
 
-class Notifier extends Component {
-  props: {
-    updateSetting: updateSetting,
-    getSetting: getSetting,
-    isPreviewMode: boolean,
-    dismissedMobilePreviewKey: boolean
-  };
+type Props = {
+  updateSetting: updateSetting,
+  getSetting: getSetting,
 
-  handleRequestClose = (key: string) => () => {
-    this.props.updateSetting(key, true)
-  }
+  id: string,
+  open: boolean,
+  action: string,
 
-  render = () => {
-    const { isPreviewMode, dismissedMobilePreview } = this.props
-    return (
-      <div>
-        <Snackbar
-          open={isPreviewMode && !dismissedMobilePreview}
-          action="dismiss"
-          message={i18n.t('Resize the browser window for mobile preview')}
-          onActionTouchTap={this.handleRequestClose(dismissedMobilePreviewKey)}
-        />
-      </div>
-    )
-  }
+  dismissed: boolean,
 }
 
+const handleDismiss = (updateSetting: updateSetting, id: string) => () => updateSetting(`notifier.${id}`, true)
+
+const Notifier = ({ dismissed, id, open, action = 'dismiss', message, updateSetting }: Props) => (
+  <Snackbar
+    open={open && !dismissed}
+    action={action}
+    message={i18n.t(message)}
+    onActionTouchTap={handleDismiss(updateSetting, id)}
+  />
+)
+
 const mapStateToProps = createStructuredSelector({
-  isPreviewMode,
-  dismissedMobilePreview: getSetting(dismissedMobilePreviewKey)
+  dismissed: (state: Object, props: Props) => getSetting(`notifier.${props.id}`)(state)
 })
 
 const mapActionsToProps = {

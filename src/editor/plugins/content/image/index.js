@@ -11,4 +11,5 @@ export default class ImagePlugin extends ContentPlugin {
   icon = <Panorama />
   text = 'Image'
   inlineable = true
+  onRemoveHotKey = () => false
 }

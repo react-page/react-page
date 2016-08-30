@@ -36,7 +36,7 @@ class Cell extends Component {
     const {
       id, rowWidth, rowHeight, updateDimensions,
       isLayoutMode, isResizeMode, isInsertMode,
-      node: { inline, resizable, hover, hasInlineNeighbour }
+      node: { inline, resizable, hover, hasInlineNeighbour, focused }
     } = this.props
 
     let styles
@@ -56,7 +56,8 @@ class Cell extends Component {
           'is-over-current': hover,
           [`is-over-${hover || ''}`]: hover,
           'has-inline-neighbour': hasInlineNeighbour,
-          [`inline-${inline || ''}`]: inline
+          [`inline-${inline || ''}`]: inline,
+          focused
         })}
       >
         {resizable && (isResizeMode)

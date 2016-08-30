@@ -1,5 +1,6 @@
 // @flow
 import type { Action } from 'types/redux'
+import { Plugin } from 'src/editor/service/plugin'
 
 export const CELL_UPDATE_CONTENT = 'CELL_UPDATE_CONTENT'
 export const CELL_UPDATE_LAYOUT = 'CELL_UPDATE_LAYOUT'
@@ -8,6 +9,8 @@ export const CELL_RESIZE = 'CELL_RESIZE'
 export const CELL_FOCUS = 'CELL_FOCUS'
 export const CELL_BLUR = 'CELL_BLUR'
 export const CELL_BLUR_ALL = 'CELL_BLUR_ALL'
+export const CELL_FOCUS_PREV = 'CELL_FOCUS_PREV'
+export const CELL_FOCUS_NEXT = 'CELL_FOCUS_NEXT'
 
 /**
  * Dispatch to update cell content data.
@@ -61,7 +64,7 @@ export const focusCell = (id: string) => (): Action => ({
  * Dispatch to focus a cell.
  */
 export const focusNextCell = (id: string) => (): Action => ({
-  type: CELL_FOCUS,
+  type: CELL_FOCUS_NEXT,
   ts: new Date(),
   id
 })
@@ -70,7 +73,7 @@ export const focusNextCell = (id: string) => (): Action => ({
  * Dispatch to focus a cell.
  */
 export const focusPreviousCell = (id: string) => (): Action => ({
-  type: CELL_FOCUS,
+  type: CELL_FOCUS_PREV,
   ts: new Date(),
   id
 })
@@ -84,6 +87,10 @@ export const blurCell = (id: string) => (): Action => ({
   id
 })
 
+/**
+ * Dispatch to blur all cells. For example when clicking on document body.
+ */
 export const blurAllCells = (): Action => ({
   type: CELL_BLUR_ALL,
+  ts: new Date()
 })

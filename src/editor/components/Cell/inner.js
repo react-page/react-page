@@ -10,9 +10,10 @@ import type { ComponentizedCell } from 'types/editable'
 
 class Inner extends Component {
   shouldComponentUpdate = shouldPureComponentUpdate
+  props: ComponentizedCell
 
   render() {
-    const props: ComponentizedCell = this.props
+    const props = this.props
     const {
       isLayoutMode,
       isInsertMode,
@@ -62,37 +63,6 @@ class Inner extends Component {
       </div>
     )
   }
-}
-
-Inner.propTypes = {
-  editable: PropTypes.string.isRequired,
-  size: PropTypes.number,
-  config: PropTypes.object.isRequired,
-
-  isInsertMode: PropTypes.bool.isRequired,
-  isLayoutMode: PropTypes.bool.isRequired,
-
-  node: PropTypes.shape({
-    rows: PropTypes.array,
-
-    layout: PropTypes.shape({
-      plugin: PropTypes.shape({
-        Component: PropTypes.oneOfType([PropTypes.func, PropTypes.element]),
-        name: PropTypes.string,
-        version: PropTypes.string
-      }),
-      state: PropTypes.object
-    }),
-
-    content: PropTypes.shape({
-      plugin: PropTypes.shape({
-        Component: PropTypes.oneOfType([PropTypes.func, PropTypes.element]),
-        name: PropTypes.string,
-        version: PropTypes.string
-      }),
-      state: PropTypes.object
-    }),
-  }),
 }
 
 export default Inner

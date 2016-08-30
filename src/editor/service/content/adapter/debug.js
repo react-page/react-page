@@ -139,6 +139,21 @@ export const content = {
     cells: [{
       rows: [{
         cells: [{
+          layout: {
+            plugin: { name: 'ory/layout/card', version: '0.0.1' },
+            state: {}
+          },
+          rows: [{
+            cells: [{
+              content: {
+                plugin: { name: 'ory/content/slate' },
+                state: {}
+              }
+            }]
+          }]
+        }]
+      }, {
+        cells: [{
           content: {
             plugin: { name: 'ory/content/slate' },
             state: {}
