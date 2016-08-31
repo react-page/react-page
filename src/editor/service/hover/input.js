@@ -32,7 +32,7 @@ export const computeAndDispatchInsert = ({
   insertCellRightInline: inlineRight,
   clearHover: clear,
   ...hover
-}: ComponentizedCell, monitor: Monitor, component: Object, matrixName : string = '10x10') => computeCurrentDropPosition({
+}: ComponentizedCell, monitor: Monitor, component: Object, matrixName: string = '10x10') => computeCurrentDropPosition({
   clear,
   above,
   below,
@@ -51,7 +51,7 @@ export const computeAndDispatchHover = ({
   cellHoverInlineRight: inlineRight,
   clearHover: clear,
   ...hover
-}: ComponentizedCell, monitor: Monitor, component: Object, matrixName : string = '10x10') => computeCurrentDropPosition({
+}: ComponentizedCell, monitor: Monitor, component: Object, matrixName: string = '10x10') => computeCurrentDropPosition({
   clear,
   above,
   below,

@@ -1,7 +1,7 @@
 // @flow
 import { CELL_FOCUS, CELL_BLUR, CELL_BLUR_ALL } from 'src/editor/actions/cell'
 
-export const focus = (state : string[] = [], action: {
+export const focus = (state: string[] = [], action: {
   type: string,
   id: string
 }) => {

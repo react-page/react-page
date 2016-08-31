@@ -1,4 +1,5 @@
 // @flow
+/* eslint no-empty-function: ["off"] */
 
 /**
  * Plugin is the base class for content and layout plugins.
@@ -14,6 +15,9 @@ export class Plugin {
   onRemoveHotKey = (_: Event, __: Object): boolean => true
   onFocusNextHotKey = (_: Event, __: Object): boolean => true
   onFocusPreviousHotKey = (_: Event, __: Object): boolean => true
+
+  onFocus = (_: Object): void => {}
+  onBlur = (_: Object): void => {}
 }
 
 /**

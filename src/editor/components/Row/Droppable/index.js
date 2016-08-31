@@ -20,4 +20,4 @@ Droppable.propTypes = {
 
 const mapDispatchToProps = { ...hoverActions, ...insertActions }
 
-export default (dropTypes : string[] = ['CELL']) => connect(null, mapDispatchToProps)(dropTarget(dropTypes, target, monitorConnect)(cssModules(Droppable, styles, { allowMultiple: true })))
+export default (dropTypes: string[] = ['CELL']) => connect(null, mapDispatchToProps)(dropTarget(dropTypes, target, monitorConnect)(cssModules(Droppable, styles, { allowMultiple: true })))

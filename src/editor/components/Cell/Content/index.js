@@ -10,9 +10,30 @@ import type { ComponentizedCell } from 'types/editable'
 
 const fallback = (...args: Array<string>) => console.error('onChange callback is missing', ...args)
 
+// TODO clean me up
 class Content extends Component {
   shouldComponentUpdate = shouldPureComponentUpdate
   props: ComponentizedCell
+
+  componentWillReceiveProps(nextProps: ComponentizedCell) {
+    const { node: { focused: was } } = this.props
+    const { node: { focused: is } } = nextProps
+    const { isEditMode, editable, id, node: { content: { plugin: { onFocus, onBlur }, state = {} }, focused }, updateCellContent = fallback } = nextProps
+    const pass = {
+      editable,
+      id,
+      state,
+      focused: isEditMode && focused,
+      readOnly: !isEditMode,
+      onChange: updateCellContent
+    }
+
+    if (!was && is) {
+      onFocus(pass)
+    } else if (was && !is) {
+      onBlur(pass)
+    }
+  }
 
   render() {
     const { isPreviewMode, isEditMode, editable, id, node: { content: { plugin: { Component }, state = {} }, focused }, updateCellContent = fallback } = this.props

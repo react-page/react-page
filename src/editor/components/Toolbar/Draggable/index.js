@@ -25,7 +25,7 @@ Draggable.propTypes = {
   connectDragSource: PropTypes.func.isRequired,
 }
 
-export default (dragType : string = 'CELL') => {
+export default (dragType: string = 'CELL') => {
   if (!instances[dragType]) {
     instances[dragType] = dragSource(dragType, source, collect)(cssModules(Draggable, styles, { allowMultiple: true }))
   }

@@ -29,8 +29,8 @@ export const generateMissingIds = (props: Object): Object => {
  * ContentService is an abstraction layer for fetching and storing editable content trees.
  */
 class ContentService {
-  plugins:PluginService
-  adapters:Array<AbstractAdapter>
+  plugins: PluginService
+  adapters: Array<AbstractAdapter>
 
   /**
    * Pass a list of adapters to use.
@@ -64,7 +64,7 @@ class ContentService {
   /**
    * Persist a DOM entity's content tree.
    */
-  store = (state : Object = {}) => new Promise((res: Function) => {
+  store = (state: Object = {}) => new Promise((res: Function) => {
     this.adapters.forEach((adapter: AbstractAdapter) => adapter.store(state))
     res()
   })
