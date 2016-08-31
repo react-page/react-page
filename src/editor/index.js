@@ -9,11 +9,8 @@ import createStore from './store'
 import { updateEditable } from 'src/editor/actions/editables'
 import ContentService from 'src/editor/service/content'
 import { isProduction } from './const'
-
-import Raven from 'raven-js'
 import consolePlugin from 'raven-js/plugins/console'
 
-Raven.config('https://7ccaf04e48474399bb705ecbd317e6ce@sentry.io/95510').install()
 
 import type Store from 'types/redux'
 import type { Editable as EditableType } from 'types/editable'
@@ -26,12 +23,16 @@ if (!isProduction && typeof window !== 'undefined') {
   window.Perf = require('react-addons-perf')
 }
 
-if (isProduction) {
+let Raven
+
+if (isProduction && window !== 'undefined') {
+  Raven = require('raven-js')
+  Raven.config('https://7ccaf04e48474399bb705ecbd317e6ce@sentry.io/95510').install()
   consolePlugin(Raven, console)
 }
 
-const logException = (ex, context) => {
-  if (isProduction) {
+const logException = (ex: any, context: any) => {
+  if (isProduction && window !== 'undefined') {
     Raven.captureException(ex, {
       extra: context
     })

@@ -38,10 +38,11 @@ class Toolbar extends Component {
   }
 
   onSearch = (e: Event) => {
-    if (e.target instanceof HTMLInputElement) {
+    const target = e.target
+    if (target instanceof HTMLInputElement) {
       this.setState({
-        searchFilter: ((v: any) => (a: any) => a.text.toLowerCase().indexOf(v) > -1)(e.target.value.toLowerCase()),
-        isSearching: e.target.value.length > 0
+        searchFilter: ((v: any) => (a: Object) => a.text.toLowerCase().indexOf(v) > -1)(target.value.toLowerCase()),
+        isSearching: target.value.length > 0
       })
     }
 
