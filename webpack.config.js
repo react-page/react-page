@@ -72,7 +72,7 @@ module.exports = {
       exclude: /node_modules/,
       query: {
         presets: [
-          'es2015-webpack',
+          ['es2015', { modules: false }],
           'stage-2',
           'react'
         ],

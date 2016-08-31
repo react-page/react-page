@@ -23,50 +23,34 @@ import BottomToolbar from 'src/editor/components/BottomToolbar'
 import nodes from './nodes'
 import styles from './index.scoped.css'
 
-const H1 = (props) => <h1 {...props} />
-const H2 = (props) => <h2 {...props} />
-const H3 = (props) => <h3 {...props} />
-const H4 = (props) => <h4 {...props} />
-const H5 = (props) => <h5 {...props} />
-const H6 = (props) => <h6 {...props} />
+const H1 = ({ attributes, children }) => <h1 {...attributes}>{children}</h1>
+const H2 = ({ attributes, children }) => <h2 {...attributes}>{children}</h2>
+const H3 = ({ attributes, children }) => <h3 {...attributes}>{children}</h3>
+const H4 = ({ attributes, children }) => <h4 {...attributes}>{children}</h4>
+const H5 = ({ attributes, children }) => <h5 {...attributes}>{children}</h5>
+const H6 = ({ attributes, children }) => <h6 {...attributes}>{children}</h6>
 
-const renderNode = (node) => {
-  switch (node.type) {
-    case 'heading-one':
-      return H1
-    case 'heading-two':
-      return H2
-    case 'heading-three':
-      return H3
-    case 'heading-four':
-      return H4
-    case 'heading-five':
-      return H5
-    case 'heading-six':
-      return H6
-    case 'code':
-      return nodes.CodeNode
-    default:
-      return nodes.Paragraph
-  }
-}
+const Bold = ({ attributes, children }) => <strong {...attributes}>{children}</strong>
+const Italic = ({ attributes, children }) => <em {...attributes}>{children}</em>
+const Underlined = ({ attributes, children }) => <u {...attributes}>{children}</u>
 
-const Bold = (props) => <strong {...props} />
-const Italic = (props) => <em {...props} />
-const Underline = (props) => <u {...props} />
-const Fallback = (props) => <span {...props} />
+const DEFAULT_NODE = 'paragraph'
 
-const renderMark = (mark) => {
-  switch (mark.type) {
-    case 'bold':
-      return Bold
-    case 'italic':
-      return Italic
-    case 'underlined':
-      return Underline
-    default:
-      console.warn(`No component specified for mark type ${mark.type}`)
-      return Fallback
+const schema = {
+  nodes: {
+    'heading-one': H1,
+    'heading-two': H2,
+    'heading-three': H3,
+    'heading-four': H4,
+    'heading-five': H5,
+    'heading-six': H6,
+    code: nodes.CodeNode,
+    paragraph: nodes.Paragraph
+  },
+  marks: {
+    bold: Bold,
+    italic: Italic,
+    underlined: Underlined
   }
 }
 
@@ -230,7 +214,7 @@ class Slate extends Component {
         // eslint-disable-next-line prefer-reflect
         editorState
           .transform()
-          .setBlock(isActive ? 'paragraph' : type)
+          .setBlock(isActive ? DEFAULT_NODE : type)
           .apply()
       )
     }
@@ -261,12 +245,11 @@ class Slate extends Component {
           </MuiThemeProvider>
         </Portal>
         <Editor
-          onKeyDown={this.onKeyDown}
-          readOnly={Boolean(readOnly)}
-          renderNode={renderNode}
-          renderMark={renderMark}
-          placeholder="Write something..."
           onChange={this.onStateChange}
+          onKeyDown={this.onKeyDown}
+          placeholder="Write something..."
+          readOnly={Boolean(readOnly)}
+          schema={schema}
           state={editorState}
         />
         <BottomToolbar open={focused}>
