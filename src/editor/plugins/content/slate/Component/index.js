@@ -23,34 +23,58 @@ import BottomToolbar from 'src/editor/components/BottomToolbar'
 import nodes from './nodes'
 import styles from './index.scoped.css'
 
-const H1 = ({ attributes, children }) => <h1 {...attributes}>{children}</h1>
-const H2 = ({ attributes, children }) => <h2 {...attributes}>{children}</h2>
-const H3 = ({ attributes, children }) => <h3 {...attributes}>{children}</h3>
-const H4 = ({ attributes, children }) => <h4 {...attributes}>{children}</h4>
-const H5 = ({ attributes, children }) => <h5 {...attributes}>{children}</h5>
-const H6 = ({ attributes, children }) => <h6 {...attributes}>{children}</h6>
+const makeTagNode = (Tag) => {
+  const NodeComponent = ({ attributes, children }: { attributes: Object, children: any }) => (
+    <Tag {...attributes}>{children}</Tag>
+  )
 
-const Bold = ({ attributes, children }) => <strong {...attributes}>{children}</strong>
-const Italic = ({ attributes, children }) => <em {...attributes}>{children}</em>
-const Underlined = ({ attributes, children }) => <u {...attributes}>{children}</u>
+  NodeComponent.displayName = `${Tag}-node`
 
-const DEFAULT_NODE = 'paragraph'
+  return NodeComponent
+}
+
+const makeTagMark = (Tag) => {
+  const MarkComponent = ({ children }: { children: any }) => (
+    <Tag>{children}</Tag>
+  )
+
+  MarkComponent.displayName = `${Tag}-mark`
+
+  return MarkComponent
+}
+
+// Nodes
+const H1 = 'heading-one'
+const H2 = 'heading-two'
+const H3 = 'heading-three'
+const H4 = 'heading-four'
+const H5 = 'heading-five'
+const H6 = 'heading-six'
+const CODE = 'code'
+const P = 'paragraph'
+const DEFAULT_NODE = P
+
+// Marks
+const STRONG = 'STRONG'
+const EM = 'EM'
+const U = 'U'
+
 
 const schema = {
   nodes: {
-    'heading-one': H1,
-    'heading-two': H2,
-    'heading-three': H3,
-    'heading-four': H4,
-    'heading-five': H5,
-    'heading-six': H6,
-    code: nodes.CodeNode,
-    paragraph: nodes.Paragraph
+    [H1]: makeTagNode('h1'),
+    [H2]: makeTagNode('h2'),
+    [H3]: makeTagNode('h3'),
+    [H4]: makeTagNode('h4'),
+    [H5]: makeTagNode('h5'),
+    [H6]: makeTagNode('h6'),
+    [CODE]: nodes.CodeNode,
+    [P]: nodes.Paragraph
   },
   marks: {
-    bold: Bold,
-    italic: Italic,
-    underlined: Underlined
+    [STRONG]: makeTagMark('strong'),
+    [EM]: makeTagMark('em'),
+    [U]: makeTagMark('u')
   }
 }
 
@@ -59,14 +83,12 @@ class Slate extends Component {
   state = {}
 
   componentDidMount = () => this.updateToolbar()
-
   shouldComponentUpdate = (nextProps, nextState) => (
     nextProps.state.editorState !== this.props.state.editorState
     || nextProps.focused !== this.props.focused
     || nextProps.readOnly !== this.props.readOnly
     || nextState.toolbar !== this.state.toolbar
   )
-
   componentDidUpdate = () => this.updateToolbar()
 
   onStateChange = (editorState) => {
@@ -78,6 +100,7 @@ class Slate extends Component {
     if (data.isMod && (data.key === 'z' || data.key === 'y')) {
       return state
     }
+
     // TODO if empty and backspace, remove cell
 
     if (data.isShift && data.key === 'enter') {
@@ -94,13 +117,13 @@ class Slate extends Component {
 
     switch (data.key) {
       case 'b':
-        mark = 'bold'
+        mark = STRONG
         break
       case 'i':
-        mark = 'italic'
+        mark = EM
         break
       case 'u':
-        mark = 'underlined'
+        mark = U
         break
       default:
         return
@@ -159,59 +182,10 @@ class Slate extends Component {
     const onClick = (e) => {
       e.preventDefault()
 
-      // let { state } = this.state
-      // let transform = state.transform()
-      // const { document } = state
-
-      // Handle everything but list buttons.
-      // if (type != 'bulleted-list' && type != 'numbered-list') {
-      //   const isActive = this.hasBlock(type)
-      //   const isList = this.hasBlock('list-item')
-      //
-      //   if (isList) {
-      //     transform = transform
-      //       .setBlock(isActive ? DEFAULT_NODE : type)
-      //       .unwrapBlock('bulleted-list')
-      //       .unwrapBlock('numbered-list')
-      //   }
-      //
-      //   else {
-      //     transform = transform
-      //       .setBlock(isActive ? DEFAULT_NODE : type)
-      //   }
-      // }
-
-      // Handle the extra wrapping required for list buttons.
-      // else {
-      //   const isList = this.hasBlock('list-item')
-      //   const isType = state.blocks.some((block) => {
-      //     return !!document.getClosest(block, parent => parent.type == type)
-      //   })
-      //
-      //   if (isList && isType) {
-      //     transform = transform
-      //       .setBlock(DEFAULT_NODE)
-      //       .unwrapBlock('bulleted-list')
-      //       .unwrapBlock('numbered-list')
-      //   } else if (isList) {
-      //     transform = transform
-      //       .unwrapBlock(type == 'bulleted-list' ? 'numbered-list' : 'bulleted-list')
-      //       .wrapBlock(type)
-      //   } else {
-      //     transform = transform
-      //       .setBlock('list-item')
-      //       .wrapBlock(type)
-      //   }
-      // }
-
-      // state = transform.apply()
-      // this.setState({ state })
-
       const { editorState } = this.props.state
       const isActive = editorState.blocks.some((block) => block.type === type)
 
       this.onStateChange(
-        // eslint-disable-next-line prefer-reflect
         editorState
           .transform()
           .setBlock(isActive ? DEFAULT_NODE : type)
@@ -238,9 +212,9 @@ class Slate extends Component {
         <Portal isOpened={isOpened} onOpen={this.handleOpen}>
           <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
             <div styleName="toolbar">
-              {this.renderMarkButton('bold', <BoldIcon />)}
-              {this.renderMarkButton('italic', <ItalicIcon />)}
-              {this.renderMarkButton('underlined', <UnderlinedIcon />)}
+              {this.renderMarkButton(STRONG, <BoldIcon />)}
+              {this.renderMarkButton(EM, <ItalicIcon />)}
+              {this.renderMarkButton(U, <UnderlinedIcon />)}
             </div>
           </MuiThemeProvider>
         </Portal>
@@ -253,12 +227,12 @@ class Slate extends Component {
           state={editorState}
         />
         <BottomToolbar open={focused}>
-          {this.renderNodeButton('heading-one', <H1Icon />)}
-          {this.renderNodeButton('heading-two', <H2Icon />)}
-          {this.renderNodeButton('heading-three', <H3Icon />)}
-          {this.renderNodeButton('heading-four', <H4Icon />)}
-          {this.renderNodeButton('heading-five', <H5Icon />)}
-          {this.renderNodeButton('heading-six', <H6Icon />)}
+          {this.renderNodeButton(H1, <H1Icon />)}
+          {this.renderNodeButton(H2, <H2Icon />)}
+          {this.renderNodeButton(H3, <H3Icon />)}
+          {this.renderNodeButton(H4, <H4Icon />)}
+          {this.renderNodeButton(H5, <H5Icon />)}
+          {this.renderNodeButton(H6, <H6Icon />)}
         </BottomToolbar>
       </div>
     )
