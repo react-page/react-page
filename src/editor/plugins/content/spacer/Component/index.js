@@ -37,7 +37,7 @@ class Spacer extends Component {
           ? (
           <Solid height={height} />
         ) : (
-          <Resizable onResize={this.onResize} height={height}>
+          <Resizable onResize={this.onResize} height={height} width={0}>
             <div style={{ height }} />
           </Resizable>
         )}

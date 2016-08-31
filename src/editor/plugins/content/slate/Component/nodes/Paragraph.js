@@ -29,7 +29,7 @@ class Paragraph extends Component {
 }
 
 Paragraph.propTypes = {
-  children: PropTypes.oneOf([PropTypes.func, PropTypes.element, PropTypes.array]).isRequired
+  children: PropTypes.node.isRequired
 }
 
 export default cssModules(Paragraph, styles)

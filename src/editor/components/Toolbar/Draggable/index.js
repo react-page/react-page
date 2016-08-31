@@ -13,10 +13,10 @@ class Draggable extends Component {
   shouldComponentUpdate = shouldPureComponentUpdate
 
   render() {
-    const { connectDragSource, isDragging, ...props } = this.props
+    const { connectDragSource, isDragging, children } = this.props
     const classes = classNames({ 'is-dragging': isDragging })
 
-    return connectDragSource(<div styleName={classes} className={classes} {...props} />)
+    return connectDragSource(<div styleName={classes} className={classes}>{children}</div>)
   }
 }
 

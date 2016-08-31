@@ -13,11 +13,11 @@ export class Plugin {
   unserialize = (state: Object): Object => state
 }
 
-export type ContentPluginProps = {
+export type ContentPluginProps<T> = {
   id: string,
   readOnly: boolean,
   focused: boolean,
-  state: Object,
+  state: T,
   onChange(state: Object): void
 }
 
@@ -37,11 +37,11 @@ export class ContentPlugin extends Plugin {
   onBlur = (_: ContentPluginProps): void => {}
 }
 
-export type LayoutPluginProps = {
+export type LayoutPluginProps<T> = {
   id: string,
   readOnly: boolean,
   focused: boolean,
-  state: Object,
+  state: T,
   onChange(state: Object): void
 }
 

@@ -1,25 +1,55 @@
 // @flow
-import React from 'react'
+import React, { Component } from 'react'
 import FilterFrames from 'material-ui/svg-icons/image/filter-frames'
-import { createRowPlaceholder } from 'src/editor/plugins/content/placeholder'
-import { LayoutPlugin } from 'src/editor/service/plugin/classes'
+import Slate from 'src/editor/plugins/content/slate'
+import { LayoutPlugin, LayoutPluginProps } from 'src/editor/service/plugin/classes'
+import uuid from 'node-uuid'
+import cssModules from 'react-css-modules'
 
-const Spoiler = ({ children, state }: { children: Object, state: Object }) => (
-  <div style={{ border: '1px solid grey' }}>
-    <div {...state}>
-      {children}
-    </div>
-  </div>
-)
+import styles from './index.scoped.css'
 
-Spoiler.propTypes = {}
+/* eslint no-invalid-this: "off" */
+class Spoiler extends Component {
+  state = {
+    hidden: false
+  }
+  props: LayoutPluginProps<{}>
+
+  onToggle = () => {
+    console.log('state clicky')
+    this.setState({ hidden: !this.state.hidden })
+  }
+
+  render() {
+    const { children } = this.props
+    return (
+      <div styleName="spoiler">
+        <div styleName="header" onClick={() => console.log('CLICK')}>x</div>
+        <div styleName="content" style={{ display: this.state.hidden ? 'none' : 'block' }}>
+          {children}
+        </div>
+      </div>
+    )
+  }
+}
+
+const defaultPlugin = new Slate()
 
 export default class SpoilerPlugin extends LayoutPlugin {
-  Component = Spoiler
+  Component = cssModules(Spoiler, styles)
   name = 'ory/layout/spoiler'
   version = '0.0.1'
   icon = <FilterFrames />
   text = 'Spoiler'
 
-  createInitialState = createRowPlaceholder
+  createInitialChildren = () => ({
+    id: uuid.v4(),
+    rows: [{
+      id: uuid.v4(),
+      cells: [{
+        content: { plugin: defaultPlugin, state: defaultPlugin.createInitialState() },
+        id: uuid.v4(),
+      }]
+    }]
+  })
 }

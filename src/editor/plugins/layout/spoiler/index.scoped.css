@@ -1,0 +1,14 @@
+.spoiler {
+  border: 1px solid #aaa;
+}
+
+.spoiler .header {
+  border-bottom: 1px solid #aaa;
+  background: #eee;
+  padding: 4px 8px;
+  cursor: pointer;
+}
+
+.spoiler .content {
+
+}

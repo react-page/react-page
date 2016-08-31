@@ -70,8 +70,10 @@ class Editable extends Component {
               />
             ))}
           </div>
-          <Notifier message="Resize the browser window for mobile preview." open={isPreviewMode}
-                    id={dismissedMobilePreviewKey}
+          <Notifier
+            message="Resize the browser window for mobile preview."
+            open={isPreviewMode}
+            id={dismissedMobilePreviewKey}
           />
         </div>
       </NativeListener>
