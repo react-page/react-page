@@ -15,7 +15,7 @@ class Content extends Component {
   props: ComponentizedCell
 
   render() {
-    const { isPreviewMode, isEditMode, editable, id, node: { content: { plugin: { Component, ...plugin }, state = {} }, focused }, updateCellContent = fallback } = this.props
+    const { isPreviewMode, isEditMode, editable, id, node: { content: { plugin: { Component }, state = {} }, focused }, updateCellContent = fallback } = this.props
 
     let focusProps
     if (!isPreviewMode) {

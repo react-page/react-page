@@ -85,11 +85,12 @@ export type ComponentizedCell = {
 
   updateDimensions: Function,
   onResize: Function,
+  styles: any,
 
   clearHover(): void,
   removeCell(id: string): void,
   resizeCell(id: string): void,
-  focusCell(id: string): void,
+  focusCell(): void,
   blurCell(id: string): void,
   blurAllCells(): void,
   updateCellContent(id: string): void,
@@ -151,7 +152,8 @@ export type ComponentizedRow = {
 type AbstractEditable<T> = {
   id: string,
   config: Config,
-  cells: Array<T>
+  cells: Array<T>,
+  cellOrder: Array<{ id: string, isLeaf: boolean }>
 }
 
 export type Editable = AbstractEditable<Cell>

@@ -1,5 +1,5 @@
 // @flow
-import React, { PropTypes } from 'react'
+import React from 'react'
 import { HotKeys } from 'react-hotkeys'
 import { connect } from 'react-redux'
 import { undo, redo } from 'src/editor/actions/undo'
@@ -9,6 +9,7 @@ import { focus } from 'src/editor/selector/focus'
 import { node, editable } from 'src/editor/selector/editable'
 import { createStructuredSelector } from 'reselect'
 import { pathOr } from 'ramda'
+import type { Editable } from 'types/editable'
 
 const hotKeyHandler = (n: Object, key: string) => pathOr(pathOr(() => true, ['content', 'plugin', key], n), ['layout', 'plugin', key], n)
 
@@ -26,8 +27,22 @@ const nextLeaf = (order: [] = [], current: string) => {
 
 const previousLeaf = (order: [], current: string) => nextLeaf(order.reverse(), current)
 
+type Props = {
+  children: any,
+  id: string,
+  undo(id: string): void,
+  redo(id: string): void,
+  removeCell(id: string): void,
+  focus: string[],
+  focusCell(id: string): void,
+  blurAllCells(): void,
+  isEditMode: boolean,
+  node(cell: string, editable: string): Object,
+  editable: Editable
+}
+
 // TODO cleanup and tests #143
-const handlers = ({ id, undo, redo, focus, removeCell, focusCell, blurAllCells, isEditMode, node, editable }: { id: string, undo: Function, redo: Function, removeCell(id: string): Object, focus: string[] }) => ({
+const handlers = ({ id, undo, redo, focus, removeCell, focusCell, blurAllCells, isEditMode, node, editable }: Props) => ({
   undo: () => undo(id),
   redo: () => redo(id),
 
@@ -83,18 +98,11 @@ const handlers = ({ id, undo, redo, focus, removeCell, focusCell, blurAllCells, 
   }
 })
 
-const Decorator = ({ children, ...props }: { children: any, id: string, undo: Function, redo: Function, focus: string[] }) => (
+const Decorator = (props: Props) => (
   <HotKeys handlers={handlers(props)} style={{ outline: 'none' }}>
-    {children}
+    {props.children}
   </HotKeys>
 )
-
-Decorator.propTypes = {
-  children: PropTypes.node.isRequired,
-  id: PropTypes.string.isRequired,
-  undo: PropTypes.func.isRequired,
-  redo: PropTypes.func.isRequired
-}
 
 const mapStateToProps = createStructuredSelector({
   isEditMode, focus,
