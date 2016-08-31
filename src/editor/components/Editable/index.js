@@ -28,6 +28,7 @@ const stopPropagation = (e: Event) => {
 class Editable extends Component {
   componentDidMount() {
     if (!handling && document && document.body) {
+      // FIXME no, just no. #152
       window.setTimeout(() => document.body.addEventListener('click', () => this.props.blurAllCells()), 100)
       handling = true
     }
