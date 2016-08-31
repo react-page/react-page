@@ -15,6 +15,7 @@ import Divider from 'material-ui/Divider'
 import TextField from 'material-ui/TextField'
 import Item from './Item'
 import { LayoutPlugin, ContentPlugin } from 'src/editor/service/plugin/classes'
+import TypeException from 'src/editor/exceptions/TypeException'
 
 // import ViewHeadline from 'material-ui/svg-icons/action/view-headline'
 // import ViewCarousel from 'material-ui/svg-icons/action/view-carousel'
@@ -37,10 +38,15 @@ class Toolbar extends Component {
   }
 
   onSearch = (e: Event) => {
-    this.setState({
-      searchFilter: ((v: any) => (a: any) => a.text.toLowerCase().indexOf(v) > -1)(e.target.value.toLowerCase()),
-      isSearching: e.target.value.length > 0
-    })
+    const target = e.target
+    if (target instanceof HTMLInputElement) {
+      this.setState({
+        searchFilter: ((v: any) => (a: Object) => a.text.toLowerCase().indexOf(v) > -1)(target.value.toLowerCase()),
+        isSearching: target.value.length > 0
+      })
+    }
+
+    throw new TypeException('target', 'HTMLInputElement', e.target)
   }
 
   render() {
@@ -84,13 +90,14 @@ class Toolbar extends Component {
           {layout.length ? <Subheader>Layout</Subheader> : null}
           {layout.map(({ name, version, Component, ...plugin }: LayoutPlugin, k: Number) => {
             const initialState = plugin.createInitialState()
+            const children = plugin.createInitialChildren()
 
             return (
               <Item
                 {...{ ...plugin, clearHover, layoutMode, insertMode, editMode, name, version, Component }}
                 key={k}
                 insert={{
-                  ...initialState,
+                  ...children,
                   layout: {
                     plugin: { name, version, Component },
                     state: initialState

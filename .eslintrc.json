@@ -17,6 +17,7 @@
     }
   },
   "rules": {
+    "no-unused-vars": ["error", { "argsIgnorePattern": "^_" }],
     "flowtype/define-flow-type": "error",
     "flowtype/require-parameter-type": "error",
     "flowtype/space-after-type-colon": ["error", "always"],

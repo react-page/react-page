@@ -1,5 +1,5 @@
 // @flow
-import React, { PropTypes } from 'react'
+import React from 'react'
 import classNames from 'classnames'
 import Cell from 'src/editor/components/Cell'
 import cssModules from 'react-css-modules'
@@ -38,22 +38,5 @@ const Inner = ({
     <div styleName="clearfix" />
   </div>
 )
-
-Inner.propTypes = {
-  id: PropTypes.string.isRequired,
-  editable: PropTypes.string.isRequired,
-
-  node: PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    cells: PropTypes.array.isRequired,
-    hasInlineChildren: PropTypes.bool,
-    hover: PropTypes.string,
-  }).isRequired,
-
-  ancestors: PropTypes.array.isRequired,
-
-  containerHeight: PropTypes.number.isRequired,
-  containerWidth: PropTypes.number.isRequired
-}
 
 export default cssModules(Inner, { ...grid, ...styles }, { allowMultiple: true })

@@ -1,6 +1,5 @@
 // @flow
 import Component from './Component'
-import placeholder from 'src/editor/plugins/content/placeholder'
 import uuid from 'node-uuid'
 import { ContentPlugin } from 'src/editor/service/plugin/classes'
 

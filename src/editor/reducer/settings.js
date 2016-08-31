@@ -2,7 +2,7 @@
 import { UPDATE_SETTING } from 'src/editor/actions/setting'
 import { dismissedMobilePreviewKey } from 'src/editor/components/Notifier/index'
 
-export const settings = (state: Object = {
+export const settings = (state : Object = {
   [dismissedMobilePreviewKey]: false
 }, action: {
   type: string,

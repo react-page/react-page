@@ -1,12 +1,13 @@
 // @flow
 import { cells } from './tree.js'
 import { decorate } from './helper/tree'
+import { cellOrder } from './helper/order'
 import undoable, { excludeAction } from 'redux-undo'
 import { CELL_DRAG_HOVER, CELL_DRAG, CELL_DRAG_CANCEL, CLEAR_CLEAR_HOVER } from 'src/editor/actions/cell/drag'
 import { CELL_FOCUS, CELL_BLUR } from 'src/editor/actions/cell/core'
 import { UPDATE_EDITABLE } from 'src/editor/actions/editables'
 
-export const rawEditableReducer = (state: Object = {
+export const rawEditableReducer = (state : Object = {
   id: null,
   cells: [],
   config: {
@@ -17,7 +18,8 @@ export const rawEditableReducer = (state: Object = {
     default:
       return {
         ...state,
-        cells: decorate(cells(state.cells, action))
+        cells: decorate(cells(state.cells, action)),
+        cellOrder: cellOrder(state.cells || [])
       }
   }
 }

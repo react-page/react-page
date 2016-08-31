@@ -5,13 +5,29 @@ import ImageIcon from 'material-ui/svg-icons/image/panorama'
 import UploadIcon from 'material-ui/svg-icons/file/cloud-upload'
 import styles from './index.scoped.css'
 import Notifier from 'src/editor/components/Notifier'
+import TypeException from 'src/editor/exceptions/TypeException'
 
-type PropTypes = { state: { src: string }, onChange(): void, readOnly: boolean }
+type PropTypes = {
+  state: { src: string, caption: string },
+  onChange(): void,
+  readOnly: boolean,
+  focused: boolean
+}
+
+const handleChange = (onChange: Function) => (e: Event) => {
+  const target = e.target
+  if (target instanceof HTMLInputElement) {
+    onChange({ caption: target.value })
+    return
+  }
+
+  throw new TypeException('target', 'HTMLInputElement', target)
+}
 
 const CaptionInput = cssModules(({ state: { caption }, onChange }: PropTypes) => (
   <small>
     <input styleName="caption" type="text" placeholder="Type caption for image (optional)"
-           onChange={(e: Event) => onChange({ caption: e.target.value })} value={caption}
+           onChange={handleChange(onChange)} value={caption}
     />
   </small>
 ), styles, { allowMultiple: true })
@@ -69,7 +85,7 @@ const Display = cssModules(({ state: { src, ...state } }: PropTypes) => src ? (
 ), styles, { allowMultiple: true })
 
 const Image = (props: PropTypes) => {
-  const { focused, readOnly, state: { src } } = props
+  const { focused, readOnly } = props
 
   return (
     <div>

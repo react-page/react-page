@@ -2,7 +2,8 @@
 import { CELL_FOCUS, CELL_BLUR, CELL_BLUR_ALL } from 'src/editor/actions/cell'
 
 export const focus = (state : string[] = [], action: {
-  type: string
+  type: string,
+  id: string
 }) => {
   switch (action.type) {
     case CELL_FOCUS:
