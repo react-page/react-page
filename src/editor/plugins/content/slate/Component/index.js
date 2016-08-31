@@ -78,6 +78,8 @@ const schema = {
   }
 }
 
+const falser = () => false
+
 /* eslint no-invalid-this: "off" */
 class Slate extends Component {
   state = {}
@@ -225,6 +227,8 @@ class Slate extends Component {
           onKeyDown={this.onKeyDown}
           placeholder="Write something..."
           readOnly={Boolean(readOnly)}
+          onFocus={() => false}
+          onBlur={() => false}
           schema={schema}
           state={editorState}
         />

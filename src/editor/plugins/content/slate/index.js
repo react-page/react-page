@@ -14,27 +14,14 @@ export default class SlatePlugin extends ContentPlugin {
 
   onFocus = (props) => {
     if (props.state.editorState.isFocused) {
-      console.log('is already focused')
       return
     }
-
-    console.log('is not yet focused, focusing', props.state.editorState)
-
-    props.onChange({
-      editorState: props.state.editorState
-        .transform()
-        .focus()
-        .apply()
-    })
   }
 
   onBlur = (props) => {
     if (!props.state.editorState.isFocused) {
-      console.log('is already blurred')
       return
     }
-
-    console.log('is not yet blurred, blurring', props.state.editorState)
 
     props.onChange({
       editorState: props.state.editorState
