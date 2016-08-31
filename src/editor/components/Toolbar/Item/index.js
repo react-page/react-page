@@ -3,8 +3,9 @@ import React from 'react'
 import Avatar from 'material-ui/Avatar'
 import draggable from '../Draggable'
 import ListItem from 'material-ui/List/ListItem'
+import { Plugin } from 'src/editor/service/plugin/classes'
 
-const Item = ({ icon, text, name, insert, ...props }: Object, k: string) => {
+const Item = ({ icon, text, name, insert, ...props }: Plugin, k: string) => {
   if (!icon && !text) {
     return null
   }

@@ -7,6 +7,8 @@
 export class Plugin {
   name: string
   version: string
+  icon: any
+  text: string
   Component: Object
 
   serialize = (raw: Object): Object => raw

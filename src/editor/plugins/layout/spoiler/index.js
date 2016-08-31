@@ -16,15 +16,15 @@ class Spoiler extends Component {
   props: LayoutPluginProps<{}>
 
   onToggle = () => {
-    console.log('state clicky')
     this.setState({ hidden: !this.state.hidden })
   }
 
   render() {
     const { children } = this.props
+    // TODO replace onMouseUp #152
     return (
       <div styleName="spoiler">
-        <div styleName="header" onClick={() => console.log('CLICK')}>x</div>
+        <div styleName="header" onMouseUp={this.onToggle}>x</div>
         <div styleName="content" style={{ display: this.state.hidden ? 'none' : 'block' }}>
           {children}
         </div>

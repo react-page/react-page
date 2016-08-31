@@ -5,6 +5,10 @@ import { DragSource as dragSource } from 'react-dnd'
 import cssModules from 'react-css-modules'
 import { source, collect } from './helper'
 import classNames from 'classnames'
+import { connect } from 'react-redux'
+import { clearHover } from 'src/editor/actions/cell/drag'
+import { insertMode, editMode, layoutMode } from 'src/editor/actions/display'
+
 import styles from './index.scoped.css'
 
 const instances = {}
@@ -20,14 +24,13 @@ class Draggable extends Component {
   }
 }
 
-Draggable.propTypes = {
-  isDragging: PropTypes.bool.isRequired,
-  connectDragSource: PropTypes.func.isRequired,
-}
+const mapStateToProps = null
+
+const mapDispatchToProps = { insertMode, editMode, layoutMode, clearHover }
 
 export default (dragType: string = 'CELL') => {
   if (!instances[dragType]) {
-    instances[dragType] = dragSource(dragType, source, collect)(cssModules(Draggable, styles, { allowMultiple: true }))
+    instances[dragType] = connect(mapStateToProps, mapDispatchToProps)(dragSource(dragType, source, collect)(cssModules(Draggable, styles, { allowMultiple: true })))
   }
 
   return instances[dragType]

@@ -171,6 +171,7 @@ class Slate extends Component {
     const { editorState } = this.props.state
     const isActive = editorState && editorState.marks.some((mark) => mark.type === type)
 
+    // TODO replace onMouseUp #152
     return (
       <IconButton onMouseUp={onClick} iconStyle={isActive ? { color: '#007EC1' } : {}}>
         {icon}
@@ -196,6 +197,7 @@ class Slate extends Component {
     const { editorState } = this.props.state
     const isActive = editorState.blocks.some((block) => block.type === type)
 
+    // TODO replace onMouseUp #152
     return (
       <IconButton onMouseUp={onClick} iconStyle={isActive ? { color: '#007EC1' } : {}}>
         {icon}

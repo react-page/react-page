@@ -44,7 +44,7 @@ class Content extends Component {
 
       // Triggering blur and focus must be mouseUp to prevent focus issues with contenteditable and input fields
       focusProps = {
-        onMouseUp: () => {
+        onMouseDown: () => {
           if (!focused) {
             blurAllCells()
             focusCell()
