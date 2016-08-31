@@ -11,17 +11,18 @@ import i18n from 'src/editor/service/i18n'
 export const dismissedMobilePreviewKey = 'mobile-preview-dismissed'
 
 type Props = {
-  updateSetting: updateSetting,
-  getSetting: getSetting,
+  updateSetting: Function,
+  getSetting: Function,
 
   id: string,
   open: boolean,
   action: string,
+  message: string,
 
   dismissed: boolean,
 }
 
-const handleDismiss = (updateSetting: updateSetting, id: string) => () => updateSetting(`notifier.${id}`, true)
+const handleDismiss = (updateSetting: Function, id: string) => () => updateSetting(`notifier.${id}`, true)
 
 const Notifier = ({ dismissed, id, open, action = 'dismiss', message, updateSetting }: Props) => (
   <Snackbar

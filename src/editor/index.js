@@ -9,6 +9,8 @@ import createStore from './store'
 import { updateEditable } from 'src/editor/actions/editables'
 import ContentService from 'src/editor/service/content'
 import { isProduction } from './const'
+import consolePlugin from 'raven-js/plugins/console'
+
 
 import type Store from 'types/redux'
 import type { Editable as EditableType } from 'types/editable'
@@ -19,6 +21,24 @@ injectTapEventPlugin()
 
 if (!isProduction && typeof window !== 'undefined') {
   window.Perf = require('react-addons-perf')
+}
+
+let Raven
+
+if (isProduction && window !== 'undefined') {
+  Raven = require('raven-js')
+  Raven.config('https://7ccaf04e48474399bb705ecbd317e6ce@sentry.io/95510').install()
+  consolePlugin(Raven, console)
+}
+
+const logException = (ex: any, context: any) => {
+  if (isProduction && window !== 'undefined') {
+    Raven.captureException(ex, {
+      extra: context
+    })
+  }
+  /* eslint no-console:0*/
+  return window.console && console.error && console.error(ex)
 }
 
 let instance: Editor
@@ -50,26 +70,34 @@ class Editor {
       document.body.appendChild(toolbar)
     }
 
-    ReactDOM.render((
-      <Controls plugins={this.content.plugins} store={this.store} />
-    ), toolbar)
+    try {
+      ReactDOM.render((
+        <Controls plugins={this.content.plugins} store={this.store} />
+      ), toolbar)
+    } catch (e) {
+      logException(e)
+    }
   }
 
   /**
    * Renders the editor given a list of DOM entities.
    */
   render(editables: NodeList<HTMLElement>) {
-    forEach((editable: Node) => {
-      this.content.fetch(editable).then((state: EditableType) => {
-        this.store.dispatch(updateEditable({
-          ...state,
-          config: {
-            whitelist: this.content.plugins.getRegisteredNames()
-          }
-        }))
-        ReactDOM.render(<EditorComponent store={this.store} id={state.id} />, editable)
-      })
-    }, editables)
+    try {
+      forEach((editable: Node) => {
+        this.content.fetch(editable).then((state: EditableType) => {
+          this.store.dispatch(updateEditable({
+            ...state,
+            config: {
+              whitelist: this.content.plugins.getRegisteredNames()
+            }
+          }))
+          ReactDOM.render(<EditorComponent store={this.store} id={state.id} />, editable)
+        })
+      }, editables)
+    } catch (e) {
+      logException(e)
+    }
   }
 }
 

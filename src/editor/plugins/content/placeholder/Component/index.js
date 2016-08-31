@@ -10,7 +10,4 @@ const Placeholder = () => (
   </div>
 )
 
-Placeholder.propTypes = {
-}
-
 export default cssModules(Placeholder, styles)

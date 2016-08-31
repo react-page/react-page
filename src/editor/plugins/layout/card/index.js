@@ -1,11 +1,12 @@
 // @flow
-import { Card, CardActions, CardHeader, CardText } from 'material-ui/Card'
-import React, { PropTypes } from 'react'
+import { Card, CardHeader, CardText } from 'material-ui/Card'
+import React from 'react'
 import cssModules from 'react-css-modules'
 import Announcement from 'material-ui/svg-icons/action/announcement'
 import Slate from 'src/editor/plugins/content/slate'
 import { LayoutPlugin } from 'src/editor/service/plugin/classes'
 import uuid from 'node-uuid'
+import TypeException from 'src/editor/exceptions/TypeException'
 
 import styles from './index.scoped.css'
 
@@ -16,13 +17,23 @@ type Props = {
   onChange(state: Object): void
 }
 
+const handleChange = (onChange: Function, name: string) => (e: Event) => {
+  const target = e.target
+  if (target instanceof HTMLInputElement) {
+    onChange({ [name]: target.value })
+    return
+  }
+
+  throw new TypeException('target', 'HTMLInputElement', target)
+}
+
 const Title = ({ title = '', onChange, readOnly, name }: {title: string, onChange: Function, readOnly: boolean, name: string }) => readOnly
   ? <span>{title}</span>
   : (
   <input
     type="text"
     value={title}
-    onChange={(e: Event) => onChange({ [name]: e.target.value })}
+    onChange={handleChange(onChange, name)}
     placeholder={`Enter a ${name} (optional)`}
   />
 )
@@ -56,7 +67,7 @@ export default class CardPlugin extends LayoutPlugin {
   icon = <Announcement />
   text = 'Card'
 
-  createInitialState = () => ({
+  createInitialChildren = () => ({
     id: uuid.v4(),
     rows: [{
       id: uuid.v4(),

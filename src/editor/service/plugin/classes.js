@@ -8,13 +8,12 @@ export class Plugin {
   version: string
   Component: Object
 
-  // FIXME come up with better naming
-  preventDefaultRemove: boolean
-
   serialize = (raw: Object): Object => raw
   unserialize = (state: Object): Object => state
 
-  onRemoveHotKey = (e: Event): boolean => true
+  onRemoveHotKey = (_: Event, __: Object): boolean => true
+  onFocusNextHotKey = (_: Event, __: Object): boolean => true
+  onFocusPreviousHotKey = (_: Event, __: Object): boolean => true
 }
 
 /**
@@ -30,4 +29,5 @@ export class ContentPlugin extends Plugin {
  */
 export class LayoutPlugin extends Plugin {
   createInitialState = (): Object => ({})
+  createInitialChildren = (): Object => ({})
 }

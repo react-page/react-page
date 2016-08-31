@@ -1,5 +1,5 @@
-
-import React, { PropTypes, Component } from 'react'
+// @flow
+import React, { Component } from 'react'
 import { shouldPureComponentUpdate } from 'src/editor/helper/shouldComponentUpdate'
 import DragDroppable from './DragDroppable'
 import Rows from './Rows'
@@ -27,7 +27,7 @@ class Inner extends Component {
 
     if (rows.length && LayoutComponent) {
       return isLayoutMode || isInsertMode ? (
-        <DragDroppable {...{ ...props, styles: null }} dragType={layoutType} dropTypes={whitelist}>
+        <DragDroppable {...props} styles={null} dragType={layoutType} dropTypes={whitelist}>
           <div className="editable-cell">
             <Layout {...props} {...layoutState} />
           </div>
@@ -41,7 +41,8 @@ class Inner extends Component {
       return <Rows {...props} />
     } else if (ContentComponent) {
       return isLayoutMode || isInsertMode ? (
-        <DragDroppable {...{ ...props, styles: null }}
+        <DragDroppable {...props}
+          styles={null}
           dragType={contentType}
           dropTypes={whitelist}
           allowDrop
