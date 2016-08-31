@@ -7,7 +7,7 @@ import { CELL_DRAG_HOVER, CELL_DRAG, CELL_DRAG_CANCEL, CLEAR_CLEAR_HOVER } from 
 import { CELL_FOCUS, CELL_BLUR } from 'src/editor/actions/cell/core'
 import { UPDATE_EDITABLE } from 'src/editor/actions/editables'
 
-export const rawEditableReducer = (state: Object = {
+export const rawEditableReducer = (state : Object = {
   id: null,
   cells: [],
   config: {

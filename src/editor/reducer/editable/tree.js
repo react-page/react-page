@@ -246,7 +246,7 @@ export const row = (state: Row, action: Object): Row => optimizeRow(((state: Row
   }
 })(state, action))
 
-export const rows = (state: Row[] = [], action: Object): Row[] => optimizeRows(mergeDecorator(action)(((state: Row[], action: Object): Row[] => {
+export const rows = (state : Row[] = [], action: Object): Row[] => optimizeRows(mergeDecorator(action)(((state: Row[], action: Object): Row[] => {
   const reduce = () => state.map(inner(row, action))
   switch (action.type) {
     case CELL_INSERT_ABOVE:
