@@ -8,7 +8,7 @@ import { isEditMode, isLayoutMode, isPreviewMode } from 'src/editor/selector/dis
 import { createStructuredSelector } from 'reselect'
 import type { ComponentizedCell } from 'types/editable'
 
-// TODO clean me up
+// TODO clean me up #157
 class Content extends Component {
   shouldComponentUpdate = shouldPureComponentUpdate
   props: ComponentizedCell
@@ -17,6 +17,8 @@ class Content extends Component {
     const { node: { focused: was } } = this.props
     const { node: { focused: is } } = nextProps
     const { isEditMode, editable, id, node: { content: { plugin: { onFocus, onBlur }, state = {} }, focused }, updateCellContent } = nextProps
+
+    // FIXME this is really shitty because it will break when fields change #157
     const pass = {
       editable,
       id,
