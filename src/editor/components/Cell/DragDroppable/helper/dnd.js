@@ -1,8 +1,8 @@
 // @flow
 import { computeAndDispatchHover, computeAndDispatchInsert } from 'src/editor/service/hover/input'
 import throttle from 'lodash.throttle'
-import { isProduction } from 'src/editor/const'
 import type { ComponentizedCell } from 'types/editable'
+import { delay } from 'src/editor/helper/throttle'
 
 let last: {hover: string, drag: string} = { hover: '', drag: '' }
 
@@ -40,7 +40,7 @@ export const target = {
 
     last = { hover: hover.id, drag: drag.id }
     computeAndDispatchHover(hover, monitor, component)
-  }, isProduction ? 30 : 40, { leading: false }),
+  }, delay, { leading: false }),
 
   canDrop: ({ id, ancestors }: ComponentizedCell, monitor: Object) => {
     const item = monitor.getItem()

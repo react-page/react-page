@@ -1,10 +1,9 @@
 // @flow
 import { computeAndDispatchHover, computeAndDispatchInsert } from 'src/editor/service/hover/input'
 import throttle from 'lodash.throttle'
-import { isProduction } from 'src/editor/const'
 import type { Monitor, Connector } from 'types/react-dnd'
 import type { ComponentizedRow } from 'types/editable'
-
+import { delay } from 'src/editor/helper/throttle'
 
 let last: {hover: string, drag: string} = {
   hover: '',
@@ -41,7 +40,7 @@ export const target = {
     }
 
     computeAndDispatchHover(hover, monitor, component, '10x10-no-inline')
-  }, isProduction ? 30 : 50, { leading: false }),
+  }, delay, { leading: false }),
 
   canDrop: ({ id, ancestors }: ComponentizedRow, monitor: Monitor) => {
     const item = monitor.getItem()
