@@ -39,8 +39,6 @@ class Cell extends Component {
       }
     }
 
-    console.log('render cell')
-
     const props = { ...this.props, styles: null }
     return (
       <div
