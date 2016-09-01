@@ -138,7 +138,7 @@ export const cell = (state: Cell, action: Object): Cell => optimizeCell(((state:
   }
 })(state, action))
 
-export const cells = (state : Cell[] = [], action: Object): Cell[] => optimizeCells(((state: Cell[], action: Object): Cell[] => {
+export const cells = (state: Cell[] = [], action: Object): Cell[] => optimizeCells(((state: Cell[], action: Object): Cell[] => {
   switch (action.type) {
     case CELL_RESIZE:
       return resizeCells(state.map(inner(cell, action)), action)
@@ -246,7 +246,7 @@ export const row = (state: Row, action: Object): Row => optimizeRow(((state: Row
   }
 })(state, action))
 
-export const rows = (state : Row[] = [], action: Object): Row[] => optimizeRows(mergeDecorator(action)(((state: Row[], action: Object): Row[] => {
+export const rows = (state: Row[] = [], action: Object): Row[] => optimizeRows(mergeDecorator(action)(((state: Row[], action: Object): Row[] => {
   const reduce = () => state.map(inner(row, action))
   switch (action.type) {
     case CELL_INSERT_ABOVE:

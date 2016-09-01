@@ -14,7 +14,7 @@ export const CELL_FOCUS_NEXT = 'CELL_FOCUS_NEXT'
 /**
  * Dispatch to update cell content data.
  */
-export const updateCellContent = (id: string) => (state : {} = {}): Action => ({
+export const updateCellContent = (id: string) => (state: {} = {}): Action => ({
   type: CELL_UPDATE_CONTENT,
   ts: new Date(),
   id,
@@ -24,7 +24,7 @@ export const updateCellContent = (id: string) => (state : {} = {}): Action => ({
 /**
  * Dispatch to update cell content data.
  */
-export const updateCellLayout = (id: string) => (state : {} = {}): Action => ({
+export const updateCellLayout = (id: string) => (state: {} = {}): Action => ({
   type: CELL_UPDATE_LAYOUT,
   ts: new Date(),
   id,
@@ -43,7 +43,7 @@ export const removeCell = (id: string): Action => ({
 /**
  * Dispatch to resize a cell.
  */
-export const resizeCell = (id: string) => (size : number = 1): Action => ({
+export const resizeCell = (id: string) => (size: number = 1): Action => ({
   type: CELL_RESIZE,
   ts: new Date(),
   id,

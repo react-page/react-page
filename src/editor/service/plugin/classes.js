@@ -1,4 +1,5 @@
 // @flow
+/* eslint no-empty-function: ["off"] */
 
 /**
  * Plugin is the base class for content and layout plugins.
@@ -6,14 +7,20 @@
 export class Plugin {
   name: string
   version: string
+  icon: any
+  text: string
   Component: Object
 
   serialize = (raw: Object): Object => raw
   unserialize = (state: Object): Object => state
+}
 
-  onRemoveHotKey = (_: Event, __: Object): boolean => true
-  onFocusNextHotKey = (_: Event, __: Object): boolean => true
-  onFocusPreviousHotKey = (_: Event, __: Object): boolean => true
+export type ContentPluginProps<T> = {
+  id: string,
+  readOnly: boolean,
+  focused: boolean,
+  state: T,
+  onChange(state: Object): void
 }
 
 /**
@@ -21,7 +28,23 @@ export class Plugin {
  */
 export class ContentPlugin extends Plugin {
   inlineable: boolean
+
   createInitialState = (): Object => ({})
+
+  onRemoveHotKey = (_: Event, __: ContentPluginProps): boolean => true
+  onFocusNextHotKey = (_: Event, __: ContentPluginProps): boolean => true
+  onFocusPreviousHotKey = (_: Event, __: ContentPluginProps): boolean => true
+
+  onFocus = (_: ContentPluginProps): void => {}
+  onBlur = (_: ContentPluginProps): void => {}
+}
+
+export type LayoutPluginProps<T> = {
+  id: string,
+  readOnly: boolean,
+  focused: boolean,
+  state: T,
+  onChange(state: Object): void
 }
 
 /**
@@ -30,4 +53,11 @@ export class ContentPlugin extends Plugin {
 export class LayoutPlugin extends Plugin {
   createInitialState = (): Object => ({})
   createInitialChildren = (): Object => ({})
+
+  onRemoveHotKey = (_: Event, __: LayoutPluginProps): boolean => true
+  onFocusNextHotKey = (_: Event, __: LayoutPluginProps): boolean => true
+  onFocusPreviousHotKey = (_: Event, __: LayoutPluginProps): boolean => true
+
+  onFocus = (_: LayoutPluginProps): void => {}
+  onBlur = (_: LayoutPluginProps): void => {}
 }

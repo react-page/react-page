@@ -1,11 +1,9 @@
 // @flow
 /* eslint no-invalid-this: "off" */
-import React, { PropTypes, Component } from 'react'
+import React, { Component } from 'react'
 import Drawer from 'material-ui/Drawer'
 import { connect } from 'react-redux'
 import { isInsertMode } from 'src/editor/selector/display'
-import { clearHover } from 'src/editor/actions/cell/drag'
-import { insertMode, editMode, layoutMode } from 'src/editor/actions/display'
 import { createStructuredSelector } from 'reselect'
 import List from 'material-ui/List/List'
 import ListItem from 'material-ui/List/ListItem'
@@ -22,7 +20,7 @@ import TypeException from 'src/editor/exceptions/TypeException'
 // import VoteBox from 'material-ui/svg-icons/action/thumbs-up-down'
 
 class Toolbar extends Component {
-  constructor(props: Object) {
+  constructor(props) {
     super(props)
     this.state = {
       searchFilter: (a: any) => (a),
@@ -50,7 +48,7 @@ class Toolbar extends Component {
   }
 
   render() {
-    const { isInsertMode, plugins, layoutMode, insertMode, editMode, clearHover } = this.props
+    const { isInsertMode, plugins } = this.props
     const { isSearching, searchFilter } = this.state
     const content = plugins.plugins.content.filter(searchFilter)
     const layout = plugins.plugins.layout.filter(searchFilter)
@@ -67,18 +65,19 @@ class Toolbar extends Component {
         </div>
         <List>
           {content.length ? <Subheader>Content</Subheader> : null}
-          {content.map(({ name, version, Component, ...plugin }: ContentPlugin, k: Number) => {
+          {content.map((plugin: ContentPlugin, k: Number) => {
             const initialState = plugin.createInitialState()
 
             return (
               <Item
-                {...{ ...plugin, clearHover, layoutMode, insertMode, editMode, name, version, Component }}
-                name={name}
-                version={version}
+                name={plugin.name}
+                version={plugin.version}
+                icon={plugin.icon}
+                text={plugin.text}
                 key={k}
                 insert={{
                   content: {
-                    plugin: { name, version, Component },
+                    plugin,
                     state: initialState
                   }
                 }}
@@ -88,18 +87,21 @@ class Toolbar extends Component {
         </List>
         <List>
           {layout.length ? <Subheader>Layout</Subheader> : null}
-          {layout.map(({ name, version, Component, ...plugin }: LayoutPlugin, k: Number) => {
+          {layout.map((plugin: LayoutPlugin, k: Number) => {
             const initialState = plugin.createInitialState()
             const children = plugin.createInitialChildren()
 
             return (
               <Item
-                {...{ ...plugin, clearHover, layoutMode, insertMode, editMode, name, version, Component }}
+                name={plugin.name}
+                version={plugin.version}
+                icon={plugin.icon}
+                text={plugin.text}
                 key={k}
                 insert={{
                   ...children,
                   layout: {
-                    plugin: { name, version, Component },
+                    plugin,
                     state: initialState
                   }
                 }}
@@ -121,17 +123,6 @@ class Toolbar extends Component {
   }
 }
 
-Toolbar.propTypes = {
-  plugins: PropTypes.object.isRequired,
-  isInsertMode: PropTypes.bool.isRequired,
-  insertMode: PropTypes.func.isRequired,
-  editMode: PropTypes.func.isRequired,
-  layoutMode: PropTypes.func.isRequired,
-  clearHover: PropTypes.func.isRequired,
-}
-
 const mapStateToProps = createStructuredSelector({ isInsertMode })
 
-const mapDispatchToProps = { insertMode, editMode, layoutMode, clearHover }
-
-export default connect(mapStateToProps, mapDispatchToProps)(Toolbar)
+export default connect(mapStateToProps)(Toolbar)

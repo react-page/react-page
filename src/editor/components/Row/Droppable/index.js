@@ -9,8 +9,13 @@ import cssModules from 'react-css-modules'
 import styles from './index.scoped.css'
 
 class Droppable extends Component {
+  props: {
+    connectDropTarget(node: any): any,
+    children: any
+  }
+
   render() {
-    return this.props.connectDropTarget(<div {...this.props} />)
+    return this.props.connectDropTarget(<div>{this.props.children}</div>)
   }
 }
 
@@ -20,4 +25,4 @@ Droppable.propTypes = {
 
 const mapDispatchToProps = { ...hoverActions, ...insertActions }
 
-export default (dropTypes : string[] = ['CELL']) => connect(null, mapDispatchToProps)(dropTarget(dropTypes, target, monitorConnect)(cssModules(Droppable, styles, { allowMultiple: true })))
+export default (dropTypes: string[] = ['CELL']) => connect(null, mapDispatchToProps)(dropTarget(dropTypes, target, monitorConnect)(cssModules(Droppable, styles, { allowMultiple: true })))

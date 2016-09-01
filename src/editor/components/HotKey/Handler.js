@@ -13,7 +13,7 @@ import type { Editable } from 'types/editable'
 
 const hotKeyHandler = (n: Object, key: string) => pathOr(pathOr(() => true, ['content', 'plugin', key], n), ['layout', 'plugin', key], n)
 
-const nextLeaf = (order : [] = [], current: string) => {
+const nextLeaf = (order: [] = [], current: string) => {
   let last
 
   return order.find((c: {id: string, isLeaf: boolean}) => {

@@ -6,9 +6,9 @@ export const flatten = function <T> (c: Array<T>, n: Array<T>): Array<T> {
   return ([...c, ...n])
 }
 
-export const optimizeCells = (cells : Array < Cell > = []): Array<Cell> => cells.filter(emptyFilter)
+export const optimizeCells = (cells: Array < Cell > = []): Array<Cell> => cells.filter(emptyFilter)
 
-export const optimizeRows = (rows : Array < Row > = []): Array<Row> => rows.filter(emptyFilter)
+export const optimizeRows = (rows: Array < Row > = []): Array<Row> => rows.filter(emptyFilter)
 
 export const optimizeCell = ({ rows, ...other }: Cell): Cell => ({
   ...other,

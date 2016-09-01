@@ -11,24 +11,27 @@ import dimensions from 'react-dimensions'
 import Notifier, { dismissedMobilePreviewKey } from 'src/editor/components/Notifier'
 import { blurAllCells } from 'src/editor/actions/cell'
 import NativeListener from 'react-native-listener'
-
 import type { EditableComponentState, Cell as CellType } from 'types/editable'
-
 import * as commonStyles from 'src/editor/styles'
 import styles from './index.scoped.css'
 
 let handling = false
 
 // We need to stop some events from bubbling up
-const stopPropagation = (e: Event) => {
-  e.stopPropagation()
-  return false
+const stopPropagation = (blurAllCells: Function) => (e: Event) => {
+  let c = e.target
+  while (c = c.parentElement) {
+    if (c.classList.contains('editor-container')) {
+      return
+    }
+  }
+  blurAllCells()
 }
 
 class Editable extends Component {
   componentDidMount() {
     if (!handling && document && document.body) {
-      window.setTimeout(() => document.body.addEventListener('click', () => this.props.blurAllCells()), 100)
+      document.body.addEventListener('click', stopPropagation(this.props.blurAllCells))
       handling = true
     }
   }
@@ -37,7 +40,7 @@ class Editable extends Component {
 
   componentWillUnmount() {
     if (document && document.body) {
-      document.body.addEventListener('click', this.props.blurAllCells)
+      document.body.removeEventListener('click', stopPropagation(this.props.blurAllCells))
       handling = false
     }
   }
@@ -57,7 +60,7 @@ class Editable extends Component {
 
     return (
       <NativeListener onClick={stopPropagation}>
-        <div styles={props.styles} className="editor-container" onClick={stopPropagation}>
+        <div styles={props.styles} className={`editor-container ${id}`} onClick={stopPropagation}>
           <div styles={props.styles} styleName="row" className="editor-row">
             {cells.map((c: string | CellType) => (
               <Cell
@@ -70,8 +73,10 @@ class Editable extends Component {
               />
             ))}
           </div>
-          <Notifier message="Resize the browser window for mobile preview." open={isPreviewMode}
-                    id={dismissedMobilePreviewKey}
+          <Notifier
+            message="Resize the browser window for mobile preview."
+            open={isPreviewMode}
+            id={dismissedMobilePreviewKey}
           />
         </div>
       </NativeListener>

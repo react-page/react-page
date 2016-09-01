@@ -24,8 +24,7 @@ class DragDroppable extends Component {
         hover,
         inline,
       },
-      children,
-      ...props
+      children
     } = this.props
 
     const decorator = allowDrop && !inline ? connectDropTarget : identity
@@ -39,7 +38,7 @@ class DragDroppable extends Component {
     )
 
     return connectDragSource(decorator(
-      <div styleName={classes} {...props}>
+      <div styleName={classes}>
         {children}
       </div>
     ))

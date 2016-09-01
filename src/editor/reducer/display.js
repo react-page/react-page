@@ -2,7 +2,7 @@
 import { DEFAULT_DISPLAY_MODE, SET_DISPLAY_MODE, SET_PREVIOUS_DISPLAY_MODE } from 'src/editor/actions/display'
 import type { Display, DisplayAction } from 'types/display'
 
-export const display = (state : Display = {
+export const display = (state: Display = {
   previous: DEFAULT_DISPLAY_MODE,
   mode: DEFAULT_DISPLAY_MODE
 }, action: DisplayAction) => {

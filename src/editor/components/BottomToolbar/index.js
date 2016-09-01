@@ -2,7 +2,7 @@
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import Drawer from 'material-ui/Drawer'
-import React, { PropTypes } from 'react'
+import React from 'react'
 
 const BottomToolbar = ({ open, children }: { open: boolean, children: Object }) => (
   <MuiThemeProvider muiTheme={getMuiTheme()}>
@@ -17,10 +17,5 @@ const BottomToolbar = ({ open, children }: { open: boolean, children: Object }) 
     </Drawer>
   </MuiThemeProvider>
 )
-
-BottomToolbar.propTypes = {
-  open: PropTypes.bool,
-  children: PropTypes.element
-}
 
 export default BottomToolbar

@@ -9,7 +9,7 @@ const createHistory = (state: any) => ({
   future: []
 })
 
-export const editables = (state : { present : Editable }[] = [], action: {
+export const editables = (state: { present: Editable }[] = [], action: {
   type: string,
   id: string,
   editable: Editable

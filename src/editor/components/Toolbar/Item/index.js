@@ -1,10 +1,11 @@
 // @flow
-import React, { PropTypes } from 'react'
+import React from 'react'
 import Avatar from 'material-ui/Avatar'
 import draggable from '../Draggable'
 import ListItem from 'material-ui/List/ListItem'
+import { Plugin } from 'src/editor/service/plugin/classes'
 
-const Item = ({ icon, text, name, insert, ...props }: Object, k: number) => {
+const Item = ({ icon, text, name, insert, ...props }: Plugin, k: string) => {
   if (!icon && !text) {
     return null
   }
@@ -18,13 +19,6 @@ const Item = ({ icon, text, name, insert, ...props }: Object, k: number) => {
       />
     </Draggable>
   )
-}
-
-Item.propTypes = {
-  icon: PropTypes.element.isRequired,
-  text: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  insert: PropTypes.object.isRequired
 }
 
 export default Item

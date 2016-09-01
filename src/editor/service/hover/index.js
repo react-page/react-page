@@ -203,7 +203,7 @@ export const computeHorizontal = ({ mouse, position, hover, scale, level }: {
   scale: Vector,
   level: number,
   hover: ComponentizedRow
-}, inv : boolean = false) => {
+}, inv: boolean = false) => {
   const { node: { cells = [] } } = hover
   const x = relativeMousePosition({ mouse, position, scale }).x
 
@@ -219,7 +219,7 @@ export const computeHorizontal = ({ mouse, position, hover, scale, level }: {
   return inv ? level - at : at
 }
 
-export const computeVertical = ({ level, mouse, hover, position, scale }: { level: number, mouse: Vector, hover: ComponentizedRow, position: MatrixIndex, scale: Vector }, inv : boolean = false) => {
+export const computeVertical = ({ level, mouse, hover, position, scale }: { level: number, mouse: Vector, hover: ComponentizedRow, position: MatrixIndex, scale: Vector }, inv: boolean = false) => {
   const { node: { cells = [] } } = hover
   const x = relativeMousePosition({ mouse, position, scale }).x
   const at = computeLevel({ width: scale.x, position: x, levels: level })

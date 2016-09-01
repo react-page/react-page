@@ -10,7 +10,7 @@ export const DISPLAY_MODE_INSERT = 'insert'
 export const DISPLAY_MODE_RESIZING = 'resizing'
 export const DEFAULT_DISPLAY_MODE = DISPLAY_MODE_PREVIEW
 
-const setDisplayMode = (mode: string, remember : boolean = true) => (): Action => ({
+const setDisplayMode = (mode: string, remember: boolean = true) => (): Action => ({
   type: SET_DISPLAY_MODE,
   ts: new Date(),
   mode,

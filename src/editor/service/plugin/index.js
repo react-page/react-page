@@ -25,7 +25,7 @@ export const defaultContentPlugins: Array<ContentPlugin> = [
  */
 export const defaultLayoutPlugins: Array<LayoutPlugin> = [new SpoilerPlugin(), new CardPlugin()]
 
-const find = (name: string, version : string = '*') => (plugin: Plugin): boolean => plugin.name === name && satisfies(plugin.version, version)
+const find = (name: string, version: string = '*') => (plugin: Plugin): boolean => plugin.name === name && satisfies(plugin.version, version)
 
 /**
  * PluginService is a registry of all content and layout plugins known to the editor.
