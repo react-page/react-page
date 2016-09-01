@@ -11,7 +11,6 @@ const blurAll = (blurAllCells: Function) => (e: Event) => {
         return
       }
     }
-    /* eslint no-cond-assign: ["error"] */
     blurAllCells()
   }
 }

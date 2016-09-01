@@ -1,13 +1,10 @@
 // @flow
+/* eslint no-duplicate-imports: ["off"] */
 import React, { Component } from 'react'
 import FilterFrames from 'material-ui/svg-icons/image/filter-frames'
 import Slate from 'src/editor/plugins/content/slate'
-
-/* eslint no-duplicate-imports: ["off"] */
 import { LayoutPlugin } from 'src/editor/service/plugin/classes'
 import type { LayoutPluginProps } from 'src/editor/service/plugin/classes'
-/* eslint no-duplicate-imports: ["error"] */
-
 import uuid from 'node-uuid'
 import cssModules from 'react-css-modules'
 import styles from './index.scoped.css'

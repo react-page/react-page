@@ -15,10 +15,6 @@ import Item from './Item'
 import { LayoutPlugin, ContentPlugin } from 'src/editor/service/plugin/classes'
 import TypeException from 'src/editor/exceptions/TypeException'
 
-// import ViewHeadline from 'material-ui/svg-icons/action/view-headline'
-// import ViewCarousel from 'material-ui/svg-icons/action/view-carousel'
-// import VoteBox from 'material-ui/svg-icons/action/thumbs-up-down'
-
 class Toolbar extends Component {
   constructor(props) {
     super(props)

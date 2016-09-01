@@ -1,12 +1,12 @@
 // @flow
+// TODO lint: prefer-reflect doesn't work with slate state #158
+/* eslint no-duplicate-imports: ["off"] */
+/* eslint prefer-reflect: ["off"] */
 import Subject from 'material-ui/svg-icons/action/subject'
 import React from 'react'
 import { ContentPlugin } from 'src/editor/service/plugin/classes'
-
-/* eslint no-duplicate-imports: ["off"] */
 import Component from './Component'
 import type { Props } from './Component'
-/* eslint no-duplicate-imports: ["error"] */
 
 import * as hooks from './hooks'
 

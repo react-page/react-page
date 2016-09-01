@@ -1,5 +1,5 @@
 /* eslint-disable prefer-reflect */
-import React, { Component, PropTypes } from 'react'
+import React, { Component } from 'react'
 import cssModules from 'react-css-modules'
 import Portal from 'react-portal'
 import position from 'selection-position'
@@ -84,7 +84,6 @@ export type Props = ContentPluginProps<{ editorState: Object }>
 /* eslint no-invalid-this: "off" */
 class Slate extends Component {
   state = {}
-  props: ContentPluginProps
 
   componentDidMount = () => this.updateToolbar()
   shouldComponentUpdate = (nextProps, nextState) => (
@@ -94,6 +93,8 @@ class Slate extends Component {
     || nextState.toolbar !== this.state.toolbar
   )
   componentDidUpdate = () => this.updateToolbar()
+
+  props: ContentPluginProps
 
   onStateChange = (editorState) => {
     this.props.onChange({ editorState })
@@ -227,8 +228,8 @@ class Slate extends Component {
           onKeyDown={this.onKeyDown}
           placeholder="Write something..."
           readOnly={Boolean(readOnly)}
-          onFocus={() => false}
-          onBlur={() => false}
+          onFocus={falser}
+          onBlur={falser}
           schema={schema}
           state={editorState}
         />

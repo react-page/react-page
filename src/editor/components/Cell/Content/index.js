@@ -10,9 +10,6 @@ import type { ComponentizedCell } from 'types/editable'
 
 // TODO clean me up #157
 class Content extends Component {
-  shouldComponentUpdate = shouldPureComponentUpdate
-  props: ComponentizedCell
-
   componentWillReceiveProps(nextProps: ComponentizedCell) {
     const { node: { focused: was } } = this.props
     const { node: { focused: is } } = nextProps
@@ -34,6 +31,9 @@ class Content extends Component {
       onBlur(pass)
     }
   }
+
+  shouldComponentUpdate = shouldPureComponentUpdate
+  props: ComponentizedCell
 
   render() {
     const { isPreviewMode, isEditMode, editable, id, node: { content: { plugin: { Component }, state = {} }, focused }, updateCellContent } = this.props
