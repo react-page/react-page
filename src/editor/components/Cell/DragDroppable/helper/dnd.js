@@ -40,7 +40,7 @@ export const target = {
 
     last = { hover: hover.id, drag: drag.id }
     computeAndDispatchHover(hover, monitor, component)
-  }, isProduction ? 5 : 10, { leading: false }),
+  }, isProduction ? 30 : 40, { leading: false }),
 
   canDrop: ({ id, ancestors }: ComponentizedCell, monitor: Object) => {
     const item = monitor.getItem()

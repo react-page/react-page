@@ -41,7 +41,7 @@ export const target = {
     }
 
     computeAndDispatchHover(hover, monitor, component, '10x10-no-inline')
-  }, isProduction ? 5 : 10, { leading: false }),
+  }, isProduction ? 30 : 50, { leading: false }),
 
   canDrop: ({ id, ancestors }: ComponentizedRow, monitor: Monitor) => {
     const item = monitor.getItem()
