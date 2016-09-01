@@ -2,6 +2,7 @@
 import React, { Component } from 'react'
 import Inner from './inner'
 import { connect } from 'react-redux'
+import { shouldPureComponentUpdate } from 'src/editor/helper/shouldComponentUpdate'
 import { bindActionCreators } from 'redux'
 import { editableConfig, node, purifiedNode } from 'src/editor/selector/editable'
 import { isPreviewMode, isEditMode, isResizeMode, isLayoutMode, isInsertMode } from 'src/editor/selector/display'
@@ -10,7 +11,6 @@ import Resizable from './Resizable'
 import { resizeCell, focusCell, blurAllCells } from 'src/editor/actions/cell'
 import classNames from 'classnames'
 import cssModules from 'react-css-modules'
-import deepEqual from 'deep-equal'
 import type { ComponentizedCell } from 'types/editable'
 
 import * as commonStyles from 'src/editor/styles'
@@ -19,16 +19,7 @@ import localStyles from './index.scoped.css'
 const gridClass = ({ node: { size }, isPreviewMode, isEditMode }: ComponentizedCell): string => `cell-${isPreviewMode || isEditMode ? 'md' : 'xs'}-${size || 12}`
 
 class Cell extends Component {
-  shouldComponentUpdate(nextProps: ComponentizedCell) {
-    const blacklist = ['rawNode']
-    const nextKeys = Object.keys(nextProps)
-    const prevKeys = Object.keys(this.props)
-    if (!deepEqual(nextKeys, prevKeys)) {
-      return true
-    }
-
-    return nextKeys.filter((n: string) => blacklist.indexOf(n) > -1 ? false : !deepEqual(this.props[n], nextProps[n])).length > 0
-  }
+  shouldComponentUpdate = shouldPureComponentUpdate
 
   props: ComponentizedCell
 
@@ -47,6 +38,8 @@ class Cell extends Component {
         ...localStyles // override defaults
       }
     }
+
+    console.log('render cell')
 
     const props = { ...this.props, styles: null }
     return (
