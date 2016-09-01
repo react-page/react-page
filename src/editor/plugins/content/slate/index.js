@@ -2,7 +2,12 @@
 import Subject from 'material-ui/svg-icons/action/subject'
 import React from 'react'
 import { ContentPlugin } from 'src/editor/service/plugin/classes'
+
+/* eslint no-duplicate-imports: ["off"] */
 import Component from './Component'
+import type { Props } from './Component'
+/* eslint no-duplicate-imports: ["error"] */
+
 import * as hooks from './hooks'
 
 export default class SlatePlugin extends ContentPlugin {
@@ -12,13 +17,13 @@ export default class SlatePlugin extends ContentPlugin {
   icon = <Subject />
   text = 'Text (Slate)'
 
-  onFocus = (props) => {
+  onFocus = (props: Props) => {
     if (props.state.editorState.isFocused) {
       return
     }
   }
 
-  onBlur = (props) => {
+  onBlur = (props: Props) => {
     if (!props.state.editorState.isFocused) {
       return
     }

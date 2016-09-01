@@ -8,8 +8,6 @@ import { isEditMode, isLayoutMode, isPreviewMode } from 'src/editor/selector/dis
 import { createStructuredSelector } from 'reselect'
 import type { ComponentizedCell } from 'types/editable'
 
-const fallback = (...args: Array<string>) => console.error('onChange callback is missing', ...args)
-
 // TODO clean me up
 class Content extends Component {
   shouldComponentUpdate = shouldPureComponentUpdate
@@ -18,7 +16,7 @@ class Content extends Component {
   componentWillReceiveProps(nextProps: ComponentizedCell) {
     const { node: { focused: was } } = this.props
     const { node: { focused: is } } = nextProps
-    const { isEditMode, editable, id, node: { content: { plugin: { onFocus, onBlur }, state = {} }, focused }, updateCellContent = fallback } = nextProps
+    const { isEditMode, editable, id, node: { content: { plugin: { onFocus, onBlur }, state = {} }, focused }, updateCellContent } = nextProps
     const pass = {
       editable,
       id,
@@ -36,7 +34,7 @@ class Content extends Component {
   }
 
   render() {
-    const { isPreviewMode, isEditMode, editable, id, node: { content: { plugin: { Component }, state = {} }, focused }, updateCellContent = fallback } = this.props
+    const { isPreviewMode, isEditMode, editable, id, node: { content: { plugin: { Component }, state = {} }, focused }, updateCellContent } = this.props
 
     let focusProps
     if (!isPreviewMode) {

@@ -5,6 +5,8 @@
 import { List } from 'immutable'
 import { head, map, path, reduce, tail } from 'ramda'
 import React from 'react'
+import type { Props } from './Component'
+
 // FIXME #126
 // flow-disable-next-line named exports
 import { Document, Html, Raw, State, Plain } from 'slate'
@@ -97,4 +99,4 @@ export const split = (state: Object): Object[] => {
 }
 
 // if editor state is empty, remove cell when backspace or delete was pressed.
-export const onRemoveHotKey = (_: Event, { editorState }: { editorState: Object }) => Plain.serialize(editorState).length < 1
+export const onRemoveHotKey = (_: Event, { editorState }: Props) => Plain.serialize(editorState).length < 1

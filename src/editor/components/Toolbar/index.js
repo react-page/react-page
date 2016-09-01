@@ -70,10 +70,7 @@ class Toolbar extends Component {
 
             return (
               <Item
-                name={plugin.name}
-                version={plugin.version}
-                icon={plugin.icon}
-                text={plugin.text}
+                plugin={plugin}
                 key={k}
                 insert={{
                   content: {
@@ -93,10 +90,7 @@ class Toolbar extends Component {
 
             return (
               <Item
-                name={plugin.name}
-                version={plugin.version}
-                icon={plugin.icon}
-                text={plugin.text}
+                plugin={plugin}
                 key={k}
                 insert={{
                   ...children,

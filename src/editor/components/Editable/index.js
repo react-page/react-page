@@ -14,35 +14,17 @@ import NativeListener from 'react-native-listener'
 import type { EditableComponentState, Cell as CellType } from 'types/editable'
 import * as commonStyles from 'src/editor/styles'
 import styles from './index.scoped.css'
-
-let handling = false
-
-// We need to stop some events from bubbling up
-const stopPropagation = (blurAllCells: Function) => (e: Event) => {
-  let c = e.target
-  while (c = c.parentElement) {
-    if (c.classList.contains('editor-container')) {
-      return
-    }
-  }
-  blurAllCells()
-}
+import { enableGlobalBlurring, disableGlobalBlurring } from './blur'
 
 class Editable extends Component {
   componentDidMount() {
-    if (!handling && document && document.body) {
-      document.body.addEventListener('click', stopPropagation(this.props.blurAllCells))
-      handling = true
-    }
+    enableGlobalBlurring(this.props.blurAllCells)
   }
 
   shouldComponentUpdate = shouldPureComponentUpdate
 
   componentWillUnmount() {
-    if (document && document.body) {
-      document.body.removeEventListener('click', stopPropagation(this.props.blurAllCells))
-      handling = false
-    }
+    disableGlobalBlurring(this.props.blurAllCells)
   }
 
   props: EditableComponentState
@@ -59,8 +41,8 @@ class Editable extends Component {
     }
 
     return (
-      <NativeListener onClick={stopPropagation}>
-        <div styles={props.styles} className={`editor-container ${id}`} onClick={stopPropagation}>
+      <NativeListener>
+        <div styles={props.styles} className={`editor-container ${id}`}>
           <div styles={props.styles} styleName="row" className="editor-row">
             {cells.map((c: string | CellType) => (
               <Cell

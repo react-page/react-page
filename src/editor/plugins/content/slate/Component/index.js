@@ -4,8 +4,7 @@ import cssModules from 'react-css-modules'
 import Portal from 'react-portal'
 import position from 'selection-position'
 import { Editor } from 'slate'
-import { connect } from 'react-redux'
-import { undo, redo } from 'src/editor/actions/undo'
+import { ContentPluginProps } from 'src/editor/service/plugin/classes'
 import IconButton from 'material-ui/IconButton'
 import BoldIcon from 'material-ui/svg-icons/editor/format-bold'
 import ItalicIcon from 'material-ui/svg-icons/editor/format-italic'
@@ -80,9 +79,12 @@ const schema = {
 
 const falser = () => false
 
+export type Props = ContentPluginProps<{ editorState: Object }>
+
 /* eslint no-invalid-this: "off" */
 class Slate extends Component {
   state = {}
+  props: ContentPluginProps
 
   componentDidMount = () => this.updateToolbar()
   shouldComponentUpdate = (nextProps, nextState) => (
@@ -243,18 +245,4 @@ class Slate extends Component {
   }
 }
 
-Slate.propTypes = {
-  state: PropTypes.shape({
-    editorState: PropTypes.object
-  }),
-  focused: PropTypes.bool.isRequired,
-  readOnly: PropTypes.bool.isRequired,
-  onChange: PropTypes.func.isRequired,
-  undo: PropTypes.func.isRequired,
-  redo: PropTypes.func.isRequired
-}
-
-const mapStateToProps = null
-const mapDispatchToProps = { undo, redo }
-
-export default connect(mapStateToProps, mapDispatchToProps)(cssModules(Slate, styles))
+export default cssModules(Slate, styles)

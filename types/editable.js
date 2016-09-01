@@ -87,14 +87,16 @@ export type ComponentizedCell = {
   onResize: Function,
   styles: any,
 
+  // the raw signatures of the following actions are different (e.g. `(id) => (state): Action`) but
+  // when mapping to props, only signature of the most inner method is used (`(state): Action`).
   clearHover(): void,
-  removeCell(id: string): void,
+  removeCell(): void,
   resizeCell(id: string): void,
   focusCell(): void,
   blurCell(id: string): void,
   blurAllCells(): void,
-  updateCellContent(id: string): void,
-  updateCellLayout(id: string): void,
+  updateCellContent(state: Object): void,
+  updateCellLayout(state: Object): void,
   cancelCellDrag(drag: string): void,
 
   dragCell(drag: string): void,
