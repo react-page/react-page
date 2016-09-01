@@ -21,10 +21,9 @@ class Spoiler extends Component {
 
   render() {
     const { children } = this.props
-    // TODO replace onMouseUp #152
     return (
       <div styleName="spoiler">
-        <div styleName="header" onMouseUp={this.onToggle}>x</div>
+        <div styleName="header" onClick={this.onToggle}>x</div>
         <div styleName="content" style={{ display: this.state.hidden ? 'none' : 'block' }}>
           {children}
         </div>
