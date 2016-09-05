@@ -229,7 +229,6 @@ class Slate extends Component {
           placeholder="Write something..."
           readOnly={Boolean(readOnly)}
           onFocus={falser}
-          onBlur={falser}
           schema={schema}
           state={editorState}
         />

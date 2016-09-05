@@ -100,3 +100,7 @@ export const split = (state: Object): Object[] => {
 
 // if editor state is empty, remove cell when backspace or delete was pressed.
 export const onRemoveHotKey = (_: Event, { editorState }: Props) => Plain.serialize(editorState).length < 1
+
+export const onFocusPreviousHotKey = (_: Event, { editorState }: Props) => editorState.selection.startOffset === 0
+
+export const onFocusNextHotKey = (_: Event, __: Props) => false
