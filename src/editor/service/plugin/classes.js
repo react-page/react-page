@@ -35,8 +35,6 @@ export class ContentPlugin extends Plugin {
   onFocusNextHotKey = (_: Event, __: ContentPluginProps<*>): boolean => true
   onFocusPreviousHotKey = (_: Event, __: ContentPluginProps<*>): boolean => true
 
-  onRedo = (_: ContentPluginProps<*>): void => {}
-  onUndo = (_: ContentPluginProps<*>): void => {}
   onFocus = (_: ContentPluginProps<*>): void => {}
   onBlur = (_: ContentPluginProps<*>): void => {}
 }
@@ -60,8 +58,6 @@ export class LayoutPlugin extends Plugin {
   onFocusNextHotKey = (_: Event, __: LayoutPluginProps<*>): boolean => true
   onFocusPreviousHotKey = (_: Event, __: LayoutPluginProps<*>): boolean => true
 
-  onRedo = (_: LayoutPluginProps<*>): void => {}
-  onUndo = (_: LayoutPluginProps<*>): void => {}
   onFocus = (_: LayoutPluginProps<*>): void => {}
   onBlur = (_: LayoutPluginProps<*>): void => {}
 }
