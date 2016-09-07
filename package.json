@@ -7,9 +7,9 @@
     "flow": "flow check --show-all-errors",
     "flow:watch": "npm run watch:js -- -c \"flow check --show-all-errors\"",
     "test": "npm-run-all test:unit test:e2e",
-    "test:unit": "cross-env NODE_PATH=. mocha --require .babel-require --recursive \"+(src|test)/**/*.test.js\"",
+    "test:unit": "cross-env NODE_PATH=. jest",
     "test:e2e": "node bin/nightwatch",
-    "test:watch": "npm run watch:js -- -c \"npm run test:unit -- --reporter min\"",
+    "test:watch": "npm run test:unit -- --watch",
     "start": "cross-env NODE_PATH=. NODE_ENV=production node src/server",
     "dev": "cross-env NODE_PATH=. nodemon src/server",
     "lint": "eslint \"+(src|test|types)/**/*.js\" --fix",
@@ -31,11 +31,9 @@
     "babel-loader": "6.2.5",
     "babel-plugin-transform-class-properties": "6.11.5",
     "babel-plugin-transform-inline-environment-variables": "6.8.0",
-    "babel-polyfill": "6.13.0",
     "babel-preset-es2015": "6.14.0",
     "babel-preset-react": "6.11.1",
     "babel-preset-stage-2": "6.13.0",
-    "babel-register": "6.14.0",
     "classnames": "2.2.5",
     "cross-env": "2.0.1",
     "css-loader": "0.24.0",
@@ -90,14 +88,20 @@
     "eslint-plugin-flowtype": "2.11.4",
     "eslint-plugin-react": "5.2.2",
     "flow-bin": "0.31.1",
-    "mocha": "3.0.2",
+    "jest": "15.1.1",
     "nightwatch": "0.9.8",
     "nodemon": "1.10.2",
     "npm-run-all": "3.0.0",
     "react-addons-shallow-compare": "15.3.1",
+    "react-test-renderer": "15.3.1",
     "redbox-react": "1.3.0",
     "unexpected": "10.16.0",
     "webpack-dev-middleware": "1.6.1",
     "webpack-hot-middleware": "2.12.2"
+  },
+  "jest": {
+    "moduleNameMapper": {
+      "^[./a-zA-Z0-9$_-]+\\.css$": "<rootDir>/config/jest/CSSStub.js"
+    }
   }
 }

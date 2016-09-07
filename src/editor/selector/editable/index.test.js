@@ -1,4 +1,4 @@
-/* eslint-env mocha */
+/* eslint-env jest */
 import unexpected from 'unexpected'
 import { purifiedNode } from './index.js'
 

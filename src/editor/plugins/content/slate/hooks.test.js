@@ -1,4 +1,4 @@
-/* eslint-env mocha */
+/* eslint-env jest */
 import * as hooks from './hooks'
 
 import { map } from 'ramda'
