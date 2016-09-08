@@ -1,4 +1,4 @@
-/* eslint-env mocha */
+/* eslint-env jest */
 import { rawEditableReducer } from './index'
 import unexpected from 'unexpected'
 import { combineReducers, createStore } from 'redux'

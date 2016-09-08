@@ -1,5 +1,5 @@
 // @flux
-/* eslint-env mocha */
+/* eslint-env jest */
 import * as cellActions from './cell'
 import unexpected from 'unexpected'
 

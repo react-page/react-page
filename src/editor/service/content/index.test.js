@@ -1,4 +1,4 @@
-/* eslint-env mocha */
+/* eslint-env jest */
 import unexpected from 'unexpected'
 import ContentService, { generateMissingIds } from './index'
 import { content } from 'src/editor/service/content/adapter/debug'
