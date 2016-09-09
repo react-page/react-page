@@ -98,29 +98,60 @@ export const split = (state: Object): Object[] => {
   ).toArray()
 }
 
-const position = function() {
+const position = () => {
+  if (window && window.getSelection) {
+    const selection = window.getSelection()
+    if (!selection.rangeCount) {
+      return {}
+    }
 
-  if (window.getSelection) {
-    var selection = window.getSelection();
-    if (!selection.rangeCount) return;
-
-    var range = selection.getRangeAt(0);
-    return range.getBoundingClientRect();
+    return selection.getRangeAt(0).getBoundingClientRect()
   }
 
   if (document.selection) {
     return document.selection
       .createRange()
-      .getBoundingClientRect();
+      .getBoundingClientRect()
   }
-};
+
+  return {}
+}
 
 // if editor state is empty, remove cell when backspace or delete was pressed.
-export const onRemoveHotKey = (_: Event, { editorState }: Props) => Plain.serialize(editorState).length < 1
+export const onRemoveHotKey = (_: Event, { editorState }: Props) => new Promise((resolve: Function, reject: Function) => Plain.serialize(editorState).length < 1 ? resolve() : reject())
 
-export const onFocusPreviousHotKey = (_: Event, { editorState }: Props) => editorState.selection.startOffset === 0
+const windowSelectionWaitTime = 30
 
-export const onFocusNextHotKey = (e: Event, __: Props) => {
-  console.log('position', position())
-  return false
+export const onFocusPreviousHotKey = (e: Event, _: Props) => {
+  const current = position()
+  const isArrowUp = e.keyCode === 38
+  return new Promise((resolve: Function, reject: Function) => {
+    setTimeout(() => {
+      const next = position()
+
+      if (isArrowUp && next.top === current.top) {
+        return resolve()
+      } else if (next.top === current.top && next.right === current.right) {
+        return resolve()
+      }
+      reject()
+    }, windowSelectionWaitTime)
+  })
+}
+
+export const onFocusNextHotKey = (e: Event, _: Props) => {
+  const current = position()
+  const isArrowDown = e.keyCode === 40
+  return new Promise((resolve: Function, reject: Function) => {
+    setTimeout(() => {
+      const next = position()
+
+      if (isArrowDown && next.top === current.top) {
+        return resolve()
+      } else if (next.top === current.top && next.right === current.right) {
+        return resolve()
+      }
+      reject()
+    }, windowSelectionWaitTime)
+  })
 }

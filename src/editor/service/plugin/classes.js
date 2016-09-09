@@ -31,9 +31,9 @@ export class ContentPlugin extends Plugin {
 
   createInitialState = (): Object => ({})
 
-  onRemoveHotKey = (_: Event, __: ContentPluginProps<*>): boolean => true
-  onFocusNextHotKey = (_: Event, __: ContentPluginProps<*>): boolean => true
-  onFocusPreviousHotKey = (_: Event, __: ContentPluginProps<*>): boolean => true
+  onRemoveHotKey = (_: Event, __: ContentPluginProps<*>): boolean => Promise.resolve()
+  onFocusNextHotKey = (_: Event, __: ContentPluginProps<*>): boolean => Promise.resolve()
+  onFocusPreviousHotKey = (_: Event, __: ContentPluginProps<*>): boolean => Promise.resolve()
 
   onFocus = (_: ContentPluginProps<*>): void => {}
   onBlur = (_: ContentPluginProps<*>): void => {}
@@ -54,9 +54,9 @@ export class LayoutPlugin extends Plugin {
   createInitialState = (): Object => ({})
   createInitialChildren = (): Object => ({})
 
-  onRemoveHotKey = (_: Event, __: LayoutPluginProps<*>): boolean => true
-  onFocusNextHotKey = (_: Event, __: LayoutPluginProps<*>): boolean => true
-  onFocusPreviousHotKey = (_: Event, __: LayoutPluginProps<*>): boolean => true
+  onRemoveHotKey = (_: Event, __: ContentPluginProps<*>): boolean => Promise.resolve()
+  onFocusNextHotKey = (_: Event, __: ContentPluginProps<*>): boolean => Promise.resolve()
+  onFocusPreviousHotKey = (_: Event, __: ContentPluginProps<*>): boolean => Promise.resolve()
 
   onFocus = (_: LayoutPluginProps<*>): void => {}
   onBlur = (_: LayoutPluginProps<*>): void => {}
