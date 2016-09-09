@@ -49,51 +49,54 @@ const handlers = ({ id, undo, redo, focus, removeCell, focusCell, blurAllCells, 
   // remove cells
   remove: (e: Event) => {
     if (!isEditMode) {
-      return true
+      return
     }
 
     focus.forEach((cell: string) => {
       const n = node(cell, id)
-      if (hotKeyHandler(n, 'onRemoveHotKey')(e, pathOr(pathOr({}, ['layout', 'state'], n), ['content', 'state'], n))) {
-        removeCell(cell)
-      }
+      hotKeyHandler(n, 'onRemoveHotKey')(e, pathOr(pathOr({}, ['layout', 'state'], n), ['content', 'state'], n))
+        .then(() => removeCell(cell))
+        .catch(() => {})
     })
-    return true
   },
 
   // focus next cell
   focusNext: (e: Event) => {
     if (!isEditMode) {
-      return true
+      return
     }
 
     focus.forEach((cell: string) => {
       const n = node(cell, id)
-      if (hotKeyHandler(n, 'onFocusNextHotKey')(e, pathOr(pathOr({}, ['layout', 'state'], n), ['content', 'state'], n))) {
-        const found = nextLeaf(editable.cellOrder, cell)
-        if (found) {
-          blurAllCells()
-          focusCell(found.id)
-        }
-      }
+      hotKeyHandler(n, 'onFocusNextHotKey')(e, pathOr(pathOr({}, ['layout', 'state'], n), ['content', 'state'], n))
+        .then(() => {
+          const found = nextLeaf(editable.cellOrder, cell)
+          if (found) {
+            blurAllCells()
+            focusCell(found.id)
+          }
+        })
+        .catch(() => {})
     })
   },
 
   // focus previous cell
   focusPrev: (e: Event) => {
     if (!isEditMode) {
-      return true
+      return
     }
 
     focus.forEach((cell: string) => {
       const n = node(cell, id)
-      if (hotKeyHandler(n, 'onFocusPreviousHotKey')(e, pathOr(pathOr({}, ['layout', 'state'], n), ['content', 'state'], n))) {
-        const found = previousLeaf(editable.cellOrder, cell)
-        if (found) {
-          blurAllCells()
-          focusCell(found.id)
-        }
-      }
+      hotKeyHandler(n, 'onFocusPreviousHotKey')(e, pathOr(pathOr({}, ['layout', 'state'], n), ['content', 'state'], n))
+        .then(() => {
+          const found = previousLeaf(editable.cellOrder, cell)
+          if (found) {
+            blurAllCells()
+            focusCell(found.id)
+          }
+        })
+        .catch(() => {})
     })
   }
 })
