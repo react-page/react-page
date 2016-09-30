@@ -6,6 +6,7 @@ import position from 'selection-position'
 import { Editor } from 'slate'
 import { ContentPluginProps } from 'src/editor/service/plugin/classes'
 import IconButton from 'material-ui/IconButton'
+import CodeIcon from 'material-ui/svg-icons/action/code'
 import BoldIcon from 'material-ui/svg-icons/editor/format-bold'
 import ItalicIcon from 'material-ui/svg-icons/editor/format-italic'
 import UnderlinedIcon from 'material-ui/svg-icons/editor/format-underlined'
@@ -73,7 +74,8 @@ const schema = {
   marks: {
     [STRONG]: makeTagMark('strong'),
     [EM]: makeTagMark('em'),
-    [U]: makeTagMark('u')
+    [U]: makeTagMark('u'),
+    [CODE]: makeTagMark('code')
   }
 }
 
@@ -85,14 +87,20 @@ export type Props = ContentPluginProps<{ editorState: Object }>
 class Slate extends Component {
   state = {}
 
-  componentDidMount = () => this.updateToolbar()
+  componentDidMount = () => {
+    console.log('componentDidMount')
+    this.updateToolbar()
+  }
   shouldComponentUpdate = (nextProps, nextState) => (
     nextProps.state.editorState !== this.props.state.editorState
     || nextProps.focused !== this.props.focused
     || nextProps.readOnly !== this.props.readOnly
     || nextState.toolbar !== this.state.toolbar
   )
-  componentDidUpdate = () => this.updateToolbar()
+  componentDidUpdate = () => {
+    console.log('componentDidUpdate')
+    this.updateToolbar()
+  }
 
   props: ContentPluginProps
 
@@ -145,6 +153,7 @@ class Slate extends Component {
   }
 
   updateToolbar = () => {
+    console.log('updateToolbar')
     const { toolbar } = this.state
     const { editorState } = this.props.state
 
@@ -161,6 +170,7 @@ class Slate extends Component {
 
   renderMarkButton = (type, icon) => {
     const onClick = (e) => {
+      console.log('clicked')
       e.preventDefault()
 
       const { editorState } = this.props.state
@@ -210,7 +220,7 @@ class Slate extends Component {
 
   render() {
     const { focused, readOnly, state: { editorState } } = this.props
-    const isOpened = editorState.isExpanded && editorState.isFocused
+    const isOpened = editorState.isExpanded// && editorState.isFocused
 
     return (
       <div>
@@ -220,13 +230,13 @@ class Slate extends Component {
               {this.renderMarkButton(STRONG, <BoldIcon />)}
               {this.renderMarkButton(EM, <ItalicIcon />)}
               {this.renderMarkButton(U, <UnderlinedIcon />)}
+              {this.renderMarkButton(CODE, <CodeIcon />)}
             </div>
           </MuiThemeProvider>
         </Portal>
         <Editor
           onChange={this.onStateChange}
           onKeyDown={this.onKeyDown}
-          placeholder="Write something..."
           readOnly={Boolean(readOnly)}
           onFocus={falser}
           onBlur={falser}
@@ -240,6 +250,7 @@ class Slate extends Component {
           {this.renderNodeButton(H4, <H4Icon />)}
           {this.renderNodeButton(H5, <H5Icon />)}
           {this.renderNodeButton(H6, <H6Icon />)}
+          {this.renderNodeButton(CODE, <CodeIcon />)}
         </BottomToolbar>
       </div>
     )

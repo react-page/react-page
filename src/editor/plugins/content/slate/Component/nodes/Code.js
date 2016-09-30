@@ -1,6 +1,10 @@
 import React, { PropTypes } from 'react'
 
-const CodeNode = (props) => <pre {...props.attributes}><code>{props.children}</code></pre>
+const CodeNode = (props) => (
+  <pre {...props.attributes} style={{ overflow: 'scroll' }}>
+    <code>{props.children}</code>
+  </pre>
+)
 
 CodeNode.propTypes = {
   attributes: PropTypes.object,
