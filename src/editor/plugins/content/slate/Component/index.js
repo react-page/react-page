@@ -1,4 +1,4 @@
-/* eslint-disable prefer-reflect */
+/* eslint-disable no-alert, prefer-reflect */
 import React, { Component } from 'react'
 import cssModules from 'react-css-modules'
 import Portal from 'react-portal'
@@ -6,6 +6,8 @@ import position from 'selection-position'
 import { Editor } from 'slate'
 import { ContentPluginProps } from 'src/editor/service/plugin/classes'
 import IconButton from 'material-ui/IconButton'
+import CodeIcon from 'material-ui/svg-icons/action/code'
+import LinkIcon from 'material-ui/svg-icons/content/link'
 import BoldIcon from 'material-ui/svg-icons/editor/format-bold'
 import ItalicIcon from 'material-ui/svg-icons/editor/format-italic'
 import UnderlinedIcon from 'material-ui/svg-icons/editor/format-underlined'
@@ -21,6 +23,13 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import BottomToolbar from 'src/editor/components/BottomToolbar'
 import nodes from './nodes'
 import styles from './index.scoped.css'
+
+const Link = ({ attributes, children, node }) => {
+  const { data } = node
+  const href = data.get('href')
+
+  return <a {...attributes} href={href}>{children}</a>
+}
 
 const makeTagNode = (Tag) => {
   const NodeComponent = ({ attributes, children }: { attributes: Object, children: any }) => (
@@ -51,6 +60,7 @@ const H5 = 'heading-five'
 const H6 = 'heading-six'
 const CODE = 'code'
 const P = 'paragraph'
+const A = 'link'
 const DEFAULT_NODE = P
 
 // Marks
@@ -68,12 +78,14 @@ const schema = {
     [H5]: makeTagNode('h5'),
     [H6]: makeTagNode('h6'),
     [CODE]: nodes.CodeNode,
-    [P]: nodes.Paragraph
+    [P]: nodes.Paragraph,
+    [A]: Link
   },
   marks: {
     [STRONG]: makeTagMark('strong'),
     [EM]: makeTagMark('em'),
-    [U]: makeTagMark('u')
+    [U]: makeTagMark('u'),
+    [CODE]: makeTagMark('code')
   }
 }
 
@@ -86,6 +98,7 @@ class Slate extends Component {
   state = {}
 
   componentDidMount = () => this.updateToolbar()
+
   shouldComponentUpdate = (nextProps, nextState) => (
     nextProps.state.editorState !== this.props.state.editorState
     || nextProps.focused !== this.props.focused
@@ -159,8 +172,60 @@ class Slate extends Component {
     toolbar.style.left = `${left + window.scrollX - (toolbar.offsetWidth / 2) + (width / 2)}px`
   }
 
+  renderLinkButton = () => {
+    const onClick = (e) => {
+      e.preventDefault()
+      const { editorState } = this.props.state
+      const hasLinks = editorState.inlines.some((inline: any) => inline.type === A)
+
+      let newState
+
+      if (hasLinks) {
+        newState = editorState
+          .transform()
+          .unwrapInline(A)
+          .apply()
+      } else if (editorState.isExpanded) {
+        const href = window.prompt('Enter the URL of the link:')
+        newState = editorState
+          .transform()
+          .wrapInline({
+            type: A,
+            data: { href }
+          })
+          .collapseToEnd()
+          .apply()
+      } else {
+        const href = window.prompt('Enter the URL of the link:')
+        const text = window.prompt('Enter the text for the link:')
+        newState = editorState
+          .transform()
+          .insertText(text)
+          .extendBackward(text.length)
+          .wrapInline({
+            type: A,
+            data: { href }
+          })
+          .collapseToEnd()
+          .apply()
+      }
+
+      this.onStateChange(newState)
+    }
+
+    const { editorState } = this.props.state
+    const hasLinks = editorState.inlines.some((inline: any) => inline.type === A)
+
+    return (
+      <IconButton onMouseDown={onClick} iconStyle={hasLinks ? { color: '#007EC1' } : {}}>
+        <LinkIcon />
+      </IconButton>
+    )
+  }
+
   renderMarkButton = (type, icon) => {
     const onClick = (e) => {
+      console.log('clicked')
       e.preventDefault()
 
       const { editorState } = this.props.state
@@ -210,7 +275,7 @@ class Slate extends Component {
 
   render() {
     const { focused, readOnly, state: { editorState } } = this.props
-    const isOpened = editorState.isExpanded && editorState.isFocused
+    const isOpened = editorState.isExpanded// && editorState.isFocused
 
     return (
       <div>
@@ -220,13 +285,13 @@ class Slate extends Component {
               {this.renderMarkButton(STRONG, <BoldIcon />)}
               {this.renderMarkButton(EM, <ItalicIcon />)}
               {this.renderMarkButton(U, <UnderlinedIcon />)}
+              {this.renderMarkButton(CODE, <CodeIcon />)}
             </div>
           </MuiThemeProvider>
         </Portal>
         <Editor
           onChange={this.onStateChange}
           onKeyDown={this.onKeyDown}
-          placeholder="Write something..."
           readOnly={Boolean(readOnly)}
           onFocus={falser}
           onBlur={falser}
@@ -240,6 +305,8 @@ class Slate extends Component {
           {this.renderNodeButton(H4, <H4Icon />)}
           {this.renderNodeButton(H5, <H5Icon />)}
           {this.renderNodeButton(H6, <H6Icon />)}
+          {this.renderNodeButton(CODE, <CodeIcon />)}
+          {this.renderLinkButton()}
         </BottomToolbar>
       </div>
     )
