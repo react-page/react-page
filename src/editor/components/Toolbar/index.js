@@ -35,12 +35,12 @@ class Toolbar extends Component {
     const target = e.target
     if (target instanceof HTMLInputElement) {
       this.setState({
-        searchFilter: ((v: any) => (a: Object) => a.text.toLowerCase().indexOf(v) > -1)(target.value.toLowerCase()),
+        searchFilter: ((v: any) => ({ text = '' }: Object) => text.toLowerCase().indexOf(v) > -1)(target.value.toLowerCase()),
         isSearching: target.value.length > 0
       })
     }
 
-    throw new TypeException('target', 'HTMLInputElement', e.target)
+    // throw new TypeException('target', 'HTMLInputElement', e.target)
   }
 
   render() {
