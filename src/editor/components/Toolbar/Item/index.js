@@ -17,6 +17,7 @@ const Item = ({ plugin, insert }: { plugin: Plugin, insert: any }, k: string) =>
       <ListItem
         leftAvatar={<Avatar icon={plugin.icon} />}
         primaryText={plugin.text}
+        style={{ cursor: 'move' }}
       />
     </Draggable>
   )
