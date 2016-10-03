@@ -18,7 +18,7 @@ class Draggable extends Component {
 
   render() {
     const { connectDragSource, isDragging, children } = this.props
-    const classes = classNames({ 'is-dragging': isDragging })
+    const classes = classNames({ 'is-dragging': isDragging }, 'draggable')
 
     return connectDragSource(<div styleName={classes} className={classes}>{children}</div>)
   }

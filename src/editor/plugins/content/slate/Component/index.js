@@ -298,16 +298,18 @@ class Slate extends Component {
           schema={schema}
           state={editorState}
         />
-        <BottomToolbar open={focused}>
-          {this.renderNodeButton(H1, <H1Icon />)}
-          {this.renderNodeButton(H2, <H2Icon />)}
-          {this.renderNodeButton(H3, <H3Icon />)}
-          {this.renderNodeButton(H4, <H4Icon />)}
-          {this.renderNodeButton(H5, <H5Icon />)}
-          {this.renderNodeButton(H6, <H6Icon />)}
-          {this.renderNodeButton(CODE, <CodeIcon />)}
-          {this.renderLinkButton()}
-        </BottomToolbar>
+        { readOnly ? null : (
+          <BottomToolbar open={focused}>
+            {this.renderNodeButton(H1, <H1Icon />)}
+            {this.renderNodeButton(H2, <H2Icon />)}
+            {this.renderNodeButton(H3, <H3Icon />)}
+            {this.renderNodeButton(H4, <H4Icon />)}
+            {this.renderNodeButton(H5, <H5Icon />)}
+            {this.renderNodeButton(H6, <H6Icon />)}
+            {this.renderNodeButton(CODE, <CodeIcon />)}
+            {this.renderLinkButton()}
+          </BottomToolbar>
+        )}
       </div>
     )
   }

@@ -6,12 +6,12 @@ import React from 'react'
 
 const BottomToolbar = ({ open, children }: { open: boolean, children: Object }) => (
   <MuiThemeProvider muiTheme={getMuiTheme()}>
-    <Drawer open={open} containerStyle={{
+    <Drawer open={open} docked containerStyle={{
       top: 'inherit',
-      bottom: 0,
+      bottom: '-10px',
       height: '100px',
       width: '100%',
-      transform: `translate(0, ${open ? '0' : '100px'})`
+      transform: `translate(0, ${open ? '0' : '110px'})`
     }}>
       {children}
     </Drawer>
