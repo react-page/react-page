@@ -7,6 +7,7 @@ import BoldIcon from 'material-ui/svg-icons/editor/format-bold'
 import ItalicIcon from 'material-ui/svg-icons/editor/format-italic'
 import OrderedListIcon from 'material-ui/svg-icons/editor/format-list-numbered'
 import UnderlinedIcon from 'material-ui/svg-icons/editor/format-underlined'
+import BlockquoteIcon from 'material-ui/svg-icons/editor/format-quote'
 import H1Icon from 'material-ui/svg-icons/image/filter-1'
 import H2Icon from 'material-ui/svg-icons/image/filter-2'
 import H3Icon from 'material-ui/svg-icons/image/filter-3'
@@ -21,6 +22,7 @@ import cssModules from 'react-css-modules'
 import Portal from 'react-portal'
 import position from 'selection-position'
 import { Editor } from 'slate'
+import createBlockquotePlugin from 'slate-edit-blockquote'
 import createListPlugin from 'slate-edit-list'
 
 import BottomToolbar from 'src/editor/components/BottomToolbar'
@@ -68,6 +70,7 @@ const A = 'link'
 const UL = 'unordered-list'
 const OL = 'ordered-list'
 const LI = 'list-item'
+const BLOCKQUOTE = 'blockquote'
 const DEFAULT_NODE = P
 
 // Marks
@@ -80,6 +83,10 @@ const plugins = [
     typeUL: UL,
     typeOL: OL,
     typeItem: LI,
+    typeDefault: DEFAULT_NODE
+  }),
+  createBlockquotePlugin({
+    type: BLOCKQUOTE,
     typeDefault: DEFAULT_NODE
   })
 ]
@@ -96,6 +103,7 @@ const schema = {
     [UL]: makeTagNode('ul'),
     [OL]: makeTagNode('ol'),
     [LI]: makeTagNode('li'),
+    [BLOCKQUOTE]: makeTagNode('blockquote'),
     [CODE]: nodes.CodeNode,
     [P]: nodes.Paragraph,
     [A]: Link
@@ -310,6 +318,38 @@ class Slate extends Component {
     )
   }
 
+  renderBlockquoteNodeButton = (icon) => {
+    const onClick = (e) => {
+      e.preventDefault()
+
+      const { editorState } = this.props.state
+      const isActive = editorState.blocks.some((block) => (
+        Boolean(editorState.document.getClosest(block, (parent) => parent.type === BLOCKQUOTE))
+      ))
+
+      let transform = editorState.transform()
+
+      if (isActive) {
+        transform = transform.unwrapBlock(BLOCKQUOTE)
+      } else {
+        transform = transform.wrapBlock(BLOCKQUOTE)
+      }
+
+      this.onStateChange(transform.apply())
+    }
+
+    const { editorState } = this.props.state
+    const isActive = editorState.blocks.some((block) => (
+      Boolean(editorState.document.getClosest(block, (parent) => parent.type === BLOCKQUOTE))
+    ))
+
+    return (
+      <IconButton onClick={onClick} iconStyle={isActive ? { color: '#007EC1' } : {}}>
+        {icon}
+      </IconButton>
+    )
+  }
+
   renderNodeButton = (type, icon) => {
     const onClick = (e) => {
       e.preventDefault()
@@ -373,6 +413,7 @@ class Slate extends Component {
             {this.renderListNodeButton(UL, <ListIcon />)}
             {this.renderListNodeButton(OL, <OrderedListIcon />)}
             {this.renderLinkButton()}
+            {this.renderBlockquoteNodeButton(<BlockquoteIcon />)}
           </BottomToolbar>
         )}
       </div>
