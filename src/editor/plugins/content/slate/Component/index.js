@@ -1,16 +1,13 @@
 /* eslint-disable no-alert, prefer-reflect */
-import React, { Component } from 'react'
-import cssModules from 'react-css-modules'
-import Portal from 'react-portal'
-import position from 'selection-position'
-import { Editor } from 'slate'
-import { ContentPluginProps } from 'src/editor/service/plugin/classes'
 import IconButton from 'material-ui/IconButton'
 import CodeIcon from 'material-ui/svg-icons/action/code'
+import ListIcon from 'material-ui/svg-icons/action/list'
 import LinkIcon from 'material-ui/svg-icons/content/link'
 import BoldIcon from 'material-ui/svg-icons/editor/format-bold'
 import ItalicIcon from 'material-ui/svg-icons/editor/format-italic'
+import OrderedListIcon from 'material-ui/svg-icons/editor/format-list-numbered'
 import UnderlinedIcon from 'material-ui/svg-icons/editor/format-underlined'
+import BlockquoteIcon from 'material-ui/svg-icons/editor/format-quote'
 import H1Icon from 'material-ui/svg-icons/image/filter-1'
 import H2Icon from 'material-ui/svg-icons/image/filter-2'
 import H3Icon from 'material-ui/svg-icons/image/filter-3'
@@ -20,7 +17,17 @@ import H6Icon from 'material-ui/svg-icons/image/filter-6'
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
 import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
+import { identity } from 'ramda'
+import React, { Component } from 'react'
+import cssModules from 'react-css-modules'
+import Portal from 'react-portal'
+import position from 'selection-position'
+import { Editor } from 'slate'
+import createBlockquotePlugin from 'slate-edit-blockquote'
+import createListPlugin from 'slate-edit-list'
+
 import BottomToolbar from 'src/editor/components/BottomToolbar'
+import { ContentPluginProps } from 'src/editor/service/plugin/classes'
 import nodes from './nodes'
 import styles from './index.scoped.css'
 
@@ -61,12 +68,29 @@ const H6 = 'heading-six'
 const CODE = 'code'
 const P = 'paragraph'
 const A = 'link'
+const UL = 'unordered-list'
+const OL = 'ordered-list'
+const LI = 'list-item'
+const BLOCKQUOTE = 'blockquote'
 const DEFAULT_NODE = P
 
 // Marks
 const STRONG = 'STRONG'
 const EM = 'EM'
 const U = 'U'
+
+const plugins = [
+  createListPlugin({
+    typeUL: UL,
+    typeOL: OL,
+    typeItem: LI,
+    typeDefault: DEFAULT_NODE
+  }),
+  createBlockquotePlugin({
+    type: BLOCKQUOTE,
+    typeDefault: DEFAULT_NODE
+  })
+]
 
 
 const schema = {
@@ -77,6 +101,10 @@ const schema = {
     [H4]: makeTagNode('h4'),
     [H5]: makeTagNode('h5'),
     [H6]: makeTagNode('h6'),
+    [UL]: makeTagNode('ul'),
+    [OL]: makeTagNode('ol'),
+    [LI]: makeTagNode('li'),
+    [BLOCKQUOTE]: makeTagNode('blockquote'),
     [CODE]: nodes.CodeNode,
     [P]: nodes.Paragraph,
     [A]: Link
@@ -89,21 +117,17 @@ const schema = {
   }
 }
 
-const falser = () => false
-
 export type Props = ContentPluginProps<{ editorState: Object }>
 
 /* eslint no-invalid-this: "off" */
 class Slate extends Component {
-  state = {}
-
   componentDidMount = () => this.updateToolbar()
 
-  shouldComponentUpdate = (nextProps, nextState) => (
+  shouldComponentUpdate = (nextProps) => (
     nextProps.state.editorState !== this.props.state.editorState
+    || nextProps.state.toolbar !== this.props.state.toolbar
     || nextProps.focused !== this.props.focused
     || nextProps.readOnly !== this.props.readOnly
-    || nextState.toolbar !== this.state.toolbar
   )
   componentDidUpdate = () => this.updateToolbar()
 
@@ -154,12 +178,11 @@ class Slate extends Component {
   }
 
   handleOpen = (portal) => {
-    this.setState({ toolbar: portal.firstChild })
+    this.props.onChange({ toolbar: portal.firstChild })
   }
 
   updateToolbar = () => {
-    const { toolbar } = this.state
-    const { editorState } = this.props.state
+    const { editorState, toolbar } = this.props.state
 
     if (!toolbar || editorState.isBlurred || editorState.isCollapsed) {
       return
@@ -225,7 +248,6 @@ class Slate extends Component {
 
   renderMarkButton = (type, icon) => {
     const onClick = (e) => {
-      console.log('clicked')
       e.preventDefault()
 
       const { editorState } = this.props.state
@@ -240,6 +262,82 @@ class Slate extends Component {
 
     const { editorState } = this.props.state
     const isActive = editorState && editorState.marks.some((mark) => mark.type === type)
+
+    return (
+      <IconButton onClick={onClick} iconStyle={isActive ? { color: '#007EC1' } : {}}>
+        {icon}
+      </IconButton>
+    )
+  }
+
+  renderListNodeButton = (type, icon) => {
+    const onClick = (e) => {
+      e.preventDefault()
+
+      const { editorState } = this.props.state
+
+      const isList = editorState.blocks.some((block) => block.type === LI)
+      const isType = editorState.blocks.some((block) => (
+        Boolean(editorState.document.getClosest(block, (parent) => parent.type === type))
+      ))
+
+      let transform = editorState.transform()
+
+      if (isList && isType) {
+        transform = transform
+          .setBlock(DEFAULT_NODE)
+          .unwrapBlock(UL)
+          .unwrapBlock(OL)
+      } else if (isList) {
+        transform = transform
+          .unwrapBlock(type === UL ? OL : UL)
+          .wrapBlock(type)
+      } else {
+        transform = transform
+          .setBlock(LI)
+          .wrapBlock(type)
+      }
+
+      this.onStateChange(transform.apply())
+    }
+
+    const { editorState } = this.props.state
+    const isList = editorState.blocks.some((block) => block.type === LI)
+    const isType = editorState.blocks.some((block) => (
+      Boolean(editorState.document.getClosest(block, (parent) => parent.type === type))
+    ))
+
+    return (
+      <IconButton onClick={onClick} iconStyle={(isList && isType) ? { color: '#007EC1' } : {}}>
+        {icon}
+      </IconButton>
+    )
+  }
+
+  renderBlockquoteNodeButton = (icon) => {
+    const onClick = (e) => {
+      e.preventDefault()
+
+      const { editorState } = this.props.state
+      const isActive = editorState.blocks.some((block) => (
+        Boolean(editorState.document.getClosest(block, (parent) => parent.type === BLOCKQUOTE))
+      ))
+
+      let transform = editorState.transform()
+
+      if (isActive) {
+        transform = transform.unwrapBlock(BLOCKQUOTE)
+      } else {
+        transform = transform.wrapBlock(BLOCKQUOTE)
+      }
+
+      this.onStateChange(transform.apply())
+    }
+
+    const { editorState } = this.props.state
+    const isActive = editorState.blocks.some((block) => (
+      Boolean(editorState.document.getClosest(block, (parent) => parent.type === BLOCKQUOTE))
+    ))
 
     return (
       <IconButton onClick={onClick} iconStyle={isActive ? { color: '#007EC1' } : {}}>
@@ -275,7 +373,7 @@ class Slate extends Component {
 
   render() {
     const { focused, readOnly, state: { editorState } } = this.props
-    const isOpened = editorState.isExpanded// && editorState.isFocused
+    const isOpened = editorState.isExpanded && editorState.isFocused
 
     return (
       <div>
@@ -293,12 +391,12 @@ class Slate extends Component {
           onChange={this.onStateChange}
           onKeyDown={this.onKeyDown}
           readOnly={Boolean(readOnly)}
-          onFocus={falser}
-          onBlur={falser}
+          onBlur={identity}
           schema={schema}
           state={editorState}
+          plugins={plugins}
         />
-        { readOnly ? null : (
+        {readOnly ? null : (
           <BottomToolbar open={focused}>
             {this.renderNodeButton(H1, <H1Icon />)}
             {this.renderNodeButton(H2, <H2Icon />)}
@@ -307,7 +405,10 @@ class Slate extends Component {
             {this.renderNodeButton(H5, <H5Icon />)}
             {this.renderNodeButton(H6, <H6Icon />)}
             {this.renderNodeButton(CODE, <CodeIcon />)}
+            {this.renderListNodeButton(UL, <ListIcon />)}
+            {this.renderListNodeButton(OL, <OrderedListIcon />)}
             {this.renderLinkButton()}
+            {this.renderBlockquoteNodeButton(<BlockquoteIcon />)}
           </BottomToolbar>
         )}
       </div>
