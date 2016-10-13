@@ -17,6 +17,7 @@ import H6Icon from 'material-ui/svg-icons/image/filter-6'
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
 import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
+import { identity } from 'ramda'
 import React, { Component } from 'react'
 import cssModules from 'react-css-modules'
 import Portal from 'react-portal'
@@ -116,21 +117,17 @@ const schema = {
   }
 }
 
-const falser = () => false
-
 export type Props = ContentPluginProps<{ editorState: Object }>
 
 /* eslint no-invalid-this: "off" */
 class Slate extends Component {
-  state = {}
-
   componentDidMount = () => this.updateToolbar()
 
-  shouldComponentUpdate = (nextProps, nextState) => (
+  shouldComponentUpdate = (nextProps) => (
     nextProps.state.editorState !== this.props.state.editorState
+    || nextProps.state.toolbar !== this.props.state.toolbar
     || nextProps.focused !== this.props.focused
     || nextProps.readOnly !== this.props.readOnly
-    || nextState.toolbar !== this.state.toolbar
   )
   componentDidUpdate = () => this.updateToolbar()
 
@@ -181,12 +178,11 @@ class Slate extends Component {
   }
 
   handleOpen = (portal) => {
-    this.setState({ toolbar: portal.firstChild })
+    this.props.onChange({ toolbar: portal.firstChild })
   }
 
   updateToolbar = () => {
-    const { toolbar } = this.state
-    const { editorState } = this.props.state
+    const { editorState, toolbar } = this.props.state
 
     if (!toolbar || editorState.isBlurred || editorState.isCollapsed) {
       return
@@ -395,8 +391,7 @@ class Slate extends Component {
           onChange={this.onStateChange}
           onKeyDown={this.onKeyDown}
           readOnly={Boolean(readOnly)}
-          onFocus={falser}
-          onBlur={falser}
+          onBlur={identity}
           schema={schema}
           state={editorState}
           plugins={plugins}

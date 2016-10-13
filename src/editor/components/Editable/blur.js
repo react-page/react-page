@@ -1,7 +1,9 @@
 // @flow
 let instantiated = 0
 
-// We need to stop some events from bubbling up
+// We need to stop some events from bubbling up, so we go up the tree from
+// the event source and check if one of the parents is the root editor node.
+// If not, we blur all cells because the editor lost focus.
 const blurAll = (blurAllCells: Function) => (e: Event) => {
   let c = e.target
   if (c instanceof HTMLElement) {
