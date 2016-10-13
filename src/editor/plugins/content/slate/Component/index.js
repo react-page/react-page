@@ -17,7 +17,6 @@ import H6Icon from 'material-ui/svg-icons/image/filter-6'
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
 import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
-import { identity } from 'ramda'
 import React, { Component } from 'react'
 import cssModules from 'react-css-modules'
 import Portal from 'react-portal'
@@ -30,6 +29,8 @@ import BottomToolbar from 'src/editor/components/BottomToolbar'
 import { ContentPluginProps } from 'src/editor/service/plugin/classes'
 import nodes from './nodes'
 import styles from './index.scoped.css'
+
+const onBlur = (_event, _data, state) => state
 
 const Link = ({ attributes, children, node }) => {
   const { data } = node
@@ -379,7 +380,8 @@ class Slate extends Component {
       <div>
         <Portal isOpened={isOpened} onOpen={this.handleOpen}>
           <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
-            <div styleName="toolbar">
+            {/* TODO editor-container is needed to avoid global blurry, #190 */}
+            <div styleName="toolbar" className="editor-container" style={{ padding: 0 }}>
               {this.renderMarkButton(STRONG, <BoldIcon />)}
               {this.renderMarkButton(EM, <ItalicIcon />)}
               {this.renderMarkButton(U, <UnderlinedIcon />)}
@@ -391,7 +393,7 @@ class Slate extends Component {
           onChange={this.onStateChange}
           onKeyDown={this.onKeyDown}
           readOnly={Boolean(readOnly)}
-          onBlur={identity}
+          onBlur={onBlur}
           schema={schema}
           state={editorState}
           plugins={plugins}
