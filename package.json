@@ -4,6 +4,9 @@
   "description": "The next generation platform for creating well-defined, responsive, digital content - as easy as social media.",
   "main": "",
   "scripts": {
+    "examples": "npm-run-all build examples:server",
+    "examples:server": "cross-env NODE_PATH=. nodemon examples/server.js",
+    "examples:dev": "npm-run-all dev examples:server",
     "flow": "flow check --show-all-errors",
     "flow:watch": "npm run watch:js -- -c \"flow check --show-all-errors\"",
     "test": "npm-run-all test:unit test:e2e",
@@ -15,6 +18,8 @@
     "lint": "eslint \"+(src|test|types)/**/*.js\" --fix",
     "lint:watch": "npm run watch:js -- -c \"npm run lint\"",
     "build": "cross-env NODE_PATH=. NODE_ENV=production webpack",
+    "build:dev": "cross-env NODE_PATH=. webpack",
+    "build:watch": "npm run watch:js -- -c \"npm run build:dev\"",
     "watch:js": "chokidar \"+(src|test|types)/**/*.js\" --initial",
     "docs": "documentation build ./src/editor/**/*.js --format md --github > API.md",
     "docs:watch": "documentation serve ./src/editor/**/*.js --watch",

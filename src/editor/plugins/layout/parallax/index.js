@@ -1,0 +1,67 @@
+// @flow
+import React from 'react'
+import cssModules from 'react-css-modules'
+import Announcement from 'material-ui/svg-icons/action/announcement'
+import Slate from 'src/editor/plugins/content/slate'
+import { LayoutPlugin } from 'src/editor/service/plugin/classes'
+import uuid from 'node-uuid'
+import SelectField from 'material-ui/SelectField';
+import MenuItem from 'material-ui/MenuItem';
+
+type Props = {
+  children: Node,
+  readOnly: boolean,
+  state: {style: string },
+  onChange(state: Object): void
+}
+
+const ParallaxComponent = ({ children, state: { style }, readOnly, onChange }: Props) => {
+  return (
+    <section id="two" className={`main style${style}`}>
+      {
+        readOnly ? null : (
+          <div style={{     float: 'right',
+            position: 'absolute',
+            right: 0,
+            zIndex: 1,
+            backgroundColor: 'rgba(255,255,255,.8)',
+            padding: '4px 20px'
+          }}>
+          <SelectField value={style} onChange={(e: any, i: any, v: any) => onChange({ style: v })}
+                       floatingLabelText="Select section style">
+            <MenuItem value={1} primaryText="Style 1"/>
+            <MenuItem value={2} primaryText="Style 2"/>
+            <MenuItem value={3} primaryText="Style 3"/>
+          </SelectField>
+          </div>
+        )
+      }
+      <div className="container">
+        <div>
+          {children}
+        </div>
+      </div>
+    </section>
+  )
+}
+
+const defaultPlugin = new Slate()
+
+export default class ParallaxPlugin extends LayoutPlugin {
+  Component = ParallaxComponent
+  name = 'ory/layout/parallax'
+  version = '0.0.1'
+  icon = <Announcement />
+  text = 'Parallax'
+
+  createInitialChildren = () => ({
+    id: uuid.v4(),
+    rows: [{
+      id: uuid.v4(),
+      cells: [{
+        content: { plugin: defaultPlugin, state: defaultPlugin.createInitialState() },
+        id: uuid.v4(),
+      }]
+    }]
+  })
+}

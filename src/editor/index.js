@@ -101,4 +101,10 @@ class Editor {
   }
 }
 
+if (typeof window !== 'undefined') {
+  window.Ory = {
+    Editor
+  }
+}
+
 export default Editor

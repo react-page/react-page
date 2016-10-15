@@ -24,6 +24,14 @@ if (!isProduction) {
 
 app.use(express.static(root))
 
+app.get('/examples/:example', (req, res, next) => {
+  if (req.accepts('html')) {
+    res.sendFile(path.join(root, `${req.param('example')}/index.html`))
+  } else {
+    next()
+  }
+})
+
 app.get((req, res, next) => {
   if (req.accepts('html')) {
     res.sendFile(path.join(root, 'index.html'))
