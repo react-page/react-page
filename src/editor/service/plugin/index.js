@@ -5,9 +5,11 @@ import MissingPlugin from 'src/editor/plugins/content/missing'
 import SlatePlugin from 'src/editor/plugins/content/slate'
 import ImagePlugin from 'src/editor/plugins/content/image'
 import PlaceholderPlugin from 'src/editor/plugins/content/placeholder'
+import FaIconPlugin from 'src/editor/plugins/content/fa-icon'
 import SpacerPlugin from 'src/editor/plugins/content/spacer'
 import SpoilerPlugin from 'src/editor/plugins/layout/spoiler'
 import CardPlugin from 'src/editor/plugins/layout/card'
+import ParallaxPlugin from 'src/editor/plugins/layout/parallax'
 
 /**
  * A list of content plugins that are being loaded by default.
@@ -17,13 +19,14 @@ export const defaultContentPlugins: Array<ContentPlugin> = [
   new ImagePlugin(),
   new SpacerPlugin(),
   new SlatePlugin(),
-  new PlaceholderPlugin()
+  new PlaceholderPlugin(),
+  new FaIconPlugin()
 ]
 
 /**
  * A list of layout plugins that are being loaded by default.
  */
-export const defaultLayoutPlugins: Array<LayoutPlugin> = [new SpoilerPlugin(), new CardPlugin()]
+export const defaultLayoutPlugins: Array<LayoutPlugin> = [new SpoilerPlugin(), new CardPlugin(), new ParallaxPlugin()]
 
 const find = (name: string, version: string = '*') => (plugin: Plugin): boolean => plugin.name === name && satisfies(plugin.version, version)
 
