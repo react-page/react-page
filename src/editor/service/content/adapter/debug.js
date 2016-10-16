@@ -364,9 +364,122 @@ adipiscing ipsum.</p>`
             }]
           }]
         }]
+      }, {
+        cells: [{
+          layout: {
+            plugin: {
+              name: 'ory/layout/parallax'
+            },
+            state: { style: 1, align: 'center' }
+          }, rows: [{
+            cells: [{
+              rows: [{
+                cells: [{
+                  content: {
+                    plugin: { name: 'ory/content/slate' },
+                    state: {
+                      importFromHtml: '<h1>Adipiscing amet consequat</h1><p>Ante nunc accumsan et aclacus nascetur ac ante amet sapien sed.</p>'
+                    }
+                  }
+                }]
+              }, {
+                cells: [{
+                  content: {
+                    plugin: { name: 'ory/content/image' },
+                    state: {
+                      src: 'images/pic02.jpg'
+                    }
+                  }
+                }, {
+                  content: {
+                    plugin: { name: 'ory/content/image' },
+                    state: {
+                      src: 'images/pic03.jpg'
+                    }
+                  }
+                }, {
+                  content: {
+                    plugin: { name: 'ory/content/image' },
+                    state: {
+                      src: 'images/pic04.jpg'
+                    }
+                  }
+                }]
+              }, {
+                cells: [{
+                  content: {
+                    plugin: { name: 'ory/content/slate' },
+                    state: {
+                      importFromHtml: '<h3>Magna feugiat lorem</h3><p>Adipiscing a commodo ante nunc magna lorem et interdum mi ante nunc lobortis non amet vis sed volutpat et nascetur.</p>'
+                    }
+                  }
+                }, {
+                  content: {
+                    plugin: { name: 'ory/content/slate' },
+                    state: {
+                      importFromHtml: '<h3>Magna feugiat lorem</h3><p>Adipiscing a commodo ante nunc magna lorem et interdum mi ante nunc lobortis non amet vis sed volutpat et nascetur.</p>'
+                    }
+                  }
+                }, {
+                  content: {
+                    plugin: { name: 'ory/content/slate' },
+                    state: {
+                      importFromHtml: '<h3>Magna feugiat lorem</h3><p>Adipiscing a commodo ante nunc magna lorem et interdum mi ante nunc lobortis non amet vis sed volutpat et nascetur.</p>'
+                    }
+                  }
+                }]
+              }, {
+                cells: [{
+                  content: {
+                    plugin: { name: 'ory/content/slate' },
+                    state: {
+                      importFromHtml: '<p>MORE</p>'
+                    }
+                  }
+                }, {
+                  content: {
+                    plugin: { name: 'ory/content/slate' },
+                    state: {
+                      importFromHtml: '<p>MORE</p>'
+                    }
+                  }
+                }, {
+                  content: {
+                    plugin: { name: 'ory/content/slate' },
+                    state: {
+                      importFromHtml: '<p>MORE</p>'
+                    }
+                  }
+                }]
+              }]
+            }]
+          }]
+        }]
+      }, {
+        cells: [{
+          layout: {
+            plugin: {
+              name: 'ory/layout/parallax'
+            },
+            state: { style: 2, align: 'center' }
+          },
+          rows: [{
+            cells: [{
+              content: {
+                plugin: { name: 'ory/content/slate' },
+                state: {
+                  importFromHtml: `
+<h2>Ipsum feugiat consequat?</h2>
+<p>Sed lacus nascetur ac ante amet sapien.</p>
+<p>SIGN UP | LEARN MORE</p>`
+                }
+              }
+            }]
+          }]
+        }]
       }]
     }]
-  },
+  }
 }
 
 export class DebugStorageAdapter extends AbstractAdapter {

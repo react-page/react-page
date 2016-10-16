@@ -4,16 +4,33 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import Drawer from 'material-ui/Drawer'
 import React from 'react'
 
-const BottomToolbar = ({ open, children }: { open: boolean, children: Object }) => (
+const BottomToolbar = ({ open, children, className }: { open: boolean, children: Object }) => (
   <MuiThemeProvider muiTheme={getMuiTheme()}>
-    <Drawer open={open} docked containerStyle={{
+    <Drawer className={className} open={open} docked containerStyle={{
       top: 'inherit',
       bottom: '-10px',
-      height: '100px',
-      width: '100%',
-      transform: `translate(0, ${open ? '0' : '110px'})`
+      height: 'auto',
+      margin: '0 auto',
+      maxWidth: '65%',
+      left: '0',
+      right: '0',
+      width: 'auto',
+      transform: `translate(0, ${open ? '0' : '110px'})`,
+      textAlign: 'center',
+      background: 'transparent',
+      border: 'transparent',
+      overflow: 'visible',
+      boxShadow: 'none'
     }}>
-      {children}
+      <div style={{
+        display: 'inline-block',
+        border: 'rgba(0,0,0,.5) 1px solid',
+        borderRadius: '4px 4px 0',
+        backgroundColor: 'rgba(0,0,0,.9)',
+        padding: '12px 24px'
+      }}>
+        {children}
+      </div>
     </Drawer>
   </MuiThemeProvider>
 )

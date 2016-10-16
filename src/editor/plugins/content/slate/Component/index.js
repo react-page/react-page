@@ -11,12 +11,13 @@ import LinkIcon from 'material-ui/svg-icons/content/link'
 import BoldIcon from 'material-ui/svg-icons/editor/format-bold'
 import ItalicIcon from 'material-ui/svg-icons/editor/format-italic'
 import UnderlinedIcon from 'material-ui/svg-icons/editor/format-underlined'
-import H1Icon from 'material-ui/svg-icons/image/filter-1'
-import H2Icon from 'material-ui/svg-icons/image/filter-2'
-import H3Icon from 'material-ui/svg-icons/image/filter-3'
-import H4Icon from 'material-ui/svg-icons/image/filter-4'
-import H5Icon from 'material-ui/svg-icons/image/filter-5'
-import H6Icon from 'material-ui/svg-icons/image/filter-6'
+import Title from 'material-ui/svg-icons/editor/format-size'
+import H1Icon from 'material-ui/svg-icons/image/looks-one'
+import H2Icon from 'material-ui/svg-icons/image/looks-two'
+import H3Icon from 'material-ui/svg-icons/image/looks-3'
+import H4Icon from 'material-ui/svg-icons/image/looks-4'
+import H5Icon from 'material-ui/svg-icons/image/looks-5'
+import H6Icon from 'material-ui/svg-icons/image/looks-6'
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
 import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
@@ -217,7 +218,7 @@ class Slate extends Component {
     const hasLinks = editorState.inlines.some((inline: any) => inline.type === A)
 
     return (
-      <IconButton onMouseDown={onClick} iconStyle={hasLinks ? { color: '#007EC1' } : {}}>
+      <IconButton onMouseDown={onClick} iconStyle={hasLinks ? { color: '#007EC1' } : { color: 'white' }}>
         <LinkIcon />
       </IconButton>
     )
@@ -281,7 +282,7 @@ class Slate extends Component {
       <div>
         <Portal isOpened={isOpened} onOpen={this.handleOpen}>
           <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
-            <div styleName="toolbar">
+            <div styleName="inline-toolbar">
               {this.renderMarkButton(STRONG, <BoldIcon />)}
               {this.renderMarkButton(EM, <ItalicIcon />)}
               {this.renderMarkButton(U, <UnderlinedIcon />)}
@@ -300,13 +301,13 @@ class Slate extends Component {
         />
         { readOnly ? null : (
           <BottomToolbar open={focused}>
-            {this.renderNodeButton(H1, <H1Icon />)}
-            {this.renderNodeButton(H2, <H2Icon />)}
-            {this.renderNodeButton(H3, <H3Icon />)}
-            {this.renderNodeButton(H4, <H4Icon />)}
-            {this.renderNodeButton(H5, <H5Icon />)}
-            {this.renderNodeButton(H6, <H6Icon />)}
-            {this.renderNodeButton(CODE, <CodeIcon />)}
+            {this.renderNodeButton(H1, <Title color="white" />)}
+            {this.renderNodeButton(H2, <H2Icon color="white" />)}
+            {this.renderNodeButton(H3, <H3Icon color="white" />)}
+            {this.renderNodeButton(H4, <H4Icon color="white" />)}
+            {this.renderNodeButton(H5, <H5Icon color="white" />)}
+            {this.renderNodeButton(H6, <H6Icon color="white" />)}
+            {this.renderNodeButton(CODE, <CodeIcon color="white" />)}
             {this.renderLinkButton()}
           </BottomToolbar>
         )}

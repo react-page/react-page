@@ -1,4 +1,5 @@
-/*body {
+#editor-development {
+  padding-bottom: 100px;
 
   background: #eee;
 
@@ -8,11 +9,11 @@
   line-height: 28px;
 }
 
-p {
+#editor-development p {
   margin: 0 0 28px;
 }
 
-h1 {
+#editor-development h1 {
   color: #333333;
   font-family: 'Bitter', serif;
   font-size: 50px;
@@ -21,18 +22,46 @@ h1 {
   margin: 0 0 54px;
 }
 
-a {
+#editor-development a {
   color: #c73036;
   font-family: Georgia, serif;
   text-decoration: underline;
 }
 
-a:hover {
+#editor-development a:hover {
   color: #333333;
   text-decoration: underline;
 }
 
-.editable-cell {
+#editor-development .editable-cell {
   padding: 8px;
 }
-*/
+
+#editor-development .editor-container {
+  background: white;
+  padding: 0 24px;
+}
+
+#editor-development .container {
+  margin-right: auto;
+  margin-left: auto;
+  align-items: stretch;
+}
+
+@media (min-width: 768px) {
+  #editor-development.container {
+    width: 750px;
+  }
+}
+
+@media (min-width: 992px) {
+  #editor-development.container {
+    width: 970px;
+  }
+}
+
+@media (min-width: 1200px) {
+  #editor-development .container {
+    width: 1170px;
+  }
+}
