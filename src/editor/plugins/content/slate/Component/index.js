@@ -123,7 +123,19 @@ export type Props = ContentPluginProps<{ editorState: Object }>
 class Slate extends Component {
   componentDidMount = () => this.updateToolbar()
 
-  shouldComponentUpdate = (nextProps) => (
+  // FIXME PSEUDO FIX #135
+  componentWillReceiveProps = (next) => {
+    // focus does not work, probably because of removeAllRanges...
+    // if (next.state.editorState.selection.isFocused && !this.props.state.editorState.selection.isFocused) {
+    //   this._component.querySelector('[contenteditable]').focus()
+    // }
+    if (!next.state.editorState.selection.isFocused && this.props.state.editorState.selection.isFocused) {
+      this._component.querySelector('[contenteditable]').blur()
+      window.setTimeout(() => window.getSelection().removeAllRanges(), 0)
+    }
+  }
+
+  shouldComponentUpdate = (nextProps, nextState) => (
     nextProps.state.editorState !== this.props.state.editorState
     || nextProps.state.toolbar !== this.props.state.toolbar
     || nextProps.focused !== this.props.focused
@@ -388,15 +400,17 @@ class Slate extends Component {
             </div>
           </MuiThemeProvider>
         </Portal>
-        <Editor
-          onChange={this.onStateChange}
-          onKeyDown={this.onKeyDown}
-          readOnly={Boolean(readOnly)}
-          onBlur={onBlur}
-          schema={schema}
-          state={editorState}
-          plugins={plugins}
-        />
+        <div ref={(c) => this._component = c}>
+          <Editor
+            onChange={this.onStateChange}
+            onKeyDown={this.onKeyDown}
+            readOnly={Boolean(readOnly)}
+            onBlur={falser}
+            schema={schema}
+            state={editorState}
+            plugins={plugins}
+          />
+        </div>
         {readOnly ? null : (
           <BottomToolbar open={focused}>
             {this.renderNodeButton(H1, <H1Icon color="white" />)}
