@@ -1,7 +1,7 @@
 // @flow
 import React from 'react'
 import cssModules from 'react-css-modules'
-import Announcement from 'material-ui/svg-icons/action/announcement'
+import Announcement from 'material-ui/svg-icons/image/landscape'
 import Slate from 'src/editor/plugins/content/slate'
 import { LayoutPlugin } from 'src/editor/service/plugin/classes'
 import uuid from 'node-uuid'
@@ -15,28 +15,32 @@ type Props = {
   onChange(state: Object): void
 }
 
-const ParallaxComponent = ({ children, state: { style }, readOnly, onChange }: Props) => {
+const ParallaxComponent = ({ children, state: { style, align }, readOnly, onChange }: Props) => {
   return (
     <section id="two" className={`main style${style}`}>
       {
         readOnly ? null : (
-          <div style={{     float: 'right',
+          <div style={{
+            float: 'right',
             position: 'absolute',
             right: 0,
             zIndex: 1,
             backgroundColor: 'rgba(255,255,255,.8)',
             padding: '4px 20px'
           }}>
-          <SelectField value={style} onChange={(e: any, i: any, v: any) => onChange({ style: v })}
-                       floatingLabelText="Select section style">
-            <MenuItem value={1} primaryText="Style 1"/>
-            <MenuItem value={2} primaryText="Style 2"/>
-            <MenuItem value={3} primaryText="Style 3"/>
-          </SelectField>
+            <SelectField
+              value={style} onChange={(e: any, i: any, v: any) => onChange({ style: v })}
+              floatingLabelText="Select section style">
+              <MenuItem value={1} primaryText="Style 1"/>
+              <MenuItem value={2} primaryText="Style 2"/>
+              <MenuItem value={3} primaryText="Style 3"/>
+            </SelectField>
           </div>
         )
       }
-      <div className="container">
+      <div className="container" style={{
+        textAlign: align
+      }}>
         <div>
           {children}
         </div>
@@ -52,7 +56,7 @@ export default class ParallaxPlugin extends LayoutPlugin {
   name = 'ory/layout/parallax'
   version = '0.0.1'
   icon = <Announcement />
-  text = 'Parallax'
+  text = 'Parallax Background'
 
   createInitialChildren = () => ({
     id: uuid.v4(),

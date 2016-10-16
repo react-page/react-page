@@ -1,0 +1,10 @@
+{
+  "verbose": true,
+  "ignore": [
+    "./news-article",
+    "./single-page-site"
+  ],
+  "watch": [
+    "."
+  ]
+}
