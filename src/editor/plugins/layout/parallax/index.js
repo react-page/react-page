@@ -5,8 +5,8 @@ import Announcement from 'material-ui/svg-icons/image/landscape'
 import Slate from 'src/editor/plugins/content/slate'
 import { LayoutPlugin } from 'src/editor/service/plugin/classes'
 import uuid from 'node-uuid'
-import SelectField from 'material-ui/SelectField';
-import MenuItem from 'material-ui/MenuItem';
+import SelectField from 'material-ui/SelectField'
+import MenuItem from 'material-ui/MenuItem'
 
 type Props = {
   children: Node,
@@ -30,10 +30,11 @@ const ParallaxComponent = ({ children, state: { style, align }, readOnly, onChan
           }}>
             <SelectField
               value={style} onChange={(e: any, i: any, v: any) => onChange({ style: v })}
-              floatingLabelText="Select section style">
-              <MenuItem value={1} primaryText="Style 1"/>
-              <MenuItem value={2} primaryText="Style 2"/>
-              <MenuItem value={3} primaryText="Style 3"/>
+              floatingLabelText="Select section style"
+            >
+              <MenuItem value={1} primaryText="Style 1" />
+              <MenuItem value={2} primaryText="Style 2" />
+              <MenuItem value={3} primaryText="Style 3" />
             </SelectField>
           </div>
         )

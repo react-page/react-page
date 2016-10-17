@@ -15,11 +15,11 @@ const FaIcon = (props: PropTypes) => {
       {
         readOnly ? (
           <ul className="major-icons">
-            <li><span className={`icon style${style} major ${icon}`}/></li>
+            <li><span className={`icon style${style} major ${icon}`} /></li>
           </ul>
         ) : (
           <ul className="major-icons">
-            <li><span className={`icon style${style} major ${icon}`}/></li>
+            <li><span className={`icon style${style} major ${icon}`} /></li>
           </ul>
         )
       }

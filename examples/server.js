@@ -1,9 +1,33 @@
 const express = require('express')
-const app = express()
 const path = require('path')
 
-app.use('/bundle', express.static(`${__dirname}/../public`))
-app.use('/examples/single-page-site', express.static(`${__dirname}/single-page-site`))
-app.use('/examples/news-article', express.static(`${__dirname}/news-article`))
+const port = process.env.PORT || 3000
+const app = express()
 
-app.listen(3001 || process.env.PORT)
+const root = path.join(__dirname, '..', '..', 'public')
+app.use('/editor', express.static(root))
+
+const exampleMiddleware = (key) => {
+  const router = express.Router() // eslint-disable-line new-cap
+
+  const root = path.join(__dirname, key)
+  router.use(express.static(root))
+
+  router.get((req, res, next) => {
+    if (req.accepts('html')) {
+      res.sendFile(path.join(root, 'index.html'))
+    } else {
+      next()
+    }
+  })
+
+  return router
+}
+
+app.use('/examples/news-article', exampleMiddleware('news-article'))
+app.use('/examples/single-page-site', exampleMiddleware('single-page-site'))
+app.use('/', exampleMiddleware('news-article'))
+
+app.listen(port, () => {
+  console.log(`Listening on port ${port}. Open up http://localhost:${port}/ in your browser`) // eslint-disable-line no-console
+})

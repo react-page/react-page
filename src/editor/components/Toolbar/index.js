@@ -55,7 +55,7 @@ class Toolbar extends Component {
         <Subheader>Content</Subheader>
         <div style={{ padding: '0 16px' }}>
           <TextField
-            ref={ (component) => {
+            ref={(component) => {
               const e = ReactDOM.findDOMNode(component)
               if (e && isInsertMode) {
                 e.querySelector('input').focus()
@@ -111,7 +111,7 @@ class Toolbar extends Component {
             <Divider />
             <List>
               <Subheader>Settings</Subheader>
-              <ListItem primaryText="Back up drafts" rightToggle={<Toggle />}/>
+              <ListItem primaryText="Back up drafts" rightToggle={<Toggle />} />
             </List>
           </div>
         )}

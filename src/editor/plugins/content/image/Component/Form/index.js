@@ -34,7 +34,7 @@ class Form extends Component {
     // todo obviously fix this stuff
     const { onChange } = this.props
     const req = request.post('http://localhost:3333/images/foobar')
-    files.forEach((file: [])=> {
+    files.forEach((file: []) => {
       req.attach('images', file)
     })
     req.end((err, res) => {
@@ -51,9 +51,9 @@ class Form extends Component {
     if (src) {
       return (
         <div>
-          <img styleName="image" src={src}/>
+          <img styleName="image" src={src} />
           <p>
-            <CaptionInput {...props} state={state}/>
+            <CaptionInput {...props} state={state} />
           </p>
         </div>
       )
@@ -63,12 +63,12 @@ class Form extends Component {
       <div>
         <div styleName="placeholder">
           <Dropzone ref="dropzone" onDrop={this.onDrop} multiple={false} style={{ width: '100%', border: 'none' }}>
-            <UploadIcon style={iconStyle} accept="image/*" maxSize={20 * 1024 * 1024}/>
+            <UploadIcon style={iconStyle} accept="image/*" maxSize={20 * 1024 * 1024} />
             <small>Drop an image here, or click to select an image to upload.</small>
           </Dropzone>
         </div>
         <p style={{ borderTop: '1px solid rgba(0,0,0,.4)' }}>
-          <CaptionInput {...props} state={state}/>
+          <CaptionInput {...props} state={state} />
         </p>
       </div>
     )
