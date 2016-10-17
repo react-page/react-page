@@ -4,18 +4,17 @@ const path = require('path')
 const port = process.env.PORT || 3000
 const app = express()
 
-const root = path.join(__dirname, '..', '..', 'public')
-app.use('/editor', express.static(root))
+app.use('/editor', express.static(path.join(__dirname, '..', 'public')))
 
 const exampleMiddleware = (key) => {
   const router = express.Router() // eslint-disable-line new-cap
 
-  const root = path.join(__dirname, key)
-  router.use(express.static(root))
+  const example = path.join(__dirname, key)
+  router.use(express.static(example))
 
   router.get((req, res, next) => {
     if (req.accepts('html')) {
-      res.sendFile(path.join(root, 'index.html'))
+      res.sendFile(path.join(example, 'index.html'))
     } else {
       next()
     }

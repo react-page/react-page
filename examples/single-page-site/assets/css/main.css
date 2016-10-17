@@ -2044,7 +2044,7 @@ body.is-loading *, body.is-loading *:before, body.is-loading *:after {
   transition: none !important;
 }
 
-body, input, select, textarea {
+body {
   color: #666;
   font-family: "Source Sans Pro", Helvetica, sans-serif;
   font-size: 16pt;
@@ -2257,43 +2257,6 @@ label {
   margin: 0 0 1em 0;
 }
 
-input[type="text"],
-input[type="password"],
-input[type="email"],
-select,
-textarea {
-  -moz-appearance: none;
-  -webkit-appearance: none;
-  -ms-appearance: none;
-  appearance: none;
-  background: rgba(144, 144, 144, 0.075);
-  border-radius: 4px;
-  border: none;
-  border: solid 1px rgba(144, 144, 144, 0.5);
-  color: inherit;
-  display: block;
-  outline: 0;
-  padding: 0 1em;
-  text-decoration: none;
-  width: 100%;
-}
-
-input[type="text"]:invalid,
-input[type="password"]:invalid,
-input[type="email"]:invalid,
-select:invalid,
-textarea:invalid {
-  box-shadow: none;
-}
-
-input[type="text"]:focus,
-input[type="password"]:focus,
-input[type="email"]:focus,
-select:focus,
-textarea:focus {
-  border-color: #6bd4c8;
-}
-
 .select-wrapper {
   text-decoration: none;
   display: block;
@@ -2327,94 +2290,27 @@ textarea:focus {
   display: none;
 }
 
-input[type="text"],
-input[type="password"],
-input[type="email"],
-select {
-  height: 2.75em;
-}
-
 textarea {
   padding: 0.75em 1em;
-}
-
-input[type="checkbox"],
-input[type="radio"] {
-  -moz-appearance: none;
-  -webkit-appearance: none;
-  -ms-appearance: none;
-  appearance: none;
-  display: block;
-  float: left;
-  margin-right: -2em;
-  opacity: 0;
-  width: 1em;
-  z-index: -1;
-}
-
-input[type="checkbox"] + label,
-input[type="radio"] + label {
-  text-decoration: none;
-  color: #666;
-  cursor: pointer;
-  display: inline-block;
-  font-size: 1em;
-  font-weight: 300;
-  padding-left: 2.4em;
-  padding-right: 0.75em;
-  position: relative;
-}
-
-input[type="checkbox"] + label:before,
-input[type="radio"] + label:before {
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-font-smoothing: antialiased;
-  font-family: FontAwesome;
-  font-style: normal;
-  font-weight: normal;
-  text-transform: none !important;
-}
-
-input[type="checkbox"] + label:before,
-input[type="radio"] + label:before {
-  background: rgba(144, 144, 144, 0.075);
-  border-radius: 4px;
-  border: solid 1px rgba(144, 144, 144, 0.5);
-  content: '';
-  display: inline-block;
-  height: 1.65em;
-  left: 0;
-  line-height: 1.58125em;
-  position: absolute;
-  text-align: center;
-  top: 0;
-  width: 1.65em;
-}
-
-input[type="checkbox"]:checked + label:before,
-input[type="radio"]:checked + label:before {
-  background: #666666;
-  border-color: #666666;
-  color: #ffffff;
-  content: '\f00c';
-}
-
-input[type="checkbox"]:focus + label:before,
-input[type="radio"]:focus + label:before {
-  border-color: #6bd4c8;
-}
-
-input[type="checkbox"] + label:before {
-  border-radius: 4px;
-}
-
-input[type="radio"] + label:before {
-  border-radius: 100%;
 }
 
 ::-webkit-input-placeholder {
   color: #999 !important;
   opacity: 1.0;
+}
+
+#header h1:after {
+  border: none;
+  outline: none;
+  margin: 0;
+  padding: 0;
+  background: none;
+}
+#header h1 {
+  border: none;
+  outline: none;
+  margin: 0;
+  padding: 0;
 }
 
 :-moz-placeholder {
@@ -2804,10 +2700,6 @@ table.alt tfoot {
 
 /* Button */
 
-input[type="submit"],
-input[type="reset"],
-input[type="button"],
-button,
 .button {
   -moz-appearance: none;
   -webkit-appearance: none;
@@ -2836,104 +2728,6 @@ button,
   text-transform: uppercase;
   white-space: nowrap;
 }
-
-input[type="submit"]:hover,
-input[type="reset"]:hover,
-input[type="button"]:hover,
-button:hover,
-.button:hover {
-  background-color: rgba(144, 144, 144, 0.075);
-}
-
-input[type="submit"]:active,
-input[type="reset"]:active,
-input[type="button"]:active,
-button:active,
-.button:active {
-  background-color: rgba(144, 144, 144, 0.2);
-}
-
-input[type="submit"].icon,
-input[type="reset"].icon,
-input[type="button"].icon,
-button.icon,
-.button.icon {
-  padding-left: 1.35em;
-}
-
-input[type="submit"].icon:before,
-input[type="reset"].icon:before,
-input[type="button"].icon:before,
-button.icon:before,
-.button.icon:before {
-  margin-right: 0.5em;
-}
-
-input[type="submit"].fit,
-input[type="reset"].fit,
-input[type="button"].fit,
-button.fit,
-.button.fit {
-  display: block;
-  margin: 0 0 1em 0;
-  width: 100%;
-}
-
-input[type="submit"].small,
-input[type="reset"].small,
-input[type="button"].small,
-button.small,
-.button.small {
-  font-size: 0.7em;
-}
-
-input[type="submit"].big,
-input[type="reset"].big,
-input[type="button"].big,
-button.big,
-.button.big {
-  font-size: 1.25em;
-}
-
-input[type="submit"].special,
-input[type="reset"].special,
-input[type="button"].special,
-button.special,
-.button.special {
-  background-color: #555;
-  box-shadow: none !important;
-  color: #fff !important;
-}
-
-input[type="submit"].special:hover,
-input[type="reset"].special:hover,
-input[type="button"].special:hover,
-button.special:hover,
-.button.special:hover {
-  background-color: #626262;
-}
-
-input[type="submit"].special:active,
-input[type="reset"].special:active,
-input[type="button"].special:active,
-button.special:active,
-.button.special:active {
-  background-color: #484848;
-}
-
-input[type="submit"].disabled, input[type="submit"]:disabled,
-input[type="reset"].disabled,
-input[type="reset"]:disabled,
-input[type="button"].disabled,
-input[type="button"]:disabled,
-button.disabled,
-button:disabled,
-.button.disabled,
-.button:disabled {
-  cursor: default;
-  opacity: 0.25;
-}
-
 /* Main */
 
 .main {
@@ -2972,57 +2766,6 @@ button:disabled,
   background: #ffffff;
 }
 
-.main.style2 input[type="submit"],
-.main.style2 input[type="reset"],
-.main.style2 input[type="button"],
-.main.style2 button,
-.main.style2 .button {
-  box-shadow: inset 0 0 0 1px #ffffff;
-  color: #ffffff !important;
-}
-
-.main.style2 input[type="submit"]:hover,
-.main.style2 input[type="reset"]:hover,
-.main.style2 input[type="button"]:hover,
-.main.style2 button:hover,
-.main.style2 .button:hover {
-  background-color: rgba(255, 255, 255, 0.125);
-}
-
-.main.style2 input[type="submit"]:active,
-.main.style2 input[type="reset"]:active,
-.main.style2 input[type="button"]:active,
-.main.style2 button:active,
-.main.style2 .button:active {
-  background-color: rgba(255, 255, 255, 0.25);
-}
-
-.main.style2 input[type="submit"].special,
-.main.style2 input[type="reset"].special,
-.main.style2 input[type="button"].special,
-.main.style2 button.special,
-.main.style2 .button.special {
-  background-color: #ffffff;
-  box-shadow: inset 0 0 0 1px #ffffff !important;
-  color: #333 !important;
-}
-
-.main.style2 input[type="submit"].special:hover,
-.main.style2 input[type="reset"].special:hover,
-.main.style2 input[type="button"].special:hover,
-.main.style2 button.special:hover,
-.main.style2 .button.special:hover {
-  background-color: rgba(255, 255, 255, 0.125) !important;
-  color: #ffffff !important;
-}
-
-.main.style2 input[type="submit"].special:active,
-.main.style2 input[type="reset"].special:active,
-.main.style2 input[type="button"].special:active,
-.main.style2 button.special:active,
-.main.style2 .button.special:active {
-  background-color: rgba(255, 255, 255, 0.25) !important;
-}
 
 .main.style2 ul.major-icons li .icon {
   border-color: #ffffff;
@@ -3067,58 +2810,6 @@ button:disabled,
   background: #ffffff;
 }
 
-#header input[type="submit"],
-#header input[type="reset"],
-#header input[type="button"],
-#header button,
-#header .button {
-  box-shadow: inset 0 0 0 1px #ffffff;
-  color: #ffffff !important;
-}
-
-#header input[type="submit"]:hover,
-#header input[type="reset"]:hover,
-#header input[type="button"]:hover,
-#header button:hover,
-#header .button:hover {
-  background-color: rgba(255, 255, 255, 0.125);
-}
-
-#header input[type="submit"]:active,
-#header input[type="reset"]:active,
-#header input[type="button"]:active,
-#header button:active,
-#header .button:active {
-  background-color: rgba(255, 255, 255, 0.25);
-}
-
-#header input[type="submit"].special,
-#header input[type="reset"].special,
-#header input[type="button"].special,
-#header button.special,
-#header .button.special {
-  background-color: #ffffff;
-  box-shadow: inset 0 0 0 1px #ffffff !important;
-  color: #4686a0 !important;
-}
-
-#header input[type="submit"].special:hover,
-#header input[type="reset"].special:hover,
-#header input[type="button"].special:hover,
-#header button.special:hover,
-#header .button.special:hover {
-  background-color: rgba(255, 255, 255, 0.125) !important;
-  color: #ffffff !important;
-}
-
-#header input[type="submit"].special:active,
-#header input[type="reset"].special:active,
-#header input[type="button"].special:active,
-#header button.special:active,
-#header .button.special:active {
-  background-color: rgba(255, 255, 255, 0.25) !important;
-}
-
 #header ul.major-icons li .icon {
   border-color: #ffffff;
 }
@@ -3151,18 +2842,6 @@ button:disabled,
 }
 
 #header .inner {
-  -moz-transition: -moz-transform 1.5s ease, opacity 2s ease;
-  -webkit-transition: -webkit-transform 1.5s ease, opacity 2s ease;
-  -ms-transition: -ms-transform 1.5s ease, opacity 2s ease;
-  transition: transform 1.5s ease, opacity 2s ease;
-  -moz-transition-delay: 0.25s;
-  -webkit-transition-delay: 0.25s;
-  -ms-transition-delay: 0.25s;
-  transition-delay: 0.25s;
-  -moz-transform: scale(1);
-  -webkit-transform: scale(1);
-  -ms-transform: scale(1);
-  transform: scale(1);
   opacity: 1;
   position: relative;
   z-index: 1;
@@ -3252,58 +2931,6 @@ body.is-loading #header:after {
   background: #ffffff;
 }
 
-#footer input[type="submit"],
-#footer input[type="reset"],
-#footer input[type="button"],
-#footer button,
-#footer .button {
-  box-shadow: inset 0 0 0 1px #ffffff;
-  color: #ffffff !important;
-}
-
-#footer input[type="submit"]:hover,
-#footer input[type="reset"]:hover,
-#footer input[type="button"]:hover,
-#footer button:hover,
-#footer .button:hover {
-  background-color: rgba(255, 255, 255, 0.125);
-}
-
-#footer input[type="submit"]:active,
-#footer input[type="reset"]:active,
-#footer input[type="button"]:active,
-#footer button:active,
-#footer .button:active {
-  background-color: rgba(255, 255, 255, 0.25);
-}
-
-#footer input[type="submit"].special,
-#footer input[type="reset"].special,
-#footer input[type="button"].special,
-#footer button.special,
-#footer .button.special {
-  background-color: #ffffff;
-  box-shadow: inset 0 0 0 1px #ffffff !important;
-  color: #4686a0 !important;
-}
-
-#footer input[type="submit"].special:hover,
-#footer input[type="reset"].special:hover,
-#footer input[type="button"].special:hover,
-#footer button.special:hover,
-#footer .button.special:hover {
-  background-color: rgba(255, 255, 255, 0.125) !important;
-  color: #ffffff !important;
-}
-
-#footer input[type="submit"].special:active,
-#footer input[type="reset"].special:active,
-#footer input[type="button"].special:active,
-#footer button.special:active,
-#footer .button.special:active {
-  background-color: rgba(255, 255, 255, 0.25) !important;
-}
-
 #footer ul.major-icons li .icon {
   border-color: #ffffff;
 }
@@ -3343,7 +2970,7 @@ body.is-loading #header:after {
 
   /* Basic */
 
-  body, input, select, textarea {
+  body, select, textarea {
     font-size: 14pt;
   }
 
@@ -3361,7 +2988,7 @@ body.is-loading #header:after {
 
   /* Basic */
 
-  body, input, select, textarea {
+  body {
     font-size: 13pt;
   }
 
@@ -3465,7 +3092,7 @@ body.is-loading #header:after {
 
   /* Basic */
 
-  body, input, select, textarea {
+  body {
     font-size: 12pt;
   }
 
@@ -3509,14 +3136,6 @@ body.is-loading #header:after {
 
   /* Button */
 
-  input[type="submit"],
-  input[type="reset"],
-  input[type="button"],
-  button,
-  .button {
-    height: 3em;
-    line-height: 3em;
-  }
 
   /* Main */
 
@@ -3581,13 +3200,6 @@ body.is-loading #header:after {
   }
 
   /* Button */
-
-  input[type="submit"],
-  input[type="reset"],
-  input[type="button"],
-  .button {
-    padding: 0;
-  }
 
   /* Main */
 

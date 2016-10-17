@@ -247,14 +247,8 @@ export const content = {
               content: {
                 plugin: { name: 'ory/content/slate' },
                 state: {
-                  importFromHtml: '<h1>Lorem ipsum dolor adipiscing amet dolor consequat</h1><p>Adipiscing a commodo ante nunc accumsan et interdum mi ante adipiscing. A nunc lobortis non nisl amet vis sed volutpat aclacus nascetur ac non. Lorem curae et ante amet sapien sed tempus adipiscing id accumsan.</p>'
-                }
-              }
-            }, {
-              content: {
-                plugin: { name: 'ory/content/spacer' },
-                state: {
-                  height: 50
+                  importFromHtml: `<h1>Hi, I'm Photon, another fine little freebie from HTML5 UP.</h1>
+            <p>This is an example page for the ORY Editor. Check out the buttons on the right.</p>`
                 }
               }
             }]
