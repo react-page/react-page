@@ -10,7 +10,7 @@ app.use('/editor', express.static(root))
 const exampleMiddleware = (key) => {
   const router = express.Router() // eslint-disable-line new-cap
 
-  const root = path.join(__dirname, '..', '..', 'examples', key)
+  const root = path.join(__dirname, key)
   router.use(express.static(root))
 
   router.get((req, res, next) => {
