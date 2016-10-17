@@ -14,7 +14,7 @@
     "start": "cross-env NODE_PATH=. NODE_ENV=production node src/server",
     "dev": "npm-run-all --parallel dev:serve build:dev:*",
     "dev:serve": "cross-env NODE_PATH=. nodemon examples/server.js",
-    "lint": "eslint \"+(examples|src|test|types)/**/*.js\" --fix",
+    "lint": "eslint \"+(src|test|types)/**/*.js\" --fix",
     "lint:watch": "npm run watch:js -- -c \"npm run lint\"",
     "build:editor": "cross-env NODE_PATH=. NODE_ENV=production webpack",
     "build:news-article": "cross-env NODE_PATH=. NODE_ENV=production webpack --config ./examples/news-article/webpack.config.js",

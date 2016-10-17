@@ -1,5 +1,6 @@
 // @flow
 import React from 'react'
+import cssModules from 'react-css-modules'
 import Announcement from 'material-ui/svg-icons/image/landscape'
 import Slate from 'src/editor/plugins/content/slate'
 import { LayoutPlugin } from 'src/editor/service/plugin/classes'
@@ -53,7 +54,7 @@ const defaultPlugin = new Slate()
 
 export default class ParallaxPlugin extends LayoutPlugin {
   Component = ParallaxComponent
-  name = 'ory/layout/parallax'
+  name = 'examples/layout/parallax'
   version = '0.0.1'
   icon = <Announcement />
   text = 'Parallax Background'
