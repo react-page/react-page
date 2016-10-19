@@ -5,6 +5,7 @@ import ListIcon from 'material-ui/svg-icons/action/list'
 import LinkIcon from 'material-ui/svg-icons/content/link'
 import BoldIcon from 'material-ui/svg-icons/editor/format-bold'
 import ItalicIcon from 'material-ui/svg-icons/editor/format-italic'
+import OrderedListIcon from 'material-ui/svg-icons/editor/format-list-numbered'
 import UnderlinedIcon from 'material-ui/svg-icons/editor/format-underlined'
 import BlockquoteIcon from 'material-ui/svg-icons/editor/format-quote'
 import H1Icon from 'material-ui/svg-icons/image/looks-one'
@@ -118,6 +119,8 @@ const schema = {
 }
 
 export type Props = ContentPluginProps<{ editorState: Object }>
+
+const falser = () => false
 
 /* eslint no-invalid-this: "off" */
 class Slate extends Component {

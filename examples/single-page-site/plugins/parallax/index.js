@@ -34,7 +34,6 @@ const ParallaxComponent = ({ children, state: { style, align }, readOnly, onChan
             >
               <MenuItem value={1} primaryText="Style 1" />
               <MenuItem value={2} primaryText="Style 2" />
-              <MenuItem value={3} primaryText="Style 3" />
             </SelectField>
           </div>
         )
