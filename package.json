@@ -57,6 +57,7 @@
     "lodash.throttle": "4.1.1",
     "material-ui": "0.16.0",
     "node-uuid": "1.4.7",
+    "npm-run-all": "^3.1.0",
     "postcss-loader": "0.13.0",
     "ramda": "0.22.1",
     "raven-js": "^3.5.1",
