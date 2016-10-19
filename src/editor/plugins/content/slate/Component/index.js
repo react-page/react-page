@@ -120,8 +120,6 @@ const schema = {
 
 export type Props = ContentPluginProps<{ editorState: Object }>
 
-const falser = () => false
-
 /* eslint no-invalid-this: "off" */
 class Slate extends Component {
   componentDidMount = () => this.updateToolbar()
@@ -138,12 +136,13 @@ class Slate extends Component {
     }
   }
 
-  shouldComponentUpdate = (nextProps, nextState) => (
+  shouldComponentUpdate = (nextProps) => (
     nextProps.state.editorState !== this.props.state.editorState
     || nextProps.state.toolbar !== this.props.state.toolbar
     || nextProps.focused !== this.props.focused
     || nextProps.readOnly !== this.props.readOnly
   )
+
   componentDidUpdate = () => this.updateToolbar()
 
   props: ContentPluginProps
@@ -403,12 +402,14 @@ class Slate extends Component {
             </div>
           </MuiThemeProvider>
         </Portal>
-        <div ref={(c) => this._component = c}>
+        <div ref={(c) => {
+          this._component = c
+        }}>
           <Editor
             onChange={this.onStateChange}
             onKeyDown={this.onKeyDown}
             readOnly={Boolean(readOnly)}
-            onBlur={falser}
+            onBlur={onBlur}
             schema={schema}
             state={editorState}
             plugins={plugins}
