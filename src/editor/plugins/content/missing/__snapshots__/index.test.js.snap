@@ -2,7 +2,7 @@ exports[`plugins/content/missing should render 1`] = `
 <div
   style={
     Object {
-      "backgroundColor": "red"
+      "backgroundColor": "red",
     }
   }>
   Plugin 

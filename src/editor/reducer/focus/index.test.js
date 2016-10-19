@@ -1,5 +1,5 @@
 /* eslint-env jest */
-import { focus } from './focus'
+import { focus } from '.'
 import unexpected from 'unexpected'
 import { combineReducers, createStore } from 'redux'
 import { identity } from 'ramda'
