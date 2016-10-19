@@ -9,6 +9,12 @@ import Dropzone from 'react-dropzone'
 import request from 'superagent'
 import type { PropTypes } from '../index.js'
 
+
+import IconMenu from 'material-ui/IconMenu';
+import MenuItem from 'material-ui/MenuItem';
+import IconButton from 'material-ui/IconButton/IconButton';
+import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
+
 const handleChange = (onChange: Function) => (e: Event) => {
   const target = e.target
   if (target instanceof HTMLInputElement) {
@@ -46,15 +52,36 @@ class Form extends Component {
     })
   }
 
+  onRef = (node: any) => {
+    this.dropzone = node
+  }
+
+  onClickUpload = () => {
+    this.dropzone.open()
+  }
+
   render() {
-    const { state: { src, ...state }, ...props } = this.props
+    const { state: { src, ...state }, focused, ...props } = this.props
+
     if (src) {
       return (
         <div>
-          <img styleName="image" src={src} />
-          <p>
-            <CaptionInput {...props} state={state} />
-          </p>
+          <Dropzone ref={this.onRef} onDrop={this.onDrop} multiple={false} style={{ display: 'none' }} />
+          <div style={{ position: 'absolute', right: 0, top: 0, margin: '24px', background: 'rgba(255,255,255,0.4)', boxShadow: 'rgba(255,255,255,0.4) 0 0 4px',  }}>
+            <IconMenu
+              iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
+              anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
+              targetOrigin={{horizontal: 'left', vertical: 'bottom'}}
+            >
+              <MenuItem onClick={this.onClickUpload} primaryText="Replace image"/>
+            </IconMenu>
+          </div>
+          <img styleName="image" src={src}/>
+          {focused || state.caption ? (
+            <p>
+              <CaptionInput {...props} state={state}/>
+            </p>
+          ) : null}
         </div>
       )
     }
@@ -62,13 +89,13 @@ class Form extends Component {
     return (
       <div>
         <div styleName="placeholder">
-          <Dropzone ref="dropzone" onDrop={this.onDrop} multiple={false} style={{ width: '100%', border: 'none' }}>
-            <UploadIcon style={iconStyle} accept="image/*" maxSize={20 * 1024 * 1024} />
+          <Dropzone ref={this.onRef} onDrop={this.onDrop} multiple={false} style={{ width: '100%', border: 'none' }}>
+            <UploadIcon style={iconStyle} accept="image/*" maxSize={20 * 1024 * 1024}/>
             <small>Drop an image here, or click to select an image to upload.</small>
           </Dropzone>
         </div>
         <p style={{ borderTop: '1px solid rgba(0,0,0,.4)' }}>
-          <CaptionInput {...props} state={state} />
+          <CaptionInput {...props} state={state}/>
         </p>
       </div>
     )

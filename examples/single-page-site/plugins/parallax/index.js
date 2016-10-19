@@ -54,7 +54,7 @@ const defaultPlugin = new Slate()
 
 export default class ParallaxPlugin extends LayoutPlugin {
   Component = ParallaxComponent
-  name = 'examples/layout/parallax'
+  name = 'example/layout/parallax'
   version = '0.0.1'
   icon = <Announcement />
   text = 'Parallax Background'

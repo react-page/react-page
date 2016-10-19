@@ -17,11 +17,6 @@ export const content = {
                 }
               }
             }]
-          }, {
-            cells: [{
-              content: { plugin: { name: 'ory/content/image' } },
-              state: {}
-            }]
           }]
         }]
       }, {
