@@ -1,14 +1,14 @@
 import React, { PropTypes } from 'react'
 
-const CodeNode = (props) => (
-  <pre {...props.attributes} style={{ overflow: 'scroll' }}>
-    <code>{props.children}</code>
+const Code = ({ attributes, children }) => (
+  <pre {...attributes} style={{ overflow: 'scroll' }}>
+    <code>{children}</code>
   </pre>
 )
 
-CodeNode.propTypes = {
+Code.propTypes = {
   attributes: PropTypes.object,
   children: PropTypes.oneOf([PropTypes.func, PropTypes.element, PropTypes.array]).isRequired
 }
 
-export default CodeNode
+export default Code

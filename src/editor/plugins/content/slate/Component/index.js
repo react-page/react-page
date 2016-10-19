@@ -32,13 +32,6 @@ import styles from './index.scoped.css'
 
 const onBlur = (_event, _data, state) => state
 
-const Link = ({ attributes, children, node }) => {
-  const { data } = node
-  const href = data.get('href')
-
-  return <a {...attributes} href={href}>{children}</a>
-}
-
 const makeTagNode = (Tag) => {
   const NodeComponent = ({ attributes, children }: { attributes: Object, children: any }) => (
     <Tag {...attributes}>{children}</Tag>
@@ -93,7 +86,6 @@ const plugins = [
   })
 ]
 
-
 const schema = {
   nodes: {
     [H1]: makeTagNode('h1'),
@@ -106,9 +98,9 @@ const schema = {
     [OL]: makeTagNode('ol'),
     [LI]: makeTagNode('li'),
     [BLOCKQUOTE]: makeTagNode('blockquote'),
-    [CODE]: nodes.CodeNode,
+    [CODE]: nodes.Code,
     [P]: nodes.Paragraph,
-    [A]: Link
+    [A]: nodes.Link
   },
   marks: {
     [STRONG]: makeTagMark('strong'),
