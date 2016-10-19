@@ -8,12 +8,12 @@ import ItalicIcon from 'material-ui/svg-icons/editor/format-italic'
 import OrderedListIcon from 'material-ui/svg-icons/editor/format-list-numbered'
 import UnderlinedIcon from 'material-ui/svg-icons/editor/format-underlined'
 import BlockquoteIcon from 'material-ui/svg-icons/editor/format-quote'
-import H1Icon from 'material-ui/svg-icons/image/filter-1'
-import H2Icon from 'material-ui/svg-icons/image/filter-2'
-import H3Icon from 'material-ui/svg-icons/image/filter-3'
-import H4Icon from 'material-ui/svg-icons/image/filter-4'
-import H5Icon from 'material-ui/svg-icons/image/filter-5'
-import H6Icon from 'material-ui/svg-icons/image/filter-6'
+import H1Icon from 'material-ui/svg-icons/image/looks-one'
+import H2Icon from 'material-ui/svg-icons/image/looks-two'
+import H3Icon from 'material-ui/svg-icons/image/looks-3'
+import H4Icon from 'material-ui/svg-icons/image/looks-4'
+import H5Icon from 'material-ui/svg-icons/image/looks-5'
+import H6Icon from 'material-ui/svg-icons/image/looks-6'
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
 import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
@@ -120,11 +120,25 @@ const schema = {
 
 export type Props = ContentPluginProps<{ editorState: Object }>
 
+const falser = () => false
+
 /* eslint no-invalid-this: "off" */
 class Slate extends Component {
   componentDidMount = () => this.updateToolbar()
 
-  shouldComponentUpdate = (nextProps) => (
+  // FIXME PSEUDO FIX #135
+  componentWillReceiveProps = (next) => {
+    // focus does not work, probably because of removeAllRanges...
+    // if (next.state.editorState.selection.isFocused && !this.props.state.editorState.selection.isFocused) {
+    //   this._component.querySelector('[contenteditable]').focus()
+    // }
+    if (!next.state.editorState.selection.isFocused && this.props.state.editorState.selection.isFocused) {
+      this._component.querySelector('[contenteditable]').blur()
+      window.setTimeout(() => window.getSelection().removeAllRanges(), 0)
+    }
+  }
+
+  shouldComponentUpdate = (nextProps, nextState) => (
     nextProps.state.editorState !== this.props.state.editorState
     || nextProps.state.toolbar !== this.props.state.toolbar
     || nextProps.focused !== this.props.focused
@@ -241,7 +255,7 @@ class Slate extends Component {
     const hasLinks = editorState.inlines.some((inline: any) => inline.type === A)
 
     return (
-      <IconButton onMouseDown={onClick} iconStyle={hasLinks ? { color: '#007EC1' } : {}}>
+      <IconButton onMouseDown={onClick} iconStyle={hasLinks ? { color: '#007EC1' } : { color: 'white' }}>
         <LinkIcon />
       </IconButton>
     )
@@ -381,7 +395,7 @@ class Slate extends Component {
         <Portal isOpened={isOpened} onOpen={this.handleOpen}>
           <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
             {/* TODO editor-container is needed to avoid global blurry, #190 */}
-            <div styleName="toolbar" className="editor-container" style={{ padding: 0 }}>
+            <div styleName="inline-toolbar" className="editor-container" style={{ padding: 0 }}>
               {this.renderMarkButton(STRONG, <BoldIcon />)}
               {this.renderMarkButton(EM, <ItalicIcon />)}
               {this.renderMarkButton(U, <UnderlinedIcon />)}
@@ -389,28 +403,30 @@ class Slate extends Component {
             </div>
           </MuiThemeProvider>
         </Portal>
-        <Editor
-          onChange={this.onStateChange}
-          onKeyDown={this.onKeyDown}
-          readOnly={Boolean(readOnly)}
-          onBlur={onBlur}
-          schema={schema}
-          state={editorState}
-          plugins={plugins}
-        />
+        <div ref={(c) => this._component = c}>
+          <Editor
+            onChange={this.onStateChange}
+            onKeyDown={this.onKeyDown}
+            readOnly={Boolean(readOnly)}
+            onBlur={falser}
+            schema={schema}
+            state={editorState}
+            plugins={plugins}
+          />
+        </div>
         {readOnly ? null : (
           <BottomToolbar open={focused}>
-            {this.renderNodeButton(H1, <H1Icon />)}
-            {this.renderNodeButton(H2, <H2Icon />)}
-            {this.renderNodeButton(H3, <H3Icon />)}
-            {this.renderNodeButton(H4, <H4Icon />)}
-            {this.renderNodeButton(H5, <H5Icon />)}
-            {this.renderNodeButton(H6, <H6Icon />)}
-            {this.renderNodeButton(CODE, <CodeIcon />)}
-            {this.renderListNodeButton(UL, <ListIcon />)}
-            {this.renderListNodeButton(OL, <OrderedListIcon />)}
+            {this.renderNodeButton(H1, <H1Icon color="white" />)}
+            {this.renderNodeButton(H2, <H2Icon color="white" />)}
+            {this.renderNodeButton(H3, <H3Icon color="white" />)}
+            {this.renderNodeButton(H4, <H4Icon color="white" />)}
+            {this.renderNodeButton(H5, <H5Icon color="white" />)}
+            {this.renderNodeButton(H6, <H6Icon color="white" />)}
+            {this.renderNodeButton(CODE, <CodeIcon color="white" />)}
+            {this.renderListNodeButton(UL, <ListIcon color="white" />)}
+            {this.renderListNodeButton(OL, <OrderedListIcon color="white" />)}
             {this.renderLinkButton()}
-            {this.renderBlockquoteNodeButton(<BlockquoteIcon />)}
+            {this.renderBlockquoteNodeButton(<BlockquoteIcon color="white" />)}
           </BottomToolbar>
         )}
       </div>

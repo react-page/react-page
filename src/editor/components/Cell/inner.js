@@ -7,6 +7,7 @@ import Layout from './Layout'
 import Content from './Content'
 import Empty from './Empty'
 import type { ComponentizedCell } from 'types/editable'
+import classNames from 'classnames'
 
 class Inner extends Component {
   shouldComponentUpdate = shouldPureComponentUpdate
@@ -24,16 +25,18 @@ class Inner extends Component {
       },
       config: { whitelist = [] }
     } = this.props
-
+    const cn = classNames('editable-cell', {
+      leaf: rows.length === 0
+    })
     if (rows.length && LayoutComponent) {
       return isLayoutMode || isInsertMode ? (
         <DragDroppable {...props} styles={null} dragType={layoutType} dropTypes={whitelist}>
-          <div className="editable-cell">
+          <div className={cn}>
             <Layout {...props} {...layoutState} />
           </div>
         </DragDroppable>
       ) : (
-        <div className="editable-cell">
+        <div className={cn}>
           <Layout {...props} {...layoutState} />
         </div>
       )
@@ -47,19 +50,19 @@ class Inner extends Component {
           dropTypes={whitelist}
           allowDrop
         >
-          <div className="editable-cell">
+          <div className={cn}>
             <Content {...props} />
           </div>
         </DragDroppable>
       ) : (
-        <div className="editable-cell">
+        <div className={cn}>
           <Content {...props} />
         </div>
       )
     }
 
     return (
-      <div className="editable-cell">
+      <div className={cn}>
         <Empty {...props} />
       </div>
     )

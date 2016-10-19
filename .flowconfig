@@ -13,6 +13,7 @@ esproposal.class_instance_fields=enable
 [ignore]
 .*/node_modules/fbjs/.*
 .*/node_modules/match-at/.*
+.*/examples/*
 
 
 [libs]

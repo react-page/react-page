@@ -2,7 +2,7 @@
 import React from 'react'
 import Component from './Component'
 import Panorama from 'material-ui/svg-icons/image/panorama'
-import { ContentPlugin } from 'src/editor/service/plugin/classes'
+import { ContentPlugin, ContentPluginProps } from 'src/editor/service/plugin/classes'
 
 export default class ImagePlugin extends ContentPlugin {
   Component = Component
@@ -11,5 +11,5 @@ export default class ImagePlugin extends ContentPlugin {
   icon = <Panorama />
   text = 'Image'
   inlineable = true
-  onRemoveHotKey = () => Promise.reject()
+  onRemoveHotKey = (_: Event, __: ContentPluginProps<*>): Promise<*> => Promise.reject()
 }

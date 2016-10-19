@@ -10,6 +10,8 @@ import { updateEditable } from 'src/editor/actions/editables'
 import ContentService from 'src/editor/service/content'
 import { isProduction } from './const'
 import consolePlugin from 'raven-js/plugins/console'
+import PluginService from 'src/editor/service/plugin'
+import { AbstractAdapter } from 'src/editor/service/content/adapter'
 
 
 import type Store from 'types/redux'
@@ -25,14 +27,20 @@ if (!isProduction && typeof window !== 'undefined') {
 
 let Raven
 
-if (isProduction && window !== 'undefined') {
-  Raven = require('raven-js')
-  Raven.config('https://7ccaf04e48474399bb705ecbd317e6ce@sentry.io/95510').install()
-  consolePlugin(Raven, console)
+const connectToRaven = () => {
+  if (Raven) {
+    return
+  }
+
+  if (isProduction && window !== 'undefined') {
+    Raven = require('raven-js')
+    Raven.config('https://7ccaf04e48474399bb705ecbd317e6ce@sentry.io/95510').install()
+    consolePlugin(Raven, console)
+  }
 }
 
 const logException = (ex: any, context: any) => {
-  if (isProduction && window !== 'undefined') {
+  if (Raven) {
     Raven.captureException(ex, {
       extra: context
     })
@@ -50,14 +58,26 @@ class Editor {
   store: Store
   content: ContentService
 
-  constructor() {
+  constructor({
+    adapters,
+    plugins,
+    disableAnonymousErrorReporting
+  }: {
+    adapters: Array<AbstractAdapter>,
+    plugins: PluginService,
+    disableAnonymousErrorReporting: boolean
+  } = {}) {
     if (instance) {
       throw new Error('Only one instance of Editor is allowed')
     }
 
+    if (!disableAnonymousErrorReporting) {
+      connectToRaven()
+    }
+
     instance = this
     this.store = createStore({ editables: [] })
-    this.content = new ContentService()
+    this.content = new ContentService(adapters, plugins)
   }
 
   /**
@@ -101,4 +121,16 @@ class Editor {
   }
 }
 
+if (typeof window !== 'undefined') {
+  window.Ory = {
+    Editor,
+    ContentService,
+    PluginService,
+  }
+}
+
 export default Editor
+export {
+  ContentService,
+  PluginService,
+}

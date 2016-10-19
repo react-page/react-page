@@ -1,13 +1,11 @@
 const autoprefixer = require('autoprefixer')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
 const path = require('path')
 const R = require('ramda')
 const webpack = require('webpack')
 
 // isProduction :: Boolean
 const isProduction = process.env.NODE_ENV === 'production'
-const isDevelopment = !isProduction
 
 // createEnvAwareArray :: [a] -> [a]
 // Should be used together with `ifProduction` and `ifDevelopment`.
@@ -16,7 +14,6 @@ const isDevelopment = !isProduction
 //  * Regardless of `NODE_ENV`, `createEnvAwareArray([plugin]) = [plugin]`
 const createEnvAwareArray = R.reject(R.isNil)
 const ifProduction = (x) => isProduction ? x : null
-const ifDevelopment = (x) => isDevelopment ? x : null
 
 // Used loaders for css after `style-loader`
 const cssLoaders = [
@@ -32,10 +29,7 @@ const cssGlobalLoaders = [
 module.exports = {
   // entry :: [a]
   // Used entry files
-  entry: createEnvAwareArray([
-    ifDevelopment('webpack-hot-middleware/client'),
-    path.join(__dirname, 'src', 'client')
-  ]),
+  entry: path.join(__dirname, 'src', 'editor'),
   // output :: { path: String, publicPath :: String, filename :: String}
   // Output bundle
   output: {
@@ -47,15 +41,10 @@ module.exports = {
   // plugins :: [a]
   // Used webpack plugins
   plugins: createEnvAwareArray([
-    new HtmlWebpackPlugin({
-      template: path.join(__dirname, 'src', 'client', 'index.ejs'),
-      inject: 'body'
-    }),
     new webpack.optimize.OccurrenceOrderPlugin(),
-    ifDevelopment(new webpack.HotModuleReplacementPlugin()),
+    new ExtractTextPlugin('styles.css'),
     ifProduction(new webpack.DefinePlugin({ 'process.env.NODE_ENV': '"production"' })),
     ifProduction(new webpack.optimize.UglifyJsPlugin()),
-    ifProduction(new ExtractTextPlugin('styles.css'))
   ]),
   // resolve :: { modules :: [String] }
   // Configure webpack for `NODE_PATH=.`
@@ -83,17 +72,11 @@ module.exports = {
       }
     }, {
       test: /\.scoped\.css$/,
-      // Use ExtractTextPlugin only in production for HMR
-      loaders: isProduction
-        ? ExtractTextPlugin.extract('style', cssLoaders)
-        : ['style', ...cssLoaders]
+      loaders: ExtractTextPlugin.extract('style', cssLoaders)
     }, {
       test: /\.css$/,
       exclude: /\.scoped.css$/,
-      // Use ExtractTextPlugin only in production for HMR
-      loaders: isProduction
-        ? ExtractTextPlugin.extract('style', cssGlobalLoaders)
-        : ['style', ...cssGlobalLoaders]
+      loaders: ExtractTextPlugin.extract('style', cssGlobalLoaders)
     }, {
       test: /\.json$/,
       loader: 'json'

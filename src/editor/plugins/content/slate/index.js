@@ -15,7 +15,7 @@ export default class SlatePlugin extends ContentPlugin {
   name = 'ory/content/slate'
   version = '0.0.1'
   icon = <Subject />
-  text = 'Text (Slate)'
+  text = 'Text'
 
   onFocus = (props: Props) => {
     if (props.state.editorState.isFocused) {
