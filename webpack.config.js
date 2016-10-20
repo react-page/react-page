@@ -1,4 +1,3 @@
-const autoprefixer = require('autoprefixer')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const path = require('path')
 const R = require('ramda')
@@ -16,7 +15,7 @@ const createEnvAwareArray = R.reject(R.isNil)
 const ifProduction = (x) => isProduction ? x : null
 
 // Used loaders for css after `style-loader`
-const cssLoaders = [
+const cssScopedLoaders = [
   'css?modules&importLoaders=1&localIdentName=[path]___[name]__[local]___[hash:base64:5]',
   'postcss'
 ]
@@ -72,19 +71,14 @@ module.exports = {
       }
     }, {
       test: /\.scoped\.css$/,
-      loaders: ExtractTextPlugin.extract('style', cssLoaders)
+      loaders: ExtractTextPlugin.extract({ fallbackLoader: 'style', loader: cssScopedLoaders })
     }, {
       test: /\.css$/,
       exclude: /\.scoped.css$/,
-      loaders: ExtractTextPlugin.extract('style', cssGlobalLoaders)
+      loaders: ExtractTextPlugin.extract({ fallbackLoader: 'style', loader: cssGlobalLoaders })
     }, {
       test: /\.json$/,
       loader: 'json'
     }]
-  },
-  // postcss :: * -> [a]
-  // Used PostCSS plugins
-  postcss() {
-    return [autoprefixer]
   }
 }

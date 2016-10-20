@@ -32,13 +32,6 @@ import styles from './index.scoped.css'
 
 const onBlur = (_event, _data, state) => state
 
-const Link = ({ attributes, children, node }) => {
-  const { data } = node
-  const href = data.get('href')
-
-  return <a {...attributes} href={href}>{children}</a>
-}
-
 const makeTagNode = (Tag) => {
   const NodeComponent = ({ attributes, children }: { attributes: Object, children: any }) => (
     <Tag {...attributes}>{children}</Tag>
@@ -93,7 +86,6 @@ const plugins = [
   })
 ]
 
-
 const schema = {
   nodes: {
     [H1]: makeTagNode('h1'),
@@ -106,9 +98,9 @@ const schema = {
     [OL]: makeTagNode('ol'),
     [LI]: makeTagNode('li'),
     [BLOCKQUOTE]: makeTagNode('blockquote'),
-    [CODE]: nodes.CodeNode,
+    [CODE]: nodes.Code,
     [P]: nodes.Paragraph,
-    [A]: Link
+    [A]: nodes.Link
   },
   marks: {
     [STRONG]: makeTagMark('strong'),
@@ -119,8 +111,6 @@ const schema = {
 }
 
 export type Props = ContentPluginProps<{ editorState: Object }>
-
-const falser = () => false
 
 /* eslint no-invalid-this: "off" */
 class Slate extends Component {
@@ -138,12 +128,13 @@ class Slate extends Component {
     }
   }
 
-  shouldComponentUpdate = (nextProps, nextState) => (
+  shouldComponentUpdate = (nextProps) => (
     nextProps.state.editorState !== this.props.state.editorState
     || nextProps.state.toolbar !== this.props.state.toolbar
     || nextProps.focused !== this.props.focused
     || nextProps.readOnly !== this.props.readOnly
   )
+
   componentDidUpdate = () => this.updateToolbar()
 
   props: ContentPluginProps
@@ -255,7 +246,7 @@ class Slate extends Component {
     const hasLinks = editorState.inlines.some((inline: any) => inline.type === A)
 
     return (
-      <IconButton onMouseDown={onClick} iconStyle={hasLinks ? { color: '#007EC1' } : { color: 'white' }}>
+      <IconButton onMouseDown={onClick} iconStyle={hasLinks ? { color: 'rgb(0, 188, 212)' } : { color: 'white' }}>
         <LinkIcon />
       </IconButton>
     )
@@ -279,7 +270,7 @@ class Slate extends Component {
     const isActive = editorState && editorState.marks.some((mark) => mark.type === type)
 
     return (
-      <IconButton onClick={onClick} iconStyle={isActive ? { color: '#007EC1' } : {}}>
+      <IconButton onClick={onClick} iconStyle={isActive ? { color: 'rgb(0, 188, 212)' } : { color: 'white' }}>
         {icon}
       </IconButton>
     )
@@ -323,7 +314,7 @@ class Slate extends Component {
     ))
 
     return (
-      <IconButton onClick={onClick} iconStyle={(isList && isType) ? { color: '#007EC1' } : {}}>
+      <IconButton onClick={onClick} iconStyle={(isList && isType) ? { color: 'rgb(0, 188, 212)' } : { color: 'white' }}>
         {icon}
       </IconButton>
     )
@@ -355,7 +346,7 @@ class Slate extends Component {
     ))
 
     return (
-      <IconButton onClick={onClick} iconStyle={isActive ? { color: '#007EC1' } : {}}>
+      <IconButton onClick={onClick} iconStyle={isActive ? { color: 'rgb(0, 188, 212)' } : { color: 'white' }}>
         {icon}
       </IconButton>
     )
@@ -380,7 +371,7 @@ class Slate extends Component {
     const isActive = editorState.blocks.some((block) => block.type === type)
 
     return (
-      <IconButton onClick={onClick} iconStyle={isActive ? { color: '#007EC1' } : {}}>
+      <IconButton onClick={onClick} iconStyle={isActive ? { color: 'rgb(0, 188, 212)' } : { color: 'white' }}>
         {icon}
       </IconButton>
     )
@@ -403,12 +394,14 @@ class Slate extends Component {
             </div>
           </MuiThemeProvider>
         </Portal>
-        <div ref={(c) => this._component = c}>
+        <div ref={(c) => {
+          this._component = c
+        }}>
           <Editor
             onChange={this.onStateChange}
             onKeyDown={this.onKeyDown}
             readOnly={Boolean(readOnly)}
-            onBlur={falser}
+            onBlur={onBlur}
             schema={schema}
             state={editorState}
             plugins={plugins}
@@ -416,17 +409,17 @@ class Slate extends Component {
         </div>
         {readOnly ? null : (
           <BottomToolbar open={focused}>
-            {this.renderNodeButton(H1, <H1Icon color="white" />)}
-            {this.renderNodeButton(H2, <H2Icon color="white" />)}
-            {this.renderNodeButton(H3, <H3Icon color="white" />)}
-            {this.renderNodeButton(H4, <H4Icon color="white" />)}
-            {this.renderNodeButton(H5, <H5Icon color="white" />)}
-            {this.renderNodeButton(H6, <H6Icon color="white" />)}
-            {this.renderNodeButton(CODE, <CodeIcon color="white" />)}
-            {this.renderListNodeButton(UL, <ListIcon color="white" />)}
-            {this.renderListNodeButton(OL, <OrderedListIcon color="white" />)}
+            {this.renderNodeButton(H1, <H1Icon />)}
+            {this.renderNodeButton(H2, <H2Icon />)}
+            {this.renderNodeButton(H3, <H3Icon />)}
+            {this.renderNodeButton(H4, <H4Icon />)}
+            {this.renderNodeButton(H5, <H5Icon />)}
+            {this.renderNodeButton(H6, <H6Icon />)}
+            {this.renderNodeButton(CODE, <CodeIcon />)}
+            {this.renderListNodeButton(UL, <ListIcon />)}
+            {this.renderListNodeButton(OL, <OrderedListIcon />)}
             {this.renderLinkButton()}
-            {this.renderBlockquoteNodeButton(<BlockquoteIcon color="white" />)}
+            {this.renderBlockquoteNodeButton(<BlockquoteIcon />)}
           </BottomToolbar>
         )}
       </div>

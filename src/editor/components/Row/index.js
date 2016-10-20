@@ -3,9 +3,10 @@ import React, { Component } from 'react'
 import droppable from './Droppable'
 import { connect } from 'react-redux'
 import { shouldPureComponentUpdate } from 'src/editor/helper/shouldComponentUpdate'
-import { isLayoutMode, isResizeMode, isInsertMode } from 'src/editor/selector/display'
+import { isLayoutMode, isEditMode, isResizeMode, isInsertMode } from 'src/editor/selector/display'
 import { editableConfig, purifiedNode, node } from 'src/editor/selector/editable'
 import { createStructuredSelector } from 'reselect'
+import { blurAllCells } from 'src/editor/actions/cell'
 import Inner from './inner'
 import dimensions from 'react-dimensions'
 import cssModules from 'react-css-modules'
@@ -28,7 +29,7 @@ class Row extends Component {
   render() {
     // console.log('render row')
 
-    const { isLayoutMode, isResizeMode, isInsertMode }: ComponentizedRow = this.props
+    const { isLayoutMode, isEditMode, isResizeMode, isInsertMode, blurAllCells }: ComponentizedRow = this.props
     const Droppable = this.Droppable
     const props = { ...this.props }
 
@@ -46,6 +47,8 @@ class Row extends Component {
           <Inner {...props} />
         </Droppable>
       )
+    } else if (isEditMode) {
+      return <Inner {...props} />
     }
 
     return <Inner {...props} />
@@ -57,11 +60,16 @@ const mapStateToProps = createStructuredSelector({
   config: editableConfig,
   isResizeMode,
   isInsertMode,
+  isEditMode,
   node: purifiedNode,
   rawNode: (state: any, props: any) => () => node(state, props)
 })
 
-export default dimensions()(connect(mapStateToProps)(cssModules(Row, {
+const mapDispatchToProps = {
+  blurAllCells
+}
+
+export default dimensions()(connect(mapStateToProps, mapDispatchToProps)(cssModules(Row, {
   ...commonStyles.floating,
   ...commonStyles.common,
   ...localStyles

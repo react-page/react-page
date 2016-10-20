@@ -1,7 +1,9 @@
-import CodeNode from './Code'
+import Code from './Code'
+import Link from './Link'
 import Paragraph from './Paragraph'
 
 export default {
-  CodeNode,
+  Code,
+  Link,
   Paragraph
 }
