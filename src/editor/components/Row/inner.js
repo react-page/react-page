@@ -17,6 +17,7 @@ const Inner = ({
     hasInlineChildren
   },
   containerHeight,
+  blurAllCells,
   containerWidth
 }: ComponentizedRow) => (
   <div styleName={classNames('row', 'relative', {
@@ -24,6 +25,7 @@ const Inner = ({
     [`is-over-${hover || ''}`]: hover,
     'force-block': hasInlineChildren
   })} className="editable-row"
+   onClick={blurAllCells}
   >
     {cells.map((c: string | CellType) => (
       <Cell
