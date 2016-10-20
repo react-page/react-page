@@ -26,17 +26,25 @@
   left: -4px;
 }
 
-:global .resizable-cell > .is-resizing > .react-resizable-handle:after,
-:global .resizable-cell > .react-resizable-handle:hover:after,
-:global .resizable-cell > .react-resizable-handle:active:after {
+:global .resizable-cell > .react-resizable-handle:after {
   content: " ";
-  background: black;
+  background-color: rgba(0,0,0,.2);
   /* width: 30px; */
   /* height: 30px; */
   position: absolute;
   /* z-index: 1000; */
-  top: 0;
+  top: 45%;
   bottom: 0;
   left: 2px;
   right: 2px;
+  height: 10%;
+  transition: all 200ms linear;
+}
+
+:global .resizable-cell > .is-resizing > .react-resizable-handle:after,
+:global .resizable-cell > .react-resizable-handle:hover:after,
+:global .resizable-cell > .react-resizable-handle:active:after {
+  background-color: rgba(0,0,0,1);
+  top: 0;
+  height: 100%;
 }
