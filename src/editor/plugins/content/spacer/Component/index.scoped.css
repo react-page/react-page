@@ -6,21 +6,19 @@
 
 .read-only {
   composes: spacer;
-  border-color: transparent;
+  border-color: transparent !important;
 }
 
 :global .editable-spacer > .react-resizable > .react-resizable-handle:before,
 :global .editable-spacer > .react-resizable > .react-resizable-handle:hover:before {
-  content: "=";
+  content: " ";
   position: absolute;
   text-align: center;
   width: 100%;
   bottom: 0;
   right: 0;
-  background: rgba(0, 0, 0, .2);
   cursor: n-resize;
   line-height: 12px;
   font-size: 1.5em;
-  color: rgba(0, 0, 0, .8);
-  height: 14px;
+  height: 24px;
 }
