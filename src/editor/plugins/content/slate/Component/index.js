@@ -8,6 +8,7 @@ import ItalicIcon from 'material-ui/svg-icons/editor/format-italic'
 import OrderedListIcon from 'material-ui/svg-icons/editor/format-list-numbered'
 import UnderlinedIcon from 'material-ui/svg-icons/editor/format-underlined'
 import BlockquoteIcon from 'material-ui/svg-icons/editor/format-quote'
+import KatexIcon from 'material-ui/svg-icons/editor/functions'
 import H1Icon from 'material-ui/svg-icons/image/looks-one'
 import H2Icon from 'material-ui/svg-icons/image/looks-two'
 import H3Icon from 'material-ui/svg-icons/image/looks-3'
@@ -66,6 +67,7 @@ const UL = 'unordered-list'
 const OL = 'ordered-list'
 const LI = 'list-item'
 const BLOCKQUOTE = 'blockquote'
+const KATEX = 'KATEX'
 const DEFAULT_NODE = P
 
 // Marks
@@ -100,7 +102,8 @@ const schema = {
     [BLOCKQUOTE]: makeTagNode('blockquote'),
     [CODE]: nodes.Code,
     [P]: nodes.Paragraph,
-    [A]: nodes.Link
+    [A]: nodes.Link,
+    [KATEX]: nodes.Katex
   },
   marks: {
     [STRONG]: makeTagMark('strong'),
@@ -248,6 +251,45 @@ class Slate extends Component {
     return (
       <IconButton onMouseDown={onClick} iconStyle={hasLinks ? { color: 'rgb(0, 188, 212)' } : { color: 'white' }}>
         <LinkIcon />
+      </IconButton>
+    )
+  }
+
+  renderKatexButton = () => {
+    const onClick = (e) => {
+      e.preventDefault()
+      const { editorState } = this.props.state
+      const hasMath = editorState.blocks.some((block) => block.type === KATEX)
+
+      let newState
+
+      if (hasMath) {
+        newState = editorState
+          .transform()
+          .setBlock(DEFAULT_NODE)
+          .apply()
+      } else {
+        const src = window.prompt('Enter the src of the formula:')
+
+        newState = editorState
+          .transform()
+          .splitBlock()
+          .setBlock({
+            type: KATEX,
+            data: { src }
+          })
+          .apply()
+      }
+
+      this.onStateChange(newState)
+    }
+
+    const { editorState } = this.props.state
+    const hasMath = editorState.blocks.some((block) => block.type === KATEX)
+
+    return (
+      <IconButton onMouseDown={onClick} iconStyle={hasMath ? { color: '#007EC1' } : { color: 'white' }}>
+        <KatexIcon />
       </IconButton>
     )
   }
@@ -419,6 +461,7 @@ class Slate extends Component {
             {this.renderListNodeButton(UL, <ListIcon />)}
             {this.renderListNodeButton(OL, <OrderedListIcon />)}
             {this.renderLinkButton()}
+            {this.renderKatexButton()}
             {this.renderBlockquoteNodeButton(<BlockquoteIcon />)}
           </BottomToolbar>
         )}
