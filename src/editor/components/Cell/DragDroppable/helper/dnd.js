@@ -102,5 +102,6 @@ export const connect = (connect: Object, monitor: Object) => ({
 
 export const collect = (connect: Object, monitor: Object) => ({
   connectDragSource: connect.dragSource(),
-  isDragging: monitor.isDragging()
+  isDragging: monitor.isDragging(),
+  connectDragPreview: connect.dragPreview()
 })
