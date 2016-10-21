@@ -29,7 +29,7 @@ class Row extends Component {
   render() {
     // console.log('render row')
 
-    const { isLayoutMode, isEditMode, isResizeMode, isInsertMode, blurAllCells }: ComponentizedRow = this.props
+    const { isLayoutMode, isResizeMode, isInsertMode }: ComponentizedRow = this.props
     const Droppable = this.Droppable
     const props = { ...this.props }
 
@@ -41,17 +41,11 @@ class Row extends Component {
       }
     }
 
-    if (isLayoutMode || isInsertMode) {
-      return (
-        <Droppable {...props}>
-          <Inner {...props} />
-        </Droppable>
-      )
-    } else if (isEditMode) {
-      return <Inner {...props} />
-    }
-
-    return <Inner {...props} />
+    return (
+      <Droppable {...props}>
+        <Inner {...props} />
+      </Droppable>
+    )
   }
 }
 

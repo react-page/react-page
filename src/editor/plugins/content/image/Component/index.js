@@ -21,9 +21,7 @@ const Image = (props: PropTypes) => {
         readOnly ? (
           <Display {...props} />
         ) : (
-          <div>
-            <Form {...props} />
-          </div>
+          <Form {...props} />
         )
       }
     </div>

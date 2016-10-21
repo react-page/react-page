@@ -15,6 +15,9 @@ class Droppable extends Component {
   }
 
   render() {
+    if (!(this.props.isLayoutMode || this.props.isInsertMode)) {
+      return <div>{this.props.children}</div>
+    }
     return this.props.connectDropTarget(<div>{this.props.children}</div>)
   }
 }
