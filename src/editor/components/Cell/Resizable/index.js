@@ -2,7 +2,6 @@
 /* eslint no-invalid-this: "off" */
 import React, { PropTypes, Component } from 'react'
 import { Resizable as ReactResizeable } from 'react-resizable'
-import dimensions from 'react-dimensions'
 import { connect } from 'react-redux'
 import cssModules from 'react-css-modules'
 import { createStructuredSelector } from 'reselect'
@@ -89,4 +88,4 @@ const mapStateToProps = createStructuredSelector({})
 
 const mapDispatchToProps = { resizeMode, editMode }
 
-export default dimensions()(connect(mapStateToProps, mapDispatchToProps)(cssModules(Resizable, styles, { allowMultiple: true })))
+export default (connect(mapStateToProps, mapDispatchToProps)(cssModules(Resizable, styles, { allowMultiple: true })))
