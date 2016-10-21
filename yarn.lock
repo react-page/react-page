@@ -316,7 +316,7 @@ babel-code-frame@^6.11.0, babel-code-frame@^6.16.0:
     esutils "^2.0.2"
     js-tokens "^2.0.0"
 
-babel-core@^6.0.0, babel-core@^6.0.14, babel-core@^6.11.4, babel-core@^6.16.0, babel-core@^6.5.2:
+babel-core@^6.0.0, babel-core@^6.0.14, babel-core@^6.11.4, babel-core@^6.16.0, babel-core@^6.5.2, babel-core@6.17.0:
   version "6.17.0"
   resolved "https://registry.yarnpkg.com/babel-core/-/babel-core-6.17.0.tgz#6c4576447df479e241e58c807e4bc7da4db7f425"
   dependencies:
