@@ -20,6 +20,8 @@ class DragDroppable extends Component {
       connectDragSource,
       connectDropTarget,
       isDragging,
+      isLayoutMode, isInsertMode,
+      className,
       node: {
         hover,
         inline,
@@ -28,7 +30,7 @@ class DragDroppable extends Component {
     } = this.props
 
     const decorator = allowDrop && !inline ? connectDropTarget : identity
-    const classes = classNames(
+    let classes = classNames(
       'draggable',
       {
         'is-over-current': hover && allowDrop,
@@ -37,11 +39,23 @@ class DragDroppable extends Component {
       }
     )
 
-    return connectDragSource(decorator(
-      <div styleName={classes}>
+    if (!(isLayoutMode || isInsertMode)) {
+      classes = ''
+    }
+
+    if (isLayoutMode || isInsertMode) {
+      return connectDragSource(decorator(
+        <div styleName={classes} className={className}>
+          {children}
+        </div>
+      ))
+    }
+
+    return (
+      <div styleName={classes} className={className}>
         {children}
       </div>
-    ))
+    )
   }
 }
 

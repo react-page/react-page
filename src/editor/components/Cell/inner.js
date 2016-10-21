@@ -16,8 +16,6 @@ class Inner extends Component {
   render() {
     const props = this.props
     const {
-      isLayoutMode,
-      isInsertMode,
       node: {
         rows = [],
         layout: { plugin: { Component: LayoutComponent, name: layoutType } = {}, state: layoutState = {} } = {},
@@ -29,35 +27,24 @@ class Inner extends Component {
       leaf: rows.length === 0
     })
     if (rows.length && LayoutComponent) {
-      return isLayoutMode || isInsertMode ? (
-        <DragDroppable {...props} styles={null} dragType={layoutType} dropTypes={whitelist}>
-          <div className={cn}>
-            <Layout {...props} {...layoutState} />
-          </div>
-        </DragDroppable>
-      ) : (
-        <div className={cn}>
+      return (
+        <DragDroppable {...props} styles={null} dragType={layoutType} dropTypes={whitelist} className={cn}>
           <Layout {...props} {...layoutState} />
-        </div>
+        </DragDroppable>
       )
     } else if (rows.length) {
       return <Rows {...props} />
     } else if (ContentComponent) {
-      return isLayoutMode || isInsertMode ? (
+      return (
         <DragDroppable {...props}
           styles={null}
           dragType={contentType}
           dropTypes={whitelist}
           allowDrop
+          className={cn}
         >
-          <div className={cn}>
-            <Content {...props} />
-          </div>
-        </DragDroppable>
-      ) : (
-        <div className={cn}>
           <Content {...props} />
-        </div>
+        </DragDroppable>
       )
     }
 

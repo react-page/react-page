@@ -43,6 +43,8 @@ export default class SlatePlugin extends ContentPlugin {
   createInitialState = hooks.createInitialState
   serialize = hooks.serialize
   unserialize = hooks.unserialize
-  merge = hooks.merge
-  split = hooks.split
+
+  // TODO this is disabled because of #207
+  // merge = hooks.merge
+  // split = hooks.split
 }
