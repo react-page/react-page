@@ -5,7 +5,7 @@ import draggable from '../Draggable'
 import ListItem from 'material-ui/List/ListItem'
 import { Plugin } from 'src/editor/service/plugin/classes'
 import DragHandle from 'material-ui/svg-icons/editor/drag-handle'
-import IconButton from 'material-ui/IconButton'
+import './index.css'
 
 const Item = ({ plugin, insert }: { plugin: Plugin, insert: any }, k: string) => {
   if (!plugin.icon && !plugin.text) {
@@ -14,19 +14,18 @@ const Item = ({ plugin, insert }: { plugin: Plugin, insert: any }, k: string) =>
   }
 
   const Draggable = draggable(plugin.name)
+
+  // not using css modules here because they don't work with svg icons
   return (
     <Draggable key={k} insert={insert}>
       <ListItem
         leftAvatar={<Avatar icon={plugin.icon} />}
         primaryText={plugin.text}
         disabled
-        rightIconButton={(
-          <IconButton style={{ cursor: 'move' }} tooltip="Drag me">
-            <DragHandle />
-          </IconButton>
+        rightIcon={(
+          <DragHandle className="editor-drag-handle" style={{ cursor: 'move' }} />
           )}
       />
-
     </Draggable>
   )
 }

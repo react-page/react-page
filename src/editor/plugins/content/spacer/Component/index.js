@@ -6,7 +6,7 @@ import cssModules from 'react-css-modules'
 import { Resizable } from 'react-resizable'
 import classNames from 'classnames'
 import DragHandle from 'material-ui/svg-icons/editor/drag-handle'
-import { white, lightBlack as faintBlack } from 'material-ui/styles/colors'
+import { white, faintBlack } from 'material-ui/styles/colors'
 
 import styles from './index.scoped.css'
 
@@ -35,7 +35,9 @@ class Spacer extends Component {
     const height = compute(this.props.state).height
 
     return (
-      <div style={{ border: 'solid 1px', borderColor: faintBlack }} className="editable-spacer" styleName={classNames({ spacer: true, 'read-only': readOnly })}>
+      <div style={{ border: 'solid 1px', borderColor: faintBlack }}
+           className="editable-spacer"
+           styleName={classNames({ spacer: true, 'read-only': readOnly })}>
         {readOnly
           ? (
           <Solid height={height}/>
@@ -43,7 +45,7 @@ class Spacer extends Component {
           <Resizable onResize={this.onResize} height={height} width={0}>
             <div style={{ height, position: 'relative' }}>
               <div
-                style={{position: 'absolute', bottom: '0', height: '24px', width: '100%', background: faintBlack, textAlign: 'center'}}>
+                style={{ position: 'absolute', bottom: '0', height: '24px', width: '100%', background: faintBlack, textAlign: 'center' }}>
                 <DragHandle color={white}/>
               </div>
             </div>

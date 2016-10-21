@@ -1,0 +1,8 @@
+.editor-drag-handle:hover {
+  background: rgba(0,0,0,0.1);
+  border-radius: 12px;
+}
+
+.editor-drag-handle:active {
+  background: rgba(0,0,0,0.2);
+}
