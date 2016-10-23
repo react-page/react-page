@@ -61,11 +61,13 @@ class Editor {
   constructor({
     adapters,
     plugins,
-    disableAnonymousErrorReporting
+    disableAnonymousErrorReporting,
+    middleware
   }: {
     adapters: Array<AbstractAdapter>,
     plugins: PluginService,
-    disableAnonymousErrorReporting: boolean
+    disableAnonymousErrorReporting: boolean,
+    middleware: []
   } = {}) {
     if (instance) {
       throw new Error('Only one instance of Editor is allowed')
@@ -76,7 +78,7 @@ class Editor {
     }
 
     instance = this
-    this.store = createStore({ editables: [] })
+    this.store = createStore({ editables: [] }, middleware)
     this.content = new ContentService(adapters, plugins)
   }
 

@@ -54,6 +54,8 @@ class ContentService {
     }
 
     const { cells = [], id = uuid.v4() } = found
+
+    console.log(cells.map(generateMissingIds))
     return res(this.unserialize({
       ...found,
       id,

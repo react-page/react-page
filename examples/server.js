@@ -3,6 +3,9 @@ const path = require('path')
 
 const port = process.env.PORT || 3000
 const app = express()
+const server = require('http').createServer(app)
+const SocketServer = require('socket.io')
+const socket = new SocketServer(server)
 
 app.use('/editor', express.static(path.join(__dirname, '..', 'public')))
 
@@ -25,8 +28,16 @@ const exampleMiddleware = (key) => {
 
 app.use('/examples/news-article', exampleMiddleware('news-article'))
 app.use('/examples/single-page-site', exampleMiddleware('single-page-site'))
+app.use('/examples/live-edit', exampleMiddleware('live-edit'))
 app.use('/', exampleMiddleware('news-article'))
 
-app.listen(port, () => {
+server.listen(port, () => {
   console.log(`Listening on port ${port}. Open up http://localhost:${port}/ in your browser`) // eslint-disable-line no-console
+})
+
+socket.on('connection', (socket) => {
+  socket.on('change', (data) => {
+    console.log('got update', data)
+    socket.broadcast.emit('update', data)
+  })
 })
