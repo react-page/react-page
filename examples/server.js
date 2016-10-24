@@ -37,7 +37,6 @@ server.listen(port, () => {
 
 socket.on('connection', (socket) => {
   socket.on('change', (data) => {
-    console.log('got update', data)
     socket.broadcast.emit('update', data)
   })
 })
