@@ -1,5 +1,4 @@
 // @flow
 import { AbstractAdapter } from './adapter'
 
-export class LocalStoreAdapter extends AbstractAdapter {
-}
+export class LocalStoreAdapter extends AbstractAdapter {}

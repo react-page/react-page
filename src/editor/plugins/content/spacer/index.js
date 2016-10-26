@@ -6,7 +6,7 @@ import { ContentPlugin } from 'src/editor/service/plugin/classes'
 
 class SpacerPlugin extends ContentPlugin {
   Component = Component
-  name = 'ory/content/spacer'
+  name = 'ory/editor/core/content/spacer'
   version = '0.0.1'
   icon = <AspectRatio />
   text = 'Spacer'

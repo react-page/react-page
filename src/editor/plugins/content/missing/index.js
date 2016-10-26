@@ -15,6 +15,6 @@ Missing.propTypes = {
 
 export default class MissingPlugin extends ContentPlugin {
   Component = Missing
-  name = 'ory/content/missing'
+  name = 'ory/editor/core/content/missing'
   version = '0.0.1'
 }

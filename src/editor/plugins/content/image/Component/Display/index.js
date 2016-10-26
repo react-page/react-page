@@ -7,17 +7,17 @@ import { iconStyle } from '../common.js'
 import Caption from '../Caption'
 import type { PropTypes } from '../index.js'
 
-const Display = ({ state: { src, ...state } }: PropTypes) => src ? (
+const Display = ({ state: { src, ...state }, ...props }: PropTypes) => src ? (
   <div>
     <img styleName="image" src={src} />
-    <Caption state={state} />
+    <Caption {...props} state={state} />
   </div>
 ) : (
   <div>
     <div styleName="placeholder">
       <ImageIcon style={iconStyle} />
     </div>
-    <Caption state={state} />
+    <Caption {...props} state={state} />
   </div>
 )
 

@@ -1,11 +1,9 @@
 // @flow
 import React, { Component } from 'react'
-import cssModules from 'react-css-modules'
-import styles from './index.scoped.css'
 import Display from '../Display'
 import TextField from 'material-ui/TextField'
-import type { PropTypes } from '../index.js'
 import TypeException from 'src/editor/exceptions/TypeException'
+import type { PropTypes } from '../index.js'
 
 import BottomToolbar from 'src/editor/components/BottomToolbar'
 
@@ -24,8 +22,8 @@ const Form = (props: PropTypes) => (
     <Display {...props} />
     <BottomToolbar open={props.focused}>
       <TextField
-        hintText="http://example.com/image.png"
-        floatingLabelText="Image location (url)"
+        hintText="https://www.youtube.com/watch?v=ER97mPHhgtM"
+        floatingLabelText="Video location (YouTube / Vimeo)"
         inputStyle={{ color: 'white' }}
         floatingLabelStyle={{ color: 'white' }}
         hintStyle={{ color: 'grey' }}
@@ -37,4 +35,4 @@ const Form = (props: PropTypes) => (
   </div>
 )
 
-export default cssModules(Form, styles, { allowMultiple: true })
+export default Form

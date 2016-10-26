@@ -1,15 +1,15 @@
 // @flow
 import React from 'react'
 import Component from './Component'
-import Panorama from 'material-ui/svg-icons/image/panorama'
+import PlayArrow from 'material-ui/svg-icons/av/play-arrow'
 import { ContentPlugin, ContentPluginProps } from 'src/editor/service/plugin/classes'
 
-export default class ImagePlugin extends ContentPlugin {
+export default class VideoPlugin extends ContentPlugin {
   Component = Component
-  name = 'ory/editor/core/content/image'
+  name = 'ory/editor/core/content/video'
   version = '0.0.1'
-  icon = <Panorama />
-  text = 'Image'
+  icon = <PlayArrow />
+  text = 'Video'
   inlineable = true
   onRemoveHotKey = (_: Event, __: ContentPluginProps<*>): Promise<*> => Promise.reject()
 }

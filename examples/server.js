@@ -26,9 +26,9 @@ const exampleMiddleware = (key) => {
   return router
 }
 
-app.use('/examples/news-article', exampleMiddleware('news-article'))
-app.use('/examples/single-page-site', exampleMiddleware('single-page-site'))
-app.use('/examples/live-edit', exampleMiddleware('live-edit'))
+app.use('/news-article', exampleMiddleware('news-article'))
+app.use('/single-page-site', exampleMiddleware('single-page-site'))
+app.use('/live-edit', exampleMiddleware('live-edit'))
 app.use('/', exampleMiddleware('news-article'))
 
 server.listen(port, () => {

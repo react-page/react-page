@@ -50,7 +50,7 @@ const defaultPlugin = new Slate()
 
 export default class SpoilerPlugin extends LayoutPlugin {
   Component = cssModules(Spoiler, styles)
-  name = 'ory/layout/spoiler'
+  name = 'ory/editor/core/layout/spoiler'
   version = '0.0.1'
   icon = <FilterFrames />
   text = 'Spoiler'
