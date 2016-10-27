@@ -1,5 +1,5 @@
 // @flow
-import React, { Component } from 'react'
+import React from 'react'
 import Display from '../Display'
 import TextField from 'material-ui/TextField'
 import TypeException from 'src/editor/exceptions/TypeException'

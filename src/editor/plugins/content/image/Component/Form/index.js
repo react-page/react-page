@@ -1,5 +1,5 @@
 // @flow
-import React, { Component } from 'react'
+import React from 'react'
 import cssModules from 'react-css-modules'
 import styles from './index.scoped.css'
 import Display from '../Display'

@@ -2,7 +2,6 @@
 /* eslint no-use-before-define: off */
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { forEach } from 'ramda'
 import EditorComponent from 'src/editor/components/Editor'
 import Controls from 'src/editor/components/Controls'
 import createStore from './store'
@@ -12,7 +11,7 @@ import { isProduction } from './const'
 import consolePlugin from 'raven-js/plugins/console'
 import PluginService from 'src/editor/service/plugin'
 import { AbstractAdapter } from 'src/editor/service/content/adapter'
-
+import Editable from './editable.js'
 
 import type Store from 'types/redux'
 import type { Editable as EditableType } from 'types/editable'
@@ -104,23 +103,25 @@ class Editor {
   /**
    * Renders the editor given a list of DOM entities.
    */
-  render(editables: NodeList<HTMLElement>) {
+  render = (editable: HTMLElement) => new Promise((res: () => Promise, rej: () => Promise) => {
     try {
-      forEach((editable: Node) => {
-        this.content.fetch(editable).then((state: EditableType) => {
-          this.store.dispatch(updateEditable({
-            ...state,
-            config: {
-              whitelist: this.content.plugins.getRegisteredNames()
-            }
-          }))
-          ReactDOM.render(<EditorComponent store={this.store} id={state.id} />, editable)
-        })
-      }, editables)
+      this.content.fetch(editable).then((state: EditableType) => {
+        this.store.dispatch(updateEditable({
+          ...state,
+          config: {
+            whitelist: this.content.plugins.getRegisteredNames()
+          }
+        }))
+        ReactDOM.render(<EditorComponent store={this.store} id={state.id} />, editable)
+        res(new Editable({
+
+        }))
+      })
     } catch (e) {
       logException(e)
+      rej(e)
     }
-  }
+  })
 }
 
 if (typeof window !== 'undefined') {

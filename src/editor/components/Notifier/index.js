@@ -1,5 +1,4 @@
 // @flow
-/* eslint no-invalid-this: "off" */
 import React from 'react'
 import Snackbar from 'material-ui/Snackbar'
 import { connect } from 'react-redux'

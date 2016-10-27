@@ -1,5 +1,4 @@
 // @flow
-/* eslint no-invalid-this: "off" */
 import React, { PropTypes, Component } from 'react'
 import { Resizable as ReactResizeable } from 'react-resizable'
 import { connect } from 'react-redux'

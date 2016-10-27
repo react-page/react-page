@@ -1,4 +1,4 @@
-/* eslint-disable no-alert, prefer-reflect */
+/* eslint-disable no-alert, prefer-reflect, no-underscore-dangle */
 import IconButton from 'material-ui/IconButton'
 import CodeIcon from 'material-ui/svg-icons/action/code'
 import ListIcon from 'material-ui/svg-icons/action/list'
@@ -115,20 +115,25 @@ const schema = {
 
 export type Props = ContentPluginProps<{ editorState: Object }>
 
-/* eslint no-invalid-this: "off" */
 class Slate extends Component {
   componentDidMount = () => this.updateToolbar()
 
   // FIXME PSEUDO FIX #135
   componentWillReceiveProps = (next) => {
-    // focus does not work, probably because of removeAllRanges...
-    // if (next.state.editorState.selection.isFocused && !this.props.state.editorState.selection.isFocused) {
-    //   this._component.querySelector('[contenteditable]').focus()
-    // }
+    // focus does not work, probably because dom blur and removeAllRanges is missing in slate.
+    // What we do is create a ref (this.onRef) on a div that is wrapping slate. If selection is lost in slate state
+    // we blur the contenteditable and remove all ranges.
     if (!next.state.editorState.selection.isFocused && this.props.state.editorState.selection.isFocused) {
       this._component.querySelector('[contenteditable]').blur()
       window.setTimeout(() => window.getSelection().removeAllRanges(), 0)
     }
+
+    // This code would potentially focus the contenteditable, but it has issues the selection, because we are blurring
+    // it in the code above and removing all ranges. This can lead to weird behaviour, which is why this is disabled.
+    //
+    //  if (next.state.editorState.selection.isFocused && !this.props.state.editorState.selection.isFocused) {
+    //    this._component.querySelector('[contenteditable]').focus()
+    //  }
   }
 
   shouldComponentUpdate = (nextProps) => (
@@ -419,6 +424,10 @@ class Slate extends Component {
     )
   }
 
+  onRef = (c) => {
+    this._component = c
+  }
+
   render() {
     const { focused, readOnly, state: { editorState } } = this.props
     const isOpened = editorState.isExpanded && editorState.isFocused
@@ -436,9 +445,7 @@ class Slate extends Component {
             </div>
           </MuiThemeProvider>
         </Portal>
-        <div ref={(c) => {
-          this._component = c
-        }}>
+        <div ref={this.onRef}>
           <Editor
             onChange={this.onStateChange}
             onKeyDown={this.onKeyDown}

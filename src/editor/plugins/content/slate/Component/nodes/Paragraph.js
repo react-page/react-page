@@ -1,4 +1,4 @@
-import React, { PropTypes, Component } from 'react'
+import React, { Component } from 'react'
 import { Placeholder } from 'slate'
 import { placeholder } from '../../const.js'
 import shallowEqual from 'fbjs/lib/shallowEqual'
@@ -9,6 +9,13 @@ import styles from './index.scoped.css'
 class Paragraph extends Component {
   shouldComponentUpdate(nextProps) {
     return !shallowEqual(this.props, nextProps)
+  }
+
+  props: {
+    children: any,
+    state: any,
+    node: any,
+    attributes: any
   }
 
   render() {
@@ -26,10 +33,6 @@ class Paragraph extends Component {
       </p>
     )
   }
-}
-
-Paragraph.propTypes = {
-  children: PropTypes.node.isRequired
 }
 
 export default cssModules(Paragraph, styles)

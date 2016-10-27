@@ -37,15 +37,19 @@ describe('hydrate', () => {
 })
 
 describe('ContentService', () => {
-  xit('fetch should work', (done) => {
-    contentService.fetch({ dataset: { debugEditable: 2 } }).then((c) => {
-      expect(c.id, 'to equal', content[2].id)
-      done()
-    }).catch(() => {
-      expect(true, 'to be falsy')
-      done()
+  const runFetch = (i: number) => {
+    describe(`should pass fetch case ${i}`, () => {
+      it('', (done) => {
+        contentService.fetch({ dataset: { debugEditable: i } }).then((c) => {
+          expect(c.id, 'to equal', content[i].id)
+          done()
+        })
+      })
     })
-  })
+  }
+
+  runFetch(1)
+  runFetch(2)
 
   it('serialize and unserialize should work', () => {
     const cleanup = ({ content, layout, rows = [], cells = [], ...other }) => {
@@ -76,10 +80,10 @@ describe('ContentService', () => {
           id: '3',
           cells: [{
             id: '4',
-            content: { plugin: { name: 'ory/content/missing' } }
+            content: { plugin: { name: 'ory/editor/core/content/missing' } }
           }, {
             id: '5',
-            content: { plugin: { name: 'ory/content/missing' } }
+            content: { plugin: { name: 'ory/editor/core/content/missing' } }
           }]
         }]
       }]

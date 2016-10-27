@@ -1,5 +1,4 @@
 // @flow
-/* eslint no-invalid-this: "off" */
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import Drawer from 'material-ui/Drawer'
@@ -14,10 +13,17 @@ import Divider from 'material-ui/Divider'
 import TextField from 'material-ui/TextField'
 import Item from './Item'
 import { LayoutPlugin, ContentPlugin } from 'src/editor/service/plugin/classes'
-import TypeException from 'src/editor/exceptions/TypeException'
+
+type Props = {
+  isInsertMode: boolean,
+  plugins: {
+    content: LayoutPlugin[],
+    layout: ContentPlugin[]
+  }
+}
 
 class Toolbar extends Component {
-  constructor(props) {
+  constructor(props: Props) {
     super(props)
     this.state = {
       searchFilter: (a: any) => (a),
@@ -44,6 +50,13 @@ class Toolbar extends Component {
     // throw new TypeException('target', 'HTMLInputElement', e.target)
   }
 
+  onRef = (component: {}) => {
+    const e = ReactDOM.findDOMNode(component)
+    if (e && this.props.isInsertMode) {
+      e.querySelector('input').focus()
+    }
+  }
+
   render() {
     const { isInsertMode, plugins } = this.props
     const { isSearching, searchFilter } = this.state
@@ -55,12 +68,7 @@ class Toolbar extends Component {
         <Subheader>Content</Subheader>
         <div style={{ padding: '0 16px' }}>
           <TextField
-            ref={(component) => {
-              const e = ReactDOM.findDOMNode(component)
-              if (e && isInsertMode) {
-                e.querySelector('input').focus()
-              }
-            }}
+            ref={this.onRef}
             hintText="Search anything"
             fullWidth
             onChange={this.onSearch}

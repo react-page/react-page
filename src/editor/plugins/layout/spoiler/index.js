@@ -8,12 +8,11 @@ import type { LayoutPluginProps } from 'src/editor/service/plugin/classes'
 import uuid from 'node-uuid'
 import cssModules from 'react-css-modules'
 import styles from './index.scoped.css'
-import Paper from 'material-ui/Paper';
+import Paper from 'material-ui/Paper'
 import ExpandMore from 'material-ui/svg-icons/navigation/expand-more'
 import ExpandLess from 'material-ui/svg-icons/navigation/expand-less'
 import { white, faintBlack } from 'material-ui/styles/colors'
 
-/* eslint no-invalid-this: "off" */
 class Spoiler extends Component {
   state = {
     hidden: false
@@ -35,10 +34,11 @@ class Spoiler extends Component {
           backgroundColor: faintBlack,
           textAlign: 'center',
           cursor: 'pointer'
-        }} onClick={this.onToggle}>
+        }} onClick={this.onToggle}
+        >
           {this.state.hidden
-            ? <ExpandMore color={white} size={32}/>
-            : <ExpandLess color={white} size={32}/>
+            ? <ExpandMore color={white} size={32} />
+            : <ExpandLess color={white} size={32} />
           }
         </div>
       </Paper>
