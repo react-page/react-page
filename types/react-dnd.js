@@ -10,6 +10,7 @@ export type Monitor = {
 }
 
 export type Connector = {
-  dragSource(): Function,
-  dropTarget(): Function
+  dragSource(): () => void,
+  dropTarget(): () => void,
+  dragPreview(): () => void
 }

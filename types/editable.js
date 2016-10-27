@@ -149,6 +149,7 @@ export type ComponentizedRow = {
 
   clearHover(): void,
   cancelCellDrag(drag: string): void,
+  blurAllCells(): void,
 }
 
 type AbstractEditable<T> = {

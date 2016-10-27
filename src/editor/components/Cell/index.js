@@ -18,7 +18,7 @@ import localStyles from './index.scoped.css'
 
 const gridClass = ({ node: { size }, isPreviewMode, isEditMode }: ComponentizedCell): string => `cell-${isPreviewMode || isEditMode ? 'md' : 'xs'}-${size || 12}`
 
-const stopClick = (isEditMode) => (e) => isEditMode ? e.stopPropagation() : null
+const stopClick = (isEditMode: boolean) => (e: Event) => isEditMode ? e.stopPropagation() : null
 
 class Cell extends Component {
   shouldComponentUpdate = shouldPureComponentUpdate

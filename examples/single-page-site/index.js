@@ -19,4 +19,9 @@ const editor = new Editor({
 })
 
 editor.renderControls()
-editor.render(document.querySelectorAll('.editable'))
+const elements = document.querySelectorAll('.editable')
+
+editor.renderControls()
+for (const element of elements) {
+  editor.render(element)
+}

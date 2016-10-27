@@ -98,31 +98,46 @@ export const split = (state: Object): Object[] => {
   ).toArray()
 }
 
-const position = () => {
+const position = (): {
+  top: ?number,
+  right: ?number,
+  left: ?number,
+  bottom: ?number
+} => {
   if (window && window.getSelection) {
     const selection = window.getSelection()
     if (!selection.rangeCount) {
-      return {}
+      return {
+        top: null,
+        right: null,
+        left: null,
+        bottom: null,
+      }
     }
 
     return selection.getRangeAt(0).getBoundingClientRect()
   }
 
-  if (document.selection) {
-    return document.selection
+  if (window.document.selection) {
+    return window.document.selection
       .createRange()
       .getBoundingClientRect()
   }
 
-  return {}
+  return {
+    top: null,
+    right: null,
+    left: null,
+    bottom: null,
+  }
 }
 
 // if editor state is empty, remove cell when backspace or delete was pressed.
-export const onRemoveHotKey = (_: Event, { editorState }: Props) => new Promise((resolve: Function, reject: Function) => Plain.serialize(editorState).length < 1 ? resolve() : reject())
+export const onRemoveHotKey = (_: KeyboardEvent, { editorState }: Props) => new Promise((resolve: Function, reject: Function) => Plain.serialize(editorState).length < 1 ? resolve() : reject())
 
 const windowSelectionWaitTime = 30
 
-export const onFocusPreviousHotKey = (e: Event, _: Props) => {
+export const onFocusPreviousHotKey = (e: KeyboardEvent, _: Props) => {
   const current = position()
   const isArrowUp = e.keyCode === 38
   return new Promise((resolve: Function, reject: Function) => {
@@ -139,7 +154,7 @@ export const onFocusPreviousHotKey = (e: Event, _: Props) => {
   })
 }
 
-export const onFocusNextHotKey = (e: Event, _: Props) => {
+export const onFocusNextHotKey = (e: KeyboardEvent, _: Props) => {
   const current = position()
   const isArrowDown = e.keyCode === 40
   return new Promise((resolve: Function, reject: Function) => {

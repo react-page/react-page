@@ -11,7 +11,9 @@ import styles from './index.scoped.css'
 class Droppable extends Component {
   props: {
     connectDropTarget(node: any): any,
-    children: any
+    children: any,
+    isLayoutMode: boolean,
+    isInsertMode: boolean,
   }
 
   render() {

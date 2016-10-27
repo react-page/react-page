@@ -12,7 +12,7 @@ import * as hooks from './hooks'
 
 export default class SlatePlugin extends ContentPlugin {
   Component = Component
-  name = 'ory/content/slate'
+  name = 'ory/editor/core/content/slate'
   version = '0.0.1'
   icon = <Subject />
   text = 'Text'

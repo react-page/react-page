@@ -4,6 +4,7 @@ import throttle from 'lodash.throttle'
 import type { Monitor, Connector } from 'types/react-dnd'
 import type { ComponentizedRow } from 'types/editable'
 import { delay } from 'src/editor/helper/throttle'
+import logger from 'src/editor/service/logger'
 
 let last: {hover: string, drag: string} = {
   hover: '',
@@ -35,7 +36,7 @@ export const target = {
       return
     } else if (!hover.id) {
       // If hovering over something that isn't a cell or hasn't an id, do nothing. Should be an edge case
-      console.warn('Canceled cell.drop.target.hover: no id given.', hover, drag)
+      logger.warn('Canceled cell.drop.target.hover: no id given.', hover, drag)
       return
     }
 

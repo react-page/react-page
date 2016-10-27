@@ -2,6 +2,7 @@
 import deepEqual from 'deep-equal'
 import type { ComponentizedCell, ComponentizedRow } from 'types/editable'
 import type { Room, Matrix, Vector, MatrixIndex, Callbacks } from 'types/hover'
+import logger from 'src/editor/service/logger'
 
 type MatrixList = { [key: string]: Matrix }
 type CallbackList = { [key: number]: Function }
@@ -141,7 +142,7 @@ export const computeHover = (item: ComponentizedCell, hover: ComponentizedCell, 
 
   const cell = matrix[hoverCell.row][hoverCell.cell]
   if (!callbacks[cell]) {
-    console.error('Matrix callback not found.', { room, mouse, matrix, scale, hoverCell, rows, cells })
+    logger.error('Matrix callback not found.', { room, mouse, matrix, scale, hoverCell, rows, cells })
     return
   }
 

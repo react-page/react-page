@@ -1,8 +1,7 @@
 // @flow
-/* eslint no-use-before-define: off */
+/* eslint-disable no-use-before-define, no-underscore-dangle */
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { forEach } from 'ramda'
 import EditorComponent from 'src/editor/components/Editor'
 import Controls from 'src/editor/components/Controls'
 import createStore from './store'
@@ -12,7 +11,7 @@ import { isProduction } from './const'
 import consolePlugin from 'raven-js/plugins/console'
 import PluginService from 'src/editor/service/plugin'
 import { AbstractAdapter } from 'src/editor/service/content/adapter'
-
+import Editable from './editable.js'
 
 import type Store from 'types/redux'
 import type { Editable as EditableType } from 'types/editable'
@@ -49,6 +48,12 @@ const logException = (ex: any, context: any) => {
   return window.console && console.error && console.error(ex)
 }
 
+const notify = (e: Editor) => () => (next: any) => (action: any) => {
+  const result = next(action)
+  e.editables.forEach((eb: Editable) => eb.notify(result))
+  return result
+}
+
 let instance: Editor
 
 /**
@@ -57,12 +62,13 @@ let instance: Editor
 class Editor {
   store: Store
   content: ContentService
+  editables: Editable[] = []
 
   constructor({
     adapters,
     plugins,
     disableAnonymousErrorReporting,
-    middleware
+    middleware = []
   }: {
     adapters: Array<AbstractAdapter>,
     plugins: PluginService,
@@ -78,7 +84,10 @@ class Editor {
     }
 
     instance = this
-    this.store = createStore({ editables: [] }, middleware)
+    this.store = createStore({ editables: [] }, [
+      ...middleware,
+      notify(this)
+    ])
     this.content = new ContentService(adapters, plugins)
   }
 
@@ -104,23 +113,40 @@ class Editor {
   /**
    * Renders the editor given a list of DOM entities.
    */
-  render(editables: NodeList<HTMLElement>) {
+  render = (editable: HTMLElement) => new Promise((res: (e: Editable) => void, rej: (e: Error) => void) => {
     try {
-      forEach((editable: Node) => {
-        this.content.fetch(editable).then((state: EditableType) => {
-          this.store.dispatch(updateEditable({
-            ...state,
-            config: {
-              whitelist: this.content.plugins.getRegisteredNames()
-            }
-          }))
-          ReactDOM.render(<EditorComponent store={this.store} id={state.id} />, editable)
+      this.content.fetch(editable).then((state: EditableType) => {
+        this.store.dispatch(updateEditable({
+          ...state,
+          config: {
+            whitelist: this.content.plugins.getRegisteredNames()
+          }
+        }))
+
+        const edb = new Editable({
+          id: state.id,
+          store: this.store,
+          content: this.content
         })
-      }, editables)
+
+        ReactDOM.render(<EditorComponent store={this.store} id={state.id} />, editable)
+
+        this.editables.push(edb)
+        res(edb)
+      })
     } catch (e) {
       logException(e)
+      rej(e)
     }
-  }
+  })
+
+  destroy = (editable: HTMLElement) => new Promise((res: () => void) => {
+    this.content.fetch(editable).then((state: EditableType) => {
+      ReactDOM.unmountComponentAtNode(editable)
+      this.editables = this.editables.filter((e: Editable) => e.id !== state.id)
+      res()
+    })
+  })
 }
 
 if (typeof window !== 'undefined') {
@@ -131,8 +157,9 @@ if (typeof window !== 'undefined') {
   }
 }
 
-export default Editor
 export {
   ContentService,
   PluginService,
 }
+
+export default Editor

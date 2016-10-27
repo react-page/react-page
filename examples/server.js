@@ -26,10 +26,10 @@ const exampleMiddleware = (key) => {
   return router
 }
 
-app.use('/examples/news-article', exampleMiddleware('news-article'))
-app.use('/examples/single-page-site', exampleMiddleware('single-page-site'))
-app.use('/examples/live-edit', exampleMiddleware('live-edit'))
-app.use('/', exampleMiddleware('news-article'))
+app.use('/news-article', exampleMiddleware('news-article'))
+app.use('/single-page-site', exampleMiddleware('single-page-site'))
+app.use('/live-edit', exampleMiddleware('live-edit'))
+app.use('/', exampleMiddleware('home'))
 
 server.listen(port, () => {
   console.log(`Listening on port ${port}. Open up http://localhost:${port}/ in your browser`) // eslint-disable-line no-console

@@ -1,10 +1,10 @@
 // @flow
-/* eslint no-invalid-this: "off" */
 import { AbstractAdapter, LocalStoreAdapter, DebugStorageAdapter } from './adapter'
 import uuid from 'node-uuid'
 import { path } from 'ramda'
 import PluginService from 'src/editor/service/plugin'
 import { LayoutPlugin, ContentPlugin } from 'src/editor/service/plugin/classes'
+import logger from 'src/editor/service/logger'
 
 const localStorageAdapter = new LocalStoreAdapter()
 const debugStorageAdapter = new DebugStorageAdapter()
@@ -49,13 +49,11 @@ class ContentService {
     const found = this.adapters.map((adapter: AbstractAdapter) => adapter.fetch(domEntity)).reduce((p: Object, n: Object) => p || n)
 
     if (!found) {
-      console.error('No content state found for DOM entity:', domEntity)
+      logger.error('No content state found for DOM entity:', domEntity)
       return res({ id: uuid.v4(), cells: [] })
     }
 
     const { cells = [], id = uuid.v4() } = found
-
-    console.log(cells.map(generateMissingIds))
     return res(this.unserialize({
       ...found,
       id,

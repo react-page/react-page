@@ -3,6 +3,8 @@
 Build, distribute and manage digital content. Empower designers to enforce design. Save development time.
 Amaze authors with extensibility and ease of use.
 
+This repository is under heavy work.
+
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 

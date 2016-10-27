@@ -7,7 +7,7 @@ const content = {
           rows: [{
             cells: [{
               content: {
-                plugin: { name: 'ory/content/slate' },
+                plugin: { name: 'ory/editor/core/content/slate' },
                 state: {
                   importFromHtml: `<h1>Hi, I'm Photon, another fine little freebie from HTML5 UP.</h1>
             <p>This is an example page for the ORY Editor. Check out the buttons on the right.</p>`
@@ -34,14 +34,14 @@ const content = {
               rows: [{
                 cells: [{
                   content: {
-                    plugin: { name: 'ory/content/slate' },
+                    plugin: { name: 'ory/editor/core/content/slate' },
                     state: {
                       importFromHtml: '<h1>Lorem ipsum dolor adipiscing amet dolor consequat</h1><p>Adipiscing a commodo ante nunc accumsan et interdum mi ante adipiscing. A nunc lobortis non nisl amet vis sed volutpat aclacus nascetur ac non. Lorem curae et ante amet sapien sed tempus adipiscing id accumsan.</p>'
                     }
                   }
                 }, {
                   content: {
-                    plugin: { name: 'ory/content/image' },
+                    plugin: { name: 'ory/editor/core/content/image' },
                     state: {
                       src: 'images/pic01.jpg'
                     }
@@ -62,7 +62,7 @@ const content = {
           rows: [{
             cells: [{
               content: {
-                plugin: { name: 'ory/content/slate' },
+                plugin: { name: 'ory/editor/core/content/slate' },
                 state: {
                   importFromHtml: `
 <h2>Lorem ipsum dolor adipiscing<br/>
@@ -132,7 +132,7 @@ adipiscing ipsum.</p>`
               rows: [{
                 cells: [{
                   content: {
-                    plugin: { name: 'ory/content/slate' },
+                    plugin: { name: 'ory/editor/core/content/slate' },
                     state: {
                       importFromHtml: '<h1>Adipiscing amet consequat</h1><p>Ante nunc accumsan et aclacus nascetur ac ante amet sapien sed.</p>'
                     }
@@ -141,21 +141,21 @@ adipiscing ipsum.</p>`
               }, {
                 cells: [{
                   content: {
-                    plugin: { name: 'ory/content/image' },
+                    plugin: { name: 'ory/editor/core/content/image' },
                     state: {
                       src: 'images/pic02.jpg'
                     }
                   }
                 }, {
                   content: {
-                    plugin: { name: 'ory/content/image' },
+                    plugin: { name: 'ory/editor/core/content/image' },
                     state: {
                       src: 'images/pic03.jpg'
                     }
                   }
                 }, {
                   content: {
-                    plugin: { name: 'ory/content/image' },
+                    plugin: { name: 'ory/editor/core/content/image' },
                     state: {
                       src: 'images/pic04.jpg'
                     }
@@ -164,21 +164,21 @@ adipiscing ipsum.</p>`
               }, {
                 cells: [{
                   content: {
-                    plugin: { name: 'ory/content/slate' },
+                    plugin: { name: 'ory/editor/core/content/slate' },
                     state: {
                       importFromHtml: '<h3>Magna feugiat lorem</h3><p>Adipiscing a commodo ante nunc magna lorem et interdum mi ante nunc lobortis non amet vis sed volutpat et nascetur.</p>'
                     }
                   }
                 }, {
                   content: {
-                    plugin: { name: 'ory/content/slate' },
+                    plugin: { name: 'ory/editor/core/content/slate' },
                     state: {
                       importFromHtml: '<h3>Magna feugiat lorem</h3><p>Adipiscing a commodo ante nunc magna lorem et interdum mi ante nunc lobortis non amet vis sed volutpat et nascetur.</p>'
                     }
                   }
                 }, {
                   content: {
-                    plugin: { name: 'ory/content/slate' },
+                    plugin: { name: 'ory/editor/core/content/slate' },
                     state: {
                       importFromHtml: '<h3>Magna feugiat lorem</h3><p>Adipiscing a commodo ante nunc magna lorem et interdum mi ante nunc lobortis non amet vis sed volutpat et nascetur.</p>'
                     }
@@ -187,21 +187,21 @@ adipiscing ipsum.</p>`
               }, {
                 cells: [{
                   content: {
-                    plugin: { name: 'ory/content/slate' },
+                    plugin: { name: 'ory/editor/core/content/slate' },
                     state: {
                       importFromHtml: '<p>MORE</p>'
                     }
                   }
                 }, {
                   content: {
-                    plugin: { name: 'ory/content/slate' },
+                    plugin: { name: 'ory/editor/core/content/slate' },
                     state: {
                       importFromHtml: '<p>MORE</p>'
                     }
                   }
                 }, {
                   content: {
-                    plugin: { name: 'ory/content/slate' },
+                    plugin: { name: 'ory/editor/core/content/slate' },
                     state: {
                       importFromHtml: '<p>MORE</p>'
                     }
@@ -222,7 +222,7 @@ adipiscing ipsum.</p>`
           rows: [{
             cells: [{
               content: {
-                plugin: { name: 'ory/content/slate' },
+                plugin: { name: 'ory/editor/core/content/slate' },
                 state: {
                   importFromHtml: `
 <h2>Ipsum feugiat consequat?</h2>

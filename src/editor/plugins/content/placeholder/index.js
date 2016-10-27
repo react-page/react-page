@@ -5,7 +5,7 @@ import { ContentPlugin } from 'src/editor/service/plugin/classes'
 
 export default class PlaceholderPlugin extends ContentPlugin {
   Component = Component
-  name = 'ory/content/placeholder'
+  name = 'ory/editor/core/content/placeholder'
   version = '0.0.1'
 }
 
