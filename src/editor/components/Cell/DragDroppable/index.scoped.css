@@ -7,12 +7,31 @@
   will-change: transform;
 }
 
-.draggable > * {
-  will-change: auto;
+.draggable-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 0;
+  cursor: move;
+  transition: all ease .2s;
+  outline: 0 solid rgba(0, 0, 0, 0);
 }
 
-.draggable:hover {
-  outline: 1px solid rgba(0,0,0,.4);
+.draggable-overlay:hover {
+  filter: sepia(0.7);
+  background: rgba(0,0,0,.1);
+  outline: 1px solid rgba(0, 0, 0, .2);
+  background-blend-mode: screen;
+}
+
+.draggable-overlay.leaf {
+  z-index: 2;
+}
+
+.draggable > * {
+  will-change: auto;
 }
 
 .is-dragging {
@@ -25,8 +44,8 @@
   display: block;
   position: absolute;
   z-index: 100;
-  background: rgba(0,0,0,.3);
-  outline: 1px solid rgba(0,0,0,.6);
+  background: rgba(0, 0, 0, .2);
+  outline: 1px solid rgba(0, 0, 0, .3);
 }
 
 .is-over-above:before {

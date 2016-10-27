@@ -1,7 +1,6 @@
 // @flow
 import React, { Component, PropTypes } from 'react'
 import cssModules from 'react-css-modules'
-// import debounce from 'lodash.debounce'
 import { Resizable } from 'react-resizable'
 import classNames from 'classnames'
 import DragHandle from 'material-ui/svg-icons/editor/drag-handle'

@@ -67,6 +67,7 @@ class DragDroppable extends Component {
     if (isLayoutMode || isInsertMode) {
       return connectDragSource(decorator(
         <div styleName={classes} className={className}>
+          <div styleName={`draggable-overlay ${allowDrop ? 'leaf' : ''}`} />
           {children}
         </div>
       ))
