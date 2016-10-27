@@ -1,6 +1,0 @@
-{
-  "verbose": true,
-  "watch": [
-    "src/server/"
-  ]
-}

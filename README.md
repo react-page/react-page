@@ -1,1 +1,3 @@
-To run E2E tests in Chrome, you'll need the Chrome Driver in $PATH, see https://github.com/nightwatchjs/nightwatch/wiki/chrome-setup
+# Editor
+
+There is nothing to see here at the moment.
