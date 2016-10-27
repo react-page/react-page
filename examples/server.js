@@ -1,5 +1,6 @@
 const express = require('express')
 const path = require('path')
+const compression = require('compression')
 
 const port = process.env.PORT || 3000
 const app = express()
@@ -7,6 +8,7 @@ const server = require('http').createServer(app)
 const SocketServer = require('socket.io')
 const socket = new SocketServer(server)
 
+app.use(compression())
 app.use('/editor', express.static(path.join(__dirname, '..', 'public')))
 
 const exampleMiddleware = (key) => {
