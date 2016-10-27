@@ -75,6 +75,8 @@ class DragDroppable extends Component {
 
     return (
       <div styleName={classes} className={className}>
+        {/* this div is here to prevent page jumping, it is a placeholder for draggable-overlay */}
+        <div />
         {children}
       </div>
     )
