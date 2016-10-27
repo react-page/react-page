@@ -103,7 +103,7 @@ class Editor {
   /**
    * Renders the editor given a list of DOM entities.
    */
-  render = (editable: HTMLElement) => new Promise((res: () => Promise, rej: () => Promise) => {
+  render = (editable: HTMLElement) => new Promise((res: (e: Editable) => void, rej: (e: Error) => void) => {
     try {
       this.content.fetch(editable).then((state: EditableType) => {
         this.store.dispatch(updateEditable({

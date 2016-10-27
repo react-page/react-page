@@ -6,10 +6,11 @@ import ListItem from 'material-ui/List/ListItem'
 import { Plugin } from 'src/editor/service/plugin/classes'
 import DragHandle from 'material-ui/svg-icons/editor/drag-handle'
 import './index.css'
+import logger from 'src/editor/service/logger'
 
 const Item = ({ plugin, insert }: { plugin: Plugin, insert: any }, k: string) => {
   if (!plugin.icon && !plugin.text) {
-    console.warn('Plugin text or plugin icon missing', plugin)
+    logger.warn('Plugin text or plugin icon missing', plugin)
     return null
   }
 

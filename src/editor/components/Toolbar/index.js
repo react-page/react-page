@@ -50,7 +50,7 @@ class Toolbar extends Component {
     // throw new TypeException('target', 'HTMLInputElement', e.target)
   }
 
-  onRef = (component: {}) => {
+  onRef = (component: Component<*, *, *>) => {
     const e = ReactDOM.findDOMNode(component)
     if (e && this.props.isInsertMode) {
       e.querySelector('input').focus()

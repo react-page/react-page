@@ -10,6 +10,7 @@ import { node, editable } from 'src/editor/selector/editable'
 import { createStructuredSelector } from 'reselect'
 import { pathOr } from 'ramda'
 import type { Editable } from 'types/editable'
+import logger from 'src/editor/service/logger'
 
 const hotKeyHandler = (n: Object, key: string) => pathOr(pathOr(() => true, ['content', 'plugin', key], n), ['layout', 'plugin', key], n)
 
@@ -41,6 +42,11 @@ type Props = {
   editable: Editable
 }
 
+const falser = (e: Error) => {
+  logger.error(e)
+  return
+}
+
 // TODO cleanup and tests #143
 const handlers = ({ id, undo, redo, focus, removeCell, focusCell, blurAllCells, isEditMode, node, editable }: Props) => ({
   undo: () => undo(id),
@@ -56,7 +62,7 @@ const handlers = ({ id, undo, redo, focus, removeCell, focusCell, blurAllCells, 
       const n = node(cell, id)
       hotKeyHandler(n, 'onRemoveHotKey')(e, pathOr(pathOr({}, ['layout', 'state'], n), ['content', 'state'], n))
         .then(() => removeCell(cell))
-        .catch(() => {})
+        .catch(falser)
     })
   },
 
@@ -76,7 +82,7 @@ const handlers = ({ id, undo, redo, focus, removeCell, focusCell, blurAllCells, 
             focusCell(found.id)
           }
         })
-        .catch(() => {})
+        .catch(falser)
     })
   },
 
@@ -96,7 +102,7 @@ const handlers = ({ id, undo, redo, focus, removeCell, focusCell, blurAllCells, 
             focusCell(found.id)
           }
         })
-        .catch(() => {})
+        .catch(falser)
     })
   }
 })

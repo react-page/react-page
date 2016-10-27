@@ -23,8 +23,8 @@ class Draggable extends Component {
   shouldComponentUpdate = shouldPureComponentUpdate
 
   props: {
-    connectDragSource: any,
-    connectDragPreview: any,
+    connectDragSource<T>(element: T): T,
+    connectDragPreview<T>(element: T): T,
     isDragging: boolean,
     children: any
   }
