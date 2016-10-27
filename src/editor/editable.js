@@ -1,14 +1,39 @@
-// import ReactDOMServer from 'react-dom/server'
+import React from 'react'
+import ReactDOMServer from 'react-dom/server'
+import EditorComponent from 'src/editor/components/Editor'
+import ContentService from 'src/editor/service/content'
+
+type Props = {
+  store: any,
+  id: string,
+  content: ContentService,
+  listeners: Function[]
+}
 
 class Editable {
-  store: any = null
-  id: string
+  props: Props
 
-  // serialize = (e: Editable) => e.store
-  //
-  // renderToHtml = (e: Editable) => new Promise((res: () => Promise) => {
-  //   res(ReactDOMServer.renderToStaticMarkup(<EditorComponent store={e.store} id={e.id} />))
-  // })
+  constructor(props: Props) {
+    this.props = {
+      listeners: [],
+      ...props
+    }
+  }
+
+  serialize = () => new Promise((res: (o: any) => void) => res(this.props.content.serialize(this.props.store.getState())))
+
+  notify = (next: any) => {
+    this.props.listeners.forEach((l) => l(next))
+  }
+
+  onChange = (l: (next: any) => void) => {
+    this.props.listeners.push(l)
+  }
+
+  renderToHtml = () => new Promise((res: (o: any) => void) => {
+    console.log('hydration', this.props.store.getState())
+    res(ReactDOMServer.renderToStaticMarkup(<EditorComponent store={this.props.store} id={this.props.id} />))
+  })
 }
 
 export default Editable

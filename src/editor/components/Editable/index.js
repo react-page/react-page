@@ -42,7 +42,7 @@ class Editable extends Component {
 
     return (
       <NativeListener>
-        <div styles={props.styles} className={`editor-container ${id}`}>
+        <div data={{ id }} styles={props.styles} className={`editor-container ${id}`}>
           <div styles={props.styles} styleName="row" className="editor-row">
             {cells.map((c: string | CellType) => (
               <Cell
