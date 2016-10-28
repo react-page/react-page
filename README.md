@@ -8,13 +8,11 @@ This repository is under heavy work.
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
+
 - [Introduction](#introduction)
 - [Quickstart](#quickstart)
+- [Documentation](#documentation)
 - [Contribute](#contribute)
-- [FAQ](#faq)
-  - [How can I run E2E tests using chrome?](#how-can-i-run-e2e-tests-using-chrome)
-  - [How can I install the editor using bower?](#how-can-i-install-the-editor-using-bower)
-  - [How can I install the editor using the CDN?](#how-can-i-install-the-editor-using-the-cdn)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -32,7 +30,9 @@ you can finally say goodbye to hacks, html purifiers, steep learning curves, poo
 The Ory Editor is a layout editing SDK for JavaScript. What using the Ory Editor looks like is best explained
 by the following GIFs and in the [**examples section**](https://editor.ory.am/examples).
 
-## Installation
+## Quickstart
+
+*Note: You actually can't install the Editor via npm at the moment*
 
 You can install the Ory Editor via npm. Support for bower and CDN will follow soon.
 
@@ -51,36 +51,18 @@ editor.renderControls()
 editor.render(document.querySelectorAll('.editable'))
 ```
 
-## Quickstart
-
-The Editor's core strength is the ability to work with plugins. Plugins are wrapped React components that implement
-
-1. layout logic or
-2. content logic.
-
-A content block is a leaf node that contains some type of content, for example video, audio, twitter feed and so on.
-A layout block is nestable and may contain children or branches. It can be used to place layout elements such as alert boxes,
-spoilers, background images and so on.
-
-### Layout Plugin
-
-```js
-import React from 'react'
-
-// layout box plugin
-const YellowAlertBox = (props) => (<div style={{ backgorundColor: 'yellow' }} {...props} />);
-
-// content editing plugin
-const RemoteImage = ({ src, readOnly, onChange }) => readOnly
-  ? <img src={src} />
-  : <input type="text" onChange={onChange} value={src} />
-```
-
-### Content Plugin
-
 ## Documentation
 
-The Ory Editor has a [user guide] as well as an [API documentation].
+<!-- The Ory Editor has a [user guide] as well as an [API documentation]. -->
+
+You can generate the user guide locally with:
+
+```
+$ git clone https://github.com/ory-am/editor.git
+$ cd editor
+$ npm i -g gitbook-cli
+$ gitbook serve -http
+```
 
 ## Contribute
 
