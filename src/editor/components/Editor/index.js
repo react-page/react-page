@@ -13,9 +13,9 @@ const Editor = ({ id, store }: {id: string, store: Store }) => (
   <Provider store={store}>
     <DragDropContext>
       <HotKeyDecorator id={id}>
-          <MuiThemeProvider muiTheme={getMuiTheme()}>
-            <Editable id={id} />
-          </MuiThemeProvider>
+        <MuiThemeProvider muiTheme={getMuiTheme()}>
+          <Editable id={id}/>
+        </MuiThemeProvider>
       </HotKeyDecorator>
     </DragDropContext>
   </Provider>
