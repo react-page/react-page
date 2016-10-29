@@ -8,40 +8,36 @@
 
 .is-over-current:before {
   content: " ";
-  transition: opacity 400ms ease;
-  background: black;
-  opacity: 0;
-  display: block;
   position: absolute;
-  z-index: 100;
+  background: black;
+  display: block;
+  background: rgba(0, 0, 0, .1);
+  box-shadow: 0 0 4px rgba(0, 0, 0, .2);
+  z-index: 2;
 }
 
 .is-over-above:before {
-  opacity: 1;
   top: 0;
-  height: 2px;
+  height: 9%;
   width: 100%;
 }
 
 .is-over-below:before {
-  opacity: 1;
   bottom: 0;
-  height: 2px;
+  height: 9%;
   width: 100%;
 }
 
 .is-over-left-of:before {
-  opacity: 1;
   top: 0;
   left: 0;
   bottom: 0;
-  width: 2px;
+  width: 9%;
 }
 
 .is-over-right-of:before {
-  opacity: 1;
   top: 0;
   right: 0;
   bottom: 0;
-  width: 2px;
+  width: 9%;
 }

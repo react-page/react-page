@@ -31,7 +31,7 @@ class Editable {
   }
 
   renderToHtml = () => new Promise((res: (o: any) => void) => {
-    console.log('hydration', this.props.store.getState())
+    // console.log('hydration', this.props.store.getState())
     res(ReactDOMServer.renderToStaticMarkup(<EditorComponent store={this.props.store} id={this.props.id} />))
   })
 }

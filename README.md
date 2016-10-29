@@ -1,13 +1,11 @@
 # ![Ory Editor](logo.png)
  
-Build, distribute and manage digital content. Empower designers to enforce design. Save development time.
-Amaze authors with extensibility and ease of use.
+We make digital content creation accessible.
 
-This repository is under heavy work.
+*Warning: This project is being actively developed and is in no shape to be used in production.*
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-
 
 - [Introduction](#introduction)
 - [Quickstart](#quickstart)
@@ -34,13 +32,13 @@ by the following GIFs and in the [**examples section**](https://editor.ory.am/ex
 
 *Note: You actually can't install the Editor via npm at the moment*
 
-You can install the Ory Editor via npm. Support for bower and CDN will follow soon.
+Install the Ory Editor via npm, support for bower and CDN will follow soon.
 
 ```sh
 npm install --save ory-editor
 ```
 
-You can now run the editor using:
+Now, run the editor with:
 
 ```js
 const Editor = require('ory-editor')
@@ -55,7 +53,7 @@ editor.render(document.querySelectorAll('.editable'))
 
 <!-- The Ory Editor has a [user guide] as well as an [API documentation]. -->
 
-You can generate the user guide locally with:
+Generate the user guide locally with:
 
 ```
 $ git clone https://github.com/ory-am/editor.git

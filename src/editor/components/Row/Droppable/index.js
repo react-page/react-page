@@ -6,6 +6,7 @@ import { DropTarget as dropTarget } from 'react-dnd'
 import { connect } from 'react-redux'
 import { target, connect as monitorConnect } from './dnd'
 import cssModules from 'react-css-modules'
+import classnames from 'classnames'
 import styles from './index.scoped.css'
 
 class Droppable extends Component {
@@ -14,13 +15,18 @@ class Droppable extends Component {
     children: any,
     isLayoutMode: boolean,
     isInsertMode: boolean,
+    isOverCurrent: boolean,
   }
 
   render() {
     if (!(this.props.isLayoutMode || this.props.isInsertMode)) {
       return <div>{this.props.children}</div>
     }
-    return this.props.connectDropTarget(<div>{this.props.children}</div>)
+
+    const classes = classnames({
+      // 'is-over-current': this.props.isOverCurrent
+    })
+    return this.props.connectDropTarget(<div styleName={classes}>{this.props.children}</div>)
   }
 }
 
@@ -31,3 +37,4 @@ Droppable.propTypes = {
 const mapDispatchToProps = { ...hoverActions, ...insertActions }
 
 export default (dropTypes: string[] = ['CELL']) => connect(null, mapDispatchToProps)(dropTarget(dropTypes, target, monitorConnect)(cssModules(Droppable, styles, { allowMultiple: true })))
+

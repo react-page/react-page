@@ -29,11 +29,15 @@ class Row extends Component {
   render() {
     // console.log('render row')
 
-    const { isLayoutMode, isResizeMode, isInsertMode }: ComponentizedRow = this.props
+    const { isResizeMode }: ComponentizedRow = this.props
     const Droppable = this.Droppable
     const props = { ...this.props }
 
-    if (isLayoutMode || isResizeMode || isInsertMode) {
+    // originally, flexbox grid was used in d&d:
+    //
+    //  if (isLayoutMode || isResizeMode || isInsertMode) {
+
+    if (isResizeMode) {
       props.styles = {
         ...props.styles,
         ...commonStyles.flexbox,

@@ -28,13 +28,18 @@ class Cell extends Component {
   render() {
     const {
       id, rowWidth, rowHeight, updateDimensions,
-      isLayoutMode, isResizeMode, isInsertMode,
+      isResizeMode,
       isEditMode,
-      node: { inline, resizable, hover, hasInlineNeighbour, focused }
+      node: { inline, resizable, hasInlineNeighbour, focused }
     } = this.props
 
+
+    // originally, flexbox grid was used in d&d:
+    //
+    //  if (isLayoutMode || isResizeMode || isInsertMode) {
+
     let styles
-    if (isLayoutMode || isResizeMode || isInsertMode) {
+    if (isResizeMode) {
       styles = {
         ...this.props.styles,
         ...commonStyles.flexbox,
@@ -47,8 +52,6 @@ class Cell extends Component {
       <div
         styles={styles}
         styleName={classNames(gridClass(this.props), {
-          'is-over-current': hover,
-          [`is-over-${hover || ''}`]: hover,
           'has-inline-neighbour': hasInlineNeighbour,
           [`inline-${inline || ''}`]: inline,
           focused
