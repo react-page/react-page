@@ -19,7 +19,7 @@ const Button = ({ description, icon, onClick, active, disabled }: {
       <FloatingActionButton
         secondary={active}
         mini={device().mobile()}
-        onClick={onClick}
+        onTouchTap={onClick}
         disabled={disabled}
       >
         {icon}
