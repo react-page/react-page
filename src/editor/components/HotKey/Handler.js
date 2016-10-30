@@ -1,4 +1,5 @@
 // @flow
+/* eslint-disable no-empty-function */
 import React from 'react'
 import { HotKeys } from 'react-hotkeys'
 import { connect } from 'react-redux'
@@ -10,7 +11,6 @@ import { node, editable } from 'src/editor/selector/editable'
 import { createStructuredSelector } from 'reselect'
 import { pathOr } from 'ramda'
 import type { Editable } from 'types/editable'
-import logger from 'src/editor/service/logger'
 
 const hotKeyHandler = (n: Object, key: string) => pathOr(pathOr(() => true, ['content', 'plugin', key], n), ['layout', 'plugin', key], n)
 
@@ -42,10 +42,7 @@ type Props = {
   editable: Editable
 }
 
-const falser = (e: Error) => {
-  logger.error(e)
-  return
-}
+const falser = () => {}
 
 // TODO cleanup and tests #143
 const handlers = ({ id, undo, redo, focus, removeCell, focusCell, blurAllCells, isEditMode, node, editable }: Props) => ({

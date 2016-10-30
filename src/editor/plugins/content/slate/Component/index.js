@@ -145,7 +145,7 @@ class Slate extends Component {
 
   componentDidUpdate = () => this.updateToolbar()
 
-  props: ContentPluginProps
+  props: ContentPluginProps<{ editorState: Object }>
 
   onStateChange = (editorState) => {
     this.props.onChange({ editorState })
