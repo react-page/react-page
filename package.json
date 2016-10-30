@@ -120,6 +120,7 @@
     "jest": "16.0.1",
     "nightwatch": "0.9.8",
     "nodemon": "1.11.0",
+    "postcss-css-variables": "^0.6.0",
     "react-addons-shallow-compare": "15.3.2",
     "react-test-renderer": "15.3.2",
     "unexpected": "10.18.1"

@@ -20,8 +20,8 @@
 
 .draggable-overlay:hover {
   filter: sepia(0.7);
-  background: rgba(0, 0, 0, .1);
-  box-shadow: 0 0 4px rgba(0, 0, 0, .2);
+  background: var(--faintBlack);
+  box-shadow: 0 0 4px var(--minBlack);
   background-blend-mode: screen;
 }
 

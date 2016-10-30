@@ -1,5 +1,5 @@
 .spacer {
-  border: 1px dashed rgba(0, 0, 0, .2);
+  border: 1px dashed var(--minBlack);
   border-bottom: none;
   position: relative;
 }

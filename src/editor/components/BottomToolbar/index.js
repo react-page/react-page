@@ -3,6 +3,7 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import Drawer from 'material-ui/Drawer'
 import React from 'react'
+import { darkBlack } from 'material-ui/styles/colors'
 
 const BottomToolbar = ({ open = false, children, className }: { open?: boolean, children?: Object, className?: string }) => (
   <MuiThemeProvider muiTheme={getMuiTheme()}>
@@ -24,9 +25,9 @@ const BottomToolbar = ({ open = false, children, className }: { open?: boolean, 
     }}>
       <div style={{
         display: 'inline-block',
-        border: 'rgba(0,0,0,.5) 1px solid',
+        border: `${darkBlack} 1px solid`,
         borderRadius: '4px 4px 0',
-        backgroundColor: 'rgba(0,0,0,.9)',
+        backgroundColor: darkBlack,
         padding: '12px 24px'
       }}>
         {children}
