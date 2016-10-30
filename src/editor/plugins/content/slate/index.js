@@ -36,9 +36,9 @@ export default class SlatePlugin extends ContentPlugin {
     })
   }
 
-  onRemoveHotKey = hooks.onRemoveHotKey
-  onFocusPreviousHotKey = hooks.onFocusPreviousHotKey
-  onFocusNextHotKey = hooks.onFocusNextHotKey
+  handleRemoveHotKey = hooks.handleRemoveHotKey
+  handleFocusPreviousHotKey = hooks.handleFocusPreviousHotKey
+  handleFocusNextHotKey = hooks.handleFocusNextHotKey
 
   createInitialState = hooks.createInitialState
   serialize = hooks.serialize

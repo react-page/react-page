@@ -1,8 +1,8 @@
 # ![Ory Editor](logo.png)
  
-We make digital content creation accessible.
+This makes digital content creation fun and easy.
 
-*Warning: This project is being actively developed and is in no shape to be used in production.*
+*Please be aware that all features and APIs are experimental. Breaking changes will happen.*
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->

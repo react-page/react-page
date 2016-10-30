@@ -60,7 +60,7 @@ const handlers = ({ id, undo, redo, focus, removeCell, focusCell, blurAllCells, 
 
     focus.forEach((cell: string) => {
       const n = node(cell, id)
-      hotKeyHandler(n, 'onRemoveHotKey')(e, pathOr(pathOr({}, ['layout', 'state'], n), ['content', 'state'], n))
+      hotKeyHandler(n, 'handleRemoveHotKey')(e, pathOr(pathOr({}, ['layout', 'state'], n), ['content', 'state'], n))
         .then(() => removeCell(cell))
         .catch(falser)
     })
@@ -74,7 +74,7 @@ const handlers = ({ id, undo, redo, focus, removeCell, focusCell, blurAllCells, 
 
     focus.forEach((cell: string) => {
       const n = node(cell, id)
-      hotKeyHandler(n, 'onFocusNextHotKey')(e, pathOr(pathOr({}, ['layout', 'state'], n), ['content', 'state'], n))
+      hotKeyHandler(n, 'handleFocusNextHotKey')(e, pathOr(pathOr({}, ['layout', 'state'], n), ['content', 'state'], n))
         .then(() => {
           const found = nextLeaf(editable.cellOrder, cell)
           if (found) {
@@ -94,7 +94,7 @@ const handlers = ({ id, undo, redo, focus, removeCell, focusCell, blurAllCells, 
 
     focus.forEach((cell: string) => {
       const n = node(cell, id)
-      hotKeyHandler(n, 'onFocusPreviousHotKey')(e, pathOr(pathOr({}, ['layout', 'state'], n), ['content', 'state'], n))
+      hotKeyHandler(n, 'handleFocusPreviousHotKey')(e, pathOr(pathOr({}, ['layout', 'state'], n), ['content', 'state'], n))
         .then(() => {
           const found = previousLeaf(editable.cellOrder, cell)
           if (found) {

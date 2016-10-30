@@ -133,11 +133,11 @@ const position = (): {
 }
 
 // if editor state is empty, remove cell when backspace or delete was pressed.
-export const onRemoveHotKey = (_: KeyboardEvent, { editorState }: Props) => new Promise((resolve: Function, reject: Function) => Plain.serialize(editorState).length < 1 ? resolve() : reject())
+export const handleRemoveHotKey = (_: KeyboardEvent, { editorState }: Props) => new Promise((resolve: Function, reject: Function) => Plain.serialize(editorState).length < 1 ? resolve() : reject())
 
 const windowSelectionWaitTime = 30
 
-export const onFocusPreviousHotKey = (e: KeyboardEvent, _: Props) => {
+export const handleFocusPreviousHotKey = (e: KeyboardEvent, _: Props) => {
   const current = position()
   const isArrowUp = e.keyCode === 38
   return new Promise((resolve: Function, reject: Function) => {
@@ -154,7 +154,7 @@ export const onFocusPreviousHotKey = (e: KeyboardEvent, _: Props) => {
   })
 }
 
-export const onFocusNextHotKey = (e: KeyboardEvent, _: Props) => {
+export const handleFocusNextHotKey = (e: KeyboardEvent, _: Props) => {
   const current = position()
   const isArrowDown = e.keyCode === 40
   return new Promise((resolve: Function, reject: Function) => {

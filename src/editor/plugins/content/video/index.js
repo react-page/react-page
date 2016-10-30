@@ -13,5 +13,5 @@ export default class VideoPlugin extends ContentPlugin {
   icon = <PlayArrow />
   text = 'Video'
   inlineable = true
-  onRemoveHotKey = (_: Event, __: ContentPluginProps<*>): Promise<*> => Promise.reject()
+  handleRemoveHotKey = (_: Event, __: ContentPluginProps<*>): Promise<*> => Promise.reject()
 }
