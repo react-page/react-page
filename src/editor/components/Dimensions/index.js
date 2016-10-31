@@ -21,8 +21,6 @@ const Dimensions = ({
 
     componentDidMount() {
       if (this.isServerContext()) {
-        console.log('is server context! and did mount !')
-
         return
       }
 
@@ -65,7 +63,6 @@ const Dimensions = ({
     }
 
     isServerContext = () => {
-      console.log('isServerContext', this.props.isServerContext)
       return Boolean(this.props.isServerContext)
     }
 

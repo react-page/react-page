@@ -15,6 +15,7 @@ import type { EditableComponentState, Cell as CellType } from 'types/editable'
 import * as commonStyles from 'src/editor/styles'
 import styles from './index.scoped.css'
 import { enableGlobalBlurring, disableGlobalBlurring } from './blur'
+import serverContext from 'src/editor/components/ServerContext/connect'
 
 class Editable extends Component {
   componentDidMount() {
@@ -55,11 +56,17 @@ class Editable extends Component {
               />
             ))}
           </div>
-          <Notifier
-            message="Resize the browser window for mobile preview."
-            open={isPreviewMode}
-            id={dismissedMobilePreviewKey}
-          />
+          {
+            this.props.isServerContext
+              ? null
+              : (
+              <Notifier
+                message="Resize the browser window for mobile preview."
+                open={isPreviewMode}
+                id={dismissedMobilePreviewKey}
+              />
+            )
+          }
         </div>
       </NativeListener>
     )
@@ -72,8 +79,8 @@ const mapDispatchToProps = {
   blurAllCells
 }
 
-export default dimensions()(connect(mapStateToProps, mapDispatchToProps)(cssModules(Editable, {
+export default serverContext()(dimensions()(connect(mapStateToProps, mapDispatchToProps)(cssModules(Editable, {
   ...commonStyles.floating,
   ...commonStyles.common,
   ...styles
-})))
+}))))

@@ -7,6 +7,7 @@ import { shouldPureComponentUpdate } from 'src/editor/helper/shouldComponentUpda
 import { isEditMode, isLayoutMode, isPreviewMode } from 'src/editor/selector/display'
 import { createStructuredSelector } from 'reselect'
 import type { ComponentizedCell } from 'types/editable'
+import serverContext from 'src/editor/components/ServerContext/connect'
 
 // TODO clean me up #157
 class Content extends Component {
@@ -36,7 +37,7 @@ class Content extends Component {
   props: ComponentizedCell
 
   render() {
-    const { isPreviewMode, isEditMode, editable, id, node: { content: { plugin: { Component }, state = {} }, focused }, updateCellContent } = this.props
+    const { isPreviewMode, isEditMode, editable, id, node: { content: { plugin: { Component }, state = {} }, focused }, updateCellContent, isServerContext } = this.props
 
     let focusProps
     if (!isPreviewMode) {
@@ -60,7 +61,7 @@ class Content extends Component {
           id={id}
           state={state}
           focused={isEditMode && focused}
-          readOnly={!isEditMode}
+          readOnly={!isEditMode || isServerContext}
           onChange={updateCellContent}
         />
       </div>
@@ -74,4 +75,4 @@ const mapDispatchToProps = (dispatch: Function, { id }: ComponentizedCell) => bi
   updateCellContent: updateCellContent(id)
 }, dispatch)
 
-export default connect(mapStateToProps, mapDispatchToProps)(Content)
+export default serverContext()(connect(mapStateToProps, mapDispatchToProps)(Content))

@@ -8,6 +8,7 @@ import { isEditMode } from 'src/editor/selector/display'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { createStructuredSelector } from 'reselect'
+import serverContext from 'src/editor/components/ServerContext/connect'
 
 class Layout extends React.Component {
   shouldComponentUpdate = shouldPureComponentUpdate
@@ -28,6 +29,7 @@ class Layout extends React.Component {
       editable,
       ancestors = [],
       updateCellLayout,
+      isServerContext,
       isEditMode
     }: ComponentizedCell = this.props
 
@@ -36,7 +38,7 @@ class Layout extends React.Component {
         id={id}
         state={state}
         editable={editable}
-        readOnly={!isEditMode}
+        readOnly={!isEditMode || isServerContext}
         onChange={updateCellLayout}
       >
         {rows.map((r: string) => (
@@ -57,4 +59,4 @@ const mapDispatchToProps = (dispatch: Function, { id }: ComponentizedCell) => bi
   updateCellLayout: updateCellLayout(id)
 }, dispatch)
 
-export default connect(mapStateToProps, mapDispatchToProps)(Layout)
+export default serverContext()(connect(mapStateToProps, mapDispatchToProps)(Layout))

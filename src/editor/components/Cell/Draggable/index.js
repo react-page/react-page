@@ -8,6 +8,7 @@ import { connect } from 'react-redux'
 import cssModules from 'react-css-modules'
 import { source, collect } from './helper/dnd'
 import classNames from 'classnames'
+import serverContext from 'src/editor/components/ServerContext/connect'
 
 import styles from './index.scoped.css'
 
@@ -38,8 +39,13 @@ class Draggable extends Component {
 
   render() {
     const {
-      isLeaf, connectDragSource, isDragging, isLayoutMode, isInsertMode, className, node: { inline }, children
+      isLeaf, connectDragSource, isDragging, isLayoutMode, isInsertMode, className, node: { inline }, children,
+      isServerContext
     } = this.props
+
+    if (isServerContext) {
+      return children
+    }
 
     if (!(isLayoutMode || isInsertMode)) {
       return (
@@ -62,4 +68,4 @@ class Draggable extends Component {
 
 const mapDispatchToProps = { ...hoverActions, ...insertActions }
 
-export default connect(null, mapDispatchToProps)(dragSource(({ dragType }: { dragType: string }) => dragType, source, collect)(cssModules(Draggable, styles, { allowMultiple: true })))
+export default serverContext()(connect(null, mapDispatchToProps)(dragSource(({ dragType }: { dragType: string }) => dragType, source, collect)(cssModules(Draggable, styles, { allowMultiple: true }))))

@@ -8,6 +8,7 @@ import { target, connect as monitorConnect } from './dnd'
 import cssModules from 'react-css-modules'
 import classnames from 'classnames'
 import styles from './index.scoped.css'
+import serverContext from 'src/editor/components/ServerContext/connect'
 
 class Droppable extends Component {
   props: {
@@ -19,6 +20,10 @@ class Droppable extends Component {
   }
 
   render() {
+    if (this.props.isServerContext) {
+      return this.props.children
+    }
+
     if (!(this.props.isLayoutMode || this.props.isInsertMode)) {
       return <div>{this.props.children}</div>
     }
@@ -36,5 +41,5 @@ Droppable.propTypes = {
 
 const mapDispatchToProps = { ...hoverActions, ...insertActions }
 
-export default (dropTypes: string[] = ['CELL']) => connect(null, mapDispatchToProps)(dropTarget(dropTypes, target, monitorConnect)(cssModules(Droppable, styles, { allowMultiple: true })))
+export default (dropTypes: string[] = ['CELL']) => connect(null, mapDispatchToProps)(dropTarget(dropTypes, target, monitorConnect)(cssModules(serverContext()(Droppable, styles, { allowMultiple: true }))))
 

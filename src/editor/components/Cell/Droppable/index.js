@@ -9,6 +9,7 @@ import cssModules from 'react-css-modules'
 import { target, connect as monitorConnect } from './helper/dnd'
 import styles from './index.scoped.css'
 import classNames from 'classnames'
+import serverContext from 'src/editor/components/ServerContext/connect'
 
 class Droppable extends Component {
   shouldComponentUpdate = shouldPureComponentUpdate
@@ -27,7 +28,7 @@ class Droppable extends Component {
   }
 
   render() {
-    const { connectDropTarget, isLayoutMode, isInsertMode, className, isLeaf, node: { hover, }, children } = this.props
+    const { connectDropTarget, isLayoutMode, isInsertMode, className, isLeaf, node: { hover, }, children, isServerContext } = this.props
 
     if (!(isLayoutMode || isInsertMode)) {
       return (
@@ -35,6 +36,10 @@ class Droppable extends Component {
           {children}
         </div>
       )
+    }
+
+    if (isServerContext) {
+      return children
     }
 
     return connectDropTarget(
@@ -49,4 +54,4 @@ class Droppable extends Component {
 
 const mapDispatchToProps = { ...hoverActions, ...insertActions }
 
-export default connect(null, mapDispatchToProps)(dropTarget(({ dropTypes }: { dropTypes: Array<string> }) => dropTypes, target, monitorConnect)(cssModules(Droppable, styles, { allowMultiple: true })))
+export default serverContext()(connect(null, mapDispatchToProps)(dropTarget(({ dropTypes }: { dropTypes: Array<string> }) => dropTypes, target, monitorConnect)(cssModules(Droppable, styles, { allowMultiple: true }))))
