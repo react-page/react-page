@@ -8,7 +8,7 @@ import { editableConfig, purifiedNode, node } from 'src/editor/selector/editable
 import { createStructuredSelector } from 'reselect'
 import { blurAllCells } from 'src/editor/actions/cell'
 import Inner from './inner'
-import dimensions from 'react-dimensions'
+import dimensions from 'src/editor/components/Dimensions'
 import cssModules from 'react-css-modules'
 import type { ComponentizedRow } from 'types/editable'
 
