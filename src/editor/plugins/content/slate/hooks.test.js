@@ -1,7 +1,7 @@
 /* eslint-env jest */
 import * as hooks from './hooks'
 
-import { map } from 'ramda'
+import map from 'ramda/src/map'
 import unexpected from 'unexpected'
 
 const expect = unexpected.clone()

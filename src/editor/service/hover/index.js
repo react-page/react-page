@@ -62,6 +62,11 @@ export const classes: { [key: string]: number } = {
 
 const c = classes
 
+/**
+ * A list of matrices that are used to define the callback function.
+ *
+ * @type {{6x6: *[], 10x10: *[], 10x10-no-inline: *[]}}
+ */
 export const defaultMatrices: MatrixList = {
   '6x6': [
     [c.C1, c.AA, c.AA, c.AA, c.AA, c.C2],
@@ -97,6 +102,13 @@ export const defaultMatrices: MatrixList = {
   ]
 }
 
+/**
+ * Computes the average width and height for cells in a room.
+ *
+ * @param room
+ * @param matrix
+ * @returns {{x: number, y: number}}
+ */
 export const getRoomScale = ({ room, matrix }: { room: Room, matrix: Matrix }): Vector => {
   const rows = matrix.length
   const cells = matrix[0].length
@@ -110,11 +122,20 @@ export const getRoomScale = ({ room, matrix }: { room: Room, matrix: Matrix }): 
   }
 }
 
+/**
+ * Returns the index of the hover cell.
+ *
+ * @param mouse
+ * @param scale
+ */
 export const getMouseHoverCell = ({ mouse, scale }: { mouse: Vector, scale: Vector }): MatrixIndex => ({
   cell: Math.floor(mouse.x / scale.x),
   row: Math.floor(mouse.y / scale.y)
 })
 
+/**
+ * Used for caching.
+ */
 const last = { '10x10': null, '10x10-no-inline': null }
 
 export const computeHover = (item: ComponentizedCell, hover: ComponentizedCell, actions: Callbacks, { room, mouse, matrix, callbacks }: {
@@ -169,6 +190,9 @@ export const computeHover = (item: ComponentizedCell, hover: ComponentizedCell, 
   })
 }
 
+/**
+ * Return the mouse position relative to the cell.
+ */
 export const relativeMousePosition = ({ mouse, position, scale }: {
   mouse: Vector,
   scale: Vector,
@@ -178,7 +202,9 @@ export const relativeMousePosition = ({ mouse, position, scale }: {
   y: Math.round(mouse.y - (position.row * scale.y))
 })
 
-// computeLevel uses an exponential function to compute the current drop level5
+/**
+ * Computes the drop level based on the mouse position and the cell width.
+*/
 export const computeLevel = ({ width, levels, position }: {width: number, levels: number, position: number }) => {
   if (width <= (levels + 1) * 2) {
     return Math.round(position / (width / levels))
@@ -198,6 +224,17 @@ export const computeLevel = ({ width, levels, position }: {width: number, levels
   return levels
 }
 
+/**
+ * Computes the horizontal drop level based on the mouse position.
+ *
+ * @param mouse
+ * @param position
+ * @param hover
+ * @param scale
+ * @param level
+ * @param inv returns the inverse drop level. Usually true for left and above drop level computation.
+ * @returns number
+ */
 export const computeHorizontal = ({ mouse, position, hover, scale, level }: {
   mouse: Vector,
   position: MatrixIndex,
@@ -207,83 +244,123 @@ export const computeHorizontal = ({ mouse, position, hover, scale, level }: {
 }, inv: boolean = false) => {
   const { node: { cells = [] } } = hover
   const x = relativeMousePosition({ mouse, position, scale }).x
-
-  // cos(x*pi)*5.5+5.5 (11 level), x = %
-  // (sec(x*1.04)-1)*10
-  const at = computeLevel({ width: scale.x, position: x, levels: level })
+  let at = computeLevel({ width: scale.x, position: x, levels: level })
 
   if (cells.length) {
     // Is row, always opt for lowest level
     return level
   }
 
+  // If the hovered element is an inline element, level 0 would be directly besides it which doesn't work.
+  // Set it to 1 instead.
+  if (hover.node.inline && at === 0) {
+    at = 1
+  }
+
   return inv ? level - at : at
 }
 
+/**
+ * Computes the vertical drop level based on the mouse position.
+ *
+ * @returns number
+ */
 export const computeVertical = ({ level, mouse, hover, position, scale }: { level: number, mouse: Vector, hover: ComponentizedRow, position: MatrixIndex, scale: Vector }, inv: boolean = false) => {
   const { node: { cells = [] } } = hover
   const x = relativeMousePosition({ mouse, position, scale }).x
-  const at = computeLevel({ width: scale.x, position: x, levels: level })
+  let at = computeLevel({ width: scale.x, position: x, levels: level })
 
   if (cells.length) {
     // Is row, always opt for lowest level
     return level
   }
+
+  // If the hovered element is an inline element, level 0 would be directly besides it which doesn't work.
+  // Set it to 1 instead.
+  if (hover.node.inline && at === 0) {
+    at = 1
+  }
+
   return inv ? level - at : at
 }
 
+const getDropLevel = (hover: ComponentizedCell) => hover.node.inline ? 1 : 0
+
+/**
+ * A list of callbacks.
+ */
 export const defaultCallbacks: CallbackList = {
   [c.NO]: (item: ComponentizedCell, hover: ComponentizedCell, { clear }: Callbacks) => (clear(item.id)),
 
   /* corners */
   [c.C1]: (item: ComponentizedCell, hover: ComponentizedCell, { leftOf, above }: Callbacks, ctx: Object) => {
     const mouse = relativeMousePosition(ctx)
+    const level = getDropLevel(hover)
+
     if (mouse.x < mouse.y) {
-      return leftOf(item.rawNode(), hover.rawNode(), 0)
+      return leftOf(item.rawNode(), hover.rawNode(), level)
     }
-    above(item.rawNode(), hover.rawNode(), 0)
+
+    above(item.rawNode(), hover.rawNode(), level)
   },
 
   [c.C2]: (item: ComponentizedCell, hover: ComponentizedCell, { rightOf, above }: Callbacks, ctx: Object) => {
     const mouse = relativeMousePosition(ctx)
+    const level = getDropLevel(hover)
+
     if (mouse.x > mouse.y) {
-      return rightOf(item.rawNode(), hover.rawNode(), 0)
+      return rightOf(item.rawNode(), hover.rawNode(), level)
     }
-    above(item.rawNode(), hover.rawNode(), 0)
+
+    above(item.rawNode(), hover.rawNode(), level)
   },
 
   [c.C3]: (item: ComponentizedCell, hover: ComponentizedCell, { rightOf, below }: Callbacks, ctx: Object) => {
     const mouse = relativeMousePosition(ctx)
+    const level = getDropLevel(hover)
 
     if (mouse.x > mouse.y) {
-      return rightOf(item.rawNode(), hover.rawNode(), 0)
+      return rightOf(item.rawNode(), hover.rawNode(), level)
     }
-    below(item.rawNode(), hover.rawNode(), 0)
+    below(item.rawNode(), hover.rawNode(), level)
   },
 
   [c.C4]: (item: ComponentizedCell, hover: ComponentizedCell, { leftOf, below }: Callbacks, ctx: Object) => {
     const mouse = relativeMousePosition(ctx)
+    const level = getDropLevel(hover)
 
     if (mouse.x < mouse.y) {
-      return leftOf(item.rawNode(), hover.rawNode(), 0)
+      return leftOf(item.rawNode(), hover.rawNode(), level)
     }
-    below(item.rawNode(), hover.rawNode(), 0)
+    below(item.rawNode(), hover.rawNode(), level)
   },
 
   /* heres */
-  [c.AH]: (item: ComponentizedCell, hover: ComponentizedCell, { above }: Callbacks) => above(item.rawNode(), {
-    ...hover.rawNode()
-  }, 0),
-  [c.BH]: (item: ComponentizedCell, hover: ComponentizedCell, { below }: Callbacks) => below(item.rawNode(), {
-    ...hover.rawNode()
-  }, 0),
+  [c.AH]: (item: ComponentizedCell, hover: ComponentizedCell, { above }: Callbacks) => {
+    const level = getDropLevel(hover)
+    above(item.rawNode(), {
+      ...hover.rawNode()
+    }, level)
+  },
+  [c.BH]: (item: ComponentizedCell, hover: ComponentizedCell, { below }: Callbacks) => {
+    const level = getDropLevel(hover)
+    below(item.rawNode(), {
+      ...hover.rawNode()
+    }, level)
+  },
 
-  [c.LH]: (item: ComponentizedCell, hover: ComponentizedCell, { leftOf }: Callbacks) => leftOf(item.rawNode(), {
-    ...hover.rawNode()
-  }, 0),
-  [c.RH]: (item: ComponentizedCell, hover: ComponentizedCell, { rightOf }: Callbacks) => rightOf(item.rawNode(), {
-    ...hover.rawNode()
-  }, 0),
+  [c.LH]: (item: ComponentizedCell, hover: ComponentizedCell, { leftOf }: Callbacks) => {
+    const level = getDropLevel(hover)
+    leftOf(item.rawNode(), {
+      ...hover.rawNode()
+    }, level)
+  },
+  [c.RH]: (item: ComponentizedCell, hover: ComponentizedCell, { rightOf }: Callbacks) => {
+    const level = getDropLevel(hover)
+    rightOf(item.rawNode(), {
+      ...hover.rawNode()
+    }, level)
+  },
 
   /* ancestors */
   [c.AA]: (item: ComponentizedCell, hover: ComponentizedCell, { above }: Callbacks, ctx: Object) => above(item.rawNode(), hover.rawNode(), computeVertical({
@@ -342,6 +419,11 @@ export const defaultCallbacks: CallbackList = {
   }
 }
 
+/**
+ * The HoverService uses callbacks and matrices to compute hover logic.
+ *
+ * @class HoverService
+ */
 export default class HoverService {
   callbacks: CallbackList = defaultCallbacks
   matrices: MatrixList = defaultMatrices

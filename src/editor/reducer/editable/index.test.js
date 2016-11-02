@@ -2,7 +2,7 @@
 import { rawEditableReducer } from './index'
 import unexpected from 'unexpected'
 import { combineReducers, createStore } from 'redux'
-import { identity } from 'ramda'
+import identity from 'ramda/src/identity'
 import * as actions from 'src/editor/actions/cell'
 import { decorate } from './helper/tree'
 import { cellOrder } from './helper/order'

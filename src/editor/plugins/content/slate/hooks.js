@@ -3,7 +3,11 @@
 /* eslint-disable react/display-name */
 /* eslint-disable new-cap */
 import { List } from 'immutable'
-import { head, map, path, reduce, tail } from 'ramda'
+import head from 'ramda/src/head'
+import map from 'ramda/src/map'
+import path from 'ramda/src/path'
+import reduce from 'ramda/src/reduce'
+import tail from 'ramda/src/tail'
 import React from 'react'
 import type { Props } from './Component'
 

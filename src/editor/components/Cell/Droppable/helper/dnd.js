@@ -4,7 +4,7 @@ import throttle from 'lodash.throttle'
 import type { ComponentizedCell } from 'types/editable'
 import { delay } from 'src/editor/helper/throttle'
 import logger from 'src/editor/service/logger'
-import { pathOr } from 'ramda'
+import pathOr from 'ramda/src/pathOr'
 
 let last: {hover: string, drag: string} = { hover: '', drag: '' }
 

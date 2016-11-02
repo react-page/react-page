@@ -2,7 +2,7 @@
 import { focus } from '.'
 import unexpected from 'unexpected'
 import { combineReducers, createStore } from 'redux'
-import { identity } from 'ramda'
+import identity from 'ramda/src/identity'
 import { blurCell, focusCell } from 'src/editor/actions/cell'
 
 const expect = unexpected.clone()

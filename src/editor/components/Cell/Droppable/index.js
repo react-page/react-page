@@ -28,7 +28,11 @@ class Droppable extends Component {
   }
 
   render() {
-    const { connectDropTarget, isLayoutMode, isInsertMode, className, isLeaf, node: { hover, }, children, isServerContext } = this.props
+    const { connectDropTarget, isLayoutMode, isInsertMode, className, isLeaf, node: { hover }, children, isServerContext } = this.props
+
+    if (isServerContext) {
+      return children
+    }
 
     if (!(isLayoutMode || isInsertMode)) {
       return (
@@ -36,10 +40,6 @@ class Droppable extends Component {
           {children}
         </div>
       )
-    }
-
-    if (isServerContext) {
-      return children
     }
 
     return connectDropTarget(

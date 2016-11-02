@@ -9,7 +9,7 @@ import { isEditMode } from 'src/editor/selector/display'
 import { focus } from 'src/editor/selector/focus'
 import { node, editable } from 'src/editor/selector/editable'
 import { createStructuredSelector } from 'reselect'
-import { pathOr } from 'ramda'
+import pathOr from 'ramda/src/pathOr'
 import type { Editable } from 'types/editable'
 
 const hotKeyHandler = (n: Object, key: string) => pathOr(pathOr(() => true, ['content', 'plugin', key], n), ['layout', 'plugin', key], n)
