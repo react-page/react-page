@@ -17,6 +17,8 @@ export default class SlatePlugin extends ContentPlugin {
   icon = <Subject />
   text = 'Text'
 
+  allowInline = true
+
   onFocus = (props: Props) => {
     if (props.state.editorState.isFocused) {
       return

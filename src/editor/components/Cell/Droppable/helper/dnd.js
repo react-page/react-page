@@ -4,6 +4,7 @@ import throttle from 'lodash.throttle'
 import type { ComponentizedCell } from 'types/editable'
 import { delay } from 'src/editor/helper/throttle'
 import logger from 'src/editor/service/logger'
+import { pathOr } from 'ramda'
 
 let last: {hover: string, drag: string} = { hover: '', drag: '' }
 
@@ -40,7 +41,8 @@ export const target = {
     }
 
     last = { hover: hover.id, drag: drag.id }
-    computeAndDispatchHover(hover, monitor, component)
+    const allowInline = pathOr(false, ['node', 'content', 'plugin', 'allowInline'], hover)
+    computeAndDispatchHover(hover, monitor, component, `10x10${allowInline ? '' : '-no-inline'}`)
   }, delay, { leading: false }),
 
   canDrop: ({ id, ancestors }: ComponentizedCell, monitor: Object) => {
@@ -65,7 +67,8 @@ export const target = {
     }
 
     last = { hover: hover.id, drag: drag.id }
-    computeAndDispatchInsert(hover, monitor, component)
+    const allowInline = pathOr(false, ['node', 'content', 'plugin', 'allowInline'], hover)
+    computeAndDispatchInsert(hover, monitor, component, `10x10${allowInline ? '' : '-no-inline'}`)
   }
 }
 
