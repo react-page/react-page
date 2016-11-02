@@ -14,9 +14,9 @@ for (const element of elements) {
       //   console.log('serialize: ', result)
       // })
       //
-      editable.renderToHtml().then((result) => {
-        console.log('html: ', result)
-      })
+      // editable.renderToHtml().then((result) => {
+      //   console.log('html: ', result)
+      // })
     })
   })
 }

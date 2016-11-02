@@ -1,2 +1,2 @@
 // @flow
-export const focus = ({ focus }: { focus: string[] }) => focus
+export const focus = ({ focus }: { focus: string }) => focus
