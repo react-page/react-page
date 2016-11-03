@@ -23,13 +23,15 @@
 </head>
 <body>
 
-
+<!--
 <div>
   <div class="header-title-background">
     <div class="header-title-video">
-      <iframe width="100%" height="100%"
-              src="https://www.youtube.com/embed/43ngkc2Ejgw?autohide=1&loop=1&playlist=43ngkc2Ejgw&autoplay=1&controls=0&enablejsapi=1&iv_load_policy=3&loop=0&modestbranding=1&playsinline=1&rel=0&showinfo=0&wmode=opaque&widgetid=1"
-              frameborder="0"></iframe>
+      <video playsinline autoplay muted loop class="background-video">
+        <source src="" type="video/webm">
+        <source src="https://storage.googleapis.com/ory.am/bokeh2.mp4" type="video/mp4">
+      </video>
+      <div class="background-video-overlay"></div>
     </div>
     <div class="header-overlay">
       <nav class="navbar">
@@ -63,10 +65,15 @@
     </div>
   </div>
 </div>
+-->
 
-<div class="container">
-  <div class="editable" data-editable="0"></div>
-</div>
+<div class="editable" data-editable="0"></div>
+
+<footer id="footer">
+  <div class="footer-wrapper">
+    <div class="editable" data-editable="1"></div>
+  </div>
+</footer>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
