@@ -10,7 +10,6 @@ import cssModules from 'react-css-modules'
 import dimensions from 'src/editor/components/Dimensions'
 import Notifier, { dismissedMobilePreviewKey } from 'src/editor/components/Notifier'
 import { blurAllCells } from 'src/editor/actions/cell'
-import NativeListener from 'react-native-listener'
 import type { EditableComponentState, Cell as CellType } from 'types/editable'
 import * as commonStyles from 'src/editor/styles'
 import styles from './index.scoped.css'
@@ -42,33 +41,31 @@ class Editable extends Component {
     }
 
     return (
-      <NativeListener>
-        <div data={{ id }} styles={props.styles} className={`editor-container ${id}`}>
-          <div styles={props.styles} styleName="row" className="editor-row">
-            {cells.map((c: string | CellType) => (
-              <Cell
-                rowWidth={containerWidth}
-                rowHeight={containerHeight}
-                editable={id}
-                ancestors={[]}
-                key={c}
-                id={c}
-              />
-            ))}
-          </div>
-          {
-            this.props.isServerContext
-              ? null
-              : (
-              <Notifier
-                message="Resize the browser window for mobile preview."
-                open={isPreviewMode}
-                id={dismissedMobilePreviewKey}
-              />
-            )
-          }
+      <div styles={props.styles} className={'editor-container'}>
+        <div styles={props.styles} styleName="row" className="editor-row">
+          {cells.map((c: string | CellType) => (
+            <Cell
+              rowWidth={containerWidth}
+              rowHeight={containerHeight}
+              editable={id}
+              ancestors={[]}
+              key={c}
+              id={c}
+            />
+          ))}
         </div>
-      </NativeListener>
+        {
+          this.props.isServerContext
+            ? null
+            : (
+            <Notifier
+              message="Resize the browser window for mobile preview."
+              open={isPreviewMode}
+              id={dismissedMobilePreviewKey}
+            />
+          )
+        }
+      </div>
     )
   }
 }
