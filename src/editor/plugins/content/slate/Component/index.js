@@ -8,6 +8,10 @@ import ItalicIcon from 'material-ui/svg-icons/editor/format-italic'
 import OrderedListIcon from 'material-ui/svg-icons/editor/format-list-numbered'
 import UnderlinedIcon from 'material-ui/svg-icons/editor/format-underlined'
 import BlockquoteIcon from 'material-ui/svg-icons/editor/format-quote'
+import AlignLeftIcon from 'material-ui/svg-icons/editor/format-align-left'
+import AlignCenterIcon from 'material-ui/svg-icons/editor/format-align-center'
+import AlignRightIcon from 'material-ui/svg-icons/editor/format-align-right'
+import AlignJustifyIcon from 'material-ui/svg-icons/editor/format-align-justify'
 import KatexIcon from 'material-ui/svg-icons/editor/functions'
 import H1Icon from 'material-ui/svg-icons/image/looks-one'
 import H2Icon from 'material-ui/svg-icons/image/looks-two'
@@ -425,6 +429,31 @@ class Slate extends Component {
     )
   }
 
+  renderAlignmentButton = (align, icon) => {
+    const onClick = (e) => {
+      e.preventDefault()
+
+      const { editorState } = this.props.state
+      const isActive = editorState.blocks.some((block) => block.data.get('align') === align)
+
+      this.onStateChange(
+        editorState
+          .transform()
+          .setBlock({ data: { align: isActive ? null : align } })
+          .apply()
+      )
+    }
+
+    const { editorState } = this.props.state
+    const isActive = editorState.blocks.some((block) => block.data.get('align') === align)
+
+    return (
+      <IconButton onClick={onClick} iconStyle={isActive ? { color: 'rgb(0, 188, 212)' } : { color: 'white' }}>
+        {icon}
+      </IconButton>
+    )
+  }
+
   onRef = (c) => {
     this._component = c
   }
@@ -471,6 +500,10 @@ class Slate extends Component {
             {this.renderLinkButton()}
             {this.renderKatexButton()}
             {this.renderBlockquoteNodeButton(<BlockquoteIcon />)}
+            {this.renderAlignmentButton('center', <AlignCenterIcon />)}
+            {this.renderAlignmentButton('left', <AlignLeftIcon />)}
+            {this.renderAlignmentButton('right', <AlignRightIcon />)}
+            {this.renderAlignmentButton('justify', <AlignJustifyIcon />)}
           </BottomToolbar>
         )}
       </div>
