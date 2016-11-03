@@ -25,10 +25,10 @@ import position from 'selection-position'
 import { Editor } from 'slate'
 import createBlockquotePlugin from 'slate-edit-blockquote'
 import createListPlugin from 'slate-edit-list'
-
 import BottomToolbar from 'src/editor/components/BottomToolbar'
 import { ContentPluginProps } from 'src/editor/service/plugin/classes'
 import nodes from './nodes'
+
 import styles from './index.scoped.css'
 
 const onBlur = (_event, _data, state) => state
@@ -156,8 +156,6 @@ class Slate extends Component {
     if (data.isMod && (data.key === 'z' || data.key === 'y')) {
       return state
     }
-
-    // TODO if empty and backspace, remove cell
 
     if (data.isShift && data.key === 'enter') {
       return state.transform().insertText('\n').apply()

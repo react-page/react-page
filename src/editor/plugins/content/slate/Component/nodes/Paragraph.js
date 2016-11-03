@@ -20,8 +20,9 @@ class Paragraph extends Component {
 
   render() {
     const { node, state, children, attributes } = this.props
+    const align = this.props.node.data.get('align')
     return (
-      <p {...attributes}>
+      <p {...attributes} style={{ textAlign: align }}>
         <Placeholder
           styleName="placeholder"
           node={node}
