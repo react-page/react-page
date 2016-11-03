@@ -3,10 +3,7 @@ import IconButton from 'material-ui/IconButton'
 import CodeIcon from 'material-ui/svg-icons/action/code'
 import ListIcon from 'material-ui/svg-icons/action/list'
 import LinkIcon from 'material-ui/svg-icons/content/link'
-import BoldIcon from 'material-ui/svg-icons/editor/format-bold'
-import ItalicIcon from 'material-ui/svg-icons/editor/format-italic'
 import OrderedListIcon from 'material-ui/svg-icons/editor/format-list-numbered'
-import UnderlinedIcon from 'material-ui/svg-icons/editor/format-underlined'
 import BlockquoteIcon from 'material-ui/svg-icons/editor/format-quote'
 import AlignLeftIcon from 'material-ui/svg-icons/editor/format-align-left'
 import AlignCenterIcon from 'material-ui/svg-icons/editor/format-align-center'
@@ -77,11 +74,6 @@ const BLOCKQUOTE = 'blockquote'
 const KATEX = 'KATEX'
 const DEFAULT_NODE = P
 
-// Marks
-const STRONG = 'STRONG'
-const EM = 'EM'
-const U = 'U'
-
 const plugins = [
   createListPlugin({
     typeUL: UL,
@@ -94,31 +86,6 @@ const plugins = [
     typeDefault: DEFAULT_NODE
   })
 ]
-
-const schema = {
-  nodes: {
-    [H1]: makeTagNode('h1'),
-    [H2]: makeTagNode('h2'),
-    [H3]: makeTagNode('h3'),
-    [H4]: makeTagNode('h4'),
-    [H5]: makeTagNode('h5'),
-    [H6]: makeTagNode('h6'),
-    [UL]: makeTagNode('ul'),
-    [OL]: makeTagNode('ol'),
-    [LI]: makeTagNode('li'),
-    [BLOCKQUOTE]: makeTagNode('blockquote'),
-    [CODE]: nodes.Code,
-    [P]: nodes.Paragraph,
-    [A]: nodes.Link,
-    [KATEX]: nodes.Katex
-  },
-  marks: {
-    [STRONG]: makeTagMark('strong'),
-    [EM]: makeTagMark('em'),
-    [U]: makeTagMark('u'),
-    [CODE]: makeTagMark('code')
-  }
-}
 
 export type Props = ContentPluginProps<{ editorState: Object }>
 
@@ -168,32 +135,16 @@ class Slate extends Component {
       return state.transform().insertText('\n').apply()
     }
 
-    if (!data.isMod) {
-      return
+    const { slatePlugins } = this.props
+
+    for (let i = 0; i < slatePlugins.length; i++) {
+      const { onKeyDown } = slatePlugins[i]
+      const newState = onKeyDown && onKeyDown(e, data, state)
+
+      if (newState) {
+        return newState
+      }
     }
-
-    e.preventDefault()
-
-    let mark
-
-    switch (data.key) {
-      case 'b':
-        mark = STRONG
-        break
-      case 'i':
-        mark = EM
-        break
-      case 'u':
-        mark = U
-        break
-      default:
-        return
-    }
-
-    return state
-      .transform()
-      .toggleMark(mark)
-      .apply()
   }
 
   handleOpen = (portal) => {
@@ -459,8 +410,31 @@ class Slate extends Component {
   }
 
   render() {
-    const { focused, readOnly, state: { editorState } } = this.props
+    const { focused, readOnly, state: { editorState }, slatePlugins } = this.props
     const isOpened = editorState.isExpanded && editorState.isFocused
+
+    const schema = {
+      nodes: {
+        [H1]: makeTagNode('h1'),
+        [H2]: makeTagNode('h2'),
+        [H3]: makeTagNode('h3'),
+        [H4]: makeTagNode('h4'),
+        [H5]: makeTagNode('h5'),
+        [H6]: makeTagNode('h6'),
+        [UL]: makeTagNode('ul'),
+        [OL]: makeTagNode('ol'),
+        [LI]: makeTagNode('li'),
+        [BLOCKQUOTE]: makeTagNode('blockquote'),
+        [CODE]: nodes.Code,
+        [P]: nodes.Paragraph,
+        [A]: nodes.Link,
+        [KATEX]: nodes.Katex
+      },
+      marks: {
+        ...slatePlugins[0].marks,
+        [CODE]: makeTagMark('code')
+      }
+    }
 
     return (
       <div>
@@ -468,9 +442,11 @@ class Slate extends Component {
           <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
             {/* TODO editor-container is needed to avoid global blurry, #190 */}
             <div styleName="inline-toolbar" className="editor-container" style={{ padding: 0 }}>
-              {this.renderMarkButton(STRONG, <BoldIcon />)}
-              {this.renderMarkButton(EM, <ItalicIcon />)}
-              {this.renderMarkButton(U, <UnderlinedIcon />)}
+              {slatePlugins.map(({ inlineButtons }, i) => (
+                inlineButtons.map((Button, j) => (
+                  <Button key={`${i}-${j}`} editorState={editorState} onChange={this.onStateChange} />
+                ))
+              ))}
               {this.renderMarkButton(CODE, <CodeIcon />)}
             </div>
           </MuiThemeProvider>

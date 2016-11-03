@@ -8,10 +8,20 @@ import { ContentPlugin } from 'src/editor/service/plugin/classes'
 import Component from './Component'
 import type { Props } from './Component'
 
+import * as EmphasizePlugin from './plugins/emphasize'
+
 import * as hooks from './hooks'
 
 export default class SlatePlugin extends ContentPlugin {
-  Component = Component
+  constructor(plugins) {
+    super(plugins)
+
+    this.plugins = plugins || [
+      EmphasizePlugin
+    ]
+  }
+
+  Component = (props) => <Component slatePlugins={this.plugins} {...props} />
   name = 'ory/editor/core/content/slate'
   version = '0.0.1'
   icon = <Subject />
