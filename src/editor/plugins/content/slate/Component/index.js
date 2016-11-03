@@ -34,9 +34,12 @@ import styles from './index.scoped.css'
 const onBlur = (_event, _data, state) => state
 
 const makeTagNode = (Tag) => {
-  const NodeComponent = ({ attributes, children }: { attributes: Object, children: any }) => (
-    <Tag {...attributes}>{children}</Tag>
-  )
+  const NodeComponent = ({ attributes, children, node }: { attributes: Object, children: any, node: any }) => {
+    const align = node.data.get('align')
+    return (
+      <Tag {...attributes} style={{ textAlign: align }}>{children}</Tag>
+    )
+  }
 
   NodeComponent.displayName = `${Tag}-node`
 
