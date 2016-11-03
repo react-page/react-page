@@ -1,13 +1,11 @@
 # ![Ory Editor](logo.png)
  
-Build, distribute and manage digital content. Empower designers to enforce design. Save development time.
-Amaze authors with extensibility and ease of use.
+This makes digital content creation fun and easy.
 
-This repository is under heavy work.
+*Please be aware that all features and APIs are experimental. Breaking changes will happen.*
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-
 
 - [Introduction](#introduction)
 - [Quickstart](#quickstart)
@@ -34,13 +32,13 @@ by the following GIFs and in the [**examples section**](https://editor.ory.am/ex
 
 *Note: You actually can't install the Editor via npm at the moment*
 
-You can install the Ory Editor via npm. Support for bower and CDN will follow soon.
+Install the Ory Editor via npm, support for bower and CDN will follow soon.
 
 ```sh
 npm install --save ory-editor
 ```
 
-You can now run the editor using:
+Now, run the editor with:
 
 ```js
 const Editor = require('ory-editor')
@@ -55,7 +53,7 @@ editor.render(document.querySelectorAll('.editable'))
 
 <!-- The Ory Editor has a [user guide] as well as an [API documentation]. -->
 
-You can generate the user guide locally with:
+Generate the user guide locally with:
 
 ```
 $ git clone https://github.com/ory-am/editor.git
@@ -93,3 +91,8 @@ $ open http://localhost:3000/
 ```
 
 A developer documentation is in the process of being written.
+
+## Known issues
+
+There are several [known issues](https://github.com/ory-am/editor/issues?q=is%3Aopen+is%3Aissue+label%3Abug)
+regarding text editing. Most of them are upstream issues of [Slate](https://github.com/ianstormtaylor/slate).

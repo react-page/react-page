@@ -1,5 +1,4 @@
 .placeholder {
   font-style: italic;
-  color: #aaaaaa;
-  color: rgba(0,0,0,.4);
+  color: var(--lightBlack);
 }

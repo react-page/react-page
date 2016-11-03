@@ -17,7 +17,7 @@
   text-align: center;
   width: 100%;
   position: absolute;
-  color: #aaa;
+  color: var(--grey400);
   font-size: 14px;
   top: 0;
 }

@@ -1,0 +1,3 @@
+!! do not rely on dom state, e.g. window.getSelection() !!
+
+rule of thumb: don't use refs

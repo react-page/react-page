@@ -1,5 +1,11 @@
-// @flow
-import { flatten, head, path, map, reduce, tail, takeWhile } from 'ramda'
+// @flow'
+import flatten from 'ramda/src/flatten'
+import head from 'ramda/src/head'
+import path from 'ramda/src/path'
+import map from 'ramda/src/map'
+import reduce from 'ramda/src/reduce'
+import tail from 'ramda/src/tail'
+import takeWhile from 'ramda/src/takeWhile'
 
 import { SET_DISPLAY_MODE } from 'src/editor/actions/display'
 import type { Row } from 'types/editable'

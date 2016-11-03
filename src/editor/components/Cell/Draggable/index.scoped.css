@@ -1,0 +1,44 @@
+.draggable {
+  cursor: move;
+  position: relative;
+  height: 100%;
+  transition: opacity 200ms ease;
+  /* resolves an issue with darg and dorp preview in chrome, see https://github.com/ory-am/editor/issues/180 */
+  // will-change: transform;
+}
+
+.draggable-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 3;
+  cursor: move;
+  transition: all ease .2s;
+}
+
+.draggable-overlay:hover {
+  filter: sepia(0.7);
+  background: var(--faintBlack);
+  box-shadow: 0 0 4px var(--minBlack);
+  background-blend-mode: screen;
+}
+
+.draggable-overlay.leaf {
+  z-index: 3;
+}
+
+.inline-left.draggable-overlay, .inline-right.draggable-overlay {
+  float: left;
+  z-index: 4;
+}
+
+.draggable > * {
+  // will-change: auto;
+}
+
+.is-dragging {
+  opacity: 0.4;
+  outline: none;
+}

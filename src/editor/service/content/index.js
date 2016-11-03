@@ -1,7 +1,7 @@
 // @flow
 import { AbstractAdapter, LocalStoreAdapter, DebugStorageAdapter } from './adapter'
 import uuid from 'node-uuid'
-import { path } from 'ramda'
+import path from 'ramda/src/path'
 import PluginService from 'src/editor/service/plugin'
 import { LayoutPlugin, ContentPlugin } from 'src/editor/service/plugin/classes'
 import logger from 'src/editor/service/logger'

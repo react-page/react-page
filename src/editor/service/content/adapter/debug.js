@@ -43,32 +43,6 @@ export const content = {
                     {
                       content: {
                         plugin: {
-                          name: 'ory/editor/core/content/video'
-                        },
-                        state: {
-                          src: 'https://www.youtube.com/watch?v=ER97mPHhgtM'
-                        }
-                      },
-                      id: '9f9c6193-9bd0-4521-a4e0-8f17cac6d058'
-                    }
-                  ],
-                  id: 'e812c172-91b6-4b4c-bc84-b759990e1177'
-                }
-              ],
-              id: '8e9a6007-f1fd-4d29-a2c4-e21313b03b8d'
-            }
-          ],
-          id: '39702c61-b6c2-402e-b381-d61c8aa7eeb1'
-        },
-        {
-          cells: [
-            {
-              rows: [
-                {
-                  cells: [
-                    {
-                      content: {
-                        plugin: {
                           name: 'ory/editor/core/content/spacer'
                         },
                         state: {

@@ -25,18 +25,21 @@ import position from 'selection-position'
 import { Editor } from 'slate'
 import createBlockquotePlugin from 'slate-edit-blockquote'
 import createListPlugin from 'slate-edit-list'
-
 import BottomToolbar from 'src/editor/components/BottomToolbar'
 import { ContentPluginProps } from 'src/editor/service/plugin/classes'
 import nodes from './nodes'
+
 import styles from './index.scoped.css'
 
 const onBlur = (_event, _data, state) => state
 
 const makeTagNode = (Tag) => {
-  const NodeComponent = ({ attributes, children }: { attributes: Object, children: any }) => (
-    <Tag {...attributes}>{children}</Tag>
-  )
+  const NodeComponent = ({ attributes, children, node }: { attributes: Object, children: any, node: any }) => {
+    const align = node.data.get('align')
+    return (
+      <Tag {...attributes} style={{ textAlign: align }}>{children}</Tag>
+    )
+  }
 
   NodeComponent.displayName = `${Tag}-node`
 
@@ -145,7 +148,7 @@ class Slate extends Component {
 
   componentDidUpdate = () => this.updateToolbar()
 
-  props: ContentPluginProps
+  props: ContentPluginProps<{ editorState: Object }>
 
   onStateChange = (editorState) => {
     this.props.onChange({ editorState })
@@ -156,8 +159,6 @@ class Slate extends Component {
     if (data.isMod && (data.key === 'z' || data.key === 'y')) {
       return state
     }
-
-    // TODO if empty and backspace, remove cell
 
     if (data.isShift && data.key === 'enter') {
       return state.transform().insertText('\n').apply()

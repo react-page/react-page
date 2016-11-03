@@ -13,5 +13,5 @@ export default class ImagePlugin extends ContentPlugin {
   icon = <Panorama />
   text = 'Image'
   inlineable = true
-  onRemoveHotKey = (_: Event, __: ContentPluginProps<*>): Promise<*> => Promise.reject()
+  handleRemoveHotKey = (_: Event, __: ContentPluginProps<*>): Promise<*> => Promise.reject()
 }

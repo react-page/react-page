@@ -5,7 +5,7 @@
   left: -10000px;
   margin-top: -6px;
   opacity: 0;
-  background-color: #222;
+  background-color: var(--grey900);
   border-radius: 4px;
   transition: opacity .75s;
 }

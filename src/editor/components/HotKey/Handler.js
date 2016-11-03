@@ -1,4 +1,5 @@
 // @flow
+/* eslint-disable no-empty-function */
 import React from 'react'
 import { HotKeys } from 'react-hotkeys'
 import { connect } from 'react-redux'
@@ -8,9 +9,8 @@ import { isEditMode } from 'src/editor/selector/display'
 import { focus } from 'src/editor/selector/focus'
 import { node, editable } from 'src/editor/selector/editable'
 import { createStructuredSelector } from 'reselect'
-import { pathOr } from 'ramda'
+import pathOr from 'ramda/src/pathOr'
 import type { Editable } from 'types/editable'
-import logger from 'src/editor/service/logger'
 
 const hotKeyHandler = (n: Object, key: string) => pathOr(pathOr(() => true, ['content', 'plugin', key], n), ['layout', 'plugin', key], n)
 
@@ -42,9 +42,7 @@ type Props = {
   editable: Editable
 }
 
-const falser = (e: Error) => {
-  logger.error(e)
-  return
+const falser = () => {
 }
 
 // TODO cleanup and tests #143
@@ -58,12 +56,10 @@ const handlers = ({ id, undo, redo, focus, removeCell, focusCell, blurAllCells, 
       return
     }
 
-    focus.forEach((cell: string) => {
-      const n = node(cell, id)
-      hotKeyHandler(n, 'onRemoveHotKey')(e, pathOr(pathOr({}, ['layout', 'state'], n), ['content', 'state'], n))
-        .then(() => removeCell(cell))
-        .catch(falser)
-    })
+    const n = node(focus, id)
+    hotKeyHandler(n, 'handleRemoveHotKey')(e, pathOr(pathOr({}, ['layout', 'state'], n), ['content', 'state'], n))
+      .then(() => removeCell(focus))
+      .catch(falser)
   },
 
   // focus next cell
@@ -72,18 +68,16 @@ const handlers = ({ id, undo, redo, focus, removeCell, focusCell, blurAllCells, 
       return
     }
 
-    focus.forEach((cell: string) => {
-      const n = node(cell, id)
-      hotKeyHandler(n, 'onFocusNextHotKey')(e, pathOr(pathOr({}, ['layout', 'state'], n), ['content', 'state'], n))
-        .then(() => {
-          const found = nextLeaf(editable.cellOrder, cell)
-          if (found) {
-            blurAllCells()
-            focusCell(found.id)
-          }
-        })
-        .catch(falser)
-    })
+    const n = node(focus, id)
+    hotKeyHandler(n, 'handleFocusNextHotKey')(e, pathOr(pathOr({}, ['layout', 'state'], n), ['content', 'state'], n))
+      .then(() => {
+        const found = nextLeaf(editable.cellOrder, focus)
+        if (found) {
+          blurAllCells()
+          focusCell(found.id)
+        }
+      })
+      .catch(falser)
   },
 
   // focus previous cell
@@ -92,18 +86,16 @@ const handlers = ({ id, undo, redo, focus, removeCell, focusCell, blurAllCells, 
       return
     }
 
-    focus.forEach((cell: string) => {
-      const n = node(cell, id)
-      hotKeyHandler(n, 'onFocusPreviousHotKey')(e, pathOr(pathOr({}, ['layout', 'state'], n), ['content', 'state'], n))
-        .then(() => {
-          const found = previousLeaf(editable.cellOrder, cell)
-          if (found) {
-            blurAllCells()
-            focusCell(found.id)
-          }
-        })
-        .catch(falser)
-    })
+    const n = node(focus, id)
+    hotKeyHandler(n, 'handleFocusPreviousHotKey')(e, pathOr(pathOr({}, ['layout', 'state'], n), ['content', 'state'], n))
+      .then(() => {
+        const found = previousLeaf(editable.cellOrder, focus)
+        if (found) {
+          blurAllCells()
+          focusCell(found.id)
+        }
+      })
+      .catch(falser)
   }
 })
 

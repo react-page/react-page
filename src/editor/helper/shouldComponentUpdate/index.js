@@ -1,5 +1,5 @@
 // @flow
-import { equals } from 'ramda'
+import equals from 'ramda/src/equals'
 
 export const shouldPureComponentUpdate = function (next: Object) {
   const filterFunctions = (o: Object) => (key: string) => typeof o[key] !== 'function'

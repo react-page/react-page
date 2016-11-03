@@ -3,7 +3,11 @@
 /* eslint-disable react/display-name */
 /* eslint-disable new-cap */
 import { List } from 'immutable'
-import { head, map, path, reduce, tail } from 'ramda'
+import head from 'ramda/src/head'
+import map from 'ramda/src/map'
+import path from 'ramda/src/path'
+import reduce from 'ramda/src/reduce'
+import tail from 'ramda/src/tail'
 import React from 'react'
 import type { Props } from './Component'
 
@@ -133,11 +137,11 @@ const position = (): {
 }
 
 // if editor state is empty, remove cell when backspace or delete was pressed.
-export const onRemoveHotKey = (_: KeyboardEvent, { editorState }: Props) => new Promise((resolve: Function, reject: Function) => Plain.serialize(editorState).length < 1 ? resolve() : reject())
+export const handleRemoveHotKey = (_: KeyboardEvent, { editorState }: Props) => new Promise((resolve: Function, reject: Function) => Plain.serialize(editorState).length < 1 ? resolve() : reject())
 
 const windowSelectionWaitTime = 30
 
-export const onFocusPreviousHotKey = (e: KeyboardEvent, _: Props) => {
+export const handleFocusPreviousHotKey = (e: KeyboardEvent, _: Props) => {
   const current = position()
   const isArrowUp = e.keyCode === 38
   return new Promise((resolve: Function, reject: Function) => {
@@ -154,7 +158,7 @@ export const onFocusPreviousHotKey = (e: KeyboardEvent, _: Props) => {
   })
 }
 
-export const onFocusNextHotKey = (e: KeyboardEvent, _: Props) => {
+export const handleFocusNextHotKey = (e: KeyboardEvent, _: Props) => {
   const current = position()
   const isArrowDown = e.keyCode === 40
   return new Promise((resolve: Function, reject: Function) => {

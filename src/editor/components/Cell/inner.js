@@ -1,13 +1,15 @@
 // @flow
 import React, { Component } from 'react'
 import { shouldPureComponentUpdate } from 'src/editor/helper/shouldComponentUpdate'
-import DragDroppable from './DragDroppable'
+import Droppable from './Droppable'
+import Draggable from './Draggable'
 import Rows from './Rows'
 import Layout from './Layout'
 import Content from './Content'
 import Empty from './Empty'
-import type { ComponentizedCell } from 'types/editable'
 import classNames from 'classnames'
+
+import type { ComponentizedCell } from 'types/editable'
 
 class Inner extends Component {
   shouldComponentUpdate = shouldPureComponentUpdate
@@ -28,23 +30,25 @@ class Inner extends Component {
     })
     if (rows.length && LayoutComponent) {
       return (
-        <DragDroppable {...props} styles={null} dragType={layoutType} dropTypes={whitelist} className={cn}>
-          <Layout {...props} {...layoutState} />
-        </DragDroppable>
+        <Droppable {...props} styles={null} dropTypes={whitelist} className={cn}>
+          <Draggable {...props} styles={null} dragType={layoutType} className={cn}>
+            <Layout {...props} {...layoutState} />
+          </Draggable>
+        </Droppable>
       )
     } else if (rows.length) {
-      return <Rows {...props} />
+      return (
+        <Droppable {...props} styles={null} dropTypes={whitelist} className={cn}>
+          <Rows {...props} />
+        </Droppable>
+      )
     } else if (ContentComponent) {
       return (
-        <DragDroppable {...props}
-          styles={null}
-          dragType={contentType}
-          dropTypes={whitelist}
-          allowDrop
-          className={cn}
-        >
-          <Content {...props} />
-        </DragDroppable>
+        <Droppable {...props} isLeaf styles={null} dropTypes={whitelist} className={cn}>
+          <Draggable {...props} isLeaf styles={null} dragType={contentType} className={cn}>
+            <Content {...props} />
+          </Draggable>
+        </Droppable>
       )
     }
 

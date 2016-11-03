@@ -1,7 +1,7 @@
 // @flow
 /* eslint-disable no-use-before-define */
 /* eslint no-duplicate-imports: "off" */
-import { pathOr } from 'ramda'
+import pathOr from 'ramda/src/pathOr'
 import {
   CELL_REMOVE,
   CELL_UPDATE_LAYOUT,
