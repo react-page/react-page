@@ -42,7 +42,7 @@
   left: 0;
   right: 0;
   height: 381px;
-  filter: sepia(19%);
+  /* filter: sepia(19%); */
 }
 
 .header-title-video {
