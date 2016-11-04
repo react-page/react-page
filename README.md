@@ -1,6 +1,14 @@
 # ![Ory Editor](logo.png)
  
+ 
+[![Join the chat at https://gitter.im/ory-am/hydra](https://img.shields.io/badge/join-chat-00cc99.svg)](https://gitter.im/ory-am/hydra)
+[![Join newsletter](https://img.shields.io/badge/join-newsletter-00cc99.svg)](http://eepurl.com/bKT3N9)
+
 [![Build Status](https://travis-ci.org/ory-am/editor.svg?branch=0.1)](https://travis-ci.org/ory-am/editor)
+[![Test Coverage](https://codeclimate.com/github/ory-am/editor/badges/coverage.svg)](https://codeclimate.com/github/ory-am/editor/coverage)
+[![Code Climate](https://codeclimate.com/github/ory-am/editor/badges/gpa.svg)](https://codeclimate.com/github/ory-am/editor)
+
+[![Docs Guide](https://img.shields.io/badge/docs-guide-blue.svg)](https://ory-am.gitbooks.io/ory-editor/content/)
  
 This makes digital content creation fun and easy.
 
