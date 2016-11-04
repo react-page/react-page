@@ -28,6 +28,10 @@ you can finally say goodbye to hacks, html purifiers, steep learning curves, poo
 The Ory Editor is a layout editing SDK for JavaScript. What using the Ory Editor looks like is best explained
 by the following GIFs and in the [**examples section**](https://editor.ory.am/examples).
 
+The editor is different, because it allows you to build responsive layouts. All content is represented by
+a JSON object and because no HTML is used, you won't have to worry about HTML input sanitation or
+XSS attacks. You can extend functionality by writing React components with a small and clear API.
+
 ## Quickstart
 
 *Note: You actually can't install the Editor via npm at the moment*
