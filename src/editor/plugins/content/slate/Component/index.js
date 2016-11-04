@@ -422,14 +422,9 @@ class Slate extends Component {
     //     [OL]: makeTagNode('ol'),
     //     [LI]: makeTagNode('li'),
     //     [BLOCKQUOTE]: makeTagNode('blockquote'),
-    //     [CODE]: nodes.Code,
     //     [P]: nodes.Paragraph,
     //     [A]: nodes.Link,
     //     [KATEX]: nodes.Katex
-    //   },
-    //   marks: {
-    //     ...slatePlugins[0].marks,
-    //     [CODE]: makeTagMark('code')
     //   }
     // }
 
@@ -440,12 +435,6 @@ class Slate extends Component {
             {/* TODO editor-container is needed to avoid global blurry, #190 */}
             <div styleName="inline-toolbar" className="editor-container" style={{ padding: 0 }}>
               <HoverButtons editorState={editorState} onChange={this.onStateChange} />
-              {/* {slatePlugins.map(({ inlineButtons }, i) => (
-                inlineButtons.map((Button, j) => (
-                  <Button key={`${i}-${j}`} editorState={editorState} onChange={this.onStateChange} />
-                ))
-              ))}
-              {this.renderMarkButton(CODE, <CodeIcon />)} */}
             </div>
           </MuiThemeProvider>
         </Portal>
@@ -463,13 +452,7 @@ class Slate extends Component {
         {readOnly ? null : (
           <BottomToolbar open={focused}>
             <ToolbarButtons editorState={editorState} onChange={this.onStateChange} />
-            {/* {this.renderNodeButton(H1, <H1Icon />)}
-            {this.renderNodeButton(H2, <H2Icon />)}
-            {this.renderNodeButton(H3, <H3Icon />)}
-            {this.renderNodeButton(H4, <H4Icon />)}
-            {this.renderNodeButton(H5, <H5Icon />)}
-            {this.renderNodeButton(H6, <H6Icon />)}
-            {this.renderNodeButton(CODE, <CodeIcon />)}
+            {/*
             {this.renderListNodeButton(UL, <ListIcon />)}
             {this.renderListNodeButton(OL, <OrderedListIcon />)}
             {this.renderLinkButton()}

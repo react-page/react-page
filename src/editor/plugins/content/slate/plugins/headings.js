@@ -36,7 +36,7 @@ const createButton = (type, icon) => ({ editorState, onChange, DEFAULT_NODE }) =
   return <ToolbarButton onClick={onClick} isActive={isActive} icon={icon} />
 }
 
-export default class EmphasizePlugin extends Plugin {
+export default class HeadingsPlugin extends Plugin {
   name = 'headings'
 
   nodes = {

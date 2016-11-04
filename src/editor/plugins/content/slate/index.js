@@ -10,6 +10,7 @@ import { ContentPlugin } from 'src/editor/service/plugin/classes'
 import Component from './Component'
 import type { Props } from './Component'
 
+import CodePlugin from './plugins/code'
 import EmphasizePlugin from './plugins/emphasize'
 import HeadingsPlugin from './plugins/headings'
 
@@ -27,7 +28,8 @@ export default class SlatePlugin extends ContentPlugin {
 
     this.plugins = plugins || [
       new EmphasizePlugin(),
-      new HeadingsPlugin()
+      new HeadingsPlugin(),
+      new CodePlugin()
     ]
 
     this.DEFAULT_NODE = P
