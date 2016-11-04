@@ -125,29 +125,30 @@ class Slate extends Component {
     this.props.onChange({ editorState })
   }
 
-  onKeyDown = (e: Event, data: { key: string, isMod: bool, isShift: bool }, state) => {
-    // we need to prevent slate from handling undo and redo
-    if (data.isMod && (data.key === 'z' || data.key === 'y')) {
-      return state
-    }
-
-    if (data.isShift && data.key === 'enter') {
-      return state.transform().insertText('\n').apply()
-    }
-
-    const { slatePlugins } = this.props
-
-    for (let i = 0; i < slatePlugins.length; i++) {
-      const { onKeyDown } = slatePlugins[i]
-      const newState = onKeyDown && onKeyDown(e, data, state)
-
-      if (newState) {
-        return newState
-      }
-    }
-  }
+  // onKeyDown = (e: Event, data: { key: string, isMod: bool, isShift: bool }, state) => {
+  //   // we need to prevent slate from handling undo and redo
+  //   if (data.isMod && (data.key === 'z' || data.key === 'y')) {
+  //     return state
+  //   }
+  //
+  //   if (data.isShift && data.key === 'enter') {
+  //     return state.transform().insertText('\n').apply()
+  //   }
+  //
+  //   const { slatePlugins } = this.props
+  //
+  //   for (let i = 0; i < slatePlugins.length; i++) {
+  //     const { onKeyDown } = slatePlugins[i]
+  //     const newState = onKeyDown && onKeyDown(e, data, state)
+  //
+  //     if (newState) {
+  //       return newState
+  //     }
+  //   }
+  // }
 
   handleOpen = (portal) => {
+    console.log(portal)
     this.props.onChange({ toolbar: portal.firstChild })
   }
 
@@ -410,31 +411,38 @@ class Slate extends Component {
   }
 
   render() {
-    const { focused, readOnly, state: { editorState }, slatePlugins } = this.props
+    const {
+      focused,
+      readOnly,
+      state: { editorState },
+      schema,
+      onKeyDown,
+      HoverButtons
+    } = this.props
     const isOpened = editorState.isExpanded && editorState.isFocused
 
-    const schema = {
-      nodes: {
-        [H1]: makeTagNode('h1'),
-        [H2]: makeTagNode('h2'),
-        [H3]: makeTagNode('h3'),
-        [H4]: makeTagNode('h4'),
-        [H5]: makeTagNode('h5'),
-        [H6]: makeTagNode('h6'),
-        [UL]: makeTagNode('ul'),
-        [OL]: makeTagNode('ol'),
-        [LI]: makeTagNode('li'),
-        [BLOCKQUOTE]: makeTagNode('blockquote'),
-        [CODE]: nodes.Code,
-        [P]: nodes.Paragraph,
-        [A]: nodes.Link,
-        [KATEX]: nodes.Katex
-      },
-      marks: {
-        ...slatePlugins[0].marks,
-        [CODE]: makeTagMark('code')
-      }
-    }
+    // const schema = {
+    //   nodes: {
+    //     [H1]: makeTagNode('h1'),
+    //     [H2]: makeTagNode('h2'),
+    //     [H3]: makeTagNode('h3'),
+    //     [H4]: makeTagNode('h4'),
+    //     [H5]: makeTagNode('h5'),
+    //     [H6]: makeTagNode('h6'),
+    //     [UL]: makeTagNode('ul'),
+    //     [OL]: makeTagNode('ol'),
+    //     [LI]: makeTagNode('li'),
+    //     [BLOCKQUOTE]: makeTagNode('blockquote'),
+    //     [CODE]: nodes.Code,
+    //     [P]: nodes.Paragraph,
+    //     [A]: nodes.Link,
+    //     [KATEX]: nodes.Katex
+    //   },
+    //   marks: {
+    //     ...slatePlugins[0].marks,
+    //     [CODE]: makeTagMark('code')
+    //   }
+    // }
 
     return (
       <div>
@@ -442,19 +450,20 @@ class Slate extends Component {
           <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
             {/* TODO editor-container is needed to avoid global blurry, #190 */}
             <div styleName="inline-toolbar" className="editor-container" style={{ padding: 0 }}>
-              {slatePlugins.map(({ inlineButtons }, i) => (
+              <HoverButtons editorState={editorState} onChange={this.onStateChange} />
+              {/* {slatePlugins.map(({ inlineButtons }, i) => (
                 inlineButtons.map((Button, j) => (
                   <Button key={`${i}-${j}`} editorState={editorState} onChange={this.onStateChange} />
                 ))
               ))}
-              {this.renderMarkButton(CODE, <CodeIcon />)}
+              {this.renderMarkButton(CODE, <CodeIcon />)} */}
             </div>
           </MuiThemeProvider>
         </Portal>
         <div ref={this.onRef}>
           <Editor
             onChange={this.onStateChange}
-            onKeyDown={this.onKeyDown}
+            onKeyDown={onKeyDown}
             readOnly={Boolean(readOnly)}
             onBlur={onBlur}
             schema={schema}

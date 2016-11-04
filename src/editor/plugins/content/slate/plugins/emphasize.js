@@ -5,43 +5,11 @@ import ItalicIcon from 'material-ui/svg-icons/editor/format-italic'
 import UnderlinedIcon from 'material-ui/svg-icons/editor/format-underlined'
 
 import { makeTagMark, ToolbarButton } from '../helpers'
+import Plugin from './Plugin'
 
 export const STRONG = 'EMPHASIZE/STRONG'
 export const EM = 'EMPHASIZE/EM'
 export const U = 'EMPHASIZE/U'
-
-export const marks = {
-  [STRONG]: makeTagMark('strong'),
-  [EM]: makeTagMark('em'),
-  [U]: makeTagMark('u'),
-}
-
-export const onKeyDown = (e: Event, data: { key: string, isMod: bool }, state) => {
-  if (data.isMod) {
-    e.preventDefault()
-
-    let mark
-
-    switch (data.key) {
-      case 'b':
-        mark = STRONG
-        break
-      case 'i':
-        mark = EM
-        break
-      case 'u':
-        mark = U
-        break
-      default:
-        return
-    }
-
-    return state
-      .transform()
-      .toggleMark(mark)
-      .apply()
-  }
-}
 
 const createButton = (type, icon) => ({ editorState, onChange }) => {
   const onClick = (e) => {
@@ -60,8 +28,45 @@ const createButton = (type, icon) => ({ editorState, onChange }) => {
   return <ToolbarButton onClick={onClick} isActive={isActive} icon={icon} />
 }
 
-export const inlineButtons = [
-  createButton(STRONG, <BoldIcon />),
-  createButton(EM, <ItalicIcon />),
-  createButton(U, <UnderlinedIcon />)
-]
+export default class EmphasizePlugin extends Plugin {
+  name = 'emphasize'
+
+  marks = {
+    [STRONG]: makeTagMark('strong'),
+    [EM]: makeTagMark('em'),
+    [U]: makeTagMark('u'),
+  }
+
+  onKeyDown = (e: Event, data: { key: string, isMod: bool }, state) => {
+    if (data.isMod) {
+      e.preventDefault()
+
+      let mark
+
+      switch (data.key) {
+        case 'b':
+          mark = STRONG
+          break
+        case 'i':
+          mark = EM
+          break
+        case 'u':
+          mark = U
+          break
+        default:
+          return
+      }
+
+      return state
+        .transform()
+        .toggleMark(mark)
+        .apply()
+    }
+  }
+
+  hoverButtons = [
+    createButton(STRONG, <BoldIcon />),
+    createButton(EM, <ItalicIcon />),
+    createButton(U, <UnderlinedIcon />)
+  ]
+}
