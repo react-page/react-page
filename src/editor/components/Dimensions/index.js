@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react'
+import React, { Component } from 'react'
 import onElementResize from 'element-resize-event'
 import logger from 'src/editor/service/logger'
 import connect from 'src/editor/components/ServerContext/connect'
@@ -62,9 +62,7 @@ const Dimensions = ({
       }
     }
 
-    isServerContext = () => {
-      return Boolean(this.props.isServerContext)
-    }
+    isServerContext = () => Boolean(this.props.isServerContext)
 
     onResize = () => {
       if (this.isServerContext()) {

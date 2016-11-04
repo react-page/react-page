@@ -10,21 +10,21 @@ const expect = unexpected.clone()
 
 describe('editor/reducer/focus', () => {
   [{
-    s: [],
+    s: '',
     a: blurCell('1234'),
-    e: []
+    e: ''
   }, {
-    s: ['12341'],
+    s: '12341',
     a: focusCell('1234'),
-    e: ['12341', '1234']
+    e: '1234'
   }, {
-    s: [],
+    s: '',
     a: focusCell('4321'),
-    e: ['4321']
+    e: '4321'
   }, {
-    s: ['4321', '1234'],
+    s: '4321',
     a: blurCell('1234'),
-    e: ['4321']
+    e: '4321'
   }].forEach((c, k) => {
     describe(`test case ${k}`, () => {
       it('should dispatch the action and return the expected result', () => {

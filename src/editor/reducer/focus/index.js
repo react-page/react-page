@@ -9,8 +9,9 @@ export const focus = (state: string = '', action: {
     case CELL_FOCUS:
       return action.id
     case CELL_BLUR_ALL:
-    case CELL_BLUR:
       return ''
+    case CELL_BLUR:
+      return action.id === state ? '' : state
     default:
       return state
   }

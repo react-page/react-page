@@ -1,4 +1,5 @@
 // @flow
+/* eslint-disable no-duplicate-imports */
 import React, { PropTypes } from 'react'
 import { ContentPlugin } from 'src/editor/service/plugin/classes'
 import type { ContentPluginProps } from 'src/editor/service/plugin/classes'

@@ -1,0 +1,178 @@
+exports[`plugins/content/image/Component should render 1`] = `
+<div>
+  <div>
+    <img
+      className="image"
+      src="foo" />
+    <p
+      className="caption">
+      <small>
+        <input
+          className="caption"
+          onChange={[Function]}
+          placeholder="Type caption for image (optional)"
+          type="text"
+          value="bar" />
+      </small>
+    </p>
+  </div>
+  <div
+    className={undefined}
+    style={undefined}>
+    <div
+      className={undefined}
+      style={
+        Object {
+          "WebkitOverflowScrolling": "touch",
+          "WebkitTapHighlightColor": "rgba(0,0,0,0)",
+          "background": "transparent",
+          "backgroundColor": "#ffffff",
+          "border": "transparent",
+          "borderRadius": "0px",
+          "bottom": "-10px",
+          "boxShadow": "none",
+          "boxSizing": "border-box",
+          "color": "rgba(0, 0, 0, 0.87)",
+          "fontFamily": "Roboto, sans-serif",
+          "height": "auto",
+          "left": "0",
+          "margin": "0 auto",
+          "maxWidth": "65%",
+          "muiPrepared": true,
+          "overflow": "visible",
+          "position": "fixed",
+          "right": "0",
+          "textAlign": "center",
+          "top": "inherit",
+          "transform": "translate(0, 110px)",
+          "transition": "transform 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms",
+          "width": "auto",
+          "zIndex": 1300,
+        }
+      }>
+      <div
+        style={
+          Object {
+            "backgroundColor": "rgba(0, 0, 0, 0.87)",
+            "border": "rgba(0, 0, 0, 0.87) 1px solid",
+            "borderRadius": "4px 4px 0",
+            "display": "inline-block",
+            "padding": "12px 24px",
+          }
+        }>
+        <div
+          className={undefined}
+          style={
+            Object {
+              "backgroundColor": "transparent",
+              "display": "inline-block",
+              "fontFamily": "Roboto, sans-serif",
+              "fontSize": 16,
+              "height": 72,
+              "lineHeight": "24px",
+              "muiPrepared": true,
+              "position": "relative",
+              "transition": "height 200ms cubic-bezier(0.23, 1, 0.32, 1) 0ms",
+              "width": "512px",
+            }
+          }>
+          <label
+            className={undefined}
+            htmlFor="undefined-httpexamplecomimagepng-Imagelocationurl-30562"
+            onTouchTap={undefined}
+            style={
+              Object {
+                "color": "white",
+                "cursor": "text",
+                "lineHeight": "22px",
+                "muiPrepared": true,
+                "pointerEvents": "none",
+                "position": "absolute",
+                "top": 38,
+                "transform": "scale(0.75) translate(0, -28px)",
+                "transformOrigin": "left top",
+                "transition": "all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms",
+                "userSelect": "none",
+                "zIndex": 1,
+              }
+            }>
+            Image location (url)
+          </label>
+          <div
+            style={
+              Object {
+                "bottom": 12,
+                "color": "grey",
+                "muiPrepared": true,
+                "opacity": 0,
+                "position": "absolute",
+                "transition": "all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms",
+              }
+            }>
+            http://example.com/image.png
+          </div>
+          <input
+            disabled={false}
+            id="undefined-httpexamplecomimagepng-Imagelocationurl-30562"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            style={
+              Object {
+                "WebkitTapHighlightColor": "rgba(0,0,0,0)",
+                "appearance": "textfield",
+                "backgroundColor": "rgba(0,0,0,0)",
+                "border": "none",
+                "boxSizing": "border-box",
+                "color": "white",
+                "cursor": "initial",
+                "font": "inherit",
+                "height": "100%",
+                "marginTop": 14,
+                "muiPrepared": true,
+                "outline": "none",
+                "padding": 0,
+                "position": "relative",
+                "width": "100%",
+              }
+            }
+            type="text"
+            value="foo" />
+          <div>
+            <hr
+              style={
+                Object {
+                  "border": "none",
+                  "borderBottom": "solid 1px",
+                  "borderColor": "#e0e0e0",
+                  "bottom": 8,
+                  "boxSizing": "content-box",
+                  "margin": 0,
+                  "muiPrepared": true,
+                  "position": "absolute",
+                  "width": "100%",
+                }
+              } />
+            <hr
+              style={
+                Object {
+                  "border": "none",
+                  "borderBottom": "solid 2px",
+                  "borderColor": "#00bcd4",
+                  "bottom": 8,
+                  "boxSizing": "content-box",
+                  "margin": 0,
+                  "muiPrepared": true,
+                  "position": "absolute",
+                  "transform": "scaleX(0)",
+                  "transition": "all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms",
+                  "width": "100%",
+                }
+              } />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

@@ -119,6 +119,7 @@
     "eslint-plugin-flowtype": "2.20.0",
     "eslint-plugin-react": "5.2.2",
     "flow-bin": "0.33.0",
+    "identity-obj-proxy": "^3.0.0",
     "jest": "16.0.1",
     "nightwatch": "0.9.8",
     "nodemon": "1.11.0",
@@ -128,7 +129,8 @@
   },
   "jest": {
     "moduleNameMapper": {
-      "^[./a-zA-Z0-9$_-]+\\.css$": "<rootDir>/config/jest/CSSStub.js"
+      "^.*\\.scoped\\.css$": "identity-obj-proxy",
+      "^.+\\.css$": "<rootDir>/config/jest/CSSStub.js"
     }
   }
 }
