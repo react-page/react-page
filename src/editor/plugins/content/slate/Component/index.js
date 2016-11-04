@@ -10,12 +10,7 @@ import AlignCenterIcon from 'material-ui/svg-icons/editor/format-align-center'
 import AlignRightIcon from 'material-ui/svg-icons/editor/format-align-right'
 import AlignJustifyIcon from 'material-ui/svg-icons/editor/format-align-justify'
 import KatexIcon from 'material-ui/svg-icons/editor/functions'
-import H1Icon from 'material-ui/svg-icons/image/looks-one'
-import H2Icon from 'material-ui/svg-icons/image/looks-two'
-import H3Icon from 'material-ui/svg-icons/image/looks-3'
-import H4Icon from 'material-ui/svg-icons/image/looks-4'
-import H5Icon from 'material-ui/svg-icons/image/looks-5'
-import H6Icon from 'material-ui/svg-icons/image/looks-6'
+
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
 import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
@@ -58,12 +53,6 @@ const makeTagMark = (Tag) => {
 }
 
 // Nodes
-const H1 = 'heading-one'
-const H2 = 'heading-two'
-const H3 = 'heading-three'
-const H4 = 'heading-four'
-const H5 = 'heading-five'
-const H6 = 'heading-six'
 const CODE = 'code'
 const P = 'paragraph'
 const A = 'link'
@@ -148,7 +137,6 @@ class Slate extends Component {
   // }
 
   handleOpen = (portal) => {
-    console.log(portal)
     this.props.onChange({ toolbar: portal.firstChild })
   }
 
@@ -417,7 +405,8 @@ class Slate extends Component {
       state: { editorState },
       schema,
       onKeyDown,
-      HoverButtons
+      HoverButtons,
+      ToolbarButtons
     } = this.props
     const isOpened = editorState.isExpanded && editorState.isFocused
 
@@ -473,7 +462,8 @@ class Slate extends Component {
         </div>
         {readOnly ? null : (
           <BottomToolbar open={focused}>
-            {this.renderNodeButton(H1, <H1Icon />)}
+            <ToolbarButtons editorState={editorState} onChange={this.onStateChange} />
+            {/* {this.renderNodeButton(H1, <H1Icon />)}
             {this.renderNodeButton(H2, <H2Icon />)}
             {this.renderNodeButton(H3, <H3Icon />)}
             {this.renderNodeButton(H4, <H4Icon />)}
@@ -488,7 +478,7 @@ class Slate extends Component {
             {this.renderAlignmentButton('center', <AlignCenterIcon />)}
             {this.renderAlignmentButton('left', <AlignLeftIcon />)}
             {this.renderAlignmentButton('right', <AlignRightIcon />)}
-            {this.renderAlignmentButton('justify', <AlignJustifyIcon />)}
+            {this.renderAlignmentButton('justify', <AlignJustifyIcon />)} */}
           </BottomToolbar>
         )}
       </div>

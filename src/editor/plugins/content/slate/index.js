@@ -11,24 +11,34 @@ import Component from './Component'
 import type { Props } from './Component'
 
 import EmphasizePlugin from './plugins/emphasize'
+import HeadingsPlugin from './plugins/headings'
 
 import * as hooks from './hooks'
+import nodes from './Component/nodes'
 
 const createNodes = compose(mergeAll, map(prop('nodes')))
 const createMarks = compose(mergeAll, map(prop('marks')))
+
+const P = 'paragraph'
 
 export default class SlatePlugin extends ContentPlugin {
   constructor(plugins) {
     super(plugins)
 
     this.plugins = plugins || [
-      new EmphasizePlugin()
+      new EmphasizePlugin(),
+      new HeadingsPlugin()
     ]
+
+    this.DEFAULT_NODE = P
 
     this.props = {}
 
     this.props.schema = {
-      nodes: createNodes(this.plugins),
+      nodes: {
+        ...createNodes(this.plugins),
+        [P]: nodes.Paragraph
+      },
       marks: createMarks(this.plugins)
     }
 
@@ -58,7 +68,25 @@ export default class SlatePlugin extends ContentPlugin {
       <div>
         {this.plugins.map((plugin, i) => (
           plugin.hoverButtons.map((Button, j) => (
-            <Button key={`${i}-${j}`} editorState={editorState} onChange={onChange} />
+            <Button
+              key={`${i}-${j}`}
+              editorState={editorState}
+              onChange={onChange}
+              DEFAULT_NODE={this.DEFAULT_NODE} />
+          ))
+        ))}
+      </div>
+    )
+
+    this.props.ToolbarButtons = ({ editorState, onChange }) => (
+      <div>
+        {this.plugins.map((plugin, i) => (
+          plugin.toolbarButtons.map((Button, j) => (
+            <Button
+              key={`${i}-${j}`}
+              editorState={editorState}
+              onChange={onChange}
+              DEFAULT_NODE={this.DEFAULT_NODE} />
           ))
         ))}
       </div>
