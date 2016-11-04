@@ -1,5 +1,7 @@
 # ![Ory Editor](logo.png)
  
+[![Build Status](https://travis-ci.org/ory-am/editor.svg?branch=0.1)](https://travis-ci.org/ory-am/editor)
+ 
 This makes digital content creation fun and easy.
 
 *Please be aware that all features and APIs are experimental. Breaking changes will happen.*

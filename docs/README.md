@@ -31,7 +31,8 @@ and implemented them in the ORY Editor.
 ## How it works
 
 The ORY Editor is primarily a tool to create and modify layouts. At the core, there are *Cells* and *Rows*. The layout
-system is very similar to the [bootstrap grid system](http://getbootstrap.com/css/#grid) where you have Columns and Rows.
+system is very similar to the [bootstrap grid system](http://getbootstrap.com/css/#grid) where you have
+rows and columns.
 
 An empty editable ("document") is a cell without any children. As you create new cells, the structure quickly changes to something like this:
 
@@ -58,4 +59,9 @@ In the example above, cells 1.1, 1.1.1.1, 1.1.1.2.1.1, 1.1.1.2.1.2 are all conte
 Cells 1.1, 1.1.1.2 are layout cells, because they do have children rows.
 
 Content and layout plugins are simple React components that receive properties such as `onChange`, `readOnly`, `state` by the editor
-and render and execute arbitrary logic.
+and render and execute arbitrary logic. The data model can be chosen freely by the plugin author.
+
+With the ORY Editor, you can quickly build layout elements such as background elements. In the next example, we implemented
+a very simple background element which is either white or a parallax background:
+
+![Parallax background example](images/parallax-background-example.gif)
