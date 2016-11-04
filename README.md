@@ -20,17 +20,16 @@ Go straight to the [demo](http://ory-editor-demo.herokuapp.com/).
 
 ## Introduction
 
-The Ory Editor is part of the Ory Content Toolchain, a set of tools helping you to build, distribute and manage awesome content.
+The ORY Editor is part of the Ory Content Toolchain, a set of tools helping you to build, distribute and manage awesome content.
  
-The Ory Editor is not another contenteditable hack. With state of the art browser technology and well designed tooling,
-you can finally say goodbye to hacks, html purifiers, steep learning curves, poor markup and complex plugin APIs.
+The ORY Editor is different, because it allows you to build responsive layouts. All content is represented by
+a JSON object and since no HTML is used, you won't have to worry about HTML input sanitation or
+XSS attacks. You can extend functionality and design by writing React components against a small and clear API. Your content
+is no longer a snapshot, it is a replayable state machine with deltas. We built the ORY Editor with state of the art
+technology and development principles - it's test driven, user experience centered, and cloud native.
 
-The Ory Editor is a layout editing SDK for JavaScript. What using the Ory Editor looks like is best explained
+The ORY Editor is a layout builder SDK for JavaScript. What using the Ory Editor looks like is best explained
 by the following GIFs and in the [**examples section**](https://editor.ory.am/examples).
-
-The editor is different, because it allows you to build responsive layouts. All content is represented by
-a JSON object and because no HTML is used, you won't have to worry about HTML input sanitation or
-XSS attacks. You can extend functionality by writing React components with a small and clear API.
 
 ## Quickstart
 
