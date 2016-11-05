@@ -27,101 +27,102 @@ import Trash from './Trash'
 import device from 'device.js'
 import cssModules from 'react-css-modules'
 import DragDropContext from 'src/editor/components/DragDropContext'
-
 import styles from './index.scoped.css'
 
 const toggleLayoutMode = ({ check, previousMode, cb, fallback }: Object) => () => check ? previousMode(fallback) : cb()
 
-const Controls = ({ isLayoutMode, isPreviewMode, isInsertMode, layoutMode, insertMode, editMode, isEditMode, previewMode, isResizeMode, resizeMode, plugins, store, ...props }: Object) => (
-  <Provider store={store}>
-    <DragDropContext>
-      <MuiThemeProvider muiTheme={getMuiTheme()}>
-        <div>
-          <Trash plugins={plugins} isLayoutMode={isLayoutMode} />
+const Inner = ({
+  isLayoutMode, isPreviewMode, isInsertMode, layoutMode, insertMode, editMode,
+  isEditMode, previewMode, isResizeMode, resizeMode, plugins,
+  ...props
+}) => (
+  <DragDropContext>
+    <MuiThemeProvider muiTheme={getMuiTheme()}>
+      <div>
+        <Trash plugins={plugins} isLayoutMode={isLayoutMode}/>
 
-          <Toolbar plugins={plugins} />
-          <div styleName="controls">
+        <Toolbar plugins={plugins}/>
+        <div styleName="controls">
 
-            <div styleName="controls-right">
-              <Button
-                icon={<Create />}
-                description="Write"
-                active={isEditMode}
-                onClick={toggleLayoutMode({
+          <div styleName="controls-right">
+            <Button
+              icon={<Create />}
+              description="Write"
+              active={isEditMode}
+              onClick={toggleLayoutMode({
                   check: isEditMode,
                   cb: editMode,
                   fallback: DISPLAY_MODE_PREVIEW, ...props
                 })}
-              />
-              <div styleName="clearfix" />
-            </div>
+            />
+            <div styleName="clearfix"/>
+          </div>
 
-            <div styleName="controls-right">
-              <Button
-                icon={<ContentAdd />}
-                description={device().mobile() ? 'Disabled on mobile' : 'Add things'}
-                active={isInsertMode}
-                disabled={device().mobile()}
-                onClick={toggleLayoutMode({
+          <div styleName="controls-right">
+            <Button
+              icon={<ContentAdd />}
+              description={device().mobile() ? 'Disabled on mobile' : 'Add things'}
+              active={isInsertMode}
+              disabled={device().mobile()}
+              onClick={toggleLayoutMode({
                   check: isInsertMode,
                   cb: insertMode,
                   fallback: DISPLAY_MODE_EDIT, ...props
                 })}
-              />
-              <div styleName="clearfix" />
-            </div>
+            />
+            <div styleName="clearfix"/>
+          </div>
 
-            <div styleName="controls-right">
-              <Button
-                icon={<Devices />}
-                description="Responsive preview"
-                active={isPreviewMode}
-                onClick={toggleLayoutMode({
+          <div styleName="controls-right">
+            <Button
+              icon={<Devices />}
+              description="Responsive preview"
+              active={isPreviewMode}
+              onClick={toggleLayoutMode({
                   check: isPreviewMode,
                   cb: previewMode,
                   fallback: DISPLAY_MODE_EDIT, ...props
                 })}
-              />
-              <div styleName="clearfix" />
-            </div>
+            />
+            <div styleName="clearfix"/>
+          </div>
 
-            <div styleName="controls-right">
-              <Button
-                icon={<ViewQuilt />}
-                active={isLayoutMode}
-                description={device().mobile() ? 'Disabled on mobile' : 'Rearrange layout'}
-                disabled={device().mobile()}
-                onClick={toggleLayoutMode({
+          <div styleName="controls-right">
+            <Button
+              icon={<ViewQuilt />}
+              active={isLayoutMode}
+              description={device().mobile() ? 'Disabled on mobile' : 'Rearrange layout'}
+              disabled={device().mobile()}
+              onClick={toggleLayoutMode({
                   check: isLayoutMode,
                   cb: layoutMode,
                   fallback: DISPLAY_MODE_PREVIEW, ...props
                 })}
-              />
-              <div styleName="clearfix" />
-            </div>
+            />
+            <div styleName="clearfix"/>
+          </div>
 
-            <div styleName="controls-right">
-              <Button
-                icon={<Resize />}
-                active={isResizeMode}
-                disabled={device().mobile()}
-                description={device().mobile() ? 'Disabled on mobile' : 'Resize things'}
-                onClick={toggleLayoutMode({
+          <div styleName="controls-right">
+            <Button
+              icon={<Resize />}
+              active={isResizeMode}
+              disabled={device().mobile()}
+              description={device().mobile() ? 'Disabled on mobile' : 'Resize things'}
+              onClick={toggleLayoutMode({
                   check: isResizeMode,
                   cb: resizeMode,
                   fallback: DISPLAY_MODE_PREVIEW, ...props
                 })}
-              />
-              <div styleName="clearfix" />
-            </div>
+            />
+            <div styleName="clearfix"/>
           </div>
         </div>
-      </MuiThemeProvider>
-    </DragDropContext>
-  </Provider>
+      </div>
+    </MuiThemeProvider>
+  </DragDropContext>
 )
 
-Controls.propTypes = {
+Inner.propTypes = {
   isEditMode: PropTypes.bool.isRequired,
   isLayoutMode: PropTypes.bool.isRequired,
   isPreviewMode: PropTypes.bool.isRequired,
@@ -133,8 +134,7 @@ Controls.propTypes = {
   previousMode: PropTypes.func.isRequired,
   insertMode: PropTypes.func.isRequired,
   resizeMode: PropTypes.func.isRequired,
-  plugins: PropTypes.object.isRequired,
-  store: PropTypes.object.isRequired
+  plugins: PropTypes.object.isRequired
 }
 
 const mapStateToProps = createStructuredSelector({
@@ -145,4 +145,12 @@ const mapDispatchToProps = (dispatch: Function) => bindActionCreators({
   editMode, previewMode, layoutMode, previousMode, insertMode, resizeMode
 }, dispatch)
 
-export default connect(mapStateToProps, mapDispatchToProps)(cssModules(Controls, styles))
+const InnerConnected = connect(mapStateToProps, mapDispatchToProps)(cssModules(Inner, styles))
+
+const Controls = ({ editor }: Object) => (
+  <Provider store={editor.store}>
+    <InnerConnected plugins={editor.content.plugins}/>
+  </Provider>
+)
+
+export default Controls

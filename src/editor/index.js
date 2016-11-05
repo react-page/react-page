@@ -3,7 +3,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import EditorComponent from 'src/editor/components/Editor'
-import Controls from 'src/editor/components/Controls'
+import ControlsComponent from 'src/editor/components/Controls'
 import createStore from './store'
 import { updateEditable } from 'src/editor/actions/editables'
 import ContentService from 'src/editor/service/content'
@@ -44,8 +44,10 @@ const logException = (ex: any, context: any) => {
       extra: context
     })
   }
+
+  throw ex;
   /* eslint no-console:0*/
-  return window.console && console.error && console.error(ex)
+  // return window.console && console.error && console.error(ex)
 }
 
 const notify = (e: Editor) => () => (next: any) => (action: any) => {
@@ -103,7 +105,7 @@ class Editor {
 
     try {
       ReactDOM.render((
-        <Controls plugins={this.content.plugins} store={this.store} />
+        <ControlsComponent editor={this} />
       ), toolbar)
     } catch (e) {
       logException(e)
@@ -129,7 +131,7 @@ class Editor {
           content: this.content
         })
 
-        ReactDOM.render(<EditorComponent store={this.store} id={state.id} />, editable)
+        ReactDOM.render(<EditorComponent editor={this} id={state.id} />, editable)
 
         this.editables.push(edb)
         res(edb)
@@ -149,17 +151,10 @@ class Editor {
   })
 }
 
-if (typeof window !== 'undefined') {
-  window.Ory = {
-    Editor,
-    ContentService,
-    PluginService,
-  }
-}
-
 export {
   ContentService,
   PluginService,
+  EditorComponent, ControlsComponent
 }
 
 export default Editor

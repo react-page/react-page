@@ -1,8 +1,8 @@
 {
   "name": "ory-editor",
-  "version": "0.0.0",
+  "version": "0.0.0-8",
   "description": "The next generation platform for creating well-defined, responsive, digital content - as easy as social media.",
-  "main": "",
+  "main": "public/bundle.js",
   "scripts": {
     "examples:serve": "cross-env NODE_PATH=. nodemon --config examples/nodemon.json examples/server.js",
     "flow": "flow check --show-all-errors",
@@ -36,8 +36,8 @@
     "serve:single-page-site": "pushstate-server examples/single-page-site/build 9000"
   },
   "engines": {
-    "node": "v6.2.0",
-    "npm": "3.8.9"
+    "node": ">v6.0.0",
+    "npm": ">3.8.0"
   },
   "author": "",
   "license": "Apache 2.0",

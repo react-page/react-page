@@ -24,7 +24,7 @@ after_success:
 
 before_deploy:
   - npm run clean
-  - npm run build
+  - npm run build:prod:editor
 
 deploy:
   provider: npm
