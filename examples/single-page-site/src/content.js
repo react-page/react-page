@@ -3,8 +3,8 @@ import pic02 from './images/pic02.jpg'
 import pic03 from './images/pic03.jpg'
 import pic04 from './images/pic04.jpg'
 
-const content = {
-  [4]: {
+export default {
+  4: {
     id: '4',
     cells: [{
       rows: [{
@@ -24,7 +24,7 @@ const content = {
       }]
     }]
   },
-  [5]: {
+  5: {
     id: '5',
     cells: [{
       rows: [{
@@ -240,16 +240,5 @@ adipiscing ipsum.</p>`
         }]
       }]
     }]
-  }
-}
-
-export class StaticContent {
-  fetch(element: Object) {
-    const id = element.dataset.debugEditable
-    return content[id]
-  }
-
-  store(state: Object) {
-    console.log(state)
   }
 }

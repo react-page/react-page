@@ -1,5 +1,5 @@
 // @flow
-import React, { PropTypes } from 'react'
+import React from 'react'
 import { connect, Provider } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import {
@@ -28,6 +28,7 @@ import device from 'device.js'
 import cssModules from 'react-css-modules'
 import DragDropContext from 'src/editor/components/DragDropContext'
 import styles from './index.scoped.css'
+import Editor from 'src/editor'
 
 const toggleLayoutMode = ({ check, previousMode, cb, fallback }: Object) => () => check ? previousMode(fallback) : cb()
 
@@ -35,13 +36,26 @@ const Inner = ({
   isLayoutMode, isPreviewMode, isInsertMode, layoutMode, insertMode, editMode,
   isEditMode, previewMode, isResizeMode, resizeMode, plugins,
   ...props
+}: {
+  isEditMode: bool,
+  isLayoutMode: bool,
+  isPreviewMode: bool,
+  isInsertMode: bool,
+  isResizeMode: bool,
+  editMode: Function,
+  previewMode: Function,
+  layoutMode: Function,
+  previousMode: Function,
+  insertMode: Function,
+  resizeMode: Function,
+  plugins: Object
 }) => (
   <DragDropContext>
     <MuiThemeProvider muiTheme={getMuiTheme()}>
       <div>
-        <Trash plugins={plugins} isLayoutMode={isLayoutMode}/>
+        <Trash plugins={plugins} isLayoutMode={isLayoutMode} />
 
-        <Toolbar plugins={plugins}/>
+        <Toolbar plugins={plugins} />
         <div styleName="controls">
 
           <div styleName="controls-right">
@@ -50,12 +64,12 @@ const Inner = ({
               description="Write"
               active={isEditMode}
               onClick={toggleLayoutMode({
-                  check: isEditMode,
-                  cb: editMode,
-                  fallback: DISPLAY_MODE_PREVIEW, ...props
-                })}
+                check: isEditMode,
+                cb: editMode,
+                fallback: DISPLAY_MODE_PREVIEW, ...props
+              })}
             />
-            <div styleName="clearfix"/>
+            <div styleName="clearfix" />
           </div>
 
           <div styleName="controls-right">
@@ -65,12 +79,12 @@ const Inner = ({
               active={isInsertMode}
               disabled={device().mobile()}
               onClick={toggleLayoutMode({
-                  check: isInsertMode,
-                  cb: insertMode,
-                  fallback: DISPLAY_MODE_EDIT, ...props
-                })}
+                check: isInsertMode,
+                cb: insertMode,
+                fallback: DISPLAY_MODE_EDIT, ...props
+              })}
             />
-            <div styleName="clearfix"/>
+            <div styleName="clearfix" />
           </div>
 
           <div styleName="controls-right">
@@ -79,12 +93,12 @@ const Inner = ({
               description="Responsive preview"
               active={isPreviewMode}
               onClick={toggleLayoutMode({
-                  check: isPreviewMode,
-                  cb: previewMode,
-                  fallback: DISPLAY_MODE_EDIT, ...props
-                })}
+                check: isPreviewMode,
+                cb: previewMode,
+                fallback: DISPLAY_MODE_EDIT, ...props
+              })}
             />
-            <div styleName="clearfix"/>
+            <div styleName="clearfix" />
           </div>
 
           <div styleName="controls-right">
@@ -94,12 +108,12 @@ const Inner = ({
               description={device().mobile() ? 'Disabled on mobile' : 'Rearrange layout'}
               disabled={device().mobile()}
               onClick={toggleLayoutMode({
-                  check: isLayoutMode,
-                  cb: layoutMode,
-                  fallback: DISPLAY_MODE_PREVIEW, ...props
-                })}
+                check: isLayoutMode,
+                cb: layoutMode,
+                fallback: DISPLAY_MODE_PREVIEW, ...props
+              })}
             />
-            <div styleName="clearfix"/>
+            <div styleName="clearfix" />
           </div>
 
           <div styleName="controls-right">
@@ -109,33 +123,18 @@ const Inner = ({
               disabled={device().mobile()}
               description={device().mobile() ? 'Disabled on mobile' : 'Resize things'}
               onClick={toggleLayoutMode({
-                  check: isResizeMode,
-                  cb: resizeMode,
-                  fallback: DISPLAY_MODE_PREVIEW, ...props
-                })}
+                check: isResizeMode,
+                cb: resizeMode,
+                fallback: DISPLAY_MODE_PREVIEW, ...props
+              })}
             />
-            <div styleName="clearfix"/>
+            <div styleName="clearfix" />
           </div>
         </div>
       </div>
     </MuiThemeProvider>
   </DragDropContext>
 )
-
-Inner.propTypes = {
-  isEditMode: PropTypes.bool.isRequired,
-  isLayoutMode: PropTypes.bool.isRequired,
-  isPreviewMode: PropTypes.bool.isRequired,
-  isInsertMode: PropTypes.bool.isRequired,
-  isResizeMode: PropTypes.bool.isRequired,
-  editMode: PropTypes.func.isRequired,
-  previewMode: PropTypes.func.isRequired,
-  layoutMode: PropTypes.func.isRequired,
-  previousMode: PropTypes.func.isRequired,
-  insertMode: PropTypes.func.isRequired,
-  resizeMode: PropTypes.func.isRequired,
-  plugins: PropTypes.object.isRequired
-}
 
 const mapStateToProps = createStructuredSelector({
   isEditMode, isLayoutMode, isPreviewMode, isInsertMode, isResizeMode
@@ -147,9 +146,9 @@ const mapDispatchToProps = (dispatch: Function) => bindActionCreators({
 
 const InnerConnected = connect(mapStateToProps, mapDispatchToProps)(cssModules(Inner, styles))
 
-const Controls = ({ editor }: Object) => (
+const Controls = ({ editor }: Editor) => (
   <Provider store={editor.store}>
-    <InnerConnected plugins={editor.content.plugins}/>
+    <InnerConnected plugins={editor.plugins} />
   </Provider>
 )
 

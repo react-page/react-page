@@ -5,8 +5,8 @@ import { H1, H3 } from 'src/editor/plugins/content/slate/plugins/headings'
 import { A } from 'src/editor/plugins/content/slate/plugins/link'
 import { P } from 'src/editor/plugins/content/slate/plugins/paragraph'
 
-const content = {
-  [1]: {
+export default {
+  1: {
     id: '1',
     cells: [{
       rows: [{
@@ -350,16 +350,5 @@ const content = {
         }]
       }]
     }]
-  }
-}
-
-export class StaticContent {
-  fetch(element: Object) {
-    const id = element.dataset.editable
-    return content[id]
-  }
-
-  store(state: Object) {
-    console.log(state)
   }
 }

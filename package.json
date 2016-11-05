@@ -1,10 +1,9 @@
 {
   "name": "ory-editor",
-  "version": "0.0.0-8",
+  "version": "0.0.0-10",
   "description": "The next generation platform for creating well-defined, responsive, digital content - as easy as social media.",
   "main": "public/bundle.js",
   "scripts": {
-    "examples:serve": "cross-env NODE_PATH=. nodemon --config examples/nodemon.json examples/server.js",
     "flow": "flow check --show-all-errors",
     "flow:watch": "npm run watch:js -- -c \"flow check --show-all-errors\"",
     "test": "npm-run-all test:unit test:e2e",

@@ -2,19 +2,16 @@
 /* eslint-disable no-use-before-define, no-underscore-dangle */
 import React from 'react'
 import ReactDOM from 'react-dom'
-import EditorComponent from 'src/editor/components/Editor'
+import EditableComponent from 'src/editor/components/Editable'
 import ControlsComponent from 'src/editor/components/Controls'
 import createStore from './store'
-import { updateEditable } from 'src/editor/actions/editables'
-import ContentService from 'src/editor/service/content'
 import { isProduction } from './const'
 import consolePlugin from 'raven-js/plugins/console'
 import PluginService from 'src/editor/service/plugin'
-import { AbstractAdapter } from 'src/editor/service/content/adapter'
 import Editable from './editable.js'
 
-import type Store from 'types/redux'
 import type { Editable as EditableType } from 'types/editable'
+import type Store from 'types/redux'
 
 // required for material-ui
 import injectTapEventPlugin from 'react-tap-event-plugin'
@@ -45,7 +42,7 @@ const logException = (ex: any, context: any) => {
     })
   }
 
-  throw ex;
+  throw ex
   /* eslint no-console:0*/
   // return window.console && console.error && console.error(ex)
 }
@@ -63,16 +60,14 @@ let instance: Editor
  */
 class Editor {
   store: Store
-  content: ContentService
+  plugins: PluginService
   editables: Editable[] = []
 
   constructor({
-    adapters,
-    plugins,
+    plugins = new PluginService(),
     disableAnonymousErrorReporting,
     middleware = []
   }: {
-    adapters: Array<AbstractAdapter>,
     plugins: PluginService,
     disableAnonymousErrorReporting: boolean,
     middleware: []
@@ -90,7 +85,8 @@ class Editor {
       ...middleware,
       notify(this)
     ])
-    this.content = new ContentService(adapters, plugins)
+
+    this.plugins = plugins
   }
 
   /**
@@ -115,46 +111,33 @@ class Editor {
   /**
    * Renders the editor given a list of DOM entities.
    */
-  render = (editable: HTMLElement) => new Promise((res: (e: Editable) => void, rej: (e: Error) => void) => {
+  render = (element: HTMLElement, state: EditableType) => new Promise((res: (e: Editable) => void, rej: (e: Error) => void) => {
     try {
-      this.content.fetch(editable).then((state: EditableType) => {
-        this.store.dispatch(updateEditable({
-          ...state,
-          config: {
-            whitelist: this.content.plugins.getRegisteredNames()
-          }
-        }))
-
-        const edb = new Editable({
-          id: state.id,
-          store: this.store,
-          content: this.content
-        })
-
-        ReactDOM.render(<EditorComponent editor={this} id={state.id} />, editable)
-
-        this.editables.push(edb)
-        res(edb)
+      const edb = new Editable({
+        id: state.id,
+        store: this.store
       })
+
+      ReactDOM.render(<EditableComponent editor={this} state={state} />, element)
+      this.editables.push(edb)
+      res(edb)
     } catch (e) {
       logException(e)
       rej(e)
     }
   })
 
-  destroy = (editable: HTMLElement) => new Promise((res: () => void) => {
-    this.content.fetch(editable).then((state: EditableType) => {
-      ReactDOM.unmountComponentAtNode(editable)
-      this.editables = this.editables.filter((e: Editable) => e.id !== state.id)
-      res()
-    })
+  destroy = (element: HTMLElement, id: string) => new Promise((res: () => void) => {
+    ReactDOM.unmountComponentAtNode(element)
+    this.editables = this.editables.filter((e: Editable) => e.id !== id)
+    res()
   })
 }
 
 export {
-  ContentService,
   PluginService,
-  EditorComponent, ControlsComponent
+  EditableComponent,
+  ControlsComponent
 }
 
 export default Editor

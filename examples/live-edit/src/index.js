@@ -1,11 +1,14 @@
 // @flow
+/* eslint-disable no-underscore-dangle, no-use-before-define */
 import Editor from 'src/editor'
 import io from 'socket.io-client'
-const socket = io.connect()
+import content from './content'
 import * as cellActions from 'src/editor/actions/cell'
 import * as displayActions from 'src/editor/actions/display'
 
-const synch = (store: any) => (next: any) => (action: any) => {
+const socket = io.connect()
+
+const synch = () => (next: any) => (action: any) => {
   const result = next(action)
   if (action._dont) {
     return result
@@ -81,5 +84,5 @@ const elements = document.querySelectorAll('.editable')
 
 editor.renderControls()
 for (const element of elements) {
-  editor.render(element)
+  editor.render(element, content[element.dataset.id])
 }
