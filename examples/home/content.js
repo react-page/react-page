@@ -1,5 +1,5 @@
-const content = {
-  [1]: {
+export default {
+  1: {
     id: '1',
     cells: [{
       rows: [{
@@ -10,47 +10,47 @@ const content = {
                 plugin: { name: 'ory/editor/core/content/slate' },
                 state: {
                   serialized: {
-                    "nodes": [
+                    nodes: [
                       {
-                        "kind": "block",
-                        "type": "paragraph",
-                        "nodes": [
+                        kind: 'block',
+                        type: 'paragraph',
+                        nodes: [
                           {
-                            "kind": "text",
-                            "ranges": [
+                            kind: 'text',
+                            ranges: [
                               {
-                                "text": "Get to know us",
-                                "marks": [
+                                text: 'Get to know us',
+                                marks: [
                                   {
-                                    "type": "STRONG"
+                                    type: 'STRONG'
                                   }
                                 ]
                               },
                             ]
                           },
                           {
-                            "kind": "inline",
-                            "type": "link",
-                            "data": {
-                              "href": "https://en.wikipedia.org/wiki/Hypertext"
+                            kind: 'inline',
+                            type: 'link',
+                            data: {
+                              href: 'https://en.wikipedia.org/wiki/Hypertext'
                             },
-                            "nodes": [
+                            nodes: [
                               {
-                                "kind": "text",
-                                "text": "Contact a human"
+                                kind: 'text',
+                                text: 'Contact a human'
                               },
                             ]
                           },
                           {
-                            "kind": "inline",
-                            "type": "link",
-                            "data": {
-                              "href": "https://en.wikipedia.org/wiki/Hypertext"
+                            kind: 'inline',
+                            type: 'link',
+                            data: {
+                              href: 'https://en.wikipedia.org/wiki/Hypertext'
                             },
-                            "nodes": [
+                            nodes: [
                               {
-                                "kind": "text",
-                                "text": "\nORY on GitHub.com\n"
+                                kind: 'text',
+                                text: '\nORY on GitHub.com\n'
                               },
                             ]
                           },
@@ -65,24 +65,24 @@ const content = {
                 plugin: { name: 'ory/editor/core/content/slate' },
                 state: {
                   serialized: {
-                    "nodes": [
+                    nodes: [
                       {
-                        "kind": "block",
-                        "type": "paragraph",
-                        "nodes": [
+                        kind: 'block',
+                        type: 'paragraph',
+                        nodes: [
                           {
-                            "kind": "text",
-                            "ranges": [
+                            kind: 'text',
+                            ranges: [
                               {
-                                "text": "ORY GmbH",
-                                "marks": [
+                                text: 'ORY GmbH',
+                                marks: [
                                   {
-                                    "type": "STRONG"
+                                    type: 'STRONG'
                                   }
                                 ]
                               },
                               {
-                                "text": "\nBelfortstrasse 14\nGermany",
+                                text: '\nBelfortstrasse 14\nGermany',
                               }
                             ]
                           }
@@ -101,7 +101,7 @@ const content = {
       }]
     }]
   },
-  [0]: {
+  0: {
     id: '0',
     cells: [{
       rows: [{
@@ -115,24 +115,24 @@ const content = {
                 plugin: { name: 'ory/editor/core/content/slate' },
                 state: {
                   serialized: {
-                    "nodes": [
+                    nodes: [
                       {
-                        "kind": "block",
-                        "type": "heading-one",
-                        "nodes": [
+                        kind: 'block',
+                        type: 'heading-one',
+                        nodes: [
                           {
-                            "kind": "text",
-                            "text": "ORY EDITOR"
+                            kind: 'text',
+                            text: 'ORY EDITOR'
                           }
                         ],
                       },
                       {
-                        "kind": "block",
-                        "type": "paragraph",
-                        "nodes": [
+                        kind: 'block',
+                        type: 'paragraph',
+                        nodes: [
                           {
-                            "kind": "text",
-                            "text": "The Open Source Content Toolchain"
+                            kind: 'text',
+                            text: 'The Open Source Content Toolchain'
                           }
                         ],
                       },
@@ -161,14 +161,14 @@ const content = {
                 plugin: { name: 'ory/editor/core/content/slate' },
                 state: {
                   serialized: {
-                    "nodes": [
+                    nodes: [
                       {
-                        "kind": "block",
-                        "type": "heading-three",
-                        "nodes": [
+                        kind: 'block',
+                        type: 'heading-three',
+                        nodes: [
                           {
-                            "kind": "text",
-                            "text": "With the ORY Editor, you can\nbuild and edit pages like this one. Go ahead and\ncheck out what's possible!"
+                            kind: 'text',
+                            text: 'With the ORY Editor, you can\nbuild and edit pages like this one. Go ahead and\ncheck out what\'s possible!'
                           }
                         ],
                         data: {
@@ -192,14 +192,14 @@ const content = {
                 plugin: { name: 'ory/editor/core/content/slate' },
                 state: {
                   serialized: {
-                    "nodes": [
+                    nodes: [
                       {
-                        "kind": "block",
-                        "type": "paragraph",
-                        "nodes": [
+                        kind: 'block',
+                        type: 'paragraph',
+                        nodes: [
                           {
-                            "kind": "text",
-                            "text": "The Ory Editor is part of the Ory Content Toolchain, a set of tools helping you in building, distributing and managing content. With state of the art in browser technology and well designed systems architecture, you can finally say goodbye to hacks, html purifiers, steep learning curves, poor markup and complex plugin APIs."
+                            kind: 'text',
+                            text: 'The Ory Editor is part of the Ory Content Toolchain, a set of tools helping you in building, distributing and managing content. With state of the art in browser technology and well designed systems architecture, you can finally say goodbye to hacks, html purifiers, steep learning curves, poor markup and complex plugin APIs.'
                           }
                         ],
                       },
@@ -225,67 +225,24 @@ const content = {
                     plugin: { name: 'ory/editor/core/content/slate' },
                     state: {
                       serialized: {
-                        "nodes": [
+                        nodes: [
                           {
-                            "kind": "block",
-                            "type": "heading-three",
-                            "nodes": [
+                            kind: 'block',
+                            type: 'heading-three',
+                            nodes: [
                               {
-                                "kind": "text",
-                                "text": "Work in context"
+                                kind: 'text',
+                                text: 'Work in context'
                               }
                             ],
                           },
                           {
-                            "kind": "block",
-                            "type": "paragraph",
-                            "nodes": [
+                            kind: 'block',
+                            type: 'paragraph',
+                            nodes: [
                               {
-                                "kind": "text",
-                                "text": "The following is placeholder text known as “lorem ipsum,” which is scrambled Latin used by designers to mimic real copy. Aenean eu justo sed elit dignissim aliquam. Mauris id fermentum nulla. Phasellus sodales massa malesuada tellus fringilla, nec bibendum tellus blandit."
-                              }
-                            ],
-                          },
-                        ]
-                      }
-                    }
-                  }
-                }]
-              }],
-            }, {
-              rows: [{
-                cells: [{
-                  content: {
-                    plugin: { name: 'ory/editor/core/content/image' },
-                    state: {
-                      src: './images/screenshot.png'
-                    }
-                  }
-                }]
-              }, {
-                cells: [{
-                  content: {
-                    plugin: { name: 'ory/editor/core/content/slate' },
-                    state: {
-                      serialized: {
-                        "nodes": [
-                          {
-                            "kind": "block",
-                            "type": "heading-three",
-                            "nodes": [
-                              {
-                                "kind": "text",
-                                "text": "Build layouts"
-                              }
-                            ],
-                          },
-                          {
-                            "kind": "block",
-                            "type": "paragraph",
-                            "nodes": [
-                              {
-                                "kind": "text",
-                                "text": "The following is placeholder text known as “lorem ipsum,” which is scrambled Latin used by designers to mimic real copy. Aenean eu justo sed elit dignissim aliquam. Mauris id fermentum nulla. Phasellus sodales massa malesuada tellus fringilla, nec bibendum tellus blandit."
+                                kind: 'text',
+                                text: 'Create content within the interface your customers see.'
                               }
                             ],
                           },
@@ -311,24 +268,67 @@ const content = {
                     plugin: { name: 'ory/editor/core/content/slate' },
                     state: {
                       serialized: {
-                        "nodes": [
+                        nodes: [
                           {
-                            "kind": "block",
-                            "type": "heading-three",
-                            "nodes": [
+                            kind: 'block',
+                            type: 'heading-three',
+                            nodes: [
                               {
-                                "kind": "text",
-                                "text": "Collaborate"
+                                kind: 'text',
+                                text: 'Build layouts'
                               }
                             ],
                           },
                           {
-                            "kind": "block",
-                            "type": "paragraph",
-                            "nodes": [
+                            kind: 'block',
+                            type: 'paragraph',
+                            nodes: [
                               {
-                                "kind": "text",
-                                "text": "The following is placeholder text known as “lorem ipsum,” which is scrambled Latin used by designers to mimic real copy. Aenean eu justo sed elit dignissim aliquam. Mauris id fermentum nulla. Phasellus sodales massa malesuada tellus fringilla, nec bibendum tellus blandit."
+                                kind: 'text',
+                                text: 'Build responsive content with drag and drop and enrich it with your custom content.'
+                              }
+                            ],
+                          },
+                        ]
+                      }
+                    }
+                  }
+                }]
+              }],
+            }, {
+              rows: [{
+                cells: [{
+                  content: {
+                    plugin: { name: 'ory/editor/core/content/image' },
+                    state: {
+                      src: './images/screenshot.png'
+                    }
+                  }
+                }]
+              }, {
+                cells: [{
+                  content: {
+                    plugin: { name: 'ory/editor/core/content/slate' },
+                    state: {
+                      serialized: {
+                        nodes: [
+                          {
+                            kind: 'block',
+                            type: 'heading-three',
+                            nodes: [
+                              {
+                                kind: 'text',
+                                text: 'Collaborate'
+                              }
+                            ],
+                          },
+                          {
+                            kind: 'block',
+                            type: 'paragraph',
+                            nodes: [
+                              {
+                                kind: 'text',
+                                text: 'Work with your team on the same thing at the same time.'
                               }
                             ],
                           },
@@ -343,16 +343,5 @@ const content = {
         }]
       }]
     }]
-  }
-}
-
-export class StaticContent {
-  fetch(element: Object) {
-    const id = element.dataset.editable
-    return content[id]
-  }
-
-  store(state: Object) {
-    console.log(state)
   }
 }

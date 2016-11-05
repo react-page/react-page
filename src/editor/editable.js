@@ -1,13 +1,13 @@
 import React from 'react'
 import ReactDOMServer from 'react-dom/server'
-import EditorComponent from 'src/editor/components/Editor'
-import ContentService from 'src/editor/service/content'
+import EditableComponent from 'src/editor/components/Editable'
+import PluginService from 'src/editor/service/plugin'
 import ServerContext from 'src/editor/components/ServerContext'
 
 type Props = {
   store: any,
   id: string,
-  content: ContentService,
+  plugins: PluginService,
   listeners: Function[]
 }
 
@@ -21,7 +21,7 @@ class Editable {
     }
   }
 
-  serialize = () => new Promise((res: (o: any) => void) => res(this.props.content.serialize(this.props.store.getState())))
+  serialize = () => new Promise((res: (o: any) => void) => res(this.props.plugins.serialize(this.props.store.getState())))
 
   notify = (next: any) => {
     this.props.listeners.forEach((l) => l(next))
@@ -35,7 +35,7 @@ class Editable {
     // console.log('hydration', this.props.store.getState())
     res(ReactDOMServer.renderToStaticMarkup(
       <ServerContext>
-        <EditorComponent store={this.props.store} id={this.props.id} />
+        <EditableComponent store={this.props.store} id={this.props.id} />
       </ServerContext>
     ))
   })

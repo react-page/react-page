@@ -12,13 +12,11 @@ type Props = {
   onChange(state: Object): void
 }
 
-const ContainerComponent = ({ children }: Props) => {
-  return (
-    <div className="container">
-      {children}
-    </div>
-  )
-}
+const ContainerComponent = ({ children }: Props) => (
+  <div className="container">
+    {children}
+  </div>
+)
 
 const defaultPlugin = new Slate()
 
