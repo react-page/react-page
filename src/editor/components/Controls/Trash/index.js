@@ -9,7 +9,6 @@ import classNames from 'classnames'
 import { removeCell } from 'src/editor/actions/cell/core'
 import throttle from 'lodash.throttle'
 import type { Monitor, Connector } from 'types/react-dnd'
-
 import styles from './index.scoped.css'
 
 const target = {

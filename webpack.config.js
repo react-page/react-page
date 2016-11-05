@@ -34,8 +34,18 @@ module.exports = {
   output: {
     path: path.join(__dirname, 'public'),
     publicPath: '/',
-    filename: 'bundle.js'
+    filename: 'bundle.js',
+    libraryTarget: 'umd',
+    library: 'OryEditor'
   },
+  externals: [{
+    react: {
+      root: 'React',
+      commonjs2: 'react',
+      commonjs: 'react',
+      amd: 'react'
+    }
+  }],
   devtool: 'source-map',
   // plugins :: [a]
   // Used webpack plugins
