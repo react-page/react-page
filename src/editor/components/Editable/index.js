@@ -1,94 +1,17 @@
 // @flow
 import React, { Component } from 'react'
-import Cell from 'src/editor/components/Cell'
-import { shouldPureComponentUpdate } from 'src/editor/helper/shouldComponentUpdate'
-import { purifiedEditable } from 'src/editor/selector/editable'
-import { connect, Provider } from 'react-redux'
-import { isLayoutMode, isResizeMode, isPreviewMode } from 'src/editor/selector/display'
-import { createStructuredSelector } from 'reselect'
-import cssModules from 'react-css-modules'
-import dimensions from 'src/editor/components/Dimensions'
-import Notifier, { dismissedMobilePreviewKey } from 'src/editor/components/Notifier'
-import { blurAllCells } from 'src/editor/actions/cell'
-import * as commonStyles from 'src/editor/styles'
-import styles from './index.scoped.css'
-import { enableGlobalBlurring, disableGlobalBlurring } from './blur'
-import serverContext from 'src/editor/components/ServerContext/connect'
+import { Provider } from 'react-redux'
 import DragDropContext from 'src/editor/components/DragDropContext'
 import HotKeyDecorator from 'src/editor/components/HotKey/Decorator'
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import { updateEditable } from 'src/editor/actions/editables'
-import Editor from './index.js'
+import Editor from 'src/editor'
+import Inner from './inner'
+import { logException } from 'src/editor/raven'
+import { editable } from 'src/editor/selector/editable'
 
-import type { Editable as EditableType, EditableComponentState, Cell as CellType } from 'types/editable'
-
-class Inner extends Component {
-  componentDidMount() {
-    enableGlobalBlurring(this.props.blurAllCells)
-  }
-
-  shouldComponentUpdate = shouldPureComponentUpdate
-
-  componentWillUnmount() {
-    disableGlobalBlurring(this.props.blurAllCells)
-  }
-
-  props: EditableComponentState
-
-  render() {
-    const { id, containerWidth, containerHeight, isLayoutMode, isResizeMode, isPreviewMode, node, ...props } = this.props
-    if (!node) {
-      return null
-    }
-
-    const { cells = [] } = node
-
-    if (isLayoutMode || isResizeMode) {
-      props.styles = {
-        ...props.styles,
-        ...commonStyles.flexbox,
-        ...styles // override defaults
-      }
-    }
-
-    return (
-      <div styles={props.styles} className={'editor-container'}>
-        <div styles={props.styles} styleName="row" className="editor-row">
-          {cells.map((c: string | CellType) => (
-            <Cell
-              rowWidth={containerWidth}
-              rowHeight={containerHeight}
-              editable={id}
-              ancestors={[]}
-              key={c}
-              id={c}
-            />
-          ))}
-        </div>
-        {
-          this.props.isServerContext
-            ? null
-            : (
-            <Notifier
-              message="Resize the browser window for mobile preview."
-              open={isPreviewMode}
-              id={dismissedMobilePreviewKey}
-            />
-          )
-        }
-      </div>
-    )
-  }
-}
-
-const mapStateToProps = createStructuredSelector({ node: purifiedEditable, isLayoutMode, isResizeMode, isPreviewMode })
-
-const mapDispatchToProps = { blurAllCells }
-
-const InnerConnected = serverContext()(dimensions()(connect(mapStateToProps, mapDispatchToProps)(cssModules(Inner, {
-  ...commonStyles.floating, ...commonStyles.common, ...styles
-}))))
+import type { Editable as EditableType } from 'types/editable'
 
 class Editable extends Component {
   componentDidMount() {
@@ -96,33 +19,64 @@ class Editable extends Component {
       throw new Error('The state must have an unique id')
     }
 
-    this.props.editor.store.dispatch(updateEditable({
+    const state = {
       ...this.props.editor.plugins.unserialize(this.props.state),
       config: {
         whitelist: this.props.editor.plugins.getRegisteredNames()
       }
-    }))
+    }
+
+    this.props.editor.store.dispatch(updateEditable(state))
+    this.props.editor.store.subscribe(this.onChange)
+
+    this.previousState = null
   }
+
 
   props: {
     state: EditableType,
     editor: Editor,
+    onChange?: Function
+  }
+
+  onChange = () => {
+    if (!this.props.onChange) {
+      return
+    }
+
+    const state = editable(this.props.editor.store.getState(), { id: this.props.state.id })
+    if (state === this.previousState) {
+      return
+    }
+
+    const serialized = this.props.editor.plugins.serialize(state)
+    this.props.onChange(serialized)
   }
 
   render() {
-    const { state: { id }, editor: { store } } = this.props
+    const {
+      state: { id },
+      editor: {
+        store
+      },
+    } = this.props
 
-    return (
-      <Provider store={store}>
-        <DragDropContext>
-          <HotKeyDecorator id={id}>
-            <MuiThemeProvider muiTheme={getMuiTheme()}>
-              <InnerConnected id={id} />
-            </MuiThemeProvider>
-          </HotKeyDecorator>
-        </DragDropContext>
-      </Provider>
-    )
+    try {
+      return (
+        <Provider store={store}>
+          <DragDropContext>
+            <HotKeyDecorator id={id}>
+              <MuiThemeProvider muiTheme={getMuiTheme()}>
+                <Inner id={id} />
+              </MuiThemeProvider>
+            </HotKeyDecorator>
+          </DragDropContext>
+        </Provider>
+      )
+    } catch (e) {
+      logException(e)
+      return null
+    }
   }
 }
 
