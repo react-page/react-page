@@ -6,6 +6,8 @@ import ContainerPlugin from './plugins/container'
 import { PluginService, defaultLayoutPlugins, defaultContentPlugins } from 'src/editor/service'
 import content from './content.js'
 
+import './index.css'
+
 const editor = new Editor({
   plugins: new PluginService(defaultContentPlugins, [
     ...defaultLayoutPlugins,

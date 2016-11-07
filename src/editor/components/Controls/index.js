@@ -5,7 +5,7 @@ import { Provider } from 'react-redux'
 import { logException } from 'src/editor/raven'
 import Inner from './inner'
 
-const Controls = ({ editor }: Editor) => {
+const Controls = ({ editor }: { editor: Editor }) => {
   try {
     return (
       <Provider store={editor.store}>

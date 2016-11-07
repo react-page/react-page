@@ -30,6 +30,7 @@ class Draggable extends Component {
     isDragging: boolean,
     isInsertMode: boolean,
     isLayoutMode: boolean,
+    isServerContext: boolean,
     node: { hover: string, inline: string },
     children: any,
     className: string,

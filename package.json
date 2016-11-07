@@ -1,8 +1,13 @@
 {
   "name": "ory-editor",
-  "version": "0.0.0-10",
+  "version": "0.0.0-11",
   "description": "The next generation platform for creating well-defined, responsive, digital content - as easy as social media.",
   "main": "public/bundle.js",
+  "directories": {
+    "bin": "./public",
+    "doc": "./docs",
+    "lib": "./src"
+  },
   "scripts": {
     "flow": "flow check --show-all-errors",
     "flow:watch": "npm run watch:js -- -c \"flow check --show-all-errors\"",

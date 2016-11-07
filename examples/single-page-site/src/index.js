@@ -1,4 +1,3 @@
-// @flow
 import { PluginService, defaultLayoutPlugins, defaultContentPlugins } from 'src/editor/service'
 import ParallaxPlugin from './plugins/parallax'
 import FaIconPlugin from './plugins/fa-icon'

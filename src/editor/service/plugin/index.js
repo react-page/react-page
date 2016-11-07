@@ -10,7 +10,6 @@ import VideoPlugin from 'src/editor/plugins/content/video'
 import SpacerPlugin from 'src/editor/plugins/content/spacer'
 import SpoilerPlugin from 'src/editor/plugins/layout/spoiler'
 
-
 /**
  * A list of content plugins that are being loaded by default.
  */
@@ -97,31 +96,14 @@ export default class PluginService {
     ]
   }
 
-  unserialize = ({
-    rows,
-    cells,
-    content,
-    layout,
-    ...props
-  }: {
-    rows: Object[],
-    cells: Object[],
-    content: {
-      plugin: {
-        name: string,
-        version: string
-      },
-      state: Object
-    },
-    layout: {
-      plugin: {
-        name: string,
-        version: string
-      },
-      state: Object
-    },
-    props: any
-  }): Object => {
+  unserialize = (props: any): Object => {
+    const {
+      rows = [],
+      cells = [],
+      content = {},
+      layout = {},
+    } = props
+
     const { plugin: { name: contentName = null, version: contentVersion = '*' } = {}, state: contentState } = content || {}
     const { plugin: { name: layoutName = null, version: layoutVersion = '*' } = {}, state: layoutState } = layout || {}
 

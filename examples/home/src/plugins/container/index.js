@@ -1,4 +1,3 @@
-// @flow
 import React from 'react'
 import Reorder from 'material-ui/svg-icons/action/reorder'
 import Slate from 'src/editor/plugins/content/slate'

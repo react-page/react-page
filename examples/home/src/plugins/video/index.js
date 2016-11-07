@@ -1,4 +1,3 @@
-// @flow
 import React from 'react'
 import OnDemandVideo from 'material-ui/svg-icons/notification/ondemand-video'
 import Slate from 'src/editor/plugins/content/slate'
