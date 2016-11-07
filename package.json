@@ -1,6 +1,6 @@
 {
   "name": "ory-editor",
-  "version": "0.0.0-11",
+  "version": "0.0.0-16",
   "description": "The next generation platform for creating well-defined, responsive, digital content - as easy as social media.",
   "main": "public/bundle.js",
   "directories": {
@@ -75,7 +75,7 @@
     "postcss-css-variables": "^0.6.0",
     "postcss-loader": "1.0.0",
     "ramda": "0.22.1",
-    "raven-js": "3.5.1",
+    "raven-js": "3.8.0",
     "react": "15.3.2",
     "react-addons-perf": "15.3.2",
     "react-css-modules": "3.7.10",
