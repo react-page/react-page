@@ -1,4 +1,3 @@
-// @flow
 import React from 'react'
 import Component from './Component'
 import Panorama from 'material-ui/svg-icons/toggle/star'

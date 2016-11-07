@@ -1,6 +1,6 @@
 // @flow
 /* eslint-disable no-empty-function, no-unused-vars */
-import { Component } from 'react'
+import { Component, Element, PureComponent } from 'react'
 
 export type ContentPluginProps<T> = {
   /**
@@ -87,7 +87,7 @@ export class Plugin {
   /**
    * @member the icon that will be shown in the toolbar.
    */
-  icon: React$Component<*, *, *> | React$PureComponent<*, *, *> | (props: any) => React$Element<*>
+  icon: (props: any) => Element<*> | Element<*> | Component<*, *, *>
 
   /**
    * @member the text that will be shown alongside the icon in the toolbar.
@@ -97,7 +97,7 @@ export class Plugin {
   /**
    * @member the plugin's react component.
    */
-  Component: React$Component<*, *, *> | React$PureComponent<*, *, *> | (props: any) => React$Element<*>
+  Component: (props: any) => Element<*> | Element<*> | Component<*, *, *>
 
   /**
    * Serialize a the plugin state

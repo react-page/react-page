@@ -6,11 +6,12 @@ import HotKeyDecorator from 'src/editor/components/HotKey/Decorator'
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import { updateEditable } from 'src/editor/actions/editables'
-import Editor from 'src/editor'
 import Inner from './inner'
 import { logException } from 'src/editor/raven'
 import { editable } from 'src/editor/selector/editable'
+import PluginService from 'src/editor/service/plugin'
 
+import type { Store } from 'types/redux'
 import type { Editable as EditableType } from 'types/editable'
 
 class Editable extends Component {
@@ -32,25 +33,30 @@ class Editable extends Component {
     this.previousState = null
   }
 
+  previousState: any = {}
 
   props: {
     state: EditableType,
-    editor: Editor,
+    editor: {
+      plugins: PluginService,
+      store: Store
+    },
     onChange?: Function
   }
 
   onChange = () => {
-    if (!this.props.onChange) {
+    if (typeof this.props.onChange !== 'function') {
       return
     }
+    const onChange = this.props.onChange || (() => ({}))
 
-    const state = editable(this.props.editor.store.getState(), { id: this.props.state.id })
+    const state: any = editable(this.props.editor.store.getState(), { id: this.props.state.id })
     if (state === this.previousState) {
       return
     }
 
     const serialized = this.props.editor.plugins.serialize(state)
-    this.props.onChange(serialized)
+    onChange(serialized)
   }
 
   render() {

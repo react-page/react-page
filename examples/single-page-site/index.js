@@ -1,6 +1,3 @@
-// @flow
-import './index.css'
-
 import { PluginService, defaultLayoutPlugins, defaultContentPlugins } from 'src/editor/service'
 import ParallaxPlugin from './plugins/parallax'
 import FaIconPlugin from './plugins/fa-icon'
@@ -8,6 +5,8 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import Editor, { EditableComponent, ControlsComponent } from 'src/editor'
 import content from './content.js'
+
+import './index.css'
 
 const editor = new Editor({
   plugins: new PluginService([

@@ -1,4 +1,3 @@
-// @flow
 import React from 'react'
 import Announcement from 'material-ui/svg-icons/image/landscape'
 import Slate from 'src/editor/plugins/content/slate'
