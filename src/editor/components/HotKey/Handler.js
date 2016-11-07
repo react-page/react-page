@@ -34,7 +34,7 @@ type Props = {
   undo(id: string): void,
   redo(id: string): void,
   removeCell(id: string): void,
-  focus: string[],
+  focus: string,
   focusCell(id: string): void,
   blurAllCells(): void,
   isEditMode: boolean,

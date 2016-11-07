@@ -88,7 +88,7 @@ $ npm run test:watch
 # run eslint in watch mode
 $ npm run lint:watch
 
-# run dev server with live reload
+# run dev server
 $ npm run dev
 
 # open the editor in your browser

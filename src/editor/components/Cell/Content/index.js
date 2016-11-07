@@ -37,7 +37,7 @@ class Content extends Component {
   props: ComponentizedCell
 
   render() {
-    const { isPreviewMode, isEditMode, editable, id, node: { content: { plugin: { Component }, state = {} }, focused }, updateCellContent, isServerContext } = this.props
+    const { isPreviewMode, isEditMode, editable, id, node: { content: { plugin: { Component, name, version }, state = {} }, focused }, updateCellContent, isServerContext } = this.props
 
     let focusProps
     if (!isPreviewMode) {
@@ -61,6 +61,8 @@ class Content extends Component {
           id={id}
           state={state}
           focused={isEditMode && focused}
+          name={name}
+          version={version}
           readOnly={!isEditMode || isServerContext}
           onChange={updateCellContent}
         />

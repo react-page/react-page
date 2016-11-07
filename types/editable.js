@@ -173,7 +173,7 @@ export type EditableComponentState = {
   isEditMode: boolean,
   isLayoutMode: boolean,
   isPreviewMode: boolean,
-
+  isServerContext: boolean,
 
   blurAllCells: Function
 }

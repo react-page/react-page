@@ -21,8 +21,8 @@ const Inner = ({
   containerWidth
 }: ComponentizedRow) => (
   <div styleName={classNames('row', 'relative', {
-    'is-over-current': hover,
-    [`is-over-${hover}`]: hover,
+    'is-over-current': Boolean(hover),
+    [`is-over-${hover || ''}`]: Boolean(hover),
     'force-block': hasInlineChildren
   })} className="editable-row"
    onClick={blurAllCells}

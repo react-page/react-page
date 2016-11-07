@@ -1,4 +1,6 @@
-import Editor from 'src/editor'
+import React from 'react'
+import ReactDOM from 'react-dom'
+import Editor, { EditableComponent, ControlsComponent } from 'src/editor'
 import VideoPlugin from './plugins/video'
 import ContainerPlugin from './plugins/container'
 import { PluginService, defaultLayoutPlugins, defaultContentPlugins } from 'src/editor/service'
@@ -12,11 +14,17 @@ const editor = new Editor({
   ])
 })
 
-// editor.renderToHtml()
+editor.injectTapPlugin()
 
 const elements = document.querySelectorAll('.editable')
-
-editor.renderControls()
 for (const element of elements) {
-  editor.render(element, content[element.dataset.editable])
+  ReactDOM.render((
+    <EditableComponent
+      editor={editor}
+      state={content[element.dataset.editable]}
+      // onChange={(state) => console.log(state)}
+    />
+  ), element)
 }
+
+ReactDOM.render(<ControlsComponent editor={editor} />, document.getElementById('controls'))

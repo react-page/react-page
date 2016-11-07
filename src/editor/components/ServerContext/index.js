@@ -6,7 +6,9 @@ class ServerContext extends Component {
     return { isServerContext: true }
   }
 
-  props: { children: Component }
+  props: {
+    children?: Component<*, *, *>
+  }
 
   render() {
     return Children.only(this.props.children)
