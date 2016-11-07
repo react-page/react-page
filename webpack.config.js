@@ -45,6 +45,11 @@ module.exports = {
       commonjs: 'react',
       amd: 'react'
     },
+    'react-dom': 'ReactDOM',
+    'react-addons-transition-group': 'var React.addons.TransitionGroup',
+    'react-addons-pure-render-mixin': 'var React.addons.PureRenderMixin',
+    'react-addons-create-fragment': 'var React.addons.createFragment',
+    'react-addons-update': 'var React.addons.update'
   }],
   devtool: 'source-map',
   // plugins :: [a]
@@ -53,7 +58,7 @@ module.exports = {
     new webpack.optimize.OccurrenceOrderPlugin(),
     new ExtractTextPlugin('styles.css'),
     ifProduction(new webpack.DefinePlugin({ 'process.env.NODE_ENV': '"production"' })),
-    ifProduction(new webpack.optimize.UglifyJsPlugin()),
+    //ifProduction(new webpack.optimize.UglifyJsPlugin()),
     ifProduction(new webpack.optimize.DedupePlugin()),
   ]),
   // resolve :: { modules :: [String] }
