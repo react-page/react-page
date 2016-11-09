@@ -26,14 +26,14 @@ var nodePaths = (process.env.NODE_PATH || '')
   .map(resolveApp);
 
 // config after eject: we're in ./config/
-module.exports = () => ({
-  appBuild: resolveApp('examples/home/build'),
-  appPublic: resolveApp('examples/home/public'),
-  appHtml: resolveApp('examples/home/public/index.html'),
-  appIndexJs: resolveApp('examples/home/src/index.js'),
+module.exports = (example) => ({
+  appBuild: resolveApp(`examples/${example}/build`),
+  appPublic: resolveApp(`examples/${example}/public`),
+  appHtml: resolveApp(`examples/${example}/public/index.html`),
+  appIndexJs: resolveApp(`examples/${example}/src/index.js`),
   appPackageJson: resolveApp('package.json'),
-  appSrc: resolveApp('examples/home/src'),
-  testsSetup: resolveApp('examples/home/src/setupTests.js'),
+  appSrc: resolveApp(`examples/${example}/src`),
+  testsSetup: resolveApp(`examples/${example}/src/setupTests.js`),
   appNodeModules: resolveApp('node_modules'),
   ownNodeModules: resolveApp('node_modules'),
   nodePaths: nodePaths

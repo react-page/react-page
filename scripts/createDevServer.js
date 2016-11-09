@@ -7,8 +7,11 @@ process.env.NODE_ENV = 'development';
 // https://github.com/motdotla/dotenv
 require('dotenv').config({silent: true});
 
+const createPaths = require('./createPaths')
+const createWebpackConfig = require('./createWebpackConfig.dev')
+
 // *Starts a development server with the given webpack config and paths
-module.exports = (config, paths) => {
+module.exports = (example) => {
   var chalk = require('chalk');
   var webpack = require('webpack');
   var WebpackDevServer = require('webpack-dev-server');
@@ -20,8 +23,8 @@ module.exports = (config, paths) => {
   var formatWebpackMessages = require('react-dev-utils/formatWebpackMessages');
   var openBrowser = require('react-dev-utils/openBrowser');
   var prompt = require('react-dev-utils/prompt');
-  // var config = require('../config/webpack.config.dev');
-  // var paths = require('../config/paths');
+  var paths = createPaths(example);
+  var config = createWebpackConfig(paths);
 
   // Warn and crash if required files are missing
   if (!checkRequiredFiles([paths.appHtml, paths.appIndexJs])) {

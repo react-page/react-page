@@ -1,3 +1,3 @@
 const createDevServer = require('../../scripts/createDevServer')
 
-createDevServer('home')
+createDevServer('live-edit')

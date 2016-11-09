@@ -1,5 +1,4 @@
 // @flow
-import './index.css'
 import Editor from 'src/editor'
 import io from 'socket.io-client'
 const socket = io.connect()
