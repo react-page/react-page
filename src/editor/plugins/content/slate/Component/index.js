@@ -2,7 +2,6 @@
 import IconButton from 'material-ui/IconButton'
 import CodeIcon from 'material-ui/svg-icons/action/code'
 import LinkIcon from 'material-ui/svg-icons/content/link'
-import BlockquoteIcon from 'material-ui/svg-icons/editor/format-quote'
 import AlignLeftIcon from 'material-ui/svg-icons/editor/format-align-left'
 import AlignCenterIcon from 'material-ui/svg-icons/editor/format-align-center'
 import AlignRightIcon from 'material-ui/svg-icons/editor/format-align-right'
@@ -17,8 +16,6 @@ import cssModules from 'react-css-modules'
 import Portal from 'react-portal'
 import position from 'selection-position'
 import { Editor } from 'slate'
-import createBlockquotePlugin from 'slate-edit-blockquote'
-import createListPlugin from 'slate-edit-list'
 import BottomToolbar from 'src/editor/components/BottomToolbar'
 import { ContentPluginProps } from 'src/editor/service/plugin/classes'
 
@@ -33,12 +30,6 @@ const BLOCKQUOTE = 'blockquote'
 const KATEX = 'KATEX'
 
 // const plugins = [
-//   createListPlugin({
-//     typeUL: UL,
-//     typeOL: OL,
-//     typeItem: LI,
-//     typeDefault: DEFAULT_NODE
-//   }),
 //   createBlockquotePlugin({
 //     type: BLOCKQUOTE,
 //     typeDefault: DEFAULT_NODE
@@ -316,10 +307,6 @@ class Slate extends Component {
 
     // const schema = {
     //   nodes: {
-    //     [UL]: makeTagNode('ul'),
-    //     [OL]: makeTagNode('ol'),
-    //     [LI]: makeTagNode('li'),
-    //     [BLOCKQUOTE]: makeTagNode('blockquote'),
     //     [A]: nodes.Link,
     //     [KATEX]: nodes.Katex
     //   }
@@ -350,11 +337,11 @@ class Slate extends Component {
           <BottomToolbar open={focused}>
             <ToolbarButtons editorState={editorState} onChange={this.onStateChange} />
             {/*
-            {this.renderListNodeButton(UL, <ListIcon />)}
-            {this.renderListNodeButton(OL, <OrderedListIcon />)}
-            {this.renderLinkButton()}
-            {this.renderKatexButton()}
-            {this.renderBlockquoteNodeButton(<BlockquoteIcon />)}
+              {this.renderListNodeButton(UL, <ListIcon />)}
+              {this.renderListNodeButton(OL, <OrderedListIcon />)}
+              {this.renderLinkButton()}
+              {this.renderKatexButton()}
+              {this.renderBlockquoteNodeButton(<BlockquoteIcon />)}
             {this.renderAlignmentButton('center', <AlignCenterIcon />)}
             {this.renderAlignmentButton('left', <AlignLeftIcon />)}
             {this.renderAlignmentButton('right', <AlignRightIcon />)}
