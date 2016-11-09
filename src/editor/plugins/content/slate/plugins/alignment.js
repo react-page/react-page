@@ -8,7 +8,8 @@ import AlignJustifyIcon from 'material-ui/svg-icons/editor/format-align-justify'
 import { ToolbarButton } from '../helpers'
 import Plugin from './Plugin'
 
-export default class HeadingsPlugin extends Plugin {
+export default class AlignmentPlugin extends Plugin {
+  // eslint-disable-next-line react/display-name
   createButton = (align, icon) => ({ editorState, onChange }) => {
     const onClick = (e) => {
       e.preventDefault()

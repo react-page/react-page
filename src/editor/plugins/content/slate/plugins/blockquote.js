@@ -6,7 +6,7 @@ import createBlockquotePlugin from 'slate-edit-blockquote'
 import { makeTagNode, ToolbarButton } from '../helpers'
 import Plugin from './Plugin'
 
-const BLOCKQUOTE = 'blockquote/blockquote'
+export const BLOCKQUOTE = 'BLOCKQUOTE/BLOCKQUOTE'
 
 export default class BlockquotePlugin extends Plugin {
   constructor(props) {
@@ -15,6 +15,7 @@ export default class BlockquotePlugin extends Plugin {
     this.DEFAULT_NODE = props.DEFAULT_NODE
   }
 
+  // eslint-disable-next-line react/display-name
   Button = ({ editorState, onChange }) => {
     const onClick = (e) => {
       e.preventDefault()

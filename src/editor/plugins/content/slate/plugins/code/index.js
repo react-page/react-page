@@ -15,40 +15,49 @@ export default class CodePlugin extends Plugin {
     this.DEFAULT_NODE = props.DEFAULT_NODE
   }
 
-  createButton = (type, icon) => ({ editorState, onChange }) => {
-    const onClick = (e) => {
-      e.preventDefault()
+  createButton = (type, icon) => {
+    const Button = ({ editorState, onChange }) => {
+      const onClick = (e) => {
+        e.preventDefault()
 
-      onChange(
-        editorState
-          .transform()
-          .toggleMark(type)
-          .apply()
-      )
+        onChange(
+          editorState
+            .transform()
+            .toggleMark(type)
+            .apply()
+        )
+      }
+
+
+      const isActive = editorState && editorState.marks.some((mark) => mark.type === type)
+
+      return <ToolbarButton onClick={onClick} isActive={isActive} icon={icon} />
     }
 
-    const isActive = editorState && editorState.marks.some((mark) => mark.type === type)
-
-    return <ToolbarButton onClick={onClick} isActive={isActive} icon={icon} />
+    return Button
   }
 
-  createNodeButton = (type, icon) => ({ editorState, onChange }) => {
-    const onClick = (e) => {
-      e.preventDefault()
+  createNodeButton = (type, icon) => {
+    const Button = ({ editorState, onChange }) => {
+      const onClick = (e) => {
+        e.preventDefault()
+
+        const isActive = editorState.blocks.some((block) => block.type === type)
+
+        onChange(
+          editorState
+            .transform()
+            .setBlock(isActive ? this.DEFAULT_NODE : type)
+            .apply()
+        )
+      }
 
       const isActive = editorState.blocks.some((block) => block.type === type)
 
-      onChange(
-        editorState
-          .transform()
-          .setBlock(isActive ? this.DEFAULT_NODE : type)
-          .apply()
-      )
+      return <ToolbarButton onClick={onClick} isActive={isActive} icon={icon} />
     }
 
-    const isActive = editorState.blocks.some((block) => block.type === type)
-
-    return <ToolbarButton onClick={onClick} isActive={isActive} icon={icon} />
+    return Button
   }
 
   name = 'code'

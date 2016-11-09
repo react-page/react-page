@@ -6,15 +6,16 @@ import { ToolbarButton } from '../../helpers'
 import Plugin from '../Plugin'
 import Katex from './node'
 
-const KATEX = 'katex/katex'
+export const KATEX = 'KATEX/KATEX'
 
-export default class LinkPlugin extends Plugin {
+export default class KatexPlugin extends Plugin {
   constructor(props) {
     super(props)
 
     this.DEFAULT_NODE = props.DEFAULT_NODE
   }
 
+  // eslint-disable-next-line react/display-name
   Button = ({ editorState, onChange }) => {
     const onClick = (e) => {
       e.preventDefault()

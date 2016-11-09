@@ -6,7 +6,7 @@ import { ToolbarButton } from '../../helpers'
 import Plugin from '../Plugin'
 import Link from './node'
 
-const A = 'link/link'
+export const A = 'LINK/LINK'
 
 const Button = ({ editorState, onChange }) => {
   const onClick = (e) => {

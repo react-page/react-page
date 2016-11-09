@@ -7,9 +7,9 @@ import createListPlugin from 'slate-edit-list'
 import { makeTagNode, ToolbarButton } from '../helpers'
 import Plugin from './Plugin'
 
-const UL = 'lists/unordered-list'
-const OL = 'lists/ordered-list'
-const LI = 'lists/list-item'
+export const UL = 'LISTS/UNORDERED-LIST'
+export const OL = 'LISTS/ORDERED-LIST'
+export const LI = 'LISTS/LIST-ITEM'
 
 export default class ListsPlugin extends Plugin {
   constructor(props) {
@@ -18,6 +18,7 @@ export default class ListsPlugin extends Plugin {
     this.DEFAULT_NODE = props.DEFAULT_NODE
   }
 
+  // eslint-disable-next-line react/display-name
   createButton = (type, icon) => ({ editorState, onChange }) => {
     const onClick = (e) => {
       e.preventDefault()

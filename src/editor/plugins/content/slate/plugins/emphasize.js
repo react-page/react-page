@@ -11,6 +11,7 @@ export const STRONG = 'EMPHASIZE/STRONG'
 export const EM = 'EMPHASIZE/EM'
 export const U = 'EMPHASIZE/U'
 
+// eslint-disable-next-line react/display-name
 const createButton = (type, icon) => ({ editorState, onChange }) => {
   const onClick = (e) => {
     e.preventDefault()
