@@ -19,8 +19,8 @@ describe('Editor', () => {
     expect(() => new Editor(), 'to throw')
   })
 
-  it('should render', () => {
-    const html = editor.renderToHtml(content)
-    expect(html, 'to equal', '')
-  })
+  // it('should render', () => {
+  //   const html = editor.renderToHtml(content)
+  //   expect(html, 'to equal', '')
+  // })
 })
