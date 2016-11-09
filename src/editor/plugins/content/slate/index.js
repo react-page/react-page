@@ -28,7 +28,7 @@ const createMarks = compose(mergeAll, map(prop('marks')))
 const createPlugins = compose(flatten, map(prop('plugins')))
 
 export default class SlatePlugin extends ContentPlugin {
-  constructor(plugins?: Plugin[] = []) {
+  constructor(plugins?: Plugin[]) {
     super(plugins)
 
     this.DEFAULT_NODE = P
@@ -110,9 +110,9 @@ export default class SlatePlugin extends ContentPlugin {
     this.Component = Inner
   }
 
-  props = {}
-  plugins = []
-  DEFAULT_NODE = P
+  DEFAULT_NODE: string
+  plugins: []
+  props: any
 
   name = 'ory/editor/core/content/slate'
   version = '0.0.1'
