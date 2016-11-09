@@ -4,7 +4,7 @@ import { placeholder } from '../../const.js'
 import shallowEqual from 'fbjs/lib/shallowEqual'
 import cssModules from 'react-css-modules'
 
-import styles from './index.scoped.css'
+import styles from './Paragraph.scoped.css'
 
 class Paragraph extends Component {
   shouldComponentUpdate(nextProps) {

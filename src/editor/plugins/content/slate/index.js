@@ -15,6 +15,7 @@ import BlockquotePlugin from './plugins/blockquote'
 import CodePlugin from './plugins/code'
 import EmphasizePlugin from './plugins/emphasize'
 import HeadingsPlugin from './plugins/headings'
+import KatexPlugin from './plugins/katex'
 import LinkPlugin from './plugins/link'
 import ListsPlugin from './plugins/lists'
 
@@ -40,7 +41,8 @@ export default class SlatePlugin extends ContentPlugin {
       new CodePlugin({ DEFAULT_NODE: this.DEFAULT_NODE }),
       new ListsPlugin({ DEFAULT_NODE: this.DEFAULT_NODE }),
       new BlockquotePlugin({ DEFAULT_NODE: this.DEFAULT_NODE }),
-      new AlignmentPlugin()
+      new AlignmentPlugin(),
+      new KatexPlugin({ DEFAULT_NODE: this.DEFAULT_NODE })
     ]
 
     this.props = {}
