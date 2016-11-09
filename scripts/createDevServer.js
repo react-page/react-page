@@ -1,7 +1,7 @@
 // *Ejected from react-scripts 0.7.0
 
 // *Starts a development server with the given webpack config and paths
-module.exports = (example) => {
+module.exports = (example, proxy) => {
   process.env.NODE_ENV = 'development';
 
   // Load environment variables from .env file. Suppress warnings using silent
@@ -228,7 +228,8 @@ module.exports = (example) => {
       },
       // Enable HTTPS if the HTTPS environment variable is set to 'true'
       https: protocol === "https",
-      host: host
+      host: host,
+      proxy: proxy && proxy(protocol, host)
     });
 
     // Our custom middleware proxies requests to /index.html or a remote API.
