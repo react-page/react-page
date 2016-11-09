@@ -1,9 +1,7 @@
 /* eslint-disable no-alert, prefer-reflect, no-underscore-dangle */
 import IconButton from 'material-ui/IconButton'
 import CodeIcon from 'material-ui/svg-icons/action/code'
-import ListIcon from 'material-ui/svg-icons/action/list'
 import LinkIcon from 'material-ui/svg-icons/content/link'
-import OrderedListIcon from 'material-ui/svg-icons/editor/format-list-numbered'
 import BlockquoteIcon from 'material-ui/svg-icons/editor/format-quote'
 import AlignLeftIcon from 'material-ui/svg-icons/editor/format-align-left'
 import AlignCenterIcon from 'material-ui/svg-icons/editor/format-align-center'
@@ -23,58 +21,29 @@ import createBlockquotePlugin from 'slate-edit-blockquote'
 import createListPlugin from 'slate-edit-list'
 import BottomToolbar from 'src/editor/components/BottomToolbar'
 import { ContentPluginProps } from 'src/editor/service/plugin/classes'
-import nodes from './nodes'
 
 import styles from './index.scoped.css'
 
 const onBlur = (_event, _data, state) => state
 
-const makeTagNode = (Tag) => {
-  const NodeComponent = ({ attributes, children, node }: { attributes: Object, children: any, node: any }) => {
-    const align = node.data.get('align')
-    return (
-      <Tag {...attributes} style={{ textAlign: align }}>{children}</Tag>
-    )
-  }
-
-  NodeComponent.displayName = `${Tag}-node`
-
-  return NodeComponent
-}
-
-const makeTagMark = (Tag) => {
-  const MarkComponent = ({ children }: { children: any }) => (
-    <Tag>{children}</Tag>
-  )
-
-  MarkComponent.displayName = `${Tag}-mark`
-
-  return MarkComponent
-}
-
 // Nodes
-const CODE = 'code'
-const P = 'paragraph'
 const A = 'link'
-const UL = 'unordered-list'
-const OL = 'ordered-list'
-const LI = 'list-item'
+
 const BLOCKQUOTE = 'blockquote'
 const KATEX = 'KATEX'
-const DEFAULT_NODE = P
 
-const plugins = [
-  createListPlugin({
-    typeUL: UL,
-    typeOL: OL,
-    typeItem: LI,
-    typeDefault: DEFAULT_NODE
-  }),
-  createBlockquotePlugin({
-    type: BLOCKQUOTE,
-    typeDefault: DEFAULT_NODE
-  })
-]
+// const plugins = [
+//   createListPlugin({
+//     typeUL: UL,
+//     typeOL: OL,
+//     typeItem: LI,
+//     typeDefault: DEFAULT_NODE
+//   }),
+//   createBlockquotePlugin({
+//     type: BLOCKQUOTE,
+//     typeDefault: DEFAULT_NODE
+//   })
+// ]
 
 export type Props = ContentPluginProps<{ editorState: Object }>
 
@@ -113,28 +82,6 @@ class Slate extends Component {
   onStateChange = (editorState) => {
     this.props.onChange({ editorState })
   }
-
-  // onKeyDown = (e: Event, data: { key: string, isMod: bool, isShift: bool }, state) => {
-  //   // we need to prevent slate from handling undo and redo
-  //   if (data.isMod && (data.key === 'z' || data.key === 'y')) {
-  //     return state
-  //   }
-  //
-  //   if (data.isShift && data.key === 'enter') {
-  //     return state.transform().insertText('\n').apply()
-  //   }
-  //
-  //   const { slatePlugins } = this.props
-  //
-  //   for (let i = 0; i < slatePlugins.length; i++) {
-  //     const { onKeyDown } = slatePlugins[i]
-  //     const newState = onKeyDown && onKeyDown(e, data, state)
-  //
-  //     if (newState) {
-  //       return newState
-  //     }
-  //   }
-  // }
 
   handleOpen = (portal) => {
     this.props.onChange({ toolbar: portal.firstChild })
@@ -268,50 +215,6 @@ class Slate extends Component {
     )
   }
 
-  renderListNodeButton = (type, icon) => {
-    const onClick = (e) => {
-      e.preventDefault()
-
-      const { editorState } = this.props.state
-
-      const isList = editorState.blocks.some((block) => block.type === LI)
-      const isType = editorState.blocks.some((block) => (
-        Boolean(editorState.document.getClosest(block, (parent) => parent.type === type))
-      ))
-
-      let transform = editorState.transform()
-
-      if (isList && isType) {
-        transform = transform
-          .setBlock(DEFAULT_NODE)
-          .unwrapBlock(UL)
-          .unwrapBlock(OL)
-      } else if (isList) {
-        transform = transform
-          .unwrapBlock(type === UL ? OL : UL)
-          .wrapBlock(type)
-      } else {
-        transform = transform
-          .setBlock(LI)
-          .wrapBlock(type)
-      }
-
-      this.onStateChange(transform.apply())
-    }
-
-    const { editorState } = this.props.state
-    const isList = editorState.blocks.some((block) => block.type === LI)
-    const isType = editorState.blocks.some((block) => (
-      Boolean(editorState.document.getClosest(block, (parent) => parent.type === type))
-    ))
-
-    return (
-      <IconButton onClick={onClick} iconStyle={(isList && isType) ? { color: 'rgb(0, 188, 212)' } : { color: 'white' }}>
-        {icon}
-      </IconButton>
-    )
-  }
-
   renderBlockquoteNodeButton = (icon) => {
     const onClick = (e) => {
       e.preventDefault()
@@ -404,6 +307,7 @@ class Slate extends Component {
       readOnly,
       state: { editorState },
       schema,
+      plugins,
       onKeyDown,
       HoverButtons,
       ToolbarButtons
@@ -412,17 +316,10 @@ class Slate extends Component {
 
     // const schema = {
     //   nodes: {
-    //     [H1]: makeTagNode('h1'),
-    //     [H2]: makeTagNode('h2'),
-    //     [H3]: makeTagNode('h3'),
-    //     [H4]: makeTagNode('h4'),
-    //     [H5]: makeTagNode('h5'),
-    //     [H6]: makeTagNode('h6'),
     //     [UL]: makeTagNode('ul'),
     //     [OL]: makeTagNode('ol'),
     //     [LI]: makeTagNode('li'),
     //     [BLOCKQUOTE]: makeTagNode('blockquote'),
-    //     [P]: nodes.Paragraph,
     //     [A]: nodes.Link,
     //     [KATEX]: nodes.Katex
     //   }

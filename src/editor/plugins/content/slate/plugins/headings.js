@@ -17,26 +17,32 @@ export const H4 = 'headings/heading-four'
 export const H5 = 'headings/heading-five'
 export const H6 = 'headings/heading-six'
 
-const createButton = (type, icon) => ({ editorState, onChange, DEFAULT_NODE }) => {
-  const onClick = (e) => {
-    e.preventDefault()
+export default class HeadingsPlugin extends Plugin {
+  constructor(props) {
+    super(props)
+
+    this.DEFAULT_NODE = props.DEFAULT_NODE
+  }
+
+  createButton = (type, icon) => ({ editorState, onChange }) => {
+    const onClick = (e) => {
+      e.preventDefault()
+
+      const isActive = editorState.blocks.some((block) => block.type === type)
+
+      onChange(
+        editorState
+          .transform()
+          .setBlock(isActive ? this.DEFAULT_NODE : type)
+          .apply()
+      )
+    }
 
     const isActive = editorState.blocks.some((block) => block.type === type)
 
-    onChange(
-      editorState
-        .transform()
-        .setBlock(isActive ? DEFAULT_NODE : type)
-        .apply()
-    )
+    return <ToolbarButton onClick={onClick} isActive={isActive} icon={icon} />
   }
 
-  const isActive = editorState.blocks.some((block) => block.type === type)
-
-  return <ToolbarButton onClick={onClick} isActive={isActive} icon={icon} />
-}
-
-export default class HeadingsPlugin extends Plugin {
   name = 'headings'
 
   nodes = {
@@ -49,11 +55,11 @@ export default class HeadingsPlugin extends Plugin {
   }
 
   toolbarButtons = [
-    createButton(H1, <H1Icon />),
-    createButton(H2, <H2Icon />),
-    createButton(H3, <H3Icon />),
-    createButton(H4, <H4Icon />),
-    createButton(H5, <H5Icon />),
-    createButton(H6, <H6Icon />)
+    this.createButton(H1, <H1Icon />),
+    this.createButton(H2, <H2Icon />),
+    this.createButton(H3, <H3Icon />),
+    this.createButton(H4, <H4Icon />),
+    this.createButton(H5, <H5Icon />),
+    this.createButton(H6, <H6Icon />)
   ]
 }

@@ -22,6 +22,11 @@ export default class Plugin {
   marks: { [key: string]: Component<*, *, *> } = {}
 
   /**
+   * @member the slate plugins added to the editor
+   */
+  plugins: Array<*> = []
+
+  /**
    * This handler is called when any key is pressed
    *
    * @param e the keydown event

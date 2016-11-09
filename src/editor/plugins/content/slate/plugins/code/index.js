@@ -8,48 +8,54 @@ import Code from './node'
 
 export const CODE = 'CODE/CODE'
 
-const createButton = (type, icon) => ({ editorState, onChange }) => {
-  const onClick = (e) => {
-    e.preventDefault()
+export default class CodePlugin extends Plugin {
+  constructor(props) {
+    super(props)
 
-    onChange(
-      editorState
-        .transform()
-        .toggleMark(type)
-        .apply()
-    )
+    this.DEFAULT_NODE = props.DEFAULT_NODE
   }
 
-  const isActive = editorState && editorState.marks.some((mark) => mark.type === type)
+  createButton = (type, icon) => ({ editorState, onChange }) => {
+    const onClick = (e) => {
+      e.preventDefault()
 
-  return <ToolbarButton onClick={onClick} isActive={isActive} icon={icon} />
-}
+      onChange(
+        editorState
+          .transform()
+          .toggleMark(type)
+          .apply()
+      )
+    }
 
-const createNodeButton = (type, icon) => ({ editorState, onChange, DEFAULT_NODE }) => {
-  const onClick = (e) => {
-    e.preventDefault()
+    const isActive = editorState && editorState.marks.some((mark) => mark.type === type)
+
+    return <ToolbarButton onClick={onClick} isActive={isActive} icon={icon} />
+  }
+
+  createNodeButton = (type, icon) => ({ editorState, onChange }) => {
+    const onClick = (e) => {
+      e.preventDefault()
+
+      const isActive = editorState.blocks.some((block) => block.type === type)
+
+      onChange(
+        editorState
+          .transform()
+          .setBlock(isActive ? this.DEFAULT_NODE : type)
+          .apply()
+      )
+    }
 
     const isActive = editorState.blocks.some((block) => block.type === type)
 
-    onChange(
-      editorState
-        .transform()
-        .setBlock(isActive ? DEFAULT_NODE : type)
-        .apply()
-    )
+    return <ToolbarButton onClick={onClick} isActive={isActive} icon={icon} />
   }
 
-  const isActive = editorState.blocks.some((block) => block.type === type)
-
-  return <ToolbarButton onClick={onClick} isActive={isActive} icon={icon} />
-}
-
-export default class CodePlugin extends Plugin {
   name = 'code'
 
   marks = { [CODE]: makeTagMark('code') }
   node = { [CODE]: Code }
 
-  hoverButtons = [createButton(CODE, <CodeIcon />)]
-  toolbarButtons = [createNodeButton(CODE, <CodeIcon />)]
+  hoverButtons = [this.createButton(CODE, <CodeIcon />)]
+  toolbarButtons = [this.createNodeButton(CODE, <CodeIcon />)]
 }

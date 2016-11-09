@@ -3,7 +3,7 @@
 /* eslint no-duplicate-imports: ["off"] */
 /* eslint prefer-reflect: ["off"] */
 import Subject from 'material-ui/svg-icons/action/subject'
-import { compose, map, mergeAll, prop } from 'ramda'
+import { compose, flatten, map, mergeAll, prop } from 'ramda'
 import React from 'react'
 
 import { ContentPlugin } from 'src/editor/service/plugin/classes'
@@ -13,12 +13,14 @@ import type { Props } from './Component'
 import CodePlugin from './plugins/code'
 import EmphasizePlugin from './plugins/emphasize'
 import HeadingsPlugin from './plugins/headings'
+import ListsPlugin from './plugins/lists'
 
 import * as hooks from './hooks'
 import nodes from './Component/nodes'
 
 const createNodes = compose(mergeAll, map(prop('nodes')))
 const createMarks = compose(mergeAll, map(prop('marks')))
+const createPlugins = compose(flatten, map(prop('plugins')))
 
 const P = 'paragraph'
 
@@ -26,13 +28,14 @@ export default class SlatePlugin extends ContentPlugin {
   constructor(plugins) {
     super(plugins)
 
+    this.DEFAULT_NODE = P
+
     this.plugins = plugins || [
       new EmphasizePlugin(),
-      new HeadingsPlugin(),
-      new CodePlugin()
+      new HeadingsPlugin({ DEFAULT_NODE: this.DEFAULT_NODE }),
+      new CodePlugin({ DEFAULT_NODE: this.DEFAULT_NODE }),
+      new ListsPlugin({ DEFAULT_NODE: this.DEFAULT_NODE })
     ]
-
-    this.DEFAULT_NODE = P
 
     this.props = {}
 
@@ -43,6 +46,8 @@ export default class SlatePlugin extends ContentPlugin {
       },
       marks: createMarks(this.plugins)
     }
+
+    this.props.plugins = createPlugins(this.plugins)
 
     this.props.onKeyDown = (e: Event, data: { key: string, isMod: bool, isShift: bool }, state) => {
       // we need to prevent slate from handling undo and redo
@@ -74,7 +79,7 @@ export default class SlatePlugin extends ContentPlugin {
               key={`${i}-${j}`}
               editorState={editorState}
               onChange={onChange}
-              DEFAULT_NODE={this.DEFAULT_NODE} />
+            />
           ))
         ))}
       </div>
@@ -87,8 +92,7 @@ export default class SlatePlugin extends ContentPlugin {
             <Button
               key={`${i}-${j}`}
               editorState={editorState}
-              onChange={onChange}
-              DEFAULT_NODE={this.DEFAULT_NODE} />
+              onChange={onChange} />
           ))
         ))}
       </div>
