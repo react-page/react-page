@@ -34,6 +34,7 @@
     "dev:home": "cross-env NODE_PATH=. node examples/home/server.js",
     "dev:live-edit": "cross-env NODE_PATH=. node examples/live-edit/server.js",
     "dev:news-article": "cross-env NODE_PATH=. node examples/news-article/server.js",
+    "dev:single-page-site": "cross-env NODE_PATH=. node examples/single-page-site/server.js",
 
     "build:dev": "npm-run-all --parallel build:dev:*",
     "build:dev:editor": "cross-env NODE_PATH=. webpack --watch",

@@ -1,6 +1,4 @@
 // @flow
-import './index.css'
-
 import Editor from 'src/editor'
 import { PluginService, defaultLayoutPlugins, defaultContentPlugins } from 'src/editor/service'
 import ParallaxPlugin from './plugins/parallax'

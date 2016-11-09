@@ -1,3 +1,8 @@
+import pic01 from './images/pic01.jpg'
+import pic02 from './images/pic02.jpg'
+import pic03 from './images/pic03.jpg'
+import pic04 from './images/pic04.jpg'
+
 const content = {
   [4]: {
     id: '4',
@@ -43,7 +48,7 @@ const content = {
                   content: {
                     plugin: { name: 'ory/editor/core/content/image' },
                     state: {
-                      src: 'images/pic01.jpg'
+                      src: pic01
                     }
                   }
                 }]
@@ -143,21 +148,21 @@ adipiscing ipsum.</p>`
                   content: {
                     plugin: { name: 'ory/editor/core/content/image' },
                     state: {
-                      src: 'images/pic02.jpg'
+                      src: pic02
                     }
                   }
                 }, {
                   content: {
                     plugin: { name: 'ory/editor/core/content/image' },
                     state: {
-                      src: 'images/pic03.jpg'
+                      src: pic03
                     }
                   }
                 }, {
                   content: {
                     plugin: { name: 'ory/editor/core/content/image' },
                     state: {
-                      src: 'images/pic04.jpg'
+                      src: pic04
                     }
                   }
                 }]
