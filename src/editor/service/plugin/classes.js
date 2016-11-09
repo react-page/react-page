@@ -1,6 +1,6 @@
 // @flow
 /* eslint-disable no-empty-function, no-unused-vars */
-import { Component, Element, PureComponent } from 'react'
+import { Component, Element } from 'react'
 
 export type ContentPluginProps<T> = {
   /**
