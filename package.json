@@ -32,9 +32,9 @@
     "build:home": "cross-env NODE_PATH=. node examples/home/build.js",
     "build:news-article": "cross-env NODE_PATH=. node examples/news-article/build.js",
     "build:single-page-site": "cross-env NODE_PATH=. node examples/single-page-site/build.js",
-    "serve:home": "pushstate-server examples/home/build 9000",
-    "serve:news-article": "pushstate-server examples/news-article/build 9000",
-    "serve:single-page-site": "pushstate-server examples/single-page-site/build 9000"
+    "serve:home": "pushstate-server examples/home/build",
+    "serve:news-article": "pushstate-server examples/news-article/build",
+    "serve:single-page-site": "pushstate-server examples/single-page-site/build"
   },
   "engines": {
     "node": ">v6.0.0",
