@@ -1,6 +1,6 @@
 {
   "name": "ory-editor",
-  "version": "0.0.0-16",
+  "version": "0.0.0-17",
   "description": "The next generation platform for creating well-defined, responsive, digital content - as easy as social media.",
   "main": "public/bundle.js",
   "directories": {

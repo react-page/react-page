@@ -45,11 +45,24 @@ module.exports = {
       commonjs: 'react',
       amd: 'react'
     },
-    'react-dom': 'ReactDOM',
-    'react-addons-transition-group': 'var React.addons.TransitionGroup',
-    'react-addons-pure-render-mixin': 'var React.addons.PureRenderMixin',
-    'react-addons-create-fragment': 'var React.addons.createFragment',
-    'react-addons-update': 'var React.addons.update'
+    'react-dom': {
+      root: 'ReactDOM',
+      commonjs2: 'react-dom',
+      commonjs: 'react-dom',
+      amd: 'react-dom'
+    },
+    'react-addons-transition-group': {
+      root: ['React', 'addons', 'TransitionGroup'],
+      commonjs2: 'react-addons-transition-group',
+      commonjs: 'react-addons-transition-group',
+      amd: 'react-addons-transition-group',
+    },
+    'react-addons-create-fragment': {
+      root: ['React', 'addons', 'createFragment'],
+      commonjs2: 'react-addons-create-fragment',
+      commonjs: 'react-addons-create-fragment',
+      amd: 'react-addons-create-fragment',
+    }
   }],
   devtool: 'source-map',
   // plugins :: [a]
