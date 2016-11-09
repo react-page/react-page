@@ -1,3 +1,5 @@
+import screenshot from './images/screenshot.png'
+
 const content = {
   [1]: {
     id: '1',
@@ -215,7 +217,7 @@ const content = {
                   content: {
                     plugin: { name: 'ory/editor/core/content/image' },
                     state: {
-                      src: './images/screenshot.png'
+                      src: screenshot
                     }
                   }
                 }]
@@ -258,7 +260,7 @@ const content = {
                   content: {
                     plugin: { name: 'ory/editor/core/content/image' },
                     state: {
-                      src: './images/screenshot.png'
+                      src: screenshot
                     }
                   }
                 }]
@@ -301,7 +303,7 @@ const content = {
                   content: {
                     plugin: { name: 'ory/editor/core/content/image' },
                     state: {
-                      src: './images/screenshot.png'
+                      src: screenshot
                     }
                   }
                 }]

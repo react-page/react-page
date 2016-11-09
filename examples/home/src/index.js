@@ -1,4 +1,3 @@
-import './index.css'
 import Editor from 'src/editor'
 import { StaticContent } from './content.js'
 import VideoPlugin from './plugins/video'
