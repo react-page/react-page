@@ -1,6 +1,6 @@
 # ![ORY Editor](logo.png)
 
-[![Build Status](https://travis-ci.org/ory-am/editor.svg?branch=0.1)](https://travis-ci.org/ory-am/editor)
+[![Build Status](https://travis-ci.org/ory-am/editor.svg)](https://travis-ci.org/ory-am/editor)
 [![Test Coverage](https://codeclimate.com/github/ory-am/editor/badges/coverage.svg)](https://codeclimate.com/github/ory-am/editor/coverage)
 [![Code Climate](https://codeclimate.com/github/ory-am/editor/badges/gpa.svg)](https://codeclimate.com/github/ory-am/editor) 
  
@@ -23,22 +23,19 @@ prior to the 1.0.0 release.
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
--awesome editing gif-
+![https://storage.googleapis.com/ory.am/inline-edit.gif]
 
-Check the [demo](http://editor.ory.am/) yourself.
+and check the [demo](http://editor.ory.am/) yourself.
 
 ## Introduction
 
 The ORY Editor is part of the ORY Content Toolchain, a set of tools helping you to build, distribute and manage awesome content.
  
 The ORY Editor is different, because it allows you to build responsive layouts. All content is represented by
-a JSON object and since no HTML is used, you won't have to worry about HTML input sanitation or
+a JSON object and as no HTML is used, you won't have to worry about HTML input sanitation or
 XSS attacks. You can extend functionality and design by writing React components against a small and clear API. Your content
 is no longer a snapshot, it is a replayable state machine with deltas. We built the ORY Editor with state of the art
 technology and development principles - it's test driven, user experience centered, and cloud native.
-
-The ORY Editor is a layout builder SDK for JavaScript. What using the ORY Editor looks like is best explained
-by the following GIFs and in the [**examples section**](https://editor.ory.am/examples).
 
 ## Quickstart
 
@@ -56,9 +53,7 @@ TO BE DONE
 
 ## Documentation
 
-<!-- The ORY Editor has a [user guide] as well as an [API documentation]. -->
-
-Generate the user guide locally with:
+There is a user guide on [gitbook](https://ory-am.gitbooks.io/ory-editor/content/) available, and you can generate it locally with:
 
 ```
 $ git clone https://github.com/ory-am/editor.git
