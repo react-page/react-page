@@ -1,11 +1,14 @@
-import Editor from 'src/editor'
-import { StaticContent } from './content.js'
+import React from 'react'
+import ReactDOM from 'react-dom'
+import Editor, { EditableComponent, ControlsComponent } from 'src/editor'
 import VideoPlugin from './plugins/video'
 import ContainerPlugin from './plugins/container'
 import { PluginService, defaultLayoutPlugins, defaultContentPlugins } from 'src/editor/service'
+import content from './content.js'
+
+require('react-tap-event-plugin')()
 
 const editor = new Editor({
-  adapters: [new StaticContent()],
   plugins: new PluginService(defaultContentPlugins, [
     ...defaultLayoutPlugins,
     new VideoPlugin(),
@@ -13,11 +16,15 @@ const editor = new Editor({
   ])
 })
 
-// editor.renderToHtml()
-
 const elements = document.querySelectorAll('.editable')
-
-editor.renderControls()
 for (const element of elements) {
-  editor.render(element)
+  ReactDOM.render((
+    <EditableComponent
+      editor={editor}
+      state={content[element.dataset.editable]}
+      // onChange={(state) => console.log(state)}
+    />
+  ), element)
 }
+
+ReactDOM.render(<ControlsComponent editor={editor} />, document.getElementById('controls'))

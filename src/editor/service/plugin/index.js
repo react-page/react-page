@@ -1,4 +1,6 @@
 // @flow
+import uuid from 'node-uuid'
+import path from 'ramda/src/path'
 import { satisfies } from 'semver'
 import { ContentPlugin, LayoutPlugin, Plugin } from './classes'
 import MissingPlugin from 'src/editor/plugins/content/missing'
@@ -27,6 +29,21 @@ export const defaultLayoutPlugins: Array<LayoutPlugin> = [
 ]
 
 const find = (name: string, version: string = '*') => (plugin: Plugin): boolean => plugin.name === name && satisfies(plugin.version, version)
+
+/**
+ * Iterate through an editable content tree and generate ids where missing.
+ */
+export const generateMissingIds = (props: Object): Object => {
+  const { rows, cells, id } = props
+
+  if ((rows || []).length > 0) {
+    props.rows = rows.map(generateMissingIds)
+  } else if ((cells || []).length > 0) {
+    props.cells = cells.map(generateMissingIds)
+  }
+
+  return { ...props, id: id || uuid.v4() }
+}
 
 /**
  * PluginService is a registry of all content and layout plugins known to the editor.
@@ -77,5 +94,92 @@ export default class PluginService {
       ...this.plugins.content.map(({ name }: Plugin) => name),
       ...this.plugins.layout.map(({ name }: Plugin) => name)
     ]
+  }
+
+  unserialize = (props: any): Object => {
+    const {
+      rows = [],
+      cells = [],
+      content = {},
+      layout = {},
+    } = props
+
+    const { plugin: { name: contentName = null, version: contentVersion = '*' } = {}, state: contentState } = content || {}
+    const { plugin: { name: layoutName = null, version: layoutVersion = '*' } = {}, state: layoutState } = layout || {}
+
+    if (contentName) {
+      const plugin = this.findContentPlugin(contentName, contentVersion)
+      props.content = {
+        plugin,
+        state: plugin.unserialize(contentState)
+      }
+    }
+
+    if (layoutName) {
+      const plugin = this.findLayoutPlugin(layoutName, layoutVersion)
+      props.layout = {
+        plugin,
+        state: plugin.unserialize(layoutState)
+      }
+    }
+
+    if ((rows || []).length) {
+      props.rows = rows.map(this.unserialize)
+    }
+
+    if ((cells || []).length) {
+      props.cells = cells.map(this.unserialize)
+    }
+
+    return generateMissingIds({ ...props })
+  }
+
+  serialize = ({
+    rows,
+    cells,
+    content,
+    layout,
+    ...props
+  }: {
+    rows: Object[],
+    cells: Object[],
+    content: {
+      plugin: ContentPlugin,
+      state: Object
+    },
+    layout: {
+      plugin: LayoutPlugin,
+      state: Object
+    },
+    props: any
+  }): Object => {
+    const serializeProps = path(['content', 'plugin', 'hooks', 'serialize'], props)
+    if (serializeProps) {
+      props.content.state = serializeProps(content.state)
+    }
+
+    if (content) {
+      props.content = {
+        plugin: { name: content.plugin.name, version: content.plugin.version },
+        state: content.plugin.serialize(content.state)
+      }
+    }
+
+    if (layout) {
+      props.layout = {
+        plugin: { name: layout.plugin.name, version: layout.plugin.version },
+        state: layout.plugin.serialize(layout.state)
+      }
+    }
+
+    if ((rows || []).length) {
+      props.rows = rows.map(this.serialize)
+    }
+
+    if ((cells || []).length) {
+      props.cells = cells.map(this.serialize)
+    }
+
+    return { ...props }
   }
 }

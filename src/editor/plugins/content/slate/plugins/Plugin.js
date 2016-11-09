@@ -1,6 +1,7 @@
 // @flow
+/* eslint-disable no-unused-vars */
 import { Component } from 'react'
-import { State } from 'slate'
+// import { State } from 'slate'
 
 /**
  * @class this is the base class for slate plugins
@@ -37,8 +38,8 @@ export default class Plugin {
   onKeyDown = (
     e: Event,
     data: { key: string, isMod: bool, isShift: bool },
-    state: State
-  ): ?State => null
+    state: any
+  ): ?any => null
 
   /**
    * @member the buttons to be added to the hover menu

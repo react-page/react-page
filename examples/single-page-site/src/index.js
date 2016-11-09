@@ -1,12 +1,14 @@
-// @flow
-import Editor from 'src/editor'
 import { PluginService, defaultLayoutPlugins, defaultContentPlugins } from 'src/editor/service'
 import ParallaxPlugin from './plugins/parallax'
 import FaIconPlugin from './plugins/fa-icon'
-import { StaticContent } from './content.js'
+import React from 'react'
+import ReactDOM from 'react-dom'
+import Editor, { EditableComponent, ControlsComponent } from 'src/editor'
+import content from './content.js'
+
+require('react-tap-event-plugin')()
 
 const editor = new Editor({
-  adapters: [new StaticContent()],
   plugins: new PluginService([
     ...defaultContentPlugins,
     new FaIconPlugin()
@@ -16,10 +18,15 @@ const editor = new Editor({
   ])
 })
 
-editor.renderControls()
 const elements = document.querySelectorAll('.editable')
-
-editor.renderControls()
 for (const element of elements) {
-  editor.render(element)
+  ReactDOM.render((
+    <EditableComponent
+      editor={editor}
+      state={content[element.dataset.id]}
+      // onChange={(state) => console.log(state)}
+    />
+  ), element)
 }
+
+ReactDOM.render(<ControlsComponent editor={editor} />, document.getElementById('controls'))

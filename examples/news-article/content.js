@@ -1,10 +1,5 @@
-// @flow
-/* eslint no-useless-computed-key: 'off' */
-import { AbstractAdapter } from './adapter'
-import logger from 'src/editor/service/logger'
-
-export const content = {
-  [1]: {
+export default {
+  1: {
     id: '39702c61-b6c2-452e-b381-d61c8aa7eeb0',
     cells: [{
       rows: [
@@ -233,7 +228,7 @@ export const content = {
       id: '93f330d6-867f-4da5-9e94-40abd11114b9'
     }]
   },
-  [2]: {
+  2: {
     id: '39702c61-b6c2-452e-b381-d61c8aa7eea0',
     cells: [{
       rows: [
@@ -340,16 +335,5 @@ export const content = {
       ],
       id: '15efd3c3-b683-4da6-b107-16d8d0c8cd26'
     }]
-  }
-}
-
-export class DebugStorageAdapter extends AbstractAdapter {
-  fetch(element: Object) {
-    const id = element.dataset.debugEditable
-    return content[id]
-  }
-
-  store(state: Object) {
-    logger.log(state)
   }
 }

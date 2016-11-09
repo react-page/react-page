@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import onElementResize from 'element-resize-event'
-import logger from 'src/editor/service/logger'
 import connect from 'src/editor/components/ServerContext/connect'
+// import logger from 'src/editor/service/logger'
 
 const defaultContainerStyle = {}
 
@@ -106,7 +106,7 @@ const Dimensions = ({
       const { containerWidth, containerHeight } = this.state
 
       if (!containerWidth && !containerHeight) {
-        logger.warn('Wrapper div has no height or width, try overriding style with `containerStyle` option')
+        // logger.info('Wrapper div has no height or width, try overriding style with `containerStyle` option')
       }
 
       return (

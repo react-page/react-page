@@ -1,6 +1,4 @@
-// @flow
 import React from 'react'
-import cssModules from 'react-css-modules'
 import Announcement from 'material-ui/svg-icons/image/landscape'
 import Slate from 'src/editor/plugins/content/slate'
 import { LayoutPlugin } from 'src/editor/service/plugin/classes'
@@ -15,39 +13,40 @@ type Props = {
   onChange(state: Object): void
 }
 
-const ParallaxComponent = ({ children, state: { style, align }, readOnly, onChange }: Props) => {
-  return (
-    <section id="two" className={`main style${style}`}>
-      {
-        readOnly ? null : (
-          <div style={{
-            float: 'right',
-            position: 'absolute',
-            right: 0,
-            zIndex: 1,
-            backgroundColor: 'rgba(255,255,255,.8)',
-            padding: '4px 20px'
-          }}>
-            <SelectField
-              value={style} onChange={(e: any, i: any, v: any) => onChange({ style: v })}
-              floatingLabelText="Select section style"
-            >
-              <MenuItem value={1} primaryText="Style 1" />
-              <MenuItem value={2} primaryText="Style 2" />
-            </SelectField>
-          </div>
-        )
-      }
-      <div className="container" style={{
-        textAlign: align
-      }}>
-        <div>
-          {children}
+const ParallaxComponent = ({ children, state: { style, align }, readOnly, onChange }: Props) => (
+  <section id="two" className={`main style${style}`}>
+    {
+      readOnly ? null : (
+        <div style={{
+          float: 'right',
+          position: 'absolute',
+          right: 0,
+          zIndex: 1,
+          backgroundColor: 'rgba(255,255,255,.8)',
+          padding: '4px 20px'
+        }}>
+          <SelectField
+            value={style} onChange={(e: any, i: any, v: any) => onChange({ style: v })}
+            floatingLabelText="Select section style"
+          >
+            <MenuItem value={1} primaryText="White" />
+            <MenuItem value={2} primaryText="Mountains" />
+            <MenuItem value={3} primaryText="Lights" />
+            <MenuItem value={4} primaryText="Grass" />
+            <MenuItem value={5} primaryText="Lake" />
+          </SelectField>
         </div>
+      )
+    }
+    <div className="container" style={{
+      textAlign: align
+    }}>
+      <div>
+        {children}
       </div>
-    </section>
-  )
-}
+    </div>
+  </section>
+)
 
 const defaultPlugin = new Slate()
 

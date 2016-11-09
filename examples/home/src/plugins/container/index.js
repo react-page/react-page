@@ -1,4 +1,3 @@
-// @flow
 import React from 'react'
 import Reorder from 'material-ui/svg-icons/action/reorder'
 import Slate from 'src/editor/plugins/content/slate'
@@ -12,13 +11,11 @@ type Props = {
   onChange(state: Object): void
 }
 
-const ContainerComponent = ({ children }: Props) => {
-  return (
-    <div className="container">
-      {children}
-    </div>
-  )
-}
+const ContainerComponent = ({ children }: Props) => (
+  <div className="container">
+    {children}
+  </div>
+)
 
 const defaultPlugin = new Slate()
 

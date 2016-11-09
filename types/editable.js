@@ -78,6 +78,7 @@ export type ComponentizedCell = {
   isEditMode: boolean,
   isLayoutMode: boolean,
   isPreviewMode: boolean,
+  isServerContext: boolean,
 
   steps: number,
   rowHeight: number,
@@ -173,7 +174,7 @@ export type EditableComponentState = {
   isEditMode: boolean,
   isLayoutMode: boolean,
   isPreviewMode: boolean,
-
+  isServerContext: boolean,
 
   blurAllCells: Function
 }

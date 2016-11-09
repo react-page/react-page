@@ -9,9 +9,9 @@
 
 [![Docs Guide](https://img.shields.io/badge/docs-guide-blue.svg)](https://ory-am.gitbooks.io/ory-editor/content/)
  
-This makes digital content creation fun and easy.
-
-*Please be aware that all features and APIs are experimental. Breaking changes will happen.*
+The ORY Editor is part of the Ory Content Toolchain, a set of tools helping you to build, distribute and manage awesome content.
+*Note:* Please be aware that all features and APIs are experimental. Breaking changes will happen with every minor release
+prior to the 1.0.0 release.
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
@@ -23,9 +23,9 @@ This makes digital content creation fun and easy.
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
-Go straight to the [demo](http://ory-editor-demo.herokuapp.com/).
-
 -awesome editing gif-
+
+Check the [demo](http://editor.ory.am/) yourself.
 
 ## Introduction
 
@@ -42,23 +42,16 @@ by the following GIFs and in the [**examples section**](https://editor.ory.am/ex
 
 ## Quickstart
 
-*Note: You actually can't install the Editor via npm at the moment*
-
-Install the Ory Editor via npm, support for bower and CDN will follow soon.
+Install the ORY Editor via npm, support for bower and CDN will follow soon.
 
 ```sh
-npm install --save ory-editor
+$ npm install --save ory-editor
 ```
 
 Now, run the editor with:
 
 ```js
-const Editor = require('ory-editor')
-
-const editor = new Editor()
-
-editor.renderControls()
-editor.render(document.querySelectorAll('.editable'))
+TO BE DONE
 ```
 
 ## Documentation
@@ -95,7 +88,7 @@ $ npm run test:watch
 # run eslint in watch mode
 $ npm run lint:watch
 
-# run dev server with live reload
+# run dev server
 $ npm run dev
 
 # open the editor in your browser

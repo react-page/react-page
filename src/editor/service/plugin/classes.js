@@ -1,27 +1,37 @@
 // @flow
 /* eslint-disable no-empty-function, no-unused-vars */
-import { Component } from 'react'
+import { Component, Element } from 'react'
 
 export type ContentPluginProps<T> = {
   /**
    * @member a unique identifier.
    */
-  id: string,
+    id: string,
 
   /**
    * @member if the cell is currently in readOnly mode.
    */
-  readOnly: boolean,
+    readOnly: boolean,
+
+  /**
+   * @member the plugin's name
+   */
+    name: string,
+
+  /**
+   * @member the plugin's version
+   */
+    version: string,
 
   /**
    * @member if true, the cell is currently focused.
    */
-  focused: boolean,
+    focused: boolean,
 
   /**
    * @member the plugin's state.
    */
-  state: T,
+    state: T,
 
   /**
    * Should be called with the new state if the plugin's state changes.
@@ -35,22 +45,22 @@ export type LayoutPluginProps<T> = {
   /**
    * @member a unique identifier.
    */
-  id: string,
+    id: string,
 
   /**
    * @member if the cell is currently in readOnly mode.
    */
-  readOnly: boolean,
+    readOnly: boolean,
 
   /**
    * @member if true, the cell is currently focused.
    */
-  focused: boolean,
+    focused: boolean,
 
   /**
    * @member the plugin's state.
    */
-  state: T,
+    state: T,
 
   /**
    * Should be called with the new state if the plugin's state changes.
@@ -77,7 +87,7 @@ export class Plugin {
   /**
    * @member the icon that will be shown in the toolbar.
    */
-  icon: Component<*, *, *>
+  icon: Element<*> | Component<*, *, *>
 
   /**
    * @member the text that will be shown alongside the icon in the toolbar.
@@ -87,7 +97,7 @@ export class Plugin {
   /**
    * @member the plugin's react component.
    */
-  Component: Component<*, *, *>
+  Component: Element<*> | Component<*, *, *> | (props: any) => Element<*>
 
   /**
    * Serialize a the plugin state
@@ -162,14 +172,16 @@ export class ContentPlugin extends Plugin {
    *
    * @param props
    */
-  onFocus = (props: ContentPluginProps<*>): void => {}
+  onFocus = (props: ContentPluginProps<*>): void => {
+  }
 
   /**
    * This function will be called when one of the plugin's cell is focused.
    *
    * @param props
    */
-  onBlur = (props: ContentPluginProps<*>): void => {}
+  onBlur = (props: ContentPluginProps<*>): void => {
+  }
 }
 
 /**
@@ -225,12 +237,14 @@ export class LayoutPlugin extends Plugin {
    *
    * @param props
    */
-  onFocus = (props: LayoutPluginProps<*>): void => {}
+  onFocus = (props: LayoutPluginProps<*>): void => {
+  }
 
   /**
    * This function will be called when one of the plugin's cell is focused.
    *
    * @param props
    */
-  onBlur = (props: LayoutPluginProps<*>): void => {}
+  onBlur = (props: LayoutPluginProps<*>): void => {
+  }
 }

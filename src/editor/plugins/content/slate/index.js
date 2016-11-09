@@ -19,6 +19,7 @@ import KatexPlugin from './plugins/katex'
 import LinkPlugin from './plugins/link'
 import ListsPlugin from './plugins/lists'
 import ParagraphPlugin, { P } from './plugins/paragraph'
+import Plugin from './plugins/Plugin'
 
 import * as hooks from './hooks'
 
@@ -27,7 +28,7 @@ const createMarks = compose(mergeAll, map(prop('marks')))
 const createPlugins = compose(flatten, map(prop('plugins')))
 
 export default class SlatePlugin extends ContentPlugin {
-  constructor(plugins) {
+  constructor(plugins?: Plugin[]) {
     super(plugins)
 
     this.DEFAULT_NODE = P
@@ -53,7 +54,7 @@ export default class SlatePlugin extends ContentPlugin {
 
     this.props.plugins = createPlugins(this.plugins)
 
-    this.props.onKeyDown = (e: Event, data: { key: string, isMod: bool, isShift: bool }, state) => {
+    this.props.onKeyDown = (e: Event, data: { key: string, isMod: bool, isShift: bool }, state: any) => {
       // we need to prevent slate from handling undo and redo
       if (data.isMod && (data.key === 'z' || data.key === 'y')) {
         return state
@@ -75,10 +76,10 @@ export default class SlatePlugin extends ContentPlugin {
       }
     }
 
-    this.props.HoverButtons = ({ editorState, onChange }) => (
+    const HoverButtons = ({ editorState, onChange }: Props) => (
       <div>
-        {this.plugins.map((plugin, i) => (
-          plugin.hoverButtons.map((Button, j) => (
+        {this.plugins.map((plugin: Plugin, i: number) => (
+          plugin.hoverButtons.map((Button: Component<*, *, *>, j: number) => (
             <Button
               key={`${i}-${j}`}
               editorState={editorState}
@@ -88,11 +89,12 @@ export default class SlatePlugin extends ContentPlugin {
         ))}
       </div>
     )
+    this.props.HoverButtons = HoverButtons
 
-    this.props.ToolbarButtons = ({ editorState, onChange }) => (
+    const ToolbarButtons = ({ editorState, onChange }: Props) => (
       <div>
-        {this.plugins.map((plugin, i) => (
-          plugin.toolbarButtons.map((Button, j) => (
+        {this.plugins.map((plugin: Plugin, i: number) => (
+          plugin.toolbarButtons.map((Button: Component<*, *, *>, j: number) => (
             <Button
               key={`${i}-${j}`}
               editorState={editorState}
@@ -102,9 +104,16 @@ export default class SlatePlugin extends ContentPlugin {
         ))}
       </div>
     )
+    this.props.ToolbarButtons = ToolbarButtons
+
+    const Inner = (props: Props) => <Component {...props} {...this.props} />
+    this.Component = Inner
   }
 
-  Component = (props) => <Component {...props} {...this.props} />
+  DEFAULT_NODE: string
+  plugins: []
+  props: any
+
   name = 'ory/editor/core/content/slate'
   version = '0.0.1'
   icon = <Subject />

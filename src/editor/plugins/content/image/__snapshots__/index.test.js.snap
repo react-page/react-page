@@ -78,7 +78,7 @@ exports[`plugins/content/image/Component should render 1`] = `
           }>
           <label
             className={undefined}
-            htmlFor="undefined-httpexamplecomimagepng-Imagelocationurl-30562"
+            htmlFor="undefined-httpexamplecomimagepng-Imagelocationurl-18379"
             onTouchTap={undefined}
             style={
               Object {
@@ -113,7 +113,7 @@ exports[`plugins/content/image/Component should render 1`] = `
           </div>
           <input
             disabled={false}
-            id="undefined-httpexamplecomimagepng-Imagelocationurl-30562"
+            id="undefined-httpexamplecomimagepng-Imagelocationurl-18379"
             onBlur={[Function]}
             onChange={[Function]}
             onFocus={[Function]}

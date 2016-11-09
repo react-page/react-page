@@ -14,16 +14,17 @@ class Content extends Component {
   componentWillReceiveProps(nextProps: ComponentizedCell) {
     const { node: { focused: was } } = this.props
     const { node: { focused: is } } = nextProps
-    const { isEditMode, editable, id, node: { content: { plugin: { onFocus, onBlur }, state = {} }, focused }, updateCellContent } = nextProps
+    const { isEditMode, editable, id, node: { content: { plugin: { onFocus, onBlur, name, version }, state = {} }, focused }, updateCellContent } = nextProps
 
-    // FIXME this is really shitty because it will break when fields change #157
+    // FIXME this is really shitty because it will break when the state changes before the blur comes through #157
     const pass = {
       editable,
       id,
       state,
       focused: isEditMode && focused,
       readOnly: !isEditMode,
-      onChange: updateCellContent
+      onChange: updateCellContent,
+      name, version
     }
 
     if (!was && is) {
@@ -37,7 +38,7 @@ class Content extends Component {
   props: ComponentizedCell
 
   render() {
-    const { isPreviewMode, isEditMode, editable, id, node: { content: { plugin: { Component }, state = {} }, focused }, updateCellContent, isServerContext } = this.props
+    const { isPreviewMode, isEditMode, editable, id, node: { content: { plugin: { Component, name, version }, state = {} }, focused }, updateCellContent, isServerContext } = this.props
 
     let focusProps
     if (!isPreviewMode) {
@@ -61,6 +62,8 @@ class Content extends Component {
           id={id}
           state={state}
           focused={isEditMode && focused}
+          name={name}
+          version={version}
           readOnly={!isEditMode || isServerContext}
           onChange={updateCellContent}
         />
