@@ -1,4 +1,3 @@
-import './index.css'
 import Editor from 'src/editor'
 
 const editor = new Editor()
