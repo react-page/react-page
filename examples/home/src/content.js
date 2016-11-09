@@ -1,5 +1,10 @@
 import screenshot from './images/screenshot.png'
 
+import { STRONG } from 'src/editor/plugins/content/slate/plugins/emphasize'
+import { H1, H3 } from 'src/editor/plugins/content/slate/plugins/headings'
+import { A } from 'src/editor/plugins/content/slate/plugins/link'
+import { P } from 'src/editor/plugins/content/slate/plugins/paragraph'
+
 const content = {
   [1]: {
     id: '1',
@@ -15,7 +20,7 @@ const content = {
                     "nodes": [
                       {
                         "kind": "block",
-                        "type": "paragraph",
+                        "type": P,
                         "nodes": [
                           {
                             "kind": "text",
@@ -24,7 +29,7 @@ const content = {
                                 "text": "Get to know us",
                                 "marks": [
                                   {
-                                    "type": "STRONG"
+                                    "type": STRONG
                                   }
                                 ]
                               },
@@ -32,7 +37,7 @@ const content = {
                           },
                           {
                             "kind": "inline",
-                            "type": "link",
+                            "type": A,
                             "data": {
                               "href": "https://en.wikipedia.org/wiki/Hypertext"
                             },
@@ -45,7 +50,7 @@ const content = {
                           },
                           {
                             "kind": "inline",
-                            "type": "link",
+                            "type": A,
                             "data": {
                               "href": "https://en.wikipedia.org/wiki/Hypertext"
                             },
@@ -70,7 +75,7 @@ const content = {
                     "nodes": [
                       {
                         "kind": "block",
-                        "type": "paragraph",
+                        "type": P,
                         "nodes": [
                           {
                             "kind": "text",
@@ -79,7 +84,7 @@ const content = {
                                 "text": "ORY GmbH",
                                 "marks": [
                                   {
-                                    "type": "STRONG"
+                                    "type": STRONG
                                   }
                                 ]
                               },
@@ -120,7 +125,7 @@ const content = {
                     "nodes": [
                       {
                         "kind": "block",
-                        "type": "heading-one",
+                        "type": H1,
                         "nodes": [
                           {
                             "kind": "text",
@@ -130,7 +135,7 @@ const content = {
                       },
                       {
                         "kind": "block",
-                        "type": "paragraph",
+                        "type": P,
                         "nodes": [
                           {
                             "kind": "text",
@@ -166,7 +171,7 @@ const content = {
                     "nodes": [
                       {
                         "kind": "block",
-                        "type": "heading-three",
+                        "type": H3,
                         "nodes": [
                           {
                             "kind": "text",
@@ -197,7 +202,7 @@ const content = {
                     "nodes": [
                       {
                         "kind": "block",
-                        "type": "paragraph",
+                        "type": P,
                         "nodes": [
                           {
                             "kind": "text",
@@ -230,7 +235,7 @@ const content = {
                         "nodes": [
                           {
                             "kind": "block",
-                            "type": "heading-three",
+                            "type": H3,
                             "nodes": [
                               {
                                 "kind": "text",
@@ -240,7 +245,7 @@ const content = {
                           },
                           {
                             "kind": "block",
-                            "type": "paragraph",
+                            "type": P,
                             "nodes": [
                               {
                                 "kind": "text",
@@ -273,7 +278,7 @@ const content = {
                         "nodes": [
                           {
                             "kind": "block",
-                            "type": "heading-three",
+                            "type": H3,
                             "nodes": [
                               {
                                 "kind": "text",
@@ -283,7 +288,7 @@ const content = {
                           },
                           {
                             "kind": "block",
-                            "type": "paragraph",
+                            "type": P,
                             "nodes": [
                               {
                                 "kind": "text",
@@ -316,7 +321,7 @@ const content = {
                         "nodes": [
                           {
                             "kind": "block",
-                            "type": "heading-three",
+                            "type": H3,
                             "nodes": [
                               {
                                 "kind": "text",
@@ -326,7 +331,7 @@ const content = {
                           },
                           {
                             "kind": "block",
-                            "type": "paragraph",
+                            "type": P,
                             "nodes": [
                               {
                                 "kind": "text",
