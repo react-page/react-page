@@ -1,6 +1,5 @@
 /* eslint-disable no-alert, prefer-reflect, no-underscore-dangle */
 import IconButton from 'material-ui/IconButton'
-import LinkIcon from 'material-ui/svg-icons/content/link'
 import KatexIcon from 'material-ui/svg-icons/editor/functions'
 
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
@@ -78,57 +77,6 @@ class Slate extends Component {
     toolbar.style.left = `${left + window.scrollX - (toolbar.offsetWidth / 2) + (width / 2)}px`
   }
 
-  renderLinkButton = () => {
-    const onClick = (e) => {
-      e.preventDefault()
-      const { editorState } = this.props.state
-      const hasLinks = editorState.inlines.some((inline: any) => inline.type === A)
-
-      let newState
-
-      if (hasLinks) {
-        newState = editorState
-          .transform()
-          .unwrapInline(A)
-          .apply()
-      } else if (editorState.isExpanded) {
-        const href = window.prompt('Enter the URL of the link:')
-        newState = editorState
-          .transform()
-          .wrapInline({
-            type: A,
-            data: { href }
-          })
-          .collapseToEnd()
-          .apply()
-      } else {
-        const href = window.prompt('Enter the URL of the link:')
-        const text = window.prompt('Enter the text for the link:')
-        newState = editorState
-          .transform()
-          .insertText(text)
-          .extendBackward(text.length)
-          .wrapInline({
-            type: A,
-            data: { href }
-          })
-          .collapseToEnd()
-          .apply()
-      }
-
-      this.onStateChange(newState)
-    }
-
-    const { editorState } = this.props.state
-    const hasLinks = editorState.inlines.some((inline: any) => inline.type === A)
-
-    return (
-      <IconButton onMouseDown={onClick} iconStyle={hasLinks ? { color: 'rgb(0, 188, 212)' } : { color: 'white' }}>
-        <LinkIcon />
-      </IconButton>
-    )
-  }
-
   renderKatexButton = () => {
     const onClick = (e) => {
       e.preventDefault()
@@ -187,7 +135,6 @@ class Slate extends Component {
 
     // const schema = {
     //   nodes: {
-    //     [A]: nodes.Link,
     //     [KATEX]: nodes.Katex
     //   }
     // }
@@ -217,7 +164,6 @@ class Slate extends Component {
           <BottomToolbar open={focused}>
             <ToolbarButtons editorState={editorState} onChange={this.onStateChange} />
             {/*
-              {this.renderLinkButton()}
             {this.renderKatexButton()}*/}
           </BottomToolbar>
         )}

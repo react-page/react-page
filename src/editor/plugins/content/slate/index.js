@@ -15,6 +15,7 @@ import BlockquotePlugin from './plugins/blockquote'
 import CodePlugin from './plugins/code'
 import EmphasizePlugin from './plugins/emphasize'
 import HeadingsPlugin from './plugins/headings'
+import LinkPlugin from './plugins/link'
 import ListsPlugin from './plugins/lists'
 
 import * as hooks from './hooks'
@@ -35,6 +36,7 @@ export default class SlatePlugin extends ContentPlugin {
     this.plugins = plugins || [
       new EmphasizePlugin(),
       new HeadingsPlugin({ DEFAULT_NODE: this.DEFAULT_NODE }),
+      new LinkPlugin(),
       new CodePlugin({ DEFAULT_NODE: this.DEFAULT_NODE }),
       new ListsPlugin({ DEFAULT_NODE: this.DEFAULT_NODE }),
       new BlockquotePlugin({ DEFAULT_NODE: this.DEFAULT_NODE }),
@@ -96,7 +98,8 @@ export default class SlatePlugin extends ContentPlugin {
             <Button
               key={`${i}-${j}`}
               editorState={editorState}
-              onChange={onChange} />
+              onChange={onChange}
+            />
           ))
         ))}
       </div>
