@@ -1,7 +1,3 @@
-import screenshot from './images/screenshot.png'
-import inlineEdit from './images/inline-edit.gif'
-import buildLayouts from './images/build-layouts.gif'
-
 import { STRONG } from 'src/editor/plugins/content/slate/plugins/emphasize'
 import { H1, H3 } from 'src/editor/plugins/content/slate/plugins/headings'
 import { A } from 'src/editor/plugins/content/slate/plugins/link'
@@ -224,7 +220,7 @@ export default {
                   content: {
                     plugin: { name: 'ory/editor/core/content/image' },
                     state: {
-                      src: inlineEdit
+                      src: 'https://storage.googleapis.com/ory.am/inline-edit.gif'
                     }
                   }
                 }]
@@ -267,7 +263,7 @@ export default {
                   content: {
                     plugin: { name: 'ory/editor/core/content/image' },
                     state: {
-                      src: buildLayouts
+                      src: 'https://storage.googleapis.com/ory.am/build-layouts.gif'
                     }
                   }
                 }]
@@ -310,7 +306,7 @@ export default {
                   content: {
                     plugin: { name: 'ory/editor/core/content/image' },
                     state: {
-                      src: buildLayouts
+                      src: 'https://storage.googleapis.com/ory.am/customize.gif'
                     }
                   }
                 }]

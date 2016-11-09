@@ -16,8 +16,6 @@ const editor = new Editor({
   ])
 })
 
-editor.injectTapPlugin()
-
 const elements = document.querySelectorAll('.editable')
 for (const element of elements) {
   ReactDOM.render((
