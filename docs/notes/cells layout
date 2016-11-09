@@ -1,0 +1,3 @@
+when dropping cells, it is important to note that the drag overlay must have higher z-index than the drop indicator, if jumping of the indicator should be prevented.
+
+do not mess with z-index unless you know what you're doing

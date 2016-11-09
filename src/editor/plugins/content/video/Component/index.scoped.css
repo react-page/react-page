@@ -1,0 +1,31 @@
+.box {
+  padding: 4px;
+}
+
+.image {
+  width: 100%;
+}
+
+.placeholder {
+  position: relative;
+  width: 100%;
+  text-align: center;
+}
+
+.placeholder-help {
+  display: block;
+  text-align: center;
+  width: 100%;
+  position: absolute;
+  color: var(--grey400);
+  font-size: 14px;
+  top: 0;
+}
+
+input.caption {
+  font: inherit;
+  border: none;
+  outline: none;
+  text-align: center;
+  width: 100%;
+}

@@ -1,0 +1,6 @@
+.is-dragging {}
+
+.draggable {
+  /* resolves an issue with darg and dorp preview in chrome, see https://github.com/ory-am/editor/issues/180 */
+  // will-change: transform;
+}

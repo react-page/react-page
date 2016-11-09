@@ -1,0 +1,43 @@
+.relative {
+  position: relative;
+}
+
+.force-block {
+  display: block !important;
+}
+
+.is-over-current:before {
+  content: " ";
+  position: absolute;
+  background: black;
+  display: block;
+  background: var(--faintBlack);
+  box-shadow: 0 0 4px var(--minBlack);
+  z-index: 2;
+}
+
+.is-over-above:before {
+  top: 0;
+  height: 9%;
+  width: 100%;
+}
+
+.is-over-below:before {
+  bottom: 0;
+  height: 9%;
+  width: 100%;
+}
+
+.is-over-left-of:before {
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 9%;
+}
+
+.is-over-right-of:before {
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 9%;
+}

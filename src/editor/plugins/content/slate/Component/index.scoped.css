@@ -1,0 +1,11 @@
+.inline-toolbar {
+  position: absolute;
+  z-index: 1;
+  top: -10000px;
+  left: -10000px;
+  margin-top: -6px;
+  opacity: 0;
+  background-color: var(--grey900);
+  border-radius: 4px;
+  transition: opacity .75s;
+}

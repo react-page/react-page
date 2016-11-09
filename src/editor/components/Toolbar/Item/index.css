@@ -1,0 +1,8 @@
+.editor-drag-handle:hover {
+  background: var(--faintBlack);
+  border-radius: 12px;
+}
+
+.editor-drag-handle:active {
+  background: var(--minBlack);
+}

@@ -1,0 +1,6 @@
+.placeholder {
+  padding: 8px;
+  border: 1px var(--lightBlack) dashed;
+  color: var(--grey400);
+  text-align: center;
+}

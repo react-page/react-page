@@ -1,0 +1,16 @@
+exports[`plugins/content/missing should render 1`] = `
+<div
+  style={
+    Object {
+      "backgroundColor": "red",
+    }
+  }>
+  Plugin 
+  <code>
+    Foo
+    :
+    0.0.1
+  </code>
+   not found.
+</div>
+`;

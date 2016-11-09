@@ -1,0 +1,33 @@
+.bar {
+  position: fixed;
+  bottom: -64px;
+  z-index: 100;
+  left: 50%;
+  transition: bottom 200ms ease;
+  padding: 8px;
+}
+
+.bar.active {
+  bottom: 16px;
+}
+
+.bar .description {
+  font-family: Roboto, sans-serif;
+  font-size: 16px;
+  margin-top: 16px;
+  margin-right: 12px;
+  float: right;
+  background: transparent;
+  color: transparent;
+  border: 1px transparent solid;
+  padding: 2px 8px;
+  text-align: right;
+  transition: all 200ms ease;
+  white-space: nowrap;
+}
+
+.bar:hover .description {
+  background: var(--darkBlack);
+  color: var(--white);
+  border: 1px solid var(--faintBlack);
+}

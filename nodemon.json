@@ -1,0 +1,7 @@
+{
+  "verbose": true,
+  "watch": [
+    "src/server/",
+    "examples/server.js"
+  ]
+}
