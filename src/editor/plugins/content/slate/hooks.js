@@ -11,6 +11,9 @@ import tail from 'ramda/src/tail'
 import React from 'react'
 import type { Props } from './Component'
 
+import { H1, H2, H3 } from './plugins/headings'
+import { P } from './plugins/paragraph'
+
 // FIXME #126
 // flow-disable-next-line named exports
 import { Document, Html, Raw, State, Plain } from 'slate'
@@ -18,33 +21,33 @@ import { Document, Html, Raw, State, Plain } from 'slate'
 const rules = [{
   deserialize: (el: any) => el.tagName === 'p' ? {
     kind: 'block',
-    type: 'paragraph',
+    type: P,
     nodes: [{ kind: 'text', ranges: [{ text: el.children[0].data }] }]
   } : null
 }, {
   deserialize: (el: any) => el.tagName === 'h1' ? {
     kind: 'block',
-    type: 'heading-one',
+    type: H1,
     nodes: [{ kind: 'text', ranges: [{ text: el.children[0].data }] }]
   } : null
 }, {
   deserialize: (el: any) => el.tagName === 'h2' ? {
     kind: 'block',
-    type: 'heading-two',
+    type: H2,
     nodes: [{ kind: 'text', ranges: [{ text: el.children[0].data }] }]
   } : null
 }, {
   deserialize: (el: any) => el.tagName === 'h3' ? {
     kind: 'block',
-    type: 'heading-three',
+    type: H3,
     nodes: [{ kind: 'text', ranges: [{ text: el.children[0].data }] }]
   } : null
 }, {
-  serialize: (el: any, children: any) => el.type === 'heading-one'
+  serialize: (el: any, children: any) => el.type === H1
     ? <h1>{children}</h1>
     : null
 }, {
-  serialize: (el: any, children: any) => el.type === 'paragraph'
+  serialize: (el: any, children: any) => el.type === P
     ? <p>{children}</p>
     : null
 }]
@@ -57,7 +60,7 @@ export const createInitialState = () => ({
   editorState: Raw.deserialize({
     nodes: [{
       kind: 'block',
-      type: 'paragraph',
+      type: P,
       nodes: [{
         kind: 'text',
         ranges: [{ text: '' }]
