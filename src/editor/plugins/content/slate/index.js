@@ -18,15 +18,13 @@ import HeadingsPlugin from './plugins/headings'
 import KatexPlugin from './plugins/katex'
 import LinkPlugin from './plugins/link'
 import ListsPlugin from './plugins/lists'
+import ParagraphPlugin, { P } from './plugins/paragraph'
 
 import * as hooks from './hooks'
-import nodes from './Component/nodes'
 
 const createNodes = compose(mergeAll, map(prop('nodes')))
 const createMarks = compose(mergeAll, map(prop('marks')))
 const createPlugins = compose(flatten, map(prop('plugins')))
-
-const P = 'paragraph'
 
 export default class SlatePlugin extends ContentPlugin {
   constructor(plugins) {
@@ -35,6 +33,7 @@ export default class SlatePlugin extends ContentPlugin {
     this.DEFAULT_NODE = P
 
     this.plugins = plugins || [
+      new ParagraphPlugin(),
       new EmphasizePlugin(),
       new HeadingsPlugin({ DEFAULT_NODE: this.DEFAULT_NODE }),
       new LinkPlugin(),
@@ -48,10 +47,7 @@ export default class SlatePlugin extends ContentPlugin {
     this.props = {}
 
     this.props.schema = {
-      nodes: {
-        ...createNodes(this.plugins),
-        [P]: nodes.Paragraph
-      },
+      nodes: createNodes(this.plugins),
       marks: createMarks(this.plugins)
     }
 

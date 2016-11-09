@@ -1,7 +1,4 @@
 /* eslint-disable no-alert, prefer-reflect, no-underscore-dangle */
-import IconButton from 'material-ui/IconButton'
-import KatexIcon from 'material-ui/svg-icons/editor/functions'
-
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
 import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
@@ -10,16 +7,12 @@ import cssModules from 'react-css-modules'
 import Portal from 'react-portal'
 import position from 'selection-position'
 import { Editor } from 'slate'
+
 import BottomToolbar from 'src/editor/components/BottomToolbar'
 import { ContentPluginProps } from 'src/editor/service/plugin/classes'
-
 import styles from './index.scoped.css'
 
 const onBlur = (_event, _data, state) => state
-
-// Nodes
-const A = 'link'
-const KATEX = 'KATEX'
 
 export type Props = ContentPluginProps<{ editorState: Object }>
 
@@ -77,45 +70,6 @@ class Slate extends Component {
     toolbar.style.left = `${left + window.scrollX - (toolbar.offsetWidth / 2) + (width / 2)}px`
   }
 
-  renderKatexButton = () => {
-    const onClick = (e) => {
-      e.preventDefault()
-      const { editorState } = this.props.state
-      const hasMath = editorState.blocks.some((block) => block.type === KATEX)
-
-      let newState
-
-      if (hasMath) {
-        newState = editorState
-          .transform()
-          .setBlock(DEFAULT_NODE)
-          .apply()
-      } else {
-        const src = window.prompt('Enter the src of the formula:')
-
-        newState = editorState
-          .transform()
-          .splitBlock()
-          .setBlock({
-            type: KATEX,
-            data: { src }
-          })
-          .apply()
-      }
-
-      this.onStateChange(newState)
-    }
-
-    const { editorState } = this.props.state
-    const hasMath = editorState.blocks.some((block) => block.type === KATEX)
-
-    return (
-      <IconButton onMouseDown={onClick} iconStyle={hasMath ? { color: '#007EC1' } : { color: 'white' }}>
-        <KatexIcon />
-      </IconButton>
-    )
-  }
-
   onRef = (c) => {
     this._component = c
   }
@@ -132,12 +86,6 @@ class Slate extends Component {
       ToolbarButtons
     } = this.props
     const isOpened = editorState.isExpanded && editorState.isFocused
-
-    // const schema = {
-    //   nodes: {
-    //     [KATEX]: nodes.Katex
-    //   }
-    // }
 
     return (
       <div>
@@ -163,8 +111,6 @@ class Slate extends Component {
         {readOnly ? null : (
           <BottomToolbar open={focused}>
             <ToolbarButtons editorState={editorState} onChange={this.onStateChange} />
-            {/*
-            {this.renderKatexButton()}*/}
           </BottomToolbar>
         )}
       </div>
