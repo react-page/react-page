@@ -71,7 +71,7 @@ module.exports = {
     new webpack.optimize.OccurrenceOrderPlugin(),
     new ExtractTextPlugin('styles.css'),
     ifProduction(new webpack.DefinePlugin({ 'process.env.NODE_ENV': '"production"' })),
-    //ifProduction(new webpack.optimize.UglifyJsPlugin()),
+    ifProduction(new webpack.optimize.UglifyJsPlugin()),
     ifProduction(new webpack.optimize.DedupePlugin()),
   ]),
   // resolve :: { modules :: [String] }

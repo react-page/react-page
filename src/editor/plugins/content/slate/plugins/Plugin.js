@@ -1,4 +1,5 @@
 // @flow
+/* eslint-disable no-unused-vars */
 import { Component } from 'react'
 import { State } from 'slate'
 

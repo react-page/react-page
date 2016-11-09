@@ -6,8 +6,6 @@ import ContainerPlugin from './plugins/container'
 import { PluginService, defaultLayoutPlugins, defaultContentPlugins } from 'src/editor/service'
 import content from './content.js'
 
-import './index.css'
-
 const editor = new Editor({
   plugins: new PluginService(defaultContentPlugins, [
     ...defaultLayoutPlugins,
@@ -24,7 +22,7 @@ for (const element of elements) {
     <EditableComponent
       editor={editor}
       state={content[element.dataset.editable]}
-      // onChange={(state) => console.log(state)}
+      onChange={(state) => console.log(state)}
     />
   ), element)
 }
