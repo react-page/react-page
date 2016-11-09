@@ -1,4 +1,4 @@
-# ![Ory Editor](logo.png)
+# ![ORY Editor](logo.png)
 
 [![Build Status](https://travis-ci.org/ory-am/editor.svg?branch=0.1)](https://travis-ci.org/ory-am/editor)
 [![Test Coverage](https://codeclimate.com/github/ory-am/editor/badges/coverage.svg)](https://codeclimate.com/github/ory-am/editor/coverage)
@@ -9,7 +9,7 @@
 
 [![Docs Guide](https://img.shields.io/badge/docs-guide-blue.svg)](https://ory-am.gitbooks.io/ory-editor/content/)
  
-The ORY Editor is part of the Ory Content Toolchain, a set of tools helping you to build, distribute and manage awesome content.
+The ORY Editor is part of the ORY Content Toolchain, a set of tools helping you to build, distribute and manage awesome content.
 *Note:* Please be aware that all features and APIs are experimental. Breaking changes will happen with every minor release
 prior to the 1.0.0 release.
 
@@ -29,7 +29,7 @@ Check the [demo](http://editor.ory.am/) yourself.
 
 ## Introduction
 
-The ORY Editor is part of the Ory Content Toolchain, a set of tools helping you to build, distribute and manage awesome content.
+The ORY Editor is part of the ORY Content Toolchain, a set of tools helping you to build, distribute and manage awesome content.
  
 The ORY Editor is different, because it allows you to build responsive layouts. All content is represented by
 a JSON object and since no HTML is used, you won't have to worry about HTML input sanitation or
@@ -37,7 +37,7 @@ XSS attacks. You can extend functionality and design by writing React components
 is no longer a snapshot, it is a replayable state machine with deltas. We built the ORY Editor with state of the art
 technology and development principles - it's test driven, user experience centered, and cloud native.
 
-The ORY Editor is a layout builder SDK for JavaScript. What using the Ory Editor looks like is best explained
+The ORY Editor is a layout builder SDK for JavaScript. What using the ORY Editor looks like is best explained
 by the following GIFs and in the [**examples section**](https://editor.ory.am/examples).
 
 ## Quickstart
@@ -56,7 +56,7 @@ TO BE DONE
 
 ## Documentation
 
-<!-- The Ory Editor has a [user guide] as well as an [API documentation]. -->
+<!-- The ORY Editor has a [user guide] as well as an [API documentation]. -->
 
 Generate the user guide locally with:
 
