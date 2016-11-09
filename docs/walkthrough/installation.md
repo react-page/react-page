@@ -3,49 +3,18 @@
 In this section, we will create a minimalistic react app that uses the ORY Editor.
 Before we skip ahead, make sure that [node.js](https://nodejs.org/en/) is installed on your system.
 
-The ORY Editor works in all environments, be it via npm, bower or vanilla js. The quick start will teach you to 
-
-### Vanilla JS
-
-You can use the editor in a [vanilla js](http://stackoverflow.com/questions/20435653/what-is-vanillajs) project, simply
-include the following tags in your HTML
-
-```html
-<html>
-  <head>
-    <link href="to be done"></link>
-  </head>
-
-  <body>
-    <div class="editable">the editor content goes here</div>
-    
-    <script src="to be done"></script>
-  </body>
-</html>
-```
-
-and call it from your javascript file
-
-```js
-const editor = new ORY.Editor()
-const elements = document.querySelectorAll('.editable')
-
-// renderControls renders the editor controls
-editor.renderControls()
-
-// the editor is only able to render one DOM element at a time, which is why we are iterating here:
-for (const element of elements) {
-  editor.render(element)
-}
-```
+At the moment, the ORY Editor is available only through npm.
 
 ### npm
 
-npm is currently not supported.
+The ORY Editor uses [material-ui](https://github.com/callemall/material-ui) for the UI components. The project has currently
+some limitations and known issues around standalone builds, which is why the installation is not straight forward at the
+moment. We hope that these issues will be solved with the
+[material-ui next](https://github.com/callemall/material-ui/projects/1) release and if not, we will switch to a different
+mechanism.
 
-### Bower
-
-Bower is currently not supported.
+```
+```
 
 
 
