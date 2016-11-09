@@ -38,6 +38,16 @@ class Toolbar extends Component {
     isSearching: boolean
   }
 
+  componentDidUpdate() {
+    if (this.input && this.props.isInsertMode) {
+      setTimeout(() => this.input.querySelector('input').focus(), 100)
+    }
+  }
+
+  onRef = (component: Component<*, *, *>) => {
+    this.input = ReactDOM.findDOMNode(component)
+  }
+
   onSearch = (e: Event) => {
     const target = e.target
     if (target instanceof HTMLInputElement) {
@@ -48,16 +58,6 @@ class Toolbar extends Component {
     }
 
     // throw new TypeException('target', 'HTMLInputElement', e.target)
-  }
-
-  onRef = (component: Component<*, *, *>) => {
-    this.input = ReactDOM.findDOMNode(component)
-  }
-
-  componentDidUpdate() {
-    if (this.input && this.props.isInsertMode) {
-      setTimeout(() => this.input.querySelector('input').focus(), 100)
-    }
   }
 
   render() {

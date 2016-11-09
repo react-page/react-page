@@ -5,10 +5,10 @@ import Editor from './index'
 const expect = unexpected.clone()
 const editor = new Editor()
 
-const content = {
-  id: '39702c61-b6c2-452e-b381-d61c8aa7eeb0',
-  cells: []
-}
+// const content = {
+//   id: '39702c61-b6c2-452e-b381-d61c8aa7eeb0',
+//   cells: []
+// }
 
 describe('Editor', () => {
   it('should instantiate', () => {
