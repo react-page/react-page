@@ -43,7 +43,7 @@ export default class BlockquotePlugin extends Plugin {
     )
   }
 
-  name = 'lists'
+  name = 'blockquote'
 
   nodes = {
     [BLOCKQUOTE]: makeTagNode('blockquote')

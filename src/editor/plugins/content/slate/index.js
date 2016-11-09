@@ -10,6 +10,7 @@ import { ContentPlugin } from 'src/editor/service/plugin/classes'
 import Component from './Component'
 import type { Props } from './Component'
 
+import AlignmentPlugin from './plugins/alignment'
 import BlockquotePlugin from './plugins/blockquote'
 import CodePlugin from './plugins/code'
 import EmphasizePlugin from './plugins/emphasize'
@@ -36,7 +37,8 @@ export default class SlatePlugin extends ContentPlugin {
       new HeadingsPlugin({ DEFAULT_NODE: this.DEFAULT_NODE }),
       new CodePlugin({ DEFAULT_NODE: this.DEFAULT_NODE }),
       new ListsPlugin({ DEFAULT_NODE: this.DEFAULT_NODE }),
-      new BlockquotePlugin({ DEFAULT_NODE: this.DEFAULT_NODE })
+      new BlockquotePlugin({ DEFAULT_NODE: this.DEFAULT_NODE }),
+      new AlignmentPlugin()
     ]
 
     this.props = {}

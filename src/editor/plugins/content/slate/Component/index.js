@@ -1,11 +1,6 @@
 /* eslint-disable no-alert, prefer-reflect, no-underscore-dangle */
 import IconButton from 'material-ui/IconButton'
-import CodeIcon from 'material-ui/svg-icons/action/code'
 import LinkIcon from 'material-ui/svg-icons/content/link'
-import AlignLeftIcon from 'material-ui/svg-icons/editor/format-align-left'
-import AlignCenterIcon from 'material-ui/svg-icons/editor/format-align-center'
-import AlignRightIcon from 'material-ui/svg-icons/editor/format-align-right'
-import AlignJustifyIcon from 'material-ui/svg-icons/editor/format-align-justify'
 import KatexIcon from 'material-ui/svg-icons/editor/functions'
 
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
@@ -25,16 +20,7 @@ const onBlur = (_event, _data, state) => state
 
 // Nodes
 const A = 'link'
-
-const BLOCKQUOTE = 'blockquote'
 const KATEX = 'KATEX'
-
-// const plugins = [
-//   createBlockquotePlugin({
-//     type: BLOCKQUOTE,
-//     typeDefault: DEFAULT_NODE
-//   })
-// ]
 
 export type Props = ContentPluginProps<{ editorState: Object }>
 
@@ -182,112 +168,6 @@ class Slate extends Component {
     )
   }
 
-  renderMarkButton = (type, icon) => {
-    const onClick = (e) => {
-      e.preventDefault()
-
-      const { editorState } = this.props.state
-
-      this.onStateChange(
-        editorState
-          .transform()
-          .toggleMark(type)
-          .apply()
-      )
-    }
-
-    const { editorState } = this.props.state
-    const isActive = editorState && editorState.marks.some((mark) => mark.type === type)
-
-    return (
-      <IconButton onClick={onClick} iconStyle={isActive ? { color: 'rgb(0, 188, 212)' } : { color: 'white' }}>
-        {icon}
-      </IconButton>
-    )
-  }
-
-  renderBlockquoteNodeButton = (icon) => {
-    const onClick = (e) => {
-      e.preventDefault()
-
-      const { editorState } = this.props.state
-      const isActive = editorState.blocks.some((block) => (
-        Boolean(editorState.document.getClosest(block, (parent) => parent.type === BLOCKQUOTE))
-      ))
-
-      let transform = editorState.transform()
-
-      if (isActive) {
-        transform = transform.unwrapBlock(BLOCKQUOTE)
-      } else {
-        transform = transform.wrapBlock(BLOCKQUOTE)
-      }
-
-      this.onStateChange(transform.apply())
-    }
-
-    const { editorState } = this.props.state
-    const isActive = editorState.blocks.some((block) => (
-      Boolean(editorState.document.getClosest(block, (parent) => parent.type === BLOCKQUOTE))
-    ))
-
-    return (
-      <IconButton onClick={onClick} iconStyle={isActive ? { color: 'rgb(0, 188, 212)' } : { color: 'white' }}>
-        {icon}
-      </IconButton>
-    )
-  }
-
-  renderNodeButton = (type, icon) => {
-    const onClick = (e) => {
-      e.preventDefault()
-
-      const { editorState } = this.props.state
-      const isActive = editorState.blocks.some((block) => block.type === type)
-
-      this.onStateChange(
-        editorState
-          .transform()
-          .setBlock(isActive ? DEFAULT_NODE : type)
-          .apply()
-      )
-    }
-
-    const { editorState } = this.props.state
-    const isActive = editorState.blocks.some((block) => block.type === type)
-
-    return (
-      <IconButton onClick={onClick} iconStyle={isActive ? { color: 'rgb(0, 188, 212)' } : { color: 'white' }}>
-        {icon}
-      </IconButton>
-    )
-  }
-
-  renderAlignmentButton = (align, icon) => {
-    const onClick = (e) => {
-      e.preventDefault()
-
-      const { editorState } = this.props.state
-      const isActive = editorState.blocks.some((block) => block.data.get('align') === align)
-
-      this.onStateChange(
-        editorState
-          .transform()
-          .setBlock({ data: { align: isActive ? null : align } })
-          .apply()
-      )
-    }
-
-    const { editorState } = this.props.state
-    const isActive = editorState.blocks.some((block) => block.data.get('align') === align)
-
-    return (
-      <IconButton onClick={onClick} iconStyle={isActive ? { color: 'rgb(0, 188, 212)' } : { color: 'white' }}>
-        {icon}
-      </IconButton>
-    )
-  }
-
   onRef = (c) => {
     this._component = c
   }
@@ -337,15 +217,8 @@ class Slate extends Component {
           <BottomToolbar open={focused}>
             <ToolbarButtons editorState={editorState} onChange={this.onStateChange} />
             {/*
-              {this.renderListNodeButton(UL, <ListIcon />)}
-              {this.renderListNodeButton(OL, <OrderedListIcon />)}
               {this.renderLinkButton()}
-              {this.renderKatexButton()}
-              {this.renderBlockquoteNodeButton(<BlockquoteIcon />)}
-            {this.renderAlignmentButton('center', <AlignCenterIcon />)}
-            {this.renderAlignmentButton('left', <AlignLeftIcon />)}
-            {this.renderAlignmentButton('right', <AlignRightIcon />)}
-            {this.renderAlignmentButton('justify', <AlignJustifyIcon />)} */}
+            {this.renderKatexButton()}*/}
           </BottomToolbar>
         )}
       </div>
