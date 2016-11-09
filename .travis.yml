@@ -16,7 +16,7 @@ cache:
 
 script:
   - npm run lint
-  - npm test:unit
+  - npm run test:unit
   - npm run build
 
 after_success:
