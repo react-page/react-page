@@ -3,10 +3,8 @@ import ReactDOM from 'react-dom'
 import Editor, { EditableComponent, ControlsComponent } from 'src/editor'
 import content from './content.js'
 
-import './index.css'
-
 const editor = new Editor()
-editor.injectTapPlugin()
+require('react-tap-event-plugin')()
 
 const elements = document.querySelectorAll('.editable')
 for (const element of elements) {

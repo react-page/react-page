@@ -1,4 +1,6 @@
 import screenshot from './images/screenshot.png'
+import inlineEdit from './images/inline-edit.gif'
+import buildLayouts from './images/build-layouts.gif'
 
 import { STRONG } from 'src/editor/plugins/content/slate/plugins/emphasize'
 import { H1, H3 } from 'src/editor/plugins/content/slate/plugins/headings'
@@ -222,7 +224,7 @@ export default {
                   content: {
                     plugin: { name: 'ory/editor/core/content/image' },
                     state: {
-                      src: screenshot
+                      src: inlineEdit
                     }
                   }
                 }]
@@ -239,7 +241,7 @@ export default {
                             nodes: [
                               {
                                 kind: 'text',
-                                text: 'Work in context'
+                                text: 'What you see is'
                               }
                             ],
                           },
@@ -249,7 +251,7 @@ export default {
                             nodes: [
                               {
                                 kind: 'text',
-                                text: 'The following is placeholder text known as “lorem ipsum,” which is scrambled Latin used by designers to mimic real copy. Aenean eu justo sed elit dignissim aliquam. Mauris id fermentum nulla. Phasellus sodales massa malesuada tellus fringilla, nec bibendum tellus blandit.'
+                                text: 'Create content in the canvas your users see, on desktop, tablet and mobile.'
                               }
                             ],
                           },
@@ -265,7 +267,7 @@ export default {
                   content: {
                     plugin: { name: 'ory/editor/core/content/image' },
                     state: {
-                      src: screenshot
+                      src: buildLayouts
                     }
                   }
                 }]
@@ -292,7 +294,7 @@ export default {
                             nodes: [
                               {
                                 kind: 'text',
-                                text: 'The following is placeholder text known as “lorem ipsum,” which is scrambled Latin used by designers to mimic real copy. Aenean eu justo sed elit dignissim aliquam. Mauris id fermentum nulla. Phasellus sodales massa malesuada tellus fringilla, nec bibendum tellus blandit.'
+                                text: 'Create responsive layouts with easy to use drag and drop.'
                               }
                             ],
                           },
@@ -308,7 +310,7 @@ export default {
                   content: {
                     plugin: { name: 'ory/editor/core/content/image' },
                     state: {
-                      src: screenshot
+                      src: buildLayouts
                     }
                   }
                 }]
@@ -325,7 +327,7 @@ export default {
                             nodes: [
                               {
                                 kind: 'text',
-                                text: 'Collaborate'
+                                text: 'Customize'
                               }
                             ],
                           },
@@ -335,7 +337,7 @@ export default {
                             nodes: [
                               {
                                 kind: 'text',
-                                text: 'The following is placeholder text known as “lorem ipsum,” which is scrambled Latin used by designers to mimic real copy. Aenean eu justo sed elit dignissim aliquam. Mauris id fermentum nulla. Phasellus sodales massa malesuada tellus fringilla, nec bibendum tellus blandit.'
+                                text: 'Create unique content with a powerful and easy plugin API for content and layout!'
                               }
                             ],
                           },

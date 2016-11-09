@@ -1,0 +1,55 @@
+/*
+	Photon by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+*/
+
+/* Header */
+
+	#header {
+		background-image: none;
+		filter: progid:DXImageTransform.Microsoft.Gradient(startColorStr="#4fa49a", endColorStr="#4361c2", GradientType=1);
+		position: relative;
+	}
+
+		#header:before {
+			background-image: url("images/overlay2.png"), url("images/overlay3.svg");
+			background-position: top left,							center center;
+			background-size: auto,								cover;
+			content: '';
+			height: 100%;
+			left: 0;
+			position: absolute;
+			top: 0;
+			width: 100%;
+		}
+
+		#header > * {
+			position: relative;
+			z-index: 1;
+		}
+
+/* Footer */
+
+	#footer {
+		background-image: none;
+		filter: progid:DXImageTransform.Microsoft.Gradient(startColorStr="#4361c2", endColorStr="#4fa49a", GradientType=1);
+		position: relative;
+	}
+
+		#footer:before {
+			background-image: url("images/overlay2.png"), url("images/overlay4.svg");
+			background-position: top left,							center center;
+			background-size: auto,								cover;
+			content: '';
+			height: 100%;
+			left: 0;
+			position: absolute;
+			top: 0;
+			width: 100%;
+		}
+
+		#footer > * {
+			position: relative;
+			z-index: 1;
+		}

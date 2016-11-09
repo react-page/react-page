@@ -6,6 +6,8 @@ import ContainerPlugin from './plugins/container'
 import { PluginService, defaultLayoutPlugins, defaultContentPlugins } from 'src/editor/service'
 import content from './content.js'
 
+require('react-tap-event-plugin')()
+
 const editor = new Editor({
   plugins: new PluginService(defaultContentPlugins, [
     ...defaultLayoutPlugins,

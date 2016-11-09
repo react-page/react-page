@@ -51,9 +51,12 @@ class Toolbar extends Component {
   }
 
   onRef = (component: Component<*, *, *>) => {
-    const e = ReactDOM.findDOMNode(component)
-    if (e && this.props.isInsertMode) {
-      e.querySelector('input').focus()
+    this.input = ReactDOM.findDOMNode(component)
+  }
+
+  componentDidUpdate() {
+    if (this.input && this.props.isInsertMode) {
+      setTimeout(() => this.input.querySelector('input').focus(), 100)
     }
   }
 

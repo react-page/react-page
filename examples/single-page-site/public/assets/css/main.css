@@ -2746,8 +2746,36 @@ table.alt tfoot {
   background-size: auto, cover;
 }
 
+.main.style3 {
+  background-color: #333;
+  color: rgba(255, 255, 255, 0.75);
+  background-attachment: fixed, fixed;
+  background-image: url("images/overlay1.png"), url("../../images/header2.jpg");
+  background-size: auto, cover;
+}
+
+.main.style4 {
+  background-color: #333;
+  color: rgba(255, 255, 255, 0.75);
+  background-attachment: fixed, fixed;
+  background-image: url("images/overlay1.png"), url("../../images/header3.jpg");
+  background-size: auto, cover;
+}
+
+.main.style5 {
+  background-color: #333;
+  color: rgba(255, 255, 255, 0.75);
+  background-attachment: fixed, fixed;
+  background-image: url("images/overlay1.png"), url("../../images/header4.jpg");
+  background-size: auto, cover;
+}
+
 .main.style2 a {
   border-bottom-color: rgba(255, 255, 255, 0.5);
+}
+
+.main.style2, .main.style3, .main.style4, .main.style5 {
+  color: white !important;
 }
 
 .main.style2 a:hover {
@@ -2755,6 +2783,18 @@ table.alt tfoot {
 }
 
 .main.style2 h1, .main.style2 h2, .main.style2 h3, .main.style2 h4, .main.style2 h5, .main.style2 h6, .main.style2 strong, .main.style2 b {
+  color: #ffffff;
+}
+
+.main.style3 h1, .main.style3 h2, .main.style3 h3, .main.style3 h4, .main.style2 h5, .main.style2 h6, .main.style2 strong, .main.style2 b {
+  color: #ffffff;
+}
+
+.main.style4 h1, .main.style4 h2, .main.style4 h3, .main.style4 h4, .main.style2 h5, .main.style2 h6, .main.style2 strong, .main.style2 b {
+  color: #ffffff;
+}
+
+.main.style5 h1, .main.style5 h2, .main.style5 h3, .main.style5 h4, .main.style2 h5, .main.style2 h6, .main.style2 strong, .main.style2 b {
   color: #ffffff;
 }
 

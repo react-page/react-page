@@ -6,6 +6,8 @@ import ReactDOM from 'react-dom'
 import Editor, { EditableComponent, ControlsComponent } from 'src/editor'
 import content from './content.js'
 
+require('react-tap-event-plugin')()
+
 const editor = new Editor({
   plugins: new PluginService([
     ...defaultContentPlugins,
@@ -15,7 +17,6 @@ const editor = new Editor({
     new ParallaxPlugin()
   ])
 })
-editor.injectTapPlugin()
 
 const elements = document.querySelectorAll('.editable')
 for (const element of elements) {

@@ -44,12 +44,8 @@ class Editor {
     this.plugins = plugins
     this.errorReporting = errorReporting
     this.middleware = middleware
-    connectToRaven(errorReporting)
-  }
 
-  injectTapPlugin = () => {
-    // required for material-ui
-    require('react-tap-event-plugin')()
+    connectToRaven(errorReporting)
   }
 
   renderToHtml = (state: any) => ReactDOMServer.renderToStaticMarkup(
