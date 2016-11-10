@@ -220,7 +220,7 @@ export default {
                   content: {
                     plugin: { name: 'ory/editor/core/content/image' },
                     state: {
-                      src: 'https://storage.googleapis.com/ory.am/inline-edit.gif'
+                      src: 'https://storage.googleapis.com/ory.am/inline-edit-sm.gif'
                     }
                   }
                 }]
@@ -263,7 +263,7 @@ export default {
                   content: {
                     plugin: { name: 'ory/editor/core/content/image' },
                     state: {
-                      src: 'https://storage.googleapis.com/ory.am/build-layouts.gif'
+                      src: 'https://storage.googleapis.com/ory.am/build-layouts-sm.gif'
                     }
                   }
                 }]
@@ -306,7 +306,7 @@ export default {
                   content: {
                     plugin: { name: 'ory/editor/core/content/image' },
                     state: {
-                      src: 'https://storage.googleapis.com/ory.am/customize.gif'
+                      src: 'https://storage.googleapis.com/ory.am/customize-sm.gif'
                     }
                   }
                 }]
