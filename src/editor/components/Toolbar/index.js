@@ -44,6 +44,8 @@ class Toolbar extends Component {
     }
   }
 
+  input: HTMLInputElement
+
   onRef = (component: Component<*, *, *>) => {
     this.input = ReactDOM.findDOMNode(component)
   }

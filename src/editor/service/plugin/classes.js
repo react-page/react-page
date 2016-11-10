@@ -87,7 +87,8 @@ export class Plugin {
   /**
    * @member the icon that will be shown in the toolbar.
    */
-  icon: Element<*> | Component<*, *, *>
+  icon: any
+  // icon: Element<*> | Component<*, *, *>
 
   /**
    * @member the text that will be shown alongside the icon in the toolbar.
@@ -97,7 +98,8 @@ export class Plugin {
   /**
    * @member the plugin's react component.
    */
-  Component: Element<*> | Component<*, *, *> | (props: any) => Element<*>
+  Component: any
+  // Component: Element<*> | Component<*, *, *> | (props: any) => Element<*>
 
   /**
    * Serialize a the plugin state

@@ -7,9 +7,9 @@ import { iconStyle } from '../common.js'
 import Caption from '../Caption'
 import type { PropTypes } from '../index.js'
 
-const Display = ({ state: { src, ...state }, ...props }: PropTypes) => src ? (
+const Display = ({ state, ...props }: PropTypes) => state.src ? (
   <div>
-    <img styleName="image" src={src} />
+    <img styleName="image" src={state.src} />
     <Caption {...props} state={state} />
   </div>
 ) : (

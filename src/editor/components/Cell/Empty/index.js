@@ -5,7 +5,7 @@ import logger from 'src/editor/service/logger'
 
 import styles from './index.scoped.css'
 
-const Empty = ({ id = 'no id given', ...props }: { id: string, props: {} }) => {
+const Empty = ({ id = 'no id given', ...props }: { id: string }) => {
   logger.error('Got empty cell: ', props)
 
   return (
