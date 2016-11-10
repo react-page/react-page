@@ -23,9 +23,9 @@ prior to the 1.0.0 release.
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
-![ORY Editor Demo](https://storage.googleapis.com/ory.am/inline-edit-lg.gif)
+![ORY Editor Demo](https://storage.googleapis.com/ory.am/inline-edit-md.gif)
 
-and check the [demo](http://editor.ory.am/) yourself.
+There is a demo available at [editor.ory.am](http://editor.ory.am/), go ahead and try it yourself!
 
 ## Introduction
 
