@@ -3,79 +3,43 @@
 In this section, we will create a minimalistic react app that uses the ORY Editor.
 Before we skip ahead, make sure that [node.js](https://nodejs.org/en/) is installed on your system.
 
-At the moment, the ORY Editor is available only through npm.
+At the moment, the ORY Editor is available only through npm and works best in a ReactJS environment.
 
-### npm
+### [ReactJS](https://facebook.github.io/react/)
 
-The ORY Editor uses [material-ui](https://github.com/callemall/material-ui) for the UI components. The project has currently
-some limitations and known issues around standalone builds, which is why the installation is not straight forward at the
-moment. We hope that these issues will be solved with the
-[material-ui next](https://github.com/callemall/material-ui/projects/1) release and if not, we will switch to a different
-mechanism.
-
-```
-```
-
-
-
-## Usage
-
-The Editor's core strength is the ability to work with plugins. Plugins are wrapped React components that implement
-
-1. layout logic or
-2. content logic.
-
-A content block is a leaf node that contains some type of content, for example video, audio, twitter feed and so on.
-A layout block is nestable and may contain children or branches. It can be used to place layout elements such as alert boxes,
-spoilers, background images and so on.
-
-
-### Layout Plugin
-
-```js
-import React from 'react'
-
-// layout box plugin
-const YellowAlertBox = (props) => (<div style={{ backgorundColor: 'yellow' }} {...props} />);
-
-// content editing plugin
-const RemoteImage = ({ src, readOnly, onChange }) => readOnly
-  ? <img src={src} />
-  : <input type="text" onChange={onChange} value={src} />
-```
-
-### Content Plugin
-
-
-
-
-### ReactJS
-
-Our goal is to create a react app. We will use [create-react-app](https://github.com/facebookincubator/create-react-app)
-to scaffold it
+Our goal is to create a ReactJS app that uses the editor.
+To scaffold the react app for the purpose of this tutorial, we use [create-react-app](https://github.com/facebookincubator/create-react-app)
 
 ```
 $ npm i -g create-react-app
 $ create-react-app .
 ```
 
-and we will install the editor using npm:
+and install the editor using npm:
 
 ```
 $ npm i --save ory-editor
 ```
 
-To use the editor, you could change *src/components/App.js* to something similar to:
+Next, open the file *src/components/App.js* and include the ORY Editor:
 
-```js
+```jsx
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
-// import the editor
-import Editor, { Component as EditorComponent } from 'ory-editor'
+// import the Editor and the React components:
+import Editor, { EditableComponent, ControlsComponent } from 'ory-editor'
 
-var editor = new Editor()
+// The react-tap-event-plugin is required by material-ui, see:
+//  https://github.com/callemall/material-ui#react-tap-event-plugin
+require('react-tap-event-plugin')()
+
+// Create an editor config
+const editor = new Editor({ /* options */ })
+
+// The editable state
+const state = { /* empty document state */ }
 
 class App extends Component {
   render() {
@@ -86,9 +50,12 @@ class App extends Component {
           <h2>Welcome to React</h2>
         </div>
         
-        { /* show the editor */ }
-        <EditorComponent editor={editor} />
-        
+        <EditableComponent
+          editor={editor}
+          state={state}
+          onChange={(state) => console.log('got new editable state:', state)}
+        />
+        <ControlsComponent editor={editor} />
       </div>
     );
   }
@@ -96,3 +63,7 @@ class App extends Component {
 
 export default App;
 ```
+
+That's it, congratulations! You should see something like this now:
+
+![Example app](todo)
