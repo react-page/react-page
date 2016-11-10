@@ -23,7 +23,7 @@ prior to the 1.0.0 release.
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
-![https://storage.googleapis.com/ory.am/inline-edit.gif]
+![ORY Editor Demo](https://storage.googleapis.com/ory.am/inline-edit.gif)
 
 and check the [demo](http://editor.ory.am/) yourself.
 
