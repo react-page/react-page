@@ -4,7 +4,9 @@ Welcome to the ORY Editor guide. Seeing is believing, so let's start with a demo
 
 ## Demonstration
 
-awesome demo here
+![ORY Editor Demo](https://storage.googleapis.com/ory.am/inline-edit-lg.gif)
+
+There is a demo available at [editor.ory.am](http://editor.ory.am/), go ahead and try it yourself!
 
 ## Why it's different
 
