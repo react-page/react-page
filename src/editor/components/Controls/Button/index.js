@@ -10,7 +10,7 @@ const Button = ({ description, icon, onClick, active, disabled }: {
   description: string,
   icon: any,
   active: boolean,
-  disabled: boolean,
+  disabled?: boolean,
   onClick: Function,
   description: string
 }) => (
