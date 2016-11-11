@@ -35,71 +35,28 @@ export default {
 and a minimalistic plugin example could look like
 
 ```jsx
-todo
-```
-
-
-
-
-```jsx
 import React from 'react'
-import ReactDOM from 'react-dom'
-import Editor, { EditableComponent, ControlsComponent } from 'src/editor'
-import VideoPlugin from './plugins/video'
-import ContainerPlugin from './plugins/container'
-import { PluginService, defaultLayoutPlugins, defaultContentPlugins } from 'src/editor/service'
-import content from './content.js'
 
-require('react-tap-event-plugin')()
-
-const editor = new Editor({
-  plugins: new PluginService(defaultContentPlugins, [
-    ...defaultLayoutPlugins,
-    new VideoPlugin(),
-    new ContainerPlugin()
-  ])
-})
-
-const elements = document.querySelectorAll('.editable')
-for (const element of elements) {
-  ReactDOM.render((
-    <EditableComponent
-      editor={editor}
-      state={content[element.dataset.editable]}
-      // onChange={(state) => console.log(state)}
-    />
-  ), element)
+const FaIcon = (props) => {
+  const {
+    state: { value },
+    readOnly
+  } = props
+  
+  return (
+    <div>
+      {
+        readOnly ? (
+          <div className="my-plugin">
+            <input type="text" onChange={(e) => onChange({ value: e.target.value })} value={value} />
+          </div>
+        ) : (
+          <div className="my-plugin">{value}</div>
+        )
+      }
+    </div>
+  )
 }
 
-ReactDOM.render(<ControlsComponent editor={editor} />, document.getElementById('controls'))
-
+export default FaIcon
 ```
-
-## Usage
-
-The Editor's core strength is the ability to work with plugins. Plugins are wrapped React components that implement
-
-1. layout logic or
-2. content logic.
-
-A content block is a leaf node that contains some type of content, for example video, audio, twitter feed and so on.
-A layout block is nestable and may contain children or branches. It can be used to place layout elements such as alert boxes,
-spoilers, background images and so on.
-
-
-### Layout Plugin
-
-```js
-import React from 'react'
-
-// layout box plugin
-const YellowAlertBox = (props) => (<div style={{ backgorundColor: 'yellow' }} {...props} />);
-
-// content editing plugin
-const RemoteImage = ({ src, readOnly, onChange }) => readOnly
-  ? <img src={src} />
-  : <input type="text" onChange={onChange} value={src} />
-```
-
-### Content Plugin
-
