@@ -157,7 +157,7 @@ export class ContentPlugin extends Plugin {
    * @param props
    * @returns a promise
    */
-  handleFocusNextHotKey = (e: Event, props: ContentPluginProps<*>): Promise<*> => Promise.resolve()
+  handleFocusNextHotKey = (e: Event, props: ContentPluginProps<*>): Promise<*> => Promise.reject()
 
   /**
    * Will be called when the user presses the left or up key. When returning a resolving promise,
@@ -167,7 +167,7 @@ export class ContentPlugin extends Plugin {
    * @param props
    * @returns a promise
    */
-  handleFocusPreviousHotKey = (e: Event, props: ContentPluginProps<*>): Promise<*> => Promise.resolve()
+  handleFocusPreviousHotKey = (e: Event, props: ContentPluginProps<*>): Promise<*> => Promise.reject()
 
   /**
    * This function will be called when one of the plugin's cell is blurred.
@@ -222,7 +222,7 @@ export class LayoutPlugin extends Plugin {
    * @param props
    * @returns a promise
    */
-  handleFocusNextHotKey = (e: Event, props: ContentPluginProps<*>): Promise<*> => Promise.resolve()
+  handleFocusNextHotKey = (e: Event, props: ContentPluginProps<*>): Promise<*> => Promise.reject()
 
   /**
    * Will be called when the user presses the left or up key. When returning a resolving promise,
@@ -232,7 +232,7 @@ export class LayoutPlugin extends Plugin {
    * @param props
    * @returns a promise
    */
-  handleFocusPreviousHotKey = (e: Event, props: ContentPluginProps<*>): Promise<*> => Promise.resolve()
+  handleFocusPreviousHotKey = (e: Event, props: ContentPluginProps<*>): Promise<*> => Promise.reject()
 
   /**
    * This function will be called when one of the plugin's cell is blurred.
