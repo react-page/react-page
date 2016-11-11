@@ -19,15 +19,15 @@ export type Props = ContentPluginProps<{ editorState: Object }>
 class Slate extends Component {
   componentDidMount = () => this.updateToolbar()
 
-  // FIXME PSEUDO FIX #135
-  componentWillReceiveProps = (next) => {
+  // FIXME #135
+  // componentWillReceiveProps = (next) => {
     // focus does not work, probably because dom blur and removeAllRanges is missing in slate.
     // What we do is create a ref (this.onRef) on a div that is wrapping slate. If selection is lost in slate state
     // we blur the contenteditable and remove all ranges.
-    if (!next.state.editorState.selection.isFocused && this.props.state.editorState.selection.isFocused) {
-      this._component.querySelector('[contenteditable]').blur()
-      window.setTimeout(() => window.getSelection().removeAllRanges(), 0)
-    }
+    // if (!next.state.editorState.selection.isFocused && this.props.state.editorState.selection.isFocused) {
+    //   this._component.querySelector('[contenteditable]').blur()
+    //   window.setTimeout(() => window.getSelection().removeAllRanges(), 0)
+    // }
 
     // This code would potentially focus the contenteditable, but it has issues the selection, because we are blurring
     // it in the code above and removing all ranges. This can lead to weird behaviour, which is why this is disabled.
@@ -35,7 +35,7 @@ class Slate extends Component {
     //  if (next.state.editorState.selection.isFocused && !this.props.state.editorState.selection.isFocused) {
     //    this._component.querySelector('[contenteditable]').focus()
     //  }
-  }
+  // }
 
   shouldComponentUpdate = (nextProps) => (
     nextProps.state.editorState !== this.props.state.editorState
