@@ -26,7 +26,7 @@ const nextLeaf = (order: [] = [], current: string) => {
   })
 }
 
-const previousLeaf = (order: [], current: string) => nextLeaf(order.reverse(), current)
+const previousLeaf = (order: [], current: string) => nextLeaf([...order].reverse(), current)
 
 type Props = {
   children: any,
