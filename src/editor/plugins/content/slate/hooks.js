@@ -149,7 +149,7 @@ const windowSelectionWaitTime = 1
 
 export const handleFocusPreviousHotKey = (e: KeyboardEvent, { content: { state: { editorState } } }: Props) => {
   const current = position()
-  const isArrowUp = e.keyCode === 38
+  // const isArrowUp = e.keyCode === 38
 
   return new Promise((resolve: Function, reject: Function) => {
     if (editorState.isExpanded) {
@@ -174,7 +174,7 @@ export const handleFocusPreviousHotKey = (e: KeyboardEvent, { content: { state: 
 // export const handleFocusNextHotKey = () => Promise.reject()
 export const handleFocusNextHotKey = (e: KeyboardEvent, { content: { state: { editorState } } }: Props) => {
   const current = position()
-  const isArrowDown = e.keyCode === 40
+  // const isArrowDown = e.keyCode === 40
 
   return new Promise((resolve: Function, reject: Function) => {
     if (editorState.isExpanded) {
