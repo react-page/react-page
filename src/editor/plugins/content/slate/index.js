@@ -3,7 +3,7 @@
 /* eslint no-duplicate-imports: ["off"] */
 /* eslint prefer-reflect: ["off"] */
 import Subject from 'material-ui/svg-icons/action/subject'
-import { compose, flatten, map, mergeAll, prop } from 'ramda'
+import { compose, flatten, map, mergeAll, prop, pathOr } from 'ramda'
 import React from 'react'
 
 import { ContentPlugin } from 'src/editor/service/plugin/classes'
@@ -34,16 +34,16 @@ export default class SlatePlugin extends ContentPlugin {
     this.DEFAULT_NODE = P
 
     this.plugins = plugins || [
-      new ParagraphPlugin(),
-      new EmphasizePlugin(),
-      new HeadingsPlugin({ DEFAULT_NODE: this.DEFAULT_NODE }),
-      new LinkPlugin(),
-      new CodePlugin({ DEFAULT_NODE: this.DEFAULT_NODE }),
-      new ListsPlugin({ DEFAULT_NODE: this.DEFAULT_NODE }),
-      new BlockquotePlugin({ DEFAULT_NODE: this.DEFAULT_NODE }),
-      new AlignmentPlugin(),
-      new KatexPlugin({ DEFAULT_NODE: this.DEFAULT_NODE })
-    ]
+        new ParagraphPlugin(),
+        new EmphasizePlugin(),
+        new HeadingsPlugin({ DEFAULT_NODE: this.DEFAULT_NODE }),
+        new LinkPlugin(),
+        new CodePlugin({ DEFAULT_NODE: this.DEFAULT_NODE }),
+        new ListsPlugin({ DEFAULT_NODE: this.DEFAULT_NODE }),
+        new BlockquotePlugin({ DEFAULT_NODE: this.DEFAULT_NODE }),
+        new AlignmentPlugin(),
+        new KatexPlugin({ DEFAULT_NODE: this.DEFAULT_NODE })
+      ]
 
     this.props = {}
 
@@ -125,6 +125,14 @@ export default class SlatePlugin extends ContentPlugin {
     if (props.state.editorState.isFocused) {
       return
     }
+
+    props.onChange({
+      editorState: props.state.editorState
+        .transform()
+       // .collapseToStart()
+        .focus()
+        .apply()
+    })
   }
 
   onBlur = (props: Props) => {
@@ -138,6 +146,22 @@ export default class SlatePlugin extends ContentPlugin {
         .blur()
         .apply()
     })
+  }
+
+  reducer = (state: any, action: any) => {
+    if ((action.type.substr(0, 4) === 'UNDO' || action.type.substr(0, 4) === 'REDO') && pathOr(false, ['content', 'state', 'editorState'], state)) {
+      return ({
+        ...state,
+        content: {
+          ...state.content,
+          state: {
+            ...state.content.state,
+            editorState: state.content.state.editorState.merge({ isNative: false })
+          }
+        }
+      })
+    }
+    return state
   }
 
   handleRemoveHotKey = hooks.handleRemoveHotKey
