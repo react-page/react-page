@@ -53,10 +53,11 @@ export const resizeCell = (id: string) => (size: number = 1): Action => ({
 /**
  * Dispatch to focus a cell.
  */
-export const focusCell = (id: string) => (): Action => ({
+export const focusCell = (id: string) => ({ source }: { source?: string } = {}): Action => ({
   type: CELL_FOCUS,
   ts: new Date(),
-  id
+  id,
+  source
 })
 
 /**

@@ -24,6 +24,7 @@ type AbstractCell<T> = {
   hover: ?string,
   inline: ?string,
   focused: boolean,
+  focusSource: string,
   resizable: boolean,
   bounds: { left: number, right: number },
   hasInlineNeighbour: ?string,

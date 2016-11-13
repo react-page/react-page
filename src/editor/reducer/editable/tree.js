@@ -79,14 +79,14 @@ export const cell = (state: Cell, action: Object): Cell => optimizeCell(((state:
     case CELL_FOCUS:
       if (action.id === state.id) {
         // If this cell is being focused, set the data
-        return { ...reduce(), focused: true }
+        return { ...reduce(), focused: true, focusSource: action.source }
       }
-      return reduce()
+      return { ...reduce(), focused: false, focusSource: null }
 
     case CELL_BLUR:
       if (action.id === state.id) {
         // If this cell is being blurred, set the data
-        return { ...reduce(), focused: false }
+        return { ...reduce(), focused: false, focusSource: null }
       }
       return reduce()
 
