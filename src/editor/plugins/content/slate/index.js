@@ -4,7 +4,7 @@
 /* eslint prefer-reflect: ["off"] */
 import Subject from 'material-ui/svg-icons/action/subject'
 import { compose, flatten, map, mergeAll, prop, pathOr } from 'ramda'
-import React from 'react'
+import React, { SyntheticEvent } from 'react'
 
 import { ContentPlugin } from 'src/editor/service/plugin/classes'
 import Component from './Component'
@@ -121,18 +121,20 @@ export default class SlatePlugin extends ContentPlugin {
 
   allowInline = true
 
-  onFocus = (props: Props) => {
+  onFocus = (props: Props, event: SyntheticEvent) => {
+    if (event.nativeEvent instanceof MouseEvent) {
+      return
+    }
+
     if (props.state.editorState.isFocused) {
       return
     }
 
-    props.onChange({
-      editorState: props.state.editorState
-        .transform()
-       // .collapseToStart()
-        .focus()
-        .apply()
-    })
+    editorState: props.state.editorState
+      .transform()
+      // .collapseToStart()
+      .focus()
+      .apply()
   }
 
   onBlur = (props: Props) => {

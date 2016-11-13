@@ -13,7 +13,7 @@ import serverContext from 'src/editor/components/ServerContext/connect'
 class Content extends Component {
   componentWillReceiveProps(nextProps: ComponentizedCell) {
     const { node: { focused: was } } = this.props
-    const { node: { focused: is } } = nextProps
+    const { node: { focused: is, focusEvent } } = nextProps
     const { isEditMode, editable, id, node: { content: { plugin: { onFocus, onBlur, name, version }, state = {} }, focused }, updateCellContent } = nextProps
 
     // FIXME this is really shitty because it will break when the state changes before the blur comes through #157
@@ -34,7 +34,7 @@ class Content extends Component {
         }
         this.ref.focus()
       }, 0)
-      onFocus(pass)
+      onFocus(pass, focusEvent)
     } else if (was && !is) {
       onBlur(pass)
     }
@@ -55,10 +55,11 @@ class Content extends Component {
       const { focusCell, blurAllCells } = this.props
 
       focusProps = {
-        onMouseDown: () => {
+        onMouseDown: (e: MouseEvent) => {
+          e.persist()
           if (!focused) {
             blurAllCells()
-            focusCell()
+            focusCell({ event: e })
           }
           return true
         }
