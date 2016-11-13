@@ -28,6 +28,12 @@ class Content extends Component {
     }
 
     if (!was && is) {
+      setTimeout(() => {
+        if (!this.ref) {
+          return
+        }
+        this.ref.focus()
+      }, 0)
       onFocus(pass)
     } else if (was && !is) {
       onBlur(pass)
@@ -36,6 +42,10 @@ class Content extends Component {
 
   shouldComponentUpdate = shouldPureComponentUpdate
   props: ComponentizedCell
+
+  onRef = (ref: any) => {
+    this.ref = ref
+  }
 
   render() {
     const { isPreviewMode, isEditMode, editable, id, node: { content: { plugin: { Component, name, version }, state = {} }, focused }, updateCellContent, isServerContext } = this.props
@@ -56,7 +66,10 @@ class Content extends Component {
     }
 
     return (
-      <div {...focusProps}>
+      <div {...focusProps}
+        tabIndex="-1"
+        style={{ outline: 'none' }}
+        ref={this.onRef}>
         <Component
           editable={editable}
           id={id}
