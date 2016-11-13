@@ -27,13 +27,19 @@ import type { Cell, Row } from 'types/editable'
 import { createCell, createRow } from 'types/editable'
 
 const inner = (cb: Function, action: Object) => (state: Object) => cb(state, action)
+const identity = (state: Cell) => state
 
 export const cell = (state: Cell, action: Object): Cell => optimizeCell(((state: Cell, action: Object): Cell => {
-  const reduce = () => ({
-    ...state,
-    hover: null,
-    rows: rows(state.rows, action)
-  })
+  const reduce = () => {
+    const content = pathOr(identity, ['content', 'plugin', 'reducer'], state)
+    const layout = pathOr(identity, ['content', 'layout', 'reducer'], state)
+
+    return content(layout(({
+      ...state,
+      hover: null,
+      rows: rows(state.rows, action)
+    }), action), action)
+  }
 
   switch (action.type) {
     case CELL_UPDATE_CONTENT:
