@@ -32,16 +32,7 @@ class Content extends Component {
     if (!was && is) {
       // We need this because otherwise we lose hotkey focus on elements like spoilers.
       // This could probably be solved in an easier way by listening to window.document?
-      //
-      setTimeout(() => {
-        if (!this.ref) {
-          return
-        }
-        this.ref.focus()
-      }, 0)
-
-
-      onFocus(pass, focusSource)
+      onFocus(pass, focusSource, this.ref)
     } else if (was && !is) {
       onBlur(pass)
     }

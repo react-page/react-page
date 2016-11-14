@@ -128,6 +128,8 @@ export default class SlatePlugin extends ContentPlugin {
       return
     }
 
+    console.log('focusing!')
+
     props.onChange({
       editorState: props.state.editorState
         .transform()
