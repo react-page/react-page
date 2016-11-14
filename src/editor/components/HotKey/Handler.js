@@ -44,7 +44,10 @@ type Props = {
   editable: Editable
 }
 
-const falser = () => {
+const falser = (err: Error) => {
+  if (err) {
+    console.log(err)
+  }
 }
 
 // TODO cleanup and tests #143

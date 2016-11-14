@@ -13,10 +13,10 @@ import serverContext from 'src/editor/components/ServerContext/connect'
 class Content extends Component {
   componentWillReceiveProps(nextProps: ComponentizedCell) {
     const { node: { focused: was } } = this.props
-    const { node: { focused: is, focusEvent } } = nextProps
+    const { node: { focused: is, focusSource } } = nextProps
     const { isEditMode, editable, id, node: { content: { plugin: { onFocus, onBlur, name, version }, state = {} }, focused }, updateCellContent } = nextProps
 
-    // FIXME this is really shitty because it will break when the state changes before the blur comes through #157
+    // FIXME this is really shitty because it will break when the state changes before the blur comes through, see #157
     const pass = {
       editable,
       id,
@@ -27,14 +27,21 @@ class Content extends Component {
       name, version
     }
 
+    // Basically we check if the focus state changed and if yes, we execute the callback handler from the plugin, that
+    // can set some side effects.
     if (!was && is) {
+      // We need this because otherwise we lose hotkey focus on elements like spoilers.
+      // This could probably be solved in an easier way by listening to window.document?
+      //
       setTimeout(() => {
         if (!this.ref) {
           return
         }
         this.ref.focus()
       }, 0)
-      onFocus(pass, focusEvent)
+
+
+      onFocus(pass, focusSource)
     } else if (was && !is) {
       onBlur(pass)
     }
@@ -52,14 +59,12 @@ class Content extends Component {
 
     let focusProps
     if (!isPreviewMode) {
-      const { focusCell, blurAllCells } = this.props
+      const { focusCell } = this.props
 
       focusProps = {
-        onMouseDown: (e: MouseEvent) => {
-          e.persist()
+        onMouseDown: () => {
           if (!focused) {
-            blurAllCells()
-            focusCell({ event: e })
+            focusCell({ source: 'onMouseDown' })
           }
           return true
         }

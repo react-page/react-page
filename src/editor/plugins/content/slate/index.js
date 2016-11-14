@@ -121,20 +121,19 @@ export default class SlatePlugin extends ContentPlugin {
 
   allowInline = true
 
-  onFocus = (props: Props, event: SyntheticEvent) => {
-    if (event.nativeEvent instanceof MouseEvent) {
+  onFocus = (props: Props, source: string) => {
+    if (source === 'onMouseDown') {
+      return
+    } else if (props.state.editorState.isFocused) {
       return
     }
 
-    if (props.state.editorState.isFocused) {
-      return
-    }
-
-    editorState: props.state.editorState
-      .transform()
-      // .collapseToStart()
-      .focus()
-      .apply()
+    props.onChange({
+      editorState: props.state.editorState
+        .transform()
+        .focus()
+        .apply()
+    })
   }
 
   onBlur = (props: Props) => {
