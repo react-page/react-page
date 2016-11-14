@@ -1,10 +1,11 @@
 // @flow
 import type { Action } from 'types/redux'
+import { ActionTypes } from 'redux-undo'
 
-export const undo = (id: string): Action => ({
-  type: `UNDO/${id}`
+export const undo = (): Action => ({
+  type: ActionTypes.UNDO
 })
 
-export const redo = (id: string): Action => ({
-  type: `REDO/${id}`
+export const redo = (): Action => ({
+  type: ActionTypes.REDO
 })

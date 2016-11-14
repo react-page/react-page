@@ -31,14 +31,14 @@ export const rawEditableReducer = (state: Object = {
   }
 }
 
-export const editable = (id: string) => undoable(rawEditableReducer, {
+export const editable = undoable(rawEditableReducer, {
   filter: includeAction([
     CELL_UPDATE_CONTENT, CELL_UPDATE_LAYOUT, CELL_REMOVE, CELL_RESIZE,
-    CELL_INSERT_ABOVE, CELL_INSERT_BELOW, CELL_INSERT_LEFT_OF, CELL_INSERT_RIGHT_OF, CELL_INSERT_INLINE_LEFT, CELL_INSERT_INLINE_RIGHT
+    CELL_INSERT_ABOVE, CELL_INSERT_BELOW, CELL_INSERT_LEFT_OF, CELL_INSERT_RIGHT_OF,
+    CELL_INSERT_INLINE_LEFT, CELL_INSERT_INLINE_RIGHT
   ]),
   initTypes: [UPDATE_EDITABLE],
   neverSkipReducer: true,
-  // FIXME this is required because redux-undo doesn't support multiple undo state otherwise
-  undoType: `UNDO/${id}`,
-  redoType: `REDO/${id}`
+  undoType: 'UNDO',
+  redoType: 'REDO'
 })

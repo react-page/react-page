@@ -9,7 +9,7 @@ const createHistory = (state: any) => ({
   future: []
 })
 
-export const editables = (state: { present: Editable }[] = [], action: {
+export const editables = (state: { present: Editable[] }, action: {
   type: string,
   id: string,
   editable: Editable
@@ -17,12 +17,12 @@ export const editables = (state: { present: Editable }[] = [], action: {
   switch (action.type) {
     case UPDATE_EDITABLE:
       return [
-        ...state.filter(({ present: { id } }: { present: Editable }): boolean => id !== action.id),
+        ...state.filter(({ id }: Editable): boolean => id !== action.id),
         // we need to run the rawreducer once or the history initial state will be inconsistent.
         // resolves https://github.com/ory-am/editor/pull/117#issuecomment-242942796
-        createHistory(rawEditableReducer(action.editable, action))
-      ].map((e: { present: Editable }): Editable => editable(e.present.id)(e, action))
+        rawEditableReducer(action.editable, action)
+      ].map((e: { present: Editable }): Editable => editable(e, action))
     default:
-      return state.map((e: { present: Editable }) => editable(e.present.id)(e, action))
+      return state.map((e: { present: Editable }) => editable(e, action))
   }
 }
