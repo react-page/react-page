@@ -37,30 +37,33 @@ const inner = undoable((state: Array<Editable> = [], action: {
     CELL_INSERT_ABOVE, CELL_INSERT_BELOW, CELL_INSERT_LEFT_OF, CELL_INSERT_RIGHT_OF,
     CELL_INSERT_INLINE_LEFT, CELL_INSERT_INLINE_RIGHT
   ]),
-  //initTypes: [UPDATE_EDITABLE],
+  // initTypes: [UPDATE_EDITABLE],
   neverSkipReducer: true
 })
 
-export const editables = (state = {}, action) => {
-  const {past = [], present = [], future = []} = state
+export const editables = (state = { past: [], present: [], future: [] }, action) => {
+  const { past = [], present = [], future = [] } = state
   switch (action.type) {
     case UPDATE_EDITABLE:
-      return {
-        past: [
-          ...past.filter(({ id }: Editable): boolean => id !== action.id),
-          // we need to run the rawreducer once or the history initial state will be inconsistent.
-          // resolves https://github.com/ory-am/editor/pull/117#issuecomment-242942796
-          rawEditableReducer(action.editable, action)
-        ],
+      return inner({
+        past: past.map((editables) => {
+          return [
+            ...editables.filter(({ id }: Editable): boolean => id !== action.id),
+            // we need to run the rawreducer once or the history initial state will be inconsistent.
+            // resolves https://github.com/ory-am/editor/pull/117#issuecomment-242942796
+            // ...past,
+            editable(action.editable, action)
+          ]
+        }),
         present: inner([
           ...present.filter(({ id }: Editable): boolean => id !== action.id),
           // we need to run the rawreducer once or the history initial state will be inconsistent.
           // resolves https://github.com/ory-am/editor/pull/117#issuecomment-242942796
-          rawEditableReducer(action.editable, action)
+          editable(action.editable, action)
         ]),
         future
-      }
+      })
     default:
-      return inner({ past,present,future }, action)
+      return inner(state, action)
   }
 }

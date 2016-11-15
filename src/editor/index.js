@@ -40,7 +40,11 @@ class Editor {
     }
 
     instance = this
-    this.store = createStore({ editables: [] }, middleware)
+    this.store = createStore({ editables: {
+      past: [],
+      present: [],
+      future: []
+    } }, middleware)
     this.plugins = plugins
     this.errorReporting = errorReporting
     this.middleware = middleware

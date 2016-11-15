@@ -119,6 +119,8 @@ const handlers = (props: Props) => {
 //   // insert: ['insert']
 // }
 
+Mousetrap.prototype.stopCallback = () => false
+
 class Decorator extends Component {
   componentDidMount() {
     console.log('mousetrap')

@@ -5,6 +5,7 @@
 import Subject from 'material-ui/svg-icons/action/subject'
 import { compose, flatten, map, mergeAll, prop, pathOr } from 'ramda'
 import React, { SyntheticEvent } from 'react'
+import { ActionTypes } from 'redux-undo'
 
 import { ContentPlugin } from 'src/editor/service/plugin/classes'
 import Component from './Component'
@@ -152,7 +153,7 @@ export default class SlatePlugin extends ContentPlugin {
   }
 
   reducer = (state: any, action: any) => {
-    if ((action.type.substr(0, 4) === 'UNDO' || action.type.substr(0, 4) === 'REDO') && pathOr(false, ['content', 'state', 'editorState'], state)) {
+    if ((action.type === ActionTypes.UNDO || action.type === ActionTypes.REDO) && pathOr(false, ['content', 'state', 'editorState'], state)) {
       return ({
         ...state,
         content: {
