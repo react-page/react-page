@@ -5,8 +5,8 @@ import { purifiedNode } from './index.js'
 const expect = unexpected.clone()
 
 const state = {
-  editables: [{
-    present: {
+  editables: {
+    present: [{
       id: '1',
       cells: [{
         levels: { left: 0, right: 0, above: 0, below: 0 },
@@ -215,9 +215,7 @@ const state = {
         }]
       }],
       config: { whitelist: ['ory/editor/core/content/missing', 'ory/editor/core/content/image', 'ory/editor/core/content/spacer', 'ory/editor/core/content/slate', 'ory/editor/core/layout/spoiler'] }
-    }
-  }, {
-    present: {
+    }, {
       id: '2',
       cells: [{
         levels: { left: 0, right: 0, above: 0, below: 0 },
@@ -304,8 +302,8 @@ const state = {
         }]
       }],
       config: { whitelist: ['ory/editor/core/content/missing', 'ory/editor/core/content/image', 'ory/editor/core/content/spacer', 'ory/editor/core/content/slate', 'ory/editor/core/layout/spoiler'] }
-    }
-  }], display: { previous: 'preview', mode: 'preview' }
+    }]
+  }, display: { previous: 'preview', mode: 'preview' }
 }
 
 describe('selectors/editable/node', () => {

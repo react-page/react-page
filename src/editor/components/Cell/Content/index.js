@@ -66,7 +66,8 @@ class Content extends Component {
       <div {...focusProps}
         tabIndex="-1"
         style={{ outline: 'none' }}
-        ref={this.onRef}>
+        ref={this.onRef}
+      >
         <Component
           editable={editable}
           id={id}
