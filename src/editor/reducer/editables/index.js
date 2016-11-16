@@ -1,5 +1,5 @@
 // @flow
-import { editable, rawEditableReducer } from 'src/editor/reducer/editable'
+import { editable } from 'src/editor/reducer/editable'
 import { UPDATE_EDITABLE } from 'src/editor/actions/editables'
 import type { Editable } from 'types/editable'
 import undoable, { includeAction } from 'redux-undo'
@@ -15,12 +15,6 @@ import {
 import { set } from 'redux-undo/lib/debug'
 
 set(true)
-
-const createHistory = (state: any) => ({
-  past: [],
-  present: state,
-  future: []
-})
 
 const inner = undoable((state: Array<Editable> = [], action: {
   type: string,
@@ -41,20 +35,18 @@ const inner = undoable((state: Array<Editable> = [], action: {
   neverSkipReducer: true
 })
 
-export const editables = (state = { past: [], present: [], future: [] }, action) => {
+export const editables = (state: { past: Editable[], present: Editable[], future: Editable[] } = { past: [], present: [], future: [] }, action: Object) => {
   const { past = [], present = [], future = [] } = state
   switch (action.type) {
     case UPDATE_EDITABLE:
       return inner({
-        past: past.map((editables) => {
-          return [
-            ...editables.filter(({ id }: Editable): boolean => id !== action.id),
-            // we need to run the rawreducer once or the history initial state will be inconsistent.
-            // resolves https://github.com/ory-am/editor/pull/117#issuecomment-242942796
-            // ...past,
-            editable(action.editable, action)
-          ]
-        }),
+        past: past.map((editables: Editable[]) => [
+          ...editables.filter(({ id }: Editable): boolean => id !== action.id),
+          // we need to run the rawreducer once or the history initial state will be inconsistent.
+          // resolves https://github.com/ory-am/editor/pull/117#issuecomment-242942796
+          // ...past,
+          editable(action.editable, action)
+        ]),
         present: inner([
           ...present.filter(({ id }: Editable): boolean => id !== action.id),
           // we need to run the rawreducer once or the history initial state will be inconsistent.

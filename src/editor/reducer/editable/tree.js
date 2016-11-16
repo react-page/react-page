@@ -28,7 +28,6 @@ import { createCell, createRow } from 'types/editable'
 
 const inner = (cb: Function, action: Object) => (state: Object) => cb(state, action)
 const identity = (state: Cell) => state
-const isUndo = (action) => action.type.substr(0, 4) === 'UNDO' || action.type.substr(0, 4) === 'REDO'
 
 export const cell = (state: Cell, action: Object): Cell => optimizeCell(((state: Cell, action: Object): Cell => {
   const reduce = () => {

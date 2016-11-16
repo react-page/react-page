@@ -4,7 +4,7 @@
 /* eslint prefer-reflect: ["off"] */
 import Subject from 'material-ui/svg-icons/action/subject'
 import { compose, flatten, map, mergeAll, prop, pathOr } from 'ramda'
-import React, { SyntheticEvent } from 'react'
+import React from 'react'
 import { ActionTypes } from 'redux-undo'
 
 import { ContentPlugin } from 'src/editor/service/plugin/classes'
@@ -35,16 +35,16 @@ export default class SlatePlugin extends ContentPlugin {
     this.DEFAULT_NODE = P
 
     this.plugins = plugins || [
-        new ParagraphPlugin(),
-        new EmphasizePlugin(),
-        new HeadingsPlugin({ DEFAULT_NODE: this.DEFAULT_NODE }),
-        new LinkPlugin(),
-        new CodePlugin({ DEFAULT_NODE: this.DEFAULT_NODE }),
-        new ListsPlugin({ DEFAULT_NODE: this.DEFAULT_NODE }),
-        new BlockquotePlugin({ DEFAULT_NODE: this.DEFAULT_NODE }),
-        new AlignmentPlugin(),
-        new KatexPlugin({ DEFAULT_NODE: this.DEFAULT_NODE })
-      ]
+      new ParagraphPlugin(),
+      new EmphasizePlugin(),
+      new HeadingsPlugin({ DEFAULT_NODE: this.DEFAULT_NODE }),
+      new LinkPlugin(),
+      new CodePlugin({ DEFAULT_NODE: this.DEFAULT_NODE }),
+      new ListsPlugin({ DEFAULT_NODE: this.DEFAULT_NODE }),
+      new BlockquotePlugin({ DEFAULT_NODE: this.DEFAULT_NODE }),
+      new AlignmentPlugin(),
+      new KatexPlugin({ DEFAULT_NODE: this.DEFAULT_NODE })
+    ]
 
     this.props = {}
 
@@ -160,7 +160,8 @@ export default class SlatePlugin extends ContentPlugin {
           ...state.content,
           state: {
             ...state.content.state,
-            editorState: state.content.state.editorState.merge({ isNative: false })
+            editorState: state.content.state.editorState.merge({ isNative: false }),
+
           }
         }
       })

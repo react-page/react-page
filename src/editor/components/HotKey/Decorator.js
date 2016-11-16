@@ -1,6 +1,6 @@
 // @flow
 /* eslint-disable no-empty-function */
-import React, { Component, PropTypes } from 'react'
+import { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { undo, redo } from 'src/editor/actions/undo'
 import { removeCell, focusCell, blurAllCells } from 'src/editor/actions/cell'
