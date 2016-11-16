@@ -31,6 +31,8 @@ export const editable = ({ editables }: Editables = {}, { id }: { id: string }):
   return editables.present.find(({ id: current }: Editable = {}) => current === id) || {}
 }
 
+export const editables = ({ editables: { present } }: Editables = {}) => present
+
 export const purifiedEditable = (state: Editables, props: Editable) => {
   const found = editable(state, props)
   return {
@@ -53,6 +55,20 @@ export const node = (state: Object, props: Object): Object => {
   }
 
   return found
+}
+
+export const findNode = (state: Object, id: string) => {
+  for (let i = 0; i < state.editables.present.length; i++) {
+    const n = node(state, { id, editable: state.editables.present[i].id })
+    if (n) {
+      return {
+        node: n,
+        editable: state.editables.present[i]
+      }
+    }
+  }
+
+  return null
 }
 
 export const purifiedNode = (state: Editables, props: Editable): Object => {

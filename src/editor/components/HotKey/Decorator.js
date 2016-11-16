@@ -6,7 +6,7 @@ import { undo, redo } from 'src/editor/actions/undo'
 import { removeCell, focusCell, blurAllCells } from 'src/editor/actions/cell'
 import { isEditMode } from 'src/editor/selector/display'
 import { focus } from 'src/editor/selector/focus'
-import { node, editable } from 'src/editor/selector/editable'
+import { node, editable, editables, findNode } from 'src/editor/selector/editable'
 import { createStructuredSelector } from 'reselect'
 import pathOr from 'ramda/src/pathOr'
 import type { Editable } from 'types/editable'
@@ -50,18 +50,47 @@ const falser = (err: Error) => {
   }
 }
 
-// TODO cleanup and tests #143
-const handlers = (props: Props) => {
-  const { id, undo, redo, focus, removeCell, focusCell, blurAllCells, isEditMode, node, editable } = props
-  return ({
+// const hotKeyMap = {
+//   undo: ['ctrl+z', 'command+z'],
+//   redo: ['ctrl+shift+z', 'ctrl+y', 'command+shift+z', 'command+y'],
+//   remove: ['del', 'backspace'],
+//   focusNext: ['down', 'right'],
+//   focusPrev: ['up', 'left'],
+//   // insert: ['insert']
+// }
+
+Mousetrap.prototype.stopCallback = () => false
+
+let wasInitialized = false
+
+class Decorator extends Component {
+
+  componentDidMount() {
+    if (!wasInitialized) {
+      Mousetrap.bind(['ctrl+z', 'command+z'], this.handlers.undo)
+      Mousetrap.bind(['ctrl+shift+z', 'ctrl+y', 'command+shift+z', 'command+y'], this.handlers.redo)
+      Mousetrap.bind(['del', 'backspace'], this.handlers.remove)
+      Mousetrap.bind(['down', 'right'], this.handlers.focusNext)
+      Mousetrap.bind(['up', 'left'], this.handlers.focusPrev)
+      wasInitialized = true
+    }
+  }
+
+  props: Props
+
+  handlers = {
     undo: () => {
-      console.log('undo')
+      const { id, undo } = this.props
       undo(id)
     },
-    redo: () => redo(id),
+    redo: () => {
+      const { id, redo } = this.props
+      redo(id)
+    },
 
     // remove cells
     remove: (e: Event) => {
+      const { id, focus, removeCell, isEditMode, node } = this.props
       if (!isEditMode) {
         return
       }
@@ -74,11 +103,12 @@ const handlers = (props: Props) => {
 
     // focus next cell
     focusNext: (e: Event) => {
+      const { focus, focusCell, blurAllCells, isEditMode } = this.props
       if (!isEditMode) {
         return
       }
 
-      const n = node(focus, id)
+      const { node: n, editable } = this.props.findNode(focus)
       hotKeyHandler(n, 'handleFocusNextHotKey')(e, n)
         .then(() => {
           const found = nextLeaf(editable.cellOrder, focus)
@@ -92,11 +122,12 @@ const handlers = (props: Props) => {
 
     // focus previous cell
     focusPrev: (e: Event) => {
+      const { focus, focusCell, blurAllCells, isEditMode } = this.props
       if (!isEditMode) {
         return
       }
 
-      const n = node(focus, id)
+      const { node: n, editable } = this.props.findNode(focus)
       hotKeyHandler(n, 'handleFocusPreviousHotKey')(e, n)
         .then(() => {
           const found = previousLeaf(editable.cellOrder, focus)
@@ -107,53 +138,11 @@ const handlers = (props: Props) => {
         })
         .catch(falser)
     }
-  })
-}
-
-// const hotKeyMap = {
-//   undo: ['ctrl+z', 'command+z'],
-//   redo: ['ctrl+shift+z', 'ctrl+y', 'command+shift+z', 'command+y'],
-//   remove: ['del', 'backspace'],
-//   focusNext: ['down', 'right'],
-//   focusPrev: ['up', 'left'],
-//   // insert: ['insert']
-// }
-
-Mousetrap.prototype.stopCallback = () => false
-
-class Decorator extends Component {
-  componentDidMount() {
-    console.log('mousetrap')
-    // Mousetrap.unbind(['ctrl+z', 'command+z'])
-    // Mousetrap.unbind(['ctrl+shift+z', 'ctrl+y', 'command+shift+z', 'command+y'])
-    // Mousetrap.unbind(['del', 'backspace'])
-    // Mousetrap.unbind(['down', 'right'])
-    // Mousetrap.unbind(['up', 'left'])
-    Mousetrap.bind(['ctrl+z', 'command+z'], handlers(this.props).undo)
-    Mousetrap.bind(['ctrl+shift+z', 'ctrl+y', 'command+shift+z', 'command+y'], handlers(this.props).redo)
-    Mousetrap.bind(['del', 'backspace'], handlers(this.props).remove)
-    Mousetrap.bind(['down', 'right'], handlers(this.props).focusNext)
-    Mousetrap.bind(['up', 'left'], handlers(this.props).focusPrev)
   }
-
-  componentDidUpdate() {
-    // Mousetrap.unbind(['ctrl+z', 'command+z'])
-    // Mousetrap.unbind(['ctrl+shift+z', 'ctrl+y', 'command+shift+z', 'command+y'])
-    // Mousetrap.unbind(['del', 'backspace'])
-    // Mousetrap.unbind(['down', 'right'])
-    // Mousetrap.unbind(['up', 'left'])
-    // Mousetrap.bind(['ctrl+z', 'command+z'], () => handlers(this.props).undo)
-    // Mousetrap.bind(['ctrl+shift+z', 'ctrl+y', 'command+shift+z', 'command+y'], () => handlers(this.props).redo)
-    // Mousetrap.bind(['del', 'backspace'], () => handlers(this.props).remove)
-    // Mousetrap.bind(['down', 'right'], () => handlers(this.props).focusNext)
-    // Mousetrap.bind(['up', 'left'], () => handlers(this.props).focusPrev)
-  }
-
-  props: Props
 
   render() {
-    const { children, id } = this.props
-    return <div>{ children }</div>
+    const { children } = this.props
+    return children
   }
 }
 
@@ -165,7 +154,9 @@ Decorator.propTypes = {
 const mapStateToProps = createStructuredSelector({
   isEditMode, focus,
   node: (state: any) => (id: string, editable: string) => node(state, { id, editable }),
-  editable: (state: any, props: any) => editable(state, props),
+  findNode: (state: any) => (id: string) => findNode(state, id),
+  editable: (state: any, props: any) => (id?: string) => editable(state, id ? { id } : props),
+  editables
 })
 
 const mapDispatchToProps = {
