@@ -11,7 +11,7 @@ based on [Slate](slatejs.org).
 We encourage you to check out the image, video and spacer plugins!
 Of course, you are not limited to this functionality and can easily write
 your own plugins. Plugins have two parts, one plugin definition and a
-ReactJS component. A minimal plugin definition looks as followed
+ReactJS component. A minimal plugin definition looks as follows
 
 ```jsx
 import React from 'react'
