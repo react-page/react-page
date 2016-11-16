@@ -46,23 +46,22 @@ class Spoiler extends Component {
   }
 }
 
-const defaultPlugin = new Slate()
+Spoiler.config = {
+  name: 'ory/editor/core/layout/spoiler',
+  version: '0.0.1',
+  icon: <FilterFrames />,
+  text: 'Spoiler',
 
-export default class SpoilerPlugin extends LayoutPlugin {
-  Component = cssModules(Spoiler, styles)
-  name = 'ory/editor/core/layout/spoiler'
-  version = '0.0.1'
-  icon = <FilterFrames />
-  text = 'Spoiler'
-
-  createInitialChildren = () => ({
+  createInitialChildren: () => ({
     id: uuid.v4(),
     rows: [{
       id: uuid.v4(),
       cells: [{
-        content: { plugin: defaultPlugin, state: defaultPlugin.createInitialState() },
+        content: { plugin: Slate, state: Slate.createInitialState() },
         id: uuid.v4(),
       }]
     }]
   })
 }
+
+export default cssModules(Spoiler, styles)

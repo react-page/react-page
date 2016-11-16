@@ -1,12 +1,19 @@
 // @flow
-import Component from './Component'
 import uuid from 'node-uuid'
-import { ContentPlugin } from 'src/editor/service/plugin/classes'
+import React from 'react'
+import cssModules from 'react-css-modules'
 
-export default class PlaceholderPlugin extends ContentPlugin {
-  Component = Component
-  name = 'ory/editor/core/content/placeholder'
-  version = '0.0.1'
+import styles from './index.scoped.css'
+
+const Placeholder = () => (
+  <div styleName="placeholder">
+    Drop items above, below, left of or right of here.
+  </div>
+)
+
+Placeholder.config = {
+  name: 'ory/editor/core/content/placeholder',
+  version: '0.0.1'
 }
 
 export const createRowPlaceholder = (): Object => ({
@@ -14,8 +21,11 @@ export const createRowPlaceholder = (): Object => ({
   rows: [{
     id: uuid.v4(),
     cells: [{
-      content: { plugin: new PlaceholderPlugin() },
+      content: { plugin: Placeholder },
       id: uuid.v4(),
     }]
   }]
 })
+
+
+export default cssModules(Placeholder, styles)

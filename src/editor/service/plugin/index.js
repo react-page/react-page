@@ -14,21 +14,24 @@ import SpoilerPlugin from 'src/editor/plugins/layout/spoiler'
  * A list of content plugins that are being loaded by default.
  */
 export const defaultContentPlugins: Array<ContentPlugin> = [
-  new MissingPlugin(),
-  new ImagePlugin(),
-  new SpacerPlugin(),
-  new SlatePlugin(),
-  new VideoPlugin()
+  MissingPlugin,
+  ImagePlugin,
+  SpacerPlugin,
+  SlatePlugin(),
+  VideoPlugin
 ]
 
 /**
  * A list of layout plugins that are being loaded by default.
  */
 export const defaultLayoutPlugins: Array<LayoutPlugin> = [
-  new SpoilerPlugin()
+  SpoilerPlugin
 ]
 
-const find = (name: string, version: string = '*') => (plugin: Plugin): boolean => plugin.name === name && satisfies(plugin.version, version)
+const find = (name: string, version: string = '*') => (plugin: Plugin): boolean => {
+  console.log(name, plugin, plugin.config)
+  plugin.config.name === name && satisfies(plugin.config.version, version)
+}
 
 /**
  * Iterate through an editable content tree and generate ids where missing.
@@ -62,12 +65,15 @@ export default class PluginService {
       content: contentPlugins,
       layout: layoutPlugins
     }
+
+    console.log(this.plugins)
   }
 
   /**
    * Finds a layout plugin based on its name and version.
    */
   findLayoutPlugin(name: string, version: string): LayoutPlugin {
+    console.log(name, version)
     const plugin = this.plugins.layout.find(find(name, version))
 
     // TODO return a default layout plugin here instead

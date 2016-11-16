@@ -46,7 +46,8 @@ class Content extends Component {
   }
 
   render() {
-    const { isPreviewMode, isEditMode, editable, id, node: { content: { plugin: { Component, name, version }, state = {} }, focused }, updateCellContent, isServerContext } = this.props
+    const { isPreviewMode, isEditMode, editable, id, node: { content: { plugin: Plugin, state = {} }, focused }, updateCellContent, isServerContext } = this.props
+    const { name, version } = Plugin
 
     let focusProps
     if (!isPreviewMode) {
@@ -67,7 +68,7 @@ class Content extends Component {
         tabIndex="-1"
         style={{ outline: 'none' }}
         ref={this.onRef}>
-        <Component
+        <Plugin
           editable={editable}
           id={id}
           state={state}

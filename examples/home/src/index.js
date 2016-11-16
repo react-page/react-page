@@ -11,8 +11,8 @@ require('react-tap-event-plugin')()
 const editor = new Editor({
   plugins: new PluginService(defaultContentPlugins, [
     ...defaultLayoutPlugins,
-    new VideoPlugin(),
-    new ContainerPlugin()
+    VideoPlugin,
+    ContainerPlugin
   ])
 })
 
