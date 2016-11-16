@@ -116,7 +116,7 @@ const Decorator = (props: Props) => (
 const mapStateToProps = createStructuredSelector({
   isEditMode, focus,
   node: (state: any) => (id: string, editable: string) => node(state, { id, editable }),
-  editable: (state: any, props: any) => editable(state, props)
+  editable: (state: any, props: any) => editable(state, props),
 })
 
 const mapDispatchToProps = {

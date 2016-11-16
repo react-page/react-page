@@ -4,7 +4,8 @@
 /* eslint prefer-reflect: ["off"] */
 import Subject from 'material-ui/svg-icons/action/subject'
 import { compose, flatten, map, mergeAll, prop, pathOr } from 'ramda'
-import React, { SyntheticEvent } from 'react'
+import React from 'react'
+import { ActionTypes } from 'redux-undo'
 
 import { ContentPlugin } from 'src/editor/service/plugin/classes'
 import Component from './Component'
@@ -34,16 +35,16 @@ export default class SlatePlugin extends ContentPlugin {
     this.DEFAULT_NODE = P
 
     this.plugins = plugins || [
-        new ParagraphPlugin(),
-        new EmphasizePlugin(),
-        new HeadingsPlugin({ DEFAULT_NODE: this.DEFAULT_NODE }),
-        new LinkPlugin(),
-        new CodePlugin({ DEFAULT_NODE: this.DEFAULT_NODE }),
-        new ListsPlugin({ DEFAULT_NODE: this.DEFAULT_NODE }),
-        new BlockquotePlugin({ DEFAULT_NODE: this.DEFAULT_NODE }),
-        new AlignmentPlugin(),
-        new KatexPlugin({ DEFAULT_NODE: this.DEFAULT_NODE })
-      ]
+      new ParagraphPlugin(),
+      new EmphasizePlugin(),
+      new HeadingsPlugin({ DEFAULT_NODE: this.DEFAULT_NODE }),
+      new LinkPlugin(),
+      new CodePlugin({ DEFAULT_NODE: this.DEFAULT_NODE }),
+      new ListsPlugin({ DEFAULT_NODE: this.DEFAULT_NODE }),
+      new BlockquotePlugin({ DEFAULT_NODE: this.DEFAULT_NODE }),
+      new AlignmentPlugin(),
+      new KatexPlugin({ DEFAULT_NODE: this.DEFAULT_NODE })
+    ]
 
     this.props = {}
 
@@ -152,14 +153,15 @@ export default class SlatePlugin extends ContentPlugin {
   }
 
   reducer = (state: any, action: any) => {
-    if ((action.type.substr(0, 4) === 'UNDO' || action.type.substr(0, 4) === 'REDO') && pathOr(false, ['content', 'state', 'editorState'], state)) {
+    if ((action.type === ActionTypes.UNDO || action.type === ActionTypes.REDO) && pathOr(false, ['content', 'state', 'editorState'], state)) {
       return ({
         ...state,
         content: {
           ...state.content,
           state: {
             ...state.content.state,
-            editorState: state.content.state.editorState.merge({ isNative: false })
+            editorState: state.content.state.editorState.merge({ isNative: false }),
+
           }
         }
       })
