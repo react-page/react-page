@@ -13,7 +13,7 @@ type Props = {
   onChange(state: Object): void
 }
 
-const ParallaxComponent = ({ children, state: { style, align }, readOnly, onChange }: Props) => (
+const Parallax = ({ children, state: { style, align }, readOnly, onChange }: Props) => (
   <section id="two" className={`main style${style}`}>
     {
       readOnly ? null : (
@@ -50,14 +50,13 @@ const ParallaxComponent = ({ children, state: { style, align }, readOnly, onChan
 
 const defaultPlugin = new Slate()
 
-export default class ParallaxPlugin extends LayoutPlugin {
-  Component = ParallaxComponent
-  name = 'example/layout/parallax'
-  version = '0.0.1'
-  icon = <Announcement />
-  text = 'Parallax Background'
+Parallax.config = {
+  name: 'example/layout/parallax',
+  version: '0.0.1',
+  icon: <Announcement />,
+  text: 'Parallax Background',
 
-  createInitialChildren = () => ({
+  createInitialChildren: () => ({
     id: uuid.v4(),
     rows: [{
       id: uuid.v4(),

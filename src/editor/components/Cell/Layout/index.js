@@ -20,9 +20,7 @@ class Layout extends React.Component {
       node: {
         rows = [],
         layout: {
-          plugin: {
-            Component
-          },
+          plugin: Plugin,
           state = {}
         }
       },
@@ -34,7 +32,7 @@ class Layout extends React.Component {
     }: ComponentizedCell = this.props
 
     return (
-      <Component
+      <Plugin
         id={id}
         state={state}
         editable={editable}
@@ -48,7 +46,7 @@ class Layout extends React.Component {
             key={r}
             id={r}
           />))}
-      </Component>
+      </Plugin>
     )
   }
 }
