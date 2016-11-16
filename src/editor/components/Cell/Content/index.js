@@ -40,6 +40,7 @@ class Content extends Component {
 
   shouldComponentUpdate = shouldPureComponentUpdate
   props: ComponentizedCell
+  ref: HTMLElement
 
   onRef = (ref: any) => {
     this.ref = ref

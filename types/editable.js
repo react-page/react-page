@@ -53,6 +53,7 @@ export const createCell = (): Cell => ({
   hover: null,
   inline: null,
   focused: false,
+  focusSource: '',
   resizable: false,
   bounds: { left: 0, right: 0 },
   hasInlineNeighbour: null,
