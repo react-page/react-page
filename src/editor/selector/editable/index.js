@@ -48,18 +48,13 @@ export const node = (state: Object, props: Object): Object => {
     throw new Error(`Could not find editable: ${props.editable}`)
   }
 
-  const found = { ...nodeInner(tree, props) }
-  if (!found) {
-    throw new Error(`Could not find node=${props.id}, editable=${props.editable}`)
-  }
-
-  return found
+  return { ...nodeInner(tree, props) }
 }
 
-export const findNode = (state: Object, id: string) => {
+export const searchNodeEverywhere = (state: Object, id: string) => {
   for (let i = 0; i < state.editables.present.length; i++) {
     const n = node(state, { id, editable: state.editables.present[i].id })
-    if (n) {
+    if (n.id) {
       return {
         node: n,
         editable: state.editables.present[i]

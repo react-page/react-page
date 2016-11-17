@@ -6,7 +6,7 @@ import { undo, redo } from 'src/editor/actions/undo'
 import { removeCell, focusCell, blurAllCells } from 'src/editor/actions/cell'
 import { isEditMode } from 'src/editor/selector/display'
 import { focus } from 'src/editor/selector/focus'
-import { node, editable, editables, findNode } from 'src/editor/selector/editable'
+import { node, editable, editables, searchNodeEverywhere } from 'src/editor/selector/editable'
 import { createStructuredSelector } from 'reselect'
 import pathOr from 'ramda/src/pathOr'
 import type { Editable } from 'types/editable'
@@ -50,15 +50,6 @@ const falser = (err: Error) => {
   }
 }
 
-// const hotKeyMap = {
-//   undo: ['ctrl+z', 'command+z'],
-//   redo: ['ctrl+shift+z', 'ctrl+y', 'command+shift+z', 'command+y'],
-//   remove: ['del', 'backspace'],
-//   focusNext: ['down', 'right'],
-//   focusPrev: ['up', 'left'],
-//   // insert: ['insert']
-// }
-
 Mousetrap.prototype.stopCallback = () => false
 
 let wasInitialized = false
@@ -90,12 +81,13 @@ class Decorator extends Component {
 
     // remove cells
     remove: (e: Event) => {
-      const { id, focus, removeCell, isEditMode, node } = this.props
+      const { focus, removeCell, isEditMode } = this.props
       if (!isEditMode) {
         return
       }
 
-      const n = node(focus, id)
+      const { node: n } = this.props.searchNodeEverywhere(focus)
+      console.log(n)
       hotKeyHandler(n, 'handleRemoveHotKey')(e, n)
         .then(() => removeCell(focus))
         .catch(falser)
@@ -103,12 +95,13 @@ class Decorator extends Component {
 
     // focus next cell
     focusNext: (e: Event) => {
+      console.log(this.props)
       const { focus, focusCell, blurAllCells, isEditMode } = this.props
       if (!isEditMode) {
         return
       }
 
-      const { node: n, editable } = this.props.findNode(focus)
+      const { node: n, editable } = this.props.searchNodeEverywhere(focus)
       hotKeyHandler(n, 'handleFocusNextHotKey')(e, n)
         .then(() => {
           const found = nextLeaf(editable.cellOrder, focus)
@@ -127,7 +120,7 @@ class Decorator extends Component {
         return
       }
 
-      const { node: n, editable } = this.props.findNode(focus)
+      const { node: n, editable } = this.props.searchNodeEverywhere(focus)
       hotKeyHandler(n, 'handleFocusPreviousHotKey')(e, n)
         .then(() => {
           const found = previousLeaf(editable.cellOrder, focus)
@@ -154,7 +147,7 @@ Decorator.propTypes = {
 const mapStateToProps = createStructuredSelector({
   isEditMode, focus,
   node: (state: any) => (id: string, editable: string) => node(state, { id, editable }),
-  findNode: (state: any) => (id: string) => findNode(state, id),
+  searchNodeEverywhere: (state: any) => (id: string) => searchNodeEverywhere(state, id),
   editable: (state: any, props: any) => (id?: string) => editable(state, id ? { id } : props),
   editables
 })
