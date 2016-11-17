@@ -9,7 +9,7 @@ const Link = ({ attributes, children, node }) => {
 
 Link.propTypes = {
   attributes: PropTypes.object,
-  children: PropTypes.oneOf([PropTypes.func, PropTypes.element, PropTypes.array]).isRequired,
+  children: PropTypes.oneOfType([PropTypes.func, PropTypes.element, PropTypes.array]).isRequired,
   node: PropTypes.shape({
     data: PropTypes.any
   })
