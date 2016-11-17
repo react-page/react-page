@@ -24,7 +24,7 @@ export default {
                             kind: 'text',
                             ranges: [
                               {
-                                text: 'Get to know us',
+                                text: 'Get to know us\n',
                                 marks: [
                                   {
                                     type: STRONG
