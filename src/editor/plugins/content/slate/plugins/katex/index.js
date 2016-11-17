@@ -4,9 +4,11 @@ import React from 'react'
 
 import { ToolbarButton } from '../../helpers'
 import Plugin from '../Plugin'
-import Katex from './node'
+import KatexBlock from './block'
+import KatexInline from './inline'
 
-export const KATEX = 'KATEX/KATEX'
+export const KATEX_BLOCK = 'KATEX/BLOCK'
+export const KATEX_INLINE = 'KATEX/INLINE'
 
 export default class KatexPlugin extends Plugin {
   constructor(props) {
@@ -20,39 +22,61 @@ export default class KatexPlugin extends Plugin {
     const onClick = (e) => {
       e.preventDefault()
 
-      const hasMath = editorState.blocks.some((block) => block.type === KATEX)
+      const hasBlock = editorState.blocks.some((block) => block.type === KATEX_BLOCK)
+      const hasInline = editorState.inlines.some((inline: any) => inline.type === KATEX_INLINE)
 
       let newState
 
-      if (hasMath) {
+      if (hasBlock) {
         newState = editorState
           .transform()
-          .setBlock(this.DEFAULT_NODE)
+          .deleteBackward()
+          .apply()
+      } else if (hasInline) {
+        newState = editorState
+          .transform()
+          .deleteBackward()
           .apply()
       } else {
-        const src = window.prompt('Enter the src of the formula:')
+        const formula = window.prompt('Enter the src of the formula:')
+        const inline = window.confirm('Press ok for inline, cancel for block formula')
 
-        newState = editorState
-          .transform()
-          .insertBlock({
-            type: KATEX,
-            data: { src },
-            isVoid: false
-          })
-          .apply()
+        if (inline) {
+          newState = editorState
+            .transform()
+            .insertInline({
+              type: KATEX_INLINE,
+              data: { formula },
+              isVoid: true
+            })
+            .apply()
+        } else {
+          newState = editorState
+            .transform()
+            .insertBlock({
+              type: KATEX_BLOCK,
+              data: { formula },
+              isVoid: true
+            })
+            .apply()
+        }
       }
 
       onChange(newState)
     }
 
-    const hasMath = editorState.blocks.some((block) => block.type === KATEX)
+    const hasMath = editorState.blocks.some((block) => block.type === KATEX_BLOCK)
+    const hasInline = editorState.inlines.some((inline: any) => inline.type === KATEX_INLINE)
 
-    return <ToolbarButton onClick={onClick} isActive={hasMath} icon={<KatexIcon />} />
+    return <ToolbarButton onClick={onClick} isActive={hasMath || hasInline} icon={<KatexIcon />} />
   }
 
   name = 'katex'
 
-  nodes = { [KATEX]: Katex }
+  nodes = {
+    [KATEX_BLOCK]: KatexBlock,
+    [KATEX_INLINE]: KatexInline
+  }
 
   toolbarButtons = [this.Button]
 }
