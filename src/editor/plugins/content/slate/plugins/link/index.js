@@ -23,6 +23,10 @@ const Button = ({ editorState, onChange }) => {
         .apply()
     } else if (editorState.isExpanded) {
       const href = window.prompt('Enter the URL of the link:')
+      if (!href) {
+        return
+      }
+
       newState = editorState
         .transform()
         .wrapInline({
@@ -33,7 +37,15 @@ const Button = ({ editorState, onChange }) => {
         .apply()
     } else {
       const href = window.prompt('Enter the URL of the link:')
+      if (!href) {
+        return
+      }
+
       const text = window.prompt('Enter the text for the link:')
+      if (!text) {
+        return
+      }
+
       newState = editorState
         .transform()
         .insertText(text)
