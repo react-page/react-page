@@ -21,7 +21,7 @@ export default class BlockquotePlugin extends Plugin {
       e.preventDefault()
 
       const isActive = editorState.blocks.some((block) => (
-        Boolean(editorState.document.getClosest(block, (parent) => parent.type === BLOCKQUOTE))
+        Boolean(editorState.document.getClosest(block.key, (parent) => parent.type === BLOCKQUOTE))
       ))
 
       let transform = editorState.transform()
@@ -36,7 +36,7 @@ export default class BlockquotePlugin extends Plugin {
     }
 
     const isActive = editorState.blocks.some((block) => (
-      Boolean(editorState.document.getClosest(block, (parent) => parent.type === BLOCKQUOTE))
+      Boolean(editorState.document.getClosest(block.key, (parent) => parent.type === BLOCKQUOTE))
     ))
 
     return (
