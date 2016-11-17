@@ -3,19 +3,19 @@ import { BlockMath } from 'react-katex'
 
 import 'katex/dist/katex.min.css'
 
-const Katex = ({ attributes, children, node }) => {
+const Block = ({ attributes, children, node }) => {
   const { data } = node
-  const src = data.get('src')
+  const formula = data.get('formula')
 
   return (
     <div {...attributes} contentEditable={false}>
-      <BlockMath math={src} />
+      <BlockMath math={formula} />
       {children}
     </div>
   )
 }
 
-Katex.propTypes = {
+Block.propTypes = {
   attributes: PropTypes.object,
   children: PropTypes.oneOf([PropTypes.func, PropTypes.element, PropTypes.array]).isRequired,
   node: PropTypes.shape({
@@ -23,4 +23,4 @@ Katex.propTypes = {
   })
 }
 
-export default Katex
+export default Block
