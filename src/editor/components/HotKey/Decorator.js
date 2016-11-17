@@ -87,7 +87,6 @@ class Decorator extends Component {
       }
 
       const { node: n } = this.props.searchNodeEverywhere(focus)
-      console.log(n)
       hotKeyHandler(n, 'handleRemoveHotKey')(e, n)
         .then(() => removeCell(focus))
         .catch(falser)
@@ -95,7 +94,6 @@ class Decorator extends Component {
 
     // focus next cell
     focusNext: (e: Event) => {
-      console.log(this.props)
       const { focus, focusCell, blurAllCells, isEditMode } = this.props
       if (!isEditMode) {
         return
