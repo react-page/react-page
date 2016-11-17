@@ -1,6 +1,6 @@
 /* eslint-env jest */
 import unexpected from 'unexpected'
-import { purifiedNode } from './index.js'
+import { purifiedNode, searchNodeEverywhere } from './index.js'
 
 const expect = unexpected.clone()
 
@@ -335,5 +335,10 @@ describe('selectors/editable/node', () => {
       hover: null,
       cells: ['0fb41038-7f05-41b8-b5e5-e7cb8e7be701', '2f0622c1-7546-4c2b-a8af-e9603cd67d96']
     })
+  })
+
+  it('should find the right node, everywhere', () => {
+    expect(searchNodeEverywhere(state, '3a261db7-5351-437c-899b-27ebfaa31fe6').node.id, 'to equal', '3a261db7-5351-437c-899b-27ebfaa31fe6')
+    expect(searchNodeEverywhere(state, '8781492f-91e6-46ca-b2a6-b34f2e54fac6').node.id, 'to equal', '8781492f-91e6-46ca-b2a6-b34f2e54fac6')
   })
 })
