@@ -27,8 +27,6 @@ class Row extends Component {
   Droppable: Object
 
   render() {
-    // console.log('render row')
-
     const { isResizeMode }: ComponentizedRow = this.props
     const Droppable = this.Droppable
     const props = { ...this.props }
