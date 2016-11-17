@@ -8,10 +8,10 @@ const Katex = ({ attributes, children, node }) => {
   const src = data.get('src')
 
   return (
-    <span {...attributes}>
+    <div {...attributes} contentEditable={false}>
       <BlockMath math={src} />
       {children}
-    </span>
+    </div>
   )
 }
 
