@@ -142,13 +142,9 @@ const position = (): {
 // if editor state is empty, remove cell when backspace or delete was pressed.
 export const handleRemoveHotKey = (_: KeyboardEvent, { content: { state: { editorState } } }: Props) => new Promise((resolve: Function, reject: Function) => Plain.serialize(editorState).length < 1 ? resolve() : reject())
 
-// fixme disabled this completely because of #135
-// export const handleFocusPreviousHotKey = () => Promise.reject()
-
 const windowSelectionWaitTime = 1
 
 export const handleFocusPreviousHotKey = (e: KeyboardEvent, { content: { state: { editorState } } }: Props) => {
-  const current = position()
   // const isArrowUp = e.keyCode === 38
 
   return new Promise((resolve: Function, reject: Function) => {
@@ -157,12 +153,10 @@ export const handleFocusPreviousHotKey = (e: KeyboardEvent, { content: { state: 
     }
 
     setTimeout(() => {
-      const next = position()
-
       // if (isArrowUp && next.top === current.top) {
       //   return resolve()
       // } else
-      if (next.top === current.top && next.right === current.right) {
+      if (editorState.selection.isAtStartOf(editorState.document.nodes.first())) {
         return resolve()
       }
       reject()
@@ -170,10 +164,7 @@ export const handleFocusPreviousHotKey = (e: KeyboardEvent, { content: { state: 
   })
 }
 
-// fixme disabled this completely because of #135
-// export const handleFocusNextHotKey = () => Promise.reject()
 export const handleFocusNextHotKey = (e: KeyboardEvent, { content: { state: { editorState } } }: Props) => {
-  const current = position()
   // const isArrowDown = e.keyCode === 40
 
   return new Promise((resolve: Function, reject: Function) => {
@@ -182,12 +173,10 @@ export const handleFocusNextHotKey = (e: KeyboardEvent, { content: { state: { ed
     }
 
     setTimeout(() => {
-      const next = position()
-
       // if (isArrowDown && next.top === current.top) {
       //   return resolve()
       // } else
-      if (next.top === current.top && next.right === current.right) {
+      if (editorState.selection.isAtEndOf(editorState.document.nodes.last())) {
         return resolve()
       }
       reject()
