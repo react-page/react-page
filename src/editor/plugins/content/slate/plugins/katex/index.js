@@ -34,10 +34,10 @@ export default class KatexPlugin extends Plugin {
 
         newState = editorState
           .transform()
-          .splitBlock()
-          .setBlock({
+          .insertBlock({
             type: KATEX,
-            data: { src }
+            data: { src },
+            isVoid: false
           })
           .apply()
       }
