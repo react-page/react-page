@@ -1,69 +1,152 @@
 /* eslint-disable no-alert, prefer-reflect */
 import LinkIcon from 'material-ui/svg-icons/content/link'
-import React from 'react'
+import React, { Component } from 'react'
+import getMuiTheme from 'material-ui/styles/getMuiTheme'
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
+import TextField from 'material-ui/TextField'
 
 import { ToolbarButton } from '../../helpers'
 import Plugin from '../Plugin'
 import Link from './node'
+import Dialog from 'material-ui/Dialog'
+import FlatButton from 'material-ui/FlatButton'
 
 export const A = 'LINK/LINK'
 
-const Button = ({ editorState, onChange }) => {
-  const onClick = (e) => {
+class Button extends Component {
+  onClick = (e) => {
+    const { editorState, onChange } = this.props
     e.preventDefault()
 
     const hasLinks = editorState.inlines.some((inline: any) => inline.type === A)
 
-    let newState
-
     if (hasLinks) {
-      newState = editorState
+      const newState = editorState
         .transform()
         .unwrapInline(A)
         .apply()
+      onChange(newState)
     } else if (editorState.isExpanded) {
-      const href = window.prompt('Enter the URL of the link:')
-      if (!href) {
-        return
-      }
-
-      newState = editorState
-        .transform()
-        .wrapInline({
-          type: A,
-          data: { href }
-        })
-        .collapseToEnd()
-        .apply()
+      this.setState({ open: true, wasExpanded: editorState.isExpanded, href: '', title: '', hadLinks: hasLinks })
     } else {
-      const href = window.prompt('Enter the URL of the link:')
-      if (!href) {
-        return
-      }
-
-      const text = window.prompt('Enter the text for the link:')
-      if (!text) {
-        return
-      }
-
-      newState = editorState
-        .transform()
-        .insertText(text)
-        .extendBackward(text.length)
-        .wrapInline({
-          type: A,
-          data: { href }
-        })
-        .collapseToEnd()
-        .apply()
+      this.setState({ open: true, wasExpanded: editorState.isExpanded, href: '', title: '', hadLinks: hasLinks })
     }
-
-    onChange(newState)
   }
 
-  const hasLinks = editorState.inlines.some((inline: any) => inline.type === A)
+  state = {
+    open: false,
+    href: '',
+    title: '',
+    hadLinks: false
+  }
 
-  return <ToolbarButton onClick={onClick} isActive={hasLinks} icon={<LinkIcon />} />
+  handleClose = () => {
+    this.setState({ open: false })
+
+    const newState = this.props.editorState
+      .transform()
+      .focus()
+      .apply()
+    window.setTimeout(() => this.props.onChange(newState), 1)
+  }
+
+  handleSubmit = () => {
+    this.setState({ open: false })
+
+    if (!this.state.href) {
+      this.handleClose()
+      return
+    }
+
+    if (this.state.wasExpanded) {
+      const newState = this.props.editorState
+        .transform()
+        .focus()
+        .apply()
+        .transform()
+        .wrapInline({
+          type: A,
+          data: { href: this.state.href }
+        })
+        .collapseToEnd()
+        .apply()
+
+      window.setTimeout(() => this.props.onChange(newState), 1)
+      window.setTimeout(() => this.props.focus(), 100)
+      return
+    }
+
+    if (!this.state.title) {
+      this.handleClose()
+      return
+    }
+
+    const newState = this.props.editorState
+      .transform()
+      .insertText(this.state.title)
+      .extendBackward(this.state.title.length)
+      .wrapInline({
+        type: A,
+        data: { href: this.state.href }
+      })
+      .collapseToEnd()
+      .focus()
+      .apply()
+
+    this.props.onChange(newState)
+    window.setTimeout(() => this.props.focus(), 100)
+  }
+
+  onHrefChange = (e) => {
+    this.setState({ href: e.target.value })
+  }
+
+  onTitleChange = (e) => {
+    this.setState({ title: e.target.value })
+  }
+
+  render() {
+    const actions = [
+      <FlatButton
+        key="0"
+        label="Cancel"
+        primary
+        onTouchTap={this.handleClose}
+      />,
+      <FlatButton
+        key="1"
+        label="Submit"
+        primary
+        onTouchTap={this.handleSubmit}
+      />,
+    ]
+    const { editorState } = this.props
+
+    const hasLinks = editorState.inlines.some((inline: any) => inline.type === A)
+    return (
+      <span>
+        <ToolbarButton onClick={this.onClick} isActive={hasLinks} icon={<LinkIcon />} />
+        <span>
+          <MuiThemeProvider muiTheme={getMuiTheme()}>
+            {/* TODO editor-container is needed to avoid global blurry, #190 */}
+            <Dialog
+              className="editor-container"
+              title="Create a link"
+              modal={false}
+              open={this.state.open}
+              actions={[actions]}
+            >
+              {this.state.wasExpanded ? null : <div><TextField hintText="Link title" onChange={this.onTitleChange} value={this.state.title} /></div>}
+              <TextField
+                hintText="http://example.com/my/link.html"
+                onChange={this.onHrefChange} value={this.state.href}
+              />
+            </Dialog>
+          </MuiThemeProvider>
+        </span>
+      </span>
+    )
+  }
 }
 
 export default class LinkPlugin extends Plugin {
