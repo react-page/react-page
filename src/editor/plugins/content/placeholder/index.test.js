@@ -6,7 +6,7 @@ import Plugin from './index'
 
 describe('plugins/content/placeholder/Component', () => {
   it('should render', () => {
-    const { Component } = new Plugin()
+    const { Component } = Plugin
     const component = renderer.create(<Component />)
     expect(component).toMatchSnapshot()
   })
