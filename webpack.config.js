@@ -32,9 +32,9 @@ module.exports = {
   // output :: { path: String, publicPath :: String, filename :: String}
   // Output bundle
   output: {
-    path: path.join(__dirname, 'public'),
+    path: path.join(__dirname, 'dist'),
     publicPath: '/',
-    filename: 'bundle.js',
+    filename: isProduction ? 'bundle.min.js' : 'bundle.js',
     libraryTarget: 'umd',
     library: 'OryEditor'
   },
