@@ -11,10 +11,10 @@ require('react-tap-event-plugin')()
 const editor = new Editor({
   plugins: new PluginService([
     ...defaultContentPlugins,
-    new FaIconPlugin()
+    FaIconPlugin
   ], [
     ...defaultLayoutPlugins,
-    new ParallaxPlugin()
+    ParallaxPlugin
   ])
 })
 

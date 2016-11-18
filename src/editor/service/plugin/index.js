@@ -4,7 +4,7 @@ import path from 'ramda/src/path'
 import { satisfies } from 'semver'
 import { ContentPlugin, LayoutPlugin, Plugin } from './classes'
 import MissingPlugin from 'src/editor/plugins/content/missing'
-import SlatePlugin from 'src/editor/plugins/content/slate'
+import slatePluginCreator from 'src/editor/plugins/content/slate'
 import ImagePlugin from 'src/editor/plugins/content/image'
 import VideoPlugin from 'src/editor/plugins/content/video'
 import SpacerPlugin from 'src/editor/plugins/content/spacer'
@@ -14,18 +14,18 @@ import SpoilerPlugin from 'src/editor/plugins/layout/spoiler'
  * A list of content plugins that are being loaded by default.
  */
 export const defaultContentPlugins: Array<ContentPlugin> = [
-  new MissingPlugin(),
-  new ImagePlugin(),
-  new SpacerPlugin(),
-  new SlatePlugin(),
-  new VideoPlugin()
+  MissingPlugin,
+  ImagePlugin,
+  SpacerPlugin,
+  slatePluginCreator(),
+  VideoPlugin
 ]
 
 /**
  * A list of layout plugins that are being loaded by default.
  */
 export const defaultLayoutPlugins: Array<LayoutPlugin> = [
-  new SpoilerPlugin()
+  SpoilerPlugin
 ]
 
 const find = (name: string, version: string = '*') => (plugin: Plugin): boolean => plugin.name === name && satisfies(plugin.version, version)
@@ -59,8 +59,8 @@ export default class PluginService {
    */
   constructor(contentPlugins: Array<ContentPlugin> = defaultContentPlugins, layoutPlugins: Array<LayoutPlugin> = defaultLayoutPlugins) {
     this.plugins = {
-      content: contentPlugins,
-      layout: layoutPlugins
+      content: contentPlugins.map((config) => new ContentPlugin(config)),
+      layout: layoutPlugins.map((config) => new LayoutPlugin(config)),
     }
   }
 
@@ -72,7 +72,7 @@ export default class PluginService {
 
     // TODO return a default layout plugin here instead
     if (!plugin) {
-      throw new Error(`Plugin ${name} with version ${version} not found.`)
+      throw new Error(`Plugin ${name} with version ${version} not found`)
     }
 
     return plugin

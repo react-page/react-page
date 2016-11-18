@@ -11,8 +11,8 @@ require('react-tap-event-plugin')()
 const editor = new Editor({
   plugins: new PluginService(defaultContentPlugins, [
     ...defaultLayoutPlugins,
-    new VideoPlugin(),
-    new ContainerPlugin()
+    VideoPlugin,
+    ContainerPlugin
   ])
 })
 
@@ -27,4 +27,4 @@ for (const element of elements) {
   ), element)
 }
 
-ReactDOM.render(<ControlsComponent editor={editor} />, document.getElementById('controls'))
+ReactDOM.render(<ControlsComponent editor={editor}/>, document.getElementById('controls'))

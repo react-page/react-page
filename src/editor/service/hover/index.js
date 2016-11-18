@@ -388,8 +388,8 @@ export const defaultCallbacks: CallbackList = {
   /* inline */
   [c.IL]: (item: ComponentizedCell, hover: ComponentizedCell, { inlineLeft, leftOf }: Callbacks) => {
     const { node: { inline, hasInlineNeighbour } } = hover
-    const { node: { content: { plugin: { inlineable = false } = {} } = {} } } = item
-    if (inline || !inlineable) {
+    const { node: { content: { plugin: { isInlineable = false } = {} } = {} } } = item
+    if (inline || !isInlineable) {
       return leftOf(item.rawNode(), hover.rawNode(), 2)
     }
     if (hasInlineNeighbour && hasInlineNeighbour !== item.id) {
@@ -404,8 +404,8 @@ export const defaultCallbacks: CallbackList = {
 
   [c.IR]: (item: ComponentizedCell, hover: ComponentizedCell, { inlineRight, rightOf }: Callbacks) => {
     const { node: { inline, hasInlineNeighbour } } = hover
-    const { node: { content: { plugin: { inlineable = false } = {} } = {} } } = item
-    if (inline || !inlineable) {
+    const { node: { content: { plugin: { isInlineable = false } = {} } = {} } } = item
+    if (inline || !isInlineable) {
       return rightOf(item.rawNode(), hover.rawNode(), 2)
     }
     if (hasInlineNeighbour && hasInlineNeighbour !== item.id) {
