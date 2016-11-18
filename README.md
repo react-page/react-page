@@ -1,8 +1,7 @@
 # ![ORY Editor](logo.png)
 
 [![Build Status](https://travis-ci.org/ory-am/editor.svg)](https://travis-ci.org/ory-am/editor)
-[![Test Coverage](https://codeclimate.com/github/ory-am/editor/badges/coverage.svg)](https://codeclimate.com/github/ory-am/editor/coverage)
-[![Code Climate](https://codeclimate.com/github/ory-am/editor/badges/gpa.svg)](https://codeclimate.com/github/ory-am/editor) 
+[![Coverage Status](https://coveralls.io/repos/github/ory-am/editor/badge.svg?branch=master)](https://coveralls.io/github/ory-am/editor?branch=master)
  
 [![Join the chat at https://gitter.im/ory-am/hydra](https://img.shields.io/badge/join-chat-00cc99.svg)](https://gitter.im/ory-am/hydra)
 [![Join newsletter](https://img.shields.io/badge/join-newsletter-00cc99.svg)](http://eepurl.com/bKT3N9)
