@@ -3,7 +3,6 @@
 import React, { Component } from 'react'
 import FilterFrames from 'material-ui/svg-icons/image/filter-frames'
 import Slate from 'src/editor/plugins/content/slate'
-import { LayoutPlugin } from 'src/editor/service/plugin/classes'
 import type { LayoutPluginProps } from 'src/editor/service/plugin/classes'
 import uuid from 'node-uuid'
 import cssModules from 'react-css-modules'
@@ -48,14 +47,14 @@ class Spoiler extends Component {
 
 const defaultPlugin = new Slate()
 
-export default class SpoilerPlugin extends LayoutPlugin {
-  Component = cssModules(Spoiler, styles)
-  name = 'ory/editor/core/layout/spoiler'
-  version = '0.0.1'
-  icon = <FilterFrames />
-  text = 'Spoiler'
+export default {
+  Component: cssModules(Spoiler, styles),
+  name: 'ory/editor/core/layout/spoiler',
+  version: '0.0.1',
+  icon: <FilterFrames />,
+  text: 'Spoiler',
 
-  createInitialChildren = () => ({
+  createInitialChildren: () => ({
     id: uuid.v4(),
     rows: [{
       id: uuid.v4(),
