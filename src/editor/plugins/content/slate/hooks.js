@@ -1,7 +1,6 @@
 // @flow
 // FIXME #125: missing types for slate internals
-/* eslint-disable react/display-name */
-/* eslint-disable new-cap */
+/* eslint-disable new-cap, arrow-body-style, react/display-name */
 import { List } from 'immutable'
 import head from 'ramda/src/head'
 import map from 'ramda/src/map'
@@ -105,39 +104,39 @@ export const split = (state: Object): Object[] => {
   ).toArray()
 }
 
-const position = (): {
-  top: ?number,
-  right: ?number,
-  left: ?number,
-  bottom: ?number
-} => {
-  if (window && window.getSelection) {
-    const selection = window.getSelection()
-    if (!selection.rangeCount) {
-      return {
-        top: null,
-        right: null,
-        left: null,
-        bottom: null,
-      }
-    }
-
-    return selection.getRangeAt(0).getBoundingClientRect()
-  }
-
-  if (window.document.selection) {
-    return window.document.selection
-      .createRange()
-      .getBoundingClientRect()
-  }
-
-  return {
-    top: null,
-    right: null,
-    left: null,
-    bottom: null,
-  }
-}
+// const position = (): {
+//   top: ?number,
+//   right: ?number,
+//   left: ?number,
+//   bottom: ?number
+// } => {
+//   if (window && window.getSelection) {
+//     const selection = window.getSelection()
+//     if (!selection.rangeCount) {
+//       return {
+//         top: null,
+//         right: null,
+//         left: null,
+//         bottom: null,
+//       }
+//     }
+//
+//     return selection.getRangeAt(0).getBoundingClientRect()
+//   }
+//
+//   if (window.document.selection) {
+//     return window.document.selection
+//       .createRange()
+//       .getBoundingClientRect()
+//   }
+//
+//   return {
+//     top: null,
+//     right: null,
+//     left: null,
+//     bottom: null,
+//   }
+// }
 
 // if editor state is empty, remove cell when backspace or delete was pressed.
 export const handleRemoveHotKey = (_: KeyboardEvent, { content: { state: { editorState } } }: Props) => new Promise((resolve: Function, reject: Function) => Plain.serialize(editorState).length < 1 ? resolve() : reject())
