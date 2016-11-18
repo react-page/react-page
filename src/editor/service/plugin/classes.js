@@ -113,6 +113,12 @@ export class Plugin {
   // icon: Element<*> | Component<*, *, *>
 
   /**
+   * @member the plugin's react component.
+   */
+  Component: any
+  // Component: Element<*> | Component<*, *, *> | (props: any) => Element<*>
+
+  /**
    * @member the text that will be shown alongside the icon in the toolbar.
    */
   text: string
@@ -177,12 +183,6 @@ export class ContentPlugin extends Plugin {
    * @returns the initial state.
    */
   createInitialState = (): Object => ({})
-
-  /**
-   * @member the plugin's react component.
-   */
-  Component: any
-  // Component: Element<*> | Component<*, *, *> | (props: any) => Element<*>
 
   /**
    * Will be called when the user presses the delete key. When returning a resolving promise,

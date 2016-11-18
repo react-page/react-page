@@ -13,7 +13,7 @@ import SpoilerPlugin from 'src/editor/plugins/layout/spoiler'
 /**
  * A list of content plugins that are being loaded by default.
  */
-export const defaultContentPlugins: Array<ContentPlugin> = [
+export const defaultContentPlugins: [] = [
   MissingPlugin,
   ImagePlugin,
   SpacerPlugin,
@@ -24,7 +24,7 @@ export const defaultContentPlugins: Array<ContentPlugin> = [
 /**
  * A list of layout plugins that are being loaded by default.
  */
-export const defaultLayoutPlugins: Array<LayoutPlugin> = [
+export const defaultLayoutPlugins: [] = [
   SpoilerPlugin
 ]
 
@@ -57,7 +57,7 @@ export default class PluginService {
   /**
    * Instantiate a new PluginService instance. You can provide your own set of content and layout plugins here.
    */
-  constructor(contentPlugins: Array<ContentPlugin> = defaultContentPlugins, layoutPlugins: Array<LayoutPlugin> = defaultLayoutPlugins) {
+  constructor(contentPlugins: [] = defaultContentPlugins, layoutPlugins: [] = defaultLayoutPlugins) {
     this.plugins = {
       content: contentPlugins.map((config: any) => new ContentPlugin(config)),
       layout: layoutPlugins.map((config: any) => new LayoutPlugin(config)),
@@ -83,7 +83,7 @@ export default class PluginService {
    */
   findContentPlugin(name: string, version: string): ContentPlugin {
     const plugin = this.plugins.content.find(find(name, version))
-    return plugin || new MissingPlugin()
+    return plugin || new ContentPlugin(MissingPlugin)
   }
 
   /**

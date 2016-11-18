@@ -3,6 +3,7 @@
 import React from 'react'
 import Component from './Component'
 import Panorama from 'material-ui/svg-icons/image/panorama'
+import type { ContentPluginProps } from 'src/editor/service/plugin/classes'
 
 export default {
   Component,
