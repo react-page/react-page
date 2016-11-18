@@ -48,11 +48,10 @@ class Content extends Component {
 
   render() {
     const { isPreviewMode, isEditMode, editable, id, node: { content: { plugin: { Component, name, version }, state = {} }, focused }, updateCellContent, isServerContext } = this.props
+    const { focusCell, blurCell } = this.props
 
     let focusProps
     if (!isPreviewMode) {
-      const { focusCell } = this.props
-
       focusProps = {
         onMouseDown: () => {
           if (!focused) {
@@ -78,6 +77,8 @@ class Content extends Component {
           version={version}
           readOnly={!isEditMode || isServerContext}
           onChange={updateCellContent}
+          focus={focusCell}
+          blur={blurCell}
         />
       </div>
     )
