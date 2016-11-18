@@ -29,11 +29,11 @@ const ParallaxComponent = ({ children, state: { style, align }, readOnly, onChan
             value={style} onChange={(e: any, i: any, v: any) => onChange({ style: v })}
             floatingLabelText="Select section style"
           >
-            <MenuItem value={1} primaryText="White" />
-            <MenuItem value={2} primaryText="Mountains" />
-            <MenuItem value={3} primaryText="Lights" />
-            <MenuItem value={4} primaryText="Grass" />
-            <MenuItem value={5} primaryText="Lake" />
+            <MenuItem value={1} primaryText="White"/>
+            <MenuItem value={2} primaryText="Mountains"/>
+            <MenuItem value={3} primaryText="Lights"/>
+            <MenuItem value={4} primaryText="Grass"/>
+            <MenuItem value={5} primaryText="Lake"/>
           </SelectField>
         </div>
       )
@@ -50,14 +50,14 @@ const ParallaxComponent = ({ children, state: { style, align }, readOnly, onChan
 
 const defaultPlugin = new Slate()
 
-export default class ParallaxPlugin extends LayoutPlugin {
-  Component = ParallaxComponent
-  name = 'example/layout/parallax'
-  version = '0.0.1'
-  icon = <Announcement />
-  text = 'Parallax Background'
+export default {
+  Component: ParallaxComponent,
+  name: 'example/layout/parallax',
+  version: '0.0.1',
+  icon: <Announcement />,
+  text: 'Parallax Background',
 
-  createInitialChildren = () => ({
+  createInitialChildren: () => ({
     id: uuid.v4(),
     rows: [{
       id: uuid.v4(),

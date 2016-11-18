@@ -14,7 +14,7 @@ class Content extends Component {
   componentWillReceiveProps(nextProps: ComponentizedCell) {
     const { node: { focused: was } } = this.props
     const { node: { focused: is, focusSource } } = nextProps
-    const { isEditMode, editable, id, node: { content: { plugin: { onFocus, onBlur, name, version }, state = {} }, focused }, updateCellContent } = nextProps
+    const { isEditMode, editable, id, node: { content: { plugin: { handleFocus, handleBlur, name, version }, state = {} }, focused }, updateCellContent } = nextProps
 
     // FIXME this is really shitty because it will break when the state changes before the blur comes through, see #157
     const pass = {
@@ -32,9 +32,9 @@ class Content extends Component {
     if (!was && is) {
       // We need this because otherwise we lose hotkey focus on elements like spoilers.
       // This could probably be solved in an easier way by listening to window.document?
-      onFocus(pass, focusSource, this.ref)
+      handleFocus(pass, focusSource, this.ref)
     } else if (was && !is) {
-      onBlur(pass)
+      handleBlur(pass)
     }
   }
 

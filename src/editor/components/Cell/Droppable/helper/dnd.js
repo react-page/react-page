@@ -41,8 +41,8 @@ export const target = {
     }
 
     last = { hover: hover.id, drag: drag.id }
-    const allowInline = pathOr(false, ['node', 'content', 'plugin', 'allowInline'], hover)
-    computeAndDispatchHover(hover, monitor, component, `10x10${allowInline ? '' : '-no-inline'}`)
+    const allowInlineNeighbours = pathOr(false, ['node', 'content', 'plugin', 'allowInlineNeighbours'], hover)
+    computeAndDispatchHover(hover, monitor, component, `10x10${allowInlineNeighbours ? '' : '-no-inline'}`)
   }, delay, { leading: false }),
 
   canDrop: ({ id, ancestors }: ComponentizedCell, monitor: Object) => {
@@ -67,8 +67,8 @@ export const target = {
     }
 
     last = { hover: hover.id, drag: drag.id }
-    const allowInline = pathOr(false, ['node', 'content', 'plugin', 'allowInline'], hover)
-    computeAndDispatchInsert(hover, monitor, component, `10x10${allowInline ? '' : '-no-inline'}`)
+    const allowInlineNeighbours = pathOr(false, ['node', 'content', 'plugin', 'allowInlineNeighbours'], hover)
+    computeAndDispatchInsert(hover, monitor, component, `10x10${allowInlineNeighbours ? '' : '-no-inline'}`)
   }
 }
 

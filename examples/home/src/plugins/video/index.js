@@ -1,7 +1,6 @@
 import React from 'react'
 import OnDemandVideo from 'material-ui/svg-icons/notification/ondemand-video'
 import Slate from 'src/editor/plugins/content/slate'
-import { LayoutPlugin } from 'src/editor/service/plugin/classes'
 import uuid from 'node-uuid'
 
 type Props = {
@@ -16,7 +15,7 @@ const VideoComponent = ({ children }: Props) => (
     <div className="header-title-background">
       <div className="header-title-video">
         <video playsInline autoPlay muted loop className="background-video">
-          <source src="https://storage.googleapis.com/ory.am/bokeh2.mp4" type="video/mp4" />
+          <source src="https://storage.googleapis.com/ory.am/bokeh2.mp4" type="video/mp4"/>
         </video>
         <div className="background-video-overlay"></div>
       </div>
@@ -44,14 +43,14 @@ const VideoComponent = ({ children }: Props) => (
 
 const defaultPlugin = new Slate()
 
-export default class VideoPlugin extends LayoutPlugin {
-  Component = VideoComponent
-  name = 'home/layout/video'
-  version = '0.0.1'
-  icon = <OnDemandVideo />
-  text = 'Video header'
+export default {
+  Component: VideoComponent,
+  name: 'home/layout/video',
+  version: '0.0.1',
+  icon: <OnDemandVideo />,
+  text: 'Video header',
 
-  createInitialChildren = () => ({
+  createInitialChildren: () => ({
     id: uuid.v4(),
     rows: [{
       id: uuid.v4(),
@@ -60,5 +59,5 @@ export default class VideoPlugin extends LayoutPlugin {
         id: uuid.v4(),
       }]
     }]
-  })
+  }),
 }

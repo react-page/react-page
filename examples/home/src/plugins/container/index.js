@@ -1,7 +1,6 @@
 import React from 'react'
 import Reorder from 'material-ui/svg-icons/action/reorder'
 import Slate from 'src/editor/plugins/content/slate'
-import { LayoutPlugin } from 'src/editor/service/plugin/classes'
 import uuid from 'node-uuid'
 
 type Props = {
@@ -19,14 +18,14 @@ const ContainerComponent = ({ children }: Props) => (
 
 const defaultPlugin = new Slate()
 
-export default class ContainerPlugin extends LayoutPlugin {
-  Component = ContainerComponent
-  name = 'home/layout/container'
-  version = '0.0.1'
-  icon = <Reorder />
-  text = 'Centered container'
+export default {
+  Component: ContainerComponent,
+  name: 'home/layout/container',
+  version: '0.0.1',
+  icon: <Reorder />,
+  text: 'Centered container',
 
-  createInitialChildren = () => ({
+  createInitialChildren: () => ({
     id: uuid.v4(),
     rows: [{
       id: uuid.v4(),

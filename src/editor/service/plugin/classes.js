@@ -1,6 +1,6 @@
 // @flow
 /* eslint-disable no-empty-function, no-unused-vars */
-import { Component, Element } from 'react'
+import React, { Component, Element } from 'react'
 
 export type ContentPluginProps<T> = {
   /**
@@ -74,6 +74,28 @@ export type LayoutPluginProps<T> = {
  * @class the abstract class for content and layout plugins. It will be instantiated once and used for every cell that is equipped with it.
  */
 export class Plugin {
+  constructor(config) {
+    const {
+      name, version, Component, IconComponent, text,
+      serialize,
+      unserialize,
+    } = config
+
+    if (!name || !version || !Component) {
+      throw new Error(`A plugin's version, name and Component must be defined, got ${JSON.stringify(config)}`)
+    }
+
+    this.name = name
+    this.version = version
+    this.Component = Component
+
+    this.IconComponent = IconComponent
+    this.text = text
+
+    this.serialize = serialize ? serialize.bind(this) : this.serialize
+    this.unserialize = unserialize ? unserialize.bind(this) : this.unserialize
+  }
+
   /**
    * @member a unique identifier of the plugin
    */
@@ -87,19 +109,13 @@ export class Plugin {
   /**
    * @member the icon that will be shown in the toolbar.
    */
-  icon: any
+  IconComponent: any
   // icon: Element<*> | Component<*, *, *>
 
   /**
    * @member the text that will be shown alongside the icon in the toolbar.
    */
   text: string
-
-  /**
-   * @member the plugin's react component.
-   */
-  Component: any
-  // Component: Element<*> | Component<*, *, *> | (props: any) => Element<*>
 
   /**
    * Serialize a the plugin state
@@ -122,15 +138,38 @@ export class Plugin {
  * @class this is the base class for content plugins.
  */
 export class ContentPlugin extends Plugin {
-  /**
-   * @member if inlineable is true, the plugin is allowed to be placed with floating to left or right.
-   */
-  inlineable: boolean
+  constructor(config) {
+    super(config)
+    const {
+      handleRemoveHotKey,
+      handleFocusNextHotKey,
+      handleFocusPreviousHotKey,
+      handleFocus,
+      handleBlur,
+      createInitialState,
+      allowInlineNeighbours = false,
+      isInlineable = false
+    } = config
+
+    this.isInlineable = isInlineable
+    this.allowInlineNeighbours = allowInlineNeighbours
+    this.handleRemoveHotKey = handleRemoveHotKey ? handleRemoveHotKey.bind(this) : this.handleRemoveHotKey
+    this.handleFocusNextHotKey = handleFocusNextHotKey ? handleFocusNextHotKey.bind(this) : this.handleFocusNextHotKey
+    this.handleFocusPreviousHotKey = handleFocusPreviousHotKey ? handleFocusPreviousHotKey.bind(this) : this.handleFocusPreviousHotKey
+    this.handleFocus = handleFocus ? handleFocus.bind(this) : this.handleFocus
+    this.handleBlur = handleBlur ? handleBlur.bind(this) : this.handleBlur
+    this.createInitialState = createInitialState ? createInitialState.bind(this) : this.createInitialState
+  }
 
   /**
-   * @member if true allows that inlineable elements may be placed "in" this plugin.
+   * @member if isInlineable is true, the plugin is allowed to be placed with floating to left or right.
    */
-  allowInline: boolean
+  isInlineable: boolean
+
+  /**
+   * @member if true allows that isInlineable elements may be placed "in" this plugin.
+   */
+  allowInlineNeighbours: boolean
 
   /**
    * Create the plugin's initial state.
@@ -140,6 +179,12 @@ export class ContentPlugin extends Plugin {
   createInitialState = (): Object => ({})
 
   /**
+   * @member the plugin's react component.
+   */
+  Component: any
+  // Component: Element<*> | Component<*, *, *> | (props: any) => Element<*>
+
+  /**
    * Will be called when the user presses the delete key. When returning a resolving promise,
    * the cell will be removed. If the promise is rejected, nothing happens.
    *
@@ -147,7 +192,7 @@ export class ContentPlugin extends Plugin {
    * @param props
    * @returns a promise
    */
-  handleRemoveHotKey = (e: Event, props: ContentPluginProps<*>): Promise<*> => Promise.resolve()
+  handleRemoveHotKey = (e: Event, props: ContentPluginProps<*>): Promise<*> => Promise.reject()
 
   /**
    * Will be called when the user presses the right or down key. When returning a resolving promise,
@@ -174,22 +219,31 @@ export class ContentPlugin extends Plugin {
    *
    * @param props
    */
-  onFocus = (props: ContentPluginProps<*>): void => {
-  }
+  handleFocus = (props: ContentPluginProps<*>): void => {}
 
   /**
    * This function will be called when one of the plugin's cell is focused.
    *
    * @param props
    */
-  onBlur = (props: ContentPluginProps<*>): void => {
-  }
+  handleBlur = (props: ContentPluginProps<*>): void => {}
 }
 
 /**
  * @class this is the base class for layout plugins.
  */
 export class LayoutPlugin extends Plugin {
+  constructor(config) {
+    super(config)
+    const {
+      createInitialState,
+      createInitialChildren,
+    } = config
+
+    this.createInitialState = createInitialState ? createInitialState.bind(this) : this.createInitialState
+    this.createInitialChildren = createInitialChildren ? createInitialChildren.bind(this) : this.createInitialChildren
+  }
+
   /**
    * Create the plugin's initial state.
    *
@@ -203,50 +257,4 @@ export class LayoutPlugin extends Plugin {
    * @returns the initial state.
    */
   createInitialChildren = (): Object => ({})
-
-  /**
-   * Will be called when the user presses the delete key. When returning a resolving promise,
-   * the plugin's cell will be removed. If the promise is rejected, nothing happens.
-   *
-   * @param e
-   * @param props
-   * @returns a promise
-   */
-  handleRemoveHotKey = (e: Event, props: ContentPluginProps<*>): Promise<*> => Promise.resolve()
-
-  /**
-   * Will be called when the user presses the right or down key. When returning a resolving promise,
-   * the next cell will be focused. If the promise is rejected, focus stays the same.
-   *
-   * @param e
-   * @param props
-   * @returns a promise
-   */
-  handleFocusNextHotKey = (e: Event, props: ContentPluginProps<*>): Promise<*> => Promise.resolve()
-
-  /**
-   * Will be called when the user presses the left or up key. When returning a resolving promise,
-   * the next cell will be focused. If the promise is rejected, focus stays the same.
-   *
-   * @param e
-   * @param props
-   * @returns a promise
-   */
-  handleFocusPreviousHotKey = (e: Event, props: ContentPluginProps<*>): Promise<*> => Promise.resolve()
-
-  /**
-   * This function will be called when one of the plugin's cell is blurred.
-   *
-   * @param props
-   */
-  onFocus = (props: LayoutPluginProps<*>): void => {
-  }
-
-  /**
-   * This function will be called when one of the plugin's cell is focused.
-   *
-   * @param props
-   */
-  onBlur = (props: LayoutPluginProps<*>): void => {
-  }
 }
