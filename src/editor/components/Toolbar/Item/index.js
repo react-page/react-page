@@ -6,11 +6,11 @@ import ListItem from 'material-ui/List/ListItem'
 import { Plugin } from 'src/editor/service/plugin/classes'
 import DragHandle from 'material-ui/svg-icons/editor/drag-handle'
 import './index.css'
-import logger from 'src/editor/service/logger'
+// import logger from 'src/editor/service/logger'
 
 const Item = ({ plugin, insert }: { plugin: Plugin, insert: any }, k: string) => {
-  if (!plugin.icon && !plugin.text) {
-    logger.warn('Plugin text or plugin icon missing', plugin)
+  if (!plugin.IconComponent && !plugin.text) {
+    // logger.warn('Plugin text or plugin icon missing', plugin)
     return null
   }
 
@@ -20,7 +20,7 @@ const Item = ({ plugin, insert }: { plugin: Plugin, insert: any }, k: string) =>
   return (
     <Draggable key={k} insert={insert}>
       <ListItem
-        leftAvatar={<Avatar icon={plugin.icon} />}
+        leftAvatar={<Avatar icon={plugin.IconComponent} />}
         primaryText={plugin.text}
         disabled
         rightIcon={(

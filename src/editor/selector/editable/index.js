@@ -27,7 +27,7 @@ const nodeInner = (current: any, props: Editable): any => {
   return found
 }
 
-export const editable = ({ editables }: Editables = {}, { id }: { id: string }): Editable =>
+export const editable = ({ editables }: Editables = {}, { id }: { id: string }): any =>
   editables.present.find(({ id: current }: Editable = {}) => current === id) || {}
 
 export const editables = ({ editables: { present } }: Editables = {}) => present

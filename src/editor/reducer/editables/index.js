@@ -35,7 +35,7 @@ const inner = undoable((state: Array<Editable> = [], action: {
   neverSkipReducer: true
 })
 
-export const editables = (state: { past: Editable[], present: Editable[], future: Editable[] } = { past: [], present: [], future: [] }, action: Object) => {
+export const editables = (state: { past: [], present: Editable[], future: [] } = { past: [], present: [], future: [] }, action: Object) => {
   const { past = [], present = [], future = [] } = state
   switch (action.type) {
     case UPDATE_EDITABLE:
