@@ -14,14 +14,30 @@ cache:
     directories:
         - node_modules
 
+env:
+  matrix:
+  - TEST_TYPE=test
+  - TEST_TYPE=lint
+  - TEST_TYPE=flow
+  - TEST_TYPE=build
+
 script:
-  - npm run lint
-  - npm run test:unit
-  - npm run flow
-  - npm run build
+  - |
+    if [ "$TEST_TYPE" = test ]; then
+      npm run test:unit
+    elif [ "$TEST_TYPE" = build ]; then
+      npm run build
+    elif [ "$TEST_TYPE" = lint ]; then
+      npm run lint
+    elif [ "$TEST_TYPE" = flow ]; then
+      npm run flow
+    fi
 
 after_success:
-  - codeclimate-test-reporter < coverage/lcov.info
+  - |
+    if [ "$TEST_TYPE" = test ]; then
+      codeclimate-test-reporter < coverage/lcov.info
+    fi
 
 before_deploy:
   - npm run clean
@@ -35,3 +51,4 @@ deploy:
   skip_cleanup: true
   on:
     tags: true
+    condition: $TEST_TYPE = build
