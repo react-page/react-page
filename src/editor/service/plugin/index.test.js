@@ -9,13 +9,13 @@ const plugins = new PluginService()
 describe('PluginService', () => {
   defaultContentPlugins.forEach((p) => {
     it(`should find plugin ${p.name} ${p.version}`, () => {
-      expect(plugins.findContentPlugin(p.name, p.version), 'to be', p)
+      expect(plugins.findContentPlugin(p.name, p.version).name, 'to equal', p.name)
     })
   })
 
   defaultLayoutPlugins.forEach((p) => {
     it(`should find plugin ${p.name} ${p.version}`, () => {
-      expect(plugins.findLayoutPlugin(p.name, p.version), 'to be', p)
+      expect(plugins.findLayoutPlugin(p.name, p.version).name, 'to equal', p.name)
     })
   })
 })

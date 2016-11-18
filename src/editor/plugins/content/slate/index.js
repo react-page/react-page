@@ -7,7 +7,6 @@ import { compose, flatten, map, mergeAll, prop, pathOr } from 'ramda'
 import React from 'react'
 import { ActionTypes } from 'redux-undo'
 
-import { ContentPlugin } from 'src/editor/service/plugin/classes'
 import Component from './Component'
 import type { Props } from './Component'
 

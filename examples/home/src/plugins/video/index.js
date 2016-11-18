@@ -15,7 +15,7 @@ const VideoComponent = ({ children }: Props) => (
     <div className="header-title-background">
       <div className="header-title-video">
         <video playsInline autoPlay muted loop className="background-video">
-          <source src="https://storage.googleapis.com/ory.am/bokeh2.mp4" type="video/mp4"/>
+          <source src="https://storage.googleapis.com/ory.am/bokeh2.mp4" type="video/mp4" />
         </video>
         <div className="background-video-overlay"></div>
       </div>

@@ -27,4 +27,4 @@ for (const element of elements) {
   ), element)
 }
 
-ReactDOM.render(<ControlsComponent editor={editor}/>, document.getElementById('controls'))
+ReactDOM.render(<ControlsComponent editor={editor} />, document.getElementById('controls'))

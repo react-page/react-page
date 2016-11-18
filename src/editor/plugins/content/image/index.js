@@ -12,12 +12,12 @@ export default {
   text: 'Image',
   isInlineable: true,
 
-  handleRemoveHotKey:(_: Event, __: ContentPluginProps<*>): Promise<*> => Promise.reject(),
+  handleRemoveHotKey: (_: Event, __: ContentPluginProps<*>): Promise<*> => Promise.reject(),
 
   // We need this because otherwise we lose hotkey focus on elements like spoilers.
   // This could probably be solved in an easier way by listening to window.document?
 
-  handleFocus:(props: any, source: any, ref: HTMLElement) => {
+  handleFocus: (props: any, source: any, ref: HTMLElement) => {
     if (!ref) {
       return
     }

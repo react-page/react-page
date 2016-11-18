@@ -36,8 +36,8 @@ class Spoiler extends Component {
         }} onClick={this.onToggle}
         >
           {this.state.hidden
-            ? <ExpandMore color={white} size={32}/>
-            : <ExpandLess color={white} size={32}/>
+            ? <ExpandMore color={white} size={32} />
+            : <ExpandLess color={white} size={32} />
           }
         </div>
       </Paper>

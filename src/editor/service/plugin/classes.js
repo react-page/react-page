@@ -74,7 +74,7 @@ export type LayoutPluginProps<T> = {
  * @class the abstract class for content and layout plugins. It will be instantiated once and used for every cell that is equipped with it.
  */
 export class Plugin {
-  constructor(config) {
+  constructor(config: any) {
     const {
       name, version, Component, IconComponent, text,
       serialize,
@@ -138,7 +138,7 @@ export class Plugin {
  * @class this is the base class for content plugins.
  */
 export class ContentPlugin extends Plugin {
-  constructor(config) {
+  constructor(config: any) {
     super(config)
     const {
       handleRemoveHotKey,
@@ -233,7 +233,7 @@ export class ContentPlugin extends Plugin {
  * @class this is the base class for layout plugins.
  */
 export class LayoutPlugin extends Plugin {
-  constructor(config) {
+  constructor(config: any) {
     super(config)
     const {
       createInitialState,
