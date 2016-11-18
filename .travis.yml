@@ -36,7 +36,7 @@ script:
 after_success:
   - |
     if [ "$TEST_TYPE" = test ]; then
-      codeclimate-test-reporter < coverage/lcov.info
+      npm run coveralls
     fi
 
 before_deploy:
