@@ -66,7 +66,8 @@ class Slate extends Component {
       plugins,
       onKeyDown,
       HoverButtons,
-      ToolbarButtons
+      ToolbarButtons,
+      focus
     } = this.props
     const isOpened = editorState.isExpanded && editorState.isFocused
 
@@ -76,7 +77,7 @@ class Slate extends Component {
           <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
             {/* TODO editor-container is needed to avoid global blurry, #190 */}
             <div styleName="inline-toolbar" className="editor-container" style={{ padding: 0 }}>
-              <HoverButtons editorState={editorState} onChange={this.onStateChange} />
+              <HoverButtons editorState={editorState} onChange={this.onStateChange} focus={focus} />
             </div>
           </MuiThemeProvider>
         </Portal>
@@ -91,7 +92,7 @@ class Slate extends Component {
         />
         {readOnly ? null : (
           <BottomToolbar open={focused}>
-            <ToolbarButtons editorState={editorState} onChange={this.onStateChange} />
+            <ToolbarButtons editorState={editorState} onChange={this.onStateChange} focus={focus} />
           </BottomToolbar>
         )}
       </div>
