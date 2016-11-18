@@ -6,29 +6,30 @@ Welcome to the ORY Editor guide. Seeing is believing, so let's start with a demo
 
 ![ORY Editor Demo](https://storage.googleapis.com/ory.am/inline-edit-lg.gif)
 
-There is a demo available at [editor.ory.am](http://editor.ory.am/), go ahead and try it yourself!
+This a demo available at [editor.ory.am](http://editor.ory.am/) so go ahead and try it yourself!
 
 ## Why it's different
 
-Before founding ORY, we built something like the Wikipedia, but for learning. Content is crowd sourced and half a million
-users use this platform every month. We had to realize that existing open source content editing solutions had one of the three flaws:
+Before founding ORY, we built something [like the Wikipedia](https://de.serlo.org), but for learning. The content is
+crowd sourced and over a million people use this platform every month. We had to realize that existing open source
+content editing solutions had one of the three flaws:
 
-1. The produced markup was horrific, a lot of sanitation had to take place and XSS is a real threat.
-2. The author had to use some special mark up, like markdown, before being able to produce content. These mark up solutions
-are usually unable to specify a layout.
+1. The produced markup was horrific, a lot of sanitation had to take place and XSS is always a threat.
+2. The author must learn special mark up, like markdown, before being able to produce content. These text-based solutions
+are usually unable to specify a layout and complex data structures like tables are annoying to edit.
 3. Promising libraries potentially solving the above where abandoned by their maintainers, because it started as a special
 use case, or a free-time project.
 
-We concluded that a solution is required and defined the following requirements:
+We concluded that a solution must meet the following principles:
 
-1. The Editor uses state of the art technology and is implemented using cloud native principles.
+1. It uses state of the art technology and is implemented using cloud native principles.
 2. It is easy for developers to integrate and extend the Editor according to their requirements.
 3. Designers regulate what content should look like.
 4. Authors, technical and non-technical alike, must be able to use the editor without training.
 5. The content data must be normalized, reusable and not rely on HTML.
-6. The Editor must work on touch devices.
+6. It must work on touch devices.
 
-and implemented them in the ORY Editor.
+With these principles in mind, we went out and implemented the ORY Editor, which you are looking at right now.
 
 ## How it works
 
@@ -57,13 +58,22 @@ Cells can be populated with plugins, such as a text editor or rich media (video,
 Layout cells are always branches, meaning that they do have children. A content cell is usually text, media (video, audio) whilst
 layout cells are usually things like a spoiler box, a parallax background image and so on.
 
+<p>
+  <figure align="center">
+    <img alt="A content cell" src="/images/content-cell.png"><br>
+    <figcaption>A content cell</figcaption>
+  </figure>
+</p>
+
 In the example above, cells 1.1, 1.1.1.1, 1.1.1.2.1.1, 1.1.1.2.1.2 are all content cells, because they do not have any children rows.
 Cells 1.1, 1.1.1.2 are layout cells, because they do have children rows.
 
+<p>
+  <figure align="center">
+    <img alt="A layout cell" src="/images/layout-cell.gif"><br>
+    <figcaption>A layout cell</figcaption>
+  </figure>
+</p>
+
 Content and layout plugins are simple React components that receive properties such as `onChange`, `readOnly`, `state` by the editor
 and render and execute arbitrary logic. The data model can be chosen freely by the plugin author.
-
-With the ORY Editor, you can quickly build layout elements such as background elements. In the next example, we implemented
-a very simple background element which is either white or a parallax background:
-
-![Parallax background example](images/parallax-background-example.gif)

@@ -6,9 +6,16 @@
   * [How it works](README.md#how-it-works)
 * Walkthrough
   * [Installing the ORY Editor](walkthrough/installation.md)
-  * [Defining content plugins](walkthrough/content-plugins.md)
-  * [Defining layout plugins](walkthrough/layout-plugins.md)
-  * [Saving the state](walkthrough/saving-state.md)
+  * [Plugins](walkthrough/content-plugins.md)
+    * [Installing plugins](walkthrough/plugins.md#installing-plugins)
+    * [Content plugins](walkthrough/plugins.md#content-plugins)
+      * [Text editing](walkthrough/plugins.md#text-editing)
+      * [Image](walkthrough/plugins.md#image)
+      * [Video](walkthrough/plugins.md#video)
+      * [Spacer](walkthrough/plugins.md#spacer)
+    * [Layout plugins](walkthrough/plugins.md#layout-plugins)
+      * [Spoiler](walkthrough/plugins.md#spoiler)
+    * [Writing a content plugin](walkthrough/plugins.md#writing-content-plugin)
+    * [Writing a layout plugin](walkthrough/plugins.md#writing-layout-plugin)
+  * [Saving the state](walkthrough/saving-states.md)
   * [Exporting HTML](walkthrough/exporting-html.md)
-* Understanding
-  * Architecture and design

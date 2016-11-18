@@ -29,7 +29,7 @@ import logo from './logo.svg';
 import './App.css';
 
 // import the Editor and the React components:
-import Editor, { EditableComponent, ControlsComponent } from 'ory-editor'
+import Editor, { Editable, Controls } from 'ory-editor'
 
 // The react-tap-event-plugin is required by material-ui, see:
 //  https://github.com/callemall/material-ui#react-tap-event-plugin
@@ -50,12 +50,12 @@ class App extends Component {
           <h2>Welcome to React</h2>
         </div>
         
-        <EditableComponent
+        <Editable
           editor={editor}
           state={state}
           onChange={(state) => console.log('got new editable state:', state)}
         />
-        <ControlsComponent editor={editor} />
+        <Controls editor={editor} />
       </div>
     );
   }
