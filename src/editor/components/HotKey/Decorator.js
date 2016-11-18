@@ -9,7 +9,7 @@ import { focus } from 'src/editor/selector/focus'
 import { node, editable, editables, searchNodeEverywhere } from 'src/editor/selector/editable'
 import { createStructuredSelector } from 'reselect'
 import pathOr from 'ramda/src/pathOr'
-import type { Editable } from 'types/editable'
+import type { Editable, ComponentizedCell } from 'types/editable'
 import Mousetrap from 'mousetrap'
 
 type Props = {
@@ -25,7 +25,8 @@ type Props = {
   updateCellLayout(): any,
   isEditMode: boolean,
   node(cell: string, editable: string): Object,
-  editable: Editable
+  editable: Editable,
+  searchNodeEverywhere(id: string): { editable: Editable, node: ComponentizedCell }
 }
 
 const hotKeyHandler = (n: Object, key: string) => pathOr(pathOr(() => Promise.resolve(), ['content', 'plugin', key], n), ['layout', 'plugin', key], n)
