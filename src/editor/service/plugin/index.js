@@ -59,8 +59,8 @@ export default class PluginService {
    */
   constructor(contentPlugins: Array<ContentPlugin> = defaultContentPlugins, layoutPlugins: Array<LayoutPlugin> = defaultLayoutPlugins) {
     this.plugins = {
-      content: contentPlugins.map((config) => new ContentPlugin(config)),
-      layout: layoutPlugins.map((config) => new LayoutPlugin(config)),
+      content: contentPlugins.map((config: any) => new ContentPlugin(config)),
+      layout: layoutPlugins.map((config: any) => new LayoutPlugin(config)),
     }
   }
 
