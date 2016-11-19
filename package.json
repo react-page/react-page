@@ -13,7 +13,7 @@
     "test": "npm-run-all test:unit test:e2e",
     "test:unit": "cross-env NODE_PATH=. jest --coverage",
     "test:e2e": "node bin/nightwatch",
-    "test:watch": "npm run test:unit -- --watch",
+    "test:watch": "cross-env NODE_PATH=. jest --watch",
     "start": "npm run serve:home",
     "lint": "eslint \"+(src|test|types|examples)/**/*.js\" --fix",
     "lint:watch": "npm run watch:js -- -c \"npm run lint\"",
