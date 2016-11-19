@@ -1,7 +1,12 @@
 // @flow
-import { cells } from './tree.js'
-import { decorate } from './helper/tree'
+import { CELL_REMOVE } from 'src/editor/actions/cell/core'
+import createSlatePlugin from 'src/editor/plugins/content/slate'
 import { cellOrder } from './helper/order'
+import { decorate } from './helper/tree'
+import { cells } from './tree.js'
+
+// TODO: shouldn't be here, #265
+const defaultPlugin = createSlatePlugin()
 
 export const rawEditableReducer = (state: Object = {
   id: null,
@@ -9,14 +14,22 @@ export const rawEditableReducer = (state: Object = {
   config: {
     whitelist: []
   }
-}, action: { type: string }) => {
-  switch (action.type) {
-    default:
-      return {
-        ...state,
-        cells: decorate(cells(state.cells, action)),
-        cellOrder: cellOrder(state.cells || [])
-      }
+}, action: Object) => {
+  let newCells = decorate(cells(state.cells, action))
+
+  if (action.type === CELL_REMOVE && newCells.length === 0) {
+    newCells = decorate(
+      cells([{
+        id: action.ids[0],
+        content: { plugin: defaultPlugin, state: defaultPlugin.createInitialState() }
+      }], action)
+    )
+  }
+
+  return {
+    ...state,
+    cells: newCells,
+    cellOrder: cellOrder(newCells || [])
   }
 }
 

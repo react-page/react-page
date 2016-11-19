@@ -1,7 +1,8 @@
 // @flow
-import uuid from 'node-uuid'
 import type { Action } from 'types/redux'
 import type { Cell } from 'types/editable'
+
+import { gen } from '../helpers'
 
 export const CELL_INSERT_ABOVE = 'CELL_INSERT_ABOVE'
 export const CELL_INSERT_BELOW = 'CELL_INSERT_BELOW'
@@ -9,14 +10,6 @@ export const CELL_INSERT_LEFT_OF = 'CELL_INSERT_LEFT_OF'
 export const CELL_INSERT_RIGHT_OF = 'CELL_INSERT_RIGHT_OF'
 export const CELL_INSERT_INLINE_LEFT = 'CELL_INSERT_INLINE_LEFT'
 export const CELL_INSERT_INLINE_RIGHT = 'CELL_INSERT_INLINE_RIGHT'
-
-const gen = (c: number = 1) => {
-  const ret = []
-  for (let i = 0; i <= c; i++) {
-    ret.push(uuid.v4())
-  }
-  return ret
-}
 
 const insert = (type: string) => (item: Cell, { id: hover, inline, hasInlineNeighbour }: Cell, level: number = 0, ids: Array < string > = []): Action => {
   let l = level
