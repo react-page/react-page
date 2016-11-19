@@ -2,10 +2,10 @@
   "name": "ory-editor",
   "version": "0.0.0",
   "description": "The next generation platform for creating well-defined, responsive, digital content - as easy as social media.",
-  "main": "lib/editor/index.js",
+  "main": "build/bundle.js",
   "directories": {
     "doc": "./docs",
-    "lib": "./lib/editor"
+    "lib": "./build"
   },
   "scripts": {
     "flow": "flow check --show-all-errors",
