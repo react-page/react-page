@@ -1984,13 +1984,13 @@ debounce@^1.0.0:
   dependencies:
     date-now "1.0.1"
 
-debug@2, debug@^2.0.0, debug@^2.1.0, debug@^2.1.1, debug@^2.3.2:
+debug@2, debug@^2.0.0, debug@^2.1.0, debug@^2.1.1, debug@^2.2.0, debug@^2.3.2:
   version "2.3.2"
   resolved "https://registry.yarnpkg.com/debug/-/debug-2.3.2.tgz#94cb466ef7d6d2c7e5245cdd6e4104f2d0d70d30"
   dependencies:
     ms "0.7.2"
 
-debug@2.2.0, debug@^2.2.0, debug@~2.2.0:
+debug@2.2.0, debug@~2.2.0:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/debug/-/debug-2.2.0.tgz#f87057e995b1a1f6ae6a4960664137bc56f039da"
   dependencies:
@@ -5241,6 +5241,12 @@ original@>=0.0.5:
   dependencies:
     url-parse "1.0.x"
 
+ory-redux-undo@0.0.1:
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/ory-redux-undo/-/ory-redux-undo-0.0.1.tgz#d0b3452831963bb64c7b4587bbde36c830a2ba1e"
+  dependencies:
+    redux "^3.5.2"
+
 os-browserify@~0.2.0:
   version "0.2.1"
   resolved "https://registry.yarnpkg.com/os-browserify/-/os-browserify-0.2.1.tgz#63fc4ccee5d2d7763d26bbf8601078e6c2e0044f"
@@ -6215,12 +6221,6 @@ reduce-function-call@^1.0.1:
   resolved "https://registry.yarnpkg.com/reduce-function-call/-/reduce-function-call-1.0.1.tgz#fa02e126e695824263cab91d3a5b0fdc1dd27a9a"
   dependencies:
     balanced-match "~0.1.0"
-
-redux-undo@1.0.0-beta9-1:
-  version "1.0.0-beta9-1"
-  resolved "https://registry.yarnpkg.com/redux-undo/-/redux-undo-1.0.0-beta9-1.tgz#af9495919660bff453e96a10613e5fc2f8772276"
-  dependencies:
-    redux "^3.5.2"
 
 redux@3.6.0, redux@^3.2.0, redux@^3.5.2:
   version "3.6.0"
