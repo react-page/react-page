@@ -1,5 +1,5 @@
 // @flow
-import uuid from 'node-uuid'
+import uuid from 'uuid'
 import path from 'ramda/src/path'
 import { satisfies } from 'semver'
 import { ContentPlugin, LayoutPlugin, Plugin } from './classes'
