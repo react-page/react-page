@@ -2,7 +2,7 @@
 /* eslint no-duplicate-imports: ["off"] */
 import React, { Component } from 'react'
 import FilterFrames from 'material-ui/svg-icons/image/filter-frames'
-import Slate from 'src/editor/plugins/content/slate'
+import createSlatePlugin from 'src/editor/plugins/content/slate'
 import type { LayoutPluginProps } from 'src/editor/service/plugin/classes'
 import uuid from 'node-uuid'
 import cssModules from 'react-css-modules'
@@ -45,7 +45,8 @@ class Spoiler extends Component {
   }
 }
 
-const defaultPlugin = new Slate()
+// TODO: shouldn't be here, #265
+const defaultPlugin = createSlatePlugin()
 
 export default {
   Component: cssModules(Spoiler, styles),

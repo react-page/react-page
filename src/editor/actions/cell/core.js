@@ -1,6 +1,8 @@
 // @flow
 import type { Action } from 'types/redux'
 
+import { gen } from '../helpers'
+
 export const CELL_UPDATE_CONTENT = 'CELL_UPDATE_CONTENT'
 export const CELL_UPDATE_LAYOUT = 'CELL_UPDATE_LAYOUT'
 export const CELL_REMOVE = 'CELL_REMOVE'
@@ -34,10 +36,11 @@ export const updateCellLayout = (id: string) => (state: {} = {}): Action => ({
 /**
  * Dispatch to remove a cell.
  */
-export const removeCell = (id: string): Action => ({
+export const removeCell = (id: string, ids: Array < string > = []): Action => ({
   type: CELL_REMOVE,
   ts: new Date(),
-  id
+  id,
+  ids: ids.length > 0 ? ids : gen(1)
 })
 
 /**
