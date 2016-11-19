@@ -65,7 +65,7 @@ layout cells are usually things like a spoiler box, a parallax background image 
   </figure>
 </p>
 
-In the example above, cells 1.1, 1.1.1.1, 1.1.1.2.1.1, 1.1.1.2.1.2 are all content cells, because they do not have any children rows.
+In the example above, cells 1.1.1.1, 1.1.1.2.1.1, 1.1.1.2.1.2 are all content cells, because they do not have any children rows.
 Cells 1.1, 1.1.1.2 are layout cells, because they do have children rows.
 
 <p>
