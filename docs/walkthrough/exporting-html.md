@@ -4,12 +4,13 @@ Exporting HTML is easy, too!
 
 ```jsx
 const editor = new Editor()
+const content = { /* document state */ }
 
 const element = document.getElementById('editable')
 ReactDOM.render((
   <Editable
     editor={editor}
-    state={content[element.dataset.id]}
+    state={content}
     onChange={(state) => {
       console.log(editor.renderToHtml(state))
     }}

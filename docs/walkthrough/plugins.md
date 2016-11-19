@@ -44,6 +44,10 @@ const editor = new Editor({
 
 ## Content plugins
 
+We already covered what layout and content cells are. This section is dedicated to plugins for content cells. You
+are not limited to our plugins. Before you start creating your own, we encourage you to check out the source codes
+of the available plugins. It will reveal a lot of concepts!
+
 ### Text editing
 
 The text editing allows you to create and modify rich-text and is optimized for use with the ORY Editor. We strongly
@@ -102,13 +106,9 @@ The spacer is a plugin which you can use to create an empty fixed height cell.
 
 The spacer plugin is not configurable.
 
-We encourage you to check out the source code of those plugins. It will reveal a lot of concepts!
-
 ## Layout plugins
 
-The ORY Editor ships a few layout plugins per default:
-
-1. A [spoiler](#spoiler) plugin.
+This section is dedicated to plugins for layout cells.
 
 ### Spoiler
 

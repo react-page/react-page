@@ -3,8 +3,10 @@
 The editor notifies you of every change via the `onChange` property:
 
 ```jsx
+const editor = new Editor()
 const content = { /* document state */ }
 
+const element = document.getElementById('editable')
 ReactDOM.render((
   <Editable
     editor={editor}
