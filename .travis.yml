@@ -40,7 +40,6 @@ after_success:
     fi
 
 before_deploy:
-  - npm run clean
   - npm version --no-git-tag-version $(git describe --tag)
   - npm run build
 
