@@ -4,7 +4,7 @@ Exporting HTML is easy, too!
 
 ```jsx
 const editor = new Editor()
-const content = { /* document state */ }
+const content = createEmptyState()
 
 const element = document.getElementById('editable')
 ReactDOM.render((

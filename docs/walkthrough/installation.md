@@ -25,37 +25,30 @@ Next, open the file *src/components/App.js* and include the ORY Editor:
 
 ```jsx
 import React, { Component } from 'react';
+import Editor, { Editable, Controls, createEmptyState } from 'ory-editor'
 import logo from './logo.svg';
 import './App.css';
-
-// import the Editor and the React components:
-import Editor, { Editable, Controls } from 'ory-editor'
+import 'ory-editor/dist/styles.css';
 
 // The react-tap-event-plugin is required by material-ui, see:
 //  https://github.com/callemall/material-ui#react-tap-event-plugin
 require('react-tap-event-plugin')()
 
-// Create an editor config
-const editor = new Editor({ /* options */ })
 
-// The editable state
-const state = { /* empty document state */ }
+const state = createEmptyState()
+const editor = new Editor({ /* options */ })
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
+      <div>
         <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
+          <img src={logo} className="App-logo" alt="logo"/>
           <h2>Welcome to React</h2>
         </div>
-        
-        <Editable
-          editor={editor}
-          state={state}
-          onChange={(state) => console.log('got new editable state:', state)}
-        />
-        <Controls editor={editor} />
+
+        <Editable editor={editor} state={state}/>
+        <Controls editor={editor}/>
       </div>
     );
   }
@@ -66,4 +59,4 @@ export default App;
 
 That's it, congratulations! You should see something like this now:
 
-![Example app](todo)
+![Example app](/images/react-example-app.png)
