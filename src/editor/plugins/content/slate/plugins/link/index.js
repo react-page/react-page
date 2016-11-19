@@ -14,6 +14,13 @@ import FlatButton from 'material-ui/FlatButton'
 export const A = 'LINK/LINK'
 
 class Button extends Component {
+  state = {
+    open: false,
+    href: '',
+    title: '',
+    hadLinks: false
+  }
+
   onClick = (e) => {
     const { editorState, onChange } = this.props
     e.preventDefault()
@@ -31,13 +38,6 @@ class Button extends Component {
     } else {
       this.setState({ open: true, wasExpanded: editorState.isExpanded, href: '', title: '', hadLinks: hasLinks })
     }
-  }
-
-  state = {
-    open: false,
-    href: '',
-    title: '',
-    hadLinks: false
   }
 
   handleClose = () => {
