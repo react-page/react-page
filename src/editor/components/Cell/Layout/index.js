@@ -24,7 +24,7 @@ class Layout extends React.Component {
             Component
           },
           state = {}
-        }
+        } = {}
       },
       editable,
       ancestors = [],
@@ -32,6 +32,10 @@ class Layout extends React.Component {
       isServerContext,
       isEditMode
     }: ComponentizedCell = this.props
+
+    if (!Component) {
+      return null
+    }
 
     return (
       <Component

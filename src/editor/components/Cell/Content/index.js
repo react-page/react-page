@@ -14,7 +14,7 @@ class Content extends Component {
   componentWillReceiveProps(nextProps: ComponentizedCell) {
     const { node: { focused: was } } = this.props
     const { node: { focused: is, focusSource } } = nextProps
-    const { isEditMode, editable, id, node: { content: { plugin: { handleFocus, handleBlur, name, version }, state = {} }, focused }, updateCellContent } = nextProps
+    const { isEditMode, editable, id, node: { content: { plugin: { handleFocus, handleBlur, name, version }, state = {} } = {}, focused }, updateCellContent } = nextProps
 
     // FIXME this is really shitty because it will break when the state changes before the blur comes through, see #157
     const pass = {
@@ -47,7 +47,7 @@ class Content extends Component {
   }
 
   render() {
-    const { isPreviewMode, isEditMode, editable, id, node: { content: { plugin: { Component, name, version }, state = {} }, focused }, updateCellContent, isServerContext } = this.props
+    const { isPreviewMode, isEditMode, editable, id, node: { content: { plugin: { Component, name, version }, state = {} } = {}, focused }, updateCellContent, isServerContext } = this.props
     const { focusCell, blurCell } = this.props
 
     let focusProps

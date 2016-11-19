@@ -11,11 +11,11 @@ type AbstractCell<T> = {
 
   rows: Array<T>,
 
-  content: {
+  content?: {
     plugin: ContentPlugin,
     state: Object
   },
-  layout: {
+  layout?: {
     plugin: LayoutPlugin,
     state: Object
   },
@@ -41,12 +41,6 @@ export type Cell = AbstractCell<Row>
 export const createCell = (): Cell => ({
   id: '',
   rows: [],
-  content: {
-    state: {}
-  },
-  layout: {
-    state: {}
-  },
   size: 12,
   hover: null,
   inline: null,
