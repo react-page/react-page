@@ -154,7 +154,8 @@ export class ContentPlugin extends Plugin {
       handleBlur,
       createInitialState,
       allowInlineNeighbours = false,
-      isInlineable = false
+      isInlineable = false,
+      reducer
     } = config
 
     this.isInlineable = isInlineable
@@ -164,6 +165,7 @@ export class ContentPlugin extends Plugin {
     this.handleFocusPreviousHotKey = handleFocusPreviousHotKey ? handleFocusPreviousHotKey.bind(this) : this.handleFocusPreviousHotKey
     this.handleFocus = handleFocus ? handleFocus.bind(this) : this.handleFocus
     this.handleBlur = handleBlur ? handleBlur.bind(this) : this.handleBlur
+    this.reducer = reducer ? reducer.bind(this) : this.reducer
     this.createInitialState = createInitialState ? createInitialState.bind(this) : this.createInitialState
   }
 
@@ -227,6 +229,14 @@ export class ContentPlugin extends Plugin {
    * @param props
    */
   handleBlur = (props: ContentPluginProps<*>): void => {}
+
+  /**
+   * Specify a custom reducer for the plugin's cell.
+   *
+   * @param state
+   * @param action
+   */
+  reducer = (state: any, action: any) => state
 }
 
 /**

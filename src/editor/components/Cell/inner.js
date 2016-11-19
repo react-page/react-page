@@ -30,8 +30,8 @@ class Inner extends Component {
     })
     if (rows.length && LayoutComponent) {
       return (
-        <Droppable {...{ ...props, styles: null }} dropTypes={whitelist} className={cn}>
-          <Draggable {...{ ...props, styles: null }} dragType={layoutType} className={cn}>
+        <Droppable {...props} styles={null} dropTypes={whitelist} className={cn}>
+          <Draggable {...props} styles={null} dragType={layoutType} className={cn}>
             <Layout {...props} {...layoutState} />
           </Draggable>
         </Droppable>
@@ -44,8 +44,8 @@ class Inner extends Component {
       )
     } else if (ContentComponent) {
       return (
-        <Droppable {...{ ...props, styles: null }} dropTypes={whitelist} className={cn}>
-          <Draggable {...{ ...props, styles: null }} dragType={contentType} className={cn}>
+        <Droppable {...props} isLeaf styles={null} dropTypes={whitelist} className={cn}>
+          <Draggable {...props} isLeaf styles={null} dragType={contentType} className={cn}>
             <Content {...props} />
           </Draggable>
         </Droppable>

@@ -41,3 +41,10 @@
   bottom: 0;
   width: 9%;
 }
+
+.clearfix,
+.clearfix:before,
+.clearfix:after {
+  content: " ";
+  clear: both;
+}
