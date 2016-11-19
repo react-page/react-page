@@ -49,7 +49,7 @@ export default {
   Component: VideoComponent,
   name: 'home/layout/video',
   version: '0.0.1',
-  icon: <OnDemandVideo />,
+  IconComponent: <OnDemandVideo />,
   text: 'Video header',
 
   createInitialChildren: () => ({

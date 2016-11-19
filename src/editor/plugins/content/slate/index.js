@@ -103,7 +103,7 @@ export default (plugins: Plugin[] = [
 
     name: 'ory/editor/core/content/slate',
     version: '0.0.1',
-    icon: <Subject />,
+    IconComponent: <Subject />,
     text: 'Text',
 
     allowInlineNeighbours: true,

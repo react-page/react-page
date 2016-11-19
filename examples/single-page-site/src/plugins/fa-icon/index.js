@@ -6,7 +6,7 @@ export default {
   Component,
   name: 'example/content/fa-icon',
   version: '0.0.1',
-  icon: <Panorama />,
+  IconComponent: <Panorama />,
   text: 'Icon',
   inlineable: true,
   onRemoveHotKey: () => Promise.reject()

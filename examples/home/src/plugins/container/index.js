@@ -22,7 +22,7 @@ export default {
   Component: ContainerComponent,
   name: 'home/layout/container',
   version: '0.0.1',
-  icon: <Reorder />,
+  IconComponent: <Reorder />,
   text: 'Centered container',
 
   createInitialChildren: () => ({

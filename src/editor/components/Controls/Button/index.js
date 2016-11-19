@@ -8,7 +8,7 @@ import styles from '../index.scoped.css'
 
 const Button = ({ description, icon, onClick, active, disabled }: {
   description: string,
-  icon: any,
+  IconComponent: any,
   active: boolean,
   disabled?: boolean,
   onClick: Function,

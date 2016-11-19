@@ -53,7 +53,7 @@ export default {
   Component: ParallaxComponent,
   name: 'example/layout/parallax',
   version: '0.0.1',
-  icon: <Announcement />,
+  IconComponent: <Announcement />,
   text: 'Parallax Background',
 
   createInitialChildren: () => ({

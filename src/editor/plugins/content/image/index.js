@@ -9,7 +9,7 @@ export default {
   Component,
   name: 'ory/editor/core/content/image',
   version: '0.0.1',
-  icon: <Panorama />,
+  IconComponent: <Panorama />,
   text: 'Image',
   isInlineable: true,
 

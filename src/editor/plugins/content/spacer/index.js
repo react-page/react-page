@@ -7,7 +7,7 @@ export default {
   Component,
   name: 'ory/editor/core/content/spacer',
   version: '0.0.1',
-  icon: <AspectRatio />,
+  IconComponent: <AspectRatio />,
   text: 'Spacer',
 
   // We need this because otherwise we lose hotkey focus on elements like spoilers.

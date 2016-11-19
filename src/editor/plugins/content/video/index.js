@@ -9,7 +9,7 @@ export default {
   Component,
   name: 'ory/editor/core/content/video',
   version: '0.0.1',
-  icon: <PlayArrow />,
+  IconComponent: <PlayArrow />,
   text: 'Video',
   isInlineable: true,
   handleRemoveHotKey: (_: Event, __: ContentPluginProps<*>): Promise<*> => Promise.reject(),

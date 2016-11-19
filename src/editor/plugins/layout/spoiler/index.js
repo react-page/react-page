@@ -52,7 +52,7 @@ export default {
   Component: cssModules(Spoiler, styles),
   name: 'ory/editor/core/layout/spoiler',
   version: '0.0.1',
-  icon: <FilterFrames />,
+  IconComponent: <FilterFrames />,
   text: 'Spoiler',
 
   createInitialChildren: () => ({

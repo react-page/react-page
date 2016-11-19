@@ -42,11 +42,9 @@ export const createCell = (): Cell => ({
   id: '',
   rows: [],
   content: {
-    plugin: new ContentPlugin(),
     state: {}
   },
   layout: {
-    plugin: new LayoutPlugin(),
     state: {}
   },
   size: 12,

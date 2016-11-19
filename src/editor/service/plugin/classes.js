@@ -110,7 +110,7 @@ export class Plugin {
    * @member the icon that will be shown in the toolbar.
    */
   IconComponent: any
-  // icon: Element<*> | Component<*, *, *>
+  // IconComponent: Element<*> | Component<*, *, *>
 
   /**
    * @member the plugin's react component.
