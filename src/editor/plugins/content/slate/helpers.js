@@ -25,7 +25,7 @@ export const makeTagMark = (Tag) => {
 }
 
 export const ToolbarButton = ({ icon, isActive, onClick }) => (
-  <IconButton onClick={onClick} iconStyle={isActive ? { color: 'rgb(0, 188, 212)' } : { color: 'white' }}>
+  <IconButton onTouchTap={onClick} iconStyle={isActive ? { color: 'rgb(0, 188, 212)' } : { color: 'white' }}>
     {icon}
   </IconButton>
 )
