@@ -4,6 +4,8 @@ import createSlatePlugin from 'src/editor/plugins/content/slate'
 import { cellOrder } from './helper/order'
 import { decorate } from './helper/tree'
 import { cells } from './tree.js'
+import { createCell } from 'types/editable'
+import { ContentPlugin } from 'src/editor/service/plugin/classes'
 
 // TODO: shouldn't be here, #265
 const defaultPlugin = createSlatePlugin()
@@ -20,8 +22,9 @@ export const rawEditableReducer = (state: Object = {
   if (action.type === CELL_REMOVE && newCells.length === 0) {
     newCells = decorate(
       cells([{
+        ...createCell(),
         id: action.ids[0],
-        content: { plugin: defaultPlugin, state: defaultPlugin.createInitialState() }
+        content: { plugin: new ContentPlugin(defaultPlugin), state: defaultPlugin.createInitialState() }
       }], action)
     )
   }
