@@ -5,7 +5,7 @@
 import Subject from 'material-ui/svg-icons/action/subject'
 import { compose, flatten, map, mergeAll, prop, pathOr } from 'ramda'
 import React from 'react'
-import { ActionTypes } from 'redux-undo'
+import { ActionTypes } from 'ory-redux-undo'
 
 import Component from './Component'
 import type { Props } from './Component'
