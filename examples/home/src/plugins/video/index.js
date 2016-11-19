@@ -28,6 +28,8 @@ const VideoComponent = ({ children }: Props) => (
             <div id="navbar" className="navbar-right">
               <ul className="nav navbar-nav">
                 <li><a href="https://github.com/ory-am/editor">GitHub</a></li>
+                <li><a href="https://ory-am.gitbooks.io/ory-editor/content/">Docs</a></li>
+                <li><a href="http://gitdeploy.us10.list-manage1.com/subscribe?u=ffb1a878e4ec6c0ed312a3480&id=f605a41b53">Newsletter</a></li>
               </ul>
             </div>
             <div className="clearfix"></div>
