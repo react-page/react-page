@@ -28,6 +28,8 @@ const createMarks = compose(mergeAll, map(prop('marks')))
 const createPlugins = compose(flatten, map(prop('plugins')))
 const DEFAULT_NODE = P
 
+export const createInitialState = hooks.createInitialState
+
 export default (plugins: Plugin[] = [
   new ParagraphPlugin(),
   new EmphasizePlugin(),
