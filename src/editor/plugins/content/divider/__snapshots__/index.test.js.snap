@@ -1,0 +1,9 @@
+exports[`plugins/content/missing should render 1`] = `
+<hr
+  style={
+    Object {
+      "backgroundColor": "grey",
+      "width": "100%",
+    }
+  } />
+`;
