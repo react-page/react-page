@@ -65,6 +65,8 @@ export default (plugins: Plugin[] = [
         return newState
       }
     }
+
+    return
   }
 
   const HoverButtons = ({ editorState, onChange, focus }: Props) => (

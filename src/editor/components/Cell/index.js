@@ -27,7 +27,7 @@ class Cell extends Component {
 
   render() {
     const {
-      id, rowWidth, rowHeight, updateDimensions,
+      id, rowWidth, rowHeight, updateDimensions, isLayoutMode, isInsertMode,
       isResizeMode,
       isEditMode,
       node: { inline, resizable, hasInlineNeighbour, focused }
@@ -54,6 +54,7 @@ class Cell extends Component {
         styleName={classNames(gridClass(this.props), {
           'has-inline-neighbour': hasInlineNeighbour,
           [`inline-${inline || ''}`]: inline,
+          'bring-to-front': inline && (!isLayoutMode && !isInsertMode),
           focused
         })}
         onClick={stopClick(isEditMode)}
