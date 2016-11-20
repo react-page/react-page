@@ -40,7 +40,6 @@ export default class EmphasizePlugin extends Plugin {
 
   onKeyDown = (e: Event, data: { key: string, isMod: bool }, state) => {
     if (data.isMod) {
-
       let mark
 
       switch (data.key) {
