@@ -205,3 +205,16 @@
   font-weight: 300;
   font-style: normal;
 }
+
+ol, ul {
+  color: rgb(112, 112, 112);
+  cursor: text;
+  font-family: "proxima-nova";
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 300;
+  letter-spacing: 0.266667px;
+  line-height: 32.4px;
+  margin-bottom: 0px;
+  overflow-wrap: break-word;
+}

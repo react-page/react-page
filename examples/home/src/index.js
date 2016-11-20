@@ -16,13 +16,18 @@ const editor = new Editor({
   ])
 })
 
+// let currentState = {}
+
 const elements = document.querySelectorAll('.editable')
 for (const element of elements) {
   ReactDOM.render((
     <Editable
       editor={editor}
       state={content[element.dataset.editable]}
-      // onChange={(state) => console.log(state)}
+      onChange={state => console.log(state)}
+      // onChange={(state) => {
+      //  currentState = state
+      // }}
     />
   ), element)
 }
