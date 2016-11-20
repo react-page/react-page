@@ -52,7 +52,6 @@
   },
   "dependencies": {
     "classnames": "2.2.5",
-    "css-loader": "0.25.0",
     "deep-equal": "1.0.1",
     "device.js": "0.1.2",
     "dnd-core": "2.0.2",
@@ -103,6 +102,7 @@
     "babel-preset-react": "6.16.0",
     "babel-preset-stage-2": "6.17.0",
     "case-sensitive-paths-webpack-plugin": "^1.1.4",
+    "css-loader": "0.25.0",
     "chokidar-cli": "1.2.0",
     "coveralls": "^2.11.15",
     "cross-env": "3.1.3",
