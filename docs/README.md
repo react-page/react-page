@@ -11,7 +11,7 @@ This a demo available at [editor.ory.am](http://editor.ory.am/) so go ahead and 
 ## Why it's different
 
 Before founding ORY, we built something [like the Wikipedia](https://de.serlo.org), but for learning. The content is
-crowd sourced and over a million people use this platform every month. We had to realize that existing open source
+crowd sourced and over half a million people use this platform every month. We had to realize that existing open source
 content editing solutions had one of the three flaws:
 
 1. The produced markup was horrific, a lot of sanitation had to take place and XSS is always a threat.
@@ -22,12 +22,12 @@ use case, or a free-time project.
 
 We concluded that a solution must meet the following principles:
 
-1. It uses state of the art technology and is implemented using cloud native principles.
-2. It is easy for developers to integrate and extend the Editor according to their requirements.
-3. Designers regulate what content should look like.
-4. Authors, technical and non-technical alike, must be able to use the editor without training.
-5. The content data must be normalized, reusable and not rely on HTML.
-6. It must work on touch devices.
+1. The state is a normalized JSON object, no HTML involved.
+2. It is a visual editor that does not require programming experience or special training.
+3. It is built by a company, reducing the likelihood of abandonment.
+4. Based on reusable React Components, it gives developers, authors and designers new ways of working together and creating
+better and richer experiences more easily.
+5. It works on mobile and touch devices.
 
 With these principles in mind, we went out and implemented the ORY Editor, which you are looking at right now.
 
