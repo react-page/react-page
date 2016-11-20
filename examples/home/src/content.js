@@ -1135,7 +1135,7 @@ export default {
                                           nodes: [
                                             {
                                               kind: 'text',
-                                              text: 'Responsive layouts'
+                                              text: 'Responsive Layouts'
                                             }
                                           ]
                                         },
@@ -1264,7 +1264,7 @@ export default {
                                           nodes: [
                                             {
                                               kind: 'text',
-                                              text: 'Inline rich text editing'
+                                              text: 'Rich Inline Editing'
                                             }
                                           ]
                                         },
@@ -1393,7 +1393,7 @@ export default {
                                           nodes: [
                                             {
                                               kind: 'text',
-                                              text: 'Content styling'
+                                              text: 'Content Styling'
                                             }
                                           ]
                                         },
@@ -1535,7 +1535,7 @@ export default {
                                           nodes: [
                                             {
                                               kind: 'text',
-                                              text: 'Global undo'
+                                              text: 'Global Undo'
                                             }
                                           ]
                                         },
@@ -1664,7 +1664,7 @@ export default {
                                           nodes: [
                                             {
                                               kind: 'text',
-                                              text: 'Display modes'
+                                              text: 'Display Modes'
                                             }
                                           ]
                                         },
