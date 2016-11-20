@@ -8,6 +8,7 @@ import slatePluginCreator from 'src/editor/plugins/content/slate'
 import ImagePlugin from 'src/editor/plugins/content/image'
 import VideoPlugin from 'src/editor/plugins/content/video'
 import SpacerPlugin from 'src/editor/plugins/content/spacer'
+import DividerPlugin from 'src/editor/plugins/content/divider'
 import SpoilerPlugin from 'src/editor/plugins/layout/spoiler'
 
 /**
@@ -18,7 +19,8 @@ export const defaultContentPlugins: [] = [
   ImagePlugin,
   SpacerPlugin,
   slatePluginCreator(),
-  VideoPlugin
+  VideoPlugin,
+  DividerPlugin
 ]
 
 /**

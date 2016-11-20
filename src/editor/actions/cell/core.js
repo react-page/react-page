@@ -14,7 +14,15 @@ export const CELL_FOCUS_PREV = 'CELL_FOCUS_PREV'
 export const CELL_FOCUS_NEXT = 'CELL_FOCUS_NEXT'
 
 /**
- * Dispatch to update cell content data.
+ * An action creator for updating a cell's content data.
+ *
+ * @example
+ * // const store = redux.createStore()
+ * // const cell = { id: '1', ... }
+ * store.dispatch(updateCellContent(cell.id, { foo: 'bar' }))
+ *
+ * @param {string} id The id of the cell that should be updated
+ * @return {Action}
  */
 export const updateCellContent = (id: string) => (state: {} = {}): Action => ({
   type: CELL_UPDATE_CONTENT,
@@ -24,7 +32,15 @@ export const updateCellContent = (id: string) => (state: {} = {}): Action => ({
 })
 
 /**
- * Dispatch to update cell content data.
+ * An action creator for updating a cell's layout data.
+ *
+ * @example
+ * // const store = redux.createStore()
+ * // const cell = { id: '1', ... }
+ * store.dispatch(updateCellLayout(cell.id, { foo: 'bar' }))
+ *
+ * @param {string} id The id of the cell that should be updated
+ * @return {Action}
  */
 export const updateCellLayout = (id: string) => (state: {} = {}): Action => ({
   type: CELL_UPDATE_LAYOUT,
@@ -34,7 +50,16 @@ export const updateCellLayout = (id: string) => (state: {} = {}): Action => ({
 })
 
 /**
- * Dispatch to remove a cell.
+ * An action creator for removing a cell.
+ *
+ * @example
+ * // const store = redux.createStore()
+ * // const cell = { id: '1', ... }
+ * store.dispatch(removeCell(cell.id, ['1', '2', '3', '4', ...]))
+ *
+ * @param {string} id The id of the cell that should be removed.
+ * @param {string} ids An array of IDs for new cells that might be created.
+ * @return {Action}
  */
 export const removeCell = (id: string, ids: Array < string > = []): Action => ({
   type: CELL_REMOVE,
@@ -44,7 +69,16 @@ export const removeCell = (id: string, ids: Array < string > = []): Action => ({
 })
 
 /**
- * Dispatch to resize a cell.
+ * An action creator for resizing a cell.
+ *
+ * @example
+ * // const store = redux.createStore()
+ * // const cell = { id: '1', ... }
+ * store.dispatch(resizeCell(cell.id)(size))
+ *
+ * @param {string} id The id of the cell that should be removed.
+ * @param {number} size The cell's new size.
+ * @return {Function}
  */
 export const resizeCell = (id: string) => (size: number = 1): Action => ({
   type: CELL_RESIZE,

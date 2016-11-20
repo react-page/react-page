@@ -15,3 +15,7 @@
   float: none;
   width: 100%;
 }
+
+.bring-to-front {
+  z-index: 1;
+}
