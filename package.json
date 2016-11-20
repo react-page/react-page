@@ -12,6 +12,7 @@
     "flow:watch": "npm run watch:js -- -c \"flow check --show-all-errors\"",
     "test": "npm-run-all test:unit test:e2e",
     "test:unit": "cross-env NODE_PATH=. jest --coverage",
+    "test:update": "cross-env NODE_PATH=. jest -u",
     "test:e2e": "node bin/nightwatch",
     "test:watch": "cross-env NODE_PATH=. jest --watch",
     "start": "npm run serve:home",
