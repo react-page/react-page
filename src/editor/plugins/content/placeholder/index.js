@@ -1,6 +1,6 @@
 // @flow
 import Component from './Component'
-import uuid from 'node-uuid'
+import uuid from 'uuid'
 
 const plugin = {
   Component,

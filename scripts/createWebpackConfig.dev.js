@@ -89,7 +89,7 @@ module.exports = (paths) => {
         {
           test: /\.js$/,
           exclude: /node_modules/,
-          loader: 'babel',
+          loader: 'babel-loader',
           query: {
             presets: [
               ['es2015', { modules: false }],
@@ -117,25 +117,25 @@ module.exports = (paths) => {
         // in development "style" loader enables hot editing of CSS.
         {
           test: /\.scoped\.css$/,
-          loaders: 'style!css?modules&importLoaders=1&localIdentName=[path]___[name]__[local]___[hash:base64:5]!postcss'
+          loaders: 'style-loader!css-loader?modules&importLoaders=1&localIdentName=[path]___[name]__[local]___[hash:base64:5]!postcss-loader'
         },
         {
           test: /\.css$/,
           exclude: /\.scoped.css$/,
-          loader: 'style!css?importLoaders=1!postcss'
+          loader: 'style-loader!css-loader?importLoaders=1!postcss-loader'
         },
         // JSON is not enabled by default in Webpack but both Node and Browserify
         // allow it implicitly so we also enable it.
         {
           test: /\.json$/,
-          loader: 'json'
+          loader: 'json-loader'
         },
         // "file" loader makes sure those assets get served by WebpackDevServer.
         // When you `import` an asset, you get its (virtual) filename.
         // In production, they would get copied to the `build` folder.
         {
           test: /\.(ico|jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2)(\?.*)?$/,
-          loader: 'file',
+          loader: 'file-loader',
           query: {
             name: 'static/media/[name].[hash:8].[ext]'
           }
@@ -144,7 +144,7 @@ module.exports = (paths) => {
         // assets smaller than specified size as data URLs to avoid requests.
         {
           test: /\.(mp4|webm|wav|mp3|m4a|aac|oga)(\?.*)?$/,
-          loader: 'url',
+          loader: 'url-loader',
           query: {
             limit: 10000,
             name: 'static/media/[name].[hash:8].[ext]'

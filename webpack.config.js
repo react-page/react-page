@@ -16,13 +16,13 @@ const ifProduction = (x) => isProduction ? x : null
 
 // Used loaders for css after `style-loader`
 const cssScopedLoaders = [
-  'css?modules&importLoaders=1&localIdentName=[path]___[name]__[local]___[hash:base64:5]',
-  'postcss'
+  'css-loader?modules&importLoaders=1&localIdentName=[path]___[name]__[local]___[hash:base64:5]',
+  'postcss-loader'
 ]
 
 const cssGlobalLoaders = [
-  'css',
-  'postcss'
+  'css-loader',
+  'postcss-loader'
 ]
 
 module.exports = {
@@ -71,8 +71,7 @@ module.exports = {
     new webpack.optimize.OccurrenceOrderPlugin(),
     new ExtractTextPlugin('styles.css'),
     ifProduction(new webpack.DefinePlugin({ 'process.env.NODE_ENV': '"production"' })),
-    ifProduction(new webpack.optimize.UglifyJsPlugin()),
-    ifProduction(new webpack.optimize.DedupePlugin()),
+    ifProduction(new webpack.optimize.UglifyJsPlugin())
   ]),
   // resolve :: { modules :: [String] }
   // Configure webpack for `NODE_PATH=.`
@@ -85,7 +84,7 @@ module.exports = {
   module: {
     loaders: [{
       test: /\.js$/,
-      loader: 'babel',
+      loader: 'babel-loader',
       exclude: /node_modules/,
       query: {
         presets: [
@@ -100,26 +99,26 @@ module.exports = {
       }
     }, {
       test: /\.scoped\.css$/,
-      loaders: ExtractTextPlugin.extract({ fallbackLoader: 'style', loader: cssScopedLoaders })
+      loaders: ExtractTextPlugin.extract({ fallbackLoader: 'style-loader', loader: cssScopedLoaders })
     }, {
       test: /\.css$/,
       exclude: /\.scoped.css$/,
-      loaders: ExtractTextPlugin.extract({ fallbackLoader: 'style', loader: cssGlobalLoaders })
+      loaders: ExtractTextPlugin.extract({ fallbackLoader: 'style-loader', loader: cssGlobalLoaders })
     }, {
       test: /\.json$/,
-      loader: 'json'
+      loader: 'json-loader'
     }, {
       test: /\.woff(2)?(\?v=\d+\.\d+\.\d+)?$/,
-      loader: 'url?limit=10000&minetype=application/font-woff'
+      loader: 'url-loader?limit=10000&minetype=application/font-woff'
     }, {
       test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
-      loader: 'url?limit=10000&minetype=application/octet-stream'
+      loader: 'url-loader?limit=10000&minetype=application/octet-stream'
     }, {
       test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
-      loader: 'file'
+      loader: 'file-loader'
     }, {
       test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
-      loader: 'url?limit=10000&minetype=image/svg+xml'
+      loader: 'url-loader?limit=10000&minetype=image/svg+xml'
     }]
   }
 }

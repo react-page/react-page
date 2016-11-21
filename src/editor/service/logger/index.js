@@ -3,7 +3,7 @@
 
 const trace = (): Array<string> => {
   const e = new Error('dummy')
-  return e.stack.replace(/^[^\(]+?[\n$]/gm, '')
+  return e.stack.replace(/^[^(]+?[\n$]/gm, '')
     .replace(/^\s+at\s+/gm, '')
     .replace(/^Object.<anonymous>\s*\(/gm, '{anonymous}()@')
     .split('\n')
