@@ -96,7 +96,7 @@ module.exports = (paths) => {
         {
           test: /\.js$/,
           exclude: /node_modules/,
-          loader: 'babel',
+          loader: 'babel-loader',
           query: {
             presets: [
               ['es2015', { modules: false }],
@@ -124,8 +124,8 @@ module.exports = (paths) => {
         {
           test: /\.scoped\.css$/,
           loaders: ExtractTextPlugin.extract({
-            fallbackLoader: 'style',
-            loader: 'css?modules&importLoaders=1&localIdentName=[path]___[name]__[local]___[hash:base64:5]!postcss'
+            fallbackLoader: 'style-loader',
+            loader: 'css-loader?modules&importLoaders=1&localIdentName=[path]___[name]__[local]___[hash:base64:5]!postcss-loader'
           })
         },
         {
@@ -140,8 +140,8 @@ module.exports = (paths) => {
           // including CSS. This is confusing and will be removed in Webpack 2:
           // https://github.com/webpack/webpack/issues/283
           loader: ExtractTextPlugin.extract({
-            fallbackLoader: 'style',
-            loader: 'css?importLoaders=1&-autoprefixer!postcss'
+            fallbackLoader: 'style-loader',
+            loader: 'css-loader?importLoaders=1&-autoprefixer!postcss-loader'
           })
           // Note: this won't work without `new ExtractTextPlugin()` in `plugins`.
         },
@@ -149,13 +149,13 @@ module.exports = (paths) => {
         // allow it implicitly so we also enable it.
         {
           test: /\.json$/,
-          loader: 'json'
+          loader: 'json-loader'
         },
         // "file" loader makes sure those assets end up in the `build` folder.
         // When you `import` an asset, you get its filename.
         {
           test: /\.(ico|jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2)(\?.*)?$/,
-          loader: 'file',
+          loader: 'file-loader',
           query: {
             name: 'static/media/[name].[hash:8].[ext]'
           }
@@ -164,7 +164,7 @@ module.exports = (paths) => {
         // assets smaller than specified size as data URLs to avoid requests.
         {
           test: /\.(mp4|webm|wav|mp3|m4a|aac|oga)(\?.*)?$/,
-          loader: 'url',
+          loader: 'url-loader',
           query: {
             limit: 10000,
             name: 'static/media/[name].[hash:8].[ext]'
@@ -218,8 +218,6 @@ module.exports = (paths) => {
       new webpack.DefinePlugin(env),
       // This helps ensure the builds are consistent if source hasn't changed:
       new webpack.optimize.OccurrenceOrderPlugin(),
-      // Try to dedupe duplicated modules, if any:
-      new webpack.optimize.DedupePlugin(),
       // Minify the code.
       new webpack.optimize.UglifyJsPlugin({
         compress: {
