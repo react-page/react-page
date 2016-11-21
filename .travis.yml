@@ -24,7 +24,7 @@ env:
 script:
   - |
     if [ "$TEST_TYPE" = test ]; then
-      npm run test:unit
+      npm run test:unit:coverage
     elif [ "$TEST_TYPE" = build ]; then
       npm run build
     elif [ "$TEST_TYPE" = lint ]; then
