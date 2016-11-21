@@ -54,7 +54,7 @@ class Cell extends Component {
         styleName={classNames(gridClass(this.props), {
           'has-inline-neighbour': hasInlineNeighbour,
           [`inline-${inline || ''}`]: inline,
-          'bring-to-front': inline && (!isLayoutMode && !isInsertMode),
+          'bring-to-front': inline && (!isLayoutMode && !isInsertMode && !isResizeMode),
           focused
         })}
         onClick={stopClick(isEditMode)}
