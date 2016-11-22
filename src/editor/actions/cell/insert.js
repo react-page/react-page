@@ -31,8 +31,8 @@ const insert = (type: string) => (item: Cell, { id: hover, inline, hasInlineNeig
 
     case CELL_INSERT_LEFT_OF:
     case CELL_INSERT_RIGHT_OF: {
-      if ((inline || hasInlineNeighbour) && level < 2) {
-        l = 2
+      if ((inline || hasInlineNeighbour) && level < 1) {
+        l = 1
       }
       break
     }
