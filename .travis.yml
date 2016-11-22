@@ -11,6 +11,7 @@ node_js:
 #  - sleep 3
 
 cache:
+    yarn: true
     directories:
         - node_modules
 
