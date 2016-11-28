@@ -15,7 +15,14 @@ export default class ListsPlugin extends Plugin {
   constructor(props) {
     super(props)
 
-    this.DEFAULT_NODE = props.DEFAULT_NODE
+    this.plugins = [
+      createListPlugin({
+        typeUL: UL,
+        typeOL: OL,
+        typeItem: LI,
+        typeDefault: props.DEFAULT_NODE
+      }),
+    ]
   }
 
   // eslint-disable-next-line react/display-name
@@ -64,15 +71,6 @@ export default class ListsPlugin extends Plugin {
     [OL]: makeTagNode('ol'),
     [LI]: makeTagNode('li')
   }
-
-  plugins = [
-    createListPlugin({
-      typeUL: UL,
-      typeOL: OL,
-      typeItem: LI,
-      typeDefault: this.DEFAULT_NODE
-    }),
-  ]
 
   toolbarButtons = [
     this.createButton(UL, <ListIcon />),

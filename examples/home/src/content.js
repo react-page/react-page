@@ -739,7 +739,7 @@ export default {
                                       nodes: [
                                         {
                                           kind: 'block',
-                                          type: 'paragraph',
+                                          type: 'PARAGRAPH/PARAGRAPH',
                                           nodes: [
                                             {
                                               kind: 'text',
@@ -755,7 +755,7 @@ export default {
                                       nodes: [
                                         {
                                           kind: 'block',
-                                          type: 'paragraph',
+                                          type: 'PARAGRAPH/PARAGRAPH',
                                           nodes: [
                                             {
                                               kind: 'text',
@@ -771,7 +771,7 @@ export default {
                                       nodes: [
                                         {
                                           kind: 'block',
-                                          type: 'paragraph',
+                                          type: 'PARAGRAPH/PARAGRAPH',
                                           nodes: [
                                             {
                                               kind: 'text',
@@ -787,7 +787,7 @@ export default {
                                       nodes: [
                                         {
                                           kind: 'block',
-                                          type: 'paragraph',
+                                          type: 'PARAGRAPH/PARAGRAPH',
                                           nodes: [
                                             {
                                               kind: 'text',
@@ -803,7 +803,7 @@ export default {
                                       nodes: [
                                         {
                                           kind: 'block',
-                                          type: 'paragraph',
+                                          type: 'PARAGRAPH/PARAGRAPH',
                                           nodes: [
                                             {
                                               kind: 'text',
@@ -967,7 +967,7 @@ export default {
                                       nodes: [
                                         {
                                           kind: 'block',
-                                          type: 'paragraph',
+                                          type: 'PARAGRAPH/PARAGRAPH',
                                           nodes: [
                                             {
                                               kind: 'text',
@@ -983,7 +983,7 @@ export default {
                                       nodes: [
                                         {
                                           kind: 'block',
-                                          type: 'paragraph',
+                                          type: 'PARAGRAPH/PARAGRAPH',
                                           nodes: [
                                             {
                                               kind: 'text',
@@ -999,7 +999,7 @@ export default {
                                       nodes: [
                                         {
                                           kind: 'block',
-                                          type: 'paragraph',
+                                          type: 'PARAGRAPH/PARAGRAPH',
                                           nodes: [
                                             {
                                               kind: 'text',
@@ -1015,7 +1015,7 @@ export default {
                                       nodes: [
                                         {
                                           kind: 'block',
-                                          type: 'paragraph',
+                                          type: 'PARAGRAPH/PARAGRAPH',
                                           nodes: [
                                             {
                                               kind: 'text',
@@ -1031,7 +1031,7 @@ export default {
                                       nodes: [
                                         {
                                           kind: 'block',
-                                          type: 'paragraph',
+                                          type: 'PARAGRAPH/PARAGRAPH',
                                           nodes: [
                                             {
                                               kind: 'text',
