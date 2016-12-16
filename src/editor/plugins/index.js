@@ -1,6 +1,6 @@
 import * as content from './content'
 import * as layout from './layout'
 
-export default {
+export {
   layout, content
 }
