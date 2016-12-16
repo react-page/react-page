@@ -2212,10 +2212,6 @@ detab@^1.0.2:
   dependencies:
     repeat-string "^1.5.2"
 
-detect-browser@^1.3.3:
-  version "1.5.0"
-  resolved "https://registry.yarnpkg.com/detect-browser/-/detect-browser-1.5.0.tgz#926a90065cd6c358b2aa631a14434844798fead3"
-
 detect-indent@3.0.1:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/detect-indent/-/detect-indent-3.0.1.tgz#9dc5e5ddbceef8325764b9451b02bc6d54084f75"
@@ -6388,10 +6384,11 @@ readable-stream@1.1.x:
     isarray "0.0.1"
     string_decoder "~0.10.x"
 
-readable-stream@2, readable-stream@^2.0.1, readable-stream@^2.0.2, readable-stream@^2.0.5, readable-stream@~2.0.0, readable-stream@~2.0.5:
-  version "2.0.6"
-  resolved "https://registry.yarnpkg.com/readable-stream/-/readable-stream-2.0.6.tgz#8f90341e68a53ccc928788dacfcd11b36eb9b78e"
+readable-stream@2, readable-stream@^2.0.0, "readable-stream@^2.0.0 || ^1.1.13", readable-stream@^2.0.1, readable-stream@^2.0.4, readable-stream@^2.0.5, readable-stream@~2.1.0, readable-stream@~2.1.4:
+  version "2.1.5"
+  resolved "https://registry.yarnpkg.com/readable-stream/-/readable-stream-2.1.5.tgz#66fa8b720e1438b364681f2ad1a63c618448c9d0"
   dependencies:
+    buffer-shims "^1.0.0"
     core-util-is "~1.0.0"
     inherits "~2.0.1"
     isarray "~1.0.0"
@@ -6399,11 +6396,10 @@ readable-stream@2, readable-stream@^2.0.1, readable-stream@^2.0.2, readable-stre
     string_decoder "~0.10.x"
     util-deprecate "~1.0.1"
 
-readable-stream@^2.0.0, "readable-stream@^2.0.0 || ^1.1.13", readable-stream@^2.0.4, readable-stream@~2.1.0, readable-stream@~2.1.4:
-  version "2.1.5"
-  resolved "https://registry.yarnpkg.com/readable-stream/-/readable-stream-2.1.5.tgz#66fa8b720e1438b364681f2ad1a63c618448c9d0"
+readable-stream@^2.0.2, readable-stream@~2.0.0, readable-stream@~2.0.5:
+  version "2.0.6"
+  resolved "https://registry.yarnpkg.com/readable-stream/-/readable-stream-2.0.6.tgz#8f90341e68a53ccc928788dacfcd11b36eb9b78e"
   dependencies:
-    buffer-shims "^1.0.0"
     core-util-is "~1.0.0"
     inherits "~2.0.1"
     isarray "~1.0.0"
@@ -6942,13 +6938,12 @@ slate-edit-list@^0.5.3:
   version "0.5.3"
   resolved "https://registry.yarnpkg.com/slate-edit-list/-/slate-edit-list-0.5.3.tgz#9163e627b029c3abe9737fcaf5d36a688dd685af"
 
-slate@^0.16.1:
-  version "0.16.1"
-  resolved "https://registry.yarnpkg.com/slate/-/slate-0.16.1.tgz#b6d70b3a9b9153ec96849b01dbff5fd7e545540a"
+slate@^0.16.8:
+  version "0.16.8"
+  resolved "https://registry.yarnpkg.com/slate/-/slate-0.16.8.tgz#404053b9721ee15c1d3191e8a6ef01c6055b3b76"
   dependencies:
     cheerio "^0.22.0"
     debug "^2.3.2"
-    detect-browser "^1.3.3"
     direction "^0.1.5"
     es6-map "^0.1.4"
     esrever "^0.2.0"
@@ -6957,7 +6952,6 @@ slate@^0.16.1:
     is-empty "^1.0.0"
     keycode "^2.1.2"
     type-of "^2.0.1"
-    ua-parser-js "^0.7.10"
 
 slice-ansi@0.0.4:
   version "0.0.4"
@@ -7558,7 +7552,7 @@ typedarray@~0.0.5:
   version "0.0.6"
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
 
-ua-parser-js@^0.7.10, ua-parser-js@^0.7.9:
+ua-parser-js@^0.7.9:
   version "0.7.12"
   resolved "https://registry.yarnpkg.com/ua-parser-js/-/ua-parser-js-0.7.12.tgz#04c81a99bdd5dc52263ea29d24c6bf8d4818a4bb"
 
