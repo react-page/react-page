@@ -1,5 +1,5 @@
 import spoiler from './spoiler'
 
-export default {
+export {
   spoiler
 }

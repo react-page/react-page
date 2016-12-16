@@ -4,6 +4,6 @@ import video from './video'
 import spacer from './spacer'
 import divider from './divider'
 
-export default {
+export {
   image, slate, video, spacer, divider
 }
