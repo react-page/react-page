@@ -83,7 +83,7 @@
     "reselect": "^2.5.4",
     "selection-position": "^1.0.0",
     "semver": "^5.3.0",
-    "slate": "^0.16.1",
+    "slate": "^0.16.8",
     "slate-edit-blockquote": "^0.2.0",
     "slate-edit-list": "^0.5.3"
   },

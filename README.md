@@ -94,5 +94,4 @@ A developer documentation is in the process of being written.
 
 ## Known issues
 
-There are several [known issues](https://github.com/ory-am/editor/issues?q=is%3Aopen+is%3Aissue+label%3Abug)
-regarding text editing. Most of them are upstream issues of [Slate](https://github.com/ianstormtaylor/slate).
+We keep track of known issues in the [issues tab](https://github.com/ory-am/editor/issues?q=is%3Aopen+is%3Aissue+label%3Abug).
