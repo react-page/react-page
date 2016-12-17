@@ -69,8 +69,6 @@ class Editor {
   )
 }
 
-console.log(plugins)
-
 export {
   PluginService,
   Editable,
