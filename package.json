@@ -43,7 +43,7 @@
   },
   "engines": {
     "node": "~6.6.0",
-    "npm": ">3.8.0"
+    "npm": "~3.8.0"
   },
   "author": "ORY GmbH",
   "license": "Apache 2.0",
