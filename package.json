@@ -54,6 +54,7 @@
   },
   "dependencies": {
     "classnames": "^2.2.5",
+    "cross-spawn": "^5.0.1",
     "deep-equal": "^1.0.1",
     "device.js": "^0.1.2",
     "dnd-core": "^2.0.2",
