@@ -42,7 +42,7 @@
     "coveralls": "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
   },
   "engines": {
-    "node": ">v6.0.0",
+    "node": "~6.6.0",
     "npm": ">3.8.0"
   },
   "author": "ORY GmbH",
@@ -54,7 +54,6 @@
   },
   "dependencies": {
     "classnames": "^2.2.5",
-    "cross-spawn": "^5.0.1",
     "deep-equal": "^1.0.1",
     "device.js": "^0.1.2",
     "dnd-core": "^2.0.2",
