@@ -60,19 +60,23 @@ export const createInitialState = () => ({
     nodes: [{
       kind: 'block',
       type: P,
-      nodes: [{
-        kind: 'text',
-        ranges: [{ text: '' }]
-      }]
+      nodes: [
+        {
+          kind: 'text',
+          text: ''
+        }
+      ]
     }]
   }, options)
 })
 
-export const unserialize = ({ importFromHtml, serialized }: { importFromHtml: string, serialized: Object }): { editorState: Object } => {
+export const unserialize = ({ importFromHtml, serialized, editorState }: { importFromHtml: string, serialized: Object, editorState: Object }): { editorState: Object } => {
   if (serialized) {
     return { editorState: Raw.deserialize(serialized, options) }
   } else if (importFromHtml) {
     return { editorState: html.deserialize(importFromHtml, options) }
+  } else if (editorState) {
+    return { editorState }
   }
 
   return createInitialState()

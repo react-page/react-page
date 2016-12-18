@@ -81,9 +81,7 @@ export const createEmptyState = () => ({
   cells: [{
     content: {
       plugin: { name: 'ory/editor/core/content/slate' },
-      state: {
-        serialized: createInitialState()
-      }
+      state: createInitialState()
     }
   }]
 })
