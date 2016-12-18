@@ -7,6 +7,7 @@ import createStore from './store'
 import { isProduction } from './const'
 import { connectToRaven } from './raven'
 import * as plugins from './plugins'
+import * as actions from './actions'
 import PluginService from 'src/editor/service/plugin'
 import ServerContext from 'src/editor/components/ServerContext'
 import ReactDOMServer from 'react-dom/server'
@@ -67,13 +68,18 @@ class Editor {
       />
     </ServerContext>
   )
+
+  dispatch = (action) => {
+    this.store.dispatch(action)
+  }
 }
 
 export {
   PluginService,
   Editable,
   Controls,
-  plugins
+  plugins,
+  actions
 }
 
 export const createEmptyState = () => ({
