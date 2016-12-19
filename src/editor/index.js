@@ -49,7 +49,7 @@ class Editor {
     middleware: []
   } = {}) {
     if (instance) {
-      throw new Error('Only one instance of Editor is allowed')
+      console.warn('You have defined multiple instances of Editor, this could cause problems.')
     }
 
     instance = this
