@@ -1,7 +1,6 @@
 /* eslint-env jest */
 import unexpected from 'unexpected'
-import Editor from './index'
-// import Editor, { createEmptyState } from './index'
+import Editor, { createEmptyState } from './index'
 
 const expect = unexpected.clone()
 const editor = new Editor()
@@ -11,12 +10,12 @@ describe('Editor', () => {
     expect(editor, 'to be defined')
   })
 
-  it('should throw an error when instantiated multiple times', () => {
-    expect(() => new Editor(), 'to throw')
-  })
-
-  // it('should render', () => {
-  //   const html = editor.renderToHtml(createEmptyState())
-  //   expect(html, 'to equal', '')
+  // it('should throw an error when instantiated multiple times', () => {
+  //   expect(() => new Editor(), 'to throw')
   // })
+
+  xit('should render', () => {
+    const html = editor.renderToHtml(createEmptyState())
+    expect(html, 'to equal', '')
+  })
 })

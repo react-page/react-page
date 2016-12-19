@@ -1,6 +1,5 @@
 // @flow
 import uuid from 'uuid'
-import path from 'ramda/src/path'
 import { satisfies } from 'semver'
 import { ContentPlugin, LayoutPlugin, Plugin } from './classes'
 import MissingPlugin from 'src/editor/plugins/content/missing'
@@ -106,7 +105,7 @@ export default class PluginService {
       layout = {},
       id
     } = state
-    const newState = { id }
+    const newState: Object = { id }
 
     const { plugin: { name: contentName = null, version: contentVersion = '*' } = {}, state: contentState } = content || {}
     const { plugin: { name: layoutName = null, version: layoutVersion = '*' } = {}, state: layoutState } = layout || {}
@@ -139,6 +138,7 @@ export default class PluginService {
   }
 
   serialize = (state: {
+    id: string,
     rows: Object[],
     cells: Object[],
     content: {
@@ -159,7 +159,7 @@ export default class PluginService {
       id
     } = state
 
-    const newState = { id }
+    const newState: Object = { id }
     if (content) {
       newState.content = {
         plugin: { name: content.plugin.name, version: content.plugin.version },

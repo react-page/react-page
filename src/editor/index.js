@@ -81,9 +81,10 @@ class Editor {
     return ReactDOMServer.renderToStaticMarkup(
       <ServerContext>
         <Editable editor={{
-        plugins: this.plugins,
-        store
-      }} state={deserialized}/>
+          plugins: this.plugins,
+          store
+        }} state={deserialized}
+        />
       </ServerContext>
     )
   }

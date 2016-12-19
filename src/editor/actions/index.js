@@ -34,8 +34,7 @@ import {
   editMode,
   previewMode,
   layoutMode,
-  resizeMode,
-  previousMode
+  resizeMode
 } from './display'
 
 export const actions = (dispatch) => ({
@@ -74,11 +73,11 @@ export const actions = (dispatch) => ({
   },
 
   mode: {
-    insert: (...args) => dispatch(insertMode()),
-    edit: (...args) => dispatch(editMode()),
-    preview: (...args) => dispatch(previewMode()),
-    layout: (...args) => dispatch(layoutMode()),
-    resize: (...args) => dispatch(resizeMode())
+    insert: (...args) => dispatch(insertMode(...args)),
+    edit: (...args) => dispatch(editMode(...args)),
+    preview: (...args) => dispatch(previewMode(...args)),
+    layout: (...args) => dispatch(layoutMode(...args)),
+    resize: (...args) => dispatch(resizeMode(...args))
   },
 
   undo: (...args) => dispatch(undo(...args)), redo: (...args) => dispatch(redo(...args))
