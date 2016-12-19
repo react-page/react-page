@@ -25,7 +25,7 @@ import {
   insertCellBelow, insertCellAbove, insertCellRightOf, insertCellLeftOf, insertCellLeftInline, insertCellRightInline
 } from './cell/insert'
 
-import { undo, redo } from 'undo'
+import { undo, redo } from './undo'
 
 import { updateEditable } from './editables'
 

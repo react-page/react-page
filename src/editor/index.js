@@ -13,6 +13,7 @@ import ServerContext from 'src/editor/components/ServerContext'
 import ReactDOMServer from 'react-dom/server'
 import { createInitialState } from 'src/editor/plugins/content/slate/hooks'
 import uuid from 'node-uuid'
+import { updateEditable } from 'src/editor/actions/editables'
 
 import type Store from 'types/redux'
 
@@ -20,13 +21,14 @@ if (!isProduction && typeof window !== 'undefined') {
   window.Perf = require('react-addons-perf')
 }
 let instance: Editor
-const initialState = {
+
+const initialState = () => ({
   editables: {
     past: [],
     present: [],
     future: []
   }
-}
+})
 
 /**
  * Editor is the core interface for dealing with the editor.
@@ -51,7 +53,7 @@ class Editor {
     }
 
     instance = this
-    this.store = createStore(initialState, middleware)
+    this.store = createStore(initialState(), middleware)
     this.plugins = plugins
     this.errorReporting = errorReporting
     this.middleware = middleware
@@ -59,15 +61,29 @@ class Editor {
     connectToRaven(errorReporting)
   }
 
-  renderToHtml = (state: any) => ReactDOMServer.renderToStaticMarkup(
-    <ServerContext>
-      <Editable editor={{
+  renderToHtml = (state: any) => {
+    if (!state.id) {
+      throw new Error('The state must have an unique id')
+    }
+
+    const store = createStore(initialState(), this.middleware)
+    const deserialized = this.plugins.unserialize(state)
+    store.dispatch(updateEditable({
+      ...deserialized,
+      config: {
+        whitelist: this.plugins.getRegisteredNames()
+      }
+    }))
+
+    return ReactDOMServer.renderToStaticMarkup(
+      <ServerContext>
+        <Editable editor={{
         plugins: this.plugins,
-        store: createStore(initialState, this.middleware)
-      }} state={state}
-      />
-    </ServerContext>
-  )
+        store
+      }} state={deserialized} />
+      </ServerContext>
+    )
+  }
 
   dispatch = (action) => {
     this.store.dispatch(action)

@@ -98,20 +98,22 @@ export default class PluginService {
     ]
   }
 
-  unserialize = (props: any): Object => {
+  unserialize = (state: any): Object => {
     const {
       rows = [],
       cells = [],
       content = {},
       layout = {},
-    } = props
+      id
+    } = state
+    const newState = { id }
 
     const { plugin: { name: contentName = null, version: contentVersion = '*' } = {}, state: contentState } = content || {}
     const { plugin: { name: layoutName = null, version: layoutVersion = '*' } = {}, state: layoutState } = layout || {}
 
     if (contentName) {
       const plugin = this.findContentPlugin(contentName, contentVersion)
-      props.content = {
+      newState.content = {
         plugin,
         state: plugin.unserialize(contentState)
       }
@@ -119,30 +121,24 @@ export default class PluginService {
 
     if (layoutName) {
       const plugin = this.findLayoutPlugin(layoutName, layoutVersion)
-      props.layout = {
+      newState.layout = {
         plugin,
         state: plugin.unserialize(layoutState)
       }
     }
 
     if ((rows || []).length) {
-      props.rows = rows.map(this.unserialize)
+      newState.rows = rows.map(this.unserialize)
     }
 
     if ((cells || []).length) {
-      props.cells = cells.map(this.unserialize)
+      newState.cells = cells.map(this.unserialize)
     }
 
-    return generateMissingIds({ ...props })
+    return generateMissingIds(newState)
   }
 
-  serialize = ({
-    rows,
-    cells,
-    content,
-    layout,
-    ...props
-  }: {
+  serialize = (state: {
     rows: Object[],
     cells: Object[],
     content: {
@@ -155,33 +151,37 @@ export default class PluginService {
     },
     props: any
   }): Object => {
-    const serializeProps = path(['content', 'plugin', 'hooks', 'serialize'], props)
-    if (serializeProps) {
-      props.content.state = serializeProps(content.state)
-    }
+    const {
+      rows,
+      cells,
+      content,
+      layout,
+      id
+    } = state
 
+    const newState = { id }
     if (content) {
-      props.content = {
+      newState.content = {
         plugin: { name: content.plugin.name, version: content.plugin.version },
         state: content.plugin.serialize(content.state)
       }
     }
 
     if (layout) {
-      props.layout = {
+      newState.layout = {
         plugin: { name: layout.plugin.name, version: layout.plugin.version },
         state: layout.plugin.serialize(layout.state)
       }
     }
 
     if ((rows || []).length) {
-      props.rows = rows.map(this.serialize)
+      newState.rows = rows.map(this.serialize)
     }
 
     if ((cells || []).length) {
-      props.cells = cells.map(this.serialize)
+      newState.cells = cells.map(this.serialize)
     }
 
-    return { ...props }
+    return newState
   }
 }
