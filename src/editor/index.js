@@ -7,7 +7,7 @@ import createStore from './store'
 import { isProduction } from './const'
 import { connectToRaven } from './raven'
 import * as plugins from './plugins'
-import * as actions from './actions'
+import { actions } from './actions'
 import PluginService from 'src/editor/service/plugin'
 import ServerContext from 'src/editor/components/ServerContext'
 import ReactDOMServer from 'react-dom/server'
@@ -57,9 +57,12 @@ class Editor {
     this.plugins = plugins
     this.errorReporting = errorReporting
     this.middleware = middleware
+    this.trigger = actions(this.store.dispatch)
 
     connectToRaven(errorReporting)
   }
+
+  trigger = {}
 
   renderToHtml = (state: any) => {
     if (!state.id) {
@@ -80,13 +83,9 @@ class Editor {
         <Editable editor={{
         plugins: this.plugins,
         store
-      }} state={deserialized} />
+      }} state={deserialized}/>
       </ServerContext>
     )
-  }
-
-  dispatch = (action) => {
-    this.store.dispatch(action)
   }
 }
 
@@ -94,8 +93,7 @@ export {
   PluginService,
   Editable,
   Controls,
-  plugins,
-  actions
+  plugins
 }
 
 export const createEmptyState = () => ({
