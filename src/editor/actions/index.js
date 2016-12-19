@@ -38,48 +38,48 @@ import {
   previousMode
 } from './display'
 
-export const actions = {
+export const actions = (dispatch) => ({
   cell: {
-    updateContent: (id: string, state: {}) => updateCellContent(id)(state),
-    updateLayout: (id: string, state: {}) => updateCellLayout(id)(state),
+    updateContent: (id: string, state: {}) => dispatch(updateCellContent(id)(state)),
+    updateLayout: (id: string, state: {}) => dispatch(updateCellLayout(id)(state)),
 
-    remove: removeCell,
-    resize: (id: string, size: number) => resizeCell(id)(size),
-    focus: (id: string, source: {}) => focusCell(id)(source),
-    focusNext: (id: string) => focusNextCell(id)(),
-    focusPrevious: (id: string) => focusPreviousCell(id)(),
-    blurAll: blurAllCells(),
+    remove: (...args) => dispatch(removeCell(...args)),
+    resize: (id: string, size: number) => dispatch(resizeCell(id)(size)),
+    focus: (id: string, source: {}) => dispatch(focusCell(id)(source)),
+    focusNext: (id: string) => dispatch(focusNextCell(id)()),
+    focusPrevious: (id: string) => dispatch(focusPreviousCell(id)()),
+    blurAll: (...args) => dispatch(blurAllCells(...args)),
 
-    drag: dragCell,
-    cancelDrag: cancelCellDrag,
+    drag: (...args) => dispatch(dragCell(...args)),
+    cancelDrag: (...args) => dispatch(cancelCellDrag(...args)),
 
-    hoverLeftOf: cellHoverLeftOf,
-    hoverRightOf: cellHoverRightOf,
-    hoverAbove: cellHoverAbove,
-    hoverBelow: cellHoverBelow,
-    hoverFloatingLeft: cellHoverInlineLeft,
-    hoverFloatingRight: cellHoverInlineRight,
-    clearHover,
+    hoverLeftOf: (...args) => dispatch(cellHoverLeftOf(...args)),
+    hoverRightOf: (...args) => dispatch(cellHoverRightOf(...args)),
+    hoverAbove: (...args) => dispatch(cellHoverAbove(...args)),
+    hoverBelow: (...args) => dispatch(cellHoverBelow(...args)),
+    hoverFloatingLeft: (...args) => dispatch(cellHoverInlineLeft(...args)),
+    hoverFloatingRight: (...args) => dispatch(cellHoverInlineRight(...args)),
+    clearHover: (...args) => dispatch(clearHover(...args)),
 
-    insertBelow: insertCellBelow,
-    insertAbove: insertCellAbove,
-    insertRightOf: insertCellRightOf,
-    insertLeftOf: insertCellLeftOf,
-    insertFloatingLeft: insertCellLeftInline,
-    insertFloatingRight: insertCellRightInline
+    insertBelow: (...args) => dispatch(insertCellBelow(...args)),
+    insertAbove: (...args) => dispatch(insertCellAbove(...args)),
+    insertRightOf: (...args) => dispatch(insertCellRightOf(...args)),
+    insertLeftOf: (...args) => dispatch(insertCellLeftOf(...args)),
+    insertFloatingLeft: (...args) => dispatch(insertCellLeftInline(...args)),
+    insertFloatingRight: (...args) => dispatch(insertCellRightInline(...args))
   },
 
   editable: {
-    update: updateEditable
+    update: (...args) => dispatch(updateEditable(...args))
   },
 
   mode: {
-    toggleInsert: insertMode,
-    toggleEdit: editMode,
-    togglePreview: previewMode,
-    toggleLayout: layoutMode,
-    toggleResize: resizeMode
+    insert: (...args) => dispatch(insertMode()),
+    edit: (...args) => dispatch(editMode()),
+    preview: (...args) => dispatch(previewMode()),
+    layout: (...args) => dispatch(layoutMode()),
+    resize: (...args) => dispatch(resizeMode())
   },
 
-  undo, redo
-}
+  undo: (...args) => dispatch(undo(...args)), redo: (...args) => dispatch(redo(...args))
+})
