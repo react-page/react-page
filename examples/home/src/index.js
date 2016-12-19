@@ -24,9 +24,9 @@ for (const element of elements) {
     <Editable
       editor={editor}
       state={content[element.dataset.editable]}
-      onChange={(state) => console.log(state)}
       // onChange={(state) => {
-      //  currentState = state
+      //   console.log(state)
+      //   console.log(editor.renderToHtml(state))
       // }}
     />
   ), element)
