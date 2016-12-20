@@ -62,7 +62,6 @@
     "lodash.debounce": "^4.0.8",
     "lodash.throttle": "^4.1.1",
     "material-ui": "^0.16.3",
-    "node-uuid": "^1.4.7",
     "ory-redux-undo": "^0.0.1",
     "ramda": "^0.22.1",
     "react": "^15.4.1",
@@ -85,7 +84,8 @@
     "semver": "^5.3.0",
     "slate": "^0.16.8",
     "slate-edit-blockquote": "^0.2.0",
-    "slate-edit-list": "^0.5.3"
+    "slate-edit-list": "^0.5.3",
+    "uuid": "^3.0.1"
   },
   "devDependencies": {
     "autoprefixer": "^6.5.3",
