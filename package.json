@@ -42,7 +42,7 @@
     "coveralls": "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
   },
   "engines": {
-    "node": "~6.6.0",
+    "node": ">=6.0.0",
     "npm": "~3.8.0"
   },
   "author": "ORY GmbH",
