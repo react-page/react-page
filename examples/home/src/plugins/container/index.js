@@ -1,7 +1,7 @@
 import React from 'react'
 import Reorder from 'material-ui/svg-icons/action/reorder'
 import Slate from 'src/editor/plugins/content/slate'
-import uuid from 'node-uuid'
+import uuid from 'uuid/v4'
 
 type Props = {
   children: Node,
@@ -26,12 +26,12 @@ export default {
   text: 'Centered container',
 
   createInitialChildren: () => ({
-    id: uuid.v4(),
+    id: uuid(),
     rows: [{
-      id: uuid.v4(),
+      id: uuid(),
       cells: [{
         content: { plugin: defaultPlugin, state: defaultPlugin.createInitialState() },
-        id: uuid.v4(),
+        id: uuid(),
       }]
     }]
   })

@@ -1,7 +1,7 @@
 import React from 'react'
 import OnDemandVideo from 'material-ui/svg-icons/notification/ondemand-video'
 import Slate from 'src/editor/plugins/content/slate'
-import uuid from 'node-uuid'
+import uuid from 'uuid'
 
 type Props = {
   children: Node,
@@ -53,12 +53,12 @@ export default {
   text: 'Video header',
 
   createInitialChildren: () => ({
-    id: uuid.v4(),
+    id: uuid(),
     rows: [{
-      id: uuid.v4(),
+      id: uuid(),
       cells: [{
         content: { plugin: defaultPlugin, state: defaultPlugin.createInitialState() },
-        id: uuid.v4(),
+        id: uuid(),
       }]
     }]
   }),

@@ -1,7 +1,7 @@
 import React from 'react'
 import Announcement from 'material-ui/svg-icons/image/landscape'
 import Slate from 'src/editor/plugins/content/slate'
-import uuid from 'node-uuid'
+import uuid from 'uuid'
 import SelectField from 'material-ui/SelectField'
 import MenuItem from 'material-ui/MenuItem'
 
@@ -57,12 +57,12 @@ export default {
   text: 'Parallax Background',
 
   createInitialChildren: () => ({
-    id: uuid.v4(),
+    id: uuid(),
     rows: [{
-      id: uuid.v4(),
+      id: uuid(),
       cells: [{
         content: { plugin: defaultPlugin, state: defaultPlugin.createInitialState() },
-        id: uuid.v4(),
+        id: uuid(),
       }]
     }]
   })
