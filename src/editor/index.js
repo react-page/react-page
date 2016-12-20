@@ -12,7 +12,7 @@ import PluginService from 'src/editor/service/plugin'
 import ServerContext from 'src/editor/components/ServerContext'
 import ReactDOMServer from 'react-dom/server'
 import { createInitialState } from 'src/editor/plugins/content/slate/hooks'
-import uuid from 'node-uuid'
+import uuid from 'uuid/v4'
 import { updateEditable } from 'src/editor/actions/editables'
 
 import type Store from 'types/redux'
@@ -98,7 +98,7 @@ export {
 }
 
 export const createEmptyState = () => ({
-  id: uuid.v4(),
+  id: uuid(),
   cells: [{
     content: {
       plugin: { name: 'ory/editor/core/content/slate' },
