@@ -51,7 +51,9 @@ const falser = (err: Error) => {
   }
 }
 
-Mousetrap.prototype.stopCallback = () => false
+if (Mousetrap) {
+  Mousetrap.prototype.stopCallback = () => false
+}
 
 let wasInitialized = false
 
@@ -59,6 +61,10 @@ class Decorator extends Component {
 
   componentDidMount() {
     if (!wasInitialized) {
+      if (!Mousetrap) {
+        return
+      }
+
       Mousetrap.bind(['ctrl+z', 'command+z'], this.handlers.undo)
       Mousetrap.bind(['ctrl+shift+z', 'ctrl+y', 'command+shift+z', 'command+y'], this.handlers.redo)
       Mousetrap.bind(['del', 'backspace'], this.handlers.remove)

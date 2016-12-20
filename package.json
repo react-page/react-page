@@ -62,6 +62,7 @@
     "lodash.debounce": "^4.0.8",
     "lodash.throttle": "^4.1.1",
     "material-ui": "^0.16.3",
+    "mousetrap": "^1.6.0",
     "ory-redux-undo": "^0.0.1",
     "ramda": "^0.22.1",
     "react": "^15.4.1",
