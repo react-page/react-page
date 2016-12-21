@@ -103,9 +103,11 @@ export default class PluginService {
       cells = [],
       content = {},
       layout = {},
+      inline,
+      size,
       id
     } = state
-    const newState: Object = { id }
+    const newState: Object = { id, inline, size }
 
     const { plugin: { name: contentName = null, version: contentVersion = '*' } = {}, state: contentState } = content || {}
     const { plugin: { name: layoutName = null, version: layoutVersion = '*' } = {}, state: layoutState } = layout || {}
@@ -137,29 +139,18 @@ export default class PluginService {
     return generateMissingIds(newState)
   }
 
-  serialize = (state: {
-    id: string,
-    rows: Object[],
-    cells: Object[],
-    content: {
-      plugin: ContentPlugin,
-      state: Object
-    },
-    layout: {
-      plugin: LayoutPlugin,
-      state: Object
-    },
-    props: any
-  }): Object => {
+  serialize = (state: Object): Object => {
     const {
       rows,
       cells,
       content,
       layout,
+      inline,
+      size,
       id
     } = state
 
-    const newState: Object = { id }
+    const newState: Object = { id, inline, size }
     if (content) {
       newState.content = {
         plugin: { name: content.plugin.name, version: content.plugin.version },
