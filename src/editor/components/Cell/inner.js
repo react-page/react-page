@@ -8,6 +8,7 @@ import Layout from './Layout'
 import Content from './Content'
 import Empty from './Empty'
 import classNames from 'classnames'
+import serverContext from 'src/editor/components/ServerContext/connect'
 
 import type { ComponentizedCell } from 'types/editable'
 
@@ -18,6 +19,7 @@ class Inner extends Component {
   render() {
     const props = this.props
     const {
+      isServerContext,
       node: {
         rows = [],
         layout: { plugin: { Component: LayoutComponent, name: layoutType } = {}, state: layoutState = {} } = {},
@@ -28,24 +30,49 @@ class Inner extends Component {
     const cn = classNames('editable-cell', {
       leaf: rows.length === 0
     })
+
     if (rows.length && LayoutComponent) {
+      if (isServerContext) {
+        return (
+          <div className={cn}>
+            <Layout {...props} {...layoutState} />
+          </div>
+        )
+      }
+
       return (
         <Droppable {...props} styles={null} dropTypes={whitelist} className={cn}>
-          <Draggable {...props} styles={null} dragType={layoutType} className={cn}>
+          <Draggable {...props} styles={null} dragType={layoutType}>
             <Layout {...props} {...layoutState} />
           </Draggable>
         </Droppable>
       )
     } else if (rows.length) {
+      if (isServerContext) {
+        return (
+          <div className={cn}>
+            <Rows {...props} />
+          </div>
+        )
+      }
+
       return (
         <Droppable {...props} styles={null} dropTypes={whitelist} className={cn}>
           <Rows {...props} />
         </Droppable>
       )
     } else if (ContentComponent) {
+      if (isServerContext) {
+        return (
+          <div className={cn}>
+            <Content {...props} />
+          </div>
+        )
+      }
+
       return (
         <Droppable {...props} isLeaf styles={null} dropTypes={whitelist} className={cn}>
-          <Draggable {...props} isLeaf styles={null} dragType={contentType} className={cn}>
+          <Draggable {...props} isLeaf styles={null} dragType={contentType}>
             <Content {...props} />
           </Draggable>
         </Droppable>
@@ -60,4 +87,4 @@ class Inner extends Component {
   }
 }
 
-export default Inner
+export default  serverContext()(Inner)
