@@ -23,7 +23,8 @@ const ParallaxComponent = ({ children, state: { style, align }, readOnly, onChan
           zIndex: 1,
           backgroundColor: 'rgba(255,255,255,.8)',
           padding: '4px 20px'
-        }}>
+        }}
+        >
           <SelectField
             value={style} onChange={(e: any, i: any, v: any) => onChange({ style: v })}
             floatingLabelText="Select section style"
@@ -39,7 +40,8 @@ const ParallaxComponent = ({ children, state: { style, align }, readOnly, onChan
     }
     <div className="container" style={{
       textAlign: align
-    }}>
+    }}
+    >
       <div>
         {children}
       </div>
