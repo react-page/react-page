@@ -1,6 +1,5 @@
 // @flow
 import React, { Component } from 'react'
-import ReactDOM from 'react-dom'
 import Drawer from 'material-ui/Drawer'
 import { connect } from 'react-redux'
 import { isInsertMode } from 'src/editor/selector/display'
@@ -47,7 +46,7 @@ class Toolbar extends Component {
   input: HTMLInputElement
 
   onRef = (component: Component<*, *, *>) => {
-    this.input = ReactDOM.findDOMNode(component)
+    this.input = component
   }
 
   onSearch = (e: Event) => {
@@ -71,9 +70,8 @@ class Toolbar extends Component {
     return (
       <Drawer open={isInsertMode}>
         <Subheader>Content</Subheader>
-        <div style={{ padding: '0 16px' }}>
+        <div style={{ padding: '0 16px' }} ref={this.onRef}>
           <TextField
-            ref={this.onRef}
             hintText="Search anything"
             fullWidth
             onChange={this.onSearch}
