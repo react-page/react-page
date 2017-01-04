@@ -9,6 +9,7 @@ const hoverService = new HoverService()
 export const computeCurrentDropPosition = (actions: Callbacks, hover: ComponentizedCell, monitor: Monitor, component: Object, matrixName: string) => {
   const drag = monitor.getItem()
   const mousePosition = monitor.getClientOffset()
+  /* eslint-disable react/no-find-dom-node */
   const componentPosition = findDOMNode(component).getBoundingClientRect()
   const room: Room = {
     height: (componentPosition.bottom - componentPosition.top),
