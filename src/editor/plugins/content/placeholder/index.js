@@ -1,4 +1,4 @@
-// @flow
+ // @flow
 import Component from './Component'
 import uuid from 'uuid'
 

@@ -23,9 +23,7 @@ const Item = ({ plugin, insert }: { plugin: Plugin, insert: any }, k: string) =>
         leftAvatar={<Avatar icon={plugin.IconComponent} />}
         primaryText={plugin.text}
         disabled
-        rightIcon={(
-          <DragHandle className="editor-drag-handle" style={{ cursor: 'move' }} />
-          )}
+        rightIcon={<DragHandle className="ory-toolbar-item-drag-handle" style={{ cursor: 'move' }} />}
       />
     </Draggable>
   )

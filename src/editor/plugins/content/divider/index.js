@@ -1,8 +1,10 @@
 import React from 'react'
 import Remove from 'material-ui/svg-icons/content/remove'
 
+import './index.css'
+
 const Divider = () => (
-  <hr className="divider" />
+  <hr className="ory-plugins-content-divider" />
 )
 
 export default {

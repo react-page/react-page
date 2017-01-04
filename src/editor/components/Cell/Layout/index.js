@@ -33,10 +33,6 @@ class Layout extends React.Component {
       isEditMode
     }: ComponentizedCell = this.props
 
-    if (!Component) {
-      return null
-    }
-
     return (
       <Component
         id={id}

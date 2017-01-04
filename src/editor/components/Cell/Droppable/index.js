@@ -5,11 +5,11 @@ import * as hoverActions from 'src/editor/actions/cell/drag'
 import * as insertActions from 'src/editor/actions/cell/insert'
 import { DropTarget as dropTarget } from 'react-dnd'
 import { connect } from 'react-redux'
-import cssModules from 'react-css-modules'
 import { target, connect as monitorConnect } from './helper/dnd'
-import styles from './index.scoped.css'
 import classNames from 'classnames'
 import serverContext from 'src/editor/components/ServerContext/connect'
+
+import './index.css'
 
 class Droppable extends Component {
   shouldComponentUpdate = shouldPureComponentUpdate
@@ -44,9 +44,13 @@ class Droppable extends Component {
     }
 
     return connectDropTarget(
-      <div styleName={classNames({ 'is-over-current': hover, [`is-over-${hover}`]: hover, leaf: isLeaf })}
-           className={className}
-      >
+      <div className={classNames(
+        className,
+        {
+          'ory-cell-droppable-is-over-current': hover,
+          [`ory-cell-droppable-is-over-${hover}`]: hover,
+          'ory-cell-droppable-leaf': isLeaf
+        })}>
         {children}
       </div>
     )
@@ -55,4 +59,4 @@ class Droppable extends Component {
 
 const mapDispatchToProps = { ...hoverActions, ...insertActions }
 
-export default serverContext()(connect(null, mapDispatchToProps)(dropTarget(({ dropTypes }: { dropTypes: Array<string> }) => dropTypes, target, monitorConnect)(cssModules(Droppable, styles, { allowMultiple: true }))))
+export default serverContext()(connect(null, mapDispatchToProps)(dropTarget(({ dropTypes }: { dropTypes: Array<string> }) => dropTypes, target, monitorConnect)(Droppable)))

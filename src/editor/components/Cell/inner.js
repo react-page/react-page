@@ -41,8 +41,8 @@ class Inner extends Component {
       }
 
       return (
-        <Droppable {...props} styles={null} dropTypes={whitelist} className={cn}>
-          <Draggable {...props} styles={null} dragType={layoutType}>
+        <Droppable {...props} dropTypes={whitelist} className={cn}>
+          <Draggable {...props} dragType={layoutType}>
             <Layout {...props} {...layoutState} />
           </Draggable>
         </Droppable>
@@ -57,7 +57,7 @@ class Inner extends Component {
       }
 
       return (
-        <Droppable {...props} styles={null} dropTypes={whitelist} className={cn}>
+        <Droppable {...props} dropTypes={whitelist} className={cn}>
           <Rows {...props} />
         </Droppable>
       )
@@ -71,8 +71,8 @@ class Inner extends Component {
       }
 
       return (
-        <Droppable {...props} isLeaf styles={null} dropTypes={whitelist} className={cn}>
-          <Draggable {...props} isLeaf styles={null} dragType={contentType}>
+        <Droppable {...props} isLeaf dropTypes={whitelist} className={cn}>
+          <Draggable {...props} isLeaf dragType={contentType}>
             <Content {...props} />
           </Draggable>
         </Droppable>

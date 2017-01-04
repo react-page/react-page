@@ -1,25 +1,12 @@
-.controls {
-  position: fixed;
-  z-index: 100;
-  bottom: 0;
-  right: 0;
-  padding: 16px;
-  transition: all 200ms ease;
-}
-
-.controls-right .button {
+.ory-controls-mode-toggle-button-inner {
   float: right;
   margin: 8px;
 }
 
-.clearfix {
-  clear: both;
-}
-
-.controls-right .description {
+.ory-controls-mode-toggle-button-description {
   font-family: Roboto, sans-serif;
   font-size: 16px;
-  margin-top: 18px;
+  margin-top: 24px;
   float: right;
   background: transparent;
   color: transparent;
@@ -32,7 +19,7 @@
   overflow: hidden;
 }
 
-.controls-right > *:hover .description {
+.ory-controls-mode-toggle-button:hover .ory-controls-mode-toggle-button-description {
   width: calc(100% - 74px);
   background: var(--darkBlack);
   color: var(--white);
