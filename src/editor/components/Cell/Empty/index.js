@@ -1,13 +1,11 @@
 // @flow
 import React, { PropTypes } from 'react'
-import cssModules from 'react-css-modules'
-// import logger from 'src/editor/service/logger'
 
-import styles from './index.scoped.css'
+import './index.css'
 
 // logger.error('Got empty cell: ', props)
 const Empty = ({ id = 'no id given', ...props }: { id: string }) => (
-  <div styleName="empty">
+  <div className="ory-cell-empty">
     <strong>An error occurred!</strong>
     <small>
       <dl>
@@ -26,4 +24,4 @@ Empty.propTypes = {
   id: PropTypes.string
 }
 
-export default cssModules(Empty, styles)
+export default Empty
