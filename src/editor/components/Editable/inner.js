@@ -64,11 +64,11 @@ class Inner extends Component {
           this.props.isServerContext
             ? null
             : (
-            <Notifier
+              <Notifier
               message="Resize the browser window for mobile preview."
               open={isPreviewMode}
               id={dismissedMobilePreviewKey}
-            />
+              />
           )
         }
       </div>

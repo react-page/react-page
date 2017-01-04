@@ -61,7 +61,7 @@ class Cell extends Component {
       >
         {resizable && (isResizeMode)
           ? (
-          <Resizable
+            <Resizable
             id={id}
             rowWidth={rowWidth}
             rowHeight={rowHeight}
@@ -69,9 +69,9 @@ class Cell extends Component {
             node={props.node}
             steps={12}
             onChange={props.resizeCell}
-          >
-            <Inner {...props} />
-          </Resizable>
+            >
+              <Inner {...props} />
+            </Resizable>
         ) : (
           <Inner {...props} />
         )}

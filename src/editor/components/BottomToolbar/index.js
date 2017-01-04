@@ -22,14 +22,16 @@ const BottomToolbar = ({ open = false, children, className }: { open?: boolean, 
       border: 'transparent',
       overflow: 'visible',
       boxShadow: 'none'
-    }}>
+    }}
+    >
       <div style={{
         display: 'inline-block',
         border: `${darkBlack} 1px solid`,
         borderRadius: '4px 4px 0',
         backgroundColor: darkBlack,
         padding: '12px 24px'
-      }}>
+      }}
+      >
         {children}
       </div>
     </Drawer>

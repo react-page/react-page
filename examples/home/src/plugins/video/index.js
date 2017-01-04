@@ -17,7 +17,7 @@ const VideoComponent = ({ children }: Props) => (
         <video playsInline autoPlay muted loop className="background-video">
           <source src="https://storage.googleapis.com/ory.am/bokeh2.mp4" type="video/mp4" />
         </video>
-        <div className="background-video-overlay"></div>
+        <div className="background-video-overlay" />
       </div>
       <div className="header-overlay">
         <nav className="navbar">
@@ -32,7 +32,7 @@ const VideoComponent = ({ children }: Props) => (
                 <li><a href="http://gitdeploy.us10.list-manage1.com/subscribe?u=ffb1a878e4ec6c0ed312a3480&id=f605a41b53">Newsletter</a></li>
               </ul>
             </div>
-            <div className="clearfix"></div>
+            <div className="clearfix" />
           </div>
         </nav>
         <div className="header-title">
