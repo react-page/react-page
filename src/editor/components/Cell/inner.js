@@ -87,4 +87,4 @@ class Inner extends Component {
   }
 }
 
-export default  serverContext()(Inner)
+export default serverContext()(Inner)

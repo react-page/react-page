@@ -39,7 +39,7 @@ class Spacer extends Component {
       >
         {readOnly
           ? (
-          <Solid height={height} />
+            <Solid height={height} />
         ) : (
           <Resizable onResize={this.onResize} height={height} width={0}>
             <div style={{ height, position: 'relative' }}>
