@@ -1,12 +1,8 @@
-.relative {
-  position: relative;
-}
-
-.force-block {
+.ory-row-has-floating-children {
   display: block !important;
 }
 
-.is-over-current:before {
+.ory-row-is-hovering-this:before {
   content: " ";
   position: absolute;
   background: black;
@@ -16,35 +12,29 @@
   z-index: 2;
 }
 
-.is-over-above:before {
+.ory-row-is-hovering-above:before {
   top: 0;
   height: 9%;
   width: 100%;
 }
 
-.is-over-below:before {
+.ory-row-is-hovering-below:before {
   bottom: 0;
   height: 9%;
   width: 100%;
 }
 
-.is-over-left-of:before {
+.ory-row-is-hovering-left-of:before {
   top: 0;
   left: 0;
   bottom: 0;
   width: 9%;
 }
 
-.is-over-right-of:before {
+.ory-row-is-hovering-right-of:before {
   top: 0;
   right: 0;
   bottom: 0;
   width: 9%;
 }
 
-.clearfix,
-.clearfix:before,
-.clearfix:after {
-  content: " ";
-  clear: both;
-}

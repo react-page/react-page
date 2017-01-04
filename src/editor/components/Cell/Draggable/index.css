@@ -1,4 +1,4 @@
-.draggable {
+.ory-cell-draggable {
   cursor: move;
   position: relative;
   height: 100%;
@@ -7,7 +7,7 @@
   // will-change: transform;
 }
 
-.draggable-overlay {
+.ory-cell-draggable-overlay {
   position: absolute;
   top: 0;
   left: 0;
@@ -18,27 +18,24 @@
   transition: all ease .2s;
 }
 
-.draggable-overlay:hover {
+.ory-cell-draggable-overlay:hover {
   filter: sepia(0.7);
   background: var(--faintBlack);
   box-shadow: 0 0 4px var(--minBlack);
   background-blend-mode: screen;
 }
 
-.draggable-overlay.leaf {
+.ory-cell-draggable-overlay.ory-cell-draggable-leaf {
   z-index: 3;
 }
 
-.inline-left.draggable-overlay, .inline-right.draggable-overlay {
+.ory-cell-draggable-inline-left.ory-cell-draggable-overlay,
+.ory-cell-draggable-inline-right.ory-cell-draggable-overlay {
   float: left;
   z-index: 4;
 }
 
-.draggable > * {
-  // will-change: auto;
-}
-
-.is-dragging {
+.ory-cell-draggable-is-dragging {
   opacity: 0.4;
   outline: none;
 }
