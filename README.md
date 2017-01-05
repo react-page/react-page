@@ -11,9 +11,9 @@
  
 The ORY Editor is part of the ORY Content Toolchain, a set of tools helping you to build, distribute and manage awesome content.
 
-*Note:* Please be aware that the ORY Editor is very young, and most features and APIs are experimental. We try to keep
+*Note:* Please be aware that the ORY Editor is very young, and most features, APIs and docs are new. We try to keep
 backwards compatibility as best as we can, but we can not guarantee it. Also, we need your help to find issues and improve
-the overall experience as well as the APIs.
+the overall experience, APIs and documentation.
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
@@ -31,13 +31,13 @@ Head over to our demo at [editor.ory.am](http://editor.ory.am/) and check out wh
 
 We run the [Wikipedia for learning](https://de.serlo.org) for close to a decade now - and used
 the lessons learned to enrich the Open Source Community with a technology that improves
-the state of content creation on the web.
- 
-The ORY Editor is different, because it allows you to build responsive layouts. All content is represented by
-a JSON object and as no HTML is used, you won't have to worry about HTML input sanitation or
-XSS attacks. You can extend functionality and design by writing React components against a small and clear API. Your content
-is no longer a snapshot, it is a replayable state machine with deltas. We built the ORY Editor with state of the art
-technology and development principles - it's test driven, user experience centered, and cloud native.
+the state of content creation on the web. Key features of the ORY Editor are as followed.
+
+* Content is represented as a JSON state. HTML purification / sanitation is no longer required and content-based XSS attacks are much less likely.
+* The content state is transformed using [redux](https://github.com/reactjs/redux) and all transformations are well tested.
+* Transformations can be replayed at any time. Each key press is a state transform. This allows collaborative editing, global undo/redo and other wizardry.
+* Include custom, dynamic components by using the React Plugin API ([example](examples/single-page-site/src/plugins/parallax)) for both content and layout.
+* Adapt layout behaviour to your use case *(in development)*
 
 ## Quickstart
 
