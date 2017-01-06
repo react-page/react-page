@@ -42,7 +42,7 @@ after_success:
 
 before_deploy:
   - npm version --no-git-tag-version $(git describe --tag)
-  - npm run build
+  - npm run build:umd
 
 deploy:
   provider: npm

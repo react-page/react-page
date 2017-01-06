@@ -5,6 +5,7 @@ const webpack = require('webpack')
 
 // isProduction :: Boolean
 const isProduction = process.env.NODE_ENV === 'production'
+const minify = process.env.WEBPACK_MINIFY
 
 // createEnvAwareArray :: [a] -> [a]
 // Should be used together with `ifProduction` and `ifDevelopment`.
@@ -13,6 +14,7 @@ const isProduction = process.env.NODE_ENV === 'production'
 //  * Regardless of `NODE_ENV`, `createEnvAwareArray([plugin]) = [plugin]`
 const createEnvAwareArray = R.reject(R.isNil)
 const ifProduction = (x) => isProduction ? x : null
+const ifMinify = (x) => isProduction && minify ? x : null
 
 // Used loaders for css after `style-loader`
 const cssScopedLoaders = [
@@ -34,7 +36,7 @@ module.exports = {
   output: {
     path: path.join(__dirname, 'dist'),
     publicPath: '/',
-    filename: isProduction ? 'bundle.min.js' : 'bundle.js',
+    filename: minify ? 'bundle.min.js' : 'bundle.js',
     libraryTarget: 'umd',
     library: 'OryEditor'
   },
@@ -71,7 +73,7 @@ module.exports = {
     new webpack.optimize.OccurrenceOrderPlugin(),
     new ExtractTextPlugin('styles.css'),
     ifProduction(new webpack.DefinePlugin({ 'process.env.NODE_ENV': '"production"' })),
-    ifProduction(new webpack.optimize.UglifyJsPlugin())
+    ifMinify(new webpack.optimize.UglifyJsPlugin())
   ]),
   // resolve :: { modules :: [String] }
   // Configure webpack for `NODE_PATH=.`
