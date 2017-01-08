@@ -23,10 +23,10 @@ class Droppable extends Component {
     }
 
     if (!(this.props.isLayoutMode || this.props.isInsertMode)) {
-      return <div>{this.props.children}</div>
+      return <div className="ory-row-droppable">{this.props.children}</div>
     }
 
-    return this.props.connectDropTarget(<div>{this.props.children}</div>)
+    return this.props.connectDropTarget(<div className="ory-row-droppable">{this.props.children}</div>)
   }
 }
 

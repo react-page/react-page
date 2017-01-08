@@ -4,10 +4,8 @@ import classNames from 'classnames'
 import Cell from 'src/editor/components/Cell'
 import type { ComponentizedRow, Cell as CellType } from 'types/editable'
 
-// import cssModules from 'react-css-modules'
-// import grid from 'src/editor/styles/floating-grid.scoped.css'
-// import styles from './index.scoped.css'
-
+// order matters, include overrides after grid import
+import 'src/editor/styles/grid.css'
 import './index.css'
 
 const Inner = ({

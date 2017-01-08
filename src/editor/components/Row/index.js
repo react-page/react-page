@@ -25,7 +25,7 @@ class Row extends Component {
   render() {
     // const { isResizeMode }: ComponentizedRow = this.props
     const Droppable = this.Droppable
-    const props = { ...this.props }
+    const props = this.props
 
     // originally, flexbox grid was used in d&d:
     //
