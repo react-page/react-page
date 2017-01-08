@@ -25,7 +25,7 @@ for (const element of elements) {
       editor={editor}
       state={content[element.dataset.editable]}
       onChange={(state) => {
-        // console.log(state)
+        console.log(state)
         // console.log(editor.renderToHtml(state))
       }}
     />
