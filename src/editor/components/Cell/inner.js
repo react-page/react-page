@@ -28,7 +28,7 @@ class Inner extends Component {
       config: { whitelist = [] }
     } = this.props
     const cn = classNames('editable-cell', {
-      leaf: rows.length === 0
+      'ory-cell-leaf': rows.length === 0
     })
 
     if (rows.length && LayoutComponent) {
