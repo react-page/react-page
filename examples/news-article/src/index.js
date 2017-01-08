@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import Editor, { Editable, Controls } from 'src/editor'
-import content from '../content.js'
+import content from './content.js'
 
 const editor = new Editor()
 require('react-tap-event-plugin')()

@@ -12,9 +12,6 @@ import { resizeCell, focusCell, blurAllCells } from 'src/editor/actions/cell'
 import classNames from 'classnames'
 import type { ComponentizedCell } from 'types/editable'
 
-import cssModules from 'react-css-modules'
-import * as commonStyles from 'src/editor/styles'
-
 import 'src/editor/styles/grid.css'
 import './index.css'
 
@@ -54,10 +51,10 @@ class Cell extends Component {
       <div
         // styles={styles}
         className={classNames(gridClass(this.props), {
-          'has-inline-neighbour': hasInlineNeighbour,
-          [`inline-${inline || ''}`]: inline,
-          'bring-to-front': inline && (!isLayoutMode && !isInsertMode && !isResizeMode),
-          focused
+          'ory-cell-has-inline-neighbour': hasInlineNeighbour,
+          [`ory-cell-inline-${inline || ''}`]: inline,
+          'ory-cell-bring-to-front': inline && (!isLayoutMode && !isInsertMode && !isResizeMode),
+          'ory-cell-focused': focused
         })}
         onClick={stopClick(isEditMode)}
       >
@@ -99,4 +96,4 @@ const mapDispatchToProps = (dispatch: Function, { id }: ComponentizedCell) => bi
   blurAllCells
 }, dispatch)
 
-export default (connect(mapStateToProps, mapDispatchToProps)(cssModules(Cell, commonStyles.flexbox)))
+export default (connect(mapStateToProps, mapDispatchToProps)(Cell))
