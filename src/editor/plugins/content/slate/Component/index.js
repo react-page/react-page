@@ -8,7 +8,7 @@ import Portal from 'react-portal'
 import position from 'selection-position'
 import { Editor } from 'slate'
 
-import BottomToolbar from 'src/editor/components/BottomToolbar'
+import BottomToolbar from 'src/editor/components/Controls/BottomToolbar'
 import { ContentPluginProps } from 'src/editor/service/plugin/classes'
 import styles from './index.scoped.css'
 

@@ -10,6 +10,8 @@ import { removeCell } from 'src/editor/actions/cell/core'
 import throttle from 'lodash.throttle'
 import type { Monitor, Connector } from 'types/react-dnd'
 import styles from './index.scoped.css'
+import { isEditMode, isLayoutMode, isPreviewMode, isInsertMode, isResizeMode } from 'src/editor/selector/display'
+import { createStructuredSelector } from 'reselect'
 
 const target = {
   hover: throttle((props: any, monitor: Monitor) => {
@@ -36,9 +38,7 @@ const connectMonitor = (connect: Connector, monitor: Monitor) => ({
 })
 
 const Trash = ({ isLayoutMode, connectDropTarget, isOverCurrent }: Object) => connectDropTarget(
-  <div
-    styleName={classNames('bar', { active: isLayoutMode })}
-  >
+  <div styleName={classNames('bar', { active: isLayoutMode })}>
     <FloatingActionButton secondary disabled={!isOverCurrent}>
       <Delete />
     </FloatingActionButton>
@@ -54,4 +54,8 @@ const mapDispatchToProps = {
   removeCell
 }
 
-export default connect(null, mapDispatchToProps)(dropTarget(types, target, connectMonitor)(cssModules(Trash, styles, { allowMultiple: true })))
+const mapStateToProps = createStructuredSelector({
+  isEditMode, isLayoutMode, isPreviewMode, isInsertMode, isResizeMode
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(dropTarget(types, target, connectMonitor)(cssModules(Trash, styles, { allowMultiple: true })))

@@ -4,7 +4,7 @@ import FloatingActionButton from 'material-ui/FloatingActionButton'
 import cssModules from 'react-css-modules'
 import device from 'device.js'
 
-import styles from '../index.scoped.css'
+import styles from './index.css'
 
 const Button = ({ description, icon, onClick, active, disabled }: {
   description: string,
@@ -14,8 +14,8 @@ const Button = ({ description, icon, onClick, active, disabled }: {
   onClick: Function,
   description: string
 }) => (
-  <div>
-    <div styleName="button">
+  <div className="ory-controls-mode-toggle-button">
+    <div className="ory-controls-mode-toggle-button-inner">
       <FloatingActionButton
         secondary={active}
         mini={device().mobile()}
@@ -25,7 +25,7 @@ const Button = ({ description, icon, onClick, active, disabled }: {
         {icon}
       </FloatingActionButton>
     </div>
-    <div styleName="description">
+    <div className="ory-controls-mode-toggle-button-description">
       {description}
     </div>
   </div>

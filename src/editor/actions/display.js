@@ -10,7 +10,7 @@ export const DISPLAY_MODE_INSERT = 'insert'
 export const DISPLAY_MODE_RESIZING = 'resizing'
 export const DEFAULT_DISPLAY_MODE = DISPLAY_MODE_PREVIEW
 
-const setDisplayMode = (mode: string, remember: boolean = true) => (): Action => ({
+const setDisplayMode = (mode: string, remember: boolean = false) => (): Action => ({
   type: SET_DISPLAY_MODE,
   ts: new Date(),
   mode,
@@ -40,7 +40,7 @@ export const layoutMode = setDisplayMode(DISPLAY_MODE_LAYOUT)
 /**
  * Dispatch to switch to resize display mode.
  */
-export const resizeMode = setDisplayMode(DISPLAY_MODE_RESIZING, false)
+export const resizeMode = setDisplayMode(DISPLAY_MODE_RESIZING)
 
 /**
  * Dispatch to switch to the last display mode, or the fallback if reverting is not possible.

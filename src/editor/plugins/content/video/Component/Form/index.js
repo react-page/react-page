@@ -5,7 +5,7 @@ import TextField from 'material-ui/TextField'
 import TypeException from 'src/editor/exceptions/TypeException'
 import type { PropTypes } from '../index.js'
 
-import BottomToolbar from 'src/editor/components/BottomToolbar'
+import BottomToolbar from 'src/editor/components/Controls/BottomToolbar'
 
 const handleChange = (onChange: Function) => (e: Event) => {
   const target = e.target

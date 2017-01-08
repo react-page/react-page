@@ -9,11 +9,7 @@ import { createStructuredSelector } from 'reselect'
 import { blurAllCells } from 'src/editor/actions/cell'
 import Inner from './inner'
 import dimensions from 'src/editor/components/Dimensions'
-import cssModules from 'react-css-modules'
 import type { ComponentizedRow } from 'types/editable'
-
-import * as commonStyles from 'src/editor/styles'
-import localStyles from './index.scoped.css'
 
 class Row extends Component {
   constructor(props: ComponentizedRow) {
@@ -27,7 +23,7 @@ class Row extends Component {
   Droppable: Object
 
   render() {
-    const { isResizeMode }: ComponentizedRow = this.props
+    // const { isResizeMode }: ComponentizedRow = this.props
     const Droppable = this.Droppable
     const props = { ...this.props }
 
@@ -35,13 +31,13 @@ class Row extends Component {
     //
     //  if (isLayoutMode || isResizeMode || isInsertMode) {
 
-    if (isResizeMode) {
-      props.styles = {
-        ...props.styles,
-        ...commonStyles.flexbox,
-        ...localStyles // override defaults
-      }
-    }
+    // if (isResizeMode) {
+    //   props.styles = {
+    //     ...props.styles,
+    //     ...commonStyles.flexbox,
+    //     ...localStyles // override defaults
+    //   }
+    // }
 
     return (
       <Droppable {...props}>
@@ -65,8 +61,4 @@ const mapDispatchToProps = {
   blurAllCells
 }
 
-export default dimensions()(connect(mapStateToProps, mapDispatchToProps)(cssModules(Row, {
-  ...commonStyles.floating,
-  ...commonStyles.common,
-  ...localStyles
-}, { allowMultiple: true })))
+export default dimensions()(connect(mapStateToProps, mapDispatchToProps)(Row))

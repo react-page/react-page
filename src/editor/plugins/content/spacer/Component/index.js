@@ -46,7 +46,10 @@ class Spacer extends Component {
               <div
                 style={{ position: 'absolute', bottom: '0', height: '24px', width: '100%', background: faintBlack, textAlign: 'center' }}
               >
-                <DragHandle color={white} />
+                <svg viewBox="0 0 24 24" style={{width: 24, height: 24}}>
+                  <path d="M20 9H4v2h16V9zM4 15h16v-2H4v2z"/>
+                </svg>
+                {/*<DragHandle color={white} />*/}
               </div>
             </div>
           </Resizable>

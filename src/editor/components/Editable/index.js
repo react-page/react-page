@@ -3,13 +3,12 @@ import React, { Component } from 'react'
 import { Provider } from 'react-redux'
 import DragDropContext from 'src/editor/components/DragDropContext'
 import HotKeyDecorator from 'src/editor/components/HotKey/Decorator'
-import getMuiTheme from 'material-ui/styles/getMuiTheme'
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import { updateEditable } from 'src/editor/actions/editables'
-import Inner from './inner'
 import { logException } from 'src/editor/raven'
 import { editable } from 'src/editor/selector/editable'
 import PluginService from 'src/editor/service/plugin'
+
+import Inner from './Inner'
 
 import type { Store } from 'types/redux'
 import type { Editable as EditableType } from 'types/editable'
@@ -72,9 +71,7 @@ class Editable extends Component {
         <Provider store={store}>
           <DragDropContext>
             <HotKeyDecorator id={id}>
-              <MuiThemeProvider muiTheme={getMuiTheme()}>
-                <Inner id={id} />
-              </MuiThemeProvider>
+              <Inner id={id} />
             </HotKeyDecorator>
           </DragDropContext>
         </Provider>

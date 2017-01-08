@@ -1,0 +1,61 @@
+.ory-row-has-floating-children {
+  display: block !important;
+}
+
+.ory-row-is-hovering-this:before {
+  content: " ";
+  position: absolute;
+  background: black;
+  display: block;
+  background: var(--faintBlack);
+  box-shadow: 0 0 4px var(--minBlack);
+  z-index: 2;
+}
+
+.ory-row-is-hovering-above:before {
+  top: 0;
+  height: 9%;
+  width: 100%;
+}
+
+.ory-row-is-hovering-below:before {
+  bottom: 0;
+  height: 9%;
+  width: 100%;
+}
+
+.ory-row-is-hovering-left-of:before {
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 9%;
+}
+
+.ory-row-is-hovering-right-of:before {
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 9%;
+}
+
+.ory-row {
+  position: relative;
+  box-sizing: border-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: -webkit-box;
+  display: flex;
+  -webkit-flex: 0 1 auto;
+  -ms-flex: 0 1 auto;
+  -webkit-box-flex: 0;
+  flex: 0 1 auto;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  flex-direction: row;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  align-items:stretch;
+}
