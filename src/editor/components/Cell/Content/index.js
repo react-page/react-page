@@ -67,6 +67,7 @@ class Content extends Component {
         tabIndex="-1"
         style={{ outline: 'none' }}
         ref={this.onRef}
+        className="ory-cell-content"
       >
         <Component
           editable={editable}

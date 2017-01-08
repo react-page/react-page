@@ -1,0 +1,21 @@
+.focused {
+  box-shadow: 0 0 5px rgb(81, 203, 238);
+  outline: 1px solid rgb(81, 203, 238);
+}
+
+.inline-left {
+  float: left;
+}
+
+.inline-right {
+  float: right;
+}
+
+.has-inline-neighbour {
+  float: none;
+  width: 100%;
+}
+
+.bring-to-front {
+  z-index: 1;
+}

@@ -1,17 +1,9 @@
-.resizable {
+.react-resizable {
   position: relative;
   height: 100%;
 }
 
-.inline-left {
-  composes: resizable;
-}
-
-.inline-right {
-  composes: resizable;
-}
-
-:global .resizable-cell > .react-resizable-handle {
+.react-resizable > .react-resizable-handle {
   position: absolute;
   z-index: 2;
   width: 4px;
@@ -22,11 +14,11 @@
   cursor: e-resize;
 }
 
-.inline-right :global .react-resizable-handle {
+.ory-cell-resizable-inline-right > .react-resizable-handle {
   left: -4px;
 }
 
-:global .resizable-cell > .react-resizable-handle:after {
+.react-resizable > .react-resizable-handle:after {
   content: " ";
   background-color: var(--minBlack);
   /* width: 30px; */
@@ -41,9 +33,8 @@
   transition: all 200ms linear;
 }
 
-:global .resizable-cell > .is-resizing > .react-resizable-handle:after,
-:global .resizable-cell > .react-resizable-handle:hover:after,
-:global .resizable-cell > .react-resizable-handle:active:after {
+.react-resizable > .react-resizable-handle:hover:after,
+.react-resizable > .react-resizable-handle:active:after {
   background-color: var(--black);
   top: 0;
   height: 100%;
