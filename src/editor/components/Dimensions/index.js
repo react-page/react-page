@@ -105,21 +105,19 @@ const Dimensions = ({
 
       const { containerWidth, containerHeight } = this.state
 
-      if (!containerWidth && !containerHeight) {
-         logger.info('Wrapper div has no height or width, try overriding style with `containerStyle` option')
-      }
+      // if (!containerWidth && !containerHeight) {
+      //    logger.info('Wrapper div has no height or width, try overriding style with `containerStyle` option')
+      // }
 
       // className={className} style={containerStyle}
 
       return (
         <div className={className} ref={this.onContainerRef}>
-          {(containerWidth || containerHeight) && (
-            <ComposedComponent
-              {...this.state}
-              {...this.props}
-              updateDimensions={this.updateDimensions}
-            />
-          )}
+          <ComposedComponent
+            {...this.state}
+            {...this.props}
+            updateDimensions={this.updateDimensions}
+          />
         </div>
       )
     }
