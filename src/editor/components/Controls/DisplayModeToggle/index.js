@@ -12,27 +12,27 @@ const Inner = () => (
     <div className="ory-controls-mode-toggle-control-group">
       <div className="ory-controls-mode-toggle-control">
         <ToggleEdit />
-        <div className="clearfix" />
+        <div className="ory-controls-mode-toggle-clearfix" />
       </div>
 
       <div className="ory-controls-mode-toggle-control">
         <ToggleInsert />
-        <div className="clearfix" />
+        <div className="ory-controls-mode-toggle-clearfix" />
       </div>
 
       <div className="ory-controls-mode-toggle-control">
         <ToggleLayout />
-        <div className="clearfix" />
+        <div className="ory-controls-mode-toggle-clearfix" />
       </div>
 
       <div className="ory-controls-mode-toggle-control">
         <ToggleResize />
-        <div className="clearfix" />
+        <div className="ory-controls-mode-toggle-clearfix" />
       </div>
 
       <div className="ory-controls-mode-toggle-control">
         <TogglePreview />
-        <div className="clearfix" />
+        <div className="ory-controls-mode-toggle-clearfix" />
       </div>
     </div>
 )

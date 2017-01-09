@@ -31,6 +31,10 @@ a:hover {
   text-decoration: underline;
 }
 
-.editable-cell {
+.ory-cell {
+  background-color: white;
+}
+
+.ory-cell-leaf {
   padding: 8px;
 }

@@ -1,18 +1,13 @@
 // @flow
 /* eslint no-duplicate-imports: ["off"] */
 import React, { Component } from 'react'
-import FilterFrames from 'material-ui/svg-icons/image/filter-frames'
 import createSlatePlugin from 'src/editor/plugins/content/slate'
 import type { LayoutPluginProps } from 'src/editor/service/plugin/classes'
 import uuid from 'uuid'
-import cssModules from 'react-css-modules'
-import styles from './index.scoped.css'
-import Paper from 'material-ui/Paper'
-import ExpandMore from 'material-ui/svg-icons/navigation/expand-more'
-import ExpandLess from 'material-ui/svg-icons/navigation/expand-less'
-import { white, faintBlack } from 'material-ui/styles/colors'
+import FilterFrames from 'material-ui/svg-icons/image/filter-frames'
+import './index.css'
 
-class Spoiler extends Component {
+class PluginComponent extends Component {
   state = {
     hidden: false
   }
@@ -25,22 +20,23 @@ class Spoiler extends Component {
   render() {
     const { children } = this.props
     return (
-      <Paper>
-        <div styleName="content" style={{ display: this.state.hidden ? 'none' : 'block' }}>
+      <div className="ory-plugins-layout-spoiler">
+        <div className="ory-plugins-layout-spoiler-content" style={{ display: this.state.hidden ? 'none' : 'block' }}>
           {children}
         </div>
-        <div style={{
-          backgroundColor: faintBlack,
-          textAlign: 'center',
-          cursor: 'pointer'
-        }} onClick={this.onToggle}
-        >
-          {this.state.hidden
-            ? <ExpandMore color={white} size={32} />
-            : <ExpandLess color={white} size={32} />
+        <div className="ory-plugins-layout-spoiler-toggle" onClick={this.onToggle}>
+          {this.state.hidden ? (
+            <svg viewBox="0 0 24 24" style={{color: '#ffffff', width: 32, height: 32}}>
+              <path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"/>
+            </svg>
+          ) : (
+            <svg viewBox="0 0 24 24" style={{color: '#ffffff', width: 32, height: 32}}>
+              <path d="M12 8l-6 6 1.41 1.41L12 10.83l4.59 4.58L18 14z"/>
+            </svg>
+          )
           }
         </div>
-      </Paper>
+      </div>
     )
   }
 }
@@ -49,11 +45,11 @@ class Spoiler extends Component {
 const defaultPlugin = createSlatePlugin()
 
 export default {
-  Component: cssModules(Spoiler, styles),
+  Component: PluginComponent,
   name: 'ory/editor/core/layout/spoiler',
   version: '0.0.1',
   IconComponent: <FilterFrames />,
-  text: 'Spoiler',
+  text: 'Hidden Text',
 
   createInitialChildren: () => ({
     id: uuid.v4(),

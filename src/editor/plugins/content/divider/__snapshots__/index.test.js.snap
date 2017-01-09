@@ -1,4 +1,0 @@
-exports[`plugins/content/missing should render 1`] = `
-<hr
-  className="divider" />
-`;

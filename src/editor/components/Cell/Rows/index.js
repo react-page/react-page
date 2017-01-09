@@ -10,10 +10,9 @@ class Rows extends Component {
 
   render() {
     const { node: { rows = [] }, editable, id, ancestors = [] } = this.props
-    console.log([id])
 
     return (
-      <div className="ory-cell-rows">
+      <div className="ory-cell-inner ory-cell-rows">
         {rows.map((r: string) => <Row editable={editable} ancestors={[...ancestors, id]} id={r} key={r} />)}
       </div>
     )

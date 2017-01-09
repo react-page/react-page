@@ -1,13 +1,12 @@
 // @flow
 import React, { Component } from 'react'
 import { shouldPureComponentUpdate } from 'src/editor/helper/shouldComponentUpdate'
-import Droppable from './Droppable'
-import Draggable from './Draggable'
-import Rows from './Rows'
-import Layout from './Layout'
-import Content from './Content'
-import Empty from './Empty'
-import classNames from 'classnames'
+import Droppable from '../Droppable'
+import Draggable from '../Draggable'
+import Rows from '../Rows'
+import Layout from '../Layout'
+import Content from '../Content'
+import Empty from '../Empty'
 import serverContext from 'src/editor/components/ServerContext/connect'
 
 import type { ComponentizedCell } from 'types/editable'
@@ -27,21 +26,17 @@ class Inner extends Component {
       },
       config: { whitelist = [] }
     } = this.props
-    const cn = classNames('editable-cell', {
-      'ory-cell-leaf': rows.length === 0
-    })
+    // const className = 'ory-cell-inner'
 
     if (rows.length && LayoutComponent) {
       if (isServerContext) {
         return (
-          <div className={cn}>
             <Layout {...props} {...layoutState} />
-          </div>
         )
       }
 
       return (
-        <Droppable {...props} dropTypes={whitelist} className={cn}>
+        <Droppable {...props} dropTypes={whitelist}>
           <Draggable {...props} dragType={layoutType}>
             <Layout {...props} {...layoutState} />
           </Draggable>
@@ -50,28 +45,24 @@ class Inner extends Component {
     } else if (rows.length) {
       if (isServerContext) {
         return (
-          <div className={cn}>
             <Rows {...props} />
-          </div>
         )
       }
 
       return (
-        <Droppable {...props} dropTypes={whitelist} className={cn}>
+        <Droppable {...props} dropTypes={whitelist}>
           <Rows {...props} />
         </Droppable>
       )
     } else if (ContentComponent) {
       if (isServerContext) {
         return (
-          <div className={cn}>
             <Content {...props} />
-          </div>
         )
       }
 
       return (
-        <Droppable {...props} isLeaf dropTypes={whitelist} className={cn}>
+        <Droppable {...props} isLeaf dropTypes={whitelist}>
           <Draggable {...props} isLeaf dragType={contentType}>
             <Content {...props} />
           </Draggable>
@@ -80,9 +71,7 @@ class Inner extends Component {
     }
 
     return (
-      <div className={cn}>
-        <Empty {...props} />
-      </div>
+      <Empty {...props} />
     )
   }
 }

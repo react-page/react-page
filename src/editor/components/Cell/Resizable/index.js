@@ -42,9 +42,10 @@ class Resizable extends Component {
     return (
       <ReactResizeable
         className={classNames(
+          'ory-cell-inner',
           'ory-cell-resizable',         {
            [`ory-cell-resizable-inline-${inline}`]: inline,
-          }        )}
+          })}
         onResize={this.onResize}
         minConstraints={inline ? null : [this.state.stepWidth, Infinity]}
         maxConstraints={inline ? null : [bounds.right * this.state.stepWidth, Infinity]}

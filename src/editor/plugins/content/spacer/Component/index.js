@@ -1,23 +1,15 @@
 // @flow
 import React, { Component, PropTypes } from 'react'
-import cssModules from 'react-css-modules'
 import { Resizable } from 'react-resizable'
 import classNames from 'classnames'
-import DragHandle from 'material-ui/svg-icons/editor/drag-handle'
-import { white, faintBlack } from 'material-ui/styles/colors'
+import './index.css'
 
-import styles from './index.scoped.css'
-
+const faintBlack = 'rgba(0, 0, 0, 0.12)'
 const compute = ({ height }: { height: number }) => ({ height: height > 24 ? height : 24 })
-
-// const fire = debounce(({ state, onChange }: { state: Object, onChange(state: Object): void }) => onChange(state), 5, { leading: false })
 const fire = ({ state, onChange }: { state: Object, onChange(state: Object): void }) => onChange(state)
+const Solid = ({ height }: { height: number }) => <div style={{ height }}/>
 
-const Solid = ({ height }: { height: number }) => <div style={{ height }} />
-
-Solid.propTypes = {
-  height: PropTypes.number
-}
+Solid.propTypes = { height: PropTypes.number }
 
 class Spacer extends Component {
   state = {}
@@ -33,23 +25,20 @@ class Spacer extends Component {
     const height = compute(this.props.state).height
 
     return (
-      <div style={{ border: 'solid 1px', borderColor: faintBlack }}
-           className="editable-spacer"
-           styleName={classNames({ spacer: true, 'read-only': readOnly })}
+      <div
+        style={{ border: 'solid 1px', borderColor: faintBlack }}
+        className={classNames('ory-plugins-content-spacer', { 'ory-plugins-content-spacer-read-only': readOnly })}
       >
         {readOnly
           ? (
-            <Solid height={height} />
+          <Solid height={height}/>
         ) : (
           <Resizable onResize={this.onResize} height={height} width={0}>
             <div style={{ height, position: 'relative' }}>
-              <div
-                style={{ position: 'absolute', bottom: '0', height: '24px', width: '100%', background: faintBlack, textAlign: 'center' }}
-              >
-                <svg viewBox="0 0 24 24" style={{width: 24, height: 24}}>
+              <div style={{ position: 'absolute', bottom: '0', height: '24px', width: '100%', background: faintBlack, textAlign: 'center' }}>
+                <svg viewBox="0 0 24 24" style={{color: 'white', width: 24, height: 24}}>
                   <path d="M20 9H4v2h16V9zM4 15h16v-2H4v2z"/>
                 </svg>
-                {/*<DragHandle color={white} />*/}
               </div>
             </div>
           </Resizable>
@@ -67,4 +56,4 @@ Spacer.propTypes = {
   readOnly: PropTypes.bool.isRequired
 }
 
-export default cssModules(Spacer, styles, { allowMultiple: true })
+export default Spacer

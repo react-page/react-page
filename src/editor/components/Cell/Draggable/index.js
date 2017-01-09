@@ -50,9 +50,9 @@ class Draggable extends Component {
 
     if (!(isLayoutMode || isInsertMode)) {
       return (
-        <div>
+        <div className="ory-cell-draggable-placeholder">
           {/* these divs are here to prevent page jumping, they are a placeholder for draggable / draggable-overlay */}
-          <div />
+          <div className="ory-cell-draggable-overlay-placeholder"/>
           {children}
         </div>
       )
@@ -69,8 +69,7 @@ class Draggable extends Component {
 
 const mapDispatchToProps = {
   ...hoverActions,
-  ...insertActions,
-  rawNode: (state: any, props: any) => () => node(state, props)
+  ...insertActions
 }
 
 export default serverContext()(connect(null, mapDispatchToProps)(dragSource(({ dragType }: { dragType: string }) => dragType, source, collect)(Draggable)))

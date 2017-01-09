@@ -1,10 +1,9 @@
 // @flow
 import React from 'react'
 import FloatingActionButton from 'material-ui/FloatingActionButton'
-import cssModules from 'react-css-modules'
 import device from 'device.js'
 
-import styles from './index.css'
+import './index.css'
 
 const Button = ({ description, icon, onClick, active, disabled }: {
   description: string,
@@ -31,4 +30,4 @@ const Button = ({ description, icon, onClick, active, disabled }: {
   </div>
 )
 
-export default cssModules(Button, styles)
+export default Button
