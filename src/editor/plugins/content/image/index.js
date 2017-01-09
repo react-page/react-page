@@ -14,6 +14,8 @@ export default {
   isInlineable: true,
 
   handleRemoveHotKey: (_: Event, __: ContentPluginProps<*>): Promise<*> => Promise.reject(),
+  handleFocusPreviousHotKey: (_: Event, __: ContentPluginProps<*>): Promise<*> => Promise.reject(),
+  handleFocusNextHotKey: (_: Event, __: ContentPluginProps<*>): Promise<*> => Promise.reject(),
 
   // We need this because otherwise we lose hotkey focus on elements like spoilers.
   // This could probably be solved in an easier way by listening to window.document?
