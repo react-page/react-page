@@ -1,7 +1,5 @@
 // @flow
 import React from 'react'
-import cssModules from 'react-css-modules'
-import styles from './index.scoped.css'
 import Display from '../Display'
 import TextField from 'material-ui/TextField'
 import type { PropTypes } from '../index.js'
@@ -37,4 +35,4 @@ const Form = (props: PropTypes) => (
   </div>
 )
 
-export default cssModules(Form, styles, { allowMultiple: true })
+export default Form

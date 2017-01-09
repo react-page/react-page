@@ -1,24 +1,20 @@
 // @flow
 import React from 'react'
-import cssModules from 'react-css-modules'
 import ImageIcon from 'material-ui/svg-icons/image/panorama'
-import styles from '../index.scoped.css'
+
 import { iconStyle } from '../common.js'
-import Caption from '../Caption'
 import type { PropTypes } from '../index.js'
 
 const Display = ({ state, ...props }: PropTypes) => state.src ? (
   <div>
-    <img styleName="image" src={state.src} />
-    <Caption {...props} state={state} />
+    <img className="ory-plugins-content-image" src={state.src} />
   </div>
 ) : (
   <div>
-    <div styleName="placeholder">
+    <div className="ory-plugins-content-image-placeholder">
       <ImageIcon style={iconStyle} />
     </div>
-    <Caption {...props} state={state} />
   </div>
 )
 
-export default cssModules(Display, styles, { allowMultiple: true })
+export default Display

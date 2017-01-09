@@ -1,10 +1,10 @@
 @import url("font-awesome.min.css");
 @import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300italic,400,400italic");
 
-.editable-cell {
+.ory-cell {
   padding: 0;
 }
-.editable-cell.leaf {
+.ory-cell-leaf {
   padding: 16px;
 }
 

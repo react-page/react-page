@@ -7,6 +7,6 @@
   transition: all 200ms ease;
 }
 
-.clearfix:after {
+.ory-controls-mode-toggle-clearfix {
   clear: both;
 }

@@ -1,6 +1,6 @@
 // @flow
 import React, { Component } from 'react'
-import Inner from './inner'
+import Inner from './Inner'
 import { connect } from 'react-redux'
 import { shouldPureComponentUpdate } from 'src/editor/helper/shouldComponentUpdate'
 import { bindActionCreators } from 'redux'
@@ -15,7 +15,13 @@ import type { ComponentizedCell } from 'types/editable'
 import 'src/editor/styles/grid.css'
 import './index.css'
 
-const gridClass = ({ node: { size }, isPreviewMode, isEditMode }: ComponentizedCell): string => `ory-cell-${isPreviewMode || isEditMode ? 'md' : 'xs'}-${size || 12}`
+const gridClass = ({ node: { size }, isPreviewMode, isEditMode }: ComponentizedCell): string => {
+  if (isPreviewMode || isEditMode) {
+    return `ory-cell-${isPreviewMode || isEditMode ? 'md' : 'xs'}-${size || 12} ory-cell-xs-12`
+  }
+
+  return `ory-cell-xs-${size || 12}`
+}
 
 const stopClick = (isEditMode: boolean) => (e: Event) => isEditMode ? e.stopPropagation() : null
 
@@ -29,28 +35,13 @@ class Cell extends Component {
       id, rowWidth, rowHeight, updateDimensions, isLayoutMode, isInsertMode,
       isResizeMode,
       isEditMode,
-      node: { inline, resizable, hasInlineNeighbour, focused, size }
+      node: { rows = [], inline, resizable, hasInlineNeighbour, focused }
     } = this.props
-
-
-    // originally, flexbox grid was used in d&d:
-    //
-    //  if (isLayoutMode || isResizeMode || isInsertMode) {
-
-    // let styles
-    // if (isResizeMode) {
-    //   styles = {
-    //     ...this.props.styles,
-    //     ...commonStyles.flexbox,
-    //     ...localStyles // override defaults
-    //   }
-    // }
 
     const props = { ...this.props, styles: null }
     return (
       <div
-        // styles={styles}
-        className={classNames(gridClass(this.props), {
+        className={classNames('ory-cell', gridClass(this.props), {
           'ory-cell-has-inline-neighbour': hasInlineNeighbour,
           [`ory-cell-inline-${inline || ''}`]: inline,
           'ory-cell-bring-to-front': inline && (!isLayoutMode && !isInsertMode && !isResizeMode),

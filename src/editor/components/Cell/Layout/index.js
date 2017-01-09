@@ -34,21 +34,23 @@ class Layout extends React.Component {
     }: ComponentizedCell = this.props
 
     return (
-      <Component
-        id={id}
-        state={state}
-        editable={editable}
-        readOnly={!isEditMode || isServerContext}
-        onChange={updateCellLayout}
-      >
-        {rows.map((r: string) => (
-          <Row
-            editable={editable}
-            ancestors={[...ancestors, id]}
-            key={r}
-            id={r}
-          />))}
-      </Component>
+      <div className="ory-cell-inner">
+        <Component
+          id={id}
+          state={state}
+          editable={editable}
+          readOnly={!isEditMode || isServerContext}
+          onChange={updateCellLayout}
+        >
+          {rows.map((r: string) => (
+            <Row
+              editable={editable}
+              ancestors={[...ancestors, id]}
+              key={r}
+              id={r}
+            />))}
+        </Component>
+      </div>
     )
   }
 }

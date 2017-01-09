@@ -1,16 +1,15 @@
-.spacer {
+.ory-plugins-content-spacer {
   border: 1px dashed var(--minBlack);
   border-bottom: none;
   position: relative;
 }
 
-.read-only {
-  composes: spacer;
+.ory-plugins-content-spacer-read-only {
   border-color: transparent !important;
 }
 
-:global .editable-spacer > .react-resizable > .react-resizable-handle:before,
-:global .editable-spacer > .react-resizable > .react-resizable-handle:hover:before {
+.ory-plugins-content-spacer > .react-resizable > .react-resizable-handle:before,
+.ory-plugins-content-spacer > .react-resizable > .react-resizable-handle:hover:before {
   content: " ";
   position: absolute;
   text-align: center;
