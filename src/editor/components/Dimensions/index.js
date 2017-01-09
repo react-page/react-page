@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import onElementResize from 'element-resize-event'
 import connect from 'src/editor/components/ServerContext/connect'
-import logger from 'src/editor/service/logger'
+// import logger from 'src/editor/service/logger'
+import classNames from 'classnames'
 
 const defaultContainerStyle = {}
 
@@ -103,16 +104,8 @@ const Dimensions = ({
         )
       }
 
-      const { containerWidth, containerHeight } = this.state
-
-      // if (!containerWidth && !containerHeight) {
-      //    logger.info('Wrapper div has no height or width, try overriding style with `containerStyle` option')
-      // }
-
-      // className={className} style={containerStyle}
-
       return (
-        <div className={className} ref={this.onContainerRef}>
+        <div className={classNames(className, 'ory-dimensions')} ref={this.onContainerRef}>
           <ComposedComponent
             {...this.state}
             {...this.props}

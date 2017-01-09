@@ -3,14 +3,20 @@ import ReactDOM from 'react-dom'
 import Editor, { Editable, Controls } from 'src/editor'
 import VideoPlugin from './plugins/video'
 import ContainerPlugin from './plugins/container'
-import { PluginService, defaultLayoutPlugins, defaultContentPlugins } from 'src/editor/service'
+import { PluginService, plugins } from 'src/editor'
 import content from './content.js'
 
 require('react-tap-event-plugin')()
 
 const editor = new Editor({
-  plugins: new PluginService(defaultContentPlugins, [
-    ...defaultLayoutPlugins,
+  plugins: new PluginService([
+    plugins.content.divider,
+    plugins.content.image,
+    plugins.content.slate(),
+    plugins.content.spacer,
+    plugins.content.video,
+  ], [
+    plugins.layout.spoiler,
     VideoPlugin,
     ContainerPlugin
   ])
@@ -25,7 +31,7 @@ for (const element of elements) {
       editor={editor}
       state={content[element.dataset.editable]}
       onChange={(state) => {
-        console.log(state)
+        // console.log(state)
         // console.log(editor.renderToHtml(state))
       }}
     />

@@ -37,7 +37,7 @@ class Droppable extends Component {
 
     if (!(isLayoutMode || isInsertMode)) {
       return (
-        <div className={className}>
+        <div className={classNames(className, 'ory-cell-droppable-placeholder')}>
           {children}
         </div>
       )
@@ -46,6 +46,7 @@ class Droppable extends Component {
     return connectDropTarget(
       <div className={classNames(
         className,
+        'ory-cell-droppable',
         {
           'ory-cell-droppable-is-over-current': hover,
           [`ory-cell-droppable-is-over-${hover}`]: hover,

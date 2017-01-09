@@ -3,14 +3,13 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme'
 import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import React, { Component } from 'react'
-import cssModules from 'react-css-modules'
 import Portal from 'react-portal'
 import position from 'selection-position'
 import { Editor } from 'slate'
 
 import BottomToolbar from 'src/editor/components/Controls/BottomToolbar'
 import { ContentPluginProps } from 'src/editor/service/plugin/classes'
-import styles from './index.scoped.css'
+import './index.css'
 
 const onBlur = (_event, _data, state) => state
 
@@ -76,7 +75,7 @@ class Slate extends Component {
         <Portal isOpened={isOpened} onOpen={this.handleOpen}>
           <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
             {/* TODO editor-container is needed to avoid global blurry, #190 */}
-            <div styleName="inline-toolbar" className="editor-container" style={{ padding: 0 }}>
+            <div className="editor-container ory-plugins-content-slate-inline-toolbar" style={{ padding: 0 }}>
               <HoverButtons editorState={editorState} onChange={this.onStateChange} focus={focus} />
             </div>
           </MuiThemeProvider>
@@ -100,4 +99,4 @@ class Slate extends Component {
   }
 }
 
-export default cssModules(Slate, styles)
+export default Slate

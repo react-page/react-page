@@ -16,12 +16,6 @@ const createEnvAwareArray = R.reject(R.isNil)
 const ifProduction = (x) => isProduction ? x : null
 const ifMinify = (x) => isProduction && minify ? x : null
 
-// Used loaders for css after `style-loader`
-const cssScopedLoaders = [
-  'css-loader?modules&importLoaders=1&localIdentName=[path]___[name]__[local]___[hash:base64:5]',
-  'postcss-loader'
-]
-
 const cssGlobalLoaders = [
   'css-loader',
   'postcss-loader'
@@ -100,11 +94,7 @@ module.exports = {
         ]
       }
     }, {
-      test: /\.scoped\.css$/,
-      loaders: ExtractTextPlugin.extract({ fallbackLoader: 'style-loader', loader: cssScopedLoaders })
-    }, {
       test: /\.css$/,
-      exclude: /\.scoped.css$/,
       loaders: ExtractTextPlugin.extract({ fallbackLoader: 'style-loader', loader: cssGlobalLoaders })
     }, {
       test: /\.json$/,

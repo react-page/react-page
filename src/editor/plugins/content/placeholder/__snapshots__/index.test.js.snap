@@ -1,6 +1,0 @@
-exports[`plugins/content/placeholder/Component should render 1`] = `
-<div
-  className="placeholder">
-  Drop items above, below, left of or right of here.
-</div>
-`;

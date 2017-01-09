@@ -2,9 +2,8 @@ import React, { Component } from 'react'
 import { Placeholder } from 'slate'
 import { placeholder } from '../../const.js'
 import shallowEqual from 'fbjs/lib/shallowEqual'
-import cssModules from 'react-css-modules'
 
-import styles from './node.scoped.css'
+import './node.css'
 
 class Paragraph extends Component {
   shouldComponentUpdate(nextProps) {
@@ -24,7 +23,7 @@ class Paragraph extends Component {
     return (
       <p {...attributes} style={{ textAlign: align }}>
         <Placeholder
-          styleName="placeholder"
+          className="ory-plugins-content-slate-paragraph-placeholder"
           node={node}
           parent={state.document}
           state={state}
@@ -36,4 +35,4 @@ class Paragraph extends Component {
   }
 }
 
-export default cssModules(Paragraph, styles)
+export default Paragraph

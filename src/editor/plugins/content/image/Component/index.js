@@ -1,10 +1,10 @@
 // @flow
 import React from 'react'
-import cssModules from 'react-css-modules'
-import styles from './index.scoped.css'
 import Display from './Display'
 import Form from './Form'
 import type { ContentPluginProps } from 'src/editor/service/plugin/classes'
+
+import './index.css'
 
 export type PropTypes = ContentPluginProps<{ src: string, caption: string }>
 
@@ -14,4 +14,4 @@ const Image = (props: PropTypes) => props.readOnly ? (
   <Form {...props} />
 )
 
-export default cssModules(Image, styles, { allowMultiple: true })
+export default Image

@@ -4,14 +4,14 @@ import { DropTarget as dropTarget } from 'react-dnd'
 import Delete from 'material-ui/svg-icons/action/delete'
 import FloatingActionButton from 'material-ui/FloatingActionButton'
 import { connect } from 'react-redux'
-import cssModules from 'react-css-modules'
 import classNames from 'classnames'
 import { removeCell } from 'src/editor/actions/cell/core'
 import throttle from 'lodash.throttle'
 import type { Monitor, Connector } from 'types/react-dnd'
-import styles from './index.scoped.css'
 import { isEditMode, isLayoutMode, isPreviewMode, isInsertMode, isResizeMode } from 'src/editor/selector/display'
 import { createStructuredSelector } from 'reselect'
+
+import './index.css'
 
 const target = {
   hover: throttle((props: any, monitor: Monitor) => {
@@ -38,7 +38,7 @@ const connectMonitor = (connect: Connector, monitor: Monitor) => ({
 })
 
 const Trash = ({ isLayoutMode, connectDropTarget, isOverCurrent }: Object) => connectDropTarget(
-  <div styleName={classNames('bar', { active: isLayoutMode })}>
+  <div className={classNames('ory-controls-trash', { 'ory-controls-trash-active': isLayoutMode })}>
     <FloatingActionButton secondary disabled={!isOverCurrent}>
       <Delete />
     </FloatingActionButton>
@@ -58,4 +58,4 @@ const mapStateToProps = createStructuredSelector({
   isEditMode, isLayoutMode, isPreviewMode, isInsertMode, isResizeMode
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(dropTarget(types, target, connectMonitor)(cssModules(Trash, styles, { allowMultiple: true })))
+export default connect(mapStateToProps, mapDispatchToProps)(dropTarget(types, target, connectMonitor)(Trash))
