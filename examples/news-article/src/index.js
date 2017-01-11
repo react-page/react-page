@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import Editor, { Editable } from '../../../packages/core/build'
+import Editor, { Editable } from 'ory-editor'
 import content from './content.js'
 
 const editor = new Editor()

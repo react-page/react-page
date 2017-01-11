@@ -103,25 +103,19 @@ We included some [examples](examples/) which are a good starting point if you wa
 To run the examples, use one of the following commands.
 
 ```
-$ npm run dev
-$ npm run dev:news-article
-$ npm run dev:single-page-site
+$ npm run start
 ```
 
 Development builds are unoptimized. To get the best performance you should create a production build as followed
 
 ```
 $ npm run build
-$ npm run build:news-article
-$ npm run build:single-page-site
 ```
 
 and run the web server with:
 
 ```
 $ npm run serve
-$ npm run serve:news-article
-$ npm run serve:single-page-site
 ```
 
 ## Documentation
@@ -142,14 +136,21 @@ You need [Node](https://nodejs.org) installed on your system. You can check out 
 ```
 $ git clone https://github.com/ory-am/editor.git
 $ cd editor
+```
 
-# Install depdendencies
+To run the example, do:
+
+```
 $ npm i
+$ cd examples
+$ cd news-article
+$ npm i
+$ npm start
+
+Additionally, you can run tests, linting and flow with:
+
 ```
 
-Here are tasks we usually use when developing:
-
-```
 # run the tests in watch mode
 $ npm run test:watch 
 
@@ -158,12 +159,6 @@ $ npm run lint:watch
 
 # run flowtype in watch mode
 $ npm run flow:watch
-
-# run dev server
-$ npm run dev
-
-# open the editor in your browser
-$ open http://localhost:3000/
 ```
 
 ## Known issues

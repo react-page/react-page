@@ -3,6 +3,7 @@ import uuid from 'uuid'
 import { satisfies } from 'semver'
 
 import { ContentPlugin, LayoutPlugin, Plugin } from './classes'
+import MissingPlugin from './missing'
 
 const find = (name: string, version: string = '*') => (plugin: Plugin): boolean => plugin.name === name && satisfies(plugin.version, version)
 

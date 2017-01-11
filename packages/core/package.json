@@ -6,8 +6,10 @@
     "doc": "./docs"
   },
   "scripts": {
+    "build": "npm run build:lib",
     "build:lib": "babel ./src --source-maps --ignore test.js --out-dir ./lib",
     "build:umd": "browserify ./lib/index.js -o ./dist/index.js --transform browserify-global-shim --standalone Editor",
+    "build:watch": "npm run build:lib -- --watch",
     "clean": "rimraf \"dist/*\" \"lib/*\" \"dist/*\"",
     "coveralls": "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
     "flow": "flow check --show-all-errors",
@@ -77,10 +79,10 @@
     "flow-bin": "^0.37.4",
     "jest": "^18.1.0",
     "promise": "^7.1.1",
-    "react": "^15.4.2",
     "react-addons-perf": "^15.4.2",
     "react-addons-test-utils": "^15.4.2",
     "react-dev-utils": "^0.4.0",
+    "react": "^15.4.2",
     "react-dom": "^15.4.2",
     "react-test-renderer": "^15.4.2",
     "recursive-readdir": "^2.1.0",
