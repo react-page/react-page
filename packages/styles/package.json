@@ -1,0 +1,15 @@
+{
+  "name": "ory-editor-styles",
+  "main": "index.js",
+  "scripts": {
+    "build": "postcss --use autoprefixer -c options.json -o main.css css/*.css"
+  },
+  "devDependencies": {
+    "postcss-cli": "^2.6.0",
+    "postcss-cssnext": "^2.9.0"
+  }
+}
+
+// order matters, include overrides after grid import
+import 'src/editor/styles/grid.css'
+import './index.css'

@@ -3,21 +3,15 @@
 import React from 'react'
 import Editable from 'src/editor/components/Editable'
 import createStore from './store'
-import { isProduction } from './const'
-import { connectToRaven } from './raven'
 import { actions } from './actions'
 import PluginService from 'src/editor/service/plugin'
 import ServerContext from 'src/editor/components/ServerContext'
 import ReactDOMServer from 'react-dom/server'
-import { createInitialState } from 'src/editor/plugins/content/slate/hooks'
 import uuid from 'uuid/v4'
 import { updateEditable } from 'src/editor/actions/editables'
 
 import type Store from 'types/redux'
 
-if (!isProduction && typeof window !== 'undefined') {
-  window.Perf = require('react-addons-perf')
-}
 let instance: Editor
 
 const initialState = () => ({
@@ -39,7 +33,6 @@ class Editor {
 
   constructor({
     plugins = new PluginService(),
-    errorReporting = true,
     middleware = []
   }: {
     plugins: PluginService,
@@ -53,11 +46,8 @@ class Editor {
     instance = this
     this.store = createStore(initialState(), middleware)
     this.plugins = plugins
-    this.errorReporting = errorReporting
     this.middleware = middleware
     this.trigger = actions(this.store.dispatch)
-
-    connectToRaven(errorReporting)
   }
 
   trigger = {}
@@ -98,7 +88,7 @@ export const createEmptyState = () => ({
   cells: [{
     content: {
       plugin: { name: 'ory/editor/core/content/slate' },
-      state: createInitialState()
+      // state: createInitialState()
     }
   }]
 })

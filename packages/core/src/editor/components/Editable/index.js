@@ -4,7 +4,6 @@ import { Provider } from 'react-redux'
 import DragDropContext from 'src/editor/components/DragDropContext'
 import HotKeyDecorator from 'src/editor/components/HotKey/Decorator'
 import { updateEditable } from 'src/editor/actions/editables'
-import { logException } from 'src/editor/raven'
 import { editable } from 'src/editor/selector/editable'
 import PluginService from 'src/editor/service/plugin'
 
@@ -66,7 +65,6 @@ class Editable extends Component {
       },
     } = this.props
 
-    try {
       return (
         <Provider store={store}>
           <DragDropContext>
@@ -76,10 +74,6 @@ class Editable extends Component {
           </DragDropContext>
         </Provider>
       )
-    } catch (e) {
-      logException(e)
-      return null
-    }
   }
 }
 

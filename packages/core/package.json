@@ -7,7 +7,7 @@
     "lib": "./dist"
   },
   "scripts": {
-    "build": "cross-env NODE_PATH=. babel src --out-dir lib",
+    "build": "cross-env NODE_PATH=. babel src --ignore test.js --out-dir lib",
     "clean": "rimraf \"dist/*\" \"lib/*\"",
     "coveralls": "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
     "flow": "flow check --show-all-errors",

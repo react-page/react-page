@@ -2,7 +2,7 @@
 import { editable } from 'src/editor/reducer/editable'
 import { UPDATE_EDITABLE } from 'src/editor/actions/editables'
 import type { Editable } from 'types/editable'
-import undoable, { includeAction } from 'ory-redux-undo'
+import undoable, { includeAction } from 'redux-undo'
 import { CELL_UPDATE_CONTENT, CELL_UPDATE_LAYOUT, CELL_REMOVE, CELL_RESIZE } from 'src/editor/actions/cell/core'
 import {
   CELL_INSERT_ABOVE,
@@ -12,7 +12,7 @@ import {
   CELL_INSERT_INLINE_LEFT,
   CELL_INSERT_INLINE_RIGHT
 } from 'src/editor/actions/cell/insert'
-import { set } from 'ory-redux-undo/lib/debug'
+import { set } from 'redux-undo/lib/debug'
 
 set(true)
 

@@ -2,32 +2,6 @@
 import uuid from 'uuid'
 import { satisfies } from 'semver'
 import { ContentPlugin, LayoutPlugin, Plugin } from './classes'
-import MissingPlugin from 'src/editor/plugins/content/missing'
-import slatePluginCreator from 'src/editor/plugins/content/slate'
-import ImagePlugin from 'src/editor/plugins/content/image'
-import VideoPlugin from 'src/editor/plugins/content/video'
-import SpacerPlugin from 'src/editor/plugins/content/spacer'
-import DividerPlugin from 'src/editor/plugins/content/divider'
-import SpoilerPlugin from 'src/editor/plugins/layout/spoiler'
-
-/**
- * A list of content plugins that are being loaded by default.
- */
-export const defaultContentPlugins: [] = [
-  MissingPlugin,
-  ImagePlugin,
-  SpacerPlugin,
-  slatePluginCreator(),
-  VideoPlugin,
-  DividerPlugin
-]
-
-/**
- * A list of layout plugins that are being loaded by default.
- */
-export const defaultLayoutPlugins: [] = [
-  SpoilerPlugin
-]
 
 const find = (name: string, version: string = '*') => (plugin: Plugin): boolean => plugin.name === name && satisfies(plugin.version, version)
 
@@ -58,10 +32,10 @@ export default class PluginService {
   /**
    * Instantiate a new PluginService instance. You can provide your own set of content and layout plugins here.
    */
-  constructor(contentPlugins: [] = defaultContentPlugins, layoutPlugins: [] = defaultLayoutPlugins) {
+  constructor({content = [], layout = []}) {
     this.plugins = {
-      content: contentPlugins.map((config: any) => new ContentPlugin(config)),
-      layout: layoutPlugins.map((config: any) => new LayoutPlugin(config)),
+      content: content.map((config: any) => new ContentPlugin(config)),
+      layout: layout.map((config: any) => new LayoutPlugin(config)),
     }
   }
 
