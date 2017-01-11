@@ -2,12 +2,14 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { updateCellContent } from 'src/editor/actions/cell'
-import { shouldPureComponentUpdate } from 'src/editor/helper/shouldComponentUpdate'
-import { isEditMode, isLayoutMode, isPreviewMode } from 'src/editor/selector/display'
 import { createStructuredSelector } from 'reselect'
-import type { ComponentizedCell } from 'types/editable'
-import serverContext from 'src/editor/components/ServerContext/connect'
+
+import { updateCellContent } from '../../../actions/cell'
+import { shouldPureComponentUpdate } from '../../../helper/shouldComponentUpdate'
+import { isEditMode, isLayoutMode, isPreviewMode } from '../../../selector/display'
+import serverContext from '../../ServerContext/connect'
+
+import type { ComponentizedCell } from '../../../types/editable'
 
 // TODO clean me up #157
 class Content extends Component {

@@ -4,9 +4,10 @@ import { Resizable as ReactResizeable } from 'react-resizable'
 import { connect } from 'react-redux'
 import classNames from 'classnames'
 import { createStructuredSelector } from 'reselect'
-import { resizeMode, editMode } from 'src/editor/actions/display'
+
+import { resizeMode, editMode } from '../../../actions/display'
 import { computeStepWidth, widthToSize } from './helper.js'
-import type { ComponentizedCell } from 'types/editable'
+import type { ComponentizedCell } from '../../../types/editable'
 
 class Resizable extends Component {
   constructor(props: ComponentizedCell) {
@@ -41,8 +42,8 @@ class Resizable extends Component {
       <ReactResizeable
         className={classNames(
           'ory-cell-inner',
-          'ory-cell-resizable',         {
-           [`ory-cell-resizable-inline-${inline}`]: inline,
+          'ory-cell-resizable', {
+            [`ory-cell-resizable-inline-${inline}`]: inline,
           })}
         onResize={this.onResize}
         minConstraints={inline ? null : [this.state.stepWidth, Infinity]}

@@ -1,16 +1,18 @@
 // @flow
 import React, { Component } from 'react'
-import Inner from './Inner'
 import { connect } from 'react-redux'
-import { shouldPureComponentUpdate } from 'src/editor/helper/shouldComponentUpdate'
-import { bindActionCreators } from 'redux'
-import { editableConfig, node, purifiedNode } from 'src/editor/selector/editable'
-import { isPreviewMode, isEditMode, isResizeMode, isLayoutMode, isInsertMode } from 'src/editor/selector/display'
-import { createStructuredSelector } from 'reselect'
-import Resizable from './Resizable'
-import { resizeCell, focusCell, blurAllCells } from 'src/editor/actions/cell'
 import classNames from 'classnames'
-import type { ComponentizedCell } from 'types/editable'
+import { bindActionCreators } from 'redux'
+import { createStructuredSelector } from 'reselect'
+
+import Inner from './Inner'
+import { shouldPureComponentUpdate } from '../../helper/shouldComponentUpdate'
+import { editableConfig, node, purifiedNode } from '../../selector/editable'
+import { isPreviewMode, isEditMode, isResizeMode, isLayoutMode, isInsertMode } from '../../selector/display'
+import { resizeCell, focusCell, blurAllCells } from '../../actions/cell'
+import Resizable from './Resizable'
+
+import type { ComponentizedCell } from '../../types/editable'
 
 const gridClass = ({ node: { size }, isPreviewMode, isEditMode }: ComponentizedCell): string => {
   if (isPreviewMode || isEditMode) {

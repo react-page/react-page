@@ -1,5 +1,6 @@
 /* eslint-env jest */
 import unexpected from 'unexpected'
+
 import { mergeRows, splitRows } from './merge'
 
 const expect = unexpected.clone()

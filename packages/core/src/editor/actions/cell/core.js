@@ -1,5 +1,5 @@
 // @flow
-import type { Action } from 'types/redux'
+import type { Action } from '../../types/redux'
 
 import { gen } from '../helpers'
 

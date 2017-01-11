@@ -1,14 +1,16 @@
 // @flow
 import React from 'react'
-import { shouldPureComponentUpdate } from 'src/editor/helper/shouldComponentUpdate'
-import Row from 'src/editor/components/Row'
-import type { ComponentizedCell } from 'types/editable'
-import { updateCellLayout } from 'src/editor/actions/cell'
-import { isEditMode } from 'src/editor/selector/display'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { createStructuredSelector } from 'reselect'
-import serverContext from 'src/editor/components/ServerContext/connect'
+
+import { shouldPureComponentUpdate } from '../../../helper/shouldComponentUpdate'
+import Row from '../../Row'
+import { updateCellLayout } from '../../../actions/cell'
+import { isEditMode } from '../../../selector/display'
+import serverContext from '../../ServerContext/connect'
+
+import type { ComponentizedCell } from '../../../types/editable'
 
 class Layout extends React.Component {
   shouldComponentUpdate = shouldPureComponentUpdate

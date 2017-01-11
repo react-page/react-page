@@ -1,14 +1,15 @@
 // @flow
 /* eslint-disable no-use-before-define, no-underscore-dangle */
 import React from 'react'
-import Editable from 'src/editor/components/Editable'
+import uuid from 'uuid/v4'
+import ReactDOMServer from 'react-dom/server'
+
+import Editable from './components/Editable'
 import createStore from './store'
 import { actions } from './actions'
-import PluginService from 'src/editor/service/plugin'
-import ServerContext from 'src/editor/components/ServerContext'
-import ReactDOMServer from 'react-dom/server'
-import uuid from 'uuid/v4'
-import { updateEditable } from 'src/editor/actions/editables'
+import PluginService from './service/plugin'
+import ServerContext from './components/ServerContext'
+import { updateEditable } from './actions/editables'
 
 import type Store from 'types/redux'
 

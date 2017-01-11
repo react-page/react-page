@@ -7,8 +7,8 @@ import reduce from 'ramda/src/reduce'
 import tail from 'ramda/src/tail'
 import takeWhile from 'ramda/src/takeWhile'
 
-import { SET_DISPLAY_MODE } from 'src/editor/actions/display'
-import type { Row } from 'types/editable'
+import { SET_DISPLAY_MODE } from '../../../actions/display'
+import type { Row } from '../../../types/editable'
 
 const notSharp = (c: string) => c !== '#'
 

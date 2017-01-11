@@ -1,8 +1,9 @@
 // @flow
 import React from 'react'
 import classNames from 'classnames'
-import Cell from 'src/editor/components/Cell'
-import type { ComponentizedRow, Cell as CellType } from 'types/editable'
+
+import Cell from '../Cell'
+import type { ComponentizedRow, Cell as CellType } from '../../types/editable'
 
 const Inner = ({
   editable,

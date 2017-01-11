@@ -1,6 +1,6 @@
 // @flow
 import { emptyFilter } from './empty'
-import type { Row, Cell } from 'types/editable'
+import type { Row, Cell } from '../../../types/editable'
 
 export const flatten = function <T> (c: Array<T>, n: Array<T>): Array<T> {
   return ([...c, ...n])

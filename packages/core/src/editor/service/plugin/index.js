@@ -1,6 +1,7 @@
 // @flow
 import uuid from 'uuid'
 import { satisfies } from 'semver'
+
 import { ContentPlugin, LayoutPlugin, Plugin } from './classes'
 
 const find = (name: string, version: string = '*') => (plugin: Plugin): boolean => plugin.name === name && satisfies(plugin.version, version)
@@ -32,7 +33,7 @@ export default class PluginService {
   /**
    * Instantiate a new PluginService instance. You can provide your own set of content and layout plugins here.
    */
-  constructor({content = [], layout = []}) {
+  constructor({ content = [], layout = [] } = {}) {
     this.plugins = {
       content: content.map((config: any) => new ContentPlugin(config)),
       layout: layout.map((config: any) => new LayoutPlugin(config)),

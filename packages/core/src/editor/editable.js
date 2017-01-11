@@ -1,8 +1,9 @@
 import React from 'react'
 import ReactDOMServer from 'react-dom/server'
-import EditableComponent from 'src/editor/components/Editable'
-import PluginService from 'src/editor/service/plugin'
-import ServerContext from 'src/editor/components/ServerContext'
+
+import EditableComponent from './components/Editable'
+import PluginService from './service/plugin'
+import ServerContext from './components/ServerContext'
 
 type Props = {
   store: any,

@@ -1,15 +1,17 @@
 // @flow
 import React, { Component } from 'react'
-import droppable from './Droppable'
 import { connect } from 'react-redux'
-import { shouldPureComponentUpdate } from 'src/editor/helper/shouldComponentUpdate'
-import { isLayoutMode, isEditMode, isResizeMode, isInsertMode } from 'src/editor/selector/display'
-import { editableConfig, purifiedNode, node } from 'src/editor/selector/editable'
 import { createStructuredSelector } from 'reselect'
-import { blurAllCells } from 'src/editor/actions/cell'
+
+import droppable from './Droppable'
 import Inner from './inner'
-import dimensions from 'src/editor/components/Dimensions'
-import type { ComponentizedRow } from 'types/editable'
+import dimensions from '../Dimensions'
+import { shouldPureComponentUpdate } from '../../helper/shouldComponentUpdate'
+import { isLayoutMode, isEditMode, isResizeMode, isInsertMode } from '../../selector/display'
+import { editableConfig, purifiedNode, node } from '../../selector/editable'
+import { blurAllCells } from '../../actions/cell'
+
+import type { ComponentizedRow } from '../../types/editable'
 
 class Row extends Component {
   constructor(props: ComponentizedRow) {

@@ -1,17 +1,18 @@
 // @flow
 import React, { Component } from 'react'
-import Cell from 'src/editor/components/Cell'
-import { shouldPureComponentUpdate } from 'src/editor/helper/shouldComponentUpdate'
-import { purifiedEditable } from 'src/editor/selector/editable'
 import { connect } from 'react-redux'
-import { isLayoutMode, isResizeMode, isPreviewMode } from 'src/editor/selector/display'
 import { createStructuredSelector } from 'reselect'
-import dimensions from 'src/editor/components/Dimensions'
-import { blurAllCells } from 'src/editor/actions/cell'
-import { enableGlobalBlurring, disableGlobalBlurring } from './blur'
-import serverContext from 'src/editor/components/ServerContext/connect'
 
-import type { EditableComponentState, Cell as CellType } from 'types/editable'
+import Cell from '../../Cell'
+import { shouldPureComponentUpdate } from '../../../helper/shouldComponentUpdate'
+import { purifiedEditable } from '../../../selector/editable'
+import { isLayoutMode, isResizeMode, isPreviewMode } from '../../../selector/display'
+import dimensions from '../../Dimensions'
+import { blurAllCells } from '../../../actions/cell'
+import { enableGlobalBlurring, disableGlobalBlurring } from './blur'
+import serverContext from '../../ServerContext/connect'
+
+import type { EditableComponentState, Cell as CellType } from '../../../types/editable'
 
 class Inner extends Component {
   componentDidMount() {

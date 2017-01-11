@@ -1,6 +1,6 @@
 // @flow
 /* eslint no-use-before-define: off */
-import { ContentPlugin, LayoutPlugin } from 'src/editor/service/plugin/classes'
+import { ContentPlugin, LayoutPlugin } from '../service/plugin/classes'
 
 export type Config = {
   whitelist: Array<string>,

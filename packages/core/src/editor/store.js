@@ -1,7 +1,7 @@
 // @flow
 import { createStore, applyMiddleware, compose } from 'redux'
-import { Store } from 'types/redux'
 
+import type { Store } from './types/redux'
 import rootReducer from './reducer'
 
 /**

@@ -1,8 +1,10 @@
 import { findDOMNode } from 'react-dom'
-import HoverService from 'src/editor/service/hover'
-import type { ComponentizedCell } from 'types/editable'
-import type { Vector, Room, Callbacks } from 'types/hover'
-import type { Monitor } from 'types/react-dnd'
+
+import HoverService from '../hover'
+
+import type { ComponentizedCell } from '../../types/editable'
+import type { Vector, Room, Callbacks } from '../../types/hover'
+import type { Monitor } from '../../types/react-dnd'
 
 const hoverService = new HoverService()
 

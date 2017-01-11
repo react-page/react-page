@@ -1,5 +1,5 @@
 // @flow
-import type { Action } from 'types/redux'
+import type { Action } from '../types/redux'
 import { ActionTypes } from 'redux-undo'
 
 export const undo = (): Action => ({

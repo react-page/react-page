@@ -7,8 +7,9 @@
   },
   "scripts": {
     "bootstrap": "lerna bootstrap",
-    "heroku-postbuild": "npm run build:home",
+    "dev": "cd examples/news-article && npm run start",
     "docs": "documentation build ./src/editor/**/*.js --format md --github -o docs/API.md",
     "docs:watch": "documentation serve ./src/editor/**/*.js --watch",
+    "heroku-postbuild": "npm run build:home"
   }
 }

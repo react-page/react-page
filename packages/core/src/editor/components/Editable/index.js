@@ -1,12 +1,12 @@
 // @flow
 import React, { Component } from 'react'
 import { Provider } from 'react-redux'
-import DragDropContext from 'src/editor/components/DragDropContext'
-import HotKeyDecorator from 'src/editor/components/HotKey/Decorator'
-import { updateEditable } from 'src/editor/actions/editables'
-import { editable } from 'src/editor/selector/editable'
-import PluginService from 'src/editor/service/plugin'
 
+import DragDropContext from '../DragDropContext'
+import HotKeyDecorator from '../HotKey/Decorator'
+import { updateEditable } from '../../actions/editables'
+import { editable } from '../../selector/editable'
+import PluginService from '../../service/plugin'
 import Inner from './Inner'
 
 import type { Store } from 'types/redux'
@@ -65,15 +65,15 @@ class Editable extends Component {
       },
     } = this.props
 
-      return (
-        <Provider store={store}>
-          <DragDropContext>
-            <HotKeyDecorator id={id}>
-              <Inner id={id} />
-            </HotKeyDecorator>
-          </DragDropContext>
-        </Provider>
-      )
+    return (
+      <Provider store={store}>
+        <DragDropContext>
+          <HotKeyDecorator id={id}>
+            <Inner id={id} />
+          </HotKeyDecorator>
+        </DragDropContext>
+      </Provider>
+    )
   }
 }
 

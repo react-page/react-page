@@ -3,14 +3,16 @@
 import React from 'react'
 import { HotKeys } from 'react-hotkeys'
 import { connect } from 'react-redux'
-import { undo, redo } from 'src/editor/actions/undo'
-import { removeCell, focusCell, blurAllCells } from 'src/editor/actions/cell'
-import { isEditMode } from 'src/editor/selector/display'
-import { focus } from 'src/editor/selector/focus'
-import { node, editable } from 'src/editor/selector/editable'
-import { createStructuredSelector } from 'reselect'
 import pathOr from 'ramda/src/pathOr'
-import type { Editable } from 'types/editable'
+import { createStructuredSelector } from 'reselect'
+
+import { undo, redo } from '../../actions/undo'
+import { removeCell, focusCell, blurAllCells } from '../../actions/cell'
+import { isEditMode } from '../../selector/display'
+import { focus } from '../../selector/focus'
+import { node, editable } from '../../selector/editable'
+
+import type { Editable } from '../../types/editable'
 
 const hotKeyHandler = (n: Object, key: string) => pathOr(pathOr(() => Promise.resolve(), ['content', 'plugin', key], n), ['layout', 'plugin', key], n)
 

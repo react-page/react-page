@@ -1,5 +1,5 @@
 // @flow
-import type { ComponentizedCell } from 'types/editable'
+import type { ComponentizedCell } from '../../../../types/editable'
 
 export const source = {
   beginDrag(props: ComponentizedCell) {

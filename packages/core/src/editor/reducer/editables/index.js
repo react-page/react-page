@@ -1,20 +1,24 @@
 // @flow
-import { editable } from 'src/editor/reducer/editable'
-import { UPDATE_EDITABLE } from 'src/editor/actions/editables'
-import type { Editable } from 'types/editable'
+import { set } from 'redux-undo/lib/debug'
 import undoable, { includeAction } from 'redux-undo'
-import { CELL_UPDATE_CONTENT, CELL_UPDATE_LAYOUT, CELL_REMOVE, CELL_RESIZE } from 'src/editor/actions/cell/core'
+
+import { editable } from '../editable'
+import { UPDATE_EDITABLE } from '../../actions/editables'
+import type { Editable } from '../../types/editable'
+import { CELL_UPDATE_CONTENT, CELL_UPDATE_LAYOUT, CELL_REMOVE, CELL_RESIZE } from '../../actions/cell/core'
+import { isProduction } from '../../const'
 import {
   CELL_INSERT_ABOVE,
-  CELL_INSERT_BELOW,
-  CELL_INSERT_LEFT_OF,
-  CELL_INSERT_RIGHT_OF,
-  CELL_INSERT_INLINE_LEFT,
-  CELL_INSERT_INLINE_RIGHT
-} from 'src/editor/actions/cell/insert'
-import { set } from 'redux-undo/lib/debug'
+CELL_INSERT_BELOW,
+CELL_INSERT_LEFT_OF,
+CELL_INSERT_RIGHT_OF,
+CELL_INSERT_INLINE_LEFT,
+CELL_INSERT_INLINE_RIGHT
+} from '../../actions/cell/insert'
 
-set(true)
+if (!isProduction) {
+  set(true)
+}
 
 const inner = undoable((state: Array<Editable> = [], action: {
   type: string,

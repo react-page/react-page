@@ -1,10 +1,11 @@
 // @flow
-import { computeAndDispatchHover, computeAndDispatchInsert } from 'src/editor/service/hover/input'
 import throttle from 'lodash.throttle'
-import type { Monitor, Connector } from 'types/react-dnd'
-import type { ComponentizedRow } from 'types/editable'
-import { delay } from 'src/editor/helper/throttle'
-import logger from 'src/editor/service/logger'
+
+import { computeAndDispatchHover, computeAndDispatchInsert } from '../../../service/hover/input'
+import type { Monitor, Connector } from '../../../types/react-dnd'
+import type { ComponentizedRow } from '../../../types/editable'
+import { delay } from '../../../helper/throttle'
+import logger from '../../../service/logger'
 
 let last: {hover: string, drag: string} = {
   hover: '',

@@ -1,10 +1,12 @@
 // @flow
-import { computeAndDispatchHover, computeAndDispatchInsert } from 'src/editor/service/hover/input'
 import throttle from 'lodash.throttle'
-import type { ComponentizedCell } from 'types/editable'
-import { delay } from 'src/editor/helper/throttle'
-import logger from 'src/editor/service/logger'
 import pathOr from 'ramda/src/pathOr'
+
+import { computeAndDispatchHover, computeAndDispatchInsert } from '../../../../service/hover/input'
+import { delay } from '../../../../helper/throttle'
+import logger from '../../../../service/logger'
+
+import type { ComponentizedCell } from '../../../../types/editable'
 
 let last: {hover: string, drag: string} = { hover: '', drag: '' }
 

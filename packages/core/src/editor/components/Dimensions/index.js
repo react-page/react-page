@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import onElementResize from 'element-resize-event'
-import connect from 'src/editor/components/ServerContext/connect'
-// import logger from 'src/editor/service/logger'
 import classNames from 'classnames'
+
+import connect from '../ServerContext/connect'
+// import logger from 'src/editor/service/logger'
 
 const defaultContainerStyle = {}
 

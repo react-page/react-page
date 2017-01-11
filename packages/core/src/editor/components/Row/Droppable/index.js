@@ -1,12 +1,13 @@
 // @flow
 import React, { Component, PropTypes } from 'react'
-import * as hoverActions from 'src/editor/actions/cell/drag'
-import * as insertActions from 'src/editor/actions/cell/insert'
 import { DropTarget as dropTarget } from 'react-dnd'
 import { connect } from 'react-redux'
+
+import * as hoverActions from '../../../actions/cell/drag'
+import * as insertActions from '../../../actions/cell/insert'
 import { target, connect as monitorConnect } from './dnd'
 
-import serverContext from 'src/editor/components/ServerContext/connect'
+import serverContext from '../../ServerContext/connect'
 
 class Droppable extends Component {
   props: {

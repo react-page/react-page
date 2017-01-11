@@ -1,8 +1,9 @@
 // @flow
 import deepEqual from 'deep-equal'
-import type { ComponentizedCell, ComponentizedRow } from 'types/editable'
-import type { Room, Matrix, Vector, MatrixIndex, Callbacks } from 'types/hover'
-import logger from 'src/editor/service/logger'
+
+import type { ComponentizedCell, ComponentizedRow } from '../../types/editable'
+import type { Room, Matrix, Vector, MatrixIndex, Callbacks } from '../../types/hover'
+import logger from '../logger'
 
 type MatrixList = { [key: string]: Matrix }
 type CallbackList = { [key: number]: Function }

@@ -1,7 +1,7 @@
 /* eslint-env jest */
-import { rawEditableReducer } from './index'
 import { combineReducers, createStore } from 'redux'
-import * as actions from 'src/editor/actions/cell'
+import { rawEditableReducer } from './index'
+import * as actions from '../../actions/cell'
 import { decorate } from './helper/tree'
 import { cellOrder } from './helper/order'
 

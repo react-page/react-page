@@ -1,6 +1,6 @@
 // @flow
 /* eslint no-use-before-define: "off" */
-import type { Cell, Row } from 'types/editable'
+import type { Cell, Row } from '../../../types/editable'
 
 type Levels = { left: number, right: number, above: number, below: number }
 

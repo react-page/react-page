@@ -1,5 +1,6 @@
 /* eslint-env jest */
 import unexpected from 'unexpected'
+
 import { isEmpty, emptyFilter } from './empty'
 
 const expect = unexpected.clone()

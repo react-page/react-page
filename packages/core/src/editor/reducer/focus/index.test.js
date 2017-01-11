@@ -1,12 +1,12 @@
 /* eslint-env jest */
-import { focus } from '.'
 import unexpected from 'unexpected'
 import { combineReducers, createStore } from 'redux'
 import identity from 'ramda/src/identity'
-import { blurCell, focusCell } from 'src/editor/actions/cell'
+
+import { blurCell, focusCell } from '../../actions/cell'
+import { focus } from './index'
 
 const expect = unexpected.clone()
-
 
 describe('editor/reducer/focus', () => {
   [{

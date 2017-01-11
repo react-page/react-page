@@ -1,5 +1,5 @@
 // @flow
-import type { Editable, Cell, Row, Config } from 'types/editable'
+import type { Editable, Cell, Row, Config } from '../../types/editable'
 
 type Editables = {
   editables: {

@@ -2,15 +2,17 @@
 /* eslint-disable no-empty-function */
 import { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
-import { undo, redo } from 'src/editor/actions/undo'
-import { removeCell, focusCell, blurAllCells } from 'src/editor/actions/cell'
-import { isEditMode } from 'src/editor/selector/display'
-import { focus } from 'src/editor/selector/focus'
-import { node, editable, editables, searchNodeEverywhere } from 'src/editor/selector/editable'
 import { createStructuredSelector } from 'reselect'
 import pathOr from 'ramda/src/pathOr'
-import type { Editable, ComponentizedCell } from 'types/editable'
 import Mousetrap from 'mousetrap'
+
+import { undo, redo } from '../../actions/undo'
+import { removeCell, focusCell, blurAllCells } from '../../actions/cell'
+import { isEditMode } from '../../selector/display'
+import { focus } from '../../selector/focus'
+import { node, editable, editables, searchNodeEverywhere } from '../../selector/editable'
+
+import type { Editable, ComponentizedCell } from '../../types/editable'
 
 type Props = {
   children: any,

@@ -1,10 +1,10 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import Editor, { Editable, Controls } from 'src/editor'
+import Editor, { Editable } from 'ory-editor'
 import content from './content.js'
 
 const editor = new Editor()
-require('react-tap-event-plugin')()
+// require('react-tap-event-plugin')()
 
 const elements = document.querySelectorAll('.editable')
 for (const element of elements) {
@@ -17,4 +17,7 @@ for (const element of elements) {
   ), element)
 }
 
-ReactDOM.render(<Controls editor={editor} />, document.getElementById('controls'))
+
+// ReactDOM.render(<Controls editor={editor} />, document.getElementById('controls'))
+
+

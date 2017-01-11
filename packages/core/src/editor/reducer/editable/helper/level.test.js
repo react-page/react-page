@@ -1,5 +1,6 @@
 /* eslint-env jest */
 import unexpected from 'unexpected'
+
 import { computeDropLevels } from './level'
 
 const expect = unexpected.clone()

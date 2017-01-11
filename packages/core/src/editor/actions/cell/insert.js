@@ -1,7 +1,7 @@
 // @flow
 import uuid from 'uuid'
-import type { Action } from 'types/redux'
-import type { Cell } from 'types/editable'
+import type { Action } from '../../types/redux'
+import type { Cell } from '../../types/editable'
 
 export const CELL_INSERT_ABOVE = 'CELL_INSERT_ABOVE'
 export const CELL_INSERT_BELOW = 'CELL_INSERT_BELOW'

@@ -5,9 +5,9 @@
  */
 
 // @flow
-import type { Action } from 'types/redux'
-import type { Cell } from 'types/editable'
-import { positions } from 'src/editor/const'
+import type { Action } from '../../types/redux'
+import type { Cell } from '../../types/editable'
+import { positions } from '../../const'
 
 export const CELL_DRAG_HOVER = 'CELL_DRAG_HOVER'
 export const CELL_DRAG = 'CELL_DRAG'

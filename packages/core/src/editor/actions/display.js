@@ -1,5 +1,5 @@
 // @flow
-import type { Action } from 'types/redux'
+import type { Action } from '../types/redux'
 
 export const SET_DISPLAY_MODE = 'SET_DISPLAY_MODE'
 export const SET_PREVIOUS_DISPLAY_MODE = 'SET_PREVIOUS_DISPLAY_MODE'

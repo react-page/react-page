@@ -1,5 +1,6 @@
 /* eslint-env jest */
 import unexpected from 'unexpected'
+
 import { isHoveringThis } from './hover'
 
 const expect = unexpected.clone()

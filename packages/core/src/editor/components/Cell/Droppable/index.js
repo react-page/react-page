@@ -1,13 +1,14 @@
 // @flow
 import React, { Component } from 'react'
-import { shouldPureComponentUpdate } from 'src/editor/helper/shouldComponentUpdate'
-import * as hoverActions from 'src/editor/actions/cell/drag'
-import * as insertActions from 'src/editor/actions/cell/insert'
 import { DropTarget as dropTarget } from 'react-dnd'
 import { connect } from 'react-redux'
-import { target, connect as monitorConnect } from './helper/dnd'
 import classNames from 'classnames'
-import serverContext from 'src/editor/components/ServerContext/connect'
+
+import { shouldPureComponentUpdate } from '../../../helper/shouldComponentUpdate'
+import * as hoverActions from '../../../actions/cell/drag'
+import * as insertActions from '../../../actions/cell/insert'
+import { target, connect as monitorConnect } from './helper/dnd'
+import serverContext from '../../ServerContext/connect'
 
 class Droppable extends Component {
   shouldComponentUpdate = shouldPureComponentUpdate
@@ -49,7 +50,8 @@ class Droppable extends Component {
           'ory-cell-droppable-is-over-current': hover,
           [`ory-cell-droppable-is-over-${hover}`]: hover,
           'ory-cell-droppable-leaf': isLeaf
-        })}>
+        })}
+      >
         {children}
       </div>
     )

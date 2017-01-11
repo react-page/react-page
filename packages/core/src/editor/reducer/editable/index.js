@@ -1,10 +1,10 @@
 // @flow
-import { CELL_REMOVE } from 'src/editor/actions/cell/core'
+import { CELL_REMOVE } from '../../actions/cell/core'
 import { cellOrder } from './helper/order'
 import { decorate } from './helper/tree'
 import { cells } from './tree.js'
-import { createCell } from 'types/editable'
-import { ContentPlugin } from 'src/editor/service/plugin/classes'
+import { createCell } from '../../types/editable'
+// import { ContentPlugin } from '../../service/plugin/classes'
 
 // TODO: shouldn't be here, #265
 // const defaultPlugin = createSlatePlugin()

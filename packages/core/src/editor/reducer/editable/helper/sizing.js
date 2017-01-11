@@ -1,5 +1,5 @@
 // @flow
-import type { Cell } from 'types/editable'
+import type { Cell } from '../../../types/editable'
 
 const MAX_CELLS_PER_ROW = 12
 

@@ -1,15 +1,16 @@
 // @flow
 import React, { Component } from 'react'
-import { shouldPureComponentUpdate } from 'src/editor/helper/shouldComponentUpdate'
+
+import { shouldPureComponentUpdate } from '../../../helper/shouldComponentUpdate'
 import Droppable from '../Droppable'
 import Draggable from '../Draggable'
 import Rows from '../Rows'
 import Layout from '../Layout'
 import Content from '../Content'
 import Empty from '../Empty'
-import serverContext from 'src/editor/components/ServerContext/connect'
+import serverContext from '../../ServerContext/connect'
 
-import type { ComponentizedCell } from 'types/editable'
+import type { ComponentizedCell } from '../../../types/editable'
 
 class Inner extends Component {
   shouldComponentUpdate = shouldPureComponentUpdate
@@ -31,7 +32,7 @@ class Inner extends Component {
     if (rows.length && LayoutComponent) {
       if (isServerContext) {
         return (
-            <Layout {...props} {...layoutState} />
+          <Layout {...props} {...layoutState} />
         )
       }
 
@@ -45,7 +46,7 @@ class Inner extends Component {
     } else if (rows.length) {
       if (isServerContext) {
         return (
-            <Rows {...props} />
+          <Rows {...props} />
         )
       }
 
@@ -57,7 +58,7 @@ class Inner extends Component {
     } else if (ContentComponent) {
       if (isServerContext) {
         return (
-            <Content {...props} />
+          <Content {...props} />
         )
       }
 

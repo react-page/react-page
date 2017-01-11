@@ -1,5 +1,5 @@
 // @flow
-import { UPDATE_SETTING } from 'src/editor/actions/setting'
+import { UPDATE_SETTING } from '../../actions/setting'
 
 export const settings = (state: Object = {}, action: {
   type: string,

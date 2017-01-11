@@ -2,29 +2,30 @@
 /* eslint-disable no-use-before-define */
 /* eslint no-duplicate-imports: "off" */
 import pathOr from 'ramda/src/pathOr'
-import {
-  CELL_REMOVE,
-  CELL_UPDATE_LAYOUT,
-  CELL_UPDATE_CONTENT,
-  CELL_INSERT_LEFT_OF,
-  CELL_INSERT_RIGHT_OF,
-  CELL_INSERT_ABOVE,
-  CELL_INSERT_BELOW,
-  CELL_INSERT_INLINE_LEFT,
-  CELL_INSERT_INLINE_RIGHT,
-  CELL_DRAG_HOVER,
-  CELL_RESIZE,
-  CELL_FOCUS,
-  CELL_BLUR,
-  CELL_BLUR_ALL
-} from 'src/editor/actions/cell'
+
 import { optimizeCell, optimizeRow, optimizeRows, optimizeCells, flatten } from './helper/optimize'
 import { mergeDecorator } from './helper/merge'
 import { isHoveringThis } from './helper/hover'
 import { resizeCells } from './helper/sizing'
+import { createCell, createRow } from '../../types/editable'
+import {
+CELL_REMOVE,
+CELL_UPDATE_LAYOUT,
+CELL_UPDATE_CONTENT,
+CELL_INSERT_LEFT_OF,
+CELL_INSERT_RIGHT_OF,
+CELL_INSERT_ABOVE,
+CELL_INSERT_BELOW,
+CELL_INSERT_INLINE_LEFT,
+CELL_INSERT_INLINE_RIGHT,
+CELL_DRAG_HOVER,
+CELL_RESIZE,
+CELL_FOCUS,
+CELL_BLUR,
+CELL_BLUR_ALL
+} from '../../actions/cell'
 
-import type { Cell, Row } from 'types/editable'
-import { createCell, createRow } from 'types/editable'
+import type { Cell, Row } from '../../types/editable'
 
 const inner = (cb: Function, action: Object) => (state: Object) => cb(state, action)
 const identity = (state: Cell) => state

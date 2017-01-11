@@ -1,5 +1,6 @@
 /* eslint-env jest */
 import unexpected from 'unexpected'
+
 import Editor, { createEmptyState } from './index'
 
 const expect = unexpected.clone()
