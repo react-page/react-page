@@ -6,7 +6,7 @@
     "lerna": "2.0.0-beta.32"
   },
   "scripts": {
-    "bootstrap": "lerna bootstrap",
+    "bootstrap": "lerna bootstrap --ignore react,react-dom",
     "dev": "cd examples/news-article && npm run start",
     "docs": "documentation build ./src/editor/**/*.js --format md --github -o docs/API.md",
     "docs:watch": "documentation serve ./src/editor/**/*.js --watch",

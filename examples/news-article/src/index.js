@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import Editor, { Editable } from 'ory-editor'
+import Editor, { Editable } from '../../../packages/core/build'
 import content from './content.js'
 
 const editor = new Editor()
@@ -17,7 +17,4 @@ for (const element of elements) {
   ), element)
 }
 
-
 // ReactDOM.render(<Controls editor={editor} />, document.getElementById('controls'))
-
-

@@ -11,7 +11,7 @@ import PluginService from './service/plugin'
 import ServerContext from './components/ServerContext'
 import { updateEditable } from './actions/editables'
 
-import type Store from 'types/redux'
+import type Store from './types/redux'
 
 let instance: Editor
 

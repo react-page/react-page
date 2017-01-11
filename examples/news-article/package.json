@@ -5,9 +5,9 @@
     "react-scripts": "0.8.5"
   },
   "dependencies": {
+    "ncp": "^2.0.0",
     "react": "^15.4.2",
-    "react-dom": "^15.4.2",
-    "ory-editor": "0.0.0"
+    "react-dom": "^15.4.2"
   },
   "scripts": {
     "start": "react-scripts start",

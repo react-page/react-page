@@ -1,14 +1,14 @@
 {
   "name": "ory-editor",
   "version": "0.0.0",
-  "main": "./lib/editor/index.js",
+  "main": "./lib/index.js",
   "directories": {
     "doc": "./docs"
   },
   "scripts": {
-    "build": "cross-env NODE_PATH=. babel ./src --source-maps --ignore test.js --out-dir ./lib",
-    "build:watch": "npm run watch:js -- -c \"npm run build\"",
-    "clean": "rimraf \"dist/*\" \"lib/*\"",
+    "build:lib": "babel ./src --source-maps --ignore test.js --out-dir ./lib",
+    "build:umd": "browserify ./lib/index.js -o ./dist/index.js --transform browserify-global-shim --standalone Editor",
+    "clean": "rimraf \"dist/*\" \"lib/*\" \"dist/*\"",
     "coveralls": "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
     "flow": "flow check --show-all-errors",
     "flow:watch": "npm run watch:js -- -c \"flow check --show-all-errors\"",
@@ -30,7 +30,6 @@
     "react-dom": "^15.4.2"
   },
   "dependencies": {
-    "browserify-global-shim": "^1.0.3",
     "classnames": "^2.2.5",
     "deep-equal": "^1.0.1",
     "dnd-core": "^2.0.2",
@@ -38,6 +37,7 @@
     "lodash.debounce": "^4.0.8",
     "lodash.throttle": "^4.1.1",
     "mousetrap": "^1.6.0",
+    "npm-run-all": "^4.0.0",
     "ramda": "^0.23.0",
     "react-dimensions": "^1.3.0",
     "react-dnd": "^2.1.4",
@@ -53,6 +53,7 @@
     "uuid": "^3.0.1"
   },
   "devDependencies": {
+    "browserify-global-shim": "^1.0.3",
     "babel-cli": "^6.18.0",
     "babel-core": "^6.17.0",
     "babel-eslint": "^7.0.0",
