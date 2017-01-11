@@ -1,0 +1,11 @@
+{
+  "presets": [
+    ["es2015", { "modules": false }],
+    "stage-2",
+    "react"
+  ],
+  "plugins": [
+    "transform-class-properties",
+    "transform-inline-environment-variables"
+  ]
+}
