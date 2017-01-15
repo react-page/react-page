@@ -1,7 +1,6 @@
 // @flow
 import uuid from 'uuid'
 import { satisfies } from 'semver'
-
 import { ContentPlugin, LayoutPlugin, Plugin } from './classes'
 import MissingPlugin from './missing'
 
@@ -60,7 +59,7 @@ export default class PluginService {
    */
   findContentPlugin(name: string, version: string): ContentPlugin {
     const plugin = this.plugins.content.find(find(name, version))
-    return plugin || new ContentPlugin(MissingPlugin)
+    return plugin || new ContentPlugin(MissingPlugin({ name, version }))
   }
 
   /**

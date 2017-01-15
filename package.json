@@ -3,11 +3,12 @@
   "author": "ORY GmbH",
   "license": "AGPL-3.0",
   "devDependencies": {
-    "lerna": "2.0.0-beta.32"
+    "lerna": "2.0.0-beta.32",
+    "npm-run-all": "^4.0.0"
   },
   "scripts": {
-    "bootstrap": "lerna bootstrap --ignore react,react-dom",
-    "start": "cd examples/news-article && npm run start",
+    "bootstrap": "lerna bootstrap",
+    "start": "npm-run-all --parallel watch:*",
     "docs": "documentation build ./src/editor/**/*.js --format md --github -o docs/API.md",
     "docs:watch": "documentation serve ./src/editor/**/*.js --watch",
     "heroku-postbuild": "npm run build:home"

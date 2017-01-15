@@ -2,9 +2,10 @@
 import React, { PropTypes } from 'react'
 import type { ContentPluginProps } from './classes'
 
-const Missing = ({ name, version }: ContentPluginProps<{}>) => (
+const Missing = (props: ContentPluginProps<{}>) => (
   <div style={{ backgroundColor: 'red' }}>
-    Plugin <code>{name}:{version}</code> not found.
+    The requested plugin could not be found.
+    <pre>{JSON.stringify(props, null, 2)}</pre>
   </div>
 )
 
@@ -13,8 +14,7 @@ Missing.propTypes = {
   version: PropTypes.string.isRequired
 }
 
-export default {
+export default (plugin) => ({
   Component: Missing,
-  name: 'ory/editor/core/content/missing',
-  version: '0.0.1',
-}
+  ...plugin
+})

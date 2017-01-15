@@ -1,0 +1,13 @@
+{
+  "name": "ory-editor-styles",
+  "main": "index.js",
+  "scripts": {
+    "build": "postcss -u postcss-import -u postcss-cssnext -c ../../config/postcss/config.js --dir lib/ src/*.css",
+    "start": "npm run build -- -w"
+  },
+  "devDependencies": {
+    "postcss-cli": "^2.6.0",
+    "postcss-cssnext": "^2.9.0",
+    "postcss-import": "^9.1.0"
+  }
+}

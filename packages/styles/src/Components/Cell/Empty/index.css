@@ -1,0 +1,14 @@
+.ory-cell-empty {
+  background-color: red;
+  padding: 8px;
+  margin: 2px;
+  overflow: hidden;
+}
+
+.ory-cell-empty strong {
+  margin: 0 auto;
+}
+
+.ory-cell-empty code {
+  overflow: scroll;
+}

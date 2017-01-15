@@ -6,10 +6,9 @@
     "doc": "./docs"
   },
   "scripts": {
-    "build": "npm run build:lib",
     "build:lib": "babel ./src --source-maps --ignore test.js --out-dir ./lib",
     "build:umd": "browserify ./lib/index.js -o ./dist/index.js --transform browserify-global-shim --standalone Editor",
-    "build:watch": "npm run build:lib -- --watch",
+    "start": "npm run build:lib -- --watch",
     "clean": "rimraf \"dist/*\" \"lib/*\" \"dist/*\"",
     "coveralls": "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
     "flow": "flow check --show-all-errors",
@@ -88,11 +87,6 @@
     "recursive-readdir": "^2.1.0",
     "rimraf": "^2.5.4",
     "unexpected": "^10.20.0"
-  },
-  "jest": {
-    "moduleNameMapper": {
-      "^.+\\.css$": "<rootDir>/config/CSSStub.js"
-    }
   },
   "browserify-global-shim": {
     "react": "React",
