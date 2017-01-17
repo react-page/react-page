@@ -13,7 +13,8 @@
   },
   "scripts": {
     "bootstrap": "lerna bootstrap",
-    "start": "lerna run start --concurrency 100",
+    "start": "lerna run start --concurrency 100 --loglevel silly",
+    "start:libs": "lerna run start --concurrency 100 --loglevel silly",
     "clean": "lerna run clean:npm",
     "docs": "npm-run-all --parallel docs:api docs:guide",
     "docs:watch": "npm-run-all --parallel docs:api:watch docs:guide:watch",

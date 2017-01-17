@@ -164,11 +164,11 @@ export default {
         {
           cells: [
             {
-              // layout: {
-              //   plugin: {
-              //     name: 'ory/editor/core/layout/spoiler'
-              //   }
-              // },
+              layout: {
+                plugin: {
+                  name: 'ory/editor/core/layout/spoiler'
+                }
+              },
               rows: [
                 {
                   cells: [

@@ -1,14 +1,13 @@
 {
-  "name": "ory-editor-plugins-skeleton",
+  "name": "ory-editor-plugins-image",
   "version": "0.0.0",
   "main": "./lib/index.js",
   "scripts": {
     "build:lib": "babel ./src --ignore test.js --out-dir ./lib",
     "build:lib:watch": "npm run build:lib -- --watch",
-    "build:css": "postcss -c .postcss.json -o lib/styles.css src/*.css",
+    "build:css": "postcss -u postcss-import -u postcss-cssnext -c ../../../../config/postcss/config.js --dir lib/ src/index.css",
     "build:css:watch": "npm run watch:js -- -c \"npm run build:css\"",
     "clean": "rimraf \"dist/*\" \"lib/*\"",
-    "clean:npm": "rimraf \"node_modules/\"",
     "coveralls": "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
     "flow": "flow check --show-all-errors",
     "flow:watch": "npm run watch:js -- -c \"flow check --show-all-errors\"",
@@ -18,7 +17,8 @@
     "start": "npm-run-all --parallel build:lib:watch build:css:watch",
     "test": "jest --coverage",
     "test:watch": "jest --watch",
-    "watch:js": "chokidar \"+(src)/**/*.js\" --initial"
+    "watch:js": "chokidar \"+(src)/**/*.js\" --initial",
+    "clean:npm": "rimraf \"node_modules/\""
   },
   "engines": {
     "node": ">=6.0.0",
@@ -31,6 +31,9 @@
     "react-dom": "^15.4.2"
   },
   "dependencies": {
+    "material-ui": "^0.16.7",
+    "ory-editor-core": "0.0.0",
+    "ory-editor-ui": "0.0.0"
   },
   "devDependencies": {
     "babel-cli": "^6.18.0",

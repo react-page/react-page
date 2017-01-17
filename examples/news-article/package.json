@@ -52,12 +52,17 @@
     "ory-editor-styles": "0.0.0",
     "ory-editor-ui": "0.0.0",
     "ory-editor-plugins-slate": "0.0.0",
+    "ory-editor-plugins-image": "0.0.0",
+    "ory-editor-plugins-video": "0.0.0",
+    "ory-editor-plugins-divider": "0.0.0",
+    "ory-editor-plugins-spacer": "0.0.0",
+    "ory-editor-plugins-spoiler": "0.0.0",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
     "react-tap-event-plugin": "^2.0.1"
   },
   "scripts": {
-    "start": "node scripts/start.js",
+    "dev": "node scripts/start.js",
     "build": "node scripts/build.js",
     "test": "node scripts/test.js --env=jsdom",
     "clean:npm": "rimraf \"node_modules/\""
