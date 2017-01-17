@@ -3,9 +3,9 @@ import React from 'react'
 import Snackbar from 'material-ui/Snackbar'
 import { connect } from 'react-redux'
 import { createStructuredSelector } from 'reselect'
-import { updateSetting } from 'ory-editor/lib/actions/setting'
-import { getSetting } from 'ory-editor/lib/selector/setting'
-import i18n from 'ory-editor/lib/service/i18n'
+import { updateSetting } from 'ory-editor-core/lib/actions/setting'
+import { getSetting } from 'ory-editor-core/lib/selector/setting'
+import i18n from 'ory-editor-core/lib/service/i18n'
 
 export const dismissedMobilePreviewKey = 'mobile-preview-dismissed'
 

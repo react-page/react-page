@@ -5,9 +5,10 @@
   "scripts": {
     "build:lib": "babel ./src --ignore test.js --out-dir ./lib",
     "build:lib:watch": "npm run build:lib -- --watch",
-    "build:css": "postcss -c .postcss.json -o lib/styles.css src/*.css",
-    "build:css:watch": "npm run watch:js -- -c \"npm run build:css\"",
+    "build:css": "postcss -u postcss-import -u postcss-cssnext -c ../../config/postcss/config.js --dir lib/ src/index.css",
+    "build:css:watch": "npm run build:css -- -w",
     "clean": "rimraf \"dist/*\" \"lib/*\"",
+    "clean:npm": "rimraf \"node_modules/\"",
     "coveralls": "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
     "flow": "flow check --show-all-errors",
     "flow:watch": "npm run watch:js -- -c \"flow check --show-all-errors\"",
@@ -19,24 +20,21 @@
     "test:watch": "jest --watch",
     "watch:js": "chokidar \"+(src)/**/*.js\" --initial"
   },
-  "engines": {
-    "node": ">=6.0.0",
-    "npm": "~3.8.0"
-  },
-  "author": "ORY GmbH",
-  "license": "AGPL-3.0",
   "peerDependencies": {
     "react": "^15.4.2",
     "react-dom": "^15.4.2"
   },
   "dependencies": {
+    "classnames": "^2.2.5",
     "device.js": "^0.1.2",
     "material-ui": "^0.16.6",
-    "ory-editor": "^0.0.20",
+    "ory-editor-core": "0.0.0",
+    "react-dnd": "^2.1.4",
     "react-redux": "^5.0.2",
     "reselect": "^2.5.4"
   },
   "devDependencies": {
+    "npm-run-all": "^4.0.0",
     "babel-cli": "^6.18.0",
     "babel-eslint": "^7.1.1",
     "babel-plugin-transform-class-properties": "^6.19.0",
@@ -56,6 +54,7 @@
     "jest": "^18.1.0",
     "postcss-cli": "^2.6.0",
     "postcss-cssnext": "^2.9.0",
+    "postcss-import": "^9.1.0",
     "react": "^15.4.2",
     "react-addons-test-utils": "^15.4.2",
     "react-dom": "^15.4.2",

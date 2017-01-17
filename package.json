@@ -3,14 +3,24 @@
   "author": "ORY GmbH",
   "license": "AGPL-3.0",
   "devDependencies": {
+    "babel-plugin-inline-json": "^1.1.2",
+    "documentation": "^4.0.0-beta.18",
+    "gitbook-cli": "^2.3.0",
     "lerna": "2.0.0-beta.32",
-    "npm-run-all": "^4.0.0"
+    "npm-run-all": "^4.0.0",
+    "rimraf": "^2.5.4",
+    "json-loader": "^0.5.4"
   },
   "scripts": {
     "bootstrap": "lerna bootstrap",
-    "start": "npm-run-all --parallel watch:*",
-    "docs": "documentation build ./src/editor/**/*.js --format md --github -o docs/API.md",
-    "docs:watch": "documentation serve ./src/editor/**/*.js --watch",
+    "start": "lerna run start --concurrency 100",
+    "clean": "lerna run clean:npm",
+    "docs": "npm-run-all --parallel docs:api docs:guide",
+    "docs:watch": "npm-run-all --parallel docs:api:watch docs:guide:watch",
+    "docs:api": "documentation build ./src/editor/**/*.js --format md --github -o docs/API.md",
+    "docs:api:watch": "npm run docs:api -- --watch",
+    "docs:guide": "gitbook build .",
+    "docs:guide:watch": "gitbook serve -http",
     "heroku-postbuild": "npm run build:home"
   }
 }

@@ -1,5 +1,5 @@
 {
-  "name": "foo",
+  "name": "ory-editor-examples-news-article",
   "version": "0.1.0",
   "private": true,
   "devDependencies": {
@@ -44,17 +44,23 @@
     "webpack": "1.14.0",
     "webpack-dev-server": "1.16.2",
     "webpack-manifest-plugin": "1.1.0",
-    "whatwg-fetch": "1.0.0"
+    "whatwg-fetch": "1.0.0",
+    "rimraf": "^2.5.4"
   },
   "dependencies": {
+    "ory-editor-core": "0.0.0",
+    "ory-editor-styles": "0.0.0",
+    "ory-editor-ui": "0.0.0",
+    "ory-editor-plugins-slate": "0.0.0",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
-    "ory-editor": "0.0.0"
+    "react-tap-event-plugin": "^2.0.1"
   },
   "scripts": {
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
-    "test": "node scripts/test.js --env=jsdom"
+    "test": "node scripts/test.js --env=jsdom",
+    "clean:npm": "rimraf \"node_modules/\""
   },
   "jest": {
     "collectCoverageFrom": [

@@ -3,8 +3,6 @@ import { Placeholder } from 'slate'
 import { placeholder } from '../../const.js'
 import shallowEqual from 'fbjs/lib/shallowEqual'
 
-import './node.css'
-
 class Paragraph extends Component {
   shouldComponentUpdate(nextProps) {
     return !shallowEqual(this.props, nextProps)

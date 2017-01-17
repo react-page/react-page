@@ -3,10 +3,10 @@ import React from 'react'
 import Avatar from 'material-ui/Avatar'
 import draggable from '../Draggable'
 import ListItem from 'material-ui/List/ListItem'
-import { Plugin } from 'ory-editor'
+import { Plugin } from 'ory-editor-core'
 import DragHandle from 'material-ui/svg-icons/editor/drag-handle'
-import './index.css'
-// import logger from 'ory-editor/lib/service/logger'
+
+// import logger from 'ory-editor-core/lib/service/logger'
 
 const Item = ({ plugin, insert }: { plugin: Plugin, insert: any }, k: string) => {
   if (!plugin.IconComponent && !plugin.text) {

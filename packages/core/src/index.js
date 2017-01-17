@@ -33,10 +33,10 @@ class Editor {
   errorReporting: bool
 
   constructor({
-    plugins = new PluginService(),
+    plugins,
     middleware = []
   }: {
-    plugins: PluginService,
+    plugins: { content: [], layout: [] },
     errorReporting: boolean,
     middleware: []
   } = {}) {
@@ -46,7 +46,7 @@ class Editor {
 
     instance = this
     this.store = createStore(initialState(), middleware)
-    this.plugins = plugins
+    this.plugins = new PluginService(plugins)
     this.middleware = middleware
     this.trigger = actions(this.store.dispatch)
   }

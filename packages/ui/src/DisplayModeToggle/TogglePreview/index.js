@@ -1,13 +1,12 @@
 // @flow
 import React from 'react'
 import Devices from 'material-ui/svg-icons/device/devices'
-import Button from '../Button'
-
 import { connect } from 'react-redux'
-
-import {   previewMode } from 'ory-editor/lib/actions/display'
-import { isPreviewMode } from 'ory-editor/lib/selector/display'
+import {   previewMode } from 'ory-editor-core/lib/actions/display'
+import { isPreviewMode } from 'ory-editor-core/lib/selector/display'
 import { createStructuredSelector } from 'reselect'
+
+import Button from '../Button'
 
 const Inner = ({ isPreviewMode, previewMode }: { isPreviewMode: bool, previewMode: Function }) => (
   <Button

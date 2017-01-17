@@ -6,10 +6,8 @@ import React, { Component } from 'react'
 import Portal from 'react-portal'
 import position from 'selection-position'
 import { Editor } from 'slate'
-
-import BottomToolbar from 'src/editor/components/Controls/BottomToolbar'
-import { ContentPluginProps } from 'src/editor/service/plugin/classes'
-import './index.css'
+import BottomToolbar from 'ory-editor-ui/lib/BottomToolbar'
+import { ContentPluginProps } from 'ory-editor-core/lib/service/plugin/classes'
 
 const onBlur = (_event, _data, state) => state
 

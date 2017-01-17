@@ -6,6 +6,7 @@
   ],
   "plugins": [
     "transform-class-properties",
-    "transform-inline-environment-variables"
+    "transform-inline-environment-variables",
+    "inline-json-import"
   ]
 }

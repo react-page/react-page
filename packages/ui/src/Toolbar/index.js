@@ -2,26 +2,26 @@
 import React, { Component } from 'react'
 import Drawer from 'material-ui/Drawer'
 import { connect } from 'react-redux'
-import { isInsertMode } from 'ory-editor/lib/selector/display'
+import { isInsertMode } from 'ory-editor-core/lib/selector/display'
 import { createStructuredSelector } from 'reselect'
+import Editor from 'ory-editor-core/lib'
 import List from 'material-ui/List/List'
 import ListItem from 'material-ui/List/ListItem'
 import Subheader from 'material-ui/Subheader'
 import Toggle from 'material-ui/Toggle'
 import Divider from 'material-ui/Divider'
 import TextField from 'material-ui/TextField'
+import { LayoutPlugin, ContentPlugin } from 'ory-editor-core/lib/service/plugin/classes'
+
 import Item from './Item'
-import { LayoutPlugin, ContentPlugin } from 'ory-editor/lib/service/plugin/classes'
+import Provider from '../Provider'
 
 type Props = {
   isInsertMode: boolean,
-  plugins: {
-    content: LayoutPlugin[],
-    layout: ContentPlugin[]
-  }
+  editor: Editor
 }
 
-class Toolbar extends Component {
+class Raw extends Component {
   constructor(props: Props) {
     super(props)
     this.state = {
@@ -60,7 +60,7 @@ class Toolbar extends Component {
   }
 
   render() {
-    const { isInsertMode, plugins } = this.props
+    const { isInsertMode, editor: { plugins } } = this.props
     const { isSearching, searchFilter } = this.state
     const content = plugins.plugins.content.filter(searchFilter)
     const layout = plugins.plugins.layout.filter(searchFilter)
@@ -116,14 +116,14 @@ class Toolbar extends Component {
           })}
         </List>
         {isSearching ? null : (
-          <div>
-            <Divider />
-            <List>
-              <Subheader>Settings</Subheader>
-              <ListItem primaryText="Back up drafts" rightToggle={<Toggle />} />
-            </List>
-          </div>
-        )}
+            <div>
+              <Divider />
+              <List>
+                <Subheader>Settings</Subheader>
+                <ListItem primaryText="Back up drafts" rightToggle={<Toggle />}/>
+              </List>
+            </div>
+          )}
       </Drawer>
     )
   }
@@ -131,4 +131,10 @@ class Toolbar extends Component {
 
 const mapStateToProps = createStructuredSelector({ isInsertMode })
 
-export default connect(mapStateToProps)(Toolbar)
+const Decorated = connect(mapStateToProps)(Raw)
+const Toolbar = (props) => (
+  <Provider {...props}>
+    <Decorated {...props}/>
+  </Provider>
+)
+export default Toolbar
