@@ -9,11 +9,9 @@
 [![Follow twitter](https://img.shields.io/badge/follow-twitter-00cc99.svg)](https://twitter.com/_aeneasr)
 [![Follow GitHub](https://img.shields.io/badge/follow-github-00cc99.svg)](https://github.com/arekkas)
  
-The ORY Editor is part of the ORY Content Toolchain, a set of tools helping you to build, distribute and manage awesome content.
+The ORY Editor is part of the ORY Content Toolchain, which is a set of tools that helps you build, distribute and manage your (awesome) content.
 
-*Note:* Please be aware that the ORY Editor is very young, and most features, APIs and docs are new. We try to keep
-backwards compatibility as best as we can, but we can not guarantee it. Also, we need your help to find issues and improve
-the overall experience, APIs and documentation.
+*Please Note:* The features, APIs and docs of the ORY Editor are new and very young. We cannot always guarantee backwards compatibility but we try our best! We are looking for your help also to find issues and improve the overall experience, APIs and documentation.
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
@@ -25,32 +23,30 @@ the overall experience, APIs and documentation.
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
-Head over to our demo at [editor.ory.am](http://editor.ory.am/) and check out what's possible!
+Want a closer look and experience what the ORY Editor can do? Check out our demo at [editor.ory.am](http://editor.ory.am/)
 
 ## Introduction
 
-We run the [Wikipedia for learning](https://de.serlo.org) for close to a decade now - and used
-the lessons learned to enrich the Open Source Community with a technology that improves
-the state of content creation on the web. Key features of the ORY Editor are as followed.
+We have been running the [Wikipedia for learning](https://de.serlo.org) for almost a decade now. The experience and the lessons learned made us embark on the journey to build the ORY Editory. We wanted to make content editing on the web easy and enrich the Open Source Community with technology that moves the needle significantly for how content can be created and edited on the web. The key things that the ORY Editor achieves are:
 
-* Content is represented as a JSON state. HTML purification / sanitation is no longer required and content-based XSS attacks are much less likely.
+* Content is represented as a JSON state.
+* HTML purification / sanitation is no longer required (so that content-based XSS attacks are much less likely).
 * The content state is transformed using [redux](https://github.com/reactjs/redux) and all transformations are well tested.
-* Transformations can be replayed at any time. Each key press is a state transform. This allows collaborative editing, global undo/redo and other wizardry.
-* Include custom, dynamic components by using the React Plugin API ([example](examples/single-page-site/src/plugins/parallax)) for both content and layout.
-* Adapt layout behaviour to your use case *(in development)*
+* Transformations can be replayed at any time where each key press is a state transform, allowing for collaborative editing, global undo/redo and other wizardry.
+* Custom, dynamic components, by using the React Plugin API ([example](examples/single-page-site/src/plugins/parallax)) for both content and layout are included.
+* Layout behavior is adapted to your specific use case *(in development)*
 
 ## Quickstart
 
-Currently, the ORY Editor is optimized for usage with React. We will focus on improving the ORY Editor first, an
-plan to ship versions that do not require React in the future!
+Currently our focus is on optimizing the ORY Editor for usage with React. We will work on, and ship versions that do not require React in the future.
 
-Use npm to install the ORY Editor as followed.
+Use npm to install the ORY Editor as follows:
 
 ```sh
 $ npm install --save ory-editor react-tap-event-plugin
 ```
 
-The following snippet shows a minimalistic installation of the ORY Editor. We included some [examples](examples/) as well!
+The following snippet shows a minimalistic installation of the ORY Editor. We included some [examples](examples/) as well.
 
 ```jsx
 import React, { Component } from 'react';
@@ -99,8 +95,8 @@ export default App
 
 ## Examples
 
-We included some [examples](examples/) which are a good starting point if you want to familiarize yourself with the editor.
-To run the examples, use one of the following commands.
+Here are some [examples](examples/) that are a good starting point if you want to familiarize yourself with the editor.
+To run the examples, use one of the following commands:
 
 ```
 $ npm run dev
@@ -108,7 +104,7 @@ $ npm run dev:news-article
 $ npm run dev:single-page-site
 ```
 
-Development builds are unoptimized. To get the best performance you should create a production build as followed
+Development builds are not optimized. To get the best performance, create a production build as follows:
 
 ```
 $ npm run build
@@ -126,7 +122,7 @@ $ npm run serve:single-page-site
 
 ## Documentation
 
-There is a user guide on [gitbook](https://ory-am.gitbooks.io/ory-editor/content/) available, and you can generate it locally with:
+There is a user guide available on [gitbook](https://ory-am.gitbooks.io/ory-editor/content/), and you can generate it locally with:
 
 ```
 $ git clone https://github.com/ory-am/editor.git
@@ -147,7 +143,7 @@ $ cd editor
 $ npm i
 ```
 
-Here are tasks we usually use when developing:
+Here are tasks we commonly use when developing:
 
 ```
 # run the tests in watch mode
