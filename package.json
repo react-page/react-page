@@ -14,7 +14,7 @@
   "scripts": {
     "bootstrap": "lerna bootstrap",
     "start": "lerna run start --concurrency 100",
-    "start:libs": "lerna run start --ignore ory-editor-examples-news-article --concurrency 100",
+    "start:lib": "lerna run start --ignore ory-editor-examples-news-article --concurrency 100",
     "clean": "lerna run clean:npm",
     "docs": "npm-run-all --parallel docs:api docs:guide",
     "docs:watch": "npm-run-all --parallel docs:api:watch docs:guide:watch",
@@ -24,6 +24,7 @@
     "docs:guide:watch": "gitbook serve -http",
     "heroku-postbuild": "npm run build:home",
     "build": "lerna run build --concurrency 1",
+    "build:lib": "lerna run build --ignore ory-editor-examples-news-article --concurrency 1",
     "lint": "lerna run lint",
     "flow": "lerna run flow",
     "test": "lerna run test"
