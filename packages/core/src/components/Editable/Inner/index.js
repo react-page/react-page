@@ -44,7 +44,7 @@ class Inner extends Component {
     // }
 
     return (
-      <div className={'ory-editable'}>
+      <div className="ory-editable ory-prevent-blur">
         {cells.map((c: string | CellType) => (
           <Cell
             rowWidth={containerWidth}
