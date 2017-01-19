@@ -1,0 +1,41 @@
+.ory-cell-draggable {
+  cursor: move;
+  position: relative;
+  height: 100%;
+  transition: opacity 200ms ease;
+  /* resolves an issue with drag and drop preview in chrome, see https://github.com/ory-am/editor/issues/180 */
+  /* will-change: transform; */
+}
+
+.ory-cell-draggable-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 3;
+  cursor: move;
+  transition: all ease .2s;
+}
+
+.ory-cell-draggable-overlay:hover {
+  filter: sepia(0.7);
+  background: var(--faintBlack);
+  box-shadow: 0 0 4px var(--minBlack);
+  background-blend-mode: screen;
+}
+
+.ory-cell-draggable-overlay.ory-cell-draggable-leaf {
+  z-index: 3;
+}
+
+.ory-cell-draggable-inline-left.ory-cell-draggable-overlay,
+.ory-cell-draggable-inline-right.ory-cell-draggable-overlay {
+  float: left;
+  z-index: 4;
+}
+
+.ory-cell-draggable-is-dragging {
+  opacity: 0.4;
+  outline: none;
+}

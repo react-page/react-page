@@ -93,59 +93,68 @@ class App extends Component {
 export default App
 ```
 
-## Examples
+## Documentation
+
+Check out the [user guide on gitbook](https://ory-am.gitbooks.io/ory-editor/content/).
+
+## How to run, develop, and contribute
+
+Do you want to run, develop or contribute to the ORY Editor? For that you need [Node](https://nodejs.org) installed on
+your system. Use git to check out this repository as followed.
+
+```bash
+$ git clone https://github.com/ory-am/editor.git
+$ cd editor
+```
+
+### Install dependencies
+
+The ORY Editor is a [monorepo](https://github.com/babel/babel/blob/master/doc/design/monorepo.md) and requires
+a global install of rimraf in order to be able to clean up sub-packages. Install rimraf and lerna as followed.
+
+```bash
+$ npm i -g rimraf lerna
+```
+
+Next install the local dependencies and bootstrap the sub-packages.
+
+```bash
+$ npm i
+$ npm run bootstrap
+```
+
+### Run the example(s)
+
 
 Here are some [examples](examples/) that are a good starting point if you want to familiarize yourself with the editor.
 To run the examples, use one of the following commands:
 
 ```
-$ npm run dev
-$ npm run dev:news-article
-$ npm run dev:single-page-site
+$ npm run start
 ```
 
 Development builds are not optimized. To get the best performance, create a production build as follows:
 
 ```
 $ npm run build
-$ npm run build:news-article
-$ npm run build:single-page-site
 ```
 
 and run the web server with:
 
 ```
 $ npm run serve
-$ npm run serve:news-article
-$ npm run serve:single-page-site
 ```
 
-## Documentation
 
-There is a user guide available on [gitbook](https://ory-am.gitbooks.io/ory-editor/content/), and you can generate it locally with:
-
-```
-$ git clone https://github.com/ory-am/editor.git
-$ cd editor
-$ npm i -g gitbook-cli
-$ gitbook serve -http
+```bash
+$ npm run start
 ```
 
-## Contribute
+### Run the toolchain
 
-You need [Node](https://nodejs.org) installed on your system. You can check out this repository with:
+Our toolchain contains tests, eslint and flow types. We highly recommend to run this toolchain while developing.
 
-```
-$ git clone https://github.com/ory-am/editor.git
-$ cd editor
-
-# Install depdendencies
-$ npm i
-```
-
-Here are tasks we commonly use when developing:
-
-```
+```bash
 # run the tests in watch mode
 $ npm run test:watch 
 
@@ -154,12 +163,20 @@ $ npm run lint:watch
 
 # run flowtype in watch mode
 $ npm run flow:watch
+```
 
-# run dev server
-$ npm run dev
+### Run the documentation
 
-# open the editor in your browser
-$ open http://localhost:3000/
+To run the docs in watch mode, do:
+
+```bash
+$ npm run docs:watch
+```
+
+To build the docs, run:
+
+```bash
+$ npm run docs
 ```
 
 ## Known issues

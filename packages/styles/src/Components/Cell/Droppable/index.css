@@ -1,0 +1,65 @@
+.ory-cell-droppable {
+  position: relative;
+}
+
+.ory-cell-droppable-is-over-current:before {
+  content: " ";
+  display: block;
+  position: absolute;
+  z-index: 1;
+  background: var(--faintBlack);
+  box-shadow: 0 0 4px var(--minBlack);
+}
+
+.ory-cell-droppable-is-over-above:before {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 9%;
+}
+.ory-cell-droppable-leaf.ory-cell-droppable-is-over-above:before {
+  height: 36%;
+}
+
+.ory-cell-droppable-is-over-below:before {
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 9%;
+}
+.ory-cell-droppable-leaf.ory-cell-droppable-is-over-below:before {
+  height: 36%;
+}
+
+.ory-cell-droppable-is-over-left-of:before {
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 9%;
+}
+.ory-cell-droppable-leaf.ory-cell-droppable-is-over-left-of:before {
+  width: 36%;
+}
+
+.ory-cell-droppable-is-over-right-of:before {
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 9%;
+}
+.ory-cell-droppable-leaf.ory-cell-droppable-is-over-right-of:before {
+  width: 36%;
+}
+
+.ory-cell-droppable-is-over-inline-left:before {
+  top: 0;
+  left: 0;
+  width: 50%;
+  height: 36%;
+}
+.ory-cell-droppable-is-over-inline-right:before {
+  top: 0;
+  right: 0;
+  width: 50%;
+  height: 36%;
+}
