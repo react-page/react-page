@@ -8,6 +8,7 @@ import ExpandMore from 'material-ui/svg-icons/navigation/expand-more'
 import ExpandLess from 'material-ui/svg-icons/navigation/expand-less'
 import FilterFrames from 'material-ui/svg-icons/image/filter-frames'
 import { white } from 'material-ui/styles/colors'
+import type { LayoutPluginProps, ContentPlugin } from 'ory-editor-core/lib/service/plugin/classes'
 
 class PluginComponent extends Component {
   state = { hidden: false }
@@ -21,23 +22,23 @@ class PluginComponent extends Component {
     const { children } = this.props
     return (
       <MuiThemeProvider muiTheme={getMuiTheme()}>
-      <Paper>
-        <div className="ory-plugins-layout-spoiler-content" style={{ display: this.state.hidden ? 'none' : 'block' }}>
-          {children}
-        </div>
-        <div className="ory-plugins-layout-spoiler-toggle" onClick={this.onToggle}>
-          {this.state.hidden
-            ? <ExpandMore color={white} size={32} />
-            : <ExpandLess color={white} size={32} />
-          }
-        </div>
-      </Paper>
+        <Paper>
+          <div className="ory-plugins-layout-spoiler-content" style={{ display: this.state.hidden ? 'none' : 'block' }}>
+            {children}
+          </div>
+          <div className="ory-plugins-layout-spoiler-toggle" onClick={this.onToggle}>
+            {this.state.hidden
+              ? <ExpandMore color={white} size={32} />
+              : <ExpandLess color={white} size={32} />
+            }
+          </div>
+        </Paper>
       </MuiThemeProvider>
     )
   }
 }
 
-export default ({ defaultPlugin }) => ({
+export default ({ defaultPlugin }: { defaultPlugin: ContentPlugin }) => ({
   Component: PluginComponent,
   name: 'ory/editor/core/layout/spoiler',
   version: '0.0.1',

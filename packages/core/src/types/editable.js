@@ -106,7 +106,9 @@ export type ComponentizedCell = {
   insertCellLeftInline(type: string): void,
   insertCellLeftOf(type: string): void,
   insertCellRightInline(type: string): void,
-  insertCellRightOf(type: string): void
+  insertCellRightOf(type: string): void,
+
+  onChange(state: any): void
 }
 
 type AbstractRow<T> = {

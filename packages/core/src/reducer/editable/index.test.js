@@ -1,4 +1,3 @@
-/* eslint-env jest */
 import { combineReducers, createStore } from 'redux'
 import { rawEditableReducer } from './index'
 import * as actions from '../../actions/cell'
@@ -267,8 +266,7 @@ test('last cell remove', () => {
 
   const actualState = simulateDispatch(currentState, action)
 
-  expect(actualState.editable.cells.length).toEqual(1)
-  expect(actualState.editable.cells[0].id).toEqual('1')
+  expect(actualState.editable.cells.length).toEqual(0)
 })
 
 test('cell cancel drag', () => {

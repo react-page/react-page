@@ -2,7 +2,7 @@
 import uuid from 'uuid'
 import { satisfies } from 'semver'
 import { ContentPlugin, LayoutPlugin, Plugin } from './classes'
-import MissingPlugin from './missing'
+import missing from './missing'
 
 const find = (name: string, version: string = '*') => (plugin: Plugin): boolean => plugin.name === name && satisfies(plugin.version, version)
 
@@ -33,7 +33,7 @@ export default class PluginService {
   /**
    * Instantiate a new PluginService instance. You can provide your own set of content and layout plugins here.
    */
-  constructor({ content = [], layout = [] } = {}) {
+  constructor({ content = [], layout = [] }: { content: [], layout: []} = {}) {
     this.plugins = {
       content: content.map((config: any) => new ContentPlugin(config)),
       layout: layout.map((config: any) => new LayoutPlugin(config)),
@@ -59,7 +59,7 @@ export default class PluginService {
    */
   findContentPlugin(name: string, version: string): ContentPlugin {
     const plugin = this.plugins.content.find(find(name, version))
-    return plugin || new ContentPlugin(MissingPlugin({ name, version }))
+    return plugin || new ContentPlugin(missing({ name, version }))
   }
 
   /**

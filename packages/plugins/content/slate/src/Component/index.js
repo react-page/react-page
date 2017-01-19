@@ -72,7 +72,7 @@ class Slate extends Component {
       <div>
         <Portal isOpened={isOpened} onOpen={this.handleOpen}>
           <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
-            {/* TODO editor-container is needed to avoid global blurry, #190 */}
+            {/* ory-prevent-blur is required to prevent global blurring */}
             <div className="ory-prevent-blur ory-plugins-content-slate-inline-toolbar" style={{ padding: 0 }}>
               <HoverButtons editorState={editorState} onChange={this.onStateChange} focus={focus} />
             </div>

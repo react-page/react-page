@@ -3,18 +3,6 @@ language: node_js
 node_js:
   - "6"
 
-# before_script:
-#  - "export DISPLAY=:99.0"
-#  - "sh -e /etc/init.d/xvfb start"
-#  - sleep 3
-#  - "npm start &"
-#  - sleep 3
-
-cache:
-    yarn: true
-    directories:
-        - node_modules
-
 env:
   matrix:
   - TEST_TYPE=test
@@ -22,10 +10,15 @@ env:
   - TEST_TYPE=flow
   - TEST_TYPE=build
 
+install:
+  - npm i -g yarn
+  - yarn install
+  - npm run bootstrap
+
 script:
   - |
     if [ "$TEST_TYPE" = test ]; then
-      npm run test:unit:coverage
+      npm run test
     elif [ "$TEST_TYPE" = build ]; then
       npm run build
     elif [ "$TEST_TYPE" = lint ]; then
@@ -42,7 +35,7 @@ after_success:
 
 before_deploy:
   - npm version --no-git-tag-version $(git describe --tag)
-  - npm run build:umd
+  - npm run build
 
 deploy:
   provider: npm

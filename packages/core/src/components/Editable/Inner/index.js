@@ -6,7 +6,6 @@ import { createStructuredSelector } from 'reselect'
 import Cell from '../../Cell'
 import { shouldPureComponentUpdate } from '../../../helper/shouldComponentUpdate'
 import { purifiedEditable } from '../../../selector/editable'
-import { isLayoutMode, isResizeMode, isPreviewMode } from '../../../selector/display'
 import dimensions from '../../Dimensions'
 import { blurAllCells } from '../../../actions/cell'
 import { enableGlobalBlurring, disableGlobalBlurring } from './blur'
@@ -28,21 +27,12 @@ class Inner extends Component {
   props: EditableComponentState
 
   render() {
-    const { id, containerWidth, containerHeight, isLayoutMode, isResizeMode, isPreviewMode, node, ...props } = this.props
+    const { id, containerWidth, containerHeight, node } = this.props
     if (!node) {
       return null
     }
 
     const { cells = [] } = node
-
-    // if (isLayoutMode || isResizeMode) {
-    //   props.styles = {
-    //     ...props.styles,
-    //     ...commonStyles.flexbox,
-    //     ...styles // override defaults
-    //   }
-    // }
-
     return (
       <div className="ory-editable ory-prevent-blur">
         {cells.map((c: string | CellType) => (
@@ -60,7 +50,7 @@ class Inner extends Component {
   }
 }
 
-const mapStateToProps = createStructuredSelector({ node: purifiedEditable, isLayoutMode, isResizeMode, isPreviewMode })
+const mapStateToProps = createStructuredSelector({ node: purifiedEditable })
 
 const mapDispatchToProps = { blurAllCells }
 

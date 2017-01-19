@@ -1,4 +1,3 @@
-/* eslint-env jest */
 import unexpected from 'unexpected'
 import HoverService, { classes as c, defaultCallbacks, computeLevel } from './index'
 

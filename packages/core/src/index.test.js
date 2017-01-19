@@ -1,4 +1,3 @@
-/* eslint-env jest */
 import unexpected from 'unexpected'
 
 import Editor, { createEmptyState } from './index'
@@ -15,8 +14,8 @@ describe('Editor', () => {
   //   expect(() => new Editor(), 'to throw')
   // })
 
-  xit('should render', () => {
+  it('should render', () => {
     const html = editor.renderToHtml(createEmptyState())
-    expect(html, 'to equal', '')
+    expect(html, 'to be defined')
   })
 })

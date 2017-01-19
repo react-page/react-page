@@ -14,7 +14,6 @@ import { H1, H2, H3 } from './plugins/headings'
 import { P } from './plugins/paragraph'
 
 // FIXME #126
-// flow-disable-next-line named exports
 import { Document, Html, Raw, State, Plain } from 'slate'
 
 const rules = [{
