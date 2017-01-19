@@ -48,7 +48,7 @@ class Draggable extends Component {
 
     if (!(isLayoutMode || isInsertMode)) {
       return (
-        <div className="ory-cell-draggable-placeholder">
+        <div className="ory-cell-draggable-container">
           {/* these divs are here to prevent page jumping, they are a placeholder for draggable / draggable-overlay */}
           <div className="ory-cell-draggable-overlay-placeholder" />
           {children}

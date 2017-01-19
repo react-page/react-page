@@ -23,7 +23,7 @@
     "docs:guide": "gitbook build .",
     "docs:guide:watch": "gitbook serve -http",
     "heroku-postbuild": "npm run build:home",
-    "build": "lerna run build",
+    "build": "lerna run build --concurrency 1",
     "lint": "lerna run lint",
     "flow": "lerna run flow",
     "test": "lerna run test"

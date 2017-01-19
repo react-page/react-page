@@ -1,12 +1,11 @@
 {
   "lerna": "2.0.0-beta.32",
   "packages": [
-    "examples/news-article",
     "packages/core",
-    "packages/styles",
     "packages/ui",
     "packages/plugins/content/*",
-    "packages/plugins/layout/*"
+    "packages/plugins/layout/*",
+    "examples/news-article"
   ],
   "version": "0.0.0"
 }

@@ -8,7 +8,7 @@ import { createStructuredSelector } from 'reselect'
 import Inner from './Inner'
 import { shouldPureComponentUpdate } from '../../helper/shouldComponentUpdate'
 import { editableConfig, node, purifiedNode } from '../../selector/editable'
-import { isPreviewMode, isEditMode, isResizeMode } from '../../selector/display'
+import { isPreviewMode, isEditMode, isResizeMode, isInsertMode, isLayoutMode } from '../../selector/display'
 import { resizeCell, focusCell, blurAllCells } from '../../actions/cell'
 import Resizable from './Resizable'
 
@@ -71,6 +71,9 @@ const mapStateToProps = createStructuredSelector({
   isPreviewMode,
   isEditMode,
   isResizeMode,
+  // required by sub-components
+  isInsertMode,
+  isLayoutMode,
   config: editableConfig,
   node: purifiedNode,
   rawNode: (state: any, props: any) => () => node(state, props)

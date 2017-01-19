@@ -3,6 +3,8 @@
   "version": "0.0.0",
   "main": "./lib/index.js",
   "scripts": {
+    "build": "npm-run-all --parallel build:css build:lib",
+    "build": "npm-run-all --parallel build:css build:lib",
     "build:lib": "babel ./src --ignore test.js --out-dir ./lib",
     "build:lib:watch": "npm run build:lib -- --watch",
     "build:css": "postcss -u postcss-import -u postcss-cssnext -c ../../../../config/postcss/config.js --dir lib/ src/index.css",
