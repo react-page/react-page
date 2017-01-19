@@ -1,7 +1,7 @@
 // @flow
 import React from 'react'
 import { Provider as ReduxProvider } from 'react-redux'
-import Editor from 'ory-editor-core/lib'
+import { Editor } from 'ory-editor-core/lib'
 import DragDropContext from 'ory-editor-core/lib/components/DragDropContext'
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'

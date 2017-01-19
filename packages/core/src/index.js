@@ -90,7 +90,8 @@ class Editor {
 
 export {
   PluginService,
-  Editable
+  Editable,
+  Editor
 }
 
 export const createEmptyState = () => ({
