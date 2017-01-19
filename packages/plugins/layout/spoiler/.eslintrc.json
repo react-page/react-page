@@ -1,0 +1,32 @@
+{
+  "extends": [
+    "eslint-config-ory-am",
+    "eslint-config-ory-am-react"
+  ],
+  "parser": "babel-eslint",
+  "plugins": [
+    "flowtype"
+  ],
+  "env": {
+    "node": true,
+    "browser": true,
+    "jest": true
+  },
+  "settings": {
+    "flowtype": {
+      "onlyFilesWithFlowAnnotation": true
+    }
+  },
+  "rules": {
+    "no-unused-vars": ["error", { "argsIgnorePattern": "^_" }],
+    "no-invalid-this": ["off"],
+    "flowtype/define-flow-type": "error",
+    "flowtype/require-parameter-type": "error",
+    "flowtype/space-after-type-colon": ["error", "always"],
+    "flowtype/space-before-type-colon": ["error", "never"],
+    "flowtype/type-id-match": ["error", "^([A-Z][a-z0-9]+)+$"]
+  },
+  "matrix": {
+    "no-console": ["error", { "allow": ["warn", "error"] }]
+  }
+}

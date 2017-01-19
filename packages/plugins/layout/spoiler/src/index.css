@@ -1,0 +1,18 @@
+.ory-plugins-layout-spoiler-toggle {
+  background-color: var(--grey400);
+  text-align: center;
+  cursor: pointer;
+}
+
+.spoiler {
+  border: 1px solid var(--grey400);
+}
+
+.spoiler .header {
+  border-bottom: 1px solid var(--grey400);
+  background: var(grey200);
+  padding: 4px 8px;
+  cursor: pointer;
+}
+
+.spoiler .content {}

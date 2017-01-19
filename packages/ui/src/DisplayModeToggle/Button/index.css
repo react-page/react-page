@@ -1,0 +1,27 @@
+.ory-controls-mode-toggle-button-inner {
+  float: right;
+  margin: 8px;
+}
+
+.ory-controls-mode-toggle-button-description {
+  font-family: Roboto, sans-serif;
+  font-size: 16px;
+  margin-top: 24px;
+  float: right;
+  background: transparent;
+  color: transparent;
+  border: 1px transparent solid;
+  padding: 2px 8px;
+  text-align: right;
+  max-width: 0;
+  transition: all 200ms ease;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.ory-controls-mode-toggle-button:hover .ory-controls-mode-toggle-button-description {
+  max-width: 999px;
+  background: var(--darkBlack);
+  color: var(--white);
+  border: 1px solid var(--faintBlack);
+}
