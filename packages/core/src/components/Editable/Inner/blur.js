@@ -7,13 +7,13 @@ let instantiated = 0
 const blurAll = (blurAllCells: Function) => (e: Event) => {
   let c = e.target
   if (c instanceof HTMLElement) {
-    if (c.classList.contains('editor-container')) {
+    if (c.classList.contains('ory-editable')) {
       return
     }
 
     /* eslint no-cond-assign: ["off"] */
     while (c = c.parentElement) {
-      if (c.classList.contains('editor-container')) {
+      if (c.classList.contains('ory-editable')) {
         return
       }
     }

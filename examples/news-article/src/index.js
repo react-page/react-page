@@ -1,6 +1,5 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import content from './content.js'
 
 import Editor, { Editable } from 'ory-editor-core'
 import { Trash, DisplayModeToggle, Toolbar } from 'ory-editor-ui'
@@ -21,6 +20,9 @@ import 'ory-editor-plugins-spoiler/lib/index.css'
 
 require('react-tap-event-plugin')()
 
+import content from './content.js'
+import './styles.css'
+
 const editor = new Editor({
   plugins: {
     content: [
@@ -34,16 +36,15 @@ const editor = new Editor({
       spoiler({ defaultPlugin: slate() })
     ]
   },
-  editables: [],
+  editables: content,
 })
-// editor.register(content[element.dataset.id])
 
 const elements = document.querySelectorAll('.editable')
 for (const element of elements) {
   ReactDOM.render((
     <Editable
       editor={editor}
-      state={content[element.dataset.id]}
+      id={element.dataset.id}
       // onChange={(state) => console.log(state)}
     />
   ), element)

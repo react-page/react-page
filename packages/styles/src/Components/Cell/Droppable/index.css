@@ -1,3 +1,7 @@
+.ory-cell-droppable {
+  position: relative;
+}
+
 .ory-cell-droppable-is-over-current:before {
   content: " ";
   display: block;

@@ -3,14 +3,12 @@
 import React from 'react'
 import uuid from 'uuid/v4'
 import ReactDOMServer from 'react-dom/server'
-
 import Editable from './components/Editable'
 import createStore from './store'
 import { actions } from './actions'
 import PluginService from './service/plugin'
 import ServerContext from './components/ServerContext'
-import { updateEditable } from './actions/editables'
-
+import type { EditableType } from './types/editable'
 import type Store from './types/redux'
 
 let instance: Editor
@@ -30,15 +28,15 @@ class Editor {
   store: Store
   plugins: PluginService
   middleware: []
-  errorReporting: bool
 
   constructor({
     plugins,
-    middleware = []
+    middleware = [],
+    editables = []
   }: {
     plugins: { content: [], layout: [] },
-    errorReporting: boolean,
-    middleware: []
+    middleware: [],
+    editables: EditableType[]
   } = {}) {
     if (instance) {
       console.warn('You have defined multiple instances of Editor, this could cause problems.')
@@ -49,6 +47,16 @@ class Editor {
     this.plugins = new PluginService(plugins)
     this.middleware = middleware
     this.trigger = actions(this.store.dispatch)
+
+    editables.forEach((editable) => {
+      const state = this.plugins.unserialize(editable)
+      this.trigger.editable.add({
+        ...state,
+        config: {
+          whitelist: this.plugins.getRegisteredNames()
+        }
+      })
+    })
   }
 
   trigger = {}
@@ -60,19 +68,20 @@ class Editor {
 
     const store = createStore(initialState(), this.middleware)
     const deserialized = this.plugins.unserialize(state)
-    store.dispatch(updateEditable({
+
+    this.trigger.editable.add({
       ...deserialized,
       config: {
         whitelist: this.plugins.getRegisteredNames()
       }
-    }))
+    })
 
     return ReactDOMServer.renderToStaticMarkup(
       <ServerContext>
         <Editable editor={{
           plugins: this.plugins,
           store
-        }} state={deserialized}
+        }} id={state.id}
         />
       </ServerContext>
     )

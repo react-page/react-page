@@ -14,27 +14,18 @@ import type { Editable as EditableType } from 'types/editable'
 
 class Editable extends Component {
   componentDidMount() {
-    if (!this.props.state.id) {
+    if (!this.props.id) {
       throw new Error('The state must have an unique id')
     }
 
-    const state = {
-      ...this.props.editor.plugins.unserialize(this.props.state),
-      config: {
-        whitelist: this.props.editor.plugins.getRegisteredNames()
-      }
-    }
-
-    this.props.editor.store.dispatch(updateEditable(state))
     this.props.editor.store.subscribe(this.onChange)
-
     this.previousState = null
   }
 
   previousState: any = {}
 
   props: {
-    state: EditableType,
+    id: string,
     editor: {
       plugins: PluginService,
       store: Store
@@ -48,7 +39,7 @@ class Editable extends Component {
     }
     const onChange = this.props.onChange || (() => ({}))
 
-    const state: any = editable(this.props.editor.store.getState(), { id: this.props.state.id })
+    const state: any = editable(this.props.editor.store.getState(), { id: this.props.id })
     if (state === this.previousState) {
       return
     }
@@ -59,7 +50,7 @@ class Editable extends Component {
 
   render() {
     const {
-      state: { id },
+      id,
       editor: {
         store
       },

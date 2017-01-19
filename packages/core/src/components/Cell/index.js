@@ -43,7 +43,7 @@ class Cell extends Component {
         className={classNames('ory-cell', gridClass(this.props), {
           'ory-cell-has-inline-neighbour': hasInlineNeighbour,
           [`ory-cell-inline-${inline || ''}`]: inline,
-          'ory-cell-bring-to-front': inline && (!isLayoutMode && !isInsertMode && !isResizeMode),
+          // 'ory-cell-bring-to-front': inline, && (!isLayoutMode && !isInsertMode && !isResizeMode),
           'ory-cell-focused': focused
         })}
         onClick={stopClick(isEditMode)}

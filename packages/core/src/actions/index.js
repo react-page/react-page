@@ -69,6 +69,7 @@ export const actions = (dispatch) => ({
   },
 
   editable: {
+    add: (...args) => dispatch(updateEditable(...args)),
     update: (...args) => dispatch(updateEditable(...args))
   },
 
