@@ -12,7 +12,6 @@ import Toggle from 'material-ui/Toggle'
 import Divider from 'material-ui/Divider'
 import TextField from 'material-ui/TextField'
 import { LayoutPlugin, ContentPlugin } from 'ory-editor-core/lib/service/plugin/classes'
-
 import Item from './Item'
 import Provider from '../Provider'
 
@@ -38,12 +37,18 @@ class Raw extends Component {
   }
 
   componentDidUpdate() {
-    if (this.input && this.props.isInsertMode) {
-      setTimeout(() => this.input.querySelector('input').focus(), 100)
+    const input = this.input
+    if (input && this.props.isInsertMode && input instanceof HTMLElement) {
+      setTimeout(() => {
+        const e = input.querySelector('input')
+        if (e) {
+          e.focus()
+        }
+      }, 100)
     }
   }
 
-  input: HTMLInputElement
+  input: Component<*, *, *>
 
   onRef = (component: Component<*, *, *>) => {
     this.input = component
@@ -116,14 +121,14 @@ class Raw extends Component {
           })}
         </List>
         {isSearching ? null : (
-            <div>
-              <Divider />
-              <List>
-                <Subheader>Settings</Subheader>
-                <ListItem primaryText="Back up drafts" rightToggle={<Toggle />}/>
-              </List>
-            </div>
-          )}
+          <div>
+            <Divider />
+            <List>
+              <Subheader>Settings</Subheader>
+              <ListItem primaryText="Back up drafts" rightToggle={<Toggle />} />
+            </List>
+          </div>
+        )}
       </Drawer>
     )
   }
@@ -132,9 +137,11 @@ class Raw extends Component {
 const mapStateToProps = createStructuredSelector({ isInsertMode })
 
 const Decorated = connect(mapStateToProps)(Raw)
-const Toolbar = (props) => (
+
+const Toolbar = (props: any) => (
   <Provider {...props}>
-    <Decorated {...props}/>
+    <Decorated {...props} />
   </Provider>
 )
+
 export default Toolbar

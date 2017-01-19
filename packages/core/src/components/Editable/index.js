@@ -4,13 +4,11 @@ import { Provider } from 'react-redux'
 
 import DragDropContext from '../DragDropContext'
 import HotKeyDecorator from '../HotKey/Decorator'
-import { updateEditable } from '../../actions/editables'
 import { editable } from '../../selector/editable'
 import PluginService from '../../service/plugin'
 import Inner from './Inner'
 
-import type { Store } from 'types/redux'
-import type { Editable as EditableType } from 'types/editable'
+import type { Store } from '../../types/redux'
 
 class Editable extends Component {
   componentDidMount() {

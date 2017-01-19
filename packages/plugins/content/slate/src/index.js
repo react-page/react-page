@@ -75,7 +75,7 @@ export default (plugins: Plugin[] = [
   const HoverButtons = ({ editorState, onChange, focus }: Props) => (
     <div>
       {plugins.map((plugin: Plugin, i: number) => (
-        plugin.hoverButtons.map((Button: Component<*, *, *>, j: number) => (
+        plugin.hoverButtons.map((Button: any, j: number) => (
           <Button
             key={`${i}-${j}`}
             editorState={editorState}
@@ -91,7 +91,7 @@ export default (plugins: Plugin[] = [
   const ToolbarButtons = ({ editorState, onChange, focus }: Props) => (
     <div>
       {plugins.map((plugin: Plugin, i: number) => (
-        plugin.toolbarButtons.map((Button: Component<*, *, *>, j: number) => (
+        plugin.toolbarButtons.map((Button: any, j: number) => (
           <Button
             key={`${i}-${j}`}
             editorState={editorState}

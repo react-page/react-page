@@ -1,5 +1,5 @@
 // @flow
-import React, { PropTypes, Component } from 'react'
+import React, { Component } from 'react'
 import { Resizable as ReactResizeable } from 'react-resizable'
 import { connect } from 'react-redux'
 import classNames from 'classnames'
@@ -27,7 +27,7 @@ class Resizable extends Component {
     steps: Number
   }
 
-  props: ComponentizedCell
+  props: ComponentizedCell & { children: any }
 
   onResize = (event: Event, { size }: Object) => {
     const newSize = widthToSize(this.state, this.props, size)
@@ -43,7 +43,7 @@ class Resizable extends Component {
         className={classNames(
           'ory-cell-inner',
           'ory-cell-resizable', {
-            [`ory-cell-resizable-inline-${inline}`]: inline,
+            [`ory-cell-resizable-inline-${inline || ''}`]: inline,
           })}
         onResize={this.onResize}
         minConstraints={inline ? null : [this.state.stepWidth, Infinity]}

@@ -1,4 +1,3 @@
-/* eslint-env jest */
 import unexpected from 'unexpected'
 
 import { purifiedNode, searchNodeEverywhere } from './index.js'

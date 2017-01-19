@@ -1,4 +1,3 @@
-/* eslint-env jest */
 import React from 'react'
 import unexpected from 'unexpected'
 

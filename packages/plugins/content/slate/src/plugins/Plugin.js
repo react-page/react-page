@@ -44,10 +44,10 @@ export default class Plugin {
   /**
    * @member the buttons to be added to the hover menu
    */
-  hoverButtons: Array<Component<*, *, *>> = []
+  hoverButtons: Component<*, *, *>[] = []
 
   /**
    * @member the buttons to be added to the global toolbar
    */
-  toolbarButtons: Array<Component<*, *, *>> = []
+  toolbarButtons: Component<*, *, *>[] = []
 }

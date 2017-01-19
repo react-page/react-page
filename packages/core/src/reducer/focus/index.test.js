@@ -1,4 +1,3 @@
-/* eslint-env jest */
 import unexpected from 'unexpected'
 import { combineReducers, createStore } from 'redux'
 import identity from 'ramda/src/identity'

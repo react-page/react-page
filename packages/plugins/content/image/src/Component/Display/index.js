@@ -5,7 +5,7 @@ import ImageIcon from 'material-ui/svg-icons/image/panorama'
 import { iconStyle } from '../common.js'
 import type { PropTypes } from '../index.js'
 
-const Display = ({ state, ...props }: PropTypes) => state.src ? (
+const Display = ({ state }: PropTypes) => state.src ? (
   <div>
     <img className="ory-plugins-content-image" src={state.src} />
   </div>

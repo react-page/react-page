@@ -1,20 +1,14 @@
 import React, { Component } from 'react'
 import onElementResize from 'element-resize-event'
 import classNames from 'classnames'
-
 import connect from '../ServerContext/connect'
-// import logger from 'src/editor/service/logger'
-
-const defaultContainerStyle = {}
 
 const defaultGetWidth = (element) => element.clientWidth
-
 const defaultGetHeight = (element) => element.clientHeight
 
 const Dimensions = ({
   getHeight = defaultGetHeight,
   getWidth = defaultGetWidth,
-  containerStyle = defaultContainerStyle,
   className = null,
   elementResize = false
 } = {}) => (ComposedComponent) => {
@@ -48,6 +42,8 @@ const Dimensions = ({
 
       this.getWindow().removeEventListener('resize', this.onResize)
     }
+
+    props: {isServerContext: boolean}
 
 
     updateDimensions = () => {

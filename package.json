@@ -22,6 +22,10 @@
     "docs:api:watch": "npm run docs:api -- --watch",
     "docs:guide": "gitbook build .",
     "docs:guide:watch": "gitbook serve -http",
-    "heroku-postbuild": "npm run build:home"
+    "heroku-postbuild": "npm run build:home",
+    "build": "lerna run build",
+    "lint": "lerna run lint",
+    "flow": "lerna run flow",
+    "test": "lerna run test"
   }
 }

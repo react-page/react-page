@@ -1,5 +1,5 @@
 // @flow
-import type { Monitor, Connector } from 'types/react-dnd'
+import type { Monitor, Connector } from 'ory-editor-core/lib/types/react-dnd'
 
 export const source = {
   beginDrag({ insert, ...props }: { layoutMode(): void, insert: Object }) {

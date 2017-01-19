@@ -20,4 +20,4 @@ esproposal.class_instance_fields=enable
 
 [libs]
 
-types/declarations/
+./src/types/declarations/

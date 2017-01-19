@@ -16,6 +16,7 @@ class Droppable extends Component {
     isLayoutMode: boolean,
     isInsertMode: boolean,
     isOverCurrent: boolean,
+    isServerContext: boolean
   }
 
   render() {

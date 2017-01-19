@@ -1,4 +1,3 @@
-/* eslint-env jest */
 import unexpected from 'unexpected'
 
 import { sumSizes, computeBounds, resizeCells, computeResizeable } from './sizing'

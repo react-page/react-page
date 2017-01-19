@@ -63,6 +63,7 @@
     "react": "^15.4.2",
     "react-addons-test-utils": "^15.4.2",
     "react-dom": "^15.4.2",
-    "rimraf": "^2.5.4"
+    "rimraf": "^2.5.4",
+    "unexpected": "^10.22.1"
   }
 }

@@ -8,7 +8,7 @@ import { connect } from 'react-redux'
 import classNames from 'classnames'
 import { removeCell } from 'ory-editor-core/lib/actions/cell/core'
 import throttle from 'lodash.throttle'
-import type { Monitor, Connector } from 'types/react-dnd'
+import type { Monitor, Connector } from 'ory-editor-core/lib/types/react-dnd'
 import { isEditMode, isLayoutMode, isPreviewMode, isInsertMode, isResizeMode } from 'ory-editor-core/lib/selector/display'
 import { createStructuredSelector } from 'reselect'
 
@@ -46,7 +46,7 @@ const Raw = ({ isLayoutMode, connectDropTarget, isOverCurrent }: Object) => conn
   </div>
 )
 
-const types = ({editor}: {editor: Editor}) => [
+const types = ({ editor }: {editor: Editor}) => [
   ...Object.keys(editor.plugins.plugins.layout),
   ...Object.keys(editor.plugins.plugins.content)
 ].map((p: string) => editor.plugins.plugins.content[p].name || editor.plugins.plugins.layout[p].name)
@@ -61,9 +61,9 @@ const mapStateToProps = createStructuredSelector({
 
 const Decorated = connect(mapStateToProps, mapDispatchToProps)(dropTarget(types, target, connectMonitor)(Raw))
 
-const Trash = (props) => (
+const Trash = (props: any) => (
   <Provider {...props}>
-    <Decorated {...props}/>
+    <Decorated {...props} />
   </Provider>
 )
 

@@ -8,7 +8,7 @@ import { createStructuredSelector } from 'reselect'
 import Inner from './Inner'
 import { shouldPureComponentUpdate } from '../../helper/shouldComponentUpdate'
 import { editableConfig, node, purifiedNode } from '../../selector/editable'
-import { isPreviewMode, isEditMode, isResizeMode, isLayoutMode, isInsertMode } from '../../selector/display'
+import { isPreviewMode, isEditMode, isResizeMode } from '../../selector/display'
 import { resizeCell, focusCell, blurAllCells } from '../../actions/cell'
 import Resizable from './Resizable'
 
@@ -31,10 +31,8 @@ class Cell extends Component {
 
   render() {
     const {
-      id, rowWidth, rowHeight, updateDimensions, isLayoutMode, isInsertMode,
-      isResizeMode,
-      isEditMode,
-      node: { rows = [], inline, resizable, hasInlineNeighbour, focused }
+      id, rowWidth, rowHeight, updateDimensions, isResizeMode, isEditMode,
+      node: { inline, resizable, hasInlineNeighbour, focused }
     } = this.props
 
     const props = { ...this.props, styles: null }
@@ -72,9 +70,7 @@ class Cell extends Component {
 const mapStateToProps = createStructuredSelector({
   isPreviewMode,
   isEditMode,
-  isInsertMode,
   isResizeMode,
-  isLayoutMode,
   config: editableConfig,
   node: purifiedNode,
   rawNode: (state: any, props: any) => () => node(state, props)

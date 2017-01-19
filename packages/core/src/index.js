@@ -8,7 +8,7 @@ import createStore from './store'
 import { actions } from './actions'
 import PluginService from './service/plugin'
 import ServerContext from './components/ServerContext'
-import type { EditableType } from './types/editable'
+import type { Editable as EditableType } from './types/editable'
 import type Store from './types/redux'
 
 let instance: Editor
@@ -48,7 +48,7 @@ class Editor {
     this.middleware = middleware
     this.trigger = actions(this.store.dispatch)
 
-    editables.forEach((editable) => {
+    editables.forEach((editable: EditableType) => {
       const state = this.plugins.unserialize(editable)
       this.trigger.editable.add({
         ...state,
