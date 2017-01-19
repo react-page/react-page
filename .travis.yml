@@ -14,6 +14,8 @@ install:
   - npm i -g yarn
   - yarn install
   - npm run bootstrap
+  # We need to run build because otherwise the packages won't be transpiled and all tests will fail
+  - npm run build
 
 script:
   - |
