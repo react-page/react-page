@@ -11,8 +11,9 @@ env:
   - TEST_TYPE=build
 
 install:
-  - npm i -g yarn
+  - npm i -g yarn rimraf
   - yarn install
+  - npm run clean
   - npm run bootstrap
   # We need to run build because otherwise the packages won't be transpiled and all tests will fail
   - npm run build
