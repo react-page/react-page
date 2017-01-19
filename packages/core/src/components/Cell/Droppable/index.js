@@ -36,7 +36,7 @@ class Droppable extends Component {
 
     if (!(isLayoutMode || isInsertMode)) {
       return (
-        <div className={classNames(className, 'ory-cell-droppable-placeholder')}>
+        <div className={classNames(className, 'ory-cell-droppable-container')}>
           {children}
         </div>
       )
