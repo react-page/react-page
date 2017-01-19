@@ -16,14 +16,14 @@ install:
   - npm run clean
   - npm run bootstrap
   # We need to run build because otherwise the packages won't be transpiled and all tests will fail
-  - npm run build
+  - npm run build:lib
 
 script:
   - |
     if [ "$TEST_TYPE" = test ]; then
       npm run test
     elif [ "$TEST_TYPE" = build ]; then
-      npm run build
+      npm run build:lib
     elif [ "$TEST_TYPE" = lint ]; then
       npm run lint
     elif [ "$TEST_TYPE" = flow ]; then
