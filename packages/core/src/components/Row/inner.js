@@ -21,8 +21,8 @@ const Inner = ({
   <div className={classNames(
     'ory-row',
     {
-      'ory-row-is-over-this': Boolean(hover),
-      [`ory-row-is-over-${hover || ''}`]: Boolean(hover),
+      'ory-row-is-hovering-this': Boolean(hover),
+      [`ory-row-is-hovering-${hover || ''}`]: Boolean(hover),
       'ory-row-has-floating-children': hasInlineChildren
     }
   )}
