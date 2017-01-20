@@ -6,7 +6,7 @@ import UnderlinedIcon from 'material-ui/svg-icons/editor/format-underlined'
 
 import { makeTagMark, ToolbarButton } from '../helpers'
 import Plugin from './Plugin'
-import type Props from './props'
+import type { Props } from './props'
 
 export const STRONG = 'EMPHASIZE/STRONG'
 export const EM = 'EMPHASIZE/EM'

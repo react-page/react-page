@@ -5,7 +5,7 @@ import CodeIcon from 'material-ui/svg-icons/action/code'
 import { makeTagMark, ToolbarButton } from '../../helpers'
 import Plugin from '../Plugin'
 import Code from './node'
-import type Props from '../props'
+import type { Props } from '../props'
 
 export const CODE = 'CODE/CODE'
 

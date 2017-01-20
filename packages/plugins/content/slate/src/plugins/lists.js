@@ -3,7 +3,7 @@ import React from 'react'
 import ListIcon from 'material-ui/svg-icons/action/list'
 import OrderedListIcon from 'material-ui/svg-icons/editor/format-list-numbered'
 import createListPlugin from 'slate-edit-list'
-import type Props from './props'
+import type { Props } from './props'
 
 import { makeTagNode, ToolbarButton } from '../helpers'
 import Plugin from './Plugin'

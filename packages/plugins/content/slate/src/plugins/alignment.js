@@ -7,7 +7,7 @@ import AlignJustifyIcon from 'material-ui/svg-icons/editor/format-align-justify'
 
 import { ToolbarButton } from '../helpers'
 import Plugin from './Plugin'
-import type Props from './props'
+import type { Props } from './props'
 
 export default class AlignmentPlugin extends Plugin {
   props: Props
