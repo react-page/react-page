@@ -1,8 +1,9 @@
 /* eslint-disable prefer-reflect */
+import React from 'react'
 import ListIcon from 'material-ui/svg-icons/action/list'
 import OrderedListIcon from 'material-ui/svg-icons/editor/format-list-numbered'
-import React from 'react'
 import createListPlugin from 'slate-edit-list'
+import type Props from './props'
 
 import { makeTagNode, ToolbarButton } from '../helpers'
 import Plugin from './Plugin'
@@ -12,7 +13,7 @@ export const OL = 'LISTS/ORDERED-LIST'
 export const LI = 'LISTS/LIST-ITEM'
 
 export default class ListsPlugin extends Plugin {
-  constructor(props) {
+  constructor(props: Props) {
     super(props)
 
     this.plugins = [
@@ -25,8 +26,10 @@ export default class ListsPlugin extends Plugin {
     ]
   }
 
+  props: Props
+
   // eslint-disable-next-line react/display-name
-  createButton = (type, icon) => ({ editorState, onChange }) => {
+  createButton = (type, icon) => ({ editorState, onChange }: Props) => {
     const onClick = (e) => {
       e.preventDefault()
 

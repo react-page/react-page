@@ -5,18 +5,21 @@ import CodeIcon from 'material-ui/svg-icons/action/code'
 import { makeTagMark, ToolbarButton } from '../../helpers'
 import Plugin from '../Plugin'
 import Code from './node'
+import type Props from '../props'
 
 export const CODE = 'CODE/CODE'
 
 export default class CodePlugin extends Plugin {
-  constructor(props) {
+  constructor(props: Props) {
     super(props)
 
     this.DEFAULT_NODE = props.DEFAULT_NODE
   }
 
+  props: Props
+
   createButton = (type, icon) => {
-    const Button = ({ editorState, onChange }) => {
+    const Button = ({ editorState, onChange }: Props) => {
       const onClick = (e) => {
         e.preventDefault()
 
@@ -38,7 +41,7 @@ export default class CodePlugin extends Plugin {
   }
 
   createNodeButton = (type, icon) => {
-    const Button = ({ editorState, onChange }) => {
+    const Button = ({ editorState, onChange }: Props) => {
       const onClick = (e) => {
         e.preventDefault()
 

@@ -9,6 +9,7 @@ import H6Icon from 'material-ui/svg-icons/image/looks-6'
 
 import { makeTagNode, ToolbarButton } from '../helpers'
 import Plugin from './Plugin'
+import type Props from './props'
 
 export const H1 = 'HEADINGS/HEADING-ONE'
 export const H2 = 'HEADINGS/HEADING-TWO'
@@ -18,14 +19,16 @@ export const H5 = 'HEADINGS/HEADING-FIVE'
 export const H6 = 'HEADINGS/HEADING-SIX'
 
 export default class HeadingsPlugin extends Plugin {
-  constructor(props) {
+  constructor(props: Props) {
     super(props)
 
     this.DEFAULT_NODE = props.DEFAULT_NODE
   }
 
+  props = Props
+
   // eslint-disable-next-line react/display-name
-  createButton = (type, icon) => ({ editorState, onChange }) => {
+  createButton = (type, icon) => ({ editorState, onChange }: Props) => {
     const onClick = (e) => {
       e.preventDefault()
 
