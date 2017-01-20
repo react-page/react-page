@@ -10,7 +10,7 @@ import Plugin from '../Plugin'
 import Link from './node'
 import Dialog from 'material-ui/Dialog'
 import FlatButton from 'material-ui/FlatButton'
-import type Props from '../props'
+import type { Props } from '../props'
 
 export const A = 'LINK/LINK'
 

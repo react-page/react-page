@@ -5,7 +5,7 @@ import createBlockquotePlugin from 'slate-edit-blockquote'
 
 import { makeTagNode, ToolbarButton } from '../helpers'
 import Plugin from './Plugin'
-import type Props from './props'
+import type { Props } from './props'
 
 export const BLOCKQUOTE = 'BLOCKQUOTE/BLOCKQUOTE'
 
