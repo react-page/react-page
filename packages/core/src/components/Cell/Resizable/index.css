@@ -28,7 +28,7 @@
 
 .ory-cell-resizable.react-resizable > .react-resizable-handle {
   position: absolute;
-  z-index: 4;
+  z-index: 5;
   width: 4px;
   top: 0;
   bottom: 0;
