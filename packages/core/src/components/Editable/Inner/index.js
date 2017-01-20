@@ -7,7 +7,7 @@ import Cell from '../../Cell'
 import { shouldPureComponentUpdate } from '../../../helper/shouldComponentUpdate'
 import { purifiedEditable } from '../../../selector/editable'
 import dimensions from '../../Dimensions'
-import { blurAllCells } from '../../../actions/cell'
+import { blurAllCells, createFallbackCell } from '../../../actions/cell'
 import { enableGlobalBlurring, disableGlobalBlurring } from './blur'
 import serverContext from '../../ServerContext/connect'
 
@@ -16,12 +16,24 @@ import type { EditableComponentState, Cell as CellType } from '../../../types/ed
 class Inner extends Component {
   componentDidMount() {
     enableGlobalBlurring(this.props.blurAllCells)
+    this.createFallbackCell()
   }
 
   shouldComponentUpdate = shouldPureComponentUpdate
 
   componentWillUnmount() {
     disableGlobalBlurring(this.props.blurAllCells)
+  }
+
+  componentDidUpdate() {
+    this.createFallbackCell()
+  }
+
+  createFallbackCell = () => {
+    const { node: { cells = [] }, createFallbackCell, defaultPlugin, id } = this.props
+    if (cells.length === 0) {
+      createFallbackCell(defaultPlugin, id)
+    }
   }
 
   props: EditableComponentState
@@ -52,6 +64,6 @@ class Inner extends Component {
 
 const mapStateToProps = createStructuredSelector({ node: purifiedEditable })
 
-const mapDispatchToProps = { blurAllCells }
+const mapDispatchToProps = { blurAllCells, createFallbackCell }
 
 export default serverContext()(dimensions()(connect(mapStateToProps, mapDispatchToProps)(Inner)))

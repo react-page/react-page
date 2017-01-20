@@ -50,7 +50,8 @@ class Editable extends Component {
     const {
       id,
       editor: {
-        store
+        store,
+        defaultPlugin
       },
     } = this.props
 
@@ -58,7 +59,7 @@ class Editable extends Component {
       <Provider store={store}>
         <DragDropContext>
           <HotKeyDecorator id={id}>
-            <Inner id={id} />
+            <Inner id={id} defaultPlugin={defaultPlugin} />
           </HotKeyDecorator>
         </DragDropContext>
       </Provider>
