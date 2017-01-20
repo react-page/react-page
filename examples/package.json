@@ -62,9 +62,9 @@
     "react-tap-event-plugin": "^2.0.1"
   },
   "scripts": {
-    "start": "node scripts/start.js",
-    "start:article": "node scripts/start.js article",
-    "build": "node scripts/build.js",
+    "start": "node scripts/start.js article",
+    "start:spa": "node scripts/start.js spa",
+    "build": "node scripts/build.js article",
     "test": "node scripts/test.js --env=jsdom",
     "clean:npm": "rimraf \"node_modules/\""
   },
