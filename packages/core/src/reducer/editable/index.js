@@ -1,13 +1,8 @@
 // @flow
-import { CELL_REMOVE } from '../../actions/cell/core'
+import { CELL_CREATE_FALLBACK } from '../../actions/cell'
 import { cellOrder } from './helper/order'
 import { decorate } from './helper/tree'
 import { cells } from './tree.js'
-import { createCell } from '../../types/editable'
-// import { ContentPlugin } from '../../service/plugin/classes'
-
-// TODO: shouldn't be here, #265
-// const defaultPlugin = createSlatePlugin()
 
 export const rawEditableReducer = (state: Object = {
   id: null,
@@ -18,15 +13,16 @@ export const rawEditableReducer = (state: Object = {
 }, action: Object) => {
   let newCells = decorate(cells(state.cells, action))
 
-  if (action.type === CELL_REMOVE && newCells.length === 0) {
-    newCells = decorate(
-      cells([{
-        ...createCell(),
-        id: action.ids[0],
-        // TODO: shouldn't be here, #265
-        // content: { plugin: new ContentPlugin(defaultPlugin), state: defaultPlugin.createInitialState() }
-      }], action)
-    )
+  switch (action.type) {
+    case CELL_CREATE_FALLBACK:
+      if (action.editable === state.id) {
+        const c = {
+          content: { plugin: action.fallback, state: action.fallback.createInitialState() },
+          id: action.ids[0],
+        }
+        newCells = decorate(cells([c], action))
+      }
+      break
   }
 
   return {

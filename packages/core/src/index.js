@@ -8,6 +8,7 @@ import createStore from './store'
 import { actions } from './actions'
 import PluginService from './service/plugin'
 import ServerContext from './components/ServerContext'
+import pluginDefault from './service/plugin/default'
 import type { Editable as EditableType } from './types/editable'
 import type Store from './types/redux'
 
@@ -27,16 +28,19 @@ const initialState = () => ({
 class Editor {
   store: Store
   plugins: PluginService
+  defaultPlugin: any
   middleware: []
 
   constructor({
     plugins,
     middleware = [],
-    editables = []
+    editables = [],
+    defaultPlugin = pluginDefault
   }: {
     plugins: { content: [], layout: [] },
     middleware: [],
-    editables: EditableType[]
+    editables: EditableType[],
+    defaultPlugin: any
   } = {}) {
     if (instance) {
       console.warn('You have defined multiple instances of Editor, this could cause problems.')
@@ -47,6 +51,7 @@ class Editor {
     this.plugins = new PluginService(plugins)
     this.middleware = middleware
     this.trigger = actions(this.store.dispatch)
+    this.defaultPlugin = defaultPlugin
 
     editables.forEach((editable: EditableType) => {
       const state = this.plugins.unserialize(editable)
@@ -86,6 +91,7 @@ class Editor {
       </ServerContext>
     )
   }
+
 }
 
 export {
@@ -94,14 +100,6 @@ export {
   Editor
 }
 
-export const createEmptyState = () => ({
-  id: uuid(),
-  cells: [{
-    content: {
-      plugin: { name: 'ory/editor/core/content/slate' },
-      // state: createInitialState()
-    }
-  }]
-})
+export const createEmptyState = () => ({ id: uuid(), cells: [] })
 
 export default Editor
