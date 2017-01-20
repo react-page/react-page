@@ -24,6 +24,15 @@ class Button extends Component {
 
   props: Props
 
+  input: Component<*, *, *>
+
+  onRef = (component: Component<*, *, *>) => {
+    const e = component.querySelector('input')
+    if (e) {
+      e.focus()
+    }
+  }
+
   onClick = (e) => {
     const { editorState, onChange } = this.props
     e.preventDefault()
@@ -129,7 +138,7 @@ class Button extends Component {
     return (
       <MuiThemeProvider muiTheme={getMuiTheme()}>
         <span>
-          <ToolbarButton onClick={this.onClick} isActive={hasLinks} icon={<LinkIcon />} />
+          <ToolbarButton onClick={this.onClick} isActive={hasLinks} icon={<LinkIcon />}/>
           <span>
             <Dialog
               className="ory-prevent-blur"
@@ -139,11 +148,17 @@ class Button extends Component {
               actions={[actions]}
             >
               {this.state.wasExpanded ? null
-              : <div><TextField hintText="Link title" onChange={this.onTitleChange} value={this.state.title} /></div>}
-              <TextField
-                hintText="http://example.com/my/link.html"
-                onChange={this.onHrefChange} value={this.state.href}
-              />
+                : (
+                  <div>
+                    <TextField hintText="Link title" onChange={this.onTitleChange} value={this.state.title}/>
+                  </div>
+                )}
+              <div ref={this.onRef}>
+                <TextField
+                  hintText="http://example.com/my/link.html"
+                  onChange={this.onHrefChange} value={this.state.href}
+                />
+              </div>
             </Dialog>
           </span>
         </span>
