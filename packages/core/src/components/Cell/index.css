@@ -22,3 +22,13 @@
 }
 .ory-cell {}
 .ory-cell-bring-to-front {}
+
+.ory-cell-resizing-overlay:after {
+  content: " ";
+  z-index: 4;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}

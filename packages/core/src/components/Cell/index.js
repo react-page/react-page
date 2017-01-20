@@ -42,7 +42,8 @@ class Cell extends Component {
           'ory-cell-has-inline-neighbour': hasInlineNeighbour,
           [`ory-cell-inline-${inline || ''}`]: inline,
           // 'ory-cell-bring-to-front': inline, && (!isLayoutMode && !isInsertMode && !isResizeMode),
-          'ory-cell-focused': focused
+          'ory-cell-focused': focused,
+          'ory-cell-resizing-overlay': isResizeMode,
         })}
         onClick={stopClick(isEditMode)}
       >
