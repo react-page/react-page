@@ -6,7 +6,7 @@ const expect = unexpected.clone()
 const cases = [{
   d: 'basic left',
   in: {
-    room: { size: 100, height: 100 },
+    room: { width: 100, height: 100 },
     mouse: { x: 0, y: 50 }
   },
   actions: (done) => ({
@@ -19,7 +19,7 @@ const cases = [{
 }, {
   d: 'basic',
   in: {
-    room: { size: 100, height: 100 },
+    room: { width: 100, height: 100 },
     mouse: { x: 99, y: 50 }
   },
   actions: (done) => ({
@@ -32,7 +32,7 @@ const cases = [{
 }, {
   d: 'basic ii',
   in: {
-    room: { size: 100, height: 100 },
+    room: { width: 100, height: 100 },
     mouse: { x: 95, y: 50 }
   },
   actions: (done) => ({
@@ -44,7 +44,7 @@ const cases = [{
 }, {
   d: 'basic iii',
   in: {
-    room: { size: 100, height: 100 },
+    room: { width: 100, height: 100 },
     mouse: { x: 92, y: 50 }
   },
   actions: (done) => ({
@@ -56,7 +56,7 @@ const cases = [{
 }, {
   d: 'basic iv',
   in: {
-    room: { size: 100, height: 100 },
+    room: { width: 100, height: 100 },
     mouse: { x: 89, y: 50 }
   },
   actions: (done) => ({
@@ -68,7 +68,7 @@ const cases = [{
 }, {
   d: 'corner c3 i',
   in: {
-    room: { size: 100, height: 100 },
+    room: { width: 100, height: 100 },
     mouse: { x: 98, y: 95 }
   },
   actions: (done) => ({

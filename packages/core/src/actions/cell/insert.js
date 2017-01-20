@@ -3,7 +3,6 @@ import uuid from 'uuid'
 import type { Action } from '../../types/redux'
 import type { Cell } from '../../types/editable'
 
-export const CELL_CREATE_FALLBACK = 'CELL_CREATE_FALLBACK'
 export const CELL_INSERT_ABOVE = 'CELL_INSERT_ABOVE'
 export const CELL_INSERT_BELOW = 'CELL_INSERT_BELOW'
 export const CELL_INSERT_LEFT_OF = 'CELL_INSERT_LEFT_OF'
@@ -79,13 +78,3 @@ export const insertCellLeftInline = insert(CELL_INSERT_INLINE_LEFT)
  * Insert a cell inside the hovering cell, on the right.
  */
 export const insertCellRightInline = insert(CELL_INSERT_INLINE_RIGHT)
-
-/**
- * Creates a fallback cell, usually done when an editable is empty.
- */
-export const createFallbackCell = (fallback, editable) => ({
-  type: CELL_CREATE_FALLBACK,
-  editable,
-  ids: gen(0),
-  fallback
-})

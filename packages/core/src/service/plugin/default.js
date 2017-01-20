@@ -1,15 +1,10 @@
 // @flow
-import React, { PropTypes } from 'react'
+import React from 'react'
 import type { ContentPluginProps } from './classes'
 
-const Default = ({ readOnly, state: { value } }: ContentPluginProps<{}>) => readOnly
+const Default = ({ readOnly, state: { value } }: ContentPluginProps<{ value: string }>) => readOnly
   ? <div>{value}</div>
-  : <textarea style={{width: '100%'}} value={value} />
-
-Default.propTypes = {
-  name: PropTypes.string.isRequired,
-  version: PropTypes.string.isRequired
-}
+  : <textarea style={{ width: '100%' }} value={value} />
 
 export default {
   Component: Default,

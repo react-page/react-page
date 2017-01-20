@@ -13,6 +13,7 @@ export const rawEditableReducer = (state: Object = {
 }, action: Object) => {
   let newCells = decorate(cells(state.cells, action))
 
+  // eslint-disable-next-line default-case
   switch (action.type) {
     case CELL_CREATE_FALLBACK:
       if (action.editable === state.id) {
