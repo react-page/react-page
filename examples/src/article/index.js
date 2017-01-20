@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-import Editor, { Editable } from 'ory-editor-core'
+import Editor, { Editable, createEmptyState } from 'ory-editor-core'
 import { Trash, DisplayModeToggle, Toolbar } from 'ory-editor-ui'
 import slate from 'ory-editor-plugins-slate'
 import spacer from 'ory-editor-plugins-spacer'
@@ -36,7 +36,7 @@ const editor = new Editor({
       spoiler({ defaultPlugin: slate() })
     ]
   },
-  editables: content,
+  editables: [...content, {id: '10'}, createEmptyState()],
 })
 
 const elements = document.querySelectorAll('.editable')
