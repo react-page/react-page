@@ -19,8 +19,9 @@ var getProcessForPort = require('react-dev-utils/getProcessForPort');
 var openBrowser = require('react-dev-utils/openBrowser');
 var prompt = require('react-dev-utils/prompt');
 var pathExists = require('path-exists');
-var config = require('../config/webpack.config.dev');
-var paths = require('../config/paths')('demo');
+
+var config = require('../config/webpack.config.dev')(process.argv[2] || 'demo');
+var paths = require('../config/paths')(process.argv[2] || 'demo');
 
 var useYarn = pathExists.sync(paths.yarnLockFile);
 var cli = useYarn ? 'yarn' : 'npm';
@@ -38,16 +39,16 @@ var handleCompile;
 
 // You can safely remove this after ejecting.
 // We only use this block for testing of Create React App itself:
-// var isSmokeTest = process.argv.some(arg => arg.indexOf('--smoke-test') > -1);
-// if (isSmokeTest) {
-//   handleCompile = function (err, stats) {
-//     if (err || stats.hasErrors() || stats.hasWarnings()) {
-//       process.exit(1);
-//     } else {
-//       process.exit(0);
-//     }
-//   };
-// }
+var isSmokeTest = process.argv.some(arg => arg.indexOf('--smoke-test') > -1);
+if (isSmokeTest) {
+  handleCompile = function (err, stats) {
+    if (err || stats.hasErrors() || stats.hasWarnings()) {
+      process.exit(1);
+    } else {
+      process.exit(0);
+    }
+  };
+}
 
 function setupCompiler(host, port, protocol) {
   // "Compiler" is a low-level interface to Webpack.
@@ -142,7 +143,7 @@ function onProxyError(proxy) {
     // And immediately send the proper error response to the client.
     // Otherwise, the request will eventually timeout with ERR_EMPTY_RESPONSE on the client side.
     if (res.writeHead && !res.headersSent) {
-        res.writeHead(500);
+      res.writeHead(500);
     }
     res.end('Proxy error: Could not proxy request ' + req.url + ' from ' +
       host + ' to ' + proxy + ' (' + err.code + ').'
@@ -302,7 +303,7 @@ detect(DEFAULT_PORT).then(port => {
     var question =
       chalk.yellow('Something is already running on port ' + DEFAULT_PORT + '.' +
         ((existingProcess) ? ' Probably:\n  ' + existingProcess : '')) +
-        '\n\nWould you like to run the app on another port instead?';
+      '\n\nWould you like to run the app on another port instead?';
 
     prompt(question, true).then(shouldChangePort => {
       if (shouldChangePort) {

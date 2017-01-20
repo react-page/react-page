@@ -1,21 +1,46 @@
-import { PluginService, defaultLayoutPlugins, defaultContentPlugins } from 'src/editor/service'
-import ParallaxPlugin from './plugins/parallax'
-import FaIconPlugin from './plugins/fa-icon'
 import React from 'react'
 import ReactDOM from 'react-dom'
-import Editor, { Editable, Controls } from 'src/editor'
-import content from './content.js'
 
+import Editor, { Editable } from 'ory-editor-core'
+import { Trash, DisplayModeToggle, Toolbar } from 'ory-editor-ui'
+import slate from 'ory-editor-plugins-slate'
+import spacer from 'ory-editor-plugins-spacer'
+import divider from 'ory-editor-plugins-divider'
+import image from 'ory-editor-plugins-image'
+import video from 'ory-editor-plugins-video'
+import spoiler from 'ory-editor-plugins-spoiler'
 require('react-tap-event-plugin')()
 
+import 'ory-editor-core/lib/index.css'
+import 'ory-editor-ui/lib/index.css'
+
+import 'ory-editor-plugins-video/lib/index.css'
+import 'ory-editor-plugins-slate/lib/index.css'
+import 'ory-editor-plugins-spacer/lib/index.css'
+import 'ory-editor-plugins-image/lib/index.css'
+import 'ory-editor-plugins-spoiler/lib/index.css'
+
+import parallax from './plugins/parallax'
+import faicon from './plugins/fa-icon'
+
+import content from './content'
+import './styles.css'
+
 const editor = new Editor({
-  plugins: new PluginService([
-    ...defaultContentPlugins,
-    FaIconPlugin
-  ], [
-    ...defaultLayoutPlugins,
-    ParallaxPlugin
-  ])
+  plugins: {
+    content: [
+      slate(),
+      spacer,
+      image,
+      video,
+      divider,
+      faicon
+    ],
+    layout: [
+      parallax
+    ]
+  },
+  editables: content,
 })
 
 const elements = document.querySelectorAll('.editable')
@@ -23,10 +48,16 @@ for (const element of elements) {
   ReactDOM.render((
     <Editable
       editor={editor}
-      state={content[element.dataset.id]}
-      // onChange={(state) => console.log(state)}
+      id={element.dataset.id}
+      onChange={console.log}
     />
   ), element)
 }
 
-ReactDOM.render(<Controls editor={editor} />, document.getElementById('controls'))
+ReactDOM.render((
+  <div>
+    <Trash editor={editor} />
+    <DisplayModeToggle editor={editor} />
+    <Toolbar editor={editor} />
+  </div>
+), document.getElementById('controls'))

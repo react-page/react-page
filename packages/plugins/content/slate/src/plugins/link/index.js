@@ -128,9 +128,8 @@ class Button extends Component {
         <ToolbarButton onClick={this.onClick} isActive={hasLinks} icon={<LinkIcon />} />
         <span>
           <MuiThemeProvider muiTheme={getMuiTheme()}>
-            {/* TODO editor-container is needed to avoid global blurry, #190 */}
             <Dialog
-              className="editor-container"
+              className="ory-prevent-blur"
               title="Create a link"
               modal={false}
               open={this.state.open}
