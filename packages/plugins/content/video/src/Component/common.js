@@ -2,7 +2,7 @@
 export const iconStyle = {
   width: '100%',
   height: 'auto',
-  padding: '0 40%',
+  padding: '0',
   color: '#aaa',
   textAlign: 'center',
   minWidth: 64,
