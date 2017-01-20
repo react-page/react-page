@@ -5,7 +5,7 @@
     "packages/ui",
     "packages/plugins/content/*",
     "packages/plugins/layout/*",
-    "examples/news-article"
+    "examples"
   ],
   "version": "0.0.0"
 }
