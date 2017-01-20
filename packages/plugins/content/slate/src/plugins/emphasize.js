@@ -6,13 +6,14 @@ import UnderlinedIcon from 'material-ui/svg-icons/editor/format-underlined'
 
 import { makeTagMark, ToolbarButton } from '../helpers'
 import Plugin from './Plugin'
+import type Props from './props'
 
 export const STRONG = 'EMPHASIZE/STRONG'
 export const EM = 'EMPHASIZE/EM'
 export const U = 'EMPHASIZE/U'
 
 // eslint-disable-next-line react/display-name
-const createButton = (type, icon) => ({ editorState, onChange }) => {
+const createButton = (type, icon) => ({ editorState, onChange }: Props) => {
   const onClick = (e) => {
     e.preventDefault()
 
@@ -30,6 +31,8 @@ const createButton = (type, icon) => ({ editorState, onChange }) => {
 }
 
 export default class EmphasizePlugin extends Plugin {
+  props: Props
+
   name = 'emphasize'
 
   marks = {
