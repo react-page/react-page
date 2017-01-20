@@ -128,9 +128,9 @@ class Button extends Component {
     const hasLinks = editorState.inlines.some((inline: any) => inline.type === A)
     return (
       <MuiThemeProvider muiTheme={getMuiTheme()}>
-      <span>
-        <ToolbarButton onClick={this.onClick} isActive={hasLinks} icon={<LinkIcon />}/>
         <span>
+          <ToolbarButton onClick={this.onClick} isActive={hasLinks} icon={<LinkIcon />} />
+          <span>
             <Dialog
               className="ory-prevent-blur"
               title="Create a link"
@@ -138,15 +138,15 @@ class Button extends Component {
               open={this.state.open}
               actions={[actions]}
             >
-              {this.state.wasExpanded ? null :
-                <div><TextField hintText="Link title" onChange={this.onTitleChange} value={this.state.title}/></div>}
+              {this.state.wasExpanded ? null
+              : <div><TextField hintText="Link title" onChange={this.onTitleChange} value={this.state.title} /></div>}
               <TextField
                 hintText="http://example.com/my/link.html"
                 onChange={this.onHrefChange} value={this.state.href}
               />
             </Dialog>
+          </span>
         </span>
-      </span>
       </MuiThemeProvider>
     )
   }

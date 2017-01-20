@@ -21,12 +21,12 @@ class Inner extends Component {
 
   shouldComponentUpdate = shouldPureComponentUpdate
 
-  componentWillUnmount() {
-    disableGlobalBlurring(this.props.blurAllCells)
-  }
-
   componentDidUpdate() {
     this.createFallbackCell()
+  }
+
+  componentWillUnmount() {
+    disableGlobalBlurring(this.props.blurAllCells)
   }
 
   createFallbackCell = () => {

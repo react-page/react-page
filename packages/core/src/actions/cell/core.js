@@ -12,6 +12,7 @@ export const CELL_BLUR = 'CELL_BLUR'
 export const CELL_BLUR_ALL = 'CELL_BLUR_ALL'
 export const CELL_FOCUS_PREV = 'CELL_FOCUS_PREV'
 export const CELL_FOCUS_NEXT = 'CELL_FOCUS_NEXT'
+export const CELL_CREATE_FALLBACK = 'CELL_CREATE_FALLBACK'
 
 /**
  * An action creator for updating a cell's content data.
@@ -130,4 +131,15 @@ export const blurCell = (id: string) => (): Action => ({
 export const blurAllCells = (): Action => ({
   type: CELL_BLUR_ALL,
   ts: new Date()
+})
+
+/**
+ * Creates a fallback cell, usually done when an editable is empty.
+ */
+export const createFallbackCell = (fallback: any, editable: string) => ({
+  type: CELL_CREATE_FALLBACK,
+  ts: new Date(),
+  editable,
+  ids: gen(0),
+  fallback
 })
