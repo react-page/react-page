@@ -206,12 +206,12 @@ export const relativeMousePosition = ({ mouse, position, scale }: {
 /**
  * Computes the drop level based on the mouse position and the cell width.
 */
-export const computeLevel = ({ width, levels, position }: {width: number, levels: number, position: number }) => {
-  if (width <= (levels + 1) * 2) {
-    return Math.round(position / (width / levels))
+export const computeLevel = ({ size, levels, position }: {size: number, levels: number, position: number }) => {
+  if (size <= (levels + 1) * 2) {
+    return Math.round(position / (size / levels))
   }
 
-  const spare = width - ((levels + 1) * 2)
+  const spare = size - ((levels + 1) * 2)
   const steps = [0]
   let current = spare
   for (let i = 0; i <= levels; i++) {
@@ -245,7 +245,7 @@ export const computeHorizontal = ({ mouse, position, hover, scale, level }: {
 }, inv: boolean = false) => {
   const { node: { cells = [] } } = hover
   const x = relativeMousePosition({ mouse, position, scale }).x
-  let at = computeLevel({ width: scale.x, position: x, levels: level })
+  let at = computeLevel({ size: scale.x, position: x, levels: level })
 
   if (cells.length) {
     // Is row, always opt for lowest level
@@ -268,8 +268,8 @@ export const computeHorizontal = ({ mouse, position, hover, scale, level }: {
  */
 export const computeVertical = ({ level, mouse, hover, position, scale }: { level: number, mouse: Vector, hover: ComponentizedRow, position: MatrixIndex, scale: Vector }, inv: boolean = false) => {
   const { node: { cells = [] } } = hover
-  const x = relativeMousePosition({ mouse, position, scale }).x
-  let at = computeLevel({ width: scale.x, position: x, levels: level })
+  const y = relativeMousePosition({ mouse, position, scale }).y
+  let at = computeLevel({ size: scale.y, position: y, levels: level })
 
   if (cells.length) {
     // Is row, always opt for lowest level
