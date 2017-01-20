@@ -8,7 +8,6 @@ import spacer from 'ory-editor-plugins-spacer'
 import divider from 'ory-editor-plugins-divider'
 import image from 'ory-editor-plugins-image'
 import video from 'ory-editor-plugins-video'
-import spoiler from 'ory-editor-plugins-spoiler'
 require('react-tap-event-plugin')()
 
 import 'ory-editor-core/lib/index.css'
