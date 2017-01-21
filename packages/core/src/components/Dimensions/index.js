@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import onElementResize from 'element-resize-event'
 import classNames from 'classnames'
-import connect from '../ServerContext/connect'
 
 const defaultGetWidth = (element) => element.clientWidth
 const defaultGetHeight = (element) => element.clientHeight
@@ -16,10 +15,6 @@ const Dimensions = ({
     state = {}
 
     componentDidMount() {
-      if (this.isServerContext()) {
-        return
-      }
-
       if (!this.containerRef) {
         throw new Error('Cannot find container div')
       }
@@ -36,21 +31,10 @@ const Dimensions = ({
     }
 
     componentWillUnmount() {
-      if (this.isServerContext()) {
-        return
-      }
-
       this.getWindow().removeEventListener('resize', this.onResize)
     }
 
-    props: {isServerContext: boolean}
-
-
     updateDimensions = () => {
-      if (this.isServerContext()) {
-        return
-      }
-
       const container = this.containerRef
       const containerWidth = getWidth(container)
       const containerHeight = getHeight(container)
@@ -60,13 +44,7 @@ const Dimensions = ({
       }
     }
 
-    isServerContext = () => Boolean(this.props.isServerContext)
-
     onResize = () => {
-      if (this.isServerContext()) {
-        return
-      }
-
       if (this.rqf) {
         return
       }
@@ -91,16 +69,6 @@ const Dimensions = ({
     }
 
     render() {
-      if (this.isServerContext()) {
-        return (
-          <ComposedComponent
-            {...this.state}
-            {...this.props}
-            updateDimensions={this.updateDimensions}
-          />
-        )
-      }
-
       return (
         <div className={classNames(className, 'ory-dimensions')} ref={this.onContainerRef}>
           <ComposedComponent
@@ -113,7 +81,7 @@ const Dimensions = ({
     }
   }
 
-  return connect()(Decorator)
+  return Decorator
 }
 
 export default Dimensions

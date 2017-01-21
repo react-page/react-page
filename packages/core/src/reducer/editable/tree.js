@@ -261,27 +261,27 @@ export const rows = (state: Row[] = [], action: Object): Row[] => optimizeRows(m
       return state
         .map((r: Row) => isHoveringThis(r, action)
           ? (
-            [{
-              ...createRow(),
-              cells: [{ ...(action.item), id: action.ids[1], inline: null }],
-              id: action.ids[0]
-            }, {
-              ...r,
-              id: action.ids[2]
-            }]) : [r])
+        [{
+          ...createRow(),
+          cells: [{ ...(action.item), id: action.ids[1], inline: null }],
+          id: action.ids[0]
+        }, {
+          ...r,
+          id: action.ids[2]
+        }]) : [r])
         .reduce(flatten, [])
         .map(inner(row, action))
     case CELL_INSERT_BELOW:
       return state
         .map((r: Row) => isHoveringThis(r, action)
           ? (
-            [{
-              ...r, id: action.ids[0]
-            }, {
-              ...createRow(),
-              cells: [{ ...(action.item), id: action.ids[2], inline: null }],
-              id: action.ids[1]
-            }]) : [r])
+        [{
+          ...r, id: action.ids[0]
+        }, {
+          ...createRow(),
+          cells: [{ ...(action.item), id: action.ids[2], inline: null }],
+          id: action.ids[1]
+        }]) : [r])
         .reduce(flatten, [])
         .map(inner(row, action))
 

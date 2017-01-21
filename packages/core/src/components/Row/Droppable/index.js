@@ -7,23 +7,16 @@ import * as hoverActions from '../../../actions/cell/drag'
 import * as insertActions from '../../../actions/cell/insert'
 import { target, connect as monitorConnect } from './dnd'
 
-import serverContext from '../../ServerContext/connect'
-
 class Droppable extends Component {
   props: {
     connectDropTarget(node: any): any,
     children: any,
     isLayoutMode: boolean,
     isInsertMode: boolean,
-    isOverCurrent: boolean,
-    isServerContext: boolean
+    isOverCurrent: boolean
   }
 
   render() {
-    if (this.props.isServerContext) {
-      return this.props.children
-    }
-
     if (!(this.props.isLayoutMode || this.props.isInsertMode)) {
       return <div className="ory-row-droppable-container">{this.props.children}</div>
     }
@@ -38,4 +31,4 @@ Droppable.propTypes = {
 
 const mapDispatchToProps = { ...hoverActions, ...insertActions }
 
-export default (dropTypes: string[] = ['CELL']) => serverContext()(connect(null, mapDispatchToProps)(dropTarget(dropTypes, target, monitorConnect)(Droppable)))
+export default (dropTypes: string[] = ['CELL']) => connect(null, mapDispatchToProps)(dropTarget(dropTypes, target, monitorConnect)(Droppable))

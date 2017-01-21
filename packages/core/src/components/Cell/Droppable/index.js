@@ -8,7 +8,6 @@ import { shouldPureComponentUpdate } from '../../../helper/shouldComponentUpdate
 import * as hoverActions from '../../../actions/cell/drag'
 import * as insertActions from '../../../actions/cell/insert'
 import { target, connect as monitorConnect } from './helper/dnd'
-import serverContext from '../../ServerContext/connect'
 
 class Droppable extends Component {
   shouldComponentUpdate = shouldPureComponentUpdate
@@ -20,7 +19,6 @@ class Droppable extends Component {
     isDragging: boolean,
     isInsertMode: boolean,
     isLayoutMode: boolean,
-    isServerContext: boolean,
     node: { hover: string, inline: string },
     children: any,
     className: string,
@@ -28,11 +26,7 @@ class Droppable extends Component {
   }
 
   render() {
-    const { connectDropTarget, isLayoutMode, isInsertMode, className, isLeaf, node: { hover }, children, isServerContext } = this.props
-
-    if (isServerContext) {
-      return children
-    }
+    const { connectDropTarget, isLayoutMode, isInsertMode, className, isLeaf, node: { hover }, children } = this.props
 
     if (!(isLayoutMode || isInsertMode)) {
       return (
@@ -60,4 +54,4 @@ class Droppable extends Component {
 
 const mapDispatchToProps = { ...hoverActions, ...insertActions }
 
-export default serverContext()(connect(null, mapDispatchToProps)(dropTarget(({ dropTypes }: { dropTypes: Array<string> }) => dropTypes, target, monitorConnect)(Droppable)))
+export default connect(null, mapDispatchToProps)(dropTarget(({ dropTypes }: { dropTypes: Array<string> }) => dropTypes, target, monitorConnect)(Droppable))
