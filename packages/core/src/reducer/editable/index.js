@@ -3,6 +3,7 @@ import { CELL_CREATE_FALLBACK } from '../../actions/cell'
 import { cellOrder } from './helper/order'
 import { decorate } from './helper/tree'
 import { cells } from './tree.js'
+import { createCell } from '../../types/editable'
 
 export const rawEditableReducer = (state: Object = {
   id: null,
@@ -18,6 +19,7 @@ export const rawEditableReducer = (state: Object = {
     case CELL_CREATE_FALLBACK:
       if (action.editable === state.id) {
         const c = {
+            ...createCell(),
           content: { plugin: action.fallback, state: action.fallback.createInitialState() },
           id: action.ids[0],
         }

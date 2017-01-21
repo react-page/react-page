@@ -1,6 +1,6 @@
 import unexpected from 'unexpected'
 
-import Editor, { createEmptyState } from './index'
+import Editor from './index'
 
 const expect = unexpected.clone()
 const editor = new Editor()

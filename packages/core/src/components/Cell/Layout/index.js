@@ -8,7 +8,6 @@ import { shouldPureComponentUpdate } from '../../../helper/shouldComponentUpdate
 import Row from '../../Row'
 import { updateCellLayout } from '../../../actions/cell'
 import { isEditMode } from '../../../selector/display'
-import serverContext from '../../ServerContext/connect'
 
 import type { ComponentizedCell } from '../../../types/editable'
 
@@ -31,7 +30,6 @@ class Layout extends React.Component {
       editable,
       ancestors = [],
       updateCellLayout,
-      isServerContext,
       isEditMode
     }: ComponentizedCell = this.props
 
@@ -41,7 +39,7 @@ class Layout extends React.Component {
           id={id}
           state={state}
           editable={editable}
-          readOnly={!isEditMode || isServerContext}
+          readOnly={!isEditMode}
           onChange={updateCellLayout}
         >
           {rows.map((r: string) => (
@@ -63,4 +61,4 @@ const mapDispatchToProps = (dispatch: Function, { id }: ComponentizedCell) => bi
   updateCellLayout: updateCellLayout(id)
 }, dispatch)
 
-export default serverContext()(connect(mapStateToProps, mapDispatchToProps)(Layout))
+export default connect(mapStateToProps, mapDispatchToProps)(Layout)

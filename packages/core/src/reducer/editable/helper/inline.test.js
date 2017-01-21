@@ -9,13 +9,13 @@ describe('computeRow', () => {
     cells: [{ size: 6 }, { size: 6 }],
     e: false,
   }, {
-    cells: [{ size: 6 }, { size: 6, inline: 'left'  }],
+    cells: [{ size: 6 }, { size: 6, inline: 'left' }],
     e: false,
   }, {
-    cells: [{ size: 6, inline: 'left' }, { size: 6}],
+    cells: [{ size: 6, inline: 'left' }, { size: 6 }],
     e: true,
   }, {
-    cells: [{ size: 6, inline: 'left' }, { size: 6}, {}],
+    cells: [{ size: 6, inline: 'left' }, { size: 6 }, {}],
     e: false,
   }].forEach((c, k) => {
     it(`should pass test case ${k}`, () => {

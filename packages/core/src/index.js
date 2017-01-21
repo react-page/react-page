@@ -1,13 +1,10 @@
 // @flow
 /* eslint-disable no-use-before-define, no-underscore-dangle */
-import React from 'react'
 import uuid from 'uuid/v4'
-import ReactDOMServer from 'react-dom/server'
 import Editable from './components/Editable'
 import createStore from './store'
 import { actions } from './actions'
 import PluginService from './service/plugin'
-import ServerContext from './components/ServerContext'
 import pluginDefault from './service/plugin/default'
 import type { Editable as EditableType } from './types/editable'
 import type Store from './types/redux'

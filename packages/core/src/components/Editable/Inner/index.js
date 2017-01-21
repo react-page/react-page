@@ -9,7 +9,6 @@ import { purifiedEditable } from '../../../selector/editable'
 import dimensions from '../../Dimensions'
 import { blurAllCells, createFallbackCell } from '../../../actions/cell'
 import { enableGlobalBlurring, disableGlobalBlurring } from './blur'
-import serverContext from '../../ServerContext/connect'
 
 import type { EditableComponentState, Cell as CellType } from '../../../types/editable'
 
@@ -66,4 +65,4 @@ const mapStateToProps = createStructuredSelector({ node: purifiedEditable })
 
 const mapDispatchToProps = { blurAllCells, createFallbackCell }
 
-export default serverContext()(dimensions()(connect(mapStateToProps, mapDispatchToProps)(Inner)))
+export default dimensions()(connect(mapStateToProps, mapDispatchToProps)(Inner))

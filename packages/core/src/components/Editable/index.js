@@ -26,7 +26,8 @@ class Editable extends Component {
     id: string,
     editor: {
       plugins: PluginService,
-      store: Store
+      store: Store,
+      defaultPlugin: any
     },
     onChange?: Function
   }

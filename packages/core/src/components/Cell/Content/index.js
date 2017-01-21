@@ -7,7 +7,6 @@ import { createStructuredSelector } from 'reselect'
 import { updateCellContent } from '../../../actions/cell'
 import { shouldPureComponentUpdate } from '../../../helper/shouldComponentUpdate'
 import { isEditMode, isLayoutMode, isPreviewMode } from '../../../selector/display'
-import serverContext from '../../ServerContext/connect'
 
 import type { ComponentizedCell } from '../../../types/editable'
 
@@ -49,7 +48,7 @@ class Content extends Component {
   }
 
   render() {
-    const { isPreviewMode, isEditMode, editable, id, node: { content: { plugin: { Component, name, version }, state = {} } = {}, focused }, updateCellContent, isServerContext } = this.props
+    const { isPreviewMode, isEditMode, editable, id, node: { content: { plugin: { Component, name, version }, state = {} } = {}, focused }, updateCellContent } = this.props
     const { focusCell, blurCell } = this.props
 
     let focusProps
@@ -78,7 +77,7 @@ class Content extends Component {
           focused={isEditMode && focused}
           name={name}
           version={version}
-          readOnly={!isEditMode || isServerContext}
+          readOnly={!isEditMode}
           onChange={updateCellContent}
           focus={focusCell}
           blur={blurCell}
@@ -94,4 +93,4 @@ const mapDispatchToProps = (dispatch: Function, { id }: ComponentizedCell) => bi
   updateCellContent: updateCellContent(id)
 }, dispatch)
 
-export default serverContext()(connect(mapStateToProps, mapDispatchToProps)(Content))
+export default connect(mapStateToProps, mapDispatchToProps)(Content)
