@@ -7,22 +7,23 @@ import { optimizeCell, optimizeRow, optimizeRows, optimizeCells, flatten } from 
 import { mergeDecorator } from './helper/merge'
 import { isHoveringThis } from './helper/hover'
 import { resizeCells } from './helper/sizing'
+import { computeRow } from './helper/inline'
 import { createCell, createRow } from '../../types/editable'
 import {
-CELL_REMOVE,
-CELL_UPDATE_LAYOUT,
-CELL_UPDATE_CONTENT,
-CELL_INSERT_LEFT_OF,
-CELL_INSERT_RIGHT_OF,
-CELL_INSERT_ABOVE,
-CELL_INSERT_BELOW,
-CELL_INSERT_INLINE_LEFT,
-CELL_INSERT_INLINE_RIGHT,
-CELL_DRAG_HOVER,
-CELL_RESIZE,
-CELL_FOCUS,
-CELL_BLUR,
-CELL_BLUR_ALL
+  CELL_REMOVE,
+  CELL_UPDATE_LAYOUT,
+  CELL_UPDATE_CONTENT,
+  CELL_INSERT_LEFT_OF,
+  CELL_INSERT_RIGHT_OF,
+  CELL_INSERT_ABOVE,
+  CELL_INSERT_BELOW,
+  CELL_INSERT_INLINE_LEFT,
+  CELL_INSERT_INLINE_RIGHT,
+  CELL_DRAG_HOVER,
+  CELL_RESIZE,
+  CELL_FOCUS,
+  CELL_BLUR,
+  CELL_BLUR_ALL
 } from '../../actions/cell'
 
 import type { Cell, Row } from '../../types/editable'
@@ -208,7 +209,7 @@ export const cells = (state: Cell[] = [], action: Object): Cell[] => optimizeCel
   }
 })(state, action))
 
-export const row = (state: Row, action: Object): Row => optimizeRow(((state: Row, action: Object): Row => {
+export const row = (state: Row, action: Object): Row => computeRow(optimizeRow(((state: Row, action: Object): Row => {
   const reduce = () => ({
     ...state,
     hover: null,
@@ -251,7 +252,7 @@ export const row = (state: Row, action: Object): Row => optimizeRow(((state: Row
     default:
       return reduce()
   }
-})(state, action))
+})(state, action)))
 
 export const rows = (state: Row[] = [], action: Object): Row[] => optimizeRows(mergeDecorator(action)(((state: Row[], action: Object): Row[] => {
   const reduce = () => state.map(inner(row, action))
@@ -260,27 +261,27 @@ export const rows = (state: Row[] = [], action: Object): Row[] => optimizeRows(m
       return state
         .map((r: Row) => isHoveringThis(r, action)
           ? (
-        [{
-          ...createRow(),
-          cells: [{ ...(action.item), id: action.ids[1], inline: null }],
-          id: action.ids[0]
-        }, {
-          ...r,
-          id: action.ids[2]
-        }]) : [r])
+            [{
+              ...createRow(),
+              cells: [{ ...(action.item), id: action.ids[1], inline: null }],
+              id: action.ids[0]
+            }, {
+              ...r,
+              id: action.ids[2]
+            }]) : [r])
         .reduce(flatten, [])
         .map(inner(row, action))
     case CELL_INSERT_BELOW:
       return state
         .map((r: Row) => isHoveringThis(r, action)
           ? (
-        [{
-          ...r, id: action.ids[0]
-        }, {
-          ...createRow(),
-          cells: [{ ...(action.item), id: action.ids[2], inline: null }],
-          id: action.ids[1]
-        }]) : [r])
+            [{
+              ...r, id: action.ids[0]
+            }, {
+              ...createRow(),
+              cells: [{ ...(action.item), id: action.ids[2], inline: null }],
+              id: action.ids[1]
+            }]) : [r])
         .reduce(flatten, [])
         .map(inner(row, action))
 

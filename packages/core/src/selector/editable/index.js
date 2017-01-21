@@ -69,7 +69,6 @@ export const purifiedNode = (state: Editables, props: Editable): Object => {
   const found = node(state, props)
 
   if (found.cells) {
-    found.hasInlineChildren = found.cells.length === 2 && found.cells[0].inline && found.cells[1].hasInlineNeighbour
     found.cells = found.cells.map((c: Cell): string => c.id)
   }
 

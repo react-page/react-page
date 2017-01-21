@@ -65,33 +65,6 @@ class Editor {
   }
 
   trigger = {}
-
-  renderToHtml = (state: any) => {
-    if (!state.id) {
-      throw new Error('The state must have an unique id')
-    }
-
-    const store = createStore(initialState(), this.middleware)
-    const deserialized = this.plugins.unserialize(state)
-
-    this.trigger.editable.add({
-      ...deserialized,
-      config: {
-        whitelist: this.plugins.getRegisteredNames()
-      }
-    })
-
-    return ReactDOMServer.renderToStaticMarkup(
-      <ServerContext>
-        <Editable editor={{
-          plugins: this.plugins,
-          store
-        }} id={state.id}
-        />
-      </ServerContext>
-    )
-  }
-
 }
 
 export {

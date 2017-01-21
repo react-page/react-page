@@ -117,8 +117,8 @@ export default class PluginService {
 
   serialize = (state: Object): Object => {
     const {
-      rows,
-      cells,
+      rows = [],
+      cells = [],
       content,
       layout,
       inline,
@@ -127,25 +127,25 @@ export default class PluginService {
     } = state
 
     const newState: Object = { id, inline, size }
-    if (content) {
+    if (content && content.plugin) {
       newState.content = {
         plugin: { name: content.plugin.name, version: content.plugin.version },
         state: content.plugin.serialize(content.state)
       }
     }
 
-    if (layout) {
+    if (layout && layout.plugin) {
       newState.layout = {
         plugin: { name: layout.plugin.name, version: layout.plugin.version },
         state: layout.plugin.serialize(layout.state)
       }
     }
 
-    if ((rows || []).length) {
+    if (rows.length) {
       newState.rows = rows.map(this.serialize)
     }
 
-    if ((cells || []).length) {
+    if (cells.length) {
       newState.cells = cells.map(this.serialize)
     }
 

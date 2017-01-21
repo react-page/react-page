@@ -1,9 +1,9 @@
 {
-  "name": "ory-editor-plugins-skeleton",
+  "name": "ory-editor-renderer",
   "version": "0.0.0",
   "main": "./lib/index.js",
   "scripts": {
-    "build": "npm-run-all --parallel build:lib build:css",
+    "build": "npm-run-all --parallel build:lib",
     "build:lib": "babel ./src --ignore test.js --out-dir ./lib",
     "build:lib:watch": "npm run build:lib -- --watch",
     "build:css": "postcss -c .postcss.json -o lib/styles.css src/*.css",
@@ -32,6 +32,8 @@
     "react-dom": "^15.4.2"
   },
   "dependencies": {
+    "classnames": "^2.2.5",
+    "ory-editor-core": "0.0.0"
   },
   "devDependencies": {
     "babel-cli": "^6.18.0",
