@@ -111,7 +111,7 @@ const createContentCell = (id, name, state, additional) => {
   }
 }
 
-const createRow = (id, cells, additional) => {
+const createRow = (id, cells, additional = {}) => {
   const row = {}
 
   if (id) {
@@ -123,6 +123,7 @@ const createRow = (id, cells, additional) => {
   }
 
   return {
+    hasInlineChildren: false,
     ...row,
     ...additional
   }
@@ -226,17 +227,17 @@ test('cell update content', () => {
 
 test('cell update layout', () => {
   const currentState = createEditable('editable', [
-    createLayoutCell('0', 'foo', { foo: 1 }, [
+    createLayoutCell('0', 'foo', { foo: 1 }, [createRow('2', [
       createContentCell('1', 'bar')
-    ])
+    ])])
   ])
 
   const action = actions.updateCellLayout('0')({ bar: 1 })
 
   const expectedState = createEditable('editable', cells([
-    createLayoutCell('0', 'foo', { foo: 1, bar: 1 }, [
+    createLayoutCell('0', 'foo', { foo: 1, bar: 1 }, [createRow('2', [
       createContentCell('1', 'bar')
-    ])
+    ])])
   ]))
 
   runCase(currentState, action, expectedState)
@@ -324,7 +325,7 @@ test('cell resize inline cell (1)', () => {
       createRow('00', [
         createContentCell('000', 'foo', null, { inline: 'left', size: 4 }),
         createContentCell('001', 'bar', null, { size: 12 })
-      ])
+      ], { hasInlineChildren: true })
     ])
   ]))
 
@@ -782,7 +783,7 @@ test('cell insert inline cell left of', () => {
             createContentCell('i000', 'insert', null, { inline: 'left' }),
             createContentCell('i0000', 'foo', null, { inline: null }),
             // FIXME: the row with id i00 has inline children!
-          ], { hasInlineChildren: false })
+          ], { hasInlineChildren: true })
         ], {
           focusSource: '',
           focused: false
@@ -817,7 +818,7 @@ test('move inline cell from left to right', () => {
       createRow('i00', [
         createContentCell('i000', 'foo', null, { inline: 'right' }),
         createContentCell('i0000', 'bar', null, { inline: null })
-      ], { hasInlineChildren: false })
+      ], { hasInlineChildren: true })
     ])
   ]))
 
@@ -847,7 +848,7 @@ test('cell insert cell left of inline row', () => {
       createRow('00', [
         createContentCell('000', 'foo', null, { inline: 'left' }),
         createContentCell('001', 'bar', null)
-      ])
+      ], { hasInlineChildren: true })
     ])
   ]))
 
@@ -876,10 +877,10 @@ test('cell insert below inline row', () => {
       createRow('i0', [
         createContentCell('000', 'foo', null, { inline: 'left' }),
         createContentCell('001', 'bar', null)
-      ]),
+      ], { hasInlineChildren: true }),
       createRow('i00', [
         createContentCell('i000', 'insert', null, { size: 6 }),
-      ], { hasInlineChildren: false })
+      ])
     ])
   ]))
 
@@ -908,10 +909,10 @@ test('cell insert below inline row - 2 level', () => {
       createRow('00', [
         createContentCell('000', 'foo', null, { inline: 'left' }),
         createContentCell('001', 'bar', null)
-      ]),
+      ], { hasInlineChildren: true }),
       createRow('i0000', [
         createContentCell('i00000', 'insert', null, { size: 6 }),
-      ], { hasInlineChildren: false })
+      ])
     ], {
       focusSource: '',
       focused: false
@@ -920,3 +921,4 @@ test('cell insert below inline row - 2 level', () => {
 
   runCase(currentState, action, expectedState)
 })
+

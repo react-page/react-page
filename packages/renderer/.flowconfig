@@ -1,0 +1,16 @@
+[options]
+module.system.node.resolve_dirname=node_modules
+module.system.node.resolve_dirname=.
+module.file_ext=.js
+module.file_ext=.json
+module.file_ext=.jsx
+module.file_ext=.css
+module.file_ext=.scss
+suppress_comment= \\(.\\|\n\\)*\\flow-disable-next-line
+
+esproposal.class_instance_fields=enable
+
+[ignore]
+.*/node_modules/fbjs/.*
+.*/node_modules/match-at/.*
+.*/node_modules/conventional-changelog-core/test/fixtures/.*

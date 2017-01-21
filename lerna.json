@@ -2,6 +2,7 @@
   "lerna": "2.0.0-beta.32",
   "packages": [
     "packages/core",
+    "packages/renderer",
     "packages/ui",
     "packages/plugins/content/*",
     "packages/plugins/layout/*",

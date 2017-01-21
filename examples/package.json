@@ -50,6 +50,7 @@
   "dependencies": {
     "material-ui": "^0.16.7",
     "ory-editor-core": "0.0.0",
+    "ory-editor-renderer": "0.0.0",
     "ory-editor-plugins-divider": "0.0.0",
     "ory-editor-plugins-image": "0.0.0",
     "ory-editor-plugins-slate": "0.0.0",
