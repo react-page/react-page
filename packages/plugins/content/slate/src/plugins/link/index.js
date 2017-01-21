@@ -138,7 +138,7 @@ class Button extends Component {
     return (
       <MuiThemeProvider muiTheme={getMuiTheme()}>
         <span>
-          <ToolbarButton onClick={this.onClick} isActive={hasLinks} icon={<LinkIcon />}/>
+          <ToolbarButton onClick={this.onClick} isActive={hasLinks} icon={<LinkIcon />} />
           <span>
             <Dialog
               className="ory-prevent-blur"
@@ -150,7 +150,7 @@ class Button extends Component {
               {this.state.wasExpanded ? null
                 : (
                   <div>
-                    <TextField hintText="Link title" onChange={this.onTitleChange} value={this.state.title}/>
+                    <TextField hintText="Link title" onChange={this.onTitleChange} value={this.state.title} />
                   </div>
                 )}
               <div ref={this.onRef}>
