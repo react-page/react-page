@@ -2,22 +2,22 @@
 import React from 'react'
 import classNames from 'classnames'
 import PluginService from 'ory-editor-core/lib/service/plugin'
-import { editable as reducer }from 'ory-editor-core/lib/reducer/editable'
+import { editable as reducer } from 'ory-editor-core/lib/reducer/editable'
+import type { Cell, Row } from 'ory-editor-core/lib/types/editable'
 
-const gridClass = (size = 12): string => {
-  return `ory-cell-md-${size} ory-cell-xs-12`
-}
+const gridClass = (size: number = 12): string => `ory-cell-md-${size} ory-cell-xs-12`
 
-const HTMLRow = ({ cells = [], className, hasInlineChildren }) => (
+const HTMLRow = ({ cells = [], className, hasInlineChildren }: Row) => (
   <div className={classNames('ory-row', className, {
-  'ory-row-has-floating-children': hasInlineChildren
-  })}>
-    {cells.map((c) => <HTMLCell key={c.id} {...c} />)}
+    'ory-row-has-floating-children': hasInlineChildren
+  })}
+  >
+    {cells.map((c: Cell) => <HTMLCell key={c.id} {...c} />)}
   </div>
 )
 
 
-const HTMLCell = (props) => {
+const HTMLCell = (props: Cell) => {
   const { rows = [], layout = {}, content = {}, hasInlineNeighbour, inline, size } = props
   const cn = classNames('ory-cell', gridClass(size), {
     'ory-cell-has-inline-neighbour': hasInlineNeighbour,
@@ -30,10 +30,10 @@ const HTMLCell = (props) => {
       <div className={cn}>
         <div className="ory-cell-inner">
           <Component
-            readOnly={true}
+            readOnly
             state={state}
           >
-            {rows.map(r => <HTMLRow key={r.id} {...r} className="ory-cell-inner"/>)}
+            {rows.map((r: Row) => <HTMLRow key={r.id} {...r} className="ory-cell-inner" />)}
           </Component>
         </div>
       </div>
@@ -44,7 +44,7 @@ const HTMLCell = (props) => {
       <div className={cn}>
         <div className="ory-cell-inner ory-cell-leaf">
           <Component
-            readOnly={true}
+            readOnly
             state={state}
           />
         </div>
@@ -53,7 +53,7 @@ const HTMLCell = (props) => {
   } else if (rows.length > 0) {
     return (
       <div className={cn}>
-        {rows.map(r => <HTMLRow key={r.id} {...r} className="ory-cell-inner"/>)}
+        {rows.map((r: Row) => <HTMLRow key={r.id} {...r} className="ory-cell-inner" />)}
       </div>
     )
   }
@@ -65,8 +65,8 @@ const HTMLCell = (props) => {
   )
 }
 
-export const HTMLRenderer = ({ state, plugins }) => {
+export const HTMLRenderer = ({ state, plugins }: { state: any, plugins: { layout: [], content: []}}) => {
   const service = new PluginService(plugins)
   const props = reducer(service.unserialize(state), { type: 'renderer/noop' })
-  return <HTMLRow {...props}/>
+  return <HTMLRow {...props} />
 }

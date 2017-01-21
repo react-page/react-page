@@ -2,13 +2,13 @@ import { mount } from 'enzyme'
 import React from 'react'
 import { HTMLRenderer } from './index.js'
 
+const Component = ({ children, state: { className } }) => <div className={`${className}`}>{children}</div>
+
 const plugins = {
   content: [], layout: [{
     name: 'layout',
     version: '0.0.1',
-    Component: ({ children, state: { className } }) => {
-      return <div className={`${className}`}>{children}</div>
-    }
+    Component
   }]
 }
 
@@ -123,20 +123,24 @@ describe('HTMLRenderer', () => {
       }]
     }
 
-    const wrapper = mount(<HTMLRenderer state={state} plugins={plugins}/>)
+    const wrapper = mount(<HTMLRenderer state={state} plugins={plugins} />)
     it('should contain "lorem ipsum." and "dolor sit amet."', () => {
       expect(wrapper.text()).toContain('Lorem ipsum.')
       expect(wrapper.text()).toContain('dolor sit amet.')
     })
+
     it('should set up inlining correctly for ory-cell-md-6', () => {
       expect(wrapper.find('.ory-cell-md-6')).toHaveLength(1)
     })
+
     it('should set up inlining correctly for ory-cell-md-12', () => {
       expect(wrapper.find('.ory-cell-md-12')).toHaveLength(2)
     })
+
     it('should set up inlining correctly for ory-cell-has-inline-neighbour', () => {
       expect(wrapper.find('.ory-cell-has-inline-neighbour')).toHaveLength(1)
     })
+
     it('should set up inlining correctly for ory-row-has-floating-children', () => {
       expect(wrapper.find('.ory-row-has-floating-children')).toHaveLength(1)
     })
