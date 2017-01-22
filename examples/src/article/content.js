@@ -166,7 +166,10 @@ export default [
             {
               layout: {
                 plugin: {
-                  name: 'ory/editor/core/layout/spoiler'
+                  name: 'ory/editor/core/layout/parallax-background'
+                },
+                state: {
+                  background: require('./images/mountain.jpg')
                 }
               },
               rows: [

@@ -50,13 +50,13 @@
   "dependencies": {
     "material-ui": "^0.16.7",
     "ory-editor-core": "0.0.0",
-    "ory-editor-renderer": "0.0.0",
     "ory-editor-plugins-divider": "0.0.0",
     "ory-editor-plugins-image": "0.0.0",
     "ory-editor-plugins-slate": "0.0.0",
     "ory-editor-plugins-spacer": "0.0.0",
-    "ory-editor-plugins-spoiler": "0.0.0",
+    "ory-editor-plugins-parallax-background": "0.0.0",
     "ory-editor-plugins-video": "0.0.0",
+    "ory-editor-renderer": "0.0.0",
     "ory-editor-ui": "0.0.0",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
@@ -65,7 +65,7 @@
   "scripts": {
     "start": "node scripts/start.js article",
     "start:spa": "node scripts/start.js spa",
-    "build": "node scripts/build.js article",
+    "start:article": "node scripts/start.js article",
     "test": "node scripts/test.js --env=jsdom",
     "clean:npm": "rimraf \"node_modules/\""
   },

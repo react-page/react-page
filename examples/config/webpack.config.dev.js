@@ -6,6 +6,7 @@ var InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
 var WatchMissingNodeModulesPlugin = require('react-dev-utils/WatchMissingNodeModulesPlugin');
 var getClientEnvironment = require('./env');
 var path = require('path');
+var paths = require('./paths')(process.argv[2]);
 
 
 // Webpack uses `publicPath` to determine where the app is being served from.
@@ -21,9 +22,7 @@ var env = getClientEnvironment(publicUrl);
 // This is the development configuration.
 // It is focused on developer experience and fast rebuilds.
 // The production configuration is different and lives in a separate file.
-module.exports = function (example) {
-  var paths = require('./paths')(example);
-  return {
+module.exports = {
     // You may want 'eval' instead if you prefer to see the compiled output in DevTools.
     // See the discussion in https://github.com/facebookincubator/create-react-app/issues/343.
     devtool: 'cheap-module-source-map',
@@ -208,5 +207,4 @@ module.exports = function (example) {
       net: 'empty',
       tls: 'empty'
     }
-  }
-};
+  };
