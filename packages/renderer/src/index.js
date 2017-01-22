@@ -16,6 +16,7 @@ const HTMLRow = ({ cells = [], className, hasInlineChildren }: Row) => (
   </div>
 )
 
+const noop = () => {}
 
 const HTMLCell = (props: Cell) => {
   const { rows = [], layout = {}, content = {}, hasInlineNeighbour, inline, size } = props
@@ -32,6 +33,7 @@ const HTMLCell = (props: Cell) => {
           <Component
             readOnly
             state={state}
+            onChange={noop}
           >
             {rows.map((r: Row) => <HTMLRow key={r.id} {...r} className="ory-cell-inner" />)}
           </Component>
@@ -46,6 +48,7 @@ const HTMLCell = (props: Cell) => {
           <Component
             readOnly
             state={state}
+            onChange={noop}
           />
         </div>
       </div>

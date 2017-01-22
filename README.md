@@ -9,44 +9,82 @@
 [![Follow twitter](https://img.shields.io/badge/follow-twitter-00cc99.svg)](https://twitter.com/_aeneasr)
 [![Follow GitHub](https://img.shields.io/badge/follow-github-00cc99.svg)](https://github.com/arekkas)
  
-The ORY Editor is part of the ORY Content Toolchain, which is a set of tools that helps you build, distribute and manage your (awesome) content.
+The ORY Editor is part of the ORY Content Toolchain, which is a set of tools that helps you build,
+distribute and manage your (awesome) content.
 
-*Please Note:* The features, APIs and docs of the ORY Editor are new and very young. We cannot always guarantee backwards compatibility but we try our best! We are looking for your help also to find issues and improve the overall experience, APIs and documentation.
+Want a closer look and experience what the ORY Editor can do? Check out our demo at [editor.ory.am](http://editor.ory.am/)!
+
+*Please Note:* The features, APIs and docs of the ORY Editor are new and very young. We cannot always guarantee
+backwards compatibility but we try our best! We are looking for your help also to find issues and
+improve the overall experience, APIs and documentation.
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
 - [Introduction](#introduction)
+- [ORY Sites](#ory-sites)
 - [Quickstart](#quickstart)
 - [Documentation](#documentation)
 - [Contribute](#contribute)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
-Want a closer look and experience what the ORY Editor can do? Check out our demo at [editor.ory.am](http://editor.ory.am/)
-
 ## Introduction
 
-We have been running the [Wikipedia for learning](https://de.serlo.org) for almost a decade now. The experience and the lessons learned made us embark on the journey to build the ORY Editory. We wanted to make content editing on the web easy and enrich the Open Source Community with technology that moves the needle significantly for how content can be created and edited on the web. The key things that the ORY Editor achieves are:
+We have been running the [Wikipedia for learning](https://de.serlo.org) for almost a decade now.
+The experience and the lessons learned made us embark on the journey to build the ORY Editor.
+We wanted to make content editing on the web easy and enrich the Open Source Community with technology that moves
+the needle significantly for how content is created and edited on the web.
 
-* Content is represented as a JSON state.
-* HTML purification / sanitation is no longer required (so that content-based XSS attacks are much less likely).
-* The content state is transformed using [redux](https://github.com/reactjs/redux) and all transformations are well tested.
-* Transformations can be replayed at any time where each key press is a state transform, allowing for collaborative editing, global undo/redo and other wizardry.
-* Custom, dynamic components, by using the React Plugin API ([example](examples/single-page-site/src/plugins/parallax)) for both content and layout are included.
-* Layout behavior is adapted to your specific use case *(in development)*
+### What makes it different?
+
+In contrast to WYSIWYG editor such as [TinyMCE](https://www.tinymce.com) or [CKEditor](http://ckeditor.com/) we do
+**not rely on html for state serialization**, but instead use a **well-defined JSON structure** and a predictable state container
+called [redux](https://github.com/reactjs/redux). All state transformations are unit-tested for correct behaviour and
+replayable - making collaboration and global undo / redo possible.
+
+We felt that popular open source WYSIWYG editors fail to provide a decent layout solution. We observed authors who regularly
+use invisible tables with fixed widths for layouts - a work around that breaks your content on devices with small
+screens. Site builder plugins for popular CMS solve this sometimes, but there is no good open source alternative.
+
+Most WYSIWYG editors force too much functionality into `contenteditable`, such as tables, twitter cards, youtube videos
+and more. The ORY Editor is built plugin-first - every layout and content is a plugin. And plugins are simple React Components,
+that you can write yourself.
+
+### ORY Sites
+
+We are building a platform called ORY Sites for creating, managing and publishing websites. In contrast to existing
+providers such as [squarespace.com](https://www.squarespace.com/), [wix.com](http://wix.com/), and others, you have all
+your content stored locally and because the output is only html, css and client-side javascript, you are free to host it
+on ORY Sites, GitHub Pages, AWS S3, or anywhere else you like.
+Because ORY Sites comes with a desktop app, it even works when you do not have internet connection.
+The app is built on top of the ORY Editor, allowing you to integrate plugins you write yourself, or plugins from 
+third-parties. The ORY Sites app is completely free and we provide paid plugins and services that save you time
+and money.
+
+Compared to popular open source content management systems like drupal or wordpress, there are no security updates
+necessary, because ORY Sites uses plain html files to serve your site - no SQL or XSS injections possible. Yet,
+content, layout and behaviour is very customizable.
+
+If this caught your attention, sign up for our newsletter and get an exclusive beta access to ORY Sites!
+
+<p align="center">
+  <strong><a href="">>> Join Newsletter <<</a></strong>
+</p>
 
 ## Quickstart
 
-Currently our focus is on optimizing the ORY Editor for usage with React. We will work on, and ship versions that do not require React in the future.
+Want to 
 
-Use npm to install the ORY Editor as follows:
+Currently our focus is on optimizing the ORY Editor for usage with React. We will work on, and ship versions that do
+not require React in the future. Use npm to install the ORY Editor as follows:
 
 ```sh
-$ npm install --save ory-editor react-tap-event-plugin
+$ npm install --save ory-editor
 ```
 
-The following snippet shows a minimalistic installation of the ORY Editor. We included some [examples](examples/) as well.
+*Note: The `ory-editor` package is a metapackage. It includes the core, our default ui and some plugins we officially
+support. Use this package primarily for convenience.* 
 
 ```jsx
 import React, { Component } from 'react';
@@ -109,14 +147,7 @@ $ cd editor
 
 ### Install dependencies
 
-The ORY Editor is a [monorepo](https://github.com/babel/babel/blob/master/doc/design/monorepo.md) and requires
-a global install of rimraf in order to be able to clean up sub-packages. Install rimraf and lerna as followed.
-
-```bash
-$ npm i -g rimraf lerna
-```
-
-Next install the local dependencies and bootstrap the sub-packages.
+The ORY Editor is a [monorepo](https://github.com/babel/babel/blob/master/doc/design/monorepo.md) that you initialise with:
 
 ```bash
 $ npm i
@@ -130,23 +161,6 @@ Here are some [examples](examples/) that are a good starting point if you want t
 To run the examples, use one of the following commands:
 
 ```
-$ npm run start
-```
-
-Development builds are not optimized. To get the best performance, create a production build as follows:
-
-```
-$ npm run build
-```
-
-and run the web server with:
-
-```
-$ npm run serve
-```
-
-
-```bash
 $ npm run start
 ```
 

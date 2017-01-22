@@ -140,6 +140,6 @@ export const createFallbackCell = (fallback: any, editable: string) => ({
   type: CELL_CREATE_FALLBACK,
   ts: new Date(),
   editable,
-  ids: gen(0),
+  ids: gen(1),
   fallback
 })

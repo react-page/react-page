@@ -18,7 +18,7 @@
     "clean": "lerna run clean:npm",
     "docs": "npm-run-all --parallel docs:api docs:guide",
     "docs:watch": "npm-run-all --parallel docs:api:watch docs:guide:watch",
-    "docs:api": "documentation build ./src/editor/**/*.js --format md --github -o docs/API.md",
+    "docs:api": "lerna run docs",
     "docs:api:watch": "npm run docs:api -- --watch",
     "docs:guide": "gitbook build .",
     "docs:guide:watch": "gitbook serve -http",
@@ -27,6 +27,7 @@
     "build:lib": "lerna run build --ignore ory-editor-examples --concurrency 1",
     "lint": "lerna run lint",
     "flow": "lerna run flow",
-    "test": "lerna run test"
+    "test": "lerna run test",
+    "postinstall": "npm run build:lib"
   }
 }

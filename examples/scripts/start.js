@@ -20,7 +20,7 @@ var openBrowser = require('react-dev-utils/openBrowser');
 var prompt = require('react-dev-utils/prompt');
 var pathExists = require('path-exists');
 
-var config = require('../config/webpack.config.dev')(process.argv[2]);
+var config = require('../config/webpack.config.dev');
 var paths = require('../config/paths')(process.argv[2]);
 
 var useYarn = pathExists.sync(paths.yarnLockFile);

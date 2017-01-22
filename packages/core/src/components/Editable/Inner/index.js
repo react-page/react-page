@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { createStructuredSelector } from 'reselect'
 
+import { ContentPlugin } from '../../../service/plugin/classes'
 import Cell from '../../Cell'
 import { shouldPureComponentUpdate } from '../../../helper/shouldComponentUpdate'
 import { purifiedEditable } from '../../../selector/editable'
@@ -31,7 +32,7 @@ class Inner extends Component {
   createFallbackCell = () => {
     const { node: { cells = [] }, createFallbackCell, defaultPlugin, id } = this.props
     if (cells.length === 0) {
-      createFallbackCell(defaultPlugin, id)
+      createFallbackCell(new ContentPlugin(defaultPlugin), id)
     }
   }
 

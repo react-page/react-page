@@ -1,7 +1,6 @@
-import PluginService, { defaultLayoutPlugins, defaultContentPlugins } from './plugin'
+import PluginService from './plugin'
 
 export {
-  PluginService,
-  defaultLayoutPlugins, defaultContentPlugins
+  PluginService
 }
 
