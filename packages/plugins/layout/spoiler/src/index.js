@@ -47,12 +47,12 @@ export default ({ defaultPlugin }: { defaultPlugin: ContentPlugin }) => ({
   IconComponent: <FilterFrames />,
 
   createInitialChildren: () => ({
-    id: uuid.v4(),
+    id: uuid(),
     rows: [{
-      id: uuid.v4(),
+      id: uuid(),
       cells: [{
         content: { plugin: defaultPlugin, state: defaultPlugin.createInitialState() },
-        id: uuid.v4(),
+        id: uuid(),
       }]
     }]
   })
