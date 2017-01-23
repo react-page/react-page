@@ -36,8 +36,7 @@ after_success:
     fi
   - |
     if  [ "$TRAVIS_TAG" != "" ] && [ "$TEST_TYPE" == "build" ]; then
-      lerna publish --skip-git --repo-version=$(git describe --tag)
+      lerna publish --skip-git --repo-version=$(git describe --tag) --yes
     else
       echo "Skipping build because: TRAVIS_TAG=$TRAVIS_TAG TEST_TYPE=$TEST_TYPE"
     fi
-

@@ -1,10 +1,8 @@
+// @flow
 /**
  * @module src/editor/actions/cell/drag
- *
- * awo4tihjaqo4ith
  */
 
-// @flow
 import type { Action } from '../../types/redux'
 import type { Cell } from '../../types/editable'
 import { positions } from '../../const'
