@@ -28,6 +28,6 @@
     "lint": "lerna run lint",
     "flow": "lerna run flow",
     "test": "lerna run test",
-    "postinstall": "npm run build:lib"
+    "postinstall": "npm-run-all clean bootstrap build:lib"
   }
 }
