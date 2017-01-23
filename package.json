@@ -3,7 +3,6 @@
   "author": "ORY GmbH",
   "license": "AGPL-3.0",
   "devDependencies": {
-    "babel-plugin-inline-json": "^1.1.2",
     "documentation": "^4.0.0-beta.18",
     "gitbook-cli": "^2.3.0",
     "lerna": "2.0.0-beta.32",
