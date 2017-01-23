@@ -4,6 +4,7 @@
     "packages/core",
     "packages/renderer",
     "packages/ui",
+    "packages/meta",
     "packages/plugins/content/*",
     "packages/plugins/layout/*",
     "examples"
