@@ -22,7 +22,7 @@ HTML rendering component is responsible for outputting static HTML and mounting 
 
 ## Plugins
 
-### [Rich Text Area](https://www.npmjs.com/package/ory-editor-slate)
+### [ory-editor-plugins-slate](https://www.npmjs.com/package/ory-editor-plugins-slate)
 
 The text editing allows you to create and modify rich-text and is optimized for use with the ORY Editor. We strongly
 encourage using our text editing solution.
@@ -34,7 +34,7 @@ encourage using our text editing solution.
   </figure>
 </p>
 
-### [Simple Image](https://www.npmjs.com/package/ory-editor-image)
+### [ory-editor-plugins-image](https://www.npmjs.com/package/ory-editor-plugins-image)
 
 The image plugin allows you to add images to your content by entering their URL. The image plugin does not support
 uploads.
@@ -48,7 +48,7 @@ uploads.
 
 The image plugin is not configurable.
 
-### [Simple Video](https://www.npmjs.com/package/ory-editor-video)
+### [ory-editor-plugins-video](https://www.npmjs.com/package/ory-editor-plugins-video)
 
 The image plugin allows you to add images to your content by entering their URL. The image plugin does not support
 uploads.
@@ -62,7 +62,7 @@ uploads.
 
 The video plugin is not configurable.
 
-### [Spacer](https://www.npmjs.com/package/ory-editor-spacer)
+### [ory-editor-plugins-spacer](https://www.npmjs.com/package/ory-editor-plugins-spacer)
 
 The spacer is a plugin which you can use to create an empty fixed height cell.
 
@@ -74,3 +74,16 @@ The spacer is a plugin which you can use to create an empty fixed height cell.
 </p>
 
 The spacer plugin is not configurable.
+
+### [ory-editor-plugins-parallax-background](https://www.npmjs.com/package/ory-editor-plugins-parallax-background)
+
+The parallax background plugin is a layout plugin, allowing you to add a parallax background image to your content.
+
+<p>
+  <figure align="center">
+    <img alt="Spacer plugin" src="/images/parallax-background.gif"><br>
+    <figcaption>The parallax background plugin</figcaption>
+  </figure>
+</p>
+
+The parallax background plugin is not configurable.
