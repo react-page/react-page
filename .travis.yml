@@ -28,10 +28,14 @@ script:
 
 after_success:
   - |
+    echo $TRAVIS_TAG
+    echo $TEST_TYPE
+  - |
     if [ "$TEST_TYPE" = test ]; then
       npm run coveralls
     fi
   - |
-    if  [ "${TRAVIS_TAG}" != "" ] && [ "${TRAVIS_GO_VERSION}" == "1.7" ] && [ "${TEST_TYPE}" == "build" ]; then
+    if  [ "$TRAVIS_TAG" != "" ] && [ "$TEST_TYPE" == "build" ]; then
       npm run publish -- --skip-git --repo-version=$(git describe --tag)
     fi
+
