@@ -76,7 +76,7 @@ content, layout and behaviour is very customizable.
 If this caught your attention, sign up for our newsletter and get an exclusive beta access to ORY Sites!
 
 <p align="center">
-  <strong><a href="">>> Join Newsletter <<</a></strong>
+  <strong><a href="http://eepurl.com/cwtSPL">>> Join Newsletter <<</a></strong>
 </p>
 
 ## Quickstart
