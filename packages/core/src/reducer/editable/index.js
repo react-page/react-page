@@ -19,7 +19,7 @@ export const rawEditableReducer = (state: Object = {
     case CELL_CREATE_FALLBACK:
       if (action.editable === state.id) {
         const c = {
-            ...createCell(),
+          ...createCell(),
           content: { plugin: action.fallback, state: action.fallback.createInitialState() },
           id: action.ids[0],
         }

@@ -16,6 +16,7 @@ const HTMLRow = ({ cells = [], className, hasInlineChildren }: Row) => (
   </div>
 )
 
+// eslint-disable-next-line no-empty-function
 const noop = () => {}
 
 const HTMLCell = (props: Cell) => {
