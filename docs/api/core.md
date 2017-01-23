@@ -2,6 +2,12 @@
 
 ### Table of Contents
 
+-   [insertMode](#insertmode)
+-   [editMode](#editmode)
+-   [previewMode](#previewmode)
+-   [layoutMode](#layoutmode)
+-   [resizeMode](#resizemode)
+-   [previousMode](#previousmode)
 -   [updateCellContent](#updatecellcontent)
 -   [updateCellLayout](#updatecelllayout)
 -   [removeCell](#removecell)
@@ -23,21 +29,14 @@
 -   [dragCell](#dragcell)
 -   [clearHover](#clearhover)
 -   [cancelCellDrag](#cancelcelldrag)
+-   [positions](#positions)
+-   [isProduction](#isproduction)
 -   [insertCellBelow](#insertcellbelow)
 -   [insertCellAbove](#insertcellabove)
 -   [insertCellRightOf](#insertcellrightof)
 -   [insertCellLeftOf](#insertcellleftof)
 -   [insertCellLeftInline](#insertcellleftinline)
 -   [insertCellRightInline](#insertcellrightinline)
--   [insertMode](#insertmode)
--   [editMode](#editmode)
--   [previewMode](#previewmode)
--   [layoutMode](#layoutmode)
--   [resizeMode](#resizemode)
--   [previousMode](#previousmode)
--   [positions](#positions)
--   [isProduction](#isproduction)
--   [Editor](#editor)
 -   [isHoveringThis](#ishoveringthis)
 -   [sumSizes](#sumsizes)
 -   [computeBounds](#computebounds)
@@ -45,23 +44,12 @@
 -   [computeInlines](#computeinlines)
 -   [resizeCells](#resizecells)
 -   [computeSizes](#computesizes)
--   [classes](#classes)
--   [defaultMatrices](#defaultmatrices)
--   [getRoomScale](#getroomscale)
--   [getMouseHoverCell](#getmousehovercell)
--   [last](#last)
--   [relativeMousePosition](#relativemouseposition)
--   [computeLevel](#computelevel)
--   [computeHorizontal](#computehorizontal)
--   [computeVertical](#computevertical)
--   [defaultCallbacks](#defaultcallbacks)
--   [HoverService](#hoverservice)
--   [warn](#warn)
--   [debug](#debug)
--   [info](#info)
--   [error](#error)
--   [fatal](#fatal)
--   [log](#log)
+-   [generateMissingIds](#generatemissingids)
+-   [PluginService](#pluginservice)
+    -   [constructor](#constructor)
+    -   [findLayoutPlugin](#findlayoutplugin)
+    -   [findContentPlugin](#findcontentplugin)
+    -   [getRegisteredNames](#getregisterednames)
 -   [id](#id)
 -   [id](#id-1)
 -   [readOnly](#readonly)
@@ -95,17 +83,52 @@
 -   [LayoutPlugin](#layoutplugin)
     -   [createInitialState](#createinitialstate-1)
     -   [createInitialChildren](#createinitialchildren)
--   [generateMissingIds](#generatemissingids)
--   [PluginService](#pluginservice)
-    -   [constructor](#constructor)
-    -   [findLayoutPlugin](#findlayoutplugin)
-    -   [findContentPlugin](#findcontentplugin)
-    -   [getRegisteredNames](#getregisterednames)
--   [store](#store)
+
+## insertMode
+
+[packages/core/src/actions/display.js:23-23](https://github.com/ory-am/editor/blob/d780f8a2764165ebdadbec36260fae4d036c27c3/packages/core/src/actions/display.js#L23-L23 "Source code on GitHub")
+
+Dispatch to switch to insert display mode.
+
+## editMode
+
+[packages/core/src/actions/display.js:28-28](https://github.com/ory-am/editor/blob/d780f8a2764165ebdadbec36260fae4d036c27c3/packages/core/src/actions/display.js#L28-L28 "Source code on GitHub")
+
+Dispatch to switch to edit display mode.
+
+## previewMode
+
+[packages/core/src/actions/display.js:33-33](https://github.com/ory-am/editor/blob/d780f8a2764165ebdadbec36260fae4d036c27c3/packages/core/src/actions/display.js#L33-L33 "Source code on GitHub")
+
+Dispatch to switch to preview display mode.
+
+## layoutMode
+
+[packages/core/src/actions/display.js:38-38](https://github.com/ory-am/editor/blob/d780f8a2764165ebdadbec36260fae4d036c27c3/packages/core/src/actions/display.js#L38-L38 "Source code on GitHub")
+
+Dispatch to switch to layout display mode.
+
+## resizeMode
+
+[packages/core/src/actions/display.js:43-43](https://github.com/ory-am/editor/blob/d780f8a2764165ebdadbec36260fae4d036c27c3/packages/core/src/actions/display.js#L43-L43 "Source code on GitHub")
+
+Dispatch to switch to resize display mode.
+
+## previousMode
+
+[packages/core/src/actions/display.js:48-48](https://github.com/ory-am/editor/blob/d780f8a2764165ebdadbec36260fae4d036c27c3/packages/core/src/actions/display.js#L48-L48 "Source code on GitHub")
+
+Dispatch to switch to the last display mode, or the fallback if reverting is not possible.
+
+**Parameters**
+
+-   `fallback` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+
+Returns **[Action](#action)** 
 
 ## updateCellContent
 
-[packages/core/src/actions/cell/core.js:28-33](https://github.com/ory-am/editor/blob/b76943acc4ca2882bd75437d1e7b6a8614621e9b/packages/core/src/actions/cell/core.js#L28-L33 "Source code on GitHub")
+[packages/core/src/actions/cell/core.js:28-33](https://github.com/ory-am/editor/blob/d780f8a2764165ebdadbec36260fae4d036c27c3/packages/core/src/actions/cell/core.js#L28-L33 "Source code on GitHub")
 
 An action creator for updating a cell's content data.
 
@@ -125,7 +148,7 @@ Returns **[Action](#action)**
 
 ## updateCellLayout
 
-[packages/core/src/actions/cell/core.js:46-51](https://github.com/ory-am/editor/blob/b76943acc4ca2882bd75437d1e7b6a8614621e9b/packages/core/src/actions/cell/core.js#L46-L51 "Source code on GitHub")
+[packages/core/src/actions/cell/core.js:46-51](https://github.com/ory-am/editor/blob/d780f8a2764165ebdadbec36260fae4d036c27c3/packages/core/src/actions/cell/core.js#L46-L51 "Source code on GitHub")
 
 An action creator for updating a cell's layout data.
 
@@ -145,7 +168,7 @@ Returns **[Action](#action)**
 
 ## removeCell
 
-[packages/core/src/actions/cell/core.js:65-70](https://github.com/ory-am/editor/blob/b76943acc4ca2882bd75437d1e7b6a8614621e9b/packages/core/src/actions/cell/core.js#L65-L70 "Source code on GitHub")
+[packages/core/src/actions/cell/core.js:65-70](https://github.com/ory-am/editor/blob/d780f8a2764165ebdadbec36260fae4d036c27c3/packages/core/src/actions/cell/core.js#L65-L70 "Source code on GitHub")
 
 An action creator for removing a cell.
 
@@ -166,7 +189,7 @@ Returns **[Action](#action)**
 
 ## resizeCell
 
-[packages/core/src/actions/cell/core.js:84-89](https://github.com/ory-am/editor/blob/b76943acc4ca2882bd75437d1e7b6a8614621e9b/packages/core/src/actions/cell/core.js#L84-L89 "Source code on GitHub")
+[packages/core/src/actions/cell/core.js:84-89](https://github.com/ory-am/editor/blob/d780f8a2764165ebdadbec36260fae4d036c27c3/packages/core/src/actions/cell/core.js#L84-L89 "Source code on GitHub")
 
 An action creator for resizing a cell.
 
@@ -187,7 +210,7 @@ Returns **[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Ref
 
 ## focusCell
 
-[packages/core/src/actions/cell/core.js:94-99](https://github.com/ory-am/editor/blob/b76943acc4ca2882bd75437d1e7b6a8614621e9b/packages/core/src/actions/cell/core.js#L94-L99 "Source code on GitHub")
+[packages/core/src/actions/cell/core.js:94-99](https://github.com/ory-am/editor/blob/d780f8a2764165ebdadbec36260fae4d036c27c3/packages/core/src/actions/cell/core.js#L94-L99 "Source code on GitHub")
 
 Dispatch to focus a cell.
 
@@ -197,7 +220,7 @@ Dispatch to focus a cell.
 
 ## focusNextCell
 
-[packages/core/src/actions/cell/core.js:104-108](https://github.com/ory-am/editor/blob/b76943acc4ca2882bd75437d1e7b6a8614621e9b/packages/core/src/actions/cell/core.js#L104-L108 "Source code on GitHub")
+[packages/core/src/actions/cell/core.js:104-108](https://github.com/ory-am/editor/blob/d780f8a2764165ebdadbec36260fae4d036c27c3/packages/core/src/actions/cell/core.js#L104-L108 "Source code on GitHub")
 
 Dispatch to focus a cell.
 
@@ -207,7 +230,7 @@ Dispatch to focus a cell.
 
 ## focusPreviousCell
 
-[packages/core/src/actions/cell/core.js:113-117](https://github.com/ory-am/editor/blob/b76943acc4ca2882bd75437d1e7b6a8614621e9b/packages/core/src/actions/cell/core.js#L113-L117 "Source code on GitHub")
+[packages/core/src/actions/cell/core.js:113-117](https://github.com/ory-am/editor/blob/d780f8a2764165ebdadbec36260fae4d036c27c3/packages/core/src/actions/cell/core.js#L113-L117 "Source code on GitHub")
 
 Dispatch to focus a cell.
 
@@ -217,7 +240,7 @@ Dispatch to focus a cell.
 
 ## blurCell
 
-[packages/core/src/actions/cell/core.js:122-126](https://github.com/ory-am/editor/blob/b76943acc4ca2882bd75437d1e7b6a8614621e9b/packages/core/src/actions/cell/core.js#L122-L126 "Source code on GitHub")
+[packages/core/src/actions/cell/core.js:122-126](https://github.com/ory-am/editor/blob/d780f8a2764165ebdadbec36260fae4d036c27c3/packages/core/src/actions/cell/core.js#L122-L126 "Source code on GitHub")
 
 Dispatch to blur a cell.
 
@@ -227,7 +250,7 @@ Dispatch to blur a cell.
 
 ## blurAllCells
 
-[packages/core/src/actions/cell/core.js:131-134](https://github.com/ory-am/editor/blob/b76943acc4ca2882bd75437d1e7b6a8614621e9b/packages/core/src/actions/cell/core.js#L131-L134 "Source code on GitHub")
+[packages/core/src/actions/cell/core.js:131-134](https://github.com/ory-am/editor/blob/d780f8a2764165ebdadbec36260fae4d036c27c3/packages/core/src/actions/cell/core.js#L131-L134 "Source code on GitHub")
 
 Dispatch to blur all cells. For example when clicking on document body.
 
@@ -235,7 +258,7 @@ Returns **[Action](#action)**
 
 ## createFallbackCell
 
-[packages/core/src/actions/cell/core.js:139-145](https://github.com/ory-am/editor/blob/b76943acc4ca2882bd75437d1e7b6a8614621e9b/packages/core/src/actions/cell/core.js#L139-L145 "Source code on GitHub")
+[packages/core/src/actions/cell/core.js:139-145](https://github.com/ory-am/editor/blob/d780f8a2764165ebdadbec36260fae4d036c27c3/packages/core/src/actions/cell/core.js#L139-L145 "Source code on GitHub")
 
 Creates a fallback cell, usually done when an editable is empty.
 
@@ -246,11 +269,11 @@ Creates a fallback cell, usually done when an editable is empty.
 
 ## Action
 
-[packages/core/src/actions/cell/drag.js:8-8](https://github.com/ory-am/editor/blob/b76943acc4ca2882bd75437d1e7b6a8614621e9b/packages/core/src/actions/cell/drag.js#L8-L8 "Source code on GitHub")
+[packages/core/src/actions/cell/drag.js:8-8](https://github.com/ory-am/editor/blob/d780f8a2764165ebdadbec36260fae4d036c27c3/packages/core/src/actions/cell/drag.js#L8-L8 "Source code on GitHub")
 
 ## cellHover
 
-[packages/core/src/actions/cell/drag.js:30-37](https://github.com/ory-am/editor/blob/b76943acc4ca2882bd75437d1e7b6a8614621e9b/packages/core/src/actions/cell/drag.js#L30-L37 "Source code on GitHub")
+[packages/core/src/actions/cell/drag.js:30-37](https://github.com/ory-am/editor/blob/d780f8a2764165ebdadbec36260fae4d036c27c3/packages/core/src/actions/cell/drag.js#L30-L37 "Source code on GitHub")
 
 Creates a redux action for when a cell hovers another item.
 
@@ -276,7 +299,7 @@ Returns **[Action](#action)**
 
 ## cellHoverLeftOf
 
-[packages/core/src/actions/cell/drag.js:51-51](https://github.com/ory-am/editor/blob/b76943acc4ca2882bd75437d1e7b6a8614621e9b/packages/core/src/actions/cell/drag.js#L51-L51 "Source code on GitHub")
+[packages/core/src/actions/cell/drag.js:51-51](https://github.com/ory-am/editor/blob/d780f8a2764165ebdadbec36260fae4d036c27c3/packages/core/src/actions/cell/drag.js#L51-L51 "Source code on GitHub")
 
 Creates a redux action for when a cell is hovering another cell on the left.
 
@@ -297,7 +320,7 @@ Returns **[Action](#action)**
 
 ## cellHoverRightOf
 
-[packages/core/src/actions/cell/drag.js:65-65](https://github.com/ory-am/editor/blob/b76943acc4ca2882bd75437d1e7b6a8614621e9b/packages/core/src/actions/cell/drag.js#L65-L65 "Source code on GitHub")
+[packages/core/src/actions/cell/drag.js:65-65](https://github.com/ory-am/editor/blob/d780f8a2764165ebdadbec36260fae4d036c27c3/packages/core/src/actions/cell/drag.js#L65-L65 "Source code on GitHub")
 
 Creates a redux action for when a cell is hovering another cell on the right.
 
@@ -318,7 +341,7 @@ Returns **[Action](#action)**
 
 ## cellHoverAbove
 
-[packages/core/src/actions/cell/drag.js:79-79](https://github.com/ory-am/editor/blob/b76943acc4ca2882bd75437d1e7b6a8614621e9b/packages/core/src/actions/cell/drag.js#L79-L79 "Source code on GitHub")
+[packages/core/src/actions/cell/drag.js:79-79](https://github.com/ory-am/editor/blob/d780f8a2764165ebdadbec36260fae4d036c27c3/packages/core/src/actions/cell/drag.js#L79-L79 "Source code on GitHub")
 
 Creates a redux action for when a cell is hovering another cell above.
 
@@ -339,7 +362,7 @@ Returns **[Action](#action)**
 
 ## cellHoverBelow
 
-[packages/core/src/actions/cell/drag.js:93-93](https://github.com/ory-am/editor/blob/b76943acc4ca2882bd75437d1e7b6a8614621e9b/packages/core/src/actions/cell/drag.js#L93-L93 "Source code on GitHub")
+[packages/core/src/actions/cell/drag.js:93-93](https://github.com/ory-am/editor/blob/d780f8a2764165ebdadbec36260fae4d036c27c3/packages/core/src/actions/cell/drag.js#L93-L93 "Source code on GitHub")
 
 Creates a redux action for when a cell is hovering another cell below.
 
@@ -360,7 +383,7 @@ Returns **[Action](#action)**
 
 ## cellHoverInlineLeft
 
-[packages/core/src/actions/cell/drag.js:106-106](https://github.com/ory-am/editor/blob/b76943acc4ca2882bd75437d1e7b6a8614621e9b/packages/core/src/actions/cell/drag.js#L106-L106 "Source code on GitHub")
+[packages/core/src/actions/cell/drag.js:106-106](https://github.com/ory-am/editor/blob/d780f8a2764165ebdadbec36260fae4d036c27c3/packages/core/src/actions/cell/drag.js#L106-L106 "Source code on GitHub")
 
 Creates a redux action for when a cell is hovering another cell on the left, but inline (css floating).
 
@@ -380,7 +403,7 @@ Returns **[Action](#action)**
 
 ## cellHoverInlineRight
 
-[packages/core/src/actions/cell/drag.js:119-119](https://github.com/ory-am/editor/blob/b76943acc4ca2882bd75437d1e7b6a8614621e9b/packages/core/src/actions/cell/drag.js#L119-L119 "Source code on GitHub")
+[packages/core/src/actions/cell/drag.js:119-119](https://github.com/ory-am/editor/blob/d780f8a2764165ebdadbec36260fae4d036c27c3/packages/core/src/actions/cell/drag.js#L119-L119 "Source code on GitHub")
 
 Creates a redux action for when a cell is hovering another cell on the right, but inline (css floating).
 
@@ -400,7 +423,7 @@ Returns **[Action](#action)**
 
 ## dragCell
 
-[packages/core/src/actions/cell/drag.js:132-136](https://github.com/ory-am/editor/blob/b76943acc4ca2882bd75437d1e7b6a8614621e9b/packages/core/src/actions/cell/drag.js#L132-L136 "Source code on GitHub")
+[packages/core/src/actions/cell/drag.js:132-136](https://github.com/ory-am/editor/blob/d780f8a2764165ebdadbec36260fae4d036c27c3/packages/core/src/actions/cell/drag.js#L132-L136 "Source code on GitHub")
 
 Creates a redux action for when a cell is being dragged.
 
@@ -420,7 +443,7 @@ Returns **[Action](#action)**
 
 ## clearHover
 
-[packages/core/src/actions/cell/drag.js:143-146](https://github.com/ory-am/editor/blob/b76943acc4ca2882bd75437d1e7b6a8614621e9b/packages/core/src/actions/cell/drag.js#L143-L146 "Source code on GitHub")
+[packages/core/src/actions/cell/drag.js:143-146](https://github.com/ory-am/editor/blob/d780f8a2764165ebdadbec36260fae4d036c27c3/packages/core/src/actions/cell/drag.js#L143-L146 "Source code on GitHub")
 
 Creates a redux action to clear hover state of all cells.
 
@@ -428,7 +451,7 @@ Returns **[Action](#action)**
 
 ## cancelCellDrag
 
-[packages/core/src/actions/cell/drag.js:159-163](https://github.com/ory-am/editor/blob/b76943acc4ca2882bd75437d1e7b6a8614621e9b/packages/core/src/actions/cell/drag.js#L159-L163 "Source code on GitHub")
+[packages/core/src/actions/cell/drag.js:159-163](https://github.com/ory-am/editor/blob/d780f8a2764165ebdadbec36260fae4d036c27c3/packages/core/src/actions/cell/drag.js#L159-L163 "Source code on GitHub")
 
 Creates a redux action for when cell dragging ends.
 
@@ -446,105 +469,57 @@ store.dispatch(cancelCellDrag(cell.id))
 
 Returns **[Action](#action)** 
 
-## insertCellBelow
-
-[packages/core/src/actions/cell/insert.js:55-55](https://github.com/ory-am/editor/blob/b76943acc4ca2882bd75437d1e7b6a8614621e9b/packages/core/src/actions/cell/insert.js#L55-L55 "Source code on GitHub")
-
-Insert a cell below of the hovering cell.
-
-## insertCellAbove
-
-[packages/core/src/actions/cell/insert.js:60-60](https://github.com/ory-am/editor/blob/b76943acc4ca2882bd75437d1e7b6a8614621e9b/packages/core/src/actions/cell/insert.js#L60-L60 "Source code on GitHub")
-
-Insert a cell above of the hovering cell.
-
-## insertCellRightOf
-
-[packages/core/src/actions/cell/insert.js:65-65](https://github.com/ory-am/editor/blob/b76943acc4ca2882bd75437d1e7b6a8614621e9b/packages/core/src/actions/cell/insert.js#L65-L65 "Source code on GitHub")
-
-Insert a cell right of the hovering cell.
-
-## insertCellLeftOf
-
-[packages/core/src/actions/cell/insert.js:70-70](https://github.com/ory-am/editor/blob/b76943acc4ca2882bd75437d1e7b6a8614621e9b/packages/core/src/actions/cell/insert.js#L70-L70 "Source code on GitHub")
-
-Insert a cell left of the hovering cell.
-
-## insertCellLeftInline
-
-[packages/core/src/actions/cell/insert.js:75-75](https://github.com/ory-am/editor/blob/b76943acc4ca2882bd75437d1e7b6a8614621e9b/packages/core/src/actions/cell/insert.js#L75-L75 "Source code on GitHub")
-
-Insert a cell inside the hovering cell, on the left.
-
-## insertCellRightInline
-
-[packages/core/src/actions/cell/insert.js:80-80](https://github.com/ory-am/editor/blob/b76943acc4ca2882bd75437d1e7b6a8614621e9b/packages/core/src/actions/cell/insert.js#L80-L80 "Source code on GitHub")
-
-Insert a cell inside the hovering cell, on the right.
-
-## insertMode
-
-[packages/core/src/actions/display.js:23-23](https://github.com/ory-am/editor/blob/b76943acc4ca2882bd75437d1e7b6a8614621e9b/packages/core/src/actions/display.js#L23-L23 "Source code on GitHub")
-
-Dispatch to switch to insert display mode.
-
-## editMode
-
-[packages/core/src/actions/display.js:28-28](https://github.com/ory-am/editor/blob/b76943acc4ca2882bd75437d1e7b6a8614621e9b/packages/core/src/actions/display.js#L28-L28 "Source code on GitHub")
-
-Dispatch to switch to edit display mode.
-
-## previewMode
-
-[packages/core/src/actions/display.js:33-33](https://github.com/ory-am/editor/blob/b76943acc4ca2882bd75437d1e7b6a8614621e9b/packages/core/src/actions/display.js#L33-L33 "Source code on GitHub")
-
-Dispatch to switch to preview display mode.
-
-## layoutMode
-
-[packages/core/src/actions/display.js:38-38](https://github.com/ory-am/editor/blob/b76943acc4ca2882bd75437d1e7b6a8614621e9b/packages/core/src/actions/display.js#L38-L38 "Source code on GitHub")
-
-Dispatch to switch to layout display mode.
-
-## resizeMode
-
-[packages/core/src/actions/display.js:43-43](https://github.com/ory-am/editor/blob/b76943acc4ca2882bd75437d1e7b6a8614621e9b/packages/core/src/actions/display.js#L43-L43 "Source code on GitHub")
-
-Dispatch to switch to resize display mode.
-
-## previousMode
-
-[packages/core/src/actions/display.js:48-48](https://github.com/ory-am/editor/blob/b76943acc4ca2882bd75437d1e7b6a8614621e9b/packages/core/src/actions/display.js#L48-L48 "Source code on GitHub")
-
-Dispatch to switch to the last display mode, or the fallback if reverting is not possible.
-
-**Parameters**
-
--   `fallback` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** 
-
-Returns **[Action](#action)** 
-
 ## positions
 
-[packages/core/src/const.js:4-11](https://github.com/ory-am/editor/blob/b76943acc4ca2882bd75437d1e7b6a8614621e9b/packages/core/src/const.js#L4-L11 "Source code on GitHub")
+[packages/core/src/const.js:4-11](https://github.com/ory-am/editor/blob/d780f8a2764165ebdadbec36260fae4d036c27c3/packages/core/src/const.js#L4-L11 "Source code on GitHub")
 
 A list of positions in the layout space.
 
 ## isProduction
 
-[packages/core/src/const.js:16-16](https://github.com/ory-am/editor/blob/b76943acc4ca2882bd75437d1e7b6a8614621e9b/packages/core/src/const.js#L16-L16 "Source code on GitHub")
+[packages/core/src/const.js:16-16](https://github.com/ory-am/editor/blob/d780f8a2764165ebdadbec36260fae4d036c27c3/packages/core/src/const.js#L16-L16 "Source code on GitHub")
 
 Is true if built in production mode.
 
-## Editor
+## insertCellBelow
 
-[packages/core/src/index.js:25-65](https://github.com/ory-am/editor/blob/b76943acc4ca2882bd75437d1e7b6a8614621e9b/packages/core/src/index.js#L25-L65 "Source code on GitHub")
+[packages/core/src/actions/cell/insert.js:55-55](https://github.com/ory-am/editor/blob/d780f8a2764165ebdadbec36260fae4d036c27c3/packages/core/src/actions/cell/insert.js#L55-L55 "Source code on GitHub")
 
-Editor is the core interface for dealing with the editor.
+Insert a cell below of the hovering cell.
+
+## insertCellAbove
+
+[packages/core/src/actions/cell/insert.js:60-60](https://github.com/ory-am/editor/blob/d780f8a2764165ebdadbec36260fae4d036c27c3/packages/core/src/actions/cell/insert.js#L60-L60 "Source code on GitHub")
+
+Insert a cell above of the hovering cell.
+
+## insertCellRightOf
+
+[packages/core/src/actions/cell/insert.js:65-65](https://github.com/ory-am/editor/blob/d780f8a2764165ebdadbec36260fae4d036c27c3/packages/core/src/actions/cell/insert.js#L65-L65 "Source code on GitHub")
+
+Insert a cell right of the hovering cell.
+
+## insertCellLeftOf
+
+[packages/core/src/actions/cell/insert.js:70-70](https://github.com/ory-am/editor/blob/d780f8a2764165ebdadbec36260fae4d036c27c3/packages/core/src/actions/cell/insert.js#L70-L70 "Source code on GitHub")
+
+Insert a cell left of the hovering cell.
+
+## insertCellLeftInline
+
+[packages/core/src/actions/cell/insert.js:75-75](https://github.com/ory-am/editor/blob/d780f8a2764165ebdadbec36260fae4d036c27c3/packages/core/src/actions/cell/insert.js#L75-L75 "Source code on GitHub")
+
+Insert a cell inside the hovering cell, on the left.
+
+## insertCellRightInline
+
+[packages/core/src/actions/cell/insert.js:80-80](https://github.com/ory-am/editor/blob/d780f8a2764165ebdadbec36260fae4d036c27c3/packages/core/src/actions/cell/insert.js#L80-L80 "Source code on GitHub")
+
+Insert a cell inside the hovering cell, on the right.
 
 ## isHoveringThis
 
-[packages/core/src/reducer/editable/helper/hover.js:6-14](https://github.com/ory-am/editor/blob/b76943acc4ca2882bd75437d1e7b6a8614621e9b/packages/core/src/reducer/editable/helper/hover.js#L6-L14 "Source code on GitHub")
+[packages/core/src/reducer/editable/helper/hover.js:6-14](https://github.com/ory-am/editor/blob/d780f8a2764165ebdadbec36260fae4d036c27c3/packages/core/src/reducer/editable/helper/hover.js#L6-L14 "Source code on GitHub")
 
 Check if this item is currently being hovered.
 
@@ -557,7 +532,7 @@ Returns **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Refe
 
 ## sumSizes
 
-[packages/core/src/reducer/editable/helper/sizing.js:9-11](https://github.com/ory-am/editor/blob/b76943acc4ca2882bd75437d1e7b6a8614621e9b/packages/core/src/reducer/editable/helper/sizing.js#L9-L11 "Source code on GitHub")
+[packages/core/src/reducer/editable/helper/sizing.js:9-11](https://github.com/ory-am/editor/blob/d780f8a2764165ebdadbec36260fae4d036c27c3/packages/core/src/reducer/editable/helper/sizing.js#L9-L11 "Source code on GitHub")
 
 Sum up cell sizes: Σ(cell[size]).
 
@@ -569,7 +544,7 @@ Returns **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Refer
 
 ## computeBounds
 
-[packages/core/src/reducer/editable/helper/sizing.js:16-22](https://github.com/ory-am/editor/blob/b76943acc4ca2882bd75437d1e7b6a8614621e9b/packages/core/src/reducer/editable/helper/sizing.js#L16-L22 "Source code on GitHub")
+[packages/core/src/reducer/editable/helper/sizing.js:16-22](https://github.com/ory-am/editor/blob/d780f8a2764165ebdadbec36260fae4d036c27c3/packages/core/src/reducer/editable/helper/sizing.js#L16-L22 "Source code on GitHub")
 
 Updates each cell's size boundaries.
 
@@ -581,7 +556,7 @@ Returns **[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Refere
 
 ## computeResizeable
 
-[packages/core/src/reducer/editable/helper/sizing.js:27-30](https://github.com/ory-am/editor/blob/b76943acc4ca2882bd75437d1e7b6a8614621e9b/packages/core/src/reducer/editable/helper/sizing.js#L27-L30 "Source code on GitHub")
+[packages/core/src/reducer/editable/helper/sizing.js:27-30](https://github.com/ory-am/editor/blob/d780f8a2764165ebdadbec36260fae4d036c27c3/packages/core/src/reducer/editable/helper/sizing.js#L27-L30 "Source code on GitHub")
 
 Computes if a cell is resizable.
 
@@ -593,7 +568,7 @@ Returns **[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Refere
 
 ## computeInlines
 
-[packages/core/src/reducer/editable/helper/sizing.js:35-52](https://github.com/ory-am/editor/blob/b76943acc4ca2882bd75437d1e7b6a8614621e9b/packages/core/src/reducer/editable/helper/sizing.js#L35-L52 "Source code on GitHub")
+[packages/core/src/reducer/editable/helper/sizing.js:35-52](https://github.com/ory-am/editor/blob/d780f8a2764165ebdadbec36260fae4d036c27c3/packages/core/src/reducer/editable/helper/sizing.js#L35-L52 "Source code on GitHub")
 
 Computes sizes an inline element was found.
 
@@ -605,7 +580,7 @@ Returns **[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Refere
 
 ## resizeCells
 
-[packages/core/src/reducer/editable/helper/sizing.js:57-72](https://github.com/ory-am/editor/blob/b76943acc4ca2882bd75437d1e7b6a8614621e9b/packages/core/src/reducer/editable/helper/sizing.js#L57-L72 "Source code on GitHub")
+[packages/core/src/reducer/editable/helper/sizing.js:57-72](https://github.com/ory-am/editor/blob/d780f8a2764165ebdadbec36260fae4d036c27c3/packages/core/src/reducer/editable/helper/sizing.js#L57-L72 "Source code on GitHub")
 
 Resize cells.
 
@@ -620,7 +595,7 @@ Returns **[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Refere
 
 ## computeSizes
 
-[packages/core/src/reducer/editable/helper/sizing.js:80-93](https://github.com/ory-am/editor/blob/b76943acc4ca2882bd75437d1e7b6a8614621e9b/packages/core/src/reducer/editable/helper/sizing.js#L80-L93 "Source code on GitHub")
+[packages/core/src/reducer/editable/helper/sizing.js:80-93](https://github.com/ory-am/editor/blob/d780f8a2764165ebdadbec36260fae4d036c27c3/packages/core/src/reducer/editable/helper/sizing.js#L80-L93 "Source code on GitHub")
 
 Balance cell sizes.
 
@@ -630,270 +605,113 @@ Balance cell sizes.
 
 Returns **\[...cell]** 
 
-## classes
+## generateMissingIds
 
-[packages/core/src/service/hover/index.js:40-62](https://github.com/ory-am/editor/blob/b76943acc4ca2882bd75437d1e7b6a8614621e9b/packages/core/src/service/hover/index.js#L40-L62 "Source code on GitHub")
+[packages/core/src/service/plugin/index.js:13-23](https://github.com/ory-am/editor/blob/d780f8a2764165ebdadbec36260fae4d036c27c3/packages/core/src/service/plugin/index.js#L13-L23 "Source code on GitHub")
 
-NO (None): No drop zone.
-
-Corners are counted clockwise, beginning top left
-C1 (Corner top left): Position decided by top left corner function
-C2 (Corner top right): Position decided by top right corner function
-C3 (Corner bottom right): Position decided by bottom right corner function
-C4 (Corner bottom left): Position decided by bottom left corner function
-
-Above:
-AH (Above here): above, same level
-AA (Above of self or some ancestor): Above, compute active level using classification functions, e.g. log, sin, mx + t
-
-Below:
-BH (Below here)
-BA (Below of self or some ancestor)
-
-Left of:
-LH (Left of here)
-LA (Left of self or some ancestor)
-
-Right of:
-RH (Right of here)
-RA (Right of self or some ancestor)
-
-Inside / inline
-IL (Inline left)
-IR (Inline right)
-
-Type: {}
-
-## defaultMatrices
-
-[packages/core/src/service/hover/index.js:71-104](https://github.com/ory-am/editor/blob/b76943acc4ca2882bd75437d1e7b6a8614621e9b/packages/core/src/service/hover/index.js#L71-L104 "Source code on GitHub")
-
-A list of matrices that are used to define the callback function.
-
-Type: MatrixList
-
-## getRoomScale
-
-[packages/core/src/service/hover/index.js:113-124](https://github.com/ory-am/editor/blob/b76943acc4ca2882bd75437d1e7b6a8614621e9b/packages/core/src/service/hover/index.js#L113-L124 "Source code on GitHub")
-
-Computes the average width and height for cells in a room.
+Iterate through an editable content tree and generate ids where missing.
 
 **Parameters**
 
--   `room`  
--   `matrix`  
--   `$0` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
-    -   `$0.room`  
-    -   `$0.matrix`  
+-   `props` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
-Returns **{x: [number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number), y: [number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)}** 
+Returns **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
-## getMouseHoverCell
+## PluginService
 
-[packages/core/src/service/hover/index.js:132-135](https://github.com/ory-am/editor/blob/b76943acc4ca2882bd75437d1e7b6a8614621e9b/packages/core/src/service/hover/index.js#L132-L135 "Source code on GitHub")
+[packages/core/src/service/plugin/index.js:28-154](https://github.com/ory-am/editor/blob/d780f8a2764165ebdadbec36260fae4d036c27c3/packages/core/src/service/plugin/index.js#L28-L154 "Source code on GitHub")
 
-Returns the index of the hover cell.
+PluginService is a registry of all content and layout plugins known to the editor.
 
-**Parameters**
+### constructor
 
--   `mouse`  
--   `scale`  
--   `$0` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
-    -   `$0.mouse`  
-    -   `$0.scale`  
+[packages/core/src/service/plugin/index.js:37-42](https://github.com/ory-am/editor/blob/d780f8a2764165ebdadbec36260fae4d036c27c3/packages/core/src/service/plugin/index.js#L37-L42 "Source code on GitHub")
 
-Returns **MatrixIndex** 
-
-## last
-
-[packages/core/src/service/hover/index.js:140-140](https://github.com/ory-am/editor/blob/b76943acc4ca2882bd75437d1e7b6a8614621e9b/packages/core/src/service/hover/index.js#L140-L140 "Source code on GitHub")
-
-Used for caching.
-
-## relativeMousePosition
-
-[packages/core/src/service/hover/index.js:197-204](https://github.com/ory-am/editor/blob/b76943acc4ca2882bd75437d1e7b6a8614621e9b/packages/core/src/service/hover/index.js#L197-L204 "Source code on GitHub")
-
-Return the mouse position relative to the cell.
+Instantiate a new PluginService instance. You can provide your own set of content and layout plugins here.
 
 **Parameters**
 
--   `$0` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
-    -   `$0.mouse`  
-    -   `$0.position`  
-    -   `$0.scale`  
+-   `$0` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)**  (optional, default `li`)
+    -   `$0.content`   (optional, default `g(`)
+    -   `$0.layout`   (optional, default `si`)
 
-## computeLevel
+### findLayoutPlugin
 
-[packages/core/src/service/hover/index.js:209-226](https://github.com/ory-am/editor/blob/b76943acc4ca2882bd75437d1e7b6a8614621e9b/packages/core/src/service/hover/index.js#L209-L226 "Source code on GitHub")
+[packages/core/src/service/plugin/index.js:47-56](https://github.com/ory-am/editor/blob/d780f8a2764165ebdadbec36260fae4d036c27c3/packages/core/src/service/plugin/index.js#L47-L56 "Source code on GitHub")
 
-Computes the drop level based on the mouse position and the cell width.
-
-**Parameters**
-
--   `$0` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
-    -   `$0.size`  
-    -   `$0.levels`  
-    -   `$0.position`  
-
-## computeHorizontal
-
-[packages/core/src/service/hover/index.js:239-262](https://github.com/ory-am/editor/blob/b76943acc4ca2882bd75437d1e7b6a8614621e9b/packages/core/src/service/hover/index.js#L239-L262 "Source code on GitHub")
-
-Computes the horizontal drop level based on the mouse position.
+Finds a layout plugin based on its name and version.
 
 **Parameters**
 
--   `mouse`  
--   `position`  
--   `hover`  
--   `scale`  
--   `level`  
--   `inv` **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)?** returns the inverse drop level. Usually true for left and above drop level computation.
--   `$0` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
-    -   `$0.mouse`  
-    -   `$0.position`  
-    -   `$0.hover`  
-    -   `$0.scale`  
-    -   `$0.level`  
+-   `name` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+-   `version` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** 
 
-Returns **any** number
+Returns **[LayoutPlugin](#layoutplugin)** 
 
-## computeVertical
+### findContentPlugin
 
-[packages/core/src/service/hover/index.js:269-286](https://github.com/ory-am/editor/blob/b76943acc4ca2882bd75437d1e7b6a8614621e9b/packages/core/src/service/hover/index.js#L269-L286 "Source code on GitHub")
+[packages/core/src/service/plugin/index.js:61-64](https://github.com/ory-am/editor/blob/d780f8a2764165ebdadbec36260fae4d036c27c3/packages/core/src/service/plugin/index.js#L61-L64 "Source code on GitHub")
 
-Computes the vertical drop level based on the mouse position.
+Finds a content plugin based on its name and version.
 
 **Parameters**
 
--   `$0` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
-    -   `$0.level`  
-    -   `$0.mouse`  
-    -   `$0.hover`  
-    -   `$0.position`  
-    -   `$0.scale`  
--   `inv` **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)?**  (optional, default `false`)
+-   `name` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+-   `version` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** 
 
-Returns **any** number
+Returns **[ContentPlugin](#contentplugin)** 
 
-## defaultCallbacks
+### getRegisteredNames
 
-[packages/core/src/service/hover/index.js:293-421](https://github.com/ory-am/editor/blob/b76943acc4ca2882bd75437d1e7b6a8614621e9b/packages/core/src/service/hover/index.js#L293-L421 "Source code on GitHub")
+[packages/core/src/service/plugin/index.js:69-74](https://github.com/ory-am/editor/blob/d780f8a2764165ebdadbec36260fae4d036c27c3/packages/core/src/service/plugin/index.js#L69-L74 "Source code on GitHub")
 
-A list of callbacks.
+Returns a list of all known plugin names.
 
-Type: CallbackList
-
-## HoverService
-
-[packages/core/src/service/hover/index.js:428-448](https://github.com/ory-am/editor/blob/b76943acc4ca2882bd75437d1e7b6a8614621e9b/packages/core/src/service/hover/index.js#L428-L448 "Source code on GitHub")
-
-The HoverService uses callbacks and matrices to compute hover logic.
-
-## warn
-
-[packages/core/src/service/logger/index.js:16-18](https://github.com/ory-am/editor/blob/b76943acc4ca2882bd75437d1e7b6a8614621e9b/packages/core/src/service/logger/index.js#L16-L18 "Source code on GitHub")
-
-Logs a warning. Warnings are things that are exceptional, but easily to recover from.
-
-**Parameters**
-
--   `args` **...[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;any>** 
-
-## debug
-
-[packages/core/src/service/logger/index.js:23-25](https://github.com/ory-am/editor/blob/b76943acc4ca2882bd75437d1e7b6a8614621e9b/packages/core/src/service/logger/index.js#L23-L25 "Source code on GitHub")
-
-Logs a debug message. Debug messages are things that help developers debugging things.
-
-**Parameters**
-
--   `args` **...[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;any>** 
-
-## info
-
-[packages/core/src/service/logger/index.js:30-32](https://github.com/ory-am/editor/blob/b76943acc4ca2882bd75437d1e7b6a8614621e9b/packages/core/src/service/logger/index.js#L30-L32 "Source code on GitHub")
-
-Logs an info. Infos are things that might be interesting for someone who needs to take a closer look.
-
-**Parameters**
-
--   `args` **...[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;any>** 
-
-## error
-
-[packages/core/src/service/logger/index.js:37-40](https://github.com/ory-am/editor/blob/b76943acc4ca2882bd75437d1e7b6a8614621e9b/packages/core/src/service/logger/index.js#L37-L40 "Source code on GitHub")
-
-Logs an error. Error are things that are exceptional, but can be recovered from.
-
-**Parameters**
-
--   `args` **...[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;any>** 
-
-## fatal
-
-[packages/core/src/service/logger/index.js:45-49](https://github.com/ory-am/editor/blob/b76943acc4ca2882bd75437d1e7b6a8614621e9b/packages/core/src/service/logger/index.js#L45-L49 "Source code on GitHub")
-
-Logs a fatal error. Fatal errors are things that are exceptional and can not be recovered from.
-
-**Parameters**
-
--   `args` **...[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;any>** 
-
-## log
-
-[packages/core/src/service/logger/index.js:54-57](https://github.com/ory-am/editor/blob/b76943acc4ca2882bd75437d1e7b6a8614621e9b/packages/core/src/service/logger/index.js#L54-L57 "Source code on GitHub")
-
-Logs a message.
-
-**Parameters**
-
--   `args` **...[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;any>** 
+Returns **[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)>** 
 
 ## id
 
-[packages/core/src/service/plugin/classes.js:9-9](https://github.com/ory-am/editor/blob/b76943acc4ca2882bd75437d1e7b6a8614621e9b/packages/core/src/service/plugin/classes.js#L9-L9 "Source code on GitHub")
+[packages/core/src/service/plugin/classes.js:9-9](https://github.com/ory-am/editor/blob/d780f8a2764165ebdadbec36260fae4d036c27c3/packages/core/src/service/plugin/classes.js#L9-L9 "Source code on GitHub")
 
 ## id
 
-[packages/core/src/service/plugin/classes.js:48-48](https://github.com/ory-am/editor/blob/b76943acc4ca2882bd75437d1e7b6a8614621e9b/packages/core/src/service/plugin/classes.js#L48-L48 "Source code on GitHub")
+[packages/core/src/service/plugin/classes.js:48-48](https://github.com/ory-am/editor/blob/d780f8a2764165ebdadbec36260fae4d036c27c3/packages/core/src/service/plugin/classes.js#L48-L48 "Source code on GitHub")
 
 ## readOnly
 
-[packages/core/src/service/plugin/classes.js:14-14](https://github.com/ory-am/editor/blob/b76943acc4ca2882bd75437d1e7b6a8614621e9b/packages/core/src/service/plugin/classes.js#L14-L14 "Source code on GitHub")
+[packages/core/src/service/plugin/classes.js:14-14](https://github.com/ory-am/editor/blob/d780f8a2764165ebdadbec36260fae4d036c27c3/packages/core/src/service/plugin/classes.js#L14-L14 "Source code on GitHub")
 
 ## readOnly
 
-[packages/core/src/service/plugin/classes.js:53-53](https://github.com/ory-am/editor/blob/b76943acc4ca2882bd75437d1e7b6a8614621e9b/packages/core/src/service/plugin/classes.js#L53-L53 "Source code on GitHub")
+[packages/core/src/service/plugin/classes.js:53-53](https://github.com/ory-am/editor/blob/d780f8a2764165ebdadbec36260fae4d036c27c3/packages/core/src/service/plugin/classes.js#L53-L53 "Source code on GitHub")
 
 ## name
 
-[packages/core/src/service/plugin/classes.js:19-19](https://github.com/ory-am/editor/blob/b76943acc4ca2882bd75437d1e7b6a8614621e9b/packages/core/src/service/plugin/classes.js#L19-L19 "Source code on GitHub")
+[packages/core/src/service/plugin/classes.js:19-19](https://github.com/ory-am/editor/blob/d780f8a2764165ebdadbec36260fae4d036c27c3/packages/core/src/service/plugin/classes.js#L19-L19 "Source code on GitHub")
 
 ## version
 
-[packages/core/src/service/plugin/classes.js:24-24](https://github.com/ory-am/editor/blob/b76943acc4ca2882bd75437d1e7b6a8614621e9b/packages/core/src/service/plugin/classes.js#L24-L24 "Source code on GitHub")
+[packages/core/src/service/plugin/classes.js:24-24](https://github.com/ory-am/editor/blob/d780f8a2764165ebdadbec36260fae4d036c27c3/packages/core/src/service/plugin/classes.js#L24-L24 "Source code on GitHub")
 
 ## focused
 
-[packages/core/src/service/plugin/classes.js:29-29](https://github.com/ory-am/editor/blob/b76943acc4ca2882bd75437d1e7b6a8614621e9b/packages/core/src/service/plugin/classes.js#L29-L29 "Source code on GitHub")
+[packages/core/src/service/plugin/classes.js:29-29](https://github.com/ory-am/editor/blob/d780f8a2764165ebdadbec36260fae4d036c27c3/packages/core/src/service/plugin/classes.js#L29-L29 "Source code on GitHub")
 
 ## focused
 
-[packages/core/src/service/plugin/classes.js:58-58](https://github.com/ory-am/editor/blob/b76943acc4ca2882bd75437d1e7b6a8614621e9b/packages/core/src/service/plugin/classes.js#L58-L58 "Source code on GitHub")
+[packages/core/src/service/plugin/classes.js:58-58](https://github.com/ory-am/editor/blob/d780f8a2764165ebdadbec36260fae4d036c27c3/packages/core/src/service/plugin/classes.js#L58-L58 "Source code on GitHub")
 
 ## state
 
-[packages/core/src/service/plugin/classes.js:34-34](https://github.com/ory-am/editor/blob/b76943acc4ca2882bd75437d1e7b6a8614621e9b/packages/core/src/service/plugin/classes.js#L34-L34 "Source code on GitHub")
+[packages/core/src/service/plugin/classes.js:34-34](https://github.com/ory-am/editor/blob/d780f8a2764165ebdadbec36260fae4d036c27c3/packages/core/src/service/plugin/classes.js#L34-L34 "Source code on GitHub")
 
 ## state
 
-[packages/core/src/service/plugin/classes.js:63-63](https://github.com/ory-am/editor/blob/b76943acc4ca2882bd75437d1e7b6a8614621e9b/packages/core/src/service/plugin/classes.js#L63-L63 "Source code on GitHub")
+[packages/core/src/service/plugin/classes.js:63-63](https://github.com/ory-am/editor/blob/d780f8a2764165ebdadbec36260fae4d036c27c3/packages/core/src/service/plugin/classes.js#L63-L63 "Source code on GitHub")
 
 ## onChange
 
-[packages/core/src/service/plugin/classes.js:41-41](https://github.com/ory-am/editor/blob/b76943acc4ca2882bd75437d1e7b6a8614621e9b/packages/core/src/service/plugin/classes.js#L41-L41 "Source code on GitHub")
+[packages/core/src/service/plugin/classes.js:41-41](https://github.com/ory-am/editor/blob/d780f8a2764165ebdadbec36260fae4d036c27c3/packages/core/src/service/plugin/classes.js#L41-L41 "Source code on GitHub")
 
 Should be called with the new state if the plugin's state changes.
 
@@ -903,7 +721,7 @@ Should be called with the new state if the plugin's state changes.
 
 ## onChange
 
-[packages/core/src/service/plugin/classes.js:70-70](https://github.com/ory-am/editor/blob/b76943acc4ca2882bd75437d1e7b6a8614621e9b/packages/core/src/service/plugin/classes.js#L70-L70 "Source code on GitHub")
+[packages/core/src/service/plugin/classes.js:70-70](https://github.com/ory-am/editor/blob/d780f8a2764165ebdadbec36260fae4d036c27c3/packages/core/src/service/plugin/classes.js#L70-L70 "Source code on GitHub")
 
 Should be called with the new state if the plugin's state changes.
 
@@ -913,41 +731,41 @@ Should be called with the new state if the plugin's state changes.
 
 ## Plugin
 
-[packages/core/src/service/plugin/classes.js:76-141](https://github.com/ory-am/editor/blob/b76943acc4ca2882bd75437d1e7b6a8614621e9b/packages/core/src/service/plugin/classes.js#L76-L141 "Source code on GitHub")
+[packages/core/src/service/plugin/classes.js:76-141](https://github.com/ory-am/editor/blob/d780f8a2764165ebdadbec36260fae4d036c27c3/packages/core/src/service/plugin/classes.js#L76-L141 "Source code on GitHub")
 
 ### name
 
-[packages/core/src/service/plugin/classes.js:102-102](https://github.com/ory-am/editor/blob/b76943acc4ca2882bd75437d1e7b6a8614621e9b/packages/core/src/service/plugin/classes.js#L102-L102 "Source code on GitHub")
+[packages/core/src/service/plugin/classes.js:102-102](https://github.com/ory-am/editor/blob/d780f8a2764165ebdadbec36260fae4d036c27c3/packages/core/src/service/plugin/classes.js#L102-L102 "Source code on GitHub")
 
 Type: [string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)
 
 ### version
 
-[packages/core/src/service/plugin/classes.js:107-107](https://github.com/ory-am/editor/blob/b76943acc4ca2882bd75437d1e7b6a8614621e9b/packages/core/src/service/plugin/classes.js#L107-L107 "Source code on GitHub")
+[packages/core/src/service/plugin/classes.js:107-107](https://github.com/ory-am/editor/blob/d780f8a2764165ebdadbec36260fae4d036c27c3/packages/core/src/service/plugin/classes.js#L107-L107 "Source code on GitHub")
 
 Type: [string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)
 
 ### IconComponent
 
-[packages/core/src/service/plugin/classes.js:112-112](https://github.com/ory-am/editor/blob/b76943acc4ca2882bd75437d1e7b6a8614621e9b/packages/core/src/service/plugin/classes.js#L112-L112 "Source code on GitHub")
+[packages/core/src/service/plugin/classes.js:112-112](https://github.com/ory-am/editor/blob/d780f8a2764165ebdadbec36260fae4d036c27c3/packages/core/src/service/plugin/classes.js#L112-L112 "Source code on GitHub")
 
 Type: any
 
 ### Component
 
-[packages/core/src/service/plugin/classes.js:118-118](https://github.com/ory-am/editor/blob/b76943acc4ca2882bd75437d1e7b6a8614621e9b/packages/core/src/service/plugin/classes.js#L118-L118 "Source code on GitHub")
+[packages/core/src/service/plugin/classes.js:118-118](https://github.com/ory-am/editor/blob/d780f8a2764165ebdadbec36260fae4d036c27c3/packages/core/src/service/plugin/classes.js#L118-L118 "Source code on GitHub")
 
 Type: any
 
 ### text
 
-[packages/core/src/service/plugin/classes.js:124-124](https://github.com/ory-am/editor/blob/b76943acc4ca2882bd75437d1e7b6a8614621e9b/packages/core/src/service/plugin/classes.js#L124-L124 "Source code on GitHub")
+[packages/core/src/service/plugin/classes.js:124-124](https://github.com/ory-am/editor/blob/d780f8a2764165ebdadbec36260fae4d036c27c3/packages/core/src/service/plugin/classes.js#L124-L124 "Source code on GitHub")
 
 Type: [string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)
 
 ### serialize
 
-[packages/core/src/service/plugin/classes.js:132-132](https://github.com/ory-am/editor/blob/b76943acc4ca2882bd75437d1e7b6a8614621e9b/packages/core/src/service/plugin/classes.js#L132-L132 "Source code on GitHub")
+[packages/core/src/service/plugin/classes.js:132-132](https://github.com/ory-am/editor/blob/d780f8a2764165ebdadbec36260fae4d036c27c3/packages/core/src/service/plugin/classes.js#L132-L132 "Source code on GitHub")
 
 Serialize a the plugin state
 
@@ -959,7 +777,7 @@ Returns **any** the serialized state.
 
 ### unserialize
 
-[packages/core/src/service/plugin/classes.js:140-140](https://github.com/ory-am/editor/blob/b76943acc4ca2882bd75437d1e7b6a8614621e9b/packages/core/src/service/plugin/classes.js#L140-L140 "Source code on GitHub")
+[packages/core/src/service/plugin/classes.js:140-140](https://github.com/ory-am/editor/blob/d780f8a2764165ebdadbec36260fae4d036c27c3/packages/core/src/service/plugin/classes.js#L140-L140 "Source code on GitHub")
 
 Unserialize the plugin state.
 
@@ -971,25 +789,25 @@ Returns **any** the unserialized state.
 
 ## ContentPlugin
 
-[packages/core/src/service/plugin/classes.js:146-240](https://github.com/ory-am/editor/blob/b76943acc4ca2882bd75437d1e7b6a8614621e9b/packages/core/src/service/plugin/classes.js#L146-L240 "Source code on GitHub")
+[packages/core/src/service/plugin/classes.js:146-240](https://github.com/ory-am/editor/blob/d780f8a2764165ebdadbec36260fae4d036c27c3/packages/core/src/service/plugin/classes.js#L146-L240 "Source code on GitHub")
 
 **Extends Plugin**
 
 ### isInlineable
 
-[packages/core/src/service/plugin/classes.js:175-175](https://github.com/ory-am/editor/blob/b76943acc4ca2882bd75437d1e7b6a8614621e9b/packages/core/src/service/plugin/classes.js#L175-L175 "Source code on GitHub")
+[packages/core/src/service/plugin/classes.js:175-175](https://github.com/ory-am/editor/blob/d780f8a2764165ebdadbec36260fae4d036c27c3/packages/core/src/service/plugin/classes.js#L175-L175 "Source code on GitHub")
 
 Type: [boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)
 
 ### allowInlineNeighbours
 
-[packages/core/src/service/plugin/classes.js:180-180](https://github.com/ory-am/editor/blob/b76943acc4ca2882bd75437d1e7b6a8614621e9b/packages/core/src/service/plugin/classes.js#L180-L180 "Source code on GitHub")
+[packages/core/src/service/plugin/classes.js:180-180](https://github.com/ory-am/editor/blob/d780f8a2764165ebdadbec36260fae4d036c27c3/packages/core/src/service/plugin/classes.js#L180-L180 "Source code on GitHub")
 
 Type: [boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)
 
 ### createInitialState
 
-[packages/core/src/service/plugin/classes.js:187-187](https://github.com/ory-am/editor/blob/b76943acc4ca2882bd75437d1e7b6a8614621e9b/packages/core/src/service/plugin/classes.js#L187-L187 "Source code on GitHub")
+[packages/core/src/service/plugin/classes.js:187-187](https://github.com/ory-am/editor/blob/d780f8a2764165ebdadbec36260fae4d036c27c3/packages/core/src/service/plugin/classes.js#L187-L187 "Source code on GitHub")
 
 Create the plugin's initial state.
 
@@ -997,7 +815,7 @@ Returns **any** the initial state.
 
 ### handleRemoveHotKey
 
-[packages/core/src/service/plugin/classes.js:197-197](https://github.com/ory-am/editor/blob/b76943acc4ca2882bd75437d1e7b6a8614621e9b/packages/core/src/service/plugin/classes.js#L197-L197 "Source code on GitHub")
+[packages/core/src/service/plugin/classes.js:197-197](https://github.com/ory-am/editor/blob/d780f8a2764165ebdadbec36260fae4d036c27c3/packages/core/src/service/plugin/classes.js#L197-L197 "Source code on GitHub")
 
 Will be called when the user presses the delete key. When returning a resolving promise,
 the cell will be removed. If the promise is rejected, nothing happens.
@@ -1011,7 +829,7 @@ Returns **any** a promise
 
 ### handleFocusNextHotKey
 
-[packages/core/src/service/plugin/classes.js:207-207](https://github.com/ory-am/editor/blob/b76943acc4ca2882bd75437d1e7b6a8614621e9b/packages/core/src/service/plugin/classes.js#L207-L207 "Source code on GitHub")
+[packages/core/src/service/plugin/classes.js:207-207](https://github.com/ory-am/editor/blob/d780f8a2764165ebdadbec36260fae4d036c27c3/packages/core/src/service/plugin/classes.js#L207-L207 "Source code on GitHub")
 
 Will be called when the user presses the right or down key. When returning a resolving promise,
 the next cell will be focused. If the promise is rejected, focus stays the same.
@@ -1025,7 +843,7 @@ Returns **any** a promise
 
 ### handleFocusPreviousHotKey
 
-[packages/core/src/service/plugin/classes.js:217-217](https://github.com/ory-am/editor/blob/b76943acc4ca2882bd75437d1e7b6a8614621e9b/packages/core/src/service/plugin/classes.js#L217-L217 "Source code on GitHub")
+[packages/core/src/service/plugin/classes.js:217-217](https://github.com/ory-am/editor/blob/d780f8a2764165ebdadbec36260fae4d036c27c3/packages/core/src/service/plugin/classes.js#L217-L217 "Source code on GitHub")
 
 Will be called when the user presses the left or up key. When returning a resolving promise,
 the next cell will be focused. If the promise is rejected, focus stays the same.
@@ -1039,7 +857,7 @@ Returns **any** a promise
 
 ### handleFocus
 
-[packages/core/src/service/plugin/classes.js:224-224](https://github.com/ory-am/editor/blob/b76943acc4ca2882bd75437d1e7b6a8614621e9b/packages/core/src/service/plugin/classes.js#L224-L224 "Source code on GitHub")
+[packages/core/src/service/plugin/classes.js:224-224](https://github.com/ory-am/editor/blob/d780f8a2764165ebdadbec36260fae4d036c27c3/packages/core/src/service/plugin/classes.js#L224-L224 "Source code on GitHub")
 
 This function will be called when one of the plugin's cell is blurred.
 
@@ -1049,7 +867,7 @@ This function will be called when one of the plugin's cell is blurred.
 
 ### handleBlur
 
-[packages/core/src/service/plugin/classes.js:231-231](https://github.com/ory-am/editor/blob/b76943acc4ca2882bd75437d1e7b6a8614621e9b/packages/core/src/service/plugin/classes.js#L231-L231 "Source code on GitHub")
+[packages/core/src/service/plugin/classes.js:231-231](https://github.com/ory-am/editor/blob/d780f8a2764165ebdadbec36260fae4d036c27c3/packages/core/src/service/plugin/classes.js#L231-L231 "Source code on GitHub")
 
 This function will be called when one of the plugin's cell is focused.
 
@@ -1059,7 +877,7 @@ This function will be called when one of the plugin's cell is focused.
 
 ### reducer
 
-[packages/core/src/service/plugin/classes.js:239-239](https://github.com/ory-am/editor/blob/b76943acc4ca2882bd75437d1e7b6a8614621e9b/packages/core/src/service/plugin/classes.js#L239-L239 "Source code on GitHub")
+[packages/core/src/service/plugin/classes.js:239-239](https://github.com/ory-am/editor/blob/d780f8a2764165ebdadbec36260fae4d036c27c3/packages/core/src/service/plugin/classes.js#L239-L239 "Source code on GitHub")
 
 Specify a custom reducer for the plugin's cell.
 
@@ -1070,13 +888,13 @@ Specify a custom reducer for the plugin's cell.
 
 ## LayoutPlugin
 
-[packages/core/src/service/plugin/classes.js:245-270](https://github.com/ory-am/editor/blob/b76943acc4ca2882bd75437d1e7b6a8614621e9b/packages/core/src/service/plugin/classes.js#L245-L270 "Source code on GitHub")
+[packages/core/src/service/plugin/classes.js:245-270](https://github.com/ory-am/editor/blob/d780f8a2764165ebdadbec36260fae4d036c27c3/packages/core/src/service/plugin/classes.js#L245-L270 "Source code on GitHub")
 
 **Extends Plugin**
 
 ### createInitialState
 
-[packages/core/src/service/plugin/classes.js:262-262](https://github.com/ory-am/editor/blob/b76943acc4ca2882bd75437d1e7b6a8614621e9b/packages/core/src/service/plugin/classes.js#L262-L262 "Source code on GitHub")
+[packages/core/src/service/plugin/classes.js:262-262](https://github.com/ory-am/editor/blob/d780f8a2764165ebdadbec36260fae4d036c27c3/packages/core/src/service/plugin/classes.js#L262-L262 "Source code on GitHub")
 
 Create the plugin's initial state.
 
@@ -1084,85 +902,8 @@ Returns **any** the initial state.
 
 ### createInitialChildren
 
-[packages/core/src/service/plugin/classes.js:269-269](https://github.com/ory-am/editor/blob/b76943acc4ca2882bd75437d1e7b6a8614621e9b/packages/core/src/service/plugin/classes.js#L269-L269 "Source code on GitHub")
+[packages/core/src/service/plugin/classes.js:269-269](https://github.com/ory-am/editor/blob/d780f8a2764165ebdadbec36260fae4d036c27c3/packages/core/src/service/plugin/classes.js#L269-L269 "Source code on GitHub")
 
 Create the plugin's initial children (rows/cells).
 
 Returns **any** the initial state.
-
-## generateMissingIds
-
-[packages/core/src/service/plugin/index.js:13-23](https://github.com/ory-am/editor/blob/b76943acc4ca2882bd75437d1e7b6a8614621e9b/packages/core/src/service/plugin/index.js#L13-L23 "Source code on GitHub")
-
-Iterate through an editable content tree and generate ids where missing.
-
-**Parameters**
-
--   `props` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
-
-Returns **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
-
-## PluginService
-
-[packages/core/src/service/plugin/index.js:28-154](https://github.com/ory-am/editor/blob/b76943acc4ca2882bd75437d1e7b6a8614621e9b/packages/core/src/service/plugin/index.js#L28-L154 "Source code on GitHub")
-
-PluginService is a registry of all content and layout plugins known to the editor.
-
-### constructor
-
-[packages/core/src/service/plugin/index.js:37-42](https://github.com/ory-am/editor/blob/b76943acc4ca2882bd75437d1e7b6a8614621e9b/packages/core/src/service/plugin/index.js#L37-L42 "Source code on GitHub")
-
-Instantiate a new PluginService instance. You can provide your own set of content and layout plugins here.
-
-**Parameters**
-
--   `$0` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)**  (optional, default `li`)
-    -   `$0.content`   (optional, default `g(`)
-    -   `$0.layout`   (optional, default `si`)
-
-### findLayoutPlugin
-
-[packages/core/src/service/plugin/index.js:47-56](https://github.com/ory-am/editor/blob/b76943acc4ca2882bd75437d1e7b6a8614621e9b/packages/core/src/service/plugin/index.js#L47-L56 "Source code on GitHub")
-
-Finds a layout plugin based on its name and version.
-
-**Parameters**
-
--   `name` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** 
--   `version` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** 
-
-Returns **[LayoutPlugin](#layoutplugin)** 
-
-### findContentPlugin
-
-[packages/core/src/service/plugin/index.js:61-64](https://github.com/ory-am/editor/blob/b76943acc4ca2882bd75437d1e7b6a8614621e9b/packages/core/src/service/plugin/index.js#L61-L64 "Source code on GitHub")
-
-Finds a content plugin based on its name and version.
-
-**Parameters**
-
--   `name` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** 
--   `version` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** 
-
-Returns **[ContentPlugin](#contentplugin)** 
-
-### getRegisteredNames
-
-[packages/core/src/service/plugin/index.js:69-74](https://github.com/ory-am/editor/blob/b76943acc4ca2882bd75437d1e7b6a8614621e9b/packages/core/src/service/plugin/index.js#L69-L74 "Source code on GitHub")
-
-Returns a list of all known plugin names.
-
-Returns **[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)>** 
-
-## store
-
-[packages/core/src/store.js:10-21](https://github.com/ory-am/editor/blob/b76943acc4ca2882bd75437d1e7b6a8614621e9b/packages/core/src/store.js#L10-L21 "Source code on GitHub")
-
-Returns a new redux store.
-
-**Parameters**
-
--   `initialState` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
--   `middleware` **\[]?**  (optional, default `[]`)
-
-Returns **Store** 
