@@ -9,6 +9,7 @@ env:
   - TEST_TYPE=lint
   - TEST_TYPE=flow
   - TEST_TYPE=build
+  - TEST_TYPE=docs
 
 install:
   - npm i -g yarn rimraf
@@ -24,6 +25,8 @@ script:
       npm run lint
     elif [ "$TEST_TYPE" = flow ]; then
       npm run flow
+    elif [ "$TEST_TYPE" = docs ]; then
+      npm run docs
     fi
 
 after_success:
