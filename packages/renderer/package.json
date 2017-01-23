@@ -2,6 +2,8 @@
   "name": "ory-editor-renderer",
   "version": "0.0.0",
   "main": "./lib/index.js",
+  "author": "ORY GmbH",
+  "license": "AGPL-3.0",
   "scripts": {
     "build": "npm-run-all --parallel build:lib",
     "build:lib": "babel ./src --ignore test.js --out-dir ./lib",
@@ -9,7 +11,6 @@
     "build:css": "postcss -c .postcss.json -o lib/styles.css src/*.css",
     "build:css:watch": "npm run watch:js -- -c \"npm run build:css\"",
     "clean": "rimraf \"dist/*\" \"lib/*\"",
-    "clean:npm": "rimraf \"node_modules/\"",
     "coveralls": "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
     "docs": "documentation build src/**/*.js --format md --github -o ../../docs/api/renderer.md",
     "flow": "flow check --show-all-errors",
@@ -22,12 +23,6 @@
     "test:watch": "jest --watch",
     "watch:js": "chokidar \"+(src)/**/*.js\" --initial"
   },
-  "engines": {
-    "node": ">=6.0.0",
-    "npm": "~3.8.0"
-  },
-  "author": "ORY GmbH",
-  "license": "AGPL-3.0",
   "peerDependencies": {
     "react": "^15.4.2",
     "react-dom": "^15.4.2"

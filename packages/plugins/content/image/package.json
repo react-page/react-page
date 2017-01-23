@@ -2,6 +2,8 @@
   "name": "ory-editor-plugins-image",
   "version": "0.0.0",
   "main": "./lib/index.js",
+  "author": "ORY GmbH",
+  "license": "AGPL-3.0",
   "scripts": {
     "build": "npm-run-all --parallel build:css build:lib",
     "build:lib": "babel ./src --ignore test.js --out-dir ./lib",
@@ -19,15 +21,8 @@
     "start": "npm-run-all --parallel build:lib:watch build:css:watch",
     "test": "jest --coverage",
     "test:watch": "jest --watch",
-    "watch:js": "chokidar \"+(src)/**/*.js\" --initial",
-    "clean:npm": "rimraf \"node_modules/\""
+    "watch:js": "chokidar \"+(src)/**/*.js\" --initial"
   },
-  "engines": {
-    "node": ">=6.0.0",
-    "npm": "~3.8.0"
-  },
-  "author": "ORY GmbH",
-  "license": "AGPL-3.0",
   "peerDependencies": {
     "react": "^15.4.2",
     "react-dom": "^15.4.2"
