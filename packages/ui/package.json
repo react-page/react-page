@@ -12,7 +12,7 @@
     "build:css:watch": "npm run build:css -- -w",
     "clean": "rimraf \"dist/*\" \"lib/*\"",
     "coveralls": "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
-    "docs": "documentation build src/**/*.js --format md --github -o ../../docs/api/ui.md",
+    "docs": "documentation build ./src/**/*.js --format md --github -o ../../docs/api/ui.md",
     "flow": "flow check --show-all-errors",
     "flow:watch": "npm run watch:js -- -c \"flow check --show-all-errors\"",
     "lint": "eslint \"+(src)/**/*.js\" --fix",
