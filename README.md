@@ -21,11 +21,18 @@ improve the overall experience, APIs and documentation.
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
+
 - [Introduction](#introduction)
-- [ORY Sites](#ory-sites)
+  - [What makes it different?](#what-makes-it-different)
+  - [ORY Sites](#ory-sites)
 - [Quickstart](#quickstart)
 - [Documentation](#documentation)
-- [Contribute](#contribute)
+- [How to run, develop, and contribute](#how-to-run-develop-and-contribute)
+  - [Install dependencies](#install-dependencies)
+  - [Run the example(s)](#run-the-examples)
+  - [Run the toolchain](#run-the-toolchain)
+  - [Run the documentation](#run-the-documentation)
+- [Known issues](#known-issues)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -73,8 +80,6 @@ If this caught your attention, sign up for our newsletter and get an exclusive b
 </p>
 
 ## Quickstart
-
-Want to 
 
 Currently our focus is on optimizing the ORY Editor for usage with React. We will work on, and ship versions that do
 not require React in the future. Use npm to install the ORY Editor as follows:
