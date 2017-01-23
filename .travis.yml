@@ -11,7 +11,7 @@ env:
   - TEST_TYPE=build
 
 install:
-  - npm i -g yarn rimraf
+  - npm i -g yarn lerna
   - yarn install
 
 script:
@@ -36,6 +36,6 @@ after_success:
     fi
   - |
     if  [ "$TRAVIS_TAG" != "" ] && [ "$TEST_TYPE" == "build" ]; then
-      npm run publish -- --skip-git --repo-version=$(git describe --tag)
+      lerna publish --skip-git --repo-version=$(git describe --tag)
     fi
 
