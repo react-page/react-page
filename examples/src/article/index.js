@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom'
 
 // The editor core
 import Editor, { Editable, createEmptyState } from 'ory-editor-core'
-import 'ory-editor-core/lib/index.css'
+import 'ory-editor-core/lib/index.css' // we also want to load the stylesheets
 
 // The default ui components
 import { Trash, DisplayModeToggle, Toolbar } from 'ory-editor-ui'
@@ -28,29 +28,39 @@ import 'ory-editor-plugins-image/lib/index.css'
 import video from 'ory-editor-plugins-video'
 import 'ory-editor-plugins-video/lib/index.css'
 
-// The spoiler plugin
-import spoiler from 'ory-editor-plugins-parallax-background'
+// The parallax plugin
+import parallax from 'ory-editor-plugins-parallax-background'
 import 'ory-editor-plugins-parallax-background/lib/index.css'
-
-// Renders json state to html
-import { HTMLRenderer } from 'ory-editor-renderer'
 
 // The divider plugin
 import divider from 'ory-editor-plugins-divider'
 
+// Renders json state to html, can be used on server and client side
+import { HTMLRenderer } from 'ory-editor-renderer'
+
+// The content state
 import content from './content.js'
 import './styles.css'
 
+// Define which plugins we want to use (all of the above)
 const plugins = {
   content: [slate(), spacer, image, video, divider],
-  layout: [spoiler({ defaultPlugin: slate() })]
+  layout: [parallax({ defaultPlugin: slate() })]
 }
 
 const editor = new Editor({
   plugins,
-  editables: [...content, { id: '10', cells: [] }, createEmptyState()],
+  // pass the content states
+  editables: [
+    ...content,
+    // an empty state
+    { id: '10', cells: [] },
+    // creates an empty state, basically like the line above
+    createEmptyState()
+  ],
 })
 
+// Render the editables - the areas that are editable
 const elements = document.querySelectorAll('.editable')
 for (const element of elements) {
   ReactDOM.render((
@@ -62,6 +72,7 @@ for (const element of elements) {
   ), element)
 }
 
+// Render the ui controls, you could implement your own here, of course.
 ReactDOM.render((
   <div>
     <Trash editor={editor}/>
@@ -70,5 +81,5 @@ ReactDOM.render((
   </div>
 ), document.getElementById('controls'))
 
-
+// Render as beautified mark up (html)
 ReactDOM.render(<HTMLRenderer state={content[0]} plugins={plugins}/>, document.getElementById('editable-static'))

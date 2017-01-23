@@ -8,7 +8,7 @@ import { BottomToolbar } from 'ory-editor-ui'
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 
-const handleChange = (onChange) => (value) => onChange({ background: value })
+const handleChange = (onChange: (state: any) => void) => (value: string) => onChange({ background: value })
 
 class PluginComponent extends Component {
   state = { hidden: false }
@@ -23,7 +23,8 @@ class PluginComponent extends Component {
     return (
       <MuiThemeProvider muiTheme={getMuiTheme()}>
         <div className="ory-plugins-layout-parallax-background"
-             style={{backgroundImage: `linear-gradient(rgba(0, 0, 0, ${darken}), rgba(0, 0, 0, ${darken})), url('${background}')`}}>
+             style={{ backgroundImage: `linear-gradient(rgba(0, 0, 0, ${darken}), rgba(0, 0, 0, ${darken})), url('${background}')` }}
+        >
           <BottomToolbar open={focused}>
             <TextField
               hintText="http://example.com/image.png"
