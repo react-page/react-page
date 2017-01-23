@@ -33,5 +33,5 @@ after_success:
     fi
   - |
     if  [ "${TRAVIS_TAG}" != "" ] && [ "${TRAVIS_GO_VERSION}" == "1.7" ] && [ "${TEST_TYPE}" == "build" ]; then
-      npm run build && npm run publish -- --skip-git --repo-version=$(git describe --tag)
+      npm run publish -- --skip-git --repo-version=$(git describe --tag)
     fi
