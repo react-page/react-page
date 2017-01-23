@@ -33,19 +33,5 @@ after_success:
     fi
   - |
     if  [ "${TRAVIS_TAG}" != "" ] && [ "${TRAVIS_GO_VERSION}" == "1.7" ] && [ "${TEST_TYPE}" == "build" ]; then
-      npm run publish -- --skip-git --repo-version=$(git describe --tag)
+      npm run build && npm run publish -- --skip-git --repo-version=$(git describe --tag)
     fi
-
-before_deploy:
-
-  - npm run build
-  -
-
-deploy:
-  provider: npm
-  api_key: "$NPM_TOKEN"
-  email: "$NPM_EMAIL"
-  skip_cleanup: true
-  on:
-    tags: true
-    condition: $TEST_TYPE = build
