@@ -4,15 +4,15 @@
   "author": "ORY GmbH",
   "license": "AGPL-3.0",
   "dependencies": {
-    "ory-editor-core": "^0.1.0",
-    "ory-editor-renderer": "^0.1.0",
-    "ory-editor-plugins-divider": "^0.1.0",
-    "ory-editor-plugins-image": "^0.1.0",
-    "ory-editor-plugins-slate": "^0.1.0",
-    "ory-editor-plugins-spacer": "^0.1.0",
-    "ory-editor-plugins-parallax-background": "^0.1.0",
-    "ory-editor-plugins-video": "^0.1.0",
-    "ory-editor-ui": "^0.1.0",
+    "ory-editor-core": "0.0.0",
+    "ory-editor-renderer": "0.0.0",
+    "ory-editor-plugins-divider": "0.0.0",
+    "ory-editor-plugins-image": "0.0.0",
+    "ory-editor-plugins-slate": "0.0.0",
+    "ory-editor-plugins-spacer": "0.0.0",
+    "ory-editor-plugins-parallax-background": "0.0.0",
+    "ory-editor-plugins-video": "0.0.0",
+    "ory-editor-ui": "0.0.0",
     "react-tap-event-plugin": "^2.0.1"
   }
 }
