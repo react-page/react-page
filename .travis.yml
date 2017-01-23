@@ -36,6 +36,7 @@ after_success:
     fi
   - |
     if  [ "$TRAVIS_TAG" != "" ] && [ "$TEST_TYPE" == "build" ]; then
+      echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
       lerna publish --skip-git --repo-version=$(git describe --tag) --yes --force-publish=*
     else
       echo "Skipping build because: TRAVIS_TAG=$TRAVIS_TAG TEST_TYPE=$TEST_TYPE"
