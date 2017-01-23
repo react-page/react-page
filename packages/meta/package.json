@@ -1,6 +1,8 @@
 {
   "name": "ory-editor",
   "version": "0.0.0",
+  "author": "ORY GmbH",
+  "license": "AGPL-3.0",
   "dependencies": {
     "ory-editor-core": "0.0.0",
     "ory-editor-renderer": "0.0.0",

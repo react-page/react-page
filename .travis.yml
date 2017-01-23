@@ -36,7 +36,7 @@ after_success:
     fi
 
 before_deploy:
-  - npm run publish -- --skip-git --npm-tag=$(git describe --tag) --skip-npm
+  - npm run publish -- --skip-git --repo-version=$(git describe --tag) --skip-npm
   - npm run build
 
 deploy:

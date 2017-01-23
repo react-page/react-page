@@ -2,6 +2,8 @@
   "name": "ory-editor-plugins-slate",
   "version": "0.0.0",
   "main": "./lib/index.js",
+  "author": "ORY GmbH",
+  "license": "AGPL-3.0",
   "scripts": {
     "build": "npm-run-all --parallel build:css build:lib",
     "build:lib": "babel ./src --ignore test.js --out-dir ./lib",
@@ -9,7 +11,6 @@
     "build:css": "postcss -u postcss-import -u postcss-cssnext -c ../../../../config/postcss/config.js --dir lib/ src/index.css",
     "build:css:watch": "npm run build:css -- -w",
     "clean": "rimraf \"dist/*\" \"lib/*\"",
-    "clean:npm": "rimraf \"node_modules/\"",
     "coveralls": "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
     "docs": "documentation build src/**/*.js --format md --github -o ../../../../docs/api/plugins/slate.md",
     "flow": "flow check --show-all-errors",
