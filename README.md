@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/ory-am/editor.svg)](https://travis-ci.org/ory-am/editor)
 [![Coverage Status](https://coveralls.io/repos/github/ory-am/editor/badge.svg?branch=master)](https://coveralls.io/github/ory-am/editor?branch=master)
-[![Docs Guide](https://img.shields.io/badge/docs-guide-blue.svg)](https://ory-am.gitbooks.io/ory-editor/content/)
+[![Docs Guide](https://img.shields.io/badge/docs-guide-blue.svg)](https://ory-am.gitbooks.io/editor/content/)
 
 [![Join the chat at https://gitter.im/ory-am/hydra](https://img.shields.io/badge/join-chat-00cc99.svg)](https://gitter.im/ory-am/editor)
 [![Join newsletter](https://img.shields.io/badge/join-newsletter-00cc99.svg)](http://eepurl.com/bKT3N9)
@@ -82,63 +82,18 @@ If this caught your attention, sign up for our newsletter and get an exclusive b
 ## Quickstart
 
 Currently our focus is on optimizing the ORY Editor for usage with React. We will work on, and ship versions that do
-not require React in the future. Use npm to install the ORY Editor as follows:
+not require React in the future. **Please check the [ReactJS tutorial](https://ory-am.gitbooks.io/editor/content/tutorials.html#reactjs-example)!**
 
-```sh
+```
 $ npm install --save ory-editor
 ```
 
-*Note: The `ory-editor` package is a metapackage. It includes the core, our default ui and some plugins we officially
-support. Use this package primarily for convenience.* 
-
-```jsx
-import React, { Component } from 'react';
-import Editor, { Editable, Controls, PluginService, plugins, createEmptyState } from 'ory-editor'
-
-// The ORY Editor currently uses material-ui which requires the react-tap-event-plugin. In the future, material-ui
-// will be an optional dependency.
-require('react-tap-event-plugin')()
-import 'ory-editor/dist/styles.css'
-
-// This could be one of your plugins:
-// import HeaderLayoutPlugin from './plugins/layout/Header'
-
-const editor = new Editor({
-  plugins: new PluginService([
-    // Enable some of the default content plugins here:
-    plugins.content.image,
-    plugins.content.spacer,
-    plugins.content.slate(),
-    plugins.content.video,
-    plugins.content.divider,
-  ], [
-    // Provide a list of layout plugins here, for example:
-    // HeaderLayoutPlugin
-  ])
-})
-
-const state = createEmptyState()
-
-class App extends Component {
-  render() {
-    return (
-      <div>
-        {/* The controls component displays the toolbar. The editor exposes an API allowing you to build your own! */}
-        <Controls editor={editor}/>
-        
-        {/* This is the editable component. Use the onChange callback to receive all updates */}
-        <Editable editor={editor} state={state} onChange={(s) => console.log(s)}/>
-      </div>
-    );
-  }
-}
-
-export default App
-```
+*Note: The `ory-editor` package is a metapackage. It includes the core, our default ui and some plugins we
+officially support. Use this package primarily for convenience.*
 
 ## Documentation
 
-Check out the [user guide on gitbook](https://ory-am.gitbooks.io/ory-editor/content/).
+Check out the [user guide on gitbook](https://ory-am.gitbooks.io/editor/content/).
 
 ## How to run, develop, and contribute
 

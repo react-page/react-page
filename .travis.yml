@@ -31,10 +31,15 @@ after_success:
     if [ "$TEST_TYPE" = test ]; then
       npm run coveralls
     fi
+  - |
+    if  [ "${TRAVIS_TAG}" != "" ] && [ "${TRAVIS_GO_VERSION}" == "1.7" ] && [ "${TEST_TYPE}" == "build" ]; then
+      npm run publish -- --skip-git --repo-version=$(git describe --tag)
+    fi
 
 before_deploy:
-  - npm run publish -- --skip-git --repo-version=$(git describe --tag) --skip-npm
+
   - npm run build
+  -
 
 deploy:
   provider: npm
