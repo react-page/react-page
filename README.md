@@ -111,7 +111,6 @@ The ORY Editor is a [monorepo](https://github.com/babel/babel/blob/master/doc/de
 
 ```bash
 $ npm i
-$ npm run bootstrap
 ```
 
 ### Run the example(s)
