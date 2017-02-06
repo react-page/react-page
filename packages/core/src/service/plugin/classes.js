@@ -91,10 +91,13 @@ export class Plugin {
 
     this.IconComponent = IconComponent
     this.text = text
+    this.config = config
 
     this.serialize = serialize ? serialize.bind(this) : this.serialize
     this.unserialize = unserialize ? unserialize.bind(this) : this.unserialize
   }
+
+  config: any
 
   /**
    * @member a unique identifier of the plugin
