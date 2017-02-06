@@ -41,6 +41,22 @@ export default class PluginService {
     }
   }
 
+  registerLayoutPlugin(config: any) {
+    this.plugins.layout.push(new LayoutPlugin(config))
+  }
+
+  deregisterLayoutPlugin(name: string) {
+    this.plugins.layout = this.plugins.layout.filter((plugin: LayoutPlugin) => plugin.name !== name)
+  }
+
+  registerContentPlugin(config: any) {
+    this.plugins.content.push(new ContentPlugin(config))
+  }
+
+  deregisterContentPlugin(name: string) {
+    this.plugins.content = this.plugins.content.filter((plugin: ContentPlugin) => plugin.name !== name)
+  }
+
   /**
    * Finds a layout plugin based on its name and version.
    */
