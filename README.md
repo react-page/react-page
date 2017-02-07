@@ -1,10 +1,10 @@
 # ![ORY Editor](docs/images/ory-editor-github.jpg)
 
-[![Build Status](https://travis-ci.org/ory-am/editor.svg)](https://travis-ci.org/ory-am/editor)
-[![Coverage Status](https://coveralls.io/repos/github/ory-am/editor/badge.svg?branch=master)](https://coveralls.io/github/ory-am/editor?branch=master)
-[![Docs Guide](https://img.shields.io/badge/docs-guide-blue.svg)](https://ory-am.gitbooks.io/editor/content/)
+[![Build Status](https://travis-ci.org/ory/editor.svg)](https://travis-ci.org/ory/editor)
+[![Coverage Status](https://coveralls.io/repos/github/ory/editor/badge.svg?branch=master)](https://coveralls.io/github/ory/editor?branch=master)
+[![Docs Guide](https://img.shields.io/badge/docs-guide-blue.svg)](https://ory.gitbooks.io/editor/content/)
 
-[![Join the chat at https://gitter.im/ory-am/hydra](https://img.shields.io/badge/join-chat-00cc99.svg)](https://gitter.im/ory-am/editor)
+[![Join the chat at https://gitter.im/ory/hydra](https://img.shields.io/badge/join-chat-00cc99.svg)](https://gitter.im/ory/editor)
 [![Join newsletter](https://img.shields.io/badge/join-newsletter-00cc99.svg)](http://eepurl.com/bKT3N9)
 [![Follow twitter](https://img.shields.io/badge/follow-twitter-00cc99.svg)](https://twitter.com/_aeneasr)
 [![Follow GitHub](https://img.shields.io/badge/follow-github-00cc99.svg)](https://github.com/arekkas)
@@ -82,7 +82,7 @@ If this caught your attention, sign up for our newsletter and get an exclusive b
 ## Quickstart
 
 Currently our focus is on optimizing the ORY Editor for usage with React. We will work on, and ship versions that do
-not require React in the future. **Please check the [ReactJS tutorial](https://ory-am.gitbooks.io/editor/content/tutorials.html#reactjs-example)!**
+not require React in the future. **Please check the [ReactJS tutorial](https://ory.gitbooks.io/editor/content/tutorials.html#reactjs-example)!**
 
 ```
 $ npm install --save ory-editor
@@ -93,7 +93,7 @@ officially support. Use this package primarily for convenience.*
 
 ## Documentation
 
-Check out the [user guide on gitbook](https://ory-am.gitbooks.io/editor/content/).
+Check out the [user guide on gitbook](https://ory.gitbooks.io/editor/content/).
 
 ## How to run, develop, and contribute
 
@@ -101,7 +101,7 @@ Do you want to run, develop or contribute to the ORY Editor? For that you need [
 your system. Use git to check out this repository as followed.
 
 ```bash
-$ git clone https://github.com/ory-am/editor.git
+$ git clone https://github.com/ory/editor.git
 $ cd editor
 ```
 
@@ -154,4 +154,4 @@ $ npm run docs
 
 ## Known issues
 
-We keep track of known issues in the [issues tab](https://github.com/ory-am/editor/issues?q=is%3Aopen+is%3Aissue+label%3Abug).
+We keep track of known issues in the [issues tab](https://github.com/ory/editor/issues?q=is%3Aopen+is%3Aissue+label%3Abug).
