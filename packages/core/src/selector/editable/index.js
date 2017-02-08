@@ -28,12 +28,16 @@ const nodeInner = (current: any, props: Editable): any => {
 }
 
 export const editable = ({ editables }: Editables = {}, { id }: { id: string }): any =>
-  editables.present.find(({ id: current }: Editable = {}) => current === id) || {}
+  editables.present.find(({ id: current }: Editable = {}) => current === id)
 
 export const editables = ({ editables: { present } }: Editables = {}) => present
 
 export const purifiedEditable = (state: Editables, props: Editable) => {
   const found = editable(state, props)
+  if (!Boolean(found)) {
+    return null
+  }
+
   return {
     ...found,
     cells: (found.cells || []).map((c: Cell | string) => typeof c === 'string' ? c : c.id)
@@ -44,7 +48,7 @@ export const editableConfig = (state: Editables, { editable: id }: { editable: s
 
 export const node = (state: Object, props: Object): Object => {
   const tree = editable(state, { id: props.editable })
-  if (!state) {
+  if (!tree) {
     throw new Error(`Could not find editable: ${props.editable}`)
   }
 
@@ -67,6 +71,9 @@ export const searchNodeEverywhere = (state: Object, id: string) => {
 
 export const purifiedNode = (state: Editables, props: Editable): Object => {
   const found = node(state, props)
+  if (!Boolean(found)) {
+    return null
+  }
 
   if (found.cells) {
     found.cells = found.cells.map((c: Cell): string => c.id)

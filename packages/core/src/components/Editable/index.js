@@ -33,13 +33,13 @@ class Editable extends Component {
   }
 
   onChange = () => {
-    if (typeof this.props.onChange !== 'function') {
+    const { onChange } = this.props
+    if (typeof onChange !== 'function') {
       return
     }
-    const onChange = this.props.onChange || (() => ({}))
 
     const state: any = editable(this.props.editor.store.getState(), { id: this.props.id })
-    if (state === this.previousState) {
+    if (state === this.previousState || !Boolean(state)) {
       return
     }
 
