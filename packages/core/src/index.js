@@ -19,6 +19,16 @@ const initialState = () => ({
   }
 })
 
+const update = (editor) => (editable) => {
+  const state = editor.plugins.unserialize(editable)
+  actions(editor.store.dispatch).editable.update({
+    ...state,
+    config: {
+      whitelist: editor.plugins.getRegisteredNames()
+    }
+  })
+}
+
 /**
  * Editor is the core interface for dealing with the editor.
  */
@@ -50,15 +60,10 @@ class Editor {
     this.trigger = actions(this.store.dispatch)
     this.defaultPlugin = defaultPlugin
 
-    editables.forEach((editable: EditableType) => {
-      const state = this.plugins.unserialize(editable)
-      this.trigger.editable.add({
-        ...state,
-        config: {
-          whitelist: this.plugins.getRegisteredNames()
-        }
-      })
-    })
+    this.trigger.editable.add = update(this)
+    this.trigger.editable.update = update(this)
+
+    editables.forEach(this.trigger.editable.add)
   }
 
   trigger = {}
