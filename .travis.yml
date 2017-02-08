@@ -11,7 +11,7 @@ env:
   - TEST_TYPE=build
 
 install:
-  - npm i -g yarn lerna
+  - npm i -g yarn
   - yarn install
 
 script:
