@@ -19,7 +19,7 @@ const initialState = () => ({
   }
 })
 
-const update = (editor) => (editable) => {
+const update = (editor: Editor) => (editable: EditableType) => {
   const state = editor.plugins.unserialize(editable)
   actions(editor.store.dispatch).editable.update({
     ...state,

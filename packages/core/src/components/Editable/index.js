@@ -39,7 +39,7 @@ class Editable extends Component {
     }
 
     const state: any = editable(this.props.editor.store.getState(), { id: this.props.id })
-    if (state === this.previousState || !Boolean(state)) {
+    if (state === this.previousState || !state) {
       return
     }
 

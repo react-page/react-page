@@ -34,7 +34,7 @@ export const editables = ({ editables: { present } }: Editables = {}) => present
 
 export const purifiedEditable = (state: Editables, props: Editable) => {
   const found = editable(state, props)
-  if (!Boolean(found)) {
+  if (!found) {
     return null
   }
 
@@ -71,7 +71,7 @@ export const searchNodeEverywhere = (state: Object, id: string) => {
 
 export const purifiedNode = (state: Editables, props: Editable): any => {
   const found = node(state, props)
-  if (!Boolean(found)) {
+  if (!found) {
     return null
   }
 
