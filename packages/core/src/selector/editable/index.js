@@ -69,7 +69,7 @@ export const searchNodeEverywhere = (state: Object, id: string) => {
   return null
 }
 
-export const purifiedNode = (state: Editables, props: Editable): Object => {
+export const purifiedNode = (state: Editables, props: Editable): any => {
   const found = node(state, props)
   if (!Boolean(found)) {
     return null
