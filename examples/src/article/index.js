@@ -53,8 +53,6 @@ const editor = new Editor({
   // pass the content states
   editables: [
     ...content,
-    // an empty state
-    { id: '10', cells: [] },
     // creates an empty state, basically like the line above
     createEmptyState()
   ],
@@ -83,3 +81,5 @@ ReactDOM.render((
 
 // Render as beautified mark up (html)
 ReactDOM.render(<HTMLRenderer state={content[0]} plugins={plugins}/>, document.getElementById('editable-static'))
+
+editor.trigger.editable.add({ id: '10', cells: [] })
