@@ -338,5 +338,5 @@ export default [
       ],
       id: '15efd3c3-b683-4da6-b107-16d8d0c8cd26'
     }]
-  }
+  },
 ]

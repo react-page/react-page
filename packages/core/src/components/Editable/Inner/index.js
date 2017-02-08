@@ -30,7 +30,12 @@ class Inner extends Component {
   }
 
   createFallbackCell = () => {
-    const { node: { cells = [] }, createFallbackCell, defaultPlugin, id } = this.props
+    const { node, createFallbackCell, defaultPlugin, id } = this.props
+    if (!node) {
+      return
+    }
+
+    const { cells = [] } = node
     if (cells.length === 0) {
       createFallbackCell(new ContentPlugin(defaultPlugin), id)
     }
