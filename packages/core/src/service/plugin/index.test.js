@@ -22,7 +22,7 @@ describe('PluginService', () => {
     })
   })
 
-  const np = {name: 'baz', version: '0.0.1', Component: <div />}
+  const np = { name: 'baz', version: '0.0.1', Component: <div /> }
   it('should register a content plugin', () => {
     plugins.registerContentPlugin(np)
     expect(plugins.findContentPlugin(np.name, np.version).name, 'to equal', np.name)
