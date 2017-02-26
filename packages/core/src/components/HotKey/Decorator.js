@@ -53,7 +53,7 @@ const falser = (err: Error) => {
   }
 }
 
-if (Mousetrap) {
+if (Mousetrap && Mousetrap.prototype) {
   Mousetrap.prototype.stopCallback = () => false
 }
 
