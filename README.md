@@ -8,11 +8,18 @@
 [![Join newsletter](https://img.shields.io/badge/join-newsletter-00cc99.svg)](http://eepurl.com/bKT3N9)
 [![Follow twitter](https://img.shields.io/badge/follow-twitter-00cc99.svg)](https://twitter.com/_aeneasr)
 [![Follow GitHub](https://img.shields.io/badge/follow-github-00cc99.svg)](https://github.com/arekkas)
- 
-The ORY Editor is part of the ORY Content Toolchain, which is a set of tools that helps you build,
-distribute and manage your (awesome) content.
 
-Want a closer look and experience what the ORY Editor can do? Check out our demo at [editor.ory.am](http://editor.ory.am/)!
+The ORY Editor is an highly extensible WYSI (what you see is) layout editor for rich HTML
+content (rich text, videos, applets, tables, twitter feeds, ...). If you are fed up with the limitations
+of `contenteditable`, you are in the right place.
+
+The ORY Editor is used at Germany's largest (~800k uniques per month) E-Learning Website
+[www.serlo.org](http://de.serlo.org) to improve the wiki experience.
+
+We use the ORY Editor for [ORY Sites](#ory-sites), a tool for creating websites. It's similar to squarespace, but it works
+offline, the sites you created are stored *on your device*, and you are able to add your own layouts and plugins to it.
+
+Check out our demo at [editor.ory.am](http://editor.ory.am/)!
 
 *Please Note:* The features, APIs and docs of the ORY Editor are new and very young. We cannot always guarantee
 backwards compatibility but we try our best! We are looking for your help also to find issues and
@@ -20,7 +27,6 @@ improve the overall experience, APIs and documentation.
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-
 
 - [Introduction](#introduction)
   - [What makes it different?](#what-makes-it-different)
@@ -62,18 +68,19 @@ that you can write yourself.
 
 We are building a platform called ORY Sites for creating, managing and publishing websites. In contrast to existing
 providers such as [squarespace.com](https://www.squarespace.com/), [wix.com](http://wix.com/), and others, you have all
-your content stored locally and because the output is only html, css and client-side javascript, you are free to host it
-on ORY Sites, GitHub Pages, AWS S3, or anywhere else you like.
+your content stored locally. The build is static html, css and client-side javascript and you are free to host it
+on ORY Sites, GitHub Pages, AWS S3, or anywhere you like.
+
 Because ORY Sites comes with a desktop app, it even works when you do not have internet connection.
-The app is built on top of the ORY Editor, allowing you to integrate plugins you write yourself, or plugins from 
-third-parties. The ORY Sites app is completely free and we provide paid plugins and services that save you time
+The app is built on top of the ORY Editor, allowing you to integrate plugins you write yourself, or plugins from
+third-parties. The ORY Sites app is completely free and we provide paid services that save you time
 and money.
 
 Compared to popular open source content management systems like drupal or wordpress, there are no security updates
 necessary, because ORY Sites uses plain html files to serve your site - no SQL or XSS injections possible. Yet,
 content, layout and behaviour is very customizable.
 
-If this caught your attention, sign up for our newsletter and get an exclusive beta access to ORY Sites!
+If this caught your attention, sign up for our newsletter and get an exclusive beta access to the ORY Sites App!
 
 <p align="center">
   <strong><a href="http://eepurl.com/cwtSPL">>> Join Newsletter <<</a></strong>
@@ -129,7 +136,7 @@ Our toolchain contains tests, eslint and flow types. We highly recommend to run 
 
 ```bash
 # run the tests in watch mode
-$ npm run test:watch 
+$ npm run test:watch
 
 # run eslint in watch mode
 $ npm run lint:watch
