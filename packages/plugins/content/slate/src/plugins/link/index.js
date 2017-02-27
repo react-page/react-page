@@ -27,6 +27,10 @@ class Button extends Component {
   input: Component<*, *, *>
 
   onRef = (component: Component<*, *, *>) => {
+    if (!component && true) {
+      return null
+    }
+
     const e = component.querySelector('input')
     if (e) {
       e.focus()
