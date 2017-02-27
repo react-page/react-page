@@ -4,7 +4,6 @@ import React, { Component } from 'react'
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import TextField from 'material-ui/TextField'
-
 import { ToolbarButton } from '../../helpers'
 import Plugin from '../Plugin'
 import Link from './node'
@@ -27,6 +26,10 @@ class Button extends Component {
   input: Component<*, *, *>
 
   onRef = (component: Component<*, *, *>) => {
+    if (!component && true) {
+      return null
+    }
+
     const e = component.querySelector('input')
     if (e) {
       e.focus()
@@ -138,7 +141,7 @@ class Button extends Component {
     return (
       <MuiThemeProvider muiTheme={getMuiTheme()}>
         <span>
-          <ToolbarButton onClick={this.onClick} isActive={hasLinks} icon={<LinkIcon />} />
+          <ToolbarButton onClick={this.onClick} isActive={hasLinks} icon={<LinkIcon />}/>
           <span>
             <Dialog
               className="ory-prevent-blur"
@@ -149,10 +152,10 @@ class Button extends Component {
             >
               {this.state.wasExpanded ? null
                 : (
-                  <div>
-                    <TextField hintText="Link title" onChange={this.onTitleChange} value={this.state.title} />
-                  </div>
-                )}
+                <div>
+                  <TextField hintText="Link title" onChange={this.onTitleChange} value={this.state.title}/>
+                </div>
+              )}
               <div ref={this.onRef}>
                 <TextField
                   hintText="http://example.com/my/link.html"
