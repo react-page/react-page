@@ -37,7 +37,6 @@
     "ory-editor-ui": "0.0.0"
   },
   "devDependencies": {
-    "babel-cli": "^6.18.0",
     "babel-eslint": "^7.1.1",
     "babel-plugin-inline-json-import": "^0.1.6",
     "babel-plugin-transform-class-properties": "^6.19.0",
@@ -55,7 +54,6 @@
     "eslint-plugin-react": "^6.8.0",
     "flow-bin": "^0.37.4",
     "jest": "^18.1.0",
-    "npm-run-all": "^4.0.0",
     "postcss-cli": "^2.6.0",
     "postcss-cssnext": "^2.9.0",
     "postcss-import": "^9.1.0",
