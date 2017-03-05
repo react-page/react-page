@@ -1,14 +1,15 @@
-import { mount } from 'enzyme'
+import { mount, render } from 'enzyme'
 import React from 'react'
 import { HTMLRenderer } from './index.js'
+import slate from 'ory-editor-plugins-slate'
 
-const Component = ({ children, state: { className } }) => <div className={`${className}`}>{children}</div>
+const Layout = ({ children, state: { className } }) => <div className={`${className}`}>{children}</div>
 
 const plugins = {
-  content: [], layout: [{
+  content: [slate()], layout: [{
     name: 'layout',
     version: '0.0.1',
-    Component
+    Component: Layout
   }]
 }
 
@@ -105,6 +106,47 @@ describe('HTMLRenderer', () => {
   //     expect(wrapper.find('.ory-cell-md-6')).toHaveLength(2)
   //   })
   // })
+  describe('rendering html content from slate', () => {
+    [{
+      id: '1',
+      cells: [{
+        id: '4c0f5ab5-f331-4d69-8850-7de0df917cc2',
+        size: 12,
+        content: {
+          plugin: {
+            name: 'ory/editor/core/content/slate',
+            version: '0.0.1'
+          },
+          state: {
+            serialized: {
+              nodes: [
+                {
+                  kind: 'block',
+                  type: 'PARAGRAPH/PARAGRAPH',
+                  nodes: [
+                    {
+                      kind: 'text',
+                      text: 'Asdfg'
+                    }
+                  ],
+                  data: {
+                    align: 'center'
+                  }
+                }
+              ]
+            }
+          }
+        }
+      }]
+    }].forEach((c, k) => {
+      describe(`case ${k}`, () => {
+        const wrapper = render(<HTMLRenderer state={c} plugins={plugins} />)
+        it('should pass', () => {
+          expect(wrapper.html()).toEqual('<div class="ory-row"><div class="ory-cell ory-cell-md-12 ory-cell-xs-12"><div class="ory-cell-inner ory-cell-leaf"><div><p style="text-align:center;">Asdfg</p></div></div></div></div>')
+        })
+      })
+    })
+  })
 
   describe('two inlining content cells', () => {
     const state = {

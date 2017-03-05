@@ -28,6 +28,7 @@ const HTMLCell = (props: Cell) => {
 
   if (layout.plugin) {
     const { state, plugin: { Component } } = layout
+
     return (
       <div className={cn}>
         <div className="ory-cell-inner">
@@ -42,11 +43,13 @@ const HTMLCell = (props: Cell) => {
       </div>
     )
   } else if (content.plugin) {
-    const { state, plugin: { Component } } = content
+    const { state, plugin: { Component, StaticComponent } } = content
+    const Renderer = StaticComponent || Component
+
     return (
       <div className={cn}>
         <div className="ory-cell-inner ory-cell-leaf">
-          <Component
+          <Renderer
             readOnly
             state={state}
             onChange={noop}
@@ -64,7 +67,7 @@ const HTMLCell = (props: Cell) => {
 
   return (
     <div className={cn}>
-      <div className="ory-cell-inner">empty</div>
+      <div className="ory-cell-inner" />
     </div>
   )
 }
@@ -72,5 +75,6 @@ const HTMLCell = (props: Cell) => {
 export const HTMLRenderer = ({ state, plugins }: { state: any, plugins: { layout: [], content: []}}) => {
   const service = new PluginService(plugins)
   const props = reducer(service.unserialize(state), { type: 'renderer/noop' })
+
   return <HTMLRow {...props} />
 }

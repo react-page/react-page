@@ -6,6 +6,7 @@ import Subject from 'material-ui/svg-icons/action/subject'
 import { compose, flatten, map, mergeAll, prop, pathOr } from 'ramda'
 import React from 'react'
 import { ActionTypes } from 'redux-undo'
+import { Html } from 'slate'
 
 import Component from './Component'
 import type { Props } from './Component'
@@ -29,8 +30,7 @@ const createPlugins = compose(flatten, map(prop('plugins')))
 const DEFAULT_NODE = P
 
 export const createInitialState = hooks.createInitialState
-
-export default (plugins: Plugin[] = [
+export const defaultPlugins = [
   new ParagraphPlugin(),
   new EmphasizePlugin(),
   new HeadingsPlugin({ DEFAULT_NODE }),
@@ -40,7 +40,9 @@ export default (plugins: Plugin[] = [
   new BlockquotePlugin({ DEFAULT_NODE }),
   new AlignmentPlugin(),
   // new KatexPlugin({ DEFAULT_NODE })
-]) => {
+]
+
+export default (plugins: Plugin[] = defaultPlugins) => {
   const props = {}
   props.schema = {
     nodes: createNodes(plugins),
@@ -101,9 +103,12 @@ export default (plugins: Plugin[] = [
   )
   props.ToolbarButtons = ToolbarButtons
 
+  const html = new Html({ rules: defaultPlugins })
   const Slate = (cellProps: Props) => <Component {...cellProps} {...props} />
+  const StaticComponent = ({ state: { editorState } = {} }: Props) => <div dangerouslySetInnerHTML={{ __html: html.serialize(editorState) }} />
   return {
     Component: Slate,
+    StaticComponent,
 
     name: 'ory/editor/core/content/slate',
     version: '0.0.1',

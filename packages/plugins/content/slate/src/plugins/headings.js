@@ -1,4 +1,4 @@
-/* eslint-disable prefer-reflect */
+/* eslint-disable prefer-reflect, default-case, react/display-name */
 import React from 'react'
 import H1Icon from 'material-ui/svg-icons/image/looks-one'
 import H2Icon from 'material-ui/svg-icons/image/looks-two'
@@ -17,6 +17,8 @@ export const H3 = 'HEADINGS/HEADING-THREE'
 export const H4 = 'HEADINGS/HEADING-FOUR'
 export const H5 = 'HEADINGS/HEADING-FIVE'
 export const H6 = 'HEADINGS/HEADING-SIX'
+
+const createNode = (type: string, el: any, next: any) => ({ kind: 'block', type, nodes: next(el.children) })
 
 export default class HeadingsPlugin extends Plugin {
   constructor(props: Props) {
@@ -66,4 +68,41 @@ export default class HeadingsPlugin extends Plugin {
     this.createButton(H5, <H5Icon />),
     this.createButton(H6, <H6Icon />)
   ]
+
+  deserialize = (el, next) => {
+    switch (el.tagName) {
+      case 'h1':
+        return createNode(H1, el, next)
+      case 'h2':
+        return createNode(H2, el, next)
+      case 'h3':
+        return createNode(H3, el, next)
+      case 'h4':
+        return createNode(H4, el, next)
+      case 'h5':
+        return createNode(H5, el, next)
+      case 'h6':
+        return createNode(H6, el, next)
+    }
+  }
+
+  serialize = (object: { type: string, kind: string }, children: any[]) => {
+    if (object.kind !== 'block') {
+      return
+    }
+    switch (object.type) {
+      case H1:
+        return <h1>{children}</h1>
+      case H2:
+        return <h2>{children}</h2>
+      case H3:
+        return <h3>{children}</h3>
+      case H4:
+        return <h4>{children}</h4>
+      case H5:
+        return <h5>{children}</h5>
+      case H6:
+        return <h6>{children}</h6>
+    }
+  }
 }

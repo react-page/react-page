@@ -1,4 +1,4 @@
-/* eslint-disable prefer-reflect */
+/* eslint-disable prefer-reflect, default-case, react/display-name */
 import BlockquoteIcon from 'material-ui/svg-icons/editor/format-quote'
 import React from 'react'
 import createBlockquotePlugin from 'slate-edit-blockquote'
@@ -61,4 +61,25 @@ export default class BlockquotePlugin extends Plugin {
   toolbarButtons = [
     this.Button
   ]
+
+  deserialize = (el, next) => {
+    switch (el.tagName) {
+      case 'blockquote':
+        return {
+          kind: 'block',
+          type: BLOCKQUOTE,
+          nodes: next(el.children)
+        }
+    }
+  }
+
+  serialize = (object: { type: string, kind: string }, children: any[]) => {
+    if (object.kind !== 'block') {
+      return
+    }
+    switch (object.type) {
+      case BLOCKQUOTE:
+        return <blockquote>{children}</blockquote>
+    }
+  }
 }

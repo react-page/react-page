@@ -76,7 +76,7 @@ export type LayoutPluginProps<T> = {
 export class Plugin {
   constructor(config: any) {
     const {
-      name, version, Component, IconComponent, text,
+      name, version, Component, IconComponent, text, StaticComponent,
       serialize,
       unserialize,
     } = config
@@ -88,7 +88,7 @@ export class Plugin {
     this.name = name
     this.version = version
     this.Component = Component
-
+    this.StaticComponent = StaticComponent
     this.IconComponent = IconComponent
     this.text = text
     this.config = config
@@ -120,6 +120,11 @@ export class Plugin {
    */
   Component: any
   // Component: Element<*> | Component<*, *, *> | (props: any) => Element<*>
+
+  /**
+   * @member the plugin's react component for rendering static content.
+   */
+  StaticComponent: any
 
   /**
    * @member the text that will be shown alongside the icon in the toolbar.
