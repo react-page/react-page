@@ -11,7 +11,7 @@
     "npm-run-all": "^4.0.0",
     "rimraf": "^2.5.4",
     "babel-cli": "^6.18.0",
-    "jest": "^18.1.0",
+    "jest": "^19.0.2",
     "flow-bin": "^0.37.4",
     "cross-env": "^3.1.4",
     "coveralls": "^2.11.15",
@@ -53,6 +53,6 @@
     "publish": "lerna publish"
   },
   "jest": {
-    "testPathIgnorePatterns ": ["skeletons/plugin", "examples"]
+    "testPathIgnorePatterns": ["/skeletons/", "/examples/"]
   }
 }
