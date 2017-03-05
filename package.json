@@ -47,8 +47,12 @@
     "build:lib": "lerna run build --ignore ory-editor-examples --concurrency 1",
     "lint": "lerna run lint",
     "flow": "lerna run flow",
-    "test": "lerna run test",
+    "test": "jest",
+    "test:watch": "jest --watch",
     "postinstall": "npm-run-all clean bootstrap build:lib",
     "publish": "lerna publish"
+  },
+  "jest": {
+    "testPathIgnorePatterns ": ["skeletons/plugin", "examples"]
   }
 }

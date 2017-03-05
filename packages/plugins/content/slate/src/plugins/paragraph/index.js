@@ -1,5 +1,6 @@
 // @flow
-/* eslint-disable prefer-reflect */
+/* eslint-disable prefer-reflect, default-case, react/display-name */
+import React from 'react'
 import Plugin from '../Plugin'
 import Paragraph from './node'
 
@@ -9,4 +10,26 @@ export default class ParagraphPlugin extends Plugin {
   name = 'paragraph'
 
   nodes = { [P]: Paragraph }
+
+  deserialize = (el: any, next: any) => {
+    switch (el.tagName) {
+      case 'p':
+        return {
+          kind: 'block',
+          type: P,
+          nodes: next(el.children),
+          // data: Data.create({ textAlign: el.attr('styles')['text-align'] })
+        }
+    }
+  }
+
+  serialize = (object: { type: string, kind: string, data: any }, children: any[]) => {
+    if (object.kind !== 'block') {
+      return
+    }
+    switch (object.type) {
+      case P:
+        return <p style={{ textAlign: object.data.get('align') }}>{children}</p>
+    }
+  }
 }

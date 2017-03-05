@@ -1,4 +1,4 @@
-/* eslint-disable prefer-reflect */
+/* eslint-disable prefer-reflect, default-case, react/display-name */
 import React from 'react'
 import CodeIcon from 'material-ui/svg-icons/action/code'
 
@@ -70,4 +70,25 @@ export default class CodePlugin extends Plugin {
 
   hoverButtons = [this.createButton(CODE, <CodeIcon />)]
   toolbarButtons = [this.createNodeButton(CODE, <CodeIcon />)]
+
+  deserialize = (el, next) => {
+    switch (el.tagName) {
+      case 'code':
+        return {
+          kind: 'block',
+          type: CODE,
+          nodes: next(el.children)
+        }
+    }
+  }
+
+  serialize = (object: { type: string, kind: string, data: any }, children: any[]) => {
+    if (object.kind !== 'block') {
+      return
+    }
+    switch (object.type) {
+      case CODE:
+        return <code>{children}</code>
+    }
+  }
 }

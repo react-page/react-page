@@ -1,7 +1,6 @@
 // @flow
 /* eslint-disable no-unused-vars */
-import { Component } from 'react'
-// import { State } from 'slate'
+import React, { Component } from 'react'
 
 /**
  * @class this is the base class for slate plugins
@@ -28,6 +27,16 @@ export default class Plugin {
   plugins: Array<*> = []
 
   /**
+   * @member serialize a plugin's state to html
+   */
+  serialize: (object: { kind: string, type: string, data: any }, children: any[]) => any
+
+  /**
+   * @member serialize a plugin's state from html
+   */
+  deserialize: () => any
+
+  /**
    * This handler is called when any key is pressed
    *
    * @param e the keydown event
@@ -37,7 +46,7 @@ export default class Plugin {
    */
   onKeyDown = (
     e: Event,
-    data: { key: string, isMod: bool, isShift: bool },
+    data: { key: string, isMod: boolean, isShift: boolean },
     state: any
   ): ?any => null
 

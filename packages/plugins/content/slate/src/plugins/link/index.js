@@ -1,4 +1,4 @@
-/* eslint-disable no-alert, prefer-reflect */
+/* eslint-disable no-alert, prefer-reflect, default-case, react/display-name */
 import LinkIcon from 'material-ui/svg-icons/content/link'
 import React, { Component } from 'react'
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
@@ -9,6 +9,7 @@ import Plugin from '../Plugin'
 import Link from './node'
 import Dialog from 'material-ui/Dialog'
 import FlatButton from 'material-ui/FlatButton'
+import { Data } from 'slate'
 import type { Props } from '../props'
 
 export const A = 'LINK/LINK'
@@ -155,7 +156,7 @@ class Button extends Component {
                   <div>
                     <TextField hintText="Link title" onChange={this.onTitleChange} value={this.state.title} />
                   </div>
-              )}
+                )}
               <div ref={this.onRef}>
                 <TextField
                   hintText="http://example.com/my/link.html"
@@ -177,4 +178,26 @@ export default class LinkPlugin extends Plugin {
 
   hoverButtons = [Button]
   toolbarButtons = [Button]
+
+  deserialize = (el, next) => {
+    switch (el.tagName) {
+      case 'strong':
+        return {
+          kind: 'mark',
+          type: A,
+          nodes: next(el.children),
+          data: Data.create({ href: el.href })
+        }
+    }
+  }
+
+  serialize = (object: { type: string, kind: string, data: any }, children: any[]) => {
+    if (object.kind !== 'mark') {
+      return
+    }
+    switch (object.type) {
+      case A:
+        return <a href={object.data.get('href')}>{children}</a>
+    }
+  }
 }

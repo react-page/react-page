@@ -1,4 +1,4 @@
-/* eslint-disable prefer-reflect */
+/* eslint-disable prefer-reflect, default-case, react/display-name */
 import React from 'react'
 import ListIcon from 'material-ui/svg-icons/action/list'
 import OrderedListIcon from 'material-ui/svg-icons/editor/format-list-numbered'
@@ -79,4 +79,41 @@ export default class ListsPlugin extends Plugin {
     this.createButton(UL, <ListIcon />),
     this.createButton(OL, <OrderedListIcon />)
   ]
+
+  deserialize = (el, next) => {
+    switch (el.tagName) {
+      case 'ul':
+        return {
+          kind: 'block',
+          type: UL,
+          nodes: next(el.children)
+        }
+      case 'li':
+        return {
+          kind: 'block',
+          type: LI,
+          nodes: next(el.children)
+        }
+      case 'ol':
+        return {
+          kind: 'block',
+          type: OL,
+          nodes: next(el.children)
+        }
+    }
+  }
+
+  serialize = (object: { type: string, kind: string }, children: any[]) => {
+    if (object.kind !== 'block') {
+      return
+    }
+    switch (object.type) {
+      case UL:
+        return <ul>{children}</ul>
+      case LI:
+        return <li>{children}</li>
+      case OL:
+        return <ol>{children}</ol>
+    }
+  }
 }

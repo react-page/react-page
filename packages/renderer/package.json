@@ -32,6 +32,7 @@
     "ory-editor-core": "0.0.0"
   },
   "devDependencies": {
+    "ory-editor-plugins-slate": "0.0.0",
     "enzyme": "^2.7.0",
     "react": "^15.4.2",
     "react-addons-test-utils": "^15.4.2",

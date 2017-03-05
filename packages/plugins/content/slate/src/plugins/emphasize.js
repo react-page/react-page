@@ -1,4 +1,4 @@
-/* eslint-disable prefer-reflect */
+/* eslint-disable prefer-reflect, default-case, react/display-name */
 import React from 'react'
 import BoldIcon from 'material-ui/svg-icons/editor/format-bold'
 import ItalicIcon from 'material-ui/svg-icons/editor/format-italic'
@@ -71,4 +71,41 @@ export default class EmphasizePlugin extends Plugin {
     createButton(EM, <ItalicIcon />),
     createButton(U, <UnderlinedIcon />)
   ]
+
+  deserialize = (el, next) => {
+    switch (el.tagName) {
+      case 'strong':
+        return {
+          kind: 'mark',
+          type: STRONG,
+          nodes: next(el.children)
+        }
+      case 'em':
+        return {
+          kind: 'mark',
+          type: EM,
+          nodes: next(el.children)
+        }
+      case 'u':
+        return {
+          kind: 'mark',
+          type: U,
+          nodes: next(el.children)
+        }
+    }
+  }
+
+  serialize = (object: { type: string, kind: string }, children: any[]) => {
+    if (object.kind !== 'mark') {
+      return
+    }
+    switch (object.type) {
+      case STRONG:
+        return <strong>{children}</strong>
+      case EM:
+        return <em>{children}</em>
+      case U:
+        return <u>{children}</u>
+    }
+  }
 }
