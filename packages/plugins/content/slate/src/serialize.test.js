@@ -33,20 +33,69 @@ describe('serialize to html', () => {
       i: {
         nodes: [
           {
-            "kind": "block",
-            "type": "HEADINGS/HEADING-FOUR",
-            "nodes": [
+            kind: 'block',
+            type: 'CODE/CODE',
+            nodes: [
               {
-                "kind": "inline",
-                "type": "LINK/LINK",
-                "nodes": [
+                kind: 'text',
+                text: 'asdf'
+              }
+            ]
+          },
+        ]
+      },
+      o: '<pre>asdf</pre>'
+    },
+    {
+      i: {
+        nodes: [{
+          kind: 'block',
+          type: 'PARAGRAPH/PARAGRAPH',
+          nodes: [
+            {
+              kind: 'text',
+              ranges: [
+                {
+                  text: 'a'
+                },
+                {
+                  text: 'bc',
+                  marks: [
+                    {
+                      type: 'CODE/CODE'
+                    }
+                  ]
+                },
+                {
+                  text: 'de'
+                }
+              ]
+            }
+          ]
+        },
+        ]
+      },
+      o: '<p>a<code>bc</code>de</p>',
+      skip: true
+    },
+    {
+      i: {
+        nodes: [
+          {
+            kind: 'block',
+            type: 'HEADINGS/HEADING-FOUR',
+            nodes: [
+              {
+                kind: 'inline',
+                type: 'LINK/LINK',
+                nodes: [
                   {
-                    "kind": "text",
-                    "text": "asdf"
+                    kind: 'text',
+                    text: 'asdf'
                   }
                 ],
-                "data": {
-                  "href": "foo"
+                data: {
+                  href: 'foo'
                 }
               }
             ]
@@ -86,7 +135,7 @@ describe('serialize to html', () => {
       it('should serialize properly', () => {
         expect(html.serialize(Raw.deserialize(c.i, { terse: true }))).toEqual(c.o)
       })
-      it('should deserialize properly', () => {
+      it(`should deserialize properly: ${c.o}`, () => {
         if (c.skip) {
           return
         }

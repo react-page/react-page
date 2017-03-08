@@ -1,7 +1,7 @@
 /* eslint-disable prefer-reflect, default-case, react/display-name */
 import React from 'react'
 import CodeIcon from 'material-ui/svg-icons/action/code'
-
+import { Data } from 'slate'
 import { makeTagMark, ToolbarButton } from '../../helpers'
 import Plugin from '../Plugin'
 import Code from './node'
@@ -75,6 +75,13 @@ export default class CodePlugin extends Plugin {
     switch (el.tagName) {
       case 'code':
         return {
+          kind: 'mark',
+          type: CODE,
+          data: Data.create({}),
+          nodes: next(el.children)
+        }
+      case 'pre':
+        return {
           kind: 'block',
           type: CODE,
           nodes: next(el.children)
@@ -83,12 +90,16 @@ export default class CodePlugin extends Plugin {
   }
 
   serialize = (object: { type: string, kind: string, data: any }, children: any[]) => {
-    if (object.kind !== 'block') {
-      return
-    }
-    switch (object.type) {
-      case CODE:
-        return <code>{children}</code>
+    if (object.kind === 'mark') {
+      switch (object.type) {
+        case CODE:
+          return <code>{children}</code>
+      }
+    } else if (object.kind === 'block') {
+      switch (object.type) {
+        case CODE:
+          return <pre>{children}</pre>
+      }
     }
   }
 }
