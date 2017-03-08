@@ -33,6 +33,33 @@ describe('serialize to html', () => {
       i: {
         nodes: [
           {
+            "kind": "block",
+            "type": "HEADINGS/HEADING-FOUR",
+            "nodes": [
+              {
+                "kind": "inline",
+                "type": "LINK/LINK",
+                "nodes": [
+                  {
+                    "kind": "text",
+                    "text": "asdf"
+                  }
+                ],
+                "data": {
+                  "href": "foo"
+                }
+              }
+            ]
+          },
+        ]
+      },
+      o: '<h4><a href="foo">asdf</a></h4>',
+      skip: true
+    },
+    {
+      i: {
+        nodes: [
+          {
             kind: 'block',
             type: 'PARAGRAPH/PARAGRAPH', nodes: [{ kind: 'text', text: 'ab' }], data: { align: 'center' }
           }
