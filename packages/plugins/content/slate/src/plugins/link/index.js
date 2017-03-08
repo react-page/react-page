@@ -183,7 +183,7 @@ export default class LinkPlugin extends Plugin {
     switch (el.tagName) {
       case 'strong':
         return {
-          kind: 'mark',
+          kind: 'inline',
           type: A,
           nodes: next(el.children),
           data: Data.create({ href: el.href })
@@ -192,7 +192,7 @@ export default class LinkPlugin extends Plugin {
   }
 
   serialize = (object: { type: string, kind: string, data: any }, children: any[]) => {
-    if (object.kind !== 'mark') {
+    if (object.kind !== 'inline') {
       return
     }
     switch (object.type) {
