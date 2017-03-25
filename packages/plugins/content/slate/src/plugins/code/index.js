@@ -66,7 +66,7 @@ export default class CodePlugin extends Plugin {
   name = 'code'
 
   marks = { [CODE]: makeTagMark('code') }
-  node = { [CODE]: Code }
+  nodes = { [CODE]: Code }
 
   hoverButtons = [this.createButton(CODE, <CodeIcon />)]
   toolbarButtons = [this.createNodeButton(CODE, <CodeIcon />)]
@@ -98,7 +98,11 @@ export default class CodePlugin extends Plugin {
     } else if (object.kind === 'block') {
       switch (object.type) {
         case CODE:
-          return <pre>{children}</pre>
+          return (
+            <pre style={{ overflow: 'scroll' }}>
+              <code>{children}</code>
+            </pre>
+          )
       }
     }
   }
