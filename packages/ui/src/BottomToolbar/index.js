@@ -9,7 +9,7 @@ const BottomToolbar = ({ open = false, children, className }: { open?: boolean, 
   <MuiThemeProvider muiTheme={getMuiTheme()}>
     <Drawer className={className} open={open} docked containerStyle={{
       top: 'inherit',
-      bottom: '-10px',
+      bottom: '0px',
       height: 'auto',
       margin: '0 auto',
       maxWidth: '65%',
