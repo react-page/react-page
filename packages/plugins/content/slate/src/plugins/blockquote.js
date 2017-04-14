@@ -73,13 +73,13 @@ export default class BlockquotePlugin extends Plugin {
     }
   }
 
-  serialize = (object: { type: string, kind: string }, children: any[]) => {
+  serialize = (object: { type: string, kind: string, data: any }, children: any[]) => {
     if (object.kind !== 'block') {
       return
     }
     switch (object.type) {
       case BLOCKQUOTE:
-        return <blockquote>{children}</blockquote>
+        return <blockquote style={{ textAlign: object.data.get('align') }}>{children}</blockquote>
     }
   }
 }

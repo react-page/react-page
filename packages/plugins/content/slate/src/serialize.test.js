@@ -112,6 +112,46 @@ describe('serialize to html', () => {
         nodes: [
           {
             kind: 'block',
+            type: 'HEADINGS/HEADING-THREE',
+            nodes: [
+              {
+                kind: 'text', text: 'asdfgh'
+              }
+            ],
+            data: {
+              align: 'center'
+            }
+          }
+        ]
+      },
+      o: '<h3 style="text-align:center;">asdfgh</h3>',
+      skip: true
+    },
+    {
+      i: {
+        nodes: [
+          {
+            kind: 'block',
+            type: 'BLOCKQUOTE/BLOCKQUOTE',
+            nodes: [
+              {
+                kind: 'text', text: 'asdfgh'
+              }
+            ],
+            data: {
+              align: 'center'
+            }
+          }
+        ]
+      },
+      o: '<blockquote style="text-align:center;">asdfgh</blockquote>',
+      skip: true
+    },
+    {
+      i: {
+        nodes: [
+          {
+            kind: 'block',
             type: 'PARAGRAPH/PARAGRAPH', nodes: [{ kind: 'text', text: 'ab' }], data: { align: 'center' }
           }
         ]
