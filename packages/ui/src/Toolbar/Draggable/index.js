@@ -6,7 +6,7 @@ import { source, collect } from './helper'
 import classNames from 'classnames'
 import { connect } from 'react-redux'
 import { clearHover } from 'ory-editor-core/lib/actions/cell/drag'
-import { insertMode, editMode, layoutMode } from 'ory-editor-core/lib/actions/display'
+import { insertMode, layoutMode } from 'ory-editor-core/lib/actions/display'
 
 const instances = {}
 
@@ -36,7 +36,7 @@ class Draggable extends Component {
 
 const mapStateToProps = null
 
-const mapDispatchToProps = { insertMode, editMode, layoutMode, clearHover }
+const mapDispatchToProps = { insertMode, layoutMode, clearHover }
 
 export default (dragType: string = 'CELL') => {
   if (!instances[dragType]) {
