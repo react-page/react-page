@@ -19,7 +19,7 @@
 
 .ory-cell-draggable-overlay:hover {
   background: var(--minBlack);
-  border: 1px solid var(--lightBlack);
+  border: 1px solid var(--lightWhite);
   background-blend-mode: screen;
 }
 
@@ -35,7 +35,9 @@
   max-width: 30%;
   margin: 0 auto;
   border-radius: 0 0 12px 12px;
-  text-transform: lowercase;
+  text-transform: uppercase;
+  font-size: 75%;
+  letter-spacing:0.15em;
 }
 
 .ory-cell-draggable-overlay.ory-cell-draggable-leaf {
