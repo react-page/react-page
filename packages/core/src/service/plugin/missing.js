@@ -1,5 +1,5 @@
 // @flow
-import React, { PropTypes } from 'react'
+import React from 'react'
 import type { ContentPluginProps } from './classes'
 
 const Missing = (props: ContentPluginProps<{}>) => (
@@ -10,11 +10,6 @@ const Missing = (props: ContentPluginProps<{}>) => (
     <pre>{JSON.stringify(props, null, 2)}</pre>
   </div>
 )
-
-Missing.propTypes = {
-  name: PropTypes.string.isRequired,
-  version: PropTypes.string.isRequired
-}
 
 export default (plugin: { name: string, version: string }) => ({
   Component: Missing,

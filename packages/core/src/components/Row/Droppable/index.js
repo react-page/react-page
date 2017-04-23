@@ -1,5 +1,5 @@
 // @flow
-import React, { Component, PropTypes } from 'react'
+import React, { Component } from 'react'
 import { DropTarget as dropTarget } from 'react-dnd'
 import { connect } from 'react-redux'
 
@@ -23,10 +23,6 @@ class Droppable extends Component {
 
     return this.props.connectDropTarget(<div className="ory-row-droppable">{this.props.children}</div>)
   }
-}
-
-Droppable.propTypes = {
-  connectDropTarget: PropTypes.func.isRequired
 }
 
 const mapDispatchToProps = { ...hoverActions, ...insertActions }
