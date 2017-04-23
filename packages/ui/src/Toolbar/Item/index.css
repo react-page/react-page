@@ -1,8 +1,25 @@
-.ory-toolbar-item-drag-handle:hover {
+.ory-toolbar-item-drag-handle {
   background: var(--faintBlack);
-  border-radius: 12px;
+  border-radius: 0;
+  color:var(--darkWhite) !important;
+  fill: var(--darkWhite) !important;
 }
 
-.ory-toolbar-item-drag-handle:active {
+.ory-toolbar-item:hover .ory-toolbar-item-drag-handle {
+  background: var(--faintBlack);
+  border-radius: 12px;
+  color:var(--lightBlack) !important;
+  fill: var(--lightBlack) !important;
+}
+
+.ory-toolbar-item:hover .ory-toolbar-item-drag-handle:hover {
+  background: var(--lightBlack);
+  color:var(--darkWhite) !important;
+  fill: var(--darkWhite) !important;
+}
+
+.ory-toolbar-item:hover .ory-toolbar-item-drag-handle:active {
   background: var(--minBlack);
+  color:var(--darkWhite) !important;
+  fill: var(--darkWhite) !important;
 }
