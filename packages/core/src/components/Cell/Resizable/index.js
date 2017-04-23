@@ -8,6 +8,7 @@ import { createStructuredSelector } from 'reselect'
 import { resizeMode, editMode } from '../../../actions/display'
 import { computeStepWidth, widthToSize } from './helper.js'
 import type { ComponentizedCell } from '../../../types/editable'
+import { shouldPureComponentUpdate } from '../../../helper/shouldComponentUpdate'
 
 class Resizable extends Component {
   constructor(props: ComponentizedCell) {
@@ -28,6 +29,8 @@ class Resizable extends Component {
   }
 
   props: ComponentizedCell & { children: any }
+
+  shouldComponentUpdate = shouldPureComponentUpdate
 
   onResize = (event: Event, { size }: Object) => {
     const newSize = widthToSize(this.state, this.props, size)
