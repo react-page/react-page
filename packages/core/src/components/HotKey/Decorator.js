@@ -1,6 +1,6 @@
 // @flow
 /* eslint-disable no-empty-function */
-import { Component, PropTypes } from 'react'
+import { Component } from 'react'
 import { connect } from 'react-redux'
 import { createStructuredSelector } from 'reselect'
 import pathOr from 'ramda/src/pathOr'
@@ -144,11 +144,6 @@ class Decorator extends Component {
     const { children } = this.props
     return children
   }
-}
-
-Decorator.propTypes = {
-  children: PropTypes.node.isRequired,
-  id: PropTypes.string.isRequired
 }
 
 const mapStateToProps = createStructuredSelector({
