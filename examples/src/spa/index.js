@@ -1,6 +1,11 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 
+if (process.env.NODE_ENV !== 'production' && process.env.WHY_UPDATE === 'on') {
+  const { whyDidYouUpdate } = require('why-did-you-update')
+  whyDidYouUpdate(React)
+}
+
 import Editor, { Editable } from 'ory-editor-core'
 import { Trash, DisplayModeToggle, Toolbar } from 'ory-editor-ui'
 import slate from 'ory-editor-plugins-slate'

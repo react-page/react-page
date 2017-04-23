@@ -1,6 +1,11 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 
+if (process.env.NODE_ENV !== 'production' && process.env.WHY_UPDATE === 'on') {
+  const { whyDidYouUpdate } = require('why-did-you-update')
+  whyDidYouUpdate(React)
+}
+
 // The editor core
 import Editor, { Editable, createEmptyState } from 'ory-editor-core'
 import 'ory-editor-core/lib/index.css' // we also want to load the stylesheets
@@ -73,13 +78,13 @@ for (const element of elements) {
 // Render the ui controls, you could implement your own here, of course.
 ReactDOM.render((
   <div>
-    <Trash editor={editor}/>
-    <DisplayModeToggle editor={editor}/>
-    <Toolbar editor={editor}/>
+    <Trash editor={editor} />
+    <DisplayModeToggle editor={editor} />
+    <Toolbar editor={editor} />
   </div>
 ), document.getElementById('controls'))
 
 // Render as beautified mark up (html)
-ReactDOM.render(<HTMLRenderer state={content[0]} plugins={plugins}/>, document.getElementById('editable-static'))
+ReactDOM.render(<HTMLRenderer state={content[0]} plugins={plugins} />, document.getElementById('editable-static'))
 
 editor.trigger.editable.add({ id: '10', cells: [] })
