@@ -9,7 +9,13 @@ import classNames from 'classnames'
 import { removeCell } from 'ory-editor-core/lib/actions/cell/core'
 import throttle from 'lodash.throttle'
 import type { Monitor, Connector } from 'ory-editor-core/lib/types/react-dnd'
-import { isEditMode, isLayoutMode, isPreviewMode, isInsertMode, isResizeMode } from 'ory-editor-core/lib/selector/display'
+import {
+  isEditMode,
+  isLayoutMode,
+  isPreviewMode,
+  isInsertMode,
+  isResizeMode
+} from 'ory-editor-core/lib/selector/display'
 import { createStructuredSelector } from 'reselect'
 
 import Provider from '../Provider'
@@ -40,13 +46,16 @@ const connectMonitor = (connect: Connector, monitor: Monitor) => ({
 
 const Raw = ({ isLayoutMode, connectDropTarget, isOverCurrent }: Object) => connectDropTarget(
   <div className={classNames('ory-controls-trash', { 'ory-controls-trash-active': isLayoutMode })}>
-    <FloatingActionButton secondary disabled={!isOverCurrent}>
-      <Delete />
+    <FloatingActionButton secondary
+      disabled={!isOverCurrent}
+      disabledColor="rgba(0,0,0,.87)"
+    >
+      <Delete style={!isOverCurrent && { color: 'rgba(255,255,255,.87)', fill: 'rgba(255,255,255,.87)' }} />
     </FloatingActionButton>
   </div>
 )
 
-const types = ({ editor }: {editor: Editor}) => [
+const types = ({ editor }: { editor: Editor }) => [
   ...Object.keys(editor.plugins.plugins.layout),
   ...Object.keys(editor.plugins.plugins.content)
 ].map((p: string) => editor.plugins.plugins.content[p].name || editor.plugins.plugins.layout[p].name)
