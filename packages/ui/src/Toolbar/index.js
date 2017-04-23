@@ -63,7 +63,7 @@ class Raw extends Component {
 
   render() {
     const { isInsertMode, editor: { plugins } } = this.props
-    const { isSearching, searchFilter } = this.state
+    const { searchFilter } = this.state
     const content = plugins.plugins.content.filter(searchFilter)
     const layout = plugins.plugins.layout.filter(searchFilter)
 
