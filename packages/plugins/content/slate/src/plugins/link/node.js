@@ -1,18 +1,14 @@
-import React, { PropTypes } from 'react'
+import React from 'react'
 
-const Link = ({ attributes, children, node }) => {
+const Link = ({ attributes, children, node }: {
+  attributes: any,
+  children: any,
+  node: { data: any }
+}) => {
   const { data } = node
   const href = data.get('href')
 
   return <a {...attributes} href={href}>{children}</a>
-}
-
-Link.propTypes = {
-  attributes: PropTypes.object,
-  children: PropTypes.oneOfType([PropTypes.func, PropTypes.element, PropTypes.array]).isRequired,
-  node: PropTypes.shape({
-    data: PropTypes.any
-  })
 }
 
 export default Link

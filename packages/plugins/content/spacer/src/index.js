@@ -9,6 +9,7 @@ export default {
   version: '0.0.1',
   IconComponent: <AspectRatio />,
   text: 'Spacer',
+  description: 'Resizeable, empty space.',
 
   // We need this because otherwise we lose hotkey focus on elements like spoilers.
   // This could probably be solved in an easier way by listening to window.document?

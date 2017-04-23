@@ -11,4 +11,5 @@ export default {
   version: '0.0.1',
   IconComponent: <Remove />,
   text: 'Divider',
+  description: 'A horizontal divider.',
 }
