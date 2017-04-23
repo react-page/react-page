@@ -9,6 +9,7 @@ import PluginService from '../../service/plugin'
 import Inner from './Inner'
 
 import type { Store } from '../../types/redux'
+import { shouldPureComponentUpdate } from '../../helper/shouldComponentUpdate'
 
 class Editable extends Component {
   componentDidMount() {
@@ -19,6 +20,8 @@ class Editable extends Component {
     this.props.editor.store.subscribe(this.onChange)
     this.previousState = null
   }
+
+  shouldComponentUpdate = shouldPureComponentUpdate
 
   previousState: any = {}
 

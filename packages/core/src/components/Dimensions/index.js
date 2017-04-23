@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import onElementResize from 'element-resize-event'
 import classNames from 'classnames'
 
+import { shouldPureComponentUpdate } from '../../helper/shouldComponentUpdate'
+
 const defaultGetWidth = (element) => element.clientWidth
 const defaultGetHeight = (element) => element.clientHeight
 
@@ -29,6 +31,8 @@ const Dimensions = ({
         this.getWindow().addEventListener('resize', this.onResize, false)
       }
     }
+
+    shouldComponentUpdate = shouldPureComponentUpdate
 
     componentWillUnmount() {
       this.getWindow().removeEventListener('resize', this.onResize)
