@@ -33,7 +33,7 @@
   },
   "scripts": {
     "bootstrap": "lerna bootstrap",
-    "start": "lerna run start --concurrency 100  --stream",
+    "start": "lerna run start --concurrency 100 --stream",
     "start:lib": "lerna run start --ignore ory-editor-examples --concurrency 100 --stream",
     "clean": "lerna clean --yes",
     "docs": "npm-run-all --parallel docs:api docs:guide",
