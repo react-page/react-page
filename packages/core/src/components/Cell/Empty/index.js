@@ -1,5 +1,5 @@
 // @flow
-import React, { PropTypes } from 'react'
+import React from 'react'
 
 // logger.error('Got empty cell: ', props)
 const Empty = ({ id = 'no id given', ...props }: { id: string }) => (
@@ -17,9 +17,5 @@ const Empty = ({ id = 'no id given', ...props }: { id: string }) => (
     </small>
   </div>
 )
-
-Empty.propTypes = {
-  id: PropTypes.string
-}
 
 export default Empty
