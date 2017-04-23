@@ -1,5 +1,5 @@
 // @flow
-import React, { Component, PropTypes } from 'react'
+import React, { Component } from 'react'
 import { Resizable } from 'react-resizable'
 import classNames from 'classnames'
 
@@ -7,8 +7,6 @@ const faintBlack = 'rgba(0, 0, 0, 0.12)'
 const compute = ({ height }: { height: number }) => ({ height: height > 24 ? height : 24 })
 const fire = ({ state, onChange }: { state: Object, onChange(state: Object): void }) => onChange(state)
 const Solid = ({ height }: { height: number }) => <div style={{ height }} />
-
-Solid.propTypes = { height: PropTypes.number }
 
 class Spacer extends Component {
   state = {}
@@ -20,13 +18,13 @@ class Spacer extends Component {
   }
 
   render() {
-    const { readOnly } = this.props
+    const { readOnly, isPreviewMode } = this.props
     const height = compute(this.props.state).height
 
     return (
       <div
         style={{ border: 'solid 1px', borderColor: faintBlack }}
-        className={classNames('ory-plugins-content-spacer', { 'ory-plugins-content-spacer-read-only': readOnly })}
+        className={classNames('ory-plugins-content-spacer', { 'ory-plugins-content-spacer-read-only': isPreviewMode })}
       >
         {readOnly
           ? (
@@ -45,14 +43,6 @@ class Spacer extends Component {
       </div>
     )
   }
-}
-
-Spacer.propTypes = {
-  onChange: PropTypes.func.isRequired,
-  state: PropTypes.shape({
-    height: PropTypes.number
-  }),
-  readOnly: PropTypes.bool.isRequired
 }
 
 export default Spacer
