@@ -120,15 +120,6 @@ class Raw extends Component {
             )
           })}
         </List>
-        {isSearching ? null : (
-          <div>
-            <Divider />
-            <List>
-              <Subheader>Settings</Subheader>
-              <ListItem primaryText="Back up drafts" rightToggle={<Toggle />} />
-            </List>
-          </div>
-        )}
       </Drawer>
     )
   }
