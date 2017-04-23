@@ -36,10 +36,10 @@ class Draggable extends Component {
 
   render() {
     const {
-      isLeaf, connectDragSource, isDragging, isLayoutMode, isInsertMode, node: { inline }, children
+      isLeaf, connectDragSource, isDragging, isLayoutMode, node: { inline }, children
     } = this.props
 
-    if (!(isLayoutMode || isInsertMode)) {
+    if (!isLayoutMode) {
       return (
         <div className="ory-cell-draggable-container">
           {/* these divs are here to prevent page jumping, they are a placeholder for draggable / draggable-overlay */}
