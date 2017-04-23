@@ -114,6 +114,7 @@ export default (plugins: Plugin[] = defaultPlugins) => {
     version: '0.0.1',
     IconComponent: <Subject />,
     text: 'Text',
+    description: 'An advanced rich text area.',
 
     allowInlineNeighbours: true,
 

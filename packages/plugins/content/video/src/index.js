@@ -11,6 +11,7 @@ export default {
   version: '0.0.1',
   IconComponent: <PlayArrow />,
   text: 'Video',
+  description: 'Include videos from Vimeo or YouTube.',
   isInlineable: true,
   handleRemoveHotKey: (_: Event, __: ContentPluginProps<*>): Promise<*> => Promise.reject(),
 

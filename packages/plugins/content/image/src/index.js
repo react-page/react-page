@@ -12,6 +12,7 @@ export default {
   IconComponent: <Panorama />,
   text: 'Image',
   isInlineable: true,
+  description: 'Loads an image from an url.',
 
   handleRemoveHotKey: (_: Event, __: ContentPluginProps<*>): Promise<*> => Promise.reject(),
   handleFocusPreviousHotKey: (_: Event, __: ContentPluginProps<*>): Promise<*> => Promise.reject(),
