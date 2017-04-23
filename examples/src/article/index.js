@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-if (process.env.NODE_ENV !== 'production' && process.env.WHY_UPDATE === 'on') {
+if (process.env.NODE_ENV !== 'production' && process.env.REACT_APP_TRACE_UPDATES) {
   const { whyDidYouUpdate } = require('why-did-you-update')
   whyDidYouUpdate(React)
 }
