@@ -15,7 +15,6 @@ class Resizable extends Component {
     super(props)
 
     const sw = computeStepWidth(props)
-    console.error('Unable to compute step with for element', props, '- resizing will not work')
     this.state = {
       stepWidth: sw,
       width: props.node.size * sw,
