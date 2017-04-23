@@ -31,12 +31,13 @@ class Draggable extends Component {
     children: any,
     className: string,
     connectDragSource<T>(e: T): T,
-    connectDragPreview(image: Image): any
+    connectDragPreview(image: Image): any,
+    name: string
   }
 
   render() {
     const {
-      isLeaf, connectDragSource, isDragging, isLayoutMode, node: { inline }, children
+      isLeaf, connectDragSource, isDragging, isLayoutMode, node: { inline }, children, name
     } = this.props
 
     if (!isLayoutMode) {
@@ -51,7 +52,9 @@ class Draggable extends Component {
 
     return connectDragSource(
       <div className={classNames('ory-cell-draggable', { 'ory-cell-draggable-is-dragging': isDragging })}>
-        <div className={classNames('ory-cell-draggable-overlay', { [`ory-cell-draggable-inline-${inline}`]: inline, 'ory-cell-draggable-leaf': isLeaf })} />
+        <div className={classNames('ory-cell-draggable-overlay', { [`ory-cell-draggable-inline-${inline}`]: inline, 'ory-cell-draggable-leaf': isLeaf })}>
+          <div className="ory-cell-draggable-overlay-description">{name}</div>
+        </div>
         {children}
       </div>
     )

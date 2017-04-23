@@ -18,10 +18,24 @@
 }
 
 .ory-cell-draggable-overlay:hover {
-  filter: sepia(0.7);
-  background: var(--faintBlack);
-  box-shadow: 0 0 4px var(--minBlack);
+  background: var(--minBlack);
+  border: 1px solid var(--lighBlack);
   background-blend-mode: screen;
+}
+
+.ory-cell-draggable-overlay-description {
+  display: none;
+}
+
+.ory-cell-draggable-overlay:hover .ory-cell-draggable-overlay-description {
+  text-align: center;
+  display: block;
+  background: rgba(255,255,255,.87);
+  color: rgba(0,0,0,.97);
+  max-width: 30%;
+  margin: 0 auto;
+  border-radius: 0 0 12px 12px;
+  text-transform: lowercase;
 }
 
 .ory-cell-draggable-overlay.ory-cell-draggable-leaf {
@@ -38,3 +52,4 @@
   opacity: 0.4;
   outline: none;
 }
+
