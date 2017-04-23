@@ -79,6 +79,7 @@ export class Plugin {
       name, version, Component, IconComponent, text, StaticComponent,
       serialize,
       unserialize,
+      description,
     } = config
 
     if (!name || !version || !Component) {
@@ -91,6 +92,7 @@ export class Plugin {
     this.StaticComponent = StaticComponent
     this.IconComponent = IconComponent
     this.text = text
+    this.description = description
     this.config = config
 
     this.serialize = serialize ? serialize.bind(this) : this.serialize
@@ -100,9 +102,14 @@ export class Plugin {
   config: any
 
   /**
-   * @member a unique identifier of the plugin
+   * @member a unique identifier of the plugin.
    */
   name: string
+
+  /**
+   * @member describes the plugin in a few words.
+   */
+  description: string
 
   /**
    * @member the semantic version (www.semver.org) of this plugin.

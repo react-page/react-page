@@ -20,8 +20,8 @@ class Inner extends Component {
     const {
       node: {
         rows = [],
-        layout: { plugin: { Component: LayoutComponent, name: layoutType } = {}, state: layoutState = {} } = {},
-        content: { plugin: { Component: ContentComponent, name: contentType } = {} } = {},
+        layout: { plugin: { Component: LayoutComponent, name: layoutType, text: layoutTitle } = {}, state: layoutState = {} } = {},
+        content: { plugin: { Component: ContentComponent, name: contentType, text: contentTitle } = {} } = {},
       },
       config: { whitelist = [] }
     } = this.props
@@ -30,7 +30,7 @@ class Inner extends Component {
     if (rows.length && LayoutComponent) {
       return (
         <Droppable {...props} dropTypes={whitelist}>
-          <Draggable {...props} dragType={layoutType}>
+          <Draggable {...props} dragType={layoutType} name={layoutTitle || layoutType}>
             <Layout {...props} {...layoutState} />
           </Draggable>
         </Droppable>
@@ -44,7 +44,7 @@ class Inner extends Component {
     } else if (ContentComponent) {
       return (
         <Droppable {...props} isLeaf dropTypes={whitelist}>
-          <Draggable {...props} isLeaf dragType={contentType}>
+          <Draggable {...props} isLeaf dragType={contentType} name={contentTitle || contentType}>
             <Content {...props} />
           </Draggable>
         </Droppable>
