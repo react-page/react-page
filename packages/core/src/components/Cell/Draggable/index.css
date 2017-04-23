@@ -1,7 +1,6 @@
 .ory-cell-draggable {
   cursor: move;
   position: relative;
-  height: 100%;
   transition: opacity 200ms ease;
   /* resolves an issue with drag and drop preview in chrome, see https://github.com/ory/editor/issues/180 */
   /* will-change: transform; */
