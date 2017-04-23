@@ -2,28 +2,22 @@
   0% {
     background-color: var(--minBlack);
     top: 45%;
-    height: 10%;
+    bottom: 45%;
   }
   50% {
     background-color: var(--faintBlack);
     top: 0;
-    height: 100%;
-
+    bottom: 0;
   }
   100% {
-    background-color: var(--minBlack);
+    background-color: var(--darkBlack);
     top: 45%;
-    height: 10%;
+    bottom: 45%;
   }
 }
 
 .ory-cell-resizable-inline-right > .react-resizable-handle {
   left: -4px;
-}
-
-.ory-cell-resizable.react-resizable {
-  position: relative;
-  height: 100%;
 }
 
 .ory-cell-resizable.react-resizable > .react-resizable-handle {
@@ -38,14 +32,13 @@
 
 .ory-cell-resizable.react-resizable > .react-resizable-handle:after {
   content: " ";
-  background-color: var(--minBlack);
+  background-color: var(--darkBlack);
   /* width: 30px; */
   /* height: 30px; */
   position: absolute;
   /* z-index: 1000; */
   top: 45%;
-  bottom: 0;
-  height: 10%;
+  bottom: 45%;
   left: 0;
   right: 0;
   transition: all 200ms linear;
@@ -60,5 +53,5 @@
 .ory-cell-resizable.react-resizable > .react-resizable-handle:active:after {
   background-color: black;
   top: 0;
-  height: 100%;
+  bottom: 0;
 }

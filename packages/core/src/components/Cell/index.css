@@ -20,7 +20,9 @@
   /* box-shadow: 0 0 5px rgb(81, 203, 238); */
   /* outline: 1px solid rgb(81, 203, 238); */
 }
-.ory-cell {}
+.ory-cell {
+  position: relative;
+}
 .ory-cell-bring-to-front {}
 
 .ory-cell-resizing-overlay:after {
