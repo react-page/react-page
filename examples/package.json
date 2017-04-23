@@ -38,6 +38,7 @@
     "promise": "7.1.1",
     "react-dev-utils": "^0.4.2",
     "recursive-readdir": "2.1.0",
+    "rimraf": "^2.5.4",
     "strip-ansi": "3.0.1",
     "style-loader": "0.13.1",
     "url-loader": "0.5.7",
@@ -45,16 +46,16 @@
     "webpack-dev-server": "1.16.2",
     "webpack-manifest-plugin": "1.1.0",
     "whatwg-fetch": "1.0.0",
-    "rimraf": "^2.5.4"
+    "why-did-you-update": "^0.0.8"
   },
   "dependencies": {
     "material-ui": "^0.16.7",
     "ory-editor-core": "0.0.0",
     "ory-editor-plugins-divider": "0.0.0",
     "ory-editor-plugins-image": "0.0.0",
+    "ory-editor-plugins-parallax-background": "0.0.0",
     "ory-editor-plugins-slate": "0.0.0",
     "ory-editor-plugins-spacer": "0.0.0",
-    "ory-editor-plugins-parallax-background": "0.0.0",
     "ory-editor-plugins-video": "0.0.0",
     "ory-editor-renderer": "0.0.0",
     "ory-editor-ui": "0.0.0",
