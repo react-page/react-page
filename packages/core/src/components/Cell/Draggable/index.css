@@ -19,7 +19,7 @@
 
 .ory-cell-draggable-overlay:hover {
   background: var(--minBlack);
-  border: 1px solid var(--lighBlack);
+  border: 1px solid var(--lightBlack);
   background-blend-mode: screen;
 }
 

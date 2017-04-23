@@ -15,6 +15,7 @@ class Resizable extends Component {
     super(props)
 
     const sw = computeStepWidth(props)
+    console.error('Unable to compute step with for element', props, '- resizing will not work')
     this.state = {
       stepWidth: sw,
       width: props.node.size * sw,
@@ -34,6 +35,13 @@ class Resizable extends Component {
 
   onResize = (event: Event, { size }: Object) => {
     const newSize = widthToSize(this.state, this.props, size)
+    if (!newSize) {
+      console.warn('Expected resize event to yield a valid size, but got', {
+        newSize, size, props: this.props, state: this.state,
+      })
+      return
+    }
+
     this.props.onChange(newSize)
     this.setState({ width: newSize * this.state.stepWidth })
   }
@@ -51,7 +59,7 @@ class Resizable extends Component {
         onResize={this.onResize}
         minConstraints={inline ? null : [this.state.stepWidth, Infinity]}
         maxConstraints={inline ? null : [bounds.right * this.state.stepWidth, Infinity]}
-        draggableOpts={{ grid: [this.state.stepWidth, 0], axis: 'none', offsetParent: document.body }}
+        draggableOpts={{ axis: 'none', offsetParent: document.body }}
         width={this.state.width}
         height={0}
       >
