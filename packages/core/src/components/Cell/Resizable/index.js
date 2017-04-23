@@ -28,9 +28,9 @@ class Resizable extends Component {
     steps: Number
   }
 
-  props: ComponentizedCell & { children: any }
-
   shouldComponentUpdate = shouldPureComponentUpdate
+
+  props: ComponentizedCell & { children: any }
 
   onResize = (event: Event, { size }: Object) => {
     const newSize = widthToSize(this.state, this.props, size)
