@@ -6,7 +6,7 @@ import { createStructuredSelector } from 'reselect'
 
 import { updateCellContent } from '../../../actions/cell'
 import { shouldPureComponentUpdate } from '../../../helper/shouldComponentUpdate'
-import { isEditMode, isLayoutMode, isPreviewMode } from '../../../selector/display'
+import { isEditMode, isLayoutMode, isPreviewMode, isInsertMode, isResizeMode } from '../../../selector/display'
 
 import type { ComponentizedCell } from '../../../types/editable'
 
@@ -48,7 +48,7 @@ class Content extends Component {
   }
 
   render() {
-    const { isPreviewMode, isEditMode, editable, id, node: { content: { plugin: { Component, name, version }, state = {} } = {}, focused }, updateCellContent } = this.props
+    const { isInsertMode, isResizeMode, isPreviewMode, isEditMode, editable, id, node: { content: { plugin: { Component, name, version }, state = {} } = {}, focused }, updateCellContent } = this.props
     const { focusCell, blurCell } = this.props
 
     let focusProps
@@ -81,13 +81,18 @@ class Content extends Component {
           onChange={updateCellContent}
           focus={focusCell}
           blur={blurCell}
+          isInsertMode={isInsertMode}
+          isResizeMode={isResizeMode}
+          isPreviewMode={isPreviewMode}
+          isEditMode={isEditMode}
+          isLayoutMode={isLayoutMode}
         />
       </div>
     )
   }
 }
 
-const mapStateToProps = createStructuredSelector({ isEditMode, isLayoutMode, isPreviewMode })
+const mapStateToProps = createStructuredSelector({ isEditMode, isLayoutMode, isPreviewMode, isInsertMode, isResizeMode })
 
 const mapDispatchToProps = (dispatch: Function, { id }: ComponentizedCell) => bindActionCreators({
   updateCellContent: updateCellContent(id)
