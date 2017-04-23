@@ -7,20 +7,19 @@
   position: absolute;
   background: black;
   display: block;
-  background: var(--faintBlack);
-  box-shadow: 0 0 4px var(--minBlack);
+  background: var(--darkBlack);
   z-index: 2;
 }
 
 .ory-row-is-hovering-above:before {
   top: 0;
-  height: 9%;
+  height: 4px;
   width: 100%;
 }
 
 .ory-row-is-hovering-below:before {
   bottom: 0;
-  height: 9%;
+  height: 4px;
   width: 100%;
 }
 
@@ -28,13 +27,13 @@
   top: 0;
   left: 0;
   bottom: 0;
-  width: 9%;
+  width: 4px;
 }
 
 .ory-row-is-hovering-right-of:before {
   top: 0;
   right: 0;
   bottom: 0;
-  width: 9%;
+  width: 4px;
 }
 
