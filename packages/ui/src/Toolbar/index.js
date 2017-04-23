@@ -68,17 +68,17 @@ class Raw extends Component {
     const layout = plugins.plugins.layout.filter(searchFilter)
 
     return (
-      <Drawer open={isInsertMode}>
-        <Subheader>Content</Subheader>
+      <Drawer className="ory-toolbar-drawer" open={isInsertMode}>
+        <Subheader>Add plugin to content</Subheader>
         <div style={{ padding: '0 16px' }} ref={this.onRef}>
           <TextField
-            hintText="Search anything"
+            hintText="Search plugins"
             fullWidth
             onChange={this.onSearch}
           />
         </div>
         <List>
-          {content.length ? <Subheader>Content</Subheader> : null}
+          {content.length ? <Subheader>Content plugins</Subheader> : null}
           {content.map((plugin: ContentPlugin, k: Number) => {
             const initialState = plugin.createInitialState()
 
@@ -97,7 +97,7 @@ class Raw extends Component {
           })}
         </List>
         <List>
-          {layout.length ? <Subheader>Layout</Subheader> : null}
+          {layout.length ? <Subheader>Layout plugins</Subheader> : null}
           {layout.map((plugin: LayoutPlugin, k: Number) => {
             const initialState = plugin.createInitialState()
             const children = plugin.createInitialChildren()
