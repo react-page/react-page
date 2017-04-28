@@ -26,6 +26,7 @@
 }
 
 .ory-cell-bring-to-front {
+  z-index: 1;
 }
 
 .ory-cell-resizing-overlay:after {
