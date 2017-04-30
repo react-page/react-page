@@ -19,21 +19,23 @@ const Item = ({ plugin, insert }: { plugin: Plugin, insert: any }, k: string) =>
 
   // not using css modules here because they don't work with svg icons
   return (
-    <Draggable key={k} insert={insert}>
-      <ListItem
-        leftAvatar={<Avatar icon={plugin.IconComponent} />}
-        primaryText={plugin.text}
-        secondaryText={plugin.description}
-        secondaryTextLines={2}
-        disabled
-        className="ory-toolbar-item"
-        rightIcon={(
-          <IconButton tooltip="Click and hold to drag" tooltipPosition="bottom-left">
-            <DragHandle className="ory-toolbar-item-drag-handle" style={{ cursor: 'move' }} />
-          </IconButton>
-        )}
-      />
-    </Draggable>
+    <ListItem
+      leftAvatar={<Avatar icon={plugin.IconComponent} />}
+      primaryText={plugin.text}
+      secondaryText={plugin.description}
+      secondaryTextLines={2}
+      disabled
+      className="ory-toolbar-item"
+      rightIconButton={(
+        <IconButton className="ory-toolbar-item-drag-handle-button"
+          tooltip="Click and hold to drag"
+          tooltipPosition="bottom-left">
+          <Draggable key={k} insert={insert}>
+            <DragHandle className="ory-toolbar-item-drag-handle" />
+          </Draggable>
+        </IconButton>
+      )}
+    />
   )
 }
 
