@@ -53,7 +53,7 @@ class Draggable extends Component {
     return connectDragSource(
       <div className={classNames('ory-cell-draggable', { 'ory-cell-draggable-is-dragging': isDragging })}>
         <div className={classNames('ory-cell-draggable-overlay', { [`ory-cell-draggable-inline-${inline}`]: inline, 'ory-cell-draggable-leaf': isLeaf })}>
-          <div className="ory-cell-draggable-overlay-description">{name}</div>
+          <div className="ory-cell-draggable-overlay-description"><span>{name}</span></div>
         </div>
         {children}
       </div>
