@@ -14,12 +14,17 @@ export const source = {
   endDrag({ id }: { id: string }, monitor: Monitor) {
     const item = monitor.getItem()
     if (monitor.didDrop()) {
-      item.insertMode()
+      setTimeout(() => {
+        item.insertMode()
+      }, 10)
       // If the item drop occurred deeper down the tree, don't do anything
       return
     }
+
     item.clearHover()
-    item.insertMode()
+    setTimeout(() => {
+      item.insertMode()
+    }, 100)
   }
 }
 
