@@ -14,7 +14,8 @@
   right: 0;
   z-index: 3;
   cursor: move;
-  transition: all ease .2s;
+  border: 1px solid rgba(0, 0, 0, 0);
+  transition: all ease .4s;
 }
 
 .ory-cell-draggable-overlay:hover {
@@ -24,20 +25,31 @@
 }
 
 .ory-cell-draggable-overlay-description {
-  display: none;
-}
-
-.ory-cell-draggable-overlay:hover .ory-cell-draggable-overlay-description {
   text-align: center;
   display: block;
-  background: rgba(255,255,255,.87);
-  color: rgba(0,0,0,.97);
-  max-width: 30%;
+  color: rgba(0, 0, 0, .97);
+  max-width: 100%;
+}
+
+.ory-cell-draggable-overlay-description span {
+  opacity: 0;
+  text-align: center;
+  color: rgba(0, 0, 0, .97);
+  max-width: 90%;
+  display: inline-block;
+  padding: 8px 22px;
   margin: 0 auto;
   border-radius: 0 0 12px 12px;
   text-transform: uppercase;
   font-size: 75%;
-  letter-spacing:0.15em;
+  letter-spacing: 0.15em;
+  background: rgba(255, 255, 255, 0);
+  transition: all ease .4s;
+}
+
+.ory-cell-draggable-overlay:hover .ory-cell-draggable-overlay-description span {
+  background: rgba(255, 255, 255, .95);
+  opacity: 1;
 }
 
 .ory-cell-draggable-overlay.ory-cell-draggable-leaf {
