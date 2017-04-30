@@ -33,6 +33,7 @@ const HTMLCell = (props: Cell) => {
       <div className={cn}>
         <div className="ory-cell-inner">
           <Component
+            isPreviewMode
             readOnly
             state={state}
             onChange={noop}
@@ -50,6 +51,7 @@ const HTMLCell = (props: Cell) => {
       <div className={cn}>
         <div className="ory-cell-inner ory-cell-leaf">
           <Renderer
+            isPreviewMode
             readOnly
             state={state}
             onChange={noop}
