@@ -33,9 +33,9 @@
     "ramda": "^0.23.0",
     "react-portal": "^3.0.0",
     "selection-position": "^1.0.0",
-    "slate": "^0.16.9",
+    "slate": "~0.19.0",
     "slate-edit-blockquote": "^0.2.0",
-    "slate-edit-list": "^0.5.6",
+    "slate-edit-list": "^0.6.4",
     "ory-editor-core": "0.0.0",
     "ory-editor-ui": "0.0.0",
     "redux-undo": "1.0.0-beta9-7"
