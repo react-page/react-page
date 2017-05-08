@@ -44,7 +44,7 @@ class Cell extends Component {
           // 'ory-cell-bring-to-front': inline, && (!isLayoutMode && !isInsertMode && !isResizeMode),
           'ory-cell-focused': focused,
           'ory-cell-resizing-overlay': isResizeMode,
-          'ory-cell-bring-to-front': inline // if inline, always bring cell to front so it's clickable.
+          'ory-cell-bring-to-front': !isResizeMode && inline // if inline, always bring cell to front so it's clickable.
         })}
         onClick={stopClick(isEditMode)}
       >
