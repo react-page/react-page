@@ -23,12 +23,13 @@ class Draggable extends Component {
     connectDragSource<T>(element: T): T,
     connectDragPreview<T>(element: T): T,
     isDragging: boolean,
-    children: any
+    children: any,
+    className: string
   }
 
   render() {
-    const { connectDragSource, isDragging, children } = this.props
-    const classes = classNames({ 'ory-toolbar-draggable-is-dragged': isDragging }, 'ory-toolbar-draggable')
+    const { connectDragSource, isDragging, children, className } = this.props
+    const classes = classNames(className, { 'ory-toolbar-draggable-is-dragged': isDragging }, 'ory-toolbar-draggable')
 
     return connectDragSource(<div className={classes}>{children}</div>)
   }
