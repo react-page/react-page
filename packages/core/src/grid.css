@@ -238,10 +238,6 @@
 }
 
 @media (--sm-viewport) {
-  .ory-editable {
-    width: var(--container-sm, 46rem);
-  }
-
   .ory-cell-sm,
   .ory-cell-sm-1,
   .ory-cell-sm-2,
@@ -433,10 +429,6 @@
 }
 
 @media (--md-viewport) {
-  .ory-editable {
-    width: var(--container-md, 61rem);
-  }
-
   .ory-cell-md,
   .ory-cell-md-1,
   .ory-cell-md-2,
@@ -628,10 +620,6 @@
 }
 
 @media (--lg-viewport) {
-  .ory-editable {
-    width: var(--container-lg, 71rem);
-  }
-
   .ory-cell-lg,
   .ory-cell-lg-1,
   .ory-cell-lg-2,
