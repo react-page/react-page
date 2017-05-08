@@ -28,14 +28,14 @@
     "react-dom": "^15.4.2"
   },
   "dependencies": {
-    "classnames": "^2.2.5",
     "device.js": "^0.1.2",
     "material-ui": "^0.18.0",
     "ory-editor-core": "0.0.0",
     "rc-tooltip": "^3.4.3",
-    "react-dnd": "^2.1.4",
-    "react-redux": "^5.0.2",
-    "reselect": "^2.5.4"
+    "classnames": "^2.2.5",
+    "react-dnd": "^2.3.0",
+    "react-redux": "^5.0.4",
+    "reselect": "^3.0.0"
   },
   "devDependencies": {
     "enzyme": "^2.7.0",

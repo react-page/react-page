@@ -28,8 +28,7 @@
     "react-dom": "^15.4.2"
   },
   "dependencies": {
-    "divider": "^0.1.1",
-    "material-ui": "^0.16.7"
+    "material-ui": "^0.18.0"
   },
   "devDependencies": {
     "enzyme": "^2.7.0",
