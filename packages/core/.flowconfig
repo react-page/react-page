@@ -15,6 +15,7 @@ esproposal.class_instance_fields=enable
 .*/node_modules/conventional-changelog-core/test/fixtures/.*
 ./examples/*/public/*
 ./examples/*/assets/*
+.*/node_modules/react-resizable/build/.*
 
 
 [libs]
