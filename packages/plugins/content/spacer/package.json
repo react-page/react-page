@@ -29,9 +29,9 @@
   },
   "dependencies": {
     "classnames": "^2.2.5",
-    "material-ui": "^0.16.7",
+    "material-ui": "^0.18.0",
     "ory-editor-core": "0.0.0",
-    "react-resizable": "^1.4.6"
+    "react-resizable": "^1.7.0"
   },
   "devDependencies": {
     "enzyme": "^2.7.0",

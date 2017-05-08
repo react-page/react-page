@@ -29,16 +29,16 @@
   },
   "dependencies": {
     "immutable": "^3.8.1",
-    "material-ui": "^0.16.6",
+    "material-ui": "^0.18.0",
     "ramda": "^0.23.0",
     "react-portal": "^3.0.0",
-    "redux-undo": "^0.6.1",
     "selection-position": "^1.0.0",
     "slate": "^0.16.9",
     "slate-edit-blockquote": "^0.2.0",
     "slate-edit-list": "^0.5.6",
     "ory-editor-core": "0.0.0",
-    "ory-editor-ui": "0.0.0"
+    "ory-editor-ui": "0.0.0",
+    "redux-undo": "1.0.0-beta9-7"
   },
   "devDependencies": {
     "enzyme": "^2.7.0",
