@@ -32,7 +32,7 @@ class Cell extends Component {
   render() {
     const {
       id, rowWidth, rowHeight, updateDimensions, isResizeMode, isEditMode,
-      node: { inline, resizable, hasInlineNeighbour, focused }
+      node: { inline, resizable, hasInlineNeighbour, focused }, isLayoutMode
     } = this.props
 
     const props = { ...this.props, styles: null }
@@ -44,7 +44,7 @@ class Cell extends Component {
           // 'ory-cell-bring-to-front': inline, && (!isLayoutMode && !isInsertMode && !isResizeMode),
           'ory-cell-focused': focused,
           'ory-cell-resizing-overlay': isResizeMode,
-          'ory-cell-bring-to-front': !isResizeMode && inline // if inline, always bring cell to front so it's clickable.
+          'ory-cell-bring-to-front': !isResizeMode && !isLayoutMode && inline // inline must not be active for resize/layout
         })}
         onClick={stopClick(isEditMode)}
       >
