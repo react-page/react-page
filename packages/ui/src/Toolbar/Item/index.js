@@ -20,7 +20,7 @@ class Item extends Component {
   }
 
   render() {
-    const { plugin, insert, key: k } = this.props
+    const { plugin, insert } = this.props
     if (!plugin.IconComponent && !plugin.text) {
       // logger.warn('Plugin text or plugin icon missing', plugin)
       return null
@@ -44,7 +44,7 @@ class Item extends Component {
             onMouseLeave={this.onMouseLeave}
             onMouseDown={this.onMouseLeave}
           >
-          <Draggable key={k} insert={insert}>
+          <Draggable insert={insert}>
             <Tooltip
               visible={this.state.tooltipVisible}
               placement="bottomLeft"
