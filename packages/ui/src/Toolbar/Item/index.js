@@ -8,8 +8,8 @@ import DragHandle from 'material-ui/svg-icons/editor/drag-handle'
 import Tooltip from 'rc-tooltip'
 
 class Item extends Component {
-  props: { plugin: Plugin, insert: any }
   state = { tooltipVisible: false }
+  props: { plugin: Plugin, insert: any }
 
   onMouseEnter = () => {
     this.setState({ tooltipVisible: true })
@@ -44,15 +44,16 @@ class Item extends Component {
             onMouseLeave={this.onMouseLeave}
             onMouseDown={this.onMouseLeave}
           >
-          <Draggable insert={insert}>
-            <Tooltip
+            <Draggable insert={insert}>
+              <Tooltip
               visible={this.state.tooltipVisible}
               placement="bottomLeft"
-              overlay={<span>Drag me!</span>}>
-              <DragHandle className="ory-toolbar-item-drag-handle" />
-            </Tooltip>
-          </Draggable>
-        </span>
+              overlay={<span>Drag me!</span>}
+              >
+                <DragHandle className="ory-toolbar-item-drag-handle" />
+              </Tooltip>
+            </Draggable>
+          </span>
         )}
       />
     )
