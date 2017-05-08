@@ -100,7 +100,7 @@ class Button extends Component {
     const newState = this.props.editorState
       .transform()
       .insertText(this.state.title)
-      .extendBackward(this.state.title.length)
+      .extend(-this.state.title.length)
       .wrapInline({
         type: A,
         data: { href: this.state.href }
