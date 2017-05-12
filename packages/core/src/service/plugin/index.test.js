@@ -23,25 +23,37 @@ describe('PluginService', () => {
   })
 
   const np = { name: 'baz', version: '0.0.1', Component: <div /> }
-  it('should register a content plugin', () => {
-    plugins.registerContentPlugin(np)
+  it('should add a content plugin', () => {
+    plugins.addContentPlugin(np)
     expect(plugins.findContentPlugin(np.name, np.version).name, 'to equal', np.name)
     expect(plugins.plugins.content.length, 'to equal', 3)
   })
 
-  it('should deregister a content plugin', () => {
-    plugins.deregisterContentPlugin(np.name)
+  it('should remove a content plugin', () => {
+    plugins.removeContentPlugin(np.name)
     expect(plugins.plugins.content.length, 'to equal', 2)
   })
 
-  it('should register a layout plugin', () => {
-    plugins.registerLayoutPlugin(np)
+  it('should set content plugins', () => {
+    plugins.setContentPlugins([np])
+    expect(plugins.findContentPlugin(np.name, np.version).name, 'to equal', np.name)
+    expect(plugins.plugins.content.length, 'to equal', 1)
+  })
+
+  it('should add a layout plugin', () => {
+    plugins.addLayoutPlugin(np)
     expect(plugins.findLayoutPlugin(np.name, np.version).name, 'to equal', np.name)
     expect(plugins.plugins.layout.length, 'to equal', 2)
   })
 
-  it('should deregister a layout plugin', () => {
-    plugins.deregisterLayoutPlugin(np.name)
+  it('should remove a layout plugin', () => {
+    plugins.removeLayoutPlugin(np.name)
     expect(plugins.plugins.layout.length, 'to equal', 1)
+  })
+
+  it('should set layout plugins', () => {
+    plugins.setLayoutPlugins([np])
+    expect(plugins.findLayoutPlugin(np.name, np.version).name, 'to equal', np.name)
+    expect(plugins.plugins.content.length, 'to equal', 1)
   })
 })

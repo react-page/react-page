@@ -41,19 +41,29 @@ export default class PluginService {
     }
   }
 
-  registerLayoutPlugin(config: any) {
+  setLayoutPlugins(plugins: Array<any> = []) {
+    this.plugins.layout = []
+    plugins.forEach((plugin: any) => this.addLayoutPlugin(plugin))
+  }
+
+  addLayoutPlugin(config: any) {
     this.plugins.layout.push(new LayoutPlugin(config))
   }
 
-  deregisterLayoutPlugin(name: string) {
+  removeLayoutPlugin(name: string) {
     this.plugins.layout = this.plugins.layout.filter((plugin: LayoutPlugin) => plugin.name !== name)
   }
 
-  registerContentPlugin(config: any) {
+  setContentPlugins(plugins: Array<any> = []) {
+    this.plugins.content = []
+    plugins.forEach((plugin: any) => this.addContentPlugin(plugin))
+  }
+
+  addContentPlugin(config: any) {
     this.plugins.content.push(new ContentPlugin(config))
   }
 
-  deregisterContentPlugin(name: string) {
+  removeContentPlugin(name: string) {
     this.plugins.content = this.plugins.content.filter((plugin: ContentPlugin) => plugin.name !== name)
   }
 
