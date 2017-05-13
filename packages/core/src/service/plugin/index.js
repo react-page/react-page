@@ -5,7 +5,10 @@ import { ContentPlugin, LayoutPlugin, Plugin } from './classes'
 import defaultPlugin from './default'
 import missing from './missing'
 
-const find = (name: string, version: string = '*') => (plugin: Plugin): boolean => plugin.name === name && satisfies(plugin.version, version)
+const find = (
+  name: string,
+  version: string = '*'
+) => (plugin: Plugin): boolean => plugin.name === name && satisfies(plugin.version, version)
 
 /**
  * Iterate through an editable content tree and generate ids where missing.
@@ -34,7 +37,7 @@ export default class PluginService {
   /**
    * Instantiate a new PluginService instance. You can provide your own set of content and layout plugins here.
    */
-  constructor({ content = [], layout = [] }: { content: [], layout: []} = {}) {
+  constructor({ content = [], layout = [] }: { content: [], layout: [] } = {}) {
     this.plugins = {
       content: [defaultPlugin, ...content].map((config: any) => new ContentPlugin(config)),
       layout: layout.map((config: any) => new LayoutPlugin(config)),
@@ -55,8 +58,8 @@ export default class PluginService {
   }
 
   setContentPlugins(plugins: Array<any> = []) {
-    this.plugins.content = [defaultPlugin]
-    plugins.forEach((plugin: any) => this.addContentPlugin(plugin))
+    this.plugins.content = []; // semicolon is required to avoid syntax error
+    [defaultPlugin, ...plugins].forEach((plugin: any) => this.addContentPlugin(plugin))
   }
 
   addContentPlugin(config: any) {
