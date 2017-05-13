@@ -37,7 +37,7 @@ describe('PluginService', () => {
   it('should set content plugins', () => {
     plugins.setContentPlugins([np])
     expect(plugins.findContentPlugin(np.name, np.version).name, 'to equal', np.name)
-    expect(plugins.plugins.content.length, 'to equal', 1)
+    expect(plugins.plugins.content.length, 'to equal', 2)
   })
 
   it('should add a layout plugin', () => {
@@ -54,6 +54,6 @@ describe('PluginService', () => {
   it('should set layout plugins', () => {
     plugins.setLayoutPlugins([np])
     expect(plugins.findLayoutPlugin(np.name, np.version).name, 'to equal', np.name)
-    expect(plugins.plugins.content.length, 'to equal', 1)
+    expect(plugins.plugins.layout.length, 'to equal', 1)
   })
 })
