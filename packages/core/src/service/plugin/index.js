@@ -55,7 +55,7 @@ export default class PluginService {
   }
 
   setContentPlugins(plugins: Array<any> = []) {
-    this.plugins.content = []
+    this.plugins.content = [defaultPlugin]
     plugins.forEach((plugin: any) => this.addContentPlugin(plugin))
   }
 
