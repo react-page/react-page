@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
-set -e
+set -euo pipefail
 
-if  [ "$TEST_TYPE" == "build" ]; then
+if [ "$TEST_TYPE" == "build" ]; then
   npm run build:lib
   cat ./packages/meta/package.json | sed s/0.0.0/$(git describe --tag)/g  > ./packages/meta/package.json
   echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/.npmrc
