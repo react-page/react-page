@@ -57,7 +57,8 @@
     "whatwg-fetch": "2.0.2"
   },
   "scripts": {
-    "start": "node scripts/start.js"
+    "start": "node scripts/start.js",
+    "build": "node scripts/build.js"
   },
   "jest": {
     "collectCoverageFrom": [
