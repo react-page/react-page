@@ -51,7 +51,8 @@
     "test:watch": "cross-env NODE_ENV=test jest --watch",
     "watch:js": "chokidar \"+(packages)/*/src/**/*.js\" \"+(packages)/plugins/*/src/**/*.js\" --initial",
     "postinstall": "npm-run-all clean bootstrap build",
-    "serve": "pushstate-server ./examples/build"
+    "serve": "pushstate-server ./examples/build",
+    "heroku-prebuild": "git init"
   },
   "jest": {
     "testPathIgnorePatterns": [
