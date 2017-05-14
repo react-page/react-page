@@ -25,6 +25,7 @@
     "react-dom": "^15.5.4",
     "react-scripts": "^0.9.5",
     "rimraf": "^2.6.1",
+    "npm-run-all": "^4.0.2",
     "unexpected": "^10.29.0"
   },
   "scripts": {
