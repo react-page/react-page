@@ -32,6 +32,7 @@
   "scripts": {
     "bootstrap": "lerna bootstrap",
     "build": "cross-env NODE_ENV=production lerna run build --parallel --stream",
+    "build:lib": "cross-env NODE_ENV=production lerna run build --ignore ory-editor-examples --parallel --stream",
     "build:watch": "cross-env NODE_ENV=development lerna run build:watch --parallel --stream",
     "clean": "lerna run clean",
     "clean:lerna": "lerna clean --yes",
@@ -50,9 +51,10 @@
     "test": "cross-env NODE_ENV=test jest --coverage",
     "test:watch": "cross-env NODE_ENV=test jest --watch",
     "watch:js": "chokidar \"+(packages)/*/src/**/*.js\" \"+(packages)/plugins/*/src/**/*.js\" --initial",
-    "postinstall": "npm-run-all clean bootstrap build",
+    "postinstall": "npm-run-all clean bootstrap build:lib",
     "serve": "pushstate-server ./examples/build",
-    "heroku-prebuild": "git init"
+    "heroku-prebuild": "git init",
+    "heroku-postbuild": "npm run build"
   },
   "jest": {
     "testPathIgnorePatterns": [

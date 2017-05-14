@@ -18,7 +18,7 @@ script:
     if [ "$TEST_TYPE" = test ]; then
       npm run test
     elif [ "$TEST_TYPE" = build ]; then
-      npm run build
+      npm run build:lib
     elif [ "$TEST_TYPE" = lint ]; then
       npm run lint
     elif [ "$TEST_TYPE" = flow ]; then
@@ -35,7 +35,7 @@ after_success:
     fi
   - |
     if  [ "$TRAVIS_TAG" != "" ] && [ "$TEST_TYPE" == "build" ]; then
-      npm run build
+      npm run build:lib
       cat ./packages/meta/package.json | sed s/0.0.0/$(git describe --tag)/g  > ./packages/meta/package.json
       echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/.npmrc
       lerna publish --skip-git --repo-version=$(git describe --tag) --yes --force-publish=*
