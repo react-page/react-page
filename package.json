@@ -5,6 +5,7 @@
   "devDependencies": {
     "babel-cli": "^6.24.1",
     "chokidar-cli": "^1.2.0",
+    "coveralls": "^2.13.1",
     "cross-env": "^5.0.0",
     "documentation": "^4.0.0-rc.1",
     "enzyme": "^2.8.2",
@@ -20,8 +21,8 @@
     "postcss-cssnext": "^2.10.0",
     "postcss-import": "^9.1.0",
     "postcss-nested": "^2.0.2",
-    "pushstate-server": "^3.0.0",
     "prettier": "^1.3.1",
+    "pushstate-server": "^3.0.0",
     "react": "^15.5.4",
     "react-addons-test-utils": "^15.5.1",
     "react-dom": "^15.5.4",
@@ -30,6 +31,7 @@
     "unexpected": "^10.29.0"
   },
   "scripts": {
+    "coveralls": "cat ./coverage/lcov.info | coveralls",
     "bootstrap": "lerna bootstrap",
     "build": "cross-env NODE_ENV=production lerna run build --parallel --stream",
     "build:lib": "cross-env NODE_ENV=production lerna run build --ignore ory-editor-examples --parallel --stream",

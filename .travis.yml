@@ -27,18 +27,13 @@ script:
 
 after_success:
   - |
-    echo $TRAVIS_TAG
-    echo $TEST_TYPE
-  - |
     if [ "$TEST_TYPE" = test ]; then
       npm run coveralls
     fi
-  - |
-    if  [ "$TRAVIS_TAG" != "" ] && [ "$TEST_TYPE" == "build" ]; then
-      npm run build:lib
-      cat ./packages/meta/package.json | sed s/0.0.0/$(git describe --tag)/g  > ./packages/meta/package.json
-      echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/.npmrc
-      lerna publish --skip-git --repo-version=$(git describe --tag) --yes --force-publish=*
-    else
-      echo "Skipping build because: TRAVIS_TAG=$TRAVIS_TAG TEST_TYPE=$TEST_TYPE"
-    fi
+
+deploy:
+  provider: script
+  skip_cleanup: true
+  script: ./travis-deploy.sh
+  on:
+    tags: true
