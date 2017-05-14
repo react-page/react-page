@@ -22,7 +22,12 @@ import {
 } from './cell/drag'
 
 import {
-  insertCellBelow, insertCellAbove, insertCellRightOf, insertCellLeftOf, insertCellLeftInline, insertCellRightInline
+  insertCellBelow,
+  insertCellAbove,
+  insertCellRightOf,
+  insertCellLeftOf,
+  insertCellLeftInline,
+  insertCellRightInline
 } from './cell/insert'
 
 import { undo, redo } from './undo'
@@ -37,10 +42,12 @@ import {
   resizeMode
 } from './display'
 
-export const actions = (dispatch) => ({
+export const actions = dispatch => ({
   cell: {
-    updateContent: (id: string, state: {}) => dispatch(updateCellContent(id)(state)),
-    updateLayout: (id: string, state: {}) => dispatch(updateCellLayout(id)(state)),
+    updateContent: (id: string, state: {}) =>
+      dispatch(updateCellContent(id)(state)),
+    updateLayout: (id: string, state: {}) =>
+      dispatch(updateCellLayout(id)(state)),
 
     remove: (...args) => dispatch(removeCell(...args)),
     resize: (id: string, size: number) => dispatch(resizeCell(id)(size)),
@@ -81,5 +88,6 @@ export const actions = (dispatch) => ({
     resize: (...args) => dispatch(resizeMode(...args))
   },
 
-  undo: (...args) => dispatch(undo(...args)), redo: (...args) => dispatch(redo(...args))
+  undo: (...args) => dispatch(undo(...args)),
+  redo: (...args) => dispatch(redo(...args))
 })

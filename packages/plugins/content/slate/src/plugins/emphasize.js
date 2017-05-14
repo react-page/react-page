@@ -14,18 +14,14 @@ export const U = 'EMPHASIZE/U'
 
 // eslint-disable-next-line react/display-name
 const createButton = (type, icon) => ({ editorState, onChange }: Props) => {
-  const onClick = (e) => {
+  const onClick = e => {
     e.preventDefault()
 
-    onChange(
-      editorState
-        .transform()
-        .toggleMark(type)
-        .apply()
-    )
+    onChange(editorState.transform().toggleMark(type).apply())
   }
 
-  const isActive = editorState && editorState.marks.some((mark) => mark.type === type)
+  const isActive =
+    editorState && editorState.marks.some(mark => mark.type === type)
 
   return <ToolbarButton onClick={onClick} isActive={isActive} icon={icon} />
 }
@@ -38,10 +34,10 @@ export default class EmphasizePlugin extends Plugin {
   marks = {
     [STRONG]: makeTagMark('strong'),
     [EM]: makeTagMark('em'),
-    [U]: makeTagMark('u'),
+    [U]: makeTagMark('u')
   }
 
-  onKeyDown = (e: Event, data: { key: string, isMod: bool }, state) => {
+  onKeyDown = (e: Event, data: { key: string, isMod: boolean }, state) => {
     if (data.isMod) {
       let mark
 
@@ -59,10 +55,7 @@ export default class EmphasizePlugin extends Plugin {
           return
       }
 
-      return state
-        .transform()
-        .toggleMark(mark)
-        .apply()
+      return state.transform().toggleMark(mark).apply()
     }
   }
 

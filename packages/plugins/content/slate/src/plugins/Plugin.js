@@ -29,7 +29,10 @@ export default class Plugin {
   /**
    * @member serialize a plugin's state to html
    */
-  serialize: (object: { kind: string, type: string, data: any }, children: any[]) => any
+  serialize: (
+    object: { kind: string, type: string, data: any },
+    children: any[]
+  ) => any
 
   /**
    * @member serialize a plugin's state from html

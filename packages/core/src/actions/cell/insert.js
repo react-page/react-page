@@ -18,7 +18,12 @@ const gen = (c: number = 1) => {
   return ret
 }
 
-const insert = (type: string) => (item: Cell, { id: hover, inline, hasInlineNeighbour }: Cell, level: number = 0, ids: Array < string > = []): Action => {
+const insert = (type: string) => (
+  item: Cell,
+  { id: hover, inline, hasInlineNeighbour }: Cell,
+  level: number = 0,
+  ids: Array<string> = []
+): Action => {
   let l = level
   switch (type) {
     case CELL_INSERT_ABOVE:
@@ -39,14 +44,14 @@ const insert = (type: string) => (item: Cell, { id: hover, inline, hasInlineNeig
     default:
   }
 
-  return ({
+  return {
     type,
     ts: new Date(),
     item,
     hover,
     level: l,
     ids: ids.length > 0 ? ids : gen(5)
-  })
+  }
 }
 
 /**

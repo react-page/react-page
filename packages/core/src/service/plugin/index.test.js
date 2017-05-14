@@ -10,22 +10,34 @@ const layout = [{ name: 'bar', version: '0.0.2', Component: <div /> }]
 const plugins = new PluginService({ content, layout })
 
 describe('PluginService', () => {
-  content.forEach((p) => {
+  content.forEach(p => {
     it(`should find plugin ${p.name} ${p.version}`, () => {
-      expect(plugins.findContentPlugin(p.name, p.version).name, 'to equal', p.name)
+      expect(
+        plugins.findContentPlugin(p.name, p.version).name,
+        'to equal',
+        p.name
+      )
     })
   })
 
-  layout.forEach((p) => {
+  layout.forEach(p => {
     it(`should find plugin ${p.name} ${p.version}`, () => {
-      expect(plugins.findLayoutPlugin(p.name, p.version).name, 'to equal', p.name)
+      expect(
+        plugins.findLayoutPlugin(p.name, p.version).name,
+        'to equal',
+        p.name
+      )
     })
   })
 
   const np = { name: 'baz', version: '0.0.1', Component: <div /> }
   it('should add a content plugin', () => {
     plugins.addContentPlugin(np)
-    expect(plugins.findContentPlugin(np.name, np.version).name, 'to equal', np.name)
+    expect(
+      plugins.findContentPlugin(np.name, np.version).name,
+      'to equal',
+      np.name
+    )
     expect(plugins.plugins.content.length, 'to equal', 3)
   })
 
@@ -36,13 +48,21 @@ describe('PluginService', () => {
 
   it('should set content plugins', () => {
     plugins.setContentPlugins([np])
-    expect(plugins.findContentPlugin(np.name, np.version).name, 'to equal', np.name)
+    expect(
+      plugins.findContentPlugin(np.name, np.version).name,
+      'to equal',
+      np.name
+    )
     expect(plugins.plugins.content.length, 'to equal', 2)
   })
 
   it('should add a layout plugin', () => {
     plugins.addLayoutPlugin(np)
-    expect(plugins.findLayoutPlugin(np.name, np.version).name, 'to equal', np.name)
+    expect(
+      plugins.findLayoutPlugin(np.name, np.version).name,
+      'to equal',
+      np.name
+    )
     expect(plugins.plugins.layout.length, 'to equal', 2)
   })
 
@@ -53,7 +73,11 @@ describe('PluginService', () => {
 
   it('should set layout plugins', () => {
     plugins.setLayoutPlugins([np])
-    expect(plugins.findLayoutPlugin(np.name, np.version).name, 'to equal', np.name)
+    expect(
+      plugins.findLayoutPlugin(np.name, np.version).name,
+      'to equal',
+      np.name
+    )
     expect(plugins.plugins.layout.length, 'to equal', 1)
   })
 })

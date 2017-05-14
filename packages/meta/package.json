@@ -12,7 +12,6 @@
     "ory-editor-plugins-spacer": "0.0.0",
     "ory-editor-plugins-parallax-background": "0.0.0",
     "ory-editor-plugins-video": "0.0.0",
-    "ory-editor-ui": "0.0.0",
-    "react-tap-event-plugin": "^2.0.1"
+    "ory-editor-ui": "0.0.0"
   }
 }

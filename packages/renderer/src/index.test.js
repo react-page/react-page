@@ -3,14 +3,19 @@ import React from 'react'
 import { HTMLRenderer } from './index.js'
 import slate from 'ory-editor-plugins-slate'
 
-const Layout = ({ children, state: { className } }) => <div className={`${className}`}>{children}</div>
+const Layout = ({ children, state: { className } }) => (
+  <div className={`${className}`}>{children}</div>
+)
 
 const plugins = {
-  content: [slate()], layout: [{
-    name: 'layout',
-    version: '0.0.1',
-    Component: Layout
-  }]
+  content: [slate()],
+  layout: [
+    {
+      name: 'layout',
+      version: '0.0.1',
+      Component: Layout
+    }
+  ]
 }
 
 describe('HTMLRenderer', () => {
@@ -107,42 +112,48 @@ describe('HTMLRenderer', () => {
   //   })
   // })
   describe('rendering html content from slate', () => {
-    [{
-      id: '1',
-      cells: [{
-        id: '4c0f5ab5-f331-4d69-8850-7de0df917cc2',
-        size: 12,
-        content: {
-          plugin: {
-            name: 'ory/editor/core/content/slate',
-            version: '0.0.1'
-          },
-          state: {
-            serialized: {
-              nodes: [
-                {
-                  kind: 'block',
-                  type: 'PARAGRAPH/PARAGRAPH',
+    ;[
+      {
+        id: '1',
+        cells: [
+          {
+            id: '4c0f5ab5-f331-4d69-8850-7de0df917cc2',
+            size: 12,
+            content: {
+              plugin: {
+                name: 'ory/editor/core/content/slate',
+                version: '0.0.1'
+              },
+              state: {
+                serialized: {
                   nodes: [
                     {
-                      kind: 'text',
-                      text: 'Asdfg'
+                      kind: 'block',
+                      type: 'PARAGRAPH/PARAGRAPH',
+                      nodes: [
+                        {
+                          kind: 'text',
+                          text: 'Asdfg'
+                        }
+                      ],
+                      data: {
+                        align: 'center'
+                      }
                     }
-                  ],
-                  data: {
-                    align: 'center'
-                  }
+                  ]
                 }
-              ]
+              }
             }
           }
-        }
-      }]
-    }].forEach((c, k) => {
+        ]
+      }
+    ].forEach((c, k) => {
       describe(`case ${k}`, () => {
         const wrapper = render(<HTMLRenderer state={c} plugins={plugins} />)
         it('should pass', () => {
-          expect(wrapper.html()).toEqual('<div class="ory-row"><div class="ory-cell ory-cell-md-12 ory-cell-xs-12"><div class="ory-cell-inner ory-cell-leaf"><div><p style="text-align:center;">Asdfg</p></div></div></div></div>')
+          expect(wrapper.html()).toEqual(
+            '<div class="ory-row"><div class="ory-cell ory-cell-md-12 ory-cell-xs-12"><div class="ory-cell-inner ory-cell-leaf"><div><p style="text-align:center;">Asdfg</p></div></div></div></div>'
+          )
         })
       })
     })
@@ -151,18 +162,29 @@ describe('HTMLRenderer', () => {
   describe('two inlining content cells', () => {
     const state = {
       id: '1',
-      cells: [{
-        rows: [
-          {
-            cells: [{
-              content: { plugin: { name: 'ory/editor/core/default' }, state: { value: 'Lorem ipsum.' } },
-              inline: 'left'
-            }, {
-              content: { plugin: { name: 'ory/editor/core/default' }, state: { value: 'dolor sit amet.' } }
-            }]
-          }
-        ]
-      }]
+      cells: [
+        {
+          rows: [
+            {
+              cells: [
+                {
+                  content: {
+                    plugin: { name: 'ory/editor/core/default' },
+                    state: { value: 'Lorem ipsum.' }
+                  },
+                  inline: 'left'
+                },
+                {
+                  content: {
+                    plugin: { name: 'ory/editor/core/default' },
+                    state: { value: 'dolor sit amet.' }
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
     }
 
     const wrapper = mount(<HTMLRenderer state={state} plugins={plugins} />)

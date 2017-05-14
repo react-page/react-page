@@ -4,34 +4,28 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { createStructuredSelector } from 'reselect'
 
-import { shouldPureComponentUpdate } from '../../../helper/shouldComponentUpdate'
+import {
+  shouldPureComponentUpdate
+} from '../../../helper/shouldComponentUpdate'
 import Row from '../../Row'
 import { updateCellLayout } from '../../../actions/cell'
 import { isEditMode } from '../../../selector/display'
 
-import type { ComponentizedCell } from '../../../types/editable'
+import type { ComponetizedCell } from '../../../types/editable'
 
 class Layout extends React.Component {
   shouldComponentUpdate = shouldPureComponentUpdate
-  props: ComponentizedCell
+  props: ComponetizedCell
 
   render() {
     const {
       id,
-      node: {
-        rows = [],
-        layout: {
-          plugin: {
-            Component
-          },
-          state = {}
-        } = {}
-      },
+      node: { rows = [], layout: { plugin: { Component }, state = {} } = {} },
       editable,
       ancestors = [],
       updateCellLayout,
       isEditMode
-    }: ComponentizedCell = this.props
+    }: ComponetizedCell = this.props
 
     return (
       <div className="ory-cell-inner">
@@ -48,7 +42,8 @@ class Layout extends React.Component {
               ancestors={[...ancestors, id]}
               key={r}
               id={r}
-            />))}
+            />
+          ))}
         </Component>
       </div>
     )
@@ -57,8 +52,12 @@ class Layout extends React.Component {
 
 const mapStateToProps = createStructuredSelector({ isEditMode })
 
-const mapDispatchToProps = (dispatch: Function, { id }: ComponentizedCell) => bindActionCreators({
-  updateCellLayout: updateCellLayout(id)
-}, dispatch)
+const mapDispatchToProps = (dispatch: Function, { id }: ComponetizedCell) =>
+  bindActionCreators(
+    {
+      updateCellLayout: updateCellLayout(id)
+    },
+    dispatch
+  )
 
 export default connect(mapStateToProps, mapDispatchToProps)(Layout)

@@ -1,8 +1,9 @@
 // @flow
 import equals from 'ramda/src/equals'
 
-export const shouldPureComponentUpdate = function (next: Object) {
-  const filterFunctions = (o: Object) => (key: string) => typeof o[key] !== 'function'
+export const shouldPureComponentUpdate = function(next: Object) {
+  const filterFunctions = (o: Object) => (key: string) =>
+    typeof o[key] !== 'function'
   const prevKeys = Object.keys(next).filter(filterFunctions(next))
   // eslint-disable-next-line no-invalid-this
   const nextKeys = Object.keys(this.props).filter(filterFunctions(this.props))
@@ -13,7 +14,9 @@ export const shouldPureComponentUpdate = function (next: Object) {
   }
 
   // eslint-disable-next-line no-invalid-this
-  const changed = nextKeys.filter((key: string) => !equals(next[key], this.props[key]))
+  const changed = nextKeys.filter(
+    (key: string) => !equals(next[key], this.props[key])
+  )
 
   // if (changed.length > 0) {
   //   console.log('There have been at least one changed fields: ', changed.map((c) => ({

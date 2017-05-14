@@ -14,10 +14,12 @@ export default class AlignmentPlugin extends Plugin {
 
   // eslint-disable-next-line react/display-name
   createButton = (align, icon) => ({ editorState, onChange }: Props) => {
-    const onClick = (e) => {
+    const onClick = e => {
       e.preventDefault()
 
-      const isActive = editorState.blocks.some((block) => block.data.get('align') === align)
+      const isActive = editorState.blocks.some(
+        block => block.data.get('align') === align
+      )
 
       onChange(
         editorState
@@ -27,7 +29,9 @@ export default class AlignmentPlugin extends Plugin {
       )
     }
 
-    const isActive = editorState.blocks.some((block) => block.data.get('align') === align)
+    const isActive = editorState.blocks.some(
+      block => block.data.get('align') === align
+    )
 
     return <ToolbarButton onClick={onClick} isActive={isActive} icon={icon} />
   }

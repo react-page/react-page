@@ -1,5 +1,4 @@
 // @flow
-import type { Monitor, Connector } from 'ory-editor-core/lib/types/react-dnd'
 
 export const source = {
   beginDrag({ insert, ...props }: { layoutMode(): void, insert: Object }) {
@@ -11,7 +10,7 @@ export const source = {
     }
   },
 
-  endDrag({ id }: { id: string }, monitor: Monitor) {
+  endDrag(props: any, monitor: any) {
     const item = monitor.getItem()
     if (monitor.didDrop()) {
       setTimeout(() => {
@@ -28,7 +27,7 @@ export const source = {
   }
 }
 
-export const collect = (connect: Connector, monitor: Monitor) => ({
+export const collect = (connect: any, monitor: any) => ({
   connectDragSource: connect.dragSource(),
   isDragging: monitor.isDragging(),
   connectDragPreview: connect.dragPreview()

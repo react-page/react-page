@@ -22,7 +22,7 @@ export default class ListsPlugin extends Plugin {
         typeOL: OL,
         typeItem: LI,
         typeDefault: props.DEFAULT_NODE
-      }),
+      })
     ]
   }
 
@@ -30,14 +30,18 @@ export default class ListsPlugin extends Plugin {
 
   // eslint-disable-next-line react/display-name
   createButton = (type, icon) => ({ editorState, onChange }: Props) => {
-    const onClick = (e) => {
+    const onClick = e => {
       e.preventDefault()
 
-
-      const isList = editorState.blocks.some((block) => block.type === LI)
-      const isType = editorState.blocks.some((block) => (
-        Boolean(editorState.document.getClosest(block.key, (parent) => parent.type === type))
-      ))
+      const isList = editorState.blocks.some(block => block.type === LI)
+      const isType = editorState.blocks.some(block =>
+        Boolean(
+          editorState.document.getClosest(
+            block.key,
+            parent => parent.type === type
+          )
+        )
+      )
 
       let transform = editorState.transform()
 
@@ -47,24 +51,31 @@ export default class ListsPlugin extends Plugin {
           .unwrapBlock(UL)
           .unwrapBlock(OL)
       } else if (isList) {
-        transform = transform
-          .unwrapBlock(type === UL ? OL : UL)
-          .wrapBlock(type)
+        transform = transform.unwrapBlock(type === UL ? OL : UL).wrapBlock(type)
       } else {
-        transform = transform
-          .setBlock(LI)
-          .wrapBlock(type)
+        transform = transform.setBlock(LI).wrapBlock(type)
       }
 
       onChange(transform.apply())
     }
 
-    const isList = editorState.blocks.some((block) => block.type === LI)
-    const isType = editorState.blocks.some((block) => (
-      Boolean(editorState.document.getClosest(block.key, (parent) => parent.type === type))
-    ))
+    const isList = editorState.blocks.some(block => block.type === LI)
+    const isType = editorState.blocks.some(block =>
+      Boolean(
+        editorState.document.getClosest(
+          block.key,
+          parent => parent.type === type
+        )
+      )
+    )
 
-    return <ToolbarButton onClick={onClick} isActive={isList && isType} icon={icon} />
+    return (
+      <ToolbarButton
+        onClick={onClick}
+        isActive={isList && isType}
+        icon={icon}
+      />
+    )
   }
 
   name = 'lists'

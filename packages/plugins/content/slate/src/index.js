@@ -38,7 +38,7 @@ export const defaultPlugins = [
   new CodePlugin({ DEFAULT_NODE }),
   new ListsPlugin({ DEFAULT_NODE }),
   new BlockquotePlugin({ DEFAULT_NODE }),
-  new AlignmentPlugin(),
+  new AlignmentPlugin()
   // new KatexPlugin({ DEFAULT_NODE })
 ]
 
@@ -49,7 +49,11 @@ export default (plugins: Plugin[] = defaultPlugins) => {
     marks: createMarks(plugins)
   }
   props.plugins = createPlugins(plugins)
-  props.onKeyDown = (e: Event, data: { key: string, isMod: bool, isShift: bool }, state: any) => {
+  props.onKeyDown = (
+    e: Event,
+    data: { key: string, isMod: boolean, isShift: boolean },
+    state: any
+  ) => {
     // we need to prevent slate from handling undo and redo
     if (data.isMod && (data.key === 'z' || data.key === 'y')) {
       return state
@@ -73,7 +77,7 @@ export default (plugins: Plugin[] = defaultPlugins) => {
 
   const HoverButtons = ({ editorState, onChange, focus }: Props) => (
     <div>
-      {plugins.map((plugin: Plugin, i: number) => (
+      {plugins.map((plugin: Plugin, i: number) =>
         plugin.hoverButtons.map((Button: any, j: number) => (
           <Button
             key={`${i}-${j}`}
@@ -82,14 +86,14 @@ export default (plugins: Plugin[] = defaultPlugins) => {
             focus={focus}
           />
         ))
-      ))}
+      )}
     </div>
   )
   props.HoverButtons = HoverButtons
 
   const ToolbarButtons = ({ editorState, onChange, focus }: Props) => (
     <div>
-      {plugins.map((plugin: Plugin, i: number) => (
+      {plugins.map((plugin: Plugin, i: number) =>
         plugin.toolbarButtons.map((Button: any, j: number) => (
           <Button
             key={`${i}-${j}`}
@@ -98,14 +102,16 @@ export default (plugins: Plugin[] = defaultPlugins) => {
             focus={focus}
           />
         ))
-      ))}
+      )}
     </div>
   )
   props.ToolbarButtons = ToolbarButtons
 
   const html = new Html({ rules: defaultPlugins })
   const Slate = (cellProps: Props) => <Component {...cellProps} {...props} />
-  const StaticComponent = ({ state: { editorState } = {} }: Props) => <div dangerouslySetInnerHTML={{ __html: html.serialize(editorState) }} />
+  const StaticComponent = ({ state: { editorState } = {} }: Props) => (
+    <div dangerouslySetInnerHTML={{ __html: html.serialize(editorState) }} />
+  )
   return {
     Component: Slate,
     StaticComponent,
@@ -127,10 +133,7 @@ export default (plugins: Plugin[] = defaultPlugins) => {
 
       setTimeout(() => {
         props.onChange({
-          editorState: props.state.editorState
-            .transform()
-            .focus()
-            .apply()
+          editorState: props.state.editorState.transform().focus().apply()
         })
       }, 0)
     },
@@ -141,26 +144,28 @@ export default (plugins: Plugin[] = defaultPlugins) => {
       }
 
       props.onChange({
-        editorState: props.state.editorState
-          .transform()
-          .blur()
-          .apply()
+        editorState: props.state.editorState.transform().blur().apply()
       })
     },
 
     reducer: (state: any, action: any) => {
-      if ((action.type === ActionTypes.UNDO || action.type === ActionTypes.REDO) && pathOr(false, ['content', 'state', 'editorState'], state)) {
-        return ({
+      if (
+        (action.type === ActionTypes.UNDO ||
+          action.type === ActionTypes.REDO) &&
+        pathOr(false, ['content', 'state', 'editorState'], state)
+      ) {
+        return {
           ...state,
           content: {
             ...state.content,
             state: {
               ...state.content.state,
-              editorState: state.content.state.editorState.merge({ isNative: false }),
-
+              editorState: state.content.state.editorState.merge({
+                isNative: false
+              })
             }
           }
-        })
+        }
       }
       return state
     },

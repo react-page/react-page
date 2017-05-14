@@ -2,15 +2,18 @@
 import throttle from 'lodash.throttle'
 import pathOr from 'ramda/src/pathOr'
 
-import { computeAndDispatchHover, computeAndDispatchInsert } from '../../../../service/hover/input'
+import {
+  computeAndDispatchHover,
+  computeAndDispatchInsert
+} from '../../../../service/hover/input'
 import { delay } from '../../../../helper/throttle'
 import logger from '../../../../service/logger'
 
-import type { ComponentizedCell } from '../../../../types/editable'
+import type { ComponetizedCell } from '../../../../types/editable'
 
-let last: {hover: string, drag: string} = { hover: '', drag: '' }
+let last: { hover: string, drag: string } = { hover: '', drag: '' }
 
-const clear = (hover: ComponentizedCell, drag: string) => {
+const clear = (hover: ComponetizedCell, drag: string) => {
   if (hover.id === last.hover && drag === last.drag) {
     return
   }
@@ -19,40 +22,53 @@ const clear = (hover: ComponentizedCell, drag: string) => {
 }
 
 export const target = {
-  hover: throttle((hover: ComponentizedCell, monitor: Object, component: Object) => {
-    const drag: ComponentizedCell = monitor.getItem()
+  hover: throttle(
+    (hover: ComponetizedCell, monitor: Object, component: Object) => {
+      const drag: ComponetizedCell = monitor.getItem()
 
-    if (!drag) {
-      // item undefined, happens when throttle triggers after drop
-      return
-    } else if (drag.id === hover.id) {
-      // If hovering over itself, do nothing
-      clear(hover, drag.id)
-      return
-    } else if (!monitor.isOver({ shallow: true })) {
-      // If hovering over ancestor cell, do nothing (we are going to propagate later in the tree anyways)
-      return
-    } else if (hover.ancestors.indexOf(drag.id) > -1) {
-      // If hovering over a child of itself
-      clear(hover, drag.id)
-      return
-    } else if (!hover.id) {
-      // If hovering over something that isn't a cell or hasn't an id, do nothing. Should be an edge case
-      logger.warn('Canceled cell drop, no id given.', hover, drag)
-      return
-    }
+      if (!drag) {
+        // item undefined, happens when throttle triggers after drop
+        return
+      } else if (drag.id === hover.id) {
+        // If hovering over itself, do nothing
+        clear(hover, drag.id)
+        return
+      } else if (!monitor.isOver({ shallow: true })) {
+        // If hovering over ancestor cell, do nothing (we are going to propagate later in the tree anyways)
+        return
+      } else if (hover.ancestors.indexOf(drag.id) > -1) {
+        // If hovering over a child of itself
+        clear(hover, drag.id)
+        return
+      } else if (!hover.id) {
+        // If hovering over something that isn't a cell or hasn't an id, do nothing. Should be an edge case
+        logger.warn('Canceled cell drop, no id given.', hover, drag)
+        return
+      }
 
-    last = { hover: hover.id, drag: drag.id }
-    const allowInlineNeighbours = pathOr(false, ['node', 'content', 'plugin', 'allowInlineNeighbours'], hover)
-    computeAndDispatchHover(hover, monitor, component, `10x10${allowInlineNeighbours ? '' : '-no-inline'}`)
-  }, delay, { leading: false }),
+      last = { hover: hover.id, drag: drag.id }
+      const allowInlineNeighbours = pathOr(
+        false,
+        ['node', 'content', 'plugin', 'allowInlineNeighbours'],
+        hover
+      )
+      computeAndDispatchHover(
+        hover,
+        monitor,
+        component,
+        `10x10${allowInlineNeighbours ? '' : '-no-inline'}`
+      )
+    },
+    delay,
+    { leading: false }
+  ),
 
-  canDrop: ({ id, ancestors }: ComponentizedCell, monitor: Object) => {
+  canDrop: ({ id, ancestors }: ComponetizedCell, monitor: Object) => {
     const item = monitor.getItem()
     return item.id !== id && ancestors.indexOf(item.id) === -1
   },
 
-  drop(hover: ComponentizedCell, monitor: Object, component: Object) {
+  drop(hover: ComponetizedCell, monitor: Object, component: Object) {
     const drag = monitor.getItem()
 
     if (monitor.didDrop() || !monitor.isOver({ shallow: true })) {
@@ -69,8 +85,17 @@ export const target = {
     }
 
     last = { hover: hover.id, drag: drag.id }
-    const allowInlineNeighbours = pathOr(false, ['node', 'content', 'plugin', 'allowInlineNeighbours'], hover)
-    computeAndDispatchInsert(hover, monitor, component, `10x10${allowInlineNeighbours ? '' : '-no-inline'}`)
+    const allowInlineNeighbours = pathOr(
+      false,
+      ['node', 'content', 'plugin', 'allowInlineNeighbours'],
+      hover
+    )
+    computeAndDispatchInsert(
+      hover,
+      monitor,
+      component,
+      `10x10${allowInlineNeighbours ? '' : '-no-inline'}`
+    )
   }
 }
 

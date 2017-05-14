@@ -16,61 +16,90 @@ import { P } from './plugins/paragraph'
 // FIXME #126
 import { Document, Html, Raw, State, Plain } from 'slate'
 
-const rules = [{
-  deserialize: (el: any) => el.tagName === 'p' ? {
-    kind: 'block',
-    type: P,
-    nodes: [{ kind: 'text', ranges: [{ text: el.children[0].data }] }]
-  } : null
-}, {
-  deserialize: (el: any) => el.tagName === 'h1' ? {
-    kind: 'block',
-    type: H1,
-    nodes: [{ kind: 'text', ranges: [{ text: el.children[0].data }] }]
-  } : null
-}, {
-  deserialize: (el: any) => el.tagName === 'h2' ? {
-    kind: 'block',
-    type: H2,
-    nodes: [{ kind: 'text', ranges: [{ text: el.children[0].data }] }]
-  } : null
-}, {
-  deserialize: (el: any) => el.tagName === 'h3' ? {
-    kind: 'block',
-    type: H3,
-    nodes: [{ kind: 'text', ranges: [{ text: el.children[0].data }] }]
-  } : null
-}, {
-  serialize: (el: any, children: any) => el.type === H1
-    ? <h1>{children}</h1>
-    : null
-}, {
-  serialize: (el: any, children: any) => el.type === P
-    ? <p>{children}</p>
-    : null
-}]
-
+const rules = [
+  {
+    deserialize: (el: any) =>
+      el.tagName === 'p'
+        ? {
+            kind: 'block',
+            type: P,
+            nodes: [{ kind: 'text', ranges: [{ text: el.children[0].data }] }]
+          }
+        : null
+  },
+  {
+    deserialize: (el: any) =>
+      el.tagName === 'h1'
+        ? {
+            kind: 'block',
+            type: H1,
+            nodes: [{ kind: 'text', ranges: [{ text: el.children[0].data }] }]
+          }
+        : null
+  },
+  {
+    deserialize: (el: any) =>
+      el.tagName === 'h2'
+        ? {
+            kind: 'block',
+            type: H2,
+            nodes: [{ kind: 'text', ranges: [{ text: el.children[0].data }] }]
+          }
+        : null
+  },
+  {
+    deserialize: (el: any) =>
+      el.tagName === 'h3'
+        ? {
+            kind: 'block',
+            type: H3,
+            nodes: [{ kind: 'text', ranges: [{ text: el.children[0].data }] }]
+          }
+        : null
+  },
+  {
+    serialize: (el: any, children: any) =>
+      el.type === H1 ? <h1>{children}</h1> : null
+  },
+  {
+    serialize: (el: any, children: any) =>
+      el.type === P ? <p>{children}</p> : null
+  }
+]
 
 export const html = new Html({ rules })
 
 const options = { terse: true }
 
 export const createInitialState = () => ({
-  editorState: Raw.deserialize({
-    nodes: [{
-      kind: 'block',
-      type: P,
+  editorState: Raw.deserialize(
+    {
       nodes: [
         {
-          kind: 'text',
-          text: ''
+          kind: 'block',
+          type: P,
+          nodes: [
+            {
+              kind: 'text',
+              text: ''
+            }
+          ]
         }
       ]
-    }]
-  }, options)
+    },
+    options
+  )
 })
 
-export const unserialize = ({ importFromHtml, serialized, editorState }: { importFromHtml: string, serialized: Object, editorState: Object }): { editorState: Object } => {
+export const unserialize = ({
+  importFromHtml,
+  serialized,
+  editorState
+}: {
+  importFromHtml: string,
+  serialized: Object,
+  editorState: Object
+}): { editorState: Object } => {
   if (serialized) {
     return { editorState: Raw.deserialize(serialized, options) }
   } else if (importFromHtml) {
@@ -88,7 +117,11 @@ export const serialize = ({ editorState }: any) => ({
 
 export const merge = (states: Object[]): Object => {
   const nodes = map(path(['editorState', 'document', 'nodes']), states)
-  const mergedNodes = reduce((a: List<any>, b: List<any>) => a.concat(b), head(nodes), tail(nodes))
+  const mergedNodes = reduce(
+    (a: List<any>, b: List<any>) => a.concat(b),
+    head(nodes),
+    tail(nodes)
+  )
   const mergedDocument = Document.create({ nodes: mergedNodes })
   const mergedEditorState = State.create({ document: mergedDocument })
 
@@ -98,14 +131,14 @@ export const merge = (states: Object[]): Object => {
 export const split = (state: Object): Object[] => {
   const nodes = path(['editorState', 'document', 'nodes'], state)
 
-  return nodes.map(
-    (node: any) => {
+  return nodes
+    .map((node: any) => {
       const splittedDocument = Document.create({ nodes: List([node]) })
       const splittedEditorState = State.create({ document: splittedDocument })
 
       return { editorState: splittedEditorState }
-    }
-  ).toArray()
+    })
+    .toArray()
 }
 
 // const position = (): {
@@ -143,11 +176,21 @@ export const split = (state: Object): Object[] => {
 // }
 
 // if editor state is empty, remove cell when backspace or delete was pressed.
-export const handleRemoveHotKey = (_: KeyboardEvent, { content: { state: { editorState } } }: Props) => new Promise((resolve: Function, reject: Function) => Plain.serialize(editorState).length < 1 ? resolve() : reject())
+export const handleRemoveHotKey = (
+  _: KeyboardEvent,
+  { content: { state: { editorState } } }: Props
+) =>
+  new Promise(
+    (resolve: Function, reject: Function) =>
+      Plain.serialize(editorState).length < 1 ? resolve() : reject()
+  )
 
 const windowSelectionWaitTime = 1
 
-export const handleFocusPreviousHotKey = (e: KeyboardEvent, { content: { state: { editorState } } }: Props) => {
+export const handleFocusPreviousHotKey = (
+  e: KeyboardEvent,
+  { content: { state: { editorState } } }: Props
+) => {
   // const isArrowUp = e.keyCode === 38
 
   return new Promise((resolve: Function, reject: Function) => {
@@ -159,7 +202,9 @@ export const handleFocusPreviousHotKey = (e: KeyboardEvent, { content: { state: 
       // if (isArrowUp && next.top === current.top) {
       //   return resolve()
       // } else
-      if (editorState.selection.isAtStartOf(editorState.document.nodes.first())) {
+      if (
+        editorState.selection.isAtStartOf(editorState.document.nodes.first())
+      ) {
         return resolve()
       }
       reject()
@@ -167,7 +212,10 @@ export const handleFocusPreviousHotKey = (e: KeyboardEvent, { content: { state: 
   })
 }
 
-export const handleFocusNextHotKey = (e: KeyboardEvent, { content: { state: { editorState } } }: Props) => {
+export const handleFocusNextHotKey = (
+  e: KeyboardEvent,
+  { content: { state: { editorState } } }: Props
+) => {
   // const isArrowDown = e.keyCode === 40
 
   return new Promise((resolve: Function, reject: Function) => {

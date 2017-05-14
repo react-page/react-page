@@ -8,7 +8,9 @@ const Empty = ({ id = 'no id given', ...props }: { id: string }) => (
     <small>
       <dl>
         <dt>Cause:</dt>
-        <dd>The content plugin could not be found. Check the console to investigate the cause.</dd>
+        <dd>
+          The content plugin could not be found. Check the console to investigate the cause.
+        </dd>
         <dt>Cell:</dt>
         <dd>{id}</dd>
         <dt>Data:</dt>

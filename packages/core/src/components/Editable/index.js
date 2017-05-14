@@ -41,7 +41,9 @@ class Editable extends Component {
       return
     }
 
-    const state: any = editable(this.props.editor.store.getState(), { id: this.props.id })
+    const state: any = editable(this.props.editor.store.getState(), {
+      id: this.props.id
+    })
     if (state === this.previousState || !state) {
       return
     }
@@ -51,13 +53,7 @@ class Editable extends Component {
   }
 
   render() {
-    const {
-      id,
-      editor: {
-        store,
-        defaultPlugin
-      },
-    } = this.props
+    const { id, editor: { store, defaultPlugin } } = this.props
 
     return (
       <Provider store={store}>

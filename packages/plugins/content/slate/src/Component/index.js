@@ -19,23 +19,22 @@ class Slate extends Component {
     this.updateToolbar()
   }
 
-  shouldComponentUpdate = (nextProps) => (
-    nextProps.state.editorState !== this.props.state.editorState
-    || nextProps.state.toolbar !== this.props.state.toolbar
-    || nextProps.focused !== this.props.focused
-    || nextProps.readOnly !== this.props.readOnly
-  )
+  shouldComponentUpdate = nextProps =>
+    nextProps.state.editorState !== this.props.state.editorState ||
+    nextProps.state.toolbar !== this.props.state.toolbar ||
+    nextProps.focused !== this.props.focused ||
+    nextProps.readOnly !== this.props.readOnly
 
   componentDidUpdate = () => this.updateToolbar()
 
   props: ContentPluginProps<{ editorState: Object }>
   portal: any
 
-  onStateChange = (editorState) => {
+  onStateChange = editorState => {
     this.props.onChange({ editorState })
   }
 
-  handleOpen = (portal) => {
+  handleOpen = portal => {
     this.toolbar = portal.firstChild
   }
 
@@ -51,7 +50,7 @@ class Slate extends Component {
 
     toolbar.style.opacity = 1
     toolbar.style.top = `${top + window.scrollY - toolbar.offsetHeight}px`
-    toolbar.style.left = `${left + window.scrollX - (toolbar.offsetWidth / 2) + (width / 2)}px`
+    toolbar.style.left = `${left + window.scrollX - toolbar.offsetWidth / 2 + width / 2}px`
   }
 
   render() {
@@ -73,8 +72,15 @@ class Slate extends Component {
         <Portal isOpened={isOpened} onOpen={this.handleOpen}>
           <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
             {/* ory-prevent-blur is required to prevent global blurring */}
-            <div className="ory-prevent-blur ory-plugins-content-slate-inline-toolbar" style={{ padding: 0 }}>
-              <HoverButtons editorState={editorState} onChange={this.onStateChange} focus={focus} />
+            <div
+              className="ory-prevent-blur ory-plugins-content-slate-inline-toolbar"
+              style={{ padding: 0 }}
+            >
+              <HoverButtons
+                editorState={editorState}
+                onChange={this.onStateChange}
+                focus={focus}
+              />
             </div>
           </MuiThemeProvider>
         </Portal>
@@ -87,11 +93,15 @@ class Slate extends Component {
           state={editorState}
           plugins={plugins}
         />
-        {readOnly ? null : (
-          <BottomToolbar open={focused}>
-            <ToolbarButtons editorState={editorState} onChange={this.onStateChange} focus={focus} />
-          </BottomToolbar>
-        )}
+        {readOnly
+          ? null
+          : <BottomToolbar open={focused}>
+              <ToolbarButtons
+                editorState={editorState}
+                onChange={this.onStateChange}
+                focus={focus}
+              />
+            </BottomToolbar>}
       </div>
     )
   }

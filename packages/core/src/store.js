@@ -9,7 +9,9 @@ import rootReducer from './reducer'
  */
 export default (initialState: Object, middleware: [] = []): Store => {
   /* eslint no-underscore-dangle: 'off' */
-  const v = process.env.NODE_ENV !== 'production' && typeof window === 'object' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
+  const v = process.env.NODE_ENV !== 'production' &&
+    typeof window === 'object' &&
+    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
     ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({})
     : compose
 

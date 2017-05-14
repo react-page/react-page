@@ -18,12 +18,20 @@ type Props = {
   action: string,
   message: string,
 
-  dismissed: boolean,
+  dismissed: boolean
 }
 
-const handleDismiss = (updateSetting: Function, id: string) => () => updateSetting(`notifier.${id}`, true)
+const handleDismiss = (updateSetting: Function, id: string) => () =>
+  updateSetting(`notifier.${id}`, true)
 
-const Notifier = ({ dismissed, id, open, action = 'dismiss', message, updateSetting }: Props) => (
+const Notifier = ({
+  dismissed,
+  id,
+  open,
+  action = 'dismiss',
+  message,
+  updateSetting
+}: Props) => (
   <Snackbar
     open={open && !dismissed}
     action={action}
@@ -33,7 +41,8 @@ const Notifier = ({ dismissed, id, open, action = 'dismiss', message, updateSett
 )
 
 const mapStateToProps = createStructuredSelector({
-  dismissed: (state: Object, props: Props) => getSetting(`notifier.${props.id}`)(state)
+  dismissed: (state: Object, props: Props) =>
+    getSetting(`notifier.${props.id}`)(state)
 })
 
 const mapActionsToProps = {

@@ -7,18 +7,22 @@ import { createStructuredSelector } from 'reselect'
 
 import { resizeMode, editMode } from '../../../actions/display'
 import { computeStepWidth, widthToSize } from './helper.js'
-import type { ComponentizedCell } from '../../../types/editable'
-import { shouldPureComponentUpdate } from '../../../helper/shouldComponentUpdate'
+import type { ComponetizedCell } from '../../../types/editable'
+import {
+  shouldPureComponentUpdate
+} from '../../../helper/shouldComponentUpdate'
+
+type Props = ComponetizedCell
 
 class Resizable extends Component {
-  constructor(props: ComponentizedCell) {
+  constructor(props: Props) {
     super(props)
 
     const sw = computeStepWidth(props)
     this.state = {
       stepWidth: sw,
       width: props.node.size * sw,
-      steps: (props.steps - 1) || 11,
+      steps: props.steps - 1 || 11
     }
   }
 
@@ -30,13 +34,16 @@ class Resizable extends Component {
 
   shouldComponentUpdate = shouldPureComponentUpdate
 
-  props: ComponentizedCell & { children: any }
+  props: Props
 
   onResize = (event: Event, { size }: Object) => {
     const newSize = widthToSize(this.state, this.props, size)
     if (!newSize) {
       console.warn('Expected resize event to yield a valid size, but got', {
-        newSize, size, props: this.props, state: this.state,
+        newSize,
+        size,
+        props: this.props,
+        state: this.state
       })
       return
     }
@@ -50,14 +57,14 @@ class Resizable extends Component {
 
     return (
       <ReactResizeable
-        className={classNames(
-          'ory-cell-inner',
-          'ory-cell-resizable', {
-            [`ory-cell-resizable-inline-${inline || ''}`]: inline,
-          })}
+        className={classNames('ory-cell-inner', 'ory-cell-resizable', {
+          [`ory-cell-resizable-inline-${inline || ''}`]: inline
+        })}
         onResize={this.onResize}
         minConstraints={inline ? null : [this.state.stepWidth, Infinity]}
-        maxConstraints={inline ? null : [bounds.right * this.state.stepWidth, Infinity]}
+        maxConstraints={
+          inline ? null : [bounds.right * this.state.stepWidth, Infinity]
+        }
         draggableOpts={{ axis: 'none', offsetParent: document.body }}
         width={this.state.width}
         height={0}

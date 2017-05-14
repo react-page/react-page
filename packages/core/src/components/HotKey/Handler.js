@@ -14,12 +14,17 @@ import { node, editable } from '../../selector/editable'
 
 import type { Editable } from '../../types/editable'
 
-const hotKeyHandler = (n: Object, key: string) => pathOr(pathOr(() => Promise.resolve(), ['content', 'plugin', key], n), ['layout', 'plugin', key], n)
+const hotKeyHandler = (n: Object, key: string) =>
+  pathOr(
+    pathOr(() => Promise.resolve(), ['content', 'plugin', key], n),
+    ['layout', 'plugin', key],
+    n
+  )
 
-const nextLeaf = (order: [] = [], current: string) => {
+const nextLeaf = (order: Array<any> = [], current: string) => {
   let last
 
-  return order.find((c: {id: string, isLeaf: boolean}) => {
+  return order.find((c: { id: string, isLeaf: boolean }) => {
     if (last === current) {
       return c.isLeaf
     }
@@ -28,7 +33,8 @@ const nextLeaf = (order: [] = [], current: string) => {
   })
 }
 
-const previousLeaf = (order: [], current: string) => nextLeaf([...order].reverse(), current)
+const previousLeaf = (order: Array<any>, current: string) =>
+  nextLeaf([...order].reverse(), current)
 
 type Props = {
   children: any,
@@ -54,8 +60,19 @@ const falser = (err: Error) => {
 
 // TODO cleanup and tests #143
 const handlers = (props: Props) => {
-  const { id, undo, redo, focus, removeCell, focusCell, blurAllCells, isEditMode, node, editable } = props
-  return ({
+  const {
+    id,
+    undo,
+    redo,
+    focus,
+    removeCell,
+    focusCell,
+    blurAllCells,
+    isEditMode,
+    node,
+    editable
+  } = props
+  return {
     undo: () => undo(id),
     redo: () => redo(id),
 
@@ -106,7 +123,7 @@ const handlers = (props: Props) => {
         })
         .catch(falser)
     }
-  })
+  }
 }
 
 const Decorator = (props: Props) => (
@@ -116,9 +133,11 @@ const Decorator = (props: Props) => (
 )
 
 const mapStateToProps = createStructuredSelector({
-  isEditMode, focus,
-  node: (state: any) => (id: string, editable: string) => node(state, { id, editable }),
-  editable: (state: any, props: any) => editable(state, props),
+  isEditMode,
+  focus,
+  node: (state: any) => (id: string, editable: string) =>
+    node(state, { id, editable }),
+  editable: (state: any, props: any) => editable(state, props)
 })
 
 const mapDispatchToProps = {

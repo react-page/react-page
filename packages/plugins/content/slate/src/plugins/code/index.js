@@ -20,19 +20,14 @@ export default class CodePlugin extends Plugin {
 
   createButton = (type, icon) => {
     const Button = ({ editorState, onChange }: Props) => {
-      const onClick = (e) => {
+      const onClick = e => {
         e.preventDefault()
 
-        onChange(
-          editorState
-            .transform()
-            .toggleMark(type)
-            .apply()
-        )
+        onChange(editorState.transform().toggleMark(type).apply())
       }
 
-
-      const isActive = editorState && editorState.marks.some((mark) => mark.type === type)
+      const isActive =
+        editorState && editorState.marks.some(mark => mark.type === type)
 
       return <ToolbarButton onClick={onClick} isActive={isActive} icon={icon} />
     }
@@ -42,10 +37,10 @@ export default class CodePlugin extends Plugin {
 
   createNodeButton = (type, icon) => {
     const Button = ({ editorState, onChange }: Props) => {
-      const onClick = (e) => {
+      const onClick = e => {
         e.preventDefault()
 
-        const isActive = editorState.blocks.some((block) => block.type === type)
+        const isActive = editorState.blocks.some(block => block.type === type)
 
         onChange(
           editorState
@@ -55,7 +50,7 @@ export default class CodePlugin extends Plugin {
         )
       }
 
-      const isActive = editorState.blocks.some((block) => block.type === type)
+      const isActive = editorState.blocks.some(block => block.type === type)
 
       return <ToolbarButton onClick={onClick} isActive={isActive} icon={icon} />
     }
@@ -89,7 +84,10 @@ export default class CodePlugin extends Plugin {
     }
   }
 
-  serialize = (object: { type: string, kind: string, data: any }, children: any[]) => {
+  serialize = (
+    object: { type: string, kind: string, data: any },
+    children: any[]
+  ) => {
     if (object.kind === 'mark') {
       switch (object.type) {
         case CODE:

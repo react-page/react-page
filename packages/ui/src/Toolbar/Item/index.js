@@ -37,7 +37,7 @@ class Item extends Component {
         secondaryTextLines={2}
         disabled
         className="ory-toolbar-item"
-        rightIcon={(
+        rightIcon={
           <span
             className="ory-toolbar-item-drag-handle-button"
             onMouseEnter={this.onMouseEnter}
@@ -46,15 +46,15 @@ class Item extends Component {
           >
             <Draggable insert={insert}>
               <Tooltip
-              visible={this.state.tooltipVisible}
-              placement="bottomLeft"
-              overlay={<span>Drag me!</span>}
+                visible={this.state.tooltipVisible}
+                placement="bottomLeft"
+                overlay={<span>Drag me!</span>}
               >
                 <DragHandle className="ory-toolbar-item-drag-handle" />
               </Tooltip>
             </Draggable>
           </span>
-        )}
+        }
       />
     )
   }

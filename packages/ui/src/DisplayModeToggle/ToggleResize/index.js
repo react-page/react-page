@@ -8,7 +8,13 @@ import { createStructuredSelector } from 'reselect'
 
 import Button from '../Button'
 
-const Inner = ({ isResizeMode, resizeMode }: { isResizeMode: bool, resizeMode: Function }) => (
+const Inner = ({
+  isResizeMode,
+  resizeMode
+}: {
+  isResizeMode: boolean,
+  resizeMode: Function
+}) => (
   <Button
     icon={<Resize />}
     description="Resize things"

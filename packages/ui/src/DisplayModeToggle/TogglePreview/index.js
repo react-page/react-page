@@ -8,7 +8,13 @@ import { createStructuredSelector } from 'reselect'
 
 import Button from '../Button'
 
-const Inner = ({ isPreviewMode, previewMode }: { isPreviewMode: bool, previewMode: Function }) => (
+const Inner = ({
+  isPreviewMode,
+  previewMode
+}: {
+  isPreviewMode: boolean,
+  previewMode: Function
+}) => (
   <Button
     icon={<Devices />}
     description="Preview result"

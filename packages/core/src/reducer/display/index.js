@@ -1,11 +1,18 @@
 // @flow
-import { DEFAULT_DISPLAY_MODE, SET_DISPLAY_MODE, SET_PREVIOUS_DISPLAY_MODE } from '../../actions/display'
+import {
+  DEFAULT_DISPLAY_MODE,
+  SET_DISPLAY_MODE,
+  SET_PREVIOUS_DISPLAY_MODE
+} from '../../actions/display'
 import type { Display, DisplayAction } from '../../types/display'
 
-export const display = (state: Display = {
-  previous: DEFAULT_DISPLAY_MODE,
-  mode: DEFAULT_DISPLAY_MODE
-}, action: DisplayAction) => {
+export const display = (
+  state: Display = {
+    previous: DEFAULT_DISPLAY_MODE,
+    mode: DEFAULT_DISPLAY_MODE
+  },
+  action: DisplayAction
+) => {
   switch (action.type) {
     case SET_PREVIOUS_DISPLAY_MODE:
       return {
@@ -14,7 +21,9 @@ export const display = (state: Display = {
       }
     case SET_DISPLAY_MODE:
       return {
-        previous: action.mode === state.mode && action.remember ? state.previous : action.mode,
+        previous: action.mode === state.mode && action.remember
+          ? state.previous
+          : action.mode,
         mode: action.mode
       }
     default:

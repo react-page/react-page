@@ -17,13 +17,16 @@ export default class ParagraphPlugin extends Plugin {
         return {
           kind: 'block',
           type: P,
-          nodes: next(el.children),
+          nodes: next(el.children)
           // data: Data.create({ textAlign: el.attr('styles')['text-align'] })
         }
     }
   }
 
-  serialize = (object: { type: string, kind: string, data: any }, children: any[]) => {
+  serialize = (
+    object: { type: string, kind: string, data: any },
+    children: any[]
+  ) => {
     if (object.kind !== 'block') {
       return
     }

@@ -5,17 +5,37 @@ import { bindActionCreators } from 'redux'
 import { createStructuredSelector } from 'reselect'
 
 import { updateCellContent } from '../../../actions/cell'
-import { shouldPureComponentUpdate } from '../../../helper/shouldComponentUpdate'
-import { isEditMode, isLayoutMode, isPreviewMode, isInsertMode, isResizeMode } from '../../../selector/display'
+import {
+  shouldPureComponentUpdate
+} from '../../../helper/shouldComponentUpdate'
+import {
+  isEditMode,
+  isLayoutMode,
+  isPreviewMode,
+  isInsertMode,
+  isResizeMode
+} from '../../../selector/display'
 
-import type { ComponentizedCell } from '../../../types/editable'
+import type { ComponetizedCell } from '../../../types/editable'
 
 // TODO clean me up #157
 class Content extends Component {
-  componentWillReceiveProps(nextProps: ComponentizedCell) {
+  componentWillReceiveProps(nextProps: ComponetizedCell) {
     const { node: { focused: was } } = this.props
     const { node: { focused: is, focusSource } } = nextProps
-    const { isEditMode, editable, id, node: { content: { plugin: { handleFocus, handleBlur, name, version }, state = {} } = {}, focused }, updateCellContent } = nextProps
+    const {
+      isEditMode,
+      editable,
+      id,
+      node: {
+        content: {
+          plugin: { handleFocus, handleBlur, name, version },
+          state = {}
+        } = {},
+        focused
+      },
+      updateCellContent
+    } = nextProps
 
     // FIXME this is really shitty because it will break when the state changes before the blur comes through, see #157
     const pass = {
@@ -25,7 +45,8 @@ class Content extends Component {
       focused: isEditMode && focused,
       readOnly: !isEditMode,
       onChange: updateCellContent,
-      name, version
+      name,
+      version
     }
 
     // Basically we check if the focus state changed and if yes, we execute the callback handler from the plugin, that
@@ -40,7 +61,7 @@ class Content extends Component {
   }
 
   shouldComponentUpdate = shouldPureComponentUpdate
-  props: ComponentizedCell
+  props: ComponetizedCell
   ref: HTMLElement
 
   onRef = (ref: any) => {
@@ -48,7 +69,19 @@ class Content extends Component {
   }
 
   render() {
-    const { isInsertMode, isResizeMode, isPreviewMode, isEditMode, editable, id, node: { content: { plugin: { Component, name, version }, state = {} } = {}, focused }, updateCellContent } = this.props
+    const {
+      isInsertMode,
+      isResizeMode,
+      isPreviewMode,
+      isEditMode,
+      editable,
+      id,
+      node: {
+        content: { plugin: { Component, name, version }, state = {} } = {},
+        focused
+      },
+      updateCellContent
+    } = this.props
     const { focusCell, blurCell } = this.props
 
     let focusProps
@@ -64,7 +97,8 @@ class Content extends Component {
     }
 
     return (
-      <div {...focusProps}
+      <div
+        {...focusProps}
         tabIndex="-1"
         style={{ outline: 'none' }}
         ref={this.onRef}
@@ -92,10 +126,20 @@ class Content extends Component {
   }
 }
 
-const mapStateToProps = createStructuredSelector({ isEditMode, isLayoutMode, isPreviewMode, isInsertMode, isResizeMode })
+const mapStateToProps = createStructuredSelector({
+  isEditMode,
+  isLayoutMode,
+  isPreviewMode,
+  isInsertMode,
+  isResizeMode
+})
 
-const mapDispatchToProps = (dispatch: Function, { id }: ComponentizedCell) => bindActionCreators({
-  updateCellContent: updateCellContent(id)
-}, dispatch)
+const mapDispatchToProps = (dispatch: Function, { id }: ComponetizedCell) =>
+  bindActionCreators(
+    {
+      updateCellContent: updateCellContent(id)
+    },
+    dispatch
+  )
 
 export default connect(mapStateToProps, mapDispatchToProps)(Content)

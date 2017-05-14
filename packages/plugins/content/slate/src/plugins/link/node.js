@@ -1,6 +1,10 @@
 import React from 'react'
 
-const Link = ({ attributes, children, node }: {
+const Link = ({
+  attributes,
+  children,
+  node
+}: {
   attributes: any,
   children: any,
   node: { data: any }

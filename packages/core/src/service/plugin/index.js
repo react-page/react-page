@@ -5,10 +5,9 @@ import { ContentPlugin, LayoutPlugin, Plugin } from './classes'
 import defaultPlugin from './default'
 import missing from './missing'
 
-const find = (
-  name: string,
-  version: string = '*'
-) => (plugin: Plugin): boolean => plugin.name === name && satisfies(plugin.version, version)
+const find = (name: string, version: string = '*') => (
+  plugin: Plugin
+): boolean => plugin.name === name && satisfies(plugin.version, version)
 
 /**
  * Iterate through an editable content tree and generate ids where missing.
@@ -31,7 +30,7 @@ export const generateMissingIds = (props: Object): Object => {
 export default class PluginService {
   plugins: {
     content: Array<ContentPlugin>,
-    layout: Array<LayoutPlugin>,
+    layout: Array<LayoutPlugin>
   }
 
   /**
@@ -39,8 +38,10 @@ export default class PluginService {
    */
   constructor({ content = [], layout = [] }: { content: [], layout: [] } = {}) {
     this.plugins = {
-      content: [defaultPlugin, ...content].map((config: any) => new ContentPlugin(config)),
-      layout: layout.map((config: any) => new LayoutPlugin(config)),
+      content: [defaultPlugin, ...content].map(
+        (config: any) => new ContentPlugin(config)
+      ),
+      layout: layout.map((config: any) => new LayoutPlugin(config))
     }
   }
 
@@ -54,12 +55,16 @@ export default class PluginService {
   }
 
   removeLayoutPlugin(name: string) {
-    this.plugins.layout = this.plugins.layout.filter((plugin: LayoutPlugin) => plugin.name !== name)
+    this.plugins.layout = this.plugins.layout.filter(
+      (plugin: LayoutPlugin) => plugin.name !== name
+    )
   }
 
   setContentPlugins(plugins: Array<any> = []) {
-    this.plugins.content = []; // semicolon is required to avoid syntax error
-    [defaultPlugin, ...plugins].forEach((plugin: any) => this.addContentPlugin(plugin))
+    this.plugins.content = [] // semicolon is required to avoid syntax error
+    ;[defaultPlugin, ...plugins].forEach((plugin: any) =>
+      this.addContentPlugin(plugin)
+    )
   }
 
   addContentPlugin(config: any) {
@@ -67,7 +72,9 @@ export default class PluginService {
   }
 
   removeContentPlugin(name: string) {
-    this.plugins.content = this.plugins.content.filter((plugin: ContentPlugin) => plugin.name !== name)
+    this.plugins.content = this.plugins.content.filter(
+      (plugin: ContentPlugin) => plugin.name !== name
+    )
   }
 
   /**
@@ -114,8 +121,14 @@ export default class PluginService {
     } = state
     const newState: Object = { id, inline, size }
 
-    const { plugin: { name: contentName = null, version: contentVersion = '*' } = {}, state: contentState } = content || {}
-    const { plugin: { name: layoutName = null, version: layoutVersion = '*' } = {}, state: layoutState } = layout || {}
+    const {
+      plugin: { name: contentName = null, version: contentVersion = '*' } = {},
+      state: contentState
+    } = content || {}
+    const {
+      plugin: { name: layoutName = null, version: layoutVersion = '*' } = {},
+      state: layoutState
+    } = layout || {}
 
     if (contentName) {
       const plugin = this.findContentPlugin(contentName, contentVersion)
@@ -145,15 +158,7 @@ export default class PluginService {
   }
 
   serialize = (state: Object): Object => {
-    const {
-      rows = [],
-      cells = [],
-      content,
-      layout,
-      inline,
-      size,
-      id
-    } = state
+    const { rows = [], cells = [], content, layout, inline, size, id } = state
 
     const newState: Object = { id, inline, size }
     if (content && content.plugin) {

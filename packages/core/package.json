@@ -6,23 +6,15 @@
   "license": "AGPL-3.0",
   "scripts": {
     "build": "npm-run-all --parallel build:lib build:css",
+    "build:watch": "npm-run-all --parallel build:lib:watch build:css:watch",
     "build:lib": "babel ./src --source-maps --ignore test.js --out-dir ./lib",
     "build:lib:watch": "npm run build:lib -- --watch",
-    "build:umd": "browserify ./lib/index.js -o ./dist/index.js --transform browserify-global-shim --standalone Editor",
-    "build:css": "postcss -u postcss-import -u postcss-cssnext -c ../../config/postcss/config.js --dir lib/ src/*.css",
+    "build:css": "postcss -c ../../postcss.config.js --dir lib/ src/index.css",
     "build:css:watch": "npm run build:css -- -w",
-    "start": "npm-run-all --parallel build:lib:watch build:css:watch",
-    "clean": "rimraf \"dist/*\" \"lib/*\" \"dist/*\"",
-    "coveralls": "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
     "docs": "documentation build ./src/**/*.js --format md --github -o ../../docs/api/core.md",
-    "flow": "flow check --show-all-errors",
-    "flow:watch": "npm run watch:js -- -c \"flow check --show-all-errors\"",
-    "lint": "eslint \"+(src|test|types|examples)/**/*.js\" --fix",
-    "lint:watch": "npm run watch:js -- -c \"npm run lint\"",
     "prebuild": "npm run clean",
-    "test": "cross-env NODE_PATH=. jest --coverage",
-    "test:watch": "cross-env NODE_PATH=. jest --watch",
-    "watch:js": "chokidar \"+(src|test|types)/**/*.js\" --initial"
+    "clean": "rimraf \"lib/*\"",
+    "flow:generate": "flow-typed install  --flowVersion=0.46.0"
   },
   "peerDependencies": {
     "react": "^15.4.2",
@@ -33,7 +25,6 @@
     "deep-equal": "^1.0.1",
     "dnd-core": "^2.3.0",
     "element-resize-event": "^2.0.9",
-    "lodash.debounce": "^4.0.8",
     "lodash.throttle": "^4.1.1",
     "mousetrap": "^1.6.1",
     "ramda": "^0.23.0",
@@ -49,21 +40,5 @@
     "reselect": "^3.0.0",
     "semver": "^5.3.0",
     "uuid": "^3.0.1"
-  },
-  "devDependencies": {
-    "babel-core": "^6.17.0",
-    "browserify-global-shim": "^1.0.3",
-    "enzyme": "^2.7.0",
-    "react": "^15.4.2",
-    "react-addons-perf": "^15.4.2",
-    "react-addons-test-utils": "^15.4.2",
-    "react-dev-utils": "^0.4.0",
-    "react-dom": "^15.4.2",
-    "react-test-renderer": "^15.4.2",
-    "unexpected": "^10.20.0"
-  },
-  "browserify-global-shim": {
-    "react": "React",
-    "react-dom": "ReactDOM"
   }
 }

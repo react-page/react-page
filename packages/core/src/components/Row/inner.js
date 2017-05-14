@@ -3,32 +3,25 @@ import React from 'react'
 import classNames from 'classnames'
 
 import Cell from '../Cell'
-import type { ComponentizedRow, Cell as CellType } from '../../types/editable'
+import type { ComponetizedRow } from '../../types/editable'
 
 const Inner = ({
   editable,
   ancestors,
-  node: {
-    id,
-    hover,
-    cells = [],
-    hasInlineChildren
-  },
+  node: { id, hover, cells = [], hasInlineChildren },
   containerHeight,
   blurAllCells,
   containerWidth
-}: ComponentizedRow) => (
-  <div className={classNames(
-    'ory-row',
-    {
+}: ComponetizedRow) => (
+  <div
+    className={classNames('ory-row', {
       'ory-row-is-hovering-this': Boolean(hover),
       [`ory-row-is-hovering-${hover || ''}`]: Boolean(hover),
       'ory-row-has-floating-children': hasInlineChildren
-    }
-  )}
-       onClick={blurAllCells}
+    })}
+    onClick={blurAllCells}
   >
-    {cells.map((c: string | CellType) => (
+    {cells.map((c: string) => (
       <Cell
         rowWidth={containerWidth}
         rowHeight={containerHeight}

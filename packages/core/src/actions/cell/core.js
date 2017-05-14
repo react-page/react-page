@@ -62,7 +62,7 @@ export const updateCellLayout = (id: string) => (state: {} = {}): Action => ({
  * @param {string} ids An array of IDs for new cells that might be created.
  * @return {Action}
  */
-export const removeCell = (id: string, ids: Array < string > = []): Action => ({
+export const removeCell = (id: string, ids: Array<string> = []): Action => ({
   type: CELL_REMOVE,
   ts: new Date(),
   id,
@@ -91,7 +91,9 @@ export const resizeCell = (id: string) => (size: number = 1): Action => ({
 /**
  * Dispatch to focus a cell.
  */
-export const focusCell = (id: string) => ({ source }: { source?: string } = {}): Action => ({
+export const focusCell = (id: string) => (
+  { source }: { source?: string } = {}
+): Action => ({
   type: CELL_FOCUS,
   ts: new Date(),
   id,

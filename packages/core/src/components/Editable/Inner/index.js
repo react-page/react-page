@@ -5,13 +5,15 @@ import { createStructuredSelector } from 'reselect'
 
 import { ContentPlugin } from '../../../service/plugin/classes'
 import Cell from '../../Cell'
-import { shouldPureComponentUpdate } from '../../../helper/shouldComponentUpdate'
+import {
+  shouldPureComponentUpdate
+} from '../../../helper/shouldComponentUpdate'
 import { purifiedEditable } from '../../../selector/editable'
 import dimensions from '../../Dimensions'
 import { blurAllCells, createFallbackCell } from '../../../actions/cell'
 import { enableGlobalBlurring, disableGlobalBlurring } from './blur'
 
-import type { EditableComponentState, Cell as CellType } from '../../../types/editable'
+import type { EditableComponentState } from '../../../types/editable'
 
 class Inner extends Component {
   componentDidMount() {
@@ -52,7 +54,7 @@ class Inner extends Component {
     const { cells = [] } = node
     return (
       <div className="ory-editable ory-prevent-blur">
-        {cells.map((c: string | CellType) => (
+        {cells.map((c: string) => (
           <Cell
             rowWidth={containerWidth}
             rowHeight={containerHeight}

@@ -3,7 +3,13 @@ import React from 'react'
 import FloatingActionButton from 'material-ui/FloatingActionButton'
 import device from 'device.js'
 
-const Button = ({ description, icon, onClick, active, disabled }: {
+const Button = ({
+  description,
+  icon,
+  onClick,
+  active,
+  disabled
+}: {
   description: string,
   icon: any,
   active: boolean,

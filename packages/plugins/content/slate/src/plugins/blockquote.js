@@ -18,12 +18,17 @@ export default class BlockquotePlugin extends Plugin {
 
   // eslint-disable-next-line react/display-name
   Button = ({ editorState, onChange }: Props) => {
-    const onClick = (e) => {
+    const onClick = e => {
       e.preventDefault()
 
-      const isActive = editorState.blocks.some((block) => (
-        Boolean(editorState.document.getClosest(block.key, (parent) => parent.type === BLOCKQUOTE))
-      ))
+      const isActive = editorState.blocks.some(block =>
+        Boolean(
+          editorState.document.getClosest(
+            block.key,
+            parent => parent.type === BLOCKQUOTE
+          )
+        )
+      )
 
       let transform = editorState.transform()
 
@@ -36,12 +41,21 @@ export default class BlockquotePlugin extends Plugin {
       onChange(transform.apply())
     }
 
-    const isActive = editorState.blocks.some((block) => (
-      Boolean(editorState.document.getClosest(block.key, (parent) => parent.type === BLOCKQUOTE))
-    ))
+    const isActive = editorState.blocks.some(block =>
+      Boolean(
+        editorState.document.getClosest(
+          block.key,
+          parent => parent.type === BLOCKQUOTE
+        )
+      )
+    )
 
     return (
-      <ToolbarButton onClick={onClick} isActive={isActive} icon={<BlockquoteIcon />} />
+      <ToolbarButton
+        onClick={onClick}
+        isActive={isActive}
+        icon={<BlockquoteIcon />}
+      />
     )
   }
 
@@ -58,9 +72,7 @@ export default class BlockquotePlugin extends Plugin {
     })
   ]
 
-  toolbarButtons = [
-    this.Button
-  ]
+  toolbarButtons = [this.Button]
 
   deserialize = (el, next) => {
     switch (el.tagName) {
@@ -73,13 +85,20 @@ export default class BlockquotePlugin extends Plugin {
     }
   }
 
-  serialize = (object: { type: string, kind: string, data: any }, children: any[]) => {
+  serialize = (
+    object: { type: string, kind: string, data: any },
+    children: any[]
+  ) => {
     if (object.kind !== 'block') {
       return
     }
     switch (object.type) {
       case BLOCKQUOTE:
-        return <blockquote style={{ textAlign: object.data.get('align') }}>{children}</blockquote>
+        return (
+          <blockquote style={{ textAlign: object.data.get('align') }}>
+            {children}
+          </blockquote>
+        )
     }
   }
 }
