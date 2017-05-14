@@ -3,7 +3,7 @@
 import { ContentPlugin, LayoutPlugin } from '../service/plugin/classes'
 
 export type Config = {
-  whitelist: Array<string>,
+  whitelist: Array<string>
 }
 
 type AbstractCell<T> = {
@@ -34,7 +34,7 @@ type AbstractCell<T> = {
     right: number,
     left: number
   }
-};
+}
 
 export type Cell = AbstractCell<Row>
 
@@ -57,11 +57,13 @@ export const createCell = (): Cell => ({
   }
 })
 
-export type ComponentizedCell = {
+export type ComponetizedCell = {
   id: string,
   editable: string,
   ancestors: Array<string>,
   config: Config,
+
+  children: any,
 
   node: AbstractCell<string>,
   rawNode(): Cell,
@@ -126,7 +128,7 @@ export const createRow = (): Row => ({
   hasInlineChildren: false
 })
 
-export type ComponentizedRow = {
+export type ComponetizedRow = {
   id: string,
   config: Config,
   editable: string,
@@ -145,7 +147,7 @@ export type ComponentizedRow = {
 
   clearHover(): void,
   cancelCellDrag(drag: string): void,
-  blurAllCells(): void,
+  blurAllCells(): void
 }
 
 type AbstractEditable<T> = {

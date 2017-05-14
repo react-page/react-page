@@ -8,7 +8,10 @@ import { Editor } from 'ory-editor-core/lib'
 import List from 'material-ui/List/List'
 import Subheader from 'material-ui/Subheader'
 import TextField from 'material-ui/TextField'
-import { LayoutPlugin, ContentPlugin } from 'ory-editor-core/lib/service/plugin/classes'
+import {
+  LayoutPlugin,
+  ContentPlugin
+} from 'ory-editor-core/lib/service/plugin/classes'
 import Item from './Item'
 import Provider from '../Provider'
 
@@ -21,7 +24,7 @@ class Raw extends Component {
   constructor(props: Props) {
     super(props)
     this.state = {
-      searchFilter: (a: any) => (a),
+      searchFilter: (a: any) => a,
       isSearching: false
     }
 
@@ -55,7 +58,8 @@ class Raw extends Component {
     const target = e.target
     if (target instanceof HTMLInputElement) {
       this.setState({
-        searchFilter: ((v: any) => ({ text = '' }: Object) => text.toLowerCase().indexOf(v) > -1)(target.value.toLowerCase()),
+        searchFilter: ((v: any) => ({ text = '' }: Object) =>
+          text.toLowerCase().indexOf(v) > -1)(target.value.toLowerCase()),
         isSearching: target.value.length > 0
       })
     }

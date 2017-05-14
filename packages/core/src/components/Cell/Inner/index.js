@@ -1,7 +1,9 @@
 // @flow
 import React, { Component } from 'react'
 
-import { shouldPureComponentUpdate } from '../../../helper/shouldComponentUpdate'
+import {
+  shouldPureComponentUpdate
+} from '../../../helper/shouldComponentUpdate'
 import Droppable from '../Droppable'
 import Draggable from '../Draggable'
 import Rows from '../Rows'
@@ -9,19 +11,30 @@ import Layout from '../Layout'
 import Content from '../Content'
 import Empty from '../Empty'
 
-import type { ComponentizedCell } from '../../../types/editable'
+import type { ComponetizedCell } from '../../../types/editable'
 
 class Inner extends Component {
   shouldComponentUpdate = shouldPureComponentUpdate
-  props: ComponentizedCell
+  props: ComponetizedCell
 
   render() {
-    const props = this.props
     const {
       node: {
         rows = [],
-        layout: { plugin: { Component: LayoutComponent, name: layoutType, text: layoutTitle } = {}, state: layoutState = {} } = {},
-        content: { plugin: { Component: ContentComponent, name: contentType, text: contentTitle } = {} } = {},
+        layout: {
+          plugin: {
+            Component: LayoutComponent,
+            name: layoutType,
+            text: layoutTitle
+          } = {}
+        } = {},
+        content: {
+          plugin: {
+            Component: ContentComponent,
+            name: contentType,
+            text: contentTitle
+          } = {}
+        } = {}
       },
       config: { whitelist = [] }
     } = this.props
@@ -29,31 +42,38 @@ class Inner extends Component {
 
     if (rows.length && LayoutComponent) {
       return (
-        <Droppable {...props} dropTypes={whitelist}>
-          <Draggable {...props} dragType={layoutType} name={layoutTitle || layoutType}>
-            <Layout {...props} {...layoutState} />
+        <Droppable {...this.props} dropTypes={whitelist}>
+          <Draggable
+            {...this.props}
+            dragType={layoutType}
+            name={layoutTitle || layoutType}
+          >
+            <Layout {...this.props} />
           </Draggable>
         </Droppable>
       )
     } else if (rows.length) {
       return (
-        <Droppable {...props} dropTypes={whitelist}>
-          <Rows {...props} />
+        <Droppable {...this.props} dropTypes={whitelist}>
+          <Rows {...this.props} />
         </Droppable>
       )
     } else if (ContentComponent) {
       return (
-        <Droppable {...props} isLeaf dropTypes={whitelist}>
-          <Draggable {...props} isLeaf dragType={contentType} name={contentTitle || contentType}>
-            <Content {...props} />
+        <Droppable {...this.props} isLeaf dropTypes={whitelist}>
+          <Draggable
+            {...this.props}
+            isLeaf
+            dragType={contentType}
+            name={contentTitle || contentType}
+          >
+            <Content {...this.props} />
           </Draggable>
         </Droppable>
       )
     }
 
-    return (
-      <Empty {...props} />
-    )
+    return <Empty {...this.props} />
   }
 }
 

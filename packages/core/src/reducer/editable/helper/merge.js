@@ -1,7 +1,8 @@
-// @flow'
+// @flow
 import flatten from 'ramda/src/flatten'
 import head from 'ramda/src/head'
 import path from 'ramda/src/path'
+import pathOr from 'ramda/src/pathOr'
 import map from 'ramda/src/map'
 import reduce from 'ramda/src/reduce'
 import tail from 'ramda/src/tail'
@@ -36,11 +37,13 @@ export const mergeRows = (state: Row[]) => {
       const pluginMerge = path(['content', 'plugin', 'merge'])
 
       if (
-        !pluginName(cellA) || !pluginName(cellB)
-        || !pluginVersion(cellA) || !pluginVersion(cellB)
-        || pluginName(cellA) !== pluginName(cellB)
-        || pluginVersion(cellA) !== pluginVersion(cellB)
-        || !pluginMerge(cellA)
+        !pluginName(cellA) ||
+        !pluginName(cellB) ||
+        !pluginVersion(cellA) ||
+        !pluginVersion(cellB) ||
+        pluginName(cellA) !== pluginName(cellB) ||
+        pluginVersion(cellA) !== pluginVersion(cellB) ||
+        !pluginMerge(cellA)
       ) {
         return [
           [...rowsAcc, { ...rowA, id: takeWhile(notSharp, rowA.id).join('') }],
@@ -53,16 +56,19 @@ export const mergeRows = (state: Row[]) => {
         {
           ...rowA,
           id: takeWhile(notSharp, rowA.id).join(''),
-          cells: [{
-            ...cellA,
-            id: takeWhile(notSharp, cellA.id).join(''),
-            content: {
-              ...cellA.content,
-              state: pluginMerge(cellA)(
-                [cellA.content.state, cellB.content.state]
-              )
+          cells: [
+            {
+              ...cellA,
+              id: takeWhile(notSharp, cellA.id).join(''),
+              content: {
+                ...cellA.content,
+                state: pluginMerge(cellA)([
+                  pathOr({}, ['content', 'state'], cellA),
+                  pathOr({}, ['content', 'state'], cellB)
+                ])
+              }
             }
-          }]
+          ]
         }
       ]
     },
@@ -73,9 +79,9 @@ export const mergeRows = (state: Row[]) => {
   return [...newCellsAcc, lastRow]
 }
 
-export const splitRows = (state: Row[]) => (
-  flatten(map(
-    (row: Row) => {
+export const splitRows = (state: Row[]) =>
+  flatten(
+    map((row: Row) => {
       if (!row.cells) {
         return [row]
       }
@@ -94,19 +100,19 @@ export const splitRows = (state: Row[]) => (
       return split(state).map((state: Object, i: number) => ({
         ...row,
         id: `${row.id}#${i}`,
-        cells: [{
-          ...row.cells[0],
-          id: `${row.cells[0].id}#${i}`,
-          content: {
-            ...row.cells[0].content,
-            state
+        cells: [
+          {
+            ...row.cells[0],
+            id: `${row.cells[0].id}#${i}`,
+            content: {
+              ...row.cells[0].content,
+              state
+            }
           }
-        }]
+        ]
       }))
-    },
-    state
-  ))
-)
+    }, state)
+  )
 
 export const mergeDecorator = (action: Object) => (state: Row[]) => {
   if (action.type !== SET_DISPLAY_MODE) {

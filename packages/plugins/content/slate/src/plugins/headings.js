@@ -17,7 +17,11 @@ export const H4 = 'HEADINGS/HEADING-FOUR'
 export const H5 = 'HEADINGS/HEADING-FIVE'
 export const H6 = 'HEADINGS/HEADING-SIX'
 
-const createNode = (type: string, el: any, next: any) => ({ kind: 'block', type, nodes: next(el.children) })
+const createNode = (type: string, el: any, next: any) => ({
+  kind: 'block',
+  type,
+  nodes: next(el.children)
+})
 
 export default class HeadingsPlugin extends Plugin {
   constructor(props: Props) {
@@ -30,10 +34,10 @@ export default class HeadingsPlugin extends Plugin {
 
   // eslint-disable-next-line react/display-name
   createButton = (type, icon) => ({ editorState, onChange }: Props) => {
-    const onClick = (e) => {
+    const onClick = e => {
       e.preventDefault()
 
-      const isActive = editorState.blocks.some((block) => block.type === type)
+      const isActive = editorState.blocks.some(block => block.type === type)
 
       onChange(
         editorState
@@ -43,7 +47,7 @@ export default class HeadingsPlugin extends Plugin {
       )
     }
 
-    const isActive = editorState.blocks.some((block) => block.type === type)
+    const isActive = editorState.blocks.some(block => block.type === type)
 
     return <ToolbarButton onClick={onClick} isActive={isActive} icon={icon} />
   }
@@ -85,7 +89,10 @@ export default class HeadingsPlugin extends Plugin {
     }
   }
 
-  serialize = (object: { type: string, kind: string, data: any }, children: any[]) => {
+  serialize = (
+    object: { type: string, kind: string, data: any },
+    children: any[]
+  ) => {
     if (object.kind !== 'block') {
       return
     }

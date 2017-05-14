@@ -9,7 +9,13 @@ import { layoutMode } from 'ory-editor-core/lib/actions/display'
 import { isLayoutMode } from 'ory-editor-core/lib/selector/display'
 import { createStructuredSelector } from 'reselect'
 
-const Inner = ({ isLayoutMode, layoutMode }: { isLayoutMode: bool, layoutMode: Function }) => (
+const Inner = ({
+  isLayoutMode,
+  layoutMode
+}: {
+  isLayoutMode: boolean,
+  layoutMode: Function
+}) => (
   <Button
     icon={<ViewQuilt />}
     description="Move things"

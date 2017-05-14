@@ -8,13 +8,23 @@ import { createStructuredSelector } from 'reselect'
 import Inner from './Inner'
 import { shouldPureComponentUpdate } from '../../helper/shouldComponentUpdate'
 import { editableConfig, node, purifiedNode } from '../../selector/editable'
-import { isPreviewMode, isEditMode, isResizeMode, isInsertMode, isLayoutMode } from '../../selector/display'
+import {
+  isPreviewMode,
+  isEditMode,
+  isResizeMode,
+  isInsertMode,
+  isLayoutMode
+} from '../../selector/display'
 import { resizeCell, focusCell, blurAllCells } from '../../actions/cell'
 import Resizable from './Resizable'
 
-import type { ComponentizedCell } from '../../types/editable'
+import type { ComponetizedCell } from '../../types/editable'
 
-const gridClass = ({ node: { size }, isPreviewMode, isEditMode }: ComponentizedCell): string => {
+const gridClass = ({
+  node: { size },
+  isPreviewMode,
+  isEditMode
+}: ComponetizedCell): string => {
   if (isPreviewMode || isEditMode) {
     return `ory-cell-${isPreviewMode || isEditMode ? 'md' : 'xs'}-${size || 12} ory-cell-xs-12`
   }
@@ -22,20 +32,28 @@ const gridClass = ({ node: { size }, isPreviewMode, isEditMode }: ComponentizedC
   return `ory-cell-xs-${size || 12}`
 }
 
-const stopClick = (isEditMode: boolean) => (e: Event) => isEditMode ? e.stopPropagation() : null
+const stopClick = (isEditMode: boolean) => (e: Event) =>
+  isEditMode ? e.stopPropagation() : null
+
+type Props = ComponetizedCell
 
 class Cell extends Component {
   shouldComponentUpdate = shouldPureComponentUpdate
 
-  props: ComponentizedCell
+  props: Props
 
   render() {
     const {
-      id, rowWidth, rowHeight, updateDimensions, isResizeMode, isEditMode,
-      node: { inline, resizable, hasInlineNeighbour, focused }, isLayoutMode
+      id,
+      rowWidth,
+      rowHeight,
+      updateDimensions,
+      isResizeMode,
+      isEditMode,
+      node: { inline, resizable, hasInlineNeighbour, focused },
+      isLayoutMode
     } = this.props
 
-    const props = { ...this.props, styles: null }
     return (
       <div
         className={classNames('ory-cell', gridClass(this.props), {
@@ -48,22 +66,20 @@ class Cell extends Component {
         })}
         onClick={stopClick(isEditMode)}
       >
-        {resizable && (isResizeMode)
-          ? (
-            <Resizable
+        {resizable && isResizeMode
+          ? <Resizable
+              {...this.props}
               id={id}
               rowWidth={rowWidth}
               rowHeight={rowHeight}
               updateDimensions={updateDimensions}
-              node={props.node}
+              node={this.props.node}
               steps={12}
-              onChange={props.resizeCell}
+              onChange={this.props.resizeCell}
             >
-              <Inner {...props} />
+              <Inner {...this.props} styles={null} />
             </Resizable>
-          ) : (
-            <Inner {...props} />
-          )}
+          : <Inner {...this.props} styles={null} />}
       </div>
     )
   }
@@ -81,10 +97,14 @@ const mapStateToProps = createStructuredSelector({
   rawNode: (state: any, props: any) => () => node(state, props)
 })
 
-const mapDispatchToProps = (dispatch: Function, { id }: ComponentizedCell) => bindActionCreators({
-  resizeCell: resizeCell(id),
-  focusCell: focusCell(id),
-  blurAllCells
-}, dispatch)
+const mapDispatchToProps = (dispatch: Function, { id }: { id: string }) =>
+  bindActionCreators(
+    {
+      resizeCell: resizeCell(id),
+      focusCell: focusCell(id),
+      blurAllCells
+    },
+    dispatch
+  )
 
-export default (connect(mapStateToProps, mapDispatchToProps)(Cell))
+export default connect(mapStateToProps, mapDispatchToProps)(Cell)

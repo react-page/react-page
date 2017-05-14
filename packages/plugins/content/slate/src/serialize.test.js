@@ -4,15 +4,14 @@ import { defaultPlugins } from './index'
 const html = new Html({ rules: defaultPlugins })
 
 describe('serialize to html', () => {
-  [
+  ;[
     {
       i: {
         nodes: [
           {
             kind: 'block',
             type: 'HEADINGS/HEADING-ONE',
-            nodes: [{ kind: 'text', text: 'Projects' }
-            ]
+            nodes: [{ kind: 'text', text: 'Projects' }]
           }
         ]
       },
@@ -23,7 +22,8 @@ describe('serialize to html', () => {
         nodes: [
           {
             kind: 'block',
-            type: 'PARAGRAPH/PARAGRAPH', nodes: [{ kind: 'text', text: 'some projects' }]
+            type: 'PARAGRAPH/PARAGRAPH',
+            nodes: [{ kind: 'text', text: 'some projects' }]
           }
         ]
       },
@@ -41,7 +41,7 @@ describe('serialize to html', () => {
                 text: 'asdf'
               }
             ]
-          },
+          }
         ]
       },
       o: '<pre style="overflow:scroll;"><code>asdf</code></pre>',
@@ -50,31 +50,32 @@ describe('serialize to html', () => {
     },
     {
       i: {
-        nodes: [{
-          kind: 'block',
-          type: 'PARAGRAPH/PARAGRAPH',
-          nodes: [
-            {
-              kind: 'text',
-              ranges: [
-                {
-                  text: 'a'
-                },
-                {
-                  text: 'bc',
-                  marks: [
-                    {
-                      type: 'CODE/CODE'
-                    }
-                  ]
-                },
-                {
-                  text: 'de'
-                }
-              ]
-            }
-          ]
-        },
+        nodes: [
+          {
+            kind: 'block',
+            type: 'PARAGRAPH/PARAGRAPH',
+            nodes: [
+              {
+                kind: 'text',
+                ranges: [
+                  {
+                    text: 'a'
+                  },
+                  {
+                    text: 'bc',
+                    marks: [
+                      {
+                        type: 'CODE/CODE'
+                      }
+                    ]
+                  },
+                  {
+                    text: 'de'
+                  }
+                ]
+              }
+            ]
+          }
         ]
       },
       o: '<p>a<code>bc</code>de</p>',
@@ -101,7 +102,7 @@ describe('serialize to html', () => {
                 }
               }
             ]
-          },
+          }
         ]
       },
       o: '<h4><a href="foo">asdf</a></h4>',
@@ -115,7 +116,8 @@ describe('serialize to html', () => {
             type: 'HEADINGS/HEADING-THREE',
             nodes: [
               {
-                kind: 'text', text: 'asdfgh'
+                kind: 'text',
+                text: 'asdfgh'
               }
             ],
             data: {
@@ -135,7 +137,8 @@ describe('serialize to html', () => {
             type: 'BLOCKQUOTE/BLOCKQUOTE',
             nodes: [
               {
-                kind: 'text', text: 'asdfgh'
+                kind: 'text',
+                text: 'asdfgh'
               }
             ],
             data: {
@@ -152,7 +155,9 @@ describe('serialize to html', () => {
         nodes: [
           {
             kind: 'block',
-            type: 'PARAGRAPH/PARAGRAPH', nodes: [{ kind: 'text', text: 'ab' }], data: { align: 'center' }
+            type: 'PARAGRAPH/PARAGRAPH',
+            nodes: [{ kind: 'text', text: 'ab' }],
+            data: { align: 'center' }
           }
         ]
       },
@@ -171,17 +176,26 @@ describe('serialize to html', () => {
       },
       o: '<blockquote>ab<br/>de</blockquote>',
       skip: true
-    },
+    }
   ].forEach((c, k) => {
     describe(`test case ${k}`, () => {
       it('should serialize properly', () => {
-        expect(html.serialize(Raw.deserialize(c.i, { terse: true }))).toEqual(c.o)
+        expect(html.serialize(Raw.deserialize(c.i, { terse: true }))).toEqual(
+          c.o
+        )
       })
       it(`should deserialize properly: ${c.o}`, () => {
         if (c.skip) {
           return
         }
-        expect(Raw.serialize(html.deserialize(html.serialize(Raw.deserialize(c.i, { terse: true }))), { terse: true })).toEqual(c.i)
+        expect(
+          Raw.serialize(
+            html.deserialize(
+              html.serialize(Raw.deserialize(c.i, { terse: true }))
+            ),
+            { terse: true }
+          )
+        ).toEqual(c.i)
       })
     })
   })

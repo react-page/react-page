@@ -8,3 +8,4 @@ _book/
 coverage/
 lib/
 dist/
+packages/

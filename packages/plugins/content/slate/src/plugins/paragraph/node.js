@@ -26,7 +26,9 @@ class Paragraph extends Component {
           parent={state.document}
           state={state}
           style={{ top: 'auto', bottom: 'auto', left: 'auto', right: 'auto' }}
-        >{placeholder}</Placeholder>
+        >
+          {placeholder}
+        </Placeholder>
         {children}
       </p>
     )

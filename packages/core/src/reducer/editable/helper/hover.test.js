@@ -6,7 +6,7 @@ const expect = unexpected.clone()
 
 // FIXME: this should be done differently
 describe('isHoveringThis', () => {
-  [
+  ;[
     {
       in: {
         cells: [
@@ -24,9 +24,7 @@ describe('isHoveringThis', () => {
             ]
           },
           {
-            rows: [
-              { cells: [{ plugin: 'bar' }] }
-            ]
+            rows: [{ cells: [{ plugin: 'bar' }] }]
           }
         ]
       },
@@ -51,9 +49,7 @@ describe('isHoveringThis', () => {
             ]
           },
           {
-            rows: [
-              { cells: [{ plugin: 'bar' }] }
-            ]
+            rows: [{ cells: [{ plugin: 'bar' }] }]
           }
         ]
       },
@@ -67,9 +63,7 @@ describe('isHoveringThis', () => {
       in: {
         rows: [
           {
-            cells: [
-              { rows: [{ cells: [{ plugin: 'bar' }] }] }
-            ]
+            cells: [{ rows: [{ cells: [{ plugin: 'bar' }] }] }]
           },
           {
             h: true,
@@ -96,14 +90,15 @@ describe('isHoveringThis', () => {
       }
     }
   ].forEach((c, k) => {
-    const runner = (level) => (props) => describe('isHoveringThis', () => {
-      it(`case ${k} should pass level ${level}`, () => {
-        const { cells = [], rows = [], h = false } = props
-        expect(isHoveringThis(props, c.action), 'to equal', h)
-        rows.map(runner(level + 1))
-        cells.map(runner(level + 1))
+    const runner = level => props =>
+      describe('isHoveringThis', () => {
+        it(`case ${k} should pass level ${level}`, () => {
+          const { cells = [], rows = [], h = false } = props
+          expect(isHoveringThis(props, c.action), 'to equal', h)
+          rows.map(runner(level + 1))
+          cells.map(runner(level + 1))
+        })
       })
-    })
     runner(0)(c.in)
   })
 })

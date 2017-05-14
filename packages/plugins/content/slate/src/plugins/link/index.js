@@ -37,32 +37,40 @@ class Button extends Component {
     }
   }
 
-  onClick = (e) => {
+  onClick = e => {
     const { editorState, onChange } = this.props
     e.preventDefault()
 
-    const hasLinks = editorState.inlines.some((inline: any) => inline.type === A)
+    const hasLinks = editorState.inlines.some(
+      (inline: any) => inline.type === A
+    )
 
     if (hasLinks) {
-      const newState = editorState
-        .transform()
-        .unwrapInline(A)
-        .apply()
+      const newState = editorState.transform().unwrapInline(A).apply()
       onChange(newState)
     } else if (editorState.isExpanded) {
-      this.setState({ open: true, wasExpanded: editorState.isExpanded, href: '', title: '', hadLinks: hasLinks })
+      this.setState({
+        open: true,
+        wasExpanded: editorState.isExpanded,
+        href: '',
+        title: '',
+        hadLinks: hasLinks
+      })
     } else {
-      this.setState({ open: true, wasExpanded: editorState.isExpanded, href: '', title: '', hadLinks: hasLinks })
+      this.setState({
+        open: true,
+        wasExpanded: editorState.isExpanded,
+        href: '',
+        title: '',
+        hadLinks: hasLinks
+      })
     }
   }
 
   handleClose = () => {
     this.setState({ open: false })
 
-    const newState = this.props.editorState
-      .transform()
-      .focus()
-      .apply()
+    const newState = this.props.editorState.transform().focus().apply()
     window.setTimeout(() => this.props.onChange(newState), 1)
   }
 
@@ -113,11 +121,11 @@ class Button extends Component {
     window.setTimeout(() => this.props.focus(), 100)
   }
 
-  onHrefChange = (e) => {
+  onHrefChange = e => {
     this.setState({ href: e.target.value })
   }
 
-  onTitleChange = (e) => {
+  onTitleChange = e => {
     this.setState({ title: e.target.value })
   }
 
@@ -134,15 +142,21 @@ class Button extends Component {
         label="Submit"
         primary
         onTouchTap={this.handleSubmit}
-      />,
+      />
     ]
     const { editorState } = this.props
 
-    const hasLinks = editorState.inlines.some((inline: any) => inline.type === A)
+    const hasLinks = editorState.inlines.some(
+      (inline: any) => inline.type === A
+    )
     return (
       <MuiThemeProvider muiTheme={getMuiTheme()}>
         <span>
-          <ToolbarButton onClick={this.onClick} isActive={hasLinks} icon={<LinkIcon />} />
+          <ToolbarButton
+            onClick={this.onClick}
+            isActive={hasLinks}
+            icon={<LinkIcon />}
+          />
           <span>
             <Dialog
               className="ory-prevent-blur"
@@ -151,16 +165,20 @@ class Button extends Component {
               open={this.state.open}
               actions={[actions]}
             >
-              {this.state.wasExpanded ? null
-                : (
-                  <div>
-                    <TextField hintText="Link title" onChange={this.onTitleChange} value={this.state.title} />
-                  </div>
-                )}
+              {this.state.wasExpanded
+                ? null
+                : <div>
+                    <TextField
+                      hintText="Link title"
+                      onChange={this.onTitleChange}
+                      value={this.state.title}
+                    />
+                  </div>}
               <div ref={this.onRef}>
                 <TextField
                   hintText="http://example.com/my/link.html"
-                  onChange={this.onHrefChange} value={this.state.href}
+                  onChange={this.onHrefChange}
+                  value={this.state.href}
                 />
               </div>
             </Dialog>
@@ -191,7 +209,10 @@ export default class LinkPlugin extends Plugin {
     }
   }
 
-  serialize = (object: { type: string, kind: string, data: any }, children: any[]) => {
+  serialize = (
+    object: { type: string, kind: string, data: any },
+    children: any[]
+  ) => {
     if (object.kind !== 'inline') {
       return
     }

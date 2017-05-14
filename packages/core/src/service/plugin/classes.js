@@ -6,32 +6,32 @@ export type ContentPluginProps<T> = {
   /**
    * @member a unique identifier.
    */
-    id: string,
+  id: string,
 
   /**
    * @member if the cell is currently in readOnly mode.
    */
-    readOnly: boolean,
+  readOnly: boolean,
 
   /**
    * @member the plugin's name
    */
-    name: string,
+  name: string,
 
   /**
    * @member the plugin's version
    */
-    version: string,
+  version: string,
 
   /**
    * @member if true, the cell is currently focused.
    */
-    focused: boolean,
+  focused: boolean,
 
   /**
    * @member the plugin's state.
    */
-    state: T,
+  state: T,
 
   /**
    * Should be called with the new state if the plugin's state changes.
@@ -45,22 +45,22 @@ export type LayoutPluginProps<T> = {
   /**
    * @member a unique identifier.
    */
-    id: string,
+  id: string,
 
   /**
    * @member if the cell is currently in readOnly mode.
    */
-    readOnly: boolean,
+  readOnly: boolean,
 
   /**
    * @member if true, the cell is currently focused.
    */
-    focused: boolean,
+  focused: boolean,
 
   /**
    * @member the plugin's state.
    */
-    state: T,
+  state: T,
 
   /**
    * Should be called with the new state if the plugin's state changes.
@@ -76,14 +76,21 @@ export type LayoutPluginProps<T> = {
 export class Plugin {
   constructor(config: any) {
     const {
-      name, version, Component, IconComponent, text, StaticComponent,
+      name,
+      version,
+      Component,
+      IconComponent,
+      text,
+      StaticComponent,
       serialize,
       unserialize,
-      description,
+      description
     } = config
 
     if (!name || !version || !Component) {
-      throw new Error(`A plugin's version, name and Component must be defined, got ${JSON.stringify(config)}`)
+      throw new Error(
+        `A plugin's version, name and Component must be defined, got ${JSON.stringify(config)}`
+      )
     }
 
     this.name = name
@@ -175,13 +182,21 @@ export class ContentPlugin extends Plugin {
 
     this.isInlineable = isInlineable
     this.allowInlineNeighbours = allowInlineNeighbours
-    this.handleRemoveHotKey = handleRemoveHotKey ? handleRemoveHotKey.bind(this) : this.handleRemoveHotKey
-    this.handleFocusNextHotKey = handleFocusNextHotKey ? handleFocusNextHotKey.bind(this) : this.handleFocusNextHotKey
-    this.handleFocusPreviousHotKey = handleFocusPreviousHotKey ? handleFocusPreviousHotKey.bind(this) : this.handleFocusPreviousHotKey
+    this.handleRemoveHotKey = handleRemoveHotKey
+      ? handleRemoveHotKey.bind(this)
+      : this.handleRemoveHotKey
+    this.handleFocusNextHotKey = handleFocusNextHotKey
+      ? handleFocusNextHotKey.bind(this)
+      : this.handleFocusNextHotKey
+    this.handleFocusPreviousHotKey = handleFocusPreviousHotKey
+      ? handleFocusPreviousHotKey.bind(this)
+      : this.handleFocusPreviousHotKey
     this.handleFocus = handleFocus ? handleFocus.bind(this) : this.handleFocus
     this.handleBlur = handleBlur ? handleBlur.bind(this) : this.handleBlur
     this.reducer = reducer ? reducer.bind(this) : this.reducer
-    this.createInitialState = createInitialState ? createInitialState.bind(this) : this.createInitialState
+    this.createInitialState = createInitialState
+      ? createInitialState.bind(this)
+      : this.createInitialState
   }
 
   /**
@@ -209,7 +224,8 @@ export class ContentPlugin extends Plugin {
    * @param props
    * @returns a promise
    */
-  handleRemoveHotKey = (e: Event, props: ContentPluginProps<*>): Promise<*> => Promise.reject()
+  handleRemoveHotKey = (e: Event, props: ContentPluginProps<*>): Promise<*> =>
+    Promise.reject()
 
   /**
    * Will be called when the user presses the right or down key. When returning a resolving promise,
@@ -219,7 +235,10 @@ export class ContentPlugin extends Plugin {
    * @param props
    * @returns a promise
    */
-  handleFocusNextHotKey = (e: Event, props: ContentPluginProps<*>): Promise<*> => Promise.resolve()
+  handleFocusNextHotKey = (
+    e: Event,
+    props: ContentPluginProps<*>
+  ): Promise<*> => Promise.resolve()
 
   /**
    * Will be called when the user presses the left or up key. When returning a resolving promise,
@@ -229,7 +248,10 @@ export class ContentPlugin extends Plugin {
    * @param props
    * @returns a promise
    */
-  handleFocusPreviousHotKey = (e: Event, props: ContentPluginProps<*>): Promise<*> => Promise.resolve()
+  handleFocusPreviousHotKey = (
+    e: Event,
+    props: ContentPluginProps<*>
+  ): Promise<*> => Promise.resolve()
 
   /**
    * This function will be called when one of the plugin's cell is blurred.
@@ -260,13 +282,14 @@ export class ContentPlugin extends Plugin {
 export class LayoutPlugin extends Plugin {
   constructor(config: any) {
     super(config)
-    const {
-      createInitialState,
-      createInitialChildren,
-    } = config
+    const { createInitialState, createInitialChildren } = config
 
-    this.createInitialState = createInitialState ? createInitialState.bind(this) : this.createInitialState
-    this.createInitialChildren = createInitialChildren ? createInitialChildren.bind(this) : this.createInitialChildren
+    this.createInitialState = createInitialState
+      ? createInitialState.bind(this)
+      : this.createInitialState
+    this.createInitialChildren = createInitialChildren
+      ? createInitialChildren.bind(this)
+      : this.createInitialChildren
   }
 
   /**

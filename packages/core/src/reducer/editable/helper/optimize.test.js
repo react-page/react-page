@@ -6,7 +6,7 @@ import { optimizeCell, optimizeRow } from './optimize'
 const expect = unexpected.clone()
 
 describe('optimizeRow', () => {
-  [
+  ;[
     {
       in: {
         cells: []
@@ -19,34 +19,25 @@ describe('optimizeRow', () => {
       in: {
         cells: [
           {
-            rows: [
-              { cells: [{ plugin: 'foo' }] }
-            ]
+            rows: [{ cells: [{ plugin: 'foo' }] }]
           }
         ]
       },
       out: {
-        cells: [
-          { plugin: 'foo' }
-        ]
+        cells: [{ plugin: 'foo' }]
       }
     },
     {
       in: {
         cells: [
           {
-            rows: [
-              { cells: [{ plugin: 'foo' }] }
-            ]
+            rows: [{ cells: [{ plugin: 'foo' }] }]
           },
           { plugin: 'foo' }
         ]
       },
       out: {
-        cells: [
-          { plugin: 'foo' },
-          { plugin: 'foo' }
-        ]
+        cells: [{ plugin: 'foo' }, { plugin: 'foo' }]
       }
     }
   ].forEach((c, k) => {
@@ -57,7 +48,7 @@ describe('optimizeRow', () => {
 })
 
 describe('optimizeCell', () => {
-  [
+  ;[
     {
       in: {
         rows: []
@@ -70,16 +61,12 @@ describe('optimizeCell', () => {
       in: {
         rows: [
           {
-            cells: [
-              { rows: [{ cells: [{ plugin: 'foo' }] }] }
-            ]
+            cells: [{ rows: [{ cells: [{ plugin: 'foo' }] }] }]
           }
         ]
       },
       out: {
-        rows: [
-          { cells: [{ plugin: 'foo' }] }
-        ]
+        rows: [{ cells: [{ plugin: 'foo' }] }]
       }
     }
   ].forEach((c, k) => {

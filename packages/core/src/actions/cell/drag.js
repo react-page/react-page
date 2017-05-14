@@ -25,7 +25,12 @@ export const CLEAR_CLEAR_HOVER = 'CLEAR_CLEAR_HOVER'
  * @param {string} position Can be left, right, above, below.
  * @return {Action}
  */
-export const cellHover = ({ id: drag }: Cell, { id: hover }: Cell, level: number = 0, position: string): Action => ({
+export const cellHover = (
+  { id: drag }: Cell,
+  { id: hover }: Cell,
+  level: number = 0,
+  position: string
+): Action => ({
   type: CELL_DRAG_HOVER,
   ts: new Date(),
   drag,
@@ -46,7 +51,8 @@ export const cellHover = ({ id: drag }: Cell, { id: hover }: Cell, level: number
  * @param {number} level Set the level if the dragged cells should hover over an ancestor of hover.
  * @return {Action}
  */
-export const cellHoverLeftOf = (drag: Cell, hover: Cell, level: number) => cellHover(drag, hover, level, positions.LEFT_OF)
+export const cellHoverLeftOf = (drag: Cell, hover: Cell, level: number) =>
+  cellHover(drag, hover, level, positions.LEFT_OF)
 
 /**
  * Creates a redux action for when a cell is hovering another cell on the right.
@@ -60,7 +66,8 @@ export const cellHoverLeftOf = (drag: Cell, hover: Cell, level: number) => cellH
  * @param {number} level Set the level if the dragged cells should hover over an ancestor of hover.
  * @return {Action}
  */
-export const cellHoverRightOf = (drag: Cell, hover: Cell, level: number) => cellHover(drag, hover, level, positions.RIGHT_OF)
+export const cellHoverRightOf = (drag: Cell, hover: Cell, level: number) =>
+  cellHover(drag, hover, level, positions.RIGHT_OF)
 
 /**
  * Creates a redux action for when a cell is hovering another cell above.
@@ -74,7 +81,8 @@ export const cellHoverRightOf = (drag: Cell, hover: Cell, level: number) => cell
  * @param {number} level Set the level if the dragged cells should hover over an ancestor of hover.
  * @return {Action}
  */
-export const cellHoverAbove = (drag: Cell, hover: Cell, level: number) => cellHover(drag, hover, level, positions.ABOVE)
+export const cellHoverAbove = (drag: Cell, hover: Cell, level: number) =>
+  cellHover(drag, hover, level, positions.ABOVE)
 
 /**
  * Creates a redux action for when a cell is hovering another cell below.
@@ -88,7 +96,8 @@ export const cellHoverAbove = (drag: Cell, hover: Cell, level: number) => cellHo
  * @param {number} level Set the level if the dragged cells should hover over an ancestor of hover.
  * @return {Action}
  */
-export const cellHoverBelow = (drag: Cell, hover: Cell, level: number) => cellHover(drag, hover, level, positions.BELOW)
+export const cellHoverBelow = (drag: Cell, hover: Cell, level: number) =>
+  cellHover(drag, hover, level, positions.BELOW)
 
 /**
  * Creates a redux action for when a cell is hovering another cell on the left, but inline (css floating).
@@ -101,7 +110,8 @@ export const cellHoverBelow = (drag: Cell, hover: Cell, level: number) => cellHo
  * @param {Cell} hover The cell that is being hovered by the dragged cell.
  * @return {Action}
  */
-export const cellHoverInlineLeft = (drag: Cell, hover: Cell) => cellHover(drag, hover, 0, positions.INLINE_LEFT)
+export const cellHoverInlineLeft = (drag: Cell, hover: Cell) =>
+  cellHover(drag, hover, 0, positions.INLINE_LEFT)
 
 /**
  * Creates a redux action for when a cell is hovering another cell on the right, but inline (css floating).
@@ -114,7 +124,8 @@ export const cellHoverInlineLeft = (drag: Cell, hover: Cell) => cellHover(drag, 
  * @param {Cell} hover The cell that is being hovered by the dragged cell.
  * @return {Action}
  */
-export const cellHoverInlineRight = (drag: Cell, hover: Cell) => cellHover(drag, hover, 0, positions.INLINE_RIGHT)
+export const cellHoverInlineRight = (drag: Cell, hover: Cell) =>
+  cellHover(drag, hover, 0, positions.INLINE_RIGHT)
 
 /**
  * Creates a redux action for when a cell is being dragged.
@@ -140,7 +151,7 @@ export const dragCell = (id: string): Action => ({
  */
 export const clearHover = (): Action => ({
   type: CLEAR_CLEAR_HOVER,
-  ts: new Date(),
+  ts: new Date()
 })
 
 /**

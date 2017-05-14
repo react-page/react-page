@@ -9,7 +9,13 @@ import { editMode } from 'ory-editor-core/lib/actions/display'
 import { isEditMode } from 'ory-editor-core/lib/selector/display'
 import { createStructuredSelector } from 'reselect'
 
-const Inner = ({ isEditMode, editMode }: { isEditMode: bool, editMode: Function }) => (
+const Inner = ({
+  isEditMode,
+  editMode
+}: {
+  isEditMode: boolean,
+  editMode: Function
+}) => (
   <Button
     icon={<Create />}
     description="Edit things"

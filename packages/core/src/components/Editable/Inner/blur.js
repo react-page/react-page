@@ -12,7 +12,7 @@ const blurAll = (blurAllCells: Function) => (e: Event) => {
     }
 
     /* eslint no-cond-assign: ["off"] */
-    while (c = c.parentElement) {
+    while ((c = c.parentElement)) {
       if (c.classList.contains('ory-prevent-blur')) {
         return
       }

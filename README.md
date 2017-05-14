@@ -122,11 +122,12 @@ $ npm i
 
 ### Run the example(s)
 
-
 Here are some [examples](examples/) that are a good starting point if you want to familiarize yourself with the editor.
 To run the examples, use one of the following commands:
 
 ```
+$ npm run build
+$ cd examples
 $ npm run start
 ```
 
@@ -147,16 +148,10 @@ $ npm run flow:watch
 
 ### Run the documentation
 
-To run the docs in watch mode, do:
+To run the guide in watch mode, do:
 
 ```bash
-$ npm run docs:watch
-```
-
-To build the docs, run:
-
-```bash
-$ npm run docs
+$ npm run docs:guide
 ```
 
 ## Known issues

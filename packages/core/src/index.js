@@ -1,6 +1,6 @@
 // @flow
 /* eslint-disable no-use-before-define, no-underscore-dangle */
-import uuid from 'uuid/v4'
+import { v4 } from 'uuid'
 import Editable from './components/Editable'
 import createStore from './store'
 import { actions } from './actions'
@@ -38,19 +38,23 @@ class Editor {
   defaultPlugin: any
   middleware: []
 
-  constructor({
-    plugins,
-    middleware = [],
-    editables = [],
-    defaultPlugin = pluginDefault
-  }: {
-    plugins: { content: [], layout: [] },
-    middleware: [],
-    editables: EditableType[],
-    defaultPlugin: any
-  } = {}) {
+  constructor(
+    {
+      plugins,
+      middleware = [],
+      editables = [],
+      defaultPlugin = pluginDefault
+    }: {
+      plugins: { content: [], layout: [] },
+      middleware: [],
+      editables: EditableType[],
+      defaultPlugin: any
+    } = {}
+  ) {
     if (instance) {
-      console.warn('You have defined multiple instances of Editor, this could cause problems.')
+      console.warn(
+        'You have defined multiple instances of Editor, this could cause problems.'
+      )
     }
 
     instance = this
@@ -69,12 +73,8 @@ class Editor {
   trigger = {}
 }
 
-export {
-  PluginService,
-  Editable,
-  Editor
-}
+export { PluginService, Editable, Editor }
 
-export const createEmptyState = () => ({ id: uuid(), cells: [] })
+export const createEmptyState = () => ({ id: v4(), cells: [] })
 
 export default Editor

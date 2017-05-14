@@ -1,8 +1,8 @@
 // @flow
-import type { ComponentizedCell } from '../../../../types/editable'
+import type { ComponetizedCell } from '../../../../types/editable'
 
 export const source = {
-  beginDrag(props: ComponentizedCell) {
+  beginDrag(props: ComponetizedCell) {
     // Beginn dragging the cell
     props.dragCell(props.id)
     return {
@@ -16,7 +16,7 @@ export const source = {
     }
   },
 
-  endDrag({ cancelCellDrag, id }: ComponentizedCell, monitor: Object) {
+  endDrag({ cancelCellDrag, id }: ComponetizedCell, monitor: Object) {
     if (monitor.didDrop()) {
       // If the item drop occurred deeper down the tree, don't do anything
       return
