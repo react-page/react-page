@@ -3,33 +3,17 @@ language: node_js
 node_js:
   - "6"
 
-env:
-  matrix:
-  - TEST_TYPE=test
-  - TEST_TYPE=lint
-  - TEST_TYPE=flow
-  - TEST_TYPE=build
-
 install:
   - npm i
 
 script:
-  - |
-    if [ "$TEST_TYPE" = test ]; then
-      npm run test
-    elif [ "$TEST_TYPE" = build ]; then
-      npm run build:lib
-    elif [ "$TEST_TYPE" = lint ]; then
-      npm run lint
-    elif [ "$TEST_TYPE" = flow ]; then
-      npm run flow
-    fi
+  - npm run lint
+  - npm run flow
+  - npm run test
+  - npm run build:lib
 
 after_success:
-  - |
-    if [ "$TEST_TYPE" = test ]; then
-      npm run coveralls
-    fi
+  - npm run coveralls
 
 deploy:
   provider: script
