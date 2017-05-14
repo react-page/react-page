@@ -2,6 +2,9 @@
 import React from 'react'
 import Component from './Component'
 import AspectRatio from 'material-ui/svg-icons/action/aspect-ratio'
+import type {
+  ContentPluginProps
+} from 'ory-editor-core/lib/service/plugin/classes'
 
 export default {
   Component,

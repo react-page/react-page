@@ -44,4 +44,3 @@ export const layoutMissing = (plugin: { name: string, version: string }) => ({
   Component: LayoutMissingComponent,
   ...plugin
 })
-

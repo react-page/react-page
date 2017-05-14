@@ -57,40 +57,40 @@ class Spacer extends Component {
         {readOnly
           ? <Solid height={height} />
           : <Resizable onResize={this.onResize} height={height} width={0}>
-            <div style={{ height, position: 'relative' }}>
-              <MuiThemeProvider>
-                <BottomToolbar open={focused}>
-                  <TextField
-                    hintText="24"
-                    floatingLabelText="Element height (px)"
-                    inputStyle={{ color: 'white' }}
-                    floatingLabelStyle={{ color: 'white' }}
-                    hintStyle={{ color: 'grey' }}
-                    style={{ width: '512px' }}
-                    value={height}
-                    onChange={handleChange(onChange)}
-                  />
-                </BottomToolbar>
-              </MuiThemeProvider>
-              <div
-                style={{
-                  position: 'absolute',
-                  bottom: '0',
-                  height: '24px',
-                  width: '100%',
-                  background: faintBlack,
-                  textAlign: 'center'
-                }}
-              >
-                <svg
-                  viewBox="0 0 24 24"
-                  style={{ color: 'white', width: 24, height: 24 }}
+              <div style={{ height, position: 'relative' }}>
+                <MuiThemeProvider>
+                  <BottomToolbar open={focused}>
+                    <TextField
+                      hintText="24"
+                      floatingLabelText="Element height (px)"
+                      inputStyle={{ color: 'white' }}
+                      floatingLabelStyle={{ color: 'white' }}
+                      hintStyle={{ color: 'grey' }}
+                      style={{ width: '512px' }}
+                      value={height}
+                      onChange={handleChange(onChange)}
+                    />
+                  </BottomToolbar>
+                </MuiThemeProvider>
+                <div
+                  style={{
+                    position: 'absolute',
+                    bottom: '0',
+                    height: '24px',
+                    width: '100%',
+                    background: faintBlack,
+                    textAlign: 'center'
+                  }}
                 >
-                  <path d="M20 9H4v2h16V9zM4 15h16v-2H4v2z" />
-                </svg>
+                  <svg
+                    viewBox="0 0 24 24"
+                    style={{ color: 'white', width: 24, height: 24 }}
+                  >
+                    <path d="M20 9H4v2h16V9zM4 15h16v-2H4v2z" />
+                  </svg>
+                </div>
               </div>
-            </div>
-          </Resizable>}
+            </Resizable>}
       </div>
     )
   }
