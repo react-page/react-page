@@ -84,7 +84,7 @@ export default class PluginService {
    */
   findLayoutPlugin = (name: string, version: string): LayoutPlugin => {
     const plugin = this.plugins.layout.find(find(name, version))
-    return plugin || new ContentPlugin(layoutMissing({ name, version }))
+    return plugin || new LayoutPlugin(layoutMissing({ name, version }))
   }
 
   /**
@@ -92,7 +92,7 @@ export default class PluginService {
    */
   findContentPlugin = (name: string, version: string): ContentPlugin => {
     const plugin = this.plugins.content.find(find(name, version))
-    return plugin || new LayoutPlugin(contentMissing({ name, version }))
+    return plugin || new ContentPlugin(contentMissing({ name, version }))
   }
 
   /**
