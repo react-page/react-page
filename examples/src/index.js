@@ -54,7 +54,7 @@ const plugins = {
 }
 
 const editor = new Editor({
-  plugins,
+  plugins: plugins,
   // pass the content states
   editables: [
     ...content,

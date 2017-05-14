@@ -3,7 +3,7 @@ import uuid from 'uuid'
 import { satisfies } from 'semver'
 import { ContentPlugin, LayoutPlugin, Plugin } from './classes'
 import defaultPlugin from './default'
-import missing from './missing'
+import { layoutMissing, contentMissing } from './missing'
 
 const find = (name: string, version: string = '*') => (
   plugin: Plugin
@@ -45,33 +45,35 @@ export default class PluginService {
     }
   }
 
-  setLayoutPlugins(plugins: Array<any> = []) {
+  setLayoutPlugins = (plugins: Array<any> = []) => {
     this.plugins.layout = []
     plugins.forEach((plugin: any) => this.addLayoutPlugin(plugin))
   }
 
-  addLayoutPlugin(config: any) {
+  addLayoutPlugin = (config: any) => {
     this.plugins.layout.push(new LayoutPlugin(config))
   }
 
-  removeLayoutPlugin(name: string) {
+  removeLayoutPlugin = (name: string) => {
     this.plugins.layout = this.plugins.layout.filter(
       (plugin: LayoutPlugin) => plugin.name !== name
     )
   }
 
-  setContentPlugins(plugins: Array<any> = []) {
-    this.plugins.content = [] // semicolon is required to avoid syntax error
+  setContentPlugins = (plugins: Array<any> = []) => {
+    this.plugins.content = []
+
+    // semicolon is required to avoid syntax error
     ;[defaultPlugin, ...plugins].forEach((plugin: any) =>
       this.addContentPlugin(plugin)
     )
   }
 
-  addContentPlugin(config: any) {
+  addContentPlugin = (config: any) => {
     this.plugins.content.push(new ContentPlugin(config))
   }
 
-  removeContentPlugin(name: string) {
+  removeContentPlugin = (name: string) => {
     this.plugins.content = this.plugins.content.filter(
       (plugin: ContentPlugin) => plugin.name !== name
     )
@@ -80,34 +82,26 @@ export default class PluginService {
   /**
    * Finds a layout plugin based on its name and version.
    */
-  findLayoutPlugin(name: string, version: string): LayoutPlugin {
+  findLayoutPlugin = (name: string, version: string): LayoutPlugin => {
     const plugin = this.plugins.layout.find(find(name, version))
-
-    // TODO return a default layout plugin here instead
-    if (!plugin) {
-      throw new Error(`Plugin ${name} with version ${version} not found`)
-    }
-
-    return plugin
+    return plugin || new LayoutPlugin(layoutMissing({ name, version }))
   }
 
   /**
    * Finds a content plugin based on its name and version.
    */
-  findContentPlugin(name: string, version: string): ContentPlugin {
+  findContentPlugin = (name: string, version: string): ContentPlugin => {
     const plugin = this.plugins.content.find(find(name, version))
-    return plugin || new ContentPlugin(missing({ name, version }))
+    return plugin || new ContentPlugin(contentMissing({ name, version }))
   }
 
   /**
    * Returns a list of all known plugin names.
    */
-  getRegisteredNames(): Array<string> {
-    return [
-      ...this.plugins.content.map(({ name }: Plugin) => name),
-      ...this.plugins.layout.map(({ name }: Plugin) => name)
-    ]
-  }
+  getRegisteredNames = (): Array<string> => [
+    ...this.plugins.content.map(({ name }: Plugin) => name),
+    ...this.plugins.layout.map(({ name }: Plugin) => name)
+  ]
 
   unserialize = (state: any): Object => {
     const {

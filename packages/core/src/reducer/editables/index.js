@@ -70,14 +70,14 @@ export const editables = (
     case UPDATE_EDITABLE:
       return inner({
         past: past.map((editables: Editable[]) => [
-          ...editables.filter(({ id }: Editable): boolean => id !== action.id),
+          ...editables.filter(({ id }: Editable): boolean => id !== action.editable.id),
           // we need to run the rawreducer once or the history initial state will be inconsistent.
           // resolves https://github.com/ory/editor/pull/117#issuecomment-242942796
           // ...past,
           editable(action.editable, action)
         ]),
         present: inner([
-          ...present.filter(({ id }: Editable): boolean => id !== action.id),
+          ...present.filter(({ id }: Editable): boolean => id !== action.editable.id),
           // we need to run the rawreducer once or the history initial state will be inconsistent.
           // resolves https://github.com/ory/editor/pull/117#issuecomment-242942796
           editable(action.editable, action)

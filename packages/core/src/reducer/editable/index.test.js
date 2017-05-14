@@ -38,7 +38,7 @@ const runCase = (currentState, action, expectedState) => {
   })
 }
 
-const createEditable = (id, cells) => {
+export const createEditable = (id, cells) => {
   const editable = {}
 
   if (id) {
@@ -52,7 +52,7 @@ const createEditable = (id, cells) => {
   return { editable }
 }
 
-const createCell = (id, rows, additional) => {
+export const createCell = (id, rows, additional) => {
   const cell = {}
 
   if (id) {
@@ -69,7 +69,7 @@ const createCell = (id, rows, additional) => {
   }
 }
 
-const createLayoutCell = (id, name, state, rows, additional) => {
+export const createLayoutCell = (id, name, state, rows, additional) => {
   const cell = createCell(id, null, additional)
   const layout = {}
 
@@ -92,7 +92,7 @@ const createLayoutCell = (id, name, state, rows, additional) => {
   }
 }
 
-const createContentCell = (id, name, state, additional) => {
+export const createContentCell = (id, name, state, additional) => {
   const cell = createCell(id, null, additional)
   const content = {}
 
@@ -111,7 +111,7 @@ const createContentCell = (id, name, state, additional) => {
   }
 }
 
-const createRow = (id, cells, additional = {}) => {
+export const createRow = (id, cells, additional = {}) => {
   const row = {}
 
   if (id) {

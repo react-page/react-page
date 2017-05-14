@@ -8,6 +8,7 @@ import PluginService from './service/plugin'
 import pluginDefault from './service/plugin/default'
 import type { Editable as EditableType } from './types/editable'
 import type Store from './types/redux'
+import forEach from 'ramda/src/forEach'
 
 let instance: Editor
 
@@ -68,6 +69,45 @@ class Editor {
     this.trigger.editable.update = update(this)
 
     editables.forEach(this.trigger.editable.add)
+  }
+
+  refreshEditables = () => {
+    forEach((editable: any) => {
+        console.log(this.plugins.serialize(editable))
+        this.trigger.editable.update(this.plugins.serialize(editable))
+      }, this.store.getState().editables.present
+    )
+  }
+
+  setLayoutPlugins = (plugins: Array<any> = []) => {
+    this.plugins.setLayoutPlugins(plugins)
+    this.refreshEditables()
+  }
+
+  addLayoutPlugin = (config: any) => {
+    this.plugins.addLayoutPlugin(config)
+    this.refreshEditables()
+  }
+
+  removeLayoutPlugin = (name: string) => {
+    this.plugins.removeLayoutPlugin(name)
+    this.refreshEditables()
+  }
+
+  setContentPlugins = (plugins: Array<any> = []) => {
+    this.plugins.setContentPlugins(plugins)
+    console.log(this.store.getState())
+    this.refreshEditables()
+  }
+
+  addContentPlugin = (config: any) => {
+    this.plugins.addContentPlugin(config)
+    this.refreshEditables()
+  }
+
+  removeContentPlugin = (name: string) => {
+    this.plugins.removeContentPlugin(name)
+    this.refreshEditables()
   }
 
   trigger = {}
