@@ -15,7 +15,14 @@ export default {
   text: 'Video',
   description: 'Include videos from Vimeo or YouTube.',
   isInlineable: true,
+
   handleRemoveHotKey: (_: Event, __: ContentPluginProps<*>): Promise<*> =>
+    Promise.reject(),
+  handleFocusPreviousHotKey: (
+    _: Event,
+    __: ContentPluginProps<*>
+  ): Promise<*> => Promise.reject(),
+  handleFocusNextHotKey: (_: Event, __: ContentPluginProps<*>): Promise<*> =>
     Promise.reject(),
 
   // We need this because otherwise we lose hotkey focus on elements like spoilers.

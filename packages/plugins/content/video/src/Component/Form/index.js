@@ -25,7 +25,7 @@ const Form = (props: PropTypes) => (
         floatingLabelStyle={{ color: 'white' }}
         hintStyle={{ color: 'grey' }}
         style={{ width: '512px' }}
-        value={props.state.src}
+        value={props.state.src || ''}
         onChange={handleChange(props.onChange)}
       />
     </BottomToolbar>
