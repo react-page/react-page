@@ -18,7 +18,7 @@ script:
     if [ "$TEST_TYPE" = test ]; then
       npm run test
     elif [ "$TEST_TYPE" = build ]; then
-      npm run build:lib
+      npm run build
     elif [ "$TEST_TYPE" = lint ]; then
       npm run lint
     elif [ "$TEST_TYPE" = flow ]; then
