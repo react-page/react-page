@@ -47,7 +47,8 @@
     "start:examples": "cross-env NODE_ENV=development lerna run start --parallel --stream",
     "test": "cross-env NODE_ENV=test jest --coverage",
     "test:watch": "cross-env NODE_ENV=test jest --watch",
-    "watch:js": "chokidar \"+(packages)/*/src/**/*.js\" \"+(packages)/plugins/*/src/**/*.js\" --initial"
+    "watch:js": "chokidar \"+(packages)/*/src/**/*.js\" \"+(packages)/plugins/*/src/**/*.js\" --initial",
+    "postinstall": "npm-run-all clean bootstrap build"
   },
   "jest": {
     "testPathIgnorePatterns": [
