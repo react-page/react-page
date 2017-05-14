@@ -34,21 +34,72 @@
         width: 1170px;
       }
     }
+
+    .editable, #editable-static {
+      padding: 5px;
+    }
+
+    nav {
+      color: #eee;
+      background: #111;
+      font-family: 'Open Sans', serif;
+    }
+
+    nav ul {
+      list-style-type: none;
+      margin: 0 0 20px 0;
+      padding: 10px 20px;
+      text-align: right;
+    }
+
+    nav ul li {
+      display: inline-block;
+      padding: 0 10px;
+    }
+
+    nav ul li a,
+    nav ul li a:visited {
+      color: #eee;
+      transition: all 200ms ease;
+      text-decoration: none;
+      font-family: 'Open Sans', serif;
+    }
+
+    nav ul li a:hover,
+    nav ul li a:active {
+      color: #aaa;
+      text-decoration: none;
+    }
   </style>
   <link href="https://fonts.googleapis.com/css?family=Bitter:400,400italic,700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
   <link href="%PUBLIC_URL%/styles.css" rel="stylesheet" type="text/css">
   <title>Ory.am Editor</title></head>
-<body style="padding-bottom: 100px;">
+<body style="padding: 0 0 100px 0; margin: 0;">
+
+<nav>
+  <ul>
+    <li style="position: absolute; left: 10px;">ORY Editor</li>
+    <li><a href="https://github.com/ory/editor">GitHub</a></li>
+    <li><a href="https://ory.gitbooks.io/editor/content/">Guide</a></li>
+    <li><a href="https://github.com/ory/editor/blob/master/docs/api/core.md">API Docs</a></li>
+    <li><a href="https://www.ory.am">ORY</a></li>
+  </ul>
+</nav>
+
 <div class="container">
   <div class="editable" data-id="1"></div>
-  <hr>
+</div>
+<h1 style="text-align: center; margin: 1em 0 1em 0;">Another editable</h1>
+<div class="container">
   <div class="editable" data-id="2"></div>
-  <hr>
+</div>
+<h1 style="text-align: center; margin: 1em 0 1em 0;">An empty editable</h1>
+<div class="container">
   <div class="editable" data-id="10"></div>
 </div>
-<hr>
+<h1 style="text-align: center; margin: 1em 0 1em 0;">Static HTML render output</h1>
 <div class="container">
-  <h1>HTML renderer output</h1>
   <div id="editable-static" data-id="1"></div>
 </div>
 <div id="controls"></div>
