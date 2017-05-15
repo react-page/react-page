@@ -108,7 +108,7 @@ describe('HTMLRenderer', () => {
   //     expect(wrapper.text()).toContain('dolor sit amet.')
   //   })
   //   it('should set the correct sizes although no sizes were given', () => {
-  //     expect(wrapper.find('.ory-cell-md-6')).toHaveLength(2)
+  //     expect(wrapper.find('.ory-cell-sm-6')).toHaveLength(2)
   //   })
   // })
   describe('rendering html content from slate', () => {
@@ -152,7 +152,7 @@ describe('HTMLRenderer', () => {
         const wrapper = render(<HTMLRenderer state={c} plugins={plugins} />)
         it('should pass', () => {
           expect(wrapper.html()).toEqual(
-            '<div class="ory-row"><div class="ory-cell ory-cell-md-12 ory-cell-xs-12"><div class="ory-cell-inner ory-cell-leaf"><div><p style="text-align:center;">Asdfg</p></div></div></div></div>'
+            '<div class="ory-row"><div class="ory-cell ory-cell-sm-12 ory-cell-xs-12"><div class="ory-cell-inner ory-cell-leaf"><div><p style="text-align:center;">Asdfg</p></div></div></div></div>'
           )
         })
       })
@@ -193,12 +193,12 @@ describe('HTMLRenderer', () => {
       expect(wrapper.text()).toContain('dolor sit amet.')
     })
 
-    it('should set up inlining correctly for ory-cell-md-6', () => {
-      expect(wrapper.find('.ory-cell-md-6')).toHaveLength(1)
+    it('should set up inlining correctly for ory-cell-sm-6', () => {
+      expect(wrapper.find('.ory-cell-sm-6')).toHaveLength(1)
     })
 
-    it('should set up inlining correctly for ory-cell-md-12', () => {
-      expect(wrapper.find('.ory-cell-md-12')).toHaveLength(2)
+    it('should set up inlining correctly for ory-cell-sm-12', () => {
+      expect(wrapper.find('.ory-cell-sm-12')).toHaveLength(2)
     })
 
     it('should set up inlining correctly for ory-cell-has-inline-neighbour', () => {

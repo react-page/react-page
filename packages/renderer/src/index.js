@@ -6,7 +6,7 @@ import { editable as reducer } from 'ory-editor-core/lib/reducer/editable'
 import type { Cell, Row } from 'ory-editor-core/lib/types/editable'
 
 const gridClass = (size: number = 12): string =>
-  `ory-cell-md-${size} ory-cell-xs-12`
+  `ory-cell-sm-${size} ory-cell-xs-12`
 
 const HTMLRow = ({ cells = [], className, hasInlineChildren }: Row) => (
   <div
