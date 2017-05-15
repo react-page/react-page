@@ -5,73 +5,6 @@
   <meta name="description" content="">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <style>
-    .container {
-      background: white;
-      padding: 0 24px;
-    }
-
-    .container {
-      margin-right: auto;
-      margin-left: auto;
-      align-items: stretch;
-    }
-
-    @media (min-width: 768px) {
-      .container {
-        width: 750px;
-      }
-    }
-
-    @media (min-width: 992px) {
-      .container {
-        width: 970px;
-      }
-    }
-
-    @media (min-width: 1200px) {
-      .container {
-        width: 1170px;
-      }
-    }
-
-    .editable, #editable-static {
-      padding: 5px;
-    }
-
-    nav {
-      color: #eee;
-      background: #111;
-      font-family: 'Open Sans', serif;
-    }
-
-    nav ul {
-      list-style-type: none;
-      margin: 0 0 20px 0;
-      padding: 10px 20px;
-      text-align: right;
-    }
-
-    nav ul li {
-      display: inline-block;
-      padding: 0 10px;
-    }
-
-    nav ul li a,
-    nav ul li a:visited {
-      color: #eee;
-      transition: all 200ms ease;
-      text-decoration: none;
-      font-family: 'Open Sans', serif;
-    }
-
-    nav ul li a:hover,
-    nav ul li a:active {
-      color: #aaa;
-      text-decoration: none;
-    }
-  </style>
-  <link href="https://fonts.googleapis.com/css?family=Bitter:400,400italic,700" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
   <link href="%PUBLIC_URL%/styles.css" rel="stylesheet" type="text/css">
   <title>Ory.am Editor</title></head>
@@ -89,19 +22,19 @@
 </nav>
 
 <div class="container">
-  <div class="editable" data-id="1"></div>
+  <div class="editable editable-area" data-id="1"></div>
 </div>
 <h1 style="text-align: center; margin: 1em 0 1em 0;">Another editable</h1>
 <div class="container">
-  <div class="editable" data-id="2"></div>
+  <div class="editable editable-area" data-id="2"></div>
 </div>
 <h1 style="text-align: center; margin: 1em 0 1em 0;">An empty editable</h1>
 <div class="container">
-  <div class="editable" data-id="10"></div>
+  <div class="editable editable-area" data-id="10"></div>
 </div>
 <h1 style="text-align: center; margin: 1em 0 1em 0;">Static HTML render output</h1>
 <div class="container">
-  <div id="editable-static" data-id="1"></div>
+  <div id="editable-static" class="editable-area" data-id="1"></div>
 </div>
 <div id="controls"></div>
 </body>

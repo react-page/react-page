@@ -1,23 +1,18 @@
+@import "./typography.css";
+@import "./elements.css";
+
 body {
   background: #eee;
 
   color: #333333;
-  font-family: Georgia, serif;
   font-size: 18px;
   line-height: 28px;
+
+  font-family: 'Open Sans', serif;
 }
 
 p {
   margin: 0 0 28px;
-}
-
-h1 {
-  color: #333333;
-  font-family: 'Bitter', serif;
-  font-size: 50px;
-  font-weight: normal;
-  line-height: 54px;
-  margin: 0 0 54px;
 }
 
 a {
@@ -37,4 +32,70 @@ a:hover {
 
 .ory-cell-leaf {
   padding: 8px;
+}
+
+
+.container {
+  background: white;
+  padding: 0 24px;
+}
+
+.container {
+  margin-right: auto;
+  margin-left: auto;
+  align-items: stretch;
+}
+
+@media (min-width: 768px) {
+  .container {
+    width: 750px;
+  }
+}
+
+@media (min-width: 992px) {
+  .container {
+    width: 970px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .container {
+    width: 1170px;
+  }
+}
+
+.editable, #editable-static {
+  padding: 5px;
+}
+
+nav {
+  color: #eee;
+  background: #111;
+  font-family: 'Open Sans', serif;
+}
+
+nav ul {
+  list-style-type: none;
+  margin: 0 0 20px 0;
+  padding: 10px 20px;
+  text-align: right;
+}
+
+nav ul li {
+  display: inline-block;
+  padding: 0 10px;
+}
+
+nav ul li a,
+nav ul li a:visited {
+  color: #eee;
+  transition: all 200ms ease;
+  text-decoration: none;
+  font-family: 'Open Sans', serif;
+}
+
+nav ul li a:hover,
+nav ul li a:active {
+  color: #aaa;
+  text-decoration: none;
 }
