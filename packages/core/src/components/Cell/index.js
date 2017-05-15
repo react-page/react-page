@@ -26,7 +26,7 @@ const gridClass = ({
   isEditMode
 }: ComponetizedCell): string => {
   if (isPreviewMode || isEditMode) {
-    return `ory-cell-${isPreviewMode || isEditMode ? 'md' : 'xs'}-${size || 12} ory-cell-xs-12`
+    return `ory-cell-${isPreviewMode || isEditMode ? 'sm' : 'xs'}-${size || 12} ory-cell-xs-12`
   }
 
   return `ory-cell-xs-${size || 12}`
