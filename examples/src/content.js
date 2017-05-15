@@ -683,7 +683,7 @@ export default [
                     "version": "0.0.1"
                   },
                   "state": {
-                    "background": "/static/media/mountain.8e102c7b.jpg"
+                    "background": "/images/sea-bg.jpg"
                   }
                 },
                 "rows": [
