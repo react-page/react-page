@@ -1,235 +1,964 @@
 export default [
   {
-    id: '1',
-    cells: [{
-      rows: [
-        {
-          cells: [
-            {
-              rows: [
-                {
-                  cells: [
-                    {
-                      content: {
-                        plugin: {
-                          name: 'ory/editor/core/content/slate'
-                        },
-                        state: {
-                          importFromHtml: '<h1>European? British? These ‘Brexit’ Voters Identify as English</h1>'
-                        }
-                      },
-                      id: '9f9c6196-9bd0-4521-a4e0-8f17cac6d058'
-                    }
-                  ],
-                  id: 'e812c170-91b6-4b4c-bc84-b759990e1177'
-                }
-              ],
-              id: '8e9a6007-f2fd-4d29-a2c4-e21313b03b8d'
-            }
-          ],
-          id: '39702c61-b6c2-452e-b381-d61c8aa7eeb1'
-        },
-        {
-          cells: [
-            {
-              rows: [
-                {
-                  cells: [
-                    {
-                      content: {
-                        plugin: {
-                          name: 'ory/editor/core/content/spacer'
-                        },
-                        state: {
-                          height: 50
-                        }
-                      },
-                      id: 'a97fcf35-fef6-4a68-94b4-bab1a3de3af5'
-                    }
-                  ],
-                  id: '130ddafd-8c2d-43bc-a5cf-1c8211776793'
-                },
-                {
-                  cells: [
-                    {
-                      content: {
-                        plugin: {
-                          name: 'ory/editor/core/content/slate'
-                        },
-                        state: {
-                          importFromHtml: '<p>Residents of the Castle Point borough of Essex in England celebrated the queen’s 90th birthday this month. Castle Point is the most ethnically English part of the United Kingdom, with nearly 80 percent describing themselves as purely English, while 95 percent are white. Credit Andrew Testa for The New York Times</p>'
-                        }
-                      },
-                      id: '60a42cf3-4f6a-4756-bda7-ef4ad8a57424'
-                    }
-                  ],
-                  id: 'fc750688-1491-4ef3-8d3b-6c1c918ceebc'
-                }
-              ],
-              id: '9991da5e-02fa-47f5-a156-af197275ead4'
-            },
-            {
-              content: {
-                plugin: {
-                  name: 'ory/editor/core/content/image'
-                },
-                state: {
-                  src: 'https://static01.nyt.com/images/2016/06/16/world/16England-web1/16England-web1-master768.jpg'
-                }
-              },
-              id: '4530a300-bf38-476f-b799-75a75f078c47'
-            }
-          ],
-          id: '9762d816-33a7-4d37-926b-fd3ee8a1ee73'
-        },
-        {
-          cells: [
-            {
-              rows: [
-                {
-                  cells: [
-                    {
-                      content: {
-                        plugin: {
-                          name: 'ory/editor/core/content/slate'
-                        },
-                        state: {
-                          importFromHtml: '<p>SOUTH BENFLEET, England — The topic of the local debate was Britain’s imminent vote on whether to leave the European Union, and the discussion in this English town on the southeastern coast turned to the influx of European citizens into Britain.</p>\n<p>“Why do they all want to come here?” demanded one woman, angrily making the case for Britain to leave the bloc at the debate in South Benfleet, organized by the local council. “They want our wages and our benefits! We’re too bloody soft!”</p>\n<p>Paddy Ashdown, a former leader of the Liberal Democrats and a supporter of remaining in the European Union in the vote next Thursday, shook his head and responded with a touch of bitterness: “Well, I’ve not seen much evidence of that here.”</p>'
-                        }
-                      },
-                      id: '43528e51-be35-4f3d-8083-7579719151a9'
-                    }
-                  ],
-                  id: '0f5d97ec-aaab-47ce-b8bf-7053de16653d'
-                }
-              ],
-              id: '9fb3a6c1-01dc-4a2c-b840-c725b5341a0e'
-            },
-            {
-              rows: [
-                {
-                  cells: [
-                    {
-                      rows: [
+    "id": "1",
+    "cells": [
+      {
+        "id": "5ac89ec4-7536-4120-a072-8eedad0a48ff",
+        "inline": null,
+        "size": 12,
+        "rows": [
+          {
+            "id": "c440df91-52c5-44cf-9ac2-f5b15ff61b13",
+            "cells": [
+              {
+                "id": "39417572-f976-44b7-97b2-9a7e00fd66f2",
+                "inline": null,
+                "size": 12,
+                "content": {
+                  "plugin": {
+                    "name": "ory/editor/core/content/slate",
+                    "version": "0.0.1"
+                  },
+                  "state": {
+                    "serialized": {
+                      "nodes": [
                         {
-                          cells: [
+                          "kind": "block",
+                          "type": "HEADINGS/HEADING-ONE",
+                          "nodes": [
                             {
-                              rows: [
+                              "kind": "text",
+                              "text": "The ORY Editor"
+                            }
+                          ],
+                          "data": {
+                            "align": "center"
+                          }
+                        },
+                        {
+                          "kind": "block",
+                          "type": "PARAGRAPH/PARAGRAPH",
+                          "nodes": [
+                            {
+                              "kind": "text",
+                              "text": ""
+                            },
+                            {
+                              "kind": "inline",
+                              "type": "LINK/LINK",
+                              "nodes": [
                                 {
-                                  cells: [
-                                    {
-                                      inline: 'left',
-                                      content: {
-                                        plugin: {
-                                          name: 'ory/editor/core/content/image'
-                                        },
-                                        state: {
-                                          src: 'https://static01.nyt.com/images/2016/06/16/world/16England-web2/16England-web2-master675.jpg'
-                                        }
-                                      },
-                                      id: '0b9f9b2d-9362-4141-b91d-f5a0d5ad9908'
-                                    },
-                                    {
-                                      content: {
-                                        plugin: {
-                                          name: 'ory/editor/core/content/slate'
-                                        },
-                                        state: {
-                                          importFromHtml: '<p>If Britain votes to leave, it will be in large part because of strong anti-Europe sentiment in much of England, the heart of the movement to divorce Britain from the Continent. Pollsters and analysts say that while Scotland and Northern Ireland are expected to vote overwhelmingly to stay in the bloc, England, far more populous, is likely to go the other way, reflecting a broad and often bluntly expressed view that English identity and values are being washed away by subordination to the bureaucrats of Brussels.</p>'
-                                        }
-                                      },
-                                      id: 'eb4704e9-21b7-449b-bf17-cf473b420f93'
-                                    }
-                                  ],
-                                  id: '4444ed54-1a4a-4f3c-a0a2-6d49f50207e7'
+                                  "kind": "text",
+                                  "text": "ORY"
                                 }
                               ],
-                              id: 'e7b450ae-148a-413c-82e2-611a2ba1b16d'
+                              "data": {
+                                "href": "https://www.ory.am/"
+                              }
+                            },
+                            {
+                              "kind": "text",
+                              "text": " is a company building and maintaining developer tools for a safer, more accessible web. You might also like our other "
+                            },
+                            {
+                              "kind": "inline",
+                              "type": "LINK/LINK",
+                              "nodes": [
+                                {
+                                  "kind": "text",
+                                  "text": "Open Source"
+                                }
+                              ],
+                              "data": {
+                                "href": "https://github.com/ory"
+                              }
+                            },
+                            {
+                              "kind": "text",
+                              "text": " tools! The ORY Editor is a smart, extensible and modern editor (\"WYSIWYG\") for the web written in React."
                             }
                           ],
-                          id: '429a5399-6b53-44f6-aa6d-112f4f7ecdc5'
+                          "data": {
+                            "align": "left"
+                          }
+                        },
+                        {
+                          "kind": "block",
+                          "type": "PARAGRAPH/PARAGRAPH",
+                          "nodes": [
+                            {
+                              "kind": "text",
+                              "text": "The ORY Editor was written because we urgently needed a robust and modern content editing solution for our open education platform "
+                            },
+                            {
+                              "kind": "inline",
+                              "type": "LINK/LINK",
+                              "nodes": [
+                                {
+                                  "kind": "text",
+                                  "text": "serlo.org"
+                                }
+                              ],
+                              "data": {
+                                "href": "https://en.serlo.org/serlo"
+                              }
+                            },
+                            {
+                              "kind": "text",
+                              "text": ". Serlo is the largest open education platform in Germany, works like the Wikipedia and is used by millions every year."
+                            }
+                          ],
+                          "data": {
+                            "align": "left"
+                          }
                         }
-                      ],
-                      id: '6a7e0316-6d22-43ae-b0eb-b96bde45f58f'
+                      ]
                     }
-                  ],
-                  id: '71f7b244-3ada-4202-8711-37ac4a09b36c'
+                  }
                 }
-              ],
-              id: 'ec9fce2c-22f4-4601-8441-a01ae28e27b1'
-            }
-          ],
-          id: '50498c14-dced-49e0-8322-4d22fb848583'
-        },
-        {
-          cells: [
-            {
-              layout: {
-                plugin: {
-                  name: 'ory/editor/core/layout/parallax-background'
-                },
-                state: {
-                  background: require('./images/mountain.jpg')
+              }
+            ]
+          },
+          {
+            "id": "5f33bca6-4ab3-4429-a38f-4d02fb5a16e6",
+            "cells": [
+              {
+                "id": "640485f1-04d4-4579-81e0-5d8aa1dbfe24",
+                "inline": null,
+                "size": 12,
+                "content": {
+                  "plugin": {
+                    "name": "ory/editor/core/content/slate",
+                    "version": "0.0.1"
+                  },
+                  "state": {
+                    "serialized": {
+                      "nodes": [
+                        {
+                          "kind": "block",
+                          "type": "HEADINGS/HEADING-TWO",
+                          "nodes": [
+                            {
+                              "kind": "text",
+                              "text": "What's the problem?"
+                            }
+                          ],
+                          "data": {
+                            "align": "center"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "id": "09c5e133-ef5c-40ce-965f-a14200e4f162",
+            "cells": [
+              {
+                "id": "5e813953-98b7-41aa-b077-42923cc0d2c6",
+                "inline": "right",
+                "size": 5,
+                "content": {
+                  "plugin": {
+                    "name": "ory/editor/core/content/image",
+                    "version": "0.0.1"
+                  },
+                  "state": {
+                    "src": "https://storage.googleapis.com/ory.am/inline-edit-lg.gif"
+                  }
                 }
               },
-              rows: [
-                {
-                  cells: [
-                    {
-                      rows: [
+              {
+                "id": "2fff5d50-f252-478b-b354-181300e21419",
+                "inline": null,
+                "size": 12,
+                "content": {
+                  "plugin": {
+                    "name": "ory/editor/core/content/slate",
+                    "version": "0.0.1"
+                  },
+                  "state": {
+                    "serialized": {
+                      "nodes": [
                         {
-                          cells: [
+                          "kind": "block",
+                          "type": "PARAGRAPH/PARAGRAPH",
+                          "nodes": [
                             {
-                              content: {
-                                plugin: {
-                                  name: 'ory/editor/core/content/slate'
-                                },
-                                state: {
-                                  importFromHtml: '<p>That sense of resurgent Englishness is palpable in places like South Benfleet, in the heart of a district that is the most ethnically English part of the United Kingdom, according to the Office of National Statistics based on the 2011 census, with nearly 80 percent describing themselves as purely English, while 95 percent are white. They are older than the national average, and only about one-quarter of 1 percent are foreign nationals, very low compared with the rest of Britain.</p>'
+                              "kind": "text",
+                              "text": "We had to realize that existing open source content editing solutions had one of the three flaws:\r"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "block",
+                          "type": "LISTS/UNORDERED-LIST",
+                          "nodes": [
+                            {
+                              "kind": "block",
+                              "type": "LISTS/LIST-ITEM",
+                              "nodes": [
+                                {
+                                  "kind": "block",
+                                  "type": "PARAGRAPH/PARAGRAPH",
+                                  "nodes": [
+                                    {
+                                      "kind": "text",
+                                      "text": "The produced markup was horrific, a lot of sanitation had to take place and XSS is always a threat.\r"
+                                    }
+                                  ]
                                 }
-                              },
-                              id: '219bc340-cf16-4a93-a471-1aad52ffa651'
+                              ]
                             },
                             {
-                              content: {
-                                plugin: {
-                                  name: 'ory/editor/core/content/slate'
-                                },
-                                state: {
-                                  importFromHtml: '<p>Castle Point district of Essex, full of people who have made it out of London’s tough East End to a kind of English paradise with lots of single-family homes, lawns, beaches, seaside amusement parks and fish-and-chip shops.</p>'
+                              "kind": "block",
+                              "type": "LISTS/LIST-ITEM",
+                              "nodes": [
+                                {
+                                  "kind": "block",
+                                  "type": "PARAGRAPH/PARAGRAPH",
+                                  "nodes": [
+                                    {
+                                      "kind": "text",
+                                      "text": "The author must learn special mark up, like markdown, before being able to produce content. These text-based solutions are usually unable to specify a layout and complex data structures like tables are annoying to edit.\r"
+                                    }
+                                  ]
                                 }
-                              },
-                              id: 'd3f7fdd9-45f1-49e4-81c7-d005ecf796e0'
+                              ]
                             },
                             {
-                              content: {
-                                plugin: {
-                                  name: 'ory/editor/core/content/slate'
-                                },
-                                state: {
-                                  importFromHtml: '<p>The people here are fiercely English, fiercely Conservative and fiercely pro-Brexit, as the possible exit is being called, and many feel that their sovereignty and identity are being diluted by a failing European Union and an “uncontrolled” influx of foreigners.</p>'
+                              "kind": "block",
+                              "type": "LISTS/LIST-ITEM",
+                              "nodes": [
+                                {
+                                  "kind": "block",
+                                  "type": "PARAGRAPH/PARAGRAPH",
+                                  "nodes": [
+                                    {
+                                      "kind": "text",
+                                      "text": "Promising libraries potentially solving the above where abandoned by their maintainers, because it started as a special use case, or a free-time project.\r"
+                                    }
+                                  ]
                                 }
-                              },
-                              id: '58d1bba0-0adc-41a2-afee-22cb571e8fc2'
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "id": "da7ba725-44a0-4be5-9e5d-53db76950b15",
+            "cells": [
+              {
+                "id": "ede254d9-f54f-47c1-85c3-e0e09e816264",
+                "inline": null,
+                "size": 12,
+                "content": {
+                  "plugin": {
+                    "name": "ory/editor/core/content/slate",
+                    "version": "0.0.1"
+                  },
+                  "state": {
+                    "serialized": {
+                      "nodes": [
+                        {
+                          "kind": "block",
+                          "type": "HEADINGS/HEADING-TWO",
+                          "nodes": [
+                            {
+                              "kind": "text",
+                              "text": "So what's different?"
                             }
                           ],
-                          id: 'f452db55-20a8-4d62-91c2-be1e03113317'
+                          "data": {
+                            "align": "center"
+                          }
                         }
-                      ],
-                      id: 'd535b2c2-2c98-487c-ae29-370158219b51'
+                      ]
                     }
-                  ],
-                  id: '3de62493-e1da-454a-bd1d-1e666294405c'
+                  }
                 }
-              ],
-              id: 'a32d1eb5-a63b-40d9-b852-72e381a7e3aa'
-            }
-          ],
-          id: '4dd3e3c9-e708-4463-8a71-6965964ef0b3'
-        }
-      ],
-      id: '93f330d6-867f-4da5-9e94-40abd11114b9'
-    }]
+              }
+            ]
+          },
+          {
+            "id": "de26482c-ba8a-42b3-bdfc-b4f0761e2dad",
+            "cells": [
+              {
+                "id": "b2332df1-94c4-4136-867f-14c93e1efe48",
+                "inline": null,
+                "size": 4,
+                "content": {
+                  "plugin": {
+                    "name": "ory/editor/core/content/video",
+                    "version": "0.0.1"
+                  },
+                  "state": {
+                    "src": "https://www.youtube.com/watch?v=dkc65_l0Kfc"
+                  }
+                }
+              },
+              {
+                "id": "71d9437b-38ef-40f9-be8b-0a5517734922",
+                "inline": null,
+                "size": 8,
+                "content": {
+                  "plugin": {
+                    "name": "ory/editor/core/content/slate",
+                    "version": "0.0.1"
+                  },
+                  "state": {
+                    "serialized": {
+                      "nodes": [
+                        {
+                          "kind": "block",
+                          "type": "PARAGRAPH/PARAGRAPH",
+                          "nodes": [
+                            {
+                              "kind": "text",
+                              "text": "We concluded that a solution must meet the following principles:\r"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "block",
+                          "type": "LISTS/UNORDERED-LIST",
+                          "nodes": [
+                            {
+                              "kind": "block",
+                              "type": "LISTS/LIST-ITEM",
+                              "nodes": [
+                                {
+                                  "kind": "block",
+                                  "type": "PARAGRAPH/PARAGRAPH",
+                                  "nodes": [
+                                    {
+                                      "kind": "text",
+                                      "text": "The state is a normalized JSON object, no HTML involved.\r"
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "kind": "block",
+                              "type": "LISTS/LIST-ITEM",
+                              "nodes": [
+                                {
+                                  "kind": "block",
+                                  "type": "PARAGRAPH/PARAGRAPH",
+                                  "nodes": [
+                                    {
+                                      "kind": "text",
+                                      "text": "It is a visual editor that does not require programming experience or special training.\r"
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "kind": "block",
+                              "type": "LISTS/LIST-ITEM",
+                              "nodes": [
+                                {
+                                  "kind": "block",
+                                  "type": "PARAGRAPH/PARAGRAPH",
+                                  "nodes": [
+                                    {
+                                      "kind": "text",
+                                      "text": "It is built by a company, reducing the likelihood of abandonment.\r"
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "kind": "block",
+                              "type": "LISTS/LIST-ITEM",
+                              "nodes": [
+                                {
+                                  "kind": "block",
+                                  "type": "PARAGRAPH/PARAGRAPH",
+                                  "nodes": [
+                                    {
+                                      "kind": "text",
+                                      "text": "Based on reusable React Components, it gives developers, authors and designers new ways of working together and creating better and richer experiences more easily.\r"
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "kind": "block",
+                              "type": "LISTS/LIST-ITEM",
+                              "nodes": [
+                                {
+                                  "kind": "block",
+                                  "type": "PARAGRAPH/PARAGRAPH",
+                                  "nodes": [
+                                    {
+                                      "kind": "text",
+                                      "text": "It works on mobile and touch devices.\r"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "block",
+                          "type": "PARAGRAPH/PARAGRAPH",
+                          "nodes": [
+                            {
+                              "kind": "text",
+                              "text": "With these principles in mind, we went out and implemented the ORY Editor, which you are looking at right now."
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "id": "b3c394b2-f99c-4286-a348-0dc5c4592f05",
+            "cells": [
+              {
+                "id": "af4d6d7b-57ac-43f2-aff6-6b141dfcf98e",
+                "inline": null,
+                "size": 12,
+                "content": {
+                  "plugin": {
+                    "name": "ory/editor/core/content/spacer",
+                    "version": "0.0.1"
+                  },
+                  "state": {
+                    "height": 48
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "id": "338463af-5dfb-4e53-a53d-a47855247269",
+            "cells": [
+              {
+                "id": "f9a5c347-8e5f-464f-8af9-b130ec2dd3bb",
+                "inline": null,
+                "size": 12,
+                "content": {
+                  "plugin": {
+                    "name": "ory/editor/core/content/slate",
+                    "version": "0.0.1"
+                  },
+                  "state": {
+                    "serialized": {
+                      "nodes": [
+                        {
+                          "kind": "block",
+                          "type": "HEADINGS/HEADING-TWO",
+                          "nodes": [
+                            {
+                              "kind": "text",
+                              "text": "Feature Spotlight"
+                            }
+                          ],
+                          "data": {
+                            "align": "center"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "id": "111f3e10-e62f-483c-8937-9b95ca05c48d",
+            "cells": [
+              {
+                "id": "9e726399-4a2c-4ea7-b0f3-7742d430a861",
+                "inline": null,
+                "size": 12,
+                "content": {
+                  "plugin": {
+                    "name": "ory/editor/core/content/divider",
+                    "version": "0.0.1"
+                  },
+                  "state": {}
+                }
+              }
+            ]
+          },
+          {
+            "id": "76814458-ee0c-49c4-b011-937ce7e883fc",
+            "cells": [
+              {
+                "id": "4825fda3-916f-44f9-ac02-3be553bcd871",
+                "inline": null,
+                "size": 8,
+                "content": {
+                  "plugin": {
+                    "name": "ory/editor/core/content/slate",
+                    "version": "0.0.1"
+                  },
+                  "state": {
+                    "serialized": {
+                      "nodes": [
+                        {
+                          "kind": "block",
+                          "type": "HEADINGS/HEADING-THREE",
+                          "nodes": [
+                            {
+                              "kind": "text",
+                              "text": "Rich Inline Editing"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "block",
+                          "type": "PARAGRAPH/PARAGRAPH",
+                          "nodes": [
+                            {
+                              "kind": "text",
+                              "text": "Presentation and modification happen in the same canvas, at the same time. Now you always know what your content looks like on desktop, tablet and mobile, in real-time!"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  }
+                }
+              },
+              {
+                "id": "76d7587b-d978-4958-b54f-91ccb1e3d0a2",
+                "inline": null,
+                "size": 4,
+                "content": {
+                  "plugin": {
+                    "name": "ory/editor/core/content/image",
+                    "version": "0.0.1"
+                  },
+                  "state": {
+                    "src": "/images/create-content.png"
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "id": "2e1d1ba8-cdbe-4175-9990-26cdc15fce5c",
+            "cells": [
+              {
+                "id": "412e3261-1fb8-474f-965e-39cbc5a16d18",
+                "inline": null,
+                "size": 4,
+                "content": {
+                  "plugin": {
+                    "name": "ory/editor/core/content/image",
+                    "version": "0.0.1"
+                  },
+                  "state": {
+                    "src": "/images/responsive.png"
+                  }
+                }
+              },
+              {
+                "id": "02125c61-3120-49ef-9b50-70ae79409bea",
+                "inline": null,
+                "size": 8,
+                "content": {
+                  "plugin": {
+                    "name": "ory/editor/core/content/slate",
+                    "version": "0.0.1"
+                  },
+                  "state": {
+                    "serialized": {
+                      "nodes": [
+                        {
+                          "kind": "block",
+                          "type": "HEADINGS/HEADING-THREE",
+                          "nodes": [
+                            {
+                              "kind": "text",
+                              "text": "Responsive Layouts"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "block",
+                          "type": "PARAGRAPH/PARAGRAPH",
+                          "nodes": [
+                            {
+                              "kind": "text",
+                              "text": "Today's content is more than a monolithic blob of text. The ORY Editor allows you to define your own layout blocks, and create content that looks good on all devices."
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "id": "ec4474f6-a418-4628-831b-03a7e64fd500",
+            "cells": [
+              {
+                "id": "78269a8f-7b29-4703-b107-b399eac3e365",
+                "inline": null,
+                "size": 8,
+                "content": {
+                  "plugin": {
+                    "name": "ory/editor/core/content/slate",
+                    "version": "0.0.1"
+                  },
+                  "state": {
+                    "serialized": {
+                      "nodes": [
+                        {
+                          "kind": "block",
+                          "type": "HEADINGS/HEADING-THREE",
+                          "nodes": [
+                            {
+                              "kind": "text",
+                              "text": "Sane mark-up"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "block",
+                          "type": "PARAGRAPH/PARAGRAPH",
+                          "nodes": [
+                            {
+                              "kind": "text",
+                              "text": "Most web editors work on top of the DOM. This is dangerous (XSS), hard to maintain and difficult to parse. The ORY Editor uses JSON only - everywhere! It's sane, tested, clean and minimal."
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  }
+                }
+              },
+              {
+                "id": "e8c5696c-4769-483c-a962-2fd5f4727c0c",
+                "inline": null,
+                "size": 4,
+                "content": {
+                  "plugin": {
+                    "name": "ory/editor/core/content/image",
+                    "version": "0.0.1"
+                  },
+                  "state": {
+                    "src": "/images/sane-markup.png"
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "id": "dad71b07-5d3e-4aaf-9c8a-0e06a346de99",
+            "cells": [
+              {
+                "id": "6c11a0d6-6857-4917-9692-eae056fd9500",
+                "inline": null,
+                "size": 12,
+                "layout": {
+                  "plugin": {
+                    "name": "ory/editor/core/layout/parallax-background",
+                    "version": "0.0.1"
+                  },
+                  "state": {
+                    "background": "/static/media/mountain.8e102c7b.jpg"
+                  }
+                },
+                "rows": [
+                  {
+                    "id": "c9d1ff2a-f7d1-410c-b275-9dd6200114c5",
+                    "cells": [
+                      {
+                        "id": "fa87ac49-73b9-4202-9034-f752fa83273c",
+                        "inline": null,
+                        "size": 4,
+                        "content": {
+                          "plugin": {
+                            "name": "ory/editor/core/content/image",
+                            "version": "0.0.1"
+                          },
+                          "state": {
+                            "src": "/images/react.png"
+                          }
+                        }
+                      },
+                      {
+                        "id": "491d3370-e551-4b05-be4f-c926d52ee08b",
+                        "inline": null,
+                        "size": 8,
+                        "content": {
+                          "plugin": {
+                            "name": "ory/editor/core/content/slate",
+                            "version": "0.0.1"
+                          },
+                          "state": {
+                            "serialized": {
+                              "nodes": [
+                                {
+                                  "kind": "block",
+                                  "type": "HEADINGS/HEADING-THREE",
+                                  "nodes": [
+                                    {
+                                      "kind": "text",
+                                      "text": "React Plugin API"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "kind": "block",
+                                  "type": "PARAGRAPH/PARAGRAPH",
+                                  "nodes": [
+                                    {
+                                      "kind": "text",
+                                      "text": "You don't like our rich text solution, require custom layout components, need a twitter feed, want to contribute or even sell plugins? No problem with our easy-to-use React Plugin API!"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "kind": "block",
+                                  "type": "PARAGRAPH/PARAGRAPH",
+                                  "nodes": [
+                                    {
+                                      "kind": "text",
+                                      "text": "In fact, this section is rendered on top of an exemplary layout plugin!"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "5db554dd-6b14-46c6-8dd4-3de3aee946a9",
+            "cells": [
+              {
+                "id": "246945c0-f677-4942-b067-ecfef5624911",
+                "inline": null,
+                "size": 12,
+                "content": {
+                  "plugin": {
+                    "name": "ory/editor/core/content/slate",
+                    "version": "0.0.1"
+                  },
+                  "state": {
+                    "serialized": {
+                      "nodes": [
+                        {
+                          "kind": "block",
+                          "type": "HEADINGS/HEADING-TWO",
+                          "nodes": [
+                            {
+                              "kind": "text",
+                              "text": "That's all?"
+                            }
+                          ],
+                          "data": {
+                            "align": "center"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "id": "ba89fcb0-6657-4826-abc0-1ad006dac05c",
+            "cells": [
+              {
+                "id": "b368328c-86fd-4949-b0c8-7277da6c7d6d",
+                "inline": null,
+                "size": 12,
+                "content": {
+                  "plugin": {
+                    "name": "ory/editor/core/content/slate",
+                    "version": "0.0.1"
+                  },
+                  "state": {
+                    "serialized": {
+                      "nodes": [
+                        {
+                          "kind": "block",
+                          "type": "PARAGRAPH/PARAGRAPH",
+                          "nodes": [
+                            {
+                              "kind": "text",
+                              "text": "No, of course not! We are very proud of these ones as well:"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "block",
+                          "type": "LISTS/UNORDERED-LIST",
+                          "nodes": [
+                            {
+                              "kind": "block",
+                              "type": "LISTS/LIST-ITEM",
+                              "nodes": [
+                                {
+                                  "kind": "block",
+                                  "type": "PARAGRAPH/PARAGRAPH",
+                                  "nodes": [
+                                    {
+                                      "kind": "text",
+                                      "ranges": [
+                                        {
+                                          "text": "global un-/redo with "
+                                        },
+                                        {
+                                          "text": "ctrl+z",
+                                          "marks": [
+                                            {
+                                              "type": "EMPHASIZE/EM"
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "text": " / "
+                                        },
+                                        {
+                                          "text": "ctrl+y",
+                                          "marks": [
+                                            {
+                                              "type": "EMPHASIZE/EM"
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "kind": "block",
+                              "type": "LISTS/LIST-ITEM",
+                              "nodes": [
+                                {
+                                  "kind": "block",
+                                  "type": "PARAGRAPH/PARAGRAPH",
+                                  "nodes": [
+                                    {
+                                      "kind": "text",
+                                      "ranges": [
+                                        {
+                                          "text": "editing shortcuts, for example "
+                                        },
+                                        {
+                                          "text": "ctrl+b",
+                                          "marks": [
+                                            {
+                                              "type": "EMPHASIZE/STRONG"
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "text": ","
+                                        },
+                                        {
+                                          "text": " ",
+                                          "marks": [
+                                            {
+                                              "type": "EMPHASIZE/STRONG"
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "text": "ctrl+i, ",
+                                          "marks": [
+                                            {
+                                              "type": "EMPHASIZE/EM"
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "text": "ctrl+u",
+                                          "marks": [
+                                            {
+                                              "type": "EMPHASIZE/U"
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "kind": "block",
+                              "type": "LISTS/LIST-ITEM",
+                              "nodes": [
+                                {
+                                  "kind": "block",
+                                  "type": "PARAGRAPH/PARAGRAPH",
+                                  "nodes": [
+                                    {
+                                      "kind": "text",
+                                      "text": "collaborative editing"
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "kind": "block",
+                              "type": "LISTS/LIST-ITEM",
+                              "nodes": [
+                                {
+                                  "kind": "block",
+                                  "type": "PARAGRAPH/PARAGRAPH",
+                                  "nodes": [
+                                    {
+                                      "kind": "text",
+                                      "text": "... and more things to come"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ]
   },
   {
     id: '2',
