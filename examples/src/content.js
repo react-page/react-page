@@ -991,7 +991,7 @@ export default [
                           name: 'ory/editor/core/content/image'
                         },
                         state: {
-                          src: 'https://static01.nyt.com/images/2016/06/16/world/16England-web2/16England-web2-master675.jpg'
+                          src: '/images/grass-header.jpg'
                         }
                       },
                       id: 'c3fab3ee-c086-4faf-8a88-e8f321d425c2'
