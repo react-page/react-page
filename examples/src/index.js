@@ -70,11 +70,11 @@ for (const element of elements) {
     <Editable
       editor={editor}
       id={element.dataset.id}
-      onChange={(state) => {
-        if (element.dataset.id === '1') {
-          console.log(state)
-        }
-      }}
+      // onChange={(state) => {
+      //   if (element.dataset.id === '1') {
+      //     console.log(state)
+      //   }
+      // }}
     />
   ), element)
 }
