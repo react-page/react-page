@@ -11,23 +11,21 @@ import { BottomToolbar } from 'ory-editor-ui'
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 
-const handleChange = (onChange: (state: any) => void) => (value: string) =>
-  onChange({ background: value })
+const handleChange = (onChange: (state: any) => void, key: string) => (
+  e: Event,
+  value: string
+) => onChange({ [key]: value })
 
 class PluginComponent extends Component {
   state = { hidden: false }
   props: LayoutPluginProps<{}> & { children: any }
-
-  onToggle = () => {
-    this.setState({ hidden: !this.state.hidden })
-  }
 
   render() {
     const {
       children,
       focused,
       onChange,
-      state: { background, darken = 0.3 }
+      state: { background = '', darken = 0.3 }
     } = this.props
     return (
       <MuiThemeProvider muiTheme={getMuiTheme()}>
@@ -44,9 +42,19 @@ class PluginComponent extends Component {
               inputStyle={{ color: 'white' }}
               floatingLabelStyle={{ color: 'white' }}
               hintStyle={{ color: 'grey' }}
-              style={{ width: '512px' }}
+              style={{ width: '256px' }}
               value={background}
-              onChange={handleChange(onChange)}
+              onChange={handleChange(onChange, 'background')}
+            />
+            <TextField
+              hintText="0.3"
+              floatingLabelText="Darken level"
+              inputStyle={{ color: 'white' }}
+              floatingLabelStyle={{ color: 'white' }}
+              hintStyle={{ color: 'grey' }}
+              style={{ width: '256px' }}
+              value={darken}
+              onChange={handleChange(onChange, 'darken')}
             />
           </BottomToolbar>
           {children}
@@ -80,5 +88,8 @@ export default ({ defaultPlugin }: { defaultPlugin: ContentPlugin }) => ({
         ]
       }
     ]
-  })
+  }),
+
+  handleFocusNextHotKey: () => Promise.reject(),
+  handleFocusPreviousHotKey: () => Promise.reject()
 })
