@@ -84,7 +84,12 @@ export class Plugin {
       StaticComponent,
       serialize,
       unserialize,
-      description
+      description,
+      handleRemoveHotKey,
+      handleFocusNextHotKey,
+      handleFocusPreviousHotKey,
+      handleFocus,
+      handleBlur
     } = config
 
     if (!name || !version || !Component) {
@@ -104,6 +109,17 @@ export class Plugin {
 
     this.serialize = serialize ? serialize.bind(this) : this.serialize
     this.unserialize = unserialize ? unserialize.bind(this) : this.unserialize
+    this.handleRemoveHotKey = handleRemoveHotKey
+      ? handleRemoveHotKey.bind(this)
+      : this.handleRemoveHotKey
+    this.handleFocusNextHotKey = handleFocusNextHotKey
+      ? handleFocusNextHotKey.bind(this)
+      : this.handleFocusNextHotKey
+    this.handleFocusPreviousHotKey = handleFocusPreviousHotKey
+      ? handleFocusPreviousHotKey.bind(this)
+      : this.handleFocusPreviousHotKey
+    this.handleFocus = handleFocus ? handleFocus.bind(this) : this.handleFocus
+    this.handleBlur = handleBlur ? handleBlur.bind(this) : this.handleBlur
   }
 
   config: any
@@ -160,61 +176,6 @@ export class Plugin {
    * @returns the unserialized state.
    */
   unserialize = (state: Object): Object => state
-}
-
-/**
- * @class this is the base class for content plugins.
- */
-export class ContentPlugin extends Plugin {
-  constructor(config: any) {
-    super(config)
-    const {
-      handleRemoveHotKey,
-      handleFocusNextHotKey,
-      handleFocusPreviousHotKey,
-      handleFocus,
-      handleBlur,
-      createInitialState,
-      allowInlineNeighbours = false,
-      isInlineable = false,
-      reducer
-    } = config
-
-    this.isInlineable = isInlineable
-    this.allowInlineNeighbours = allowInlineNeighbours
-    this.handleRemoveHotKey = handleRemoveHotKey
-      ? handleRemoveHotKey.bind(this)
-      : this.handleRemoveHotKey
-    this.handleFocusNextHotKey = handleFocusNextHotKey
-      ? handleFocusNextHotKey.bind(this)
-      : this.handleFocusNextHotKey
-    this.handleFocusPreviousHotKey = handleFocusPreviousHotKey
-      ? handleFocusPreviousHotKey.bind(this)
-      : this.handleFocusPreviousHotKey
-    this.handleFocus = handleFocus ? handleFocus.bind(this) : this.handleFocus
-    this.handleBlur = handleBlur ? handleBlur.bind(this) : this.handleBlur
-    this.reducer = reducer ? reducer.bind(this) : this.reducer
-    this.createInitialState = createInitialState
-      ? createInitialState.bind(this)
-      : this.createInitialState
-  }
-
-  /**
-   * @member if isInlineable is true, the plugin is allowed to be placed with floating to left or right.
-   */
-  isInlineable: boolean
-
-  /**
-   * @member if true allows that isInlineable elements may be placed "in" this plugin.
-   */
-  allowInlineNeighbours: boolean
-
-  /**
-   * Create the plugin's initial state.
-   *
-   * @returns the initial state.
-   */
-  createInitialState = (): Object => ({})
 
   /**
    * Will be called when the user presses the delete key. When returning a resolving promise,
@@ -266,6 +227,45 @@ export class ContentPlugin extends Plugin {
    * @param props
    */
   handleBlur = (props: ContentPluginProps<*>): void => {}
+}
+
+/**
+ * @class this is the base class for content plugins.
+ */
+export class ContentPlugin extends Plugin {
+  constructor(config: any) {
+    super(config)
+    const {
+      createInitialState,
+      allowInlineNeighbours = false,
+      isInlineable = false,
+      reducer
+    } = config
+
+    this.isInlineable = isInlineable
+    this.allowInlineNeighbours = allowInlineNeighbours
+    this.reducer = reducer ? reducer.bind(this) : this.reducer
+    this.createInitialState = createInitialState
+      ? createInitialState.bind(this)
+      : this.createInitialState
+  }
+
+  /**
+   * @member if isInlineable is true, the plugin is allowed to be placed with floating to left or right.
+   */
+  isInlineable: boolean
+
+  /**
+   * @member if true allows that isInlineable elements may be placed "in" this plugin.
+   */
+  allowInlineNeighbours: boolean
+
+  /**
+   * Create the plugin's initial state.
+   *
+   * @returns the initial state.
+   */
+  createInitialState = (): Object => ({})
 
   /**
    * Specify a custom reducer for the plugin's cell.
