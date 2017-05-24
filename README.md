@@ -77,6 +77,10 @@ With these principles in mind, we went out and implemented the ORY Editor, which
 [ORY Sites](http://www.ory.am/sites/) is an innovative desktop app and combines the latest technology with ease of use - creating beautiful,
 responsive websites is now a matter of minutes. [ORY Sites](http://www.ory.am/sites/)
 
+<p align="center">
+<a href="http://www.ory.am/sites/"><img alt="ORY Sites" src="docs/images/ory-sites.gif" /></a>
+</p>
+
 ## Quickstart
 
 Currently our focus is on optimizing the ORY Editor for usage with React. We will work on, and ship versions that do
