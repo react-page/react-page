@@ -9,24 +9,24 @@
 [![Follow twitter](https://img.shields.io/badge/follow-twitter-00cc99.svg)](https://twitter.com/_aeneasr)
 [![Follow GitHub](https://img.shields.io/badge/follow-github-00cc99.svg)](https://github.com/arekkas)
 
-[ ORY](https://www.ory.am) is a company building and maintaining developer tools for a safer, more accessible web. You
+[ORY](https://www.ory.am) is a company building and maintaining developer tools for a safer, more accessible web. You
 might also like our other [Open Source projects](https://github.com/ory)! The ORY Editor is a smart, extensible and
 modern editor ("WYSIWYG") for the web written in React. If you are fed up with the limitations of `contenteditable`, you
 are in the right place.
 
-<a href="docs/images/quick-example.gif"><img align="left" width="30%" alt="ORY Editor demo" src="docs/images/quick-example.gif"></a>
+<a href="docs/images/quick-example.gif"><img align="left" width="40%" alt="ORY Editor demo" src="docs/images/quick-example.gif"></a>
 
 The ORY Editor is used at Germany's largest (~800k uniques per month) E-Learning Website
-[www.serlo.org](http://de.serlo.org) to improve the wiki experience. We use the ORY Editor for
-[ORY Sites](https://www.ory.am/sites), a tool for creating websites. It's similar to squarespace, but it works
-offline, the sites you created are stored *on your device*, and you are able to add your own layouts and plugins to it.
+[www.serlo.org](http://de.serlo.org) to improve the wiki experience.
 
-Check out our demo at [editor.ory.am](http://editor.ory.am/)!
+We use the ORY Editor for [**ORY Sites**](https://www.ory.am/sites), a tool for creating websites. It's similar to squarespace, but it works offline, the sites you created are stored *on your device*, and you are able to create your own designs and plugins.
+
+Check out the demo at [editor.ory.am](http://editor.ory.am/)!
+
+<br clear="both">
 
 *Please Note:* ORY Editor is pre-release and backwards compatibility is not guaranteed. However, we try our best to make
 breaking changes visible and easy to recover from!
-
-<br clear="both">
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
