@@ -1,4 +1,4 @@
-# ![ORY Editor](docs/images/ory-editor-github.jpg)
+# ![ORY Editor](logo.png)
 
 [![Build Status](https://travis-ci.org/ory/editor.svg)](https://travis-ci.org/ory/editor)
 [![Coverage Status](https://coveralls.io/repos/github/ory-am/editor/badge.svg?branch=master)](https://coveralls.io/github/ory/editor?branch=master)
@@ -9,12 +9,13 @@
 [![Follow twitter](https://img.shields.io/badge/follow-twitter-00cc99.svg)](https://twitter.com/_aeneasr)
 [![Follow GitHub](https://img.shields.io/badge/follow-github-00cc99.svg)](https://github.com/arekkas)
 
+<img align="right" alt="ORY Editor demo" src="docs/images/quick-example.gif">
+
 [ ORY](https://www.ory.am) is a company building and maintaining developer tools for a safer, more accessible web. You
 might also like our other [Open Source projects](https://github.com/ory)! The ORY Editor is a smart, extensible and
 modern editor ("WYSIWYG") for the web written in React. If you are fed up with the limitations of `contenteditable`, you
 are in the right place.
 
-<img alt="ORY Editor demo" src="docs/images/quick-example.gif">
 
 The ORY Editor is used at Germany's largest (~800k uniques per month) E-Learning Website
 [www.serlo.org](http://de.serlo.org) to improve the wiki experience. We use the ORY Editor for
@@ -25,6 +26,8 @@ Check out our demo at [editor.ory.am](http://editor.ory.am/)!
 
 *Please Note:* ORY Editor is pre-release and backwards compatibility is not guaranteed. However, we try our best to make
 breaking changes visible and easy to recover from!
+
+<br clear="both">
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
