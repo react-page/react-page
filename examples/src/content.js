@@ -167,7 +167,7 @@ export default [
                     "version": "0.0.1"
                   },
                   "state": {
-                    "src": "https://storage.googleapis.com/ory.am/inline-edit-lg.gif"
+                    "src": "/images/front.png"
                   }
                 }
               },
