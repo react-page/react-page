@@ -1,4 +1,4 @@
-# ![ORY Editor](docs/images/ory-editor-github.jpg)
+# ![ORY Editor](logo.png)
 
 [![Build Status](https://travis-ci.org/ory/editor.svg)](https://travis-ci.org/ory/editor)
 [![Coverage Status](https://coveralls.io/repos/github/ory-am/editor/badge.svg?branch=master)](https://coveralls.io/github/ory/editor?branch=master)
@@ -9,21 +9,24 @@
 [![Follow twitter](https://img.shields.io/badge/follow-twitter-00cc99.svg)](https://twitter.com/_aeneasr)
 [![Follow GitHub](https://img.shields.io/badge/follow-github-00cc99.svg)](https://github.com/arekkas)
 
-The ORY Editor is an highly extensible WYSI (what you see is) layout editor for rich HTML
-content (rich text, videos, applets, tables, twitter feeds, ...). If you are fed up with the limitations
-of `contenteditable`, you are in the right place.
+[ORY](https://www.ory.am) is a company building and maintaining developer tools for a safer, more accessible web. You
+might also like our other [Open Source projects](https://github.com/ory)! The ORY Editor is a smart, extensible and
+modern editor ("WYSIWYG") for the web written in React. If you are fed up with the limitations of `contenteditable`, you
+are in the right place.
+
+<a href="docs/images/quick-example.gif"><img align="left" width="40%" alt="ORY Editor demo" src="docs/images/quick-example.gif"></a>
 
 The ORY Editor is used at Germany's largest (~800k uniques per month) E-Learning Website
 [www.serlo.org](http://de.serlo.org) to improve the wiki experience.
 
-We use the ORY Editor for [ORY Sites](#ory-sites), a tool for creating websites. It's similar to squarespace, but it works
-offline, the sites you created are stored *on your device*, and you are able to add your own layouts and plugins to it.
+We use the ORY Editor for [**ORY Sites**](https://www.ory.am/sites), a tool for creating websites. It's similar to squarespace, but it works offline, the sites you created are stored *on your device*, and you are able to create your own designs and plugins.
 
-Check out our demo at [editor.ory.am](http://editor.ory.am/)!
+Check out the demo at [editor.ory.am](http://editor.ory.am/)!
 
-*Please Note:* The features, APIs and docs of the ORY Editor are new and very young. We cannot always guarantee
-backwards compatibility but we try our best! We are looking for your help also to find issues and
-improve the overall experience, APIs and documentation.
+<br clear="both">
+
+*Please Note:* ORY Editor is pre-release and backwards compatibility is not guaranteed. However, we try our best to make
+breaking changes visible and easy to recover from!
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
@@ -49,41 +52,33 @@ The experience and the lessons learned made us embark on the journey to build th
 We wanted to make content editing on the web easy and enrich the Open Source Community with technology that moves
 the needle significantly for how content is created and edited on the web.
 
-### What makes it different?
+### What's the problem?
 
-In contrast to WYSIWYG editor such as [TinyMCE](https://www.tinymce.com) or [CKEditor](http://ckeditor.com/) we do
-**not rely on html for state serialization**, but instead use a **well-defined JSON structure** and a predictable state container
-called [redux](https://github.com/reactjs/redux). All state transformations are unit-tested for correct behaviour and
-replayable - making collaboration and global undo / redo possible.
+We had to realize that existing open source content editing solutions had one of the three flaws:
 
-We felt that popular open source WYSIWYG editors fail to provide a decent layout solution. We observed authors who regularly
-use invisible tables with fixed widths for layouts - a work around that breaks your content on devices with small
-screens. Site builder plugins for popular CMS solve this sometimes, but there is no good open source alternative.
+* The produced markup was horrific, a lot of sanitation had to take place and XSS is always a threat.
+* The author must learn special mark up, like markdown, before being able to produce content. These text-based solutions are usually unable to specify a layout and complex data structures like tables are annoying to edit.
+* Promising libraries potentially solving the above where abandoned by their maintainers, because it started as a special use case, or a free-time project.
 
-Most WYSIWYG editors force too much functionality into `contenteditable`, such as tables, twitter cards, youtube videos
-and more. The ORY Editor is built plugin-first - every layout and content is a plugin. And plugins are simple React Components,
-that you can write yourself.
+### So what's different?
 
-### ORY Sites
+We concluded that a solution must meet the following principles:
 
-We are building a platform called ORY Sites for creating, managing and publishing websites. In contrast to existing
-providers such as [squarespace.com](https://www.squarespace.com/), [wix.com](http://wix.com/), and others, you have all
-your content stored locally. The build is static html, css and client-side javascript and you are free to host it
-on ORY Sites, GitHub Pages, AWS S3, or anywhere you like.
+* The state is a normalized JSON object, no HTML involved.
+* It is a visual editor that does not require programming experience or special training.
+* It is built by a company, reducing the likelihood of abandonment.
+* Based on reusable React Components, it gives developers, authors and designers new ways of working together and creating better and richer experiences more easily.
+* It works on mobile and touch devices.
 
-Because ORY Sites comes with a desktop app, it even works when you do not have internet connection.
-The app is built on top of the ORY Editor, allowing you to integrate plugins you write yourself, or plugins from
-third-parties. The ORY Sites app is completely free and we provide paid services that save you time
-and money.
+With these principles in mind, we went out and implemented the ORY Editor, which you are looking at right now.
 
-Compared to popular open source content management systems like drupal or wordpress, there are no security updates
-necessary, because ORY Sites uses plain html files to serve your site - no SQL or XSS injections possible. Yet,
-content, layout and behaviour is very customizable.
+## ORY Sites
 
-If this caught your attention, sign up for our newsletter and get an exclusive beta access to the ORY Sites App!
+[ORY Sites](http://www.ory.am/sites/) is an innovative desktop app and combines the latest technology with ease of use - creating beautiful,
+responsive websites is now a matter of minutes. [ORY Sites](http://www.ory.am/sites/)
 
 <p align="center">
-  <strong><a href="http://eepurl.com/cwtSPL">>> Join Newsletter <<</a></strong>
+<a href="http://www.ory.am/sites/"><img alt="ORY Sites" src="docs/images/ory-sites.gif" /></a>
 </p>
 
 ## Quickstart
@@ -152,6 +147,12 @@ To run the guide in watch mode, do:
 
 ```bash
 $ npm run docs:guide
+```
+
+To generate API docs, run:
+
+```bash
+$ npm run docs:api
 ```
 
 ## Known issues
