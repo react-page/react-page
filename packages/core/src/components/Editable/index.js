@@ -27,6 +27,7 @@ class Editable extends Component {
 
   shouldComponentUpdate = shouldPureComponentUpdate
 
+  unsubscribe: Function
   previousState: any = {}
 
   props: {
