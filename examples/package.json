@@ -3,9 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "react": "^15.5.4",
-    "react-dom": "^15.5.4",
-    "react-tap-event-plugin": "^2.0.1",
+    "babel-polyfill": "^6.23.0",
     "material-ui": "^0.16.7",
     "ory-editor-core": "0.0.0",
     "ory-editor-plugins-divider": "0.0.0",
@@ -15,7 +13,10 @@
     "ory-editor-plugins-spacer": "0.0.0",
     "ory-editor-plugins-video": "0.0.0",
     "ory-editor-renderer": "0.0.0",
-    "ory-editor-ui": "0.0.0"
+    "ory-editor-ui": "0.0.0",
+    "react": "^15.5.4",
+    "react-dom": "^15.5.4",
+    "react-tap-event-plugin": "^2.0.1"
   },
   "devDependencies": {
     "why-did-you-update": "0.0.8",
