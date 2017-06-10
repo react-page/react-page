@@ -24,7 +24,6 @@ const BottomToolbar = ({
         bottom: '0px',
         height: 'auto',
         margin: '0 auto',
-        maxWidth: '95%',
         left: '0',
         right: '0',
         width: 'auto',
@@ -33,7 +32,8 @@ const BottomToolbar = ({
         background: 'transparent',
         border: 'transparent',
         overflow: 'visible',
-        boxShadow: 'none'
+        boxShadow: 'none',
+        z-index: 5
       }}
     >
       <div
