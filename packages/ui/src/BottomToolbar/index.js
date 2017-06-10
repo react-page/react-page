@@ -33,7 +33,7 @@ const BottomToolbar = ({
         border: 'transparent',
         overflow: 'visible',
         boxShadow: 'none',
-        z-index: 5
+        zIndex: 5
       }}
     >
       <div
