@@ -6,6 +6,8 @@ if (process.env.NODE_ENV !== 'production' && process.env.REACT_APP_TRACE_UPDATES
   whyDidYouUpdate(React)
 }
 
+import 'babel-polyfill'
+
 // The editor core
 import Editor, { Editable, createEmptyState } from 'ory-editor-core'
 import 'ory-editor-core/lib/index.css' // we also want to load the stylesheets
