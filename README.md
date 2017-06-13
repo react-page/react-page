@@ -32,7 +32,8 @@ breaking changes visible and easy to recover from!
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
 - [Introduction](#introduction)
-  - [What makes it different?](#what-makes-it-different)
+  - [What's the problem?](#whats-the-problem)
+  - [What makes it different?](#so-whats-different)
   - [ORY Sites](#ory-sites)
 - [Quickstart](#quickstart)
 - [Documentation](#documentation)
