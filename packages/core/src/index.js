@@ -4,6 +4,7 @@ import { v4 } from 'uuid'
 import Editable from './components/Editable'
 import createStore from './store'
 import { actions } from './actions'
+import { selectors } from './selector'
 import PluginService from './service/plugin'
 import pluginDefault from './service/plugin/default'
 import type { Editable as EditableType } from './types/editable'
@@ -63,6 +64,7 @@ class Editor {
     this.plugins = new PluginService(plugins)
     this.middleware = middleware
     this.trigger = actions(this.store.dispatch)
+    this.query = selectors(this.store)
     this.defaultPlugin = defaultPlugin
 
     this.trigger.editable.add = update(this)
@@ -110,6 +112,7 @@ class Editor {
   }
 
   trigger = {}
+  query = {}
 }
 
 export { PluginService, Editable, Editor }
