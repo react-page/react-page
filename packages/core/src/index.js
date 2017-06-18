@@ -112,6 +112,7 @@ class Editor {
   }
 
   trigger = {}
+  query = {}
 }
 
 export { PluginService, Editable, Editor }
