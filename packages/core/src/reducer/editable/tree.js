@@ -12,7 +12,6 @@ import {
 } from './helper/optimize'
 import { mergeDecorator } from './helper/merge'
 import { isHoveringThis } from './helper/hover'
-import { resizeCells } from './helper/sizing'
 import { computeRow } from './helper/inline'
 import { createCell, createRow } from '../../types/editable'
 import {
@@ -26,7 +25,6 @@ import {
   CELL_INSERT_INLINE_LEFT,
   CELL_INSERT_INLINE_RIGHT,
   CELL_DRAG_HOVER,
-  CELL_RESIZE,
   CELL_FOCUS,
   CELL_BLUR,
   CELL_BLUR_ALL
@@ -182,9 +180,6 @@ export const cells = (state: Cell[] = [], action: Object): Cell[] =>
   optimizeCells(
     ((state: Cell[], action: Object): Cell[] => {
       switch (action.type) {
-        case CELL_RESIZE:
-          return resizeCells(state.map(inner(cell, action)), action)
-
         case CELL_INSERT_BELOW:
         case CELL_INSERT_ABOVE:
           return state

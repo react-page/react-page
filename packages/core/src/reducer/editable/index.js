@@ -1,7 +1,6 @@
 // @flow
 import { CELL_CREATE_FALLBACK } from '../../actions/cell'
 import { cellOrder } from './helper/order'
-import { decorate } from './helper/tree'
 import { cells } from './tree.js'
 import { createCell } from '../../types/editable'
 
@@ -15,7 +14,7 @@ export const rawEditableReducer = (
   },
   action: Object
 ) => {
-  let newCells = decorate(cells(state.cells, action))
+  let newCells = cells(state.cells, action)
 
   // eslint-disable-next-line default-case
   switch (action.type) {
@@ -29,7 +28,7 @@ export const rawEditableReducer = (
           },
           id: action.ids[0]
         }
-        newCells = decorate(cells([c], action))
+        newCells = cells([c], action)
       }
       break
   }

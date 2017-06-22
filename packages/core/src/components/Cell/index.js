@@ -11,12 +11,10 @@ import { editableConfig, node, purifiedNode } from '../../selector/editable'
 import {
   isPreviewMode,
   isEditMode,
-  isResizeMode,
   isInsertMode,
   isLayoutMode
 } from '../../selector/display'
-import { resizeCell, focusCell, blurAllCells } from '../../actions/cell'
-import Resizable from './Resizable'
+import { focusCell, blurAllCells } from '../../actions/cell'
 
 import type { ComponetizedCell } from '../../types/editable'
 
@@ -48,9 +46,8 @@ class Cell extends Component {
       rowWidth,
       rowHeight,
       updateDimensions,
-      isResizeMode,
       isEditMode,
-      node: { inline, resizable, hasInlineNeighbour, focused },
+      node: { inline, hasInlineNeighbour, focused },
       isLayoutMode
     } = this.props
 
@@ -59,27 +56,11 @@ class Cell extends Component {
         className={classNames('ory-cell', gridClass(this.props), {
           'ory-cell-has-inline-neighbour': hasInlineNeighbour,
           [`ory-cell-inline-${inline || ''}`]: inline,
-          // 'ory-cell-bring-to-front': inline, && (!isLayoutMode && !isInsertMode && !isResizeMode),
           'ory-cell-focused': focused,
-          'ory-cell-resizing-overlay': isResizeMode,
-          'ory-cell-bring-to-front': !isResizeMode && !isLayoutMode && inline // inline must not be active for resize/layout
         })}
         onClick={stopClick(isEditMode)}
       >
-        {resizable && isResizeMode
-          ? <Resizable
-              {...this.props}
-              id={id}
-              rowWidth={rowWidth}
-              rowHeight={rowHeight}
-              updateDimensions={updateDimensions}
-              node={this.props.node}
-              steps={12}
-              onChange={this.props.resizeCell}
-            >
-              <Inner {...this.props} styles={null} />
-            </Resizable>
-          : <Inner {...this.props} styles={null} />}
+        <Inner {...this.props} styles={null} />
       </div>
     )
   }
@@ -88,7 +69,6 @@ class Cell extends Component {
 const mapStateToProps = createStructuredSelector({
   isPreviewMode,
   isEditMode,
-  isResizeMode,
   // required by sub-components
   isInsertMode,
   isLayoutMode,
@@ -100,7 +80,6 @@ const mapStateToProps = createStructuredSelector({
 const mapDispatchToProps = (dispatch: Function, { id }: { id: string }) =>
   bindActionCreators(
     {
-      resizeCell: resizeCell(id),
       focusCell: focusCell(id),
       blurAllCells
     },

@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import onElementResize from 'element-resize-event'
 import classNames from 'classnames'
 
 const defaultGetWidth = element => element.clientWidth
@@ -10,7 +9,6 @@ const Dimensions = (
     getHeight = defaultGetHeight,
     getWidth = defaultGetWidth,
     className = null,
-    elementResize = false
   } = {}
 ) => ComposedComponent => {
   class Decorator extends Component {
@@ -22,22 +20,10 @@ const Dimensions = (
       }
 
       this.updateDimensions()
-      if (elementResize) {
-        // Experimental: `element-resize-event` fires when an element resizes.
-        // It attaches its own window resize listener and also uses
-        // requestAnimationFrame, so we can just call `this.updateDimensions`.
-        onElementResize(this.containerRef, this.updateDimensions)
-      } else {
-        this.getWindow().addEventListener('resize', this.onResize, false)
-      }
     }
 
     // This cann not be used here because it doesn't listen to state changes.
     // shouldComponentUpdate = shouldPureComponentUpdate
-
-    componentWillUnmount() {
-      this.getWindow().removeEventListener('resize', this.onResize)
-    }
 
     updateDimensions = () => {
       const container = this.containerRef
@@ -50,17 +36,6 @@ const Dimensions = (
       ) {
         this.setState({ containerWidth, containerHeight })
       }
-    }
-
-    onResize = () => {
-      if (this.rqf) {
-        return
-      }
-
-      this.rqf = this.getWindow().requestAnimationFrame(() => {
-        this.rqf = null
-        this.updateDimensions()
-      })
     }
 
     // If the component is mounted in a different window to the javascript

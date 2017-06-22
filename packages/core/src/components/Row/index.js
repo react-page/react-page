@@ -10,7 +10,6 @@ import { shouldPureComponentUpdate } from '../../helper/shouldComponentUpdate'
 import {
   isLayoutMode,
   isEditMode,
-  isResizeMode,
   isInsertMode
 } from '../../selector/display'
 import { editableConfig, purifiedNode, node } from '../../selector/editable'
@@ -44,7 +43,6 @@ class Row extends Component {
 const mapStateToProps = createStructuredSelector({
   isLayoutMode,
   config: editableConfig,
-  isResizeMode,
   isInsertMode,
   isEditMode,
   node: purifiedNode,
