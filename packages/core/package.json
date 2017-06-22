@@ -24,7 +24,6 @@
     "classnames": "^2.2.5",
     "deep-equal": "^1.0.1",
     "dnd-core": "^2.3.0",
-    "element-resize-event": "^2.0.9",
     "lodash.throttle": "^4.1.1",
     "mousetrap": "^1.6.1",
     "ramda": "^0.23.0",

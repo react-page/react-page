@@ -6,7 +6,6 @@ import ToggleEdit from './ToggleEdit'
 import ToggleInsert from './ToggleInsert'
 import ToggleLayout from './ToggleLayout'
 import TogglePreview from './TogglePreview'
-import ToggleResize from './ToggleResize'
 
 const Inner = (props: any) => (
   <Provider {...props}>
@@ -23,11 +22,6 @@ const Inner = (props: any) => (
 
       <div className="ory-controls-mode-toggle-control">
         <ToggleLayout />
-        <div className="ory-controls-mode-toggle-clearfix" />
-      </div>
-
-      <div className="ory-controls-mode-toggle-control">
-        <ToggleResize />
         <div className="ory-controls-mode-toggle-clearfix" />
       </div>
 

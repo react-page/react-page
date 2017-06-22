@@ -7,7 +7,6 @@ export const DISPLAY_MODE_PREVIEW = 'preview'
 export const DISPLAY_MODE_LAYOUT = 'layout'
 export const DISPLAY_MODE_EDIT = 'edit'
 export const DISPLAY_MODE_INSERT = 'insert'
-export const DISPLAY_MODE_RESIZING = 'resizing'
 export const DEFAULT_DISPLAY_MODE = DISPLAY_MODE_PREVIEW
 
 const setDisplayMode = (
@@ -39,11 +38,6 @@ export const previewMode = setDisplayMode(DISPLAY_MODE_PREVIEW)
  * Dispatch to switch to layout display mode.
  */
 export const layoutMode = setDisplayMode(DISPLAY_MODE_LAYOUT)
-
-/**
- * Dispatch to switch to resize display mode.
- */
-export const resizeMode = setDisplayMode(DISPLAY_MODE_RESIZING)
 
 /**
  * Dispatch to switch to the last display mode, or the fallback if reverting is not possible.

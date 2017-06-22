@@ -9,7 +9,6 @@ import {
   CELL_UPDATE_CONTENT,
   CELL_UPDATE_LAYOUT,
   CELL_REMOVE,
-  CELL_RESIZE
 } from '../../actions/cell/core'
 import { isProduction } from '../../const'
 import {
@@ -44,7 +43,6 @@ const inner = undoable(
       CELL_UPDATE_CONTENT,
       CELL_UPDATE_LAYOUT,
       CELL_REMOVE,
-      CELL_RESIZE,
       CELL_INSERT_ABOVE,
       CELL_INSERT_BELOW,
       CELL_INSERT_LEFT_OF,

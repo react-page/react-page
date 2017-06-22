@@ -13,7 +13,6 @@ import {
   isLayoutMode,
   isPreviewMode,
   isInsertMode,
-  isResizeMode
 } from '../../../selector/display'
 
 import type { ComponetizedCell } from '../../../types/editable'
@@ -71,7 +70,6 @@ class Content extends Component {
   render() {
     const {
       isInsertMode,
-      isResizeMode,
       isPreviewMode,
       isEditMode,
       editable,
@@ -116,7 +114,6 @@ class Content extends Component {
           focus={focusCell}
           blur={blurCell}
           isInsertMode={isInsertMode}
-          isResizeMode={isResizeMode}
           isPreviewMode={isPreviewMode}
           isEditMode={isEditMode}
           isLayoutMode={isLayoutMode}
@@ -131,7 +128,6 @@ const mapStateToProps = createStructuredSelector({
   isLayoutMode,
   isPreviewMode,
   isInsertMode,
-  isResizeMode
 })
 
 const mapDispatchToProps = (dispatch: Function, { id }: ComponetizedCell) =>

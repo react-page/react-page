@@ -13,7 +13,6 @@ import {
   isLayoutMode,
   isPreviewMode,
   isInsertMode,
-  isResizeMode
 } from 'ory-editor-core/lib/selector/display'
 import { createStructuredSelector } from 'reselect'
 
@@ -90,7 +89,6 @@ const mapStateToProps = createStructuredSelector({
   isLayoutMode,
   isPreviewMode,
   isInsertMode,
-  isResizeMode
 })
 
 const Decorated = connect(mapStateToProps, mapDispatchToProps)(

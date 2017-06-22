@@ -2,7 +2,6 @@ import {
   updateCellContent,
   updateCellLayout,
   removeCell,
-  resizeCell,
   focusCell,
   focusNextCell,
   focusPreviousCell,
@@ -39,7 +38,6 @@ import {
   editMode,
   previewMode,
   layoutMode,
-  resizeMode
 } from './display'
 
 export const actions = dispatch => ({
@@ -50,7 +48,6 @@ export const actions = dispatch => ({
       dispatch(updateCellLayout(id)(state)),
 
     remove: (...args) => dispatch(removeCell(...args)),
-    resize: (id: string, size: number) => dispatch(resizeCell(id)(size)),
     focus: (id: string, source: {}) => dispatch(focusCell(id)(source)),
     focusNext: (id: string) => dispatch(focusNextCell(id)()),
     focusPrevious: (id: string) => dispatch(focusPreviousCell(id)()),
@@ -85,7 +82,6 @@ export const actions = dispatch => ({
     edit: (...args) => dispatch(editMode(...args)),
     preview: (...args) => dispatch(previewMode(...args)),
     layout: (...args) => dispatch(layoutMode(...args)),
-    resize: (...args) => dispatch(resizeMode(...args))
   },
 
   undo: (...args) => dispatch(undo(...args)),

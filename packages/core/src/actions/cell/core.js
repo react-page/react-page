@@ -6,7 +6,6 @@ import { gen } from '../helpers'
 export const CELL_UPDATE_CONTENT = 'CELL_UPDATE_CONTENT'
 export const CELL_UPDATE_LAYOUT = 'CELL_UPDATE_LAYOUT'
 export const CELL_REMOVE = 'CELL_REMOVE'
-export const CELL_RESIZE = 'CELL_RESIZE'
 export const CELL_FOCUS = 'CELL_FOCUS'
 export const CELL_BLUR = 'CELL_BLUR'
 export const CELL_BLUR_ALL = 'CELL_BLUR_ALL'
@@ -67,25 +66,6 @@ export const removeCell = (id: string, ids: Array<string> = []): Action => ({
   ts: new Date(),
   id,
   ids: ids.length > 0 ? ids : gen(1)
-})
-
-/**
- * An action creator for resizing a cell.
- *
- * @example
- * // const store = redux.createStore()
- * // const cell = { id: '1', ... }
- * store.dispatch(resizeCell(cell.id)(size))
- *
- * @param {string} id The id of the cell that should be removed.
- * @param {number} size The cell's new size.
- * @return {Function}
- */
-export const resizeCell = (id: string) => (size: number = 1): Action => ({
-  type: CELL_RESIZE,
-  ts: new Date(),
-  id,
-  size
 })
 
 /**
