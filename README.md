@@ -1,4 +1,4 @@
-# ![ORY Editor](logo.png)
+# ![ORY Editor](https://storage.googleapis.com/ory.am/ory_banners-48.png)
 
 [![Build Status](https://travis-ci.org/ory/editor.svg)](https://travis-ci.org/ory/editor)
 [![Coverage Status](https://coveralls.io/repos/github/ory-am/editor/badge.svg?branch=master)](https://coveralls.io/github/ory/editor?branch=master)
