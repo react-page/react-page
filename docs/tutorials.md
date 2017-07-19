@@ -191,6 +191,7 @@ export default {
   text: 'Black border'
 }
 ```
+
 ## Rendering HTML
 
 The `ory-editor-renderer` package ships a lightweight HTML renderer module. You can use it for server-side rendering
@@ -208,6 +209,78 @@ const plugins = {
 const element = document.getElementById('editable')
 ReactDOM.render((
   <HTMLRenderer state={content[0]} plugins={plugins}/>
+), element)
+```
+
+## Saving and restoring editor contents
+
+Use the `onChange` callback to obtain a copy of the editor's state for saving to persistent storage.  The state can then be later loaded into the editor, or used by the `ory-editor-renderer` package for rendering to HTML.
+
+```jsx
+import React from 'react'
+import Editor, { Editable, createEmptyState } from 'ory-editor-core'
+import slate from 'ory-editor-plugins-slate' // The rich text area plugin
+import { Trash, DisplayModeToggle, Toolbar } from 'ory-editor-ui'
+const EditorPlugins = {
+  content: [slate()],
+  layout: [/* ... */],
+};
+
+function saveToDatabase(state) {
+    return fetch('/my/save/url', { method: 'POST', body: state });
+}
+
+class MyEditor extends React.Component {
+    componentWillMount() {
+        this.editorState = this.props.content || createEmptyState();
+        this.editor = new Editor({ EditorPlugins, editables: [content] });
+    }
+    render() {
+        return (
+          <div className="my-editor">
+            <toolbar>
+              <button onClick={() => saveToDatabase(this.editorState)}>Save</button>
+            </toolbar>
+            <Editable editor={editor} id={content.id} onChange={state => (this.editorState = state)} />
+            <Trash editor={editor}/>
+            <DisplayModeToggle editor={editor}/>
+            <Toolbar editor={editor}/>
+          </div>
+        )
+    }
+}
+```
+
+
+The state could then be fetched and rendered by doing something like:
+```jsx
+import React from 'react'
+
+import { HTMLRenderer } from 'ory-editor-renderer'
+import { createEmptyState } from 'ory-editor-core'
+
+class MyEditorRenderer extends React.Component {
+
+    componentWillMount() {
+        this.plugins = { //};
+        this.setState({ contents: createEmptyState() });
+        fetch('/my/save/url').then((savedState) => {
+            this.setState({ contents: savedState });
+        })
+    }
+
+    render() {
+        return (
+            <div className="my-editor">
+                <HTMLRenderer state={this.state.contents} plugins={EditorPlugins} />
+            </div>
+        )
+    }
+}
+
+const element = document.getElementById('editable')
+ReactDOM.render((
+  <MyEditorRenderer />
 ), element)
 ```
 
