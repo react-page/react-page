@@ -14,7 +14,7 @@
     "flow-typed": "^2.1.2",
     "gitbook-cli": "^2.3.0",
     "husky": "^0.13.3",
-    "lerna": "2.0.0-rc.5",
+    "lerna": "2.0.0",
     "lint-staged": "^3.4.1",
     "npm-run-all": "^4.0.2",
     "postcss-cli": "^4.0.0",
@@ -33,7 +33,7 @@
   "scripts": {
     "coveralls": "cat ./coverage/lcov.info | coveralls",
     "bootstrap": "lerna bootstrap",
-    "build": "cross-env NODE_ENV=production lerna run build --parallel --stream",
+    "build": "cross-env NODE_ENV=production lerna run build --stream",
     "build:lib": "cross-env NODE_ENV=production lerna run build --ignore ory-editor-examples --parallel --stream",
     "build:watch": "cross-env NODE_ENV=development lerna run build:watch --parallel --stream",
     "clean": "lerna run clean",
