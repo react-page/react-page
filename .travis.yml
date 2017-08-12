@@ -7,16 +7,18 @@ before_install:
   - curl -o- -L https://yarnpkg.com/install.sh | bash
 
 install:
+  - yarn version
+  - yarn help install
   - yarn
 
 script:
-  - npm run lint
-  - npm run flow
-  - npm run test
-  - npm run build:lib
+  - yarn run lint
+  - yarn run flow
+  - yarn run test
+  - yarn run build:lib
 
 after_success:
-  - npm run coveralls
+  - yarn run coveralls
 
 deploy:
   provider: script
