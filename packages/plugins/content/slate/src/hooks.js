@@ -9,62 +9,11 @@ import reduce from 'ramda/src/reduce'
 import tail from 'ramda/src/tail'
 import React from 'react'
 import type { Props } from './Component'
-
 import { defaultPlugins } from './index'
+import { P } from './plugins/paragraph'
 
 // FIXME #126
 import { Document, Html, Raw, State, Plain } from 'slate'
-
-const rules = [
-  {
-    deserialize: (el: any) =>
-      el.tagName === 'p'
-        ? {
-            kind: 'block',
-            type: P,
-            nodes: [{ kind: 'text', ranges: [{ text: el.children[0].data }] }]
-          }
-        : null
-  },
-  {
-    deserialize: (el: any) =>
-      el.tagName === 'h1'
-        ? {
-            kind: 'block',
-            type: H1,
-            nodes: [{ kind: 'text', ranges: [{ text: el.children[0].data }] }]
-          }
-        : null
-  },
-  {
-    deserialize: (el: any) =>
-      el.tagName === 'h2'
-        ? {
-            kind: 'block',
-            type: H2,
-            nodes: [{ kind: 'text', ranges: [{ text: el.children[0].data }] }]
-          }
-        : null
-  },
-  {
-    deserialize: (el: any) =>
-      el.tagName === 'h3'
-        ? {
-            kind: 'block',
-            type: H3,
-            nodes: [{ kind: 'text', ranges: [{ text: el.children[0].data }] }]
-          }
-        : null
-  },
-  {
-    serialize: (el: any, children: any) =>
-      el.type === H1 ? <h1>{children}</h1> : null
-  },
-  {
-    serialize: (el: any, children: any) =>
-      el.type === P ? <p>{children}</p> : null
-  }
-]
 
 export const html = new Html({ rules: defaultPlugins })
 
