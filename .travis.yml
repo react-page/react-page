@@ -7,7 +7,8 @@ before_install:
   - curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version 0.23.3
 
 install:
-  - yarn version
+  - yarn version 0.23.3
+  - yarn --version
   - yarn help install
   - yarn
 
