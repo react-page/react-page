@@ -10,8 +10,7 @@ import tail from 'ramda/src/tail'
 import React from 'react'
 import type { Props } from './Component'
 
-import { H1, H2, H3 } from './plugins/headings'
-import { P } from './plugins/paragraph'
+import { defaultPlugins } from './index'
 
 // FIXME #126
 import { Document, Html, Raw, State, Plain } from 'slate'
@@ -67,7 +66,7 @@ const rules = [
   }
 ]
 
-export const html = new Html({ rules })
+export const html = new Html({ rules: defaultPlugins })
 
 const options = { terse: true }
 
