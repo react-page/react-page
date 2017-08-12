@@ -15,14 +15,13 @@ const Inner = ({
 }: {
   isLayoutMode: boolean,
   layoutMode: Function
-}) => (
+}) =>
   <Button
     icon={<ViewQuilt />}
     description="Move things"
     active={isLayoutMode}
     onClick={layoutMode}
   />
-)
 
 const mapStateToProps = createStructuredSelector({ isLayoutMode })
 const mapDispatchToProps = { layoutMode }

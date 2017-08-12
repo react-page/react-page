@@ -29,9 +29,10 @@ describe('actions', () => {
     Object.keys(actions).forEach((key: string) => {
       if (typeof actions[key] === 'function') {
         // FIXME Ugly hack to circumvent object destructor on undefined which breaks tests completely.
-        const { type, ts } = typeof actions[key]({}, {}, {}, {}) === 'function'
-          ? actions[key]({}, {}, {}, {})({}, {}, {}, {})
-          : actions[key]({}, {}, {}, {})
+        const { type, ts } =
+          typeof actions[key]({}, {}, {}, {}) === 'function'
+            ? actions[key]({}, {}, {}, {})({}, {}, {}, {})
+            : actions[key]({}, {}, {}, {})
         it(`${key} (${type}) should be unique`, () => {
           expect(
             fired.indexOf(type) === -1,

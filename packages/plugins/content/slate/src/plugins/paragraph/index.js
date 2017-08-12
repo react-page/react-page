@@ -32,7 +32,11 @@ export default class ParagraphPlugin extends Plugin {
     }
     switch (object.type) {
       case P:
-        return <p style={{ textAlign: object.data.get('align') }}>{children}</p>
+        return (
+          <p style={{ textAlign: object.data.get('align') }}>
+            {children}
+          </p>
+        )
     }
   }
 }

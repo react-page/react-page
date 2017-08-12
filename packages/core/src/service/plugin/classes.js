@@ -94,7 +94,9 @@ export class Plugin {
 
     if (!name || !version || !Component) {
       throw new Error(
-        `A plugin's version, name and Component must be defined, got ${JSON.stringify(config)}`
+        `A plugin's version, name and Component must be defined, got ${JSON.stringify(
+          config
+        )}`
       )
     }
 

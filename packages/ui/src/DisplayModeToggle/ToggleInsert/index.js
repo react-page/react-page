@@ -15,14 +15,13 @@ const Inner = ({
 }: {
   isInsertMode: boolean,
   insertMode: Function
-}) => (
+}) =>
   <Button
     icon={<ContentAdd />}
     description="Add things"
     active={isInsertMode}
     onClick={insertMode}
   />
-)
 
 const mapStateToProps = createStructuredSelector({ isInsertMode })
 const mapDispatchToProps = { insertMode }

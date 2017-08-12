@@ -50,7 +50,10 @@ class Slate extends Component {
 
     toolbar.style.opacity = 1
     toolbar.style.top = `${top + window.scrollY - toolbar.offsetHeight}px`
-    toolbar.style.left = `${left + window.scrollX - toolbar.offsetWidth / 2 + width / 2}px`
+    toolbar.style.left = `${left +
+      window.scrollX -
+      toolbar.offsetWidth / 2 +
+      width / 2}px`
   }
 
   render() {

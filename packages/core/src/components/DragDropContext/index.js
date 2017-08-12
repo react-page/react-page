@@ -1,6 +1,4 @@
 // @flow
-import HTML5Backend from 'react-dnd-html5-backend'
-import { DragDropContext as dragDropContext } from 'react-dnd'
 import React, { Component } from 'react'
 
 import { shouldPureComponentUpdate } from '../../helper/shouldComponentUpdate'
@@ -14,4 +12,6 @@ class DragDropContext extends Component {
   }
 }
 
-export default dragDropContext(HTML5Backend)(DragDropContext)
+export default (dragDropContext: Function) => {
+  return dragDropContext(DragDropContext)
+}

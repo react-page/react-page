@@ -15,14 +15,13 @@ const Inner = ({
 }: {
   isEditMode: boolean,
   editMode: Function
-}) => (
+}) =>
   <Button
     icon={<Create />}
     description="Edit things"
     active={isEditMode}
     onClick={editMode}
   />
-)
 
 const mapStateToProps = createStructuredSelector({ isEditMode })
 const mapDispatchToProps = { editMode }

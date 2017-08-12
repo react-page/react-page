@@ -3,9 +3,7 @@
 import React from 'react'
 import Component from './Component'
 import PlayArrow from 'material-ui/svg-icons/av/play-arrow'
-import type {
-  ContentPluginProps
-} from 'ory-editor-core/lib/service/plugin/classes'
+import type { ContentPluginProps } from 'ory-editor-core/lib/service/plugin/classes'
 
 export default {
   Component,

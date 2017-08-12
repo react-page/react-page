@@ -8,9 +8,7 @@ import { createStructuredSelector } from 'reselect'
 import { resizeMode, editMode } from '../../../actions/display'
 import { computeStepWidth, widthToSize } from './helper.js'
 import type { ComponetizedCell } from '../../../types/editable'
-import {
-  shouldPureComponentUpdate
-} from '../../../helper/shouldComponentUpdate'
+import { shouldPureComponentUpdate } from '../../../helper/shouldComponentUpdate'
 
 type Props = ComponetizedCell
 
@@ -70,7 +68,9 @@ class Resizable extends Component {
         height={0}
       >
         {/* this div needs to be kept or resize will be broken */}
-        <div>{children}</div>
+        <div>
+          {children}
+        </div>
       </ReactResizeable>
     )
   }

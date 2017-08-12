@@ -31,14 +31,13 @@ const Notifier = ({
   action = 'dismiss',
   message,
   updateSetting
-}: Props) => (
+}: Props) =>
   <Snackbar
     open={open && !dismissed}
     action={action}
     message={i18n.t(message)}
     onActionTouchTap={handleDismiss(updateSetting, id)}
   />
-)
 
 const mapStateToProps = createStructuredSelector({
   dismissed: (state: Object, props: Props) =>

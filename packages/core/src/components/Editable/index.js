@@ -2,7 +2,7 @@
 import React, { Component } from 'react'
 import { Provider } from 'react-redux'
 
-import DragDropContext from '../DragDropContext'
+import dragDropContext from '../DragDropContext'
 import HotKeyDecorator from '../HotKey/Decorator'
 import { editable } from '../../selector/editable'
 import PluginService from '../../service/plugin'
@@ -11,7 +11,23 @@ import Inner from './Inner'
 import type { Store } from '../../types/redux'
 import { shouldPureComponentUpdate } from '../../helper/shouldComponentUpdate'
 
+type PropTypes = {
+  id: string,
+  editor: {
+    plugins: PluginService,
+    store: Store,
+    defaultPlugin: any,
+    dragDropContext: any
+  },
+  onChange?: Function
+}
+
 class Editable extends Component {
+  constructor(props: PropTypes) {
+    super(props)
+    this.DragDropContext = dragDropContext(props.editor.dragDropContext)
+  }
+
   componentDidMount() {
     if (!this.props.id) {
       throw new Error('The state must have an unique id')
@@ -22,23 +38,15 @@ class Editable extends Component {
   }
 
   componentWillUnmount() {
-    this.unsubscribe();
+    this.unsubscribe()
   }
 
   shouldComponentUpdate = shouldPureComponentUpdate
 
   unsubscribe: Function
   previousState: any = {}
-
-  props: {
-    id: string,
-    editor: {
-      plugins: PluginService,
-      store: Store,
-      defaultPlugin: any
-    },
-    onChange?: Function
-  }
+  DragDropContext: any
+  props: PropTypes
 
   onChange = () => {
     const { onChange } = this.props
@@ -59,6 +67,7 @@ class Editable extends Component {
 
   render() {
     const { id, editor: { store, defaultPlugin } } = this.props
+    const DragDropContext = this.DragDropContext
 
     return (
       <Provider store={store}>

@@ -10,6 +10,8 @@ import pluginDefault from './service/plugin/default'
 import type { Editable as EditableType } from './types/editable'
 import type Store from './types/redux'
 import forEach from 'ramda/src/forEach'
+import HTML5Backend from 'react-dnd-html5-backend'
+import { DragDropContext as dragDropContext } from 'react-dnd'
 
 let instance: Editor
 
@@ -37,25 +39,29 @@ const update = (editor: Editor) => (editable: EditableType) => {
 class Editor {
   store: Store
   plugins: PluginService
-  defaultPlugin: any
   middleware: []
+
+  dragDropContext: any = null
+  defaultPlugin: any
 
   constructor(
     {
       plugins,
       middleware = [],
       editables = [],
-      defaultPlugin = pluginDefault
+      defaultPlugin = pluginDefault,
+      dragDropBackend = HTML5Backend
     }: {
       plugins: { content: [], layout: [] },
       middleware: [],
       editables: EditableType[],
-      defaultPlugin: any
+      defaultPlugin: any,
+      dragDropBackend: any
     } = {}
   ) {
     if (instance) {
       console.warn(
-        'You have defined multiple instances of Editor, this could cause problems.'
+        'You defined multiple instances of the Editor class, this can cause problems.'
       )
     }
 
@@ -66,6 +72,7 @@ class Editor {
     this.trigger = actions(this.store.dispatch)
     this.query = selectors(this.store)
     this.defaultPlugin = defaultPlugin
+    this.dragDropContext = dragDropContext(dragDropBackend)
 
     this.trigger.editable.add = update(this)
     this.trigger.editable.update = update(this)

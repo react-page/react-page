@@ -1,8 +1,6 @@
 // @flow
 import React, { Component } from 'react'
-import {
-  shouldPureComponentUpdate
-} from 'ory-editor-core/lib/helper/shouldComponentUpdate'
+import { shouldPureComponentUpdate } from 'ory-editor-core/lib/helper/shouldComponentUpdate'
 import { DragSource as dragSource } from 'react-dnd'
 import { source, collect } from './helper'
 import classNames from 'classnames'
@@ -44,7 +42,11 @@ class Draggable extends Component {
       'ory-toolbar-draggable'
     )
 
-    return connectDragSource(<div className={classes}>{children}</div>)
+    return connectDragSource(
+      <div className={classes}>
+        {children}
+      </div>
+    )
   }
 }
 

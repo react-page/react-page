@@ -1,9 +1,7 @@
 // @flow
 import React, { Component } from 'react'
 
-import {
-  shouldPureComponentUpdate
-} from '../../../helper/shouldComponentUpdate'
+import { shouldPureComponentUpdate } from '../../../helper/shouldComponentUpdate'
 import Droppable from '../Droppable'
 import Draggable from '../Draggable'
 import Rows from '../Rows'
