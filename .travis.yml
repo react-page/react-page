@@ -3,6 +3,9 @@ language: node_js
 node_js:
   - "6"
 
+before_install:
+  - curl -o- -L https://yarnpkg.com/install.sh | bash
+
 install:
   - yarn
 
