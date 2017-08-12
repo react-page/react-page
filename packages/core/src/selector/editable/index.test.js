@@ -28,7 +28,8 @@ const state = {
                   {
                     levels: { left: 2, right: 2, above: 2, below: 1 },
                     props: {
-                      importFromHtml: '<h1>European? British? These ‘Brexit’ Voters Identify as English</h1>'
+                      importFromHtml:
+                        '<h1>European? British? These ‘Brexit’ Voters Identify as English</h1>'
                     },
                     id: 'c38fa00e-6b34-4c6d-af3f-2c1374edad11',
                     plugin: {
@@ -111,7 +112,8 @@ const state = {
                           {
                             levels: { left: 4, right: 2, above: 1, below: 3 },
                             props: {
-                              importFromHtml: 'Residents of the Castle Point borough of Essex in England celebrated the queen’s 90th birthday this month. Castle Point is the most ethnically English part of the United Kingdom, with nearly 80 percent describing themselves as purely English, while 95 percent are white. <small>Credit Andrew Testa for The New York Times</small>'
+                              importFromHtml:
+                                'Residents of the Castle Point borough of Essex in England celebrated the queen’s 90th birthday this month. Castle Point is the most ethnically English part of the United Kingdom, with nearly 80 percent describing themselves as purely English, while 95 percent are white. <small>Credit Andrew Testa for The New York Times</small>'
                             },
                             id: 'dd419480-aa37-40cd-af97-ba8c3e8ae2df',
                             plugin: {
@@ -132,7 +134,8 @@ const state = {
                   {
                     levels: { left: 0, right: 2, above: 1, below: 1 },
                     props: {
-                      src: 'https://static01.nyt.com/images/2016/06/16/world/16England-web1/16England-web1-master768.jpg'
+                      src:
+                        'https://static01.nyt.com/images/2016/06/16/world/16England-web1/16England-web1-master768.jpg'
                     },
                     id: '7ec840b7-1c54-46dd-acfe-ca2e973e1da4',
                     plugin: {
@@ -156,7 +159,8 @@ const state = {
                   {
                     levels: { left: 2, right: 0, above: 1, below: 1 },
                     props: {
-                      importFromHtml: '<p>SOUTH BENFLEET, England — The topic of the local debate was Britain’s imminent vote on whether to leave the European Union, and the discussion in this English town on the southeastern coast turned to the influx of European citizens into Britain.</p>\n<p>“Why do they all want to come here?” demanded one woman, angrily making the case for Britain to leave the bloc at the debate in South Benfleet, organized by the local council. “They want our wages and our benefits! We’re too bloody soft!”</p>\n<p>Paddy Ashdown, a former leader of the Liberal Democrats and a supporter of remaining in the European Union in the vote next Thursday, shook his head and responded with a touch of bitterness: “Well, I’ve not seen much evidence of that here.”</p>'
+                      importFromHtml:
+                        '<p>SOUTH BENFLEET, England — The topic of the local debate was Britain’s imminent vote on whether to leave the European Union, and the discussion in this English town on the southeastern coast turned to the influx of European citizens into Britain.</p>\n<p>“Why do they all want to come here?” demanded one woman, angrily making the case for Britain to leave the bloc at the debate in South Benfleet, organized by the local council. “They want our wages and our benefits! We’re too bloody soft!”</p>\n<p>Paddy Ashdown, a former leader of the Liberal Democrats and a supporter of remaining in the European Union in the vote next Thursday, shook his head and responded with a touch of bitterness: “Well, I’ve not seen much evidence of that here.”</p>'
                     },
                     id: 'bc44aef2-013e-4553-9d18-52f21016d343',
                     plugin: {
@@ -189,7 +193,8 @@ const state = {
                             levels: { left: 2, right: 0, above: 3, below: 3 },
                             inline: 'left',
                             props: {
-                              src: 'https://static01.nyt.com/images/2016/06/16/world/16England-web2/16England-web2-master675.jpg'
+                              src:
+                                'https://static01.nyt.com/images/2016/06/16/world/16England-web2/16England-web2-master675.jpg'
                             },
                             id: '152615ee-9248-42cb-8d79-e5c412c8d92d',
                             plugin: {
@@ -204,7 +209,8 @@ const state = {
                           {
                             levels: { left: 0, right: 4, above: 3, below: 3 },
                             props: {
-                              importFromHtml: 'If Britain votes to leave, it will be in large part because of strong anti-Europe sentiment in much of England, the heart of the movement to divorce Britain from the Continent. Pollsters and analysts say that while Scotland and Northern Ireland are expected to vote overwhelmingly to stay in the bloc, England, far more populous, is likely to go the other way, reflecting a broad and often bluntly expressed view that English identity and values are being washed away by subordination to the bureaucrats of Brussels.'
+                              importFromHtml:
+                                'If Britain votes to leave, it will be in large part because of strong anti-Europe sentiment in much of England, the heart of the movement to divorce Britain from the Continent. Pollsters and analysts say that while Scotland and Northern Ireland are expected to vote overwhelmingly to stay in the bloc, England, far more populous, is likely to go the other way, reflecting a broad and often bluntly expressed view that English identity and values are being washed away by subordination to the bureaucrats of Brussels.'
                             },
                             id: '28d21f71-72fa-41cf-a4bd-f62d7f59bf63',
                             plugin: {
@@ -250,7 +256,8 @@ const state = {
                           {
                             levels: { left: 4, right: 0, above: 3, below: 4 },
                             props: {
-                              importFromHtml: 'That sense of resurgent Englishness is palpable in places like South Benfleet, in the heart of a district that is the most ethnically English part of the United Kingdom, according to the Office of National Statistics based on the 2011 census, with nearly 80 percent describing themselves as purely English, while 95 percent are white. They are older than the national average, and only about one-quarter of 1 percent are foreign nationals, very low compared with the rest of Britain.'
+                              importFromHtml:
+                                'That sense of resurgent Englishness is palpable in places like South Benfleet, in the heart of a district that is the most ethnically English part of the United Kingdom, according to the Office of National Statistics based on the 2011 census, with nearly 80 percent describing themselves as purely English, while 95 percent are white. They are older than the national average, and only about one-quarter of 1 percent are foreign nationals, very low compared with the rest of Britain.'
                             },
                             id: '9e4f897b-0199-439d-acbd-b98900448c94',
                             plugin: {
@@ -267,7 +274,8 @@ const state = {
                           {
                             levels: { left: 0, right: 0, above: 3, below: 4 },
                             props: {
-                              importFromHtml: 'Castle Point district of Essex, full of people who have made it out of London’s tough East End to a kind of English paradise with lots of single-family homes, lawns, beaches, seaside amusement parks and fish-and-chip shops.'
+                              importFromHtml:
+                                'Castle Point district of Essex, full of people who have made it out of London’s tough East End to a kind of English paradise with lots of single-family homes, lawns, beaches, seaside amusement parks and fish-and-chip shops.'
                             },
                             id: '4520496c-a98e-4b57-b06d-59d156e36451',
                             plugin: {
@@ -284,7 +292,8 @@ const state = {
                           {
                             levels: { left: 0, right: 4, above: 3, below: 4 },
                             props: {
-                              importFromHtml: 'The people here are fiercely English, fiercely Conservative and fiercely pro-Brexit, as the possible exit is being called, and many feel that their sovereignty and identity are being diluted by a failing European Union and an “uncontrolled” influx of foreigners.'
+                              importFromHtml:
+                                'The people here are fiercely English, fiercely Conservative and fiercely pro-Brexit, as the possible exit is being called, and many feel that their sovereignty and identity are being diluted by a failing European Union and an “uncontrolled” influx of foreigners.'
                             },
                             id: 'db728322-6a82-4338-81c4-adde626547a3',
                             plugin: {
@@ -339,7 +348,8 @@ const state = {
                     levels: { left: 2, right: 0, above: 2, below: 1 },
                     inline: 'right',
                     props: {
-                      src: 'https://static01.nyt.com/images/2016/06/16/world/16England-web2/16England-web2-master675.jpg'
+                      src:
+                        'https://static01.nyt.com/images/2016/06/16/world/16England-web2/16England-web2-master675.jpg'
                     },
                     id: '0fb41038-7f05-41b8-b5e5-e7cb8e7be701',
                     plugin: {
@@ -354,7 +364,8 @@ const state = {
                   {
                     levels: { left: 0, right: 2, above: 2, below: 1 },
                     props: {
-                      importFromHtml: 'Lorem ipsum dolor sit amet, <strong>consetetur sadipscing elitr</strong>, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, <strong>consetetur sadipscing elitr</strong>, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.'
+                      importFromHtml:
+                        'Lorem ipsum dolor sit amet, <strong>consetetur sadipscing elitr</strong>, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, <strong>consetetur sadipscing elitr</strong>, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.'
                     },
                     id: '2f0622c1-7546-4c2b-a8af-e9603cd67d96',
                     plugin: {
@@ -377,7 +388,8 @@ const state = {
                   {
                     levels: { left: 2, right: 2, above: 1, below: 1 },
                     props: {
-                      importFromHtml: 'Duis autem vel eum<script type="text/javascript">alert("XSS");</script> iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.'
+                      importFromHtml:
+                        'Duis autem vel eum<script type="text/javascript">alert("XSS");</script> iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.'
                     },
                     id: '51877ffa-09e3-45fa-8e54-d462ac150a0e',
                     plugin: {
@@ -401,7 +413,8 @@ const state = {
                   {
                     levels: { left: 2, right: 2, above: 1, below: 1 },
                     props: {
-                      importFromHtml: 'Ut wisi enim ad minim veniam, quis nostrud <em>exerci tation ullamcorper suscipit</em> lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi.'
+                      importFromHtml:
+                        'Ut wisi enim ad minim veniam, quis nostrud <em>exerci tation ullamcorper suscipit</em> lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi.'
                     },
                     id: '1935e40d-6b41-41ef-9221-ac5359938b69',
                     plugin: {
@@ -425,7 +438,8 @@ const state = {
                   {
                     levels: { left: 2, right: 2, above: 1, below: 2 },
                     props: {
-                      importFromHtml: 'Nam liber tempor cum <span style="font-size: 3em">soluta nobis eleifend</span> option congue nihil imperdiet doming id quod mazim placerat facer possim assum. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.'
+                      importFromHtml:
+                        'Nam liber tempor cum <span style="font-size: 3em">soluta nobis eleifend</span> option congue nihil imperdiet doming id quod mazim placerat facer possim assum. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.'
                     },
                     id: '504b9377-05c2-47cc-b218-2513ddfb569a',
                     plugin: {
@@ -470,7 +484,8 @@ describe('selectors/editable/node', () => {
       {
         levels: { left: 4, right: 2, above: 1, below: 3 },
         props: {
-          importFromHtml: 'Residents of the Castle Point borough of Essex in England celebrated the queen’s 90th birthday this month. Castle Point is the most ethnically English part of the United Kingdom, with nearly 80 percent describing themselves as purely English, while 95 percent are white. <small>Credit Andrew Testa for The New York Times</small>'
+          importFromHtml:
+            'Residents of the Castle Point borough of Essex in England celebrated the queen’s 90th birthday this month. Castle Point is the most ethnically English part of the United Kingdom, with nearly 80 percent describing themselves as purely English, while 95 percent are white. <small>Credit Andrew Testa for The New York Times</small>'
         },
         id: 'dd419480-aa37-40cd-af97-ba8c3e8ae2df',
         plugin: { name: 'ory/editor/core/content/slate', version: '0.0.1' },

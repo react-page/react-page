@@ -16,7 +16,7 @@ const Button = ({
   disabled?: boolean,
   onClick: Function,
   description: string
-}) => (
+}) =>
   <div className="ory-controls-mode-toggle-button">
     <div className="ory-controls-mode-toggle-button-inner">
       <FloatingActionButton
@@ -32,6 +32,5 @@ const Button = ({
       {description}
     </div>
   </div>
-)
 
 export default Button

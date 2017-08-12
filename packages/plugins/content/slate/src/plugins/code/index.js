@@ -91,14 +91,20 @@ export default class CodePlugin extends Plugin {
     if (object.kind === 'mark') {
       switch (object.type) {
         case CODE:
-          return <code>{children}</code>
+          return (
+            <code>
+              {children}
+            </code>
+          )
       }
     } else if (object.kind === 'block') {
       switch (object.type) {
         case CODE:
           return (
             <pre style={{ overflow: 'scroll' }}>
-              <code>{children}</code>
+              <code>
+                {children}
+              </code>
             </pre>
           )
       }

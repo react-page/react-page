@@ -12,7 +12,7 @@ const Inner = ({
   containerHeight,
   blurAllCells,
   containerWidth
-}: ComponetizedRow) => (
+}: ComponetizedRow) =>
   <div
     className={classNames('ory-row', {
       'ory-row-is-hovering-this': Boolean(hover),
@@ -21,7 +21,7 @@ const Inner = ({
     })}
     onClick={blurAllCells}
   >
-    {cells.map((c: string) => (
+    {cells.map((c: string) =>
       <Cell
         rowWidth={containerWidth}
         rowHeight={containerHeight}
@@ -30,8 +30,7 @@ const Inner = ({
         key={c}
         id={c}
       />
-    ))}
+    )}
   </div>
-)
 
 export default Inner

@@ -3,17 +3,19 @@ language: node_js
 node_js:
   - "6"
 
+dist: precise
+
 install:
-  - npm i
+  - yarn
 
 script:
-  - npm run lint
-  - npm run flow
-  - npm run test
-  - npm run build:lib
+  - yarn run lint
+  - yarn run flow
+  - yarn run test
+  - yarn run build:lib
 
 after_success:
-  - npm run coveralls
+  - yarn run coveralls
 
 deploy:
   provider: script

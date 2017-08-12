@@ -14,7 +14,7 @@ const handleChange = (onChange: Function) => (e: Event) => {
   }
 }
 
-const Form = (props: PropTypes) => (
+const Form = (props: PropTypes) =>
   <div>
     <Display {...props} />
     <BottomToolbar open={props.focused}>
@@ -30,6 +30,5 @@ const Form = (props: PropTypes) => (
       />
     </BottomToolbar>
   </div>
-)
 
 export default Form

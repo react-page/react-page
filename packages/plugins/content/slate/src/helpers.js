@@ -12,7 +12,11 @@ export const makeTagNode = Tag => {
     node: any
   }) => {
     const align = node.data.get('align')
-    return <Tag {...attributes} style={{ textAlign: align }}>{children}</Tag>
+    return (
+      <Tag {...attributes} style={{ textAlign: align }}>
+        {children}
+      </Tag>
+    )
   }
 
   NodeComponent.displayName = `${Tag}-node`
@@ -21,9 +25,10 @@ export const makeTagNode = Tag => {
 }
 
 export const makeTagMark = Tag => {
-  const MarkComponent = ({ children }: { children: any }) => (
-    <Tag>{children}</Tag>
-  )
+  const MarkComponent = ({ children }: { children: any }) =>
+    <Tag>
+      {children}
+    </Tag>
 
   MarkComponent.displayName = `${Tag}-mark`
 
@@ -38,11 +43,10 @@ export const ToolbarButton = ({
   icon: string,
   isActive: string,
   onClick(): void
-}) => (
+}) =>
   <IconButton
     onTouchTap={onClick}
     iconStyle={isActive ? { color: 'rgb(0, 188, 212)' } : { color: 'white' }}
   >
     {icon}
   </IconButton>
-)

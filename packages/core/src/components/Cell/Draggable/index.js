@@ -4,9 +4,7 @@ import { DragSource as dragSource } from 'react-dnd'
 import { connect } from 'react-redux'
 import classNames from 'classnames'
 
-import {
-  shouldPureComponentUpdate
-} from '../../../helper/shouldComponentUpdate'
+import { shouldPureComponentUpdate } from '../../../helper/shouldComponentUpdate'
 import * as hoverActions from '../../../actions/cell/drag'
 import * as insertActions from '../../../actions/cell/insert'
 import { source, collect } from './helper/dnd'
@@ -77,7 +75,9 @@ class Draggable extends Component {
           })}
         >
           <div className="ory-cell-draggable-overlay-description">
-            <span>{name}</span>
+            <span>
+              {name}
+            </span>
           </div>
         </div>
         {children}

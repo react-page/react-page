@@ -238,9 +238,10 @@ export const cells = (state: Cell[] = [], action: Object): Cell[] =>
                         cells: [
                           {
                             ...action.item,
-                            inline: action.type === CELL_INSERT_INLINE_RIGHT
-                              ? 'right'
-                              : 'left',
+                            inline:
+                              action.type === CELL_INSERT_INLINE_RIGHT
+                                ? 'right'
+                                : 'left',
                             id: action.ids[2],
                             size: 0
                           },

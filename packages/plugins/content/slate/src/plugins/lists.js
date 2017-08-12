@@ -120,11 +120,23 @@ export default class ListsPlugin extends Plugin {
     }
     switch (object.type) {
       case UL:
-        return <ul>{children}</ul>
+        return (
+          <ul>
+            {children}
+          </ul>
+        )
       case LI:
-        return <li>{children}</li>
+        return (
+          <li>
+            {children}
+          </li>
+        )
       case OL:
-        return <ol>{children}</ol>
+        return (
+          <ol>
+            {children}
+          </ol>
+        )
     }
   }
 }

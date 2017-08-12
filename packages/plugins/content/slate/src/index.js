@@ -75,43 +75,40 @@ export default (plugins: Plugin[] = defaultPlugins) => {
     return
   }
 
-  const HoverButtons = ({ editorState, onChange, focus }: Props) => (
+  const HoverButtons = ({ editorState, onChange, focus }: Props) =>
     <div>
       {plugins.map((plugin: Plugin, i: number) =>
-        plugin.hoverButtons.map((Button: any, j: number) => (
+        plugin.hoverButtons.map((Button: any, j: number) =>
           <Button
             key={`${i}-${j}`}
             editorState={editorState}
             onChange={onChange}
             focus={focus}
           />
-        ))
+        )
       )}
     </div>
-  )
   props.HoverButtons = HoverButtons
 
-  const ToolbarButtons = ({ editorState, onChange, focus }: Props) => (
+  const ToolbarButtons = ({ editorState, onChange, focus }: Props) =>
     <div>
       {plugins.map((plugin: Plugin, i: number) =>
-        plugin.toolbarButtons.map((Button: any, j: number) => (
+        plugin.toolbarButtons.map((Button: any, j: number) =>
           <Button
             key={`${i}-${j}`}
             editorState={editorState}
             onChange={onChange}
             focus={focus}
           />
-        ))
+        )
       )}
     </div>
-  )
   props.ToolbarButtons = ToolbarButtons
 
   const html = new Html({ rules: defaultPlugins })
   const Slate = (cellProps: Props) => <Component {...cellProps} {...props} />
-  const StaticComponent = ({ state: { editorState } = {} }: Props) => (
+  const StaticComponent = ({ state: { editorState } = {} }: Props) =>
     <div dangerouslySetInnerHTML={{ __html: html.serialize(editorState) }} />
-  )
   return {
     Component: Slate,
     StaticComponent,

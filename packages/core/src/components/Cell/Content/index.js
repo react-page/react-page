@@ -5,9 +5,7 @@ import { bindActionCreators } from 'redux'
 import { createStructuredSelector } from 'reselect'
 
 import { updateCellContent } from '../../../actions/cell'
-import {
-  shouldPureComponentUpdate
-} from '../../../helper/shouldComponentUpdate'
+import { shouldPureComponentUpdate } from '../../../helper/shouldComponentUpdate'
 import {
   isEditMode,
   isLayoutMode,

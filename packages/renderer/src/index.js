@@ -8,7 +8,7 @@ import type { Cell, Row } from 'ory-editor-core/lib/types/editable'
 const gridClass = (size: number = 12): string =>
   `ory-cell-sm-${size} ory-cell-xs-12`
 
-const HTMLRow = ({ cells = [], className, hasInlineChildren }: Row) => (
+const HTMLRow = ({ cells = [], className, hasInlineChildren }: Row) =>
   <div
     className={classNames('ory-row', className, {
       'ory-row-has-floating-children': hasInlineChildren
@@ -16,7 +16,6 @@ const HTMLRow = ({ cells = [], className, hasInlineChildren }: Row) => (
   >
     {cells.map((c: Cell) => <HTMLCell key={c.id} {...c} />)}
   </div>
-)
 
 // eslint-disable-next-line no-empty-function
 const noop = () => {}
@@ -42,9 +41,9 @@ const HTMLCell = (props: Cell) => {
       <div className={cn}>
         <div className="ory-cell-inner">
           <Component isPreviewMode readOnly state={state} onChange={noop}>
-            {rows.map((r: Row) => (
+            {rows.map((r: Row) =>
               <HTMLRow key={r.id} {...r} className="ory-cell-inner" />
-            ))}
+            )}
           </Component>
         </div>
       </div>
@@ -63,9 +62,9 @@ const HTMLCell = (props: Cell) => {
   } else if (rows.length > 0) {
     return (
       <div className={cn}>
-        {rows.map((r: Row) => (
+        {rows.map((r: Row) =>
           <HTMLRow key={r.id} {...r} className="ory-cell-inner" />
-        ))}
+        )}
       </div>
     )
   }

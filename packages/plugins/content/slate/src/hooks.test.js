@@ -10,7 +10,8 @@ describe('hooks', () => {
   describe('merge', () => {
     it('does nothing if only one state is passed', () => {
       const expected = hooks.unserialize({
-        importFromHtml: '<h1>European? British? These ‘Brexit’ Voters Identify as English</h1>'
+        importFromHtml:
+          '<h1>European? British? These ‘Brexit’ Voters Identify as English</h1>'
       })
       const subject = hooks.merge([expected])
 
@@ -38,7 +39,8 @@ describe('hooks', () => {
   describe('split', () => {
     it('does nothing if the state contains only one block element', () => {
       const expected = hooks.unserialize({
-        importFromHtml: '<h1>European? British? These ‘Brexit’ Voters Identify as English</h1>'
+        importFromHtml:
+          '<h1>European? British? These ‘Brexit’ Voters Identify as English</h1>'
       })
       const subject = hooks.split(expected)
 

@@ -94,11 +94,23 @@ export default class EmphasizePlugin extends Plugin {
     }
     switch (object.type) {
       case STRONG:
-        return <strong>{children}</strong>
+        return (
+          <strong>
+            {children}
+          </strong>
+        )
       case EM:
-        return <em>{children}</em>
+        return (
+          <em>
+            {children}
+          </em>
+        )
       case U:
-        return <u>{children}</u>
+        return (
+          <u>
+            {children}
+          </u>
+        )
     }
   }
 }

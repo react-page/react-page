@@ -5,9 +5,7 @@ import { createStructuredSelector } from 'reselect'
 
 import { ContentPlugin } from '../../../service/plugin/classes'
 import Cell from '../../Cell'
-import {
-  shouldPureComponentUpdate
-} from '../../../helper/shouldComponentUpdate'
+import { shouldPureComponentUpdate } from '../../../helper/shouldComponentUpdate'
 import { purifiedEditable } from '../../../selector/editable'
 import dimensions from '../../Dimensions'
 import { blurAllCells, createFallbackCell } from '../../../actions/cell'
@@ -54,7 +52,7 @@ class Inner extends Component {
     const { cells = [] } = node
     return (
       <div className="ory-editable ory-prevent-blur">
-        {cells.map((c: string) => (
+        {cells.map((c: string) =>
           <Cell
             rowWidth={containerWidth}
             rowHeight={containerHeight}
@@ -63,7 +61,7 @@ class Inner extends Component {
             key={c}
             id={c}
           />
-        ))}
+        )}
       </div>
     )
   }

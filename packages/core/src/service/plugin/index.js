@@ -118,11 +118,13 @@ export default class PluginService {
     const {
       plugin: { name: contentName = null, version: contentVersion = '*' } = {},
       state: contentState
-    } = content || {}
+    } =
+      content || {}
     const {
       plugin: { name: layoutName = null, version: layoutVersion = '*' } = {},
       state: layoutState
-    } = layout || {}
+    } =
+      layout || {}
 
     if (contentName) {
       const plugin = this.findContentPlugin(contentName, contentVersion)

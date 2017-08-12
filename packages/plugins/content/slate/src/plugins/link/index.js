@@ -218,7 +218,11 @@ export default class LinkPlugin extends Plugin {
     }
     switch (object.type) {
       case A:
-        return <a href={object.data.get('href')}>{children}</a>
+        return (
+          <a href={object.data.get('href')}>
+            {children}
+          </a>
+        )
     }
   }
 }
