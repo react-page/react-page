@@ -70,6 +70,7 @@
   flex: 0 0 auto;
   padding-right: var(--half-gutter-width, 0.5rem);
   padding-left: var(--half-gutter-width, 0.5rem);
+  min-width: 0;
 }
 
 .ory-cell-xs {
@@ -260,6 +261,7 @@
     flex: 0 0 auto;
     padding-right: var(--half-gutter-width, 0.5rem);
     padding-left: var(--half-gutter-width, 0.5rem);
+    min-width: 0;
   }
 
   .ory-cell-sm {
@@ -451,6 +453,7 @@
     flex: 0 0 auto;
     padding-right: var(--half-gutter-width, 0.5rem);
     padding-left: var(--half-gutter-width, 0.5rem);
+    min-width: 0;
   }
 
   .ory-cell-md {
@@ -642,6 +645,7 @@
     flex: 0 0 auto;
     padding-right: var(--half-gutter-width, 0.5rem);
     padding-left: var(--half-gutter-width, 0.5rem);
+    min-width: 0;
   }
 
   .ory-cell-lg {
