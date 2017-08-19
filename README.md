@@ -75,8 +75,10 @@ With these principles in mind, we went out and implemented the ORY Editor, which
 
 ## ORY Sites
 
-[ORY Sites](http://www.ory.am/sites/) is an innovative desktop app and combines the latest technology with ease of use - creating beautiful,
-responsive websites is now a matter of minutes.
+[ORY Sites](http://www.ory.am/sites/) is an innovative open source [static site generator](https://www.staticgen.com/), similar to Jekyll or Hugo. Content creation is done in your browser, with the full extensibility of the ORY Editor.
+
+Learn more about [ORY Sites](http://www.ory.am/sites/)!
+
 <p align="center">
 <a href="http://www.ory.am/sites/"><img alt="ORY Sites" src="docs/images/ory-sites.gif" /></a>
 </p>
