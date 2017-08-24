@@ -75,12 +75,12 @@ With these principles in mind, we went out and implemented the ORY Editor, which
 
 ## ORY Sites
 
-[ORY Sites](http://www.ory.am/sites/) is an innovative open source [static site generator](https://www.staticgen.com/), similar to Jekyll or Hugo. Content creation is done in your browser, with the full extensibility of the ORY Editor.
+[ORY Sites](http://www.ory.am/sites/?utm_source=github-editor&utm_medium=link) is an innovative open source [static site generator](https://www.staticgen.com/), similar to Jekyll or Hugo. Content creation is done in your browser, with the full extensibility of the ORY Editor.
 
-Learn more about [ORY Sites](http://www.ory.am/sites/)!
+Learn more about [ORY Sites](http://www.ory.am/sites/?utm_source=github-editor&utm_medium=link)!
 
 <p align="center">
-<a href="http://www.ory.am/sites/"><img alt="ORY Sites" src="docs/images/ory-sites.gif" /></a>
+<a href="http://www.ory.am/sites/?utm_source=github-editor&utm_medium=banner"><img alt="ORY Sites" src="docs/images/ory-sites.gif" /></a>
 </p>
 
 ## Quickstart
