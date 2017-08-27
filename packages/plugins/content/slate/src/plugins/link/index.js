@@ -199,12 +199,12 @@ export default class LinkPlugin extends Plugin {
 
   deserialize = (el, next) => {
     switch (el.tagName) {
-      case 'strong':
+      case 'a':
         return {
           kind: 'inline',
           type: A,
           nodes: next(el.children),
-          data: Data.create({ href: el.href })
+          data: Data.create({ href: el.attribs.href })
         }
     }
   }

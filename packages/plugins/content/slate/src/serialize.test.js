@@ -34,6 +34,34 @@ describe('serialize to html', () => {
         nodes: [
           {
             kind: 'block',
+            nodes: [
+              {
+                kind: 'text',
+                ranges: [
+                  { text: 'some ' },
+                  {
+                    marks: [{ data: {}, type: 'EMPHASIZE/EM' }],
+                    text: 'projects'
+                  },
+                  { text: '-' },
+                  {
+                    marks: [{ data: {}, type: 'EMPHASIZE/STRONG' }],
+                    text: 'foo'
+                  }
+                ]
+              }
+            ],
+            type: 'PARAGRAPH/PARAGRAPH'
+          }
+        ]
+      },
+      o: '<p>some <em>projects</em>-<strong>foo</strong></p>'
+    },
+    {
+      i: {
+        nodes: [
+          {
+            kind: 'block',
             type: 'CODE/CODE',
             nodes: [
               {
@@ -86,27 +114,22 @@ describe('serialize to html', () => {
         nodes: [
           {
             kind: 'block',
-            type: 'HEADINGS/HEADING-FOUR',
             nodes: [
+              { kind: 'text', text: 'a' },
               {
+                data: { href: 'foo' },
                 kind: 'inline',
-                type: 'LINK/LINK',
-                nodes: [
-                  {
-                    kind: 'text',
-                    text: 'asdf'
-                  }
-                ],
-                data: {
-                  href: 'foo'
-                }
-              }
-            ]
+                nodes: [{ kind: 'text', text: 'asdf' }],
+                type: 'LINK/LINK'
+              },
+              { kind: 'text', text: 'b' }
+            ],
+            type: 'HEADINGS/HEADING-FOUR'
           }
         ]
       },
-      o: '<h4><a href="foo">asdf</a></h4>',
-      skip: true
+      o: '<h4>a<a href="foo">asdf</a>b</h4>'
+      // skip: true
     },
     {
       i: {
@@ -174,8 +197,8 @@ describe('serialize to html', () => {
           }
         ]
       },
-      o: '<blockquote>ab<br/>de</blockquote>',
-      skip: true
+      o: '<blockquote>ab<br/>de</blockquote>'
+      // skip: true
     }
   ].forEach((c, k) => {
     describe(`test case ${k}`, () => {
@@ -188,14 +211,9 @@ describe('serialize to html', () => {
         if (c.skip) {
           return
         }
-        expect(
-          Raw.serialize(
-            html.deserialize(
-              html.serialize(Raw.deserialize(c.i, { terse: true }))
-            ),
-            { terse: true }
-          )
-        ).toEqual(c.i)
+        expect(Raw.serialize(html.deserialize(c.o))).toEqual(
+          Raw.serialize(Raw.deserialize(c.i, { terse: true }))
+        )
       })
     })
   })

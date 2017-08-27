@@ -6,6 +6,7 @@ import H3Icon from 'material-ui/svg-icons/image/looks-3'
 import H4Icon from 'material-ui/svg-icons/image/looks-4'
 import H5Icon from 'material-ui/svg-icons/image/looks-5'
 import H6Icon from 'material-ui/svg-icons/image/looks-6'
+// import { Data } from 'slate'
 import { makeTagNode, ToolbarButton } from '../helpers'
 import Plugin from './Plugin'
 import type { Props } from './props'
@@ -20,6 +21,7 @@ export const H6 = 'HEADINGS/HEADING-SIX'
 const createNode = (type: string, el: any, next: any) => ({
   kind: 'block',
   type,
+  // data: Data.create({ style: el.attribs.style }),
   nodes: next(el.children)
 })
 

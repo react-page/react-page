@@ -20,6 +20,7 @@
 .*/node_modules/react-scripts/.*
 .*/node_modules/config-chain/test/.*.json
 .*/node_modules/react-resizable/build/.*.flow
+.*/node_modules/react-draggable/lib/.*
 .*/node_modules/match-at/.*
 .*/node_modules/conventional-changelog-core/test/fixtures/.*
 .*/node_modules/node-uuid/lib/sha1-browser\.js
