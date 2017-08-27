@@ -3,7 +3,6 @@ import React from 'react'
 import BoldIcon from 'material-ui/svg-icons/editor/format-bold'
 import ItalicIcon from 'material-ui/svg-icons/editor/format-italic'
 import UnderlinedIcon from 'material-ui/svg-icons/editor/format-underlined'
-
 import { makeTagMark, ToolbarButton } from '../helpers'
 import Plugin from './Plugin'
 import type { Props } from './props'
@@ -68,12 +67,14 @@ export default class EmphasizePlugin extends Plugin {
   deserialize = (el, next) => {
     switch (el.tagName) {
       case 'strong':
+      case 'b':
         return {
           kind: 'mark',
           type: STRONG,
           nodes: next(el.children)
         }
       case 'em':
+      case 'i':
         return {
           kind: 'mark',
           type: EM,
