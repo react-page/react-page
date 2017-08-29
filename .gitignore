@@ -8,5 +8,4 @@ _book/
 coverage/
 lib/
 dist/
-packages/
 examples/build

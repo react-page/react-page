@@ -1,0 +1,29 @@
+{
+  "name": "ory-editor-plugins-html5-video",
+  "version": "0.0.0",
+  "main": "./lib/index.js",
+  "author": "ORY GmbH",
+  "license": "AGPL-3.0",
+  "scripts": {
+    "build": "npm-run-all --parallel build:lib build:css",
+    "build:watch": "npm-run-all --parallel build:lib:watch build:css:watch",
+    "build:lib": "babel ./src --source-maps --ignore test.js --out-dir ./lib",
+    "build:lib:watch": "npm run build:lib -- --watch",
+    "build:css": "postcss -c ../../../../postcss.config.js --dir lib/ src/index.css",
+    "build:css:watch": "npm run build:css -- -w",
+    "docs": "documentation build ./src/**/*.js --format md --github -o ../../../../docs/api/plugins/html5-video.md",
+    "prebuild": "npm run clean",
+    "clean": "rimraf \"lib/*\"",
+    "flow:generate": "flow-typed install --flowVersion=0.46.0"
+  },
+  "peerDependencies": {
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2",
+    "react-tap-event-plugin": "^2.0.1"
+  },
+  "dependencies": {
+    "material-ui": "^0.18.0",
+    "ory-editor-core": "0.0.0",
+    "ory-editor-ui": "0.0.0"
+  }
+}
