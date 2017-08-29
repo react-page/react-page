@@ -38,6 +38,7 @@
 </div>
 <div id="controls"></div>
 
+<!-- analytics tracking -->
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -47,6 +48,16 @@
   ga('create', 'UA-71865250-2', 'auto');
   ga('send', 'pageview');
 
+  [].forEach.call(document.querySelectorAll('a'), function(anchor) {
+    anchor.addEventListener('mousedown', function (event) {
+      ga('send', 'event', {
+        eventCategory: 'anchor',
+        eventAction: event.target.textContent.toLowerCase(),
+        eventLabel: event.target.href,
+        transport: 'beacon'
+      });
+    });
+  });
 </script>
 
 </body>
