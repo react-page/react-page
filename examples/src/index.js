@@ -39,6 +39,10 @@ import 'ory-editor-plugins-video/lib/index.css'
 import parallax from 'ory-editor-plugins-parallax-background'
 import 'ory-editor-plugins-parallax-background/lib/index.css'
 
+// The html5-video plugin
+import html5video from 'ory-editor-plugins-html5-video'
+import 'ory-editor-plugins-html5-video/lib/index.css'
+
 // The divider plugin
 import divider from 'ory-editor-plugins-divider'
 
@@ -51,7 +55,7 @@ import './styles.css'
 
 // Define which plugins we want to use (all of the above)
 const plugins = {
-  content: [slate(), spacer, image, video, divider],
+  content: [slate(), spacer, image, video, divider, html5video],
   layout: [parallax({ defaultPlugin: slate() })]
 }
 
@@ -72,11 +76,11 @@ for (const element of elements) {
     <Editable
       editor={editor}
       id={element.dataset.id}
-      // onChange={(state) => {
-      //   if (element.dataset.id === '1') {
-      //     console.log(state)
-      //   }
-      // }}
+       onChange={(state) => {
+         // if (element.dataset.id === '1') {
+         //   console.log(state)
+         // }
+       }}
     />
   ), element)
 }

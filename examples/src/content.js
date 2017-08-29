@@ -8,10 +8,10 @@ export default [
         "size": 12,
         "rows": [
           {
-            "id": "c440df91-52c5-44cf-9ac2-f5b15ff61b13",
+            "id": "d813d094-215a-43ec-bcdd-d5fd6258b915",
             "cells": [
               {
-                "id": "39417572-f976-44b7-97b2-9a7e00fd66f2",
+                "id": "3fde7b92-fbfe-4b2d-85b3-bad431939df6",
                 "inline": null,
                 "size": 12,
                 "content": {
@@ -114,6 +114,148 @@ export default [
                         }
                       ]
                     }
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "id": "ffd4c523-1230-4d43-a71f-ea8aee9330ca",
+            "cells": [
+              {
+                "id": "35ed8ae2-ee9e-4653-8860-19483c745dd6",
+                "inline": null,
+                "size": 12,
+                "content": {
+                  "plugin": {
+                    "name": "ory/editor/core/content/slate",
+                    "version": "0.0.1"
+                  },
+                  "state": {
+                    "serialized": {
+                      "nodes": [
+                        {
+                          "kind": "block",
+                          "type": "HEADINGS/HEADING-THREE",
+                          "nodes": [
+                            {
+                              "kind": "text",
+                              "text": "ORY Sites"
+                            }
+                          ],
+                          "data": {
+                            "align": "center"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "id": "c15959de-4767-41b7-9814-71626d6cbcdb",
+            "cells": [
+              {
+                "id": "3909248b-3c02-40c8-ab21-dd5bf7cbfc2a",
+                "inline": null,
+                "size": 6,
+                "content": {
+                  "plugin": {
+                    "name": "ory/editor/core/content/slate",
+                    "version": "0.0.1"
+                  },
+                  "state": {
+                    "serialized": {
+                      "nodes": [
+                        {
+                          "kind": "block",
+                          "type": "PARAGRAPH/PARAGRAPH",
+                          "nodes": [
+                            {
+                              "kind": "text",
+                              "ranges": [
+                                {
+                                  "text": "ORY Sites is an "
+                                },
+                                {
+                                  "text": "open source static site generator",
+                                  "marks": [
+                                    {
+                                      "type": "EMPHASIZE/STRONG"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "text": " based on this editor."
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "block",
+                          "type": "HEADINGS/HEADING-FOUR",
+                          "nodes": [
+                            {
+                              "kind": "text",
+                              "text": "If you are looking for the next generation of flat-file CMS, head over to "
+                            },
+                            {
+                              "kind": "inline",
+                              "type": "LINK/LINK",
+                              "nodes": [
+                                {
+                                  "kind": "text",
+                                  "ranges": [
+                                    {
+                                      "text": "www.ory.am/sites",
+                                      "marks": [
+                                        {
+                                          "type": "EMPHASIZE/STRONG"
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ],
+                              "data": {
+                                "href": "https://www.ory.am/sites?utm_source=github&utm_medium=link&utm_campaign=editor_demo"
+                              }
+                            },
+                            {
+                              "kind": "text",
+                              "text": "."
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "block",
+                          "type": "PARAGRAPH/PARAGRAPH",
+                          "nodes": [
+                            {
+                              "kind": "text",
+                              "text": ""
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  }
+                }
+              },
+              {
+                "id": "d5e4efbe-66f0-4344-9df0-f0720b5d1f5d",
+                "inline": null,
+                "size": 6,
+                "content": {
+                  "plugin": {
+                    "name": "ory/sites/plugin/content/html5-video",
+                    "version": "0.0.1"
+                  },
+                  "state": {
+                    "url": "images/app-preview.mp4"
                   }
                 }
               }
