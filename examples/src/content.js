@@ -120,12 +120,12 @@ export default [
             ]
           },
           {
-            "id": "ffd4c523-1230-4d43-a71f-ea8aee9330ca",
+            "id": "c15959de-4767-41b7-9814-71626d6cbcdb",
             "cells": [
               {
-                "id": "35ed8ae2-ee9e-4653-8860-19483c745dd6",
+                "id": "33c58cda-94b5-4c2e-9232-9aa27a4aff8d",
                 "inline": null,
-                "size": 12,
+                "size": 6,
                 "content": {
                   "plugin": {
                     "name": "ory/editor/core/content/slate",
@@ -144,31 +144,9 @@ export default [
                             }
                           ],
                           "data": {
-                            "align": "center"
+                            "align": "left"
                           }
-                        }
-                      ]
-                    }
-                  }
-                }
-              }
-            ]
-          },
-          {
-            "id": "c15959de-4767-41b7-9814-71626d6cbcdb",
-            "cells": [
-              {
-                "id": "3909248b-3c02-40c8-ab21-dd5bf7cbfc2a",
-                "inline": null,
-                "size": 6,
-                "content": {
-                  "plugin": {
-                    "name": "ory/editor/core/content/slate",
-                    "version": "0.0.1"
-                  },
-                  "state": {
-                    "serialized": {
-                      "nodes": [
+                        },
                         {
                           "kind": "block",
                           "type": "PARAGRAPH/PARAGRAPH",
@@ -180,6 +158,17 @@ export default [
                                   "text": "ORY Sites is an "
                                 },
                                 {
+                                  "text": "next-gen",
+                                  "marks": [
+                                    {
+                                      "type": "EMPHASIZE/STRONG"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "text": " "
+                                },
+                                {
                                   "text": "open source static site generator",
                                   "marks": [
                                     {
@@ -188,7 +177,7 @@ export default [
                                   ]
                                 },
                                 {
-                                  "text": " based on this editor."
+                                  "text": " based on the ORY Editor. Create stunning websites, write your own designs and plugins, and be done with databases, application servers, and security updates."
                                 }
                               ]
                             }
@@ -196,11 +185,11 @@ export default [
                         },
                         {
                           "kind": "block",
-                          "type": "HEADINGS/HEADING-FOUR",
+                          "type": "HEADINGS/HEADING-FIVE",
                           "nodes": [
                             {
                               "kind": "text",
-                              "text": "If you are looking for the next generation of flat-file CMS, head over to "
+                              "text": ""
                             },
                             {
                               "kind": "inline",
@@ -208,16 +197,7 @@ export default [
                               "nodes": [
                                 {
                                   "kind": "text",
-                                  "ranges": [
-                                    {
-                                      "text": "www.ory.am/sites",
-                                      "marks": [
-                                        {
-                                          "type": "EMPHASIZE/STRONG"
-                                        }
-                                      ]
-                                    }
-                                  ]
+                                  "text": "Learn more about ORY Sites!"
                                 }
                               ],
                               "data": {
@@ -226,9 +206,12 @@ export default [
                             },
                             {
                               "kind": "text",
-                              "text": "."
+                              "text": ""
                             }
-                          ]
+                          ],
+                          "data": {
+                            "align": "center"
+                          }
                         },
                         {
                           "kind": "block",
