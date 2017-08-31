@@ -77,6 +77,7 @@
   flex-grow: 1;
   flex-basis: 0;
   width: 100%;
+  min-width: 100%;
 }
 
 .ory-cell-xs-1 {
@@ -92,6 +93,7 @@
 .ory-cell-xs-3 {
   flex-basis: 25%;
   width: 25%;
+  min-width: 25%;
 }
 
 .ory-cell-xs-4 {
@@ -107,6 +109,7 @@
 .ory-cell-xs-6 {
   flex-basis: 50%;
   width: 50%;
+  min-width: 50%;
 }
 
 .ory-cell-xs-7 {
@@ -122,6 +125,7 @@
 .ory-cell-xs-9 {
   flex-basis: 75%;
   width: 75%;
+  min-width: 75%;
 }
 
 .ory-cell-xs-10 {
@@ -137,6 +141,7 @@
 .ory-cell-xs-12 {
   flex-basis: 100%;
   width: 100%;
+  min-width: 100%;
 }
 
 .ory-cell-xs-offset-0 {
@@ -268,6 +273,7 @@
     flex-grow: 1;
     flex-basis: 0;
     width: 100%;
+  min-width: 100%;
   }
 
   .ory-cell-sm-1 {
@@ -283,6 +289,7 @@
   .ory-cell-sm-3 {
     flex-basis: 25%;
     width: 25%;
+  min-width: 25%;
   }
 
   .ory-cell-sm-4 {
@@ -298,6 +305,7 @@
   .ory-cell-sm-6 {
     flex-basis: 50%;
     width: 50%;
+  min-width: 50%;
   }
 
   .ory-cell-sm-7 {
@@ -313,6 +321,7 @@
   .ory-cell-sm-9 {
     flex-basis: 75%;
     width: 75%;
+  min-width: 75%;
   }
 
   .ory-cell-sm-10 {
@@ -328,6 +337,7 @@
   .ory-cell-sm-12 {
     flex-basis: 100%;
     width: 100%;
+  min-width: 100%;
   }
 
   .ory-cell-sm-offset-0 {
@@ -460,6 +470,7 @@
     flex-grow: 1;
     flex-basis: 0;
     width: 100%;
+  min-width: 100%;
   }
 
   .ory-cell-md-1 {
@@ -475,6 +486,7 @@
   .ory-cell-md-3 {
     flex-basis: 25%;
     width: 25%;
+  min-width: 25%;
   }
 
   .ory-cell-md-4 {
@@ -490,6 +502,7 @@
   .ory-cell-md-6 {
     flex-basis: 50%;
     width: 50%;
+  min-width: 50%;
   }
 
   .ory-cell-md-7 {
@@ -505,6 +518,7 @@
   .ory-cell-md-9 {
     flex-basis: 75%;
     width: 75%;
+  min-width: 75%;
   }
 
   .ory-cell-md-10 {
@@ -520,6 +534,7 @@
   .ory-cell-md-12 {
     flex-basis: 100%;
     width: 100%;
+  min-width: 100%;
   }
 
   .ory-cell-md-offset-0 {
@@ -652,6 +667,7 @@
     flex-grow: 1;
     flex-basis: 0;
     width: 100%;
+  min-width: 100%;
   }
 
   .ory-cell-lg-1 {
@@ -667,6 +683,7 @@
   .ory-cell-lg-3 {
     flex-basis: 25%;
     width: 25%;
+  min-width: 25%;
   }
 
   .ory-cell-lg-4 {
@@ -682,6 +699,7 @@
   .ory-cell-lg-6 {
     flex-basis: 50%;
     width: 50%;
+  min-width: 50%;
   }
 
   .ory-cell-lg-7 {
@@ -697,6 +715,7 @@
   .ory-cell-lg-9 {
     flex-basis: 75%;
     width: 75%;
+  min-width: 75%;
   }
 
   .ory-cell-lg-10 {
@@ -712,6 +731,7 @@
   .ory-cell-lg-12 {
     flex-basis: 100%;
     width: 100%;
+  min-width: 100%;
   }
 
   .ory-cell-lg-offset-0 {
