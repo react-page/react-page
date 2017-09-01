@@ -165,8 +165,7 @@ export const clearHover = (): Action => ({
  * @param {string} id
  * @return {Action}
  */
-export const cancelCellDrag = (id: string): Action => ({
+export const cancelCellDrag = (): Action => ({
   type: CELL_DRAG_CANCEL,
-  ts: new Date(),
-  id
+  ts: new Date()
 })

@@ -10,7 +10,7 @@ import pluginDefault from './service/plugin/default'
 import type { Editable as EditableType } from './types/editable'
 import type Store from './types/redux'
 import forEach from 'ramda/src/forEach'
-import HTML5Backend from 'react-dnd-html5-backend'
+import HTML5Backend, {NativeTypes} from 'react-dnd-html5-backend'
 import { DragDropContext as dragDropContext } from 'react-dnd'
 
 let instance: Editor
@@ -28,10 +28,20 @@ const update = (editor: Editor) => (editable: EditableType) => {
   actions(editor.store.dispatch).editable.update({
     ...state,
     config: {
-      whitelist: editor.plugins.getRegisteredNames()
+      editor: editor,
+      whitelist: [
+        ...editor.plugins.getRegisteredNames(),
+        NativeTypes.URL,
+        NativeTypes.FILE,
+        NativeTypes.TEXT,
+      ]
     }
   })
 }
+
+const defaultNativeDropHandler = () => ({
+  id: '123',
+})
 
 /**
  * Editor is the core interface for dealing with the editor.
@@ -50,7 +60,8 @@ class Editor {
       middleware = [],
       editables = [],
       defaultPlugin = pluginDefault,
-      dragDropBackend = HTML5Backend
+      dragDropBackend = HTML5Backend,
+      nativeDropHandler = defaultNativeDropHandler
     }: {
       plugins: { content: [], layout: [] },
       middleware: [],

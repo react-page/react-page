@@ -30,18 +30,20 @@ export const generateMissingIds = (props: Object): Object => {
 export default class PluginService {
   plugins: {
     content: Array<ContentPlugin>,
-    layout: Array<LayoutPlugin>
+    layout: Array<LayoutPlugin>,
+    native?: Plugin,
   }
 
   /**
    * Instantiate a new PluginService instance. You can provide your own set of content and layout plugins here.
    */
-  constructor({ content = [], layout = [] }: { content: [], layout: [] } = {}) {
+  constructor({ content = [], layout = [], native }: { content: [], layout: [], native?: Plugin } = {}) {
     this.plugins = {
       content: [defaultPlugin, ...content].map(
         (config: any) => new ContentPlugin(config)
       ),
-      layout: layout.map((config: any) => new LayoutPlugin(config))
+      layout: layout.map((config: any) => new LayoutPlugin(config)),
+      native
     }
   }
 

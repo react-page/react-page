@@ -1,11 +1,8 @@
 // @flow
 import throttle from 'lodash.throttle'
 import pathOr from 'ramda/src/pathOr'
-
-import {
-  computeAndDispatchHover,
-  computeAndDispatchInsert
-} from '../../../../service/hover/input'
+import { NativeTypes } from 'react-dnd-html5-backend'
+import { computeAndDispatchHover, computeAndDispatchInsert } from '../../../../service/hover/input'
 import { delay } from '../../../../helper/throttle'
 import logger from '../../../../service/logger'
 
@@ -21,9 +18,39 @@ const clear = (hover: ComponetizedCell, drag: string) => {
   hover.clearHover()
 }
 
+const isNativeUrl = (monitor: Object) => {
+  return monitor.getItemType() === NativeTypes.URL;
+}
+
+const mockNativeHoverItem = (plugin, monitor) => ({
+  id: 123,
+  rawNode: () => ({
+    id: 123,
+    ...plugin({
+      item: monitor.getItem(),
+      itemType: monitor.getItemType()
+    })
+  })
+})
+
 export const target = {
   hover: throttle(
     (hover: ComponetizedCell, monitor: Object, component: Object) => {
+      if (isNativeUrl(monitor)) {
+        const plugin = component.props.config.editor.plugins.native
+
+        if (!plugin) {
+          console.warn('Caught native event, but no native plugin was registered. Cancelling drag event.')
+          hover.cancelCellDrag()
+          return
+        }
+
+        monitor.internalMonitor.store.getState().dragOperation.item = {
+          id: 123,
+          rawNode: () => ({ id: 123 })
+        }
+      }
+
       const drag: ComponetizedCell = monitor.getItem()
 
       if (!drag) {
@@ -69,6 +96,18 @@ export const target = {
   },
 
   drop(hover: ComponetizedCell, monitor: Object, component: Object) {
+    if (isNativeUrl(monitor)) {
+      const plugin = component.props.config.editor.plugins.native
+
+      if (!plugin) {
+        console.warn('Caught native event, but no native plugin was registered. Cancelling drag event.')
+        hover.cancelCellDrag()
+        return
+      }
+
+      monitor.internalMonitor.store.getState().dragOperation.item = mockNativeHoverItem(plugin, monitor)
+    }
+
     const drag = monitor.getItem()
 
     if (monitor.didDrop() || !monitor.isOver({ shallow: true })) {
@@ -76,11 +115,11 @@ export const target = {
       return
     } else if (drag.id === hover.id) {
       // If the item being dropped on itself do nothing
-      hover.cancelCellDrag(drag.id)
+      hover.cancelCellDrag()
       return
     } else if (hover.ancestors.indexOf(drag.id) > -1) {
       // If hovering over a child of itself, don't propagate further
-      hover.cancelCellDrag(drag.id)
+      hover.cancelCellDrag()
       return
     }
 
