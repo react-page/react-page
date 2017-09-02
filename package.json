@@ -10,7 +10,7 @@
     "documentation": "^5.2.2",
     "enzyme": "^2.8.2",
     "eslint": "^3.19.0",
-    "flow-bin": "^0.54.0",
+    "flow-bin": "^0.46.0",
     "flow-typed": "^2.1.5",
     "gitbook-cli": "^2.3.0",
     "husky": "^0.13.3",
