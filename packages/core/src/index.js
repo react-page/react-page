@@ -23,25 +23,25 @@ const initialState = () => ({
   }
 })
 
+const nativeTypes = (editor: Editor) => editor.plugins.hasNativePlugin() ? [
+  NativeTypes.URL,
+  NativeTypes.FILE,
+  NativeTypes.TEXT
+] : []
+
 const update = (editor: Editor) => (editable: EditableType) => {
   const state = editor.plugins.unserialize(editable)
   actions(editor.store.dispatch).editable.update({
     ...state,
     config: {
-      editor: editor,
+      plugins: editor.plugins,
       whitelist: [
         ...editor.plugins.getRegisteredNames(),
-        NativeTypes.URL,
-        NativeTypes.FILE,
-        NativeTypes.TEXT,
+        ...(nativeTypes(editor))
       ]
     }
   })
 }
-
-const defaultNativeDropHandler = () => ({
-  id: '123',
-})
 
 /**
  * Editor is the core interface for dealing with the editor.
@@ -60,8 +60,7 @@ class Editor {
       middleware = [],
       editables = [],
       defaultPlugin = pluginDefault,
-      dragDropBackend = HTML5Backend,
-      nativeDropHandler = defaultNativeDropHandler
+      dragDropBackend = HTML5Backend
     }: {
       plugins: { content: [], layout: [] },
       middleware: [],

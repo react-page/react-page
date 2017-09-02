@@ -1,7 +1,9 @@
 // @flow
 import uuid from 'uuid'
 import { satisfies } from 'semver'
-import { ContentPlugin, LayoutPlugin, Plugin } from './classes'
+import { ContentPlugin, LayoutPlugin, Plugin, NativePlugin, NativeFactory } from './classes'
+import type { ComponetizedCell } from '../../types/editable'
+import { createCell } from '../../types/editable'
 import defaultPlugin from './default'
 import { layoutMissing, contentMissing } from './missing'
 
@@ -31,13 +33,13 @@ export default class PluginService {
   plugins: {
     content: Array<ContentPlugin>,
     layout: Array<LayoutPlugin>,
-    native?: Plugin,
+    native?: NativeFactory,
   }
 
   /**
    * Instantiate a new PluginService instance. You can provide your own set of content and layout plugins here.
    */
-  constructor({ content = [], layout = [], native }: { content: [], layout: [], native?: Plugin } = {}) {
+  constructor({ content = [], layout = [], native }: { content: [], layout: [], native?: NativeFactory } = {}) {
     this.plugins = {
       content: [defaultPlugin, ...content].map(
         (config: any) => new ContentPlugin(config)
@@ -45,6 +47,21 @@ export default class PluginService {
       layout: layout.map((config: any) => new LayoutPlugin(config)),
       native
     }
+  }
+
+  hasNativePlugin = (): Boolean => {
+    return Boolean(this.plugins.native)
+  }
+
+  createNativePlugin = (hover: any, monitor: any, component: any): ComponetizedCell => {
+    const plugin = new NativePlugin(this.plugins.native(hover, monitor, component))
+    const initialState = plugin.createInitialState()
+    let insert = { content: { plugin, state: initialState } }
+    if (plugin === 'layout') {
+      insert = { layout: { plugin, state: initialState } }
+    }
+
+    return { node: insert, rawNode: () => insert }
   }
 
   setLayoutPlugins = (plugins: Array<any> = []) => {
@@ -121,12 +138,12 @@ export default class PluginService {
       plugin: { name: contentName = null, version: contentVersion = '*' } = {},
       state: contentState
     } =
-      content || {}
+    content || {}
     const {
       plugin: { name: layoutName = null, version: layoutVersion = '*' } = {},
       state: layoutState
     } =
-      layout || {}
+    layout || {}
 
     if (contentName) {
       const plugin = this.findContentPlugin(contentName, contentVersion)

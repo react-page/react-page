@@ -2,17 +2,34 @@
 import React from 'react'
 import type { ContentPluginProps } from './classes'
 
-const Default = ({ state: { item, type } }: ContentPluginProps<{ type: string, item: string }>) => (
+const Native = ({ state: { item, itemType } }: ContentPluginProps<{ itemType: string, item: string }>) => (
   <div>
-    {type} - {JSON.stringify(item)}
+    <p>
+      This is a default plugin that handles native drag events of type <code>{itemType}</code>.<br />
+      It contained the following payload:
+    </p>
+    <pre>
+      {JSON.stringify(item, null, 2)}
+    </pre>
   </div>
 )
 
-export default (props: { item: Object, type: string }) => ({
-  Component: Default,
+/**
+ *
+ * @param hover the item which the native element was dropped on
+ * @param monitor the DropTargetMonitor as provided by react-dnd
+ * @param component the React component of the item which the native element was dropped on
+ */
+export default (hover: any, monitor: any, component: any) => ({
+  Component: Native,
   name: 'ory/editor/core/content/default-native',
   version: '0.0.1',
   createInitialState: () => ({
-    ...props
+    item: monitor.getItem(),
+    itemType: monitor.getItemType(),
   })
+
+  // Set type to layout to create a layout cell instead of a content cell
+
+  // type: 'layout'
 })

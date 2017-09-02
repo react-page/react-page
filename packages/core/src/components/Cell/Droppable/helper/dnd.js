@@ -1,10 +1,11 @@
 // @flow
 import throttle from 'lodash.throttle'
 import pathOr from 'ramda/src/pathOr'
-import { NativeTypes } from 'react-dnd-html5-backend'
 import { computeAndDispatchHover, computeAndDispatchInsert } from '../../../../service/hover/input'
 import { delay } from '../../../../helper/throttle'
 import logger from '../../../../service/logger'
+import {isNativeHTMLElementDrag,createNativeCellReplacement}from '../../../../helper/nativeDragHelpers'
+import type { DropTargetMonitor, DropTargetConnector } from 'react-dnd'
 
 import type { ComponetizedCell } from '../../../../types/editable'
 
@@ -18,45 +19,20 @@ const clear = (hover: ComponetizedCell, drag: string) => {
   hover.clearHover()
 }
 
-const isNativeUrl = (monitor: Object) => {
-  return monitor.getItemType() === NativeTypes.URL;
-}
-
-const mockNativeHoverItem = (plugin, monitor) => ({
-  id: 123,
-  rawNode: () => ({
-    id: 123,
-    ...plugin({
-      item: monitor.getItem(),
-      itemType: monitor.getItemType()
-    })
-  })
-})
-
 export const target = {
   hover: throttle(
-    (hover: ComponetizedCell, monitor: Object, component: Object) => {
-      if (isNativeUrl(monitor)) {
-        const plugin = component.props.config.editor.plugins.native
-
-        if (!plugin) {
-          console.warn('Caught native event, but no native plugin was registered. Cancelling drag event.')
-          hover.cancelCellDrag()
-          return
-        }
-
-        monitor.internalMonitor.store.getState().dragOperation.item = {
-          id: 123,
-          rawNode: () => ({ id: 123 })
-        }
-      }
-
-      const drag: ComponetizedCell = monitor.getItem()
-
+    (hover: ComponetizedCell, monitor: DropTargetMonitor, component: Object) => {
+      let drag: ComponetizedCell = monitor.getItem()
       if (!drag) {
         // item undefined, happens when throttle triggers after drop
         return
-      } else if (drag.id === hover.id) {
+      }
+
+      if (isNativeHTMLElementDrag(monitor)) {
+        drag = createNativeCellReplacement()
+      }
+
+      if (drag.id === hover.id) {
         // If hovering over itself, do nothing
         clear(hover, drag.id)
         return
@@ -81,6 +57,7 @@ export const target = {
       )
       computeAndDispatchHover(
         hover,
+        drag,
         monitor,
         component,
         `10x10${allowInlineNeighbours ? '' : '-no-inline'}`
@@ -90,25 +67,18 @@ export const target = {
     { leading: false }
   ),
 
-  canDrop: ({ id, ancestors }: ComponetizedCell, monitor: Object) => {
+  canDrop: ({ id, ancestors }: ComponetizedCell, monitor: DropTargetMonitor) => {
     const item = monitor.getItem()
     return item.id !== id && ancestors.indexOf(item.id) === -1
   },
 
-  drop(hover: ComponetizedCell, monitor: Object, component: Object) {
-    if (isNativeUrl(monitor)) {
-      const plugin = component.props.config.editor.plugins.native
+  drop(hover: ComponetizedCell, monitor: DropTargetMonitor, component: Object) {
+    let drag: ComponetizedCell = monitor.getItem()
 
-      if (!plugin) {
-        console.warn('Caught native event, but no native plugin was registered. Cancelling drag event.')
-        hover.cancelCellDrag()
-        return
-      }
-
-      monitor.internalMonitor.store.getState().dragOperation.item = mockNativeHoverItem(plugin, monitor)
+    if (isNativeHTMLElementDrag(monitor)) {
+      const { plugins } = component.props.config
+      drag = plugins.createNativePlugin(hover, monitor, component)
     }
-
-    const drag = monitor.getItem()
 
     if (monitor.didDrop() || !monitor.isOver({ shallow: true })) {
       // If the item drop occurred deeper down the tree, don't do anything
@@ -131,6 +101,7 @@ export const target = {
     )
     computeAndDispatchInsert(
       hover,
+      drag,
       monitor,
       component,
       `10x10${allowInlineNeighbours ? '' : '-no-inline'}`
@@ -138,7 +109,7 @@ export const target = {
   }
 }
 
-export const connect = (connect: Object, monitor: Object) => ({
+export const connect = (connect: DropTargetConnector, monitor: DropTargetMonitor) => ({
   connectDropTarget: connect.dropTarget(),
   isOver: monitor.isOver(),
   isOverCurrent: monitor.isOver({ shallow: true })

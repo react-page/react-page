@@ -80,4 +80,14 @@ describe('PluginService', () => {
     )
     expect(plugins.plugins.layout.length, 'to equal', 1)
   })
+
+  it('should tell me when no native plugin is set', () => {
+    expect(plugins.hasNativePlugin(), 'to be falsy')
+  })
+
+  it('should tell me when no native plugin is set', () => {
+    const plugins = new PluginService({ content, layout, native: 'foo' })
+    expect(plugins.hasNativePlugin(), 'to be truthy')
+    expect(plugins.getNativePlugin(), 'to equal', 'foo')
+  })
 })

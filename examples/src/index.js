@@ -60,6 +60,9 @@ import './styles.css'
 const plugins = {
   content: [slate(), spacer, image, video, divider, html5video],
   layout: [parallax({ defaultPlugin: slate() })],
+
+  // If you pass the native key the editor will be able to handle native drag and drop events (such as links, text, etc).
+  // The native plugin will then be responsible to properly display the data which was dropped onto the editor.
   native
 }
 
@@ -82,7 +85,7 @@ for (const element of elements) {
       id={element.dataset.id}
        onChange={(state) => {
           if (element.dataset.id === '1') {
-            console.log(state)
+            // console.log(state)
           }
        }}
     />
