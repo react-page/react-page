@@ -309,8 +309,6 @@ export class LayoutPlugin extends Plugin {
   createInitialChildren = (): Object => ({})
 }
 
-export type NativeFactory = (hover: any, monitor: any, component: any) => Object
-
 export class NativePlugin extends Plugin {
   constructor(config: any) {
     super(config)

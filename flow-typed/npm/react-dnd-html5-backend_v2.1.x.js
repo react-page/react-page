@@ -1,6 +1,22 @@
-// flow-typed signature: f2e7e52c15f043c9e2c724920a9818c8
-// flow-typed version: 94e9f7e0a4/react-dnd-html5-backend_v2.1.x/flow_>=v0.23.x
+// flow-typed signature: 2449e4d65737a981621b6fa721d4bdec
+// flow-typed version: b43dff3e0e/react-dnd-html5-backend_v2.1.x/flow_>=v0.15.x
+
+
+declare type $npm$reactDnd$NativeTypes$FILE = '__NATIVE_FILE__';
+declare type $npm$reactDnd$NativeTypes$URL = '__NATIVE_URL__';
+declare type $npm$reactDnd$NativeTypes$TEXT = '__NATIVE_TEXT__';
+declare type $npm$reactDnd$NativeTypes =
+  $npm$reactDnd$NativeTypes$FILE
+  | $npm$reactDnd$NativeTypes$URL
+  | $npm$reactDnd$NativeTypes$TEXT
 
 declare module 'react-dnd-html5-backend' {
-  declare var exports: {getEmptyImage(): Image};
+  declare var exports: {
+    getEmptyImage(): Image,
+    NativeTypes: {
+      FILE: $npm$reactDnd$NativeTypes$FILE,
+      URL: $npm$reactDnd$NativeTypes$URL,
+      TEXT: $npm$reactDnd$NativeTypes$TEXT,
+    }
+  };
 }

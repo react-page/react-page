@@ -1,11 +1,17 @@
 // @flow
 import throttle from 'lodash.throttle'
 import pathOr from 'ramda/src/pathOr'
-import { computeAndDispatchHover, computeAndDispatchInsert } from '../../../../service/hover/input'
+import {
+  computeAndDispatchHover,
+  computeAndDispatchInsert
+} from '../../../../service/hover/input'
 import { delay } from '../../../../helper/throttle'
 import logger from '../../../../service/logger'
-import {isNativeHTMLElementDrag,createNativeCellReplacement}from '../../../../helper/nativeDragHelpers'
-import type { DropTargetMonitor, DropTargetConnector } from 'react-dnd'
+import {
+  isNativeHTMLElementDrag,
+  createNativeCellReplacement
+} from '../../../../helper/nativeDragHelpers'
+import type { DropTargetMonitor, DropTargetConnector } from 'dnd-core'
 
 import type { ComponetizedCell } from '../../../../types/editable'
 
@@ -21,7 +27,11 @@ const clear = (hover: ComponetizedCell, drag: string) => {
 
 export const target = {
   hover: throttle(
-    (hover: ComponetizedCell, monitor: DropTargetMonitor, component: Object) => {
+    (
+      hover: ComponetizedCell,
+      monitor: DropTargetMonitor,
+      component: Object
+    ) => {
       let drag: ComponetizedCell = monitor.getItem()
       if (!drag) {
         // item undefined, happens when throttle triggers after drop
@@ -67,7 +77,10 @@ export const target = {
     { leading: false }
   ),
 
-  canDrop: ({ id, ancestors }: ComponetizedCell, monitor: DropTargetMonitor) => {
+  canDrop: (
+    { id, ancestors }: ComponetizedCell,
+    monitor: DropTargetMonitor
+  ) => {
     const item = monitor.getItem()
     return item.id !== id && ancestors.indexOf(item.id) === -1
   },
@@ -109,7 +122,10 @@ export const target = {
   }
 }
 
-export const connect = (connect: DropTargetConnector, monitor: DropTargetMonitor) => ({
+export const connect = (
+  connect: DropTargetConnector,
+  monitor: DropTargetMonitor
+) => ({
   connectDropTarget: connect.dropTarget(),
   isOver: monitor.isOver(),
   isOverCurrent: monitor.isOver({ shallow: true })

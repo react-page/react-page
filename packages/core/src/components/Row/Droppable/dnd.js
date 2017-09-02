@@ -5,11 +5,14 @@ import {
   computeAndDispatchHover,
   computeAndDispatchInsert
 } from '../../../service/hover/input'
-import type { ComponetizedRow } from '../../../types/editable'
+import type { ComponetizedRow, ComponetizedCell } from '../../../types/editable'
 import { delay } from '../../../helper/throttle'
 import logger from '../../../service/logger'
-import {isNativeHTMLElementDrag,createNativeCellReplacement}from '../../../helper/nativeDragHelpers'
-import type { DropTargetMonitor, DropTargetConnector } from 'react-dnd'
+import {
+  isNativeHTMLElementDrag,
+  createNativeCellReplacement
+} from '../../../helper/nativeDragHelpers'
+import type { DropTargetMonitor, DropTargetConnector } from 'dnd-core'
 
 let last: { hover: string, drag: string } = {
   hover: '',
@@ -58,7 +61,13 @@ export const target = {
         return
       }
 
-      computeAndDispatchHover(hover, drag, monitor, component, '10x10-no-inline')
+      computeAndDispatchHover(
+        hover,
+        drag,
+        monitor,
+        component,
+        '10x10-no-inline'
+      )
     },
     delay,
     { leading: false }
@@ -93,7 +102,10 @@ export const target = {
   }
 }
 
-export const connect = (connect: DropTargetConnector, monitor: DropTargetMonitor) => ({
+export const connect = (
+  connect: DropTargetConnector,
+  monitor: DropTargetMonitor
+) => ({
   connectDropTarget: connect.dropTarget(),
   isOverCurrent: monitor.isOver({ shallow: true })
 })

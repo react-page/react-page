@@ -93,7 +93,7 @@ export type ComponetizedCell = {
   blurAllCells(): void,
   updateCellContent(state: Object): void,
   updateCellLayout(state: Object): void,
-  cancelCellDrag(drag: string): void,
+  cancelCellDrag(): void,
 
   dragCell(drag: string): void,
   cellHoverAbove(drag: Cell, hover: Cell, level: number): void,
@@ -146,7 +146,7 @@ export type ComponetizedRow = {
   isPreviewMode: boolean,
 
   clearHover(): void,
-  cancelCellDrag(drag: string): void,
+  cancelCellDrag(): void,
   blurAllCells(): void
 }
 
@@ -176,3 +176,5 @@ export type EditableComponentState = {
   blurAllCells(): void,
   createFallbackCell(): void
 }
+
+export type NativeFactory = (hover: any, monitor: any, component: any) => Object

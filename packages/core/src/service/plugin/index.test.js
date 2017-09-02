@@ -86,8 +86,15 @@ describe('PluginService', () => {
   })
 
   it('should tell me when no native plugin is set', () => {
-    const plugins = new PluginService({ content, layout, native: 'foo' })
+    const plugins = new PluginService({
+      content, layout, native: () => ({
+        Component: () => (<div />),
+        name: 'ory/editor/core/content/default-native',
+        version: '0.0.1',
+        createInitialState: () => ({})
+      })
+    })
     expect(plugins.hasNativePlugin(), 'to be truthy')
-    expect(plugins.getNativePlugin(), 'to equal', 'foo')
+    expect(plugins.createNativePlugin(), 'to be defined')
   })
 })
