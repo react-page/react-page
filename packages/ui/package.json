@@ -2,7 +2,7 @@
   "name": "ory-editor-ui",
   "version": "0.0.0",
   "author": "ORY GmbH",
-  "license": "AGPL-3.0",
+  "license": "GNU Lesser General Public License v3.0",
   "main": "./lib/index.js",
   "scripts": {
     "build": "npm-run-all --parallel build:lib build:css",

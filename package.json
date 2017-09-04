@@ -1,7 +1,7 @@
 {
   "private": true,
   "author": "ORY GmbH",
-  "license": "AGPL-3.0",
+  "license": "GNU Lesser General Public License v3.0",
   "devDependencies": {
     "babel-cli": "^6.24.1",
     "chokidar-cli": "^1.2.0",
