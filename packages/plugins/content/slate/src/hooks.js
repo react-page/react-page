@@ -36,12 +36,12 @@ export const defaultPlugins = [
 import { Document, Html, Raw, State, Plain } from 'slate'
 
 export const lineBreakSerializer = {
-  deserialize(el) {
+  deserialize(el: any) {
     if (el.tagName.toLowerCase() === 'br') {
       return { kind: 'text', text: '\n' }
     }
   },
-  serialize(object, children) {
+  serialize(object: any, children: any) {
     if (object.type === 'text' || children === '\n') {
       return <br />
     }
