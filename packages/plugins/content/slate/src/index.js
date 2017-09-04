@@ -6,8 +6,6 @@ import Subject from 'material-ui/svg-icons/action/subject'
 import { compose, flatten, map, mergeAll, prop, pathOr } from 'ramda'
 import React from 'react'
 import { ActionTypes } from 'redux-undo'
-import { Html } from 'slate'
-
 import Component from './Component'
 import type { Props } from './Component'
 
@@ -21,8 +19,9 @@ import ListsPlugin from './plugins/lists'
 import ParagraphPlugin, { P } from './plugins/paragraph'
 import Plugin from './plugins/Plugin'
 // import KatexPlugin from './plugins/katex'
-
 import * as hooks from './hooks'
+
+const { html } = hooks
 
 const createNodes = compose(mergeAll, map(prop('nodes')))
 const createMarks = compose(mergeAll, map(prop('marks')))
@@ -110,7 +109,6 @@ export default (plugins: Plugin[] = defaultPlugins) => {
   )
   props.ToolbarButtons = ToolbarButtons
 
-  const html = new Html({ rules: defaultPlugins })
   const Slate = (cellProps: Props) => <Component {...cellProps} {...props} />
   const StaticComponent = ({ state: { editorState } = {} }: Props) => (
     <div dangerouslySetInnerHTML={{ __html: html.serialize(editorState) }} />
