@@ -43,6 +43,9 @@ import 'ory-editor-plugins-parallax-background/lib/index.css'
 import html5video from 'ory-editor-plugins-html5-video'
 import 'ory-editor-plugins-html5-video/lib/index.css'
 
+// The native handler plugin
+import native from 'ory-editor-plugins-default-native'
+
 // The divider plugin
 import divider from 'ory-editor-plugins-divider'
 
@@ -56,7 +59,11 @@ import './styles.css'
 // Define which plugins we want to use (all of the above)
 const plugins = {
   content: [slate(), spacer, image, video, divider, html5video],
-  layout: [parallax({ defaultPlugin: slate() })]
+  layout: [parallax({ defaultPlugin: slate() })],
+
+  // If you pass the native key the editor will be able to handle native drag and drop events (such as links, text, etc).
+  // The native plugin will then be responsible to properly display the data which was dropped onto the editor.
+  native
 }
 
 const editor = new Editor({
@@ -78,7 +85,7 @@ for (const element of elements) {
       id={element.dataset.id}
        onChange={(state) => {
           if (element.dataset.id === '1') {
-            console.log(state)
+            // console.log(state)
           }
        }}
     />

@@ -23,7 +23,7 @@ export const source = {
     }
 
     // If drag ended but drop did not occur, cancel dragging
-    cancelCellDrag(id)
+    cancelCellDrag()
   }
 }
 

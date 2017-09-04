@@ -14,6 +14,7 @@
     "ory-editor-plugins-video": "0.0.0",
     "ory-editor-plugins-html5-video": "0.0.0",
     "ory-editor-renderer": "0.0.0",
+    "ory-editor-plugins-default-native": "0.0.0",
     "ory-editor-ui": "0.0.0",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",

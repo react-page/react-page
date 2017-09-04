@@ -5,9 +5,14 @@ import {
   computeAndDispatchHover,
   computeAndDispatchInsert
 } from '../../../service/hover/input'
-import type { ComponetizedRow } from '../../../types/editable'
+import type { ComponetizedRow, ComponetizedCell } from '../../../types/editable'
 import { delay } from '../../../helper/throttle'
 import logger from '../../../service/logger'
+import {
+  isNativeHTMLElementDrag,
+  createNativeCellReplacement
+} from '../../../helper/nativeDragHelpers'
+import type { DropTargetMonitor, DropTargetConnector } from 'dnd-core'
 
 let last: { hover: string, drag: string } = {
   hover: '',
@@ -24,8 +29,16 @@ const clear = (hover: ComponetizedRow, drag: string) => {
 
 export const target = {
   hover: throttle(
-    (hover: ComponetizedRow, monitor: any, component: Object) => {
-      const drag = monitor.getItem()
+    (hover: ComponetizedRow, monitor: DropTargetMonitor, component: Object) => {
+      let drag: ComponetizedCell = monitor.getItem()
+      if (!drag) {
+        // item undefined, happens when throttle triggers after drop
+        return
+      }
+
+      if (isNativeHTMLElementDrag(monitor)) {
+        drag = createNativeCellReplacement()
+      }
 
       if (!drag) {
         return
@@ -48,19 +61,30 @@ export const target = {
         return
       }
 
-      computeAndDispatchHover(hover, monitor, component, '10x10-no-inline')
+      computeAndDispatchHover(
+        hover,
+        drag,
+        monitor,
+        component,
+        '10x10-no-inline'
+      )
     },
     delay,
     { leading: false }
   ),
 
-  canDrop: ({ id, ancestors }: ComponetizedRow, monitor: any) => {
+  canDrop: ({ id, ancestors }: ComponetizedRow, monitor: DropTargetMonitor) => {
     const item = monitor.getItem()
     return item.id !== id || ancestors.indexOf(item.id) === -1
   },
 
   drop(hover: ComponetizedRow, monitor: any, component: Object) {
-    const drag = monitor.getItem()
+    let drag: ComponetizedCell = monitor.getItem()
+
+    if (isNativeHTMLElementDrag(monitor)) {
+      const { plugins } = component.props.config
+      drag = plugins.createNativePlugin(hover, monitor, component)
+    }
 
     if (monitor.didDrop() || !monitor.isOver({ shallow: true })) {
       // If the item drop occurred deeper down the tree, don't do anything
@@ -74,11 +98,14 @@ export const target = {
       return
     }
 
-    computeAndDispatchInsert(hover, monitor, component, '10x10-no-inline')
+    computeAndDispatchInsert(hover, drag, monitor, component, '10x10-no-inline')
   }
 }
 
-export const connect = (connect: any, monitor: any) => ({
+export const connect = (
+  connect: DropTargetConnector,
+  monitor: DropTargetMonitor
+) => ({
   connectDropTarget: connect.dropTarget(),
   isOverCurrent: monitor.isOver({ shallow: true })
 })

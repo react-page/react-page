@@ -308,3 +308,65 @@ export class LayoutPlugin extends Plugin {
    */
   createInitialChildren = (): Object => ({})
 }
+
+export class NativePlugin extends Plugin {
+  constructor(config: any) {
+    super(config)
+    const {
+      createInitialState,
+      allowInlineNeighbours = false,
+      isInlineable = false,
+      reducer,
+      createInitialChildren,
+      type = 'content'
+    } = config
+
+    this.isInlineable = isInlineable
+    this.allowInlineNeighbours = allowInlineNeighbours
+    this.reducer = reducer ? reducer.bind(this) : this.reducer
+    this.createInitialState = createInitialState
+      ? createInitialState.bind(this)
+      : this.createInitialState
+    this.createInitialChildren = createInitialChildren
+      ? createInitialChildren.bind(this)
+      : this.createInitialChildren
+    this.type = type
+  }
+
+  /**
+   * @member can be 'content' or 'layout' depending on the type the native plugin should create
+   */
+  type: string
+
+  /**
+   * Create the plugin's initial children (rows/cells).
+   *
+   * @returns the initial state.
+   */
+  createInitialChildren = (): Object => ({})
+
+  /**
+   * @member if isInlineable is true, the plugin is allowed to be placed with floating to left or right.
+   */
+  isInlineable: boolean
+
+  /**
+   * @member if true allows that isInlineable elements may be placed "in" this plugin.
+   */
+  allowInlineNeighbours: boolean
+
+  /**
+   * Create the plugin's initial state.
+   *
+   * @returns the initial state.
+   */
+  createInitialState = (): Object => ({})
+
+  /**
+   * Specify a custom reducer for the plugin's cell.
+   *
+   * @param state
+   * @param action
+   */
+  reducer = (state: any, action: any) => state
+}

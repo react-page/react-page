@@ -71,8 +71,8 @@ const Raw = ({ isLayoutMode, connectDropTarget, isOverCurrent }: Object) =>
     </div>
   )
 
-const types = ({ editor }: { editor: Editor }) =>
-  [
+const types = ({ editor }: { editor: Editor }) => {
+  const plugins = [
     ...Object.keys(editor.plugins.plugins.layout),
     ...Object.keys(editor.plugins.plugins.content)
   ].map(
@@ -80,6 +80,13 @@ const types = ({ editor }: { editor: Editor }) =>
       editor.plugins.plugins.content[p].name ||
       editor.plugins.plugins.layout[p].name
   )
+
+  if (editor.plugins.hasNativePlugin()) {
+    plugins.push(editor.plugins.getNativePlugin()().name)
+  }
+
+  return plugins
+}
 
 const mapDispatchToProps = {
   removeCell

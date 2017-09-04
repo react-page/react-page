@@ -27,7 +27,7 @@
     "ory-editor-core": "0.0.0",
     "rc-tooltip": "^3.4.3",
     "classnames": "^2.2.5",
-    "react-dnd": "^2.3.0",
+    "react-dnd": "^2.4.0",
     "react-redux": "^5.0.4",
     "reselect": "^3.0.0"
   },

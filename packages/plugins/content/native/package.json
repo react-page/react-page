@@ -1,0 +1,22 @@
+{
+  "name": "ory-editor-plugins-default-native",
+  "version": "0.0.0",
+  "main": "./lib/index.js",
+  "author": "ORY GmbH",
+  "license": "AGPL-3.0",
+  "scripts": {
+    "build": "npm-run-all --parallel build:lib",
+    "build:watch": "npm-run-all --parallel build:lib:watch",
+    "build:lib": "babel ./src --source-maps --ignore test.js --out-dir ./lib",
+    "build:lib:watch": "npm run build:lib -- --watch",
+    "docs": "documentation build ./src/**/*.js --format md --github -o ../../../../docs/api/plugins/divider.md",
+    "prebuild": "npm run clean",
+    "clean": "rimraf \"lib/*\"",
+    "flow:generate": "flow-typed install  --flowVersion=0.46.0"
+  },
+  "peerDependencies": {
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2"
+  },
+  "dependencies": {}
+}

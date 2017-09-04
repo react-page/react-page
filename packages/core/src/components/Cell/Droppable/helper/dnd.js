@@ -1,13 +1,17 @@
 // @flow
 import throttle from 'lodash.throttle'
 import pathOr from 'ramda/src/pathOr'
-
 import {
   computeAndDispatchHover,
   computeAndDispatchInsert
 } from '../../../../service/hover/input'
 import { delay } from '../../../../helper/throttle'
 import logger from '../../../../service/logger'
+import {
+  isNativeHTMLElementDrag,
+  createNativeCellReplacement
+} from '../../../../helper/nativeDragHelpers'
+import type { DropTargetMonitor, DropTargetConnector } from 'dnd-core'
 
 import type { ComponetizedCell } from '../../../../types/editable'
 
@@ -23,13 +27,22 @@ const clear = (hover: ComponetizedCell, drag: string) => {
 
 export const target = {
   hover: throttle(
-    (hover: ComponetizedCell, monitor: Object, component: Object) => {
-      const drag: ComponetizedCell = monitor.getItem()
-
+    (
+      hover: ComponetizedCell,
+      monitor: DropTargetMonitor,
+      component: Object
+    ) => {
+      let drag: ComponetizedCell = monitor.getItem()
       if (!drag) {
         // item undefined, happens when throttle triggers after drop
         return
-      } else if (drag.id === hover.id) {
+      }
+
+      if (isNativeHTMLElementDrag(monitor)) {
+        drag = createNativeCellReplacement()
+      }
+
+      if (drag.id === hover.id) {
         // If hovering over itself, do nothing
         clear(hover, drag.id)
         return
@@ -54,6 +67,7 @@ export const target = {
       )
       computeAndDispatchHover(
         hover,
+        drag,
         monitor,
         component,
         `10x10${allowInlineNeighbours ? '' : '-no-inline'}`
@@ -63,24 +77,32 @@ export const target = {
     { leading: false }
   ),
 
-  canDrop: ({ id, ancestors }: ComponetizedCell, monitor: Object) => {
+  canDrop: (
+    { id, ancestors }: ComponetizedCell,
+    monitor: DropTargetMonitor
+  ) => {
     const item = monitor.getItem()
     return item.id !== id && ancestors.indexOf(item.id) === -1
   },
 
-  drop(hover: ComponetizedCell, monitor: Object, component: Object) {
-    const drag = monitor.getItem()
+  drop(hover: ComponetizedCell, monitor: DropTargetMonitor, component: Object) {
+    let drag: ComponetizedCell = monitor.getItem()
+
+    if (isNativeHTMLElementDrag(monitor)) {
+      const { plugins } = component.props.config
+      drag = plugins.createNativePlugin(hover, monitor, component)
+    }
 
     if (monitor.didDrop() || !monitor.isOver({ shallow: true })) {
       // If the item drop occurred deeper down the tree, don't do anything
       return
     } else if (drag.id === hover.id) {
       // If the item being dropped on itself do nothing
-      hover.cancelCellDrag(drag.id)
+      hover.cancelCellDrag()
       return
     } else if (hover.ancestors.indexOf(drag.id) > -1) {
       // If hovering over a child of itself, don't propagate further
-      hover.cancelCellDrag(drag.id)
+      hover.cancelCellDrag()
       return
     }
 
@@ -92,6 +114,7 @@ export const target = {
     )
     computeAndDispatchInsert(
       hover,
+      drag,
       monitor,
       component,
       `10x10${allowInlineNeighbours ? '' : '-no-inline'}`
@@ -99,7 +122,10 @@ export const target = {
   }
 }
 
-export const connect = (connect: Object, monitor: Object) => ({
+export const connect = (
+  connect: DropTargetConnector,
+  monitor: DropTargetMonitor
+) => ({
   connectDropTarget: connect.dropTarget(),
   isOver: monitor.isOver(),
   isOverCurrent: monitor.isOver({ shallow: true })

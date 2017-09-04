@@ -1,7 +1,13 @@
 // @flow
 import uuid from 'uuid'
 import { satisfies } from 'semver'
-import { ContentPlugin, LayoutPlugin, Plugin } from './classes'
+import {
+  ContentPlugin,
+  LayoutPlugin,
+  Plugin,
+  NativePlugin
+} from './classes'
+import type { ComponetizedCell, NativeFactory } from '../../types/editable'
 import defaultPlugin from './default'
 import { layoutMissing, contentMissing } from './missing'
 
@@ -30,19 +36,55 @@ export const generateMissingIds = (props: Object): Object => {
 export default class PluginService {
   plugins: {
     content: Array<ContentPlugin>,
-    layout: Array<LayoutPlugin>
+    layout: Array<LayoutPlugin>,
+    native?: NativeFactory
   }
 
   /**
    * Instantiate a new PluginService instance. You can provide your own set of content and layout plugins here.
    */
-  constructor({ content = [], layout = [] }: { content: [], layout: [] } = {}) {
+  constructor(
+    {
+      content = [],
+      layout = [],
+      native
+    }: { content: [], layout: [], native?: NativeFactory } = {}
+  ) {
     this.plugins = {
       content: [defaultPlugin, ...content].map(
         (config: any) => new ContentPlugin(config)
       ),
-      layout: layout.map((config: any) => new LayoutPlugin(config))
+      layout: layout.map((config: any) => new LayoutPlugin(config)),
+      native
     }
+  }
+
+  hasNativePlugin = () => Boolean(this.plugins.native)
+
+  getNativePlugin = () => this.plugins.native
+
+  createNativePlugin = (
+    hover: any,
+    monitor: any,
+    component: any
+  ): ComponetizedCell => {
+    const native = this.plugins.native
+
+    if (!native) {
+      const insert = new NativePlugin({})
+      const cell: any = { node: insert, rawNode: () => insert }
+      return cell
+    }
+
+    const plugin = new NativePlugin(native(hover, monitor, component))
+    const initialState = plugin.createInitialState()
+    let insert: any = { content: { plugin, state: initialState } }
+    if (plugin === 'layout') {
+      insert = { layout: { plugin, state: initialState } }
+    }
+
+    const cell: any = { node: insert, rawNode: () => insert }
+    return cell
   }
 
   setLayoutPlugins = (plugins: Array<any> = []) => {

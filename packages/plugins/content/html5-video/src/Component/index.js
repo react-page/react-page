@@ -23,16 +23,16 @@ const HTML5Video = ({
   <div className="ory-content-plugin-html5-video">
     {!readOnly
       ? <BottomToolbar open={focused}>
-        <TextField
-          hintText="https://example.com/video.webm"
-          floatingLabelText="Video url"
-          onChange={changeUrl(onChange)}
-          inputStyle={{ color: 'white' }}
-          floatingLabelStyle={{ color: 'white' }}
-          hintStyle={{ color: 'grey' }}
-          value={url}
-        />
-      </BottomToolbar>
+          <TextField
+            hintText="https://example.com/video.webm"
+            floatingLabelText="Video url"
+            onChange={changeUrl(onChange)}
+            inputStyle={{ color: 'white' }}
+            floatingLabelStyle={{ color: 'white' }}
+            hintStyle={{ color: 'grey' }}
+            value={url}
+          />
+        </BottomToolbar>
       : null}
     <video autoPlay controls loop muted width="100%">
       <source src={url} type={`video/${url.split('.').pop()}`} />

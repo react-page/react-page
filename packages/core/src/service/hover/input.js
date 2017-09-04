@@ -11,11 +11,11 @@ const hoverService = new HoverService()
 export const computeCurrentDropPosition = (
   actions: Callbacks,
   hover: ComponetizedCell,
+  drag: ComponetizedCell,
   monitor: DragSourceMonitor,
   component: Object,
   matrixName: string
 ) => {
-  const drag = monitor.getItem()
   const mousePosition = monitor.getClientOffset()
   /* eslint-disable react/no-find-dom-node */
   const componentPosition = findDOMNode(component).getBoundingClientRect()
@@ -43,6 +43,7 @@ export const computeAndDispatchInsert = (
     clearHover: clear,
     ...hover
   }: ComponetizedCell,
+  drag: ComponetizedCell,
   monitor: DragSourceMonitor,
   component: Object,
   matrixName: string = '10x10'
@@ -58,6 +59,7 @@ export const computeAndDispatchInsert = (
       inlineRight
     },
     hover,
+    drag,
     monitor,
     component,
     matrixName
@@ -74,6 +76,7 @@ export const computeAndDispatchHover = (
     clearHover: clear,
     ...hover
   }: ComponetizedCell,
+  drag: ComponetizedCell,
   monitor: DragSourceMonitor,
   component: Object,
   matrixName: string = '10x10'
@@ -89,6 +92,7 @@ export const computeAndDispatchHover = (
       inlineRight
     },
     hover,
+    drag,
     monitor,
     component,
     matrixName

@@ -158,7 +158,7 @@ export const getMouseHoverCell = ({
 const last = { '10x10': null, '10x10-no-inline': null }
 
 export const computeHover = (
-  item: ComponetizedCell,
+  drag: ComponetizedCell,
   hover: ComponetizedCell,
   actions: Callbacks,
   {
@@ -206,7 +206,7 @@ export const computeHover = (
   }
 
   const all = {
-    item: item.id,
+    item: drag.id,
     hover: hover.id,
     actions,
     ctx: {
@@ -222,7 +222,7 @@ export const computeHover = (
   }
   last[m] = all
 
-  return callbacks[cell](item, hover, actions, {
+  return callbacks[cell](drag, hover, actions, {
     room,
     mouse,
     position: hoverCell,
@@ -638,7 +638,7 @@ export default class HoverService {
   }
 
   hover(
-    item: ComponetizedCell,
+    drag: ComponetizedCell,
     hover: ComponetizedCell,
     actions: Callbacks,
     {
@@ -648,7 +648,7 @@ export default class HoverService {
     }: { room: Room, mouse: Vector, matrix: string }
   ) {
     return computeHover(
-      item,
+      drag,
       hover,
       actions,
       {
