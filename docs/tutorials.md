@@ -284,3 +284,63 @@ ReactDOM.render((
 ), element)
 ```
 
+## Handling native drag events
+
+The ORY Editor is capable of handling native drag and drop events. Native events include dragging of links, text,
+and images. Native drag support can be enabled by writing a `NativePlugin` and passing it during instantiation.
+In this example, we will use the default plugin, and take a look at how you can create your own later.
+
+```jsx
+import native from 'ory-editor-plugins-default-native'
+
+const editor = new Editor({
+  plugins: {
+   layout: [],
+   content: [],
+   native
+ }
+})
+```
+
+If native is undefined or null, native dragging wil be disabled. This is the default setting.
+
+Writing a native plugin is like writing a content or layout plugin. The only difference is that our native plugin must
+be wrapped in a factory that receives three arguments - `hover`, `monitor`, and `component`. Hover is the cell or row
+that is currently being hovered. Monitor is the [DropTargetMonitor](https://react-dnd.github.io/react-dnd/docs-drop-target-monitor.html)
+coming from react-dnd and `component` is the React component of the cell or row that is currently being hovered.
+
+In sum, an exemplary plugin looks like this:
+
+```jsx
+import React from 'react'
+
+const Native = () => <div>native</div>
+
+export default (hover, monitor, component) => ({
+  Component: Native,
+  name: 'my-native-plugin',
+  version: '0.0.1'
+})
+```
+
+Because this plugin is wrapped in a factory, we are able to modify its behaviour based on the properties we receive.
+One such example would be to add the item's data to the initial state for later use.
+
+```jsx
+export default (hover, monitor, component) => ({
+  // ...
+  createInitialState: () => ({
+    item: monitor.getItem()
+  })
+})
+```
+
+Per default, the editor assumes that dropping the native element creates a content cell. To change this behaviour, use
+the key `type`:
+
+```jsx
+export default (hover, monitor, component) => ({
+  // ...
+  type: 'layout'
+})
+```
