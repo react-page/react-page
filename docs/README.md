@@ -1,12 +1,15 @@
 # Introduction
 
-Welcome to the ORY Editor guide. Seeing is believing, so let's start with a demo!
+Welcome to the ORY Editor guide. Please be aware that the ORY Editor requires substantial knowledge of ReactJS, build tools
+like webpack, and ES6. If you lack this knowledge ask in our [Chat](https://gitter.im/ory-am/editor) for help.
 
 ## Demonstration
 
+Seeing is believing, so let's start with a demo!
+
 ![ORY Editor Demo](https://storage.googleapis.com/ory.am/inline-edit-lg.gif)
 
-This a demo available at [editor.ory.am](http://editor.ory.am/) so go ahead and try it yourself!
+A demo available at [editor.ory.am](https://editor.ory.am/) so go ahead and try it yourself!
 
 ## Why it's different
 
@@ -37,43 +40,52 @@ The ORY Editor is primarily a tool to create and modify layouts. At the core, th
 system is very similar to the [bootstrap grid system](http://getbootstrap.com/css/#grid) where you have
 rows and columns.
 
-An empty editable ("document") is a cell without any children. As you create new cells, the structure quickly changes to something like this:
+An exemplary structure of an editable (other editors call this "document") could be the following:
 
 ```
 1. Editable
-  1. Cell
-    1. Row
-      1. Cell (text)
-      2. Cell (parallax background image)
-        1. Row 
-          1. Cell (image)
-          2. Cell (image)
-    2. Row
-      1. Cell (image)
-      2. Cell (image)
++-1. Container cell
+  +-1. Row
+  | +-1. Cell (text)
+  | |-2. Cell (parallax background image)
+  |   +-1. Row 
+  |     +-1. Cell (image)
+  |     |-2. Cell (image)
+  |-2. Row
+  | +-1. Cell (image)
+  | |-2. Cell (image)
 ```
 
-Cells can be populated with plugins, such as a text editor or rich media (video, audio). There are two types of cells,
-*layout cells* and *content cells*. Content cells are always leafs in the tree, meaning that they do not have any children.
-Layout cells are always branches, meaning that they do have children. A content cell is usually text, media (video, audio) whilst
-layout cells are usually things like a spoiler box, a parallax background image and so on.
+There are four distinct data types:
+
+1. **Editable** (`1.` in the tree) - the editable is a container for cells and rows. You can have multiple editables
+on a page and it is possible to drag and drop cells from one editable to another.
+2. **Container cell** (`1.1` in the tree) - the container cell is a cell without a plugin and gives structure to the tree.
+These cells are generated automatically when required and also removed automatically when no longer required.
+3. **Content cell** (`1.1.1`, `1.2.1`, ... in the tree) - the content cell is always a leaf in the tree (it has no children) and its
+behaviour is defined by a **content plugin** (which can be written by you or downloaded from npm). A content plugin is usually something
+like rich text, video, audio, a soundcloud widget and so on.
+4. **Layout cell** - the layout cell contains a list of nested cells and rows (container, content, layout). The idea of the
+layout cell is that it gives its children a layout (e.g. a parallax background, a spoiler box, a box where all text is red).
+What the layout looks like is defined by by a **layout plugin**. A layout cell must always have at least one child or
+it will be automatically removed.
 
 <p>
   <figure align="center">
     <img alt="A content cell" src="/images/content-cell.png"><br>
-    <figcaption>A content cell</figcaption>
+    <figcaption align="center"><em>A content cell with the image plugin</em></figcaption>
   </figure>
 </p>
-
-In the example above, cells 1.1.1.1, 1.1.1.2.1.1, 1.1.1.2.1.2 are all content cells, because they do not have any children rows.
-Cells 1.1, 1.1.1.2 are layout cells, because they do have children rows.
 
 <p>
   <figure align="center">
     <img alt="A layout cell" src="/images/layout-cell.gif"><br>
-    <figcaption>A layout cell</figcaption>
+    <figcaption align="center"><em>A layout cell with a switchable background image plugin</em></figcaption>
   </figure>
 </p>
 
-Content and layout plugins are simple React components that receive properties such as `onChange`, `readOnly`, `state` by the editor
-and render and execute arbitrary logic. The data model can be chosen freely by the plugin author.
+The grid system is baked into the ORY Editor. It takes care of any drag and drop logic, resizing, focus detection and so
+on. As a developer, you will primarily extend the functionality using layout and content plugins. Additionally,
+the editor takes care of the whole data model. The plugins are just simple ReactJS components that receive
+properties such as `onChange`, `readOnly`, `state` by the editor. You will learn in later sections how plugins
+work exactly, what their API looks like, and also how to write your own.

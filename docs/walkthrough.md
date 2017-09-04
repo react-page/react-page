@@ -1,4 +1,4 @@
-# Walkthrough
+# Core plugins
 
 ## Packages
 
