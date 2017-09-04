@@ -4,44 +4,26 @@
 /* eslint prefer-reflect: ["off"] */
 import Subject from 'material-ui/svg-icons/action/subject'
 import { compose, flatten, map, mergeAll, prop, pathOr } from 'ramda'
+import { Html } from 'slate'
 import React from 'react'
 import { ActionTypes } from 'redux-undo'
 import Component from './Component'
 import type { Props } from './Component'
-
-import AlignmentPlugin from './plugins/alignment'
-import BlockquotePlugin from './plugins/blockquote'
-import CodePlugin from './plugins/code'
-import EmphasizePlugin from './plugins/emphasize'
-import HeadingsPlugin from './plugins/headings'
-import LinkPlugin from './plugins/link'
-import ListsPlugin from './plugins/lists'
-import ParagraphPlugin, { P } from './plugins/paragraph'
 import Plugin from './plugins/Plugin'
 // import KatexPlugin from './plugins/katex'
 import * as hooks from './hooks'
 
-const { html } = hooks
-
 const createNodes = compose(mergeAll, map(prop('nodes')))
 const createMarks = compose(mergeAll, map(prop('marks')))
 const createPlugins = compose(flatten, map(prop('plugins')))
-const DEFAULT_NODE = P
 
 export const createInitialState = hooks.createInitialState
-export const defaultPlugins = [
-  new ParagraphPlugin(),
-  new EmphasizePlugin(),
-  new HeadingsPlugin({ DEFAULT_NODE }),
-  new LinkPlugin(),
-  new CodePlugin({ DEFAULT_NODE }),
-  new ListsPlugin({ DEFAULT_NODE }),
-  new BlockquotePlugin({ DEFAULT_NODE }),
-  new AlignmentPlugin()
-  // new KatexPlugin({ DEFAULT_NODE })
-]
 
-export default (plugins: Plugin[] = defaultPlugins) => {
+export const html = new Html({
+  rules: [...hooks.defaultPlugins, hooks.lineBreakSerializer]
+})
+
+export default (plugins: Plugin[] = hooks.defaultPlugins) => {
   const props = {}
   props.schema = {
     nodes: createNodes(plugins),
