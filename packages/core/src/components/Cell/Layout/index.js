@@ -113,14 +113,14 @@ class Layout extends React.Component {
           readOnly={!isEditMode}
           onChange={updateCellLayout}
         >
-          {rows.map((r: string) =>
+          {rows.map((r: string) => (
             <Row
               editable={editable}
               ancestors={[...ancestors, id]}
               key={r}
               id={r}
             />
-          )}
+          ))}
         </Component>
       </div>
     )

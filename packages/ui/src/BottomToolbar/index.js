@@ -13,7 +13,7 @@ const BottomToolbar = ({
   open?: boolean,
   children?: Object,
   className?: string
-}) =>
+}) => (
   <MuiThemeProvider muiTheme={getMuiTheme()}>
     <Drawer
       className={className}
@@ -49,5 +49,6 @@ const BottomToolbar = ({
       </div>
     </Drawer>
   </MuiThemeProvider>
+)
 
 export default BottomToolbar

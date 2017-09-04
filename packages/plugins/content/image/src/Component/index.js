@@ -8,9 +8,10 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 
 export type PropTypes = ContentPluginProps<{ src: string, caption: string }>
 
-const Image = (props: PropTypes) =>
+const Image = (props: PropTypes) => (
   <MuiThemeProvider muiTheme={getMuiTheme()}>
     {props.readOnly ? <Display {...props} /> : <Form {...props} />}
   </MuiThemeProvider>
+)
 
 export default Image

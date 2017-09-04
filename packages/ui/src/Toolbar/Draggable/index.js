@@ -42,11 +42,7 @@ class Draggable extends Component {
       'ory-toolbar-draggable'
     )
 
-    return connectDragSource(
-      <div className={classes}>
-        {children}
-      </div>
-    )
+    return connectDragSource(<div className={classes}>{children}</div>)
   }
 }
 

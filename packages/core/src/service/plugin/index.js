@@ -1,12 +1,7 @@
 // @flow
 import uuid from 'uuid'
 import { satisfies } from 'semver'
-import {
-  ContentPlugin,
-  LayoutPlugin,
-  Plugin,
-  NativePlugin
-} from './classes'
+import { ContentPlugin, LayoutPlugin, Plugin, NativePlugin } from './classes'
 import type { ComponetizedCell, NativeFactory } from '../../types/editable'
 import defaultPlugin from './default'
 import { layoutMissing, contentMissing } from './missing'

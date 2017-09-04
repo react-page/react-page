@@ -14,13 +14,14 @@ const Inner = ({
 }: {
   isResizeMode: boolean,
   resizeMode: Function
-}) =>
+}) => (
   <Button
     icon={<Resize />}
     description="Resize things"
     active={isResizeMode}
     onClick={resizeMode}
   />
+)
 
 const mapStateToProps = createStructuredSelector({ isResizeMode })
 const mapDispatchToProps = { resizeMode }

@@ -15,14 +15,14 @@ class Rows extends Component {
 
     return (
       <div className="ory-cell-inner ory-cell-rows">
-        {rows.map((r: string) =>
+        {rows.map((r: string) => (
           <Row
             editable={editable}
             ancestors={[...ancestors, id]}
             id={r}
             key={r}
           />
-        )}
+        ))}
       </div>
     )
   }

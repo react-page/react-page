@@ -87,8 +87,10 @@ describe('PluginService', () => {
 
   it('should tell me when no native plugin is set', () => {
     const plugins = new PluginService({
-      content, layout, native: () => ({
-        Component: () => (<div />),
+      content,
+      layout,
+      native: () => ({
+        Component: () => <div />,
         name: 'ory/editor/core/content/default-native',
         version: '0.0.1',
         createInitialState: () => ({})

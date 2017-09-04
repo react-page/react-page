@@ -46,7 +46,10 @@ class Button extends Component {
     )
 
     if (hasLinks) {
-      const newState = editorState.transform().unwrapInline(A).apply()
+      const newState = editorState
+        .transform()
+        .unwrapInline(A)
+        .apply()
       onChange(newState)
     } else if (editorState.isExpanded) {
       this.setState({
@@ -70,7 +73,10 @@ class Button extends Component {
   handleClose = () => {
     this.setState({ open: false })
 
-    const newState = this.props.editorState.transform().focus().apply()
+    const newState = this.props.editorState
+      .transform()
+      .focus()
+      .apply()
     window.setTimeout(() => this.props.onChange(newState), 1)
   }
 
@@ -165,15 +171,15 @@ class Button extends Component {
               open={this.state.open}
               actions={[actions]}
             >
-              {this.state.wasExpanded
-                ? null
-                : <div>
-                    <TextField
-                      hintText="Link title"
-                      onChange={this.onTitleChange}
-                      value={this.state.title}
-                    />
-                  </div>}
+              {this.state.wasExpanded ? null : (
+                <div>
+                  <TextField
+                    hintText="Link title"
+                    onChange={this.onTitleChange}
+                    value={this.state.title}
+                  />
+                </div>
+              )}
               <div ref={this.onRef}>
                 <TextField
                   hintText="http://example.com/my/link.html"
@@ -218,11 +224,7 @@ export default class LinkPlugin extends Plugin {
     }
     switch (object.type) {
       case A:
-        return (
-          <a href={object.data.get('href')}>
-            {children}
-          </a>
-        )
+        return <a href={object.data.get('href')}>{children}</a>
     }
   }
 }

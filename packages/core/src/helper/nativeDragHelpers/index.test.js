@@ -1,6 +1,6 @@
 import unexpected from 'unexpected'
 import { NativeTypes } from 'react-dnd-html5-backend'
-import {isNativeHTMLElementDrag} from './index'
+import { isNativeHTMLElementDrag } from './index'
 
 const expect = unexpected.clone()
 

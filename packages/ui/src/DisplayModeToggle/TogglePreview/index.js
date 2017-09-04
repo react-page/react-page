@@ -14,13 +14,14 @@ const Inner = ({
 }: {
   isPreviewMode: boolean,
   previewMode: Function
-}) =>
+}) => (
   <Button
     icon={<Devices />}
     description="Preview result"
     active={isPreviewMode}
     onClick={previewMode}
   />
+)
 
 const mapStateToProps = createStructuredSelector({ isPreviewMode })
 const mapDispatchToProps = { previewMode }
