@@ -65,26 +65,26 @@ export default class EmphasizePlugin extends Plugin {
   ]
 
   deserialize = (el, next) => {
-    switch (el.tagName) {
+    switch (el.tagName.toLowerCase()) {
       case 'strong':
       case 'b':
         return {
           kind: 'mark',
           type: STRONG,
-          nodes: next(el.children)
+          nodes: next(el.childNodes)
         }
       case 'em':
       case 'i':
         return {
           kind: 'mark',
           type: EM,
-          nodes: next(el.children)
+          nodes: next(el.childNodes)
         }
       case 'u':
         return {
           kind: 'mark',
           type: U,
-          nodes: next(el.children)
+          nodes: next(el.childNodes)
         }
     }
   }

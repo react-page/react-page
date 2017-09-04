@@ -92,24 +92,24 @@ export default class ListsPlugin extends Plugin {
   ]
 
   deserialize = (el, next) => {
-    switch (el.tagName) {
+    switch (el.tagName.toLowerCase()) {
       case 'ul':
         return {
           kind: 'block',
           type: UL,
-          nodes: next(el.children)
+          nodes: next(el.childNodes)
         }
       case 'li':
         return {
           kind: 'block',
           type: LI,
-          nodes: next(el.children)
+          nodes: next(el.childNodes)
         }
       case 'ol':
         return {
           kind: 'block',
           type: OL,
-          nodes: next(el.children)
+          nodes: next(el.childNodes)
         }
     }
   }

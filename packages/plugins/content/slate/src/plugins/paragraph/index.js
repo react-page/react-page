@@ -12,12 +12,12 @@ export default class ParagraphPlugin extends Plugin {
   nodes = { [P]: Paragraph }
 
   deserialize = (el: any, next: any) => {
-    switch (el.tagName) {
+    switch (el.tagName.toLowerCase()) {
       case 'p':
         return {
           kind: 'block',
           type: P,
-          nodes: next(el.children)
+          nodes: next(el.childNodes)
           // data: Data.create({ textAlign: el.attr('styles')['text-align'] })
         }
     }

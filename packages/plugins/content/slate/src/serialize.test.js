@@ -1,7 +1,5 @@
-import { Raw, Html } from 'slate'
-import { defaultPlugins } from './index'
-
-const html = new Html({ rules: defaultPlugins })
+import { Raw } from 'slate'
+import { html } from './hooks'
 
 describe('serialize to html', () => {
   ;[

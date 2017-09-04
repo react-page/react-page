@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "babel-polyfill": "^6.23.0",
-    "material-ui": "^0.16.7",
+    "material-ui": "^0.19.1",
     "ory-editor-core": "0.0.0",
     "ory-editor-plugins-divider": "0.0.0",
     "ory-editor-plugins-image": "0.0.0",
