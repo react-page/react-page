@@ -9,13 +9,33 @@ import reduce from 'ramda/src/reduce'
 import tail from 'ramda/src/tail'
 import React from 'react'
 import type { Props } from './Component'
-import { defaultPlugins } from './index'
-import { P } from './plugins/paragraph'
+import AlignmentPlugin from './plugins/alignment'
+import BlockquotePlugin from './plugins/blockquote'
+import CodePlugin from './plugins/code'
+import EmphasizePlugin from './plugins/emphasize'
+import HeadingsPlugin from './plugins/headings'
+import LinkPlugin from './plugins/link'
+import ListsPlugin from './plugins/lists'
+import ParagraphPlugin, { P } from './plugins/paragraph'
+
+const DEFAULT_NODE = P
+
+export const defaultPlugins = [
+  new ParagraphPlugin(),
+  new EmphasizePlugin(),
+  new HeadingsPlugin({ DEFAULT_NODE }),
+  new LinkPlugin(),
+  new CodePlugin({ DEFAULT_NODE }),
+  new ListsPlugin({ DEFAULT_NODE }),
+  new BlockquotePlugin({ DEFAULT_NODE }),
+  new AlignmentPlugin()
+  // new KatexPlugin({ DEFAULT_NODE })
+]
 
 // FIXME #126
 import { Document, Html, Raw, State, Plain } from 'slate'
 
-const lineBreakSerializer = {
+export const lineBreakSerializer = {
   deserialize(el) {
     if (el.tagName.toLowerCase() === 'br') {
       return { kind: 'text', text: '\n' }
