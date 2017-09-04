@@ -15,7 +15,22 @@ import { P } from './plugins/paragraph'
 // FIXME #126
 import { Document, Html, Raw, State, Plain } from 'slate'
 
-export const html = new Html({ rules: defaultPlugins })
+const lineBreakSerializer = {
+  deserialize(el) {
+    if (el.tagName.toLowerCase() === 'br') {
+      return { kind: 'text', text: '\n' }
+    }
+  },
+  serialize(object, children) {
+    if (object.type === 'text' || children === '\n') {
+      return <br />
+    }
+  }
+}
+
+export const html = new Html({
+  rules: [...defaultPlugins, lineBreakSerializer]
+})
 
 const options = { terse: true }
 

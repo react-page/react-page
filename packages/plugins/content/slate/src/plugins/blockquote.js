@@ -75,12 +75,12 @@ export default class BlockquotePlugin extends Plugin {
   toolbarButtons = [this.Button]
 
   deserialize = (el, next) => {
-    switch (el.tagName) {
+    switch (el.tagName.toLowerCase()) {
       case 'blockquote':
         return {
           kind: 'block',
           type: BLOCKQUOTE,
-          nodes: next(el.children)
+          nodes: next(el.childNodes)
         }
     }
   }

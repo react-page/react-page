@@ -22,6 +22,6 @@
     "react-tap-event-plugin": "^2.0.1"
   },
   "dependencies": {
-    "material-ui": "^0.18.0"
+    "material-ui": "^0.19.1"
   }
 }

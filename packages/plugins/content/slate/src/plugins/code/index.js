@@ -67,19 +67,19 @@ export default class CodePlugin extends Plugin {
   toolbarButtons = [this.createNodeButton(CODE, <CodeIcon />)]
 
   deserialize = (el, next) => {
-    switch (el.tagName) {
+    switch (el.tagName.toLowerCase()) {
       case 'code':
         return {
           kind: 'mark',
           type: CODE,
           data: Data.create({}),
-          nodes: next(el.children)
+          nodes: next(el.childNodes)
         }
       case 'pre':
         return {
           kind: 'block',
           type: CODE,
-          nodes: next(el.children)
+          nodes: next(el.childNodes)
         }
     }
   }

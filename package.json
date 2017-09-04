@@ -53,7 +53,7 @@
     "test": "cross-env NODE_ENV=test jest --coverage",
     "test:watch": "cross-env NODE_ENV=test jest --watch",
     "watch:js": "chokidar \"+(packages)/*/src/**/*.js\" \"+(packages)/plugins/*/src/**/*.js\" --initial",
-    "postinstall": "npm-run-all clean bootstrap build:lib",
+    "postinstall": "npm-run-all clean clean:lerna bootstrap build:lib",
     "serve": "pushstate-server ./examples/build",
     "heroku-prebuild": "git init",
     "heroku-postbuild": "npm run build"

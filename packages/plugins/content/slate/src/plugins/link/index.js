@@ -198,13 +198,13 @@ export default class LinkPlugin extends Plugin {
   toolbarButtons = [Button]
 
   deserialize = (el, next) => {
-    switch (el.tagName) {
+    switch (el.tagName.toLowerCase()) {
       case 'a':
         return {
           kind: 'inline',
           type: A,
-          nodes: next(el.children),
-          data: Data.create({ href: el.attribs.href })
+          nodes: next(el.childNodes),
+          data: Data.create({ href: el.getAttribute('href') })
         }
     }
   }

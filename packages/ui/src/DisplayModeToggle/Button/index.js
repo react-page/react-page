@@ -1,7 +1,7 @@
 // @flow
 import React from 'react'
 import FloatingActionButton from 'material-ui/FloatingActionButton'
-import device from 'device.js'
+import { device } from 'device.js'
 
 const Button = ({
   description,
@@ -21,7 +21,7 @@ const Button = ({
     <div className="ory-controls-mode-toggle-button-inner">
       <FloatingActionButton
         secondary={active}
-        mini={device().mobile()}
+        mini={device.mobile}
         onTouchTap={onClick}
         disabled={disabled}
       >

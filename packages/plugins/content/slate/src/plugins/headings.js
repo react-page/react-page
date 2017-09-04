@@ -22,7 +22,7 @@ const createNode = (type: string, el: any, next: any) => ({
   kind: 'block',
   type,
   // data: Data.create({ style: el.attribs.style }),
-  nodes: next(el.children)
+  nodes: next(el.childNodes)
 })
 
 export default class HeadingsPlugin extends Plugin {
@@ -75,7 +75,7 @@ export default class HeadingsPlugin extends Plugin {
   ]
 
   deserialize = (el, next) => {
-    switch (el.tagName) {
+    switch (el.tagName.toLowerCase()) {
       case 'h1':
         return createNode(H1, el, next)
       case 'h2':
