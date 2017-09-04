@@ -59,9 +59,9 @@ export default class PluginService {
     }
   }
 
-  hasNativePlugin = () => {
-    return Boolean(this.plugins.native)
-  }
+  hasNativePlugin = () => Boolean(this.plugins.native)
+
+  getNativePlugin = () => this.plugins.native
 
   createNativePlugin = (
     hover: any,
