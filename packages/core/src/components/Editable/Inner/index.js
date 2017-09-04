@@ -52,7 +52,7 @@ class Inner extends Component {
     const { cells = [] } = node
     return (
       <div className="ory-editable ory-prevent-blur">
-        {cells.map((c: string) =>
+        {cells.map((c: string) => (
           <Cell
             rowWidth={containerWidth}
             rowHeight={containerHeight}
@@ -61,7 +61,7 @@ class Inner extends Component {
             key={c}
             id={c}
           />
-        )}
+        ))}
       </div>
     )
   }

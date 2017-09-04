@@ -2,7 +2,7 @@
 import React from 'react'
 import type { ContentPluginProps } from './classes'
 
-const ContentMissingComponent = (props: ContentPluginProps<{}>) =>
+const ContentMissingComponent = (props: ContentPluginProps<{}>) => (
   <div
     style={{
       backgroundColor: 'red',
@@ -15,13 +15,14 @@ const ContentMissingComponent = (props: ContentPluginProps<{}>) =>
     The requested content plugin could not be found.
     <pre>{JSON.stringify(props, null, 2)}</pre>
   </div>
+)
 
 export const contentMissing = (plugin: { name: string, version: string }) => ({
   Component: ContentMissingComponent,
   ...plugin
 })
 
-const LayoutMissingComponent = ({ children, ...props }: any) =>
+const LayoutMissingComponent = ({ children, ...props }: any) => (
   <div>
     <div
       style={{
@@ -37,6 +38,7 @@ const LayoutMissingComponent = ({ children, ...props }: any) =>
     </div>
     {children}
   </div>
+)
 
 export const layoutMissing = (plugin: { name: string, version: string }) => ({
   Component: LayoutMissingComponent,

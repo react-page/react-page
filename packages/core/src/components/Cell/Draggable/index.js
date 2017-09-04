@@ -75,9 +75,7 @@ class Draggable extends Component {
           })}
         >
           <div className="ory-cell-draggable-overlay-description">
-            <span>
-              {name}
-            </span>
+            <span>{name}</span>
           </div>
         </div>
         {children}

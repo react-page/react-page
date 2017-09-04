@@ -22,16 +22,12 @@ class Droppable extends Component {
   render() {
     if (!(this.props.isLayoutMode || this.props.isInsertMode)) {
       return (
-        <div className="ory-row-droppable-container">
-          {this.props.children}
-        </div>
+        <div className="ory-row-droppable-container">{this.props.children}</div>
       )
     }
 
     return this.props.connectDropTarget(
-      <div className="ory-row-droppable">
-        {this.props.children}
-      </div>
+      <div className="ory-row-droppable">{this.props.children}</div>
     )
   }
 }

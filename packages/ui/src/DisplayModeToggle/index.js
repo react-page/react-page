@@ -8,7 +8,7 @@ import ToggleLayout from './ToggleLayout'
 import TogglePreview from './TogglePreview'
 import ToggleResize from './ToggleResize'
 
-const Inner = (props: any) =>
+const Inner = (props: any) => (
   <Provider {...props}>
     <div className="ory-controls-mode-toggle-control-group">
       <div className="ory-controls-mode-toggle-control">
@@ -37,5 +37,6 @@ const Inner = (props: any) =>
       </div>
     </div>
   </Provider>
+)
 
 export default Inner

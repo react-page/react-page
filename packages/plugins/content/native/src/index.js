@@ -1,16 +1,18 @@
 // @flow
 import React from 'react'
 
-const Native = ({ state: { item, itemType } }: { state: { itemType: string, item: string } }) => (
+const Native = ({
+  state: { item, itemType }
+}: {
+  state: { itemType: string, item: string }
+}) => (
   <div>
     <p>
       This is a default plugin that handles native drag events of type{' '}
       <code>{itemType}</code>.<br />
       It contained the following payload:
     </p>
-    <pre>
-      {JSON.stringify(item, null, 2)}
-    </pre>
+    <pre>{JSON.stringify(item, null, 2)}</pre>
   </div>
 )
 

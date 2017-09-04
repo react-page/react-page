@@ -13,15 +13,15 @@ const Default = ({
   state: { value },
   onChange
 }: ContentPluginProps<{ value: string }>) =>
-  readOnly
-    ? <div>
-        {value}
-      </div>
-    : <textarea
-        style={{ width: '100%' }}
-        value={value}
-        onChange={handleChange(onChange)}
-      />
+  readOnly ? (
+    <div>{value}</div>
+  ) : (
+    <textarea
+      style={{ width: '100%' }}
+      value={value}
+      onChange={handleChange(onChange)}
+    />
+  )
 
 export default {
   Component: Default,

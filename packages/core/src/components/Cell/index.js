@@ -67,20 +67,22 @@ class Cell extends Component {
         })}
         onClick={stopClick(isEditMode)}
       >
-        {resizable && isResizeMode
-          ? <Resizable
-              {...this.props}
-              id={id}
-              rowWidth={rowWidth}
-              rowHeight={rowHeight}
-              updateDimensions={updateDimensions}
-              node={this.props.node}
-              steps={12}
-              onChange={this.props.resizeCell}
-            >
-              <Inner {...this.props} styles={null} />
-            </Resizable>
-          : <Inner {...this.props} styles={null} />}
+        {resizable && isResizeMode ? (
+          <Resizable
+            {...this.props}
+            id={id}
+            rowWidth={rowWidth}
+            rowHeight={rowHeight}
+            updateDimensions={updateDimensions}
+            node={this.props.node}
+            steps={12}
+            onChange={this.props.resizeCell}
+          >
+            <Inner {...this.props} styles={null} />
+          </Resizable>
+        ) : (
+          <Inner {...this.props} styles={null} />
+        )}
       </div>
     )
   }

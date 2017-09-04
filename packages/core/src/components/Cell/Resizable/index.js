@@ -68,9 +68,7 @@ class Resizable extends Component {
         height={0}
       >
         {/* this div needs to be kept or resize will be broken */}
-        <div>
-          {children}
-        </div>
+        <div>{children}</div>
       </ReactResizeable>
     )
   }

@@ -3,10 +3,9 @@ import React from 'react'
 import { HTMLRenderer } from './index.js'
 import slate from 'ory-editor-plugins-slate'
 
-const Layout = ({ children, state: { className } }) =>
-  <div className={`${className}`}>
-    {children}
-  </div>
+const Layout = ({ children, state: { className } }) => (
+  <div className={`${className}`}>{children}</div>
+)
 
 const plugins = {
   content: [slate()],

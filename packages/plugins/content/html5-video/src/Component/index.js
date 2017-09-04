@@ -19,24 +19,25 @@ const HTML5Video = ({
   onChange: any,
   state: { url: string },
   focused: boolean
-}) =>
+}) => (
   <div className="ory-content-plugin-html5-video">
-    {!readOnly
-      ? <BottomToolbar open={focused}>
-          <TextField
-            hintText="https://example.com/video.webm"
-            floatingLabelText="Video url"
-            onChange={changeUrl(onChange)}
-            inputStyle={{ color: 'white' }}
-            floatingLabelStyle={{ color: 'white' }}
-            hintStyle={{ color: 'grey' }}
-            value={url}
-          />
-        </BottomToolbar>
-      : null}
+    {!readOnly ? (
+      <BottomToolbar open={focused}>
+        <TextField
+          hintText="https://example.com/video.webm"
+          floatingLabelText="Video url"
+          onChange={changeUrl(onChange)}
+          inputStyle={{ color: 'white' }}
+          floatingLabelStyle={{ color: 'white' }}
+          hintStyle={{ color: 'grey' }}
+          value={url}
+        />
+      </BottomToolbar>
+    ) : null}
     <video autoPlay controls loop muted width="100%">
       <source src={url} type={`video/${url.split('.').pop()}`} />
     </video>
   </div>
+)
 
 export default HTML5Video

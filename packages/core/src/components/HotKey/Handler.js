@@ -126,10 +126,11 @@ const handlers = (props: Props) => {
   }
 }
 
-const Decorator = (props: Props) =>
+const Decorator = (props: Props) => (
   <HotKeys handlers={handlers(props)} style={{ outline: 'none' }}>
     {props.children}
   </HotKeys>
+)
 
 const mapStateToProps = createStructuredSelector({
   isEditMode,

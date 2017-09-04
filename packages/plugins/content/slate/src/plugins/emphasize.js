@@ -16,7 +16,12 @@ const createButton = (type, icon) => ({ editorState, onChange }: Props) => {
   const onClick = e => {
     e.preventDefault()
 
-    onChange(editorState.transform().toggleMark(type).apply())
+    onChange(
+      editorState
+        .transform()
+        .toggleMark(type)
+        .apply()
+    )
   }
 
   const isActive =
@@ -54,7 +59,10 @@ export default class EmphasizePlugin extends Plugin {
           return
       }
 
-      return state.transform().toggleMark(mark).apply()
+      return state
+        .transform()
+        .toggleMark(mark)
+        .apply()
     }
   }
 
@@ -95,23 +103,11 @@ export default class EmphasizePlugin extends Plugin {
     }
     switch (object.type) {
       case STRONG:
-        return (
-          <strong>
-            {children}
-          </strong>
-        )
+        return <strong>{children}</strong>
       case EM:
-        return (
-          <em>
-            {children}
-          </em>
-        )
+        return <em>{children}</em>
       case U:
-        return (
-          <u>
-            {children}
-          </u>
-        )
+        return <u>{children}</u>
     }
   }
 }

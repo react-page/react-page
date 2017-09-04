@@ -104,9 +104,10 @@ const Decorated = connect(mapStateToProps, mapDispatchToProps)(
   dropTarget(types, target, connectMonitor)(Raw)
 )
 
-const Trash = (props: any) =>
+const Trash = (props: any) => (
   <Provider {...props}>
     <Decorated {...props} />
   </Provider>
+)
 
 export default Trash
