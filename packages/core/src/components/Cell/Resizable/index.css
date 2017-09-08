@@ -1,20 +1,21 @@
 @keyframes oryCellResizeableAnimate {
   0% {
-    background-color: var(--minBlack);
+    background-color: var(--minWhite);
     top: 45%;
     bottom: 45%;
   }
   50% {
-    background-color: var(--faintBlack);
+    background-color: var(--faintWhite);
     top: 0;
     bottom: 0;
   }
   100% {
-    background-color: var(--darkBlack);
+    background-color: var(--darkWhite);
     top: 45%;
     bottom: 45%;
   }
 }
+
 .ory-cell-resizable-inline-right > .react-resizable-handle {
   left: -4px;
 }
@@ -27,11 +28,14 @@
   bottom: 0;
   right: -2px;
   cursor: e-resize;
+  background-color: var(--lightBlack);
+  mix-blend-mode: difference;
+  transition: all 200ms linear;
 }
 
 .ory-cell-resizable.react-resizable > .react-resizable-handle:after {
   content: " ";
-  background-color: var(--darkBlack);
+  background-color: var(--darkWhite);
   /* width: 30px; */
   /* height: 30px; */
   position: absolute;
@@ -41,6 +45,7 @@
   left: 0;
   right: 0;
   transition: all 200ms linear;
+  mix-blend-mode: normal;
 
   animation-name: oryCellResizeableAnimate;
   animation-iteration-count: 1;
@@ -50,7 +55,7 @@
 
 .ory-cell-resizable.react-resizable > .react-resizable-handle:hover:after,
 .ory-cell-resizable.react-resizable > .react-resizable-handle:active:after {
-  background-color: black;
+  background-color: var(--fullWhite);
   top: 0;
   bottom: 0;
 }

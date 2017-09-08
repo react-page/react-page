@@ -288,3 +288,5 @@ var faintBlack = exports.faintBlack = 'rgba(0, 0, 0, 0.12)';
 var fullWhite = exports.fullWhite = 'rgba(255, 255, 255, 1)';
 var darkWhite = exports.darkWhite = 'rgba(255, 255, 255, 0.87)';
 var lightWhite = exports.lightWhite = 'rgba(255, 255, 255, 0.54)';
+var minWhite = exports.minWhite = 'rgba(255, 255, 255, 0.26)';
+var faintWhite = exports.faintWhite = 'rgba(255, 255, 255, 0.12)';
