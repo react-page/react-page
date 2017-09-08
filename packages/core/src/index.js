@@ -52,7 +52,7 @@ class Editor {
   plugins: PluginService
   middleware: []
 
-  dragDropBackend: any = null
+  dragDropContext: any
   defaultPlugin: any
 
   constructor(
