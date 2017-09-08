@@ -17,7 +17,7 @@ type PropTypes = {
     plugins: PluginService,
     store: Store,
     defaultPlugin: any,
-    dragDropBackend: any
+    dragDropContext: any
   },
   onChange?: Function
 }
