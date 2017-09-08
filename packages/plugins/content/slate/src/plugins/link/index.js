@@ -204,7 +204,6 @@ export default class LinkPlugin extends Plugin {
   toolbarButtons = [Button]
 
   deserialize = (el, next) => {
-    console.log(el.attrs)
     switch (el.tagName.toLowerCase()) {
       case 'a':
         return {
