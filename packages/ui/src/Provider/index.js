@@ -11,7 +11,7 @@ type PropTypes = { editor: Editor, children: [] }
 class Provider extends Component {
   constructor(props: PropTypes) {
     super(props)
-    this.DragDropContext = dragDropContext(props.editor.dragDropContext)
+    this.DragDropContext = dragDropContext(props.editor.dragDropBackend)
   }
 
   props: PropTypes
