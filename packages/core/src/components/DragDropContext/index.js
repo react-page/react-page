@@ -1,7 +1,5 @@
 // @flow
 import React, { Component } from 'react'
-import HTML5Backend from 'react-dnd-html5-backend'
-import { DragDropContext as dragDropContext } from 'react-dnd'
 
 import { shouldPureComponentUpdate } from '../../helper/shouldComponentUpdate'
 
@@ -14,12 +12,6 @@ class DragDropContext extends Component {
   }
 }
 
-const defaultBackend = dragDropContext(HTML5Backend)
-
-export default (backend: any) => {
-  if (!backend) {
-    return defaultBackend(DragDropContext)
-  }
-
-  return dragDropContext(backend)(DragDropContext)
+export default (dragDropContext: any) => {
+  return dragDropContext(DragDropContext)
 }

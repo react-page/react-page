@@ -25,7 +25,7 @@ type PropTypes = {
 class Editable extends Component {
   constructor(props: PropTypes) {
     super(props)
-    this.DragDropContext = dragDropContext(props.editor.dragDropBackend)
+    this.DragDropContext = dragDropContext(props.editor.dragDropContext)
   }
 
   componentDidMount() {
