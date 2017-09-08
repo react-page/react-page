@@ -22,7 +22,7 @@ export const createInitialState = hooks.createInitialState
 
 export const html = new Html({
   rules: [...hooks.defaultPlugins, hooks.lineBreakSerializer],
-  parseHtml: parse5
+  parseHtml: parse5.parseFragment
 })
 
 export default (plugins: Plugin[] = hooks.defaultPlugins) => {
