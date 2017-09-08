@@ -17,7 +17,7 @@ type PropTypes = {
     plugins: PluginService,
     store: Store,
     defaultPlugin: any,
-    dragDropContext: any
+    dragDropBackend: any
   },
   onChange?: Function
 }
@@ -25,7 +25,7 @@ type PropTypes = {
 class Editable extends Component {
   constructor(props: PropTypes) {
     super(props)
-    this.DragDropContext = dragDropContext(props.editor.dragDropContext)
+    this.DragDropContext = dragDropContext(props.editor.dragDropBackend)
   }
 
   componentDidMount() {

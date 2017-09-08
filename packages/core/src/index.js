@@ -11,7 +11,6 @@ import type { Editable as EditableType } from './types/editable'
 import type Store from './types/redux'
 import forEach from 'ramda/src/forEach'
 import HTML5Backend, { NativeTypes } from 'react-dnd-html5-backend'
-import { DragDropContext as dragDropContext } from 'react-dnd'
 
 let instance: Editor
 
@@ -50,7 +49,7 @@ class Editor {
   plugins: PluginService
   middleware: []
 
-  dragDropContext: any = null
+  dragDropBackend: any = null
   defaultPlugin: any
 
   constructor(
@@ -59,7 +58,7 @@ class Editor {
       middleware = [],
       editables = [],
       defaultPlugin = pluginDefault,
-      dragDropBackend = HTML5Backend
+      dragDropBackend = null
     }: {
       plugins: { content: [], layout: [], native?: any },
       middleware: [],
@@ -81,7 +80,7 @@ class Editor {
     this.trigger = actions(this.store.dispatch)
     this.query = selectors(this.store)
     this.defaultPlugin = defaultPlugin
-    this.dragDropContext = dragDropContext(dragDropBackend)
+    this.dragDropBackend = dragDropBackend
 
     this.trigger.editable.add = update(this)
     this.trigger.editable.update = update(this)
