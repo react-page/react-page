@@ -51,7 +51,7 @@ export const lineBreakSerializer = {
 
 export const html = new Html({
   rules: [...defaultPlugins, lineBreakSerializer],
-  parseHtml: parse5
+  parseHtml: parse5.parseFragment
 })
 
 const options = { terse: true }
