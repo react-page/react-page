@@ -18,6 +18,9 @@ import LinkPlugin from './plugins/link'
 import ListsPlugin from './plugins/lists'
 import ParagraphPlugin, { P } from './plugins/paragraph'
 
+// FIXME #126
+import { Document, Html, Raw, State, Plain } from 'slate'
+
 const DEFAULT_NODE = P
 
 export const defaultPlugins = [
@@ -31,9 +34,6 @@ export const defaultPlugins = [
   new AlignmentPlugin()
   // new KatexPlugin({ DEFAULT_NODE })
 ]
-
-// FIXME #126
-import { Document, Html, Raw, State, Plain } from 'slate'
 
 export const lineBreakSerializer = {
   deserialize(el: any) {
