@@ -12,6 +12,7 @@ import type { Props } from './Component'
 import Plugin from './plugins/Plugin'
 // import KatexPlugin from './plugins/katex'
 import * as hooks from './hooks'
+import parse5 from 'parse5'
 
 const createNodes = compose(mergeAll, map(prop('nodes')))
 const createMarks = compose(mergeAll, map(prop('marks')))
@@ -20,7 +21,8 @@ const createPlugins = compose(flatten, map(prop('plugins')))
 export const createInitialState = hooks.createInitialState
 
 export const html = new Html({
-  rules: [...hooks.defaultPlugins, hooks.lineBreakSerializer]
+  rules: [...hooks.defaultPlugins, hooks.lineBreakSerializer],
+  parseHtml: parse5
 })
 
 export default (plugins: Plugin[] = hooks.defaultPlugins) => {
