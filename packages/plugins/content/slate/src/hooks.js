@@ -17,6 +17,7 @@ import HeadingsPlugin from './plugins/headings'
 import LinkPlugin from './plugins/link'
 import ListsPlugin from './plugins/lists'
 import ParagraphPlugin, { P } from './plugins/paragraph'
+import parse5 from 'parse5'
 
 // FIXME #126
 import { Document, Html, Raw, State, Plain } from 'slate'
@@ -49,7 +50,8 @@ export const lineBreakSerializer = {
 }
 
 export const html = new Html({
-  rules: [...defaultPlugins, lineBreakSerializer]
+  rules: [...defaultPlugins, lineBreakSerializer],
+  parseHtml: parse5
 })
 
 const options = { terse: true }
