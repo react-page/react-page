@@ -174,9 +174,6 @@ import React from 'react'
 // the material-ui svg icons!
 import CropSquare from 'material-ui/svg-icons/image/crop-square'
 
-// This is the ReactJS component which you can find below this snippet
-import BlackBackgroundPlugin from './Component'
-
 const BlackBorderPlugin = ({ children }) => (
   <div style={{ border: '1px solid black', padding: '16px' }}>
     {children}
