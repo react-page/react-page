@@ -18,8 +18,7 @@ export default class ListsPlugin extends Plugin {
 
     this.plugins = [
       createListPlugin({
-        typeUL: UL,
-        typeOL: OL,
+        types: [UL, OL],
         typeItem: LI,
         typeDefault: props.DEFAULT_NODE
       })
