@@ -24,6 +24,7 @@
 .*/node_modules/match-at/.*
 .*/node_modules/conventional-changelog-core/test/fixtures/.*
 .*/node_modules/node-uuid/lib/sha1-browser\.js
+.*/node_modules/react-event-listener/src/.*
 
 .*/node_modules/babel.*
 .*/node_modules/chokidar.*
