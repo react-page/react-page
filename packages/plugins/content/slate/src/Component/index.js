@@ -9,6 +9,8 @@ import { Editor } from 'slate'
 import BottomToolbar from 'ory-editor-ui/lib/BottomToolbar'
 import { ContentPluginProps } from 'ory-editor-core/lib/service/plugin/classes'
 
+import { html as serializer } from '../hooks.js'
+
 const onBlur = (_event, _data, state) => state
 
 export type Props = ContentPluginProps<{ editorState: Object }>
@@ -56,6 +58,18 @@ class Slate extends Component {
       width / 2}px`
   }
 
+  onPaste = (e, data, state) => {
+    if (data.type != 'html') return
+    if (data.isShift) return
+
+    const { document } = serializer.deserialize(data.html)
+
+    return state
+      .transform()
+      .insertFragment(document)
+      .apply()
+  }
+
   render() {
     const {
       focused,
@@ -95,6 +109,7 @@ class Slate extends Component {
           schema={schema}
           state={editorState}
           plugins={plugins}
+          onPaste={this.onPaste}
         />
         {readOnly ? null : (
           <BottomToolbar open={focused}>
