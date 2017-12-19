@@ -227,23 +227,23 @@ function saveToDatabase(state) {
 }
 
 class MyEditor extends Component {
-    componentWillMount() {
-        this.editorState = this.props.content || createEmptyState();
-        this.editor = new Editor({ EditorPlugins, editables: [content] });
-    }
-    render() {
-        return (
-          <div className="my-editor">
-            <toolbar>
-              <button onClick={() => saveToDatabase(this.editorState)}>Save</button>
-            </toolbar>
-            <Editable editor={editor} id={content.id} onChange={state => (this.editorState = state)} />
-            <Trash editor={editor}/>
-            <DisplayModeToggle editor={editor}/>
-            <Toolbar editor={editor}/>
-          </div>
-        )
-    }
+  componentWillMount() {
+    this.editorState = this.props.content || createEmptyState();
+    this.editor = new Editor({ EditorPlugins, editables: [content] });
+  }
+  render() {
+    return (
+      <div className="my-editor">
+        <toolbar>
+          <button onClick={() => saveToDatabase(this.editorState)}>Save</button>
+        </toolbar>
+        <Editable editor={editor} id={content.id} onChange={state => (this.editorState = state)} />
+        <Trash editor={editor}/>
+        <DisplayModeToggle editor={editor}/>
+        <Toolbar editor={editor}/>
+      </div>
+    )
+  }
 }
 ```
 
@@ -257,21 +257,21 @@ import { createEmptyState } from 'ory-editor-core'
 
 class MyEditorRenderer extends Component {
 
-    componentWillMount() {
-        this.plugins = {
-        this.setState({ contents: createEmptyState() });
-        fetch('/my/save/url').then((savedState) => {
-            this.setState({ contents: savedState });
-        })
-    }
+  componentWillMount() {
+    this.plugins = {
+    this.setState({ contents: createEmptyState() });
+    fetch('/my/save/url').then((savedState) => {
+      this.setState({ contents: savedState });
+    })
+  }
 
-    render() {
-        return (
-            <div className="my-editor">
-                <HTMLRenderer state={this.state.contents} plugins={EditorPlugins} />
-            </div>
-        )
-    }
+  render() {
+    return (
+      <div className="my-editor">
+        <HTMLRenderer state={this.state.contents} plugins={EditorPlugins} />
+      </div>
+    )
+  }
 }
 
 const element = document.getElementById('editable')
