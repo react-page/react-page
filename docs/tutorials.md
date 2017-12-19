@@ -68,10 +68,10 @@ class App extends Component {
           <h2>Welcome to React</h2>
         </div>
 
-        <!-- Content area -->
+        {/* Content area */}
         <Editable editor={editor} id={content.id}/>
 
-        <!-- Default user interface  -->
+        {/*  Default user interface  */}
         <Trash editor={editor}/>
         <DisplayModeToggle editor={editor}/>
         <Toolbar editor={editor}/>
