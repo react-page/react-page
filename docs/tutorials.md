@@ -27,7 +27,6 @@ Next, open the file *src/components/App.js* and include the ORY Editor:
 
 ```jsx
 import React, {Component} from 'react'
-import ReactDOM from 'react-dom'
 
 // The editor core
 import Editor, { Editable, createEmptyState } from 'ory-editor-core'
