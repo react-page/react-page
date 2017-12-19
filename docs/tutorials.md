@@ -26,7 +26,7 @@ $ npm i --save ory-editor
 Next, open the file *src/components/App.js* and include the ORY Editor:
 
 ```jsx
-import React from 'react'
+import React, {Component} from 'react'
 import ReactDOM from 'react-dom'
 
 // The editor core
@@ -97,7 +97,7 @@ your own plugins. Plugins have two parts, one plugin definition and a
 ReactJS component. A minimal plugin definition looks as followed
 
 ```jsx
-import React from 'react'
+import React, {Component} from 'react'
 
 // You are obviously not limited to material-ui, but we really enjoy
 // the material-ui svg icons!
@@ -118,7 +118,7 @@ export default {
 and a minimalistic plugin example could look like:
 
 ```jsx
-import React from 'react'
+import React, {Component} from 'react'
 
 // A callback function for the input field
 const onInput = (onChange) => {
@@ -168,7 +168,7 @@ your own plugins. Plugins have two parts, one plugin definition and a
 ReactJS component. A minimal plugin definition looks as followed
 
 ```jsx
-import React from 'react'
+import React, {Component} from 'react'
 
 // You are obviously not limited to material-ui, but we really enjoy
 // the material-ui svg icons!
@@ -214,7 +214,7 @@ ReactDOM.render((
 Use the `onChange` callback to obtain a copy of the editor's state for saving to persistent storage.  The state can then be later loaded into the editor, or used by the `ory-editor-renderer` package for rendering to HTML.
 
 ```jsx
-import React from 'react'
+import React, {Component} from 'react'
 import Editor, { Editable, createEmptyState } from 'ory-editor-core'
 import slate from 'ory-editor-plugins-slate' // The rich text area plugin
 import { Trash, DisplayModeToggle, Toolbar } from 'ory-editor-ui'
@@ -227,7 +227,7 @@ function saveToDatabase(state) {
     return fetch('/my/save/url', { method: 'POST', body: state });
 }
 
-class MyEditor extends React.Component {
+class MyEditor extends Component {
     componentWillMount() {
         this.editorState = this.props.content || createEmptyState();
         this.editor = new Editor({ EditorPlugins, editables: [content] });
@@ -251,12 +251,12 @@ class MyEditor extends React.Component {
 
 The state could then be fetched and rendered by doing something like:
 ```jsx
-import React from 'react'
+import React, {Component} from 'react'
 
 import { HTMLRenderer } from 'ory-editor-renderer'
 import { createEmptyState } from 'ory-editor-core'
 
-class MyEditorRenderer extends React.Component {
+class MyEditorRenderer extends Component {
 
     componentWillMount() {
         this.plugins = { //};
@@ -309,7 +309,7 @@ coming from react-dnd and `component` is the React component of the cell or row 
 In sum, an exemplary plugin looks like this:
 
 ```jsx
-import React from 'react'
+import React, {Component} from 'react'
 
 const Native = () => <div>native</div>
 
