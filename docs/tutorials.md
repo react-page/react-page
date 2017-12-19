@@ -258,7 +258,7 @@ import { createEmptyState } from 'ory-editor-core'
 class MyEditorRenderer extends Component {
 
     componentWillMount() {
-        this.plugins = { //};
+        this.plugins = {
         this.setState({ contents: createEmptyState() });
         fetch('/my/save/url').then((savedState) => {
             this.setState({ contents: savedState });
