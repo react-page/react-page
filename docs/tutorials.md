@@ -117,7 +117,7 @@ export default {
 and a minimalistic plugin example could look like:
 
 ```jsx
-import React, {Component} from 'react'
+import React from 'react'
 
 // A callback function for the input field
 const onInput = (onChange) => {
@@ -167,7 +167,7 @@ your own plugins. Plugins have two parts, one plugin definition and a
 ReactJS component. A minimal plugin definition looks as followed
 
 ```jsx
-import React, {Component} from 'react'
+import React from 'react'
 
 // You are obviously not limited to material-ui, but we really enjoy
 // the material-ui svg icons!
@@ -308,7 +308,7 @@ coming from react-dnd and `component` is the React component of the cell or row 
 In sum, an exemplary plugin looks like this:
 
 ```jsx
-import React, {Component} from 'react'
+import React from 'react'
 
 const Native = () => <div>native</div>
 
