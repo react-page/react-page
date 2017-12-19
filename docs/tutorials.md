@@ -45,7 +45,7 @@ require('react-tap-event-plugin')() // react-tap-event-plugin is required by mat
 
 // Define which plugins we want to use. We only have slate and parallax available, so load those.
 const plugins = {
-  content: [slate()], // Define plugins for content cells
+  content: [slate()], // Define plugins for content cells. To import multiple plugins, use [slate(), image, spacer, divider]
   layout: [parallax({ defaultPlugin: slate() })] // Define plugins for layout cells
 }
 
