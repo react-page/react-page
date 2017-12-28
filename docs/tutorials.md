@@ -26,8 +26,7 @@ $ npm i --save ory-editor
 Next, open the file *src/components/App.js* and include the ORY Editor:
 
 ```jsx
-import React from 'react'
-import ReactDOM from 'react-dom'
+import React, {Component} from 'react'
 
 // The editor core
 import Editor, { Editable, createEmptyState } from 'ory-editor-core'
@@ -36,17 +35,17 @@ import 'ory-editor-core/lib/index.css' // we also want to load the stylesheets
 // Require our ui components (optional). You can implement and use your own ui too!
 import { Trash, DisplayModeToggle, Toolbar } from 'ory-editor-ui'
 import 'ory-editor-ui/lib/index.css'
-require('react-tap-event-plugin')() // react-tap-event-plugin is required by material-ui which is used by ory-editor-ui so we need to call it here
 
 // Load some exemplary plugins:
 import slate from 'ory-editor-plugins-slate' // The rich text area plugin
 import 'ory-editor-plugins-slate/lib/index.css' // Stylesheets for the rich text area plugin
 import parallax from 'ory-editor-plugins-parallax-background' // A plugin for parallax background images
 import 'ory-editor-plugins-parallax-background/lib/index.css' // Stylesheets for parallax background images
+require('react-tap-event-plugin')() // react-tap-event-plugin is required by material-ui which is used by ory-editor-ui so we need to call it here
 
 // Define which plugins we want to use. We only have slate and parallax available, so load those.
 const plugins = {
-  content: [slate()], // Define plugins for content cells
+  content: [slate()], // Define plugins for content cells. To import multiple plugins, use [slate(), image, spacer, divider]
   layout: [parallax({ defaultPlugin: slate() })] // Define plugins for layout cells
 }
 
@@ -69,10 +68,10 @@ class App extends Component {
           <h2>Welcome to React</h2>
         </div>
 
-        <!-- Content area -->
+        {/* Content area */}
         <Editable editor={editor} id={content.id}/>
 
-        <!-- Default user interface  -->
+        {/*  Default user interface  */}
         <Trash editor={editor}/>
         <DisplayModeToggle editor={editor}/>
         <Toolbar editor={editor}/>
@@ -97,7 +96,7 @@ your own plugins. Plugins have two parts, one plugin definition and a
 ReactJS component. A minimal plugin definition looks as followed
 
 ```jsx
-import React from 'react'
+import React, {Component} from 'react'
 
 // You are obviously not limited to material-ui, but we really enjoy
 // the material-ui svg icons!
@@ -214,7 +213,7 @@ ReactDOM.render((
 Use the `onChange` callback to obtain a copy of the editor's state for saving to persistent storage.  The state can then be later loaded into the editor, or used by the `ory-editor-renderer` package for rendering to HTML.
 
 ```jsx
-import React from 'react'
+import React, {Component} from 'react'
 import Editor, { Editable, createEmptyState } from 'ory-editor-core'
 import slate from 'ory-editor-plugins-slate' // The rich text area plugin
 import { Trash, DisplayModeToggle, Toolbar } from 'ory-editor-ui'
@@ -227,52 +226,52 @@ function saveToDatabase(state) {
     return fetch('/my/save/url', { method: 'POST', body: state });
 }
 
-class MyEditor extends React.Component {
-    componentWillMount() {
-        this.editorState = this.props.content || createEmptyState();
-        this.editor = new Editor({ EditorPlugins, editables: [content] });
-    }
-    render() {
-        return (
-          <div className="my-editor">
-            <toolbar>
-              <button onClick={() => saveToDatabase(this.editorState)}>Save</button>
-            </toolbar>
-            <Editable editor={editor} id={content.id} onChange={state => (this.editorState = state)} />
-            <Trash editor={editor}/>
-            <DisplayModeToggle editor={editor}/>
-            <Toolbar editor={editor}/>
-          </div>
-        )
-    }
+class MyEditor extends Component {
+  componentWillMount() {
+    this.editorState = this.props.content || createEmptyState();
+    this.editor = new Editor({ EditorPlugins, editables: [content] });
+  }
+  render() {
+    return (
+      <div className="my-editor">
+        <toolbar>
+          <button onClick={() => saveToDatabase(this.editorState)}>Save</button>
+        </toolbar>
+        <Editable editor={editor} id={content.id} onChange={state => (this.editorState = state)} />
+        <Trash editor={editor}/>
+        <DisplayModeToggle editor={editor}/>
+        <Toolbar editor={editor}/>
+      </div>
+    )
+  }
 }
 ```
 
 
 The state could then be fetched and rendered by doing something like:
 ```jsx
-import React from 'react'
+import React, {Component} from 'react'
 
 import { HTMLRenderer } from 'ory-editor-renderer'
 import { createEmptyState } from 'ory-editor-core'
 
-class MyEditorRenderer extends React.Component {
+class MyEditorRenderer extends Component {
 
-    componentWillMount() {
-        this.plugins = { //};
-        this.setState({ contents: createEmptyState() });
-        fetch('/my/save/url').then((savedState) => {
-            this.setState({ contents: savedState });
-        })
-    }
+  componentWillMount() {
+    this.plugins = {
+    this.setState({ contents: createEmptyState() });
+    fetch('/my/save/url').then((savedState) => {
+      this.setState({ contents: savedState });
+    })
+  }
 
-    render() {
-        return (
-            <div className="my-editor">
-                <HTMLRenderer state={this.state.contents} plugins={EditorPlugins} />
-            </div>
-        )
-    }
+  render() {
+    return (
+      <div className="my-editor">
+        <HTMLRenderer state={this.state.contents} plugins={EditorPlugins} />
+      </div>
+    )
+  }
 }
 
 const element = document.getElementById('editable')
