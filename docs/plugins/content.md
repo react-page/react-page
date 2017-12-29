@@ -40,7 +40,7 @@ The image plugin is not configurable.
 
 ## Video
 
-The image plugin allows you to add images to your content by entering their URL. The image plugin does not support
+The video plugin allows you to add videos to your content by entering their URL. The video plugin does not support
 uploads.
 
 <p>
