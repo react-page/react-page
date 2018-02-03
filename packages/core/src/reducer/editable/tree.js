@@ -47,7 +47,7 @@ export const cell = (state: Cell, action: Object): Cell =>
           ['content', 'plugin', 'reducer'],
           state
         )
-        const layout = pathOr(identity, ['content', 'layout', 'reducer'], state)
+        const layout = pathOr(identity, ['layout', 'plugin', 'reducer'], state)
 
         return content(
           layout(

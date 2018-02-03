@@ -89,7 +89,8 @@ export class Plugin {
       handleFocusNextHotKey,
       handleFocusPreviousHotKey,
       handleFocus,
-      handleBlur
+      handleBlur,
+      reducer
     } = config
 
     if (!name || !version || !Component) {
@@ -122,6 +123,7 @@ export class Plugin {
       : this.handleFocusPreviousHotKey
     this.handleFocus = handleFocus ? handleFocus.bind(this) : this.handleFocus
     this.handleBlur = handleBlur ? handleBlur.bind(this) : this.handleBlur
+    this.reducer = reducer ? reducer.bind(this) : this.reducer
   }
 
   config: any
@@ -229,6 +231,14 @@ export class Plugin {
    * @param props
    */
   handleBlur = (props: ContentPluginProps<*>): void => {}
+
+  /**
+   * Specify a custom reducer for the plugin's cell.
+   *
+   * @param state
+   * @param action
+   */
+  reducer = (state: any, action: any) => state
 }
 
 /**
@@ -241,12 +251,10 @@ export class ContentPlugin extends Plugin {
       createInitialState,
       allowInlineNeighbours = false,
       isInlineable = false,
-      reducer
     } = config
 
     this.isInlineable = isInlineable
     this.allowInlineNeighbours = allowInlineNeighbours
-    this.reducer = reducer ? reducer.bind(this) : this.reducer
     this.createInitialState = createInitialState
       ? createInitialState.bind(this)
       : this.createInitialState
@@ -316,14 +324,12 @@ export class NativePlugin extends Plugin {
       createInitialState,
       allowInlineNeighbours = false,
       isInlineable = false,
-      reducer,
       createInitialChildren,
       type = 'content'
     } = config
 
     this.isInlineable = isInlineable
     this.allowInlineNeighbours = allowInlineNeighbours
-    this.reducer = reducer ? reducer.bind(this) : this.reducer
     this.createInitialState = createInitialState
       ? createInitialState.bind(this)
       : this.createInitialState
@@ -361,12 +367,4 @@ export class NativePlugin extends Plugin {
    * @returns the initial state.
    */
   createInitialState = (): Object => ({})
-
-  /**
-   * Specify a custom reducer for the plugin's cell.
-   *
-   * @param state
-   * @param action
-   */
-  reducer = (state: any, action: any) => state
 }
