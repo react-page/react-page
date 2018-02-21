@@ -17,22 +17,22 @@
     "flow:generate": "flow-typed install  --flowVersion=0.46.0"
   },
   "peerDependencies": {
-    "react": "^15.4.2",
-    "react-dom": "^15.4.2",
-    "react-tap-event-plugin": "^2.0.1"
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "react-tap-event-plugin": "^3.0.2"
   },
   "dependencies": {
     "immutable": "^3.8.1",
-    "material-ui": "^0.19.1",
+    "material-ui": "^0.20.0",
     "ory-editor-core": "0.0.0",
     "ory-editor-ui": "0.0.0",
-    "parse5": "^3.0.2",
-    "ramda": "^0.24.1",
-    "react-portal": "^3.0.0",
-    "redux-undo": "1.0.0-beta9-7",
+    "parse5": "^4.0.0",
+    "ramda": "^0.25.0",
+    "react-portal": "^4.1.2",
+    "redux-undo": "0.6.1",
     "selection-position": "^1.0.0",
-    "slate": "^0.21.4",
-    "slate-edit-blockquote": "^0.2.0",
-    "slate-edit-list": "^0.7.1"
+    "slate": "^0.32.4",
+    "slate-edit-blockquote": "^0.5.0",
+    "slate-edit-list": "^0.11.2"
   }
 }

@@ -17,12 +17,12 @@
     "flow:generate": "flow-typed install  --flowVersion=0.46.0"
   },
   "peerDependencies": {
-    "react": "^15.4.2",
-    "react-dom": "^15.4.2",
-    "react-tap-event-plugin": "^2.0.1"
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "react-tap-event-plugin": "^3.0.2"
   },
   "dependencies": {
-    "material-ui": "^0.19.1",
+    "material-ui": "^0.20.0",
     "ory-editor-core": "0.0.0",
     "ory-editor-ui": "0.0.0"
   }
