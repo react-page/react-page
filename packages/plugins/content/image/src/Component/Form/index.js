@@ -12,8 +12,15 @@ const handleChange = (onChange: Function) => (e: Event) => {
   if (target instanceof HTMLInputElement) {
     const change = {}
 
-    if (target.type === 'checkbox') {
-      change[target.name] = target.checked ? '_blank' : '';
+    if (target.name === 'target') {
+      if (target.checked) {
+        change.target = '_blank'
+        // noopener is safer but not supported in IE, so noreferrer adds some security
+        change.rel = 'noreferrer noopener'
+      } else {
+        change.target = null
+        change.rel = null
+      }
     } else {
       change[target.name] = target.value
     }

@@ -13,7 +13,7 @@ const Display = ({ isEditMode, state }: PropTypes) => {
     state.src ? (
       <div>
         {state.href && !isEditMode ? (
-          <a href={state.href} target={state.target}>{Image}</a>
+          <a href={state.href} target={state.target} rel={state.rel}>{Image}</a>
         ) : (
           Image
         )}
