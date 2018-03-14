@@ -1,4 +1,4 @@
-# ![ORY Editor](https://storage.googleapis.com/ory.am/github-banner/ory_01-editor.png)
+<h1 align="center"><img src="./docs/images/banner_editor.png" alt="ORY Editor - Cloud Native Content Toolchain"></h1>
 
 [![Build Status](https://travis-ci.org/ory/editor.svg)](https://travis-ci.org/ory/editor)
 [![Coverage Status](https://coveralls.io/repos/github/ory-am/editor/badge.svg?branch=master)](https://coveralls.io/github/ory/editor?branch=master)
