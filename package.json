@@ -27,6 +27,7 @@
     "postcss-cssnext": "^2.10.0",
     "postcss-import": "^9.1.0",
     "postcss-nested": "^2.0.2",
+    "pre-commit": "^1.2.2",
     "prettier": "^1.6.1",
     "pushstate-server": "^3.0.0",
     "react": "^15.5.4",
@@ -44,7 +45,7 @@
     "build:watch": "cross-env NODE_ENV=development lerna run build:watch --parallel --stream",
     "clean": "lerna run clean",
     "clean:lerna": "lerna clean --yes",
-    "docs:api": "lerna run docs --stream",
+    "docs:api": "cross-env NODE_ENV=development lerna run docs --stream",
     "docs:guide": "gitbook serve -http",
     "flow": "flow check --show-all-errors",
     "flow:generate": "lerna run flow:generate",
@@ -64,6 +65,7 @@
     "heroku-prebuild": "git init",
     "heroku-postbuild": "npm run build"
   },
+  "pre-commit": "docs:api",
   "jest": {
     "testPathIgnorePatterns": [
       "/examples/"
