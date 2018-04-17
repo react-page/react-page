@@ -41,6 +41,7 @@ const BottomToolbar = ({
       className={className}
       open={open}
       docked
+      containerClassName={'ory-editor-bottom-toolbar'}
       containerStyle={{
         top: 'inherit',
         bottom: '0px',
