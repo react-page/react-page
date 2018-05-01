@@ -47,6 +47,8 @@ export const html = new Html({
   parseHtml: parse5.parseFragment
 })
 
+export const defaultPlugins = hooks.defaultPlugins
+
 export default (plugins: Plugin[] = hooks.defaultPlugins) => {
   const props = {}
   props.schema = {
