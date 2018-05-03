@@ -5,12 +5,12 @@
  * it under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- *  
+ *
  * ORY Editor is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Lesser General Public License for more details.
- *  
+ *
  * You should have received a copy of the GNU Lesser General Public License
  * along with ORY Editor.  If not, see <http://www.gnu.org/licenses/>.
  *
@@ -23,6 +23,7 @@
 // @flow
 import React, { Component } from 'react'
 import { Provider } from 'react-redux'
+import { isEqual } from 'lodash'
 
 import dragDropContext from '../DragDropContext'
 import HotKeyDecorator from '../HotKey/Decorator'
@@ -47,6 +48,7 @@ type PropTypes = {
 class Editable extends Component {
   constructor(props: PropTypes) {
     super(props)
+    this.previousState = !props.id ? null : editable(props.editor.store.getState(), { id: props.id })
     this.DragDropContext = dragDropContext(props.editor.dragDropContext)
   }
 
@@ -56,7 +58,7 @@ class Editable extends Component {
     }
 
     this.unsubscribe = this.props.editor.store.subscribe(this.onChange)
-    this.previousState = null
+    // this.previousState = null
   }
 
   componentWillUnmount() {
@@ -79,10 +81,12 @@ class Editable extends Component {
     const state: any = editable(this.props.editor.store.getState(), {
       id: this.props.id
     })
-    if (state === this.previousState || !state) {
+
+    if (isEqual(state, this.previousState) || !state) {
       return
     }
 
+    this.previousState = state
     const serialized = this.props.editor.plugins.serialize(state)
     onChange(serialized)
   }
