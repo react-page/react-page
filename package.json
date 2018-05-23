@@ -5,6 +5,7 @@
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-eslint": "7.2.3",
+    "babel-preset-react-app": "^2.2.0",
     "chokidar-cli": "^1.2.0",
     "coveralls": "^2.13.1",
     "cross-env": "^5.0.0",
