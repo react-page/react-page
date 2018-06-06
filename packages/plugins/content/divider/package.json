@@ -22,6 +22,7 @@
     "react-tap-event-plugin": "^2.0.1"
   },
   "dependencies": {
-    "material-ui": "^0.19.1"
+    "@material-ui/core": "^1.2.0",
+    "@material-ui/icons": "^1.1.0"
   }
 }
