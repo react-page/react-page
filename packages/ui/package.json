@@ -22,9 +22,11 @@
     "react-tap-event-plugin": "^2.0.1"
   },
   "dependencies": {
+    "@material-ui/core": "^1.2.0",
+    "@material-ui/icons": "^1.1.0",
     "classnames": "^2.2.5",
     "device.js": "^2.3.0",
-    "material-ui": "^0.19.1",
+    "lodash.throttle": "^4.1.1",
     "ory-editor-core": "0.0.0",
     "rc-tooltip": "^3.4.3",
     "react-dnd": "^2.4.0",

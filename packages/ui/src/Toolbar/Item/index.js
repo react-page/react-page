@@ -22,11 +22,11 @@
 
 // @flow
 import React, { Component } from 'react'
-import Avatar from 'material-ui/Avatar'
+import Avatar from '@material-ui/core/Avatar'
 import draggable from '../Draggable'
-import ListItem from 'material-ui/List/ListItem'
+import ListItem from '@material-ui/core/ListItem'
 import { Plugin } from 'ory-editor-core'
-import DragHandle from 'material-ui/svg-icons/editor/drag-handle'
+import DragHandle from '@material-ui/icons/DragHandle'
 import Tooltip from 'rc-tooltip'
 
 class Item extends Component {

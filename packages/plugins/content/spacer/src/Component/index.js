@@ -5,12 +5,12 @@
  * it under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- *  
+ *
  * ORY Editor is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Lesser General Public License for more details.
- *  
+ *
  * You should have received a copy of the GNU Lesser General Public License
  * along with ORY Editor.  If not, see <http://www.gnu.org/licenses/>.
  *
@@ -23,7 +23,7 @@
 // @flow
 import React, { Component } from 'react'
 import { Resizable } from 'react-resizable'
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles'
 import classNames from 'classnames'
 import TextField from 'material-ui/TextField'
 
@@ -81,7 +81,7 @@ class Spacer extends Component {
         ) : (
           <Resizable onResize={this.onResize} height={height} width={0}>
             <div style={{ height, position: 'relative' }}>
-              <MuiThemeProvider>
+              <MuiThemeProvider theme={createMuiTheme()}>
                 <BottomToolbar open={focused}>
                   <TextField
                     hintText="24"

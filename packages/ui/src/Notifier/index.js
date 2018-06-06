@@ -22,7 +22,7 @@
 
 // @flow
 import React from 'react'
-import Snackbar from 'material-ui/Snackbar'
+import Snackbar from '@material-ui/core/Snackbar'
 import { connect } from 'react-redux'
 import { createStructuredSelector } from 'reselect'
 import { updateSetting } from 'ory-editor-core/lib/actions/setting'
@@ -58,7 +58,7 @@ const Notifier = ({
     open={open && !dismissed}
     action={action}
     message={i18n.t(message)}
-    onActionTouchTap={handleDismiss(updateSetting, id)}
+    onClose={handleDismiss(updateSetting, id)}
   />
 )
 

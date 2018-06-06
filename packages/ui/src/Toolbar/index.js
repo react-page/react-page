@@ -22,14 +22,14 @@
 
 // @flow
 import React, { Component } from 'react'
-import Drawer from 'material-ui/Drawer'
+import Drawer from '@material-ui/core/Drawer'
 import { connect } from 'react-redux'
 import { isInsertMode } from 'ory-editor-core/lib/selector/display'
 import { createStructuredSelector } from 'reselect'
 import { Editor } from 'ory-editor-core/lib'
-import List from 'material-ui/List/List'
-import Subheader from 'material-ui/Subheader'
-import TextField from 'material-ui/TextField'
+import List from '@material-ui/core/List/List'
+import Typography from '@material-ui/core/Typography'
+import TextField from '@material-ui/core/TextField'
 import {
   LayoutPlugin,
   ContentPlugin
@@ -94,8 +94,8 @@ class Raw extends Component {
     const layout = plugins.plugins.layout.filter(searchFilter)
 
     return (
-      <Drawer className="ory-toolbar-drawer" open={isInsertMode}>
-        <Subheader>Add plugin to content</Subheader>
+      <Drawer variant='persistent' className="ory-toolbar-drawer" open={isInsertMode}>
+        <Typography variant='subheading'>Add plugin to content</Typography>
         <div style={{ padding: '0 16px' }} ref={this.onRef}>
           <TextField
             hintText="Search plugins"
@@ -104,7 +104,7 @@ class Raw extends Component {
           />
         </div>
         <List>
-          {content.length ? <Subheader>Content plugins</Subheader> : null}
+          {content.length ? <Typography variant='subheading'>Content plugins</Typography> : null}
           {content.map((plugin: ContentPlugin, k: Number) => {
             const initialState = plugin.createInitialState()
 
@@ -123,7 +123,7 @@ class Raw extends Component {
           })}
         </List>
         <List>
-          {layout.length ? <Subheader>Layout plugins</Subheader> : null}
+          {layout.length ? <Typography variant='subheading'>Layout plugins</Typography> : null}
           {layout.map((plugin: LayoutPlugin, k: Number) => {
             const initialState = plugin.createInitialState()
             const children = plugin.createInitialChildren()

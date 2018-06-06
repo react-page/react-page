@@ -21,11 +21,10 @@
  */
 
 // @flow
-import getMuiTheme from 'material-ui/styles/getMuiTheme'
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
-import Drawer from 'material-ui/Drawer'
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles'
+import Drawer from '@material-ui/core/Drawer'
 import React from 'react'
-import { darkBlack } from 'material-ui/styles/colors'
+import { darkBlack } from '@material-ui/core/colors'
 
 const BottomToolbar = ({
   open = false,
@@ -36,27 +35,12 @@ const BottomToolbar = ({
   children?: Object,
   className?: string
 }) => (
-  <MuiThemeProvider muiTheme={getMuiTheme()}>
+  <MuiThemeProvider theme={createMuiTheme()}>
     <Drawer
+      variant='persistent'
       className={className}
       open={open}
-      docked
-      containerStyle={{
-        top: 'inherit',
-        bottom: '0px',
-        height: 'auto',
-        margin: '0 auto',
-        left: '0',
-        right: '0',
-        width: 'auto',
-        transform: `translate(0, ${open ? '0' : '300px'})`,
-        textAlign: 'center',
-        background: 'transparent',
-        border: 'transparent',
-        overflow: 'visible',
-        boxShadow: 'none',
-        zIndex: 5
-      }}
+      anchor='bottom'
     >
       <div
         style={{
