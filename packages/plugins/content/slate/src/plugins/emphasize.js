@@ -5,12 +5,12 @@
  * it under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- *  
+ *
  * ORY Editor is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Lesser General Public License for more details.
- *  
+ *
  * You should have received a copy of the GNU Lesser General Public License
  * along with ORY Editor.  If not, see <http://www.gnu.org/licenses/>.
  *
@@ -22,9 +22,9 @@
 
 /* eslint-disable prefer-reflect, default-case, react/display-name */
 import React from 'react'
-import BoldIcon from 'material-ui/svg-icons/editor/format-bold'
-import ItalicIcon from 'material-ui/svg-icons/editor/format-italic'
-import UnderlinedIcon from 'material-ui/svg-icons/editor/format-underlined'
+import BoldIcon from '@material-ui/icons/FormatBold'
+import ItalicIcon from '@material-ui/icons/FormatItalic'
+import UnderlinedIcon from '@material-ui/icons/FormatUnderlined'
 import { makeTagMark, ToolbarButton } from '../helpers'
 import Plugin from './Plugin'
 import type { Props } from './props'

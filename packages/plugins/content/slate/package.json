@@ -22,8 +22,9 @@
     "react-tap-event-plugin": "^2.0.1"
   },
   "dependencies": {
+    "@material-ui/core": "^1.2.0",
+    "@material-ui/icons": "^1.1.0",
     "immutable": "^3.8.1",
-    "material-ui": "^0.19.1",
     "ory-editor-core": "0.0.0",
     "ory-editor-ui": "0.0.0",
     "parse5": "^3.0.2",
