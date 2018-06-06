@@ -25,7 +25,7 @@ import React, { Component } from 'react'
 import { Resizable } from 'react-resizable'
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles'
 import classNames from 'classnames'
-import TextField from 'material-ui/TextField'
+import TextField from '@material-ui/core/TextField'
 
 import { BottomToolbar } from 'ory-editor-ui'
 
