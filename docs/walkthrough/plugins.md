@@ -22,8 +22,6 @@ import { PluginService, plugins } from 'ory-editor'
 //
 //  import myPlugin from './myPlugin'
 
-require('react-tap-event-plugin')()
-
 const editor = new Editor({
   plugins: new PluginService([
     // a list of content plugins

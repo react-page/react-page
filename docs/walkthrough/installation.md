@@ -30,11 +30,6 @@ import logo from './logo.svg';
 import './App.css';
 import 'ory-editor/dist/styles.css';
 
-// The react-tap-event-plugin is required by material-ui, see:
-//  https://github.com/callemall/material-ui#react-tap-event-plugin
-require('react-tap-event-plugin')()
-
-
 const state = createEmptyState()
 const editor = new Editor({ /* options */ })
 
