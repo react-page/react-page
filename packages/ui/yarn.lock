@@ -80,7 +80,7 @@ align-text@^0.1.1, align-text@^0.1.3:
     longest "^1.0.1"
     repeat-string "^1.5.2"
 
-asap@^2.0.3, asap@^2.0.6, asap@~2.0.3:
+asap@^2.0.3, asap@~2.0.3:
   version "2.0.6"
   resolved "https://registry.yarnpkg.com/asap/-/asap-2.0.6.tgz#e50347611d7e690943208bbdafebcbc2fb866d46"
 
@@ -177,10 +177,6 @@ decamelize@^1.0.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/decamelize/-/decamelize-1.2.0.tgz#f6534d15148269b20352e7bee26f501f9a191290"
 
-deep-equal@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/deep-equal/-/deep-equal-1.0.1.tgz#f5d260292b660e084eff4cdbc9f08ad3247448b5"
-
 deepmerge@^2.0.1:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/deepmerge/-/deepmerge-2.1.1.tgz#e862b4e45ea0555072bf51e7fd0d9845170ae768"
@@ -197,15 +193,6 @@ device.js@^2.3.0:
 disposables@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/disposables/-/disposables-1.0.1.tgz#064727a25b54f502bd82b89aa2dfb8df9f1b39e3"
-
-dnd-core@^2.0.2, dnd-core@^2.6.0:
-  version "2.6.0"
-  resolved "https://registry.yarnpkg.com/dnd-core/-/dnd-core-2.6.0.tgz#12bad66d58742c6e5f7cf2943fb6859440f809c4"
-  dependencies:
-    asap "^2.0.6"
-    invariant "^2.0.0"
-    lodash "^4.2.0"
-    redux "^3.7.1"
 
 dnd-core@^2.4.0:
   version "2.4.0"
@@ -231,10 +218,6 @@ dom-helpers@^3.3.1:
 dom-walk@^0.1.0:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/dom-walk/-/dom-walk-0.1.1.tgz#672226dc74c8f799ad35307df936aba11acd6018"
-
-element-resize-event@^2.0.4:
-  version "2.0.9"
-  resolved "https://registry.yarnpkg.com/element-resize-event/-/element-resize-event-2.0.9.tgz#2f5e1581a296eb5275210c141bc56342e218f876"
 
 encoding@^0.1.11:
   version "0.1.12"
@@ -277,13 +260,13 @@ hoist-non-react-statics@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/hoist-non-react-statics/-/hoist-non-react-statics-1.2.0.tgz#aa448cf0986d55cc40773b17174b7dd066cb7cfb"
 
-hoist-non-react-statics@^2.1.0, hoist-non-react-statics@^2.3.1, hoist-non-react-statics@^2.5.0:
-  version "2.5.0"
-  resolved "https://registry.yarnpkg.com/hoist-non-react-statics/-/hoist-non-react-statics-2.5.0.tgz#d2ca2dfc19c5a91c5a6615ce8e564ef0347e2a40"
-
 hoist-non-react-statics@^2.2.1:
   version "2.3.1"
   resolved "https://registry.yarnpkg.com/hoist-non-react-statics/-/hoist-non-react-statics-2.3.1.tgz#343db84c6018c650778898240135a1420ee22ce0"
+
+hoist-non-react-statics@^2.3.1, hoist-non-react-statics@^2.5.0:
+  version "2.5.0"
+  resolved "https://registry.yarnpkg.com/hoist-non-react-statics/-/hoist-non-react-statics-2.5.0.tgz#d2ca2dfc19c5a91c5a6615ce8e564ef0347e2a40"
 
 hyphenate-style-name@^1.0.2:
   version "1.0.2"
@@ -435,17 +418,9 @@ lodash-es@^4.17.4, lodash-es@^4.2.0, lodash-es@^4.2.1:
   version "4.17.4"
   resolved "https://registry.yarnpkg.com/lodash-es/-/lodash-es-4.17.4.tgz#dcc1d7552e150a0640073ba9cb31d70f032950e7"
 
-lodash-es@^4.17.5:
-  version "4.17.10"
-  resolved "https://registry.yarnpkg.com/lodash-es/-/lodash-es-4.17.10.tgz#62cd7104cdf5dd87f235a837f0ede0e8e5117e05"
-
 lodash._getnative@^3.0.0:
   version "3.9.1"
   resolved "https://registry.yarnpkg.com/lodash._getnative/-/lodash._getnative-3.9.1.tgz#570bc7dede46d61cdcde687d65d3eecbaa3aaff5"
-
-lodash.debounce@^4.0.8:
-  version "4.0.8"
-  resolved "https://registry.yarnpkg.com/lodash.debounce/-/lodash.debounce-4.0.8.tgz#82d79bff30a67c4005ffd5e2515300ad9ca4d7af"
 
 lodash.isarguments@^3.0.0:
   version "3.1.0"
@@ -467,10 +442,6 @@ lodash.throttle@^4.1.1:
   version "4.1.1"
   resolved "https://registry.yarnpkg.com/lodash.throttle/-/lodash.throttle-4.1.1.tgz#c23e91b710242ac70c37f1e1cda9274cc39bf2f4"
 
-lodash@^4.13.1, lodash@^4.17.5:
-  version "4.17.10"
-  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.10.tgz#1b7793cf7259ea38fb3661d4d38b3260af8ae4e7"
-
 lodash@^4.17.4, lodash@^4.2.0, lodash@^4.2.1:
   version "4.17.4"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.4.tgz#78203a4d1c328ae1d86dca6460e369b57f4055ae"
@@ -491,10 +462,6 @@ min-document@^2.19.0:
   dependencies:
     dom-walk "^0.1.0"
 
-mousetrap@^1.5.2, mousetrap@^1.6.0:
-  version "1.6.2"
-  resolved "https://registry.yarnpkg.com/mousetrap/-/mousetrap-1.6.2.tgz#caadd9cf886db0986fb2fee59a82f6bd37527587"
-
 node-fetch@^1.0.1:
   version "1.7.2"
   resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-1.7.2.tgz#c54e9aac57e432875233525f3c891c4159ffefd7"
@@ -509,31 +476,6 @@ normalize-scroll-left@^0.1.2:
 object-assign@4.x, object-assign@^4.1.0, object-assign@^4.1.1:
   version "4.1.1"
   resolved "https://registry.yarnpkg.com/object-assign/-/object-assign-4.1.1.tgz#2109adc7965887cfc05cbbd442cac8bfbb360863"
-
-ory-editor-core@0.0.0:
-  version "0.0.0"
-  resolved "https://registry.yarnpkg.com/ory-editor-core/-/ory-editor-core-0.0.0.tgz#bf97418697b0460e93649ba7a34ea2cfa47aee09"
-  dependencies:
-    classnames "^2.2.5"
-    deep-equal "^1.0.1"
-    dnd-core "^2.0.2"
-    element-resize-event "^2.0.4"
-    lodash.debounce "^4.0.8"
-    lodash.throttle "^4.1.1"
-    mousetrap "^1.6.0"
-    ramda "^0.23.0"
-    react-dimensions "^1.3.0"
-    react-dnd "^2.1.4"
-    react-dnd-html5-backend "^2.1.2"
-    react-draggable "^2.2.3"
-    react-hotkeys "^0.9.0"
-    react-redux "^5.0.1"
-    react-resizable "^1.4.5"
-    redux "^3.6.0"
-    redux-undo "1.0.0-beta9-5"
-    reselect "^2.5.4"
-    semver "^5.3.0"
-    uuid "^3.0.1"
 
 popper.js@^1.14.1:
   version "1.14.3"
@@ -569,10 +511,6 @@ rafl@~1.2.1:
   resolved "https://registry.yarnpkg.com/rafl/-/rafl-1.2.2.tgz#fe930f758211020d47e38815f5196a8be4150740"
   dependencies:
     global "~4.3.0"
-
-ramda@^0.23.0:
-  version "0.23.0"
-  resolved "https://registry.yarnpkg.com/ramda/-/ramda-0.23.0.tgz#ccd13fff73497a93974e3e86327bfd87bd6e8e2b"
 
 rc-align@2.x:
   version "2.3.4"
@@ -617,29 +555,6 @@ rc-util@4.x:
     babel-runtime "6.x"
     shallowequal "^0.2.2"
 
-react-dimensions@^1.3.0:
-  version "1.3.1"
-  resolved "https://registry.yarnpkg.com/react-dimensions/-/react-dimensions-1.3.1.tgz#89c29bcd48828a74faeb07da1e461e1a354ccc48"
-  dependencies:
-    element-resize-event "^2.0.4"
-
-react-dnd-html5-backend@^2.1.2:
-  version "2.6.0"
-  resolved "https://registry.yarnpkg.com/react-dnd-html5-backend/-/react-dnd-html5-backend-2.6.0.tgz#590cd1cca78441bb274edd571fef4c0b16ddcf8e"
-  dependencies:
-    lodash "^4.2.0"
-
-react-dnd@^2.1.4:
-  version "2.6.0"
-  resolved "https://registry.yarnpkg.com/react-dnd/-/react-dnd-2.6.0.tgz#7fa25676cf827d58a891293e3c1ab59da002545a"
-  dependencies:
-    disposables "^1.0.1"
-    dnd-core "^2.6.0"
-    hoist-non-react-statics "^2.1.0"
-    invariant "^2.1.0"
-    lodash "^4.2.0"
-    prop-types "^15.5.10"
-
 react-dnd@^2.4.0:
   version "2.4.0"
   resolved "https://registry.yarnpkg.com/react-dnd/-/react-dnd-2.4.0.tgz#96f0042cd4cd375b4f0c3413f6ec84d267b7d792"
@@ -651,19 +566,6 @@ react-dnd@^2.4.0:
     lodash "^4.2.0"
     prop-types "^15.5.8"
 
-react-draggable@^2.2.3:
-  version "2.2.6"
-  resolved "https://registry.yarnpkg.com/react-draggable/-/react-draggable-2.2.6.tgz#3a806e10f2da6babfea4136be6510e89b0d76901"
-  dependencies:
-    classnames "^2.2.5"
-
-"react-draggable@^2.2.6 || ^3.0.3":
-  version "3.0.5"
-  resolved "https://registry.yarnpkg.com/react-draggable/-/react-draggable-3.0.5.tgz#c031e0ed4313531f9409d6cd84c8ebcec0ddfe2d"
-  dependencies:
-    classnames "^2.2.5"
-    prop-types "^15.6.0"
-
 react-event-listener@^0.6.0:
   version "0.6.0"
   resolved "https://registry.yarnpkg.com/react-event-listener/-/react-event-listener-0.6.0.tgz#f8cf2821f5ca1844e0df1dac1c7b9a3ecb686fd7"
@@ -671,13 +573,6 @@ react-event-listener@^0.6.0:
     "@babel/runtime" "^7.0.0-beta.42"
     prop-types "^15.6.0"
     warning "^3.0.0"
-
-react-hotkeys@^0.9.0:
-  version "0.9.0"
-  resolved "https://registry.yarnpkg.com/react-hotkeys/-/react-hotkeys-0.9.0.tgz#7a47ba4337be8925a96a024e6d58d433096a3233"
-  dependencies:
-    lodash "^4.13.1"
-    mousetrap "^1.5.2"
 
 react-jss@^8.1.0:
   version "8.4.0"
@@ -700,17 +595,6 @@ react-popper@^0.10.0:
     popper.js "^1.14.1"
     prop-types "^15.6.1"
 
-react-redux@^5.0.1:
-  version "5.0.7"
-  resolved "https://registry.yarnpkg.com/react-redux/-/react-redux-5.0.7.tgz#0dc1076d9afb4670f993ffaef44b8f8c1155a4c8"
-  dependencies:
-    hoist-non-react-statics "^2.5.0"
-    invariant "^2.0.0"
-    lodash "^4.17.5"
-    lodash-es "^4.17.5"
-    loose-envify "^1.1.0"
-    prop-types "^15.6.0"
-
 react-redux@^5.0.4:
   version "5.0.6"
   resolved "https://registry.yarnpkg.com/react-redux/-/react-redux-5.0.6.tgz#23ed3a4f986359d68b5212eaaa681e60d6574946"
@@ -721,13 +605,6 @@ react-redux@^5.0.4:
     lodash-es "^4.2.0"
     loose-envify "^1.1.0"
     prop-types "^15.5.10"
-
-react-resizable@^1.4.5:
-  version "1.7.5"
-  resolved "https://registry.yarnpkg.com/react-resizable/-/react-resizable-1.7.5.tgz#83eb75bb3684da6989bbbf4f826e1470f0af902e"
-  dependencies:
-    prop-types "15.x"
-    react-draggable "^2.2.6 || ^3.0.3"
 
 react-transition-group@^2.2.1:
   version "2.3.1"
@@ -748,13 +625,7 @@ react-transition-group@^2.2.1:
     react-lifecycles-compat "^3.0.2"
     symbol-observable "^1.0.4"
 
-redux-undo@1.0.0-beta9-5:
-  version "1.0.0-beta9-5"
-  resolved "https://registry.yarnpkg.com/redux-undo/-/redux-undo-1.0.0-beta9-5.tgz#6a7cf4dfb068bb8f7b692cf08fb3e143999959fb"
-  dependencies:
-    redux "^3.5.2"
-
-redux@^3.2.0, redux@^3.5.2, redux@^3.6.0, redux@^3.7.1:
+redux@^3.2.0:
   version "3.7.2"
   resolved "https://registry.yarnpkg.com/redux/-/redux-3.7.2.tgz#06b73123215901d25d065be342eb026bc1c8537b"
   dependencies:
@@ -775,10 +646,6 @@ repeat-string@^1.5.2:
   version "1.6.1"
   resolved "https://registry.yarnpkg.com/repeat-string/-/repeat-string-1.6.1.tgz#8dcae470e1c88abc2d600fff4a776286da75e637"
 
-reselect@^2.5.4:
-  version "2.5.4"
-  resolved "https://registry.yarnpkg.com/reselect/-/reselect-2.5.4.tgz#b7d23fdf00b83fa7ad0279546f8dbbbd765c7047"
-
 reselect@^3.0.0:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/reselect/-/reselect-3.0.1.tgz#efdaa98ea7451324d092b2b2163a6a1d7a9a2147"
@@ -794,10 +661,6 @@ scroll@^2.0.3:
   resolved "https://registry.yarnpkg.com/scroll/-/scroll-2.0.3.tgz#0951b785544205fd17753bc3d294738ba16fc2ab"
   dependencies:
     rafl "~1.2.1"
-
-semver@^5.3.0:
-  version "5.5.0"
-  resolved "https://registry.yarnpkg.com/semver/-/semver-5.5.0.tgz#dc4bbc7a6ca9d916dee5d43516f0092b58f7b8ab"
 
 setimmediate@^1.0.5:
   version "1.0.5"
@@ -846,10 +709,6 @@ uglify-js@^2.8.29:
 uglify-to-browserify@~1.0.0:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/uglify-to-browserify/-/uglify-to-browserify-1.0.2.tgz#6e0924d6bda6b5afe349e39a6d632850a0f882b7"
-
-uuid@^3.0.1:
-  version "3.2.1"
-  resolved "https://registry.yarnpkg.com/uuid/-/uuid-3.2.1.tgz#12c528bb9d58d0b9265d9a2f6f0fe8be17ff1f14"
 
 warning@^3.0.0:
   version "3.0.0"
