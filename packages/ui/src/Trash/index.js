@@ -81,14 +81,7 @@ const Raw = ({ isLayoutMode, connectDropTarget, isOverCurrent }: Object) =>
         color='secondary'
         disabled={!isOverCurrent}
       >
-        <Delete
-          style={
-            !isOverCurrent && {
-              color: 'rgba(255,255,255,.87)',
-              fill: 'rgba(255,255,255,.87)'
-            }
-          }
-        />
+        <Delete />
       </Button>
     </div>
   )
