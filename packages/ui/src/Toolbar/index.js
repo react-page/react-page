@@ -96,7 +96,7 @@ class Raw extends Component {
     return (
       <Drawer variant='persistent' className="ory-toolbar-drawer" open={isInsertMode}>
         <Typography variant='subheading'>Add plugin to content</Typography>
-        <div style={{ padding: '0 16px' }} ref={this.onRef}>
+        <div style={{ padding: '0 16px' }} ref={(ref) => this.onRef = ref}>
           <TextField
             hintText="Search plugins"
             fullWidth
@@ -111,7 +111,7 @@ class Raw extends Component {
             return (
               <Item
                 plugin={plugin}
-                key={k}
+                key={k.toString()}
                 insert={{
                   content: {
                     plugin,
@@ -131,7 +131,7 @@ class Raw extends Component {
             return (
               <Item
                 plugin={plugin}
-                key={k}
+                key={k.toString()}
                 insert={{
                   ...children,
                   layout: {
