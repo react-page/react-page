@@ -35,3 +35,5 @@
 .*/node_modules/postcss.*
 .*/node_modules/react-scripts.*
 .*/node_modules/webpack.*
+.*/node_modules/jss.*
+.*/node_modules/recompose.*
