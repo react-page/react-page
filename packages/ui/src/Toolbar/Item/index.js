@@ -25,6 +25,7 @@ import React, { Component } from 'react'
 import Avatar from '@material-ui/core/Avatar'
 import draggable from '../Draggable'
 import ListItem from '@material-ui/core/ListItem'
+import ListItemText from '@material-ui/core/ListItemText'
 import { Plugin } from 'ory-editor-core'
 import DragHandle from '@material-ui/icons/DragHandle'
 import Tooltip from 'rc-tooltip'
@@ -53,31 +54,27 @@ class Item extends Component {
     // not using css modules here because they don't work with svg icons
     return (
       <ListItem
-        leftAvatar={<Avatar icon={plugin.IconComponent} />}
-        primaryText={plugin.text}
-        secondaryText={plugin.description}
-        secondaryTextLines={2}
-        disabled
         className="ory-toolbar-item"
-        rightIcon={
-          <span
-            className="ory-toolbar-item-drag-handle-button"
-            onMouseEnter={this.onMouseEnter}
-            onMouseLeave={this.onMouseLeave}
-            onMouseDown={this.onMouseLeave}
-          >
-            <Draggable insert={insert}>
-              <Tooltip
-                visible={this.state.tooltipVisible}
-                placement="bottomLeft"
-                overlay={<span>Drag me!</span>}
-              >
-                <DragHandle className="ory-toolbar-item-drag-handle" />
-              </Tooltip>
-            </Draggable>
-          </span>
-        }
-      />
+      >
+        <Avatar children={plugin.IconComponent} />
+        <ListItemText primary={plugin.text} secondary={plugin.description} />
+        <span
+          className="ory-toolbar-item-drag-handle-button"
+          onMouseEnter={this.onMouseEnter}
+          onMouseLeave={this.onMouseLeave}
+          onMouseDown={this.onMouseLeave}
+        >
+          <Draggable insert={insert}>
+            <Tooltip
+              visible={this.state.tooltipVisible}
+              placement="bottomLeft"
+              overlay={<span>Drag me!</span>}
+            >
+              <DragHandle className="ory-toolbar-item-drag-handle" />
+            </Tooltip>
+          </Draggable>
+        </span>
+      </ListItem>
     )
   }
 }

@@ -27,8 +27,9 @@ import { connect } from 'react-redux'
 import { isInsertMode } from 'ory-editor-core/lib/selector/display'
 import { createStructuredSelector } from 'reselect'
 import { Editor } from 'ory-editor-core/lib'
-import List from '@material-ui/core/List/List'
-import Typography from '@material-ui/core/Typography'
+import List from '@material-ui/core/List'
+import ListItem from '@material-ui/core/ListItem'
+import ListSubheader from '@material-ui/core/ListSubheader'
 import TextField from '@material-ui/core/TextField'
 import {
   LayoutPlugin,
@@ -95,16 +96,20 @@ class Raw extends Component {
 
     return (
       <Drawer variant='persistent' className="ory-toolbar-drawer" open={isInsertMode}>
-        <Typography variant='subheading'>Add plugin to content</Typography>
-        <div style={{ padding: '0 16px' }} ref={(ref) => this.onRef = ref}>
-          <TextField
-            hintText="Search plugins"
-            fullWidth
-            onChange={this.onSearch}
-          />
-        </div>
-        <List>
-          {content.length ? <Typography variant='subheading'>Content plugins</Typography> : null}
+        <List subheader={
+          <ListSubheader>Add plugin to content</ListSubheader>
+        }>
+          <ListItem ref={this.onRef}>
+            <TextField
+              placeholder="Search plugins"
+              fullWidth
+              onChange={this.onSearch}
+            />
+          </ListItem>
+        </List>
+        {content.length && <List subheader={
+            <ListSubheader>Content plugins</ListSubheader>
+          }>
           {content.map((plugin: ContentPlugin, k: Number) => {
             const initialState = plugin.createInitialState()
 
@@ -121,9 +126,10 @@ class Raw extends Component {
               />
             )
           })}
-        </List>
-        <List>
-          {layout.length ? <Typography variant='subheading'>Layout plugins</Typography> : null}
+        </List>}
+        {layout.length && <List subheader={
+            <ListSubheader>Layout plugins</ListSubheader>
+          }>
           {layout.map((plugin: LayoutPlugin, k: Number) => {
             const initialState = plugin.createInitialState()
             const children = plugin.createInitialChildren()
@@ -142,7 +148,7 @@ class Raw extends Component {
               />
             )
           })}
-        </List>
+        </List>}
       </Drawer>
     )
   }

@@ -46,12 +46,9 @@ const HTML5Video = ({
     {!readOnly ? (
       <BottomToolbar open={focused}>
         <TextField
-          hintText="https://example.com/video.webm"
-          floatingLabelText="Video url"
+          placeholder="https://example.com/video.webm"
+          label="Video url"
           onChange={changeUrl(onChange)}
-          inputStyle={{ color: 'white' }}
-          floatingLabelStyle={{ color: 'white' }}
-          hintStyle={{ color: 'grey' }}
           value={url}
         />
       </BottomToolbar>

@@ -24,7 +24,8 @@
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles'
 import Drawer from '@material-ui/core/Drawer'
 import React from 'react'
-import { darkBlack } from '@material-ui/core/colors'
+
+const darkBlack = 'rgba(0, 0, 0, 0.87)'
 
 const BottomToolbar = ({
   open = false,
@@ -41,14 +42,18 @@ const BottomToolbar = ({
       className={className}
       open={open}
       anchor='bottom'
+      PaperProps={{style: {
+        backgroundColor: 'transparent',
+        border: 'none'
+      }}}
     >
       <div
         style={{
-          display: 'inline-block',
           border: `${darkBlack} 1px solid`,
           borderRadius: '4px 4px 0',
           backgroundColor: darkBlack,
-          padding: '12px 24px'
+          padding: '12px 24px',
+          margin: 'auto'
         }}
       >
         {children}

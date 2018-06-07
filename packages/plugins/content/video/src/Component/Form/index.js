@@ -41,11 +41,8 @@ const Form = (props: PropTypes) => (
     <Display {...props} />
     <BottomToolbar open={props.focused}>
       <TextField
-        hintText="https://www.youtube.com/watch?v=ER97mPHhgtM"
-        floatingLabelText="Video location (YouTube / Vimeo)"
-        inputStyle={{ color: 'white' }}
-        floatingLabelStyle={{ color: 'white' }}
-        hintStyle={{ color: 'grey' }}
+        placeholder="https://www.youtube.com/watch?v=ER97mPHhgtM"
+        label="Video location (YouTube / Vimeo)"
         style={{ width: '512px' }}
         value={props.state.src || ''}
         onChange={handleChange(props.onChange)}

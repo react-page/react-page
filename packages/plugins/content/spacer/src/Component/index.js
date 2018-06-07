@@ -84,11 +84,8 @@ class Spacer extends Component {
               <MuiThemeProvider theme={createMuiTheme()}>
                 <BottomToolbar open={focused}>
                   <TextField
-                    hintText="24"
-                    floatingLabelText="Element height (px)"
-                    inputStyle={{ color: 'white' }}
-                    floatingLabelStyle={{ color: 'white' }}
-                    hintStyle={{ color: 'grey' }}
+                    placeholder="24"
+                    label="Element height (px)"
                     style={{ width: '512px' }}
                     value={height}
                     onChange={handleChange(onChange)}

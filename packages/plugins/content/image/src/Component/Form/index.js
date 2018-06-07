@@ -23,6 +23,7 @@
 // @flow
 import React from 'react'
 import Display from '../Display'
+import FormControlLabel from '@material-ui/core/FormControlLabel'
 import TextField from '@material-ui/core/TextField'
 import Checkbox from '@material-ui/core/Checkbox'
 import type { PropTypes } from '../index.js'
@@ -57,11 +58,8 @@ const Form = (props: PropTypes) => (
     <Display {...props} />
     <BottomToolbar open={props.focused}>
       <TextField
-        hintText="http://example.com/image.png"
-        floatingLabelText="Image location (url)"
-        inputStyle={{ color: 'white' }}
-        floatingLabelStyle={{ color: 'white' }}
-        hintStyle={{ color: 'grey' }}
+        placeholder="http://example.com/image.png"
+        label="Image location (url)"
         name="src"
         style={{ width: '512px' }}
         value={props.state.src}
@@ -69,11 +67,8 @@ const Form = (props: PropTypes) => (
       />
       <br/>
       <TextField
-        hintText="http://example.com"
-        floatingLabelText="Link location (url)"
-        inputStyle={{ color: 'white' }}
-        floatingLabelStyle={{ color: 'white' }}
-        hintStyle={{ color: 'grey' }}
+        placeholder="http://example.com"
+        label="Link location (url)"
         name="href"
         style={{ width: '512px' }}
         value={props.state.href}
@@ -81,13 +76,13 @@ const Form = (props: PropTypes) => (
       />
       <br/>
       <br/>
-      <Checkbox
-        checked={props.state.target === '_blank'}
-        iconStyle={{fill: 'white', textAlign: 'left'}}
+      <FormControlLabel
+        control={<Checkbox
+          checked={props.state.target === '_blank'}
+          name="target"
+          onChange={handleChange(props.onChange)}
+        />}
         label="Open in new window"
-        labelStyle={{color: 'white', textAlign: 'left'}}
-        name="target"
-        onCheck={handleChange(props.onChange)}
       />
     </BottomToolbar>
   </div>

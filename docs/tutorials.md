@@ -41,6 +41,7 @@ import slate from 'ory-editor-plugins-slate' // The rich text area plugin
 import 'ory-editor-plugins-slate/lib/index.css' // Stylesheets for the rich text area plugin
 import parallax from 'ory-editor-plugins-parallax-background' // A plugin for parallax background images
 import 'ory-editor-plugins-parallax-background/lib/index.css' // Stylesheets for parallax background images
+require('react-tap-event-plugin')() // react-tap-event-plugin is required by material-ui which is used by ory-editor-ui so we need to call it here
 
 // Define which plugins we want to use. We only have slate and parallax available, so load those.
 const plugins = {
@@ -159,11 +160,13 @@ export default InputTextField
 
 Of course, there are more settings and callbacks available. We encourage checking out the API docs on this topic!
 
+Make sure the `onChange` prop is never passed through to an HTML element (eg via `{...props}`), as this will overwrite the state of your plugin with any change event emitted by that element. This applies to both content and layout plugins.
+
 ### Writing a layout plugin
 
 Of course, you are not limited to this functionality and can easily write
 your own plugins. Plugins have two parts, one plugin definition and a
-ReactJS component. A minimal plugin definition looks as followed
+ReactJS component. A minimal plugin definition looks as follows
 
 ```jsx
 import React from 'react'

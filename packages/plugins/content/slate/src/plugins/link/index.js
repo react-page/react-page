@@ -197,7 +197,7 @@ class LinkButton extends Component {
               {this.state.wasExpanded ? null : (
                 <div>
                   <TextField
-                    hintText="Link title"
+                    placeholder="Link title"
                     onChange={this.onTitleChange}
                     value={this.state.title}
                   />
@@ -205,7 +205,7 @@ class LinkButton extends Component {
               )}
               <div ref={this.onRef}>
                 <TextField
-                  hintText="http://example.com/my/link.html"
+                  placeholder="http://example.com/my/link.html"
                   onChange={this.onHrefChange}
                   value={this.state.href}
                 />

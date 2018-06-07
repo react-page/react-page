@@ -58,21 +58,15 @@ class PluginComponent extends Component {
         >
           <BottomToolbar open={focused}>
             <TextField
-              hintText="http://example.com/image.png"
-              floatingLabelText="Image location (URL)"
-              inputStyle={{ color: 'white' }}
-              floatingLabelStyle={{ color: 'white' }}
-              hintStyle={{ color: 'grey' }}
+              placeholder="http://example.com/image.png"
+              label="Image location (URL)"
               style={{ width: '256px' }}
               value={background}
               onChange={handleChange(onChange, 'background')}
             />
             <TextField
-              hintText="0.3"
-              floatingLabelText="Darken level"
-              inputStyle={{ color: 'white' }}
-              floatingLabelStyle={{ color: 'white' }}
-              hintStyle={{ color: 'grey' }}
+              placeholder="0.3"
+              label="Darken level"
               style={{ width: '256px' }}
               value={darken}
               onChange={handleChange(onChange, 'darken')}
