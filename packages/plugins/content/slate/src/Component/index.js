@@ -21,12 +21,12 @@
  */
 
 /* eslint-disable no-alert, prefer-reflect, no-underscore-dangle */
-import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles'
+import { createMuiTheme } from '@material-ui/core/styles'
 import React, { Component } from 'react'
 import Portal from 'react-portal'
 import position from 'selection-position'
 import { Editor } from 'slate'
-import BottomToolbar from 'ory-editor-ui/lib/BottomToolbar'
+import { BottomToolbar, ThemeProvider } from 'ory-editor-ui'
 import { ContentPluginProps } from 'ory-editor-core/lib/service/plugin/classes'
 
 import { html as serializer } from '../hooks.js'
@@ -35,11 +35,11 @@ const onBlur = (_event, _data, state) => state
 
 export type Props = ContentPluginProps<{ editorState: Object }>
 
-const darkTheme = {
+const theme = createMuiTheme({
   palette: {
     type: 'dark',
   },
-}
+})
 
 class Slate extends Component {
   componentDidMount = () => {
@@ -113,7 +113,7 @@ class Slate extends Component {
     return (
       <div>
         <Portal isOpened={isOpened} onOpen={this.handleOpen}>
-          <MuiThemeProvider theme={createMuiTheme(darkTheme)}>
+          <ThemeProvider theme={theme}>
             {/* ory-prevent-blur is required to prevent global blurring */}
             <div
               className="ory-prevent-blur ory-plugins-content-slate-inline-toolbar"
@@ -125,7 +125,7 @@ class Slate extends Component {
                 focus={focus}
               />
             </div>
-          </MuiThemeProvider>
+          </ThemeProvider>
         </Portal>
         <Editor
           onChange={this.onStateChange}

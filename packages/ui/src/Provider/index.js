@@ -25,7 +25,7 @@ import React, { Component } from 'react'
 import { Provider as ReduxProvider } from 'react-redux'
 import { Editor } from 'ory-editor-core/lib'
 import dragDropContext from 'ory-editor-core/lib/components/DragDropContext'
-import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles'
+import ThemeProvider from '../ThemeProvider'
 
 type PropTypes = { editor: Editor, children: [] }
 
@@ -44,9 +44,9 @@ class Provider extends Component {
     return (
       <ReduxProvider store={editor.store}>
         <DragDropContext>
-          <MuiThemeProvider theme={createMuiTheme()}>
+          <ThemeProvider>
             {children}
-          </MuiThemeProvider>
+          </ThemeProvider>
         </DragDropContext>
       </ReduxProvider>
     )

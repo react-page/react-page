@@ -23,9 +23,9 @@
 // @flow
 import React, { Component } from 'react'
 import { Resizable } from 'react-resizable'
-import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles'
 import classNames from 'classnames'
 import TextField from '@material-ui/core/TextField'
+import ThemeProvider from 'ory-editor-ui/lib/ThemeProvider'
 
 import { BottomToolbar } from 'ory-editor-ui'
 
@@ -81,7 +81,7 @@ class Spacer extends Component {
         ) : (
           <Resizable onResize={this.onResize} height={height} width={0}>
             <div style={{ height, position: 'relative' }}>
-              <MuiThemeProvider theme={createMuiTheme()}>
+              <ThemeProvider>
                 <BottomToolbar open={focused}>
                   <TextField
                     placeholder="24"
@@ -91,7 +91,7 @@ class Spacer extends Component {
                     onChange={handleChange(onChange)}
                   />
                 </BottomToolbar>
-              </MuiThemeProvider>
+              </ThemeProvider>
               <div
                 style={{
                   position: 'absolute',

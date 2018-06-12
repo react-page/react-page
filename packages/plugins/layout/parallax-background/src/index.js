@@ -30,7 +30,7 @@ import type {
   ContentPlugin
 } from 'ory-editor-core/lib/service/plugin/classes'
 import { BottomToolbar } from 'ory-editor-ui'
-import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles'
+import ThemeProvider from 'ory-editor-ui/lib/ThemeProvider'
 
 const handleChange = (onChange: (state: any) => void, key: string) => (
   e: Event,
@@ -49,7 +49,7 @@ class PluginComponent extends Component {
       state: { background = '', darken = 0.3 }
     } = this.props
     return (
-      <MuiThemeProvider theme={createMuiTheme()}>
+      <ThemeProvider>
         <div
           className="ory-plugins-layout-parallax-background"
           style={{
@@ -74,7 +74,7 @@ class PluginComponent extends Component {
           </BottomToolbar>
           {children}
         </div>
-      </MuiThemeProvider>
+      </ThemeProvider>
     )
   }
 }

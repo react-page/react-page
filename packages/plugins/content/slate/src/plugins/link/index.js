@@ -23,7 +23,6 @@
 /* eslint-disable no-alert, prefer-reflect, default-case, react/display-name */
 import LinkIcon from '@material-ui/icons/Link'
 import React, { Component } from 'react'
-import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles'
 import TextField from '@material-ui/core/TextField'
 import { ToolbarButton } from '../../helpers'
 import Plugin from '../Plugin'
@@ -32,6 +31,7 @@ import Dialog from '@material-ui/core/Dialog'
 import Button from '@material-ui/core/Button'
 import { Data } from 'slate'
 import type { Props } from '../props'
+import ThemeProvider from 'ory-editor-ui/lib/ThemeProvider'
 
 export const A = 'LINK/LINK'
 
@@ -179,7 +179,7 @@ class LinkButton extends Component {
       (inline: any) => inline.type === A
     )
     return (
-      <MuiThemeProvider theme={createMuiTheme()}>
+      <ThemeProvider>
         <span>
           <ToolbarButton
             onClick={this.onClick}
@@ -213,7 +213,7 @@ class LinkButton extends Component {
             </Dialog>
           </span>
         </span>
-      </MuiThemeProvider>
+      </ThemeProvider>
     )
   }
 }
