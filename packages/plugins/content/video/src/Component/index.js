@@ -5,12 +5,12 @@
  * it under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- *  
+ *
  * ORY Editor is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Lesser General Public License for more details.
- *  
+ *
  * You should have received a copy of the GNU Lesser General Public License
  * along with ORY Editor.  If not, see <http://www.gnu.org/licenses/>.
  *
@@ -25,15 +25,14 @@ import React from 'react'
 import type { ContentPluginProps } from 'ory-editor-core/lib/service/plugin/classes'
 import Display from './Display'
 import Form from './Form'
-import getMuiTheme from 'material-ui/styles/getMuiTheme'
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
+import ThemeProvider from 'ory-editor-ui/lib/ThemeProvider'
 
 export type PropTypes = ContentPluginProps<{ src: string, caption: string }>
 
 const Video = (props: PropTypes) => (
-  <MuiThemeProvider muiTheme={getMuiTheme()}>
+  <ThemeProvider>
     {props.readOnly ? <Display {...props} /> : <Form {...props} />}
-  </MuiThemeProvider>
+  </ThemeProvider>
 )
 
 export default Video

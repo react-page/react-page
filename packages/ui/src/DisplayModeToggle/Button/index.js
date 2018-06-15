@@ -22,10 +22,10 @@
 
 // @flow
 import React from 'react'
-import FloatingActionButton from 'material-ui/FloatingActionButton'
+import Button from '@material-ui/core/Button'
 import { device } from 'device.js'
 
-const Button = ({
+const DisplayModeToggle = ({
   description,
   icon,
   onClick,
@@ -41,14 +41,15 @@ const Button = ({
 }) => (
   <div className="ory-controls-mode-toggle-button">
     <div className="ory-controls-mode-toggle-button-inner">
-      <FloatingActionButton
-        secondary={active}
+      <Button
+        variant='fab'
+        color={active ? 'secondary' : 'default'}
         mini={device.mobile}
-        onTouchTap={onClick}
+        onClick={onClick}
         disabled={disabled}
       >
         {icon}
-      </FloatingActionButton>
+      </Button>
     </div>
     <div className="ory-controls-mode-toggle-button-description">
       {description}
@@ -56,4 +57,4 @@ const Button = ({
   </div>
 )
 
-export default Button
+export default DisplayModeToggle

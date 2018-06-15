@@ -22,7 +22,7 @@
 
 // @flow
 import React from 'react'
-import ViewQuilt from 'material-ui/svg-icons/action/view-quilt'
+import ViewQuilt from '@material-ui/icons/ViewQuilt'
 import Button from '../Button'
 
 import { connect } from 'react-redux'

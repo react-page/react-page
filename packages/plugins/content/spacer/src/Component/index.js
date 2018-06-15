@@ -5,12 +5,12 @@
  * it under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- *  
+ *
  * ORY Editor is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Lesser General Public License for more details.
- *  
+ *
  * You should have received a copy of the GNU Lesser General Public License
  * along with ORY Editor.  If not, see <http://www.gnu.org/licenses/>.
  *
@@ -23,9 +23,9 @@
 // @flow
 import React, { Component } from 'react'
 import { Resizable } from 'react-resizable'
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import classNames from 'classnames'
-import TextField from 'material-ui/TextField'
+import TextField from '@material-ui/core/TextField'
+import ThemeProvider from 'ory-editor-ui/lib/ThemeProvider'
 
 import { BottomToolbar } from 'ory-editor-ui'
 
@@ -81,20 +81,17 @@ class Spacer extends Component {
         ) : (
           <Resizable onResize={this.onResize} height={height} width={0}>
             <div style={{ height, position: 'relative' }}>
-              <MuiThemeProvider>
+              <ThemeProvider>
                 <BottomToolbar open={focused}>
                   <TextField
-                    hintText="24"
-                    floatingLabelText="Element height (px)"
-                    inputStyle={{ color: 'white' }}
-                    floatingLabelStyle={{ color: 'white' }}
-                    hintStyle={{ color: 'grey' }}
+                    placeholder="24"
+                    label="Element height (px)"
                     style={{ width: '512px' }}
                     value={height}
                     onChange={handleChange(onChange)}
                   />
                 </BottomToolbar>
-              </MuiThemeProvider>
+              </ThemeProvider>
               <div
                 style={{
                   position: 'absolute',

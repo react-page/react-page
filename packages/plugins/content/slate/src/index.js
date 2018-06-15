@@ -5,12 +5,12 @@
  * it under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- *  
+ *
  * ORY Editor is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Lesser General Public License for more details.
- *  
+ *
  * You should have received a copy of the GNU Lesser General Public License
  * along with ORY Editor.  If not, see <http://www.gnu.org/licenses/>.
  *
@@ -24,7 +24,7 @@
 // TODO lint: prefer-reflect doesn't work with slate state #158
 /* eslint no-duplicate-imports: ["off"] */
 /* eslint prefer-reflect: ["off"] */
-import Subject from 'material-ui/svg-icons/action/subject'
+import Subject from '@material-ui/icons/Subject'
 import { compose, flatten, map, mergeAll, prop, pathOr } from 'ramda'
 import { Html } from 'slate'
 import React from 'react'

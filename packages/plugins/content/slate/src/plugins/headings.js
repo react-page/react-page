@@ -5,12 +5,12 @@
  * it under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- *  
+ *
  * ORY Editor is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Lesser General Public License for more details.
- *  
+ *
  * You should have received a copy of the GNU Lesser General Public License
  * along with ORY Editor.  If not, see <http://www.gnu.org/licenses/>.
  *
@@ -22,12 +22,12 @@
 
 /* eslint-disable prefer-reflect, default-case, react/display-name */
 import React from 'react'
-import H1Icon from 'material-ui/svg-icons/image/looks-one'
-import H2Icon from 'material-ui/svg-icons/image/looks-two'
-import H3Icon from 'material-ui/svg-icons/image/looks-3'
-import H4Icon from 'material-ui/svg-icons/image/looks-4'
-import H5Icon from 'material-ui/svg-icons/image/looks-5'
-import H6Icon from 'material-ui/svg-icons/image/looks-6'
+import H1Icon from '@material-ui/icons/LooksOne'
+import H2Icon from '@material-ui/icons/LooksTwo'
+import H3Icon from '@material-ui/icons/Looks3'
+import H4Icon from '@material-ui/icons/Looks4'
+import H5Icon from '@material-ui/icons/Looks5'
+import H6Icon from '@material-ui/icons/Looks6'
 // import { Data } from 'slate'
 import { makeTagNode, ToolbarButton } from '../helpers'
 import Plugin from './Plugin'
