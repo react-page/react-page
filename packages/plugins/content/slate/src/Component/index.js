@@ -127,6 +127,7 @@ class Slate extends Component {
           onChange={this.onStateChange}
           onKeyDown={onKeyDown}
           readOnly={Boolean(readOnly)}
+          className="ory-plugins-content-slate-container"
           onBlur={onBlur}
           schema={schema}
           state={editorState}
