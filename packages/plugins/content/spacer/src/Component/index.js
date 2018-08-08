@@ -48,7 +48,7 @@ const Solid = ({ height }: { height: number }) => <div style={{ height }} />
 const handleChange = (onChange: Function) => (e: Event) => {
   const target = e.target
   if (target instanceof HTMLInputElement) {
-    onChange({ height: parseInt(target.value) })
+    onChange({ height: parseInt(target.value, 10) })
     return
   }
 }

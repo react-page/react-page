@@ -85,7 +85,7 @@ class Slate extends Component {
   }
 
   onPaste = (e, data, state) => {
-    if (data.type != 'html') return
+    if (data.type !== 'html') return
     if (data.isShift) return
 
     const { document } = serializer.deserialize(data.html)
