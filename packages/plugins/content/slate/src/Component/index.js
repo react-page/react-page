@@ -63,7 +63,7 @@ class Slate extends Component {
   }
 
   handleOpen = portal => {
-    this.toolbar = portal.firstChild
+    // this.toolbar = portal.firstChild
   }
 
   updateToolbar = () => {
@@ -113,11 +113,15 @@ class Slate extends Component {
     return (
       <div>
         <Portal isOpened={isOpened} onOpen={this.handleOpen}>
+          {/* ory-prevent-blur is required to prevent global blurring */}
           <ThemeProvider theme={theme}>
-            {/* ory-prevent-blur is required to prevent global blurring */}
             <div
               className="ory-prevent-blur ory-plugins-content-slate-inline-toolbar"
               style={{ padding: 0 }}
+              ref={toolbar => {
+                this.toolbar = toolbar;
+                toolbar && this.updateToolbar();
+              }}
             >
               <HoverButtons
                 editorState={editorState}
