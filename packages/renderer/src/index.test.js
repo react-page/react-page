@@ -174,7 +174,7 @@ describe('HTMLRenderer', () => {
         const wrapper = render(<HTMLRenderer state={c} plugins={plugins} />)
         it('should pass', () => {
           expect(wrapper.html()).toEqual(
-            '<div class="ory-cell ory-cell-sm-12 ory-cell-xs-12"><div class="ory-cell-inner ory-cell-leaf"><div><p style="text-align:center">Asdfg</p></div></div></div>'
+            '<div class=\"ory-cell ory-cell-sm-12 ory-cell-xs-12\"><div class=\"ory-cell-inner ory-cell-leaf\"><div class=\"ory-plugins-content-slate-container\"><p style=\"text-align:center\">Asdfg</p></div></div></div>'
           )
         })
       })
