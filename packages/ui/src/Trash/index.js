@@ -69,22 +69,26 @@ const connectMonitor = (connect: any, monitor: any) => ({
   isOverCurrent: monitor.isOver({ shallow: true })
 })
 
-const Raw = ({ isLayoutMode, connectDropTarget, isOverCurrent }: Object) =>
-  connectDropTarget(
-    <div
-      className={classNames('ory-controls-trash', {
-        'ory-controls-trash-active': isLayoutMode
-      })}
-    >
-      <Button
-        variant='fab'
-        color='secondary'
-        disabled={!isOverCurrent}
+class Raw extends React.Component {
+  render() {
+    const { isLayoutMode, connectDropTarget, isOverCurrent } = this.props;
+    return connectDropTarget(
+      <div
+        className={classNames('ory-controls-trash', {
+          'ory-controls-trash-active': isLayoutMode
+        })}
       >
-        <Delete />
-      </Button>
-    </div>
-  )
+        <Button
+          variant='fab'
+          color='secondary'
+          disabled={!isOverCurrent}
+        >
+          <Delete />
+        </Button>
+      </div>
+    )
+  }
+}
 
 const types = ({ editor }: { editor: Editor }) => {
   const plugins = [
