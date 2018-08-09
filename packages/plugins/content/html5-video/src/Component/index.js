@@ -25,6 +25,7 @@ import React from 'react'
 import { ContentPluginProps } from 'ory-editor-core/lib/service/plugin/classes'
 import TextField from '@material-ui/core/TextField'
 import { BottomToolbar } from 'ory-editor-ui'
+import { darkTheme } from 'ory-editor-ui/lib/ThemeProvider'
 
 export type Props = ContentPluginProps<*>
 
@@ -44,7 +45,7 @@ const HTML5Video = ({
 }) => (
   <div className="ory-content-plugin-html5-video">
     {!readOnly ? (
-      <BottomToolbar open={focused}>
+      <BottomToolbar open={focused} theme={darkTheme}>
         <TextField
           placeholder="https://example.com/video.webm"
           label="Video url"

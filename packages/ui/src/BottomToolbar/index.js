@@ -30,13 +30,15 @@ const darkBlack = 'rgba(0, 0, 0, 0.87)'
 const BottomToolbar = ({
   open = false,
   children,
-  className
+  className, 
+  theme
 }: {
   open?: boolean,
   children?: Object,
-  className?: string
+  className?: string,
+  theme?: string
 }) => (
-  <ThemeProvider>
+  <ThemeProvider theme={theme}>
     <Drawer
       variant='persistent'
       className={className}

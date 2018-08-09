@@ -29,6 +29,7 @@ import Checkbox from '@material-ui/core/Checkbox'
 import type { PropTypes } from '../index.js'
 
 import { BottomToolbar } from 'ory-editor-ui'
+import { darkTheme } from 'ory-editor-ui/lib/ThemeProvider';
 
 const handleChange = (onChange: Function) => (e: Event) => {
   const target = e.target
@@ -56,7 +57,7 @@ const handleChange = (onChange: Function) => (e: Event) => {
 const Form = (props: PropTypes) => (
   <div>
     <Display {...props} />
-    <BottomToolbar open={props.focused}>
+    <BottomToolbar open={props.focused} theme={darkTheme}>
       <TextField
         placeholder="http://example.com/image.png"
         label="Image location (url)"

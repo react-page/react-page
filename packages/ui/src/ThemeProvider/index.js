@@ -28,12 +28,15 @@ import {
   createGenerateClassName,
   createMuiTheme
 } from '@material-ui/core/styles'
+import darkTheme from './DarkTheme'
+export { darkTheme };
 
 const generateClassName = createGenerateClassName({ productionPrefix: 'ory' })
-const theme = createMuiTheme()
+export const themeOptions = {}
+const theme = createMuiTheme(themeOptions)
 
 class ThemeProvider extends Component {
-  render () {
+  render() {
     return (
       <JssProvider generateClassName={generateClassName}>
         <MuiThemeProvider theme={this.props.theme || theme}>
