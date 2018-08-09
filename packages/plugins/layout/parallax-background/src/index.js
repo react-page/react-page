@@ -27,10 +27,10 @@ import Icon from '@material-ui/icons/CropLandscape'
 import TextField from '@material-ui/core/TextField'
 import type {
   LayoutPluginProps,
-  ContentPlugin
+    ContentPlugin
 } from 'ory-editor-core/lib/service/plugin/classes'
 import { BottomToolbar } from 'ory-editor-ui'
-import ThemeProvider from 'ory-editor-ui/lib/ThemeProvider'
+import ThemeProvider, { darkTheme } from 'ory-editor-ui/lib/ThemeProvider'
 
 const handleChange = (onChange: (state: any) => void, key: string) => (
   e: Event,
@@ -49,14 +49,14 @@ class PluginComponent extends Component {
       state: { background = '', darken = 0.3 }
     } = this.props
     return (
-      <ThemeProvider>
+      <ThemeProvider theme={darkTheme}>
         <div
           className="ory-plugins-layout-parallax-background"
           style={{
             backgroundImage: `linear-gradient(rgba(0, 0, 0, ${darken}), rgba(0, 0, 0, ${darken})), url('${background}')`
           }}
         >
-          <BottomToolbar open={focused}>
+          <BottomToolbar open={focused} theme={darkTheme}>
             <TextField
               placeholder="http://example.com/image.png"
               label="Image location (URL)"

@@ -25,6 +25,7 @@ import React from 'react'
 import Display from '../Display'
 import TextField from '@material-ui/core/TextField'
 import type { PropTypes } from '../index.js'
+import { darkTheme } from 'ory-editor-ui/lib/ThemeProvider'
 
 import { BottomToolbar } from 'ory-editor-ui'
 
@@ -39,7 +40,7 @@ const handleChange = (onChange: Function) => (e: Event) => {
 const Form = (props: PropTypes) => (
   <div>
     <Display {...props} />
-    <BottomToolbar open={props.focused}>
+    <BottomToolbar open={props.focused} theme={darkTheme}>
       <TextField
         placeholder="https://www.youtube.com/watch?v=ER97mPHhgtM"
         label="Video location (YouTube / Vimeo)"
