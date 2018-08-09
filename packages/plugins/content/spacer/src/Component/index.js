@@ -5,12 +5,12 @@
  * it under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- *  
+ *
  * ORY Editor is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Lesser General Public License for more details.
- *  
+ *
  * You should have received a copy of the GNU Lesser General Public License
  * along with ORY Editor.  If not, see <http://www.gnu.org/licenses/>.
  *
@@ -23,9 +23,9 @@
 // @flow
 import React, { Component } from 'react'
 import { Resizable } from 'react-resizable'
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import classNames from 'classnames'
-import TextField from 'material-ui/TextField'
+import TextField from '@material-ui/core/TextField'
+import { darkTheme } from 'ory-editor-ui/lib/ThemeProvider'
 
 import { BottomToolbar } from 'ory-editor-ui'
 
@@ -39,16 +39,16 @@ const fire = ({
   state,
   onChange
 }: {
-  state: Object,
-  onChange(state: Object): void
-}) => onChange(state)
+    state: Object,
+    onChange(state: Object): void
+  }) => onChange(state)
 
 const Solid = ({ height }: { height: number }) => <div style={{ height }} />
 
 const handleChange = (onChange: Function) => (e: Event) => {
   const target = e.target
   if (target instanceof HTMLInputElement) {
-    onChange({ height: parseInt(target.value) })
+    onChange({ height: parseInt(target.value, 10) })
     return
   }
 }
@@ -68,7 +68,6 @@ class Spacer extends Component {
   render() {
     const { readOnly, isPreviewMode, focused, onChange } = this.props
     const height = this.props.state.height > 0 ? this.props.state.height : 1
-
     return (
       <div
         style={{ border: 'solid 1px', borderColor: faintBlack }}
@@ -79,42 +78,38 @@ class Spacer extends Component {
         {readOnly ? (
           <Solid height={height} />
         ) : (
-          <Resizable onResize={this.onResize} height={height} width={0}>
-            <div style={{ height, position: 'relative' }}>
-              <MuiThemeProvider>
-                <BottomToolbar open={focused}>
+            <Resizable onResize={this.onResize} height={height} width={0}>
+              <div style={{ height, position: 'relative' }}>
+                <BottomToolbar open={focused} theme={darkTheme}>
                   <TextField
-                    hintText="24"
-                    floatingLabelText="Element height (px)"
-                    inputStyle={{ color: 'white' }}
-                    floatingLabelStyle={{ color: 'white' }}
-                    hintStyle={{ color: 'grey' }}
+                    placeholder="24"
+                    label="Element height (px)"
                     style={{ width: '512px' }}
                     value={height}
                     onChange={handleChange(onChange)}
+                    color="white"
                   />
                 </BottomToolbar>
-              </MuiThemeProvider>
-              <div
-                style={{
-                  position: 'absolute',
-                  bottom: '0',
-                  height: '24px',
-                  width: '100%',
-                  background: faintBlack,
-                  textAlign: 'center'
-                }}
-              >
-                <svg
-                  viewBox="0 0 24 24"
-                  style={{ color: 'white', width: 24, height: 24 }}
+                <div
+                  style={{
+                    position: 'absolute',
+                    bottom: '0',
+                    height: '24px',
+                    width: '100%',
+                    background: faintBlack,
+                    textAlign: 'center'
+                  }}
                 >
-                  <path d="M20 9H4v2h16V9zM4 15h16v-2H4v2z" />
-                </svg>
+                  <svg
+                    viewBox="0 0 24 24"
+                    style={{ color: 'white', width: 24, height: 24 }}
+                  >
+                    <path d="M20 9H4v2h16V9zM4 15h16v-2H4v2z" />
+                  </svg>
+                </div>
               </div>
-            </div>
-          </Resizable>
-        )}
+            </Resizable>
+          )}
       </div>
     )
   }

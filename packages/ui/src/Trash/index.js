@@ -23,8 +23,8 @@
 // @flow
 import React from 'react'
 import { DropTarget as dropTarget } from 'react-dnd'
-import Delete from 'material-ui/svg-icons/action/delete'
-import FloatingActionButton from 'material-ui/FloatingActionButton'
+import Delete from '@material-ui/icons/Delete'
+import Button from '@material-ui/core/Button'
 import { Editor } from 'ory-editor-core/lib'
 import { connect } from 'react-redux'
 import classNames from 'classnames'
@@ -69,29 +69,26 @@ const connectMonitor = (connect: any, monitor: any) => ({
   isOverCurrent: monitor.isOver({ shallow: true })
 })
 
-const Raw = ({ isLayoutMode, connectDropTarget, isOverCurrent }: Object) =>
-  connectDropTarget(
-    <div
-      className={classNames('ory-controls-trash', {
-        'ory-controls-trash-active': isLayoutMode
-      })}
-    >
-      <FloatingActionButton
-        secondary
-        disabled={!isOverCurrent}
-        disabledColor="rgba(0,0,0,.87)"
+class Raw extends React.Component {
+  render() {
+    const { isLayoutMode, connectDropTarget, isOverCurrent } = this.props;
+    return connectDropTarget(
+      <div
+        className={classNames('ory-controls-trash', {
+          'ory-controls-trash-active': isLayoutMode
+        })}
       >
-        <Delete
-          style={
-            !isOverCurrent && {
-              color: 'rgba(255,255,255,.87)',
-              fill: 'rgba(255,255,255,.87)'
-            }
-          }
-        />
-      </FloatingActionButton>
-    </div>
-  )
+        <Button
+          variant='fab'
+          color='secondary'
+          disabled={!isOverCurrent}
+        >
+          <Delete />
+        </Button>
+      </div>
+    )
+  }
+}
 
 const types = ({ editor }: { editor: Editor }) => {
   const plugins = [

@@ -5,12 +5,12 @@
  * it under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- *  
+ *
  * ORY Editor is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Lesser General Public License for more details.
- *  
+ *
  * You should have received a copy of the GNU Lesser General Public License
  * along with ORY Editor.  If not, see <http://www.gnu.org/licenses/>.
  *
@@ -21,14 +21,12 @@
  */
 
 /* eslint-disable no-alert, prefer-reflect, no-underscore-dangle */
-import getMuiTheme from 'material-ui/styles/getMuiTheme'
-import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme'
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
+import { createMuiTheme } from '@material-ui/core/styles'
 import React, { Component } from 'react'
 import Portal from 'react-portal'
 import position from 'selection-position'
 import { Editor } from 'slate'
-import BottomToolbar from 'ory-editor-ui/lib/BottomToolbar'
+import { BottomToolbar, ThemeProvider } from 'ory-editor-ui'
 import { ContentPluginProps } from 'ory-editor-core/lib/service/plugin/classes'
 
 import { html as serializer } from '../hooks.js'
@@ -36,6 +34,12 @@ import { html as serializer } from '../hooks.js'
 const onBlur = (_event, _data, state) => state
 
 export type Props = ContentPluginProps<{ editorState: Object }>
+
+const theme = createMuiTheme({
+  palette: {
+    type: 'dark',
+  },
+})
 
 class Slate extends Component {
   componentDidMount = () => {
@@ -59,7 +63,7 @@ class Slate extends Component {
   }
 
   handleOpen = portal => {
-    this.toolbar = portal.firstChild
+    // this.toolbar = portal.firstChild
   }
 
   updateToolbar = () => {
@@ -81,7 +85,7 @@ class Slate extends Component {
   }
 
   onPaste = (e, data, state) => {
-    if (data.type != 'html') return
+    if (data.type !== 'html') return
     if (data.isShift) return
 
     const { document } = serializer.deserialize(data.html)
@@ -109,11 +113,15 @@ class Slate extends Component {
     return (
       <div>
         <Portal isOpened={isOpened} onOpen={this.handleOpen}>
-          <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
-            {/* ory-prevent-blur is required to prevent global blurring */}
+          {/* ory-prevent-blur is required to prevent global blurring */}
+          <ThemeProvider theme={theme}>
             <div
               className="ory-prevent-blur ory-plugins-content-slate-inline-toolbar"
               style={{ padding: 0 }}
+              ref={toolbar => {
+                this.toolbar = toolbar;
+                toolbar && this.updateToolbar();
+              }}
             >
               <HoverButtons
                 editorState={editorState}
@@ -121,7 +129,7 @@ class Slate extends Component {
                 focus={focus}
               />
             </div>
-          </MuiThemeProvider>
+          </ThemeProvider>
         </Portal>
         <Editor
           onChange={this.onStateChange}

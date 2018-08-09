@@ -5,12 +5,12 @@
  * it under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- *  
+ *
  * ORY Editor is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Lesser General Public License for more details.
- *  
+ *
  * You should have received a copy of the GNU Lesser General Public License
  * along with ORY Editor.  If not, see <http://www.gnu.org/licenses/>.
  *
@@ -22,14 +22,14 @@
 
 // @flow
 import React from 'react'
-import ImageIcon from 'material-ui/svg-icons/image/panorama'
+import ImageIcon from '@material-ui/icons/Panorama'
 
 import { iconStyle } from '../common.js'
 import type { PropTypes } from '../index.js'
 
 const Display = ({ isEditMode, state }: PropTypes) => {
   const Image = (
-    <img className="ory-plugins-content-image" src={state.src} />
+    <img className="ory-plugins-content-image" aly="" src={state.src} />
   )
   return (
     state.src ? (

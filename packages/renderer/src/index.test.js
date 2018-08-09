@@ -5,12 +5,12 @@
  * it under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- *  
+ *
  * ORY Editor is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Lesser General Public License for more details.
- *  
+ *
  * You should have received a copy of the GNU Lesser General Public License
  * along with ORY Editor.  If not, see <http://www.gnu.org/licenses/>.
  *
@@ -174,7 +174,7 @@ describe('HTMLRenderer', () => {
         const wrapper = render(<HTMLRenderer state={c} plugins={plugins} />)
         it('should pass', () => {
           expect(wrapper.html()).toEqual(
-            '<div class="ory-row"><div class="ory-cell ory-cell-sm-12 ory-cell-xs-12"><div class="ory-cell-inner ory-cell-leaf"><div class="ory-plugins-content-slate-container"><p style="text-align:center;">Asdfg</p></div></div></div></div>'
+            '<div class="ory-cell ory-cell-sm-12 ory-cell-xs-12"><div class="ory-cell-inner ory-cell-leaf"><div class="ory-plugins-content-slate-container"><p style="text-align:center">Asdfg</p></div></div></div>'
           )
         })
       })
