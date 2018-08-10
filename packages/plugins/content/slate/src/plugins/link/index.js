@@ -5,12 +5,12 @@
  * it under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- *  
+ *
  * ORY Editor is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Lesser General Public License for more details.
- *  
+ *
  * You should have received a copy of the GNU Lesser General Public License
  * along with ORY Editor.  If not, see <http://www.gnu.org/licenses/>.
  *
@@ -21,22 +21,21 @@
  */
 
 /* eslint-disable no-alert, prefer-reflect, default-case, react/display-name */
-import LinkIcon from 'material-ui/svg-icons/content/link'
+import LinkIcon from '@material-ui/icons/Link'
 import React, { Component } from 'react'
-import getMuiTheme from 'material-ui/styles/getMuiTheme'
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
-import TextField from 'material-ui/TextField'
+import TextField from '@material-ui/core/TextField'
 import { ToolbarButton } from '../../helpers'
 import Plugin from '../Plugin'
 import Link from './node'
-import Dialog from 'material-ui/Dialog'
-import FlatButton from 'material-ui/FlatButton'
+import Dialog from '@material-ui/core/Dialog'
+import Button from '@material-ui/core/Button'
 import { Data } from 'slate'
 import type { Props } from '../props'
+import ThemeProvider from 'ory-editor-ui/lib/ThemeProvider'
 
 export const A = 'LINK/LINK'
 
-class Button extends Component {
+class LinkButton extends Component {
   state = {
     open: false,
     href: '',
@@ -159,17 +158,19 @@ class Button extends Component {
 
   render() {
     const actions = [
-      <FlatButton
+      <Button
         key="0"
+        variant='flat'
         label="Cancel"
         primary
-        onTouchTap={this.handleClose}
+        onClick={this.handleClose}
       />,
-      <FlatButton
+      <Button
         key="1"
+        variant='flat'
         label="Submit"
         primary
-        onTouchTap={this.handleSubmit}
+        onClick={this.handleSubmit}
       />
     ]
     const { editorState } = this.props
@@ -178,7 +179,7 @@ class Button extends Component {
       (inline: any) => inline.type === A
     )
     return (
-      <MuiThemeProvider muiTheme={getMuiTheme()}>
+      <ThemeProvider>
         <span>
           <ToolbarButton
             onClick={this.onClick}
@@ -196,7 +197,7 @@ class Button extends Component {
               {this.state.wasExpanded ? null : (
                 <div>
                   <TextField
-                    hintText="Link title"
+                    placeholder="Link title"
                     onChange={this.onTitleChange}
                     value={this.state.title}
                   />
@@ -204,7 +205,7 @@ class Button extends Component {
               )}
               <div ref={this.onRef}>
                 <TextField
-                  hintText="http://example.com/my/link.html"
+                  placeholder="http://example.com/my/link.html"
                   onChange={this.onHrefChange}
                   value={this.state.href}
                 />
@@ -212,7 +213,7 @@ class Button extends Component {
             </Dialog>
           </span>
         </span>
-      </MuiThemeProvider>
+      </ThemeProvider>
     )
   }
 }
@@ -222,8 +223,8 @@ export default class LinkPlugin extends Plugin {
 
   nodes = { [A]: Link }
 
-  hoverButtons = [Button]
-  toolbarButtons = [Button]
+  hoverButtons = [LinkButton]
+  toolbarButtons = [LinkButton]
 
   deserialize = (el, next) => {
     switch (el.tagName.toLowerCase()) {

@@ -5,12 +5,12 @@
  * it under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- *  
+ *
  * ORY Editor is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Lesser General Public License for more details.
- *  
+ *
  * You should have received a copy of the GNU Lesser General Public License
  * along with ORY Editor.  If not, see <http://www.gnu.org/licenses/>.
  *
@@ -92,7 +92,7 @@ describe('serialize to html', () => {
           }
         ]
       },
-      o: '<pre style="overflow:scroll;"><code>asdf</code></pre>',
+      o: '<pre style="overflow:scroll"><code>asdf</code></pre>',
       // TODO this should not be skipped but it's a workaround for deserialization...
       skip: true
     },
@@ -169,7 +169,7 @@ describe('serialize to html', () => {
           }
         ]
       },
-      o: '<h3 style="text-align:center;">asdfgh</h3>',
+      o: '<h3 style="text-align:center">asdfgh</h3>',
       skip: true
     },
     {
@@ -190,7 +190,7 @@ describe('serialize to html', () => {
           }
         ]
       },
-      o: '<blockquote style="text-align:center;">asdfgh</blockquote>',
+      o: '<blockquote style="text-align:center">asdfgh</blockquote>',
       skip: true
     },
     {
@@ -204,7 +204,7 @@ describe('serialize to html', () => {
           }
         ]
       },
-      o: '<p style="text-align:center;">ab</p>',
+      o: '<p style="text-align:center">ab</p>',
       skip: true
     },
     {

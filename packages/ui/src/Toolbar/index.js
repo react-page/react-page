@@ -22,14 +22,15 @@
 
 // @flow
 import React, { Component } from 'react'
-import Drawer from 'material-ui/Drawer'
+import Drawer from '@material-ui/core/Drawer'
 import { connect } from 'react-redux'
 import { isInsertMode } from 'ory-editor-core/lib/selector/display'
 import { createStructuredSelector } from 'reselect'
 import { Editor } from 'ory-editor-core/lib'
-import List from 'material-ui/List/List'
-import Subheader from 'material-ui/Subheader'
-import TextField from 'material-ui/TextField'
+import List from '@material-ui/core/List'
+import ListItem from '@material-ui/core/ListItem'
+import ListSubheader from '@material-ui/core/ListSubheader'
+import TextField from '@material-ui/core/TextField'
 import {
   LayoutPlugin,
   ContentPlugin
@@ -94,24 +95,28 @@ class Raw extends Component {
     const layout = plugins.plugins.layout.filter(searchFilter)
 
     return (
-      <Drawer className="ory-toolbar-drawer" open={isInsertMode}>
-        <Subheader>Add plugin to content</Subheader>
-        <div style={{ padding: '0 16px' }} ref={this.onRef}>
-          <TextField
-            hintText="Search plugins"
-            fullWidth
-            onChange={this.onSearch}
-          />
-        </div>
-        <List>
-          {content.length ? <Subheader>Content plugins</Subheader> : null}
+      <Drawer variant='persistent' className="ory-toolbar-drawer" open={isInsertMode}>
+        <List subheader={
+          <ListSubheader>Add plugin to content</ListSubheader>
+        }>
+          <ListItem ref={this.onRef}>
+            <TextField
+              placeholder="Search plugins"
+              fullWidth
+              onChange={this.onSearch}
+            />
+          </ListItem>
+        </List>
+        {content.length && <List subheader={
+            <ListSubheader>Content plugins</ListSubheader>
+          }>
           {content.map((plugin: ContentPlugin, k: Number) => {
             const initialState = plugin.createInitialState()
 
             return (
               <Item
                 plugin={plugin}
-                key={k}
+                key={k.toString()}
                 insert={{
                   content: {
                     plugin,
@@ -121,9 +126,10 @@ class Raw extends Component {
               />
             )
           })}
-        </List>
-        <List>
-          {layout.length ? <Subheader>Layout plugins</Subheader> : null}
+        </List>}
+        {layout.length && <List subheader={
+            <ListSubheader>Layout plugins</ListSubheader>
+          }>
           {layout.map((plugin: LayoutPlugin, k: Number) => {
             const initialState = plugin.createInitialState()
             const children = plugin.createInitialChildren()
@@ -131,7 +137,7 @@ class Raw extends Component {
             return (
               <Item
                 plugin={plugin}
-                key={k}
+                key={k.toString()}
                 insert={{
                   ...children,
                   layout: {
@@ -142,7 +148,7 @@ class Raw extends Component {
               />
             )
           })}
-        </List>
+        </List>}
       </Drawer>
     )
   }

@@ -22,7 +22,7 @@
 
 // @flow
 import React from 'react'
-import Create from 'material-ui/svg-icons/content/create'
+import Create from '@material-ui/icons/Create'
 import Button from '../Button'
 
 import { connect } from 'react-redux'

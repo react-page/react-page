@@ -5,12 +5,12 @@
  * it under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- *  
+ *
  * ORY Editor is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Lesser General Public License for more details.
- *  
+ *
  * You should have received a copy of the GNU Lesser General Public License
  * along with ORY Editor.  If not, see <http://www.gnu.org/licenses/>.
  *
@@ -22,10 +22,10 @@
 
 /* eslint-disable prefer-reflect */
 import React from 'react'
-import AlignLeftIcon from 'material-ui/svg-icons/editor/format-align-left'
-import AlignCenterIcon from 'material-ui/svg-icons/editor/format-align-center'
-import AlignRightIcon from 'material-ui/svg-icons/editor/format-align-right'
-import AlignJustifyIcon from 'material-ui/svg-icons/editor/format-align-justify'
+import AlignLeftIcon from '@material-ui/icons/FormatAlignLeft'
+import AlignCenterIcon from '@material-ui/icons/FormatAlignCenter'
+import AlignRightIcon from '@material-ui/icons/FormatAlignRight'
+import AlignJustifyIcon from '@material-ui/icons/FormatAlignJustify'
 
 import { ToolbarButton } from '../helpers'
 import Plugin from './Plugin'

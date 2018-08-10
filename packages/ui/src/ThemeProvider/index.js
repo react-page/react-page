@@ -21,10 +21,30 @@
  */
 
 // @flow
-import Trash from './Trash'
-import Toolbar from './Toolbar'
-import DisplayModeToggle from './DisplayModeToggle'
-import BottomToolbar from './BottomToolbar'
-import ThemeProvider from './ThemeProvider'
+import React, { Component } from 'react'
+import { JssProvider } from 'react-jss'
+import {
+  MuiThemeProvider,
+  createGenerateClassName,
+  createMuiTheme
+} from '@material-ui/core/styles'
+import darkTheme from './DarkTheme'
+export { darkTheme };
 
-export { Trash, Toolbar, DisplayModeToggle, BottomToolbar, ThemeProvider }
+const generateClassName = createGenerateClassName({ productionPrefix: 'ory' })
+export const themeOptions = {}
+const theme = createMuiTheme(themeOptions)
+
+class ThemeProvider extends Component {
+  render() {
+    return (
+      <JssProvider generateClassName={generateClassName}>
+        <MuiThemeProvider theme={this.props.theme || theme}>
+          {this.props.children}
+        </MuiThemeProvider>
+      </JssProvider>
+    )
+  }
+}
+
+export default ThemeProvider

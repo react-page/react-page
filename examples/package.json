@@ -4,24 +4,21 @@
   "private": true,
   "dependencies": {
     "babel-polyfill": "^6.23.0",
-    "material-ui": "^0.19.1",
     "ory-editor-core": "0.0.0",
+    "ory-editor-plugins-default-native": "0.0.0",
     "ory-editor-plugins-divider": "0.0.0",
+    "ory-editor-plugins-html5-video": "0.0.0",
     "ory-editor-plugins-image": "0.0.0",
     "ory-editor-plugins-parallax-background": "0.0.0",
     "ory-editor-plugins-slate": "0.0.0",
     "ory-editor-plugins-spacer": "0.0.0",
     "ory-editor-plugins-video": "0.0.0",
-    "ory-editor-plugins-html5-video": "0.0.0",
     "ory-editor-renderer": "0.0.0",
-    "ory-editor-plugins-default-native": "0.0.0",
     "ory-editor-ui": "0.0.0",
-    "react": "^15.5.4",
-    "react-dom": "^15.5.4",
-    "react-tap-event-plugin": "^2.0.1"
+    "react": "^16.0.0",
+    "react-dom": "^16.0.0"
   },
   "devDependencies": {
-    "why-did-you-update": "0.0.8",
     "autoprefixer": "6.7.2",
     "babel-core": "6.22.1",
     "babel-eslint": "7.1.1",
@@ -57,7 +54,8 @@
     "webpack": "1.14.0",
     "webpack-dev-server": "1.16.2",
     "webpack-manifest-plugin": "1.1.0",
-    "whatwg-fetch": "2.0.2"
+    "whatwg-fetch": "2.0.2",
+    "why-did-you-update": "0.0.8"
   },
   "scripts": {
     "start": "node scripts/start.js",

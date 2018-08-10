@@ -24,7 +24,7 @@
 
 .ory-controls-mode-toggle-control-group {
   position: fixed;
-  z-index: 100;
+  z-index: 10001;
   bottom: 0;
   right: 0;
   padding: 16px;
@@ -33,4 +33,8 @@
 
 .ory-controls-mode-toggle-clearfix {
   clear: both;
+}
+
+.ory-controls-mode-toggle-control {
+  z-index: 1;
 }

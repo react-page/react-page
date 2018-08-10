@@ -10,7 +10,8 @@
     "coveralls": "^2.13.1",
     "cross-env": "^5.0.0",
     "documentation": "^5.2.2",
-    "enzyme": "^2.8.2",
+    "enzyme": "^3.0.0",
+    "enzyme-adapter-react-16": "^1.1.1",
     "eslint": "4.1.1",
     "eslint-config-react-app": "^2.0.0",
     "eslint-plugin-flowtype": "2.34.1",
@@ -31,9 +32,8 @@
     "pre-commit": "^1.2.2",
     "prettier": "^1.6.1",
     "pushstate-server": "^3.0.0",
-    "react": "^15.5.4",
-    "react-addons-test-utils": "^15.5.1",
-    "react-dom": "^15.5.4",
+    "react": "^16.0.0",
+    "react-dom": "^16.0.0",
     "react-scripts": "^0.9.5",
     "rimraf": "^2.6.1",
     "unexpected": "^10.33.2"
@@ -68,6 +68,7 @@
   },
   "pre-commit": "docs:api",
   "jest": {
+    "setupTestFrameworkScriptFile": "./config/jestTestSetup",
     "testPathIgnorePatterns": [
       "/examples/"
     ]

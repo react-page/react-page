@@ -38,9 +38,6 @@ import 'ory-editor-core/lib/index.css' // we also want to load the stylesheets
 import { Trash, DisplayModeToggle, Toolbar } from 'ory-editor-ui'
 import 'ory-editor-ui/lib/index.css'
 
-// react-tap-event-plugin is required for material-ui which is used by ory-editor-ui
-require('react-tap-event-plugin')()
-
 // The rich text area plugin
 import slate from 'ory-editor-plugins-slate'
 import 'ory-editor-plugins-slate/lib/index.css'
