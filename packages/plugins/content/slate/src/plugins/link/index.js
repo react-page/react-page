@@ -28,6 +28,9 @@ import { ToolbarButton } from '../../helpers'
 import Plugin from '../Plugin'
 import Link from './node'
 import Dialog from '@material-ui/core/Dialog'
+import DialogTitle from '@material-ui/core/DialogTitle'
+import DialogContent from '@material-ui/core/DialogContent'
+import DialogActions from '@material-ui/core/DialogActions'
 import Button from '@material-ui/core/Button'
 import { Data } from 'slate'
 import type { Props } from '../props'
@@ -157,22 +160,24 @@ class LinkButton extends Component {
   }
 
   render() {
-    const actions = [
+    const actions = <React.Fragment>
       <Button
-        key="0"
         variant='flat'
         label="Cancel"
         primary
         onClick={this.handleClose}
-      />,
+      >
+        Cancel
+      </Button>
       <Button
-        key="1"
         variant='flat'
-        label="Submit"
+        label="Ok"
         primary
         onClick={this.handleSubmit}
-      />
-    ]
+      >
+        Ok
+      </Button>
+    </React.Fragment>
     const { editorState } = this.props
 
     const hasLinks = editorState.inlines.some(
@@ -190,26 +195,32 @@ class LinkButton extends Component {
             <Dialog
               className="ory-prevent-blur"
               title="Create a link"
-              modal={false}
+              // modal={false}
               open={this.state.open}
               actions={[actions]}
             >
-              {this.state.wasExpanded ? null : (
-                <div>
+              <DialogTitle id="confirmation-dialog-title">Create a link</DialogTitle>
+              <DialogContent>
+                {this.state.wasExpanded ? null : (
+                  <div>
+                    <TextField
+                      placeholder="Link title"
+                      onChange={this.onTitleChange}
+                      value={this.state.title}
+                    />
+                  </div>
+                )}
+                <div ref={this.onRef}>
                   <TextField
-                    placeholder="Link title"
-                    onChange={this.onTitleChange}
-                    value={this.state.title}
+                    placeholder="http://example.com/my/link.html"
+                    onChange={this.onHrefChange}
+                    value={this.state.href}
                   />
                 </div>
-              )}
-              <div ref={this.onRef}>
-                <TextField
-                  placeholder="http://example.com/my/link.html"
-                  onChange={this.onHrefChange}
-                  value={this.state.href}
-                />
-              </div>
+              </DialogContent>
+              <DialogActions>
+                {actions}
+              </DialogActions>
             </Dialog>
           </span>
         </span>
