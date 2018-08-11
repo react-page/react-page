@@ -1,0 +1,41 @@
+{
+  "name": "ory-editor-plugins-slate-next",
+  "version": "0.0.0",
+  "main": "./lib/index.js",
+  "author": "ORY GmbH",
+  "license": "GNU Lesser General Public License v3.0",
+  "scripts": {
+    "build": "npm-run-all --parallel build:lib build:css",
+    "build:watch": "npm-run-all --parallel build:lib:watch build:css:watch",
+    "build:lib": "babel ./src --source-maps --ignore test.js --out-dir ./lib",
+    "build:lib:watch": "npm run build:lib -- --watch",
+    "build:css": "postcss -c ../../../../postcss.config.js --dir lib/ src/index.css",
+    "build:css:watch": "npm run build:css -- -w",
+    "docs": "documentation build ./src/**/*.js --format md --github -o ../../../../docs/api/plugins/slate-next.md",
+    "prebuild": "npm run clean",
+    "clean": "rimraf \"lib/*\"",
+    "flow:generate": "flow-typed install  --flowVersion=0.46.0"
+  },
+  "peerDependencies": {
+    "react": "^16.0.0",
+    "react-dom": "^16.0.0"
+  },
+  "dependencies": {
+    "@material-ui/core": "^1.2.1",
+    "@material-ui/icons": "^1.1.0",
+    "immutable": "3.8.2",
+    "ory-editor-core": "0.0.0",
+    "ory-editor-ui": "0.0.0",
+    "parse5": "^3.0.2",
+    "ramda": "^0.24.1",
+    "react-portal": "4.1.5",
+    "redux-undo": "1.0.0-beta9-7",
+    "selection-position": "^1.0.0",
+    "slate": "^0.37.3",
+    "slate-react": "^0.15.4",
+    "slate-plain-serializer": "^0.5.30",
+    "slate-html-serializer": "0.6.21",
+    "slate-edit-blockquote": "^0.6.1",
+    "slate-edit-list": "^0.12.0"
+  }
+}

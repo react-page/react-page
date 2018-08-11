@@ -42,6 +42,10 @@ import 'ory-editor-ui/lib/index.css'
 import slate from 'ory-editor-plugins-slate'
 import 'ory-editor-plugins-slate/lib/index.css'
 
+// The rich text area plugin
+import slateNext from 'ory-editor-plugins-slate-next'
+import 'ory-editor-plugins-slate-next/lib/index.css'
+
 // The spacer plugin
 import spacer from 'ory-editor-plugins-spacer'
 import 'ory-editor-plugins-spacer/lib/index.css'
@@ -77,7 +81,7 @@ import './styles.css'
 
 // Define which plugins we want to use (all of the above)
 const plugins = {
-  content: [slate(), spacer, image, video, divider, html5video],
+  content: [slate(), spacer, image, video, divider, html5video, slateNext()],
   layout: [parallax({ defaultPlugin: slate() })],
 
   // If you pass the native key the editor will be able to handle native drag and drop events (such as links, text, etc).
