@@ -75,10 +75,10 @@ class LinkButton extends Component {
         .unwrapInline(A)
         .apply()
       onChange(newState)
-    } else if (editorState.isExpanded) {
+    } else if (editorState.selection.isExpanded) {
       this.setState({
         open: true,
-        wasExpanded: editorState.isExpanded,
+        wasExpanded: editorState.selection.isExpanded,
         href: '',
         title: '',
         hadLinks: hasLinks
@@ -86,7 +86,7 @@ class LinkButton extends Component {
     } else {
       this.setState({
         open: true,
-        wasExpanded: editorState.isExpanded,
+        wasExpanded: editorState.selection.isExpanded,
         href: '',
         title: '',
         hadLinks: hasLinks

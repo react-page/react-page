@@ -23,9 +23,9 @@
 /* eslint-disable no-alert, prefer-reflect, no-underscore-dangle */
 import { createMuiTheme } from '@material-ui/core/styles'
 import React, { Component } from 'react'
-import Portal from 'react-portal'
+import { Portal } from 'react-portal'
 import position from 'selection-position'
-import { Editor } from 'slate'
+import { Editor } from 'slate-react'
 import { BottomToolbar, ThemeProvider } from 'ory-editor-ui'
 import { ContentPluginProps } from 'ory-editor-core/lib/service/plugin/classes'
 
@@ -58,8 +58,8 @@ class Slate extends Component {
   props: ContentPluginProps<{ editorState: Object }>
   portal: any
 
-  onStateChange = editorState => {
-    this.props.onChange({ editorState })
+  onStateChange = ({value}) => {
+    this.props.onChange({ editorState: value })
   }
 
   handleOpen = portal => {
@@ -70,7 +70,7 @@ class Slate extends Component {
     const { editorState } = this.props.state
     const toolbar = this.toolbar
 
-    if (!toolbar || editorState.isBlurred || editorState.isCollapsed) {
+    if (!toolbar || editorState.isBlurred || editorState.selection.isCollapsed) {
       return
     }
 
@@ -91,9 +91,8 @@ class Slate extends Component {
     const { document } = serializer.deserialize(data.html)
 
     return state
-      .transform()
+      .change()
       .insertFragment(document)
-      .apply()
   }
 
   render() {
@@ -108,7 +107,7 @@ class Slate extends Component {
       ToolbarButtons,
       focus
     } = this.props
-    const isOpened = editorState.isExpanded && editorState.isFocused
+    const isOpened = editorState.selection.isExpanded && editorState.isFocused
 
     return (
       <div>
@@ -138,7 +137,7 @@ class Slate extends Component {
           className="ory-plugins-content-slate-next-container"
           onBlur={onBlur}
           schema={schema}
-          state={editorState}
+          value={editorState}
           plugins={plugins}
           onPaste={this.onPaste}
         />

@@ -26,7 +26,7 @@
 /* eslint prefer-reflect: ["off"] */
 import Subject from '@material-ui/icons/Subject'
 import { compose, flatten, map, mergeAll, prop, pathOr } from 'ramda'
-import { Html } from 'slate'
+import Html from 'slate-html-serializer'
 import React from 'react'
 import { ActionTypes } from 'redux-undo'
 import Component from './Component'
@@ -128,8 +128,8 @@ export default (plugins: Plugin[] = hooks.defaultPlugins) => {
     name: 'ory/editor/core/content/slate-next',
     version: '0.0.1',
     IconComponent: <Subject />,
-    text: 'Text',
-    description: 'An advanced rich text area.',
+    text: 'New Text',
+    description: 'An new advanced rich text area.',
 
     allowInlineNeighbours: true,
 
@@ -141,12 +141,9 @@ export default (plugins: Plugin[] = hooks.defaultPlugins) => {
       }
 
       setTimeout(() => {
-        props.onChange({
-          editorState: props.state.editorState
-            .transform()
-            .focus()
-            .apply()
-        })
+        props.state.editorState
+          .change()
+          .focus()
       }, 0)
     },
 
@@ -155,12 +152,9 @@ export default (plugins: Plugin[] = hooks.defaultPlugins) => {
         return
       }
 
-      props.onChange({
-        editorState: props.state.editorState
-          .transform()
-          .blur()
-          .apply()
-      })
+      props.state.editorState
+        .change()
+        .blur()
     },
 
     reducer: (state: any, action: any) => {
