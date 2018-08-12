@@ -30,6 +30,132 @@ export default [
         "size": 12,
         "rows": [
           {
+            "id": "d813d094-215a-43ec-bcdd-d5fd6258b918",
+            "cells": [
+              {
+                "id": "3fde7b92-fbfe-4b2d-85b3-bad431939df8",
+                "inline": null,
+                "size": 12,
+                "content": {
+                  "plugin": {
+                    "name": "ory/editor/core/content/slate-next",
+                    "version": "0.0.1"
+                  },
+                  "state": {
+                    "serialized": {
+                      "document": {
+                        "nodes": [
+                          {
+                            "object": "block",
+                            "type": "PARAGRAPH/PARAGRAPH",
+                            "nodes": [
+                              {
+                                "object": "text",
+                                "leaves": [
+                                  {
+                                    "text": "This is editable "
+                                  },
+                                  {
+                                    "text": "rich",
+                                    "marks": [
+                                      {
+                                        "type": "EMPHASIZE/STRONG"
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "text": " text, "
+                                  },
+                                  {
+                                    "text": "much",
+                                    "marks": [
+                                      {
+                                        "type": "EMPHASIZE/EM"
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "text": " better than a "
+                                  },
+                                  {
+                                    "text": "<textarea>",
+                                    "marks": [
+                                      {
+                                        "type": "CODE/CODE"
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "text": "!"
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "object": "block",
+                            "type": "PARAGRAPH/PARAGRAPH",
+                            "nodes": [
+                              {
+                                "object": "text",
+                                "leaves": [
+                                  {
+                                    "text":
+                                      "Since it's rich text, you can do things like turn a selection of text "
+                                  },
+                                  {
+                                    "text": "bold",
+                                    "marks": [
+                                      {
+                                        "type": "EMPHASIZE/STRONG"
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "text":
+                                      ", or add a semantically rendered block quote in the middle of the page, like this:"
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "object": "block",
+                            "type": "BLOCKQUOTE/BLOCKQUOTE",
+                            "nodes": [
+                              {
+                                "object": "text",
+                                "leaves": [
+                                  {
+                                    "text": "A wise quote."
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "object": "block",
+                            "type": "PARAGRAPH/PARAGRAPH",
+                            "nodes": [
+                              {
+                                "object": "text",
+                                "leaves": [
+                                  {
+                                    "text": "Try it out for yourself!"
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            ]
+          },
+          {
             "id": "d813d094-215a-43ec-bcdd-d5fd6258b915",
             "cells": [
               {
@@ -141,132 +267,7 @@ export default [
               }
             ]
           },
-          {
-            "id": "d813d094-215a-43ec-bcdd-d5fd6258b918",
-            "cells": [
-              {
-                "id": "3fde7b92-fbfe-4b2d-85b3-bad431939df8",
-                "inline": null,
-                "size": 12,
-                "content": {
-                  "plugin": {
-                    "name": "ory/editor/core/content/slate-next",
-                    "version": "0.0.1"
-                  },
-                  "state": {
-                    "serialized": {
-                      "document": {
-                        "nodes": [
-                          {
-                            "object": "block",
-                            "type": "paragraph",
-                            "nodes": [
-                              {
-                                "object": "text",
-                                "leaves": [
-                                  {
-                                    "text": "This is editable "
-                                  },
-                                  {
-                                    "text": "rich",
-                                    "marks": [
-                                      {
-                                        "type": "bold"
-                                      }
-                                    ]
-                                  },
-                                  {
-                                    "text": " text, "
-                                  },
-                                  {
-                                    "text": "much",
-                                    "marks": [
-                                      {
-                                        "type": "italic"
-                                      }
-                                    ]
-                                  },
-                                  {
-                                    "text": " better than a "
-                                  },
-                                  {
-                                    "text": "<textarea>",
-                                    "marks": [
-                                      {
-                                        "type": "code"
-                                      }
-                                    ]
-                                  },
-                                  {
-                                    "text": "!"
-                                  }
-                                ]
-                              }
-                            ]
-                          },
-                          {
-                            "object": "block",
-                            "type": "paragraph",
-                            "nodes": [
-                              {
-                                "object": "text",
-                                "leaves": [
-                                  {
-                                    "text":
-                                      "Since it's rich text, you can do things like turn a selection of text "
-                                  },
-                                  {
-                                    "text": "bold",
-                                    "marks": [
-                                      {
-                                        "type": "bold"
-                                      }
-                                    ]
-                                  },
-                                  {
-                                    "text":
-                                      ", or add a semantically rendered block quote in the middle of the page, like this:"
-                                  }
-                                ]
-                              }
-                            ]
-                          },
-                          {
-                            "object": "block",
-                            "type": "block-quote",
-                            "nodes": [
-                              {
-                                "object": "text",
-                                "leaves": [
-                                  {
-                                    "text": "A wise quote."
-                                  }
-                                ]
-                              }
-                            ]
-                          },
-                          {
-                            "object": "block",
-                            "type": "paragraph",
-                            "nodes": [
-                              {
-                                "object": "text",
-                                "leaves": [
-                                  {
-                                    "text": "Try it out for yourself!"
-                                  }
-                                ]
-                              }
-                            ]
-                          }
-                        ]
-                      }
-                    }
-                  }
-                }
-              }
-            ]
-          },
+          
           {
             "id": "c15959de-4767-41b7-9814-71626d6cbcdb",
             "cells": [

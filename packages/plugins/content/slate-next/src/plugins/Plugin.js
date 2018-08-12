@@ -52,14 +52,14 @@ export default class Plugin {
    * @member serialize a plugin's state to html
    */
   serialize: (
-    object: { kind: string, type: string, data: any },
+    object: { object: string, type: string, data: any },
     children: any[]
   ) => any
 
   /**
    * @member serialize a plugin's state from html
    */
-  deserialize: () => any
+  deserialize: (el: Element, next: Function) => any
 
   /**
    * This handler is called when any key is pressed

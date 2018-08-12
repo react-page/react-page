@@ -63,7 +63,7 @@ export const defaultPlugins = [
 export const lineBreakSerializer = {
   deserialize(el: any) {
     if (el.tagName.toLowerCase() === 'br') {
-      return { kind: 'text', text: '\n' }
+      return { object: 'text', text: '\n' }
     }
   },
   serialize(object: any, children: any) {
@@ -81,11 +81,11 @@ export const html = new Html({
 const options = { }
 nodes: [
   {
-    kind: 'block',
+    object: 'block',
     type: P,
     nodes: [
       {
-        kind: 'text',
+        object: 'text',
         text: ''
       }
     ]

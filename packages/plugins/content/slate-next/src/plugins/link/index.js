@@ -164,7 +164,7 @@ class LinkButton extends Component {
       <Button
         variant='flat'
         label="Cancel"
-        primary
+        primary={true}
         onClick={this.handleClose}
       >
         Cancel
@@ -172,7 +172,7 @@ class LinkButton extends Component {
       <Button
         variant='flat'
         label="Ok"
-        primary
+        primary={true}
         onClick={this.handleSubmit}
       >
         Ok
@@ -241,7 +241,7 @@ export default class LinkPlugin extends Plugin {
     switch (el.tagName.toLowerCase()) {
       case 'a':
         return {
-          kind: 'inline',
+          object: 'inline',
           type: A,
           nodes: next(el.childNodes),
           data: Data.create({
@@ -254,10 +254,10 @@ export default class LinkPlugin extends Plugin {
   }
 
   serialize = (
-    object: { type: string, kind: string, data: any },
+    object: { type: string, object: string, data: any },
     children: any[]
   ) => {
-    if (object.kind !== 'inline') {
+    if (object.object !== 'inline') {
       return
     }
     switch (object.type) {

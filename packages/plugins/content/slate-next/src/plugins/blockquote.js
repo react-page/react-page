@@ -100,7 +100,7 @@ export default class BlockquotePlugin extends Plugin {
     switch (el.tagName.toLowerCase()) {
       case 'blockquote':
         return {
-          kind: 'block',
+          object: 'block',
           type: BLOCKQUOTE,
           nodes: next(el.childNodes)
         }
@@ -108,10 +108,10 @@ export default class BlockquotePlugin extends Plugin {
   }
 
   serialize = (
-    object: { type: string, kind: string, data: any },
+    object: { type: string, object: string, data: any },
     children: any[]
   ) => {
-    if (object.kind !== 'block') {
+    if (object.object !== 'block') {
       return
     }
     switch (object.type) {

@@ -36,9 +36,6 @@ import Plugin from './plugins/Plugin'
 import * as hooks from './hooks'
 import parse5 from 'parse5'
 
-const createNodes = compose(mergeAll, map(prop('nodes')))
-const createMarks = compose(mergeAll, map(prop('marks')))
-const createPlugins = compose(flatten, map(prop('plugins')))
 
 export const createInitialState = hooks.createInitialState
 
@@ -51,11 +48,7 @@ export const defaultPlugins = hooks.defaultPlugins
 
 export default (plugins: Plugin[] = hooks.defaultPlugins) => {
   const props = {}
-  props.schema = {
-    nodes: createNodes(plugins),
-    marks: createMarks(plugins)
-  }
-  props.plugins = createPlugins(plugins)
+  props.plugins = plugins
   props.onKeyDown = (
     e: Event,
     data: { key: string, isMod: boolean, isShift: boolean },
@@ -68,9 +61,9 @@ export default (plugins: Plugin[] = hooks.defaultPlugins) => {
 
     if (data.isShift && data.key === 'enter') {
       return state
-        .transform()
+        .change()
         .insertText('\n')
-        .apply()
+        .value
     }
 
     for (let i = 0; i < plugins.length; i++) {
@@ -152,9 +145,10 @@ export default (plugins: Plugin[] = hooks.defaultPlugins) => {
         return
       }
 
-      props.state.editorState
+      props.onChange({ editorState: props.state.editorState
         .change()
-        .blur()
+        .blur().value
+      })
     },
 
     reducer: (state: any, action: any) => {

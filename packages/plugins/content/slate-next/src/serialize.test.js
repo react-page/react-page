@@ -29,9 +29,9 @@ describe('serialize to html', () => {
       i: {
         nodes: [
           {
-            kind: 'block',
+            object: 'block',
             type: 'HEADINGS/HEADING-ONE',
-            nodes: [{ kind: 'text', text: 'Projects' }]
+            nodes: [{ object: 'text', text: 'Projects' }]
           }
         ]
       },
@@ -41,9 +41,9 @@ describe('serialize to html', () => {
       i: {
         nodes: [
           {
-            kind: 'block',
+            object: 'block',
             type: 'PARAGRAPH/PARAGRAPH',
-            nodes: [{ kind: 'text', text: 'some projects' }]
+            nodes: [{ object: 'text', text: 'some projects' }]
           }
         ]
       },
@@ -53,10 +53,10 @@ describe('serialize to html', () => {
       i: {
         nodes: [
           {
-            kind: 'block',
+            object: 'block',
             nodes: [
               {
-                kind: 'text',
+                object: 'text',
                 ranges: [
                   { text: 'some ' },
                   {
@@ -81,11 +81,11 @@ describe('serialize to html', () => {
       i: {
         nodes: [
           {
-            kind: 'block',
+            object: 'block',
             type: 'CODE/CODE',
             nodes: [
               {
-                kind: 'text',
+                object: 'text',
                 text: 'asdf'
               }
             ]
@@ -100,11 +100,11 @@ describe('serialize to html', () => {
       i: {
         nodes: [
           {
-            kind: 'block',
+            object: 'block',
             type: 'PARAGRAPH/PARAGRAPH',
             nodes: [
               {
-                kind: 'text',
+                object: 'text',
                 ranges: [
                   {
                     text: 'a'
@@ -133,16 +133,16 @@ describe('serialize to html', () => {
       i: {
         nodes: [
           {
-            kind: 'block',
+            object: 'block',
             nodes: [
-              { kind: 'text', text: 'a' },
+              { object: 'text', text: 'a' },
               {
                 data: { href: 'foo' },
-                kind: 'inline',
-                nodes: [{ kind: 'text', text: 'asdf' }],
+                object: 'inline',
+                nodes: [{ object: 'text', text: 'asdf' }],
                 type: 'LINK/LINK'
               },
-              { kind: 'text', text: 'b' }
+              { object: 'text', text: 'b' }
             ],
             type: 'HEADINGS/HEADING-FOUR'
           }
@@ -155,11 +155,11 @@ describe('serialize to html', () => {
       i: {
         nodes: [
           {
-            kind: 'block',
+            object: 'block',
             type: 'HEADINGS/HEADING-THREE',
             nodes: [
               {
-                kind: 'text',
+                object: 'text',
                 text: 'asdfgh'
               }
             ],
@@ -176,11 +176,11 @@ describe('serialize to html', () => {
       i: {
         nodes: [
           {
-            kind: 'block',
+            object: 'block',
             type: 'BLOCKQUOTE/BLOCKQUOTE',
             nodes: [
               {
-                kind: 'text',
+                object: 'text',
                 text: 'asdfgh'
               }
             ],
@@ -197,9 +197,9 @@ describe('serialize to html', () => {
       i: {
         nodes: [
           {
-            kind: 'block',
+            object: 'block',
             type: 'PARAGRAPH/PARAGRAPH',
-            nodes: [{ kind: 'text', text: 'ab' }],
+            nodes: [{ object: 'text', text: 'ab' }],
             data: { align: 'center' }
           }
         ]
@@ -211,9 +211,9 @@ describe('serialize to html', () => {
       i: {
         nodes: [
           {
-            kind: 'block',
+            object: 'block',
             type: 'BLOCKQUOTE/BLOCKQUOTE',
-            nodes: [{ kind: 'text', text: 'ab\nde' }]
+            nodes: [{ object: 'text', text: 'ab\nde' }]
           }
         ]
       },

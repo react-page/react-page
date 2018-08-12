@@ -116,27 +116,27 @@ export default class ListsPlugin extends Plugin {
     switch (el.tagName.toLowerCase()) {
       case 'ul':
         return {
-          kind: 'block',
+          object: 'block',
           type: UL,
           nodes: next(el.childNodes)
         }
       case 'li':
         return {
-          kind: 'block',
+          object: 'block',
           type: LI,
           nodes: next(el.childNodes)
         }
       case 'ol':
         return {
-          kind: 'block',
+          object: 'block',
           type: OL,
           nodes: next(el.childNodes)
         }
     }
   }
 
-  serialize = (object: { type: string, kind: string }, children: any[]) => {
-    if (object.kind !== 'block') {
+  serialize = (object: { type: string, object: string }, children: any[]) => {
+    if (object.object !== 'block') {
       return
     }
     switch (object.type) {

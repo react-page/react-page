@@ -41,7 +41,7 @@ export const H5 = 'HEADINGS/HEADING-FIVE'
 export const H6 = 'HEADINGS/HEADING-SIX'
 
 const createNode = (type: string, el: any, next: any) => ({
-  kind: 'block',
+  object: 'block',
   type,
   // data: Data.create({ style: el.attribs.style }),
   nodes: next(el.childNodes)
@@ -63,12 +63,9 @@ export default class HeadingsPlugin extends Plugin {
 
       const isActive = editorState.blocks.some(block => block.type === type)
 
-      onChange(
-        editorState
-          .transform()
-          .setBlock(isActive ? this.DEFAULT_NODE : type)
-          .apply()
-      )
+      editorState
+        .change()
+        .setBlock(isActive ? this.DEFAULT_NODE : type)
     }
 
     const isActive = editorState.blocks.some(block => block.type === type)
@@ -114,10 +111,10 @@ export default class HeadingsPlugin extends Plugin {
   }
 
   serialize = (
-    object: { type: string, kind: string, data: any },
+    object: { type: string, object: string, data: any },
     children: any[]
   ) => {
-    if (object.kind !== 'block') {
+    if (object.object !== 'block') {
       return
     }
     const style = { textAlign: object.data.get('align') }
