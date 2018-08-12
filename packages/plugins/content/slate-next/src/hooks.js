@@ -65,6 +65,17 @@ export const lineBreakSerializer = {
     if (el.tagName.toLowerCase() === 'br') {
       return { object: 'text', text: '\n' }
     }
+    if (el.nodeName == '#text') {
+      if (el.value && el.value.match(/<!--.*?-->/)) return;
+
+      return {
+        object: 'text',
+        leaves: [{
+          object: 'leaf',
+          text: el.value
+        }]
+      };
+    }
   },
   serialize(object: any, children: any) {
     if (object.type === 'text' || children === '\n') {
@@ -78,19 +89,8 @@ export const html = new Html({
   parseHtml: parse5.parseFragment
 })
 
-const options = { }
-nodes: [
-  {
-    object: 'block',
-    type: P,
-    nodes: [
-      {
-        object: 'text',
-        text: ''
-      }
-    ]
-  }
-]
+const options = {}
+
 export const createInitialState = () => ({
   editorState: Value.fromJSON(
     {
@@ -122,10 +122,10 @@ export const unserialize = ({
   serialized,
   editorState
 }: {
-  importFromHtml: string,
-  serialized: Object,
-  editorState: Object
-}): { editorState: Object } => {
+    importFromHtml: string,
+    serialized: Object,
+    editorState: Object
+  }): { editorState: Object } => {
   if (serialized) {
     return { editorState: Value.fromJSON(serialized, options) }
   } else if (importFromHtml) {
