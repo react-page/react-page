@@ -41,7 +41,7 @@ import Provider from '../Provider'
 type Props = {
   isInsertMode: boolean,
   editor: Editor,
-  pluginsNotFoundText: string | JSX.Element
+  pluginsNotFoundText: any
 }
 
 class Raw extends Component {
