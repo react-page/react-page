@@ -112,7 +112,7 @@ class Slate extends Component {
           {/* ory-prevent-blur is required to prevent global blurring */}
           <ThemeProvider theme={theme}>
             <div
-              className={'ory-prevent-blur ory-plugins-content-slate-next-inline-toolbar ' + (isOpened ? '' : 'ory-plugins-content-slate-next-inline-toolbar--hidden-n')}
+              className={'ory-prevent-blur ory-plugins-content-slate-next-inline-toolbar ' + (isOpened ? '' : 'ory-plugins-content-slate-next-inline-toolbar--hidden')}
               style={{ padding: 0 }}
               ref={toolbar => {
                 this.toolbar = toolbar;

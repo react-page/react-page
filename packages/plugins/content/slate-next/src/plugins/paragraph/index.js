@@ -31,7 +31,9 @@ export const P = 'PARAGRAPH/PARAGRAPH'
 export default class ParagraphPlugin extends Plugin {
   name = 'paragraph'
 
-  nodes = { [P]: Paragraph }
+  schema = {
+    nodes: { [P]: Paragraph }
+  }
 
   deserialize = (el: any, next: any) => {
     switch (el.tagName.toLowerCase()) {
@@ -55,6 +57,16 @@ export default class ParagraphPlugin extends Plugin {
     switch (object.type) {
       case P:
         return <p style={{ textAlign: object.data.get('align') }}>{children}</p>
+    }
+  }
+
+  renderNode = props => {
+    switch (props.node.type) {
+      case P: {
+        return (
+          <Paragraph {...props} />
+        )
+      }
     }
   }
 }

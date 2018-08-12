@@ -24,7 +24,6 @@
 import React from 'react'
 import ListIcon from '@material-ui/icons/List'
 import OrderedListIcon from '@material-ui/icons/FormatListNumbered'
-import createListPlugin from 'slate-edit-list'
 import type { Props } from './props'
 
 import { makeTagNode, ToolbarButton } from '../helpers'
@@ -36,15 +35,8 @@ export const LI = 'LISTS/LIST-ITEM'
 
 export default class ListsPlugin extends Plugin {
   constructor(props: Props) {
-    super(props)
-
-    this.plugins = [
-      createListPlugin({
-        types: [UL, OL],
-        typeItem: LI,
-        typeDefault: props.DEFAULT_NODE
-      })
-    ]
+    super(props);
+    this.DEFAULT_NODE = props.DEFAULT_NODE;
   }
 
   props: Props
@@ -54,39 +46,48 @@ export default class ListsPlugin extends Plugin {
     const onClick = e => {
       e.preventDefault()
 
-      const isList = editorState.blocks.some(block => block.type === LI)
-      const isType = editorState.blocks.some(block =>
-        Boolean(
-          editorState.document.getClosest(
+      let change = editorState.change()
+
+      if (type !== UL && type !== OL) {
+        const isActive = this.hasBlock(type)
+        const isList = this.hasBlock(LI)
+
+        if (isList) {
+          change
+            .setBlocks(isActive ? this.DEFAULT_NODE : type)
+            .unwrapBlock(UL)
+            .unwrapBlock(OL)
+        } else {
+          change.setBlocks(isActive ? this.DEFAULT_NODE : type)
+        }
+      } else {
+        const isList = editorState.blocks.some(block => block.type === LI)
+        const isType = editorState.blocks.some(block =>
+          !!editorState.document.getClosest(
             block.key,
             parent => parent.type === type
           )
         )
-      )
-
-      let transform = editorState.transform()
-
-      if (isList && isType) {
-        transform = transform
-          .setBlock(this.DEFAULT_NODE)
-          .unwrapBlock(UL)
-          .unwrapBlock(OL)
-      } else if (isList) {
-        transform = transform.unwrapBlock(type === UL ? OL : UL).wrapBlock(type)
-      } else {
-        transform = transform.setBlock(LI).wrapBlock(type)
+        if (isList && isType) {
+          change
+            .setBlocks(this.DEFAULT_NODE)
+            .unwrapBlock(UL)
+            .unwrapBlock(OL)
+        } else if (isList) {
+          change.unwrapBlock(type === UL ? OL : UL).wrapBlock(type)
+        } else {
+          change.setBlocks(LI).wrapBlock(type)
+        }
       }
 
-      onChange(transform.apply())
+      onChange({ value: change.value })
     }
 
     const isList = editorState.blocks.some(block => block.type === LI)
     const isType = editorState.blocks.some(block =>
-      Boolean(
-        editorState.document.getClosest(
-          block.key,
-          parent => parent.type === type
-        )
+      !!editorState.document.getClosest(
+        block.key,
+        parent => parent.type === type
       )
     )
 
@@ -101,10 +102,12 @@ export default class ListsPlugin extends Plugin {
 
   name = 'lists'
 
-  nodes = {
-    [UL]: makeTagNode('ul'),
-    [OL]: makeTagNode('ol'),
-    [LI]: makeTagNode('li')
+  schema = {
+    nodes: {
+      [UL]: makeTagNode('ul'),
+      [OL]: makeTagNode('ol'),
+      [LI]: makeTagNode('li')
+    }
   }
 
   toolbarButtons = [
@@ -146,6 +149,18 @@ export default class ListsPlugin extends Plugin {
         return <li>{children}</li>
       case OL:
         return <ol>{children}</ol>
+    }
+  }
+
+  renderNode = props => {
+    const { children, attributes } = props;
+    switch (props.node.type) {
+      case UL:
+        return <ul {...attributes}>{children}</ul>
+      case LI:
+        return <li {...attributes}>{children}</li>
+      case OL:
+        return <ol {...attributes}>{children}</ol>
     }
   }
 }

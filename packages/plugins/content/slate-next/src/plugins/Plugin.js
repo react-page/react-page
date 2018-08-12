@@ -34,14 +34,12 @@ export default class Plugin {
   name: string
 
   /**
-  * @member the nodes to be added to the schema
-  */
-  nodes: { [key: string]: Component<*, *, *> } = {}
-
-  /**
-   * @member the marks to be added to the schema
+   * @member the schema that is automatically collected from all plugins
    */
-  marks: { [key: string]: Component<*, *, *> } = {}
+  schema: {
+    nodes: { [key: string]: Component<*, *, *> },
+    marks: { [key: string]: Component<*, *, *> }
+  }
 
   /**
    * @member the slate plugins added to the editor
@@ -84,4 +82,14 @@ export default class Plugin {
    * @member the buttons to be added to the global toolbar
    */
   toolbarButtons: Component<*, *, *>[] = []
+
+  /**
+   * @member the function that renders marks
+   */
+  renderMark: Function
+
+  /**
+   * @member the function that renders nodes
+   */
+  renderNode: Function
 }

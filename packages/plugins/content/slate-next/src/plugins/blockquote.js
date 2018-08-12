@@ -52,15 +52,15 @@ export default class BlockquotePlugin extends Plugin {
         )
       )
 
-      let transform = editorState.transform()
+      let change = editorState.change()
 
       if (isActive) {
-        transform = transform.unwrapBlock(BLOCKQUOTE)
+        change = change.unwrapBlock(BLOCKQUOTE)
       } else {
-        transform = transform.wrapBlock(BLOCKQUOTE)
+        change = change.wrapBlock(BLOCKQUOTE)
       }
 
-      onChange(transform.apply())
+      onChange({ value: change.value })
     }
 
     const isActive = editorState.blocks.some(block =>
@@ -83,9 +83,12 @@ export default class BlockquotePlugin extends Plugin {
 
   name = 'blockquote'
 
-  nodes = {
-    [BLOCKQUOTE]: makeTagNode('blockquote')
+  schema = {
+    nodes: {
+      [BLOCKQUOTE]: makeTagNode('blockquote')
+    }
   }
+
 
   plugins = [
     createBlockquotePlugin({
@@ -121,6 +124,18 @@ export default class BlockquotePlugin extends Plugin {
             {children}
           </blockquote>
         )
+    }
+  }
+
+  renderNode = props => {
+    switch (props.node.type) {
+      case BLOCKQUOTE: {
+        return (
+          <blockquote style={{ textAlign: props.node.data.get('align') }}>
+            {props.children}
+          </blockquote>
+        )
+      }
     }
   }
 }

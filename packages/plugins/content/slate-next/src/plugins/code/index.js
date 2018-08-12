@@ -143,13 +143,11 @@ export default class CodePlugin extends Plugin {
   }
 
   renderNode = props => {
-    const { attributes, children, node } = props
+    const { node } = props
 
     switch (node.type) {
       case CODE:
-        return <pre {...attributes} style={{ overflow: 'scroll' }}>
-          <code>{children}</code>
-        </pre>
+        return <Code {...props}/>
     }
   }
 }
