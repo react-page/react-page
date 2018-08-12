@@ -107,7 +107,7 @@ class Raw extends Component {
             />
           </ListItem>
         </List>
-        {content.length && <List subheader={
+        {content.length > 0 && <List subheader={
             <ListSubheader>Content plugins</ListSubheader>
           }>
           {content.map((plugin: ContentPlugin, k: Number) => {
@@ -127,7 +127,7 @@ class Raw extends Component {
             )
           })}
         </List>}
-        {layout.length && <List subheader={
+        {layout.length > 0 && <List subheader={
             <ListSubheader>Layout plugins</ListSubheader>
           }>
           {layout.map((plugin: LayoutPlugin, k: Number) => {

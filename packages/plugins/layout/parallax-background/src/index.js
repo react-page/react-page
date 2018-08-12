@@ -32,11 +32,6 @@ import type {
 import { BottomToolbar } from 'ory-editor-ui'
 import ThemeProvider, { darkTheme } from 'ory-editor-ui/lib/ThemeProvider'
 
-const handleChange = (onChange: (state: any) => void, key: string) => (
-  e: Event,
-  value: string
-) => onChange({ [key]: value })
-
 class PluginComponent extends Component {
   state = { hidden: false }
   props: LayoutPluginProps<{}> & { children: any }
@@ -62,14 +57,14 @@ class PluginComponent extends Component {
               label="Image location (URL)"
               style={{ width: '256px' }}
               value={background}
-              onChange={handleChange(onChange, 'background')}
-            />
+              onChange={e => onChange({ background: e.target.value })}
+          />
             <TextField
               placeholder="0.3"
               label="Darken level"
               style={{ width: '256px' }}
               value={darken}
-              onChange={handleChange(onChange, 'darken')}
+              onChange={e => onChange({ darken: e.target.value })}
             />
           </BottomToolbar>
           {children}
