@@ -141,7 +141,7 @@ export default class PluginService {
   /**
    * Finds a layout plugin based on its name and version.
    */
-  findLayoutPlugin = (name: string, version: string): { plugin: LayoutPlugin, pluginWrongVersion: LayoutPlugin } => {
+  findLayoutPlugin = (name: string, version: string): { plugin: LayoutPlugin, pluginWrongVersion: LayoutPlugin | undefined } => {
     const plugin = this.plugins.layout.find(find(name, version))
     let pluginWrongVersion = undefined
     if (!plugin) {
@@ -156,7 +156,7 @@ export default class PluginService {
   /**
    * Finds a content plugin based on its name and version.
    */
-  findContentPlugin = (name: string, version: string): { plugin: ContentPlugin, pluginWrongVersion: ContentPlugin } => {
+  findContentPlugin = (name: string, version: string): { plugin: ContentPlugin, pluginWrongVersion: ContentPlugin | undefined } => {
     const plugin = this.plugins.content.find(find(name, version))
     let pluginWrongVersion = undefined
     if (!plugin) {
