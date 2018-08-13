@@ -19,78 +19,86 @@
  * @author Aeneas Rekkas <aeneas+oss@aeneas.io>
  *
  */
-
-import { Raw } from 'slate'
+import { Value } from 'slate'
 import { html } from './hooks'
+import Plain from 'slate-plain-serializer'
 
 describe('serialize to html', () => {
   ;[
     {
       i: {
-        nodes: [
-          {
-            object: 'block',
-            type: 'HEADINGS/HEADING-ONE',
-            nodes: [{ object: 'text', text: 'Projects' }]
-          }
-        ]
+        document: {
+          nodes: [
+            {
+              object: 'block',
+              type: 'HEADINGS/HEADING-ONE',
+              nodes: [{ object: 'text', text: 'Projects' }]
+            }
+          ]
+        }
       },
       o: '<h1>Projects</h1>'
     },
     {
       i: {
-        nodes: [
-          {
-            object: 'block',
-            type: 'PARAGRAPH/PARAGRAPH',
-            nodes: [{ object: 'text', text: 'some projects' }]
-          }
-        ]
+        document: {
+          nodes: [
+            {
+              object: 'block',
+              type: 'PARAGRAPH/PARAGRAPH',
+              nodes: [{ object: 'text', text: 'some projects' }]
+            }
+          ]
+        }
       },
       o: '<p>some projects</p>'
     },
     {
       i: {
-        nodes: [
-          {
-            object: 'block',
-            nodes: [
-              {
-                object: 'text',
-                ranges: [
-                  { text: 'some ' },
-                  {
-                    marks: [{ data: {}, type: 'EMPHASIZE/EM' }],
-                    text: 'projects'
-                  },
-                  { text: '-' },
-                  {
-                    marks: [{ data: {}, type: 'EMPHASIZE/STRONG' }],
-                    text: 'foo'
-                  }
-                ]
-              }
-            ],
-            type: 'PARAGRAPH/PARAGRAPH'
-          }
-        ]
+        document: {
+          nodes: [
+            {
+              object: 'block',
+              nodes: [
+                {
+                  object: 'text',
+                  leaves: [
+                    { text: 'some ' },
+                    {
+                      marks: [{ data: {}, type: 'EMPHASIZE/EM' }],
+                      text: 'projects'
+                    },
+                    { text: '-' },
+                    {
+                      marks: [{ data: {}, type: 'EMPHASIZE/STRONG' }],
+                      text: 'foo'
+                    }
+                  ]
+                }
+              ],
+              type: 'PARAGRAPH/PARAGRAPH'
+            }
+          ]
+        }
       },
       o: '<p>some <em>projects</em>-<strong>foo</strong></p>'
     },
     {
       i: {
-        nodes: [
-          {
-            object: 'block',
-            type: 'CODE/CODE',
-            nodes: [
-              {
-                object: 'text',
-                text: 'asdf'
-              }
-            ]
-          }
-        ]
+        document: {
+          nodes: [
+            {
+              object: 'block',
+              type: 'CODE/CODE',
+              nodes: [
+                {
+                  object: 'text',
+                  text: 'asdf'
+                }
+              ]
+            }
+          ]
+        }
       },
       o: '<pre style="overflow:scroll"><code>asdf</code></pre>',
       // TODO this should not be skipped but it's a workaround for deserialization...
@@ -98,124 +106,136 @@ describe('serialize to html', () => {
     },
     {
       i: {
-        nodes: [
-          {
-            object: 'block',
-            type: 'PARAGRAPH/PARAGRAPH',
-            nodes: [
-              {
-                object: 'text',
-                ranges: [
-                  {
-                    text: 'a'
-                  },
-                  {
-                    text: 'bc',
-                    marks: [
-                      {
-                        type: 'CODE/CODE'
-                      }
-                    ]
-                  },
-                  {
-                    text: 'de'
-                  }
-                ]
-              }
-            ]
-          }
-        ]
+        document: {
+          nodes: [
+            {
+              object: 'block',
+              type: 'PARAGRAPH/PARAGRAPH',
+              nodes: [
+                {
+                  object: 'text',
+                  leaves: [
+                    {
+                      text: 'a'
+                    },
+                    {
+                      text: 'bc',
+                      marks: [
+                        {
+                          type: 'CODE/CODE'
+                        }
+                      ]
+                    },
+                    {
+                      text: 'de'
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
       },
-      o: '<p>a<code>bc</code>de</p>',
+      o: '<p>a<code class="ory-plugins-content-slate-next-code">bc</code>de</p>',
       skip: true
     },
     {
       i: {
-        nodes: [
-          {
-            object: 'block',
-            nodes: [
-              { object: 'text', text: 'a' },
-              {
-                data: { href: 'foo' },
-                object: 'inline',
-                nodes: [{ object: 'text', text: 'asdf' }],
-                type: 'LINK/LINK'
-              },
-              { object: 'text', text: 'b' }
-            ],
-            type: 'HEADINGS/HEADING-FOUR'
-          }
-        ]
+        document: {
+          nodes: [
+            {
+              object: 'block',
+              nodes: [
+                { object: 'text', text: 'a' },
+                {
+                  data: { href: 'foo' },
+                  object: 'inline',
+                  nodes: [{ object: 'text', text: 'asdf' }],
+                  type: 'LINK/LINK'
+                },
+                { object: 'text', text: 'b' }
+              ],
+              type: 'HEADINGS/HEADING-FOUR'
+            }
+          ]
+        }
       },
       o: '<h4>a<a href="foo">asdf</a>b</h4>'
       // skip: true
     },
     {
       i: {
-        nodes: [
-          {
-            object: 'block',
-            type: 'HEADINGS/HEADING-THREE',
-            nodes: [
-              {
-                object: 'text',
-                text: 'asdfgh'
+        document: {
+          nodes: [
+            {
+              object: 'block',
+              type: 'HEADINGS/HEADING-THREE',
+              nodes: [
+                {
+                  object: 'text',
+                  text: 'asdfgh'
+                }
+              ],
+              data: {
+                align: 'center'
               }
-            ],
-            data: {
-              align: 'center'
             }
-          }
-        ]
+          ]
+        }
       },
       o: '<h3 style="text-align:center">asdfgh</h3>',
       skip: true
     },
     {
       i: {
-        nodes: [
-          {
-            object: 'block',
-            type: 'BLOCKQUOTE/BLOCKQUOTE',
-            nodes: [
-              {
-                object: 'text',
-                text: 'asdfgh'
+        document: {
+          nodes: [
+            {
+              object: 'block',
+              type: 'BLOCKQUOTE/BLOCKQUOTE',
+              nodes: [
+                {
+                  object: 'text',
+                  text: 'asdfgh'
+                }
+              ],
+              data: {
+                align: 'center'
               }
-            ],
-            data: {
-              align: 'center'
             }
-          }
-        ]
+          ]
+        }
       },
       o: '<blockquote style="text-align:center">asdfgh</blockquote>',
       skip: true
     },
     {
       i: {
-        nodes: [
-          {
-            object: 'block',
-            type: 'PARAGRAPH/PARAGRAPH',
-            nodes: [{ object: 'text', text: 'ab' }],
-            data: { align: 'center' }
-          }
-        ]
+        document: {
+          nodes: [
+            {
+              object: 'block',
+              type: 'PARAGRAPH/PARAGRAPH',
+              nodes: [{ object: 'text', text: 'ab' }],
+              data: { align: 'center' }
+            }
+          ]
+        }
       },
       o: '<p style="text-align:center">ab</p>',
       skip: true
     },
     {
       i: {
-        nodes: [
-          {
-            object: 'block',
-            type: 'BLOCKQUOTE/BLOCKQUOTE',
-            nodes: [{ object: 'text', text: 'ab\nde' }]
-          }
-        ]
+        document: {
+          nodes: [
+            {
+              object: 'block',
+              type: 'BLOCKQUOTE/BLOCKQUOTE',
+              nodes: [{ object: 'text', text: 'ab\nde' }]
+            }
+          ]
+        }
       },
       o: '<blockquote>ab<br/>de</blockquote>'
       // skip: true
@@ -223,7 +243,7 @@ describe('serialize to html', () => {
   ].forEach((c, k) => {
     describe(`test case ${k}`, () => {
       it('should serialize properly', () => {
-        expect(html.serialize(Raw.deserialize(c.i, { terse: true }))).toEqual(
+        expect(html.serialize(Value.fromJSON(c.i))).toEqual(
           c.o
         )
       })
@@ -231,8 +251,8 @@ describe('serialize to html', () => {
         if (c.skip) {
           return
         }
-        expect(Raw.serialize(html.deserialize(c.o))).toEqual(
-          Raw.serialize(Raw.deserialize(c.i, { terse: true }))
+        expect(Plain.serialize(html.deserialize(c.o))).toEqual(
+          Plain.serialize(Value.fromJSON(c.i))
         )
       })
     })
