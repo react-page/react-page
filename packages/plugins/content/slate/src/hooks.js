@@ -65,7 +65,7 @@ export const lineBreakSerializer = {
     if (el.tagName.toLowerCase() === 'br') {
       return { object: 'text', text: '\n' }
     }
-    if (el.nodeName == '#text') {
+    if (el.nodeName === '#text') {
       if (el.value && el.value.match(/<!--.*?-->/)) return;
 
       return {

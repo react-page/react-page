@@ -14,7 +14,7 @@ const migration = new Migration({
             )
         }
         // rename keys
-        var state = rename(state, (key) => {
+        state = rename(state, (key) => {
             switch (key) {
                 case 'kind':
                     return 'object'

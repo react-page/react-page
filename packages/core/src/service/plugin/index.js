@@ -227,7 +227,7 @@ export default class PluginService {
       } else {
         // Attempt to migrate
         const migratedState = this.migratePluginState(contentState, found.pluginWrongVersion, contentVersion)
-        if (migratedState) {
+        if (found.pluginWrongVersion && migratedState) {
           newState.content = {
             plugin: found.pluginWrongVersion,
             state: found.pluginWrongVersion.unserialize(migratedState)
@@ -253,7 +253,7 @@ export default class PluginService {
       } else {
         // Attempt to migrate
         const migratedState = this.migratePluginState(layoutState, found.pluginWrongVersion, layoutVersion)
-        if (migratedState) {
+        if (found.pluginWrongVersion && migratedState) {
           newState.layout = {
             plugin: found.pluginWrongVersion,
             state: found.pluginWrongVersion.unserialize(migratedState)
