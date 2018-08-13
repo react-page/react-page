@@ -141,7 +141,7 @@ export default class PluginService {
   /**
    * Finds a layout plugin based on its name and version.
    */
-  findLayoutPlugin = (name: string, version: string): { plugin: LayoutPlugin, pluginWrongVersion: LayoutPlugin | undefined } => {
+  findLayoutPlugin = (name: string, version: string): { plugin: LayoutPlugin, pluginWrongVersion?: LayoutPlugin } => {
     const plugin = this.plugins.layout.find(find(name, version))
     let pluginWrongVersion = undefined
     if (!plugin) {
@@ -156,7 +156,7 @@ export default class PluginService {
   /**
    * Finds a content plugin based on its name and version.
    */
-  findContentPlugin = (name: string, version: string): { plugin: ContentPlugin, pluginWrongVersion: ContentPlugin | undefined } => {
+  findContentPlugin = (name: string, version: string): { plugin: ContentPlugin, pluginWrongVersion?: ContentPlugin } => {
     const plugin = this.plugins.content.find(find(name, version))
     let pluginWrongVersion = undefined
     if (!plugin) {
@@ -176,7 +176,7 @@ export default class PluginService {
     ...this.plugins.layout.map(({ name }: Plugin) => name)
   ]
 
-  migratePluginState = (state: any, plugin: Plugin, dataVersion: string): Object | undefined => {
+  migratePluginState = (state: any, plugin: Plugin, dataVersion: string): ?Object => {
     if (!plugin || !dataVersion || !semver.valid(dataVersion)) {
       return state
     }
