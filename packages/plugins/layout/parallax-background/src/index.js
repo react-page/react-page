@@ -36,9 +36,9 @@ class PluginComponent extends Component {
   state = { hidden: false }
   props: LayoutPluginProps<{}> & { children: any }
 
-  handleChangeBackground = e => this.props.onChange({ background: e.target.value })
+  handleChangeBackground = (e: Event) => this.props.onChange({ background: e.target.value })
 
-  handleChangeDarken = e => this.props.onChange({ darken: e.target.value })
+  handleChangeDarken = (e: Event) => this.props.onChange({ darken: e.target.value })
 
   render() {
     const {
