@@ -149,7 +149,7 @@ export const merge = (states: Object[]): Object => {
     tail(nodes)
   )
   const mergedDocument = Document.create({ nodes: mergedNodes })
-  const mergedEditorState = State.create({ document: mergedDocument })
+  const mergedEditorState = Value.create({ document: mergedDocument })
 
   return { editorState: mergedEditorState }
 }
