@@ -141,7 +141,7 @@ export default class PluginService {
   /**
    * Finds a layout plugin based on its name and version.
    */
-  findLayoutPlugin = (name: string, version: string): LayoutPlugin => {
+  findLayoutPlugin = (name: string, version: string): { plugin: LayoutPlugin, pluginWrongVersion: LayoutPlugin } => {
     const plugin = this.plugins.layout.find(find(name, version))
     let pluginWrongVersion = undefined
     if (!plugin) {
