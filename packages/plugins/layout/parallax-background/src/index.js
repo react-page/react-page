@@ -36,6 +36,10 @@ class PluginComponent extends Component {
   state = { hidden: false }
   props: LayoutPluginProps<{}> & { children: any }
 
+  handleChangeBackground = e => this.props.onChange({ background: e.target.value })
+
+  handleChangeDarken = e => this.props.onChange({ darken: e.target.value })
+
   render() {
     const {
       children,
@@ -57,14 +61,14 @@ class PluginComponent extends Component {
               label="Image location (URL)"
               style={{ width: '256px' }}
               value={background}
-              onChange={e => onChange({ background: e.target.value })}
+              onChange={this.handleChangeBackground}
           />
             <TextField
               placeholder="0.3"
               label="Darken level"
               style={{ width: '256px' }}
               value={darken}
-              onChange={e => onChange({ darken: e.target.value })}
+              onChange={this.handleChangeDarken}
             />
           </BottomToolbar>
           {children}
