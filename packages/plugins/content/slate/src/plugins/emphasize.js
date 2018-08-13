@@ -37,17 +37,13 @@ export const U = 'EMPHASIZE/U'
 const createButton = (type, icon) => ({ editorState, onChange }: Props) => {
   const onClick = e => {
     e.preventDefault()
-
-    onChange(
-      editorState
-        .transform()
-        .toggleMark(type)
-        .apply()
-    )
+    onChange({value: editorState
+      .change()
+      .toggleMark(type).value})
   }
 
   const isActive =
-    editorState && editorState.marks.some(mark => mark.type === type)
+    editorState && editorState.activeMarks.some(mark => mark.type === type)
 
   return <ToolbarButton onClick={onClick} isActive={isActive} icon={icon} />
 }
@@ -57,10 +53,12 @@ export default class EmphasizePlugin extends Plugin {
 
   name = 'emphasize'
 
-  marks = {
-    [STRONG]: makeTagMark('strong'),
-    [EM]: makeTagMark('em'),
-    [U]: makeTagMark('u')
+  schema = {
+    marks: {
+      [STRONG]: makeTagMark('strong'),
+      [EM]: makeTagMark('em'),
+      [U]: makeTagMark('u')
+    }
   }
 
   onKeyDown = (e: Event, data: { key: string, isMod: boolean }, state) => {
@@ -82,9 +80,9 @@ export default class EmphasizePlugin extends Plugin {
       }
 
       return state
-        .transform()
+        .change()
         .toggleMark(mark)
-        .apply()
+        .value
     }
   }
 
@@ -99,28 +97,28 @@ export default class EmphasizePlugin extends Plugin {
       case 'strong':
       case 'b':
         return {
-          kind: 'mark',
+          object: 'mark',
           type: STRONG,
           nodes: next(el.childNodes)
         }
       case 'em':
       case 'i':
         return {
-          kind: 'mark',
+          object: 'mark',
           type: EM,
           nodes: next(el.childNodes)
         }
       case 'u':
         return {
-          kind: 'mark',
+          object: 'mark',
           type: U,
           nodes: next(el.childNodes)
         }
     }
   }
 
-  serialize = (object: { type: string, kind: string }, children: any[]) => {
-    if (object.kind !== 'mark') {
+  serialize = (object: { type: string, object: string }, children: any[]) => {
+    if (object.object !== 'mark') {
       return
     }
     switch (object.type) {
@@ -130,6 +128,19 @@ export default class EmphasizePlugin extends Plugin {
         return <em>{children}</em>
       case U:
         return <u>{children}</u>
+    }
+  }
+
+  renderMark = props => {
+    const { children, mark, attributes } = props
+
+    switch (mark.type) {
+      case STRONG:
+        return <strong {...attributes}>{children}</strong>
+      case EM:
+        return <em {...attributes}>{children}</em>
+      case U:
+        return <u {...attributes}>{children}</u>
     }
   }
 }

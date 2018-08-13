@@ -31,3 +31,8 @@
   border-radius: 4px;
   transition: opacity .75s;
 }
+
+.ory-plugins-content-slate-inline-toolbar--hidden{
+  opacity: 0 !important;
+  pointer-events: none;
+}

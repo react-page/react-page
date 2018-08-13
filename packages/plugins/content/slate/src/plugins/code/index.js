@@ -45,12 +45,12 @@ export default class CodePlugin extends Plugin {
       const onClick = e => {
         e.preventDefault()
 
-        onChange(
-          editorState
-            .transform()
+        onChange({
+          value: editorState
+            .change()
             .toggleMark(type)
-            .apply()
-        )
+            .value
+        })
       }
 
       const isActive =
@@ -69,12 +69,12 @@ export default class CodePlugin extends Plugin {
 
         const isActive = editorState.blocks.some(block => block.type === type)
 
-        onChange(
-          editorState
-            .transform()
-            .setBlock(isActive ? this.DEFAULT_NODE : type)
-            .apply()
-        )
+        onChange({
+          value: editorState
+            .change()
+            .setBlocks(isActive ? this.DEFAULT_NODE : type)
+            .value
+        })
       }
 
       const isActive = editorState.blocks.some(block => block.type === type)
@@ -86,9 +86,10 @@ export default class CodePlugin extends Plugin {
   }
 
   name = 'code'
-
-  marks = { [CODE]: makeTagMark('code') }
-  nodes = { [CODE]: Code }
+  schema = {
+    marks: { [CODE]: makeTagMark('code') },
+    nodes: { [CODE]: Code }
+  }
 
   hoverButtons = [this.createButton(CODE, <CodeIcon />)]
   toolbarButtons = [this.createNodeButton(CODE, <CodeIcon />)]
@@ -97,14 +98,14 @@ export default class CodePlugin extends Plugin {
     switch (el.tagName.toLowerCase()) {
       case 'code':
         return {
-          kind: 'mark',
+          object: 'mark',
           type: CODE,
           data: Data.create({}),
           nodes: next(el.childNodes)
         }
       case 'pre':
         return {
-          kind: 'block',
+          object: 'block',
           type: CODE,
           nodes: next(el.childNodes)
         }
@@ -112,15 +113,15 @@ export default class CodePlugin extends Plugin {
   }
 
   serialize = (
-    object: { type: string, kind: string, data: any },
+    object: { type: string, object: string, data: any },
     children: any[]
   ) => {
-    if (object.kind === 'mark') {
+    if (object.object === 'mark') {
       switch (object.type) {
         case CODE:
-          return <code>{children}</code>
+          return <code className="ory-plugins-content-slate-code">{children}</code>
       }
-    } else if (object.kind === 'block') {
+    } else if (object.object === 'block') {
       switch (object.type) {
         case CODE:
           return (
@@ -129,6 +130,24 @@ export default class CodePlugin extends Plugin {
             </pre>
           )
       }
+    }
+  }
+
+  renderMark = props => {
+    const { children, mark, attributes } = props
+
+    switch (mark.type) {
+      case CODE:
+        return <code {...attributes} className="ory-plugins-content-slate-code">{children}</code>
+    }
+  }
+
+  renderNode = props => {
+    const { node } = props
+
+    switch (node.type) {
+      case CODE:
+        return <Code {...props}/>
     }
   }
 }

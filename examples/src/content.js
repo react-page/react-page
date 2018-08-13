@@ -38,105 +38,103 @@ export default [
                 "size": 12,
                 "content": {
                   "plugin": {
-                    "name": "ory/editor/core/content/slate-next",
+                    "name": "ory/editor/core/content/slate",
                     "version": "0.0.1"
                   },
                   "state": {
                     "serialized": {
-                      "document": {
-                        "nodes": [
-                          {
-                            "object": "block",
-                            "type": "HEADINGS/HEADING-ONE",
-                            "nodes": [
-                              {
-                                "object": "text",
-                                "text": "The ORY Editor"
-                              }
-                            ],
-                            "data": {
-                              "align": "center"
+                      "nodes": [
+                        {
+                          "kind": "block",
+                          "type": "HEADINGS/HEADING-ONE",
+                          "nodes": [
+                            {
+                              "kind": "text",
+                              "text": "The ORY Editor"
                             }
-                          },
-                          {
-                            "object": "block",
-                            "type": "PARAGRAPH/PARAGRAPH",
-                            "nodes": [
-                              {
-                                "object": "text",
-                                "text": ""
-                              },
-                              {
-                                "object": "inline",
-                                "type": "LINK/LINK",
-                                "nodes": [
-                                  {
-                                    "object": "text",
-                                    "text": "ORY"
-                                  }
-                                ],
-                                "data": {
-                                  "href": "https://www.ory.am/"
-                                }
-                              },
-                              {
-                                "object": "text",
-                                "text": " is a company building and maintaining developer tools for a safer, more accessible web. You might also like our other "
-                              },
-                              {
-                                "object": "inline",
-                                "type": "LINK/LINK",
-                                "nodes": [
-                                  {
-                                    "object": "text",
-                                    "text": "Open Source"
-                                  }
-                                ],
-                                "data": {
-                                  "href": "https://github.com/ory"
-                                }
-                              },
-                              {
-                                "object": "text",
-                                "text": " tools! The ORY Editor is a smart, extensible and modern editor (\"WYSIWYG\") for the web written in React."
-                              }
-                            ],
-                            "data": {
-                              "align": "left"
-                            }
-                          },
-                          {
-                            "object": "block",
-                            "type": "PARAGRAPH/PARAGRAPH",
-                            "nodes": [
-                              {
-                                "object": "text",
-                                "text": "The ORY Editor was written because we urgently needed a robust and modern content editing solution for our open education platform "
-                              },
-                              {
-                                "object": "inline",
-                                "type": "LINK/LINK",
-                                "nodes": [
-                                  {
-                                    "object": "text",
-                                    "text": "serlo.org"
-                                  }
-                                ],
-                                "data": {
-                                  "href": "https://en.serlo.org/serlo"
-                                }
-                              },
-                              {
-                                "object": "text",
-                                "text": ". Serlo is the largest open education platform in Germany, works like the Wikipedia and is used by millions every year."
-                              }
-                            ],
-                            "data": {
-                              "align": "left"
-                            }
+                          ],
+                          "data": {
+                            "align": "center"
                           }
-                        ]
-                      }
+                        },
+                        {
+                          "kind": "block",
+                          "type": "PARAGRAPH/PARAGRAPH",
+                          "nodes": [
+                            {
+                              "kind": "text",
+                              "text": ""
+                            },
+                            {
+                              "kind": "inline",
+                              "type": "LINK/LINK",
+                              "nodes": [
+                                {
+                                  "kind": "text",
+                                  "text": "ORY"
+                                }
+                              ],
+                              "data": {
+                                "href": "https://www.ory.am/"
+                              }
+                            },
+                            {
+                              "kind": "text",
+                              "text": " is a company building and maintaining developer tools for a safer, more accessible web. You might also like our other "
+                            },
+                            {
+                              "kind": "inline",
+                              "type": "LINK/LINK",
+                              "nodes": [
+                                {
+                                  "kind": "text",
+                                  "text": "Open Source"
+                                }
+                              ],
+                              "data": {
+                                "href": "https://github.com/ory"
+                              }
+                            },
+                            {
+                              "kind": "text",
+                              "text": " tools! The ORY Editor is a smart, extensible and modern editor (\"WYSIWYG\") for the web written in React."
+                            }
+                          ],
+                          "data": {
+                            "align": "left"
+                          }
+                        },
+                        {
+                          "kind": "block",
+                          "type": "PARAGRAPH/PARAGRAPH",
+                          "nodes": [
+                            {
+                              "kind": "text",
+                              "text": "The ORY Editor was written because we urgently needed a robust and modern content editing solution for our open education platform "
+                            },
+                            {
+                              "kind": "inline",
+                              "type": "LINK/LINK",
+                              "nodes": [
+                                {
+                                  "kind": "text",
+                                  "text": "serlo.org"
+                                }
+                              ],
+                              "data": {
+                                "href": "https://en.serlo.org/serlo"
+                              }
+                            },
+                            {
+                              "kind": "text",
+                              "text": ". Serlo is the largest open education platform in Germany, works like the Wikipedia and is used by millions every year."
+                            }
+                          ],
+                          "data": {
+                            "align": "left"
+                          }
+                        }
+                      ]
                     }
                   }
                 }
@@ -152,104 +150,102 @@ export default [
                 "size": 6,
                 "content": {
                   "plugin": {
-                    "name": "ory/editor/core/content/slate-next",
+                    "name": "ory/editor/core/content/slate",
                     "version": "0.0.1"
                   },
                   "state": {
                     "serialized": {
-                      "document": {
-                        "nodes": [
-                          {
-                            "object": "block",
-                            "type": "HEADINGS/HEADING-THREE",
-                            "nodes": [
-                              {
-                                "object": "text",
-                                "text": "ORY Sites"
-                              }
-                            ],
-                            "data": {
-                              "align": "left"
+                      "nodes": [
+                        {
+                          "kind": "block",
+                          "type": "HEADINGS/HEADING-THREE",
+                          "nodes": [
+                            {
+                              "kind": "text",
+                              "text": "ORY Sites"
                             }
-                          },
-                          {
-                            "object": "block",
-                            "type": "PARAGRAPH/PARAGRAPH",
-                            "nodes": [
-                              {
-                                "object": "text",
-                                "leaves": [
-                                  {
-                                    "text": "ORY Sites is an "
-                                  },
-                                  {
-                                    "text": "next-gen",
-                                    "marks": [
-                                      {
-                                        "type": "EMPHASIZE/STRONG"
-                                      }
-                                    ]
-                                  },
-                                  {
-                                    "text": " "
-                                  },
-                                  {
-                                    "text": "open source static site generator",
-                                    "marks": [
-                                      {
-                                        "type": "EMPHASIZE/STRONG"
-                                      }
-                                    ]
-                                  },
-                                  {
-                                    "text": " based on the ORY Editor. Create stunning websites, write your own designs and plugins, and be done with databases, application servers, and security updates."
-                                  }
-                                ]
-                              }
-                            ]
-                          },
-                          {
-                            "object": "block",
-                            "type": "HEADINGS/HEADING-FIVE",
-                            "nodes": [
-                              {
-                                "object": "text",
-                                "text": ""
-                              },
-                              {
-                                "object": "inline",
-                                "type": "LINK/LINK",
-                                "nodes": [
-                                  {
-                                    "object": "text",
-                                    "text": "Learn more about ORY Sites!"
-                                  }
-                                ],
-                                "data": {
-                                  "href": "https://www.ory.am/sites?utm_source=github&utm_medium=link&utm_campaign=editor_demo"
-                                }
-                              },
-                              {
-                                "object": "text",
-                                "text": ""
-                              }
-                            ],
-                            "data": {
-                              "align": "center"
-                            }
-                          },
-                          {
-                            "object": "block",
-                            "type": "PARAGRAPH/PARAGRAPH",
-                            "nodes": [
-                              {
-                                "object": "text",
-                                "text": ""
-                              }
-                            ]
+                          ],
+                          "data": {
+                            "align": "left"
                           }
-                        ]
-                      }
+                        },
+                        {
+                          "kind": "block",
+                          "type": "PARAGRAPH/PARAGRAPH",
+                          "nodes": [
+                            {
+                              "kind": "text",
+                              "ranges": [
+                                {
+                                  "text": "ORY Sites is an "
+                                },
+                                {
+                                  "text": "next-gen",
+                                  "marks": [
+                                    {
+                                      "type": "EMPHASIZE/STRONG"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "text": " "
+                                },
+                                {
+                                  "text": "open source static site generator",
+                                  "marks": [
+                                    {
+                                      "type": "EMPHASIZE/STRONG"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "text": " based on the ORY Editor. Create stunning websites, write your own designs and plugins, and be done with databases, application servers, and security updates."
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "block",
+                          "type": "HEADINGS/HEADING-FIVE",
+                          "nodes": [
+                            {
+                              "kind": "text",
+                              "text": ""
+                            },
+                            {
+                              "kind": "inline",
+                              "type": "LINK/LINK",
+                              "nodes": [
+                                {
+                                  "kind": "text",
+                                  "text": "Learn more about ORY Sites!"
+                                }
+                              ],
+                              "data": {
+                                "href": "https://www.ory.am/sites?utm_source=github&utm_medium=link&utm_campaign=editor_demo"
+                              }
+                            },
+                            {
+                              "kind": "text",
+                              "text": ""
+                            }
+                          ],
+                          "data": {
+                            "align": "center"
+                          }
+                        },
+                        {
+                          "kind": "block",
+                          "type": "PARAGRAPH/PARAGRAPH",
+                          "nodes": [
+                            {
+                              "kind": "text",
+                              "text": ""
+                            }
+                          ]
+                        }
+                      ]
                     }
                   }
                 }
@@ -279,28 +275,26 @@ export default [
                 "size": 12,
                 "content": {
                   "plugin": {
-                    "name": "ory/editor/core/content/slate-next",
+                    "name": "ory/editor/core/content/slate",
                     "version": "0.0.1"
                   },
                   "state": {
                     "serialized": {
-                      "document": {
-                        "nodes": [
-                          {
-                            "object": "block",
-                            "type": "HEADINGS/HEADING-TWO",
-                            "nodes": [
-                              {
-                                "object": "text",
-                                "text": "What's the problem?"
-                              }
-                            ],
-                            "data": {
-                              "align": "center"
+                      "nodes": [
+                        {
+                          "kind": "block",
+                          "type": "HEADINGS/HEADING-TWO",
+                          "nodes": [
+                            {
+                              "kind": "text",
+                              "text": "What's the problem?"
                             }
+                          ],
+                          "data": {
+                            "align": "center"
                           }
-                        ]
-                      }
+                        }
+                      ]
                     }
                   }
                 }
@@ -330,79 +324,77 @@ export default [
                 "size": 12,
                 "content": {
                   "plugin": {
-                    "name": "ory/editor/core/content/slate-next",
+                    "name": "ory/editor/core/content/slate",
                     "version": "0.0.1"
                   },
                   "state": {
                     "serialized": {
-                      "document": {
-                        "nodes": [
-                          {
-                            "object": "block",
-                            "type": "PARAGRAPH/PARAGRAPH",
-                            "nodes": [
-                              {
-                                "object": "text",
-                                "text": "We had to realize that existing open source content editing solutions had one of the three flaws:\r"
-                              }
-                            ]
-                          },
-                          {
-                            "object": "block",
-                            "type": "LISTS/UNORDERED-LIST",
-                            "nodes": [
-                              {
-                                "object": "block",
-                                "type": "LISTS/LIST-ITEM",
-                                "nodes": [
-                                  {
-                                    "object": "block",
-                                    "type": "PARAGRAPH/PARAGRAPH",
-                                    "nodes": [
-                                      {
-                                        "object": "text",
-                                        "text": "The produced markup was horrific, a lot of sanitation had to take place and XSS is always a threat.\r"
-                                      }
-                                    ]
-                                  }
-                                ]
-                              },
-                              {
-                                "object": "block",
-                                "type": "LISTS/LIST-ITEM",
-                                "nodes": [
-                                  {
-                                    "object": "block",
-                                    "type": "PARAGRAPH/PARAGRAPH",
-                                    "nodes": [
-                                      {
-                                        "object": "text",
-                                        "text": "The author must learn special mark up, like markdown, before being able to produce content. These text-based solutions are usually unable to specify a layout and complex data structures like tables are annoying to edit.\r"
-                                      }
-                                    ]
-                                  }
-                                ]
-                              },
-                              {
-                                "object": "block",
-                                "type": "LISTS/LIST-ITEM",
-                                "nodes": [
-                                  {
-                                    "object": "block",
-                                    "type": "PARAGRAPH/PARAGRAPH",
-                                    "nodes": [
-                                      {
-                                        "object": "text",
-                                        "text": "Promising libraries potentially solving the above where abandoned by their maintainers, because it started as a special use case, or a free-time project.\r"
-                                      }
-                                    ]
-                                  }
-                                ]
-                              }
-                            ]
-                          }
-                        ]
-                      }
+                      "nodes": [
+                        {
+                          "kind": "block",
+                          "type": "PARAGRAPH/PARAGRAPH",
+                          "nodes": [
+                            {
+                              "kind": "text",
+                              "text": "We had to realize that existing open source content editing solutions had one of the three flaws:\r"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "block",
+                          "type": "LISTS/UNORDERED-LIST",
+                          "nodes": [
+                            {
+                              "kind": "block",
+                              "type": "LISTS/LIST-ITEM",
+                              "nodes": [
+                                {
+                                  "kind": "block",
+                                  "type": "PARAGRAPH/PARAGRAPH",
+                                  "nodes": [
+                                    {
+                                      "kind": "text",
+                                      "text": "The produced markup was horrific, a lot of sanitation had to take place and XSS is always a threat.\r"
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "kind": "block",
+                              "type": "LISTS/LIST-ITEM",
+                              "nodes": [
+                                {
+                                  "kind": "block",
+                                  "type": "PARAGRAPH/PARAGRAPH",
+                                  "nodes": [
+                                    {
+                                      "kind": "text",
+                                      "text": "The author must learn special mark up, like markdown, before being able to produce content. These text-based solutions are usually unable to specify a layout and complex data structures like tables are annoying to edit.\r"
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "kind": "block",
+                              "type": "LISTS/LIST-ITEM",
+                              "nodes": [
+                                {
+                                  "kind": "block",
+                                  "type": "PARAGRAPH/PARAGRAPH",
+                                  "nodes": [
+                                    {
+                                      "kind": "text",
+                                      "text": "Promising libraries potentially solving the above where abandoned by their maintainers, because it started as a special use case, or a free-time project.\r"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
                     }
                   }
                 }
@@ -418,28 +410,26 @@ export default [
                 "size": 12,
                 "content": {
                   "plugin": {
-                    "name": "ory/editor/core/content/slate-next",
+                    "name": "ory/editor/core/content/slate",
                     "version": "0.0.1"
                   },
                   "state": {
                     "serialized": {
-                      "document": {
-                        "nodes": [
-                          {
-                            "object": "block",
-                            "type": "HEADINGS/HEADING-TWO",
-                            "nodes": [
-                              {
-                                "object": "text",
-                                "text": "So what's different?"
-                              }
-                            ],
-                            "data": {
-                              "align": "center"
+                      "nodes": [
+                        {
+                          "kind": "block",
+                          "type": "HEADINGS/HEADING-TWO",
+                          "nodes": [
+                            {
+                              "kind": "text",
+                              "text": "So what's different?"
                             }
+                          ],
+                          "data": {
+                            "align": "center"
                           }
-                        ]
-                      }
+                        }
+                      ]
                     }
                   }
                 }
@@ -469,121 +459,119 @@ export default [
                 "size": 8,
                 "content": {
                   "plugin": {
-                    "name": "ory/editor/core/content/slate-next",
+                    "name": "ory/editor/core/content/slate",
                     "version": "0.0.1"
                   },
                   "state": {
                     "serialized": {
-                      "document": {
-                        "nodes": [
-                          {
-                            "object": "block",
-                            "type": "PARAGRAPH/PARAGRAPH",
-                            "nodes": [
-                              {
-                                "object": "text",
-                                "text": "We concluded that a solution must meet the following principles:\r"
-                              }
-                            ]
-                          },
-                          {
-                            "object": "block",
-                            "type": "LISTS/UNORDERED-LIST",
-                            "nodes": [
-                              {
-                                "object": "block",
-                                "type": "LISTS/LIST-ITEM",
-                                "nodes": [
-                                  {
-                                    "object": "block",
-                                    "type": "PARAGRAPH/PARAGRAPH",
-                                    "nodes": [
-                                      {
-                                        "object": "text",
-                                        "text": "The state is a normalized JSON object, no HTML involved.\r"
-                                      }
-                                    ]
-                                  }
-                                ]
-                              },
-                              {
-                                "object": "block",
-                                "type": "LISTS/LIST-ITEM",
-                                "nodes": [
-                                  {
-                                    "object": "block",
-                                    "type": "PARAGRAPH/PARAGRAPH",
-                                    "nodes": [
-                                      {
-                                        "object": "text",
-                                        "text": "It is a visual editor that does not require programming experience or special training.\r"
-                                      }
-                                    ]
-                                  }
-                                ]
-                              },
-                              {
-                                "object": "block",
-                                "type": "LISTS/LIST-ITEM",
-                                "nodes": [
-                                  {
-                                    "object": "block",
-                                    "type": "PARAGRAPH/PARAGRAPH",
-                                    "nodes": [
-                                      {
-                                        "object": "text",
-                                        "text": "It is built by a company, reducing the likelihood of abandonment.\r"
-                                      }
-                                    ]
-                                  }
-                                ]
-                              },
-                              {
-                                "object": "block",
-                                "type": "LISTS/LIST-ITEM",
-                                "nodes": [
-                                  {
-                                    "object": "block",
-                                    "type": "PARAGRAPH/PARAGRAPH",
-                                    "nodes": [
-                                      {
-                                        "object": "text",
-                                        "text": "Based on reusable React Components, it gives developers, authors and designers new ways of working together and creating better and richer experiences more easily.\r"
-                                      }
-                                    ]
-                                  }
-                                ]
-                              },
-                              {
-                                "object": "block",
-                                "type": "LISTS/LIST-ITEM",
-                                "nodes": [
-                                  {
-                                    "object": "block",
-                                    "type": "PARAGRAPH/PARAGRAPH",
-                                    "nodes": [
-                                      {
-                                        "object": "text",
-                                        "text": "It works on mobile and touch devices.\r"
-                                      }
-                                    ]
-                                  }
-                                ]
-                              }
-                            ]
-                          },
-                          {
-                            "object": "block",
-                            "type": "PARAGRAPH/PARAGRAPH",
-                            "nodes": [
-                              {
-                                "object": "text",
-                                "text": "With these principles in mind, we went out and implemented the ORY Editor, which you are looking at right now."
-                              }
-                            ]
-                          }
-                        ]
-                      }
+                      "nodes": [
+                        {
+                          "kind": "block",
+                          "type": "PARAGRAPH/PARAGRAPH",
+                          "nodes": [
+                            {
+                              "kind": "text",
+                              "text": "We concluded that a solution must meet the following principles:\r"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "block",
+                          "type": "LISTS/UNORDERED-LIST",
+                          "nodes": [
+                            {
+                              "kind": "block",
+                              "type": "LISTS/LIST-ITEM",
+                              "nodes": [
+                                {
+                                  "kind": "block",
+                                  "type": "PARAGRAPH/PARAGRAPH",
+                                  "nodes": [
+                                    {
+                                      "kind": "text",
+                                      "text": "The state is a normalized JSON object, no HTML involved.\r"
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "kind": "block",
+                              "type": "LISTS/LIST-ITEM",
+                              "nodes": [
+                                {
+                                  "kind": "block",
+                                  "type": "PARAGRAPH/PARAGRAPH",
+                                  "nodes": [
+                                    {
+                                      "kind": "text",
+                                      "text": "It is a visual editor that does not require programming experience or special training.\r"
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "kind": "block",
+                              "type": "LISTS/LIST-ITEM",
+                              "nodes": [
+                                {
+                                  "kind": "block",
+                                  "type": "PARAGRAPH/PARAGRAPH",
+                                  "nodes": [
+                                    {
+                                      "kind": "text",
+                                      "text": "It is built by a company, reducing the likelihood of abandonment.\r"
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "kind": "block",
+                              "type": "LISTS/LIST-ITEM",
+                              "nodes": [
+                                {
+                                  "kind": "block",
+                                  "type": "PARAGRAPH/PARAGRAPH",
+                                  "nodes": [
+                                    {
+                                      "kind": "text",
+                                      "text": "Based on reusable React Components, it gives developers, authors and designers new ways of working together and creating better and richer experiences more easily.\r"
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "kind": "block",
+                              "type": "LISTS/LIST-ITEM",
+                              "nodes": [
+                                {
+                                  "kind": "block",
+                                  "type": "PARAGRAPH/PARAGRAPH",
+                                  "nodes": [
+                                    {
+                                      "kind": "text",
+                                      "text": "It works on mobile and touch devices.\r"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "block",
+                          "type": "PARAGRAPH/PARAGRAPH",
+                          "nodes": [
+                            {
+                              "kind": "text",
+                              "text": "With these principles in mind, we went out and implemented the ORY Editor, which you are looking at right now."
+                            }
+                          ]
+                        }
+                      ]
                     }
                   }
                 }
@@ -618,28 +606,26 @@ export default [
                 "size": 12,
                 "content": {
                   "plugin": {
-                    "name": "ory/editor/core/content/slate-next",
+                    "name": "ory/editor/core/content/slate",
                     "version": "0.0.1"
                   },
                   "state": {
                     "serialized": {
-                      "document": {
-                        "nodes": [
-                          {
-                            "object": "block",
-                            "type": "HEADINGS/HEADING-TWO",
-                            "nodes": [
-                              {
-                                "object": "text",
-                                "text": "Feature Spotlight"
-                              }
-                            ],
-                            "data": {
-                              "align": "center"
+                      "nodes": [
+                        {
+                          "kind": "block",
+                          "type": "HEADINGS/HEADING-TWO",
+                          "nodes": [
+                            {
+                              "kind": "text",
+                              "text": "Feature Spotlight"
                             }
+                          ],
+                          "data": {
+                            "align": "center"
                           }
-                        ]
-                      }
+                        }
+                      ]
                     }
                   }
                 }
@@ -672,35 +658,33 @@ export default [
                 "size": 8,
                 "content": {
                   "plugin": {
-                    "name": "ory/editor/core/content/slate-next",
+                    "name": "ory/editor/core/content/slate",
                     "version": "0.0.1"
                   },
                   "state": {
                     "serialized": {
-                      "document": {
-                        "nodes": [
-                          {
-                            "object": "block",
-                            "type": "HEADINGS/HEADING-THREE",
-                            "nodes": [
-                              {
-                                "object": "text",
-                                "text": "Rich Inline Editing"
-                              }
-                            ]
-                          },
-                          {
-                            "object": "block",
-                            "type": "PARAGRAPH/PARAGRAPH",
-                            "nodes": [
-                              {
-                                "object": "text",
-                                "text": "Presentation and modification happen in the same canvas, at the same time. Now you always know what your content looks like on desktop, tablet and mobile, in real-time!"
-                              }
-                            ]
-                          }
-                        ]
-                      }
+                      "nodes": [
+                        {
+                          "kind": "block",
+                          "type": "HEADINGS/HEADING-THREE",
+                          "nodes": [
+                            {
+                              "kind": "text",
+                              "text": "Rich Inline Editing"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "block",
+                          "type": "PARAGRAPH/PARAGRAPH",
+                          "nodes": [
+                            {
+                              "kind": "text",
+                              "text": "Presentation and modification happen in the same canvas, at the same time. Now you always know what your content looks like on desktop, tablet and mobile, in real-time!"
+                            }
+                          ]
+                        }
+                      ]
                     }
                   }
                 }
@@ -744,35 +728,33 @@ export default [
                 "size": 8,
                 "content": {
                   "plugin": {
-                    "name": "ory/editor/core/content/slate-next",
+                    "name": "ory/editor/core/content/slate",
                     "version": "0.0.1"
                   },
                   "state": {
                     "serialized": {
-                      "document": {
-                        "nodes": [
-                          {
-                            "object": "block",
-                            "type": "HEADINGS/HEADING-THREE",
-                            "nodes": [
-                              {
-                                "object": "text",
-                                "text": "Responsive Layouts"
-                              }
-                            ]
-                          },
-                          {
-                            "object": "block",
-                            "type": "PARAGRAPH/PARAGRAPH",
-                            "nodes": [
-                              {
-                                "object": "text",
-                                "text": "Today's content is more than a monolithic blob of text. The ORY Editor allows you to define your own layout blocks, and create content that looks good on all devices."
-                              }
-                            ]
-                          }
-                        ]
-                      }
+                      "nodes": [
+                        {
+                          "kind": "block",
+                          "type": "HEADINGS/HEADING-THREE",
+                          "nodes": [
+                            {
+                              "kind": "text",
+                              "text": "Responsive Layouts"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "block",
+                          "type": "PARAGRAPH/PARAGRAPH",
+                          "nodes": [
+                            {
+                              "kind": "text",
+                              "text": "Today's content is more than a monolithic blob of text. The ORY Editor allows you to define your own layout blocks, and create content that looks good on all devices."
+                            }
+                          ]
+                        }
+                      ]
                     }
                   }
                 }
@@ -788,35 +770,33 @@ export default [
                 "size": 8,
                 "content": {
                   "plugin": {
-                    "name": "ory/editor/core/content/slate-next",
+                    "name": "ory/editor/core/content/slate",
                     "version": "0.0.1"
                   },
                   "state": {
                     "serialized": {
-                      "document": {
-                        "nodes": [
-                          {
-                            "object": "block",
-                            "type": "HEADINGS/HEADING-THREE",
-                            "nodes": [
-                              {
-                                "object": "text",
-                                "text": "Sane mark-up"
-                              }
-                            ]
-                          },
-                          {
-                            "object": "block",
-                            "type": "PARAGRAPH/PARAGRAPH",
-                            "nodes": [
-                              {
-                                "object": "text",
-                                "text": "Most web editors work on top of the DOM. This is dangerous (XSS), hard to maintain and difficult to parse. The ORY Editor uses JSON only - everywhere! It's sane, tested, clean and minimal."
-                              }
-                            ]
-                          }
-                        ]
-                      }
+                      "nodes": [
+                        {
+                          "kind": "block",
+                          "type": "HEADINGS/HEADING-THREE",
+                          "nodes": [
+                            {
+                              "kind": "text",
+                              "text": "Sane mark-up"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "block",
+                          "type": "PARAGRAPH/PARAGRAPH",
+                          "nodes": [
+                            {
+                              "kind": "text",
+                              "text": "Most web editors work on top of the DOM. This is dangerous (XSS), hard to maintain and difficult to parse. The ORY Editor uses JSON only - everywhere! It's sane, tested, clean and minimal."
+                            }
+                          ]
+                        }
+                      ]
                     }
                   }
                 }
@@ -877,45 +857,43 @@ export default [
                         "size": 8,
                         "content": {
                           "plugin": {
-                            "name": "ory/editor/core/content/slate-next",
+                            "name": "ory/editor/core/content/slate",
                             "version": "0.0.1"
                           },
                           "state": {
                             "serialized": {
-                              "document": {
-                                "nodes": [
-                                  {
-                                    "object": "block",
-                                    "type": "HEADINGS/HEADING-THREE",
-                                    "nodes": [
-                                      {
-                                        "object": "text",
-                                        "text": "React Plugin API"
-                                      }
-                                    ]
-                                  },
-                                  {
-                                    "object": "block",
-                                    "type": "PARAGRAPH/PARAGRAPH",
-                                    "nodes": [
-                                      {
-                                        "object": "text",
-                                        "text": "You don't like our rich text solution, require custom layout components, need a twitter feed, want to contribute or even sell plugins? No problem with our easy-to-use React Plugin API!"
-                                      }
-                                    ]
-                                  },
-                                  {
-                                    "object": "block",
-                                    "type": "PARAGRAPH/PARAGRAPH",
-                                    "nodes": [
-                                      {
-                                        "object": "text",
-                                        "text": "In fact, this section is rendered on top of an exemplary layout plugin!"
-                                      }
-                                    ]
-                                  }
-                                ]
-                              }
+                              "nodes": [
+                                {
+                                  "kind": "block",
+                                  "type": "HEADINGS/HEADING-THREE",
+                                  "nodes": [
+                                    {
+                                      "kind": "text",
+                                      "text": "React Plugin API"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "kind": "block",
+                                  "type": "PARAGRAPH/PARAGRAPH",
+                                  "nodes": [
+                                    {
+                                      "kind": "text",
+                                      "text": "You don't like our rich text solution, require custom layout components, need a twitter feed, want to contribute or even sell plugins? No problem with our easy-to-use React Plugin API!"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "kind": "block",
+                                  "type": "PARAGRAPH/PARAGRAPH",
+                                  "nodes": [
+                                    {
+                                      "kind": "text",
+                                      "text": "In fact, this section is rendered on top of an exemplary layout plugin!"
+                                    }
+                                  ]
+                                }
+                              ]
                             }
                           }
                         }
@@ -935,28 +913,26 @@ export default [
                 "size": 12,
                 "content": {
                   "plugin": {
-                    "name": "ory/editor/core/content/slate-next",
+                    "name": "ory/editor/core/content/slate",
                     "version": "0.0.1"
                   },
                   "state": {
                     "serialized": {
-                      "document": {
-                        "nodes": [
-                          {
-                            "object": "block",
-                            "type": "HEADINGS/HEADING-TWO",
-                            "nodes": [
-                              {
-                                "object": "text",
-                                "text": "That's all?"
-                              }
-                            ],
-                            "data": {
-                              "align": "center"
+                      "nodes": [
+                        {
+                          "kind": "block",
+                          "type": "HEADINGS/HEADING-TWO",
+                          "nodes": [
+                            {
+                              "kind": "text",
+                              "text": "That's all?"
                             }
+                          ],
+                          "data": {
+                            "align": "center"
                           }
-                        ]
-                      }
+                        }
+                      ]
                     }
                   }
                 }
@@ -972,157 +948,155 @@ export default [
                 "size": 12,
                 "content": {
                   "plugin": {
-                    "name": "ory/editor/core/content/slate-next",
+                    "name": "ory/editor/core/content/slate",
                     "version": "0.0.1"
                   },
                   "state": {
                     "serialized": {
-                      "document": {
-                        "nodes": [
-                          {
-                            "object": "block",
-                            "type": "PARAGRAPH/PARAGRAPH",
-                            "nodes": [
-                              {
-                                "object": "text",
-                                "text": "No, of course not! We are very proud of these ones as well:"
-                              }
-                            ]
-                          },
-                          {
-                            "object": "block",
-                            "type": "LISTS/UNORDERED-LIST",
-                            "nodes": [
-                              {
-                                "object": "block",
-                                "type": "LISTS/LIST-ITEM",
-                                "nodes": [
-                                  {
-                                    "object": "block",
-                                    "type": "PARAGRAPH/PARAGRAPH",
-                                    "nodes": [
-                                      {
-                                        "object": "text",
-                                        "leaves": [
-                                          {
-                                            "text": "global un-/redo with "
-                                          },
-                                          {
-                                            "text": "ctrl+z",
-                                            "marks": [
-                                              {
-                                                "type": "EMPHASIZE/EM"
-                                              }
-                                            ]
-                                          },
-                                          {
-                                            "text": " / "
-                                          },
-                                          {
-                                            "text": "ctrl+y",
-                                            "marks": [
-                                              {
-                                                "type": "EMPHASIZE/EM"
-                                              }
-                                            ]
-                                          }
-                                        ]
-                                      }
-                                    ]
-                                  }
-                                ]
-                              },
-                              {
-                                "object": "block",
-                                "type": "LISTS/LIST-ITEM",
-                                "nodes": [
-                                  {
-                                    "object": "block",
-                                    "type": "PARAGRAPH/PARAGRAPH",
-                                    "nodes": [
-                                      {
-                                        "object": "text",
-                                        "leaves": [
-                                          {
-                                            "text": "editing shortcuts, for example "
-                                          },
-                                          {
-                                            "text": "ctrl+b",
-                                            "marks": [
-                                              {
-                                                "type": "EMPHASIZE/STRONG"
-                                              }
-                                            ]
-                                          },
-                                          {
-                                            "text": ","
-                                          },
-                                          {
-                                            "text": " ",
-                                            "marks": [
-                                              {
-                                                "type": "EMPHASIZE/STRONG"
-                                              }
-                                            ]
-                                          },
-                                          {
-                                            "text": "ctrl+i, ",
-                                            "marks": [
-                                              {
-                                                "type": "EMPHASIZE/EM"
-                                              }
-                                            ]
-                                          },
-                                          {
-                                            "text": "ctrl+u",
-                                            "marks": [
-                                              {
-                                                "type": "EMPHASIZE/U"
-                                              }
-                                            ]
-                                          }
-                                        ]
-                                      }
-                                    ]
-                                  }
-                                ]
-                              },
-                              {
-                                "object": "block",
-                                "type": "LISTS/LIST-ITEM",
-                                "nodes": [
-                                  {
-                                    "object": "block",
-                                    "type": "PARAGRAPH/PARAGRAPH",
-                                    "nodes": [
-                                      {
-                                        "object": "text",
-                                        "text": "collaborative editing"
-                                      }
-                                    ]
-                                  }
-                                ]
-                              },
-                              {
-                                "object": "block",
-                                "type": "LISTS/LIST-ITEM",
-                                "nodes": [
-                                  {
-                                    "object": "block",
-                                    "type": "PARAGRAPH/PARAGRAPH",
-                                    "nodes": [
-                                      {
-                                        "object": "text",
-                                        "text": "... and more things to come"
-                                      }
-                                    ]
-                                  }
-                                ]
-                              }
-                            ]
-                          }
-                        ]
-                      }
+                      "nodes": [
+                        {
+                          "kind": "block",
+                          "type": "PARAGRAPH/PARAGRAPH",
+                          "nodes": [
+                            {
+                              "kind": "text",
+                              "text": "No, of course not! We are very proud of these ones as well:"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "block",
+                          "type": "LISTS/UNORDERED-LIST",
+                          "nodes": [
+                            {
+                              "kind": "block",
+                              "type": "LISTS/LIST-ITEM",
+                              "nodes": [
+                                {
+                                  "kind": "block",
+                                  "type": "PARAGRAPH/PARAGRAPH",
+                                  "nodes": [
+                                    {
+                                      "kind": "text",
+                                      "ranges": [
+                                        {
+                                          "text": "global un-/redo with "
+                                        },
+                                        {
+                                          "text": "ctrl+z",
+                                          "marks": [
+                                            {
+                                              "type": "EMPHASIZE/EM"
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "text": " / "
+                                        },
+                                        {
+                                          "text": "ctrl+y",
+                                          "marks": [
+                                            {
+                                              "type": "EMPHASIZE/EM"
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "kind": "block",
+                              "type": "LISTS/LIST-ITEM",
+                              "nodes": [
+                                {
+                                  "kind": "block",
+                                  "type": "PARAGRAPH/PARAGRAPH",
+                                  "nodes": [
+                                    {
+                                      "kind": "text",
+                                      "ranges": [
+                                        {
+                                          "text": "editing shortcuts, for example "
+                                        },
+                                        {
+                                          "text": "ctrl+b",
+                                          "marks": [
+                                            {
+                                              "type": "EMPHASIZE/STRONG"
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "text": ","
+                                        },
+                                        {
+                                          "text": " ",
+                                          "marks": [
+                                            {
+                                              "type": "EMPHASIZE/STRONG"
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "text": "ctrl+i, ",
+                                          "marks": [
+                                            {
+                                              "type": "EMPHASIZE/EM"
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "text": "ctrl+u",
+                                          "marks": [
+                                            {
+                                              "type": "EMPHASIZE/U"
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "kind": "block",
+                              "type": "LISTS/LIST-ITEM",
+                              "nodes": [
+                                {
+                                  "kind": "block",
+                                  "type": "PARAGRAPH/PARAGRAPH",
+                                  "nodes": [
+                                    {
+                                      "kind": "text",
+                                      "text": "collaborative editing"
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "kind": "block",
+                              "type": "LISTS/LIST-ITEM",
+                              "nodes": [
+                                {
+                                  "kind": "block",
+                                  "type": "PARAGRAPH/PARAGRAPH",
+                                  "nodes": [
+                                    {
+                                      "kind": "text",
+                                      "text": "... and more things to come"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
                     }
                   }
                 }
@@ -1142,7 +1116,7 @@ export default [
             {
               content: {
                 plugin: {
-                  name: 'ory/editor/core/content/slate-next'
+                  name: 'ory/editor/core/content/slate'
                 },
                 state: {}
               },
@@ -1172,7 +1146,7 @@ export default [
                     {
                       content: {
                         plugin: {
-                          name: 'ory/editor/core/content/slate-next'
+                          name: 'ory/editor/core/content/slate'
                         },
                         state: {
                           importFromHtml: '<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>'
@@ -1188,7 +1162,7 @@ export default [
                     {
                       content: {
                         plugin: {
-                          name: 'ory/editor/core/content/slate-next'
+                          name: 'ory/editor/core/content/slate'
                         },
                         state: {
                           importFromHtml: '<p>Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</p>'
@@ -1204,7 +1178,7 @@ export default [
                     {
                       content: {
                         plugin: {
-                          name: 'ory/editor/core/content/slate-next'
+                          name: 'ory/editor/core/content/slate'
                         },
                         state: {
                           importFromHtml: '<p>Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi.</p>'
@@ -1220,7 +1194,7 @@ export default [
                     {
                       content: {
                         plugin: {
-                          name: 'ory/editor/core/content/slate-next'
+                          name: 'ory/editor/core/content/slate'
                         },
                         state: {
                           importFromHtml: '<p>Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</p>'

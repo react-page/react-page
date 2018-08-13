@@ -22,3 +22,5 @@
 
 @import "Component/index.css";
 @import "plugins/paragraph/node.css";
+@import "plugins/code/index.css";
+

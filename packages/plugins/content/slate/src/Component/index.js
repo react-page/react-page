@@ -23,17 +23,14 @@
 /* eslint-disable no-alert, prefer-reflect, no-underscore-dangle */
 import { createMuiTheme } from '@material-ui/core/styles'
 import React, { Component } from 'react'
-import Portal from 'react-portal'
+import { Portal } from 'react-portal'
 import position from 'selection-position'
-import { Editor } from 'slate'
+import { Editor } from 'slate-react'
 import { BottomToolbar, ThemeProvider } from 'ory-editor-ui'
 import { ContentPluginProps } from 'ory-editor-core/lib/service/plugin/classes'
+import { placeholder } from '../const';
 
 import { html as serializer } from '../hooks.js'
-
-const onBlur = (_event, _data, state) => state
-
-export type Props = ContentPluginProps<{ editorState: Object }>
 
 const theme = createMuiTheme({
   palette: {
@@ -55,12 +52,11 @@ class Slate extends Component {
 
   componentDidUpdate = () => this.updateToolbar()
 
-  props: ContentPluginProps<{ editorState: Object }>
-  portal: any
-
-  onStateChange = editorState => {
-    this.props.onChange({ editorState })
+  onStateChange = ({ value }) => {
+    this.props.onChange({ editorState: value })
   }
+
+  onBlur = (_event, _data, state) => state
 
   handleOpen = portal => {
     // this.toolbar = portal.firstChild
@@ -70,18 +66,20 @@ class Slate extends Component {
     const { editorState } = this.props.state
     const toolbar = this.toolbar
 
-    if (!toolbar || editorState.isBlurred || editorState.isCollapsed) {
+    if (!toolbar || editorState.isBlurred || editorState.selection.isCollapsed) {
       return
     }
+    const pos = position()
+    if (pos) {
+      const { left, top, width } = position()
 
-    const { left, top, width } = position()
-
-    toolbar.style.opacity = 1
-    toolbar.style.top = `${top + window.scrollY - toolbar.offsetHeight}px`
-    toolbar.style.left = `${left +
-      window.scrollX -
-      toolbar.offsetWidth / 2 +
-      width / 2}px`
+      toolbar.style.opacity = 1
+      toolbar.style.top = `${top + window.scrollY - toolbar.offsetHeight}px`
+      toolbar.style.left = `${left +
+        window.scrollX -
+        toolbar.offsetWidth / 2 +
+        width / 2}px`
+    }
   }
 
   onPaste = (e, data, state) => {
@@ -91,9 +89,8 @@ class Slate extends Component {
     const { document } = serializer.deserialize(data.html)
 
     return state
-      .transform()
+      .change()
       .insertFragment(document)
-      .apply()
   }
 
   render() {
@@ -101,22 +98,21 @@ class Slate extends Component {
       focused,
       readOnly,
       state: { editorState },
-      schema,
       plugins,
       onKeyDown,
       HoverButtons,
       ToolbarButtons,
       focus
     } = this.props
-    const isOpened = editorState.isExpanded && editorState.isFocused
+    const isOpened = editorState.selection.isExpanded && editorState.isFocused
 
     return (
       <div>
-        <Portal isOpened={isOpened} onOpen={this.handleOpen}>
+        <Portal onOpen={this.handleOpen}>
           {/* ory-prevent-blur is required to prevent global blurring */}
           <ThemeProvider theme={theme}>
             <div
-              className="ory-prevent-blur ory-plugins-content-slate-inline-toolbar"
+              className={'ory-prevent-blur ory-plugins-content-slate-inline-toolbar ' + (isOpened ? '' : 'ory-plugins-content-slate-inline-toolbar--hidden')}
               style={{ padding: 0 }}
               ref={toolbar => {
                 this.toolbar = toolbar;
@@ -136,11 +132,11 @@ class Slate extends Component {
           onKeyDown={onKeyDown}
           readOnly={Boolean(readOnly)}
           className="ory-plugins-content-slate-container"
-          onBlur={onBlur}
-          schema={schema}
-          state={editorState}
+          onBlur={this.onBlur}
+          value={editorState}
           plugins={plugins}
           onPaste={this.onPaste}
+          placeholder={placeholder}
         />
         {readOnly ? null : (
           <BottomToolbar open={focused}>

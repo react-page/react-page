@@ -218,7 +218,7 @@ export default class PluginService {
 
     if (contentName) {
       const found = this.findContentPlugin(contentName, contentVersion)
-      if (!found.pluginWrongVersion || semver.lt(found.pluginWrongVersion, contentVersion)) {
+      if (!found.pluginWrongVersion || semver.lt(found.pluginWrongVersion.version, contentVersion)) {
         // Standard case
         newState.content = {
           plugin: found.plugin,
@@ -244,7 +244,7 @@ export default class PluginService {
 
     if (layoutName) {
       const found = this.findLayoutPlugin(layoutName, layoutVersion)
-      if (!found.pluginWrongVersion || semver.lt(found.pluginWrongVersion, layoutVersion)) {
+      if (!found.pluginWrongVersion || semver.lt(found.pluginWrongVersion.version, layoutVersion)) {
         // Standard case
         newState.layout = {
           plugin: found.plugin,
