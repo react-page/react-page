@@ -37,8 +37,8 @@ export default class Plugin {
    * @member the schema that is automatically collected from all plugins
    */
   schema: {
-    nodes: { [key: string]: Component<*, *, *> },
-    marks: { [key: string]: Component<*, *, *> }
+    nodes?: { [key: string]: Component<*, *, *> },
+    marks?: { [key: string]: Component<*, *, *> }
   }
 
   /**

@@ -176,7 +176,7 @@ export default class PluginService {
     ...this.plugins.layout.map(({ name }: Plugin) => name)
   ]
 
-  migratePluginState = (state: any, plugin: Plugin, dataVersion: string): Object => {
+  migratePluginState = (state: any, plugin: Plugin, dataVersion: string): Object | undefined => {
     if (!plugin || !dataVersion || !semver.valid(dataVersion)) {
       return state
     }
