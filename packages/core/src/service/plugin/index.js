@@ -188,7 +188,7 @@ export default class PluginService {
     return state
   }
 
-  getNewPluginState = (found, state, version) => {
+  getNewPluginState = (found: any, state: any, version: string) => {
     if (!found.pluginWrongVersion || semver.lt(found.pluginWrongVersion.version, version)) {
       // Standard case
       return {
