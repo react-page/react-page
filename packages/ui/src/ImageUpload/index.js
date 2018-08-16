@@ -1,7 +1,7 @@
 // @flow
 
 import React, { Component } from 'react'
-import type { ChangeEvent, MouseEvent, Node } from 'react'
+import type { ChangeEvent, MouseEvent, Node, CSSProperties } from 'react'
 import Button from '@material-ui/core/Button'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
@@ -22,12 +22,15 @@ export type ImageUploaded = {
 }
 
 export type ColorPickerProps = {
-  imageLoaded: (image: ImageLoaded) => void,
-  imageUpload: (file: Object, reportProgress: (progress: number) => void) => void,
-  imageUploadError: (errorCode: number) => void,
-  imageUploaded: (resp: (Object | ImageUploaded)) => void,
+  imageLoaded?: (image: ImageLoaded) => void,
+  imageUpload?: (file: Object, reportProgress: (progress: number) => void) => void,
+  imageUploadError?: (errorCode: number) => void,
+  imageUploaded?: (resp: (Object | ImageUploaded)) => void,
   buttonContent?: Node,
   icon?: Node,
+  style?: CSSProperties,
+  maxFileSize?: number,
+  allowedExtensions?: string[]
 }
 
 type ImageUploadState = {
@@ -38,7 +41,9 @@ type ImageUploadState = {
 }
 
 class ImageUpload extends Component<ColorPickerProps, ImageUploadState> {
-  constructor(props) {
+  fileInput: HTMLInputElement = undefined
+
+  constructor(props: ColorPickerProps) {
     super(props);
     this.state = {
       isUploading: false,

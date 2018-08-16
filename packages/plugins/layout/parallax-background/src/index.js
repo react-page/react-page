@@ -94,7 +94,7 @@ export type OryState = {
   gradients: Gradient[]
 }
 
-class PluginComponent extends Component<LayoutPluginProps<OryState> | ExtraPluginProps, PluginComponentState> {
+class PluginComponent extends Component {
   static defaultProps = {
     defaultBackgroundColor: { r: 245, g: 0, b: 87, a: 1 },
     defaultGradientColor: { r: 245, g: 0, b: 87, a: 1 },
