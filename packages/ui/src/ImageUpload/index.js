@@ -1,7 +1,6 @@
 // @flow
 
 import React, { Component } from 'react'
-import type { ChangeEvent, MouseEvent, Node, CSSProperties } from 'react'
 import Button from '@material-ui/core/Button'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
@@ -22,39 +21,34 @@ export type ImageUploaded = {
 }
 
 export type ImageUploadProps = {
-  imageLoaded?: (image: ImageLoaded) => void,
-  imageUpload?: (file: Object, reportProgress: (progress: number) => void) => void,
-  imageUploadError?: (errorCode: number) => void,
-  imageUploaded?: (resp: (Object | ImageUploaded)) => void,
-  buttonContent?: Node,
-  icon?: Node,
-  style?: CSSProperties,
-  maxFileSize?: number,
-  allowedExtensions?: string[]
+  imageLoaded: (image: ImageLoaded) => void,
+  imageUpload: (file: Object, reportProgress: (progress: number) => void) => Promise<ImageUploaded>,
+  imageUploadError: (errorCode: number) => void,
+  imageUploaded: (resp: (ImageUploaded)) => void,
+  buttonContent: any,
+  icon: any,
+  style: Object,
+  maxFileSize: number,
+  allowedExtensions: string[]
 }
 
 type ImageUploadState = {
   isUploading: boolean,
   hasError: boolean,
-  errorText?: string,
-  progress?: number
+  errorText: string,
+  progress: number
 }
 
 class ImageUpload extends Component {
-  fileInput: HTMLInputElement = undefined
+  fileInput: HTMLInputElement
 
-  state: ImageUploadState
-  props: ImageUploadProps
-
-  constructor(props: ImageUploadProps) {
-    super(props);
-    this.state = {
-      isUploading: false,
-      hasError: false,
-      errorText: '',
-      progress: undefined
-    }
+  state: ImageUploadState = {
+    isUploading: false,
+    hasError: false,
+    errorText: '',
+    progress: 0
   }
+  props: ImageUploadProps
 
   static defaultProps = {
     buttonContent: 'Upload image',
@@ -64,7 +58,8 @@ class ImageUpload extends Component {
   }
 
   hasExtension = (fileName: string) => {
-    const pattern = '(' + this.props.allowedExtensions.map(a => a.toLowerCase()).join('|').replace(/\./g, '\\.') + ')$';
+    const patternPart = this.props.allowedExtensions ? this.props.allowedExtensions.map(a => a.toLowerCase()).join('|') : ''
+    const pattern = '(' + patternPart.replace(/\./g, '\\.') + ')$';
     return new RegExp(pattern, 'i').test(fileName.toLowerCase());
   }
 
@@ -92,7 +87,7 @@ class ImageUpload extends Component {
     setTimeout(() => this.setState({ hasError: false, errorText: '' }), 5000)
   }
 
-  handleFileSelected = (e: ChangeEvent<HTMLInputElement>) => {
+  handleFileSelected = (e: any) => {
     if (!e.target.files || !e.target.files[0]) {
       this.handleError(NO_FILE_ERROR_CODE)
       return
@@ -137,7 +132,7 @@ class ImageUpload extends Component {
     });
   }
 
-  handleFileUploadClick = (e: MouseEvent<HTMLButtonElement>) => this.fileInput.click()
+  handleFileUploadClick = (e: any) => this.fileInput.click()
 
   handleReportProgress = (progress: number) => this.setState({ progress })
 

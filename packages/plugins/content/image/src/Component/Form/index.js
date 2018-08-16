@@ -32,14 +32,15 @@ import { ImageUpload } from 'ory-editor-ui'
 
 import { BottomToolbar } from 'ory-editor-ui'
 import { darkTheme } from 'ory-editor-ui/lib/ThemeProvider';
+import type { ImageLoaded, ImageUploaded } from 'ory-editor-ui/lib/ImageUpload';
 
 type StateType = {
-  imagePreview?: Object
+  imagePreview?: ImageLoaded
 }
 
 class Form extends Component {
   state: StateType
-  
+
   constructor(props: PropTypes) {
     super(props)
     this.state = {}
@@ -68,9 +69,12 @@ class Form extends Component {
     }
   }
 
-  handleImageLoaded = (image: Object) => this.setState({ imagePreview: image })
+  handleImageLoaded = (image: ImageLoaded) => this.setState({ imagePreview: image })
 
-  handleImageUploaded = (resp: Object) => this.setState({ imagePreview: undefined }) | this.props.onChange({ src: resp.url })
+  handleImageUploaded = (resp: ImageUploaded) => {
+    this.setState({ imagePreview: undefined });
+    this.props.onChange({ src: resp.url })
+  }
 
   render() {
     return (

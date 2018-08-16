@@ -1,7 +1,6 @@
 // @flow
 
 import React, { Component } from 'react'
-import type { Node } from 'react'
 import Button from '@material-ui/core/Button'
 import Popover from '@material-ui/core/Popover'
 import { ChromePicker } from 'react-color'
@@ -16,21 +15,25 @@ export type Color = {
 
 export type ColorPickerProps = {
   onChange: (color: Color) => void,
-  onChangeComplete?: (color: Color) => void,
+  onChangeComplete: (color: Color) => void,
   color: Color,
-  buttonContent?: Node,
-  icon?: Node,
-  onDialogOpen?: () => void
+  buttonContent: any,
+  icon: any,
+  onDialogOpen: () => void,
+  style: Object
 }
 
 type ColorPickerState = {
   isColorPickerVisible: boolean
 }
 
-class ColorPicker extends Component  {
-  anchorEl: any = undefined
+class ColorPicker extends Component {
+  anchorEl: any
 
-  state: ColorPickerState
+  state: ColorPickerState = {
+    isColorPickerVisible: false
+  }
+
   props: ColorPickerProps
 
   static defaultProps = {
@@ -38,19 +41,16 @@ class ColorPicker extends Component  {
     icon: <ColorizeIcon style={{ marginLeft: '4px', fontSize: '19px' }} />
   }
 
-  constructor(props: ColorPickerProps) {
-    super(props)
-    this.state = {
-      isColorPickerVisible: false
+  handleClickShowColorPicker = (e: any) => {
+    if (this.props.onDialogOpen) {
+      this.props.onDialogOpen()
     }
-  }
-
-  handleClickShowColorPicker = (e: any) => (this.props.onDialogOpen && this.props.onDialogOpen()) |
     this.setState({ isColorPickerVisible: !this.state.isColorPickerVisible })
+  }
 
   onChange = (e: any) => this.props.onChange && this.props.onChange(e.rgb)
 
-  onChangeComplete = (e: any) => this.props.onChangeComplete && this.props.onChangeComplete(e.rgb)
+  handleChangeComplete = (e: any) => this.props.onChangeComplete && this.props.onChangeComplete(e.rgb)
 
   render() {
     return (
@@ -88,7 +88,7 @@ class ColorPicker extends Component  {
             className="ory-prevent-blur"
             color={this.props.color}
             onChange={this.onChange}
-            onChangeComplete={this.onChangeComplete}
+            onChangeComplete={this.handleChangeComplete}
           />
         </Popover>
       </React.Fragment>
