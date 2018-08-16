@@ -1,16 +1,44 @@
+// @flow
+
 import React, { Component } from 'react'
+import type { Node } from 'react'
 import Button from '@material-ui/core/Button'
 import Popover from '@material-ui/core/Popover'
 import { ChromePicker } from 'react-color'
 import ColorizeIcon from '@material-ui/icons/Colorize';
 
-class ColorPicker extends Component {
+export type Color = {
+  r: number,
+  g: number,
+  b: number,
+  a: number
+}
+
+export type ColorPickerProps = {
+  onChange: (color: Color) => void,
+  onChangeComplete?: (color: Color) => void,
+  color: Color,
+  buttonContent?: Node,
+  icon?: Node,
+  onDialogOpen?: () => void
+}
+
+type ColorPickerState = {
+  isColorPickerVisible: boolean
+}
+
+class ColorPicker extends Component<ColorPickerProps, ColorPickerState>  {
   static defaultProps = {
-    buttonText: 'Change color',
+    buttonContent: 'Change color',
     icon: <ColorizeIcon style={{ marginLeft: '4px', fontSize: '19px' }} />
   }
 
-  state = { isColorPickerVisible: false }
+  constructor(props: ColorPickerProps) {
+    super(props)
+    this.state = {
+      isColorPickerVisible: false
+    }
+  }
 
   handleClickShowColorPicker = (e: any) => (this.props.onDialogOpen && this.props.onDialogOpen()) |
     this.setState({ isColorPickerVisible: !this.state.isColorPickerVisible })
@@ -35,7 +63,7 @@ class ColorPicker extends Component {
             borderWidth: '2px'
           }}
         >
-          {this.props.buttonText}{this.props.icon}
+          {this.props.buttonContent}{this.props.icon}
         </Button>
         <Popover
           className="ory-prevent-blur"
@@ -63,6 +91,6 @@ class ColorPicker extends Component {
   }
 }
 
-export const colorToString = (c) => c && 'rgba(' + c.r + ', ' + c.g + ', ' + c.b + ', ' + c.a + ')';
+export const colorToString = (c: Color) => c && 'rgba(' + c.r + ', ' + c.g + ', ' + c.b + ', ' + c.a + ')';
 
 export default ColorPicker

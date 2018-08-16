@@ -28,7 +28,7 @@ import { iconStyle } from '../common.js'
 import type { PropTypes } from '../index.js'
 
 const Display = ({ isEditMode, state, imagePreview }: PropTypes) => {
-  const src = imagePreview ? imagePreview.dataURL : state.src
+  const src = imagePreview ? imagePreview.dataUrl : state.src
   const Image = (
     <img className="ory-plugins-content-image" aly="" src={src} />
   )

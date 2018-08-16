@@ -10,7 +10,6 @@ class ColorComponent extends Component {
   render() {
     const {
       backgroundColorPreview,
-      onChange,
       state: {
         backgroundColor = this.props.defaultBackgroundColor
       }

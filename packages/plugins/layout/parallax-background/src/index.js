@@ -32,6 +32,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel'
 import Switch from '@material-ui/core/Switch'
 import Typography from '@material-ui/core/Typography'
 import Slider from '@material-ui/lab/Slider'
+import type {Color} from 'ory-editor-ui/lib/ImageUpload'
 
 import ImageComponent from './components/Image'
 import ColorComponent from './components/Color'
@@ -41,7 +42,7 @@ import { colorToString } from 'ory-editor-ui'
 
 import type {
   LayoutPluginProps,
-  ContentPlugin
+    ContentPlugin
 } from 'ory-editor-core/lib/service/plugin/classes'
 import { BottomToolbar } from 'ory-editor-ui'
 
@@ -67,7 +68,33 @@ type PluginComponentState = {
   imagePreview?: Object
 }
 
-class PluginComponent extends Component<LayoutPluginProps<{}>, PluginComponentState> {
+export type ExtraPluginProps = {
+  defaultBackgroundColor: Object,
+  defaultGradientColor: Object,
+  defaultGradientSecondaryColor: Object,
+  defaultMode: number,
+  defaultModeFlag: number,
+  defaultDarken: number,
+  defaultLighten: number,
+  defaultPadding: number,
+  defaultIsParallax: boolean
+}
+
+export type Gradient = {
+  opacity: number,
+  deg: number,
+  colors?: { color: Color }[]
+}
+
+export type OryState = {
+  modeFlag: number,
+  padding: number,
+  lighten: number,
+  darken: number,
+  gradients: Gradient[]
+}
+
+class PluginComponent extends Component<LayoutPluginProps<OryState> | ExtraPluginProps, PluginComponentState> {
   static defaultProps = {
     defaultBackgroundColor: { r: 245, g: 0, b: 87, a: 1 },
     defaultGradientColor: { r: 245, g: 0, b: 87, a: 1 },
@@ -229,7 +256,7 @@ class PluginComponent extends Component<LayoutPluginProps<{}>, PluginComponentSt
       }
     }
     if (modeFlag & IMAGE_MODE_FLAG) {
-      const backgroundFinal = this.state.imagePreview ? this.state.imagePreview.dataURL : background
+      const backgroundFinal = this.state.imagePreview ? this.state.imagePreview.dataUrl : background
       const modeStr = `url('${backgroundFinal}') center / cover no-repeat` + (isParallax ? ' fixed' : '')
       styles = {
         ...styles,
@@ -246,7 +273,6 @@ class PluginComponent extends Component<LayoutPluginProps<{}>, PluginComponentSt
 
   renderModeSwitch = () => {
     const {
-      onChange,
       state: {
         modeFlag = 1,
       }
