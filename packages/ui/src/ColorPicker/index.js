@@ -30,6 +30,9 @@ type ColorPickerState = {
 class ColorPicker extends Component  {
   anchorEl: any = undefined
 
+  state: ColorPickerState
+  props: ColorPickerProps
+
   static defaultProps = {
     buttonContent: 'Change color',
     icon: <ColorizeIcon style={{ marginLeft: '4px', fontSize: '19px' }} />

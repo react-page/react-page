@@ -38,6 +38,8 @@ type StateType = {
 }
 
 class Form extends Component {
+  state: StateType
+  
   constructor(props: PropTypes) {
     super(props)
     this.state = {}

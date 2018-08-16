@@ -31,7 +31,7 @@ export type ImagePluginSettings = {
   imageUpload: Promise<Object>
 }
 
-const imagePlugin = (settings: ImagePluginSettings) => {
+const imagePlugin = (settings?: ImagePluginSettings) => {
   return {
     Component: (props: Object) => <Component {...props} {...settings} />,
     name: 'ory/editor/core/content/image',

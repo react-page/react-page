@@ -21,7 +21,7 @@ export type ImageUploaded = {
   url: string
 }
 
-export type ColorPickerProps = {
+export type ImageUploadProps = {
   imageLoaded?: (image: ImageLoaded) => void,
   imageUpload?: (file: Object, reportProgress: (progress: number) => void) => void,
   imageUploadError?: (errorCode: number) => void,
@@ -43,7 +43,10 @@ type ImageUploadState = {
 class ImageUpload extends Component {
   fileInput: HTMLInputElement = undefined
 
-  constructor(props: ColorPickerProps) {
+  state: ImageUploadState
+  props: ImageUploadProps
+
+  constructor(props: ImageUploadProps) {
     super(props);
     this.state = {
       isUploading: false,
