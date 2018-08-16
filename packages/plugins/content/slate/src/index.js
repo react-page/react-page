@@ -122,8 +122,8 @@ export default (plugins: Plugin[] = hooks.defaultPlugins) => {
     name: 'ory/editor/core/content/slate',
     version: '0.0.2',
     IconComponent: <Subject />,
-    text: 'New Text',
-    description: 'An new advanced rich text area.',
+    text: 'Text',
+    description: 'An advanced rich text area.',
 
     allowInlineNeighbours: true,
 
