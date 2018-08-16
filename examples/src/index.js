@@ -47,7 +47,7 @@ import spacer from 'ory-editor-plugins-spacer'
 import 'ory-editor-plugins-spacer/lib/index.css'
 
 // The image plugin
-import image from 'ory-editor-plugins-image'
+import { imagePlugin } from 'ory-editor-plugins-image'
 import 'ory-editor-plugins-image/lib/index.css'
 
 // The video plugin
@@ -75,10 +75,25 @@ import { HTMLRenderer } from 'ory-editor-renderer'
 import content from './content.js'
 import './styles.css'
 
+const fakeImageUploadService = (defaultUrl) => (file, reportProgress) => {
+  return new Promise((resolve, reject) => {
+    let counter = 0
+    const interval = setInterval(() => {
+      counter++
+      reportProgress(counter * 10);
+      if (counter > 9) {
+        clearInterval(interval)
+        alert('This is a fake image upload service, please provide actual implementation via plugin properties')
+        resolve({ url: defaultUrl })
+      }
+    }, 500)
+  })
+}
+
 // Define which plugins we want to use (all of the above)
 const plugins = {
-  content: [slate(), spacer, image, video, divider, html5video],
-  layout: [parallax({ defaultPlugin: slate() })],
+  content: [slate(), spacer, imagePlugin({ imageUpload: fakeImageUploadService('/images/react.png') }), video, divider, html5video],
+  layout: [parallax({ defaultPlugin: slate(), imageUpload: fakeImageUploadService('/images/sea-bg.jpg') })],
 
   // If you pass the native key the editor will be able to handle native drag and drop events (such as links, text, etc).
   // The native plugin will then be responsible to properly display the data which was dropped onto the editor.
@@ -95,6 +110,8 @@ const editor = new Editor({
   ],
 })
 
+editor.trigger.mode.edit()
+
 // Render the editables - the areas that are editable
 const elements = document.querySelectorAll('.editable')
 for (const element of elements) {
@@ -102,11 +119,11 @@ for (const element of elements) {
     <Editable
       editor={editor}
       id={element.dataset.id}
-       onChange={(state) => {
-          if (element.dataset.id === '1') {
-            // console.log(state)
-          }
-       }}
+      onChange={(state) => {
+        if (element.dataset.id === '1') {
+          // console.log(state)
+        }
+      }}
     />
   ), element)
 }

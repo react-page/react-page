@@ -21,10 +21,17 @@
  */
 
 .ory-plugins-layout-parallax-background {
-  background-attachment: fixed;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
   color: white;
   padding: 12px;
+}
+
+.ory-plugins-layout-parallax-background__backstretch {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
 }

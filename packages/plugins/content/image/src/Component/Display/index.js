@@ -27,26 +27,27 @@ import ImageIcon from '@material-ui/icons/Panorama'
 import { iconStyle } from '../common.js'
 import type { PropTypes } from '../index.js'
 
-const Display = ({ isEditMode, state }: PropTypes) => {
+const Display = ({ isEditMode, state, imagePreview }: PropTypes) => {
+  const src = imagePreview ? imagePreview.dataURL : state.src
   const Image = (
-    <img className="ory-plugins-content-image" aly="" src={state.src} />
+    <img className="ory-plugins-content-image" aly="" src={src} />
   )
   return (
-    state.src ? (
+    src ? (
       <div>
         {state.href && !isEditMode ? (
           <a href={state.href} target={state.target} rel={state.rel}>{Image}</a>
         ) : (
-          Image
-        )}
+            Image
+          )}
       </div>
     ) : (
-      <div>
-        <div className="ory-plugins-content-image-placeholder">
-          <ImageIcon style={iconStyle} />
+        <div>
+          <div className="ory-plugins-content-image-placeholder">
+            <ImageIcon style={iconStyle} />
+          </div>
         </div>
-      </div>
-    )
+      )
   )
 }
 

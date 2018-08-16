@@ -26,5 +26,7 @@ import Toolbar from './Toolbar'
 import DisplayModeToggle from './DisplayModeToggle'
 import BottomToolbar from './BottomToolbar'
 import ThemeProvider from './ThemeProvider'
+import ImageUpload from './ImageUpload'
+import ColorPicker, { colorToString } from './ColorPicker'
 
-export { Trash, Toolbar, DisplayModeToggle, BottomToolbar, ThemeProvider }
+export { Trash, Toolbar, DisplayModeToggle, BottomToolbar, ThemeProvider, ImageUpload, ColorPicker, colorToString }

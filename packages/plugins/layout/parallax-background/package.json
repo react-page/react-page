@@ -23,6 +23,7 @@
   "dependencies": {
     "@material-ui/core": "^1.2.1",
     "@material-ui/icons": "^1.1.0",
+    "@material-ui/lab": "^1.0.0-alpha.10",
     "ory-editor-core": "0.0.0",
     "ory-editor-ui": "0.0.0"
   },
