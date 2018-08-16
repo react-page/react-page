@@ -22,6 +22,7 @@
 
 // @flow
 import React, { Component } from 'react'
+import type { Node } from 'react'
 import Drawer from '@material-ui/core/Drawer'
 import { connect } from 'react-redux'
 import { isInsertMode } from 'ory-editor-core/lib/selector/display'
@@ -41,7 +42,7 @@ import Provider from '../Provider'
 type Props = {
   isInsertMode: boolean,
   editor: Editor,
-  pluginsNotFoundText: any
+  noPluginFoundContent: Node
 }
 
 class Raw extends Component {
@@ -56,7 +57,7 @@ class Raw extends Component {
   }
 
   static defaultProps = {
-    pluginsNotFoundText: 'No plugins found'
+    noPluginFoundContent: 'No plugins found'
   }
 
   state: {
@@ -111,7 +112,7 @@ class Raw extends Component {
               onChange={this.onSearch}
             />
           </ListItem>
-          {layout.length + content.length === 0 && <ListSubheader>{this.props.pluginsNotFoundText}</ListSubheader>}
+          {layout.length + content.length === 0 && <ListSubheader>{this.props.noPluginFoundContent}</ListSubheader>}
         </List>
         {content.length > 0 && <List subheader={
           <ListSubheader>Content plugins</ListSubheader>
