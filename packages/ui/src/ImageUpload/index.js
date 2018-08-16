@@ -40,7 +40,7 @@ type ImageUploadState = {
   progress?: number
 }
 
-class ImageUpload extends Component<ColorPickerProps, ImageUploadState> {
+class ImageUpload extends Component {
   fileInput: HTMLInputElement = undefined
 
   constructor(props: ColorPickerProps) {

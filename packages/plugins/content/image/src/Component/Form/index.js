@@ -37,7 +37,7 @@ type StateType = {
   imagePreview?: Object
 }
 
-class Form extends Component<PropTypes, StateType> {
+class Form extends Component {
   constructor(props: PropTypes) {
     super(props)
     this.state = {}
