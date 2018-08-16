@@ -1,9 +1,6 @@
 import React, { Component } from 'react'
 import Button from '@material-ui/core/Button'
-import TextField from '@material-ui/core/TextField'
-import FormControlLabel from '@material-ui/core/FormControlLabel'
 import Slider from '@material-ui/lab/Slider'
-import Switch from '@material-ui/core/Switch'
 import Typography from '@material-ui/core/Typography'
 import IconButton from '@material-ui/core/IconButton'
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -92,7 +89,6 @@ class LinearGradientComponent extends Component {
 
   render() {
     const {
-      onChange,
       gradientDegPreview,
       gradientDegPreviewIndex,
       gradientOpacityPreview,

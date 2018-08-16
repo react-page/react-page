@@ -16,7 +16,6 @@ class ImageComponent extends Component {
 
   render() {
     const {
-      onChange,
       state: {
         isParallax = true,
         background = ''

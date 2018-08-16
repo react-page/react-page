@@ -21,7 +21,7 @@
  */
 
 // @flow
-import React from 'react'
+import React, { Component } from 'react'
 import Display from '../Display'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
 import TextField from '@material-ui/core/TextField'
@@ -33,8 +33,12 @@ import { ImageUpload } from 'ory-editor-ui'
 import { BottomToolbar } from 'ory-editor-ui'
 import { darkTheme } from 'ory-editor-ui/lib/ThemeProvider';
 
-class Form extends React.Component {
-  constructor(props) {
+type StateType = {
+  imagePreview?: Object
+}
+
+class Form extends Component<PropTypes, StateType> {
+  constructor(props: PropTypes) {
     super(props)
     this.state = {}
   }
@@ -62,9 +66,9 @@ class Form extends React.Component {
     }
   }
 
-  handleImageLoaded = (image) => this.setState({ imagePreview: image })
+  handleImageLoaded = (image: Object) => this.setState({ imagePreview: image })
 
-  handleImageUploaded = (resp: object) => this.setState({ imagePreview: undefined }) | this.props.onChange({ src: resp.url })
+  handleImageUploaded = (resp: Object) => this.setState({ imagePreview: undefined }) | this.props.onChange({ src: resp.url })
 
   render() {
     return (

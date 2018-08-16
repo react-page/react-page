@@ -31,7 +31,7 @@ class ImageUpload extends Component {
   }
 
   handleError = (errorCode) => {
-    let errorText = 'Unknown error'
+    let errorText = ''
     switch (errorCode) {
       case NO_FILE_ERROR_CODE:
         errorText = 'No file selected'
@@ -44,6 +44,9 @@ class ImageUpload extends Component {
         break
       case UPLOADING_ERROR_CODE:
         errorText = 'Error while uploading'
+        break
+      default:
+        errorText = 'Unknown error'
         break
     }
     // Need to flick "isUploading" because otherwise the handler doesn't fire properly

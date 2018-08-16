@@ -24,7 +24,6 @@
 import React, { Component } from 'react'
 import { v4 } from 'uuid'
 import Icon from '@material-ui/icons/CropLandscape'
-import TextField from '@material-ui/core/TextField'
 import Select from '@material-ui/core/Select'
 import MenuItem from '@material-ui/core/MenuItem'
 import FormControl from '@material-ui/core/FormControl'
@@ -42,7 +41,7 @@ import { colorToString } from 'ory-editor-ui'
 
 import type {
   LayoutPluginProps,
-    ContentPlugin
+  ContentPlugin
 } from 'ory-editor-core/lib/service/plugin/classes'
 import { BottomToolbar } from 'ory-editor-ui'
 
@@ -54,17 +53,18 @@ const GRADIENT_MODE_FLAG = 4
 
 type PluginComponentState = {
   mode: number,
-  backgroundColorPreview?: object,
+  backgroundColorPreview?: Object,
   gradientDegPreview?: number,
   gradientDegPreviewIndex?: number,
   gradientOpacityPreview?: number,
   gradientOpacityPreviewIndex?: number,
-  gradientColorPreview?: object,
+  gradientColorPreview?: Object,
   gradientColorPreviewIndex?: number,
   gradientColorPreviewColorIndex?: number,
   darkenPreview?: number,
   lightenPreview?: number,
-  paddingPreview?: number
+  paddingPreview?: number,
+  imagePreview?: Object
 }
 
 class PluginComponent extends Component<LayoutPluginProps<{}>, PluginComponentState> {
@@ -124,21 +124,16 @@ class PluginComponent extends Component<LayoutPluginProps<{}>, PluginComponentSt
   handleChangeGradientOpacityPreview = (gradientOpacityPreview: number, gradientOpacityPreviewIndex?: number) =>
     this.setState({ gradientOpacityPreview, gradientOpacityPreviewIndex })
 
-  handleChangeGradientColorPreview = (gradientColorPreview: number, gradientColorPreviewIndex?: number, gradientColorPreviewColorIndex?: number) =>
+  handleChangeGradientColorPreview = (gradientColorPreview: Object, gradientColorPreviewIndex?: number, gradientColorPreviewColorIndex?: number) =>
     this.setState({ gradientColorPreview, gradientColorPreviewIndex, gradientColorPreviewColorIndex })
 
-  handleImageLoaded = (imagePreview: any) =>
+  handleImageLoaded = (imagePreview: Object) =>
     this.setState({ imagePreview })
 
-  handleImageUploaded = (imagePreview: any) =>
+  handleImageUploaded = (resp: Object) =>
     this.setState({ imagePreview: undefined })
 
   renderUI = () => {
-    const {
-      state: {
-        mode = this.props.defaultMode,
-      }
-    } = this.props
     switch (this.state.mode) {
       case COLOR_MODE_FLAG:
         return <ColorComponent
@@ -267,6 +262,9 @@ class PluginComponent extends Component<LayoutPluginProps<{}>, PluginComponentSt
       case GRADIENT_MODE_FLAG:
         label = 'Use gradient'
         break
+      default:
+        label = 'Unknown mode'
+        break
     }
     return <FormControlLabel style={{ marginLeft: '8px' }} control={<Switch onChange={this.handleChangeModeSwitch(this.state.mode, modeFlag)} checked={Boolean(modeFlag & this.state.mode)} />} label={label} />
   }
@@ -275,14 +273,9 @@ class PluginComponent extends Component<LayoutPluginProps<{}>, PluginComponentSt
     const {
       children,
       focused,
-      onChange,
       state: {
-        background = '',
         darken = this.props.defaultDarken,
         lighten = this.props.defaultLighten,
-        isParallax = this.props.defaultIsParallax,
-        backgroundColor = this.props.defaultBackgroundColor,
-        gradients = [],
         padding = this.props.defaultPadding
       }
     } = this.props
@@ -388,12 +381,12 @@ export default ({
     defaultPlugin: ContentPlugin,
     defaultMode: number,
     defaultModeFlag: number,
-    defaultBackgroundColor: object,
-    defaultGradientColor: object,
-    defaultGradientSecondaryColor: object,
+    defaultBackgroundColor: Object,
+    defaultGradientColor: Object,
+    defaultGradientSecondaryColor: Object,
     defaultDarken: number,
     defaultLighten: number,
-    defaultIsParallax: number,
+    defaultIsParallax: boolean,
     imageUpload: Promise<any>
   }) => {
   const settings = {
@@ -409,7 +402,7 @@ export default ({
     imageUpload
   }
   return ({
-    Component: componentProps => <PluginComponent {...componentProps} {...settings} />,
+    Component: (componentProps: Object) => <PluginComponent {...componentProps} {...settings} />,
     name: 'ory/editor/core/layout/parallax-background',
     version: '0.0.1',
 
