@@ -27,9 +27,13 @@ import Component from './Component'
 import Panorama from '@material-ui/icons/Panorama'
 import type { ContentPluginProps } from 'ory-editor-core/lib/service/plugin/classes'
 
-const imagePlugin = settings => {
+export type ImagePluginSettings = {
+  imageUpload: Promise<Object>
+}
+
+const imagePlugin = (settings: ImagePluginSettings) => {
   return {
-    Component: props => <Component {...props} {...settings} />,
+    Component: (props: Object) => <Component {...props} {...settings} />,
     name: 'ory/editor/core/content/image',
     version: '0.0.1',
     IconComponent: <Panorama />,
