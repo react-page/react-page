@@ -31,6 +31,8 @@ import { placeholder } from '../const';
 
 import { html as serializer } from '../hooks.js'
 
+const onBlur = (_event, _data, state) => state
+
 const theme = createMuiTheme({
   palette: {
     type: 'dark',
@@ -55,7 +57,6 @@ class Slate extends Component {
     this.props.onChange({ editorState: value })
   }
 
-  onBlur = (_event, _data, state) => state
 
   handleOpen = portal => {
     // this.toolbar = portal.firstChild
@@ -131,7 +132,7 @@ class Slate extends Component {
           onKeyDown={onKeyDown}
           readOnly={Boolean(readOnly)}
           className="ory-plugins-content-slate-container"
-          onBlur={this.onBlur}
+          onBlur={onBlur}
           value={editorState}
           plugins={plugins}
           onPaste={this.onPaste}

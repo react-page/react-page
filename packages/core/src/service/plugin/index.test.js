@@ -27,19 +27,19 @@ import PluginService from './index'
 import { Migration } from './classes';
 
 const FOO = 'foo'
-const WRONG_CONTENT_VERSION = '0.0.0'
-const EXTRA_CONTENT_VERSION = '0.0.1'
-const VALID_CONTENT_VERSION = '0.0.2'
+const OLDEST_VERSION = '0.0.0'
+const OLDER_VERSION = '0.0.1'
+const MATCHING_VERSION = '0.0.2'
 
 const expect = unexpected.clone()
 const content = [{ 
   name: FOO, 
-  version: VALID_CONTENT_VERSION, 
+  version: MATCHING_VERSION, 
   Component: <div />, 
   migrations: [
-    new Migration({version: WRONG_CONTENT_VERSION, migrateFromPrevious: state => ({...state, old: 1})}),
-    new Migration({version: VALID_CONTENT_VERSION, migrateFromPrevious: state => ({...state, modified: 1})}),
-    new Migration({version: EXTRA_CONTENT_VERSION, migrateFromPrevious: state => ({...state, modified: 2})})
+    new Migration({version: OLDEST_VERSION, migrateFromPrevious: state => ({...state, old: 1})}),
+    new Migration({version: MATCHING_VERSION, migrateFromPrevious: state => ({...state, modified: 1})}),
+    new Migration({version: OLDER_VERSION, migrateFromPrevious: state => ({...state, modified: 2})})
   ] 
 }]
 const layout = [{ name: 'bar', version: '0.0.2', Component: <div /> }]
@@ -57,22 +57,22 @@ describe('PluginService', () => {
     })
   })
 
-  it(`should find plugin different version ${FOO} ${WRONG_CONTENT_VERSION}`, () => {
+  it(`should find plugin different version ${FOO} ${OLDEST_VERSION}`, () => {
     expect(
-      plugins.findContentPlugin(FOO, WRONG_CONTENT_VERSION).pluginWrongVersion.name,
+      plugins.findContentPlugin(FOO, OLDEST_VERSION).pluginWrongVersion.name,
       'to equal',
       FOO
     )
     expect(
-      plugins.findContentPlugin(FOO, WRONG_CONTENT_VERSION).pluginWrongVersion.version,
+      plugins.findContentPlugin(FOO, OLDEST_VERSION).pluginWrongVersion.version,
       'to equal',
-      VALID_CONTENT_VERSION
+      MATCHING_VERSION
     )
   })
 
   it(`should apply migrations`, () => {
-    const plugin = plugins.findContentPlugin(FOO, WRONG_CONTENT_VERSION).pluginWrongVersion
-    const newState = plugins.migratePluginState({}, plugin, WRONG_CONTENT_VERSION)
+    const plugin = plugins.findContentPlugin(FOO, OLDEST_VERSION).pluginWrongVersion
+    const newState = plugins.migratePluginState({}, plugin, OLDEST_VERSION)
     expect(
       newState.modified,
       'to equal',

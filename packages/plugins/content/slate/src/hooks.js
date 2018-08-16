@@ -98,7 +98,7 @@ export const createInitialState = () => ({
         nodes: [
           {
             object: "block",
-            type: "paragraph",
+            type: P,
             nodes: [
               {
                 object: "text",

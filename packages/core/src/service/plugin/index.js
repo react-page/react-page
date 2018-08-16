@@ -182,14 +182,34 @@ export default class PluginService {
     }
     const usedMigrations = plugin.migrations ? plugin.migrations.filter(m => semver.gt(m.version, dataVersion)) : []
     usedMigrations.sort((a, b) => semver.lt(a.version, b.version) ? 1 : -1)
-    try {
-      usedMigrations.forEach(m => {
-        state = m.migrateFromPrevious(state)
-      })
-      return state
-    } catch (e) {
-      console.error('Exception in migration', e)
-      return undefined
+    usedMigrations.forEach(m => {
+      state = m.migrateFromPrevious(state)
+    })
+    return state
+  }
+
+  getNewPluginState = (found, state, version) => {
+    if (!found.pluginWrongVersion || semver.lt(found.pluginWrongVersion.version, version)) {
+      // Standard case
+      return {
+        plugin: found.plugin,
+        state: found.plugin.unserialize(state)
+      }
+    } else {
+      // Attempt to migrate
+      const migratedState = this.migratePluginState(state, found.pluginWrongVersion, version)
+      if (found.pluginWrongVersion && migratedState) {
+        return {
+          plugin: found.pluginWrongVersion,
+          state: found.pluginWrongVersion.unserialize(migratedState)
+        }
+      } else {
+        // Unable to migrate, fallback to missing plugin
+        return {
+          plugin: found.plugin,
+          state: found.plugin.unserialize(state)
+        }
+      }
     }
   }
 
@@ -218,54 +238,14 @@ export default class PluginService {
 
     if (contentName) {
       const found = this.findContentPlugin(contentName, contentVersion)
-      if (!found.pluginWrongVersion || semver.lt(found.pluginWrongVersion.version, contentVersion)) {
-        // Standard case
-        newState.content = {
-          plugin: found.plugin,
-          state: found.plugin.unserialize(contentState)
-        }
-      } else {
-        // Attempt to migrate
-        const migratedState = this.migratePluginState(contentState, found.pluginWrongVersion, contentVersion)
-        if (found.pluginWrongVersion && migratedState) {
-          newState.content = {
-            plugin: found.pluginWrongVersion,
-            state: found.pluginWrongVersion.unserialize(migratedState)
-          }
-        } else {
-          // Unable to migrate, fallback to missing plugin
-          newState.content = {
-            plugin: found.plugin,
-            state: found.plugin.unserialize(contentState)
-          }
-        }
-      }
+      const newContentState = this.getNewPluginState(found, contentState, contentVersion)
+      newState.content = newContentState
     }
 
     if (layoutName) {
       const found = this.findLayoutPlugin(layoutName, layoutVersion)
-      if (!found.pluginWrongVersion || semver.lt(found.pluginWrongVersion.version, layoutVersion)) {
-        // Standard case
-        newState.layout = {
-          plugin: found.plugin,
-          state: found.plugin.unserialize(layoutState)
-        }
-      } else {
-        // Attempt to migrate
-        const migratedState = this.migratePluginState(layoutState, found.pluginWrongVersion, layoutVersion)
-        if (found.pluginWrongVersion && migratedState) {
-          newState.layout = {
-            plugin: found.pluginWrongVersion,
-            state: found.pluginWrongVersion.unserialize(migratedState)
-          }
-        } else {
-          // Unable to migrate, fallback to missing plugin
-          newState.layout = {
-            plugin: found.plugin,
-            state: found.plugin.unserialize(layoutState)
-          }
-        }
-      }
+      const newLayoutState = this.getNewPluginState(found, layoutState, layoutVersion)
+      newState.layout = newLayoutState
     }
 
     if ((rows || []).length) {
