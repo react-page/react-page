@@ -40,7 +40,8 @@ import Provider from '../Provider'
 
 type Props = {
   isInsertMode: boolean,
-  editor: Editor
+  editor: Editor,
+  noPluginFoundContent: any
 }
 
 class Raw extends Component {
@@ -52,6 +53,10 @@ class Raw extends Component {
     }
 
     this.onSearch = this.onSearch.bind(this)
+  }
+
+  static defaultProps = {
+    noPluginFoundContent: 'No plugins found'
   }
 
   state: {
@@ -106,10 +111,11 @@ class Raw extends Component {
               onChange={this.onSearch}
             />
           </ListItem>
+          {layout.length + content.length === 0 && <ListSubheader>{this.props.noPluginFoundContent}</ListSubheader>}
         </List>
-        {content.length && <List subheader={
-            <ListSubheader>Content plugins</ListSubheader>
-          }>
+        {content.length > 0 && <List subheader={
+          <ListSubheader>Content plugins</ListSubheader>
+        }>
           {content.map((plugin: ContentPlugin, k: Number) => {
             const initialState = plugin.createInitialState()
 
@@ -127,9 +133,9 @@ class Raw extends Component {
             )
           })}
         </List>}
-        {layout.length && <List subheader={
-            <ListSubheader>Layout plugins</ListSubheader>
-          }>
+        {layout.length > 0 && <List subheader={
+          <ListSubheader>Layout plugins</ListSubheader>
+        }>
           {layout.map((plugin: LayoutPlugin, k: Number) => {
             const initialState = plugin.createInitialState()
             const children = plugin.createInitialChildren()
