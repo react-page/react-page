@@ -59,10 +59,7 @@ export default class ListsPlugin extends Plugin {
 
       if (type !== UL && type !== OL) {
         const isActive = editorState.blocks.some(block => block.type === type)
-        const isList = editorState.blocks.some(block => block.type === LI || !!editorState.document.getClosest(
-          block.key,
-          parent => parent.type === LI
-        ))
+        const isList = editorState.blocks.some(block => block.type === LI)
 
         if (isList) {
           change
@@ -73,10 +70,7 @@ export default class ListsPlugin extends Plugin {
           change.setBlocks(isActive ? this.DEFAULT_NODE : type)
         }
       } else {
-        const isList = editorState.blocks.some(block => block.type === LI || !!editorState.document.getClosest(
-          block.key,
-          parent => parent.type === LI
-        ))
+        const isList = editorState.blocks.some(block => block.type === LI)
         const isType = editorState.blocks.some(block =>
           !!editorState.document.getClosest(
             block.key,
@@ -98,10 +92,7 @@ export default class ListsPlugin extends Plugin {
       onChange({ value: change.value })
     }
 
-    const isList = editorState.blocks.some(block => block.type === LI || !!editorState.document.getClosest(
-      block.key,
-      parent => parent.type === LI
-    ))
+    const isList = editorState.blocks.some(block => block.type === LI)
     const isType = editorState.blocks.some(block =>
       !!editorState.document.getClosest(
         block.key,
