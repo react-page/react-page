@@ -23,6 +23,7 @@
 // @flow
 /* eslint-disable no-empty-function, no-unused-vars */
 import React, { Component, Element } from 'react'
+import semver from 'semver';
 
 export type ContentPluginProps<T> = {
   /**
@@ -93,27 +94,30 @@ export type LayoutPluginProps<T> = {
 }
 
 /**
- * @class the class used to migrate plugin content between version
+ * @class the class used to migrate plugin content between toVersion
  */
 export class Migration {
   constructor(config: any) {
     const {
-      version,
-      migrateFromPrevious
+      toVersion,
+      migrate,
+      fromVersionRange
     } = config
 
-    if (!migrateFromPrevious || !version) {
+    if (!migrate || !toVersion || !fromVersionRange || semver.valid(toVersion) === null || semver.validRange(fromVersionRange) === null) {
       throw new Error(
-        `A migration plugin version and migrateFromPrevious function must be defined, got ${JSON.stringify(
+        `A migration toVersion, fromVersionRange and migrate function must be defined, got ${JSON.stringify(
           config
         )}`
       )
     }
-    this.version = version
-    this.migrateFromPrevious = migrateFromPrevious
+    this.toVersion = toVersion
+    this.migrate = migrate
+    this.fromVersionRange = fromVersionRange
   }
-  version: string
-  migrateFromPrevious = (state: any): any => state
+  fromVersionRange: string
+  toVersion: string
+  migrate = (state: any): any => state
 }
 
 /**

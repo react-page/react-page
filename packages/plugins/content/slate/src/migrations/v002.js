@@ -1,8 +1,9 @@
 import { Migration } from 'ory-editor-core/lib/service/plugin/classes';
 import rename from 'deep-rename-keys';
 const migration = new Migration({
-    version: '0.0.2',
-    migrateFromPrevious: state => {
+    toVersion: '0.0.2',
+    fromVersionRange: '^0.0.1',
+    migrate: state => {
         // wrap with document
         state = {
             ...state,

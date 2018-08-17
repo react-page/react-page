@@ -25,6 +25,7 @@ import React from 'react'
 import ListIcon from '@material-ui/icons/List'
 import OrderedListIcon from '@material-ui/icons/FormatListNumbered'
 import type { Props } from './props'
+import createListPlugin from 'slate-edit-list'
 
 import { makeTagNode, ToolbarButton } from '../helpers'
 import Plugin from './Plugin'
@@ -36,7 +37,15 @@ export const LI = 'LISTS/LIST-ITEM'
 export default class ListsPlugin extends Plugin {
   constructor(props: Props) {
     super(props);
+
     this.DEFAULT_NODE = props.DEFAULT_NODE;
+    this.plugins = [
+      createListPlugin({
+        types: [UL, OL],
+        typeItem: LI,
+        typeDefault: props.DEFAULT_NODE
+      })
+    ]
   }
 
   props: Props
@@ -49,8 +58,11 @@ export default class ListsPlugin extends Plugin {
       let change = editorState.change()
 
       if (type !== UL && type !== OL) {
-        const isActive = this.hasBlock(type)
-        const isList = this.hasBlock(LI)
+        const isActive = editorState.blocks.some(block => block.type === type)
+        const isList = editorState.blocks.some(block => block.type === LI || !!editorState.document.getClosest(
+          block.key,
+          parent => parent.type === LI
+        ))
 
         if (isList) {
           change
@@ -61,7 +73,10 @@ export default class ListsPlugin extends Plugin {
           change.setBlocks(isActive ? this.DEFAULT_NODE : type)
         }
       } else {
-        const isList = editorState.blocks.some(block => block.type === LI)
+        const isList = editorState.blocks.some(block => block.type === LI || !!editorState.document.getClosest(
+          block.key,
+          parent => parent.type === LI
+        ))
         const isType = editorState.blocks.some(block =>
           !!editorState.document.getClosest(
             block.key,
@@ -83,7 +98,10 @@ export default class ListsPlugin extends Plugin {
       onChange({ value: change.value })
     }
 
-    const isList = editorState.blocks.some(block => block.type === LI)
+    const isList = editorState.blocks.some(block => block.type === LI || !!editorState.document.getClosest(
+      block.key,
+      parent => parent.type === LI
+    ))
     const isType = editorState.blocks.some(block =>
       !!editorState.document.getClosest(
         block.key,

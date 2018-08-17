@@ -561,6 +561,10 @@ slate-edit-blockquote@^0.6.1:
   version "0.6.1"
   resolved "https://registry.yarnpkg.com/slate-edit-blockquote/-/slate-edit-blockquote-0.6.1.tgz#ac145210f50b749ea06f547763b9a2f57187a550"
 
+slate-edit-list@^0.12.0:
+  version "0.12.0"
+  resolved "https://registry.yarnpkg.com/slate-edit-list/-/slate-edit-list-0.12.0.tgz#5af89347f4f27625e2864e7f26377be1a93f8c31"
+
 slate-hotkeys@^0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/slate-hotkeys/-/slate-hotkeys-0.2.0.tgz#eae0a3869f43cf63c57de2e8d1c6e992e0447f68"

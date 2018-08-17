@@ -177,14 +177,22 @@ export default class PluginService {
   ]
 
   migratePluginState = (state: any, plugin: Plugin, dataVersion: string): ?Object => {
-    if (!plugin || !dataVersion || !semver.valid(dataVersion)) {
+    if (!plugin || !dataVersion || semver.valid(dataVersion) === null) {
       return state
     }
-    const usedMigrations = plugin.migrations ? plugin.migrations.filter(m => semver.gt(m.version, dataVersion)) : []
-    usedMigrations.sort((a, b) => semver.lt(a.version, b.version) ? 1 : -1)
-    usedMigrations.forEach(m => {
-      state = m.migrateFromPrevious(state)
-    })
+    let currentDataVersion = dataVersion
+    let migrations = plugin.migrations ? plugin.migrations : []
+    while (true) {
+      const migration = migrations.find(m => semver.satisfies(currentDataVersion, m.fromVersionRange))
+      migrations = migrations.filter(m => !semver.satisfies(currentDataVersion, m.fromVersionRange))
+      if (!migration) {
+        // We assume all migrations necessary for the current version of plugin to work are provided
+        // Therefore if we don't find any, that means we are done and state is up to date
+        break
+      }
+      currentDataVersion = migration.toVersion
+      state = migration.migrate(state)
+    }
     return state
   }
 

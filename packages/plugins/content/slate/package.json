@@ -36,6 +36,7 @@
     "slate-edit-blockquote": "^0.6.1",
     "slate-html-serializer": "0.6.21",
     "slate-plain-serializer": "^0.5.30",
-    "slate-react": "^0.15.4"
+    "slate-react": "^0.15.4",
+    "slate-edit-list": "^0.12.0"
   }
 }

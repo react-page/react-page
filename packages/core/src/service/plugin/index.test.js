@@ -27,24 +27,39 @@ import PluginService from './index'
 import { Migration } from './classes';
 
 const FOO = 'foo'
-const OLDEST_VERSION = '0.0.0'
-const OLDER_VERSION = '0.0.1'
-const MATCHING_VERSION = '0.0.2'
+const OLDEST_VERSION = '0.0.1'
+const OLDER_VERSION = '0.0.2'
+const MATCHING_VERSION = '0.0.3'
 
 const expect = unexpected.clone()
-const content = [{ 
-  name: FOO, 
-  version: MATCHING_VERSION, 
-  Component: <div />, 
+
+const content = [{
+  name: FOO,
+  version: MATCHING_VERSION,
+  Component: <div />,
   migrations: [
-    new Migration({version: OLDEST_VERSION, migrateFromPrevious: state => ({...state, old: 1})}),
-    new Migration({version: MATCHING_VERSION, migrateFromPrevious: state => ({...state, modified: 1})}),
-    new Migration({version: OLDER_VERSION, migrateFromPrevious: state => ({...state, modified: 2})})
-  ] 
+    new Migration({ toVersion: OLDEST_VERSION, fromVersionRange: '0.0.0 - 0.0.0', migrate: state => ({ ...state, old: 1 }) }),
+    new Migration({ toVersion: OLDER_VERSION, fromVersionRange: '0.0.1 - 0.0.1', migrate: state => ({ ...state, modified: 2 }) }),
+    new Migration({ toVersion: MATCHING_VERSION, fromVersionRange: '0.0.2 - 0.0.2', migrate: state => ({ ...state, modified: 1 }) }),
+  ]
 }]
+
+const migrationEdgeCaseContent = [{
+  name: FOO,
+  version: MATCHING_VERSION,
+  Component: <div />,
+  migrations: [
+    new Migration({ toVersion: OLDEST_VERSION, fromVersionRange: '0.0.2 - 0.0.2', migrate: state => ({ ...state, old: 1 }) }),
+    new Migration({ toVersion: OLDER_VERSION, fromVersionRange: '0.0.0 - 0.0.0', migrate: state => ({ ...state, modified: 2 }) }),
+    new Migration({ toVersion: MATCHING_VERSION, fromVersionRange: '0.0.1 - 0.0.1', migrate: state => ({ ...state, modified: 1 }) }),
+  ]
+}]
+
 const layout = [{ name: 'bar', version: '0.0.2', Component: <div /> }]
 
 const plugins = new PluginService({ content, layout })
+
+const migrationEdgeCasePlugins = new PluginService({ content: migrationEdgeCaseContent, layout })
 
 describe('PluginService', () => {
   content.forEach(p => {
@@ -76,12 +91,27 @@ describe('PluginService', () => {
     expect(
       newState.modified,
       'to equal',
-      2
+      1
     )
     expect(
       newState.old,
       'to equal',
       undefined
+    )
+  })
+
+  it(`should apply migrations even in edge case`, () => {
+    const plugin = migrationEdgeCasePlugins.findContentPlugin(FOO, '0.0.0').pluginWrongVersion
+    const newState = migrationEdgeCasePlugins.migratePluginState({}, plugin, '0.0.0')
+    expect(
+      newState.modified,
+      'to equal',
+      1
+    )
+    expect(
+      newState.old,
+      'to equal',
+      1
     )
   })
 
