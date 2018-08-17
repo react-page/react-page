@@ -41,7 +41,7 @@ import Provider from '../Provider'
 type Props = {
   isInsertMode: boolean,
   editor: Editor,
-  pluginsNotFoundText: any
+  noPluginFoundContent: any
 }
 
 class Raw extends Component {
@@ -56,7 +56,7 @@ class Raw extends Component {
   }
 
   static defaultProps = {
-    pluginsNotFoundText: 'No plugins found'
+    noPluginFoundContent: 'No plugins found'
   }
 
   state: {
@@ -111,7 +111,7 @@ class Raw extends Component {
               onChange={this.onSearch}
             />
           </ListItem>
-          {layout.length + content.length === 0 && <ListSubheader>{this.props.pluginsNotFoundText}</ListSubheader>}
+          {layout.length + content.length === 0 && <ListSubheader>{this.props.noPluginFoundContent}</ListSubheader>}
         </List>
         {content.length > 0 && <List subheader={
           <ListSubheader>Content plugins</ListSubheader>
