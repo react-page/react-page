@@ -41,7 +41,7 @@ export const H5 = 'HEADINGS/HEADING-FIVE'
 export const H6 = 'HEADINGS/HEADING-SIX'
 
 const createNode = (type: string, el: any, next: any) => ({
-  kind: 'block',
+  object: 'block',
   type,
   // data: Data.create({ style: el.attribs.style }),
   nodes: next(el.childNodes)
@@ -63,12 +63,11 @@ export default class HeadingsPlugin extends Plugin {
 
       const isActive = editorState.blocks.some(block => block.type === type)
 
-      onChange(
-        editorState
-          .transform()
-          .setBlock(isActive ? this.DEFAULT_NODE : type)
-          .apply()
-      )
+      onChange({
+        value: editorState
+          .change()
+          .setBlocks(isActive ? this.DEFAULT_NODE : type).value
+      })
     }
 
     const isActive = editorState.blocks.some(block => block.type === type)
@@ -78,13 +77,15 @@ export default class HeadingsPlugin extends Plugin {
 
   name = 'headings'
 
-  nodes = {
-    [H1]: makeTagNode('h1'),
-    [H2]: makeTagNode('h2'),
-    [H3]: makeTagNode('h3'),
-    [H4]: makeTagNode('h4'),
-    [H5]: makeTagNode('h5'),
-    [H6]: makeTagNode('h6')
+  schema = {
+    nodes: {
+      [H1]: makeTagNode('h1'),
+      [H2]: makeTagNode('h2'),
+      [H3]: makeTagNode('h3'),
+      [H4]: makeTagNode('h4'),
+      [H5]: makeTagNode('h5'),
+      [H6]: makeTagNode('h6')
+    }
   }
 
   toolbarButtons = [
@@ -114,15 +115,34 @@ export default class HeadingsPlugin extends Plugin {
   }
 
   serialize = (
-    object: { type: string, kind: string, data: any },
+    object: { type: string, object: string, data: any },
     children: any[]
   ) => {
-    if (object.kind !== 'block') {
+    if (object.object !== 'block') {
       return
     }
     const style = { textAlign: object.data.get('align') }
 
     switch (object.type) {
+      case H1:
+        return <h1 style={style}>{children}</h1>
+      case H2:
+        return <h2 style={style}>{children}</h2>
+      case H3:
+        return <h3 style={style}>{children}</h3>
+      case H4:
+        return <h4 style={style}>{children}</h4>
+      case H5:
+        return <h5 style={style}>{children}</h5>
+      case H6:
+        return <h6 style={style}>{children}</h6>
+    }
+  }
+
+  renderNode = props => {
+    const { children } = props;
+    const style = { textAlign: props.node.data.get('align') }
+    switch (props.node.type) {
       case H1:
         return <h1 style={style}>{children}</h1>
       case H2:

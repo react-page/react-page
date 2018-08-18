@@ -42,7 +42,9 @@ import ParagraphPlugin, { P } from './plugins/paragraph'
 import parse5 from 'parse5'
 
 // FIXME #126
-import { Document, Html, Raw, State, Plain } from 'slate'
+import { Document, Value } from 'slate'
+import Html from 'slate-html-serializer'
+import Plain from 'slate-plain-serializer'
 
 const DEFAULT_NODE = P
 
@@ -61,7 +63,18 @@ export const defaultPlugins = [
 export const lineBreakSerializer = {
   deserialize(el: any) {
     if (el.tagName.toLowerCase() === 'br') {
-      return { kind: 'text', text: '\n' }
+      return { object: 'text', text: '\n' }
+    }
+    if (el.nodeName === '#text') {
+      if (el.value && el.value.match(/<!--.*?-->/)) return;
+
+      return {
+        object: 'text',
+        leaves: [{
+          object: 'leaf',
+          text: el.value
+        }]
+      };
     }
   },
   serialize(object: any, children: any) {
@@ -76,23 +89,29 @@ export const html = new Html({
   parseHtml: parse5.parseFragment
 })
 
-const options = { terse: true }
+const options = {}
 
 export const createInitialState = () => ({
-  editorState: Raw.deserialize(
+  editorState: Value.fromJSON(
     {
-      nodes: [
-        {
-          kind: 'block',
-          type: P,
-          nodes: [
-            {
-              kind: 'text',
-              text: ''
-            }
-          ]
-        }
-      ]
+      document: {
+        nodes: [
+          {
+            object: "block",
+            type: P,
+            nodes: [
+              {
+                object: "text",
+                leaves: [
+                  {
+                    text: ""
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
     },
     options
   )
@@ -103,12 +122,12 @@ export const unserialize = ({
   serialized,
   editorState
 }: {
-  importFromHtml: string,
-  serialized: Object,
-  editorState: Object
-}): { editorState: Object } => {
+    importFromHtml: string,
+    serialized: Object,
+    editorState: Object
+  }): { editorState: Object } => {
   if (serialized) {
-    return { editorState: Raw.deserialize(serialized, options) }
+    return { editorState: Value.fromJSON(serialized, options) }
   } else if (importFromHtml) {
     return { editorState: html.deserialize(importFromHtml, options) }
   } else if (editorState) {
@@ -119,7 +138,7 @@ export const unserialize = ({
 }
 
 export const serialize = ({ editorState }: any) => ({
-  serialized: Raw.serialize(editorState, options)
+  serialized: editorState.toJSON(editorState, options)
 })
 
 export const merge = (states: Object[]): Object => {
@@ -130,7 +149,7 @@ export const merge = (states: Object[]): Object => {
     tail(nodes)
   )
   const mergedDocument = Document.create({ nodes: mergedNodes })
-  const mergedEditorState = State.create({ document: mergedDocument })
+  const mergedEditorState = Value.create({ document: mergedDocument })
 
   return { editorState: mergedEditorState }
 }
@@ -141,7 +160,7 @@ export const split = (state: Object): Object[] => {
   return nodes
     .map((node: any) => {
       const splittedDocument = Document.create({ nodes: List([node]) })
-      const splittedEditorState = State.create({ document: splittedDocument })
+      const splittedEditorState = Value.create({ document: splittedDocument })
 
       return { editorState: splittedEditorState }
     })
@@ -201,7 +220,7 @@ export const handleFocusPreviousHotKey = (
   // const isArrowUp = e.keyCode === 38
 
   return new Promise((resolve: Function, reject: Function) => {
-    if (editorState.isExpanded) {
+    if (editorState.selection.isExpanded) {
       return reject()
     }
 
@@ -226,7 +245,7 @@ export const handleFocusNextHotKey = (
   // const isArrowDown = e.keyCode === 40
 
   return new Promise((resolve: Function, reject: Function) => {
-    if (editorState.isExpanded) {
+    if (editorState.selection.isExpanded) {
       return reject()
     }
 

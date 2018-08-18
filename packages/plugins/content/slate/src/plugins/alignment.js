@@ -43,12 +43,12 @@ export default class AlignmentPlugin extends Plugin {
         block => block.data.get('align') === align
       )
 
-      onChange(
-        editorState
-          .transform()
-          .setBlock({ data: { align: isActive ? null : align } })
-          .apply()
-      )
+      onChange({
+        value: editorState
+          .change()
+          .setBlocks({ data: { align: isActive ? null : align } })
+          .value
+      })
     }
 
     const isActive = editorState.blocks.some(

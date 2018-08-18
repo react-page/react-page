@@ -22,7 +22,7 @@
 
 // @flow
 import uuid from 'uuid'
-import { satisfies } from 'semver'
+import semver, { satisfies } from 'semver'
 import { ContentPlugin, LayoutPlugin, Plugin, NativePlugin } from './classes'
 import type { ComponetizedCell, NativeFactory } from '../../types/editable'
 import defaultPlugin from './default'
@@ -122,10 +122,10 @@ export default class PluginService {
   setContentPlugins = (plugins: Array<any> = []) => {
     this.plugins.content = []
 
-    // semicolon is required to avoid syntax error
-    ;[defaultPlugin, ...plugins].forEach((plugin: any) =>
-      this.addContentPlugin(plugin)
-    )
+      // semicolon is required to avoid syntax error
+      ;[defaultPlugin, ...plugins].forEach((plugin: any) =>
+        this.addContentPlugin(plugin)
+      )
   }
 
   addContentPlugin = (config: any) => {
@@ -141,17 +141,31 @@ export default class PluginService {
   /**
    * Finds a layout plugin based on its name and version.
    */
-  findLayoutPlugin = (name: string, version: string): LayoutPlugin => {
+  findLayoutPlugin = (name: string, version: string): { plugin: LayoutPlugin, pluginWrongVersion?: LayoutPlugin } => {
     const plugin = this.plugins.layout.find(find(name, version))
-    return plugin || new LayoutPlugin(layoutMissing({ name, version }))
+    let pluginWrongVersion = undefined
+    if (!plugin) {
+      pluginWrongVersion = this.plugins.layout.find(find(name, '*'))
+    }
+    return {
+      plugin: plugin || new LayoutPlugin(layoutMissing({ name, version })),
+      pluginWrongVersion
+    }
   }
 
   /**
    * Finds a content plugin based on its name and version.
    */
-  findContentPlugin = (name: string, version: string): ContentPlugin => {
+  findContentPlugin = (name: string, version: string): { plugin: ContentPlugin, pluginWrongVersion?: ContentPlugin } => {
     const plugin = this.plugins.content.find(find(name, version))
-    return plugin || new ContentPlugin(contentMissing({ name, version }))
+    let pluginWrongVersion = undefined
+    if (!plugin) {
+      pluginWrongVersion = this.plugins.content.find(find(name, '*'))
+    }
+    return {
+      plugin: plugin || new ContentPlugin(contentMissing({ name, version })),
+      pluginWrongVersion
+    }
   }
 
   /**
@@ -161,6 +175,51 @@ export default class PluginService {
     ...this.plugins.content.map(({ name }: Plugin) => name),
     ...this.plugins.layout.map(({ name }: Plugin) => name)
   ]
+
+  migratePluginState = (state: any, plugin: Plugin, dataVersion: string): ?Object => {
+    if (!plugin || !dataVersion || semver.valid(dataVersion) === null) {
+      return state
+    }
+    let currentDataVersion = dataVersion
+    let migrations = plugin.migrations ? plugin.migrations : []
+    while (true) {
+      const migration = migrations.find(m => semver.satisfies(currentDataVersion, m.fromVersionRange))
+      migrations = migrations.filter(m => !semver.satisfies(currentDataVersion, m.fromVersionRange))
+      if (!migration) {
+        // We assume all migrations necessary for the current version of plugin to work are provided
+        // Therefore if we don't find any, that means we are done and state is up to date
+        break
+      }
+      currentDataVersion = migration.toVersion
+      state = migration.migrate(state)
+    }
+    return state
+  }
+
+  getNewPluginState = (found: any, state: any, version: string) => {
+    if (!found.pluginWrongVersion || semver.lt(found.pluginWrongVersion.version, version)) {
+      // Standard case
+      return {
+        plugin: found.plugin,
+        state: found.plugin.unserialize(state)
+      }
+    } else {
+      // Attempt to migrate
+      const migratedState = this.migratePluginState(state, found.pluginWrongVersion, version)
+      if (found.pluginWrongVersion && migratedState) {
+        return {
+          plugin: found.pluginWrongVersion,
+          state: found.pluginWrongVersion.unserialize(migratedState)
+        }
+      } else {
+        // Unable to migrate, fallback to missing plugin
+        return {
+          plugin: found.plugin,
+          state: found.plugin.unserialize(state)
+        }
+      }
+    }
+  }
 
   unserialize = (state: any): Object => {
     const {
@@ -186,19 +245,15 @@ export default class PluginService {
       layout || {}
 
     if (contentName) {
-      const plugin = this.findContentPlugin(contentName, contentVersion)
-      newState.content = {
-        plugin,
-        state: plugin.unserialize(contentState)
-      }
+      const found = this.findContentPlugin(contentName, contentVersion)
+      const newContentState = this.getNewPluginState(found, contentState, contentVersion)
+      newState.content = newContentState
     }
 
     if (layoutName) {
-      const plugin = this.findLayoutPlugin(layoutName, layoutVersion)
-      newState.layout = {
-        plugin,
-        state: plugin.unserialize(layoutState)
-      }
+      const found = this.findLayoutPlugin(layoutName, layoutVersion)
+      const newLayoutState = this.getNewPluginState(found, layoutState, layoutVersion)
+      newState.layout = newLayoutState
     }
 
     if ((rows || []).length) {
