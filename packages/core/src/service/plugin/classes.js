@@ -23,6 +23,7 @@
 // @flow
 /* eslint-disable no-empty-function, no-unused-vars */
 import React, { Component, Element } from 'react'
+import semver from 'semver';
 
 export type ContentPluginProps<T> = {
   /**
@@ -93,6 +94,33 @@ export type LayoutPluginProps<T> = {
 }
 
 /**
+ * @class the class used to migrate plugin content between toVersion
+ */
+export class Migration {
+  constructor(config: any) {
+    const {
+      toVersion,
+      migrate,
+      fromVersionRange
+    } = config
+
+    if (!migrate || !toVersion || !fromVersionRange || semver.valid(toVersion) === null || semver.validRange(fromVersionRange) === null) {
+      throw new Error(
+        `A migration toVersion, fromVersionRange and migrate function must be defined, got ${JSON.stringify(
+          config
+        )}`
+      )
+    }
+    this.toVersion = toVersion
+    this.migrate = migrate
+    this.fromVersionRange = fromVersionRange
+  }
+  fromVersionRange: string
+  toVersion: string
+  migrate = (state: any): any => state
+}
+
+/**
  * @class the abstract class for content and layout plugins. It will be instantiated once and used for every cell that is equipped with it.
  */
 export class Plugin {
@@ -112,7 +140,8 @@ export class Plugin {
       handleFocusPreviousHotKey,
       handleFocus,
       handleBlur,
-      reducer
+      reducer,
+      migrations
     } = config
 
     if (!name || !version || !Component) {
@@ -131,6 +160,7 @@ export class Plugin {
     this.text = text
     this.description = description
     this.config = config
+    this.migrations = migrations ? migrations : []
 
     this.serialize = serialize ? serialize.bind(this) : this.serialize
     this.unserialize = unserialize ? unserialize.bind(this) : this.unserialize
@@ -159,6 +189,11 @@ export class Plugin {
    * @member describes the plugin in a few words.
    */
   description: string
+
+  /**
+   * @member migrations used to migrate plugin state from older version to new one
+   */
+  migrations: Migration[]
 
   /**
    * @member the semantic version (www.semver.org) of this plugin.

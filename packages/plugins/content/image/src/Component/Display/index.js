@@ -29,7 +29,7 @@ import type { PropTypes } from '../index.js'
 
 const Display = ({ isEditMode, state }: PropTypes) => {
   const Image = (
-    <img className="ory-plugins-content-image" aly="" src={state.src} />
+    <img className="ory-plugins-content-image" alt="" src={state.src} />
   )
   return (
     state.src ? (

@@ -111,21 +111,22 @@ csstype@^2.0.0, csstype@^2.2.0, csstype@^2.5.2:
   version "2.5.3"
   resolved "https://registry.yarnpkg.com/csstype/-/csstype-2.5.3.tgz#2504152e6e1cc59b32098b7f5d6a63f16294c1f7"
 
-d@1:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/d/-/d-1.0.0.tgz#754bb5bfe55451da69a58b94d45f4c5b0462d58f"
-  dependencies:
-    es5-ext "^0.10.9"
-
 debounce@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/debounce/-/debounce-1.1.0.tgz#6a1a4ee2a9dc4b7c24bb012558dbcdb05b37f408"
 
-debug@^2.3.2:
-  version "2.6.9"
-  resolved "https://registry.yarnpkg.com/debug/-/debug-2.6.9.tgz#5d128515df134ff327e90a4c93f4e077a536341f"
+debug@^3.1.0:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/debug/-/debug-3.1.0.tgz#5bb5a0672628b64149566ba16819e61518c67261"
   dependencies:
     ms "2.0.0"
+
+deep-rename-keys@^0.2.1:
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/deep-rename-keys/-/deep-rename-keys-0.2.1.tgz#ede78537d7a66a2be61517e2af956d7f58a3f1d8"
+  dependencies:
+    kind-of "^3.0.2"
+    rename-keys "^1.1.2"
 
 deepmerge@^2.0.1:
   version "2.1.1"
@@ -149,59 +150,9 @@ encoding@^0.1.11:
   dependencies:
     iconv-lite "~0.4.13"
 
-es5-ext@^0.10.14, es5-ext@^0.10.9, es5-ext@~0.10.14:
-  version "0.10.35"
-  resolved "https://registry.yarnpkg.com/es5-ext/-/es5-ext-0.10.35.tgz#18ee858ce6a3c45c7d79e91c15fcca9ec568494f"
-  dependencies:
-    es6-iterator "~2.0.1"
-    es6-symbol "~3.1.1"
-
-es6-iterator@~2.0.1:
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/es6-iterator/-/es6-iterator-2.0.1.tgz#8e319c9f0453bf575d374940a655920e59ca5512"
-  dependencies:
-    d "1"
-    es5-ext "^0.10.14"
-    es6-symbol "^3.1"
-
-es6-map@^0.1.4:
-  version "0.1.5"
-  resolved "https://registry.yarnpkg.com/es6-map/-/es6-map-0.1.5.tgz#9136e0503dcc06a301690f0bb14ff4e364e949f0"
-  dependencies:
-    d "1"
-    es5-ext "~0.10.14"
-    es6-iterator "~2.0.1"
-    es6-set "~0.1.5"
-    es6-symbol "~3.1.1"
-    event-emitter "~0.3.5"
-
-es6-set@~0.1.5:
-  version "0.1.5"
-  resolved "https://registry.yarnpkg.com/es6-set/-/es6-set-0.1.5.tgz#d2b3ec5d4d800ced818db538d28974db0a73ccb1"
-  dependencies:
-    d "1"
-    es5-ext "~0.10.14"
-    es6-iterator "~2.0.1"
-    es6-symbol "3.1.1"
-    event-emitter "~0.3.5"
-
-es6-symbol@3.1.1, es6-symbol@^3.1, es6-symbol@~3.1.1:
-  version "3.1.1"
-  resolved "https://registry.yarnpkg.com/es6-symbol/-/es6-symbol-3.1.1.tgz#bf00ef4fdab6ba1b46ecb7b629b4c7ed5715cc77"
-  dependencies:
-    d "1"
-    es5-ext "~0.10.14"
-
 esrever@^0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/esrever/-/esrever-0.2.0.tgz#96e9d28f4f1b1a76784cd5d490eaae010e7407b8"
-
-event-emitter@~0.3.5:
-  version "0.3.5"
-  resolved "https://registry.yarnpkg.com/event-emitter/-/event-emitter-0.3.5.tgz#df8c69eef1647923c7157b9ce83840610b02cc39"
-  dependencies:
-    d "1"
-    es5-ext "~0.10.14"
 
 fbjs@^0.8.1, fbjs@^0.8.16:
   version "0.8.16"
@@ -244,7 +195,7 @@ iconv-lite@~0.4.13:
   version "0.4.19"
   resolved "https://registry.yarnpkg.com/iconv-lite/-/iconv-lite-0.4.19.tgz#f7468f60135f5e5dad3399c0a81be9a1603a082b"
 
-immutable@^3.8.1:
+immutable@3.8.2:
   version "3.8.2"
   resolved "https://registry.yarnpkg.com/immutable/-/immutable-3.8.2.tgz#c2439951455bb39913daf281376f1530e104adf3"
 
@@ -254,6 +205,10 @@ indefinite-observable@^1.0.1:
   dependencies:
     symbol-observable "1.0.4"
 
+is-buffer@^1.1.5:
+  version "1.1.6"
+  resolved "https://registry.yarnpkg.com/is-buffer/-/is-buffer-1.1.6.tgz#efaa2ea9daa0d7ab2ea13a97b2b8ad51fefbe8be"
+
 is-empty@^1.0.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/is-empty/-/is-empty-1.2.0.tgz#de9bb5b278738a05a0b09a57e1fb4d4a341a9f6b"
@@ -262,11 +217,15 @@ is-function@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/is-function/-/is-function-1.0.1.tgz#12cfb98b65b57dd3d193a3121f5f6e2f437602b5"
 
+is-hotkey@^0.1.3:
+  version "0.1.3"
+  resolved "https://registry.yarnpkg.com/is-hotkey/-/is-hotkey-0.1.3.tgz#8a129eec16f3941bd4f37191e02b9c3e91950549"
+
 is-in-browser@^1.0.2, is-in-browser@^1.1.3:
   version "1.1.3"
   resolved "https://registry.yarnpkg.com/is-in-browser/-/is-in-browser-1.1.3.tgz#56ff4db683a078c6082eb95dad7dc62e1d04f835"
 
-is-plain-object@^2.0.1:
+is-plain-object@^2.0.1, is-plain-object@^2.0.4:
   version "2.0.4"
   resolved "https://registry.yarnpkg.com/is-plain-object/-/is-plain-object-2.0.4.tgz#2c163b3fafb1b606d9d17928f05c2a1c38e07677"
   dependencies:
@@ -283,6 +242,10 @@ is-window@^1.0.2:
 isobject@^3.0.1:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/isobject/-/isobject-3.0.1.tgz#4e431e92b11a9731636aa1f9c8d1ccbcfdab78df"
+
+isomorphic-base64@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/isomorphic-base64/-/isomorphic-base64-1.0.2.tgz#f426aae82569ba8a4ec5ca73ad21a44ab1ee7803"
 
 isomorphic-fetch@^2.1.1:
   version "2.2.1"
@@ -378,9 +341,19 @@ keycode@^2.1.9:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/keycode/-/keycode-2.2.0.tgz#3d0af56dc7b8b8e5cba8d0a97f107204eec22b04"
 
+kind-of@^3.0.2:
+  version "3.2.2"
+  resolved "https://registry.yarnpkg.com/kind-of/-/kind-of-3.2.2.tgz#31ea21a734bab9bbb0f32466d893aea51e4a3c64"
+  dependencies:
+    is-buffer "^1.1.5"
+
 lodash-es@^4.2.1:
   version "4.17.4"
   resolved "https://registry.yarnpkg.com/lodash-es/-/lodash-es-4.17.4.tgz#dcc1d7552e150a0640073ba9cb31d70f032950e7"
+
+lodash@^4.1.1:
+  version "4.17.10"
+  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.10.tgz#1b7793cf7259ea38fb3661d4d38b3260af8ae4e7"
 
 lodash@^4.17.4, lodash@^4.2.1:
   version "4.17.4"
@@ -471,6 +444,10 @@ react-event-listener@^0.6.0:
     prop-types "^15.6.0"
     warning "^3.0.0"
 
+react-immutable-proptypes@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/react-immutable-proptypes/-/react-immutable-proptypes-2.1.0.tgz#023d6f39bb15c97c071e9e60d00d136eac5fa0b4"
+
 react-jss@^8.1.0:
   version "8.5.0"
   resolved "https://registry.yarnpkg.com/react-jss/-/react-jss-8.5.0.tgz#a0eff645743082e06a6c42b7c5ab4939d7af4c27"
@@ -492,7 +469,13 @@ react-popper@^0.10.0:
     popper.js "^1.14.1"
     prop-types "^15.6.1"
 
-react-portal@^3.0.0, react-portal@^3.1.0:
+react-portal@4.1.5:
+  version "4.1.5"
+  resolved "https://registry.yarnpkg.com/react-portal/-/react-portal-4.1.5.tgz#6665d4d2a92d47d6f8b07a6529e26fc52d5cccde"
+  dependencies:
+    prop-types "^15.5.8"
+
+react-portal@^3.1.0:
   version "3.2.0"
   resolved "https://registry.yarnpkg.com/react-portal/-/react-portal-3.2.0.tgz#4224e19b2b05d5cbe730a7ba0e34ec7585de0043"
   dependencies:
@@ -536,6 +519,10 @@ regenerator-runtime@^0.11.0, regenerator-runtime@^0.11.1:
   version "0.11.1"
   resolved "https://registry.yarnpkg.com/regenerator-runtime/-/regenerator-runtime-0.11.1.tgz#be05ad7f9bf7d22e056f9726cee5017fbf19e2e9"
 
+rename-keys@^1.1.2:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/rename-keys/-/rename-keys-1.2.0.tgz#be602fb0b750476b513ebe85ba4465d03254f0a3"
+
 scroll@^2.0.3:
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/scroll/-/scroll-2.0.3.tgz#0951b785544205fd17753bc3d294738ba16fc2ab"
@@ -554,32 +541,92 @@ setimmediate@^1.0.5:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/setimmediate/-/setimmediate-1.0.5.tgz#290cbb232e306942d7d7ea9b83732ab7856f8285"
 
-slate-edit-blockquote@^0.2.0:
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/slate-edit-blockquote/-/slate-edit-blockquote-0.2.0.tgz#5ec3fee12ba152bfbbc6fa25fd870b94ee77c3e3"
-
-slate-edit-list@^0.7.1:
-  version "0.7.1"
-  resolved "https://registry.yarnpkg.com/slate-edit-list/-/slate-edit-list-0.7.1.tgz#84ee960d2d5b5a20ce267ad9df894395a91b93d5"
-
-slate@^0.21.4:
-  version "0.21.6"
-  resolved "https://registry.yarnpkg.com/slate/-/slate-0.21.6.tgz#62a7b2f1d7c560ad7eb7f3ff17c77ff905cfae94"
+slate-base64-serializer@^0.2.49:
+  version "0.2.49"
+  resolved "https://registry.yarnpkg.com/slate-base64-serializer/-/slate-base64-serializer-0.2.49.tgz#5f315794c9380384d53e63621cf9e52116c671b8"
   dependencies:
-    debug "^2.3.2"
-    direction "^0.1.5"
-    es6-map "^0.1.4"
-    esrever "^0.2.0"
-    get-window "^1.1.1"
-    immutable "^3.8.1"
-    is-empty "^1.0.0"
+    isomorphic-base64 "^1.0.2"
+
+slate-dev-environment@^0.1.4:
+  version "0.1.4"
+  resolved "https://registry.yarnpkg.com/slate-dev-environment/-/slate-dev-environment-0.1.4.tgz#d5dd0d9a5b80b364a23bb7985202ce4e5bd3e8d3"
+  dependencies:
     is-in-browser "^1.1.3"
+
+slate-dev-logger@^0.1.42:
+  version "0.1.42"
+  resolved "https://registry.yarnpkg.com/slate-dev-logger/-/slate-dev-logger-0.1.42.tgz#922c4693469e6d60deaa10adfd22b627c9632fbf"
+
+slate-edit-blockquote@^0.6.1:
+  version "0.6.1"
+  resolved "https://registry.yarnpkg.com/slate-edit-blockquote/-/slate-edit-blockquote-0.6.1.tgz#ac145210f50b749ea06f547763b9a2f57187a550"
+
+slate-edit-list@^0.12.0:
+  version "0.12.0"
+  resolved "https://registry.yarnpkg.com/slate-edit-list/-/slate-edit-list-0.12.0.tgz#5af89347f4f27625e2864e7f26377be1a93f8c31"
+
+slate-hotkeys@^0.2.0:
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/slate-hotkeys/-/slate-hotkeys-0.2.0.tgz#eae0a3869f43cf63c57de2e8d1c6e992e0447f68"
+  dependencies:
+    is-hotkey "^0.1.3"
+    slate-dev-environment "^0.1.4"
+
+slate-html-serializer@0.6.21:
+  version "0.6.21"
+  resolved "https://registry.yarnpkg.com/slate-html-serializer/-/slate-html-serializer-0.6.21.tgz#869b1369a34b1364b5ad99a2240234d121d289cf"
+  dependencies:
+    slate-dev-logger "^0.1.42"
+    type-of "^2.0.1"
+
+slate-plain-serializer@^0.5.30:
+  version "0.5.30"
+  resolved "https://registry.yarnpkg.com/slate-plain-serializer/-/slate-plain-serializer-0.5.30.tgz#3e67a10e402500e2fbfb4dfe7eb264785ed04945"
+  dependencies:
+    slate-dev-logger "^0.1.42"
+
+slate-prop-types@^0.4.47:
+  version "0.4.47"
+  resolved "https://registry.yarnpkg.com/slate-prop-types/-/slate-prop-types-0.4.47.tgz#671023a379b30d7da87cd9cf72459422939cf43e"
+  dependencies:
+    slate-dev-logger "^0.1.42"
+
+slate-react@^0.15.4:
+  version "0.15.4"
+  resolved "https://registry.yarnpkg.com/slate-react/-/slate-react-0.15.4.tgz#8391da45d419fe60810a546a6a839805446e8bf9"
+  dependencies:
+    debug "^3.1.0"
+    get-window "^1.1.1"
     is-window "^1.0.2"
     keycode "^2.1.2"
-    lodash "^4.17.4"
+    lodash "^4.1.1"
     prop-types "^15.5.8"
+    react-immutable-proptypes "^2.1.0"
     react-portal "^3.1.0"
     selection-is-backward "^1.0.0"
+    slate-base64-serializer "^0.2.49"
+    slate-dev-environment "^0.1.4"
+    slate-dev-logger "^0.1.42"
+    slate-hotkeys "^0.2.0"
+    slate-plain-serializer "^0.5.30"
+    slate-prop-types "^0.4.47"
+
+slate-schema-violations@^0.1.28:
+  version "0.1.28"
+  resolved "https://registry.yarnpkg.com/slate-schema-violations/-/slate-schema-violations-0.1.28.tgz#58cd64c3c54680f5e88dc0ca75e93d3a7e41581e"
+
+slate@^0.37.3:
+  version "0.37.3"
+  resolved "https://registry.yarnpkg.com/slate/-/slate-0.37.3.tgz#2dc03778d859407d97b3025b5a14f3dec28f6ddb"
+  dependencies:
+    debug "^3.1.0"
+    direction "^0.1.5"
+    esrever "^0.2.0"
+    is-empty "^1.0.0"
+    is-plain-object "^2.0.4"
+    lodash "^4.17.4"
+    slate-dev-logger "^0.1.42"
+    slate-schema-violations "^0.1.28"
     type-of "^2.0.1"
 
 symbol-observable@1.0.4, symbol-observable@^1.0.3:

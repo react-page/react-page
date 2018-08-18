@@ -71,14 +71,14 @@ class LinkButton extends Component {
 
     if (hasLinks) {
       const newState = editorState
-        .transform()
+        .change()
         .unwrapInline(A)
-        .apply()
-      onChange(newState)
-    } else if (editorState.isExpanded) {
+        .value
+      onChange({ value: newState })
+    } else if (editorState.selection.isExpanded) {
       this.setState({
         open: true,
-        wasExpanded: editorState.isExpanded,
+        wasExpanded: editorState.selection.isExpanded,
         href: '',
         title: '',
         hadLinks: hasLinks
@@ -86,7 +86,7 @@ class LinkButton extends Component {
     } else {
       this.setState({
         open: true,
-        wasExpanded: editorState.isExpanded,
+        wasExpanded: editorState.selection.isExpanded,
         href: '',
         title: '',
         hadLinks: hasLinks
@@ -98,10 +98,10 @@ class LinkButton extends Component {
     this.setState({ open: false })
 
     const newState = this.props.editorState
-      .transform()
+      .change()
       .focus()
-      .apply()
-    window.setTimeout(() => this.props.onChange(newState), 1)
+      .value
+    window.setTimeout(() => this.props.onChange({ value: newState }), 1)
   }
 
   handleSubmit = () => {
@@ -114,18 +114,16 @@ class LinkButton extends Component {
 
     if (this.state.wasExpanded) {
       const newState = this.props.editorState
-        .transform()
+        .change()
         .focus()
-        .apply()
-        .transform()
         .wrapInline({
           type: A,
           data: { href: this.state.href }
         })
         .collapseToEnd()
-        .apply()
+        .value
 
-      window.setTimeout(() => this.props.onChange(newState), 1)
+      window.setTimeout(() => this.props.onChange({ value: newState }), 1)
       window.setTimeout(() => this.props.focus(), 100)
       return
     }
@@ -136,7 +134,7 @@ class LinkButton extends Component {
     }
 
     const newState = this.props.editorState
-      .transform()
+      .change()
       .insertText(this.state.title)
       .extend(-this.state.title.length)
       .wrapInline({
@@ -145,9 +143,9 @@ class LinkButton extends Component {
       })
       .collapseToEnd()
       .focus()
-      .apply()
+      .value
 
-    this.props.onChange(newState)
+    this.props.onChange({ value: newState })
     window.setTimeout(() => this.props.focus(), 100)
   }
 
@@ -164,7 +162,7 @@ class LinkButton extends Component {
       <Button
         variant='flat'
         label="Cancel"
-        primary
+        color="primary"
         onClick={this.handleClose}
       >
         Cancel
@@ -172,7 +170,7 @@ class LinkButton extends Component {
       <Button
         variant='flat'
         label="Ok"
-        primary
+        color="primary"
         onClick={this.handleSubmit}
       >
         Ok
@@ -232,7 +230,9 @@ class LinkButton extends Component {
 export default class LinkPlugin extends Plugin {
   name = 'link'
 
-  nodes = { [A]: Link }
+  schema = {
+    nodes: { [A]: Link }
+  }
 
   hoverButtons = [LinkButton]
   toolbarButtons = [LinkButton]
@@ -241,7 +241,7 @@ export default class LinkPlugin extends Plugin {
     switch (el.tagName.toLowerCase()) {
       case 'a':
         return {
-          kind: 'inline',
+          object: 'inline',
           type: A,
           nodes: next(el.childNodes),
           data: Data.create({
@@ -254,15 +254,25 @@ export default class LinkPlugin extends Plugin {
   }
 
   serialize = (
-    object: { type: string, kind: string, data: any },
+    object: { type: string, object: string, data: any },
     children: any[]
   ) => {
-    if (object.kind !== 'inline') {
+    if (object.object !== 'inline') {
       return
     }
     switch (object.type) {
       case A:
         return <a href={object.data.get('href')}>{children}</a>
+    }
+  }
+
+  renderNode = props => {
+    switch (props.node.type) {
+      case A: {
+        return (
+          <Link {...props} />
+        )
+      }
     }
   }
 }

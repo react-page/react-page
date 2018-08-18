@@ -25,8 +25,8 @@
 /* eslint no-duplicate-imports: ["off"] */
 /* eslint prefer-reflect: ["off"] */
 import Subject from '@material-ui/icons/Subject'
-import { compose, flatten, map, mergeAll, prop, pathOr } from 'ramda'
-import { Html } from 'slate'
+import { pathOr } from 'ramda'
+import Html from 'slate-html-serializer'
 import React from 'react'
 import { ActionTypes } from 'redux-undo'
 import Component from './Component'
@@ -35,10 +35,8 @@ import Plugin from './plugins/Plugin'
 // import KatexPlugin from './plugins/katex'
 import * as hooks from './hooks'
 import parse5 from 'parse5'
+import v002 from './migrations/v002'
 
-const createNodes = compose(mergeAll, map(prop('nodes')))
-const createMarks = compose(mergeAll, map(prop('marks')))
-const createPlugins = compose(flatten, map(prop('plugins')))
 
 export const createInitialState = hooks.createInitialState
 
@@ -51,11 +49,7 @@ export const defaultPlugins = hooks.defaultPlugins
 
 export default (plugins: Plugin[] = hooks.defaultPlugins) => {
   const props = {}
-  props.schema = {
-    nodes: createNodes(plugins),
-    marks: createMarks(plugins)
-  }
-  props.plugins = createPlugins(plugins)
+  props.plugins = plugins
   props.onKeyDown = (
     e: Event,
     data: { key: string, isMod: boolean, isShift: boolean },
@@ -68,9 +62,9 @@ export default (plugins: Plugin[] = hooks.defaultPlugins) => {
 
     if (data.isShift && data.key === 'enter') {
       return state
-        .transform()
+        .change()
         .insertText('\n')
-        .apply()
+        .value
     }
 
     for (let i = 0; i < plugins.length; i++) {
@@ -126,7 +120,7 @@ export default (plugins: Plugin[] = hooks.defaultPlugins) => {
     StaticComponent,
 
     name: 'ory/editor/core/content/slate',
-    version: '0.0.1',
+    version: '0.0.2',
     IconComponent: <Subject />,
     text: 'Text',
     description: 'An advanced rich text area.',
@@ -141,12 +135,9 @@ export default (plugins: Plugin[] = hooks.defaultPlugins) => {
       }
 
       setTimeout(() => {
-        props.onChange({
-          editorState: props.state.editorState
-            .transform()
-            .focus()
-            .apply()
-        })
+        props.state.editorState
+          .change()
+          .focus()
       }, 0)
     },
 
@@ -155,11 +146,9 @@ export default (plugins: Plugin[] = hooks.defaultPlugins) => {
         return
       }
 
-      props.onChange({
-        editorState: props.state.editorState
-          .transform()
-          .blur()
-          .apply()
+      props.onChange({ editorState: props.state.editorState
+        .change()
+        .blur().value
       })
     },
 
@@ -191,10 +180,12 @@ export default (plugins: Plugin[] = hooks.defaultPlugins) => {
 
     createInitialState: hooks.createInitialState,
     serialize: hooks.serialize,
-    unserialize: hooks.unserialize
+    unserialize: hooks.unserialize,
 
     // TODO this is disabled because of #207
     // merge = hooks.merge
     // split = hooks.split
+
+    migrations: [v002]
   }
 }
