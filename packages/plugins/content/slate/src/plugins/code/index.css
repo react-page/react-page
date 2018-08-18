@@ -1,0 +1,5 @@
+:not(pre)>code.ory-plugins-content-slate-code {
+    font-family: monospace;
+    background-color: #eee;
+    padding: 3px;
+}

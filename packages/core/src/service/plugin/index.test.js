@@ -24,28 +24,101 @@ import React from 'react'
 import unexpected from 'unexpected'
 
 import PluginService from './index'
+import { Migration } from './classes';
+
+const FOO = 'foo'
+const OLDEST_VERSION = '0.0.1'
+const OLDER_VERSION = '0.0.2'
+const MATCHING_VERSION = '0.0.3'
 
 const expect = unexpected.clone()
-const content = [{ name: 'foo', version: '0.0.1', Component: <div /> }]
+
+const content = [{
+  name: FOO,
+  version: MATCHING_VERSION,
+  Component: <div />,
+  migrations: [
+    new Migration({ toVersion: OLDEST_VERSION, fromVersionRange: '0.0.0 - 0.0.0', migrate: state => ({ ...state, old: 1 }) }),
+    new Migration({ toVersion: OLDER_VERSION, fromVersionRange: '0.0.1 - 0.0.1', migrate: state => ({ ...state, modified: 2 }) }),
+    new Migration({ toVersion: MATCHING_VERSION, fromVersionRange: '0.0.2 - 0.0.2', migrate: state => ({ ...state, modified: 1 }) }),
+  ]
+}]
+
+const migrationEdgeCaseContent = [{
+  name: FOO,
+  version: MATCHING_VERSION,
+  Component: <div />,
+  migrations: [
+    new Migration({ toVersion: OLDEST_VERSION, fromVersionRange: '0.0.2 - 0.0.2', migrate: state => ({ ...state, old: 1 }) }),
+    new Migration({ toVersion: OLDER_VERSION, fromVersionRange: '0.0.0 - 0.0.0', migrate: state => ({ ...state, modified: 2 }) }),
+    new Migration({ toVersion: MATCHING_VERSION, fromVersionRange: '0.0.1 - 0.0.1', migrate: state => ({ ...state, modified: 1 }) }),
+  ]
+}]
+
 const layout = [{ name: 'bar', version: '0.0.2', Component: <div /> }]
 
 const plugins = new PluginService({ content, layout })
+
+const migrationEdgeCasePlugins = new PluginService({ content: migrationEdgeCaseContent, layout })
 
 describe('PluginService', () => {
   content.forEach(p => {
     it(`should find plugin ${p.name} ${p.version}`, () => {
       expect(
-        plugins.findContentPlugin(p.name, p.version).name,
+        plugins.findContentPlugin(p.name, p.version).plugin.name,
         'to equal',
         p.name
       )
     })
   })
 
+  it(`should find plugin different version ${FOO} ${OLDEST_VERSION}`, () => {
+    expect(
+      plugins.findContentPlugin(FOO, OLDEST_VERSION).pluginWrongVersion.name,
+      'to equal',
+      FOO
+    )
+    expect(
+      plugins.findContentPlugin(FOO, OLDEST_VERSION).pluginWrongVersion.version,
+      'to equal',
+      MATCHING_VERSION
+    )
+  })
+
+  it(`should apply migrations`, () => {
+    const plugin = plugins.findContentPlugin(FOO, OLDEST_VERSION).pluginWrongVersion
+    const newState = plugins.migratePluginState({}, plugin, OLDEST_VERSION)
+    expect(
+      newState.modified,
+      'to equal',
+      1
+    )
+    expect(
+      newState.old,
+      'to equal',
+      undefined
+    )
+  })
+
+  it(`should apply migrations even in edge case`, () => {
+    const plugin = migrationEdgeCasePlugins.findContentPlugin(FOO, '0.0.0').pluginWrongVersion
+    const newState = migrationEdgeCasePlugins.migratePluginState({}, plugin, '0.0.0')
+    expect(
+      newState.modified,
+      'to equal',
+      1
+    )
+    expect(
+      newState.old,
+      'to equal',
+      1
+    )
+  })
+
   layout.forEach(p => {
     it(`should find plugin ${p.name} ${p.version}`, () => {
       expect(
-        plugins.findLayoutPlugin(p.name, p.version).name,
+        plugins.findLayoutPlugin(p.name, p.version).plugin.name,
         'to equal',
         p.name
       )
@@ -56,7 +129,7 @@ describe('PluginService', () => {
   it('should add a content plugin', () => {
     plugins.addContentPlugin(np)
     expect(
-      plugins.findContentPlugin(np.name, np.version).name,
+      plugins.findContentPlugin(np.name, np.version).plugin.name,
       'to equal',
       np.name
     )
@@ -71,7 +144,7 @@ describe('PluginService', () => {
   it('should set content plugins', () => {
     plugins.setContentPlugins([np])
     expect(
-      plugins.findContentPlugin(np.name, np.version).name,
+      plugins.findContentPlugin(np.name, np.version).plugin.name,
       'to equal',
       np.name
     )
@@ -81,7 +154,7 @@ describe('PluginService', () => {
   it('should add a layout plugin', () => {
     plugins.addLayoutPlugin(np)
     expect(
-      plugins.findLayoutPlugin(np.name, np.version).name,
+      plugins.findLayoutPlugin(np.name, np.version).plugin.name,
       'to equal',
       np.name
     )
@@ -96,7 +169,7 @@ describe('PluginService', () => {
   it('should set layout plugins', () => {
     plugins.setLayoutPlugins([np])
     expect(
-      plugins.findLayoutPlugin(np.name, np.version).name,
+      plugins.findLayoutPlugin(np.name, np.version).plugin.name,
       'to equal',
       np.name
     )
