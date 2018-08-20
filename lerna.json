@@ -9,6 +9,6 @@
     "packages/plugins/layout/*",
     "examples"
   ],
-  "npmClient": "yarn",
+  "npmClient": "npm",
   "version": "0.0.0"
 }
