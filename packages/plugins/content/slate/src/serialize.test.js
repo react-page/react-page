@@ -243,9 +243,7 @@ describe('serialize to html', () => {
   ].forEach((c, k) => {
     describe(`test case ${k}`, () => {
       it('should serialize properly', () => {
-        expect(html.serialize(Value.fromJSON(c.i))).toEqual(
-          c.o
-        )
+        expect(html.serialize(Value.fromJSON(c.i))).toEqual(c.o)
       })
       it(`should deserialize properly: ${c.o}`, () => {
         if (c.skip) {

@@ -73,7 +73,10 @@ class Resizable extends Component {
   }
 
   render() {
-    const { node: { bounds, inline }, children } = this.props
+    const {
+      node: { bounds, inline },
+      children
+    } = this.props
 
     return (
       <ReactResizeable
@@ -100,4 +103,7 @@ const mapStateToProps = createStructuredSelector({})
 
 const mapDispatchToProps = { resizeMode, editMode }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Resizable)
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Resizable)

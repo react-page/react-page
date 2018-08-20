@@ -29,7 +29,7 @@ import {
   createMuiTheme
 } from '@material-ui/core/styles'
 import darkTheme from './DarkTheme'
-export { darkTheme };
+export { darkTheme }
 
 const generateClassName = createGenerateClassName({ productionPrefix: 'ory' })
 export const themeOptions = {}

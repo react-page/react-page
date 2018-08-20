@@ -42,7 +42,7 @@ const DisplayModeToggle = ({
   <div className="ory-controls-mode-toggle-button">
     <div className="ory-controls-mode-toggle-button-inner">
       <Button
-        variant='fab'
+        variant="fab"
         color={active ? 'secondary' : 'default'}
         mini={device.mobile}
         onClick={onClick}

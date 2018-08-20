@@ -53,9 +53,7 @@ class Item extends Component {
 
     // not using css modules here because they don't work with svg icons
     return (
-      <ListItem
-        className="ory-toolbar-item"
-      >
+      <ListItem className="ory-toolbar-item">
         <Avatar children={plugin.IconComponent} />
         <ListItemText primary={plugin.text} secondary={plugin.description} />
         <span

@@ -42,7 +42,7 @@ import { colorToString } from 'ory-editor-ui'
 
 import type {
   LayoutPluginProps,
-    ContentPlugin
+  ContentPlugin
 } from 'ory-editor-core/lib/service/plugin/classes'
 import { BottomToolbar } from 'ory-editor-ui'
 

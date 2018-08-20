@@ -23,13 +23,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-if (process.env.NODE_ENV !== 'production' && process.env.REACT_APP_TRACE_UPDATES) {
-  const { whyDidYouUpdate } = require('why-did-you-update')
-  whyDidYouUpdate(React)
-}
-
-// import 'babel-polyfill'
-
 // The editor core
 import Editor, { Editable, createEmptyState } from 'ory-editor-core'
 import 'ory-editor-core/lib/index.css' // we also want to load the stylesheets
@@ -88,6 +81,11 @@ const fakeImageUploadService = (defaultUrl) => (file, reportProgress) => {
       }
     }, 500)
   })
+}
+
+if (process.env.NODE_ENV !== 'production' && process.env.REACT_APP_TRACE_UPDATES) {
+  const { whyDidYouUpdate } = require('why-did-you-update')
+  whyDidYouUpdate(React)
 }
 
 // Define which plugins we want to use (all of the above)

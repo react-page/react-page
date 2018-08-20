@@ -49,4 +49,7 @@ const Inner = ({
 const mapStateToProps = createStructuredSelector({ isEditMode })
 const mapDispatchToProps = { editMode }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Inner)
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Inner)

@@ -71,4 +71,7 @@ const mapActionsToProps = {
   updateSetting
 }
 
-export default connect(mapStateToProps, mapActionsToProps)(Notifier)
+export default connect(
+  mapStateToProps,
+  mapActionsToProps
+)(Notifier)

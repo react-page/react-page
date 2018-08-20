@@ -37,9 +37,9 @@ export const U = 'EMPHASIZE/U'
 const createButton = (type, icon) => ({ editorState, onChange }: Props) => {
   const onClick = e => {
     e.preventDefault()
-    onChange({value: editorState
-      .change()
-      .toggleMark(type).value})
+    onChange({
+      value: editorState.change().toggleMark(type).value
+    })
   }
 
   const isActive =
@@ -79,10 +79,7 @@ export default class EmphasizePlugin extends Plugin {
           return
       }
 
-      return state
-        .change()
-        .toggleMark(mark)
-        .value
+      return state.change().toggleMark(mark).value
     }
   }
 

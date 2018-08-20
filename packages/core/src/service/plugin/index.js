@@ -60,13 +60,11 @@ export default class PluginService {
   /**
    * Instantiate a new PluginService instance. You can provide your own set of content and layout plugins here.
    */
-  constructor(
-    {
-      content = [],
-      layout = [],
-      native
-    }: { content: [], layout: [], native?: NativeFactory } = {}
-  ) {
+  constructor({
+    content = [],
+    layout = [],
+    native
+  }: { content: [], layout: [], native?: NativeFactory } = {}) {
     this.plugins = {
       content: [defaultPlugin, ...content].map(
         (config: any) => new ContentPlugin(config)
@@ -122,10 +120,10 @@ export default class PluginService {
   setContentPlugins = (plugins: Array<any> = []) => {
     this.plugins.content = []
 
-      // semicolon is required to avoid syntax error
-      ;[defaultPlugin, ...plugins].forEach((plugin: any) =>
-        this.addContentPlugin(plugin)
-      )
+    // semicolon is required to avoid syntax error
+    ;[defaultPlugin, ...plugins].forEach((plugin: any) =>
+      this.addContentPlugin(plugin)
+    )
   }
 
   addContentPlugin = (config: any) => {
@@ -141,7 +139,10 @@ export default class PluginService {
   /**
    * Finds a layout plugin based on its name and version.
    */
-  findLayoutPlugin = (name: string, version: string): { plugin: LayoutPlugin, pluginWrongVersion?: LayoutPlugin } => {
+  findLayoutPlugin = (
+    name: string,
+    version: string
+  ): { plugin: LayoutPlugin, pluginWrongVersion?: LayoutPlugin } => {
     const plugin = this.plugins.layout.find(find(name, version))
     let pluginWrongVersion = undefined
     if (!plugin) {
@@ -156,7 +157,10 @@ export default class PluginService {
   /**
    * Finds a content plugin based on its name and version.
    */
-  findContentPlugin = (name: string, version: string): { plugin: ContentPlugin, pluginWrongVersion?: ContentPlugin } => {
+  findContentPlugin = (
+    name: string,
+    version: string
+  ): { plugin: ContentPlugin, pluginWrongVersion?: ContentPlugin } => {
     const plugin = this.plugins.content.find(find(name, version))
     let pluginWrongVersion = undefined
     if (!plugin) {
@@ -176,15 +180,23 @@ export default class PluginService {
     ...this.plugins.layout.map(({ name }: Plugin) => name)
   ]
 
-  migratePluginState = (state: any, plugin: Plugin, dataVersion: string): ?Object => {
+  migratePluginState = (
+    state: any,
+    plugin: Plugin,
+    dataVersion: string
+  ): ?Object => {
     if (!plugin || !dataVersion || semver.valid(dataVersion) === null) {
       return state
     }
     let currentDataVersion = dataVersion
     let migrations = plugin.migrations ? plugin.migrations : []
     while (true) {
-      const migration = migrations.find(m => semver.satisfies(currentDataVersion, m.fromVersionRange))
-      migrations = migrations.filter(m => !semver.satisfies(currentDataVersion, m.fromVersionRange))
+      const migration = migrations.find(m =>
+        semver.satisfies(currentDataVersion, m.fromVersionRange)
+      )
+      migrations = migrations.filter(
+        m => !semver.satisfies(currentDataVersion, m.fromVersionRange)
+      )
       if (!migration) {
         // We assume all migrations necessary for the current version of plugin to work are provided
         // Therefore if we don't find any, that means we are done and state is up to date
@@ -197,7 +209,10 @@ export default class PluginService {
   }
 
   getNewPluginState = (found: any, state: any, version: string) => {
-    if (!found.pluginWrongVersion || semver.lt(found.pluginWrongVersion.version, version)) {
+    if (
+      !found.pluginWrongVersion ||
+      semver.lt(found.pluginWrongVersion.version, version)
+    ) {
       // Standard case
       return {
         plugin: found.plugin,
@@ -205,7 +220,11 @@ export default class PluginService {
       }
     } else {
       // Attempt to migrate
-      const migratedState = this.migratePluginState(state, found.pluginWrongVersion, version)
+      const migratedState = this.migratePluginState(
+        state,
+        found.pluginWrongVersion,
+        version
+      )
       if (found.pluginWrongVersion && migratedState) {
         return {
           plugin: found.pluginWrongVersion,
@@ -236,23 +255,29 @@ export default class PluginService {
     const {
       plugin: { name: contentName = null, version: contentVersion = '*' } = {},
       state: contentState
-    } =
-      content || {}
+    } = content || {}
     const {
       plugin: { name: layoutName = null, version: layoutVersion = '*' } = {},
       state: layoutState
-    } =
-      layout || {}
+    } = layout || {}
 
     if (contentName) {
       const found = this.findContentPlugin(contentName, contentVersion)
-      const newContentState = this.getNewPluginState(found, contentState, contentVersion)
+      const newContentState = this.getNewPluginState(
+        found,
+        contentState,
+        contentVersion
+      )
       newState.content = newContentState
     }
 
     if (layoutName) {
       const found = this.findLayoutPlugin(layoutName, layoutVersion)
-      const newLayoutState = this.getNewPluginState(found, layoutState, layoutVersion)
+      const newLayoutState = this.getNewPluginState(
+        found,
+        layoutState,
+        layoutVersion
+      )
       newState.layout = newLayoutState
     }
 

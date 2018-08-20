@@ -46,8 +46,7 @@ export default class AlignmentPlugin extends Plugin {
       onChange({
         value: editorState
           .change()
-          .setBlocks({ data: { align: isActive ? null : align } })
-          .value
+          .setBlocks({ data: { align: isActive ? null : align } }).value
       })
     }
 

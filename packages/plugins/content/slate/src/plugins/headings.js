@@ -140,7 +140,7 @@ export default class HeadingsPlugin extends Plugin {
   }
 
   renderNode = props => {
-    const { children } = props;
+    const { children } = props
     const style = { textAlign: props.node.data.get('align') }
     switch (props.node.type) {
       case H1:

@@ -23,7 +23,7 @@
 // @flow
 /* eslint-disable no-empty-function, no-unused-vars */
 import React, { Component, Element } from 'react'
-import semver from 'semver';
+import semver from 'semver'
 
 export type ContentPluginProps<T> = {
   /**
@@ -98,13 +98,15 @@ export type LayoutPluginProps<T> = {
  */
 export class Migration {
   constructor(config: any) {
-    const {
-      toVersion,
-      migrate,
-      fromVersionRange
-    } = config
+    const { toVersion, migrate, fromVersionRange } = config
 
-    if (!migrate || !toVersion || !fromVersionRange || semver.valid(toVersion) === null || semver.validRange(fromVersionRange) === null) {
+    if (
+      !migrate ||
+      !toVersion ||
+      !fromVersionRange ||
+      semver.valid(toVersion) === null ||
+      semver.validRange(fromVersionRange) === null
+    ) {
       throw new Error(
         `A migration toVersion, fromVersionRange and migrate function must be defined, got ${JSON.stringify(
           config
@@ -307,7 +309,7 @@ export class ContentPlugin extends Plugin {
     const {
       createInitialState,
       allowInlineNeighbours = false,
-      isInlineable = false,
+      isInlineable = false
     } = config
 
     this.isInlineable = isInlineable
