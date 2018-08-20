@@ -49,7 +49,7 @@
     "lint:watch": "npm run watch:js -- -c \"npm run lint\"",
     "prettier": "prettier --single-quote --parser flow --no-semi --write \"packages/*/src/**/*.js\" \"packages/plugins/*/*/src/**/*.js\" \"packages/plugins/*/*/src/*.js\"",
     "publish": "lerna publish",
-    "start": "cross-env NODE_ENV=development npm-run-all build start:watch",
+    "start": "cross-env NODE_ENV=development npm-run-all build:lib start:watch",
     "start:watch": "npm-run-all -p build:watch start:examples",
     "start:examples": "cross-env NODE_ENV=development lerna run start --parallel --stream",
     "test": "cross-env NODE_ENV=test jest --coverage",
