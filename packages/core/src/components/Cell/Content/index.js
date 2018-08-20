@@ -41,8 +41,12 @@ import type { ComponetizedCell } from '../../../types/editable'
 // TODO clean me up #157
 class Content extends Component {
   componentWillReceiveProps(nextProps: ComponetizedCell) {
-    const { node: { focused: was } } = this.props
-    const { node: { focused: is, focusSource } } = nextProps
+    const {
+      node: { focused: was }
+    } = this.props
+    const {
+      node: { focused: is, focusSource }
+    } = nextProps
     const {
       isEditMode,
       editable,
@@ -162,4 +166,7 @@ const mapDispatchToProps = (dispatch: Function, { id }: ComponetizedCell) =>
     dispatch
   )
 
-export default connect(mapStateToProps, mapDispatchToProps)(Content)
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Content)

@@ -37,18 +37,20 @@ export const optimizeRows = (rows: Array<Row> = []): Array<Row> =>
 export const optimizeCell = ({ rows, ...other }: Cell): Cell => ({
   ...other,
   rows: (rows || [])
-    .map((r: Row): Array<Row> => {
-      const { cells = [] } = r
-      if (cells.length !== 1) {
+    .map(
+      (r: Row): Array<Row> => {
+        const { cells = [] } = r
+        if (cells.length !== 1) {
+          return [r]
+        }
+
+        const { rows: cellRows = [], layout }: Cell = cells[0]
+        if (cellRows.length > 0 && !layout) {
+          return cellRows
+        }
         return [r]
       }
-
-      const { rows: cellRows = [], layout }: Cell = cells[0]
-      if (cellRows.length > 0 && !layout) {
-        return cellRows
-      }
-      return [r]
-    })
+    )
     .reduce(flatten, [])
 })
 

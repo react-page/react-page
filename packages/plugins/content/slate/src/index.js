@@ -37,7 +37,6 @@ import * as hooks from './hooks'
 import parse5 from 'parse5'
 import v002 from './migrations/v002'
 
-
 export const createInitialState = hooks.createInitialState
 
 export const html = new Html({
@@ -61,10 +60,7 @@ export default (plugins: Plugin[] = hooks.defaultPlugins) => {
     }
 
     if (data.isShift && data.key === 'enter') {
-      return state
-        .change()
-        .insertText('\n')
-        .value
+      return state.change().insertText('\n').value
     }
 
     for (let i = 0; i < plugins.length; i++) {
@@ -113,7 +109,10 @@ export default (plugins: Plugin[] = hooks.defaultPlugins) => {
 
   const Slate = (cellProps: Props) => <Component {...cellProps} {...props} />
   const StaticComponent = ({ state: { editorState } = {} }: Props) => (
-    <div className="ory-plugins-content-slate-container" dangerouslySetInnerHTML={{ __html: html.serialize(editorState) }} />
+    <div
+      className="ory-plugins-content-slate-container"
+      dangerouslySetInnerHTML={{ __html: html.serialize(editorState) }}
+    />
   )
   return {
     Component: Slate,
@@ -135,9 +134,7 @@ export default (plugins: Plugin[] = hooks.defaultPlugins) => {
       }
 
       setTimeout(() => {
-        props.state.editorState
-          .change()
-          .focus()
+        props.state.editorState.change().focus()
       }, 0)
     },
 
@@ -146,9 +143,8 @@ export default (plugins: Plugin[] = hooks.defaultPlugins) => {
         return
       }
 
-      props.onChange({ editorState: props.state.editorState
-        .change()
-        .blur().value
+      props.onChange({
+        editorState: props.state.editorState.change().blur().value
       })
     },
 

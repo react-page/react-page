@@ -77,21 +77,19 @@ class Editor {
   dragDropContext: any
   defaultPlugin: any
 
-  constructor(
-    {
-      plugins,
-      middleware = [],
-      editables = [],
-      defaultPlugin = pluginDefault,
-      dragDropBackend
-    }: {
-      plugins: { content: [], layout: [], native?: any },
-      middleware: [],
-      editables: EditableType[],
-      defaultPlugin: any,
-      dragDropBackend: any
-    } = {}
-  ) {
+  constructor({
+    plugins,
+    middleware = [],
+    editables = [],
+    defaultPlugin = pluginDefault,
+    dragDropBackend
+  }: {
+    plugins: { content: [], layout: [], native?: any },
+    middleware: [],
+    editables: EditableType[],
+    defaultPlugin: any,
+    dragDropBackend: any
+  } = {}) {
     if (instance) {
       console.warn(
         'You defined multiple instances of the Editor class, this can cause problems.'

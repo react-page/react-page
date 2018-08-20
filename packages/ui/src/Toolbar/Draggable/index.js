@@ -74,9 +74,10 @@ const mapDispatchToProps = { insertMode, editMode, layoutMode, clearHover }
 
 export default (dragType: string = 'CELL') => {
   if (!instances[dragType]) {
-    instances[dragType] = connect(mapStateToProps, mapDispatchToProps)(
-      dragSource(dragType, source, collect)(Draggable)
-    )
+    instances[dragType] = connect(
+      mapStateToProps,
+      mapDispatchToProps
+    )(dragSource(dragType, source, collect)(Draggable))
   }
 
   return instances[dragType]

@@ -44,9 +44,7 @@ class Provider extends Component {
     return (
       <ReduxProvider store={editor.store}>
         <DragDropContext>
-          <ThemeProvider>
-            {children}
-          </ThemeProvider>
+          <ThemeProvider>{children}</ThemeProvider>
         </DragDropContext>
       </ReduxProvider>
     )

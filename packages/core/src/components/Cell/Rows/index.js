@@ -33,7 +33,12 @@ class Rows extends Component {
   props: ComponetizedCell
 
   render() {
-    const { node: { rows = [] }, editable, id, ancestors = [] } = this.props
+    const {
+      node: { rows = [] },
+      editable,
+      id,
+      ancestors = []
+    } = this.props
 
     return (
       <div className="ory-cell-inner ory-cell-rows">

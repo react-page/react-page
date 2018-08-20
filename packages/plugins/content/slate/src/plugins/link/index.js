@@ -70,10 +70,7 @@ class LinkButton extends Component {
     )
 
     if (hasLinks) {
-      const newState = editorState
-        .change()
-        .unwrapInline(A)
-        .value
+      const newState = editorState.change().unwrapInline(A).value
       onChange({ value: newState })
     } else if (editorState.selection.isExpanded) {
       this.setState({
@@ -97,10 +94,7 @@ class LinkButton extends Component {
   handleClose = () => {
     this.setState({ open: false })
 
-    const newState = this.props.editorState
-      .change()
-      .focus()
-      .value
+    const newState = this.props.editorState.change().focus().value
     window.setTimeout(() => this.props.onChange({ value: newState }), 1)
   }
 
@@ -120,8 +114,7 @@ class LinkButton extends Component {
           type: A,
           data: { href: this.state.href }
         })
-        .collapseToEnd()
-        .value
+        .collapseToEnd().value
 
       window.setTimeout(() => this.props.onChange({ value: newState }), 1)
       window.setTimeout(() => this.props.focus(), 100)
@@ -142,8 +135,7 @@ class LinkButton extends Component {
         data: { href: this.state.href }
       })
       .collapseToEnd()
-      .focus()
-      .value
+      .focus().value
 
     this.props.onChange({ value: newState })
     window.setTimeout(() => this.props.focus(), 100)
@@ -158,24 +150,26 @@ class LinkButton extends Component {
   }
 
   render() {
-    const actions = <React.Fragment>
-      <Button
-        variant='flat'
-        label="Cancel"
-        color="primary"
-        onClick={this.handleClose}
-      >
-        Cancel
-      </Button>
-      <Button
-        variant='flat'
-        label="Ok"
-        color="primary"
-        onClick={this.handleSubmit}
-      >
-        Ok
-      </Button>
-    </React.Fragment>
+    const actions = (
+      <React.Fragment>
+        <Button
+          variant="flat"
+          label="Cancel"
+          color="primary"
+          onClick={this.handleClose}
+        >
+          Cancel
+        </Button>
+        <Button
+          variant="flat"
+          label="Ok"
+          color="primary"
+          onClick={this.handleSubmit}
+        >
+          Ok
+        </Button>
+      </React.Fragment>
+    )
     const { editorState } = this.props
 
     const hasLinks = editorState.inlines.some(
@@ -197,7 +191,9 @@ class LinkButton extends Component {
               open={this.state.open}
               actions={[actions]}
             >
-              <DialogTitle id="confirmation-dialog-title">Create a link</DialogTitle>
+              <DialogTitle id="confirmation-dialog-title">
+                Create a link
+              </DialogTitle>
               <DialogContent>
                 {this.state.wasExpanded ? null : (
                   <div>
@@ -216,9 +212,7 @@ class LinkButton extends Component {
                   />
                 </div>
               </DialogContent>
-              <DialogActions>
-                {actions}
-              </DialogActions>
+              <DialogActions>{actions}</DialogActions>
             </Dialog>
           </span>
         </span>
@@ -245,9 +239,11 @@ export default class LinkPlugin extends Plugin {
           type: A,
           nodes: next(el.childNodes),
           data: Data.create({
-            href: (el.attrs.find(({ name }) => name === 'href') || {
-              value: ''
-            }).value
+            href: (
+              el.attrs.find(({ name }) => name === 'href') || {
+                value: ''
+              }
+            ).value
           })
         }
     }
@@ -269,9 +265,7 @@ export default class LinkPlugin extends Plugin {
   renderNode = props => {
     switch (props.node.type) {
       case A: {
-        return (
-          <Link {...props} />
-        )
+        return <Link {...props} />
       }
     }
   }

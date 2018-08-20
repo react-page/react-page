@@ -30,7 +30,7 @@ const darkBlack = 'rgba(0, 0, 0, 0.87)'
 const BottomToolbar = ({
   open = false,
   children,
-  className, 
+  className,
   theme
 }: {
   open?: boolean,
@@ -40,14 +40,16 @@ const BottomToolbar = ({
 }) => (
   <ThemeProvider theme={theme}>
     <Drawer
-      variant='persistent'
+      variant="persistent"
       className={className}
       open={open}
-      anchor='bottom'
-      PaperProps={{style: {
-        backgroundColor: 'transparent',
-        border: 'none'
-      }}}
+      anchor="bottom"
+      PaperProps={{
+        style: {
+          backgroundColor: 'transparent',
+          border: 'none'
+        }
+      }}
     >
       <div
         style={{
