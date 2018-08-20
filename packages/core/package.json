@@ -14,7 +14,7 @@
     "docs": "documentation build ./src/**/*.js --format md --github -o ../../docs/api/core.md",
     "prebuild": "npm run clean",
     "clean": "rimraf \"lib/*\"",
-    "flow:generate": "flow-typed install  --flowVersion=0.46.0"
+    "flow:generate": "flow-typed install  --flowVersion=0.79.1"
   },
   "peerDependencies": {
     "react": "^16.0.0",
