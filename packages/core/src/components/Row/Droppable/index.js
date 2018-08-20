@@ -57,6 +57,7 @@ class Droppable extends Component {
 const mapDispatchToProps = { ...hoverActions, ...insertActions }
 
 export default (dropTypes: string[] = ['CELL']) =>
-  connect(null, mapDispatchToProps)(
-    dropTarget(dropTypes, target, monitorConnect)(Droppable)
-  )
+  connect(
+    null,
+    mapDispatchToProps
+  )(dropTarget(dropTypes, target, monitorConnect)(Droppable))

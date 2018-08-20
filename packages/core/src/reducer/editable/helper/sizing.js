@@ -40,22 +40,26 @@ export const sumSizes = (cells: Array<Cell> = []): number =>
  * Updates each cell's size boundaries.
  */
 export const computeBounds = (cells: Array<Cell> = []): Array<Cell> =>
-  cells.map((c: Cell, k: number): Cell => ({
-    ...c,
-    bounds: {
-      left: k > 0 ? cells[k - 1].size + c.size - 1 : 0,
-      right: k === cells.length - 1 ? 0 : c.size - 1 + cells[k + 1].size
-    }
-  }))
+  cells.map(
+    (c: Cell, k: number): Cell => ({
+      ...c,
+      bounds: {
+        left: k > 0 ? cells[k - 1].size + c.size - 1 : 0,
+        right: k === cells.length - 1 ? 0 : c.size - 1 + cells[k + 1].size
+      }
+    })
+  )
 
 /**
  * Computes if a cell is resizable.
  */
 export const computeResizeable = (cells: Array<Cell> = []): Array<Cell> =>
-  cells.map((c: Cell, k: number): Cell => ({
-    ...c,
-    resizable: cells.length > 1 && k !== cells.length - 1
-  }))
+  cells.map(
+    (c: Cell, k: number): Cell => ({
+      ...c,
+      resizable: cells.length > 1 && k !== cells.length - 1
+    })
+  )
 
 /**
  * Computes sizes an inline element was found.

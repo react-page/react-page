@@ -111,7 +111,10 @@ const mapDispatchToProps = {
   ...insertActions
 }
 
-export default connect(null, mapDispatchToProps)(
+export default connect(
+  null,
+  mapDispatchToProps
+)(
   dragSource(({ dragType }: { dragType: string }) => dragType, source, collect)(
     Draggable
   )

@@ -27,7 +27,7 @@ import { Portal } from 'react-portal'
 import position from 'selection-position'
 import { Editor } from 'slate-react'
 import { BottomToolbar, ThemeProvider } from 'ory-editor-ui'
-import { placeholder } from '../const';
+import { placeholder } from '../const'
 
 import { html as serializer } from '../hooks.js'
 
@@ -35,8 +35,8 @@ const onBlur = (_event, _data, state) => state
 
 const theme = createMuiTheme({
   palette: {
-    type: 'dark',
-  },
+    type: 'dark'
+  }
 })
 
 class Slate extends Component {
@@ -57,7 +57,6 @@ class Slate extends Component {
     this.props.onChange({ editorState: value })
   }
 
-
   handleOpen = portal => {
     // this.toolbar = portal.firstChild
   }
@@ -66,7 +65,11 @@ class Slate extends Component {
     const { editorState } = this.props.state
     const toolbar = this.toolbar
 
-    if (!toolbar || editorState.isBlurred || editorState.selection.isCollapsed) {
+    if (
+      !toolbar ||
+      editorState.isBlurred ||
+      editorState.selection.isCollapsed
+    ) {
       return
     }
     const pos = position()
@@ -88,9 +91,7 @@ class Slate extends Component {
 
     const { document } = serializer.deserialize(data.html)
 
-    return state
-      .change()
-      .insertFragment(document)
+    return state.change().insertFragment(document)
   }
 
   render() {
@@ -112,11 +113,16 @@ class Slate extends Component {
           {/* ory-prevent-blur is required to prevent global blurring */}
           <ThemeProvider theme={theme}>
             <div
-              className={'ory-prevent-blur ory-plugins-content-slate-inline-toolbar ' + (isOpened ? '' : 'ory-plugins-content-slate-inline-toolbar--hidden')}
+              className={
+                'ory-prevent-blur ory-plugins-content-slate-inline-toolbar ' +
+                (isOpened
+                  ? ''
+                  : 'ory-plugins-content-slate-inline-toolbar--hidden')
+              }
               style={{ padding: 0 }}
               ref={toolbar => {
-                this.toolbar = toolbar;
-                toolbar && this.updateToolbar();
+                this.toolbar = toolbar
+                toolbar && this.updateToolbar()
               }}
             >
               <HoverButtons

@@ -29,7 +29,7 @@ import Checkbox from '@material-ui/core/Checkbox'
 import type { PropTypes } from '../index.js'
 
 import { BottomToolbar } from 'ory-editor-ui'
-import { darkTheme } from 'ory-editor-ui/lib/ThemeProvider';
+import { darkTheme } from 'ory-editor-ui/lib/ThemeProvider'
 
 const handleChange = (onChange: Function) => (e: Event) => {
   const target = e.target
@@ -66,7 +66,7 @@ const Form = (props: PropTypes) => (
         value={props.state.src}
         onChange={handleChange(props.onChange)}
       />
-      <br/>
+      <br />
       <TextField
         placeholder="http://example.com"
         label="Link location (url)"
@@ -75,14 +75,16 @@ const Form = (props: PropTypes) => (
         value={props.state.href}
         onChange={handleChange(props.onChange)}
       />
-      <br/>
-      <br/>
+      <br />
+      <br />
       <FormControlLabel
-        control={<Checkbox
-          checked={props.state.target === '_blank'}
-          name="target"
-          onChange={handleChange(props.onChange)}
-        />}
+        control={
+          <Checkbox
+            checked={props.state.target === '_blank'}
+            name="target"
+            onChange={handleChange(props.onChange)}
+          />
+        }
         label="Open in new window"
       />
     </BottomToolbar>

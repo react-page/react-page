@@ -27,14 +27,12 @@ import classNames from 'classnames'
 const defaultGetWidth = element => element.clientWidth
 const defaultGetHeight = element => element.clientHeight
 
-const Dimensions = (
-  {
-    getHeight = defaultGetHeight,
-    getWidth = defaultGetWidth,
-    className = null,
-    elementResize = false
-  } = {}
-) => ComposedComponent => {
+const Dimensions = ({
+  getHeight = defaultGetHeight,
+  getWidth = defaultGetWidth,
+  className = null,
+  elementResize = false
+} = {}) => ComposedComponent => {
   class Decorator extends Component {
     state = {}
 

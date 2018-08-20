@@ -27,7 +27,7 @@ import Icon from '@material-ui/icons/CropLandscape'
 import TextField from '@material-ui/core/TextField'
 import type {
   LayoutPluginProps,
-    ContentPlugin
+  ContentPlugin
 } from 'ory-editor-core/lib/service/plugin/classes'
 import { BottomToolbar } from 'ory-editor-ui'
 import ThemeProvider, { darkTheme } from 'ory-editor-ui/lib/ThemeProvider'
@@ -36,9 +36,11 @@ class PluginComponent extends Component {
   state = { hidden: false }
   props: LayoutPluginProps<{}> & { children: any }
 
-  handleChangeBackground = (e: any) => this.props.onChange({ background: e.target.value })
+  handleChangeBackground = (e: any) =>
+    this.props.onChange({ background: e.target.value })
 
-  handleChangeDarken = (e: any) => this.props.onChange({ darken: e.target.value })
+  handleChangeDarken = (e: any) =>
+    this.props.onChange({ darken: e.target.value })
 
   render() {
     const {
@@ -62,7 +64,7 @@ class PluginComponent extends Component {
               style={{ width: '256px' }}
               value={background}
               onChange={this.handleChangeBackground}
-          />
+            />
             <TextField
               placeholder="0.3"
               label="Darken level"

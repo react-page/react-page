@@ -49,4 +49,7 @@ const Inner = ({
 const mapStateToProps = createStructuredSelector({ isLayoutMode })
 const mapDispatchToProps = { layoutMode }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Inner)
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Inner)

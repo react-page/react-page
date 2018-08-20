@@ -36,7 +36,9 @@ const HTMLRow = ({ cells = [], className, hasInlineChildren }: Row) => (
       'ory-row-has-floating-children': hasInlineChildren
     })}
   >
-    {cells.map((c: Cell) => <HTMLCell key={c.id} {...c} />)}
+    {cells.map((c: Cell) => (
+      <HTMLCell key={c.id} {...c} />
+    ))}
   </div>
 )
 
@@ -58,7 +60,10 @@ const HTMLCell = (props: Cell) => {
   })
 
   if (layout.plugin) {
-    const { state, plugin: { Component } } = layout
+    const {
+      state,
+      plugin: { Component }
+    } = layout
 
     return (
       <div className={cn}>
@@ -72,7 +77,10 @@ const HTMLCell = (props: Cell) => {
       </div>
     )
   } else if (content.plugin) {
-    const { state, plugin: { Component, StaticComponent } } = content
+    const {
+      state,
+      plugin: { Component, StaticComponent }
+    } = content
     const Renderer = StaticComponent || Component
 
     return (

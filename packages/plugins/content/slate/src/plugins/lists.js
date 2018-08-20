@@ -36,9 +36,9 @@ export const LI = 'LISTS/LIST-ITEM'
 
 export default class ListsPlugin extends Plugin {
   constructor(props: Props) {
-    super(props);
+    super(props)
 
-    this.DEFAULT_NODE = props.DEFAULT_NODE;
+    this.DEFAULT_NODE = props.DEFAULT_NODE
     this.plugins = [
       createListPlugin({
         types: [UL, OL],
@@ -71,11 +71,12 @@ export default class ListsPlugin extends Plugin {
         }
       } else {
         const isList = editorState.blocks.some(block => block.type === LI)
-        const isType = editorState.blocks.some(block =>
-          !!editorState.document.getClosest(
-            block.key,
-            parent => parent.type === type
-          )
+        const isType = editorState.blocks.some(
+          block =>
+            !!editorState.document.getClosest(
+              block.key,
+              parent => parent.type === type
+            )
         )
         if (isList && isType) {
           change
@@ -93,11 +94,12 @@ export default class ListsPlugin extends Plugin {
     }
 
     const isList = editorState.blocks.some(block => block.type === LI)
-    const isType = editorState.blocks.some(block =>
-      !!editorState.document.getClosest(
-        block.key,
-        parent => parent.type === type
-      )
+    const isType = editorState.blocks.some(
+      block =>
+        !!editorState.document.getClosest(
+          block.key,
+          parent => parent.type === type
+        )
     )
 
     return (
@@ -162,7 +164,7 @@ export default class ListsPlugin extends Plugin {
   }
 
   renderNode = props => {
-    const { children, attributes } = props;
+    const { children, attributes } = props
     switch (props.node.type) {
       case UL:
         return <ul {...attributes}>{children}</ul>
