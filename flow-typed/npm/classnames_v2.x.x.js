@@ -1,16 +1,23 @@
-// flow-typed signature: d5a9a0adae378a1e81a51455c28fd20f
-// flow-typed version: 3c3f096590/classnames_v2.x.x/flow_>=v0.23.x
+// flow-typed signature: cf86673cc32d185bdab1d2ea90578d37
+// flow-typed version: 614bf49aa8/classnames_v2.x.x/flow_>=v0.25.x
 
 type $npm$classnames$Classes =
-  string |
-  {[className: string]: * } |
-  Array<string> |
-  false |
-  void |
-  null
+  | string
+  | { [className: string]: * }
+  | false
+  | void
+  | null;
 
-declare module 'classnames' {
-  declare function exports(
-    ...classes: Array<$npm$classnames$Classes>
-  ): string;
+declare module "classnames" {
+  declare module.exports: (
+    ...classes: Array<$npm$classnames$Classes | $npm$classnames$Classes[]>
+  ) => string;
+}
+
+declare module "classnames/bind" {
+  declare module.exports: $Exports<"classnames">;
+}
+
+declare module "classnames/dedupe" {
+  declare module.exports: $Exports<"classnames">;
 }
