@@ -6,7 +6,7 @@
 
 ## index
 
-[packages/plugins/content/native/src/index.js:47-58](https://github.com/ory-am/editor/blob/1509a6b21b85308dc9508fcf3899221b653a43e2/packages/plugins/content/native/src/index.js#L47-L58 "Source code on GitHub")
+[packages/plugins/content/native/src/index.js:47-58](https://github.com/ory-am/editor/blob/913fc7b743d0334cab100e480e33734c84b850b6/packages/plugins/content/native/src/index.js#L47-L58 "Source code on GitHub")
 
 **Parameters**
 

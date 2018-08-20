@@ -6,6 +6,7 @@
     "babel-cli": "^6.26.0",
     "babel-eslint": "7.2.3",
     "babel-preset-react-app": "^2.2.0",
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.26.0",
     "chokidar-cli": "^1.2.0",
     "coveralls": "^2.13.1",
     "cross-env": "^5.0.0",
@@ -21,7 +22,7 @@
     "flow-bin": "^0.46.0",
     "flow-typed": "^2.1.5",
     "gitbook-cli": "^2.3.0",
-    "husky": "^0.13.3",
+    "husky": "^0.14.3",
     "lerna": "^2.1.2",
     "lint-staged": "^3.4.1",
     "npm-run-all": "^4.1.1",
@@ -29,7 +30,6 @@
     "postcss-cssnext": "^2.10.0",
     "postcss-import": "^9.1.0",
     "postcss-nested": "^2.0.2",
-    "pre-commit": "^1.2.2",
     "prettier": "^1.6.1",
     "pushstate-server": "^3.0.0",
     "react": "^16.0.0",
@@ -38,9 +38,11 @@
     "rimraf": "^2.6.1",
     "unexpected": "^10.33.2",
     "@material-ui/core": "^1.5.1",
-    "@material-ui/icons": "^2.0.3"
+    "@material-ui/icons": "^2.0.3",
+    "jest": "^18.1.0"
   },
   "scripts": {
+    "precommit": "npm-run-all prettier docs:api",
     "coveralls": "cat ./coverage/lcov.info | coveralls",
     "bootstrap": "lerna bootstrap",
     "build": "cross-env NODE_ENV=production lerna run build --stream",
@@ -63,12 +65,11 @@
     "test": "cross-env NODE_ENV=test jest --coverage",
     "test:watch": "cross-env NODE_ENV=test jest --watch",
     "watch:js": "chokidar \"+(packages)/*/src/**/*.js\" \"+(packages)/plugins/*/src/**/*.js\" --initial",
-    "postinstall": "npm-run-all clean clean:lerna bootstrap build:lib",
+    "postinstall": "npm-run-all bootstrap build:lib",
     "serve": "pushstate-server ./examples/build",
     "heroku-prebuild": "git init",
     "heroku-postbuild": "npm run build"
   },
-  "pre-commit": "docs:api",
   "jest": {
     "setupTestFrameworkScriptFile": "./config/jestTestSetup",
     "testPathIgnorePatterns": [
