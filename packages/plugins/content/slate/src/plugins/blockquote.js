@@ -89,7 +89,6 @@ export default class BlockquotePlugin extends Plugin {
     }
   }
 
-
   plugins = [
     createBlockquotePlugin({
       type: BLOCKQUOTE,

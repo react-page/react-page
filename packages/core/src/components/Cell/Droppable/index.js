@@ -87,7 +87,10 @@ class Droppable extends Component {
 
 const mapDispatchToProps = { ...hoverActions, ...insertActions }
 
-export default connect(null, mapDispatchToProps)(
+export default connect(
+  null,
+  mapDispatchToProps
+)(
   dropTarget(
     ({ dropTypes }: { dropTypes: Array<string> }) => dropTypes,
     target,

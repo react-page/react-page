@@ -94,16 +94,21 @@ class Raw extends Component {
   }
 
   render() {
-    const { isInsertMode, editor: { plugins } } = this.props
+    const {
+      isInsertMode,
+      editor: { plugins }
+    } = this.props
     const { searchFilter } = this.state
     const content = plugins.plugins.content.filter(searchFilter)
     const layout = plugins.plugins.layout.filter(searchFilter)
 
     return (
-      <Drawer variant='persistent' className="ory-toolbar-drawer" open={isInsertMode}>
-        <List subheader={
-          <ListSubheader>Add plugin to content</ListSubheader>
-        }>
+      <Drawer
+        variant="persistent"
+        className="ory-toolbar-drawer"
+        open={isInsertMode}
+      >
+        <List subheader={<ListSubheader>Add plugin to content</ListSubheader>}>
           <ListItem ref={this.onRef}>
             <TextField
               placeholder="Search plugins"
@@ -111,50 +116,52 @@ class Raw extends Component {
               onChange={this.onSearch}
             />
           </ListItem>
-          {layout.length + content.length === 0 && <ListSubheader>{this.props.noPluginFoundContent}</ListSubheader>}
+          {layout.length + content.length === 0 && (
+            <ListSubheader>{this.props.noPluginFoundContent}</ListSubheader>
+          )}
         </List>
-        {content.length > 0 && <List subheader={
-          <ListSubheader>Content plugins</ListSubheader>
-        }>
-          {content.map((plugin: ContentPlugin, k: Number) => {
-            const initialState = plugin.createInitialState()
+        {content.length > 0 && (
+          <List subheader={<ListSubheader>Content plugins</ListSubheader>}>
+            {content.map((plugin: ContentPlugin, k: Number) => {
+              const initialState = plugin.createInitialState()
 
-            return (
-              <Item
-                plugin={plugin}
-                key={k.toString()}
-                insert={{
-                  content: {
-                    plugin,
-                    state: initialState
-                  }
-                }}
-              />
-            )
-          })}
-        </List>}
-        {layout.length > 0 && <List subheader={
-          <ListSubheader>Layout plugins</ListSubheader>
-        }>
-          {layout.map((plugin: LayoutPlugin, k: Number) => {
-            const initialState = plugin.createInitialState()
-            const children = plugin.createInitialChildren()
+              return (
+                <Item
+                  plugin={plugin}
+                  key={k.toString()}
+                  insert={{
+                    content: {
+                      plugin,
+                      state: initialState
+                    }
+                  }}
+                />
+              )
+            })}
+          </List>
+        )}
+        {layout.length > 0 && (
+          <List subheader={<ListSubheader>Layout plugins</ListSubheader>}>
+            {layout.map((plugin: LayoutPlugin, k: Number) => {
+              const initialState = plugin.createInitialState()
+              const children = plugin.createInitialChildren()
 
-            return (
-              <Item
-                plugin={plugin}
-                key={k.toString()}
-                insert={{
-                  ...children,
-                  layout: {
-                    plugin,
-                    state: initialState
-                  }
-                }}
-              />
-            )
-          })}
-        </List>}
+              return (
+                <Item
+                  plugin={plugin}
+                  key={k.toString()}
+                  insert={{
+                    ...children,
+                    layout: {
+                      plugin,
+                      state: initialState
+                    }
+                  }}
+                />
+              )
+            })}
+          </List>
+        )}
       </Drawer>
     )
   }

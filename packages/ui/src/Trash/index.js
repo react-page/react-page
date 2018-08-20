@@ -71,18 +71,14 @@ const connectMonitor = (connect: any, monitor: any) => ({
 
 class Raw extends React.Component {
   render() {
-    const { isLayoutMode, connectDropTarget, isOverCurrent } = this.props;
+    const { isLayoutMode, connectDropTarget, isOverCurrent } = this.props
     return connectDropTarget(
       <div
         className={classNames('ory-controls-trash', {
           'ory-controls-trash-active': isLayoutMode
         })}
       >
-        <Button
-          variant='fab'
-          color='secondary'
-          disabled={!isOverCurrent}
-        >
+        <Button variant="fab" color="secondary" disabled={!isOverCurrent}>
           <Delete />
         </Button>
       </div>
@@ -119,9 +115,10 @@ const mapStateToProps = createStructuredSelector({
   isResizeMode
 })
 
-const Decorated = connect(mapStateToProps, mapDispatchToProps)(
-  dropTarget(types, target, connectMonitor)(Raw)
-)
+const Decorated = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(dropTarget(types, target, connectMonitor)(Raw))
 
 const Trash = (props: any) => (
   <Provider {...props}>

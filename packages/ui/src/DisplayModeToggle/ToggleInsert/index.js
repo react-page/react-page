@@ -49,4 +49,7 @@ const Inner = ({
 const mapStateToProps = createStructuredSelector({ isInsertMode })
 const mapDispatchToProps = { insertMode }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Inner)
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Inner)

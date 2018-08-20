@@ -88,7 +88,10 @@ class Editable extends Component {
   }
 
   render() {
-    const { id, editor: { store, defaultPlugin } } = this.props
+    const {
+      id,
+      editor: { store, defaultPlugin }
+    } = this.props
     const DragDropContext = this.DragDropContext
 
     return (

@@ -39,9 +39,9 @@ const fire = ({
   state,
   onChange
 }: {
-    state: Object,
-    onChange(state: Object): void
-  }) => onChange(state)
+  state: Object,
+  onChange(state: Object): void
+}) => onChange(state)
 
 const Solid = ({ height }: { height: number }) => <div style={{ height }} />
 
@@ -78,38 +78,38 @@ class Spacer extends Component {
         {readOnly ? (
           <Solid height={height} />
         ) : (
-            <Resizable onResize={this.onResize} height={height} width={0}>
-              <div style={{ height, position: 'relative' }}>
-                <BottomToolbar open={focused} theme={darkTheme}>
-                  <TextField
-                    placeholder="24"
-                    label="Element height (px)"
-                    style={{ width: '512px' }}
-                    value={height}
-                    onChange={handleChange(onChange)}
-                    color="white"
-                  />
-                </BottomToolbar>
-                <div
-                  style={{
-                    position: 'absolute',
-                    bottom: '0',
-                    height: '24px',
-                    width: '100%',
-                    background: faintBlack,
-                    textAlign: 'center'
-                  }}
+          <Resizable onResize={this.onResize} height={height} width={0}>
+            <div style={{ height, position: 'relative' }}>
+              <BottomToolbar open={focused} theme={darkTheme}>
+                <TextField
+                  placeholder="24"
+                  label="Element height (px)"
+                  style={{ width: '512px' }}
+                  value={height}
+                  onChange={handleChange(onChange)}
+                  color="white"
+                />
+              </BottomToolbar>
+              <div
+                style={{
+                  position: 'absolute',
+                  bottom: '0',
+                  height: '24px',
+                  width: '100%',
+                  background: faintBlack,
+                  textAlign: 'center'
+                }}
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  style={{ color: 'white', width: 24, height: 24 }}
                 >
-                  <svg
-                    viewBox="0 0 24 24"
-                    style={{ color: 'white', width: 24, height: 24 }}
-                  >
-                    <path d="M20 9H4v2h16V9zM4 15h16v-2H4v2z" />
-                  </svg>
-                </div>
+                  <path d="M20 9H4v2h16V9zM4 15h16v-2H4v2z" />
+                </svg>
               </div>
-            </Resizable>
-          )}
+            </div>
+          </Resizable>
+        )}
       </div>
     )
   }

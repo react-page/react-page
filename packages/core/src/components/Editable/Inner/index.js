@@ -93,4 +93,9 @@ const mapStateToProps = createStructuredSelector({ node: purifiedEditable })
 
 const mapDispatchToProps = { blurAllCells, createFallbackCell }
 
-export default dimensions()(connect(mapStateToProps, mapDispatchToProps)(Inner))
+export default dimensions()(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(Inner)
+)

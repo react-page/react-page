@@ -43,7 +43,9 @@ import type { ComponetizedRow } from '../../types/editable'
 class Row extends Component {
   constructor(props: ComponetizedRow) {
     super(props)
-    const { config: { whitelist } } = props
+    const {
+      config: { whitelist }
+    } = props
     this.Droppable = droppable(whitelist)
   }
 
@@ -77,4 +79,9 @@ const mapDispatchToProps = {
   blurAllCells
 }
 
-export default dimensions()(connect(mapStateToProps, mapDispatchToProps)(Row))
+export default dimensions()(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(Row)
+)
