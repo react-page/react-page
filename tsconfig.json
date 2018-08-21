@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "typeRoots": [
+      "./types",
+      "./node_modules/@types"
+    ],
+    "sourceMap": true,
+    "noImplicitAny": false,
+    "module": "commonjs",
+    "target": "es5",
+    "jsx": "react"
+  },
+  "exclude": [
+    "node_modules",
+    "docs",
+    "config",
+    "_book",
+    "types",
+    "examples"
+  ]
+}

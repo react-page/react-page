@@ -5,12 +5,12 @@
  * it under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- *  
+ *
  * ORY Editor is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Lesser General Public License for more details.
- *  
+ *
  * You should have received a copy of the GNU Lesser General Public License
  * along with ORY Editor.  If not, see <http://www.gnu.org/licenses/>.
  *
@@ -25,7 +25,7 @@ import React from 'react'
 import classNames from 'classnames'
 import PluginService from 'ory-editor-core/lib/service/plugin'
 import { editable as reducer } from 'ory-editor-core/lib/reducer/editable'
-import type { Cell, Row } from 'ory-editor-core/lib/types/editable'
+import { Cell, Row } from 'ory-editor-core/lib/types/editable'
 
 const gridClass = (size: number = 12): string =>
   `ory-cell-sm-${size} ory-cell-xs-12`
