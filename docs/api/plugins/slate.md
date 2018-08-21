@@ -2,60 +2,55 @@
 
 ### Table of Contents
 
--   [Plugin](#plugin)
-    -   [name](#name)
-    -   [nodes](#nodes)
-    -   [marks](#marks)
-    -   [plugins](#plugins)
-    -   [serialize](#serialize)
-    -   [deserialize](#deserialize)
-    -   [onKeyDown](#onkeydown)
-    -   [hoverButtons](#hoverbuttons)
-    -   [toolbarButtons](#toolbarbuttons)
+-   [Plugin][1]
+    -   [name][2]
+    -   [schema][3]
+    -   [plugins][4]
+    -   [serialize][5]
+    -   [deserialize][6]
+    -   [onKeyDown][7]
+    -   [hoverButtons][8]
+    -   [toolbarButtons][9]
+    -   [renderMark][10]
+    -   [renderNode][11]
 
 ## Plugin
 
-[packages/plugins/content/slate/src/plugins/Plugin.js:30-87](https://github.com/ory-am/editor/blob/1509a6b21b85308dc9508fcf3899221b653a43e2/packages/plugins/content/slate/src/plugins/Plugin.js#L30-L87 "Source code on GitHub")
+[packages/plugins/content/slate/src/plugins/Plugin.js:30-95][12]
 
 ### name
 
-[packages/plugins/content/slate/src/plugins/Plugin.js:34-34](https://github.com/ory-am/editor/blob/1509a6b21b85308dc9508fcf3899221b653a43e2/packages/plugins/content/slate/src/plugins/Plugin.js#L34-L34 "Source code on GitHub")
+[packages/plugins/content/slate/src/plugins/Plugin.js:34-34][13]
 
-Type: [string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)
+Type: [string][14]
 
-### nodes
+### schema
 
-[packages/plugins/content/slate/src/plugins/Plugin.js:39-39](https://github.com/ory-am/editor/blob/1509a6b21b85308dc9508fcf3899221b653a43e2/packages/plugins/content/slate/src/plugins/Plugin.js#L39-L39 "Source code on GitHub")
+[packages/plugins/content/slate/src/plugins/Plugin.js:39-42][15]
 
-Type: {}
-
-### marks
-
-[packages/plugins/content/slate/src/plugins/Plugin.js:44-44](https://github.com/ory-am/editor/blob/1509a6b21b85308dc9508fcf3899221b653a43e2/packages/plugins/content/slate/src/plugins/Plugin.js#L44-L44 "Source code on GitHub")
-
-Type: {}
+Type: {nodes: {}?, marks: {}?}
 
 ### plugins
 
-[packages/plugins/content/slate/src/plugins/Plugin.js:49-49](https://github.com/ory-am/editor/blob/1509a6b21b85308dc9508fcf3899221b653a43e2/packages/plugins/content/slate/src/plugins/Plugin.js#L49-L49 "Source code on GitHub")
+[packages/plugins/content/slate/src/plugins/Plugin.js:47-47][16]
 
-Type: [Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;any>
+Type: [Array][17]&lt;any>
 
 ### serialize
 
-[packages/plugins/content/slate/src/plugins/Plugin.js:54-57](https://github.com/ory-am/editor/blob/1509a6b21b85308dc9508fcf3899221b653a43e2/packages/plugins/content/slate/src/plugins/Plugin.js#L54-L57 "Source code on GitHub")
+[packages/plugins/content/slate/src/plugins/Plugin.js:52-55][18]
 
-Type: function (object: {kind: [string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String), type: [string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String), data: any}, children: [Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;any>): any
+Type: function (object: {object: [string][14], type: [string][14], data: any}, children: [Array][17]&lt;any>): any
 
 ### deserialize
 
-[packages/plugins/content/slate/src/plugins/Plugin.js:62-62](https://github.com/ory-am/editor/blob/1509a6b21b85308dc9508fcf3899221b653a43e2/packages/plugins/content/slate/src/plugins/Plugin.js#L62-L62 "Source code on GitHub")
+[packages/plugins/content/slate/src/plugins/Plugin.js:60-60][19]
 
-Type: function (): any
+Type: function (el: [Element][20], next: [Function][21]): any
 
 ### onKeyDown
 
-[packages/plugins/content/slate/src/plugins/Plugin.js:72-76](https://github.com/ory-am/editor/blob/1509a6b21b85308dc9508fcf3899221b653a43e2/packages/plugins/content/slate/src/plugins/Plugin.js#L72-L76 "Source code on GitHub")
+[packages/plugins/content/slate/src/plugins/Plugin.js:70-74][22]
 
 This handler is called when any key is pressed
 
@@ -69,12 +64,76 @@ Returns **any** the new editor state if the plugin handles the hotkey
 
 ### hoverButtons
 
-[packages/plugins/content/slate/src/plugins/Plugin.js:81-81](https://github.com/ory-am/editor/blob/1509a6b21b85308dc9508fcf3899221b653a43e2/packages/plugins/content/slate/src/plugins/Plugin.js#L81-L81 "Source code on GitHub")
+[packages/plugins/content/slate/src/plugins/Plugin.js:79-79][23]
 
-Type: [Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;Component&lt;any, any, any>>
+Type: [Array][17]&lt;Component&lt;any, any, any>>
 
 ### toolbarButtons
 
-[packages/plugins/content/slate/src/plugins/Plugin.js:86-86](https://github.com/ory-am/editor/blob/1509a6b21b85308dc9508fcf3899221b653a43e2/packages/plugins/content/slate/src/plugins/Plugin.js#L86-L86 "Source code on GitHub")
+[packages/plugins/content/slate/src/plugins/Plugin.js:84-84][24]
 
-Type: [Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;Component&lt;any, any, any>>
+Type: [Array][17]&lt;Component&lt;any, any, any>>
+
+### renderMark
+
+[packages/plugins/content/slate/src/plugins/Plugin.js:89-89][25]
+
+Type: [Function][21]
+
+### renderNode
+
+[packages/plugins/content/slate/src/plugins/Plugin.js:94-94][26]
+
+Type: [Function][21]
+
+[1]: #plugin
+
+[2]: #name
+
+[3]: #schema
+
+[4]: #plugins
+
+[5]: #serialize
+
+[6]: #deserialize
+
+[7]: #onkeydown
+
+[8]: #hoverbuttons
+
+[9]: #toolbarbuttons
+
+[10]: #rendermark
+
+[11]: #rendernode
+
+[12]: https://github.com/ory-am/editor/blob/f0320ce1b367435bb536b0e8e266dbb921e7af30/packages/plugins/content/slate/src/plugins/Plugin.js#L30-L95 "Source code on GitHub"
+
+[13]: https://github.com/ory-am/editor/blob/f0320ce1b367435bb536b0e8e266dbb921e7af30/packages/plugins/content/slate/src/plugins/Plugin.js#L34-L34 "Source code on GitHub"
+
+[14]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String
+
+[15]: https://github.com/ory-am/editor/blob/f0320ce1b367435bb536b0e8e266dbb921e7af30/packages/plugins/content/slate/src/plugins/Plugin.js#L39-L42 "Source code on GitHub"
+
+[16]: https://github.com/ory-am/editor/blob/f0320ce1b367435bb536b0e8e266dbb921e7af30/packages/plugins/content/slate/src/plugins/Plugin.js#L47-L47 "Source code on GitHub"
+
+[17]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array
+
+[18]: https://github.com/ory-am/editor/blob/f0320ce1b367435bb536b0e8e266dbb921e7af30/packages/plugins/content/slate/src/plugins/Plugin.js#L52-L55 "Source code on GitHub"
+
+[19]: https://github.com/ory-am/editor/blob/f0320ce1b367435bb536b0e8e266dbb921e7af30/packages/plugins/content/slate/src/plugins/Plugin.js#L60-L60 "Source code on GitHub"
+
+[20]: https://developer.mozilla.org/docs/Web/API/Element
+
+[21]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function
+
+[22]: https://github.com/ory-am/editor/blob/f0320ce1b367435bb536b0e8e266dbb921e7af30/packages/plugins/content/slate/src/plugins/Plugin.js#L70-L74 "Source code on GitHub"
+
+[23]: https://github.com/ory-am/editor/blob/f0320ce1b367435bb536b0e8e266dbb921e7af30/packages/plugins/content/slate/src/plugins/Plugin.js#L79-L79 "Source code on GitHub"
+
+[24]: https://github.com/ory-am/editor/blob/f0320ce1b367435bb536b0e8e266dbb921e7af30/packages/plugins/content/slate/src/plugins/Plugin.js#L84-L84 "Source code on GitHub"
+
+[25]: https://github.com/ory-am/editor/blob/f0320ce1b367435bb536b0e8e266dbb921e7af30/packages/plugins/content/slate/src/plugins/Plugin.js#L89-L89 "Source code on GitHub"
+
+[26]: https://github.com/ory-am/editor/blob/f0320ce1b367435bb536b0e8e266dbb921e7af30/packages/plugins/content/slate/src/plugins/Plugin.js#L94-L94 "Source code on GitHub"

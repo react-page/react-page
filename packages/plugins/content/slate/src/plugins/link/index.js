@@ -197,7 +197,9 @@ class LinkButton extends Component {
               open={this.state.open}
               actions={[actions]}
             >
-              <DialogTitle id="confirmation-dialog-title">Create a link</DialogTitle>
+              <DialogTitle id="confirmation-dialog-title">
+                Create a link
+              </DialogTitle>
               <DialogContent>
                 {this.state.wasExpanded ? null : (
                   <div>
@@ -216,9 +218,7 @@ class LinkButton extends Component {
                   />
                 </div>
               </DialogContent>
-              <DialogActions>
-                {actions}
-              </DialogActions>
+              <DialogActions>{actions}</DialogActions>
             </Dialog>
           </span>
         </span>
@@ -245,9 +245,11 @@ export default class LinkPlugin extends Plugin {
           type: A,
           nodes: next(el.childNodes),
           data: Data.create({
-            href: (el.attrs.find(({ name }) => name === 'href') || {
-              value: ''
-            }).value
+            href: (
+              el.attrs.find(({ name }) => name === 'href') || {
+                value: ''
+              }
+            ).value
           })
         }
     }

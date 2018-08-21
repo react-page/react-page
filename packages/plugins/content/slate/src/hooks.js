@@ -66,15 +66,17 @@ export const lineBreakSerializer = {
       return { object: 'text', text: '\n' }
     }
     if (el.nodeName === '#text') {
-      if (el.value && el.value.match(/<!--.*?-->/)) return;
+      if (el.value && el.value.match(/<!--.*?-->/)) return
 
       return {
         object: 'text',
-        leaves: [{
-          object: 'leaf',
-          text: el.value
-        }]
-      };
+        leaves: [
+          {
+            object: 'leaf',
+            text: el.value
+          }
+        ]
+      }
     }
   },
   serialize(object: any, children: any) {
@@ -97,14 +99,14 @@ export const createInitialState = () => ({
       document: {
         nodes: [
           {
-            object: "block",
+            object: 'block',
             type: P,
             nodes: [
               {
-                object: "text",
+                object: 'text',
                 leaves: [
                   {
-                    text: ""
+                    text: ''
                   }
                 ]
               }
@@ -204,7 +206,11 @@ export const split = (state: Object): Object[] => {
 // if editor state is empty, remove cell when backspace or delete was pressed.
 export const handleRemoveHotKey = (
   _: KeyboardEvent,
-  { content: { state: { editorState } } }: Props
+  {
+    content: {
+      state: { editorState }
+    }
+  }: Props
 ) =>
   new Promise(
     (resolve: Function, reject: Function) =>
@@ -215,7 +221,11 @@ const windowSelectionWaitTime = 1
 
 export const handleFocusPreviousHotKey = (
   e: KeyboardEvent,
-  { content: { state: { editorState } } }: Props
+  {
+    content: {
+      state: { editorState }
+    }
+  }: Props
 ) => {
   // const isArrowUp = e.keyCode === 38
 
@@ -240,7 +250,11 @@ export const handleFocusPreviousHotKey = (
 
 export const handleFocusNextHotKey = (
   e: KeyboardEvent,
-  { content: { state: { editorState } } }: Props
+  {
+    content: {
+      state: { editorState }
+    }
+  }: Props
 ) => {
   // const isArrowDown = e.keyCode === 40
 

@@ -27,19 +27,20 @@ import Icon from '@material-ui/icons/CropLandscape'
 import TextField from '@material-ui/core/TextField'
 import type {
   LayoutPluginProps,
-    ContentPlugin
+  ContentPlugin
 } from 'ory-editor-core/lib/service/plugin/classes'
 import { BottomToolbar } from 'ory-editor-ui'
 import ThemeProvider, { darkTheme } from 'ory-editor-ui/lib/ThemeProvider'
 
-const handleChange = (onChange: (state: any) => void, key: string) => (
-  e: Event,
-  value: string
-) => onChange({ [key]: value })
-
 class PluginComponent extends Component {
   state = { hidden: false }
   props: LayoutPluginProps<{}> & { children: any }
+
+  handleChangeBackground = (e: any) =>
+    this.props.onChange({ background: e.target.value })
+
+  handleChangeDarken = (e: any) =>
+    this.props.onChange({ darken: e.target.value })
 
   render() {
     const {
@@ -62,14 +63,14 @@ class PluginComponent extends Component {
               label="Image location (URL)"
               style={{ width: '256px' }}
               value={background}
-              onChange={handleChange(onChange, 'background')}
+              onChange={this.handleChangeBackground}
             />
             <TextField
               placeholder="0.3"
               label="Darken level"
               style={{ width: '256px' }}
               value={darken}
-              onChange={handleChange(onChange, 'darken')}
+              onChange={this.handleChangeDarken}
             />
           </BottomToolbar>
           {children}

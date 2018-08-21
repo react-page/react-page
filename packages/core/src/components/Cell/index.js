@@ -132,4 +132,7 @@ const mapDispatchToProps = (dispatch: Function, { id }: { id: string }) =>
     dispatch
   )
 
-export default connect(mapStateToProps, mapDispatchToProps)(Cell)
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Cell)

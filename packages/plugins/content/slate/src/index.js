@@ -114,7 +114,10 @@ export default (plugins: Plugin[] = hooks.defaultPlugins) => {
 
   const Slate = (cellProps: Props) => <Component {...cellProps} {...props} />
   const StaticComponent = ({ state: { editorState } = {} }: Props) => (
-    <div className="ory-plugins-content-slate-container" dangerouslySetInnerHTML={{ __html: html.serialize(editorState) }} />
+    <div
+      className="ory-plugins-content-slate-container"
+      dangerouslySetInnerHTML={{ __html: html.serialize(editorState) }}
+    />
   )
   return {
     Component: Slate,

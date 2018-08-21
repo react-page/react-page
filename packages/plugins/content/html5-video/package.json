@@ -14,15 +14,15 @@
     "docs": "documentation build ./src/**/*.js --format md --github -o ../../../../docs/api/plugins/html5-video.md",
     "prebuild": "npm run clean",
     "clean": "rimraf \"lib/*\"",
-    "flow:generate": "flow-typed install --flowVersion=0.46.0"
+    "flow:generate": "flow-typed install --flowVersion=0.79.1"
   },
   "peerDependencies": {
     "react": "^16.0.0",
+    "@material-ui/core": "^1.5.1",
+    "@material-ui/icons": "^2.0.3",
     "react-dom": "^16.0.0"
   },
   "dependencies": {
-    "@material-ui/core": "^1.2.1",
-    "@material-ui/icons": "^1.1.0",
     "ory-editor-core": "0.0.0",
     "ory-editor-ui": "0.0.0"
   }

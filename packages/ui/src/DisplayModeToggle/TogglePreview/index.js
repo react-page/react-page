@@ -48,4 +48,7 @@ const Inner = ({
 const mapStateToProps = createStructuredSelector({ isPreviewMode })
 const mapDispatchToProps = { previewMode }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Inner)
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Inner)

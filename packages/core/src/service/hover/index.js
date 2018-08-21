@@ -271,7 +271,7 @@ export const relativeMousePosition = ({
 
 /**
  * Computes the drop level based on the mouse position and the cell width.
-*/
+ */
 export const computeLevel = ({
   size,
   levels,
@@ -326,7 +326,9 @@ export const computeHorizontal = (
   },
   inv: boolean = false
 ) => {
-  const { node: { cells = [] } } = hover
+  const {
+    node: { cells = [] }
+  } = hover
   const x = relativeMousePosition({ mouse, position, scale }).x
   let at = computeLevel({ size: scale.x, position: x, levels: level })
 
@@ -365,7 +367,9 @@ export const computeVertical = (
   },
   inv: boolean = false
 ) => {
-  const { node: { cells = [] } } = hover
+  const {
+    node: { cells = [] }
+  } = hover
   const y = relativeMousePosition({ mouse, position, scale }).y
   let at = computeLevel({ size: scale.y, position: y, levels: level })
 
@@ -592,7 +596,9 @@ export const defaultCallbacks: CallbackList = {
     hover: ComponetizedCell,
     { inlineLeft, leftOf }: Callbacks
   ) => {
-    const { node: { inline, hasInlineNeighbour } } = hover
+    const {
+      node: { inline, hasInlineNeighbour }
+    } = hover
     const {
       node: { content: { plugin: { isInlineable = false } = {} } = {} }
     } = item
@@ -618,7 +624,9 @@ export const defaultCallbacks: CallbackList = {
     hover: ComponetizedCell,
     { inlineRight, rightOf }: Callbacks
   ) => {
-    const { node: { inline, hasInlineNeighbour } } = hover
+    const {
+      node: { inline, hasInlineNeighbour }
+    } = hover
     const {
       node: { content: { plugin: { isInlineable = false } = {} } = {} }
     } = item
@@ -649,12 +657,10 @@ export default class HoverService {
   callbacks: CallbackList = defaultCallbacks
   matrices: MatrixList = defaultMatrices
 
-  constructor(
-    {
-      matrices,
-      callbacks
-    }: { matrices: MatrixList, callbacks: CallbackList } = {}
-  ) {
+  constructor({
+    matrices,
+    callbacks
+  }: { matrices: MatrixList, callbacks: CallbackList } = {}) {
     this.matrices = matrices || this.matrices
     this.callbacks = callbacks || this.callbacks
   }

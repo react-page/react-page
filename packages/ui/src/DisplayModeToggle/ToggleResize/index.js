@@ -48,4 +48,7 @@ const Inner = ({
 const mapStateToProps = createStructuredSelector({ isResizeMode })
 const mapDispatchToProps = { resizeMode }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Inner)
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Inner)
