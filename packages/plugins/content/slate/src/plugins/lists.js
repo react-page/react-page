@@ -24,6 +24,8 @@
 import React from 'react'
 import ListIcon from '@material-ui/icons/List'
 import OrderedListIcon from '@material-ui/icons/FormatListNumbered'
+import IncreaseIndentIcon from '@material-ui/icons/FormatIndentIncrease'
+import DecreaseIndentIcon from '@material-ui/icons/FormatIndentDecrease'
 import type { Props } from './props'
 import createListPlugin from 'slate-edit-list'
 
@@ -34,17 +36,21 @@ export const UL = 'LISTS/UNORDERED-LIST'
 export const OL = 'LISTS/ORDERED-LIST'
 export const LI = 'LISTS/LIST-ITEM'
 
+const INCREASE_INDENT = 'INCREASE_INDENT'
+const DECREASE_INDENT = 'DECREASE_INDENT'
+
 export default class ListsPlugin extends Plugin {
   constructor(props: Props) {
     super(props);
 
     this.DEFAULT_NODE = props.DEFAULT_NODE;
+    this.plugin = createListPlugin({
+      types: [UL, OL],
+      typeItem: LI,
+      typeDefault: props.DEFAULT_NODE
+    })
     this.plugins = [
-      createListPlugin({
-        types: [UL, OL],
-        typeItem: LI,
-        typeDefault: props.DEFAULT_NODE
-      })
+      this.plugin
     ]
   }
 
@@ -52,59 +58,59 @@ export default class ListsPlugin extends Plugin {
 
   // eslint-disable-next-line react/display-name
   createButton = (type, icon) => ({ editorState, onChange }: Props) => {
+    const {
+      wrapInList,
+      unwrapList,
+      increaseItemDepth,
+      decreaseItemDepth
+    } = this.plugin.changes
     const onClick = e => {
       e.preventDefault()
 
       let change = editorState.change()
 
       if (type !== UL && type !== OL) {
-        const isActive = editorState.blocks.some(block => block.type === type)
-        const isList = editorState.blocks.some(block => block.type === LI)
-
-        if (isList) {
-          change
-            .setBlocks(isActive ? this.DEFAULT_NODE : type)
-            .unwrapBlock(UL)
-            .unwrapBlock(OL)
+        if (type === INCREASE_INDENT) {
+          increaseItemDepth(change)
         } else {
-          change.setBlocks(isActive ? this.DEFAULT_NODE : type)
+          decreaseItemDepth(change)
         }
       } else {
-        const isList = editorState.blocks.some(block => block.type === LI)
-        const isType = editorState.blocks.some(block =>
-          !!editorState.document.getClosest(
-            block.key,
-            parent => parent.type === type
-          )
-        )
-        if (isList && isType) {
-          change
-            .setBlocks(this.DEFAULT_NODE)
-            .unwrapBlock(UL)
-            .unwrapBlock(OL)
-        } else if (isList) {
-          change.unwrapBlock(type === UL ? OL : UL).wrapBlock(type)
+        const inList = this.plugin.utils.isSelectionInList(editorState);
+        if (inList) {
+          unwrapList(change, type)
         } else {
-          change.setBlocks(LI).wrapBlock(type)
+          wrapInList(change, type)
         }
       }
 
       onChange({ value: change.value })
     }
 
-    const isList = editorState.blocks.some(block => block.type === LI)
+    const inList = this.plugin.utils.isSelectionInList(editorState);
     const isType = editorState.blocks.some(block =>
       !!editorState.document.getClosest(
         block.key,
         parent => parent.type === type
       )
     )
+    const isIncreaseDecrease = type === INCREASE_INDENT || type === DECREASE_INDENT
+
+    const previousItem = this.plugin.utils.getPreviousItem(editorState);
+    const currentItem = this.plugin.utils.getCurrentItem(editorState);
+    const itemDepth = this.plugin.utils.getItemDepth(editorState);
+
+    const canIncreaseIndent = previousItem && currentItem && isIncreaseDecrease
+    const canDecreaseIndent = itemDepth > 1 && currentItem && isIncreaseDecrease
+
+    const increaseDecreaseDisabled = type === INCREASE_INDENT ? !canIncreaseIndent : !canDecreaseIndent
 
     return (
       <ToolbarButton
         onClick={onClick}
-        isActive={isList && isType}
+        isActive={inList && isType}
         icon={icon}
+        disabled={isIncreaseDecrease && increaseDecreaseDisabled}
       />
     )
   }
@@ -121,7 +127,9 @@ export default class ListsPlugin extends Plugin {
 
   toolbarButtons = [
     this.createButton(UL, <ListIcon />),
-    this.createButton(OL, <OrderedListIcon />)
+    this.createButton(OL, <OrderedListIcon />),
+    this.createButton(INCREASE_INDENT, <IncreaseIndentIcon />),
+    this.createButton(DECREASE_INDENT, <DecreaseIndentIcon />),
   ]
 
   deserialize = (el, next) => {
