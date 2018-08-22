@@ -51,6 +51,10 @@ import 'ory-editor-plugins-video/lib/index.css'
 import parallax from 'ory-editor-plugins-parallax-background'
 import 'ory-editor-plugins-parallax-background/lib/index.css'
 
+// The background plugin
+import background from 'ory-editor-plugins-background'
+import 'ory-editor-plugins-background/lib/index.css'
+
 // The html5-video plugin
 import html5video from 'ory-editor-plugins-html5-video'
 import 'ory-editor-plugins-html5-video/lib/index.css'
@@ -91,7 +95,10 @@ if (process.env.NODE_ENV !== 'production' && process.env.REACT_APP_TRACE_UPDATES
 // Define which plugins we want to use (all of the above)
 const plugins = {
   content: [slate(), spacer, imagePlugin({ imageUpload: fakeImageUploadService('/images/react.png') }), video, divider, html5video],
-  layout: [parallax({ defaultPlugin: slate(), imageUpload: fakeImageUploadService('/images/sea-bg.jpg') })],
+  layout: [
+    background({ defaultPlugin: slate(), imageUpload: fakeImageUploadService('/images/sea-bg.jpg') }),
+    parallax({ defaultPlugin: slate() }),
+  ],
 
   // If you pass the native key the editor will be able to handle native drag and drop events (such as links, text, etc).
   // The native plugin will then be responsible to properly display the data which was dropped onto the editor.

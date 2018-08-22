@@ -1,5 +1,5 @@
 {
-  "name": "ory-editor-plugins-parallax-background",
+  "name": "ory-editor-plugins-background",
   "version": "0.0.0",
   "main": "./lib/index.js",
   "author": "ORY GmbH",
@@ -11,7 +11,7 @@
     "build:lib:watch": "npm run build:lib -- --watch",
     "build:css": "postcss -c ../../../../postcss.config.js --dir lib/ src/index.css",
     "build:css:watch": "npm run build:css -- -w",
-    "docs": "documentation build ./src/**/*.js --format md --github -o ../../../../docs/api/plugins/parallax-background.md",
+    "docs": "documentation build ./src/**/*.js --format md --github -o ../../../../docs/api/plugins/background.md",
     "prebuild": "npm run clean",
     "clean": "rimraf \"lib/*\"",
     "flow:generate": "flow-typed install  --flowVersion=0.79.1"
@@ -23,6 +23,7 @@
     "react-dom": "^16.0.0"
   },
   "dependencies": {
+    "@material-ui/lab": "^1.0.0-alpha.10",
     "ory-editor-core": "0.0.0",
     "ory-editor-ui": "0.0.0"
   },
