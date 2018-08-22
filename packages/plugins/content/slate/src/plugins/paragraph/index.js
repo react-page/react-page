@@ -63,7 +63,9 @@ export default class ParagraphPlugin extends Plugin {
   renderNode = (props: any) => {
     switch (props.node.type) {
       case P: {
-        return <Paragraph {...props} />
+        return (
+          <Paragraph {...props} />
+        )
       }
     }
   }

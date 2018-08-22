@@ -46,7 +46,10 @@ export default class CodePlugin extends Plugin {
         e.preventDefault()
 
         onChange({
-          value: editorState.change().toggleMark(type).value
+          value: editorState
+            .change()
+            .toggleMark(type)
+            .value
         })
       }
 
@@ -69,7 +72,8 @@ export default class CodePlugin extends Plugin {
         onChange({
           value: editorState
             .change()
-            .setBlocks(isActive ? this.DEFAULT_NODE : type).value
+            .setBlocks(isActive ? this.DEFAULT_NODE : type)
+            .value
         })
       }
 
@@ -115,9 +119,7 @@ export default class CodePlugin extends Plugin {
     if (object.object === 'mark') {
       switch (object.type) {
         case CODE:
-          return (
-            <code className="ory-plugins-content-slate-code">{children}</code>
-          )
+          return <code className="ory-plugins-content-slate-code">{children}</code>
       }
     } else if (object.object === 'block') {
       switch (object.type) {
@@ -136,11 +138,7 @@ export default class CodePlugin extends Plugin {
 
     switch (mark.type) {
       case CODE:
-        return (
-          <code {...attributes} className="ory-plugins-content-slate-code">
-            {children}
-          </code>
-        )
+        return <code {...attributes} className="ory-plugins-content-slate-code">{children}</code>
     }
   }
 
@@ -149,7 +147,7 @@ export default class CodePlugin extends Plugin {
 
     switch (node.type) {
       case CODE:
-        return <Code {...props} />
+        return <Code {...props}/>
     }
   }
 }
