@@ -29,10 +29,10 @@ export const makeTagNode = Tag => {
     children,
     node
   }: {
-    attributes: Object,
-    children: any,
-    node: any
-  }) => {
+      attributes: Object,
+      children: any,
+      node: any
+    }) => {
     const align = node.data.get('align')
     return (
       <Tag {...attributes} style={{ textAlign: align }}>
@@ -59,16 +59,19 @@ export const makeTagMark = Tag => {
 export const ToolbarButton = ({
   icon,
   isActive,
-  onClick
+  onClick,
+  disabled = false
 }: {
-  icon: string,
-  isActive: string,
-  onClick(): void
-}) => (
-  <IconButton
-    onClick={onClick}
-    style={isActive ? { color: 'rgb(0, 188, 212)' } : { color: 'white' }}
-  >
-    {icon}
-  </IconButton>
-)
+    icon: string,
+    isActive: string,
+    onClick(): void,
+    disabled?: boolean
+  }) => (
+    <IconButton
+      onClick={onClick}
+      style={isActive ? { color: 'rgb(0, 188, 212)' } : disabled ? { color: 'gray' } : { color: 'white' }}
+      disabled={disabled}
+    >
+      {icon}
+    </IconButton>
+  )
