@@ -32,7 +32,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel'
 import Switch from '@material-ui/core/Switch'
 import Typography from '@material-ui/core/Typography'
 import Slider from '@material-ui/lab/Slider'
-import type {Color} from 'ory-editor-ui/lib/ImageUpload'
+import type { Color } from 'ory-editor-ui/lib/ImageUpload'
 
 import ImageComponent from './components/Image'
 import ColorComponent from './components/Color'
@@ -42,7 +42,7 @@ import { colorToString } from 'ory-editor-ui'
 
 import type {
   LayoutPluginProps,
-  ContentPlugin
+    ContentPlugin
 } from 'ory-editor-core/lib/service/plugin/classes'
 import { BottomToolbar } from 'ory-editor-ui'
 
@@ -64,7 +64,6 @@ type PluginComponentState = {
   gradientColorPreviewColorIndex?: number,
   darkenPreview?: number,
   lightenPreview?: number,
-  paddingPreview?: number,
   imagePreview?: Object
 }
 
@@ -76,7 +75,7 @@ export type ExtraPluginProps = {
   defaultModeFlag: number,
   defaultDarken: number,
   defaultLighten: number,
-  defaultPadding: number,
+  defaultHasPadding: boolean,
   defaultIsParallax: boolean
 }
 
@@ -103,7 +102,7 @@ class PluginComponent extends Component {
     defaultModeFlag: 1,
     defaultDarken: 0,
     defaultLighten: 0,
-    defaultPadding: 12,
+    defaultHasPadding: true,
     defaultIsParallax: true
   }
 
@@ -132,13 +131,8 @@ class PluginComponent extends Component {
     this.setState({ lightenPreview: value })
   }
 
-  handleChangePadding = (e: any) => {
-    this.props.onChange({ padding: this.state.paddingPreview })
-    this.setState({ paddingPreview: undefined })
-  }
-
-  handleChangePaddingPreview = (e: any, value: number) => {
-    this.setState({ paddingPreview: value })
+  handleChangeHasPadding = (e: any) => {
+    this.props.onChange({ hasPadding: (this.props.state.hasPadding === undefined ? !this.props.defaultHasPadding : !this.props.state.hasPadding) })
   }
 
   handleChangeMode = (e: any) => this.setState({ mode: e.target.value })
@@ -302,18 +296,17 @@ class PluginComponent extends Component {
       state: {
         darken = this.props.defaultDarken,
         lighten = this.props.defaultLighten,
-        padding = this.props.defaultPadding
+        hasPadding = this.props.defaultHasPadding
       }
     } = this.props
     let darkenFinal = this.state.darkenPreview !== undefined ? this.state.darkenPreview : darken
     let lightenFinal = this.state.lightenPreview !== undefined ? this.state.lightenPreview : lighten
-    let paddingFinal = this.state.paddingPreview !== undefined ? this.state.paddingPreview : padding
     const containerStyles = this.getStyles()
     return (
       <ThemeProvider theme={darkTheme}>
         <div
           className="ory-prevent-blur ory-plugins-layout-parallax-background"
-          style={{ ...containerStyles, padding: paddingFinal }}
+          style={{ ...containerStyles, ...(hasPadding ? {} : { padding: 0 }) }}
         >
           <div
             className="ory-plugins-layout-parallax-background__backstretch"
@@ -372,16 +365,10 @@ class PluginComponent extends Component {
                 />
               </div>
             </div>
-            <div>
-              <Typography id="linear-gradient-lighten-label">Padding ({paddingFinal.toFixed(0)}px)</Typography>
-              <Slider
-                aria-labelledby="linear-gradient-lighten-label"
-                value={paddingFinal}
-                onChange={this.handleChangePaddingPreview}
-                onDragEnd={this.handleChangePadding}
-                step={1}
-                min={0}
-                max={60}
+            <div style={{ display: 'flex' }}>
+              <FormControlLabel 
+                control={<Switch onChange={this.handleChangeHasPadding} checked={hasPadding} />} 
+                label="Use padding" 
               />
             </div>
           </BottomToolbar>
@@ -402,6 +389,7 @@ export default ({
   defaultDarken = PluginComponent.defaultProps.defaultDarken,
   defaultLighten = PluginComponent.defaultProps.defaultLighten,
   defaultIsParallax = PluginComponent.defaultProps.defaultIsParallax,
+  defaultHasPadding = PluginComponent.defaultProps.defaultHasPadding, 
   imageUpload
 }: {
     defaultPlugin: ContentPlugin,
@@ -413,6 +401,7 @@ export default ({
     defaultDarken: number,
     defaultLighten: number,
     defaultIsParallax: boolean,
+    defaultHasPadding: boolean,
     imageUpload: Promise<any>
   }) => {
   const settings = {
@@ -425,6 +414,7 @@ export default ({
     defaultDarken,
     defaultLighten,
     defaultIsParallax,
+    defaultHasPadding,
     imageUpload
   }
   return ({
