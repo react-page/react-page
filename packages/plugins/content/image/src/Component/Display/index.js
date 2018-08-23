@@ -30,7 +30,7 @@ import type { PropTypes } from '../index.js'
 const Display = ({ isEditMode, state, imagePreview }: PropTypes) => {
   const src = imagePreview ? imagePreview.dataUrl : state.src
   const Image = (
-    <img className="ory-plugins-content-image" alt="" src={state.src} />
+    <img className="ory-plugins-content-image" alt="" src={src} />
   )
   return (
     src ? (
