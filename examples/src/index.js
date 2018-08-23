@@ -52,7 +52,7 @@ import parallax from 'ory-editor-plugins-parallax-background'
 import 'ory-editor-plugins-parallax-background/lib/index.css'
 
 // The background plugin
-import background from 'ory-editor-plugins-background'
+import background, { COLOR_MODE_FLAG, IMAGE_MODE_FLAG, GRADIENT_MODE_FLAG } from 'ory-editor-plugins-background'
 import 'ory-editor-plugins-background/lib/index.css'
 
 // The html5-video plugin
@@ -96,7 +96,11 @@ if (process.env.NODE_ENV !== 'production' && process.env.REACT_APP_TRACE_UPDATES
 const plugins = {
   content: [slate(), spacer, imagePlugin({ imageUpload: fakeImageUploadService('/images/react.png') }), video, divider, html5video],
   layout: [
-    background({ defaultPlugin: slate(), imageUpload: fakeImageUploadService('/images/sea-bg.jpg') }),
+    background({
+      defaultPlugin: slate(),
+      imageUpload: fakeImageUploadService('/images/sea-bg.jpg'),
+      enabledModes: COLOR_MODE_FLAG | IMAGE_MODE_FLAG | GRADIENT_MODE_FLAG
+    }),
     parallax({ defaultPlugin: slate() }),
   ],
 
