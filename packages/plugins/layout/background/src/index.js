@@ -42,7 +42,7 @@ import { colorToString } from 'ory-editor-ui'
 
 import type {
   LayoutPluginProps,
-    ContentPlugin
+  ContentPlugin
 } from 'ory-editor-core/lib/service/plugin/classes'
 import { BottomToolbar } from 'ory-editor-ui'
 
@@ -109,7 +109,7 @@ class PluginComponent extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      mode: props.defaultMode,
+      mode: props.defaultMode
     }
   }
 
@@ -132,24 +132,41 @@ class PluginComponent extends Component {
   }
 
   handleChangeHasPadding = (e: any) => {
-    this.props.onChange({ hasPadding: (this.props.state.hasPadding === undefined ? !this.props.defaultHasPadding : !this.props.state.hasPadding) })
+    this.props.onChange({
+      hasPadding:
+        this.props.state.hasPadding === undefined
+          ? !this.props.defaultHasPadding
+          : !this.props.state.hasPadding
+    })
   }
 
   handleChangeMode = (e: any) => this.setState({ mode: e.target.value })
 
-  handleChangeBackgroundColorPreview = (e: any) => this.setState({ backgroundColorPreview: e })
+  handleChangeBackgroundColorPreview = (e: any) =>
+    this.setState({ backgroundColorPreview: e })
 
-  handleChangeGradientDegPreview = (gradientDegPreview: number, gradientDegPreviewIndex?: number) =>
-    this.setState({ gradientDegPreview, gradientDegPreviewIndex })
+  handleChangeGradientDegPreview = (
+    gradientDegPreview: number,
+    gradientDegPreviewIndex?: number
+  ) => this.setState({ gradientDegPreview, gradientDegPreviewIndex })
 
-  handleChangeGradientOpacityPreview = (gradientOpacityPreview: number, gradientOpacityPreviewIndex?: number) =>
-    this.setState({ gradientOpacityPreview, gradientOpacityPreviewIndex })
+  handleChangeGradientOpacityPreview = (
+    gradientOpacityPreview: number,
+    gradientOpacityPreviewIndex?: number
+  ) => this.setState({ gradientOpacityPreview, gradientOpacityPreviewIndex })
 
-  handleChangeGradientColorPreview = (gradientColorPreview: Object, gradientColorPreviewIndex?: number, gradientColorPreviewColorIndex?: number) =>
-    this.setState({ gradientColorPreview, gradientColorPreviewIndex, gradientColorPreviewColorIndex })
+  handleChangeGradientColorPreview = (
+    gradientColorPreview: Object,
+    gradientColorPreviewIndex?: number,
+    gradientColorPreviewColorIndex?: number
+  ) =>
+    this.setState({
+      gradientColorPreview,
+      gradientColorPreviewIndex,
+      gradientColorPreviewColorIndex
+    })
 
-  handleImageLoaded = (imagePreview: Object) =>
-    this.setState({ imagePreview })
+  handleImageLoaded = (imagePreview: Object) => this.setState({ imagePreview })
 
   handleImageUploaded = (resp: Object) =>
     this.setState({ imagePreview: undefined })
@@ -157,47 +174,53 @@ class PluginComponent extends Component {
   renderUI = () => {
     switch (this.state.mode) {
       case COLOR_MODE_FLAG:
-        return <ColorComponent
-          {...this.props}
-          ensureModeOn={this.ensureModeOn(COLOR_MODE_FLAG)}
-          onChangeBackgroundColorPreview={this.handleChangeBackgroundColorPreview}
-          backgroundColorPreview={this.state.backgroundColorPreview}
-        />
+        return (
+          <ColorComponent
+            {...this.props}
+            ensureModeOn={this.ensureModeOn(COLOR_MODE_FLAG)}
+            onChangeBackgroundColorPreview={
+              this.handleChangeBackgroundColorPreview
+            }
+            backgroundColorPreview={this.state.backgroundColorPreview}
+          />
+        )
       case GRADIENT_MODE_FLAG:
-        return <LinearGradient
-          {...this.props}
-          ensureModeOn={this.ensureModeOn(GRADIENT_MODE_FLAG)}
-
-          gradientDegPreview={this.state.gradientDegPreview}
-          gradientDegPreviewIndex={this.state.gradientDegPreviewIndex}
-
-          gradientOpacityPreview={this.state.gradientOpacityPreview}
-          gradientOpacityPreviewIndex={this.state.gradientOpacityPreviewIndex}
-
-          gradientColorPreview={this.state.gradientColorPreview}
-          gradientColorPreviewIndex={this.state.gradientColorPreviewIndex}
-          gradientColorPreviewColorIndex={this.state.gradientColorPreviewColorIndex}
-
-          onChangeGradientDegPreview={this.handleChangeGradientDegPreview}
-          onChangeGradientOpacityPreview={this.handleChangeGradientOpacityPreview}
-          onChangeGradientColorPreview={this.handleChangeGradientColorPreview}
-        />
+        return (
+          <LinearGradient
+            {...this.props}
+            ensureModeOn={this.ensureModeOn(GRADIENT_MODE_FLAG)}
+            gradientDegPreview={this.state.gradientDegPreview}
+            gradientDegPreviewIndex={this.state.gradientDegPreviewIndex}
+            gradientOpacityPreview={this.state.gradientOpacityPreview}
+            gradientOpacityPreviewIndex={this.state.gradientOpacityPreviewIndex}
+            gradientColorPreview={this.state.gradientColorPreview}
+            gradientColorPreviewIndex={this.state.gradientColorPreviewIndex}
+            gradientColorPreviewColorIndex={
+              this.state.gradientColorPreviewColorIndex
+            }
+            onChangeGradientDegPreview={this.handleChangeGradientDegPreview}
+            onChangeGradientOpacityPreview={
+              this.handleChangeGradientOpacityPreview
+            }
+            onChangeGradientColorPreview={this.handleChangeGradientColorPreview}
+          />
+        )
       case IMAGE_MODE_FLAG:
       default:
-        return <ImageComponent
-          {...this.props}
-          onImageLoaded={this.handleImageLoaded}
-          onImageUploaded={this.handleImageUploaded}
-          ensureModeOn={this.ensureModeOn(IMAGE_MODE_FLAG)}
-        />
+        return (
+          <ImageComponent
+            {...this.props}
+            onImageLoaded={this.handleImageLoaded}
+            onImageUploaded={this.handleImageUploaded}
+            ensureModeOn={this.ensureModeOn(IMAGE_MODE_FLAG)}
+          />
+        )
     }
   }
 
   ensureModeOn = (mode: number) => () => {
     const {
-      state: {
-        modeFlag = this.props.defaultModeFlag,
-      }
+      state: { modeFlag = this.props.defaultModeFlag }
     } = this.props
     if ((modeFlag & mode) === 0) {
       this.handleChangeModeSwitch(mode, modeFlag)()
@@ -211,50 +234,81 @@ class PluginComponent extends Component {
         modeFlag = this.props.defaultModeFlag,
         isParallax = true,
         backgroundColor = this.props.defaultBackgroundColor,
-        gradients = [],
+        gradients = []
       }
     } = this.props
     let styles = {}
     if (modeFlag & GRADIENT_MODE_FLAG) {
-      const usedGradients = gradients.filter(g => g.colors && g.colors.length);
-      const usedGradientsString = usedGradients.map((g, i) => {
-        const firstColor = g.colors[0].color;
-        const firstColorStr = colorToString(firstColor)
-        const deg = i === this.state.gradientDegPreviewIndex && this.state.gradientDegPreview !== undefined ?
-          this.state.gradientDegPreview
-          :
-          g.deg
-        const opacity = i === this.state.gradientOpacityPreviewIndex && this.state.gradientOpacityPreview !== undefined ?
-          this.state.gradientOpacityPreview
-          :
-          g.opacity
-        return 'linear-gradient(' + deg + 'deg, ' + (g.colors.length !== 1 ? g.colors.map((c, cpIndex) => {
-          const color = i === this.state.gradientColorPreviewIndex && cpIndex === this.state.gradientColorPreviewColorIndex && this.state.gradientColorPreview !== undefined ?
-            this.state.gradientColorPreview
-            :
-            c.color
-          const colorWithOpacity = { ...color, a: (color.a !== undefined ? color.a * opacity : opacity) }
-          return colorToString(colorWithOpacity)
-        }).join(', ') : firstColorStr + ', ' + firstColorStr) + ')'
-      }).join(', ')
+      const usedGradients = gradients.filter(g => g.colors && g.colors.length)
+      const usedGradientsString = usedGradients
+        .map((g, i) => {
+          const firstColor = g.colors[0].color
+          const firstColorStr = colorToString(firstColor)
+          const deg =
+            i === this.state.gradientDegPreviewIndex &&
+            this.state.gradientDegPreview !== undefined
+              ? this.state.gradientDegPreview
+              : g.deg
+          const opacity =
+            i === this.state.gradientOpacityPreviewIndex &&
+            this.state.gradientOpacityPreview !== undefined
+              ? this.state.gradientOpacityPreview
+              : g.opacity
+          return (
+            'linear-gradient(' +
+            deg +
+            'deg, ' +
+            (g.colors.length !== 1
+              ? g.colors
+                  .map((c, cpIndex) => {
+                    const color =
+                      i === this.state.gradientColorPreviewIndex &&
+                      cpIndex === this.state.gradientColorPreviewColorIndex &&
+                      this.state.gradientColorPreview !== undefined
+                        ? this.state.gradientColorPreview
+                        : c.color
+                    const colorWithOpacity = {
+                      ...color,
+                      a: color.a !== undefined ? color.a * opacity : opacity
+                    }
+                    return colorToString(colorWithOpacity)
+                  })
+                  .join(', ')
+              : firstColorStr + ', ' + firstColorStr) +
+            ')'
+          )
+        })
+        .join(', ')
       if (usedGradientsString !== '') {
         styles = { ...styles, background: usedGradientsString }
       }
     }
     if (modeFlag & COLOR_MODE_FLAG) {
-      const colorStr = colorToString(this.state.backgroundColorPreview ? this.state.backgroundColorPreview : backgroundColor)
-      const modeStr = `linear-gradient(${colorStr}, ${colorStr})`;
+      const colorStr = colorToString(
+        this.state.backgroundColorPreview
+          ? this.state.backgroundColorPreview
+          : backgroundColor
+      )
+      const modeStr = `linear-gradient(${colorStr}, ${colorStr})`
       styles = {
         ...styles,
-        background: (styles.background ? styles.background + ', ' + modeStr : modeStr)
+        background: styles.background
+          ? styles.background + ', ' + modeStr
+          : modeStr
       }
     }
     if (modeFlag & IMAGE_MODE_FLAG) {
-      const backgroundFinal = this.state.imagePreview ? this.state.imagePreview.dataUrl : background
-      const modeStr = `url('${backgroundFinal}') center / cover no-repeat` + (isParallax ? ' fixed' : '')
+      const backgroundFinal = this.state.imagePreview
+        ? this.state.imagePreview.dataUrl
+        : background
+      const modeStr =
+        `url('${backgroundFinal}') center / cover no-repeat` +
+        (isParallax ? ' fixed' : '')
       styles = {
         ...styles,
-        background: (styles.background ? styles.background + ', ' + modeStr : modeStr),
+        background: styles.background
+          ? styles.background + ', ' + modeStr
+          : modeStr
       }
     }
     return styles
@@ -267,9 +321,7 @@ class PluginComponent extends Component {
 
   renderModeSwitch = () => {
     const {
-      state: {
-        modeFlag = 1,
-      }
+      state: { modeFlag = 1 }
     } = this.props
     let label = ''
     switch (this.state.mode) {
@@ -286,7 +338,18 @@ class PluginComponent extends Component {
         label = 'Unknown mode'
         break
     }
-    return <FormControlLabel style={{ marginLeft: '8px' }} control={<Switch onChange={this.handleChangeModeSwitch(this.state.mode, modeFlag)} checked={Boolean(modeFlag & this.state.mode)} />} label={label} />
+    return (
+      <FormControlLabel
+        style={{ marginLeft: '8px' }}
+        control={
+          <Switch
+            onChange={this.handleChangeModeSwitch(this.state.mode, modeFlag)}
+            checked={Boolean(modeFlag & this.state.mode)}
+          />
+        }
+        label={label}
+      />
+    )
   }
 
   render() {
@@ -299,8 +362,12 @@ class PluginComponent extends Component {
         hasPadding = this.props.defaultHasPadding
       }
     } = this.props
-    let darkenFinal = this.state.darkenPreview !== undefined ? this.state.darkenPreview : darken
-    let lightenFinal = this.state.lightenPreview !== undefined ? this.state.lightenPreview : lighten
+    let darkenFinal =
+      this.state.darkenPreview !== undefined ? this.state.darkenPreview : darken
+    let lightenFinal =
+      this.state.lightenPreview !== undefined
+        ? this.state.lightenPreview
+        : lighten
     const containerStyles = this.getStyles()
     return (
       <ThemeProvider theme={darkTheme}>
@@ -317,7 +384,7 @@ class PluginComponent extends Component {
           <BottomToolbar open={focused} theme={darkTheme}>
             <div
               style={{
-                display: 'flex',
+                display: 'flex'
               }}
             >
               <FormControl>
@@ -326,11 +393,26 @@ class PluginComponent extends Component {
                   className="ory-prevent-blur"
                   value={this.state.mode}
                   onChange={this.handleChangeMode}
-                  MenuProps={{ className: "ory-prevent-blur" }}
+                  MenuProps={{ className: 'ory-prevent-blur' }}
                 >
-                  <MenuItem className="ory-prevent-blur" value={IMAGE_MODE_FLAG}>Image</MenuItem>
-                  <MenuItem className="ory-prevent-blur" value={COLOR_MODE_FLAG}>Color</MenuItem>
-                  <MenuItem className="ory-prevent-blur" value={GRADIENT_MODE_FLAG}>Gradient</MenuItem>
+                  <MenuItem
+                    className="ory-prevent-blur"
+                    value={IMAGE_MODE_FLAG}
+                  >
+                    Image
+                  </MenuItem>
+                  <MenuItem
+                    className="ory-prevent-blur"
+                    value={COLOR_MODE_FLAG}
+                  >
+                    Color
+                  </MenuItem>
+                  <MenuItem
+                    className="ory-prevent-blur"
+                    value={GRADIENT_MODE_FLAG}
+                  >
+                    Gradient
+                  </MenuItem>
                 </Select>
               </FormControl>
               {this.renderModeSwitch()}
@@ -340,7 +422,9 @@ class PluginComponent extends Component {
             <br />
             <div style={{ display: 'flex' }}>
               <div style={{ flex: '1', marginRight: '8px' }}>
-                <Typography id="linear-gradient-darken-label">Darken ({(darkenFinal * 100).toFixed(0)}%)
+                <Typography id="linear-gradient-darken-label">
+                  Darken ({(darkenFinal * 100).toFixed(0)}
+                  %)
                 </Typography>
                 <Slider
                   aria-labelledby="linear-gradient-darken-label"
@@ -353,7 +437,10 @@ class PluginComponent extends Component {
                 />
               </div>
               <div style={{ flex: '1', marginLeft: '8px' }}>
-                <Typography id="linear-gradient-lighten-label">Lighten ({(lightenFinal * 100).toFixed(0)}%)</Typography>
+                <Typography id="linear-gradient-lighten-label">
+                  Lighten ({(lightenFinal * 100).toFixed(0)}
+                  %)
+                </Typography>
                 <Slider
                   aria-labelledby="linear-gradient-lighten-label"
                   value={lightenFinal}
@@ -366,15 +453,20 @@ class PluginComponent extends Component {
               </div>
             </div>
             <div style={{ display: 'flex' }}>
-              <FormControlLabel 
-                control={<Switch onChange={this.handleChangeHasPadding} checked={hasPadding} />} 
-                label="Use padding" 
+              <FormControlLabel
+                control={
+                  <Switch
+                    onChange={this.handleChangeHasPadding}
+                    checked={hasPadding}
+                  />
+                }
+                label="Use padding"
               />
             </div>
           </BottomToolbar>
           {children}
         </div>
-      </ThemeProvider >
+      </ThemeProvider>
     )
   }
 }
@@ -385,25 +477,26 @@ export default ({
   defaultModeFlag = PluginComponent.defaultProps.defaultModeFlag,
   defaultBackgroundColor = PluginComponent.defaultProps.defaultBackgroundColor,
   defaultGradientColor = PluginComponent.defaultProps.defaultGradientColor,
-  defaultGradientSecondaryColor = PluginComponent.defaultProps.defaultGradientSecondaryColor,
+  defaultGradientSecondaryColor = PluginComponent.defaultProps
+    .defaultGradientSecondaryColor,
   defaultDarken = PluginComponent.defaultProps.defaultDarken,
   defaultLighten = PluginComponent.defaultProps.defaultLighten,
   defaultIsParallax = PluginComponent.defaultProps.defaultIsParallax,
-  defaultHasPadding = PluginComponent.defaultProps.defaultHasPadding, 
+  defaultHasPadding = PluginComponent.defaultProps.defaultHasPadding,
   imageUpload
 }: {
-    defaultPlugin: ContentPlugin,
-    defaultMode: number,
-    defaultModeFlag: number,
-    defaultBackgroundColor: Object,
-    defaultGradientColor: Object,
-    defaultGradientSecondaryColor: Object,
-    defaultDarken: number,
-    defaultLighten: number,
-    defaultIsParallax: boolean,
-    defaultHasPadding: boolean,
-    imageUpload: Promise<any>
-  }) => {
+  defaultPlugin: ContentPlugin,
+  defaultMode: number,
+  defaultModeFlag: number,
+  defaultBackgroundColor: Object,
+  defaultGradientColor: Object,
+  defaultGradientSecondaryColor: Object,
+  defaultDarken: number,
+  defaultLighten: number,
+  defaultIsParallax: boolean,
+  defaultHasPadding: boolean,
+  imageUpload: Promise<any>
+}) => {
   const settings = {
     defaultPlugin,
     defaultMode,
@@ -417,8 +510,10 @@ export default ({
     defaultHasPadding,
     imageUpload
   }
-  return ({
-    Component: (componentProps: Object) => <PluginComponent {...componentProps} {...settings} />,
+  return {
+    Component: (componentProps: Object) => (
+      <PluginComponent {...componentProps} {...settings} />
+    ),
     name: 'ory/editor/core/layout/background',
     version: '0.0.1',
 
@@ -445,5 +540,5 @@ export default ({
 
     handleFocusNextHotKey: () => Promise.reject(),
     handleFocusPreviousHotKey: () => Promise.reject()
-  })
+  }
 }

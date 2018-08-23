@@ -3,87 +3,127 @@ import Button from '@material-ui/core/Button'
 import Slider from '@material-ui/lab/Slider'
 import Typography from '@material-ui/core/Typography'
 import IconButton from '@material-ui/core/IconButton'
-import DeleteIcon from '@material-ui/icons/Delete';
+import DeleteIcon from '@material-ui/icons/Delete'
 
 import { ColorPicker } from 'ory-editor-ui'
 
 class LinearGradientComponent extends Component {
-  addGradient = (e: any) => this.props.ensureModeOn() | this.props.onChange({
-    gradients: (this.props.state.gradients ? this.props.state.gradients : []).concat({
-      deg: 45,
-      opacity: 1
+  addGradient = (e: any) =>
+    this.props.ensureModeOn() |
+    this.props.onChange({
+      gradients: (this.props.state.gradients
+        ? this.props.state.gradients
+        : []
+      ).concat({
+        deg: 45,
+        opacity: 1
+      })
     })
-  })
 
   handleChangeDeg = (index: number, value: number) => (e: any) => {
-    this.props.onChangeGradientDegPreview && this.props.onChangeGradientDegPreview(undefined, undefined)
+    this.props.onChangeGradientDegPreview &&
+      this.props.onChangeGradientDegPreview(undefined, undefined)
     this.props.onChange({
-      gradients: (this.props.state.gradients ? this.props.state.gradients : []).map((g, i) => i === index ? ({ ...g, deg: value }) : g)
+      gradients: (this.props.state.gradients
+        ? this.props.state.gradients
+        : []
+      ).map((g, i) => (i === index ? { ...g, deg: value } : g))
     })
   }
 
   handleChangeDegPreview = (index: number) => (e: any, value: number) => {
-    this.props.onChangeGradientDegPreview && this.props.onChangeGradientDegPreview(value, index)
+    this.props.onChangeGradientDegPreview &&
+      this.props.onChangeGradientDegPreview(value, index)
   }
 
   handleChangeOpacity = (index: number, value: number) => (e: any) => {
-    this.props.onChangeGradientOpacityPreview && this.props.onChangeGradientOpacityPreview(undefined, undefined)
+    this.props.onChangeGradientOpacityPreview &&
+      this.props.onChangeGradientOpacityPreview(undefined, undefined)
     this.props.onChange({
-      gradients: (this.props.state.gradients ? this.props.state.gradients : []).map((g, i) => i === index ? ({ ...g, opacity: value }) : g)
+      gradients: (this.props.state.gradients
+        ? this.props.state.gradients
+        : []
+      ).map((g, i) => (i === index ? { ...g, opacity: value } : g))
     })
   }
 
   handleChangeOpacityPreview = (index: number) => (e: any, value: number) => {
-    this.props.onChangeGradientOpacityPreview && this.props.onChangeGradientOpacityPreview(value, index)
+    this.props.onChangeGradientOpacityPreview &&
+      this.props.onChangeGradientOpacityPreview(value, index)
   }
 
   handleChangeGradientColor = (index: number, cpIndex: number) => (e: any) => {
-    this.props.onChangeGradientColorPreview && this.props.onChangeGradientColorPreview(undefined, undefined, undefined)
+    this.props.onChangeGradientColorPreview &&
+      this.props.onChangeGradientColorPreview(undefined, undefined, undefined)
     this.props.onChange({
-      gradients: [].concat(this.props.state.gradients ? this.props.state.gradients : []).map((g, i) => i === index ?
-        ({
-          ...g,
-          colors: (g.colors ? g.colors : []).map((c, cpI) => cpI === cpIndex ? ({ ...c, color: e }) : c)
-        })
-        :
-        g
-      )
+      gradients: []
+        .concat(this.props.state.gradients ? this.props.state.gradients : [])
+        .map(
+          (g, i) =>
+            i === index
+              ? {
+                  ...g,
+                  colors: (g.colors ? g.colors : []).map(
+                    (c, cpI) => (cpI === cpIndex ? { ...c, color: e } : c)
+                  )
+                }
+              : g
+        )
     })
   }
 
-  handleChangeGradientColorPreview = (index: number, cpIndex: number) => (e: any) => {
-    this.props.onChangeGradientColorPreview && this.props.onChangeGradientColorPreview(e, index, cpIndex)
+  handleChangeGradientColorPreview = (index: number, cpIndex: number) => (
+    e: any
+  ) => {
+    this.props.onChangeGradientColorPreview &&
+      this.props.onChangeGradientColorPreview(e, index, cpIndex)
   }
 
-  addColor = (index: number) => (e: any) => this.props.ensureModeOn() | this.props.onChange({
-    gradients: (this.props.state.gradients ? this.props.state.gradients : []).map((g, i) => i === index ?
-      ({
-        ...g,
-        colors: (g.colors ? g.colors : []).concat({
-          color: (g.colors ? g.colors : []).length % 2 === index % 2 ? this.props.defaultGradientColor : this.props.defaultGradientSecondaryColor
-        })
-      })
-      :
-      g
-    )
-  })
+  addColor = (index: number) => (e: any) =>
+    this.props.ensureModeOn() |
+    this.props.onChange({
+      gradients: (this.props.state.gradients
+        ? this.props.state.gradients
+        : []
+      ).map(
+        (g, i) =>
+          i === index
+            ? {
+                ...g,
+                colors: (g.colors ? g.colors : []).concat({
+                  color:
+                    (g.colors ? g.colors : []).length % 2 === index % 2
+                      ? this.props.defaultGradientColor
+                      : this.props.defaultGradientSecondaryColor
+                })
+              }
+            : g
+      )
+    })
 
   removeColor = (index: number, cpIndex: number) => (e: any) => {
     this.props.onChange({
-      gradients: [].concat(this.props.state.gradients ? this.props.state.gradients : []).map((g, i) => i === index ?
-        ({
-          ...g,
-          colors: (g.colors ? g.colors : []).filter((c, cpI) => cpI !== cpIndex)
-        })
-        :
-        g
-      )
+      gradients: []
+        .concat(this.props.state.gradients ? this.props.state.gradients : [])
+        .map(
+          (g, i) =>
+            i === index
+              ? {
+                  ...g,
+                  colors: (g.colors ? g.colors : []).filter(
+                    (c, cpI) => cpI !== cpIndex
+                  )
+                }
+              : g
+        )
     })
   }
 
   removeGradient = (index: number) => (e: any) => {
     this.props.onChange({
-      gradients: [].concat(this.props.state.gradients ? this.props.state.gradients : []).filter((item, i) => i !== index)
+      gradients: []
+        .concat(this.props.state.gradients ? this.props.state.gradients : [])
+        .filter((item, i) => i !== index)
     })
   }
 
@@ -96,16 +136,21 @@ class LinearGradientComponent extends Component {
       gradientColorPreview,
       gradientColorPreviewIndex,
       gradientColorPreviewColorIndex,
-      state: {
-        gradients = [],
-      }
+      state: { gradients = [] }
     } = this.props
     return (
       <div>
         {gradients.map((gradient, i) => {
           const colors = gradient.colors ? gradient.colors : []
-          const deg = i === gradientDegPreviewIndex && gradientDegPreview !== undefined ? gradientDegPreview : gradient.deg
-          const opacity = i === gradientOpacityPreviewIndex && gradientOpacityPreview !== undefined ? gradientOpacityPreview : gradient.opacity
+          const deg =
+            i === gradientDegPreviewIndex && gradientDegPreview !== undefined
+              ? gradientDegPreview
+              : gradient.deg
+          const opacity =
+            i === gradientOpacityPreviewIndex &&
+            gradientOpacityPreview !== undefined
+              ? gradientOpacityPreview
+              : gradient.opacity
           return (
             <div
               key={i}
@@ -117,7 +162,10 @@ class LinearGradientComponent extends Component {
               }}
             >
               <div>
-                <Typography id="linear-gradient-degree-label">Gradient rotation ({deg}deg)</Typography>
+                <Typography id="linear-gradient-degree-label">
+                  Gradient rotation ({deg}
+                  deg)
+                </Typography>
                 <Slider
                   aria-labelledby="linear-gradient-degree-label"
                   value={deg}
@@ -129,7 +177,10 @@ class LinearGradientComponent extends Component {
                 />
               </div>
               <div>
-                <Typography id="linear-gradient-opacity-label">Gradient opacity ({(opacity * 100).toFixed(0)}%)</Typography>
+                <Typography id="linear-gradient-opacity-label">
+                  Gradient opacity ({(opacity * 100).toFixed(0)}
+                  %)
+                </Typography>
                 <Slider
                   aria-labelledby="linear-gradient-opacity-label"
                   value={opacity}
@@ -141,17 +192,25 @@ class LinearGradientComponent extends Component {
                 />
               </div>
               {colors.map((c, cpIndex) => {
-                const color = i === gradientColorPreviewIndex && cpIndex === gradientColorPreviewColorIndex && gradientColorPreview !== undefined ?
-                  gradientColorPreview
-                  :
-                  c.color
+                const color =
+                  i === gradientColorPreviewIndex &&
+                  cpIndex === gradientColorPreviewColorIndex &&
+                  gradientColorPreview !== undefined
+                    ? gradientColorPreview
+                    : c.color
                 return (
                   <React.Fragment key={cpIndex}>
                     <ColorPicker
                       style={{ marginLeft: '8px' }}
                       color={color}
-                      onChange={this.handleChangeGradientColorPreview(i, cpIndex)}
-                      onChangeComplete={this.handleChangeGradientColor(i, cpIndex)}
+                      onChange={this.handleChangeGradientColorPreview(
+                        i,
+                        cpIndex
+                      )}
+                      onChangeComplete={this.handleChangeGradientColor(
+                        i,
+                        cpIndex
+                      )}
                     />
                     <IconButton
                       aria-label="Delete"
@@ -169,10 +228,7 @@ class LinearGradientComponent extends Component {
               >
                 Add color
               </Button>
-              <IconButton
-                aria-label="Delete"
-                onClick={this.removeGradient(i)}
-              >
+              <IconButton aria-label="Delete" onClick={this.removeGradient(i)}>
                 <DeleteIcon />
               </IconButton>
             </div>
@@ -181,7 +237,7 @@ class LinearGradientComponent extends Component {
         <div style={{ display: 'flex' }}>
           <Button
             buttonRef={node => {
-              this.anchorEl = node;
+              this.anchorEl = node
             }}
             style={{
               margin: 'auto'
@@ -194,7 +250,7 @@ class LinearGradientComponent extends Component {
           </Button>
         </div>
       </div>
-    );
+    )
   }
 }
 
