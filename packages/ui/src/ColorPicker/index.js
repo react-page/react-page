@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import Button from '@material-ui/core/Button'
 import Popover from '@material-ui/core/Popover'
 import { ChromePicker } from 'react-color'
-import ColorizeIcon from '@material-ui/icons/Colorize';
+import ColorizeIcon from '@material-ui/icons/Colorize'
 
 export type Color = {
   r: number,
@@ -50,14 +50,15 @@ class ColorPicker extends Component {
 
   onChange = (e: any) => this.props.onChange && this.props.onChange(e.rgb)
 
-  handleChangeComplete = (e: any) => this.props.onChangeComplete && this.props.onChangeComplete(e.rgb)
+  handleChangeComplete = (e: any) =>
+    this.props.onChangeComplete && this.props.onChangeComplete(e.rgb)
 
   render() {
     return (
       <React.Fragment>
         <Button
           buttonRef={node => {
-            this.anchorEl = node;
+            this.anchorEl = node
           }}
           variant="contained"
           onClick={this.handleClickShowColorPicker}
@@ -68,7 +69,8 @@ class ColorPicker extends Component {
             borderWidth: '2px'
           }}
         >
-          {this.props.buttonContent}{this.props.icon}
+          {this.props.buttonContent}
+          {this.props.icon}
         </Button>
         <Popover
           className="ory-prevent-blur"
@@ -77,11 +79,11 @@ class ColorPicker extends Component {
           onClose={this.handleClickShowColorPicker}
           anchorOrigin={{
             vertical: 'top',
-            horizontal: 'center',
+            horizontal: 'center'
           }}
           transformOrigin={{
             vertical: 'bottom',
-            horizontal: 'center',
+            horizontal: 'center'
           }}
         >
           <ChromePicker
@@ -92,10 +94,11 @@ class ColorPicker extends Component {
           />
         </Popover>
       </React.Fragment>
-    );
+    )
   }
 }
 
-export const colorToString = (c: Color) => c && 'rgba(' + c.r + ', ' + c.g + ', ' + c.b + ', ' + c.a + ')';
+export const colorToString = (c: Color) =>
+  c && 'rgba(' + c.r + ', ' + c.g + ', ' + c.b + ', ' + c.a + ')'
 
 export default ColorPicker
