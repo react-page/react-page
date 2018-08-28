@@ -64,4 +64,4 @@ const imagePlugin = (settings?: ImagePluginSettings) => {
 const image = imagePlugin()
 export default image
 
-export { imagePlugin }
+export { imagePlugin } 

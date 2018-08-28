@@ -31,8 +31,8 @@ import type { PropTypes } from '../index.js'
 import { ImageUpload } from 'ory-editor-ui'
 
 import { BottomToolbar } from 'ory-editor-ui'
-import { darkTheme } from 'ory-editor-ui/lib/ThemeProvider'
-import type { ImageLoaded, ImageUploaded } from 'ory-editor-ui/lib/ImageUpload'
+import { darkTheme } from 'ory-editor-ui/lib/ThemeProvider';
+import type { ImageLoaded, ImageUploaded } from 'ory-editor-ui/lib/ImageUpload';
 
 type StateType = {
   imagePreview?: ImageLoaded
@@ -69,11 +69,10 @@ class Form extends Component {
     }
   }
 
-  handleImageLoaded = (image: ImageLoaded) =>
-    this.setState({ imagePreview: image })
+  handleImageLoaded = (image: ImageLoaded) => this.setState({ imagePreview: image })
 
   handleImageUploaded = (resp: ImageUploaded) => {
-    this.setState({ imagePreview: undefined })
+    this.setState({ imagePreview: undefined });
     this.props.onChange({ src: resp.url })
   }
 
@@ -83,18 +82,14 @@ class Form extends Component {
         <Display {...this.props} imagePreview={this.state.imagePreview} />
         <BottomToolbar open={this.props.focused} theme={darkTheme}>
           <div style={{ display: 'flex' }}>
-            {this.props.imageUpload && (
-              <React.Fragment>
-                <ImageUpload
-                  imageUpload={this.props.imageUpload}
-                  imageLoaded={this.handleImageLoaded}
-                  imageUploaded={this.handleImageUploaded}
-                />
-                <Typography style={{ marginLeft: '20px', marginRight: '20px' }}>
-                  OR
-                </Typography>
-              </React.Fragment>
-            )}
+            {this.props.imageUpload && <React.Fragment>
+              <ImageUpload
+                imageUpload={this.props.imageUpload}
+                imageLoaded={this.handleImageLoaded}
+                imageUploaded={this.handleImageUploaded}
+              />
+              <Typography style={{ marginLeft: '20px', marginRight: '20px' }}>OR</Typography>
+            </React.Fragment>}
             <TextField
               placeholder="http://example.com/image.png"
               label={this.props.imageUpload ? 'I have a URL' : 'Image URL'}
@@ -115,13 +110,11 @@ class Form extends Component {
           <br />
           <br />
           <FormControlLabel
-            control={
-              <Checkbox
-                checked={this.props.state.target === '_blank'}
-                name="target"
-                onChange={this.handleChange(this.props.onChange)}
-              />
-            }
+            control={<Checkbox
+              checked={this.props.state.target === '_blank'}
+              name="target"
+              onChange={this.handleChange(this.props.onChange)}
+            />}
             label="Open in new window"
           />
         </BottomToolbar>
