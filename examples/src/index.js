@@ -23,6 +23,13 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 
+if (process.env.NODE_ENV !== 'production' && process.env.REACT_APP_TRACE_UPDATES) {
+  const { whyDidYouUpdate } = require('why-did-you-update')
+  whyDidYouUpdate(React)
+}
+
+import 'babel-polyfill'
+
 // The editor core
 import Editor, { Editable, createEmptyState } from 'ory-editor-core'
 import 'ory-editor-core/lib/index.css' // we also want to load the stylesheets
@@ -40,7 +47,7 @@ import spacer from 'ory-editor-plugins-spacer'
 import 'ory-editor-plugins-spacer/lib/index.css'
 
 // The image plugin
-import { imagePlugin } from 'ory-editor-plugins-image'
+import image from 'ory-editor-plugins-image'
 import 'ory-editor-plugins-image/lib/index.css'
 
 // The video plugin
@@ -50,10 +57,6 @@ import 'ory-editor-plugins-video/lib/index.css'
 // The parallax plugin
 import parallax from 'ory-editor-plugins-parallax-background'
 import 'ory-editor-plugins-parallax-background/lib/index.css'
-
-// The background plugin
-import background, { COLOR_MODE_FLAG, IMAGE_MODE_FLAG, GRADIENT_MODE_FLAG } from 'ory-editor-plugins-background'
-import 'ory-editor-plugins-background/lib/index.css'
 
 // The html5-video plugin
 import html5video from 'ory-editor-plugins-html5-video'
