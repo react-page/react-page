@@ -23,13 +23,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-if (process.env.NODE_ENV !== 'production' && process.env.REACT_APP_TRACE_UPDATES) {
-  const { whyDidYouUpdate } = require('why-did-you-update')
-  whyDidYouUpdate(React)
-}
-
-import 'babel-polyfill'
-
 // The editor core
 import Editor, { Editable, createEmptyState } from 'ory-editor-core'
 import 'ory-editor-core/lib/index.css' // we also want to load the stylesheets
@@ -74,6 +67,13 @@ import { HTMLRenderer } from 'ory-editor-renderer'
 // The content state
 import content from './content.js'
 import './styles.css'
+
+if (process.env.NODE_ENV !== 'production' && process.env.REACT_APP_TRACE_UPDATES) {
+  const { whyDidYouUpdate } = require('why-did-you-update')
+  whyDidYouUpdate(React)
+}
+
+// import 'babel-polyfill'
 
 const fakeImageUploadService = (defaultUrl) => (file, reportProgress) => {
   return new Promise((resolve, reject) => {
