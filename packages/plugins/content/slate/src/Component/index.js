@@ -57,7 +57,6 @@ class Slate extends Component {
     this.props.onChange({ editorState: value })
   }
 
-
   handleOpen = portal => {
     // this.toolbar = portal.firstChild
   }

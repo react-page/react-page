@@ -25,7 +25,7 @@
 /* eslint no-duplicate-imports: ["off"] */
 /* eslint prefer-reflect: ["off"] */
 import Subject from '@material-ui/icons/Subject'
-import { compose, flatten, map, prop, pathOr } from 'ramda'
+import { pathOr } from 'ramda'
 import Html from 'slate-html-serializer'
 import React from 'react'
 import { ActionTypes } from 'redux-undo'
@@ -36,8 +36,6 @@ import Plugin from './plugins/Plugin'
 import * as hooks from './hooks'
 import parse5 from 'parse5'
 import v002 from './migrations/v002'
-
-const createPlugins = compose(flatten, map(prop('plugins')))
 
 export const createInitialState = hooks.createInitialState
 
@@ -50,7 +48,7 @@ export const defaultPlugins = hooks.defaultPlugins
 
 export default (plugins: Plugin[] = hooks.defaultPlugins) => {
   const props = {}
-  props.plugins = (plugins ? plugins : []).concat(createPlugins(plugins))
+  props.plugins = plugins
   props.onKeyDown = (
     e: Event,
     data: { key: string, isMod: boolean, isShift: boolean },
@@ -62,10 +60,7 @@ export default (plugins: Plugin[] = hooks.defaultPlugins) => {
     }
 
     if (data.isShift && data.key === 'enter') {
-      return state
-        .change()
-        .insertText('\n')
-        .value
+      return state.change().insertText('\n').value
     }
 
     for (let i = 0; i < plugins.length; i++) {
@@ -139,9 +134,7 @@ export default (plugins: Plugin[] = hooks.defaultPlugins) => {
       }
 
       setTimeout(() => {
-        props.state.editorState
-          .change()
-          .focus()
+        props.state.editorState.change().focus()
       }, 0)
     },
 
@@ -151,9 +144,7 @@ export default (plugins: Plugin[] = hooks.defaultPlugins) => {
       }
 
       props.onChange({
-        editorState: props.state.editorState
-          .change()
-          .blur().value
+        editorState: props.state.editorState.change().blur().value
       })
     },
 

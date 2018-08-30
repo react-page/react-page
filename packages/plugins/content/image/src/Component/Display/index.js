@@ -27,11 +27,10 @@ import ImageIcon from '@material-ui/icons/Panorama'
 import { iconStyle } from '../common.js'
 import type { PropTypes } from '../index.js'
 
-const Display = ({ isEditMode, state }: PropTypes) => {
-  const Image = (
-    <img className="ory-plugins-content-image" alt="" src={state.src} />
-  )
-  return state.src ? (
+const Display = ({ isEditMode, state, imagePreview }: PropTypes) => {
+  const src = imagePreview ? imagePreview.dataUrl : state.src
+  const Image = <img className="ory-plugins-content-image" alt="" src={src} />
+  return src ? (
     <div>
       {state.href && !isEditMode ? (
         <a href={state.href} target={state.target} rel={state.rel}>

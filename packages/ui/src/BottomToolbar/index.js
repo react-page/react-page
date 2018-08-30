@@ -54,7 +54,7 @@ const BottomToolbar = ({
       <div
         style={{
           border: `${darkBlack} 1px solid`,
-          borderRadius: '4px 4px 0',
+          borderRadius: '4px 4px 0 0',
           backgroundColor: darkBlack,
           padding: '12px 24px',
           margin: 'auto'

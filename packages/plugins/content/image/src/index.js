@@ -27,31 +27,41 @@ import Component from './Component'
 import Panorama from '@material-ui/icons/Panorama'
 import type { ContentPluginProps } from 'ory-editor-core/lib/service/plugin/classes'
 
-export default {
-  Component,
-  name: 'ory/editor/core/content/image',
-  version: '0.0.1',
-  IconComponent: <Panorama />,
-  text: 'Image',
-  isInlineable: true,
-  description: 'Loads an image from an url.',
+export type ImagePluginSettings = {
+  imageUpload: Promise<Object>
+}
 
-  handleRemoveHotKey: (_: Event, __: ContentPluginProps<*>): Promise<*> =>
-    Promise.reject(),
-  handleFocusPreviousHotKey: (
-    _: Event,
-    __: ContentPluginProps<*>
-  ): Promise<*> => Promise.reject(),
-  handleFocusNextHotKey: (_: Event, __: ContentPluginProps<*>): Promise<*> =>
-    Promise.reject(),
+const imagePlugin = (settings?: ImagePluginSettings) => {
+  return {
+    Component: (props: Object) => <Component {...props} {...settings} />,
+    name: 'ory/editor/core/content/image',
+    version: '0.0.1',
+    IconComponent: <Panorama />,
+    text: 'Image',
+    isInlineable: true,
+    description: 'Loads an image from an url.',
 
-  // We need this because otherwise we lose hotkey focus on elements like spoilers.
-  // This could probably be solved in an easier way by listening to window.document?
+    handleRemoveHotKey: (_: Event, __: ContentPluginProps<*>): Promise<*> =>
+      Promise.reject(),
+    handleFocusPreviousHotKey: (
+      _: Event,
+      __: ContentPluginProps<*>
+    ): Promise<*> => Promise.reject(),
+    handleFocusNextHotKey: (_: Event, __: ContentPluginProps<*>): Promise<*> =>
+      Promise.reject(),
 
-  handleFocus: (props: any, source: any, ref: HTMLElement) => {
-    if (!ref) {
-      return
+    // We need this because otherwise we lose hotkey focus on elements like spoilers.
+    // This could probably be solved in an easier way by listening to window.document?
+
+    handleFocus: (props: any, source: any, ref: HTMLElement) => {
+      if (!ref) {
+        return
+      }
+      setTimeout(() => ref.focus())
     }
-    setTimeout(() => ref.focus())
   }
 }
+const image = imagePlugin()
+export default image
+
+export { imagePlugin }
