@@ -16,4 +16,4 @@
 
 [1]: #index
 
-[2]: https://github.com/ory-am/editor/blob/533fbec70f0b5e2daea44c1f583968db3bbbb93a/packages/plugins/content/native/src/index.js#L47-L58 "Source code on GitHub"
+[2]: https://github.com/ory-am/editor/blob/ca2a6276b89b7282695673c40c7fe5205a0593e4/packages/plugins/content/native/src/index.js#L47-L58 "Source code on GitHub"
