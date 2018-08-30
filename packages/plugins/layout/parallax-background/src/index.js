@@ -32,6 +32,10 @@ import type {
 import { BottomToolbar } from 'ory-editor-ui'
 import ThemeProvider, { darkTheme } from 'ory-editor-ui/lib/ThemeProvider'
 
+console.warn(
+  "WARNING! Obsolete plugin loaded. 'ory/editor/core/layout/parallax-background' has been deprecated, please use the new 'ory/editor/core/layout/background' plugin instead!"
+)
+
 class PluginComponent extends Component {
   state = { hidden: false }
   props: LayoutPluginProps<{}> & { children: any }
@@ -85,7 +89,7 @@ export default ({ defaultPlugin }: { defaultPlugin: ContentPlugin }) => ({
   name: 'ory/editor/core/layout/parallax-background',
   version: '0.0.1',
 
-  text: 'Parallax Background',
+  text: 'Parallax Background (deprecated)',
   IconComponent: <Icon />,
 
   createInitialChildren: () => ({

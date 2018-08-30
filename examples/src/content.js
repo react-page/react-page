@@ -826,7 +826,7 @@ export default [
                 "size": 12,
                 "layout": {
                   "plugin": {
-                    "name": "ory/editor/core/layout/parallax-background",
+                    "name": "ory/editor/core/layout/background",
                     "version": "0.0.1"
                   },
                   "state": {
