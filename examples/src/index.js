@@ -40,7 +40,7 @@ import spacer from 'ory-editor-plugins-spacer'
 import 'ory-editor-plugins-spacer/lib/index.css'
 
 // The image plugin
-import image from 'ory-editor-plugins-image'
+import { imagePlugin } from 'ory-editor-plugins-image'
 import 'ory-editor-plugins-image/lib/index.css'
 
 // The video plugin
@@ -50,6 +50,10 @@ import 'ory-editor-plugins-video/lib/index.css'
 // The parallax plugin
 import parallax from 'ory-editor-plugins-parallax-background'
 import 'ory-editor-plugins-parallax-background/lib/index.css'
+
+// The background plugin
+import background, { COLOR_MODE_FLAG, IMAGE_MODE_FLAG, GRADIENT_MODE_FLAG } from 'ory-editor-plugins-background'
+import 'ory-editor-plugins-background/lib/index.css'
 
 // The html5-video plugin
 import html5video from 'ory-editor-plugins-html5-video'
@@ -67,13 +71,6 @@ import { HTMLRenderer } from 'ory-editor-renderer'
 // The content state
 import content from './content.js'
 import './styles.css'
-
-if (process.env.NODE_ENV !== 'production' && process.env.REACT_APP_TRACE_UPDATES) {
-  const { whyDidYouUpdate } = require('why-did-you-update')
-  whyDidYouUpdate(React)
-}
-
-// import 'babel-polyfill'
 
 const fakeImageUploadService = (defaultUrl) => (file, reportProgress) => {
   return new Promise((resolve, reject) => {

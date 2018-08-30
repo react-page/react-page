@@ -1454,228 +1454,228 @@ Returns **Store**
 
 [107]: #store
 
-[108]: https://github.com/ory-am/editor/blob/a132d043c090d71660712c15d70e730eae6ff628/packages/core/src/actions/cell/core.js#L50-L55 "Source code on GitHub"
+[108]: https://github.com/ory-am/editor/blob/533fbec70f0b5e2daea44c1f583968db3bbbb93a/packages/core/src/actions/cell/core.js#L50-L55 "Source code on GitHub"
 
 [109]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String
 
-[110]: https://github.com/ory-am/editor/blob/a132d043c090d71660712c15d70e730eae6ff628/packages/core/src/actions/cell/core.js#L68-L73 "Source code on GitHub"
+[110]: https://github.com/ory-am/editor/blob/533fbec70f0b5e2daea44c1f583968db3bbbb93a/packages/core/src/actions/cell/core.js#L68-L73 "Source code on GitHub"
 
-[111]: https://github.com/ory-am/editor/blob/a132d043c090d71660712c15d70e730eae6ff628/packages/core/src/actions/cell/core.js#L87-L92 "Source code on GitHub"
+[111]: https://github.com/ory-am/editor/blob/533fbec70f0b5e2daea44c1f583968db3bbbb93a/packages/core/src/actions/cell/core.js#L87-L92 "Source code on GitHub"
 
-[112]: https://github.com/ory-am/editor/blob/a132d043c090d71660712c15d70e730eae6ff628/packages/core/src/actions/cell/core.js#L106-L111 "Source code on GitHub"
+[112]: https://github.com/ory-am/editor/blob/533fbec70f0b5e2daea44c1f583968db3bbbb93a/packages/core/src/actions/cell/core.js#L106-L111 "Source code on GitHub"
 
 [113]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number
 
 [114]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function
 
-[115]: https://github.com/ory-am/editor/blob/a132d043c090d71660712c15d70e730eae6ff628/packages/core/src/actions/cell/core.js#L116-L123 "Source code on GitHub"
+[115]: https://github.com/ory-am/editor/blob/533fbec70f0b5e2daea44c1f583968db3bbbb93a/packages/core/src/actions/cell/core.js#L116-L123 "Source code on GitHub"
 
-[116]: https://github.com/ory-am/editor/blob/a132d043c090d71660712c15d70e730eae6ff628/packages/core/src/actions/cell/core.js#L128-L132 "Source code on GitHub"
+[116]: https://github.com/ory-am/editor/blob/533fbec70f0b5e2daea44c1f583968db3bbbb93a/packages/core/src/actions/cell/core.js#L128-L132 "Source code on GitHub"
 
-[117]: https://github.com/ory-am/editor/blob/a132d043c090d71660712c15d70e730eae6ff628/packages/core/src/actions/cell/core.js#L137-L141 "Source code on GitHub"
+[117]: https://github.com/ory-am/editor/blob/533fbec70f0b5e2daea44c1f583968db3bbbb93a/packages/core/src/actions/cell/core.js#L137-L141 "Source code on GitHub"
 
-[118]: https://github.com/ory-am/editor/blob/a132d043c090d71660712c15d70e730eae6ff628/packages/core/src/actions/cell/core.js#L146-L150 "Source code on GitHub"
+[118]: https://github.com/ory-am/editor/blob/533fbec70f0b5e2daea44c1f583968db3bbbb93a/packages/core/src/actions/cell/core.js#L146-L150 "Source code on GitHub"
 
-[119]: https://github.com/ory-am/editor/blob/a132d043c090d71660712c15d70e730eae6ff628/packages/core/src/actions/cell/core.js#L155-L158 "Source code on GitHub"
+[119]: https://github.com/ory-am/editor/blob/533fbec70f0b5e2daea44c1f583968db3bbbb93a/packages/core/src/actions/cell/core.js#L155-L158 "Source code on GitHub"
 
-[120]: https://github.com/ory-am/editor/blob/a132d043c090d71660712c15d70e730eae6ff628/packages/core/src/actions/cell/core.js#L163-L169 "Source code on GitHub"
+[120]: https://github.com/ory-am/editor/blob/533fbec70f0b5e2daea44c1f583968db3bbbb93a/packages/core/src/actions/cell/core.js#L163-L169 "Source code on GitHub"
 
-[121]: https://github.com/ory-am/editor/blob/a132d043c090d71660712c15d70e730eae6ff628/packages/core/src/actions/cell/drag.js#L28-L28 "Source code on GitHub"
+[121]: https://github.com/ory-am/editor/blob/533fbec70f0b5e2daea44c1f583968db3bbbb93a/packages/core/src/actions/cell/drag.js#L28-L28 "Source code on GitHub"
 
-[122]: https://github.com/ory-am/editor/blob/a132d043c090d71660712c15d70e730eae6ff628/packages/core/src/actions/cell/drag.js#L50-L62 "Source code on GitHub"
+[122]: https://github.com/ory-am/editor/blob/533fbec70f0b5e2daea44c1f583968db3bbbb93a/packages/core/src/actions/cell/drag.js#L50-L62 "Source code on GitHub"
 
-[123]: https://github.com/ory-am/editor/blob/a132d043c090d71660712c15d70e730eae6ff628/packages/core/src/actions/cell/drag.js#L76-L77 "Source code on GitHub"
+[123]: https://github.com/ory-am/editor/blob/533fbec70f0b5e2daea44c1f583968db3bbbb93a/packages/core/src/actions/cell/drag.js#L76-L77 "Source code on GitHub"
 
-[124]: https://github.com/ory-am/editor/blob/a132d043c090d71660712c15d70e730eae6ff628/packages/core/src/actions/cell/drag.js#L91-L92 "Source code on GitHub"
+[124]: https://github.com/ory-am/editor/blob/533fbec70f0b5e2daea44c1f583968db3bbbb93a/packages/core/src/actions/cell/drag.js#L91-L92 "Source code on GitHub"
 
-[125]: https://github.com/ory-am/editor/blob/a132d043c090d71660712c15d70e730eae6ff628/packages/core/src/actions/cell/drag.js#L106-L107 "Source code on GitHub"
+[125]: https://github.com/ory-am/editor/blob/533fbec70f0b5e2daea44c1f583968db3bbbb93a/packages/core/src/actions/cell/drag.js#L106-L107 "Source code on GitHub"
 
-[126]: https://github.com/ory-am/editor/blob/a132d043c090d71660712c15d70e730eae6ff628/packages/core/src/actions/cell/drag.js#L121-L122 "Source code on GitHub"
+[126]: https://github.com/ory-am/editor/blob/533fbec70f0b5e2daea44c1f583968db3bbbb93a/packages/core/src/actions/cell/drag.js#L121-L122 "Source code on GitHub"
 
-[127]: https://github.com/ory-am/editor/blob/a132d043c090d71660712c15d70e730eae6ff628/packages/core/src/actions/cell/drag.js#L135-L136 "Source code on GitHub"
+[127]: https://github.com/ory-am/editor/blob/533fbec70f0b5e2daea44c1f583968db3bbbb93a/packages/core/src/actions/cell/drag.js#L135-L136 "Source code on GitHub"
 
-[128]: https://github.com/ory-am/editor/blob/a132d043c090d71660712c15d70e730eae6ff628/packages/core/src/actions/cell/drag.js#L149-L150 "Source code on GitHub"
+[128]: https://github.com/ory-am/editor/blob/533fbec70f0b5e2daea44c1f583968db3bbbb93a/packages/core/src/actions/cell/drag.js#L149-L150 "Source code on GitHub"
 
-[129]: https://github.com/ory-am/editor/blob/a132d043c090d71660712c15d70e730eae6ff628/packages/core/src/actions/cell/drag.js#L163-L167 "Source code on GitHub"
+[129]: https://github.com/ory-am/editor/blob/533fbec70f0b5e2daea44c1f583968db3bbbb93a/packages/core/src/actions/cell/drag.js#L163-L167 "Source code on GitHub"
 
-[130]: https://github.com/ory-am/editor/blob/a132d043c090d71660712c15d70e730eae6ff628/packages/core/src/actions/cell/drag.js#L174-L177 "Source code on GitHub"
+[130]: https://github.com/ory-am/editor/blob/533fbec70f0b5e2daea44c1f583968db3bbbb93a/packages/core/src/actions/cell/drag.js#L174-L177 "Source code on GitHub"
 
-[131]: https://github.com/ory-am/editor/blob/a132d043c090d71660712c15d70e730eae6ff628/packages/core/src/actions/cell/drag.js#L190-L193 "Source code on GitHub"
+[131]: https://github.com/ory-am/editor/blob/533fbec70f0b5e2daea44c1f583968db3bbbb93a/packages/core/src/actions/cell/drag.js#L190-L193 "Source code on GitHub"
 
-[132]: https://github.com/ory-am/editor/blob/a132d043c090d71660712c15d70e730eae6ff628/packages/core/src/actions/cell/insert.js#L82-L82 "Source code on GitHub"
+[132]: https://github.com/ory-am/editor/blob/533fbec70f0b5e2daea44c1f583968db3bbbb93a/packages/core/src/actions/cell/insert.js#L82-L82 "Source code on GitHub"
 
-[133]: https://github.com/ory-am/editor/blob/a132d043c090d71660712c15d70e730eae6ff628/packages/core/src/actions/cell/insert.js#L87-L87 "Source code on GitHub"
+[133]: https://github.com/ory-am/editor/blob/533fbec70f0b5e2daea44c1f583968db3bbbb93a/packages/core/src/actions/cell/insert.js#L87-L87 "Source code on GitHub"
 
-[134]: https://github.com/ory-am/editor/blob/a132d043c090d71660712c15d70e730eae6ff628/packages/core/src/actions/cell/insert.js#L92-L92 "Source code on GitHub"
+[134]: https://github.com/ory-am/editor/blob/533fbec70f0b5e2daea44c1f583968db3bbbb93a/packages/core/src/actions/cell/insert.js#L92-L92 "Source code on GitHub"
 
-[135]: https://github.com/ory-am/editor/blob/a132d043c090d71660712c15d70e730eae6ff628/packages/core/src/actions/cell/insert.js#L97-L97 "Source code on GitHub"
+[135]: https://github.com/ory-am/editor/blob/533fbec70f0b5e2daea44c1f583968db3bbbb93a/packages/core/src/actions/cell/insert.js#L97-L97 "Source code on GitHub"
 
-[136]: https://github.com/ory-am/editor/blob/a132d043c090d71660712c15d70e730eae6ff628/packages/core/src/actions/cell/insert.js#L102-L102 "Source code on GitHub"
+[136]: https://github.com/ory-am/editor/blob/533fbec70f0b5e2daea44c1f583968db3bbbb93a/packages/core/src/actions/cell/insert.js#L102-L102 "Source code on GitHub"
 
-[137]: https://github.com/ory-am/editor/blob/a132d043c090d71660712c15d70e730eae6ff628/packages/core/src/actions/cell/insert.js#L107-L107 "Source code on GitHub"
+[137]: https://github.com/ory-am/editor/blob/533fbec70f0b5e2daea44c1f583968db3bbbb93a/packages/core/src/actions/cell/insert.js#L107-L107 "Source code on GitHub"
 
-[138]: https://github.com/ory-am/editor/blob/a132d043c090d71660712c15d70e730eae6ff628/packages/core/src/actions/display.js#L48-L48 "Source code on GitHub"
+[138]: https://github.com/ory-am/editor/blob/533fbec70f0b5e2daea44c1f583968db3bbbb93a/packages/core/src/actions/display.js#L48-L48 "Source code on GitHub"
 
-[139]: https://github.com/ory-am/editor/blob/a132d043c090d71660712c15d70e730eae6ff628/packages/core/src/actions/display.js#L53-L53 "Source code on GitHub"
+[139]: https://github.com/ory-am/editor/blob/533fbec70f0b5e2daea44c1f583968db3bbbb93a/packages/core/src/actions/display.js#L53-L53 "Source code on GitHub"
 
-[140]: https://github.com/ory-am/editor/blob/a132d043c090d71660712c15d70e730eae6ff628/packages/core/src/actions/display.js#L58-L58 "Source code on GitHub"
+[140]: https://github.com/ory-am/editor/blob/533fbec70f0b5e2daea44c1f583968db3bbbb93a/packages/core/src/actions/display.js#L58-L58 "Source code on GitHub"
 
-[141]: https://github.com/ory-am/editor/blob/a132d043c090d71660712c15d70e730eae6ff628/packages/core/src/actions/display.js#L63-L63 "Source code on GitHub"
+[141]: https://github.com/ory-am/editor/blob/533fbec70f0b5e2daea44c1f583968db3bbbb93a/packages/core/src/actions/display.js#L63-L63 "Source code on GitHub"
 
-[142]: https://github.com/ory-am/editor/blob/a132d043c090d71660712c15d70e730eae6ff628/packages/core/src/actions/display.js#L68-L68 "Source code on GitHub"
+[142]: https://github.com/ory-am/editor/blob/533fbec70f0b5e2daea44c1f583968db3bbbb93a/packages/core/src/actions/display.js#L68-L68 "Source code on GitHub"
 
-[143]: https://github.com/ory-am/editor/blob/a132d043c090d71660712c15d70e730eae6ff628/packages/core/src/actions/display.js#L73-L76 "Source code on GitHub"
+[143]: https://github.com/ory-am/editor/blob/533fbec70f0b5e2daea44c1f583968db3bbbb93a/packages/core/src/actions/display.js#L73-L76 "Source code on GitHub"
 
-[144]: https://github.com/ory-am/editor/blob/a132d043c090d71660712c15d70e730eae6ff628/packages/core/src/const.js#L26-L33 "Source code on GitHub"
+[144]: https://github.com/ory-am/editor/blob/533fbec70f0b5e2daea44c1f583968db3bbbb93a/packages/core/src/const.js#L26-L33 "Source code on GitHub"
 
-[145]: https://github.com/ory-am/editor/blob/a132d043c090d71660712c15d70e730eae6ff628/packages/core/src/index.js#L72-L154 "Source code on GitHub"
+[145]: https://github.com/ory-am/editor/blob/533fbec70f0b5e2daea44c1f583968db3bbbb93a/packages/core/src/index.js#L72-L154 "Source code on GitHub"
 
-[146]: https://github.com/ory-am/editor/blob/a132d043c090d71660712c15d70e730eae6ff628/packages/core/src/reducer/editable/helper/hover.js#L28-L40 "Source code on GitHub"
+[146]: https://github.com/ory-am/editor/blob/533fbec70f0b5e2daea44c1f583968db3bbbb93a/packages/core/src/reducer/editable/helper/hover.js#L28-L40 "Source code on GitHub"
 
 [147]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object
 
 [148]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean
 
-[149]: https://github.com/ory-am/editor/blob/a132d043c090d71660712c15d70e730eae6ff628/packages/core/src/reducer/editable/helper/sizing.js#L31-L37 "Source code on GitHub"
+[149]: https://github.com/ory-am/editor/blob/533fbec70f0b5e2daea44c1f583968db3bbbb93a/packages/core/src/reducer/editable/helper/sizing.js#L31-L37 "Source code on GitHub"
 
 [150]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array
 
-[151]: https://github.com/ory-am/editor/blob/a132d043c090d71660712c15d70e730eae6ff628/packages/core/src/reducer/editable/helper/sizing.js#L42-L51 "Source code on GitHub"
+[151]: https://github.com/ory-am/editor/blob/533fbec70f0b5e2daea44c1f583968db3bbbb93a/packages/core/src/reducer/editable/helper/sizing.js#L42-L51 "Source code on GitHub"
 
-[152]: https://github.com/ory-am/editor/blob/a132d043c090d71660712c15d70e730eae6ff628/packages/core/src/reducer/editable/helper/sizing.js#L56-L62 "Source code on GitHub"
+[152]: https://github.com/ory-am/editor/blob/533fbec70f0b5e2daea44c1f583968db3bbbb93a/packages/core/src/reducer/editable/helper/sizing.js#L56-L62 "Source code on GitHub"
 
-[153]: https://github.com/ory-am/editor/blob/a132d043c090d71660712c15d70e730eae6ff628/packages/core/src/reducer/editable/helper/sizing.js#L67-L94 "Source code on GitHub"
+[153]: https://github.com/ory-am/editor/blob/533fbec70f0b5e2daea44c1f583968db3bbbb93a/packages/core/src/reducer/editable/helper/sizing.js#L67-L94 "Source code on GitHub"
 
-[154]: https://github.com/ory-am/editor/blob/a132d043c090d71660712c15d70e730eae6ff628/packages/core/src/reducer/editable/helper/sizing.js#L99-L117 "Source code on GitHub"
+[154]: https://github.com/ory-am/editor/blob/533fbec70f0b5e2daea44c1f583968db3bbbb93a/packages/core/src/reducer/editable/helper/sizing.js#L99-L117 "Source code on GitHub"
 
-[155]: https://github.com/ory-am/editor/blob/a132d043c090d71660712c15d70e730eae6ff628/packages/core/src/reducer/editable/helper/sizing.js#L125-L138 "Source code on GitHub"
+[155]: https://github.com/ory-am/editor/blob/533fbec70f0b5e2daea44c1f583968db3bbbb93a/packages/core/src/reducer/editable/helper/sizing.js#L125-L138 "Source code on GitHub"
 
-[156]: https://github.com/ory-am/editor/blob/a132d043c090d71660712c15d70e730eae6ff628/packages/core/src/service/hover/index.js#L68-L90 "Source code on GitHub"
+[156]: https://github.com/ory-am/editor/blob/533fbec70f0b5e2daea44c1f583968db3bbbb93a/packages/core/src/service/hover/index.js#L68-L90 "Source code on GitHub"
 
-[157]: https://github.com/ory-am/editor/blob/a132d043c090d71660712c15d70e730eae6ff628/packages/core/src/service/hover/index.js#L99-L132 "Source code on GitHub"
+[157]: https://github.com/ory-am/editor/blob/533fbec70f0b5e2daea44c1f583968db3bbbb93a/packages/core/src/service/hover/index.js#L99-L132 "Source code on GitHub"
 
-[158]: https://github.com/ory-am/editor/blob/a132d043c090d71660712c15d70e730eae6ff628/packages/core/src/service/hover/index.js#L166-L175 "Source code on GitHub"
+[158]: https://github.com/ory-am/editor/blob/533fbec70f0b5e2daea44c1f583968db3bbbb93a/packages/core/src/service/hover/index.js#L166-L175 "Source code on GitHub"
 
-[159]: https://github.com/ory-am/editor/blob/a132d043c090d71660712c15d70e730eae6ff628/packages/core/src/service/hover/index.js#L180-L180 "Source code on GitHub"
+[159]: https://github.com/ory-am/editor/blob/533fbec70f0b5e2daea44c1f583968db3bbbb93a/packages/core/src/service/hover/index.js#L180-L180 "Source code on GitHub"
 
-[160]: https://github.com/ory-am/editor/blob/a132d043c090d71660712c15d70e730eae6ff628/packages/core/src/service/hover/index.js#L259-L270 "Source code on GitHub"
+[160]: https://github.com/ory-am/editor/blob/533fbec70f0b5e2daea44c1f583968db3bbbb93a/packages/core/src/service/hover/index.js#L259-L270 "Source code on GitHub"
 
-[161]: https://github.com/ory-am/editor/blob/a132d043c090d71660712c15d70e730eae6ff628/packages/core/src/service/hover/index.js#L275-L300 "Source code on GitHub"
+[161]: https://github.com/ory-am/editor/blob/533fbec70f0b5e2daea44c1f583968db3bbbb93a/packages/core/src/service/hover/index.js#L275-L300 "Source code on GitHub"
 
-[162]: https://github.com/ory-am/editor/blob/a132d043c090d71660712c15d70e730eae6ff628/packages/core/src/service/hover/index.js#L313-L347 "Source code on GitHub"
+[162]: https://github.com/ory-am/editor/blob/533fbec70f0b5e2daea44c1f583968db3bbbb93a/packages/core/src/service/hover/index.js#L313-L347 "Source code on GitHub"
 
-[163]: https://github.com/ory-am/editor/blob/a132d043c090d71660712c15d70e730eae6ff628/packages/core/src/service/hover/index.js#L354-L388 "Source code on GitHub"
+[163]: https://github.com/ory-am/editor/blob/533fbec70f0b5e2daea44c1f583968db3bbbb93a/packages/core/src/service/hover/index.js#L354-L388 "Source code on GitHub"
 
-[164]: https://github.com/ory-am/editor/blob/a132d043c090d71660712c15d70e730eae6ff628/packages/core/src/service/hover/index.js#L395-L649 "Source code on GitHub"
+[164]: https://github.com/ory-am/editor/blob/533fbec70f0b5e2daea44c1f583968db3bbbb93a/packages/core/src/service/hover/index.js#L395-L649 "Source code on GitHub"
 
-[165]: https://github.com/ory-am/editor/blob/a132d043c090d71660712c15d70e730eae6ff628/packages/core/src/service/logger/index.js#L39-L41 "Source code on GitHub"
+[165]: https://github.com/ory-am/editor/blob/533fbec70f0b5e2daea44c1f583968db3bbbb93a/packages/core/src/service/logger/index.js#L39-L41 "Source code on GitHub"
 
-[166]: https://github.com/ory-am/editor/blob/a132d043c090d71660712c15d70e730eae6ff628/packages/core/src/service/logger/index.js#L46-L48 "Source code on GitHub"
+[166]: https://github.com/ory-am/editor/blob/533fbec70f0b5e2daea44c1f583968db3bbbb93a/packages/core/src/service/logger/index.js#L46-L48 "Source code on GitHub"
 
-[167]: https://github.com/ory-am/editor/blob/a132d043c090d71660712c15d70e730eae6ff628/packages/core/src/service/logger/index.js#L53-L55 "Source code on GitHub"
+[167]: https://github.com/ory-am/editor/blob/533fbec70f0b5e2daea44c1f583968db3bbbb93a/packages/core/src/service/logger/index.js#L53-L55 "Source code on GitHub"
 
-[168]: https://github.com/ory-am/editor/blob/a132d043c090d71660712c15d70e730eae6ff628/packages/core/src/service/logger/index.js#L60-L63 "Source code on GitHub"
+[168]: https://github.com/ory-am/editor/blob/533fbec70f0b5e2daea44c1f583968db3bbbb93a/packages/core/src/service/logger/index.js#L60-L63 "Source code on GitHub"
 
-[169]: https://github.com/ory-am/editor/blob/a132d043c090d71660712c15d70e730eae6ff628/packages/core/src/service/logger/index.js#L68-L72 "Source code on GitHub"
+[169]: https://github.com/ory-am/editor/blob/533fbec70f0b5e2daea44c1f583968db3bbbb93a/packages/core/src/service/logger/index.js#L68-L72 "Source code on GitHub"
 
-[170]: https://github.com/ory-am/editor/blob/a132d043c090d71660712c15d70e730eae6ff628/packages/core/src/service/logger/index.js#L77-L80 "Source code on GitHub"
+[170]: https://github.com/ory-am/editor/blob/533fbec70f0b5e2daea44c1f583968db3bbbb93a/packages/core/src/service/logger/index.js#L77-L80 "Source code on GitHub"
 
-[171]: https://github.com/ory-am/editor/blob/a132d043c090d71660712c15d70e730eae6ff628/packages/core/src/service/plugin/classes.js#L32-L32 "Source code on GitHub"
+[171]: https://github.com/ory-am/editor/blob/533fbec70f0b5e2daea44c1f583968db3bbbb93a/packages/core/src/service/plugin/classes.js#L32-L32 "Source code on GitHub"
 
-[172]: https://github.com/ory-am/editor/blob/a132d043c090d71660712c15d70e730eae6ff628/packages/core/src/service/plugin/classes.js#L71-L71 "Source code on GitHub"
+[172]: https://github.com/ory-am/editor/blob/533fbec70f0b5e2daea44c1f583968db3bbbb93a/packages/core/src/service/plugin/classes.js#L71-L71 "Source code on GitHub"
 
-[173]: https://github.com/ory-am/editor/blob/a132d043c090d71660712c15d70e730eae6ff628/packages/core/src/service/plugin/classes.js#L37-L37 "Source code on GitHub"
+[173]: https://github.com/ory-am/editor/blob/533fbec70f0b5e2daea44c1f583968db3bbbb93a/packages/core/src/service/plugin/classes.js#L37-L37 "Source code on GitHub"
 
-[174]: https://github.com/ory-am/editor/blob/a132d043c090d71660712c15d70e730eae6ff628/packages/core/src/service/plugin/classes.js#L76-L76 "Source code on GitHub"
+[174]: https://github.com/ory-am/editor/blob/533fbec70f0b5e2daea44c1f583968db3bbbb93a/packages/core/src/service/plugin/classes.js#L76-L76 "Source code on GitHub"
 
-[175]: https://github.com/ory-am/editor/blob/a132d043c090d71660712c15d70e730eae6ff628/packages/core/src/service/plugin/classes.js#L42-L42 "Source code on GitHub"
+[175]: https://github.com/ory-am/editor/blob/533fbec70f0b5e2daea44c1f583968db3bbbb93a/packages/core/src/service/plugin/classes.js#L42-L42 "Source code on GitHub"
 
-[176]: https://github.com/ory-am/editor/blob/a132d043c090d71660712c15d70e730eae6ff628/packages/core/src/service/plugin/classes.js#L47-L47 "Source code on GitHub"
+[176]: https://github.com/ory-am/editor/blob/533fbec70f0b5e2daea44c1f583968db3bbbb93a/packages/core/src/service/plugin/classes.js#L47-L47 "Source code on GitHub"
 
-[177]: https://github.com/ory-am/editor/blob/a132d043c090d71660712c15d70e730eae6ff628/packages/core/src/service/plugin/classes.js#L52-L52 "Source code on GitHub"
+[177]: https://github.com/ory-am/editor/blob/533fbec70f0b5e2daea44c1f583968db3bbbb93a/packages/core/src/service/plugin/classes.js#L52-L52 "Source code on GitHub"
 
-[178]: https://github.com/ory-am/editor/blob/a132d043c090d71660712c15d70e730eae6ff628/packages/core/src/service/plugin/classes.js#L81-L81 "Source code on GitHub"
+[178]: https://github.com/ory-am/editor/blob/533fbec70f0b5e2daea44c1f583968db3bbbb93a/packages/core/src/service/plugin/classes.js#L81-L81 "Source code on GitHub"
 
-[179]: https://github.com/ory-am/editor/blob/a132d043c090d71660712c15d70e730eae6ff628/packages/core/src/service/plugin/classes.js#L57-L57 "Source code on GitHub"
+[179]: https://github.com/ory-am/editor/blob/533fbec70f0b5e2daea44c1f583968db3bbbb93a/packages/core/src/service/plugin/classes.js#L57-L57 "Source code on GitHub"
 
-[180]: https://github.com/ory-am/editor/blob/a132d043c090d71660712c15d70e730eae6ff628/packages/core/src/service/plugin/classes.js#L86-L86 "Source code on GitHub"
+[180]: https://github.com/ory-am/editor/blob/533fbec70f0b5e2daea44c1f583968db3bbbb93a/packages/core/src/service/plugin/classes.js#L86-L86 "Source code on GitHub"
 
-[181]: https://github.com/ory-am/editor/blob/a132d043c090d71660712c15d70e730eae6ff628/packages/core/src/service/plugin/classes.js#L64-L64 "Source code on GitHub"
+[181]: https://github.com/ory-am/editor/blob/533fbec70f0b5e2daea44c1f583968db3bbbb93a/packages/core/src/service/plugin/classes.js#L64-L64 "Source code on GitHub"
 
-[182]: https://github.com/ory-am/editor/blob/a132d043c090d71660712c15d70e730eae6ff628/packages/core/src/service/plugin/classes.js#L93-L93 "Source code on GitHub"
+[182]: https://github.com/ory-am/editor/blob/533fbec70f0b5e2daea44c1f583968db3bbbb93a/packages/core/src/service/plugin/classes.js#L93-L93 "Source code on GitHub"
 
-[183]: https://github.com/ory-am/editor/blob/a132d043c090d71660712c15d70e730eae6ff628/packages/core/src/service/plugin/classes.js#L99-L123 "Source code on GitHub"
+[183]: https://github.com/ory-am/editor/blob/533fbec70f0b5e2daea44c1f583968db3bbbb93a/packages/core/src/service/plugin/classes.js#L99-L123 "Source code on GitHub"
 
-[184]: https://github.com/ory-am/editor/blob/a132d043c090d71660712c15d70e730eae6ff628/packages/core/src/service/plugin/classes.js#L128-L301 "Source code on GitHub"
+[184]: https://github.com/ory-am/editor/blob/533fbec70f0b5e2daea44c1f583968db3bbbb93a/packages/core/src/service/plugin/classes.js#L128-L301 "Source code on GitHub"
 
-[185]: https://github.com/ory-am/editor/blob/a132d043c090d71660712c15d70e730eae6ff628/packages/core/src/service/plugin/classes.js#L188-L188 "Source code on GitHub"
+[185]: https://github.com/ory-am/editor/blob/533fbec70f0b5e2daea44c1f583968db3bbbb93a/packages/core/src/service/plugin/classes.js#L188-L188 "Source code on GitHub"
 
-[186]: https://github.com/ory-am/editor/blob/a132d043c090d71660712c15d70e730eae6ff628/packages/core/src/service/plugin/classes.js#L193-L193 "Source code on GitHub"
+[186]: https://github.com/ory-am/editor/blob/533fbec70f0b5e2daea44c1f583968db3bbbb93a/packages/core/src/service/plugin/classes.js#L193-L193 "Source code on GitHub"
 
-[187]: https://github.com/ory-am/editor/blob/a132d043c090d71660712c15d70e730eae6ff628/packages/core/src/service/plugin/classes.js#L198-L198 "Source code on GitHub"
+[187]: https://github.com/ory-am/editor/blob/533fbec70f0b5e2daea44c1f583968db3bbbb93a/packages/core/src/service/plugin/classes.js#L198-L198 "Source code on GitHub"
 
 [188]: #migration
 
-[189]: https://github.com/ory-am/editor/blob/a132d043c090d71660712c15d70e730eae6ff628/packages/core/src/service/plugin/classes.js#L203-L203 "Source code on GitHub"
+[189]: https://github.com/ory-am/editor/blob/533fbec70f0b5e2daea44c1f583968db3bbbb93a/packages/core/src/service/plugin/classes.js#L203-L203 "Source code on GitHub"
 
-[190]: https://github.com/ory-am/editor/blob/a132d043c090d71660712c15d70e730eae6ff628/packages/core/src/service/plugin/classes.js#L208-L208 "Source code on GitHub"
+[190]: https://github.com/ory-am/editor/blob/533fbec70f0b5e2daea44c1f583968db3bbbb93a/packages/core/src/service/plugin/classes.js#L208-L208 "Source code on GitHub"
 
-[191]: https://github.com/ory-am/editor/blob/a132d043c090d71660712c15d70e730eae6ff628/packages/core/src/service/plugin/classes.js#L214-L214 "Source code on GitHub"
+[191]: https://github.com/ory-am/editor/blob/533fbec70f0b5e2daea44c1f583968db3bbbb93a/packages/core/src/service/plugin/classes.js#L214-L214 "Source code on GitHub"
 
-[192]: https://github.com/ory-am/editor/blob/a132d043c090d71660712c15d70e730eae6ff628/packages/core/src/service/plugin/classes.js#L220-L220 "Source code on GitHub"
+[192]: https://github.com/ory-am/editor/blob/533fbec70f0b5e2daea44c1f583968db3bbbb93a/packages/core/src/service/plugin/classes.js#L220-L220 "Source code on GitHub"
 
-[193]: https://github.com/ory-am/editor/blob/a132d043c090d71660712c15d70e730eae6ff628/packages/core/src/service/plugin/classes.js#L225-L225 "Source code on GitHub"
+[193]: https://github.com/ory-am/editor/blob/533fbec70f0b5e2daea44c1f583968db3bbbb93a/packages/core/src/service/plugin/classes.js#L225-L225 "Source code on GitHub"
 
-[194]: https://github.com/ory-am/editor/blob/a132d043c090d71660712c15d70e730eae6ff628/packages/core/src/service/plugin/classes.js#L233-L233 "Source code on GitHub"
+[194]: https://github.com/ory-am/editor/blob/533fbec70f0b5e2daea44c1f583968db3bbbb93a/packages/core/src/service/plugin/classes.js#L233-L233 "Source code on GitHub"
 
-[195]: https://github.com/ory-am/editor/blob/a132d043c090d71660712c15d70e730eae6ff628/packages/core/src/service/plugin/classes.js#L241-L241 "Source code on GitHub"
+[195]: https://github.com/ory-am/editor/blob/533fbec70f0b5e2daea44c1f583968db3bbbb93a/packages/core/src/service/plugin/classes.js#L241-L241 "Source code on GitHub"
 
-[196]: https://github.com/ory-am/editor/blob/a132d043c090d71660712c15d70e730eae6ff628/packages/core/src/service/plugin/classes.js#L251-L252 "Source code on GitHub"
+[196]: https://github.com/ory-am/editor/blob/533fbec70f0b5e2daea44c1f583968db3bbbb93a/packages/core/src/service/plugin/classes.js#L251-L252 "Source code on GitHub"
 
-[197]: https://github.com/ory-am/editor/blob/a132d043c090d71660712c15d70e730eae6ff628/packages/core/src/service/plugin/classes.js#L262-L265 "Source code on GitHub"
+[197]: https://github.com/ory-am/editor/blob/533fbec70f0b5e2daea44c1f583968db3bbbb93a/packages/core/src/service/plugin/classes.js#L262-L265 "Source code on GitHub"
 
-[198]: https://github.com/ory-am/editor/blob/a132d043c090d71660712c15d70e730eae6ff628/packages/core/src/service/plugin/classes.js#L275-L278 "Source code on GitHub"
+[198]: https://github.com/ory-am/editor/blob/533fbec70f0b5e2daea44c1f583968db3bbbb93a/packages/core/src/service/plugin/classes.js#L275-L278 "Source code on GitHub"
 
-[199]: https://github.com/ory-am/editor/blob/a132d043c090d71660712c15d70e730eae6ff628/packages/core/src/service/plugin/classes.js#L285-L285 "Source code on GitHub"
+[199]: https://github.com/ory-am/editor/blob/533fbec70f0b5e2daea44c1f583968db3bbbb93a/packages/core/src/service/plugin/classes.js#L285-L285 "Source code on GitHub"
 
-[200]: https://github.com/ory-am/editor/blob/a132d043c090d71660712c15d70e730eae6ff628/packages/core/src/service/plugin/classes.js#L292-L292 "Source code on GitHub"
+[200]: https://github.com/ory-am/editor/blob/533fbec70f0b5e2daea44c1f583968db3bbbb93a/packages/core/src/service/plugin/classes.js#L292-L292 "Source code on GitHub"
 
-[201]: https://github.com/ory-am/editor/blob/a132d043c090d71660712c15d70e730eae6ff628/packages/core/src/service/plugin/classes.js#L300-L300 "Source code on GitHub"
+[201]: https://github.com/ory-am/editor/blob/533fbec70f0b5e2daea44c1f583968db3bbbb93a/packages/core/src/service/plugin/classes.js#L300-L300 "Source code on GitHub"
 
-[202]: https://github.com/ory-am/editor/blob/a132d043c090d71660712c15d70e730eae6ff628/packages/core/src/service/plugin/classes.js#L306-L346 "Source code on GitHub"
+[202]: https://github.com/ory-am/editor/blob/533fbec70f0b5e2daea44c1f583968db3bbbb93a/packages/core/src/service/plugin/classes.js#L306-L346 "Source code on GitHub"
 
-[203]: https://github.com/ory-am/editor/blob/a132d043c090d71660712c15d70e730eae6ff628/packages/core/src/service/plugin/classes.js#L325-L325 "Source code on GitHub"
+[203]: https://github.com/ory-am/editor/blob/533fbec70f0b5e2daea44c1f583968db3bbbb93a/packages/core/src/service/plugin/classes.js#L325-L325 "Source code on GitHub"
 
-[204]: https://github.com/ory-am/editor/blob/a132d043c090d71660712c15d70e730eae6ff628/packages/core/src/service/plugin/classes.js#L330-L330 "Source code on GitHub"
+[204]: https://github.com/ory-am/editor/blob/533fbec70f0b5e2daea44c1f583968db3bbbb93a/packages/core/src/service/plugin/classes.js#L330-L330 "Source code on GitHub"
 
-[205]: https://github.com/ory-am/editor/blob/a132d043c090d71660712c15d70e730eae6ff628/packages/core/src/service/plugin/classes.js#L337-L337 "Source code on GitHub"
+[205]: https://github.com/ory-am/editor/blob/533fbec70f0b5e2daea44c1f583968db3bbbb93a/packages/core/src/service/plugin/classes.js#L337-L337 "Source code on GitHub"
 
-[206]: https://github.com/ory-am/editor/blob/a132d043c090d71660712c15d70e730eae6ff628/packages/core/src/service/plugin/classes.js#L345-L345 "Source code on GitHub"
+[206]: https://github.com/ory-am/editor/blob/533fbec70f0b5e2daea44c1f583968db3bbbb93a/packages/core/src/service/plugin/classes.js#L345-L345 "Source code on GitHub"
 
-[207]: https://github.com/ory-am/editor/blob/a132d043c090d71660712c15d70e730eae6ff628/packages/core/src/service/plugin/classes.js#L351-L377 "Source code on GitHub"
+[207]: https://github.com/ory-am/editor/blob/533fbec70f0b5e2daea44c1f583968db3bbbb93a/packages/core/src/service/plugin/classes.js#L351-L377 "Source code on GitHub"
 
-[208]: https://github.com/ory-am/editor/blob/a132d043c090d71660712c15d70e730eae6ff628/packages/core/src/service/plugin/classes.js#L369-L369 "Source code on GitHub"
+[208]: https://github.com/ory-am/editor/blob/533fbec70f0b5e2daea44c1f583968db3bbbb93a/packages/core/src/service/plugin/classes.js#L369-L369 "Source code on GitHub"
 
-[209]: https://github.com/ory-am/editor/blob/a132d043c090d71660712c15d70e730eae6ff628/packages/core/src/service/plugin/classes.js#L376-L376 "Source code on GitHub"
+[209]: https://github.com/ory-am/editor/blob/533fbec70f0b5e2daea44c1f583968db3bbbb93a/packages/core/src/service/plugin/classes.js#L376-L376 "Source code on GitHub"
 
-[210]: https://github.com/ory-am/editor/blob/a132d043c090d71660712c15d70e730eae6ff628/packages/core/src/service/plugin/classes.js#L404-L404 "Source code on GitHub"
+[210]: https://github.com/ory-am/editor/blob/533fbec70f0b5e2daea44c1f583968db3bbbb93a/packages/core/src/service/plugin/classes.js#L404-L404 "Source code on GitHub"
 
-[211]: https://github.com/ory-am/editor/blob/a132d043c090d71660712c15d70e730eae6ff628/packages/core/src/service/plugin/classes.js#L411-L411 "Source code on GitHub"
+[211]: https://github.com/ory-am/editor/blob/533fbec70f0b5e2daea44c1f583968db3bbbb93a/packages/core/src/service/plugin/classes.js#L411-L411 "Source code on GitHub"
 
-[212]: https://github.com/ory-am/editor/blob/a132d043c090d71660712c15d70e730eae6ff628/packages/core/src/service/plugin/classes.js#L416-L416 "Source code on GitHub"
+[212]: https://github.com/ory-am/editor/blob/533fbec70f0b5e2daea44c1f583968db3bbbb93a/packages/core/src/service/plugin/classes.js#L416-L416 "Source code on GitHub"
 
-[213]: https://github.com/ory-am/editor/blob/a132d043c090d71660712c15d70e730eae6ff628/packages/core/src/service/plugin/classes.js#L421-L421 "Source code on GitHub"
+[213]: https://github.com/ory-am/editor/blob/533fbec70f0b5e2daea44c1f583968db3bbbb93a/packages/core/src/service/plugin/classes.js#L421-L421 "Source code on GitHub"
 
-[214]: https://github.com/ory-am/editor/blob/a132d043c090d71660712c15d70e730eae6ff628/packages/core/src/service/plugin/classes.js#L428-L428 "Source code on GitHub"
+[214]: https://github.com/ory-am/editor/blob/533fbec70f0b5e2daea44c1f583968db3bbbb93a/packages/core/src/service/plugin/classes.js#L428-L428 "Source code on GitHub"
 
-[215]: https://github.com/ory-am/editor/blob/a132d043c090d71660712c15d70e730eae6ff628/packages/core/src/service/plugin/index.js#L38-L48 "Source code on GitHub"
+[215]: https://github.com/ory-am/editor/blob/533fbec70f0b5e2daea44c1f583968db3bbbb93a/packages/core/src/service/plugin/index.js#L38-L48 "Source code on GitHub"
 
-[216]: https://github.com/ory-am/editor/blob/a132d043c090d71660712c15d70e730eae6ff628/packages/core/src/service/plugin/index.js#L53-L323 "Source code on GitHub"
+[216]: https://github.com/ory-am/editor/blob/533fbec70f0b5e2daea44c1f583968db3bbbb93a/packages/core/src/service/plugin/index.js#L53-L323 "Source code on GitHub"
 
-[217]: https://github.com/ory-am/editor/blob/a132d043c090d71660712c15d70e730eae6ff628/packages/core/src/service/plugin/index.js#L142-L155 "Source code on GitHub"
+[217]: https://github.com/ory-am/editor/blob/533fbec70f0b5e2daea44c1f583968db3bbbb93a/packages/core/src/service/plugin/index.js#L142-L155 "Source code on GitHub"
 
-[218]: https://github.com/ory-am/editor/blob/a132d043c090d71660712c15d70e730eae6ff628/packages/core/src/service/plugin/index.js#L160-L173 "Source code on GitHub"
+[218]: https://github.com/ory-am/editor/blob/533fbec70f0b5e2daea44c1f583968db3bbbb93a/packages/core/src/service/plugin/index.js#L160-L173 "Source code on GitHub"
 
-[219]: https://github.com/ory-am/editor/blob/a132d043c090d71660712c15d70e730eae6ff628/packages/core/src/service/plugin/index.js#L178-L181 "Source code on GitHub"
+[219]: https://github.com/ory-am/editor/blob/533fbec70f0b5e2daea44c1f583968db3bbbb93a/packages/core/src/service/plugin/index.js#L178-L181 "Source code on GitHub"
 
-[220]: https://github.com/ory-am/editor/blob/a132d043c090d71660712c15d70e730eae6ff628/packages/core/src/store.js#L32-L46 "Source code on GitHub"
+[220]: https://github.com/ory-am/editor/blob/533fbec70f0b5e2daea44c1f583968db3bbbb93a/packages/core/src/store.js#L32-L46 "Source code on GitHub"
