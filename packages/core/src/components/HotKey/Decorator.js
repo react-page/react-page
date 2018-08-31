@@ -133,7 +133,9 @@ class Decorator extends Component {
       }
       
       const maybeNode = this.props.searchNodeEverywhere(focus)
-      if (!maybeNode) return
+      if (!maybeNode) { 
+        return
+      }
       const { node: n } = maybeNode
       hotKeyHandler(n, 'handleRemoveHotKey')(e, n)
         .then(() => removeCell(focus))
