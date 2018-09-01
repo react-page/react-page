@@ -131,8 +131,12 @@ class Decorator extends Component {
       if (!isEditMode) {
         return
       }
-
-      const { node: n } = this.props.searchNodeEverywhere(focus)
+      
+      const maybeNode = this.props.searchNodeEverywhere(focus)
+      if (!maybeNode) { 
+        return
+      }
+      const { node: n } = maybeNode
       hotKeyHandler(n, 'handleRemoveHotKey')(e, n)
         .then(() => removeCell(focus))
         .catch(falser)
