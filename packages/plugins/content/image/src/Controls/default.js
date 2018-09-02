@@ -22,51 +22,29 @@
 
 // @flow
 import React, { Component } from 'react'
-import Display from '../Display'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
 import TextField from '@material-ui/core/TextField'
 import Typography from '@material-ui/core/Typography'
 import Checkbox from '@material-ui/core/Checkbox'
-import type { PropTypes } from '../index.js'
 import { ImageUpload } from 'ory-editor-ui'
 
 import { BottomToolbar } from 'ory-editor-ui'
 import { darkTheme } from 'ory-editor-ui/lib/ThemeProvider'
 import type { ImageLoaded, ImageUploaded } from 'ory-editor-ui/lib/ImageUpload'
+import type { ImagePluginSettings } from '../base'
+import type { ControlsProps } from './index'
 
 type StateType = {
   imagePreview?: ImageLoaded
 }
 
-class Form extends Component {
+class DefaultControls extends Component {
   state: StateType
+  props: ControlsProps
 
   constructor(props: PropTypes) {
     super(props)
     this.state = {}
-  }
-
-  handleChange = (onChange: Function) => (e: Event) => {
-    const target = e.target
-    if (target instanceof HTMLInputElement) {
-      const change = {}
-
-      if (target.name === 'target') {
-        if (target.checked) {
-          change.target = '_blank'
-          // noopener is safer but not supported in IE, so noreferrer adds some security
-          change.rel = 'noreferrer noopener'
-        } else {
-          change.target = null
-          change.rel = null
-        }
-      } else {
-        change[target.name] = target.value
-      }
-
-      onChange(change)
-      return
-    }
   }
 
   handleImageLoaded = (image: ImageLoaded) =>
@@ -74,13 +52,19 @@ class Form extends Component {
 
   handleImageUploaded = (resp: ImageUploaded) => {
     this.setState({ imagePreview: undefined })
-    this.props.onChange({ src: resp.url })
+    this.props.handleSrcChange(resp.url)
   }
+
+  handleSrcChange = (e: any) => this.props.handleSrcChange(e.target.value)
+
+  handleOpenInNewWindowCheckedChange = () =>
+    this.props.handleOpenInNewWindowCheckedChange(!this.props.openInNewWindow)
+
+  handleHrefChange = (e: any) => this.props.handleHrefChange(e.target.value)
 
   render() {
     return (
       <div>
-        <Display {...this.props} imagePreview={this.state.imagePreview} />
         <BottomToolbar open={this.props.focused} theme={darkTheme}>
           <div style={{ display: 'flex' }}>
             {this.props.imageUpload && (
@@ -98,36 +82,37 @@ class Form extends Component {
             <TextField
               placeholder="http://example.com/image.png"
               label={this.props.imageUpload ? 'I have a URL' : 'Image URL'}
-              name="src"
               style={{ flex: 1 }}
-              value={this.props.state.src}
-              onChange={this.handleChange(this.props.onChange)}
+              value={this.props.src}
+              onChange={this.handleSrcChange}
             />
           </div>
           <TextField
             placeholder="http://example.com"
             label="Link location (url)"
-            name="href"
             style={{ width: '512px' }}
-            value={this.props.state.href}
-            onChange={this.handleChange(this.props.onChange)}
+            value={this.props.href}
+            onChange={this.handleHrefChange}
           />
           <br />
           <br />
           <FormControlLabel
             control={
               <Checkbox
-                checked={this.props.state.target === '_blank'}
-                name="target"
-                onChange={this.handleChange(this.props.onChange)}
+                checked={this.props.openInNewWindow}
+                onChange={this.handleOpenInNewWindowCheckedChange}
               />
             }
             label="Open in new window"
           />
         </BottomToolbar>
+        <this.props.renderer
+          {...this.props}
+          imagePreview={this.state.imagePreview}
+        />
       </div>
     )
   }
 }
 
-export default Form
+export default DefaultControls

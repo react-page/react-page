@@ -23,7 +23,7 @@
 // @flow
 /* eslint-disable no-empty-function, no-unused-vars */
 import React, { Component, Element } from 'react'
-import semver from 'semver';
+import semver from 'semver'
 
 export type ContentPluginProps<T> = {
   /**

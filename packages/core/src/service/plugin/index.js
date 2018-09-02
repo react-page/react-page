@@ -120,10 +120,10 @@ export default class PluginService {
   setContentPlugins = (plugins: Array<any> = []) => {
     this.plugins.content = []
 
-      // semicolon is required to avoid syntax error
-      ;[defaultPlugin, ...plugins].forEach((plugin: any) =>
-        this.addContentPlugin(plugin)
-      )
+    // semicolon is required to avoid syntax error
+    ;[defaultPlugin, ...plugins].forEach((plugin: any) =>
+      this.addContentPlugin(plugin)
+    )
   }
 
   addContentPlugin = (config: any) => {

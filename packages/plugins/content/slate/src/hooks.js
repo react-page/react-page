@@ -124,10 +124,10 @@ export const unserialize = ({
   serialized,
   editorState
 }: {
-    importFromHtml: string,
-    serialized: Object,
-    editorState: Object
-  }): { editorState: Object } => {
+  importFromHtml: string,
+  serialized: Object,
+  editorState: Object
+}): { editorState: Object } => {
   if (serialized) {
     return { editorState: Value.fromJSON(serialized, options) }
   } else if (importFromHtml) {
