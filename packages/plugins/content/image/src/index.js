@@ -30,23 +30,26 @@ import type { ImagePluginSettings } from './base'
 import ImageHtmlRenderer from './renderer/html'
 import DefaultControls from './Controls/default'
 
-
 const imagePlugin = (settings?: ImagePluginSettings) => {
   if (!settings) {
     settings = {}
   }
   if (!settings.controls) {
-    settings.controls = (props: Object) => <DefaultControls {...props} {...settings} />
+    settings.controls = (props: Object) => (
+      <DefaultControls {...props} {...settings} />
+    )
   }
   if (!settings.renderer) {
-    settings.renderer = (props: Object) => <ImageHtmlRenderer {...props} {...settings} />
+    settings.renderer = (props: Object) => (
+      <ImageHtmlRenderer {...props} {...settings} />
+    )
   }
   if (!settings.icon) {
     settings.icon = <Panorama />
   }
   const base = baseImagePlugin(settings)
   return {
-    ...base,
+    ...base
   }
 }
 const image = imagePlugin()

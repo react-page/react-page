@@ -39,7 +39,9 @@ export type ControlsApi = {
   handleHrefChange: (url: string) => void
 }
 
-export type ControlsProps = ControlsApi & ImagePluginSettings & ControlsBaseProps
+export type ControlsProps = ControlsApi &
+  ImagePluginSettings &
+  ControlsBaseProps
 
 class ImageControls extends Component {
   handleSrcChange = (src: string) => this.props.onChange({ src })
@@ -61,18 +63,22 @@ class ImageControls extends Component {
 
   render() {
     const { renderer, focused, state } = this.props
-    return !this.props.readOnly && (
-      <this.props.controls
-        renderer={renderer}
-        focused={focused}
-        state={state}
-        handleSrcChange={this.handleSrcChange}
-        handleOpenInNewWindowCheckedChange={this.handleOpenInNewWindowCheckedChange}
-        handleHrefChange={this.handleHrefChange}
-        src={this.props.state.src}
-        openInNewWindow={this.props.state.target === '_blank'}
-        href={this.props.state.href}
-      />
+    return (
+      !this.props.readOnly && (
+        <this.props.controls
+          renderer={renderer}
+          focused={focused}
+          state={state}
+          handleSrcChange={this.handleSrcChange}
+          handleOpenInNewWindowCheckedChange={
+            this.handleOpenInNewWindowCheckedChange
+          }
+          handleHrefChange={this.handleHrefChange}
+          src={this.props.state.src}
+          openInNewWindow={this.props.state.target === '_blank'}
+          href={this.props.state.href}
+        />
+      )
     )
   }
 }

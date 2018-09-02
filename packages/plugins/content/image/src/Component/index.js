@@ -23,6 +23,11 @@
 // @flow
 import React from 'react'
 
-const PluginComponent = (props: Object) => props.readOnly ? <props.renderer {...props} /> : <props.controlsWrapped {...props} />
+const PluginComponent = (props: Object) =>
+  props.readOnly ? (
+    <props.renderer {...props} />
+  ) : (
+    <props.controlsWrapped {...props} />
+  )
 
 export default PluginComponent

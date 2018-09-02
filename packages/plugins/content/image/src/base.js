@@ -39,7 +39,9 @@ const imagePlugin = (settings?: ImagePluginSettings) => {
   if (!settings) {
     settings = {}
   }
-  settings.controlsWrapped = (props: Object) => <ImageControls {...props} {...settings} />
+  settings.controlsWrapped = (props: Object) => (
+    <ImageControls {...props} {...settings} />
+  )
   return {
     name: 'ory/editor/core/content/image',
     version: '0.0.1',

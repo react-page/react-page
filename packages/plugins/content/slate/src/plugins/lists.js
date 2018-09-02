@@ -41,17 +41,15 @@ const DECREASE_INDENT = 'DECREASE_INDENT'
 
 export default class ListsPlugin extends Plugin {
   constructor(props: Props) {
-    super(props);
+    super(props)
 
-    this.DEFAULT_NODE = props.DEFAULT_NODE;
+    this.DEFAULT_NODE = props.DEFAULT_NODE
     this.plugin = createListPlugin({
       types: [UL, OL],
       typeItem: LI,
       typeDefault: props.DEFAULT_NODE
     })
-    this.plugins = [
-      this.plugin
-    ]
+    this.plugins = [this.plugin]
   }
 
   props: Props
@@ -76,7 +74,7 @@ export default class ListsPlugin extends Plugin {
           decreaseItemDepth(change)
         }
       } else {
-        const inList = this.plugin.utils.isSelectionInList(editorState);
+        const inList = this.plugin.utils.isSelectionInList(editorState)
         if (inList) {
           unwrapList(change, type)
         } else {
@@ -87,23 +85,26 @@ export default class ListsPlugin extends Plugin {
       onChange({ value: change.value })
     }
 
-    const inList = this.plugin.utils.isSelectionInList(editorState);
-    const isType = editorState.blocks.some(block =>
-      !!editorState.document.getClosest(
-        block.key,
-        parent => parent.type === type
-      )
+    const inList = this.plugin.utils.isSelectionInList(editorState)
+    const isType = editorState.blocks.some(
+      block =>
+        !!editorState.document.getClosest(
+          block.key,
+          parent => parent.type === type
+        )
     )
-    const isIncreaseDecrease = type === INCREASE_INDENT || type === DECREASE_INDENT
+    const isIncreaseDecrease =
+      type === INCREASE_INDENT || type === DECREASE_INDENT
 
-    const previousItem = this.plugin.utils.getPreviousItem(editorState);
-    const currentItem = this.plugin.utils.getCurrentItem(editorState);
-    const itemDepth = this.plugin.utils.getItemDepth(editorState);
+    const previousItem = this.plugin.utils.getPreviousItem(editorState)
+    const currentItem = this.plugin.utils.getCurrentItem(editorState)
+    const itemDepth = this.plugin.utils.getItemDepth(editorState)
 
     const canIncreaseIndent = previousItem && currentItem && isIncreaseDecrease
     const canDecreaseIndent = itemDepth > 1 && currentItem && isIncreaseDecrease
 
-    const increaseDecreaseDisabled = type === INCREASE_INDENT ? !canIncreaseIndent : !canDecreaseIndent
+    const increaseDecreaseDisabled =
+      type === INCREASE_INDENT ? !canIncreaseIndent : !canDecreaseIndent
 
     return (
       <ToolbarButton
@@ -129,7 +130,7 @@ export default class ListsPlugin extends Plugin {
     this.createButton(UL, <ListIcon />),
     this.createButton(OL, <OrderedListIcon />),
     this.createButton(INCREASE_INDENT, <IncreaseIndentIcon />),
-    this.createButton(DECREASE_INDENT, <DecreaseIndentIcon />),
+    this.createButton(DECREASE_INDENT, <DecreaseIndentIcon />)
   ]
 
   deserialize = (el, next) => {
@@ -170,7 +171,7 @@ export default class ListsPlugin extends Plugin {
   }
 
   renderNode = props => {
-    const { children, attributes } = props;
+    const { children, attributes } = props
     switch (props.node.type) {
       case UL:
         return <ul {...attributes}>{children}</ul>

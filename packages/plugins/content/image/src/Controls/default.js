@@ -57,7 +57,8 @@ class DefaultControls extends Component {
 
   handleSrcChange = (e: any) => this.props.handleSrcChange(e.target.value)
 
-  handleOpenInNewWindowCheckedChange = () => this.props.handleOpenInNewWindowCheckedChange(!this.props.openInNewWindow)
+  handleOpenInNewWindowCheckedChange = () =>
+    this.props.handleOpenInNewWindowCheckedChange(!this.props.openInNewWindow)
 
   handleHrefChange = (e: any) => this.props.handleHrefChange(e.target.value)
 
@@ -105,7 +106,10 @@ class DefaultControls extends Component {
             label="Open in new window"
           />
         </BottomToolbar>
-        <this.props.renderer {...this.props} imagePreview={this.state.imagePreview} />
+        <this.props.renderer
+          {...this.props}
+          imagePreview={this.state.imagePreview}
+        />
       </div>
     )
   }

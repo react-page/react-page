@@ -37,7 +37,10 @@ import * as hooks from './hooks'
 import parse5 from 'parse5'
 import v002 from './migrations/v002'
 
-const createPlugins = compose(flatten, map(prop('plugins')))
+const createPlugins = compose(
+  flatten,
+  map(prop('plugins'))
+)
 
 export const createInitialState = hooks.createInitialState
 
@@ -62,10 +65,7 @@ export default (plugins: Plugin[] = hooks.defaultPlugins) => {
     }
 
     if (data.isShift && data.key === 'enter') {
-      return state
-        .change()
-        .insertText('\n')
-        .value
+      return state.change().insertText('\n').value
     }
 
     for (let i = 0; i < plugins.length; i++) {
@@ -139,9 +139,7 @@ export default (plugins: Plugin[] = hooks.defaultPlugins) => {
       }
 
       setTimeout(() => {
-        props.state.editorState
-          .change()
-          .focus()
+        props.state.editorState.change().focus()
       }, 0)
     },
 
@@ -151,9 +149,7 @@ export default (plugins: Plugin[] = hooks.defaultPlugins) => {
       }
 
       props.onChange({
-        editorState: props.state.editorState
-          .change()
-          .blur().value
+        editorState: props.state.editorState.change().blur().value
       })
     },
 
