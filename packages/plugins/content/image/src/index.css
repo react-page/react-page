@@ -20,4 +20,13 @@
  *
  */
 
-@import "./Component/index.css";
+.ory-plugins-content-image {
+  width: 100%;
+}
+  
+.ory-plugins-content-image-placeholder {
+  position: relative;
+  width: 100%;
+  text-align: center;
+}
+  

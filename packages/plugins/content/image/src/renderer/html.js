@@ -5,12 +5,12 @@
  * it under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- *  
+ *
  * ORY Editor is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Lesser General Public License for more details.
- *  
+ *
  * You should have received a copy of the GNU Lesser General Public License
  * along with ORY Editor.  If not, see <http://www.gnu.org/licenses/>.
  *
@@ -20,8 +20,13 @@
  *
  */
 
-// material icons isn't allowing us to override style properties with className/styleName
-export const iconStyle = {
+// @flow
+import React from 'react'
+import ImageIcon from '@material-ui/icons/Panorama'
+
+import type { PropTypes } from '../index.js'
+
+const iconStyle = {
   width: '100%',
   height: 'auto',
   padding: '0',
@@ -31,3 +36,27 @@ export const iconStyle = {
   minHeight: 64,
   maxHeight: 256
 }
+
+const ImageHtmlRenderer = ({ isEditMode, state, imagePreview }: PropTypes) => {
+  const src = imagePreview ? imagePreview.dataUrl : state.src
+  const Image = <img className="ory-plugins-content-image" alt="" src={src} />
+  return src ? (
+    <div>
+      {state.href && !isEditMode ? (
+        <a href={state.href} target={state.target} rel={state.rel}>
+          {Image}
+        </a>
+      ) : (
+        Image
+      )}
+    </div>
+  ) : (
+    <div>
+      <div className="ory-plugins-content-image-placeholder">
+        <ImageIcon style={iconStyle} />
+      </div>
+    </div>
+  )
+}
+
+export default ImageHtmlRenderer

@@ -22,17 +22,7 @@
 
 // @flow
 import React from 'react'
-import Display from './Display'
-import Form from './Form'
-import type { ContentPluginProps } from 'ory-editor-core/lib/service/plugin/classes'
-import ThemeProvider, { darkTheme } from 'ory-editor-ui/lib/ThemeProvider'
 
-export type PropTypes = ContentPluginProps<{ src: string, caption: string }>
+const PluginComponent = (props: Object) => props.readOnly ? <props.renderer {...props} /> : <props.controlsWrapped {...props} />
 
-const Image = (props: PropTypes) => (
-  <ThemeProvider theme={darkTheme}>
-    {props.readOnly ? <Display {...props} /> : <Form {...props} />}
-  </ThemeProvider>
-)
-
-export default Image
+export default PluginComponent
