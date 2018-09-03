@@ -131,9 +131,9 @@ class Decorator extends Component {
       if (!isEditMode) {
         return
       }
-      
+
       const maybeNode = this.props.searchNodeEverywhere(focus)
-      if (!maybeNode) { 
+      if (!maybeNode) {
         return
       }
       const { node: n } = maybeNode
