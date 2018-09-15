@@ -33,7 +33,6 @@ breaking changes visible and easy to recover from!
 - [Introduction](#introduction)
   - [What's the problem?](#whats-the-problem)
   - [What makes it different?](#so-whats-different)
-  - [ORY Sites](#ory-sites)
 - [Quickstart](#quickstart)
 - [Documentation](#documentation)
 - [How to run, develop, and contribute](#how-to-run-develop-and-contribute)
@@ -58,7 +57,7 @@ We had to realize that existing open source content editing solutions had one of
 
 * The produced markup was horrific, a lot of sanitation had to take place and XSS is always a threat.
 * The author must learn special mark up, like markdown, before being able to produce content. These text-based solutions are usually unable to specify a layout and complex data structures like tables are annoying to edit.
-* Promising libraries potentially solving the above where abandoned by their maintainers, because it started as a special use case, or a free-time project.
+* Editors based on contenteditable are unable to work with layouts (e.g. flexbox or floating grids).
 
 ### So what's different?
 
@@ -66,21 +65,10 @@ We concluded that a solution must meet the following principles:
 
 * The state is a normalized JSON object, no HTML involved.
 * It is a visual editor that does not require programming experience or special training.
-* It is built by a company, reducing the likelihood of abandonment.
 * Based on reusable React Components, it gives developers, authors and designers new ways of working together and creating better and richer experiences more easily.
 * It works on mobile and touch devices.
 
 With these principles in mind, we went out and implemented the ORY Editor, which you are looking at right now.
-
-## ORY Sites
-
-[ORY Sites](http://www.ory.am/sites/?utm_source=github-editor&utm_medium=link) is an innovative open source [static site generator](https://www.staticgen.com/), similar to Jekyll or Hugo. Content creation is done in your browser, with the full extensibility of the ORY Editor.
-
-Learn more about [ORY Sites](http://www.ory.am/sites/?utm_source=github-editor&utm_medium=link)!
-
-<p align="center">
-<a href="http://www.ory.am/sites/?utm_source=github-editor&utm_medium=banner"><img alt="ORY Sites" src="docs/images/ory-sites.gif" /></a>
-</p>
 
 ## Quickstart
 
@@ -113,8 +101,10 @@ $ cd editor
 The ORY Editor is a [monorepo](https://github.com/babel/babel/blob/master/doc/design/monorepo.md) that you initialise with:
 
 ```bash
-$ npm i
+$ yarn i
 ```
+
+To work properly, you'll need [yarn](https://yarnpkg.com/lang/en/).
 
 ### Run the example(s)
 
@@ -122,9 +112,9 @@ Here are some [examples](examples/) that are a good starting point if you want t
 To run the examples, use one of the following commands:
 
 ```
-$ npm run build
+$ yarn run build
 $ cd examples
-$ npm run start
+$ yarn run start
 ```
 
 ### Run the toolchain
@@ -133,13 +123,13 @@ Our toolchain contains tests, eslint and flow types. We highly recommend to run 
 
 ```bash
 # run the tests in watch mode
-$ npm run test:watch
+$ yarn run test:watch
 
 # run eslint in watch mode
-$ npm run lint:watch
+$ yarn run lint:watch
 
 # run flowtype in watch mode
-$ npm run flow:watch
+$ yarn run flow:watch
 ```
 
 ### Run the documentation
@@ -147,13 +137,13 @@ $ npm run flow:watch
 To run the guide in watch mode, do:
 
 ```bash
-$ npm run docs:guide
+$ yarn run docs:guide
 ```
 
 To generate API docs, run:
 
 ```bash
-$ npm run docs:api
+$ yarn run docs:api
 ```
 
 ## Known issues
