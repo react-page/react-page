@@ -18,8 +18,6 @@ are in the right place.
 The ORY Editor is used at Germany's largest (~800k uniques per month) E-Learning Website
 [www.serlo.org](http://de.serlo.org) to improve the wiki experience.
 
-We use the ORY Editor for [**ORY Sites**](https://www.ory.am/sites), a tool for creating websites. It's similar to squarespace, but it works offline, the sites you created are stored *on your device*, and you are able to create your own designs and plugins.
-
 Check out the demo at [editor.ory.am](http://editor.ory.am/)!
 
 <br clear="both">
