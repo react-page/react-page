@@ -375,6 +375,7 @@ class PluginComponent extends Component {
     const {
       children,
       focused,
+      readOnly,
       state: {
         darken = this.props.defaultDarken,
         lighten = this.props.defaultLighten,
@@ -401,104 +402,105 @@ class PluginComponent extends Component {
               backgroundImage: `linear-gradient(rgba(0, 0, 0, ${darkenFinal}), rgba(0, 0, 0, ${darkenFinal})),linear-gradient(rgba(255, 255, 255, ${lightenFinal}), rgba(255, 255, 255, ${lightenFinal}))`
             }}
           />
-          <BottomToolbar open={focused} theme={darkTheme}>
-            <Tabs
-              value={this.state.mode}
-              onChange={this.handleChangeMode}
-              centered={true}
-            >
-              {(this.props.enabledModes & IMAGE_MODE_FLAG) > 0 && (
-                <Tab
-                  icon={
-                    <ImageIcon
-                      color={
-                        (modeFlag & IMAGE_MODE_FLAG) > 0
-                          ? 'secondary'
-                          : undefined
-                      }
-                    />
-                  }
-                  label="Image"
-                  value={IMAGE_MODE_FLAG}
-                />
-              )}
-              {(this.props.enabledModes & COLOR_MODE_FLAG) > 0 && (
-                <Tab
-                  icon={
-                    <ColorIcon
-                      color={
-                        (modeFlag & COLOR_MODE_FLAG) > 0
-                          ? 'secondary'
-                          : undefined
-                      }
-                    />
-                  }
-                  label="Color"
-                  value={COLOR_MODE_FLAG}
-                />
-              )}
-              {(this.props.enabledModes & GRADIENT_MODE_FLAG) > 0 && (
-                <Tab
-                  icon={
-                    <GradientIcon
-                      color={
-                        (modeFlag & GRADIENT_MODE_FLAG) > 0
-                          ? 'secondary'
-                          : undefined
-                      }
-                    />
-                  }
-                  label="Gradient"
-                  value={GRADIENT_MODE_FLAG}
-                />
-              )}
-            </Tabs>
-            {this.renderUI()}
-            <br />
-            <div style={{ display: 'flex' }}>
-              <div style={{ flex: '1', marginRight: '8px' }}>
-                <Typography id="linear-gradient-darken-label">
-                  Darken ({(darkenFinal * 100).toFixed(0)}
-                  %)
-                </Typography>
-                <Slider
-                  aria-labelledby="linear-gradient-darken-label"
-                  value={darkenFinal}
-                  onChange={this.handleChangeDarkenPreview}
-                  onDragEnd={this.handleChangeDarken}
-                  step={0.01}
-                  min={0}
-                  max={1}
-                />
-              </div>
-              <div style={{ flex: '1', marginLeft: '8px' }}>
-                <Typography id="linear-gradient-lighten-label">
-                  Lighten ({(lightenFinal * 100).toFixed(0)}
-                  %)
-                </Typography>
-                <Slider
-                  aria-labelledby="linear-gradient-lighten-label"
-                  value={lightenFinal}
-                  onChange={this.handleChangeLightenPreview}
-                  onDragEnd={this.handleChangeLighten}
-                  step={0.01}
-                  min={0}
-                  max={1}
-                />
-              </div>
-            </div>
-            <div style={{ display: 'flex' }}>
-              <FormControlLabel
-                control={
-                  <Switch
-                    onChange={this.handleChangeHasPadding}
-                    checked={hasPadding}
+          {(!readOnly && <BottomToolbar open={focused} theme={darkTheme}>
+              <Tabs
+                value={this.state.mode}
+                onChange={this.handleChangeMode}
+                centered={true}
+              >
+                {(this.props.enabledModes & IMAGE_MODE_FLAG) > 0 && (
+                  <Tab
+                    icon={
+                      <ImageIcon
+                        color={
+                          (modeFlag & IMAGE_MODE_FLAG) > 0
+                            ? 'secondary'
+                            : undefined
+                        }
+                      />
+                    }
+                    label="Image"
+                    value={IMAGE_MODE_FLAG}
                   />
-                }
-                label="Use padding"
-              />
-            </div>
-          </BottomToolbar>
+                )}
+                {(this.props.enabledModes & COLOR_MODE_FLAG) > 0 && (
+                  <Tab
+                    icon={
+                      <ColorIcon
+                        color={
+                          (modeFlag & COLOR_MODE_FLAG) > 0
+                            ? 'secondary'
+                            : undefined
+                        }
+                      />
+                    }
+                    label="Color"
+                    value={COLOR_MODE_FLAG}
+                  />
+                )}
+                {(this.props.enabledModes & GRADIENT_MODE_FLAG) > 0 && (
+                  <Tab
+                    icon={
+                      <GradientIcon
+                        color={
+                          (modeFlag & GRADIENT_MODE_FLAG) > 0
+                            ? 'secondary'
+                            : undefined
+                        }
+                      />
+                    }
+                    label="Gradient"
+                    value={GRADIENT_MODE_FLAG}
+                  />
+                )}
+              </Tabs>
+              {this.renderUI()}
+              <br />
+              <div style={{ display: 'flex' }}>
+                <div style={{ flex: '1', marginRight: '8px' }}>
+                  <Typography id="linear-gradient-darken-label">
+                    Darken ({(darkenFinal * 100).toFixed(0)}
+                    %)
+                  </Typography>
+                  <Slider
+                    aria-labelledby="linear-gradient-darken-label"
+                    value={darkenFinal}
+                    onChange={this.handleChangeDarkenPreview}
+                    onDragEnd={this.handleChangeDarken}
+                    step={0.01}
+                    min={0}
+                    max={1}
+                  />
+                </div>
+                <div style={{ flex: '1', marginLeft: '8px' }}>
+                  <Typography id="linear-gradient-lighten-label">
+                    Lighten ({(lightenFinal * 100).toFixed(0)}
+                    %)
+                  </Typography>
+                  <Slider
+                    aria-labelledby="linear-gradient-lighten-label"
+                    value={lightenFinal}
+                    onChange={this.handleChangeLightenPreview}
+                    onDragEnd={this.handleChangeLighten}
+                    step={0.01}
+                    min={0}
+                    max={1}
+                  />
+                </div>
+              </div>
+              <div style={{ display: 'flex' }}>
+                <FormControlLabel
+                  control={
+                    <Switch
+                      onChange={this.handleChangeHasPadding}
+                      checked={hasPadding}
+                    />
+                  }
+                  label="Use padding"
+                />
+              </div>
+            </BottomToolbar>
+          )}
           {children}
         </div>
       </ThemeProvider>
