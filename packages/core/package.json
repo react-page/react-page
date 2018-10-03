@@ -40,5 +40,8 @@
     "reselect": "^3.0.0",
     "semver": "^5.3.0",
     "uuid": "^3.0.1"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

@@ -27,5 +27,8 @@
     "ory-editor-ui": "0.0.0",
     "react-player": "^0.22.0"
   },
-  "devDependencies": {}
+  "devDependencies": {},
+  "publishConfig": {
+    "access": "public"
+  }
 }
