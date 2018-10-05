@@ -27,5 +27,8 @@
     "ory-editor-core": "0.0.0",
     "ory-editor-ui": "0.0.0"
   },
-  "devDependencies": {}
+  "devDependencies": {},
+  "publishConfig": {
+    "access": "public"
+  }
 }

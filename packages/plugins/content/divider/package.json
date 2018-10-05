@@ -23,5 +23,8 @@
     "@material-ui/icons": "^2.0.3"
   },
   "dependencies": {
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

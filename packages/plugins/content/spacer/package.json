@@ -28,5 +28,8 @@
     "ory-editor-ui": "0.0.0",
     "react-resizable": "^1.7.0"
   },
-  "devDependencies": {}
+  "devDependencies": {},
+  "publishConfig": {
+    "access": "public"
+  }
 }
