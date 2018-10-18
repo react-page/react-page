@@ -166,10 +166,13 @@ Make sure the `onChange` prop is never passed through to an HTML element (eg via
 
 Of course, you are not limited to this functionality and can easily write
 your own plugins. Plugins have two parts, one plugin definition and a
-ReactJS component. A minimal plugin definition looks as follows
+ReactJS component. A layout plugin will require an initial children,
+otherwise, it will automatically destroyed. A minimal layout plugin
+definition looks as follows
 
 ```jsx
 import React from 'react'
+import slate from 'ory-editor-plugins-slate'
 
 // You are obviously not limited to material-ui, but we really enjoy
 // the material-ui svg icons!
@@ -186,9 +189,27 @@ export default {
   IconComponent: <CropSquare />,
   name: 'example/layout/black-border',
   version: '0.0.1',
-  text: 'Black border'
+  text: 'Black border',
+  createInitialChildren: () => ({
+    id: v4(),
+    rows: [
+      {
+        id: v4(),
+        cells: [
+          {
+            content: {
+              plugin: slate(),
+              state: slate().createInitialState()
+            },
+            id: v4()
+          }
+        ]
+      }
+    ]
+  })
 }
 ```
+On that example, the initial children is a slate plugin.
 
 ## Rendering HTML
 
