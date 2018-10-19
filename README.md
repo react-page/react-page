@@ -3,6 +3,8 @@
 [![Build Status](https://travis-ci.org/ory/editor.svg)](https://travis-ci.org/ory/editor)
 [![Coverage Status](https://coveralls.io/repos/github/ory-am/editor/badge.svg?branch=master)](https://coveralls.io/github/ory/editor?branch=master)
 [![Docs Guide](https://img.shields.io/badge/docs-guide-blue.svg)](https://ory.gitbooks.io/editor/content/)
+[![Code Quality: Javascript](https://img.shields.io/lgtm/grade/javascript/g/ory/editor.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/ory/editor/context:javascript)
+[![Total Alerts](https://img.shields.io/lgtm/alerts/g/ory/editor.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/ory/editor/alerts)
 
 [![Join the chat at https://discord.gg/PAMQWkr](https://img.shields.io/badge/join-chat-00cc99.svg)](https://discord.gg/PAMQWkr)
 [![Follow twitter](https://img.shields.io/badge/follow-twitter-00cc99.svg)](https://twitter.com/_aeneasr)
