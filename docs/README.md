@@ -72,14 +72,14 @@ it will be automatically removed.
 
 <p>
   <figure align="center">
-    <img alt="A content cell" src="/images/content-cell.png"><br>
+    <img alt="A content cell" src="./images/content-cell.png"><br>
     <figcaption align="center"><em>A content cell with the image plugin</em></figcaption>
   </figure>
 </p>
 
 <p>
   <figure align="center">
-    <img alt="A layout cell" src="/images/layout-cell.gif"><br>
+    <img alt="A layout cell" src="./images/layout-cell.gif"><br>
     <figcaption align="center"><em>A layout cell with a switchable background image plugin</em></figcaption>
   </figure>
 </p>
