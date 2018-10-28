@@ -8,7 +8,7 @@
 [![Follow twitter](https://img.shields.io/badge/follow-twitter-00cc99.svg)](https://twitter.com/_aeneasr)
 [![Follow GitHub](https://img.shields.io/badge/follow-github-00cc99.svg)](https://github.com/arekkas)
 
-[ORY](https://www.ory.am) is a company building and maintaining developer tools for a safer, more accessible web. You
+[ORY](https://www.ory.sh) is a company building and maintaining developer tools for a safer, more accessible web. You
 might also like our other [Open Source projects](https://github.com/ory)! The ORY Editor is a smart, extensible and
 modern editor ("WYSIWYG") for the web written in React. If you are fed up with the limitations of `contenteditable`, you
 are in the right place.
@@ -18,7 +18,7 @@ are in the right place.
 The ORY Editor is used at Germany's largest (~800k uniques per month) E-Learning Website
 [www.serlo.org](http://de.serlo.org) to improve the wiki experience.
 
-Check out the demo at [editor.ory.am](http://editor.ory.am/)!
+Check out the demo at [editor.ory.sh](http://editor.ory.sh/)!
 
 <br clear="both">
 
