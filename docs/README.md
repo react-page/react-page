@@ -7,9 +7,9 @@ like webpack, and ES6. If you lack this knowledge ask in our [Chat](https://gitt
 
 Seeing is believing, so let's start with a demo!
 
-![ORY Editor Demo](https://storage.googleapis.com/ory.am/inline-edit-lg.gif)
+![ORY Editor Demo](./images/inline-edit-md.gif)
 
-A demo available at [editor.ory.am](https://editor.ory.am/) so go ahead and try it yourself!
+A demo available at [editor.ory.sh](https://editor.ory.sh/) so go ahead and try it yourself!
 
 ## Why it's different
 
