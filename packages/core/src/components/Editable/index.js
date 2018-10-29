@@ -76,7 +76,7 @@ class Editable extends Component {
       return
     }
 
-    const state: any = editable(this.props.editor.store.getState(), {
+    const state: any = editable(this.props.editor.getState(), {
       id: this.props.id
     })
     if (state === this.previousState || !state) {

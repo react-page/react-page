@@ -30,10 +30,11 @@ import { selectors } from './selector'
 import PluginService from './service/plugin'
 import pluginDefault from './service/plugin/default'
 import type { Editable as EditableType } from './types/editable'
-import type Store from './types/redux'
+import type { Store } from './types/redux'
 import forEach from 'ramda/src/forEach'
 import HTML5Backend, { NativeTypes } from 'react-dnd-html5-backend'
 import { DragDropContext as dragDropContext } from 'react-dnd'
+import reducer from './reducer';
 
 let instance: Editor
 
@@ -82,26 +83,30 @@ class Editor {
     middleware = [],
     editables = [],
     defaultPlugin = pluginDefault,
-    dragDropBackend
+    dragDropBackend,
+    store
   }: {
     plugins: { content: [], layout: [], native?: any },
     middleware: [],
     editables: EditableType[],
     defaultPlugin: any,
-    dragDropBackend: any
+    dragDropBackend: any,
+    store: Store
   } = {}) {
     if (instance) {
       console.warn(
         'You defined multiple instances of the Editor class, this can cause problems.'
       )
     }
-
     instance = this
-    this.store = createStore(initialState(), middleware)
+
+    this.store = store || createStore(initialState(), middleware)
+    // If you use your own store, the store will be combined under the key 'ory'
+    this.getState = store ? () => this.store.getState().ory : this.store.getState
     this.plugins = new PluginService(plugins)
     this.middleware = middleware
     this.trigger = actions(this.store.dispatch)
-    this.query = selectors(this.store)
+    this.query = selectors(this.getState)
     this.defaultPlugin = defaultPlugin
     this.dragDropContext = dragDropContext(dragDropBackend || dndBackend)
 
@@ -115,7 +120,7 @@ class Editor {
     forEach((editable: any) => {
       console.log(this.plugins.serialize(editable))
       this.trigger.editable.update(this.plugins.serialize(editable))
-    }, this.store.getState().editables.present)
+    }, this.getState().editables.present)
   }
 
   setLayoutPlugins = (plugins: Array<any> = []) => {
@@ -135,7 +140,7 @@ class Editor {
 
   setContentPlugins = (plugins: Array<any> = []) => {
     this.plugins.setContentPlugins(plugins)
-    console.log(this.store.getState())
+    console.log(this.getState())
     this.refreshEditables()
   }
 
@@ -153,7 +158,7 @@ class Editor {
   query = {}
 }
 
-export { PluginService, Editable, Editor }
+export { PluginService, Editable, Editor, reducer as oryReducer }
 
 export const createEmptyState = () => ({ id: v4(), cells: [] })
 
