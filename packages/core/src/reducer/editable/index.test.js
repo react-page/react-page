@@ -42,11 +42,13 @@ const walker = ({ cells = [], rows = [], hover = null, ...other }) => {
 const cells = state => decorate(state).map(walker)
 
 const simulateDispatch = (currentState, action) => {
-  const reducer = combineReducers({ editable: rawEditableReducer })
+  const reducer = combineReducers({
+    ory: combineReducers({ editable: rawEditableReducer })
+  })
   const store = createStore(reducer, currentState)
   store.dispatch(action)
 
-  return store.getState()
+  return store.getState().ory
 }
 
 const runCase = (currentState, action, expectedState) => {

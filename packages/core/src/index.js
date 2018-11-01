@@ -30,10 +30,11 @@ import { selectors } from './selector'
 import PluginService from './service/plugin'
 import pluginDefault from './service/plugin/default'
 import type { Editable as EditableType } from './types/editable'
-import type Store from './types/redux'
+import type { Store } from './types/redux'
 import forEach from 'ramda/src/forEach'
 import HTML5Backend, { NativeTypes } from 'react-dnd-html5-backend'
 import { DragDropContext as dragDropContext } from 'react-dnd'
+import { oryReducer } from './reducer'
 
 let instance: Editor
 
@@ -82,13 +83,15 @@ class Editor {
     middleware = [],
     editables = [],
     defaultPlugin = pluginDefault,
-    dragDropBackend
+    dragDropBackend,
+    store
   }: {
     plugins: { content: [], layout: [], native?: any },
     middleware: [],
     editables: EditableType[],
     defaultPlugin: any,
-    dragDropBackend: any
+    dragDropBackend: any,
+    store: Store
   } = {}) {
     if (instance) {
       console.warn(
@@ -97,7 +100,7 @@ class Editor {
     }
 
     instance = this
-    this.store = createStore(initialState(), middleware)
+    this.store = store || createStore(initialState(), middleware)
     this.plugins = new PluginService(plugins)
     this.middleware = middleware
     this.trigger = actions(this.store.dispatch)
@@ -115,7 +118,7 @@ class Editor {
     forEach((editable: any) => {
       console.log(this.plugins.serialize(editable))
       this.trigger.editable.update(this.plugins.serialize(editable))
-    }, this.store.getState().editables.present)
+    }, this.store.getState().ory.editables.present)
   }
 
   setLayoutPlugins = (plugins: Array<any> = []) => {
@@ -135,7 +138,6 @@ class Editor {
 
   setContentPlugins = (plugins: Array<any> = []) => {
     this.plugins.setContentPlugins(plugins)
-    console.log(this.store.getState())
     this.refreshEditables()
   }
 
@@ -153,7 +155,7 @@ class Editor {
   query = {}
 }
 
-export { PluginService, Editable, Editor }
+export { PluginService, Editable, Editor, oryReducer }
 
 export const createEmptyState = () => ({ id: v4(), cells: [] })
 

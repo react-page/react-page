@@ -62,16 +62,22 @@ export const ToolbarButton = ({
   onClick,
   disabled = false
 }: {
-    icon: string,
-    isActive: string,
-    onClick(): void,
-    disabled?: boolean
-  }) => (
-    <IconButton
-      onClick={onClick}
-      style={isActive ? { color: 'rgb(0, 188, 212)' } : disabled ? { color: 'gray' } : { color: 'white' }}
-      disabled={disabled}
-    >
-      {icon}
-    </IconButton>
-  )
+  icon: string,
+  isActive: string,
+  onClick(): void,
+  disabled?: boolean
+}) => (
+  <IconButton
+    onClick={onClick}
+    style={
+      isActive
+        ? { color: 'rgb(0, 188, 212)' }
+        : disabled
+          ? { color: 'gray' }
+          : { color: 'white' }
+    }
+    disabled={disabled}
+  >
+    {icon}
+  </IconButton>
+)

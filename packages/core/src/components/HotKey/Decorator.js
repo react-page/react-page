@@ -39,6 +39,7 @@ import {
   searchNodeEverywhere
 } from '../../selector/editable'
 
+import type { RootState } from '../../types/state'
 import type { Editable, ComponetizedCell } from '../../types/editable'
 
 type Props = {
@@ -131,9 +132,9 @@ class Decorator extends Component {
       if (!isEditMode) {
         return
       }
-      
+
       const maybeNode = this.props.searchNodeEverywhere(focus)
-      if (!maybeNode) { 
+      if (!maybeNode) {
         return
       }
       const { node: n } = maybeNode
@@ -192,7 +193,7 @@ const mapStateToProps = createStructuredSelector({
   focus,
   node: (state: any) => (id: string, editable: string) =>
     node(state, { id, editable }),
-  searchNodeEverywhere: (state: any) => (id: string) =>
+  searchNodeEverywhere: (state: RootState) => (id: string) =>
     searchNodeEverywhere(state, id),
   editable: (state: any, props: any) => (id?: string) =>
     editable(state, id ? { id } : props),

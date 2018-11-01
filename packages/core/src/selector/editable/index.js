@@ -22,14 +22,7 @@
 
 // @flow
 import type { Editable, Cell, Row, Config } from '../../types/editable'
-
-type Editables = {
-  editables: {
-    past: Editable[],
-    present: Editable[],
-    future: Editable[]
-  }
-}
+import type { RootState } from '../../types/state'
 
 const nodeInner = (current: any, props: { id: string }): any => {
   const { id, rows = [], cells = [] } = current
@@ -50,14 +43,18 @@ const nodeInner = (current: any, props: { id: string }): any => {
 }
 
 export const editable = (
-  { editables }: Editables = {},
+  { ory: { editables } }: RootState,
   { id }: { id: string }
 ): any =>
   editables.present.find(({ id: current }: Editable = {}) => current === id)
 
-export const editables = ({ editables: { present } }: Editables = {}) => present
+export const editables = ({
+  ory: {
+    editables: { present }
+  }
+}: RootState) => present
 
-export const purifiedEditable = (state: Editables, props: Editable) => {
+export const purifiedEditable = (state: RootState, props: Editable) => {
   const found = editable(state, props)
   if (!found) {
     return null
@@ -72,12 +69,12 @@ export const purifiedEditable = (state: Editables, props: Editable) => {
 }
 
 export const editableConfig = (
-  state: Editables,
+  state: RootState,
   { editable: id }: { editable: string }
 ): Config => editable(state, { id }).config
 
 export const node = (
-  state: Object,
+  state: RootState,
   props: { id: string, editable: string }
 ): Object => {
   const tree = editable(state, { id: props.editable })
@@ -88,13 +85,13 @@ export const node = (
   return { ...nodeInner(tree, props) }
 }
 
-export const searchNodeEverywhere = (state: Object, id: string) => {
-  for (let i = 0; i < state.editables.present.length; i++) {
-    const n = node(state, { id, editable: state.editables.present[i].id })
+export const searchNodeEverywhere = (state: RootState, id: string) => {
+  for (let i = 0; i < state.ory.editables.present.length; i++) {
+    const n = node(state, { id, editable: state.ory.editables.present[i].id })
     if (n.id) {
       return {
         node: n,
-        editable: state.editables.present[i]
+        editable: state.ory.editables.present[i]
       }
     }
   }
@@ -103,7 +100,7 @@ export const searchNodeEverywhere = (state: Object, id: string) => {
 }
 
 export const purifiedNode = (
-  state: Editables,
+  state: RootState,
   props: { id: string, editable: string }
 ): any => {
   const found = node(state, props)

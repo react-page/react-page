@@ -26,7 +26,7 @@ import undoable, { includeAction } from 'redux-undo'
 
 import { editable } from '../editable'
 import { UPDATE_EDITABLE } from '../../actions/editables'
-import type { Editable } from '../../types/editable'
+import type { Editable, Editables } from '../../types/editable'
 import {
   CELL_UPDATE_CONTENT,
   CELL_UPDATE_LAYOUT,
@@ -80,7 +80,7 @@ const inner = undoable(
 )
 
 export const editables = (
-  state: { past: [], present: Editable[], future: [] } = {
+  state: Editables = {
     past: [],
     present: [],
     future: []

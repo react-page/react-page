@@ -22,8 +22,9 @@
 
 // @flow
 import { editable, editables } from './editable'
+import { Store } from '../types/redux'
 
-export const selectors = (store: any) => ({
+export const selectors = (store: Store) => ({
   editable: (id: string) => editable(store.getState(), { id }),
   editables: (id: string) => editables(store.getState())
 })

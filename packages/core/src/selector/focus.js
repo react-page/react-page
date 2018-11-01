@@ -21,4 +21,7 @@
  */
 
 // @flow
-export const focus = ({ focus }: { focus: string }) => focus
+
+import { RootState } from '../types/state'
+
+export const focus = ({ ory: { focus } }: RootState) => focus

@@ -402,7 +402,8 @@ class PluginComponent extends Component {
               backgroundImage: `linear-gradient(rgba(0, 0, 0, ${darkenFinal}), rgba(0, 0, 0, ${darkenFinal})),linear-gradient(rgba(255, 255, 255, ${lightenFinal}), rgba(255, 255, 255, ${lightenFinal}))`
             }}
           />
-          {(!readOnly && <BottomToolbar open={focused} theme={darkTheme}>
+          {!readOnly && (
+            <BottomToolbar open={focused} theme={darkTheme}>
               <Tabs
                 value={this.state.mode}
                 onChange={this.handleChangeMode}
