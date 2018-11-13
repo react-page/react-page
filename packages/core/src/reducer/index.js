@@ -35,7 +35,16 @@ const ory = combineReducers({
   settings
 })
 
-// Needed for use of ory-editor with own redux store
+/**
+ * @example
+ * import { oryReducer } from 'ory-editor-core'
+ * const reducer = combineReducers({
+ *   ory: oryReducer,
+ *   // ...
+ * })
+ * const store = createStore(reducer, null, middleware)
+ * new Editor({ store })
+ */
 export { ory as oryReducer }
 
 export default combineReducers({ ory })
