@@ -1,6 +1,6 @@
-<h1 align="center"><img src="./docs/images/banner_editor.png" alt="ORY Editor"></h1>
+# aeneasr/ory-editor
 
-[![Build Status](https://travis-ci.org/ory/editor.svg)](https://travis-ci.org/ory/editor)
+[![Build Status](https://travis-ci.org/ory/editor.svg)](https://travis-ci.org/aeneasr/editor)
 [![Coverage Status](https://coveralls.io/repos/github/ory-am/editor/badge.svg?branch=master)](https://coveralls.io/github/ory/editor?branch=master)
 [![Docs Guide](https://img.shields.io/badge/docs-guide-blue.svg)](https://ory.gitbooks.io/editor/content/)
 
@@ -15,7 +15,7 @@ The ORY Editor is a smart, extensible and modern editor ("WYSIWYG") for the web 
 The ORY Editor is used at Germany's largest (~800k uniques per month) E-Learning Website
 [www.serlo.org](http://de.serlo.org) to improve the wiki experience.
 
-Check out the demo at [editor.ory.sh](http://editor.ory.sh/)!
+Check out the demo at [ory-editor.aeneas.io](https://ory-editor.aeneas.io/)!
 
 <br clear="both">
 <br clear="both">
