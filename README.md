@@ -18,9 +18,10 @@ The ORY Editor is used at Germany's largest (~800k uniques per month) E-Learning
 Check out the demo at [editor.ory.sh](http://editor.ory.sh/)!
 
 <br clear="both">
+<br clear="both">
+<br clear="both">
 
-> *IMPORTANT*  
-> This editor is pre-release and backwards compatibility is not guaranteed. It is maintained as a personal project by [Aeneas Rekkas](http://github.com/aeneasr/).
+> **IMPORTANT**: This editor is pre-release and backwards compatibility is not guaranteed. It is maintained as a personal project by its author and core-maintainer [Aeneas Rekkas](http://github.com/aeneasr/).
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
