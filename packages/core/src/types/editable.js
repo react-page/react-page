@@ -199,4 +199,10 @@ export type EditableComponentState = {
   createFallbackCell(): void
 }
 
+export type Editables = {
+  past: Editable[],
+  present: Editable[],
+  future: Editable[]
+}
+
 export type NativeFactory = (hover: any, monitor: any, component: any) => Object

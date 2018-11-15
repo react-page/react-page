@@ -28,9 +28,23 @@ import { display } from './display'
 import { focus } from './focus'
 import { settings } from './settings'
 
-export default combineReducers({
+const ory = combineReducers({
   editables,
   display,
   focus,
   settings
 })
+
+/**
+ * @example
+ * import { oryReducer } from 'ory-editor-core'
+ * const reducer = combineReducers({
+ *   ory: oryReducer,
+ *   // ...
+ * })
+ * const store = createStore(reducer, null, middleware)
+ * new Editor({ store })
+ */
+export { ory as oryReducer }
+
+export default combineReducers({ ory })

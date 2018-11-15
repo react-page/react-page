@@ -71,11 +71,21 @@ describe('editor/reducer/editables', () => {
   ].forEach((c, k) => {
     describe(`test case ${k}`, () => {
       it('should update an existing editable', () => {
-        const reducer = combineReducers({ editables })
-        const store = createStore(reducer, { editables: c.i }, identity)
+        const reducer = combineReducers({
+          ory: combineReducers({ editables })
+        })
+        const store = createStore(
+          reducer,
+          { ory: { editables: c.i } },
+          identity
+        )
         store.dispatch(c.a)
-        expect(store.getState().editables.past.length, 'to equal', c.e.pa)
-        expect(store.getState().editables.present.length, 'to equal', c.e.pr)
+        expect(store.getState().ory.editables.past.length, 'to equal', c.e.pa)
+        expect(
+          store.getState().ory.editables.present.length,
+          'to equal',
+          c.e.pr
+        )
       })
     })
   })

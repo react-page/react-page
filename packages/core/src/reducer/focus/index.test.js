@@ -54,10 +54,10 @@ describe('editor/reducer/focus', () => {
   ].forEach((c, k) => {
     describe(`test case ${k}`, () => {
       it('should dispatch the action and return the expected result', () => {
-        const reducer = combineReducers({ focus })
-        const store = createStore(reducer, { focus: c.s }, identity)
+        const reducer = combineReducers({ ory: combineReducers({ focus }) })
+        const store = createStore(reducer, { ory: { focus: c.s } }, identity)
         store.dispatch(c.a())
-        expect(store.getState(), 'to equal', { focus: c.e })
+        expect(store.getState().ory, 'to equal', { focus: c.e })
       })
     })
   })
