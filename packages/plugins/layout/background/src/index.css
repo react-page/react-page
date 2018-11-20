@@ -27,6 +27,11 @@
   color: white;
   padding: 12px;
   position: relative;
+  
+}
+
+.ory-plugins-layout-background > .ory-row {
+  position: relative;
 }
 
 .ory-plugins-layout-background__backstretch {
