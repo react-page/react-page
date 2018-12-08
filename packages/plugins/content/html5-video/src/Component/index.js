@@ -51,6 +51,7 @@ const HTML5Video = ({
           label="Video url"
           onChange={changeUrl(onChange)}
           value={url}
+          style={{ width: '512px' }}
         />
       </BottomToolbar>
     ) : null}
