@@ -54,7 +54,7 @@ const HTML5Video = ({
         />
       </BottomToolbar>
     ) : null}
-    <video autoPlay controls loop muted width="100%">
+    <video autoPlay controls loop muted width="100%" key={url}>
       <source src={url} type={`video/${url.split('.').pop()}`} />
     </video>
   </div>
