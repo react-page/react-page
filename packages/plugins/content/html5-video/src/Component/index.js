@@ -29,8 +29,8 @@ import { darkTheme } from 'ory-editor-ui/lib/ThemeProvider'
 
 export type Props = ContentPluginProps<*>
 
-const changeUrl = (onChange: any) => (event: Event, newValue: string) =>
-  onChange({ url: newValue })
+const changeUrl = (onChange: any) => (event: Event) =>
+  event.target && onChange({ url: event.target.value })
 
 const HTML5Video = ({
   readOnly,
