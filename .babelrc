@@ -1,6 +1,7 @@
 {
-  "presets": ["react-app"],
+  "presets": ["@babel/preset-env", "@babel/preset-flow", "@babel/preset-react"],
   "plugins": [
-    "transform-es2015-modules-commonjs"
+    "@babel/plugin-transform-modules-commonjs",
+    "@babel/plugin-proposal-class-properties"
   ]
 }

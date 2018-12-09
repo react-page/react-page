@@ -32,7 +32,11 @@ import darkTheme from './DarkTheme'
 export { darkTheme }
 
 const generateClassName = createGenerateClassName({ productionPrefix: 'ory' })
-export const themeOptions = {}
+export const themeOptions = {
+  typography: {
+    useNextVariants: true
+  }
+}
 const theme = createMuiTheme(themeOptions)
 
 class ThemeProvider extends Component {

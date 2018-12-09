@@ -119,7 +119,7 @@ const editor = new Editor({
   ],
 })
 
-editor.trigger.mode.edit()
+// editor.trigger.mode.edit()
 
 // Render the editables - the areas that are editable
 const elements = document.querySelectorAll('.editable')
@@ -130,7 +130,7 @@ for (const element of elements) {
       id={element.dataset.id}
       onChange={(state) => {
         // if (element.dataset.id === '1') {
-          console.log(state)
+          // console.log(state)
         // }
       }}
     />

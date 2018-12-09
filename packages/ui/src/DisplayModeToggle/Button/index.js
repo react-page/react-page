@@ -22,7 +22,7 @@
 
 // @flow
 import React from 'react'
-import Button from '@material-ui/core/Button'
+import Fab from '@material-ui/core/Fab'
 import { device } from 'device.js'
 
 const DisplayModeToggle = ({
@@ -41,15 +41,14 @@ const DisplayModeToggle = ({
 }) => (
   <div className="ory-controls-mode-toggle-button">
     <div className="ory-controls-mode-toggle-button-inner">
-      <Button
-        variant="fab"
+      <Fab
         color={active ? 'secondary' : 'default'}
-        mini={device.mobile}
+        size={device.mobile ? 'small' : 'large'}
         onClick={onClick}
         disabled={disabled}
       >
         {icon}
-      </Button>
+      </Fab>
     </div>
     <div className="ory-controls-mode-toggle-button-description">
       {description}

@@ -25,6 +25,7 @@ import React from 'react'
 import { DropTarget as dropTarget } from 'react-dnd'
 import Delete from '@material-ui/icons/Delete'
 import Button from '@material-ui/core/Button'
+import Fab from '@material-ui/core/Fab'
 import { Editor } from 'ory-editor-core/lib'
 import { connect } from 'react-redux'
 import classNames from 'classnames'
@@ -78,9 +79,9 @@ class Raw extends React.Component {
           'ory-controls-trash-active': isLayoutMode
         })}
       >
-        <Button variant="fab" color="secondary" disabled={!isOverCurrent}>
+        <Fab color="secondary" disabled={!isOverCurrent}>
           <Delete />
-        </Button>
+        </Fab>
       </div>
     )
   }

@@ -36,6 +36,9 @@ const onBlur = (_event, _data, state) => state
 const theme = createMuiTheme({
   palette: {
     type: 'dark'
+  },
+  typography: {
+    useNextVariants: true
   }
 })
 
