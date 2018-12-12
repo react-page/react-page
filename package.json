@@ -43,8 +43,10 @@
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
     "react-jss": "8.6.1",
-    "rimraf": "^2.6.1",
-    "unexpected": "^10.38.0"
+    "rimraf": "2.6.2",
+    "unexpected": "^10.38.0",
+    "tslint": "^5.11.0",
+    "typescript": "^3.2.2"
   },
   "scripts": {
     "precommit": "npm-run-all prettier docs:api",
