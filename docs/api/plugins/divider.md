@@ -3,12 +3,13 @@
 ### Table of Contents
 
 -   [index][1]
+    -   [Parameters][2]
 
 ## index
 
-[packages/plugins/content/native/src/index.js:47-58][2]
+[packages/plugins/content/native/src/index.js:47-58][3]
 
-**Parameters**
+### Parameters
 
 -   `hover` **any** the item which the native element was dropped on
 -   `monitor` **any** the DropTargetMonitor as provided by react-dnd
@@ -16,4 +17,6 @@
 
 [1]: #index
 
-[2]: https://github.com/ory-am/editor/blob/ca2a6276b89b7282695673c40c7fe5205a0593e4/packages/plugins/content/native/src/index.js#L47-L58 "Source code on GitHub"
+[2]: #parameters
+
+[3]: https://github.com/PeterKottas/editor/blob/ab5ff50a0efa9bd5c7e0fa5fa7d974e858745804/packages/plugins/content/native/src/index.js#L47-L58 "Source code on GitHub"

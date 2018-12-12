@@ -162,7 +162,7 @@ class LinearGradientComponent extends Component {
               }}
             >
               <div>
-                <Typography id="linear-gradient-degree-label">
+                <Typography variant="body1" id="linear-gradient-degree-label">
                   Gradient rotation ({deg}
                   deg)
                 </Typography>
@@ -177,7 +177,7 @@ class LinearGradientComponent extends Component {
                 />
               </div>
               <div>
-                <Typography id="linear-gradient-opacity-label">
+                <Typography variant="body1" id="linear-gradient-opacity-label">
                   Gradient opacity ({(opacity * 100).toFixed(0)}
                   %)
                 </Typography>

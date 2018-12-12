@@ -39,7 +39,10 @@ class ImageComponent extends Component {
                 imageLoaded={this.handleImageLoaded}
                 imageUploaded={this.handleImageUploaded}
               />
-              <Typography style={{ marginLeft: '20px', marginRight: '20px' }}>
+              <Typography
+                variant="body1"
+                style={{ marginLeft: '20px', marginRight: '20px' }}
+              >
                 OR
               </Typography>
             </React.Fragment>

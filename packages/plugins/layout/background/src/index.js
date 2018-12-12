@@ -459,7 +459,7 @@ class PluginComponent extends Component {
               <br />
               <div style={{ display: 'flex' }}>
                 <div style={{ flex: '1', marginRight: '8px' }}>
-                  <Typography id="linear-gradient-darken-label">
+                  <Typography variant="body1" id="linear-gradient-darken-label">
                     Darken ({(darkenFinal * 100).toFixed(0)}
                     %)
                   </Typography>
@@ -474,7 +474,10 @@ class PluginComponent extends Component {
                   />
                 </div>
                 <div style={{ flex: '1', marginLeft: '8px' }}>
-                  <Typography id="linear-gradient-lighten-label">
+                  <Typography
+                    variant="body1"
+                    id="linear-gradient-lighten-label"
+                  >
                     Lighten ({(lightenFinal * 100).toFixed(0)}
                     %)
                   </Typography>

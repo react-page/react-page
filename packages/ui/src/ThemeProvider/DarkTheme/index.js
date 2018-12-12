@@ -6,6 +6,9 @@ const theme = createMuiTheme({
   palette: {
     ...(themeOptions && themeOptions.palette),
     type: 'dark'
+  },
+  typography: {
+    useNextVariants: true
   }
 })
 
