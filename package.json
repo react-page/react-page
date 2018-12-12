@@ -46,9 +46,6 @@
     "rimraf": "^2.6.1",
     "unexpected": "^10.38.0"
   },
-  "resolutions": {
-    "babel-core": "7.0.0-bridge.0"
-  },
   "scripts": {
     "precommit": "npm-run-all prettier docs:api",
     "coveralls": "cat ./coverage/lcov.info | coveralls",

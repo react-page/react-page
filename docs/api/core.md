@@ -1713,238 +1713,238 @@ Returns **Store**
 
 [181]: #parameters-58
 
-[182]: https://github.com/PeterKottas/editor/blob/4a49bb2988c1bbca4f754740869ea653b6c46571/packages/core/src/actions/cell/core.js#L50-L55 "Source code on GitHub"
+[182]: https://github.com/PeterKottas/editor/blob/ab5ff50a0efa9bd5c7e0fa5fa7d974e858745804/packages/core/src/actions/cell/core.js#L50-L55 "Source code on GitHub"
 
 [183]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String
 
-[184]: https://github.com/PeterKottas/editor/blob/4a49bb2988c1bbca4f754740869ea653b6c46571/packages/core/src/actions/cell/core.js#L68-L73 "Source code on GitHub"
+[184]: https://github.com/PeterKottas/editor/blob/ab5ff50a0efa9bd5c7e0fa5fa7d974e858745804/packages/core/src/actions/cell/core.js#L68-L73 "Source code on GitHub"
 
-[185]: https://github.com/PeterKottas/editor/blob/4a49bb2988c1bbca4f754740869ea653b6c46571/packages/core/src/actions/cell/core.js#L87-L92 "Source code on GitHub"
+[185]: https://github.com/PeterKottas/editor/blob/ab5ff50a0efa9bd5c7e0fa5fa7d974e858745804/packages/core/src/actions/cell/core.js#L87-L92 "Source code on GitHub"
 
-[186]: https://github.com/PeterKottas/editor/blob/4a49bb2988c1bbca4f754740869ea653b6c46571/packages/core/src/actions/cell/core.js#L106-L111 "Source code on GitHub"
+[186]: https://github.com/PeterKottas/editor/blob/ab5ff50a0efa9bd5c7e0fa5fa7d974e858745804/packages/core/src/actions/cell/core.js#L106-L111 "Source code on GitHub"
 
 [187]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number
 
 [188]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function
 
-[189]: https://github.com/PeterKottas/editor/blob/4a49bb2988c1bbca4f754740869ea653b6c46571/packages/core/src/actions/cell/core.js#L116-L123 "Source code on GitHub"
+[189]: https://github.com/PeterKottas/editor/blob/ab5ff50a0efa9bd5c7e0fa5fa7d974e858745804/packages/core/src/actions/cell/core.js#L116-L123 "Source code on GitHub"
 
-[190]: https://github.com/PeterKottas/editor/blob/4a49bb2988c1bbca4f754740869ea653b6c46571/packages/core/src/actions/cell/core.js#L128-L132 "Source code on GitHub"
+[190]: https://github.com/PeterKottas/editor/blob/ab5ff50a0efa9bd5c7e0fa5fa7d974e858745804/packages/core/src/actions/cell/core.js#L128-L132 "Source code on GitHub"
 
-[191]: https://github.com/PeterKottas/editor/blob/4a49bb2988c1bbca4f754740869ea653b6c46571/packages/core/src/actions/cell/core.js#L137-L141 "Source code on GitHub"
+[191]: https://github.com/PeterKottas/editor/blob/ab5ff50a0efa9bd5c7e0fa5fa7d974e858745804/packages/core/src/actions/cell/core.js#L137-L141 "Source code on GitHub"
 
-[192]: https://github.com/PeterKottas/editor/blob/4a49bb2988c1bbca4f754740869ea653b6c46571/packages/core/src/actions/cell/core.js#L146-L150 "Source code on GitHub"
+[192]: https://github.com/PeterKottas/editor/blob/ab5ff50a0efa9bd5c7e0fa5fa7d974e858745804/packages/core/src/actions/cell/core.js#L146-L150 "Source code on GitHub"
 
-[193]: https://github.com/PeterKottas/editor/blob/4a49bb2988c1bbca4f754740869ea653b6c46571/packages/core/src/actions/cell/core.js#L155-L158 "Source code on GitHub"
+[193]: https://github.com/PeterKottas/editor/blob/ab5ff50a0efa9bd5c7e0fa5fa7d974e858745804/packages/core/src/actions/cell/core.js#L155-L158 "Source code on GitHub"
 
-[194]: https://github.com/PeterKottas/editor/blob/4a49bb2988c1bbca4f754740869ea653b6c46571/packages/core/src/actions/cell/core.js#L163-L169 "Source code on GitHub"
+[194]: https://github.com/PeterKottas/editor/blob/ab5ff50a0efa9bd5c7e0fa5fa7d974e858745804/packages/core/src/actions/cell/core.js#L163-L169 "Source code on GitHub"
 
-[195]: https://github.com/PeterKottas/editor/blob/4a49bb2988c1bbca4f754740869ea653b6c46571/packages/core/src/actions/cell/drag.js#L28-L28 "Source code on GitHub"
+[195]: https://github.com/PeterKottas/editor/blob/ab5ff50a0efa9bd5c7e0fa5fa7d974e858745804/packages/core/src/actions/cell/drag.js#L28-L28 "Source code on GitHub"
 
-[196]: https://github.com/PeterKottas/editor/blob/4a49bb2988c1bbca4f754740869ea653b6c46571/packages/core/src/actions/cell/drag.js#L50-L62 "Source code on GitHub"
+[196]: https://github.com/PeterKottas/editor/blob/ab5ff50a0efa9bd5c7e0fa5fa7d974e858745804/packages/core/src/actions/cell/drag.js#L50-L62 "Source code on GitHub"
 
-[197]: https://github.com/PeterKottas/editor/blob/4a49bb2988c1bbca4f754740869ea653b6c46571/packages/core/src/actions/cell/drag.js#L76-L77 "Source code on GitHub"
+[197]: https://github.com/PeterKottas/editor/blob/ab5ff50a0efa9bd5c7e0fa5fa7d974e858745804/packages/core/src/actions/cell/drag.js#L76-L77 "Source code on GitHub"
 
-[198]: https://github.com/PeterKottas/editor/blob/4a49bb2988c1bbca4f754740869ea653b6c46571/packages/core/src/actions/cell/drag.js#L91-L92 "Source code on GitHub"
+[198]: https://github.com/PeterKottas/editor/blob/ab5ff50a0efa9bd5c7e0fa5fa7d974e858745804/packages/core/src/actions/cell/drag.js#L91-L92 "Source code on GitHub"
 
-[199]: https://github.com/PeterKottas/editor/blob/4a49bb2988c1bbca4f754740869ea653b6c46571/packages/core/src/actions/cell/drag.js#L106-L107 "Source code on GitHub"
+[199]: https://github.com/PeterKottas/editor/blob/ab5ff50a0efa9bd5c7e0fa5fa7d974e858745804/packages/core/src/actions/cell/drag.js#L106-L107 "Source code on GitHub"
 
-[200]: https://github.com/PeterKottas/editor/blob/4a49bb2988c1bbca4f754740869ea653b6c46571/packages/core/src/actions/cell/drag.js#L121-L122 "Source code on GitHub"
+[200]: https://github.com/PeterKottas/editor/blob/ab5ff50a0efa9bd5c7e0fa5fa7d974e858745804/packages/core/src/actions/cell/drag.js#L121-L122 "Source code on GitHub"
 
-[201]: https://github.com/PeterKottas/editor/blob/4a49bb2988c1bbca4f754740869ea653b6c46571/packages/core/src/actions/cell/drag.js#L135-L136 "Source code on GitHub"
+[201]: https://github.com/PeterKottas/editor/blob/ab5ff50a0efa9bd5c7e0fa5fa7d974e858745804/packages/core/src/actions/cell/drag.js#L135-L136 "Source code on GitHub"
 
-[202]: https://github.com/PeterKottas/editor/blob/4a49bb2988c1bbca4f754740869ea653b6c46571/packages/core/src/actions/cell/drag.js#L149-L150 "Source code on GitHub"
+[202]: https://github.com/PeterKottas/editor/blob/ab5ff50a0efa9bd5c7e0fa5fa7d974e858745804/packages/core/src/actions/cell/drag.js#L149-L150 "Source code on GitHub"
 
-[203]: https://github.com/PeterKottas/editor/blob/4a49bb2988c1bbca4f754740869ea653b6c46571/packages/core/src/actions/cell/drag.js#L163-L167 "Source code on GitHub"
+[203]: https://github.com/PeterKottas/editor/blob/ab5ff50a0efa9bd5c7e0fa5fa7d974e858745804/packages/core/src/actions/cell/drag.js#L163-L167 "Source code on GitHub"
 
-[204]: https://github.com/PeterKottas/editor/blob/4a49bb2988c1bbca4f754740869ea653b6c46571/packages/core/src/actions/cell/drag.js#L174-L177 "Source code on GitHub"
+[204]: https://github.com/PeterKottas/editor/blob/ab5ff50a0efa9bd5c7e0fa5fa7d974e858745804/packages/core/src/actions/cell/drag.js#L174-L177 "Source code on GitHub"
 
-[205]: https://github.com/PeterKottas/editor/blob/4a49bb2988c1bbca4f754740869ea653b6c46571/packages/core/src/actions/cell/drag.js#L190-L193 "Source code on GitHub"
+[205]: https://github.com/PeterKottas/editor/blob/ab5ff50a0efa9bd5c7e0fa5fa7d974e858745804/packages/core/src/actions/cell/drag.js#L190-L193 "Source code on GitHub"
 
-[206]: https://github.com/PeterKottas/editor/blob/4a49bb2988c1bbca4f754740869ea653b6c46571/packages/core/src/actions/cell/insert.js#L82-L82 "Source code on GitHub"
+[206]: https://github.com/PeterKottas/editor/blob/ab5ff50a0efa9bd5c7e0fa5fa7d974e858745804/packages/core/src/actions/cell/insert.js#L82-L82 "Source code on GitHub"
 
-[207]: https://github.com/PeterKottas/editor/blob/4a49bb2988c1bbca4f754740869ea653b6c46571/packages/core/src/actions/cell/insert.js#L87-L87 "Source code on GitHub"
+[207]: https://github.com/PeterKottas/editor/blob/ab5ff50a0efa9bd5c7e0fa5fa7d974e858745804/packages/core/src/actions/cell/insert.js#L87-L87 "Source code on GitHub"
 
-[208]: https://github.com/PeterKottas/editor/blob/4a49bb2988c1bbca4f754740869ea653b6c46571/packages/core/src/actions/cell/insert.js#L92-L92 "Source code on GitHub"
+[208]: https://github.com/PeterKottas/editor/blob/ab5ff50a0efa9bd5c7e0fa5fa7d974e858745804/packages/core/src/actions/cell/insert.js#L92-L92 "Source code on GitHub"
 
-[209]: https://github.com/PeterKottas/editor/blob/4a49bb2988c1bbca4f754740869ea653b6c46571/packages/core/src/actions/cell/insert.js#L97-L97 "Source code on GitHub"
+[209]: https://github.com/PeterKottas/editor/blob/ab5ff50a0efa9bd5c7e0fa5fa7d974e858745804/packages/core/src/actions/cell/insert.js#L97-L97 "Source code on GitHub"
 
-[210]: https://github.com/PeterKottas/editor/blob/4a49bb2988c1bbca4f754740869ea653b6c46571/packages/core/src/actions/cell/insert.js#L102-L102 "Source code on GitHub"
+[210]: https://github.com/PeterKottas/editor/blob/ab5ff50a0efa9bd5c7e0fa5fa7d974e858745804/packages/core/src/actions/cell/insert.js#L102-L102 "Source code on GitHub"
 
-[211]: https://github.com/PeterKottas/editor/blob/4a49bb2988c1bbca4f754740869ea653b6c46571/packages/core/src/actions/cell/insert.js#L107-L107 "Source code on GitHub"
+[211]: https://github.com/PeterKottas/editor/blob/ab5ff50a0efa9bd5c7e0fa5fa7d974e858745804/packages/core/src/actions/cell/insert.js#L107-L107 "Source code on GitHub"
 
-[212]: https://github.com/PeterKottas/editor/blob/4a49bb2988c1bbca4f754740869ea653b6c46571/packages/core/src/actions/display.js#L48-L48 "Source code on GitHub"
+[212]: https://github.com/PeterKottas/editor/blob/ab5ff50a0efa9bd5c7e0fa5fa7d974e858745804/packages/core/src/actions/display.js#L48-L48 "Source code on GitHub"
 
-[213]: https://github.com/PeterKottas/editor/blob/4a49bb2988c1bbca4f754740869ea653b6c46571/packages/core/src/actions/display.js#L53-L53 "Source code on GitHub"
+[213]: https://github.com/PeterKottas/editor/blob/ab5ff50a0efa9bd5c7e0fa5fa7d974e858745804/packages/core/src/actions/display.js#L53-L53 "Source code on GitHub"
 
-[214]: https://github.com/PeterKottas/editor/blob/4a49bb2988c1bbca4f754740869ea653b6c46571/packages/core/src/actions/display.js#L58-L58 "Source code on GitHub"
+[214]: https://github.com/PeterKottas/editor/blob/ab5ff50a0efa9bd5c7e0fa5fa7d974e858745804/packages/core/src/actions/display.js#L58-L58 "Source code on GitHub"
 
-[215]: https://github.com/PeterKottas/editor/blob/4a49bb2988c1bbca4f754740869ea653b6c46571/packages/core/src/actions/display.js#L63-L63 "Source code on GitHub"
+[215]: https://github.com/PeterKottas/editor/blob/ab5ff50a0efa9bd5c7e0fa5fa7d974e858745804/packages/core/src/actions/display.js#L63-L63 "Source code on GitHub"
 
-[216]: https://github.com/PeterKottas/editor/blob/4a49bb2988c1bbca4f754740869ea653b6c46571/packages/core/src/actions/display.js#L68-L68 "Source code on GitHub"
+[216]: https://github.com/PeterKottas/editor/blob/ab5ff50a0efa9bd5c7e0fa5fa7d974e858745804/packages/core/src/actions/display.js#L68-L68 "Source code on GitHub"
 
-[217]: https://github.com/PeterKottas/editor/blob/4a49bb2988c1bbca4f754740869ea653b6c46571/packages/core/src/actions/display.js#L73-L76 "Source code on GitHub"
+[217]: https://github.com/PeterKottas/editor/blob/ab5ff50a0efa9bd5c7e0fa5fa7d974e858745804/packages/core/src/actions/display.js#L73-L76 "Source code on GitHub"
 
-[218]: https://github.com/PeterKottas/editor/blob/4a49bb2988c1bbca4f754740869ea653b6c46571/packages/core/src/const.js#L26-L33 "Source code on GitHub"
+[218]: https://github.com/PeterKottas/editor/blob/ab5ff50a0efa9bd5c7e0fa5fa7d974e858745804/packages/core/src/const.js#L26-L33 "Source code on GitHub"
 
-[219]: https://github.com/PeterKottas/editor/blob/4a49bb2988c1bbca4f754740869ea653b6c46571/packages/core/src/index.js#L73-L156 "Source code on GitHub"
+[219]: https://github.com/PeterKottas/editor/blob/ab5ff50a0efa9bd5c7e0fa5fa7d974e858745804/packages/core/src/index.js#L73-L156 "Source code on GitHub"
 
-[220]: https://github.com/PeterKottas/editor/blob/4a49bb2988c1bbca4f754740869ea653b6c46571/packages/core/src/reducer/editable/helper/hover.js#L28-L40 "Source code on GitHub"
+[220]: https://github.com/PeterKottas/editor/blob/ab5ff50a0efa9bd5c7e0fa5fa7d974e858745804/packages/core/src/reducer/editable/helper/hover.js#L28-L40 "Source code on GitHub"
 
 [221]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object
 
 [222]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean
 
-[223]: https://github.com/PeterKottas/editor/blob/4a49bb2988c1bbca4f754740869ea653b6c46571/packages/core/src/reducer/editable/helper/sizing.js#L31-L37 "Source code on GitHub"
+[223]: https://github.com/PeterKottas/editor/blob/ab5ff50a0efa9bd5c7e0fa5fa7d974e858745804/packages/core/src/reducer/editable/helper/sizing.js#L31-L37 "Source code on GitHub"
 
 [224]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array
 
-[225]: https://github.com/PeterKottas/editor/blob/4a49bb2988c1bbca4f754740869ea653b6c46571/packages/core/src/reducer/editable/helper/sizing.js#L42-L51 "Source code on GitHub"
+[225]: https://github.com/PeterKottas/editor/blob/ab5ff50a0efa9bd5c7e0fa5fa7d974e858745804/packages/core/src/reducer/editable/helper/sizing.js#L42-L51 "Source code on GitHub"
 
-[226]: https://github.com/PeterKottas/editor/blob/4a49bb2988c1bbca4f754740869ea653b6c46571/packages/core/src/reducer/editable/helper/sizing.js#L56-L62 "Source code on GitHub"
+[226]: https://github.com/PeterKottas/editor/blob/ab5ff50a0efa9bd5c7e0fa5fa7d974e858745804/packages/core/src/reducer/editable/helper/sizing.js#L56-L62 "Source code on GitHub"
 
-[227]: https://github.com/PeterKottas/editor/blob/4a49bb2988c1bbca4f754740869ea653b6c46571/packages/core/src/reducer/editable/helper/sizing.js#L67-L94 "Source code on GitHub"
+[227]: https://github.com/PeterKottas/editor/blob/ab5ff50a0efa9bd5c7e0fa5fa7d974e858745804/packages/core/src/reducer/editable/helper/sizing.js#L67-L94 "Source code on GitHub"
 
-[228]: https://github.com/PeterKottas/editor/blob/4a49bb2988c1bbca4f754740869ea653b6c46571/packages/core/src/reducer/editable/helper/sizing.js#L99-L117 "Source code on GitHub"
+[228]: https://github.com/PeterKottas/editor/blob/ab5ff50a0efa9bd5c7e0fa5fa7d974e858745804/packages/core/src/reducer/editable/helper/sizing.js#L99-L117 "Source code on GitHub"
 
-[229]: https://github.com/PeterKottas/editor/blob/4a49bb2988c1bbca4f754740869ea653b6c46571/packages/core/src/reducer/editable/helper/sizing.js#L125-L138 "Source code on GitHub"
+[229]: https://github.com/PeterKottas/editor/blob/ab5ff50a0efa9bd5c7e0fa5fa7d974e858745804/packages/core/src/reducer/editable/helper/sizing.js#L125-L138 "Source code on GitHub"
 
-[230]: https://github.com/PeterKottas/editor/blob/4a49bb2988c1bbca4f754740869ea653b6c46571/packages/core/src/reducer/index.js#L48-L48 "Source code on GitHub"
+[230]: https://github.com/PeterKottas/editor/blob/ab5ff50a0efa9bd5c7e0fa5fa7d974e858745804/packages/core/src/reducer/index.js#L48-L48 "Source code on GitHub"
 
-[231]: https://github.com/PeterKottas/editor/blob/4a49bb2988c1bbca4f754740869ea653b6c46571/packages/core/src/service/hover/index.js#L68-L90 "Source code on GitHub"
+[231]: https://github.com/PeterKottas/editor/blob/ab5ff50a0efa9bd5c7e0fa5fa7d974e858745804/packages/core/src/service/hover/index.js#L68-L90 "Source code on GitHub"
 
-[232]: https://github.com/PeterKottas/editor/blob/4a49bb2988c1bbca4f754740869ea653b6c46571/packages/core/src/service/hover/index.js#L99-L132 "Source code on GitHub"
+[232]: https://github.com/PeterKottas/editor/blob/ab5ff50a0efa9bd5c7e0fa5fa7d974e858745804/packages/core/src/service/hover/index.js#L99-L132 "Source code on GitHub"
 
-[233]: https://github.com/PeterKottas/editor/blob/4a49bb2988c1bbca4f754740869ea653b6c46571/packages/core/src/service/hover/index.js#L166-L175 "Source code on GitHub"
+[233]: https://github.com/PeterKottas/editor/blob/ab5ff50a0efa9bd5c7e0fa5fa7d974e858745804/packages/core/src/service/hover/index.js#L166-L175 "Source code on GitHub"
 
-[234]: https://github.com/PeterKottas/editor/blob/4a49bb2988c1bbca4f754740869ea653b6c46571/packages/core/src/service/hover/index.js#L180-L180 "Source code on GitHub"
+[234]: https://github.com/PeterKottas/editor/blob/ab5ff50a0efa9bd5c7e0fa5fa7d974e858745804/packages/core/src/service/hover/index.js#L180-L180 "Source code on GitHub"
 
-[235]: https://github.com/PeterKottas/editor/blob/4a49bb2988c1bbca4f754740869ea653b6c46571/packages/core/src/service/hover/index.js#L259-L270 "Source code on GitHub"
+[235]: https://github.com/PeterKottas/editor/blob/ab5ff50a0efa9bd5c7e0fa5fa7d974e858745804/packages/core/src/service/hover/index.js#L259-L270 "Source code on GitHub"
 
-[236]: https://github.com/PeterKottas/editor/blob/4a49bb2988c1bbca4f754740869ea653b6c46571/packages/core/src/service/hover/index.js#L275-L300 "Source code on GitHub"
+[236]: https://github.com/PeterKottas/editor/blob/ab5ff50a0efa9bd5c7e0fa5fa7d974e858745804/packages/core/src/service/hover/index.js#L275-L300 "Source code on GitHub"
 
-[237]: https://github.com/PeterKottas/editor/blob/4a49bb2988c1bbca4f754740869ea653b6c46571/packages/core/src/service/hover/index.js#L313-L347 "Source code on GitHub"
+[237]: https://github.com/PeterKottas/editor/blob/ab5ff50a0efa9bd5c7e0fa5fa7d974e858745804/packages/core/src/service/hover/index.js#L313-L347 "Source code on GitHub"
 
-[238]: https://github.com/PeterKottas/editor/blob/4a49bb2988c1bbca4f754740869ea653b6c46571/packages/core/src/service/hover/index.js#L354-L388 "Source code on GitHub"
+[238]: https://github.com/PeterKottas/editor/blob/ab5ff50a0efa9bd5c7e0fa5fa7d974e858745804/packages/core/src/service/hover/index.js#L354-L388 "Source code on GitHub"
 
-[239]: https://github.com/PeterKottas/editor/blob/4a49bb2988c1bbca4f754740869ea653b6c46571/packages/core/src/service/hover/index.js#L395-L649 "Source code on GitHub"
+[239]: https://github.com/PeterKottas/editor/blob/ab5ff50a0efa9bd5c7e0fa5fa7d974e858745804/packages/core/src/service/hover/index.js#L395-L649 "Source code on GitHub"
 
-[240]: https://github.com/PeterKottas/editor/blob/4a49bb2988c1bbca4f754740869ea653b6c46571/packages/core/src/service/logger/index.js#L39-L41 "Source code on GitHub"
+[240]: https://github.com/PeterKottas/editor/blob/ab5ff50a0efa9bd5c7e0fa5fa7d974e858745804/packages/core/src/service/logger/index.js#L39-L41 "Source code on GitHub"
 
-[241]: https://github.com/PeterKottas/editor/blob/4a49bb2988c1bbca4f754740869ea653b6c46571/packages/core/src/service/logger/index.js#L46-L48 "Source code on GitHub"
+[241]: https://github.com/PeterKottas/editor/blob/ab5ff50a0efa9bd5c7e0fa5fa7d974e858745804/packages/core/src/service/logger/index.js#L46-L48 "Source code on GitHub"
 
-[242]: https://github.com/PeterKottas/editor/blob/4a49bb2988c1bbca4f754740869ea653b6c46571/packages/core/src/service/logger/index.js#L53-L55 "Source code on GitHub"
+[242]: https://github.com/PeterKottas/editor/blob/ab5ff50a0efa9bd5c7e0fa5fa7d974e858745804/packages/core/src/service/logger/index.js#L53-L55 "Source code on GitHub"
 
-[243]: https://github.com/PeterKottas/editor/blob/4a49bb2988c1bbca4f754740869ea653b6c46571/packages/core/src/service/logger/index.js#L60-L63 "Source code on GitHub"
+[243]: https://github.com/PeterKottas/editor/blob/ab5ff50a0efa9bd5c7e0fa5fa7d974e858745804/packages/core/src/service/logger/index.js#L60-L63 "Source code on GitHub"
 
-[244]: https://github.com/PeterKottas/editor/blob/4a49bb2988c1bbca4f754740869ea653b6c46571/packages/core/src/service/logger/index.js#L68-L72 "Source code on GitHub"
+[244]: https://github.com/PeterKottas/editor/blob/ab5ff50a0efa9bd5c7e0fa5fa7d974e858745804/packages/core/src/service/logger/index.js#L68-L72 "Source code on GitHub"
 
-[245]: https://github.com/PeterKottas/editor/blob/4a49bb2988c1bbca4f754740869ea653b6c46571/packages/core/src/service/logger/index.js#L77-L80 "Source code on GitHub"
+[245]: https://github.com/PeterKottas/editor/blob/ab5ff50a0efa9bd5c7e0fa5fa7d974e858745804/packages/core/src/service/logger/index.js#L77-L80 "Source code on GitHub"
 
-[246]: https://github.com/PeterKottas/editor/blob/4a49bb2988c1bbca4f754740869ea653b6c46571/packages/core/src/service/plugin/classes.js#L32-L32 "Source code on GitHub"
+[246]: https://github.com/PeterKottas/editor/blob/ab5ff50a0efa9bd5c7e0fa5fa7d974e858745804/packages/core/src/service/plugin/classes.js#L32-L32 "Source code on GitHub"
 
-[247]: https://github.com/PeterKottas/editor/blob/4a49bb2988c1bbca4f754740869ea653b6c46571/packages/core/src/service/plugin/classes.js#L71-L71 "Source code on GitHub"
+[247]: https://github.com/PeterKottas/editor/blob/ab5ff50a0efa9bd5c7e0fa5fa7d974e858745804/packages/core/src/service/plugin/classes.js#L71-L71 "Source code on GitHub"
 
-[248]: https://github.com/PeterKottas/editor/blob/4a49bb2988c1bbca4f754740869ea653b6c46571/packages/core/src/service/plugin/classes.js#L37-L37 "Source code on GitHub"
+[248]: https://github.com/PeterKottas/editor/blob/ab5ff50a0efa9bd5c7e0fa5fa7d974e858745804/packages/core/src/service/plugin/classes.js#L37-L37 "Source code on GitHub"
 
-[249]: https://github.com/PeterKottas/editor/blob/4a49bb2988c1bbca4f754740869ea653b6c46571/packages/core/src/service/plugin/classes.js#L76-L76 "Source code on GitHub"
+[249]: https://github.com/PeterKottas/editor/blob/ab5ff50a0efa9bd5c7e0fa5fa7d974e858745804/packages/core/src/service/plugin/classes.js#L76-L76 "Source code on GitHub"
 
-[250]: https://github.com/PeterKottas/editor/blob/4a49bb2988c1bbca4f754740869ea653b6c46571/packages/core/src/service/plugin/classes.js#L42-L42 "Source code on GitHub"
+[250]: https://github.com/PeterKottas/editor/blob/ab5ff50a0efa9bd5c7e0fa5fa7d974e858745804/packages/core/src/service/plugin/classes.js#L42-L42 "Source code on GitHub"
 
-[251]: https://github.com/PeterKottas/editor/blob/4a49bb2988c1bbca4f754740869ea653b6c46571/packages/core/src/service/plugin/classes.js#L47-L47 "Source code on GitHub"
+[251]: https://github.com/PeterKottas/editor/blob/ab5ff50a0efa9bd5c7e0fa5fa7d974e858745804/packages/core/src/service/plugin/classes.js#L47-L47 "Source code on GitHub"
 
-[252]: https://github.com/PeterKottas/editor/blob/4a49bb2988c1bbca4f754740869ea653b6c46571/packages/core/src/service/plugin/classes.js#L52-L52 "Source code on GitHub"
+[252]: https://github.com/PeterKottas/editor/blob/ab5ff50a0efa9bd5c7e0fa5fa7d974e858745804/packages/core/src/service/plugin/classes.js#L52-L52 "Source code on GitHub"
 
-[253]: https://github.com/PeterKottas/editor/blob/4a49bb2988c1bbca4f754740869ea653b6c46571/packages/core/src/service/plugin/classes.js#L81-L81 "Source code on GitHub"
+[253]: https://github.com/PeterKottas/editor/blob/ab5ff50a0efa9bd5c7e0fa5fa7d974e858745804/packages/core/src/service/plugin/classes.js#L81-L81 "Source code on GitHub"
 
-[254]: https://github.com/PeterKottas/editor/blob/4a49bb2988c1bbca4f754740869ea653b6c46571/packages/core/src/service/plugin/classes.js#L57-L57 "Source code on GitHub"
+[254]: https://github.com/PeterKottas/editor/blob/ab5ff50a0efa9bd5c7e0fa5fa7d974e858745804/packages/core/src/service/plugin/classes.js#L57-L57 "Source code on GitHub"
 
-[255]: https://github.com/PeterKottas/editor/blob/4a49bb2988c1bbca4f754740869ea653b6c46571/packages/core/src/service/plugin/classes.js#L86-L86 "Source code on GitHub"
+[255]: https://github.com/PeterKottas/editor/blob/ab5ff50a0efa9bd5c7e0fa5fa7d974e858745804/packages/core/src/service/plugin/classes.js#L86-L86 "Source code on GitHub"
 
-[256]: https://github.com/PeterKottas/editor/blob/4a49bb2988c1bbca4f754740869ea653b6c46571/packages/core/src/service/plugin/classes.js#L64-L64 "Source code on GitHub"
+[256]: https://github.com/PeterKottas/editor/blob/ab5ff50a0efa9bd5c7e0fa5fa7d974e858745804/packages/core/src/service/plugin/classes.js#L64-L64 "Source code on GitHub"
 
-[257]: https://github.com/PeterKottas/editor/blob/4a49bb2988c1bbca4f754740869ea653b6c46571/packages/core/src/service/plugin/classes.js#L93-L93 "Source code on GitHub"
+[257]: https://github.com/PeterKottas/editor/blob/ab5ff50a0efa9bd5c7e0fa5fa7d974e858745804/packages/core/src/service/plugin/classes.js#L93-L93 "Source code on GitHub"
 
-[258]: https://github.com/PeterKottas/editor/blob/4a49bb2988c1bbca4f754740869ea653b6c46571/packages/core/src/service/plugin/classes.js#L99-L123 "Source code on GitHub"
+[258]: https://github.com/PeterKottas/editor/blob/ab5ff50a0efa9bd5c7e0fa5fa7d974e858745804/packages/core/src/service/plugin/classes.js#L99-L123 "Source code on GitHub"
 
-[259]: https://github.com/PeterKottas/editor/blob/4a49bb2988c1bbca4f754740869ea653b6c46571/packages/core/src/service/plugin/classes.js#L128-L301 "Source code on GitHub"
+[259]: https://github.com/PeterKottas/editor/blob/ab5ff50a0efa9bd5c7e0fa5fa7d974e858745804/packages/core/src/service/plugin/classes.js#L128-L301 "Source code on GitHub"
 
-[260]: https://github.com/PeterKottas/editor/blob/4a49bb2988c1bbca4f754740869ea653b6c46571/packages/core/src/service/plugin/classes.js#L188-L188 "Source code on GitHub"
+[260]: https://github.com/PeterKottas/editor/blob/ab5ff50a0efa9bd5c7e0fa5fa7d974e858745804/packages/core/src/service/plugin/classes.js#L188-L188 "Source code on GitHub"
 
-[261]: https://github.com/PeterKottas/editor/blob/4a49bb2988c1bbca4f754740869ea653b6c46571/packages/core/src/service/plugin/classes.js#L193-L193 "Source code on GitHub"
+[261]: https://github.com/PeterKottas/editor/blob/ab5ff50a0efa9bd5c7e0fa5fa7d974e858745804/packages/core/src/service/plugin/classes.js#L193-L193 "Source code on GitHub"
 
-[262]: https://github.com/PeterKottas/editor/blob/4a49bb2988c1bbca4f754740869ea653b6c46571/packages/core/src/service/plugin/classes.js#L198-L198 "Source code on GitHub"
+[262]: https://github.com/PeterKottas/editor/blob/ab5ff50a0efa9bd5c7e0fa5fa7d974e858745804/packages/core/src/service/plugin/classes.js#L198-L198 "Source code on GitHub"
 
 [263]: #migration
 
-[264]: https://github.com/PeterKottas/editor/blob/4a49bb2988c1bbca4f754740869ea653b6c46571/packages/core/src/service/plugin/classes.js#L203-L203 "Source code on GitHub"
+[264]: https://github.com/PeterKottas/editor/blob/ab5ff50a0efa9bd5c7e0fa5fa7d974e858745804/packages/core/src/service/plugin/classes.js#L203-L203 "Source code on GitHub"
 
-[265]: https://github.com/PeterKottas/editor/blob/4a49bb2988c1bbca4f754740869ea653b6c46571/packages/core/src/service/plugin/classes.js#L208-L208 "Source code on GitHub"
+[265]: https://github.com/PeterKottas/editor/blob/ab5ff50a0efa9bd5c7e0fa5fa7d974e858745804/packages/core/src/service/plugin/classes.js#L208-L208 "Source code on GitHub"
 
-[266]: https://github.com/PeterKottas/editor/blob/4a49bb2988c1bbca4f754740869ea653b6c46571/packages/core/src/service/plugin/classes.js#L214-L214 "Source code on GitHub"
+[266]: https://github.com/PeterKottas/editor/blob/ab5ff50a0efa9bd5c7e0fa5fa7d974e858745804/packages/core/src/service/plugin/classes.js#L214-L214 "Source code on GitHub"
 
-[267]: https://github.com/PeterKottas/editor/blob/4a49bb2988c1bbca4f754740869ea653b6c46571/packages/core/src/service/plugin/classes.js#L220-L220 "Source code on GitHub"
+[267]: https://github.com/PeterKottas/editor/blob/ab5ff50a0efa9bd5c7e0fa5fa7d974e858745804/packages/core/src/service/plugin/classes.js#L220-L220 "Source code on GitHub"
 
-[268]: https://github.com/PeterKottas/editor/blob/4a49bb2988c1bbca4f754740869ea653b6c46571/packages/core/src/service/plugin/classes.js#L225-L225 "Source code on GitHub"
+[268]: https://github.com/PeterKottas/editor/blob/ab5ff50a0efa9bd5c7e0fa5fa7d974e858745804/packages/core/src/service/plugin/classes.js#L225-L225 "Source code on GitHub"
 
-[269]: https://github.com/PeterKottas/editor/blob/4a49bb2988c1bbca4f754740869ea653b6c46571/packages/core/src/service/plugin/classes.js#L233-L233 "Source code on GitHub"
+[269]: https://github.com/PeterKottas/editor/blob/ab5ff50a0efa9bd5c7e0fa5fa7d974e858745804/packages/core/src/service/plugin/classes.js#L233-L233 "Source code on GitHub"
 
-[270]: https://github.com/PeterKottas/editor/blob/4a49bb2988c1bbca4f754740869ea653b6c46571/packages/core/src/service/plugin/classes.js#L241-L241 "Source code on GitHub"
+[270]: https://github.com/PeterKottas/editor/blob/ab5ff50a0efa9bd5c7e0fa5fa7d974e858745804/packages/core/src/service/plugin/classes.js#L241-L241 "Source code on GitHub"
 
-[271]: https://github.com/PeterKottas/editor/blob/4a49bb2988c1bbca4f754740869ea653b6c46571/packages/core/src/service/plugin/classes.js#L251-L252 "Source code on GitHub"
+[271]: https://github.com/PeterKottas/editor/blob/ab5ff50a0efa9bd5c7e0fa5fa7d974e858745804/packages/core/src/service/plugin/classes.js#L251-L252 "Source code on GitHub"
 
 [272]: https://developer.mozilla.org/docs/Web/API/Event
 
 [273]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise
 
-[274]: https://github.com/PeterKottas/editor/blob/4a49bb2988c1bbca4f754740869ea653b6c46571/packages/core/src/service/plugin/classes.js#L262-L265 "Source code on GitHub"
+[274]: https://github.com/PeterKottas/editor/blob/ab5ff50a0efa9bd5c7e0fa5fa7d974e858745804/packages/core/src/service/plugin/classes.js#L262-L265 "Source code on GitHub"
 
-[275]: https://github.com/PeterKottas/editor/blob/4a49bb2988c1bbca4f754740869ea653b6c46571/packages/core/src/service/plugin/classes.js#L275-L278 "Source code on GitHub"
+[275]: https://github.com/PeterKottas/editor/blob/ab5ff50a0efa9bd5c7e0fa5fa7d974e858745804/packages/core/src/service/plugin/classes.js#L275-L278 "Source code on GitHub"
 
-[276]: https://github.com/PeterKottas/editor/blob/4a49bb2988c1bbca4f754740869ea653b6c46571/packages/core/src/service/plugin/classes.js#L285-L285 "Source code on GitHub"
+[276]: https://github.com/PeterKottas/editor/blob/ab5ff50a0efa9bd5c7e0fa5fa7d974e858745804/packages/core/src/service/plugin/classes.js#L285-L285 "Source code on GitHub"
 
-[277]: https://github.com/PeterKottas/editor/blob/4a49bb2988c1bbca4f754740869ea653b6c46571/packages/core/src/service/plugin/classes.js#L292-L292 "Source code on GitHub"
+[277]: https://github.com/PeterKottas/editor/blob/ab5ff50a0efa9bd5c7e0fa5fa7d974e858745804/packages/core/src/service/plugin/classes.js#L292-L292 "Source code on GitHub"
 
-[278]: https://github.com/PeterKottas/editor/blob/4a49bb2988c1bbca4f754740869ea653b6c46571/packages/core/src/service/plugin/classes.js#L300-L300 "Source code on GitHub"
+[278]: https://github.com/PeterKottas/editor/blob/ab5ff50a0efa9bd5c7e0fa5fa7d974e858745804/packages/core/src/service/plugin/classes.js#L300-L300 "Source code on GitHub"
 
-[279]: https://github.com/PeterKottas/editor/blob/4a49bb2988c1bbca4f754740869ea653b6c46571/packages/core/src/service/plugin/classes.js#L306-L346 "Source code on GitHub"
+[279]: https://github.com/PeterKottas/editor/blob/ab5ff50a0efa9bd5c7e0fa5fa7d974e858745804/packages/core/src/service/plugin/classes.js#L306-L346 "Source code on GitHub"
 
-[280]: https://github.com/PeterKottas/editor/blob/4a49bb2988c1bbca4f754740869ea653b6c46571/packages/core/src/service/plugin/classes.js#L325-L325 "Source code on GitHub"
+[280]: https://github.com/PeterKottas/editor/blob/ab5ff50a0efa9bd5c7e0fa5fa7d974e858745804/packages/core/src/service/plugin/classes.js#L325-L325 "Source code on GitHub"
 
-[281]: https://github.com/PeterKottas/editor/blob/4a49bb2988c1bbca4f754740869ea653b6c46571/packages/core/src/service/plugin/classes.js#L330-L330 "Source code on GitHub"
+[281]: https://github.com/PeterKottas/editor/blob/ab5ff50a0efa9bd5c7e0fa5fa7d974e858745804/packages/core/src/service/plugin/classes.js#L330-L330 "Source code on GitHub"
 
-[282]: https://github.com/PeterKottas/editor/blob/4a49bb2988c1bbca4f754740869ea653b6c46571/packages/core/src/service/plugin/classes.js#L337-L337 "Source code on GitHub"
+[282]: https://github.com/PeterKottas/editor/blob/ab5ff50a0efa9bd5c7e0fa5fa7d974e858745804/packages/core/src/service/plugin/classes.js#L337-L337 "Source code on GitHub"
 
-[283]: https://github.com/PeterKottas/editor/blob/4a49bb2988c1bbca4f754740869ea653b6c46571/packages/core/src/service/plugin/classes.js#L345-L345 "Source code on GitHub"
+[283]: https://github.com/PeterKottas/editor/blob/ab5ff50a0efa9bd5c7e0fa5fa7d974e858745804/packages/core/src/service/plugin/classes.js#L345-L345 "Source code on GitHub"
 
-[284]: https://github.com/PeterKottas/editor/blob/4a49bb2988c1bbca4f754740869ea653b6c46571/packages/core/src/service/plugin/classes.js#L351-L377 "Source code on GitHub"
+[284]: https://github.com/PeterKottas/editor/blob/ab5ff50a0efa9bd5c7e0fa5fa7d974e858745804/packages/core/src/service/plugin/classes.js#L351-L377 "Source code on GitHub"
 
-[285]: https://github.com/PeterKottas/editor/blob/4a49bb2988c1bbca4f754740869ea653b6c46571/packages/core/src/service/plugin/classes.js#L369-L369 "Source code on GitHub"
+[285]: https://github.com/PeterKottas/editor/blob/ab5ff50a0efa9bd5c7e0fa5fa7d974e858745804/packages/core/src/service/plugin/classes.js#L369-L369 "Source code on GitHub"
 
-[286]: https://github.com/PeterKottas/editor/blob/4a49bb2988c1bbca4f754740869ea653b6c46571/packages/core/src/service/plugin/classes.js#L376-L376 "Source code on GitHub"
+[286]: https://github.com/PeterKottas/editor/blob/ab5ff50a0efa9bd5c7e0fa5fa7d974e858745804/packages/core/src/service/plugin/classes.js#L376-L376 "Source code on GitHub"
 
-[287]: https://github.com/PeterKottas/editor/blob/4a49bb2988c1bbca4f754740869ea653b6c46571/packages/core/src/service/plugin/classes.js#L404-L404 "Source code on GitHub"
+[287]: https://github.com/PeterKottas/editor/blob/ab5ff50a0efa9bd5c7e0fa5fa7d974e858745804/packages/core/src/service/plugin/classes.js#L404-L404 "Source code on GitHub"
 
-[288]: https://github.com/PeterKottas/editor/blob/4a49bb2988c1bbca4f754740869ea653b6c46571/packages/core/src/service/plugin/classes.js#L411-L411 "Source code on GitHub"
+[288]: https://github.com/PeterKottas/editor/blob/ab5ff50a0efa9bd5c7e0fa5fa7d974e858745804/packages/core/src/service/plugin/classes.js#L411-L411 "Source code on GitHub"
 
-[289]: https://github.com/PeterKottas/editor/blob/4a49bb2988c1bbca4f754740869ea653b6c46571/packages/core/src/service/plugin/classes.js#L416-L416 "Source code on GitHub"
+[289]: https://github.com/PeterKottas/editor/blob/ab5ff50a0efa9bd5c7e0fa5fa7d974e858745804/packages/core/src/service/plugin/classes.js#L416-L416 "Source code on GitHub"
 
-[290]: https://github.com/PeterKottas/editor/blob/4a49bb2988c1bbca4f754740869ea653b6c46571/packages/core/src/service/plugin/classes.js#L421-L421 "Source code on GitHub"
+[290]: https://github.com/PeterKottas/editor/blob/ab5ff50a0efa9bd5c7e0fa5fa7d974e858745804/packages/core/src/service/plugin/classes.js#L421-L421 "Source code on GitHub"
 
-[291]: https://github.com/PeterKottas/editor/blob/4a49bb2988c1bbca4f754740869ea653b6c46571/packages/core/src/service/plugin/classes.js#L428-L428 "Source code on GitHub"
+[291]: https://github.com/PeterKottas/editor/blob/ab5ff50a0efa9bd5c7e0fa5fa7d974e858745804/packages/core/src/service/plugin/classes.js#L428-L428 "Source code on GitHub"
 
-[292]: https://github.com/PeterKottas/editor/blob/4a49bb2988c1bbca4f754740869ea653b6c46571/packages/core/src/service/plugin/index.js#L38-L48 "Source code on GitHub"
+[292]: https://github.com/PeterKottas/editor/blob/ab5ff50a0efa9bd5c7e0fa5fa7d974e858745804/packages/core/src/service/plugin/index.js#L38-L48 "Source code on GitHub"
 
-[293]: https://github.com/PeterKottas/editor/blob/4a49bb2988c1bbca4f754740869ea653b6c46571/packages/core/src/service/plugin/index.js#L53-L323 "Source code on GitHub"
+[293]: https://github.com/PeterKottas/editor/blob/ab5ff50a0efa9bd5c7e0fa5fa7d974e858745804/packages/core/src/service/plugin/index.js#L53-L323 "Source code on GitHub"
 
-[294]: https://github.com/PeterKottas/editor/blob/4a49bb2988c1bbca4f754740869ea653b6c46571/packages/core/src/service/plugin/index.js#L142-L155 "Source code on GitHub"
+[294]: https://github.com/PeterKottas/editor/blob/ab5ff50a0efa9bd5c7e0fa5fa7d974e858745804/packages/core/src/service/plugin/index.js#L142-L155 "Source code on GitHub"
 
 [295]: #layoutplugin
 
-[296]: https://github.com/PeterKottas/editor/blob/4a49bb2988c1bbca4f754740869ea653b6c46571/packages/core/src/service/plugin/index.js#L160-L173 "Source code on GitHub"
+[296]: https://github.com/PeterKottas/editor/blob/ab5ff50a0efa9bd5c7e0fa5fa7d974e858745804/packages/core/src/service/plugin/index.js#L160-L173 "Source code on GitHub"
 
 [297]: #contentplugin
 
-[298]: https://github.com/PeterKottas/editor/blob/4a49bb2988c1bbca4f754740869ea653b6c46571/packages/core/src/service/plugin/index.js#L178-L181 "Source code on GitHub"
+[298]: https://github.com/PeterKottas/editor/blob/ab5ff50a0efa9bd5c7e0fa5fa7d974e858745804/packages/core/src/service/plugin/index.js#L178-L181 "Source code on GitHub"
 
-[299]: https://github.com/PeterKottas/editor/blob/4a49bb2988c1bbca4f754740869ea653b6c46571/packages/core/src/store.js#L32-L46 "Source code on GitHub"
+[299]: https://github.com/PeterKottas/editor/blob/ab5ff50a0efa9bd5c7e0fa5fa7d974e858745804/packages/core/src/store.js#L32-L46 "Source code on GitHub"

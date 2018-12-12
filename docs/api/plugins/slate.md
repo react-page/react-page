@@ -105,36 +105,36 @@ Type: [Function][22]
 
 [12]: #rendernode
 
-[13]: https://github.com/PeterKottas/editor/blob/4a49bb2988c1bbca4f754740869ea653b6c46571/packages/plugins/content/slate/src/plugins/Plugin.js#L30-L95 "Source code on GitHub"
+[13]: https://github.com/PeterKottas/editor/blob/ab5ff50a0efa9bd5c7e0fa5fa7d974e858745804/packages/plugins/content/slate/src/plugins/Plugin.js#L30-L95 "Source code on GitHub"
 
-[14]: https://github.com/PeterKottas/editor/blob/4a49bb2988c1bbca4f754740869ea653b6c46571/packages/plugins/content/slate/src/plugins/Plugin.js#L34-L34 "Source code on GitHub"
+[14]: https://github.com/PeterKottas/editor/blob/ab5ff50a0efa9bd5c7e0fa5fa7d974e858745804/packages/plugins/content/slate/src/plugins/Plugin.js#L34-L34 "Source code on GitHub"
 
 [15]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String
 
-[16]: https://github.com/PeterKottas/editor/blob/4a49bb2988c1bbca4f754740869ea653b6c46571/packages/plugins/content/slate/src/plugins/Plugin.js#L39-L42 "Source code on GitHub"
+[16]: https://github.com/PeterKottas/editor/blob/ab5ff50a0efa9bd5c7e0fa5fa7d974e858745804/packages/plugins/content/slate/src/plugins/Plugin.js#L39-L42 "Source code on GitHub"
 
-[17]: https://github.com/PeterKottas/editor/blob/4a49bb2988c1bbca4f754740869ea653b6c46571/packages/plugins/content/slate/src/plugins/Plugin.js#L47-L47 "Source code on GitHub"
+[17]: https://github.com/PeterKottas/editor/blob/ab5ff50a0efa9bd5c7e0fa5fa7d974e858745804/packages/plugins/content/slate/src/plugins/Plugin.js#L47-L47 "Source code on GitHub"
 
-[18]: https://github.com/PeterKottas/editor/blob/4a49bb2988c1bbca4f754740869ea653b6c46571/packages/plugins/content/slate/src/plugins/Plugin.js#L52-L55 "Source code on GitHub"
+[18]: https://github.com/PeterKottas/editor/blob/ab5ff50a0efa9bd5c7e0fa5fa7d974e858745804/packages/plugins/content/slate/src/plugins/Plugin.js#L52-L55 "Source code on GitHub"
 
 [19]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array
 
-[20]: https://github.com/PeterKottas/editor/blob/4a49bb2988c1bbca4f754740869ea653b6c46571/packages/plugins/content/slate/src/plugins/Plugin.js#L60-L60 "Source code on GitHub"
+[20]: https://github.com/PeterKottas/editor/blob/ab5ff50a0efa9bd5c7e0fa5fa7d974e858745804/packages/plugins/content/slate/src/plugins/Plugin.js#L60-L60 "Source code on GitHub"
 
 [21]: https://developer.mozilla.org/docs/Web/API/Element
 
 [22]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function
 
-[23]: https://github.com/PeterKottas/editor/blob/4a49bb2988c1bbca4f754740869ea653b6c46571/packages/plugins/content/slate/src/plugins/Plugin.js#L70-L74 "Source code on GitHub"
+[23]: https://github.com/PeterKottas/editor/blob/ab5ff50a0efa9bd5c7e0fa5fa7d974e858745804/packages/plugins/content/slate/src/plugins/Plugin.js#L70-L74 "Source code on GitHub"
 
 [24]: https://developer.mozilla.org/docs/Web/API/Event
 
 [25]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean
 
-[26]: https://github.com/PeterKottas/editor/blob/4a49bb2988c1bbca4f754740869ea653b6c46571/packages/plugins/content/slate/src/plugins/Plugin.js#L79-L79 "Source code on GitHub"
+[26]: https://github.com/PeterKottas/editor/blob/ab5ff50a0efa9bd5c7e0fa5fa7d974e858745804/packages/plugins/content/slate/src/plugins/Plugin.js#L79-L79 "Source code on GitHub"
 
-[27]: https://github.com/PeterKottas/editor/blob/4a49bb2988c1bbca4f754740869ea653b6c46571/packages/plugins/content/slate/src/plugins/Plugin.js#L84-L84 "Source code on GitHub"
+[27]: https://github.com/PeterKottas/editor/blob/ab5ff50a0efa9bd5c7e0fa5fa7d974e858745804/packages/plugins/content/slate/src/plugins/Plugin.js#L84-L84 "Source code on GitHub"
 
-[28]: https://github.com/PeterKottas/editor/blob/4a49bb2988c1bbca4f754740869ea653b6c46571/packages/plugins/content/slate/src/plugins/Plugin.js#L89-L89 "Source code on GitHub"
+[28]: https://github.com/PeterKottas/editor/blob/ab5ff50a0efa9bd5c7e0fa5fa7d974e858745804/packages/plugins/content/slate/src/plugins/Plugin.js#L89-L89 "Source code on GitHub"
 
-[29]: https://github.com/PeterKottas/editor/blob/4a49bb2988c1bbca4f754740869ea653b6c46571/packages/plugins/content/slate/src/plugins/Plugin.js#L94-L94 "Source code on GitHub"
+[29]: https://github.com/PeterKottas/editor/blob/ab5ff50a0efa9bd5c7e0fa5fa7d974e858745804/packages/plugins/content/slate/src/plugins/Plugin.js#L94-L94 "Source code on GitHub"
