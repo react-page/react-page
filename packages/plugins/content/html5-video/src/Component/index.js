@@ -29,8 +29,8 @@ import { darkTheme } from 'ory-editor-ui/lib/ThemeProvider'
 
 export type Props = ContentPluginProps<*>
 
-const changeUrl = (onChange: any) => (event: Event, newValue: string) =>
-  onChange({ url: newValue })
+const changeUrl = (onChange: any) => (event: Event) =>
+  event.target && onChange({ url: event.target.value })
 
 const HTML5Video = ({
   readOnly,
@@ -51,10 +51,11 @@ const HTML5Video = ({
           label="Video url"
           onChange={changeUrl(onChange)}
           value={url}
+          style={{ width: '512px' }}
         />
       </BottomToolbar>
     ) : null}
-    <video autoPlay controls loop muted width="100%">
+    <video autoPlay controls loop muted width="100%" key={url}>
       <source src={url} type={`video/${url.split('.').pop()}`} />
     </video>
   </div>
