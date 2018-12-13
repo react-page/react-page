@@ -20,16 +20,26 @@
  *
  */
 
-import * as React from 'react';
-import Remove from '@material-ui/icons/Remove';
+// @flow
+import { NativeTypes } from 'react-dnd-html5-backend';
+import { DropTargetMonitor } from 'dnd-core';
 
-const Divider: React.SFC = () => <hr className="ory-plugins-content-divider" />;
+export const isNativeHTMLElementDrag = (monitor: DropTargetMonitor) => {
+  switch (monitor.getItemType()) {
+    case NativeTypes.URL:
+    case NativeTypes.FILE:
+    case NativeTypes.TEXT:
+      return true;
+    default:
+      return false;
+  }
+};
 
-export default {
-  Component: Divider,
-  name: 'ory/editor/core/content/divider',
-  version: '0.0.1',
-  IconComponent: <Remove />,
-  text: 'Divider',
-  description: 'A horizontal divider.',
+export const createNativeCellReplacement = () => {
+  const id = 'ory-native-drag';
+  return {
+    id,
+    rawNode: () => ({ id }),
+    node: { content: { plugin: { isInlineable: false } } },
+  };
 };

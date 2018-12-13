@@ -20,16 +20,27 @@
  *
  */
 
-import * as React from 'react';
-import Remove from '@material-ui/icons/Remove';
+// @flow
+/* eslint no-use-before-define: "off" */
+import { Cell, Row } from '../../../types/editable';
 
-const Divider: React.SFC = () => <hr className="ory-plugins-content-divider" />;
+export const isEmpty = ({
+  cells,
+  rows,
+  layout: { plugin: { name: layout = undefined } = {} } = {},
+  content: { plugin: { name: content = undefined } = {} } = {},
+}: {
+  cells: Array<Cell>;
+  rows: Array<Row>;
+  // tslint:disable-next-line:no-any
+  layout?: { plugin?: any };
+  // tslint:disable-next-line:no-any
+  content?: { plugin?: any };
+}): boolean =>
+  !(cells || []).filter(emptyFilter).length &&
+  !(rows || []).filter(emptyFilter).length &&
+  !content &&
+  !(layout && (rows || []).filter(emptyFilter).length);
 
-export default {
-  Component: Divider,
-  name: 'ory/editor/core/content/divider',
-  version: '0.0.1',
-  IconComponent: <Remove />,
-  text: 'Divider',
-  description: 'A horizontal divider.',
-};
+// tslint:disable-next-line:no-any
+export const emptyFilter = (state: any): boolean => !isEmpty(state);

@@ -20,16 +20,38 @@
  *
  */
 
+// @flow
 import * as React from 'react';
-import Remove from '@material-ui/icons/Remove';
+import { ContentPluginProps } from './classes';
+import { EditorState } from '../../types/editor';
 
-const Divider: React.SFC = () => <hr className="ory-plugins-content-divider" />;
+const handleChange = (onChange: (state: EditorState) => void) => (e: React.ChangeEvent) => {
+  if (e.target instanceof HTMLInputElement) {
+    onChange({ value: e.target.value });
+  }
+};
+
+const Default = ({
+  readOnly,
+  state: { value },
+  onChange,
+}: ContentPluginProps<{ value: string }>) =>
+  readOnly ? (
+    <div>{value}</div>
+  ) : (
+    <textarea
+      style={{ width: '100%' }}
+      value={value}
+      onChange={handleChange(onChange)}
+    />
+  );
 
 export default {
-  Component: Divider,
-  name: 'ory/editor/core/content/divider',
+  Component: Default,
+  name: 'ory/editor/core/default',
   version: '0.0.1',
-  IconComponent: <Remove />,
-  text: 'Divider',
-  description: 'A horizontal divider.',
+  createInitialState: () => ({
+    value:
+      'This is the default plugin from the core package. To replace it, set the "defaultPlugin" value in the editor config.',
+  }),
 };

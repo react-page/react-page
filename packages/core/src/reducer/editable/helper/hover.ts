@@ -19,17 +19,22 @@
  * @author Aeneas Rekkas <aeneas+oss@aeneas.io>
  *
  */
+import { CellHoverAction } from './../../../actions/cell/drag';
+import { EditorState } from '../../../types/editor';
 
-import * as React from 'react';
-import Remove from '@material-ui/icons/Remove';
+/**
+ * Check if this item is currently being hovered.
+ */
+export const isHoveringThis = (state: EditorState = {}, action: CellHoverAction): boolean => {
+  const { level = 0, hover = null } = action;
+  const children = state.rows || state.cells || [];
+  if (level > 0) {
+    return Boolean(
+      children.find((child) =>
+        isHoveringThis(child, { ...action, level: level - 1 })
+      )
+    );
+  }
 
-const Divider: React.SFC = () => <hr className="ory-plugins-content-divider" />;
-
-export default {
-  Component: Divider,
-  name: 'ory/editor/core/content/divider',
-  version: '0.0.1',
-  IconComponent: <Remove />,
-  text: 'Divider',
-  description: 'A horizontal divider.',
+  return hover === state.id;
 };

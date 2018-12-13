@@ -20,16 +20,22 @@
  *
  */
 
-import * as React from 'react';
-import Remove from '@material-ui/icons/Remove';
+import { Action } from 'redux';
 
-const Divider: React.SFC = () => <hr className="ory-plugins-content-divider" />;
+export const UPDATE_SETTING = 'UPDATE_SETTING';
 
-export default {
-  Component: Divider,
-  name: 'ory/editor/core/content/divider',
-  version: '0.0.1',
-  IconComponent: <Remove />,
-  text: 'Divider',
-  description: 'A horizontal divider.',
-};
+export interface UpdateSettingAction extends Action {
+  key: string;
+  // tslint:disable-next-line:no-any
+  value: any;
+}
+
+export const updateSetting = (
+  key: string,
+  // tslint:disable-next-line:no-any
+  value: any
+): UpdateSettingAction => ({
+  type: UPDATE_SETTING,
+  key,
+  value,
+});

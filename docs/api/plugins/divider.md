@@ -19,4 +19,4 @@
 
 [2]: #parameters
 
-[3]: https://github.com/PeterKottas/editor/blob/ab5ff50a0efa9bd5c7e0fa5fa7d974e858745804/packages/plugins/content/native/src/index.js#L47-L58 "Source code on GitHub"
+[3]: https://github.com/PeterKottas/editor/blob/d24958ae55f1f234617f37a27356c08e302346e3/packages/plugins/content/native/src/index.js#L47-L58 "Source code on GitHub"

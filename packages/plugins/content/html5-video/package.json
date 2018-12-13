@@ -5,9 +5,11 @@
   "author": "ORY GmbH",
   "license": "GNU Lesser General Public License v3.0",
   "scripts": {
+    "generate-d-ts": "tsc -p ./tsconfig.json && rimraf lib/**/*.js && rimraf lib/**/*.js.map",
+    "transpile": "babel ./src --out-dir lib --source-maps --copy-files --only **/*.ts,**/*.tsx --extensions .ts,.tsx --ignore **/*.d.ts && rimraf lib/declarations && rimraf lib/tsconfig.json",
     "build": "npm-run-all --parallel build:lib build:css",
     "build:watch": "npm-run-all --parallel build:lib:watch build:css:watch",
-    "build:lib": "babel ./src --source-maps --ignore test.js --out-dir ./lib",
+    "build:lib": "npm run generate-d-ts && npm run transpile",
     "build:lib:watch": "npm run build:lib -- --watch",
     "build:css": "postcss -c ../../../../postcss.config.js --dir lib/ src/index.css",
     "build:css:watch": "npm run build:css -- -w",

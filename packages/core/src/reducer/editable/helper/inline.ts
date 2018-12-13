@@ -20,16 +20,11 @@
  *
  */
 
-import * as React from 'react';
-import Remove from '@material-ui/icons/Remove';
+// @flow
+import { Row } from '../../../types/editable';
 
-const Divider: React.SFC = () => <hr className="ory-plugins-content-divider" />;
-
-export default {
-  Component: Divider,
-  name: 'ory/editor/core/content/divider',
-  version: '0.0.1',
-  IconComponent: <Remove />,
-  text: 'Divider',
-  description: 'A horizontal divider.',
-};
+export const computeRow = ({ cells = [], ...other }: Row): Row => ({
+  ...other,
+  cells,
+  hasInlineChildren: Boolean(cells.length === 2 && Boolean(cells[0].inline)),
+});

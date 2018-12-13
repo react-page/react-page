@@ -5,12 +5,12 @@
  * it under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- *
+ *  
  * ORY Editor is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Lesser General Public License for more details.
- *
+ *  
  * You should have received a copy of the GNU Lesser General Public License
  * along with ORY Editor.  If not, see <http://www.gnu.org/licenses/>.
  *
@@ -20,16 +20,33 @@
  *
  */
 
-import * as React from 'react';
-import Remove from '@material-ui/icons/Remove';
+import { createStore, applyMiddleware, compose, Store } from 'redux';
 
-const Divider: React.SFC = () => <hr className="ory-plugins-content-divider" />;
+import rootReducer from './reducer';
+import { RootState } from './types/state';
 
-export default {
-  Component: Divider,
-  name: 'ory/editor/core/content/divider',
-  version: '0.0.1',
-  IconComponent: <Remove />,
-  text: 'Divider',
-  description: 'A horizontal divider.',
+declare global {
+  interface Window {
+    __REDUX_DEVTOOLS_EXTENSION_COMPOSE__: (settings: {}) => void;
+  }
+}
+
+/**
+ * Returns a new redux store.
+ */
+// tslint:disable-next-line:no-any
+export default (initialState: any, middleware: [] = []): Store<RootState> => {
+  // tslint:disable-next-line:no-any
+  const v: any =
+    process.env.NODE_ENV !== 'production' &&
+    typeof window === 'object' &&
+    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
+      ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({})
+      : compose;
+
+  return createStore(
+    rootReducer,
+    initialState,
+    v(applyMiddleware(...middleware))
+  );
 };

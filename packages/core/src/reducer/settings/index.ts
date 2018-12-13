@@ -20,16 +20,25 @@
  *
  */
 
-import * as React from 'react';
-import Remove from '@material-ui/icons/Remove';
+// @flow
+import { UPDATE_SETTING } from '../../actions/setting';
 
-const Divider: React.SFC = () => <hr className="ory-plugins-content-divider" />;
-
-export default {
-  Component: Divider,
-  name: 'ory/editor/core/content/divider',
-  version: '0.0.1',
-  IconComponent: <Remove />,
-  text: 'Divider',
-  description: 'A horizontal divider.',
+export const settings = (
+  state: Object = {},
+  action: {
+    type: string;
+    key: string;
+    // tslint:disable-next-line:no-any
+    value: any;
+  }
+) => {
+  switch (action.type) {
+    case UPDATE_SETTING:
+      return {
+        ...state,
+        [action.key]: action.value,
+      };
+    default:
+      return state;
+  }
 };

@@ -20,16 +20,31 @@
  *
  */
 
-import * as React from 'react';
-import Remove from '@material-ui/icons/Remove';
+import { Cell } from './editable';
 
-const Divider: React.SFC = () => <hr className="ory-plugins-content-divider" />;
-
-export default {
-  Component: Divider,
-  name: 'ory/editor/core/content/divider',
-  version: '0.0.1',
-  IconComponent: <Remove />,
-  text: 'Divider',
-  description: 'A horizontal divider.',
+export type Room = {
+  height: number,
+  width: number
 };
+
+export type Vector = {
+  y: number,
+  x: number
+};
+
+export type MatrixIndex = {
+  row: number,
+  cell: number
+};
+
+export type Callbacks = {
+  clear(id: string): void,
+  above(drag: Cell, hover: Cell, level: number): void,
+  below(drag: Cell, hover: Cell, level: number): void,
+  leftOf(drag: Cell, hover: Cell, level: number): void,
+  rightOf(drag: Cell, hover: Cell, level: number): void,
+  inlineLeft(drag: Cell, hover: Cell): void,
+  inlineRight(drag: Cell, hover: Cell): void
+};
+
+export type Matrix = Array<Array<number>>;

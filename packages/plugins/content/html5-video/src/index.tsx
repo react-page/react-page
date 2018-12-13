@@ -21,15 +21,21 @@
  */
 
 import * as React from 'react';
-import Remove from '@material-ui/icons/Remove';
+import Icon from '@material-ui/icons/PlayArrow';
+import { ContentPluginProps } from 'ory-editor-core/lib/service/plugin/classes';
+import Component from './Component';
 
-const Divider: React.SFC = () => <hr className="ory-plugins-content-divider" />;
+export type Props = ContentPluginProps;
+
+const rejectPromise: (e: Event, props: Props) => void = (e: Event, props: Props) => Promise.reject();
 
 export default {
-  Component: Divider,
-  name: 'ory/editor/core/content/divider',
+  Component,
+  name: 'ory/sites/plugin/content/html5-video',
   version: '0.0.1',
-  IconComponent: <Remove />,
-  text: 'Divider',
-  description: 'A horizontal divider.',
+  text: 'HTML 5 Video',
+  description: 'Add webm, ogg and other HTML5 video',
+  IconComponent: <Icon />,
+  handleFocusNextHotKey: rejectPromise,
+  handleFocusPreviousHotKey: rejectPromise,
 };

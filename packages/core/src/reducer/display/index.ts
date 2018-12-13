@@ -20,16 +20,36 @@
  *
  */
 
-import * as React from 'react';
-import Remove from '@material-ui/icons/Remove';
+// @flow
+import {
+  DEFAULT_DISPLAY_MODE,
+  SET_DISPLAY_MODE,
+  SET_PREVIOUS_DISPLAY_MODE
+} from '../../actions/display';
+import { Display, DisplayAction } from '../../types/display';
 
-const Divider: React.SFC = () => <hr className="ory-plugins-content-divider" />;
-
-export default {
-  Component: Divider,
-  name: 'ory/editor/core/content/divider',
-  version: '0.0.1',
-  IconComponent: <Remove />,
-  text: 'Divider',
-  description: 'A horizontal divider.',
+export const display = (
+  state: Display = {
+    previous: DEFAULT_DISPLAY_MODE,
+    mode: DEFAULT_DISPLAY_MODE,
+  },
+  action: DisplayAction
+) => {
+  switch (action.type) {
+    case SET_PREVIOUS_DISPLAY_MODE:
+      return {
+        ...state,
+        mode: state.previous === state.mode ? action.fallback : state.previous,
+      };
+    case SET_DISPLAY_MODE:
+      return {
+        previous:
+          action.mode === state.mode && action.remember
+            ? state.previous
+            : action.mode,
+        mode: action.mode,
+      };
+    default:
+      return state;
+  }
 };

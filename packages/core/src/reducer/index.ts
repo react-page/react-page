@@ -20,16 +20,30 @@
  *
  */
 
-import * as React from 'react';
-import Remove from '@material-ui/icons/Remove';
+import { combineReducers } from 'redux';
 
-const Divider: React.SFC = () => <hr className="ory-plugins-content-divider" />;
+import { editables } from './editables';
+import { display } from './display';
+import { focus } from './focus';
+import { settings } from './settings';
 
-export default {
-  Component: Divider,
-  name: 'ory/editor/core/content/divider',
-  version: '0.0.1',
-  IconComponent: <Remove />,
-  text: 'Divider',
-  description: 'A horizontal divider.',
-};
+const ory = combineReducers({
+  editables,
+  display,
+  focus,
+  settings,
+});
+
+/**
+ * @example
+ * import { oryReducer } from 'ory-editor-core'
+ * const reducer = combineReducers({
+ *   ory: oryReducer,
+ *   // ...
+ * })
+ * const store = createStore(reducer, null, middleware)
+ * new Editor({ store })
+ */
+export { ory as oryReducer };
+
+export default combineReducers({ ory });

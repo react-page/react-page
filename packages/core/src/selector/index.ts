@@ -5,12 +5,12 @@
  * it under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- *
+ *  
  * ORY Editor is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Lesser General Public License for more details.
- *
+ *  
  * You should have received a copy of the GNU Lesser General Public License
  * along with ORY Editor.  If not, see <http://www.gnu.org/licenses/>.
  *
@@ -19,17 +19,13 @@
  * @author Aeneas Rekkas <aeneas+oss@aeneas.io>
  *
  */
+import { editable, editables } from './editable';
+import { Store } from 'redux';
+import { RootState } from '../types/state';
 
-import * as React from 'react';
-import Remove from '@material-ui/icons/Remove';
+export const selectors = (store: Store<RootState>) => ({
+  editable: (id: string) => editable(store.getState(), { id }),
+  editables: (id: string) => editables(store.getState()),
+});
 
-const Divider: React.SFC = () => <hr className="ory-plugins-content-divider" />;
-
-export default {
-  Component: Divider,
-  name: 'ory/editor/core/content/divider',
-  version: '0.0.1',
-  IconComponent: <Remove />,
-  text: 'Divider',
-  description: 'A horizontal divider.',
-};
+export { editable, editables, RootState };

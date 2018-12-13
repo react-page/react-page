@@ -20,16 +20,22 @@
  *
  */
 
-import * as React from 'react';
-import Remove from '@material-ui/icons/Remove';
+// @flow
+import { Action } from 'redux';
+import { Editable } from '../types/editable';
+import { gen } from './helpers';
 
-const Divider: React.SFC = () => <hr className="ory-plugins-content-divider" />;
+export const UPDATE_EDITABLE = 'UPDATE_EDITABLE';
 
-export default {
-  Component: Divider,
-  name: 'ory/editor/core/content/divider',
-  version: '0.0.1',
-  IconComponent: <Remove />,
-  text: 'Divider',
-  description: 'A horizontal divider.',
-};
+export interface UpdateEditableAction extends Action {
+  ts: Date;
+  editable: Editable;
+  ids: string[];
+}
+
+export const updateEditable = (editable: Editable): UpdateEditableAction => ({
+  type: UPDATE_EDITABLE,
+  ts: new Date(),
+  editable,
+  ids: gen(1),
+});

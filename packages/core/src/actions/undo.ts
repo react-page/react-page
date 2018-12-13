@@ -20,16 +20,13 @@
  *
  */
 
-import * as React from 'react';
-import Remove from '@material-ui/icons/Remove';
+import { Action } from 'redux';
+import { ActionTypes } from 'redux-undo';
 
-const Divider: React.SFC = () => <hr className="ory-plugins-content-divider" />;
+export const undo = (): Action => ({
+  type: ActionTypes.UNDO,
+});
 
-export default {
-  Component: Divider,
-  name: 'ory/editor/core/content/divider',
-  version: '0.0.1',
-  IconComponent: <Remove />,
-  text: 'Divider',
-  description: 'A horizontal divider.',
-};
+export const redo = (): Action => ({
+  type: ActionTypes.REDO,
+});

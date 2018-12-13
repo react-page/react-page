@@ -20,16 +20,24 @@
  *
  */
 
-import * as React from 'react';
-import Remove from '@material-ui/icons/Remove';
+// @flow
+import { CELL_FOCUS, CELL_BLUR, CELL_BLUR_ALL } from '../../actions/cell';
 
-const Divider: React.SFC = () => <hr className="ory-plugins-content-divider" />;
-
-export default {
-  Component: Divider,
-  name: 'ory/editor/core/content/divider',
-  version: '0.0.1',
-  IconComponent: <Remove />,
-  text: 'Divider',
-  description: 'A horizontal divider.',
+export const focus = (
+  state: string = '',
+  action: {
+    type: string;
+    id: string;
+  }
+) => {
+  switch (action.type) {
+    case CELL_FOCUS:
+      return action.id;
+    case CELL_BLUR_ALL:
+      return '';
+    case CELL_BLUR:
+      return action.id === state ? '' : state;
+    default:
+      return state;
+  }
 };

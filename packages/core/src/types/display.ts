@@ -20,16 +20,14 @@
  *
  */
 
-import * as React from 'react';
-import Remove from '@material-ui/icons/Remove';
+export type Display = {
+  previous: string,
+  mode: string
+};
 
-const Divider: React.SFC = () => <hr className="ory-plugins-content-divider" />;
-
-export default {
-  Component: Divider,
-  name: 'ory/editor/core/content/divider',
-  version: '0.0.1',
-  IconComponent: <Remove />,
-  text: 'Divider',
-  description: 'A horizontal divider.',
+export type DisplayAction = {
+  type: string,
+  mode: string,
+  fallback: string,
+  remember: boolean
 };

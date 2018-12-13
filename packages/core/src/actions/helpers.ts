@@ -20,16 +20,12 @@
  *
  */
 
-import * as React from 'react';
-import Remove from '@material-ui/icons/Remove';
+import { v4 } from 'uuid';
 
-const Divider: React.SFC = () => <hr className="ory-plugins-content-divider" />;
-
-export default {
-  Component: Divider,
-  name: 'ory/editor/core/content/divider',
-  version: '0.0.1',
-  IconComponent: <Remove />,
-  text: 'Divider',
-  description: 'A horizontal divider.',
+export const gen = (c: number = 1) => {
+  const ret: string[] = [];
+  for (let i = 0; i < c; i++) {
+    ret.push(v4());
+  }
+  return ret;
 };
