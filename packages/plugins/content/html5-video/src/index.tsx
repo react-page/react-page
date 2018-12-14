@@ -22,17 +22,17 @@
 
 import * as React from 'react';
 import Icon from '@material-ui/icons/PlayArrow';
-import { ContentPluginProps } from 'ory-editor-core/lib/service/plugin/classes';
+import { ContentPluginProps, ContentPluginConfig } from 'ory-editor-core/lib/service/plugin/classes';
 import Component from './Component';
 
 export type Props = ContentPluginProps;
 
-const rejectPromise: (e: Event, props: Props) => void = (
+const rejectPromise: (e: Event, props: Props) => Promise<void> = (
   e: Event,
   props: Props
 ) => Promise.reject();
 
-export default {
+const plugin: ContentPluginConfig = {
   Component,
   name: 'ory/sites/plugin/content/html5-video',
   version: '0.0.1',
@@ -42,3 +42,5 @@ export default {
   handleFocusNextHotKey: rejectPromise,
   handleFocusPreviousHotKey: rejectPromise,
 };
+
+export default plugin;

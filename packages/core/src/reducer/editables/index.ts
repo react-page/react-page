@@ -25,7 +25,7 @@ import undoable, { includeAction } from 'redux-undo';
 
 import { editable } from '../editable';
 import { UPDATE_EDITABLE } from '../../actions/editables';
-import { Editable, Editables } from '../../types/editable';
+import { EditableType, Editables } from '../../types/editable';
 import {
   CELL_UPDATE_CONTENT,
   CELL_UPDATE_LAYOUT,
@@ -54,13 +54,13 @@ const inner = undoable(
     action: {
       type: string;
       id: string;
-      editable: Editable;
+      editable: EditableType;
     }
-  ): Editable[] => {
+  ): EditableType[] => {
     switch (action.type) {
       default:
         // tslint:disable-next-line:no-any
-        return state.map((e: Editable) => editable(e, action)) as any;
+        return state.map((e: EditableType) => editable(e, action)) as any;
     }
   },
   {
@@ -97,7 +97,7 @@ export const editables = (
           past: past.map(e => [
             // tslint:disable-next-line:no-any
             ...(e as any).filter(
-              ({ id }: Editable): boolean => id !== action.editable.id
+              ({ id }: EditableType): boolean => id !== action.editable.id
             ),
             // we need to run the rawreducer once or the history initial state will be inconsistent.
             // resolves https://github.com/ory/editor/pull/117#issuecomment-242942796
@@ -107,7 +107,7 @@ export const editables = (
           present: inner(
             [
               ...present.filter(
-                ({ id }: Editable): boolean => id !== action.editable.id
+                ({ id }: EditableType): boolean => id !== action.editable.id
               ),
               // we need to run the rawreducer once or the history initial state will be inconsistent.
               // resolves https://github.com/ory/editor/pull/117#issuecomment-242942796

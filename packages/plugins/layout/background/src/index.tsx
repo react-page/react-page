@@ -42,7 +42,7 @@ import { BottomToolbar } from 'ory-editor-ui';
 
 import ThemeProvider, { darkTheme } from 'ory-editor-ui/lib/ThemeProvider';
 import { RGBColor } from 'ory-editor-ui/lib/ColorPicker';
-import { ContentPluginProps } from 'ory-editor-core/lib/service/plugin/classes';
+import { ContentPluginProps, ContentPluginConfig, LayoutPluginConfig } from 'ory-editor-core/lib/service/plugin/classes';
 import { ImageUploadType, ImageLoaded } from 'ory-editor-ui/lib/ImageUpload';
 
 export const IMAGE_MODE_FLAG = 1;
@@ -65,17 +65,17 @@ export type PluginComponentState = {
 };
 
 export type ExtraPluginProps = {
-  defaultPlugin: ContentPluginProps;
-  enabledModes: number;
-  defaultBackgroundColor: RGBColor;
-  defaultGradientColor: RGBColor;
-  defaultGradientSecondaryColor: RGBColor;
-  defaultMode: number;
-  defaultModeFlag: number;
-  defaultDarken: number;
-  defaultLighten: number;
-  defaultHasPadding: boolean;
-  defaultIsParallax: boolean;
+  defaultPlugin: ContentPluginConfig;
+  enabledModes?: number;
+  defaultBackgroundColor?: RGBColor;
+  defaultGradientColor?: RGBColor;
+  defaultGradientSecondaryColor?: RGBColor;
+  defaultMode?: number;
+  defaultModeFlag?: number;
+  defaultDarken?: number;
+  defaultLighten?: number;
+  defaultHasPadding?: boolean;
+  defaultIsParallax?: boolean;
   imageUpload: ImageUploadType;
 };
 
@@ -519,39 +519,9 @@ class PluginComponent extends React.Component<
   }
 }
 
-export default ({
-  defaultPlugin,
-  defaultMode = PluginComponent.defaultProps.defaultMode,
-  defaultModeFlag = PluginComponent.defaultProps.defaultModeFlag,
-  defaultBackgroundColor = PluginComponent.defaultProps.defaultBackgroundColor,
-  defaultGradientColor = PluginComponent.defaultProps.defaultGradientColor,
-  defaultGradientSecondaryColor = PluginComponent.defaultProps
-    .defaultGradientSecondaryColor,
-  defaultDarken = PluginComponent.defaultProps.defaultDarken,
-  defaultLighten = PluginComponent.defaultProps.defaultLighten,
-  defaultIsParallax = PluginComponent.defaultProps.defaultIsParallax,
-  defaultHasPadding = PluginComponent.defaultProps.defaultHasPadding,
-  imageUpload,
-  enabledModes = PluginComponent.defaultProps.enabledModes,
-}: PluginProps) => {
-  const settings: ExtraPluginProps = {
-    defaultPlugin,
-    defaultMode,
-    defaultModeFlag,
-    defaultBackgroundColor,
-    defaultGradientColor,
-    defaultGradientSecondaryColor,
-    defaultDarken,
-    defaultLighten,
-    defaultIsParallax,
-    defaultHasPadding,
-    imageUpload,
-    enabledModes,
-  };
-  return {
-    Component: (componentProps: ContentPluginProps<OryState>) => (
-      <PluginComponent {...componentProps} {...settings} />
-    ),
+export default (settings: ExtraPluginProps) => {
+  const plugin: LayoutPluginConfig<OryState> = {
+    Component: PluginComponent,
     name: 'ory/editor/core/layout/background',
     version: '0.0.1',
 
@@ -566,8 +536,8 @@ export default ({
           cells: [
             {
               content: {
-                plugin: defaultPlugin,
-                state: defaultPlugin.createInitialState(),
+                plugin: settings.defaultPlugin,
+                state: settings.defaultPlugin.createInitialState(),
               },
               id: v4(),
             },
@@ -579,4 +549,5 @@ export default ({
     handleFocusNextHotKey: () => Promise.reject(),
     handleFocusPreviousHotKey: () => Promise.reject(),
   };
+  return plugin;
 };

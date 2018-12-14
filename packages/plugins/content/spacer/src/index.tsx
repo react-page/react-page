@@ -24,8 +24,9 @@ import * as React from 'react';
 import Component from './Component/index';
 import AspectRatio from '@material-ui/icons/AspectRatio';
 import { ContentPluginProps } from 'ory-editor-core/lib/service/plugin/classes';
+import { ContentPluginConfig } from 'ory-editor-core/lib/service/plugin/classes';
 
-export default {
+const _plugin: ContentPluginConfig<{}> = {
   Component,
   name: 'ory/editor/core/content/spacer',
   version: '0.0.1',
@@ -53,3 +54,5 @@ export default {
     setTimeout(() => ref.focus());
   },
 };
+
+export default _plugin;

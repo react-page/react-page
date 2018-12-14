@@ -92,13 +92,19 @@ $ cd editor
 
 ### Install dependencies
 
-The ORY Editor is a [monorepo](https://github.com/babel/babel/blob/master/doc/design/monorepo.md) that you initialise with:
+The ORY Editor is a [monorepo](https://github.com/babel/babel/blob/master/doc/design/monorepo.md) that you initialize with:
 
 ```bash
-$ yarn i
+$ npm i
+$ npm run bootstrap
 ```
 
-To work properly, you'll need [yarn](https://yarnpkg.com/lang/en/).
+You can also use [yarn](https://yarnpkg.com/lang/en/).
+
+```bash
+$ yarn
+$ yarn bootstrap
+```
 
 ### Run the example(s)
 
@@ -106,20 +112,18 @@ Here are some [examples](examples/) that are a good starting point if you want t
 To run the examples, use one of the following commands:
 
 ```
-$ yarn run build
-$ cd examples
-$ yarn run start
+$ npm run start
 ```
 
 ### Run the toolchain
 
-The toolchain contains tests and tslint. It is highly recommended to run this toolchain while developing.
+The tool chain contains tests and tslint. It is highly recommended to run this while developing.
 
 ```bash
 # run the tests in watch mode
 $ yarn run test:watch
 
-# run eslint in watch mode
+# run tslint in watch mode
 $ yarn run lint:watch
 ```
 
@@ -138,10 +142,21 @@ $ yarn run docs:api
 ```
 
 ## Known issues
+### Unlink error
 Occasionally you might see this error
 ```
 Error: EPERM: operation not permitted, unlink 'C:\Coding\forks\editorBranches\editor\packages\ui\lib\DisplayModeToggle\index.d.ts'
 ```
 when running build inside vscode. This appears to be a known issue with the editor locking declaration files. Just rerun build (and be patient while somebody fixes this for you).
+
+### Types resolution error
+
+In case you change a lot of files, especially in core or UI, you might end up seeing old versions of these files when working on plugins. To fix this, run 
+```
+$ npm run build:lib
+```
+Which builds the library code. If this doesn't help (and you're in vscode), make sure to reload window (CTRL+SHIFT+P -> Reload Window). That forces vscode to reinitialize typescript declaration files.
+
+### Other issues
 
 Known issues are tracked in the [issues tab](https://github.com/ory/editor/issues?q=is%3Aopen+is%3Aissue+label%3Abug).

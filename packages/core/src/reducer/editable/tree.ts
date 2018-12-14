@@ -276,7 +276,7 @@ export const cells = (s: Cell[] = [], a: AnyAction): Cell[] =>
                       },
                     ],
                   },
-                ];
+                ] as Cell[];
               }
               return [c];
             })

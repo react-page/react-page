@@ -25,7 +25,9 @@ import {
   ContentPlugin,
   LayoutPlugin,
   ContentPluginProps,
-  NativePluginProps
+  NativePluginConfig,
+  ContentPluginConfig,
+  LayoutPluginConfig,
 } from '../service/plugin/classes';
 import { PluginService } from '../index';
 
@@ -35,32 +37,34 @@ export type Config = {
 };
 
 export interface Content {
-  plugin: ContentPlugin;
-  state: Object;
+  plugin: ContentPluginConfig;
+  // tslint:disable-next-line:no-any
+  state: any;
 }
 
 export interface Layout {
-  plugin: LayoutPlugin;
-  state: Object;
+  plugin: LayoutPluginConfig;
+  // tslint:disable-next-line:no-any
+  state: any;
 }
 
 export type AbstractCell<T> = {
   id: string;
 
-  rows: Array<T>;
+  rows?: T[];
 
   content?: Content;
   layout?: Layout;
 
-  size: number;
+  size?: number;
   hover?: string;
-  inline?: string;
-  focused: boolean;
-  focusSource: string;
-  resizable: boolean;
-  bounds: { left: number; right: number };
+  inline?: string | null; 
+  focused?: boolean;
+  focusSource?: string;
+  resizable?: boolean;
+  bounds?: { left: number; right: number };
   hasInlineNeighbour?: string;
-  levels: Levels;
+  levels?: Levels;
 };
 
 export type Cell = AbstractCell<Row>;
@@ -149,8 +153,8 @@ export type Levels = {
 export type Row = {
   id: string;
   hover?: string;
-  cells: Array<Cell>;
-  hasInlineChildren: boolean;
+  cells?: Cell[];
+  hasInlineChildren?: boolean;
   levels?: Levels;
   className?: string;
 };
@@ -194,12 +198,12 @@ export type ComponetizedRow = {
 
 export type AbstractEditable<T> = {
   id: string;
-  config: Config;
+  config?: Config;
   cells: Array<T>;
-  cellOrder: Array<{ id: string; isLeaf: boolean }>;
+  cellOrder?: Array<{ id: string; isLeaf: boolean }>;
 };
 
-export type Editable = AbstractEditable<Cell>;
+export type EditableType = AbstractEditable<Cell>;
 
 export type EditableComponentState = {
   id: string;
@@ -220,9 +224,9 @@ export type EditableComponentState = {
 };
 
 export type Editables = {
-  past: Editable[];
-  present: Editable[];
-  future: Editable[];
+  past: EditableType[];
+  present: EditableType[];
+  future: EditableType[];
 };
 
 // tslint:disable-next-line:no-any
@@ -233,4 +237,4 @@ export type NativeFactory = (
   monitor?: any,
   // tslint:disable-next-line:no-any
   component?: any
-) => NativePluginProps;
+) => NativePluginConfig;

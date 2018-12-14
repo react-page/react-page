@@ -26,15 +26,18 @@ import Icon from '@material-ui/icons/CropLandscape';
 import TextField from '@material-ui/core/TextField';
 import {
   LayoutPluginProps,
-  ContentPlugin
+  LayoutPluginConfig
 } from 'ory-editor-core/lib/service/plugin/classes';
 import { BottomToolbar } from 'ory-editor-ui';
 import ThemeProvider, { darkTheme } from 'ory-editor-ui/lib/ThemeProvider';
+import { ContentPluginConfig } from 'ory-editor-core/lib/service/plugin/classes';
 
-console.warn(
-  // tslint:disable-next-line:max-line-length
-  'WARNING! Obsolete plugin loaded. \'ory/editor/core/layout/parallax-background\' has been deprecated, please use the new \'ory/editor/core/layout/background\' plugin instead!'
-);
+if (process.env.NODE_ENV !== 'production') {
+  console.warn(
+    // tslint:disable-next-line:max-line-length
+    'WARNING! Obsolete plugin loaded. \'ory/editor/core/layout/parallax-background\' has been deprecated, please use the new \'ory/editor/core/layout/background\' plugin instead!'
+  );
+}
 
 export interface BackgroundState {
   background?: string;
@@ -87,7 +90,13 @@ class PluginComponent extends React.Component<
   }
 }
 
-export default ({ defaultPlugin }: { defaultPlugin: ContentPlugin }) => ({
+export interface ParallaxBackgroundPluginSettings {
+  defaultPlugin: ContentPluginConfig;
+}
+
+export default ({
+  defaultPlugin,
+}: ParallaxBackgroundPluginSettings): LayoutPluginConfig<BackgroundState> => ({
   Component: PluginComponent,
   name: 'ory/editor/core/layout/parallax-background',
   version: '0.0.1',

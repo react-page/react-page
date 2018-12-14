@@ -29,15 +29,20 @@ import {
   NativePlugin,
   NativePluginProps,
   LayoutPluginProps,
-  ContentPluginProps
+  ContentPluginProps,
+  Plugins,
+  LayoutPluginConfig,
+  PluginConfig,
+  PluginsInternal,
+  ContentPluginConfig,
 } from './classes';
-import { ComponetizedCell, NativeFactory } from '../../types/editable';
+import { ComponetizedCell } from '../../types/editable';
 import defaultPlugin from './default';
 import { layoutMissing, contentMissing } from './missing';
 import { EditorState } from '../../types/editor';
 
 const find = (name: string, version: string = '*') => (
-  plugin: Plugin
+  plugin: PluginConfig
 ): boolean => plugin.name === name && satisfies(plugin.version, version);
 
 /**
@@ -59,11 +64,7 @@ export const generateMissingIds = (props: EditorState): Object => {
  * PluginService is a registry of all content and layout plugins known to the editor.
  */
 export default class PluginService {
-  plugins: {
-    content: Array<ContentPlugin>;
-    layout: Array<LayoutPlugin>;
-    native?: NativeFactory;
-  };
+  plugins: PluginsInternal;
 
   /**
    * Instantiate a new PluginService instance. You can provide your own set of content and layout plugins here.
@@ -72,11 +73,7 @@ export default class PluginService {
     content = [],
     layout = [],
     native,
-  }: {
-    content?: ContentPluginProps[];
-    layout?: LayoutPluginProps[];
-    native?: NativeFactory;
-  } = {}) {
+  }: Plugins = {} as Plugins) {
     this.plugins = {
       content: [defaultPlugin, ...content].map(
         // tslint:disable-next-line:no-any
@@ -84,7 +81,7 @@ export default class PluginService {
       ),
       // tslint:disable-next-line:no-any
       layout: layout.map((config: any) => new LayoutPlugin(config)),
-      native,
+      native: native,
     };
   }
 
@@ -122,22 +119,22 @@ export default class PluginService {
     }
   }
 
-  setLayoutPlugins = (plugins: LayoutPluginProps[] = []) => {
+  setLayoutPlugins = (plugins: LayoutPluginConfig[] = []) => {
     this.plugins.layout = [];
     plugins.forEach(plugin => this.addLayoutPlugin(plugin));
   }
 
-  addLayoutPlugin = (config: LayoutPluginProps) => {
+  addLayoutPlugin = (config: LayoutPluginConfig) => {
     this.plugins.layout.push(new LayoutPlugin(config));
   }
 
   removeLayoutPlugin = (name: string) => {
     this.plugins.layout = this.plugins.layout.filter(
-      (plugin: LayoutPlugin) => plugin.name !== name
+      (plugin: LayoutPluginConfig) => plugin.name !== name
     );
   }
 
-  setContentPlugins = (plugins: ContentPluginProps[] = []) => {
+  setContentPlugins = (plugins: ContentPluginConfig[] = []) => {
     this.plugins.content = [];
 
     // semicolon is required to avoid syntax error
@@ -146,8 +143,7 @@ export default class PluginService {
     );
   }
 
-  // tslint:disable-next-line:no-any
-  addContentPlugin = (config: any) => {
+  addContentPlugin = (config: ContentPluginConfig) => {
     this.plugins.content.push(new ContentPlugin(config));
   }
 
@@ -164,7 +160,7 @@ export default class PluginService {
     name: string,
     version: string
   ): { plugin: LayoutPlugin; pluginWrongVersion?: LayoutPlugin } => {
-    const plugin = this.plugins.layout.find(find(name, version));
+    const plugin = this.plugins.layout.find(find(name, version)) as LayoutPlugin;
     let pluginWrongVersion = undefined;
     if (!plugin) {
       pluginWrongVersion = this.plugins.layout.find(find(name, '*'));

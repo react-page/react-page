@@ -120,7 +120,8 @@ export const unserialize = ({
   importFromHtml,
   serialized,
   editorState,
-}: SlateState) => {
+// tslint:disable-next-line:no-any
+}: SlateState): SlateState => {
   if (serialized) {
     // tslint:disable-next-line:no-any
     return { editorState: (Value.fromJSON as any)(serialized, options) };
@@ -212,8 +213,8 @@ export const handleRemoveHotKey = (
     },
   }: // tslint:disable-next-line:no-any
   any
-) =>
-  new Promise((resolve: Function, reject: Function) =>
+): Promise<void> =>
+  new Promise<void>((resolve: Function, reject: Function) =>
     Plain.serialize(editorState).length < 1 ? resolve() : reject()
   );
 
@@ -227,10 +228,10 @@ export const handleFocusPreviousHotKey = (
     },
   }: // tslint:disable-next-line:no-any
   any
-) => {
+): Promise<void> => {
   // const isArrowUp = e.keyCode === 38
 
-  return new Promise((resolve: Function, reject: Function) => {
+  return new Promise<void>((resolve: Function, reject: Function) => {
     if (editorState.selection.isExpanded) {
       return reject();
     }
@@ -257,10 +258,10 @@ export const handleFocusNextHotKey = (
     },
   }: // tslint:disable-next-line:no-any
   any
-) => {
+): Promise<void> => {
   // const isArrowDown = e.keyCode === 40
 
-  return new Promise((resolve: Function, reject: Function) => {
+  return new Promise<void>((resolve: Function, reject: Function) => {
     if (editorState.selection.isExpanded) {
       return reject();
     }

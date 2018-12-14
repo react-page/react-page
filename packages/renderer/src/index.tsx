@@ -59,6 +59,7 @@ const HTMLCell = (props: Cell) => {
     hasInlineNeighbour,
     inline,
     size,
+    id,
   } = props;
   const cn = classNames('ory-cell', gridClass(size), {
     'ory-cell-has-inline-neighbour': hasInlineNeighbour,
@@ -68,17 +69,20 @@ const HTMLCell = (props: Cell) => {
   if (layout.plugin) {
     const {
       state,
-      plugin: { Component },
+      plugin: { Component, name, version },
     } = layout;
 
     return (
       <div className={cn}>
         <div className="ory-cell-inner">
           <Component
-            isPreviewMode={true}
             readOnly={true}
             state={state}
             onChange={noop}
+            id={id}
+            name={name}
+            focused={false}
+            version={version}
           >
             {rows.map((r: Row) => (
               <HTMLRow key={r.id} {...r} className="ory-cell-inner" />
@@ -90,7 +94,7 @@ const HTMLCell = (props: Cell) => {
   } else if (content.plugin) {
     const {
       state,
-      plugin: { Component, StaticComponent },
+      plugin: { Component, StaticComponent, name, version },
     } = content;
     const Renderer = StaticComponent || Component;
 
@@ -102,6 +106,14 @@ const HTMLCell = (props: Cell) => {
             readOnly={true}
             state={state}
             onChange={noop}
+            id={id}
+            name={name}
+            focused={false}
+            version={version}
+            isEditMode={false}
+            isLayoutMode={false}
+            isResizeMode={false}
+            isInsertMode={false}
           />
         </div>
       </div>

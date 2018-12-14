@@ -812,6 +812,22 @@ Balance cell sizes.
 
 Returns **\[...cell]** 
 
+## ory
+
+[packages/core/src/reducer/index.js:48-48][230]
+
+### Examples
+
+```javascript
+import { oryReducer } from 'ory-editor-core'
+const reducer = combineReducers({
+  ory: oryReducer,
+  // ...
+})
+const store = createStore(reducer, null, middleware)
+new Editor({ store })
+```
+
 ## classes
 
 [packages/core/lib/service/hover/index.js:70-86][303]
@@ -863,6 +879,14 @@ Computes the average width and height for cells in a room.
 -   `matrix`  
 
 Returns **{x: [number][248], y: [number][248]}** 
+
+## defaultMatrices
+
+[packages/core/src/service/hover/index.js:99-132][232]
+
+A list of matrices that are used to define the callback function.
+
+Type: MatrixList
 
 ## getMouseHoverCell
 
@@ -1332,9 +1356,9 @@ Serialize a the plugin state
 
 #### Parameters
 
--   `raw`  the raw state.
+-   `raw` **[Object][221]** the raw state.
 
-Returns **any** the serialized state.
+Returns **[Object][221]** the serialized state.
 
 ### unserialize
 
@@ -1344,9 +1368,9 @@ Unserialize the plugin state.
 
 #### Parameters
 
--   `state`  the plugin state.
+-   `state` **[Object][221]** the plugin state.
 
-Returns **any** the unserialized state.
+Returns **[Object][221]** the unserialized state.
 
 ### handleRemoveHotKey
 
@@ -1357,10 +1381,10 @@ the cell will be removed. If the promise is rejected, nothing happens.
 
 #### Parameters
 
--   `e`  
--   `props`  
+-   `e` **[Event][272]** 
+-   `props` **ContentPluginProps&lt;any>** 
 
-Returns **any** a promise
+Returns **[Promise][273]&lt;any>** a promise
 
 ### handleFocusNextHotKey
 
@@ -1371,10 +1395,10 @@ the next cell will be focused. If the promise is rejected, focus stays the same.
 
 #### Parameters
 
--   `e`  
--   `props`  
+-   `e` **[Event][272]** 
+-   `props` **ContentPluginProps&lt;any>** 
 
-Returns **any** a promise
+Returns **[Promise][273]&lt;any>** a promise
 
 ### handleFocusPreviousHotKey
 
@@ -1385,10 +1409,10 @@ the next cell will be focused. If the promise is rejected, focus stays the same.
 
 #### Parameters
 
--   `e`  
--   `props`  
+-   `e` **[Event][272]** 
+-   `props` **ContentPluginProps&lt;any>** 
 
-Returns **any** a promise
+Returns **[Promise][273]&lt;any>** a promise
 
 ### handleFocus
 
@@ -1402,6 +1426,8 @@ This function will be called when one of the plugin's cell is blurred.
 -   `focusSource`  
 -   `ref`  
 
+Returns **void** 
+
 ### handleBlur
 
 [packages/core/lib/service/plugin/classes.js:124-124][331]
@@ -1410,7 +1436,9 @@ This function will be called when one of the plugin's cell is focused.
 
 #### Parameters
 
--   `props`  
+-   `props` **ContentPluginProps&lt;any>** 
+
+Returns **void** 
 
 ### reducer
 
@@ -1420,8 +1448,8 @@ Specify a custom reducer for the plugin's cell.
 
 #### Parameters
 
--   `state`  
--   `action`  
+-   `state` **any** 
+-   `action` **any** 
 
 ## Plugin
 
@@ -1523,8 +1551,8 @@ Specify a custom reducer for the plugin's cell.
 
 #### Parameters
 
--   `state`  
--   `action`  
+-   `state` **any** 
+-   `action` **any** 
 
 ## ContentPlugin
 
@@ -1544,7 +1572,7 @@ Returns **any** the initial state.
 
 Create the plugin's initial state.
 
-Returns **any** the initial state.
+Returns **[Object][221]** the initial state.
 
 ## createInitialState
 
@@ -1552,7 +1580,7 @@ Returns **any** the initial state.
 
 Create the plugin's initial state.
 
-Returns **any** the initial state.
+Returns **[Object][221]** the initial state.
 
 ## reducer
 
@@ -1571,7 +1599,7 @@ Specify a custom reducer for the plugin's cell.
 
 Create the plugin's initial children (rows/cells).
 
-Returns **any** the initial state.
+Returns **[Object][221]** the initial state.
 
 ## createInitialChildren
 

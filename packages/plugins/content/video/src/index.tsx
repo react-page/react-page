@@ -23,9 +23,10 @@
 import * as React from 'react';
 import Component from './Component/index';
 import PlayArrow from '@material-ui/icons/PlayArrow';
-import { ContentPluginProps } from 'ory-editor-core/lib/service/plugin/classes';
+import { ContentPluginConfig, ContentPluginProps } from 'ory-editor-core/lib/service/plugin/classes';
+import { VideoState } from './Component/types/state';
 
-export default {
+const plugin: ContentPluginConfig<VideoState> = {
   Component,
   name: 'ory/editor/core/content/video',
   version: '0.0.1',
@@ -54,3 +55,5 @@ export default {
     setTimeout(() => ref.focus());
   },
 };
+
+export default plugin;

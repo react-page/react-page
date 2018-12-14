@@ -22,10 +22,11 @@
 
 import * as React from 'react';
 import Remove from '@material-ui/icons/Remove';
+import { ContentPluginConfig } from 'ory-editor-core/lib/service/plugin/classes';
 
 const Divider: React.SFC = () => <hr className="ory-plugins-content-divider" />;
 
-export default {
+const plugin: ContentPluginConfig<{}> = {
   Component: Divider,
   name: 'ory/editor/core/content/divider',
   version: '0.0.1',
@@ -33,3 +34,5 @@ export default {
   text: 'Divider',
   description: 'A horizontal divider.',
 };
+
+export default plugin;

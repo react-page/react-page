@@ -35,12 +35,12 @@ export const computeCurrentDropPosition = (
   hover: ComponetizedCell,
   drag: ComponetizedCell,
   monitor: DragSourceMonitor,
-  component: Object,
+  component: React.ReactInstance,
   matrixName: string
 ) => {
   const mousePosition = monitor.getClientOffset();
   /* eslint-disable react/no-find-dom-node */
-  const componentPosition = findDOMNode(component).getBoundingClientRect();
+  const componentPosition = (findDOMNode(component) as HTMLElement).getBoundingClientRect();
   const room: Room = {
     height: componentPosition.bottom - componentPosition.top,
     width: componentPosition.right - componentPosition.left,
@@ -67,7 +67,7 @@ export const computeAndDispatchInsert = (
   }: ComponetizedCell,
   drag: ComponetizedCell,
   monitor: DragSourceMonitor,
-  component: Object,
+  component: React.ReactInstance,
   matrixName: string = '10x10'
 ) =>
   computeCurrentDropPosition(
@@ -102,7 +102,7 @@ export const computeAndDispatchHover = (
   }: ComponetizedCell,
   drag: ComponetizedCell,
   monitor: DragSourceMonitor,
-  component: Object,
+  component: React.ReactInstance,
   matrixName: string = '10x10'
 ) =>
   computeCurrentDropPosition(

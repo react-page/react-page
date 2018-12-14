@@ -22,24 +22,62 @@
 
 import semver from 'semver';
 import { AnyAction } from 'redux';
+import { Omit } from '../../types/Omit';
+import { NativeFactory } from '../../types/editable';
 
 export type Plugins = {
-  layout: LayoutPluginProps[];
-  content: ContentPluginProps[];
+  layout?: LayoutPluginConfig[];
+  content?: ContentPluginConfig[];
+  native?: NativeFactory;
 };
 
+export type PluginsInternal = {
+  layout?: LayoutPlugin[];
+  content?: ContentPlugin[];
+  native?: NativeFactory;
+};
+
+export type OmitInPluginConfig =
+  | 'id'
+  | 'focus'
+  | 'blur'
+  | 'editable'
+  | 'readOnly'
+  | 'state'
+  | 'onChange'
+  | 'focused';
+
 // tslint:disable-next-line:no-any
-export type ContentPluginProps<T = any> = PluginProps<T> & {
-  /**
-   * @member a unique identifier.
-   */
-  id: string;
+export type PluginConfig<T = any, ExtraProps = {}> = Omit<
+  PluginProps<T, ExtraProps>,
+  OmitInPluginConfig
+>;
 
-  /**
-   * @member if the cell is currently in readOnly mode.
-   */
-  readOnly: boolean;
+// tslint:disable-next-line:no-any
+export type ContentPluginConfig<T = any> = Omit<
+  ContentPluginProps<T>,
+  | OmitInPluginConfig
+  | 'isEditMode'
+  | 'isResizeMode'
+  | 'isLayoutMode'
+  | 'isPreviewMode'
+  | 'isInsertMode'
+>;
 
+// tslint:disable-next-line:no-any
+export type LayoutPluginConfig<T = any> = Omit<
+  LayoutPluginProps<T>,
+  OmitInPluginConfig
+>;
+
+// tslint:disable-next-line:no-any
+export type NativePluginConfig<T = any> = Omit<
+  NativePluginProps<T>,
+  OmitInPluginConfig
+>;
+
+// tslint:disable-next-line:no-any
+export type ContentPluginExtraProps<T = any> = {
   /**
    * @member if the cell is currently in edit mode.
    */
@@ -65,13 +103,41 @@ export type ContentPluginProps<T = any> = PluginProps<T> & {
    */
   isLayoutMode: boolean;
 
-  allowInlineNeighbours: boolean;
+  allowInlineNeighbours?: boolean;
 
-  isInlineable: boolean;
+  isInlineable?: boolean;
+
+  Component?: PluginComponentType<ContentPluginProps<T>>;
 };
 
+export type ContentPluginProps<
+  // tslint:disable-next-line:no-any
+  T = any
+> = ContentPluginExtraProps &
+  PluginProps<T, ContentPluginExtraProps<T>>;
+
 // tslint:disable-next-line:no-any
-export type PluginProps<T = any> = {
+export type LayoutPluginExtraProps<T = any> = {
+  // tslint:disable-next-line:no-any
+  createInitialChildren?: () => any;
+
+  Component?: PluginComponentType<LayoutPluginProps<T>>;
+};
+
+export type LayoutPluginProps<
+  // tslint:disable-next-line:no-any
+  T = any
+> = LayoutPluginExtraProps &
+  PluginProps<T, LayoutPluginExtraProps<T>>;
+
+// tslint:disable-next-line:no-any
+export type PluginComponentType<T = any> = React.ComponentType<T>;
+
+export type PluginProps<
+  // tslint:disable-next-line:no-any
+  StateT = any,
+  ExtraPropsT = {}
+> = {
   /**
    * @member a unique identifier.
    */
@@ -95,49 +161,64 @@ export type PluginProps<T = any> = {
   /**
    * @member the plugin's state.
    */
-  state: T;
+  state: StateT;
 
   /**
    * @member the plugin's version
    */
   version: string;
 
-  Component: React.ReactNode;
+  Component?: PluginComponentType<
+    PluginProps<StateT, ExtraPropsT> & ExtraPropsT
+  >;
 
-  IconComponent: React.ReactNode;
-  text: string;
-  StaticComponent: React.ReactNode;
+  IconComponent?: React.ReactNode;
+
+  text?: string;
+
+  StaticComponent?: PluginComponentType<
+    PluginProps<StateT, ExtraPropsT> & ExtraPropsT
+  >;
   // tslint:disable-next-line:no-any
-  serialize: (state: T) => any;
-  unserialize: (raw: JSON) => T;
-  description: string;
-  handleRemoveHotKey: (e: Event, props: ContentPluginProps) => Promise<void>;
-  handleFocusNextHotKey: (e: Event, props: ContentPluginProps) => Promise<void>;
-  handleFocusPreviousHotKey: (
+  serialize?: (state: StateT) => any;
+  // tslint:disable-next-line:no-any
+  unserialize?: (raw: any) => StateT;
+  description?: string;
+  handleRemoveHotKey?: (
     e: Event,
-    props: ContentPluginProps
+    props: PluginProps<StateT> & ExtraPropsT
   ) => Promise<void>;
-  handleFocus: (
-    props: ContentPluginProps,
+  handleFocusNextHotKey?: (
+    e: Event,
+    props: PluginProps<StateT> & ExtraPropsT
+  ) => Promise<void>;
+  handleFocusPreviousHotKey?: (
+    e: Event,
+    props: PluginProps<StateT> & ExtraPropsT
+  ) => Promise<void>;
+  handleFocus?: (
+    props: PluginProps<StateT> & ExtraPropsT,
     focusSource: string,
     ref: HTMLElement
   ) => void;
-  handleBlur: (props: ContentPluginProps) => void;
-  reducer: (state: T, action: AnyAction) => T;
-  migrations: Migration[];
-  createInitialState: () => T;
+  handleBlur?: (
+    props: PluginProps<StateT> & ExtraPropsT
+  ) => void;
+  reducer?: (state: StateT, action: AnyAction) => StateT;
+  migrations?: Migration[];
+  createInitialState?: () => StateT;
+
+  focus?: (props: { source: string }) => void;
+
+  blur?: (id: string) => void;
+
+  editable?: string;
   /**
    * Should be called with the new state if the plugin's state changes.
    *
    * @param state
    */
-  onChange(state: Partial<T>): void;
-};
-
-// tslint:disable-next-line:no-any
-export type LayoutPluginProps<T = any> = PluginProps<T> & {
-  // tslint:disable-next-line:no-any
-  createInitialChildren: () => any;
+  onChange(state: Partial<StateT>): void;
 };
 
 export interface MigrationConfig {
@@ -181,9 +262,9 @@ export class Migration {
  * @class the abstract class for content and layout plugins. It will be instantiated once and used for every cell that is equipped with it.
  */
 // tslint:disable-next-line:no-any
-export class Plugin<T = any> {
+export class Plugin<T = any, ExtraProps = {}> {
   // tslint:disable-next-line:no-any
-  config: any;
+  config: PluginConfig<T, ExtraProps>;
 
   /**
    * @member a unique identifier of the plugin.
@@ -230,7 +311,7 @@ export class Plugin<T = any> {
    */
   text: string;
   // tslint:disable-next-line:no-any
-  constructor(config: PluginProps<T>) {
+  constructor(config: PluginConfig<T, ExtraProps>) {
     const {
       name,
       version,
@@ -369,7 +450,10 @@ export class Plugin<T = any> {
  * @class this is the base class for content plugins.
  */
 // tslint:disable-next-line:no-any
-export class ContentPlugin<StateT = any> extends Plugin<StateT> {
+export class ContentPlugin<StateT = any> extends Plugin<
+  StateT,
+  ContentPluginExtraProps
+> {
   /**
    * @member if isInlineable is true, the plugin is allowed to be placed with floating to left or right.
    */
@@ -380,7 +464,9 @@ export class ContentPlugin<StateT = any> extends Plugin<StateT> {
    */
   allowInlineNeighbours: boolean;
   // tslint:disable-next-line:no-any
-  constructor(config: ContentPluginProps<StateT>) {
+  constructor(
+    config: ContentPluginConfig<StateT>
+  ) {
     super(config);
     const {
       createInitialState,
@@ -416,8 +502,13 @@ export class ContentPlugin<StateT = any> extends Plugin<StateT> {
  * @class this is the base class for layout plugins.
  */
 // tslint:disable-next-line:no-any
-export class LayoutPlugin<StateT = any> extends Plugin<StateT> {
-  constructor(config: LayoutPluginProps<StateT>) {
+export class LayoutPlugin<StateT = any> extends Plugin<
+  StateT,
+  LayoutPluginExtraProps
+> {
+  constructor(
+    config: LayoutPluginConfig<StateT>
+  ) {
     super(config);
     const { createInitialState, createInitialChildren } = config;
 
@@ -447,11 +538,11 @@ export class LayoutPlugin<StateT = any> extends Plugin<StateT> {
 
 // tslint:disable-next-line:no-any
 export type NativePluginProps<StateT = any> = PluginProps<StateT> & {
-  type: string;
+  type?: string;
   // tslint:disable-next-line:no-any
-  createInitialChildren: () => any;
-  allowInlineNeighbours: boolean;
-  isInlineable: boolean;
+  createInitialChildren?: () => any;
+  allowInlineNeighbours?: boolean;
+  isInlineable?: boolean;
 };
 
 export class NativePlugin<StateT> extends Plugin<StateT> {
@@ -470,7 +561,7 @@ export class NativePlugin<StateT> extends Plugin<StateT> {
    */
   allowInlineNeighbours: boolean;
   // tslint:disable-next-line:no-any
-  constructor(config: NativePluginProps<StateT>) {
+  constructor(config: NativePluginConfig<StateT>) {
     super(config);
     const {
       createInitialState,

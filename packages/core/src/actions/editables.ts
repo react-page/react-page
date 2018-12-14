@@ -21,18 +21,18 @@
  */
 
 import { Action } from 'redux';
-import { Editable } from '../types/editable';
+import { EditableType } from '../types/editable';
 import { gen } from './helpers';
 
 export const UPDATE_EDITABLE = 'UPDATE_EDITABLE';
 
 export interface UpdateEditableAction extends Action {
   ts: Date;
-  editable: Editable;
+  editable: EditableType;
   ids: string[];
 }
 
-export const updateEditable = (editable: Editable): UpdateEditableAction => ({
+export const updateEditable = (editable: EditableType): UpdateEditableAction => ({
   type: UPDATE_EDITABLE,
   ts: new Date(),
   editable,

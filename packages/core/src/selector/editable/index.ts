@@ -20,7 +20,7 @@
  *
  */
 
-import { Editable, Cell, Row, Config } from '../../types/editable';
+import { EditableType, Cell, Row, Config } from '../../types/editable';
 import { RootState } from '../../types/state';
 
 // tslint:disable-next-line:no-any
@@ -52,7 +52,7 @@ any =>
   state.ory &&
   state.ory.editables &&
   state.ory.editables.present.find(
-    ({ id: current }: Editable = {} as Editable) => current === id
+    ({ id: current }: EditableType = {} as EditableType) => current === id
   );
 
 export const editables = ({
@@ -61,7 +61,7 @@ export const editables = ({
   },
 }: RootState) => present;
 
-export const purifiedEditable = (state: RootState, props: Editable) => {
+export const purifiedEditable = (state: RootState, props: EditableType) => {
   const found = editable(state, props);
   if (!found) {
     return null;

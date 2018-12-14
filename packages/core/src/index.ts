@@ -27,13 +27,14 @@ import { actions, ActionsTypes } from './actions';
 import { selectors } from './selector';
 import PluginService from './service/plugin';
 import pluginDefault from './service/plugin/default';
-import { Editable as EditableType } from './types/editable';
+import { EditableType } from './types/editable';
 import forEach from 'ramda/src/forEach';
 import HTML5Backend, { NativeTypes } from 'react-dnd-html5-backend';
 import { DragDropContext as dragDropContext } from 'react-dnd';
 import { oryReducer } from './reducer';
 import { Store } from 'redux';
 import { RootState } from './types/state';
+import { Plugins } from './service/plugin/classes';
 
 let instance: Editor;
 
@@ -94,7 +95,7 @@ class Editor {
     store,
   }: {
     // tslint:disable-next-line:no-any
-    plugins?: { content: []; layout: []; native?: any };
+    plugins?: Plugins;
     middleware?: [];
     editables?: EditableType[];
     // tslint:disable-next-line:no-any
@@ -172,6 +173,6 @@ class Editor {
 
 export { PluginService, Editable, Editor, oryReducer };
 
-export const createEmptyState = () => ({ id: v4(), cells: [] });
+export const createEmptyState: () => EditableType = () => ({ id: v4(), cells: [] } as EditableType);
 
 export default Editor;

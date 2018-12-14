@@ -21,7 +21,7 @@
  */
 
 import * as React from 'react';
-import { ContentPluginProps } from './classes';
+import { ContentPluginProps, ContentPluginConfig } from './classes';
 import { EditorState } from '../../types/editor';
 
 const handleChange = (onChange: (state: EditorState) => void) => (
@@ -32,11 +32,11 @@ const handleChange = (onChange: (state: EditorState) => void) => (
   }
 };
 
-const Default = ({
+const Default: React.SFC<ContentPluginProps<{ value: string }>> = ({
   readOnly,
   state: { value },
   onChange,
-}: ContentPluginProps<{ value: string }>) =>
+})  =>
   readOnly ? (
     <div>{value}</div>
   ) : (
@@ -47,7 +47,7 @@ const Default = ({
     />
   );
 
-export default {
+const _defaultContentPlugin: ContentPluginConfig<{}> = {
   Component: Default,
   name: 'ory/editor/core/default',
   version: '0.0.1',
@@ -56,3 +56,5 @@ export default {
       'This is the default plugin from the core package. To replace it, set the "defaultPlugin" value in the editor config.',
   }),
 };
+
+export default _defaultContentPlugin;

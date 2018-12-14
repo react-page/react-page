@@ -38,14 +38,14 @@ import {
 } from '../../selector/editable';
 
 import { RootState } from '../../types/state';
-import { Editable, ComponetizedCell } from '../../types/editable';
+import { EditableType, ComponetizedCell } from '../../types/editable';
 
 type Props = {
   children: React.ReactChildren;
   id: string;
   focus: string;
   isEditMode: boolean;
-  editable: Editable;
+  editable: EditableType;
   undo(id: string): void;
   redo(id: string): void;
   removeCell(id: string): void;
@@ -56,7 +56,7 @@ type Props = {
   node(cell: string, editable: string): Object;
   searchNodeEverywhere(
     id: string
-  ): { editable: Editable; node: ComponetizedCell };
+  ): { editable: EditableType; node: ComponetizedCell };
 };
 
 const hotKeyHandler = (n: Object, key: string) =>

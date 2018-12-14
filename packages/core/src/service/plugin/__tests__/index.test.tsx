@@ -26,9 +26,8 @@ import * as unexpected from 'unexpected';
 import PluginService from '../index';
 import {
   Migration,
-  NativePluginProps,
-  LayoutPluginProps,
-  ContentPluginProps
+  LayoutPluginConfig,
+  ContentPluginConfig
 } from '../classes';
 
 const FOO = 'foo';
@@ -42,7 +41,7 @@ const content = [
   {
     name: FOO,
     version: MATCHING_VERSION,
-    Component: <div />,
+    Component: () => <div />,
     migrations: [
       new Migration({
         toVersion: OLDEST_VERSION,
@@ -61,13 +60,13 @@ const content = [
       }),
     ],
   },
-] as ContentPluginProps[];
+] as ContentPluginConfig[];
 
 const migrationEdgeCaseContent = [
   {
     name: FOO,
     version: MATCHING_VERSION,
-    Component: <div />,
+    Component: () => <div />,
     migrations: [
       new Migration({
         toVersion: OLDEST_VERSION,
@@ -86,11 +85,11 @@ const migrationEdgeCaseContent = [
       }),
     ],
   },
-] as ContentPluginProps[];
+] as ContentPluginConfig[];
 
 const layout = [
-  { name: 'bar', version: '0.0.2', Component: <div /> },
-] as LayoutPluginProps[];
+  { name: 'bar', version: '0.0.2', Component: () => <div /> },
+] as LayoutPluginConfig[];
 
 const plugins = new PluginService({ content, layout });
 
@@ -156,8 +155,8 @@ describe('PluginService', () => {
   const np = {
     name: 'baz',
     version: '0.0.1',
-    Component: <div />,
-  } as ContentPluginProps;
+    Component: () => <div />,
+  } as ContentPluginConfig;
   it('should add a content plugin', () => {
     plugins.addContentPlugin(np);
     expect(
@@ -184,7 +183,7 @@ describe('PluginService', () => {
   });
 
   it('should add a layout plugin', () => {
-    plugins.addLayoutPlugin((np as unknown) as LayoutPluginProps);
+    plugins.addLayoutPlugin(np);
     expect(
       plugins.findLayoutPlugin(np.name, np.version).plugin.name,
       'to equal',
@@ -199,7 +198,7 @@ describe('PluginService', () => {
   });
 
   it('should set layout plugins', () => {
-    plugins.setLayoutPlugins([(np as unknown) as LayoutPluginProps]);
+    plugins.setLayoutPlugins([np]);
     expect(
       plugins.findLayoutPlugin(np.name, np.version).plugin.name,
       'to equal',
@@ -217,12 +216,12 @@ describe('PluginService', () => {
       content,
       layout,
       native: () =>
-        (({
+        ({
           Component: () => <div />,
           name: 'ory/editor/core/content/default-native',
           version: '0.0.1',
           createInitialState: () => ({}),
-        } as unknown) as NativePluginProps),
+        }),
     });
     expect(p.hasNativePlugin(), 'to be truthy');
     expect(p.createNativePlugin(), 'to be defined');

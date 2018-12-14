@@ -32,7 +32,7 @@ import { isEditMode } from '../../selector/display';
 import { focus } from '../../selector/focus';
 import { node, editable } from '../../selector/editable';
 
-import { Editable } from '../../types/editable';
+import { EditableType } from '../../types/editable';
 
 const hotKeyHandler = (n: Object, key: string) =>
   pathOr(
@@ -61,7 +61,7 @@ type Props = {
   id: string;
   focus: string;
   isEditMode: boolean;
-  editable: Editable;
+  editable: EditableType;
   undo(id: string): void;
   redo(id: string): void;
   removeCell(id: string): void;

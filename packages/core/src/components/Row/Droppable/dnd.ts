@@ -21,7 +21,7 @@
  */
 
 import throttle from 'lodash.throttle';
-
+import * as React from 'react';
 import {
   computeAndDispatchHover,
   computeAndDispatchInsert
@@ -50,7 +50,7 @@ const clear = (hover: ComponetizedRow, drag: string) => {
 
 export const target = {
   hover: throttle(
-    (hover: ComponetizedRow, monitor: DropTargetMonitor, component: Object) => {
+    (hover: ComponetizedRow, monitor: DropTargetMonitor, component: React.ReactInstance) => {
       // tslint:disable-next-line:no-any
       let drag: any = monitor.getItem();
       if (!drag) {

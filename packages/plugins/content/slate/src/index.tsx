@@ -33,6 +33,8 @@ import v002 from './migrations/v002';
 import { Value } from 'slate';
 import { AnyAction } from 'redux';
 import { PluginButtonProps } from './plugins/Plugin';
+import { ContentPluginConfig } from 'ory-editor-core/lib/service/plugin/classes';
+import { SlateState } from './types/state';
 
 const createPlugins = compose(
   flatten,
@@ -48,7 +50,7 @@ export const html = new Html({
 
 export const defaultPlugins = hooks.defaultPlugins;
 
-export default (plugins: Plugin[] = hooks.defaultPlugins) => {
+export default (plugins: Plugin[] = hooks.defaultPlugins): ContentPluginConfig<SlateState> => {
   // tslint:disable-next-line:no-any
   let props: any = {};
   props.plugins = (plugins ? plugins : []).concat(createPlugins(plugins));

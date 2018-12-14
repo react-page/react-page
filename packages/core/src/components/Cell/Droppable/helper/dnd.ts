@@ -19,7 +19,7 @@
  * @author Aeneas Rekkas <aeneas+oss@aeneas.io>
  *
  */
-
+import * as React from 'react';
 import throttle from 'lodash.throttle';
 import pathOr from 'ramda/src/pathOr';
 import {
@@ -51,7 +51,7 @@ export const target = {
     (
       hover: ComponetizedCell,
       monitor: DropTargetMonitor,
-      component: Object
+      component: React.ReactInstance
     ) => {
       // tslint:disable-next-line:no-any
       let drag: any = monitor.getItem();

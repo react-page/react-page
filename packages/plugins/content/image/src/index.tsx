@@ -22,10 +22,10 @@
 import * as React from 'react';
 import Component from './Component/index';
 import Panorama from '@material-ui/icons/Panorama';
-import { ContentPluginProps } from 'ory-editor-core/lib/service/plugin/classes';
+import { ContentPluginProps, ContentPluginConfig } from 'ory-editor-core/lib/service/plugin/classes';
 import { ImagePluginSettings, ImageState } from './types/state';
 
-const imagePlugin = (settings?: ImagePluginSettings) => {
+const imagePlugin = (settings?: ImagePluginSettings): ContentPluginConfig<ImageState> => {
   return {
     Component: (props: ContentPluginProps<ImageState>) => (
       <Component {...props} {...settings} />
