@@ -4,6 +4,14 @@
     "rootDir": "src",
     "outDir": "lib",
     "baseUrl": ".",
+    "paths": {
+      "react": [
+        "./node_modules/@types/react/index"
+      ],
+      "slate": [
+        "./node_modules/@types/slate/index"
+      ],
+    }
   },
   "include": [
     "src"

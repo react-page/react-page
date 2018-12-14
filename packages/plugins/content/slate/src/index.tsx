@@ -27,18 +27,16 @@
 import Subject from '@material-ui/icons/Subject';
 import { compose, flatten, map, prop, pathOr } from 'ramda';
 import Html from 'slate-html-serializer';
-import React from 'react';
+import * as React from 'react';
 import { ActionTypes } from 'redux-undo';
-import Component, { SlateProps } from '../Component';
-import Plugin from '../plugins/Plugin';
-// import KatexPlugin from './plugins/katex'
-import * as hooks from '../hooks';
+import Component, { SlateProps } from './Component';
+import Plugin from './plugins/Plugin';
+import * as hooks from './hooks';
 import parse5 from 'parse5';
-import v002 from '../migrations/v002';
+import v002 from './migrations/v002';
 import { Value } from 'slate';
-import { SlateState } from '../types/state';
 import { AnyAction } from 'redux';
-import { ContentPluginProps, Plugin as SlatePlugin } from 'ory-editor-core/lib/service/plugin/classes';
+import { PluginButtonProps } from './plugins/Plugin';
 
 const createPlugins = compose(
   flatten,
@@ -55,7 +53,8 @@ export const html = new Html({
 export const defaultPlugins = hooks.defaultPlugins;
 
 export default (plugins: Plugin[] = hooks.defaultPlugins) => {
-  const props: SlatePlugin = {} as SlatePlugin;
+  // tslint:disable-next-line:no-any
+  let props: any = {};
   props.plugins = (plugins ? plugins : []).concat(createPlugins(plugins));
   props.onKeyDown = (
     e: Event,
@@ -83,10 +82,10 @@ export default (plugins: Plugin[] = hooks.defaultPlugins) => {
     return;
   };
 
-  const HoverButtons = ({ editorState, onChange, focus }: SlateProps) => (
+  const HoverButtons = ({ editorState, onChange, focus }: PluginButtonProps) => (
     <div>
-      {plugins.map((plugin: Plugin, i: number) =>
-        plugin.hoverButtons.map((Button, j: number) => (
+      {plugins && plugins.map((plugin: Plugin, i: number) =>
+        plugin.hoverButtons && plugin.hoverButtons.map((Button, j: number) => (
           <Button
             key={`${i}-${j}`}
             editorState={editorState}
@@ -100,10 +99,10 @@ export default (plugins: Plugin[] = hooks.defaultPlugins) => {
 
   props.HoverButtons = HoverButtons;
 
-  const ToolbarButtons = ({ editorState, onChange, focus }: SlateProps) => (
+  const ToolbarButtons = ({ editorState, onChange, focus }: PluginButtonProps) => (
     <div>
-      {plugins.map((plugin: Plugin, i: number) =>
-        plugin.toolbarButtons.map((Button, j: number) => (
+      {plugins && plugins.map((plugin: Plugin, i: number) =>
+        plugin.toolbarButtons && plugin.toolbarButtons.map((Button, j: number) => (
           <Button
             key={`${i}-${j}`}
             editorState={editorState}
@@ -120,7 +119,7 @@ export default (plugins: Plugin[] = hooks.defaultPlugins) => {
     <Component {...cellProps} {...props} />
   );
   const StaticComponent = ({
-    state: { editorState = {} } = {},
+    state: { editorState = {} as Value } = {},
   }: SlateProps) => (
     <div
       className="ory-plugins-content-slate-container"
@@ -161,7 +160,8 @@ export default (plugins: Plugin[] = hooks.defaultPlugins) => {
       });
     },
 
-    reducer: (state: ContentPluginProps<SlateState>, action: AnyAction) => {
+    // tslint:disable-next-line:no-any
+    reducer: (state: any, action: AnyAction) => {
       if (
         (action.type === ActionTypes.UNDO ||
           action.type === ActionTypes.REDO) &&

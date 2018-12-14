@@ -33,6 +33,7 @@ import Plugin from './Plugin';
 import { Props } from '../types/props';
 import { RenderNodeProps } from 'slate-react';
 import { Block } from 'slate';
+import { PluginButtonProps } from './Plugin';
 
 export const UL = 'LISTS/UNORDERED-LIST';
 export const OL = 'LISTS/ORDERED-LIST';
@@ -72,11 +73,13 @@ export default class ListsPlugin extends Plugin {
     ];
   }
 
-  // eslint-disable-next-line react/display-name
-  createButton = (type: string, icon: JSX.Element) => ({
+  createButton: (
+    type: string,
+    icon: JSX.Element
+  ) => React.SFC<PluginButtonProps> = (type, icon) => ({
     editorState,
     onChange,
-  }: Props): JSX.Element => {
+  }) => {
     const {
       wrapInList,
       unwrapList,
@@ -182,7 +185,7 @@ export default class ListsPlugin extends Plugin {
 
   renderNode = (props: RenderNodeProps) => {
     const { children, attributes } = props;
-    switch (props.node.type) {
+    switch ((props.node as Block).type) {
       case UL:
         return <ul {...attributes}>{children}</ul>;
       case LI:

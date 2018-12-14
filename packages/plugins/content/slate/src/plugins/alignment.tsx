@@ -30,13 +30,15 @@ import AlignJustifyIcon from '@material-ui/icons/FormatAlignJustify';
 import { ToolbarButton } from '../helpers';
 import Plugin from './Plugin';
 import { Props } from '../types/props';
+import { Block } from 'slate';
+import { PluginButtonProps } from './Plugin';
 
-const createButton = (align, icon) => ({ editorState, onChange }: Props) => {
+const createButton: (align: string, icon: JSX.Element) => React.SFC<PluginButtonProps> = (align, icon) => ({ editorState, onChange }) => {
   const onClick = e => {
     e.preventDefault();
 
     const _isActive = editorState.blocks.some(
-      block => block.data.get('align') === align
+      (block: Block) => block.data.get('align') === align
     );
 
     onChange({
@@ -48,7 +50,7 @@ const createButton = (align, icon) => ({ editorState, onChange }: Props) => {
   };
 
   const isActive = editorState.blocks.some(
-    block => block.data.get('align') === align
+    (block: Block) => block.data.get('align') === align
   );
 
   return <ToolbarButton onClick={onClick} isActive={isActive} icon={icon} />;

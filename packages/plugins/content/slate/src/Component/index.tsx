@@ -44,7 +44,7 @@ const theme = createMuiTheme({
   },
 });
 
-export type SlateProps = ContentPluginProps<SlateState>;
+export type SlateProps = ContentPluginProps<SlateState> & SlateState;
 
 class Slate extends React.Component<SlateProps> {
   toolbar: HTMLDivElement;
@@ -56,7 +56,6 @@ class Slate extends React.Component<SlateProps> {
 
   shouldComponentUpdate = nextProps =>
     nextProps.state.editorState !== this.props.state.editorState ||
-    nextProps.state.toolbar !== this.props.state.toolbar ||
     nextProps.focused !== this.props.focused ||
     nextProps.readOnly !== this.props.readOnly
 
@@ -113,7 +112,8 @@ class Slate extends React.Component<SlateProps> {
       HoverButtons,
       ToolbarButtons,
       focus,
-    } = this.props;
+    // tslint:disable-next-line:no-any
+    } = this.props as any;
     const isOpened = editorState.selection.isExpanded && editorState.isFocused;
 
     return (

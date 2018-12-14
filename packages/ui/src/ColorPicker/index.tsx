@@ -90,6 +90,8 @@ class ColorPicker extends React.Component<ColorPickerProps> {
   }
 }
 
+export { RGBColor };
+
 export const colorToString = (c: RGBColor) =>
   c && 'rgba(' + c.r + ', ' + c.g + ', ' + c.b + ', ' + c.a + ')';
 

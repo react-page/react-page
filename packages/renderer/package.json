@@ -24,7 +24,10 @@
     "ory-editor-core": "0.0.0"
   },
   "devDependencies": {
-    "ory-editor-plugins-slate": "0.0.0"
+    "ory-editor-plugins-slate": "0.0.0",
+    "@types/react": "16.7.17",
+    "@types/slate": "^0.33.4",
+    "@types/slate-react": "^0.12.1"
   },
   "publishConfig": {
     "access": "public"

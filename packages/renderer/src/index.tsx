@@ -25,7 +25,7 @@ import classNames from 'classnames';
 import PluginService from 'ory-editor-core/lib/service/plugin';
 import { editable as reducer } from 'ory-editor-core/lib/reducer/editable';
 import { Cell, Row, Layout, Content } from 'ory-editor-core/lib/types/editable';
-import { LayoutPlugin, ContentPlugin } from 'ory-editor-core/lib/service/plugin/classes';
+import { Plugins } from 'ory-editor-core/lib/service/plugin/classes';
 
 const gridClass = (size: number = 12): string =>
   `ory-cell-sm-${size} ory-cell-xs-12`;
@@ -125,7 +125,7 @@ export const HTMLRenderer = ({
 }: {
   // tslint:disable-next-line:no-any
   state: any;
-  plugins: { layout: LayoutPlugin[]; content: ContentPlugin[] };
+  plugins: Plugins;
 }) => {
   const service = new PluginService(plugins);
   const props = reducer(service.unserialize(state), { type: 'renderer/noop' });

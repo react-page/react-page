@@ -25,7 +25,7 @@ import * as React from 'react';
 import createBlockquotePlugin from 'slate-edit-blockquote';
 
 import { makeTagNode, ToolbarButton } from '../helpers';
-import Plugin from './Plugin';
+import Plugin, { PluginButtonProps } from './Plugin';
 import { Props } from '../types/props';
 import { Block } from 'slate';
 import { RenderNodeProps } from 'slate-react';
@@ -56,8 +56,8 @@ export default class BlockquotePlugin extends Plugin {
   }
 
   // eslint-disable-next-line react/display-name
-  Button = ({ editorState, onChange }: Props) => {
-    const onClick = e => {
+  Button: React.SFC<PluginButtonProps> = ({ editorState, onChange }) => {
+    const onClick: React.MouseEventHandler = e => {
       e.preventDefault();
 
       const _isActive = editorState.blocks.some(block =>
@@ -133,10 +133,10 @@ export default class BlockquotePlugin extends Plugin {
   }
 
   renderNode = (props: RenderNodeProps) => {
-    switch (props.node.type) {
+    switch ((props.node as Block).type) {
       case BLOCKQUOTE: {
         return (
-          <blockquote style={{ textAlign: props.node.data.get('align') }}>
+          <blockquote style={{ textAlign: (props.node as Block).data.get('align') }}>
             {props.children}
           </blockquote>
         );

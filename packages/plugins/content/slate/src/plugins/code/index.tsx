@@ -25,10 +25,9 @@ import * as React from 'react';
 import CodeIcon from '@material-ui/icons/Code';
 import { Data } from 'slate';
 import { makeTagMark, ToolbarButton } from '../../helpers';
-import Plugin from '../Plugin';
+import Plugin, { PluginButtonProps } from '../Plugin';
 import Code from './node';
 import { Props } from '../../types/props';
-import { SlateProps } from 'src/Component';
 
 export const CODE = 'CODE/CODE';
 
@@ -48,49 +47,46 @@ export default class CodePlugin extends Plugin {
     this.DEFAULT_NODE = props.DEFAULT_NODE;
   }
 
-  createButton = (type: string, icon: JSX.Element): React.SFC<SlateProps> => {
-    const Button: React.SFC<Props> = ({ editorState, onChange }) => {
-      const onClick: React.MouseEventHandler = e => {
-        e.preventDefault();
-
-        onChange({
-          value: editorState.change().toggleMark(type).value,
-        });
-      };
-
-      const isActive =
-        editorState && editorState.marks.some(mark => mark.type === type);
-
-      return (
-        <ToolbarButton onClick={onClick} isActive={isActive} icon={icon} />
-      );
+  createButton = (type: string, icon: JSX.Element): React.SFC<PluginButtonProps> => ({
+    editorState,
+    onChange,
+  }) => {
+    const onClick: React.MouseEventHandler = e => {
+      e.preventDefault();
+  
+      onChange({
+        value: editorState.change().toggleMark(type).value,
+      });
     };
-
-    return Button;
+  
+    const isActive =
+      editorState && editorState.marks.some(mark => mark.type === type);
+  
+    return <ToolbarButton onClick={onClick} isActive={isActive} icon={icon} />;
   }
-
-  createNodeButton = (type, icon) => {
-    const Button: React.SFC<Props> = ({ editorState, onChange }) => {
-      const onClick = e => {
-        e.preventDefault();
-
-        const _isActive = editorState.blocks.some(block => block.type === type);
-
-        onChange({
-          value: editorState
-            .change()
-            .setBlocks(_isActive ? this.DEFAULT_NODE : type).value,
-        });
-      };
-
-      const isActive = editorState.blocks.some(block => block.type === type);
-
-      return (
-        <ToolbarButton onClick={onClick} isActive={isActive} icon={icon} />
-      );
+  
+  createNodeButton: (
+    type: string,
+    icon: JSX.Element
+  ) => React.SFC<PluginButtonProps> = (type, icon) => ({
+    editorState,
+    onChange,
+  }) => {
+    const onClick = e => {
+      e.preventDefault();
+  
+      const _isActive = editorState.blocks.some(block => block.type === type);
+  
+      onChange({
+        value: editorState
+          .change()
+          .setBlocks(_isActive ? this.DEFAULT_NODE : type).value,
+      });
     };
-
-    return Button;
+  
+    const isActive = editorState.blocks.some(block => block.type === type);
+  
+    return <ToolbarButton onClick={onClick} isActive={isActive} icon={icon} />;
   }
 
   deserialize = (el, next) => {

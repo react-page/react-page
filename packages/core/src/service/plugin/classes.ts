@@ -23,9 +23,15 @@
 // @flow
 /* eslint-disable no-empty-function, no-unused-vars */
 import semver from 'semver';
+import { AnyAction } from 'redux';
+
+export type Plugins = {
+  layout: LayoutPluginProps[];
+  content: ContentPluginProps[];
+};
 
 // tslint:disable-next-line:no-any
-export type ContentPluginProps<T = any> = {
+export type ContentPluginProps<T = any> = PluginProps<T> & {
   /**
    * @member a unique identifier.
    */
@@ -61,39 +67,22 @@ export type ContentPluginProps<T = any> = {
    */
   isLayoutMode: boolean;
 
-  /**
-   * @member the plugin's name
-   */
-  name: string;
+  allowInlineNeighbours: boolean;
 
-  /**
-   * @member the plugin's version
-   */
-  version: string;
-
-  /**
-   * @member if true, the cell is currently focused.
-   */
-  focused: boolean;
-
-  /**
-   * @member the plugin's state.
-   */
-  state: T;
-
-  /**
-   * Should be called with the new state if the plugin's state changes.
-   *
-   * @param state
-   */
-  onChange(state: Object): void;
+  isInlineable: boolean;
 };
 
-export type LayoutPluginProps<T> = {
+// tslint:disable-next-line:no-any
+export type PluginProps<T = any> = {
   /**
    * @member a unique identifier.
    */
   id: string;
+
+  /**
+   * @member the plugin's name
+   */
+  name: string;
 
   /**
    * @member if the cell is currently in readOnly mode.
@@ -111,11 +100,46 @@ export type LayoutPluginProps<T> = {
   state: T;
 
   /**
+   * @member the plugin's version
+   */
+  version: string;
+
+  Component: React.ReactNode;
+
+  IconComponent: React.ReactNode;
+  text: string;
+  StaticComponent: React.ReactNode;
+  // tslint:disable-next-line:no-any
+  serialize: (state: T) => any;
+  unserialize: (raw: JSON) => T;
+  description: string;
+  handleRemoveHotKey: (e: Event, props: ContentPluginProps) => Promise<void>;
+  handleFocusNextHotKey: (e: Event, props: ContentPluginProps) => Promise<void>;
+  handleFocusPreviousHotKey: (
+    e: Event,
+    props: ContentPluginProps
+  ) => Promise<void>;
+  handleFocus: (
+    props: ContentPluginProps,
+    focusSource: string,
+    ref: HTMLElement
+  ) => void;
+  handleBlur: (props: ContentPluginProps) => void;
+  reducer: (state: T, action: AnyAction) => T;
+  migrations: Migration[];
+  createInitialState: () => T;
+  /**
    * Should be called with the new state if the plugin's state changes.
    *
    * @param state
    */
-  onChange(state: Object): void;
+  onChange(state: Partial<T>): void;
+};
+
+// tslint:disable-next-line:no-any
+export type LayoutPluginProps<T = any> = PluginProps<T> & {
+  // tslint:disable-next-line:no-any
+  createInitialChildren: () => any;
 };
 
 export interface MigrationConfig {
@@ -158,7 +182,8 @@ export class Migration {
 /**
  * @class the abstract class for content and layout plugins. It will be instantiated once and used for every cell that is equipped with it.
  */
-export class Plugin {
+// tslint:disable-next-line:no-any
+export class Plugin<T = any> {
   // tslint:disable-next-line:no-any
   config: any;
 
@@ -207,7 +232,7 @@ export class Plugin {
    */
   text: string;
   // tslint:disable-next-line:no-any
-  constructor(config: any) {
+  constructor(config: PluginProps<T>) {
     const {
       name,
       version,
@@ -345,7 +370,8 @@ export class Plugin {
 /**
  * @class this is the base class for content plugins.
  */
-export class ContentPlugin extends Plugin {
+// tslint:disable-next-line:no-any
+export class ContentPlugin<StateT = any> extends Plugin<StateT> {
   /**
    * @member if isInlineable is true, the plugin is allowed to be placed with floating to left or right.
    */
@@ -356,7 +382,7 @@ export class ContentPlugin extends Plugin {
    */
   allowInlineNeighbours: boolean;
   // tslint:disable-next-line:no-any
-  constructor(config: any) {
+  constructor(config: ContentPluginProps<StateT>) {
     super(config);
     const {
       createInitialState,
@@ -391,9 +417,9 @@ export class ContentPlugin extends Plugin {
 /**
  * @class this is the base class for layout plugins.
  */
-export class LayoutPlugin extends Plugin {
-  // tslint:disable-next-line:no-any
-  constructor(config: any) {
+// tslint:disable-next-line:no-any
+export class LayoutPlugin<StateT = any> extends Plugin<StateT> {
+  constructor(config: LayoutPluginProps<StateT>) {
     super(config);
     const { createInitialState, createInitialChildren } = config;
 
@@ -410,17 +436,27 @@ export class LayoutPlugin extends Plugin {
    *
    * @returns the initial state.
    */
-  createInitialState = (): Object => ({});
+  createInitialState = (): StateT => ({} as StateT);
 
   /**
    * Create the plugin's initial children (rows/cells).
    *
    * @returns the initial state.
    */
-  createInitialChildren = (): Object => ({});
+  // tslint:disable-next-line:no-any
+  createInitialChildren = (): any => ({} as any);
 }
 
-export class NativePlugin extends Plugin {
+// tslint:disable-next-line:no-any
+export type NativePluginProps<StateT = any> = PluginProps<StateT> & {
+  type: string;
+  // tslint:disable-next-line:no-any
+  createInitialChildren: () => any;
+  allowInlineNeighbours: boolean;
+  isInlineable: boolean;
+};
+
+export class NativePlugin<StateT> extends Plugin<StateT> {
   /**
    * @member can be 'content' or 'layout' depending on the type the native plugin should create
    */
@@ -436,7 +472,7 @@ export class NativePlugin extends Plugin {
    */
   allowInlineNeighbours: boolean;
   // tslint:disable-next-line:no-any
-  constructor(config: any) {
+  constructor(config: NativePluginProps<StateT>) {
     super(config);
     const {
       createInitialState,

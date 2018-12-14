@@ -23,7 +23,7 @@
 // @flow
 /* eslint no-use-before-define: off */
 import * as React from 'react';
-import { ContentPlugin, LayoutPlugin } from '../service/plugin/classes';
+import { ContentPlugin, LayoutPlugin, ContentPluginProps, NativePluginProps } from '../service/plugin/classes';
 import { PluginService } from '../index';
 
 export type Config = {
@@ -210,7 +210,7 @@ export type EditableComponentState = {
   isEditMode: boolean;
   isLayoutMode: boolean;
   isPreviewMode: boolean;
-  defaultPlugin: ContentPlugin | LayoutPlugin;
+  defaultPlugin: ContentPluginProps;
 
   blurAllCells(): void;
   createFallbackCell(plugin: ContentPlugin | LayoutPlugin, id: string): void;
@@ -230,4 +230,4 @@ export type NativeFactory = (
   monitor?: any,
   // tslint:disable-next-line:no-any
   component?: any
-) => { name: string };
+) => NativePluginProps;

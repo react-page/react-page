@@ -19,88 +19,91 @@
  * @author Aeneas Rekkas <aeneas+oss@aeneas.io>
  *
  */
+import * as React from 'react';
+import { v4 } from 'uuid';
+import Icon from '@material-ui/icons/CropLandscape';
+import GradientIcon from '@material-ui/icons/Gradient';
+import ColorIcon from '@material-ui/icons/ColorLens';
+import ImageIcon from '@material-ui/icons/Landscape';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
+import Switch from '@material-ui/core/Switch';
+import Typography from '@material-ui/core/Typography';
+import Slider from '@material-ui/lab/Slider';
 
-// @flow
-import React, { Component } from 'react'
-import { v4 } from 'uuid'
-import Icon from '@material-ui/icons/CropLandscape'
-import GradientIcon from '@material-ui/icons/Gradient'
-import ColorIcon from '@material-ui/icons/ColorLens'
-import ImageIcon from '@material-ui/icons/Landscape'
-import Select from '@material-ui/core/Select'
-import MenuItem from '@material-ui/core/MenuItem'
-import FormControl from '@material-ui/core/FormControl'
-import InputLabel from '@material-ui/core/InputLabel'
-import FormControlLabel from '@material-ui/core/FormControlLabel'
-import Tabs from '@material-ui/core/Tabs'
-import Tab from '@material-ui/core/Tab'
-import Switch from '@material-ui/core/Switch'
-import Typography from '@material-ui/core/Typography'
-import Slider from '@material-ui/lab/Slider'
-import type { Color } from 'ory-editor-ui/lib/ImageUpload'
+import ImageComponent from './components/Image';
+import ColorComponent from './components/Color';
+import LinearGradient from './components/LinearGradient';
 
-import ImageComponent from './components/Image'
-import ColorComponent from './components/Color'
-import LinearGradient from './components/LinearGradient'
+import { colorToString } from 'ory-editor-ui';
 
-import { colorToString } from 'ory-editor-ui'
+import { BottomToolbar } from 'ory-editor-ui';
 
-import type {
-  LayoutPluginProps,
-  ContentPlugin
-} from 'ory-editor-core/lib/service/plugin/classes'
-import { BottomToolbar } from 'ory-editor-ui'
+import ThemeProvider, { darkTheme } from 'ory-editor-ui/lib/ThemeProvider';
+import { RGBColor } from 'ory-editor-ui/lib/ColorPicker';
+import { ContentPluginProps } from 'ory-editor-core/lib/service/plugin/classes';
+import { ImageUploadType, ImageLoaded } from 'ory-editor-ui/lib/ImageUpload';
 
-import ThemeProvider, { darkTheme } from 'ory-editor-ui/lib/ThemeProvider'
+export const IMAGE_MODE_FLAG = 1;
+export const COLOR_MODE_FLAG = 2;
+export const GRADIENT_MODE_FLAG = 4;
 
-export const IMAGE_MODE_FLAG = 1
-export const COLOR_MODE_FLAG = 2
-export const GRADIENT_MODE_FLAG = 4
-
-type PluginComponentState = {
-  mode: number,
-  backgroundColorPreview?: Object,
-  gradientDegPreview?: number,
-  gradientDegPreviewIndex?: number,
-  gradientOpacityPreview?: number,
-  gradientOpacityPreviewIndex?: number,
-  gradientColorPreview?: Object,
-  gradientColorPreviewIndex?: number,
-  gradientColorPreviewColorIndex?: number,
-  darkenPreview?: number,
-  lightenPreview?: number,
-  imagePreview?: Object
-}
+export type PluginComponentState = {
+  mode: number;
+  backgroundColorPreview?: RGBColor;
+  gradientDegPreview?: number;
+  gradientDegPreviewIndex?: number;
+  gradientOpacityPreview?: number;
+  gradientOpacityPreviewIndex?: number;
+  gradientColorPreview?: RGBColor;
+  gradientColorPreviewIndex?: number;
+  gradientColorPreviewColorIndex?: number;
+  darkenPreview?: number;
+  lightenPreview?: number;
+  imagePreview?: ImageLoaded;
+};
 
 export type ExtraPluginProps = {
-  enabledModes: number,
-  defaultBackgroundColor: Object,
-  defaultGradientColor: Object,
-  defaultGradientSecondaryColor: Object,
-  defaultMode: number,
-  defaultModeFlag: number,
-  defaultDarken: number,
-  defaultLighten: number,
-  defaultHasPadding: boolean,
-  defaultIsParallax: boolean
-}
+  defaultPlugin: ContentPluginProps;
+  enabledModes: number;
+  defaultBackgroundColor: RGBColor;
+  defaultGradientColor: RGBColor;
+  defaultGradientSecondaryColor: RGBColor;
+  defaultMode: number;
+  defaultModeFlag: number;
+  defaultDarken: number;
+  defaultLighten: number;
+  defaultHasPadding: boolean;
+  defaultIsParallax: boolean;
+  imageUpload: ImageUploadType;
+};
 
 export type Gradient = {
-  opacity: number,
-  deg: number,
-  colors?: { color: Color }[]
-}
+  opacity: number;
+  deg: number;
+  colors?: { color: RGBColor }[];
+};
 
 export type OryState = {
-  modeFlag: number,
-  padding: number,
-  lighten: number,
-  darken: number,
-  gradients: Gradient[]
-}
+  background: string;
+  backgroundColor: RGBColor;
+  isParallax: boolean;
+  modeFlag: number;
+  padding: number;
+  lighten: number;
+  darken: number;
+  hasPadding: boolean;
+  gradients: Gradient[];
+};
 
-class PluginComponent extends Component {
-  static defaultProps = {
+export type PluginProps = ExtraPluginProps & ContentPluginProps<OryState>;
+
+class PluginComponent extends React.Component<
+  PluginProps,
+  PluginComponentState
+> {
+  static defaultProps: Partial<PluginProps> = {
     defaultBackgroundColor: { r: 245, g: 0, b: 87, a: 1 },
     defaultGradientColor: { r: 245, g: 0, b: 87, a: 1 },
     defaultGradientSecondaryColor: { r: 71, g: 245, b: 87, a: 1 },
@@ -110,46 +113,47 @@ class PluginComponent extends Component {
     defaultLighten: 0,
     defaultHasPadding: true,
     defaultIsParallax: true,
-    enabledModes: IMAGE_MODE_FLAG | COLOR_MODE_FLAG | GRADIENT_MODE_FLAG
-  }
+    enabledModes: IMAGE_MODE_FLAG | COLOR_MODE_FLAG | GRADIENT_MODE_FLAG,
+  };
 
-  constructor(props) {
-    super(props)
+  constructor(props: PluginProps) {
+    super(props);
     this.state = {
-      mode: props.defaultMode
-    }
+      mode: props.defaultMode,
+    };
   }
 
-  handleChangeDarken = (e: any) => {
-    this.props.onChange({ darken: this.state.darkenPreview })
-    this.setState({ darkenPreview: undefined })
+  handleChangeDarken: React.ChangeEventHandler = e => {
+    this.props.onChange({ darken: this.state.darkenPreview });
+    this.setState({ darkenPreview: undefined });
   }
 
-  handleChangeDarkenPreview = (e: any, value: number) => {
-    this.setState({ darkenPreview: value })
+  handleChangeDarkenPreview = (e: React.ChangeEvent, value: number) => {
+    this.setState({ darkenPreview: value });
   }
 
-  handleChangeLighten = (e: any) => {
-    this.props.onChange({ lighten: this.state.lightenPreview })
-    this.setState({ lightenPreview: undefined })
+  handleChangeLighten: React.ChangeEventHandler = () => {
+    this.props.onChange({ lighten: this.state.lightenPreview });
+    this.setState({ lightenPreview: undefined });
   }
 
-  handleChangeLightenPreview = (e: any, value: number) => {
-    this.setState({ lightenPreview: value })
+  handleChangeLightenPreview = (e: React.ChangeEvent, value: number) => {
+    this.setState({ lightenPreview: value });
   }
 
-  handleChangeHasPadding = (e: any) => {
+  handleChangeHasPadding: React.ChangeEventHandler = e => {
     this.props.onChange({
       hasPadding:
         this.props.state.hasPadding === undefined
           ? !this.props.defaultHasPadding
-          : !this.props.state.hasPadding
-    })
+          : !this.props.state.hasPadding,
+    });
   }
 
-  handleChangeMode = (e: any, mode: number) => this.setState({ mode })
+  handleChangeMode = (e: React.ChangeEvent, mode: number) =>
+    this.setState({ mode })
 
-  handleChangeBackgroundColorPreview = (e: any) =>
+  handleChangeBackgroundColorPreview = (e: RGBColor) =>
     this.setState({ backgroundColorPreview: e })
 
   handleChangeGradientDegPreview = (
@@ -163,19 +167,20 @@ class PluginComponent extends Component {
   ) => this.setState({ gradientOpacityPreview, gradientOpacityPreviewIndex })
 
   handleChangeGradientColorPreview = (
-    gradientColorPreview: Object,
+    gradientColorPreview: RGBColor,
     gradientColorPreviewIndex?: number,
     gradientColorPreviewColorIndex?: number
   ) =>
     this.setState({
       gradientColorPreview,
       gradientColorPreviewIndex,
-      gradientColorPreviewColorIndex
+      gradientColorPreviewColorIndex,
     })
 
-  handleImageLoaded = (imagePreview: Object) => this.setState({ imagePreview })
+  handleImageLoaded = (imagePreview: ImageLoaded) =>
+    this.setState({ imagePreview })
 
-  handleImageUploaded = (resp: Object) =>
+  handleImageUploaded = () =>
     this.setState({ imagePreview: undefined })
 
   renderUI = () => {
@@ -193,7 +198,7 @@ class PluginComponent extends Component {
               backgroundColorPreview={this.state.backgroundColorPreview}
             />
           </React.Fragment>
-        )
+        );
       case GRADIENT_MODE_FLAG:
         return (
           <React.Fragment>
@@ -221,7 +226,7 @@ class PluginComponent extends Component {
               }
             />
           </React.Fragment>
-        )
+        );
       case IMAGE_MODE_FLAG:
       default:
         return (
@@ -234,16 +239,16 @@ class PluginComponent extends Component {
               ensureModeOn={this.ensureModeOn(IMAGE_MODE_FLAG)}
             />
           </React.Fragment>
-        )
+        );
     }
   }
 
   ensureModeOn = (mode: number) => () => {
     const {
-      state: { modeFlag = this.props.defaultModeFlag }
-    } = this.props
+      state: { modeFlag = this.props.defaultModeFlag },
+    } = this.props;
     if ((modeFlag & mode) === 0) {
-      this.handleChangeModeSwitch(mode, modeFlag)()
+      this.handleChangeModeSwitch(mode, modeFlag)();
     }
   }
 
@@ -254,26 +259,26 @@ class PluginComponent extends Component {
         modeFlag = this.props.defaultModeFlag,
         isParallax = true,
         backgroundColor = this.props.defaultBackgroundColor,
-        gradients = []
-      }
-    } = this.props
-    let styles = {}
+        gradients = [],
+      },
+    } = this.props;
+    let styles: React.CSSProperties = {};
     if (modeFlag & GRADIENT_MODE_FLAG) {
-      const usedGradients = gradients.filter(g => g.colors && g.colors.length)
+      const usedGradients = gradients.filter(g => g.colors && g.colors.length);
       const usedGradientsString = usedGradients
         .map((g, i) => {
-          const firstColor = g.colors[0].color
-          const firstColorStr = colorToString(firstColor)
+          const firstColor = g.colors[0].color;
+          const firstColorStr = colorToString(firstColor);
           const deg =
             i === this.state.gradientDegPreviewIndex &&
             this.state.gradientDegPreview !== undefined
               ? this.state.gradientDegPreview
-              : g.deg
+              : g.deg;
           const opacity =
             i === this.state.gradientOpacityPreviewIndex &&
             this.state.gradientOpacityPreview !== undefined
               ? this.state.gradientOpacityPreview
-              : g.opacity
+              : g.opacity;
           return (
             'linear-gradient(' +
             deg +
@@ -286,21 +291,21 @@ class PluginComponent extends Component {
                       cpIndex === this.state.gradientColorPreviewColorIndex &&
                       this.state.gradientColorPreview !== undefined
                         ? this.state.gradientColorPreview
-                        : c.color
+                        : c.color;
                     const colorWithOpacity = {
                       ...color,
-                      a: color.a !== undefined ? color.a * opacity : opacity
-                    }
-                    return colorToString(colorWithOpacity)
+                      a: color.a !== undefined ? color.a * opacity : opacity,
+                    };
+                    return colorToString(colorWithOpacity);
                   })
                   .join(', ')
               : firstColorStr + ', ' + firstColorStr) +
             ')'
-          )
+          );
         })
-        .join(', ')
+        .join(', ');
       if (usedGradientsString !== '') {
-        styles = { ...styles, background: usedGradientsString }
+        styles = { ...styles, background: usedGradientsString };
       }
     }
     if (modeFlag & COLOR_MODE_FLAG) {
@@ -308,55 +313,55 @@ class PluginComponent extends Component {
         this.state.backgroundColorPreview
           ? this.state.backgroundColorPreview
           : backgroundColor
-      )
-      const modeStr = `linear-gradient(${colorStr}, ${colorStr})`
+      );
+      const modeStr = `linear-gradient(${colorStr}, ${colorStr})`;
       styles = {
         ...styles,
         background: styles.background
           ? styles.background + ', ' + modeStr
-          : modeStr
-      }
+          : modeStr,
+      };
     }
     if (modeFlag & IMAGE_MODE_FLAG) {
       const backgroundFinal = this.state.imagePreview
         ? this.state.imagePreview.dataUrl
-        : background
+        : background;
       const modeStr =
         `url('${backgroundFinal}') center / cover no-repeat` +
-        (isParallax ? ' fixed' : '')
+        (isParallax ? ' fixed' : '');
       styles = {
         ...styles,
         background: styles.background
           ? styles.background + ', ' + modeStr
-          : modeStr
-      }
+          : modeStr,
+      };
     }
-    return styles
+    return styles;
   }
 
   handleChangeModeSwitch = (mode: number, modeFlag: number) => () => {
-    modeFlag ^= mode
-    this.props.onChange({ modeFlag })
+    modeFlag ^= mode;
+    this.props.onChange({ modeFlag });
   }
 
   renderModeSwitch = () => {
     const {
-      state: { modeFlag = this.props.defaultModeFlag }
-    } = this.props
-    let label = 'ON/OFF'
+      state: { modeFlag = this.props.defaultModeFlag },
+    } = this.props;
+    let label = 'ON/OFF';
     switch (this.state.mode) {
       case COLOR_MODE_FLAG:
         // label = 'Use color'
-        break
+        break;
       case IMAGE_MODE_FLAG:
         // label = 'Use image'
-        break
+        break;
       case GRADIENT_MODE_FLAG:
         // label = 'Use gradient'
-        break
+        break;
       default:
-        label = 'Unknown mode'
-        break
+        label = 'Unknown mode';
+        break;
     }
     return (
       <FormControlLabel
@@ -368,7 +373,7 @@ class PluginComponent extends Component {
         }
         label={label}
       />
-    )
+    );
   }
 
   render() {
@@ -380,16 +385,18 @@ class PluginComponent extends Component {
         darken = this.props.defaultDarken,
         lighten = this.props.defaultLighten,
         hasPadding = this.props.defaultHasPadding,
-        modeFlag = this.props.defaultModeFlag
-      }
-    } = this.props
+        modeFlag = this.props.defaultModeFlag,
+      },
+    } = this.props;
     let darkenFinal =
-      this.state.darkenPreview !== undefined ? this.state.darkenPreview : darken
+      this.state.darkenPreview !== undefined
+        ? this.state.darkenPreview
+        : darken;
     let lightenFinal =
       this.state.lightenPreview !== undefined
         ? this.state.lightenPreview
-        : lighten
-    const containerStyles = this.getStyles()
+        : lighten;
+    const containerStyles = this.getStyles();
     return (
       <ThemeProvider theme={darkTheme}>
         <div
@@ -399,7 +406,8 @@ class PluginComponent extends Component {
           <div
             className="ory-plugins-layout-background__backstretch"
             style={{
-              backgroundImage: `linear-gradient(rgba(0, 0, 0, ${darkenFinal}), rgba(0, 0, 0, ${darkenFinal})),linear-gradient(rgba(255, 255, 255, ${lightenFinal}), rgba(255, 255, 255, ${lightenFinal}))`
+              // tslint:disable-next-line:max-line-length
+              backgroundImage: `linear-gradient(rgba(0, 0, 0, ${darkenFinal}), rgba(0, 0, 0, ${darkenFinal})),linear-gradient(rgba(255, 255, 255, ${lightenFinal}), rgba(255, 255, 255, ${lightenFinal}))`,
             }}
           />
           {!readOnly && (
@@ -508,7 +516,7 @@ class PluginComponent extends Component {
           {children}
         </div>
       </ThemeProvider>
-    )
+    );
   }
 }
 
@@ -525,22 +533,9 @@ export default ({
   defaultIsParallax = PluginComponent.defaultProps.defaultIsParallax,
   defaultHasPadding = PluginComponent.defaultProps.defaultHasPadding,
   imageUpload,
-  enabledModes = PluginComponent.defaultProps.enabledModes
-}: {
-  defaultPlugin: ContentPlugin,
-  defaultMode: number,
-  defaultModeFlag: number,
-  defaultBackgroundColor: Object,
-  defaultGradientColor: Object,
-  defaultGradientSecondaryColor: Object,
-  defaultDarken: number,
-  defaultLighten: number,
-  defaultIsParallax: boolean,
-  defaultHasPadding: boolean,
-  imageUpload: Promise<any>,
-  enabledModes: number
-}) => {
-  const settings = {
+  enabledModes = PluginComponent.defaultProps.enabledModes,
+}: PluginProps) => {
+  const settings: ExtraPluginProps = {
     defaultPlugin,
     defaultMode,
     defaultModeFlag,
@@ -552,10 +547,10 @@ export default ({
     defaultIsParallax,
     defaultHasPadding,
     imageUpload,
-    enabledModes
-  }
+    enabledModes,
+  };
   return {
-    Component: (componentProps: Object) => (
+    Component: (componentProps: ContentPluginProps<OryState>) => (
       <PluginComponent {...componentProps} {...settings} />
     ),
     name: 'ory/editor/core/layout/background',
@@ -573,16 +568,16 @@ export default ({
             {
               content: {
                 plugin: defaultPlugin,
-                state: defaultPlugin.createInitialState()
+                state: defaultPlugin.createInitialState(),
               },
-              id: v4()
-            }
-          ]
-        }
-      ]
+              id: v4(),
+            },
+          ],
+        },
+      ],
     }),
 
     handleFocusNextHotKey: () => Promise.reject(),
-    handleFocusPreviousHotKey: () => Promise.reject()
-  }
-}
+    handleFocusPreviousHotKey: () => Promise.reject(),
+  };
+};

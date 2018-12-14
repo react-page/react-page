@@ -26,6 +26,7 @@ import * as React from 'react';
 import Plugin from '../Plugin';
 import Paragraph from './node';
 import { RenderNodeProps } from 'slate-react';
+import { Block } from 'slate';
 
 export const P = 'PARAGRAPH/PARAGRAPH';
 
@@ -71,7 +72,7 @@ export default class ParagraphPlugin extends Plugin {
   }
 
   renderNode = (props: RenderNodeProps) => {
-    switch (props.node.type) {
+    switch ((props.node as Block).type) {
       case P: {
         return <Paragraph {...props} />;
       }

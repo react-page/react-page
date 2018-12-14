@@ -80,11 +80,11 @@ describe('hooks', () => {
 
       const editorState = hooks.unserialize({ importFromHtml: html.join('') });
 
-      const [stateSplitA, stateSplitB]: SlateState[] = hooks.split(editorState);
+      const splitStates: SlateState[] = hooks.split(editorState);
 
-      expect(hooks.html.serialize(stateSplitA.editorState), 'to equal', html[0]);
+      expect(hooks.html.serialize(splitStates[0].editorState), 'to equal', html[0]);
 
-      expect(hooks.html.serialize(stateSplitB.editorState), 'to equal', html[1]);
+      expect(hooks.html.serialize(splitStates[1].editorState), 'to equal', html[1]);
     });
   });
 });

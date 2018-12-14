@@ -24,20 +24,22 @@ import { mount, render } from 'enzyme';
 import * as React from 'react';
 import { HTMLRenderer } from '../index';
 import slate from 'ory-editor-plugins-slate';
-import { LayoutPlugin } from 'ory-editor-core/lib/service/plugin/classes';
+import { LayoutPluginProps } from 'ory-editor-core/lib/service/plugin/classes';
+import { Plugins } from 'ory-editor-core/src/service/plugin/classes';
+import { ContentPluginProps } from 'ory-editor-core/lib/service/plugin/classes';
 
 const Layout = ({ children, state: { className } }) => (
   <div className={`${className}`}>{children}</div>
 );
 
-const plugins = {
-  content: [slate()],
+const plugins: Plugins = {
+  content: [slate() as unknown as ContentPluginProps],
   layout: [
     {
       name: 'layout',
       version: '0.0.1',
       Component: Layout,
-    } as LayoutPlugin,
+    } as unknown as LayoutPluginProps,
   ],
 };
 

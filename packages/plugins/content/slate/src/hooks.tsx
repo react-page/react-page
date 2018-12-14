@@ -5,12 +5,12 @@
  * it under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- *  
+ *
  * ORY Editor is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Lesser General Public License for more details.
- *  
+ *
  * You should have received a copy of the GNU Lesser General Public License
  * along with ORY Editor.  If not, see <http://www.gnu.org/licenses/>.
  *
@@ -27,7 +27,6 @@ import path from 'ramda/src/path';
 import reduce from 'ramda/src/reduce';
 import tail from 'ramda/src/tail';
 import React from 'react';
-import { SlateProps } from './Component/index';
 import AlignmentPlugin from './plugins/alignment';
 import BlockquotePlugin from './plugins/blockquote';
 import CodePlugin from './plugins/code/index';
@@ -39,7 +38,7 @@ import ParagraphPlugin, { P } from './plugins/paragraph/index';
 import parse5 from 'parse5';
 
 // FIXME #126
-import { Document, Value, Node, BlockJSON } from 'slate';
+import { Document, Value, BlockJSON, ValueJSON } from 'slate';
 import Html from 'slate-html-serializer';
 import Plain from 'slate-plain-serializer';
 import { SlateState } from './types/state';
@@ -64,7 +63,9 @@ export const lineBreakSerializer = {
       return { object: 'text', text: '\n' };
     }
     if (el.nodeName === '#text') {
-      if (el.value && el.value.match(/<!--.*?-->/)) { return; }
+      if (el.value && el.value.match(/<!--.*?-->/)) {
+        return;
+      }
 
       return {
         object: 'text',
@@ -93,28 +94,26 @@ export const html = new Html({
 const options = {};
 
 export const createInitialState = () => ({
-  editorState: Value.fromJSON(
-    {
-      document: {
-        nodes: [
-          {
-            object: 'block',
-            type: P,
-            nodes: [
-              {
-                object: 'text',
-                leaves: [
-                  {
-                    text: '',
-                  },
-                ],
-              },
-            ],
-          } as BlockJSON,
-        ],
-      },
-    }
-  ),
+  editorState: Value.fromJSON({
+    document: {
+      nodes: [
+        {
+          object: 'block',
+          type: P,
+          nodes: [
+            {
+              object: 'text',
+              leaves: [
+                {
+                  text: '',
+                },
+              ],
+            },
+          ],
+        } as BlockJSON,
+      ],
+    },
+  }),
 });
 
 export const unserialize = ({
@@ -123,7 +122,8 @@ export const unserialize = ({
   editorState,
 }: SlateState) => {
   if (serialized) {
-    return { editorState: Value.fromJSON(serialized) };
+    // tslint:disable-next-line:no-any
+    return { editorState: (Value.fromJSON as any)(serialized, options) };
   } else if (importFromHtml) {
     return { editorState: html.deserialize(importFromHtml, options) };
   } else if (editorState) {
@@ -133,8 +133,12 @@ export const unserialize = ({
   return createInitialState();
 };
 
-export const serialize = ({ editorState }: SlateState ) => ({
-  serialized: editorState.toJSON(),
+// tslint:disable-next-line:no-any
+export const serialize = ({
+  editorState,
+}: SlateState): { serialized: ValueJSON } => ({
+  // tslint:disable-next-line:no-any
+  serialized: (editorState.toJSON as any)(editorState, options),
 });
 
 export const merge = (states: Object[]): Object => {
@@ -152,15 +156,17 @@ export const merge = (states: Object[]): Object => {
 };
 
 export const split = (state: Object): Object[] => {
-  const nodes: Node[] = path(['editorState', 'document', 'nodes'], state);
-
+  const nodes = path(['editorState', 'document', 'nodes'], state);
   return nodes
-    .map((node) => {
-      const splittedDocument = Document.create({ nodes: List([node]) });
-      const splittedEditorState = Value.create({ document: splittedDocument });
+    ? nodes.toArray().map(node => {
+        const splittedDocument = Document.create({ nodes: List([node]) });
+        const splittedEditorState = Value.create({
+          document: splittedDocument,
+        });
 
-      return { editorState: splittedEditorState };
-    });
+        return { editorState: splittedEditorState };
+      })
+    : [];
 };
 
 // const position = (): {
@@ -199,16 +205,16 @@ export const split = (state: Object): Object[] => {
 
 // if editor state is empty, remove cell when backspace or delete was pressed.
 export const handleRemoveHotKey = (
-  _: KeyboardEvent,
+  _: Event,
   {
     content: {
       state: { editorState },
     },
-  }: SlateProps
+  }: // tslint:disable-next-line:no-any
+  any
 ) =>
-  new Promise(
-    (resolve: Function, reject: Function) =>
-      Plain.serialize(editorState).length < 1 ? resolve() : reject()
+  new Promise((resolve: Function, reject: Function) =>
+    Plain.serialize(editorState).length < 1 ? resolve() : reject()
   );
 
 const windowSelectionWaitTime = 1;
@@ -219,7 +225,8 @@ export const handleFocusPreviousHotKey = (
     content: {
       state: { editorState },
     },
-  }: SlateProps
+  }: // tslint:disable-next-line:no-any
+  any
 ) => {
   // const isArrowUp = e.keyCode === 38
 
@@ -248,7 +255,8 @@ export const handleFocusNextHotKey = (
     content: {
       state: { editorState },
     },
-  }: SlateProps
+  }: // tslint:disable-next-line:no-any
+  any
 ) => {
   // const isArrowDown = e.keyCode === 40
 

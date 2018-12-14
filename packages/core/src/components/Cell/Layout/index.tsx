@@ -64,7 +64,8 @@ class Layout extends React.PureComponent<ComponetizedCell> {
     } = nextProps;
 
     // FIXME this is really shitty because it will break when the state changes before the blur comes through, see #157
-    const pass = {
+    // tslint:disable-next-line:no-any
+    const pass: any = {
       editable,
       id,
       state,

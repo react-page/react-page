@@ -32,6 +32,7 @@ import H6Icon from '@material-ui/icons/Looks6';
 import { makeTagNode, ToolbarButton } from '../helpers';
 import Plugin from './Plugin';
 import { Props } from '../types/props';
+import { PluginButtonProps } from './Plugin';
 
 export const H1 = 'HEADINGS/HEADING-ONE';
 export const H2 = 'HEADINGS/HEADING-TWO';
@@ -47,27 +48,6 @@ const createNode = (type: string, el: any, next: any) => ({
   // data: Data.create({ style: el.attribs.style }),
   nodes: next(el.childNodes),
 });
-
-const createButton = (type, icon) => ({
-  editorState,
-  onChange,
-}: Props) => {
-  const onClick = e => {
-    e.preventDefault();
-
-    const _isActive = editorState.blocks.some(block => block.type === type);
-
-    onChange({
-      value: editorState
-        .change()
-        .setBlocks(_isActive ? this.DEFAULT_NODE : type).value,
-    });
-  };
-
-  const isActive = editorState.blocks.some(block => block.type === type);
-
-  return <ToolbarButton onClick={onClick} isActive={isActive} icon={icon} />;
-};
 
 export default class HeadingsPlugin extends Plugin {
   props: Props;
@@ -91,13 +71,37 @@ export default class HeadingsPlugin extends Plugin {
     this.DEFAULT_NODE = props.DEFAULT_NODE;
 
     this.toolbarButtons = [
-      createButton(H1, <H1Icon />),
-      createButton(H2, <H2Icon />),
-      createButton(H3, <H3Icon />),
-      createButton(H4, <H4Icon />),
-      createButton(H5, <H5Icon />),
-      createButton(H6, <H6Icon />),
+      this.createButton(H1, <H1Icon />),
+      this.createButton(H2, <H2Icon />),
+      this.createButton(H3, <H3Icon />),
+      this.createButton(H4, <H4Icon />),
+      this.createButton(H5, <H5Icon />),
+      this.createButton(H6, <H6Icon />),
     ];
+  }
+
+  createButton: (
+    type: string,
+    icon: JSX.Element
+  ) => React.SFC<PluginButtonProps> = (type, icon) => ({
+    editorState,
+    onChange,
+  }) => {
+    const onClick = e => {
+      e.preventDefault();
+
+      const _isActive = editorState.blocks.some(block => block.type === type);
+
+      onChange({
+        value: editorState
+          .change()
+          .setBlocks(_isActive ? this.DEFAULT_NODE : type).value,
+      });
+    };
+
+    const isActive = editorState.blocks.some(block => block.type === type);
+
+    return <ToolbarButton onClick={onClick} isActive={isActive} icon={icon} />;
   }
 
   deserialize = (el, next) => {

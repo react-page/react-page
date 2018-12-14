@@ -15,6 +15,8 @@
     "@material-ui/icons": "^3.0.1",
     "@types/jest": "^23.3.10",
     "@types/react": "16.7.17",
+    "@types/slate": "^0.33.4",
+    "@types/slate-react": "^0.12.1",
     "babel-core": "7.0.0-bridge.0",
     "babel-eslint": "9.0.0",
     "babel-jest": "^23.6.0",
@@ -46,6 +48,7 @@
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
     "react-jss": "8.6.1",
+    "redux": "^3.6.0",
     "rimraf": "2.6.2",
     "ts-jest": "^23.10.5",
     "tslint": "^5.11.0",
@@ -95,7 +98,7 @@
     },
     "globals": {
       "ts-jest": {
-        "tsConfig": "tsconfig.json"
+        "tsConfig": "./config/tsconfig.test.json"
       }
     },
     "testMatch": [

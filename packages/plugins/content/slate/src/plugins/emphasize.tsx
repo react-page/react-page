@@ -26,7 +26,7 @@ import BoldIcon from '@material-ui/icons/FormatBold';
 import ItalicIcon from '@material-ui/icons/FormatItalic';
 import UnderlinedIcon from '@material-ui/icons/FormatUnderlined';
 import { makeTagMark, ToolbarButton } from '../helpers';
-import Plugin from './Plugin';
+import Plugin, { PluginButtonProps } from './Plugin';
 import { Props } from '../types/props';
 import { RenderMarkProps } from 'slate-react';
 import { Mark, MarkProperties } from 'slate';
@@ -36,7 +36,13 @@ export const EM = 'EMPHASIZE/EM';
 export const U = 'EMPHASIZE/U';
 
 // eslint-disable-next-line react/display-name
-const createButton = (type: Mark | MarkProperties | string, icon: JSX.Element) => ({ editorState, onChange }: Props) => {
+const createButton: (
+  type: Mark | MarkProperties | string,
+  icon: JSX.Element
+) => React.SFC<PluginButtonProps> = (type, icon) => ({
+  editorState,
+  onChange,
+}) => {
   const onClick = e => {
     e.preventDefault();
     onChange({

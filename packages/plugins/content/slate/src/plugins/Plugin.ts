@@ -20,7 +20,13 @@
  *
  */
 import { RenderMarkProps, RenderNodeProps } from 'slate-react';
-import { SlateProps } from 'src/Component';
+import { Value } from 'slate';
+
+export class PluginButtonProps {
+  editorState: Value;
+  focus: boolean;
+  onChange: (state: {value: Value}) => void;
+}
 
 /**
  * @class this is the base class for slate plugins
@@ -69,12 +75,12 @@ export default class Plugin {
   /**
    * @member the buttons to be added to the hover menu
    */
-  public hoverButtons: (React.ComponentClass<SlateProps> | React.SFC<SlateProps>)[];
+  public hoverButtons: (React.ComponentClass<PluginButtonProps> | React.SFC<PluginButtonProps>)[];
 
   /**
    * @member the buttons to be added to the global toolbar
    */
-  public toolbarButtons: (React.ComponentClass<SlateProps> | React.SFC<SlateProps>)[];
+  public toolbarButtons: (React.ComponentClass<PluginButtonProps> | React.SFC<PluginButtonProps>)[];
 
   /**
    * @member the function that renders marks

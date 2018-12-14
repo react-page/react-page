@@ -1,34 +1,50 @@
-import React, { Component } from 'react'
-import Switch from '@material-ui/core/Switch'
-import TextField from '@material-ui/core/TextField'
-import FormControlLabel from '@material-ui/core/FormControlLabel'
-import { ImageUpload } from 'ory-editor-ui'
-import Typography from '@material-ui/core/Typography'
+import * as React from 'react';
+import Switch from '@material-ui/core/Switch';
+import TextField from '@material-ui/core/TextField';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import { ImageUpload } from 'ory-editor-ui';
+import Typography from '@material-ui/core/Typography';
+import { PluginProps } from 'src';
+import { ImageLoaded, ImageUploaded } from 'ory-editor-ui/lib/ImageUpload';
 
-class ImageComponent extends Component {
-  handleChangeBackground = (e: any) =>
-    this.props.ensureModeOn() |
-    this.props.onChange({ background: e.target.value })
+export interface ImageComponentProps {
+  ensureModeOn: () => void;
+  onImageLoaded: (image: ImageLoaded) => void;
+  onImageUploaded: () => void;
+}
 
-  handleChangeIsParallax = (e: any) =>
-    this.props.ensureModeOn() |
+class ImageComponent extends React.Component<
+  PluginProps & ImageComponentProps
+> {
+  handleChangeBackground = (e: React.ChangeEvent<HTMLInputElement>) => {
+    this.props.ensureModeOn();
+    this.props.onChange({ background: e.target.value });
+  }
+
+  handleChangeIsParallax = (e: React.ChangeEvent<HTMLInputElement>) => {
+    this.props.ensureModeOn();
     this.props.onChange({
       isParallax:
         this.props.state.isParallax === undefined
           ? false
-          : !this.props.state.isParallax
-    })
+          : !this.props.state.isParallax,
+    });
+  }
 
-  handleImageLoaded = image =>
-    this.props.ensureModeOn() | this.props.onImageLoaded(image)
+  handleImageLoaded = (image: ImageLoaded) => {
+    this.props.ensureModeOn();
+    this.props.onImageLoaded(image);
+  }
 
-  handleImageUploaded = (resp: object) =>
-    this.props.onImageUploaded() | this.props.onChange({ background: resp.url })
+  handleImageUploaded = (resp: ImageUploaded) => {
+    this.props.onImageUploaded();
+    this.props.onChange({ background: resp.url });
+  }
 
   render() {
     const {
-      state: { isParallax = true, background = '' }
-    } = this.props
+      state: { isParallax = true, background = '' },
+    } = this.props;
     return (
       <div>
         <div style={{ display: 'flex' }}>
@@ -68,8 +84,8 @@ class ImageComponent extends Component {
           />
         </div>
       </div>
-    )
+    );
   }
 }
 
-export default ImageComponent
+export default ImageComponent;

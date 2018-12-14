@@ -26,7 +26,7 @@
   "dependencies": {
     "ory-editor-core": "0.0.0",
     "ory-editor-ui": "0.0.0",
-    "react-player": "^0.22.0"
+    "react-player": "1.7.1"
   },
   "devDependencies": {},
   "publishConfig": {

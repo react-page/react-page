@@ -21,44 +21,47 @@
  */
 
 // @flow
-import React, { Component } from 'react'
-import { v4 } from 'uuid'
-import Icon from '@material-ui/icons/CropLandscape'
-import TextField from '@material-ui/core/TextField'
-import type {
+import * as React from 'react';
+import { v4 } from 'uuid';
+import Icon from '@material-ui/icons/CropLandscape';
+import TextField from '@material-ui/core/TextField';
+import {
   LayoutPluginProps,
   ContentPlugin
-} from 'ory-editor-core/lib/service/plugin/classes'
-import { BottomToolbar } from 'ory-editor-ui'
-import ThemeProvider, { darkTheme } from 'ory-editor-ui/lib/ThemeProvider'
+} from 'ory-editor-core/lib/service/plugin/classes';
+import { BottomToolbar } from 'ory-editor-ui';
+import ThemeProvider, { darkTheme } from 'ory-editor-ui/lib/ThemeProvider';
 
 console.warn(
-  "WARNING! Obsolete plugin loaded. 'ory/editor/core/layout/parallax-background' has been deprecated, please use the new 'ory/editor/core/layout/background' plugin instead!"
-)
+  // tslint:disable-next-line:max-line-length
+  'WARNING! Obsolete plugin loaded. \'ory/editor/core/layout/parallax-background\' has been deprecated, please use the new \'ory/editor/core/layout/background\' plugin instead!'
+);
 
-class PluginComponent extends Component {
-  state = { hidden: false }
-  props: LayoutPluginProps<{}> & { children: any }
+export interface BackgroundState {
+  background?: string;
+  darken?: number | string;
+}
 
-  handleChangeBackground = (e: any) =>
+class PluginComponent extends React.Component<LayoutPluginProps<BackgroundState>> {
+
+  handleChangeBackground: React.ChangeEventHandler<HTMLInputElement> = (e) =>
     this.props.onChange({ background: e.target.value })
 
-  handleChangeDarken = (e: any) =>
+  handleChangeDarken: React.ChangeEventHandler<HTMLInputElement> = (e) =>
     this.props.onChange({ darken: e.target.value })
 
   render() {
     const {
       children,
       focused,
-      onChange,
-      state: { background = '', darken = 0.3 }
-    } = this.props
+      state: { background = '', darken = 0.3 },
+    } = this.props;
     return (
       <ThemeProvider theme={darkTheme}>
         <div
           className="ory-plugins-layout-parallax-background"
           style={{
-            backgroundImage: `linear-gradient(rgba(0, 0, 0, ${darken}), rgba(0, 0, 0, ${darken})), url('${background}')`
+            backgroundImage: `linear-gradient(rgba(0, 0, 0, ${darken}), rgba(0, 0, 0, ${darken})), url('${background}')`,
           }}
         >
           <BottomToolbar open={focused} theme={darkTheme}>
@@ -80,7 +83,7 @@ class PluginComponent extends Component {
           {children}
         </div>
       </ThemeProvider>
-    )
+    );
   }
 }
 
@@ -101,15 +104,15 @@ export default ({ defaultPlugin }: { defaultPlugin: ContentPlugin }) => ({
           {
             content: {
               plugin: defaultPlugin,
-              state: defaultPlugin.createInitialState()
+              state: defaultPlugin.createInitialState(),
             },
-            id: v4()
-          }
-        ]
-      }
-    ]
+            id: v4(),
+          },
+        ],
+      },
+    ],
   }),
 
   handleFocusNextHotKey: () => Promise.reject(),
-  handleFocusPreviousHotKey: () => Promise.reject()
-})
+  handleFocusPreviousHotKey: () => Promise.reject(),
+});

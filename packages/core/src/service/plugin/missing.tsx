@@ -22,7 +22,7 @@
 
 // @flow
 import * as React from 'react';
-import { ContentPluginProps } from './classes';
+import { ContentPluginProps, LayoutPluginProps } from './classes';
 
 const ContentMissingComponent = (props: ContentPluginProps<{}>) => (
   <div
@@ -39,7 +39,7 @@ const ContentMissingComponent = (props: ContentPluginProps<{}>) => (
   </div>
 );
 
-export const contentMissing = (plugin: { name: string, version: string }) => ({
+export const contentMissing = (plugin: ContentPluginProps): ContentPluginProps => ({
   Component: ContentMissingComponent,
   ...plugin,
 });
@@ -62,7 +62,7 @@ const LayoutMissingComponent: React.SFC = ({ children, ...props }) => (
   </div>
 );
 
-export const layoutMissing = (plugin: { name: string, version: string }) => ({
+export const layoutMissing = (plugin: LayoutPluginProps): LayoutPluginProps => ({
   Component: LayoutMissingComponent,
   ...plugin,
-});
+} as LayoutPluginProps);

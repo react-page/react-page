@@ -25,7 +25,7 @@ import LinkIcon from '@material-ui/icons/Link';
 import * as React from 'react';
 import TextField from '@material-ui/core/TextField';
 import { ToolbarButton } from '../../helpers';
-import Plugin from '../Plugin';
+import Plugin, { PluginButtonProps } from '../Plugin';
 import Link from './node';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
@@ -33,8 +33,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button';
 import { Data, Inline } from 'slate';
-import ThemeProvider from 'ory-editor-ui/lib/ThemeProvider';
-import { SlateProps } from '../../Component';
+import { ThemeProvider } from 'ory-editor-ui';
 
 export const A = 'LINK/LINK';
 
@@ -46,7 +45,7 @@ export interface LinkButtonState {
   wasExpanded: boolean;
 }
 
-class LinkButton extends React.Component<SlateProps, LinkButtonState> {
+class LinkButton extends React.Component<PluginButtonProps, LinkButtonState> {
   state = {
     open: false,
     href: '',
@@ -124,7 +123,7 @@ class LinkButton extends React.Component<SlateProps, LinkButtonState> {
         .collapseToEnd().value;
 
       window.setTimeout(() => this.props.onChange({ value: _newState }), 1);
-      window.setTimeout(() => this.props.focus(), 100);
+      // window.setTimeout(() => this.props.focus(), 100);
       return;
     }
 
@@ -145,7 +144,7 @@ class LinkButton extends React.Component<SlateProps, LinkButtonState> {
       .focus().value;
 
     this.props.onChange({ value: newState });
-    window.setTimeout(() => this.props.focus(), 100);
+    // window.setTimeout(() => this.props.focus(), 100);
   }
 
   onHrefChange = e => {

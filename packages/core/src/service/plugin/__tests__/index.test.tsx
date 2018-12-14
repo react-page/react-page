@@ -24,8 +24,7 @@ import * as React from 'react';
 import * as unexpected from 'unexpected';
 
 import PluginService from '../index';
-import { Migration, ContentPlugin } from '../classes';
-import { LayoutPlugin } from './../classes';
+import { Migration, NativePluginProps, LayoutPluginProps, ContentPluginProps } from '../classes';
 
 const FOO = 'foo';
 const OLDEST_VERSION = '0.0.1';
@@ -57,7 +56,7 @@ const content = [
       }),
     ],
   },
-] as ContentPlugin[];
+] as ContentPluginProps[];
 
 const migrationEdgeCaseContent = [
   {
@@ -82,11 +81,11 @@ const migrationEdgeCaseContent = [
       }),
     ],
   },
-] as ContentPlugin[];
+] as ContentPluginProps[];
 
 const layout = [
   { name: 'bar', version: '0.0.2', Component: <div /> },
-] as LayoutPlugin[];
+] as LayoutPluginProps[];
 
 const plugins = new PluginService({ content, layout });
 
@@ -150,8 +149,7 @@ describe('PluginService', () => {
   });
 
   const np = { name: 'baz', version: '0.0.1', Component: <div /> } as
-    | ContentPlugin
-    | LayoutPlugin;
+    | ContentPluginProps;
   it('should add a content plugin', () => {
     plugins.addContentPlugin(np);
     expect(
@@ -168,7 +166,7 @@ describe('PluginService', () => {
   });
 
   it('should set content plugins', () => {
-    plugins.setContentPlugins([np] as ContentPlugin[]);
+    plugins.setContentPlugins([np]);
     expect(
       plugins.findContentPlugin(np.name, np.version).plugin.name,
       'to equal',
@@ -178,7 +176,7 @@ describe('PluginService', () => {
   });
 
   it('should add a layout plugin', () => {
-    plugins.addLayoutPlugin(np as LayoutPlugin);
+    plugins.addLayoutPlugin(np as unknown as LayoutPluginProps);
     expect(
       plugins.findLayoutPlugin(np.name, np.version).plugin.name,
       'to equal',
@@ -193,7 +191,7 @@ describe('PluginService', () => {
   });
 
   it('should set layout plugins', () => {
-    plugins.setLayoutPlugins([np] as LayoutPlugin[]);
+    plugins.setLayoutPlugins([np as unknown as LayoutPluginProps]);
     expect(
       plugins.findLayoutPlugin(np.name, np.version).plugin.name,
       'to equal',
@@ -215,7 +213,7 @@ describe('PluginService', () => {
         name: 'ory/editor/core/content/default-native',
         version: '0.0.1',
         createInitialState: () => ({}),
-      }),
+      } as unknown as NativePluginProps),
     });
     expect(p.hasNativePlugin(), 'to be truthy');
     expect(p.createNativePlugin(), 'to be defined');

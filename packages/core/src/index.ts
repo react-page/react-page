@@ -40,10 +40,12 @@ import { RootState } from './types/state';
 let instance: Editor;
 
 const initialState = () => ({
-  editables: {
-    past: [],
-    present: [],
-    future: [],
+  ory: {
+    editables: {
+      past: [],
+      present: [],
+      future: [],
+    },
   },
 });
 

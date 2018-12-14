@@ -18,7 +18,7 @@
   resolved "https://registry.yarnpkg.com/@types/prop-types/-/prop-types-15.5.8.tgz#8ae4e0ea205fe95c3901a5a1df7f66495e3a56ce"
   integrity sha512-3AQoUxQcQtLHsK25wtTWIoIpgYjH3vSDroZOUr7PpCHw/jLY1RB9z9E8dBT/OSmwStVgkRNvdh+ZHNiomRieaw==
 
-"@types/react@*":
+"@types/react@*", "@types/react@16.7.17":
   version "16.7.17"
   resolved "https://registry.yarnpkg.com/@types/react/-/react-16.7.17.tgz#3242e796a1ffbba4f49eae5915a67f4c079504e9"
   integrity sha512-YcXcaoXaxo7A76mBCGlKlN2aZu3REQfF0DTrhiyXVJLA7PDdxVCr+wiQOrkVNn44D/zLlIyDSn3U918Ve0AaEA==
@@ -26,10 +26,10 @@
     "@types/prop-types" "*"
     csstype "^2.2.0"
 
-"@types/slate-react@^0.20.2":
-  version "0.20.2"
-  resolved "https://registry.yarnpkg.com/@types/slate-react/-/slate-react-0.20.2.tgz#41d6260b69972ff17b9b288be5e052a892f8f560"
-  integrity sha512-+ONDvmrq4UiSzB+chNyCUbJIR8VU/E0ucTK7aceLBE84rdiIB4iiRCs0eT7rAPMO836yTCZGEGdqVRZJLIiUOg==
+"@types/slate-react@^0.12.1":
+  version "0.12.3"
+  resolved "https://registry.yarnpkg.com/@types/slate-react/-/slate-react-0.12.3.tgz#6a5f0b2d85cbe2ad5602428df285601e32066486"
+  integrity sha512-07SrDGKiS+hkTqMU2yKz+R3H+hw97ajciVf8C8IQbm0KCHX9pJi7jdiCAiRF+be8345DUMIIVg/tR/TXqHmYng==
   dependencies:
     "@types/react" "*"
     "@types/slate" "*"

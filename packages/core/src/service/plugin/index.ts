@@ -22,7 +22,7 @@
 
 import { v4 } from 'uuid';
 import semver, { satisfies } from 'semver';
-import { ContentPlugin, LayoutPlugin, Plugin, NativePlugin } from './classes';
+import { ContentPlugin, LayoutPlugin, Plugin, NativePlugin, NativePluginProps, LayoutPluginProps, ContentPluginProps } from './classes';
 import { ComponetizedCell, NativeFactory } from '../../types/editable';
 import defaultPlugin from './default';
 import { layoutMissing, contentMissing } from './missing';
@@ -65,8 +65,8 @@ export default class PluginService {
     layout = [],
     native,
   }: {
-    content?: ContentPlugin[];
-    layout?: LayoutPlugin[];
+    content?: ContentPluginProps[];
+    layout?: LayoutPluginProps[];
     native?: NativeFactory;
   } = {}) {
     this.plugins = {
@@ -95,7 +95,7 @@ export default class PluginService {
     const native = this.plugins.native;
 
     if (!native) {
-      const insert = new NativePlugin({});
+      const insert = new NativePlugin({} as NativePluginProps);
       // tslint:disable-next-line:no-any
       const cell: any = { node: insert, rawNode: () => insert };
       return cell;
@@ -114,12 +114,12 @@ export default class PluginService {
     }
   }
 
-  setLayoutPlugins = (plugins: Array<LayoutPlugin> = []) => {
+  setLayoutPlugins = (plugins: LayoutPluginProps[] = []) => {
     this.plugins.layout = [];
     plugins.forEach(plugin => this.addLayoutPlugin(plugin));
   }
 
-  addLayoutPlugin = (config: LayoutPlugin) => {
+  addLayoutPlugin = (config: LayoutPluginProps) => {
     this.plugins.layout.push(new LayoutPlugin(config));
   }
 
@@ -129,7 +129,7 @@ export default class PluginService {
     );
   }
 
-  setContentPlugins = (plugins: Array<ContentPlugin> = []) => {
+  setContentPlugins = (plugins: ContentPluginProps[] = []) => {
     this.plugins.content = [];
 
     // semicolon is required to avoid syntax error
@@ -162,7 +162,7 @@ export default class PluginService {
       pluginWrongVersion = this.plugins.layout.find(find(name, '*'));
     }
     return {
-      plugin: plugin || new LayoutPlugin(layoutMissing({ name, version })),
+      plugin: plugin || new LayoutPlugin(layoutMissing({ name, version } as LayoutPluginProps)),
       pluginWrongVersion,
     };
   }
@@ -180,7 +180,7 @@ export default class PluginService {
       pluginWrongVersion = this.plugins.content.find(find(name, '*'));
     }
     return {
-      plugin: plugin || new ContentPlugin(contentMissing({ name, version })),
+      plugin: plugin || new ContentPlugin(contentMissing({ name, version } as ContentPluginProps)),
       pluginWrongVersion,
     };
   }

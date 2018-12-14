@@ -42,9 +42,5 @@
   },
   "publishConfig": {
     "access": "public"
-  },
-  "devDependencies": {
-    "@types/slate": "^0.33.4",
-    "@types/slate-react": "^0.20.2"
   }
 }
