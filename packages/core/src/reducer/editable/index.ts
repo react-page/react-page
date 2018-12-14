@@ -23,7 +23,7 @@
 import { CELL_CREATE_FALLBACK } from '../../actions/cell';
 import { cellOrder } from './helper/order';
 import { decorate } from './helper/tree';
-import { cells } from './tree.js';
+import { cells } from './tree';
 import { createCell } from '../../types/editable';
 import { EditorState } from '../../types/editor';
 import { AnyAction } from 'redux';

@@ -29,7 +29,10 @@ import reduce from 'ramda/src/reduce';
 import tail from 'ramda/src/tail';
 import takeWhile from 'ramda/src/takeWhile';
 
-import { SET_DISPLAY_MODE, SetDisplayModeAction } from '../../../actions/display';
+import {
+  SET_DISPLAY_MODE,
+  SetDisplayModeAction
+} from '../../../actions/display';
 import { Row } from '../../../types/editable';
 
 const notSharp = (c: string) => c !== '#';
@@ -111,14 +114,16 @@ export const splitRows = (state: Row[]) =>
         return [row];
       }
 
-      const _state = path(['cells', 0, 'content', 'state'], row);
+      // tslint:disable-next-line:no-shadowed-variable
+      const state = path(['cells', 0, 'content', 'state'], row);
       const split = path(['cells', 0, 'content', 'plugin', 'split'], row);
 
       if (!split) {
         return [row];
       }
 
-      return split(_state).map((_mapState: Object, i: number) => ({
+      // tslint:disable-next-line:no-shadowed-variable
+      return split(state).map((state: Object, i: number) => ({
         ...row,
         id: `${row.id}#${i}`,
         cells: [
@@ -127,7 +132,7 @@ export const splitRows = (state: Row[]) =>
             id: `${row.cells[0].id}#${i}`,
             content: {
               ...row.cells[0].content,
-              _mapState,
+              state,
             },
           },
         ],
@@ -135,7 +140,9 @@ export const splitRows = (state: Row[]) =>
     }, state)
   );
 
-export const mergeDecorator = (action: SetDisplayModeAction) => (state: Row[]) => {
+export const mergeDecorator = (action: SetDisplayModeAction) => (
+  state: Row[]
+) => {
   if (action.type !== SET_DISPLAY_MODE) {
     return state;
   }

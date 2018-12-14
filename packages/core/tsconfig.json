@@ -1,34 +1,9 @@
 {
+  "extends": "../tsconfig.settings.json",
   "compilerOptions": {
-    "rootDirs": [
-      "src",
-    ],
+    "rootDir": "src",
     "outDir": "lib",
     "baseUrl": ".",
-    "moduleResolution": "node",
-    "target": "es5",
-    "module": "esnext",
-    "jsx": "react",
-    "experimentalDecorators": true,
-    "sourceMap": true,
-    "skipLibCheck": true,
-    "skipDefaultLibCheck": true,
-    "noUnusedLocals": true,
-    "declaration": true,
-    "lib": [
-      "es7",
-      "dom"
-    ],
-    "types": [
-      "node"
-    ],
-    "paths": {
-      // Fix "Duplicate identifier" errors caused by multiple dependencies fetching their own copies of type definitions.
-      // We tell TypeScript which type definitions module to treat as the canonical one (instead of combining all of them).
-      //"history": [
-      //  "./node_modules/@types/history/index"
-      //],
-    }
   },
   "include": [
     "src"
@@ -36,6 +11,6 @@
   "exclude": [
     "lib",
     "node_modules",
-    "../../node_modules"
+    "src/**/__tests__/**/*.*"
   ]
 }

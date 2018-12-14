@@ -29,68 +29,93 @@ export type ContentPluginProps<T = any> = {
   /**
    * @member a unique identifier.
    */
-  id: string,
+  id: string;
 
   /**
    * @member if the cell is currently in readOnly mode.
    */
-  readOnly: boolean,
+  readOnly: boolean;
+
+  /**
+   * @member if the cell is currently in edit mode.
+   */
+  isEditMode: boolean;
+
+  /**
+   * @member if the cell is currently in resize mode.
+   */
+  isResizeMode: boolean;
+
+  /**
+   * @member if the cell is currently in insert mode.
+   */
+  isInsertMode: boolean;
+
+  /**
+   * @member if the cell is currently in preview mode.
+   */
+  isPreviewMode: boolean;
+
+  /**
+   * @member if the cell is currently in layout mode.
+   */
+  isLayoutMode: boolean;
 
   /**
    * @member the plugin's name
    */
-  name: string,
+  name: string;
 
   /**
    * @member the plugin's version
    */
-  version: string,
+  version: string;
 
   /**
    * @member if true, the cell is currently focused.
    */
-  focused: boolean,
+  focused: boolean;
 
   /**
    * @member the plugin's state.
    */
-  state: T,
+  state: T;
 
   /**
    * Should be called with the new state if the plugin's state changes.
    *
    * @param state
    */
-  onChange(state: Object): void
+  onChange(state: Object): void;
 };
 
 export type LayoutPluginProps<T> = {
   /**
    * @member a unique identifier.
    */
-  id: string,
+  id: string;
 
   /**
    * @member if the cell is currently in readOnly mode.
    */
-  readOnly: boolean,
+  readOnly: boolean;
 
   /**
    * @member if true, the cell is currently focused.
    */
-  focused: boolean,
+  focused: boolean;
 
   /**
    * @member the plugin's state.
    */
-  state: T,
+  state: T;
 
   /**
    * Should be called with the new state if the plugin's state changes.
    *
    * @param state
    */
-  onChange(state: Object): void
+  onChange(state: Object): void;
 };
 
 export interface MigrationConfig {
@@ -134,7 +159,6 @@ export class Migration {
  * @class the abstract class for content and layout plugins. It will be instantiated once and used for every cell that is equipped with it.
  */
 export class Plugin {
-
   // tslint:disable-next-line:no-any
   config: any;
 
@@ -295,7 +319,11 @@ export class Plugin {
    *
    * @param props
    */
-  handleFocus = (props: ContentPluginProps, focusSource: string, ref: HTMLElement): void => null;
+  handleFocus = (
+    props: ContentPluginProps,
+    focusSource: string,
+    ref: HTMLElement
+  ): void => null
 
   /**
    * This function will be called when one of the plugin's cell is focused.
@@ -318,7 +346,6 @@ export class Plugin {
  * @class this is the base class for content plugins.
  */
 export class ContentPlugin extends Plugin {
-
   /**
    * @member if isInlineable is true, the plugin is allowed to be placed with floating to left or right.
    */
@@ -394,7 +421,6 @@ export class LayoutPlugin extends Plugin {
 }
 
 export class NativePlugin extends Plugin {
-
   /**
    * @member can be 'content' or 'layout' depending on the type the native plugin should create
    */

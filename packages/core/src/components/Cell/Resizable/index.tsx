@@ -27,7 +27,7 @@ import classNames from 'classnames';
 import { createStructuredSelector } from 'reselect';
 
 import { resizeMode, editMode } from '../../../actions/display';
-import { computeStepWidth, widthToSize } from './helper.js';
+import { computeStepWidth, widthToSize } from './helper';
 import { ComponetizedCell } from '../../../types/editable';
 
 type ResizableProps = ComponetizedCell;

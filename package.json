@@ -10,8 +10,11 @@
     "@babel/preset-env": "7.2.0",
     "@babel/preset-flow": "7.0.0",
     "@babel/preset-react": "7.0.0",
+    "@babel/preset-typescript": "^7.1.0",
     "@material-ui/core": "^3.6.1",
     "@material-ui/icons": "^3.0.1",
+    "@types/jest": "^23.3.10",
+    "@types/react": "16.7.17",
     "babel-core": "7.0.0-bridge.0",
     "babel-eslint": "9.0.0",
     "babel-jest": "^23.6.0",
@@ -32,8 +35,8 @@
     "gitbook-cli": "^2.3.0",
     "husky": "^0.14.3",
     "jest": "23.6.0",
-    "lerna": "^3.1.1",
-    "npm-run-all": "^4.1.1",
+    "lerna": "3.6.0",
+    "npm-run-all": "4.1.5",
     "postcss-cli": "^6.0.0",
     "postcss-import": "^12.0.0",
     "postcss-nested": "^3.0.0",
@@ -44,6 +47,7 @@
     "react-dom": "^16.6.3",
     "react-jss": "8.6.1",
     "rimraf": "2.6.2",
+    "ts-jest": "^23.10.5",
     "tslint": "^5.11.0",
     "tslint-react": "^3.6.0",
     "typescript": "^3.2.2",
@@ -54,7 +58,7 @@
     "coveralls": "cat ./coverage/lcov.info | coveralls",
     "bootstrap": "lerna bootstrap",
     "build": "cross-env NODE_ENV=production lerna run build --stream",
-    "build:lib": "cross-env NODE_ENV=production lerna run build --ignore ory-editor-examples --parallel --stream",
+    "build:lib": "cross-env NODE_ENV=production lerna run build --ignore ory-editor-examples --stream",
     "build:watch": "cross-env NODE_ENV=development lerna run build:watch --parallel --stream",
     "clean": "lerna run clean",
     "clean:lerna": "lerna clean --yes",
@@ -63,7 +67,7 @@
     "flow": "flow check --show-all-errors",
     "flow:generate": "lerna run flow:generate",
     "flow:watch": "npm run watch:js -- -c \"npm run flow\"",
-    "lint": "eslint \"+(packages)/**/*.js\"",
+    "lint": "tslint \"+(packages)/**/*.(ts|tsx)\"",
     "lint:watch": "npm run watch:js -- -c \"npm run lint\"",
     "prettier": "prettier --single-quote --parser flow --no-semi --write \"packages/*/src/**/*.js\" \"packages/plugins/*/*/src/**/*.js\" \"packages/plugins/*/*/src/*.js\"",
     "publish": "lerna publish",
@@ -80,9 +84,23 @@
   },
   "jest": {
     "setupTestFrameworkScriptFile": "./config/jestTestSetup",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx"
+    ],
     "transform": {
-      "^.+\\.(js|jsx|ts)$": "babel-jest"
+      "^.+\\.(ts|tsx)$": "ts-jest"
     },
+    "globals": {
+      "ts-jest": {
+        "tsConfig": "tsconfig.json"
+      }
+    },
+    "testMatch": [
+      "**/__tests__/*.+(ts|tsx)"
+    ],
     "testPathIgnorePatterns": [
       "/node_modules/",
       "/lib/"

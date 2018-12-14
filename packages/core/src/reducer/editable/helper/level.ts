@@ -46,7 +46,7 @@ const computeRowLevels = (a: Row, b?: Levels): Row => {
 const computeCellLevels = (a: Cell, b?: Levels): Cell => {
   const { rows = [], ...props } = a;
   const { left = 0, right = 0, above = 0, below = 0 } = b || {};
-  let newRows: Row[] = [];
+  let newRows: Row[];
   if (rows.length) {
     newRows = rows.map((r: Row, k: number) =>
       computeRowLevels(r, {

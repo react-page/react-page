@@ -657,7 +657,7 @@ export const defaultCallbacks: CallbackList = {
   },
 };
 
-export type HoverServiceProps = { matrices: MatrixList, callbacks: CallbackList };
+export type HoverServiceProps = { matrices?: MatrixList, callbacks?: CallbackList };
 
 /**
  * The HoverService uses callbacks and matrices to compute hover logic.

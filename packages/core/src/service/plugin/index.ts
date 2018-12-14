@@ -20,8 +20,7 @@
  *
  */
 
-// @flow
-import * as uuid from 'uuid';
+import { v4 } from 'uuid';
 import semver, { satisfies } from 'semver';
 import { ContentPlugin, LayoutPlugin, Plugin, NativePlugin } from './classes';
 import { ComponetizedCell, NativeFactory } from '../../types/editable';
@@ -45,7 +44,7 @@ export const generateMissingIds = (props: EditorState): Object => {
     props.cells = cells.map(generateMissingIds);
   }
 
-  return { ...props, id: id || uuid.v4() };
+  return { ...props, id: id || v4() };
 };
 
 /**
@@ -53,9 +52,9 @@ export const generateMissingIds = (props: EditorState): Object => {
  */
 export default class PluginService {
   plugins: {
-    content: Array<ContentPlugin>,
-    layout: Array<LayoutPlugin>,
-    native?: NativeFactory
+    content: Array<ContentPlugin>;
+    layout: Array<LayoutPlugin>;
+    native?: NativeFactory;
   };
 
   /**
@@ -65,7 +64,11 @@ export default class PluginService {
     content = [],
     layout = [],
     native,
-  }: { content?: [], layout?: [], native?: NativeFactory } = {}) {
+  }: {
+    content?: ContentPlugin[];
+    layout?: LayoutPlugin[];
+    native?: NativeFactory;
+  } = {}) {
     this.plugins = {
       content: [defaultPlugin, ...content].map(
         // tslint:disable-next-line:no-any
@@ -83,11 +86,11 @@ export default class PluginService {
 
   createNativePlugin = (
     // tslint:disable-next-line:no-any
-    hover: any,
+    hover?: any,
     // tslint:disable-next-line:no-any
-    monitor: any,
+    monitor?: any,
     // tslint:disable-next-line:no-any
-    component: any
+    component?: any
   ): ComponetizedCell => {
     const native = this.plugins.native;
 
@@ -113,7 +116,7 @@ export default class PluginService {
 
   setLayoutPlugins = (plugins: Array<LayoutPlugin> = []) => {
     this.plugins.layout = [];
-    plugins.forEach((plugin) => this.addLayoutPlugin(plugin));
+    plugins.forEach(plugin => this.addLayoutPlugin(plugin));
   }
 
   addLayoutPlugin = (config: LayoutPlugin) => {
@@ -127,10 +130,10 @@ export default class PluginService {
   }
 
   setContentPlugins = (plugins: Array<ContentPlugin> = []) => {
-    this.plugins.content = []
+    this.plugins.content = [];
 
     // semicolon is required to avoid syntax error
-    ; [defaultPlugin, ...plugins].forEach((plugin) =>
+    [defaultPlugin, ...plugins].forEach(plugin =>
       this.addContentPlugin(plugin)
     );
   }
@@ -152,7 +155,7 @@ export default class PluginService {
   findLayoutPlugin = (
     name: string,
     version: string
-  ): { plugin: LayoutPlugin, pluginWrongVersion?: LayoutPlugin } => {
+  ): { plugin: LayoutPlugin; pluginWrongVersion?: LayoutPlugin } => {
     const plugin = this.plugins.layout.find(find(name, version));
     let pluginWrongVersion = undefined;
     if (!plugin) {
@@ -170,7 +173,7 @@ export default class PluginService {
   findContentPlugin = (
     name: string,
     version: string
-  ): { plugin: ContentPlugin, pluginWrongVersion?: ContentPlugin } => {
+  ): { plugin: ContentPlugin; pluginWrongVersion?: ContentPlugin } => {
     const plugin = this.plugins.content.find(find(name, version));
     let pluginWrongVersion = undefined;
     if (!plugin) {
@@ -195,7 +198,8 @@ export default class PluginService {
     state: any,
     plugin: Plugin,
     dataVersion: string
-  ): Object => {
+    // tslint:disable-next-line:no-any
+  ): any => {
     if (!plugin || !dataVersion || semver.valid(dataVersion) === null) {
       return state;
     }

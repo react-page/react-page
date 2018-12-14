@@ -42,15 +42,15 @@ const gen = (c: number = 1) => {
 
 export interface InsertAction extends Action {
   ts: Date;
-  item: Cell;
+  item: Partial<Cell>;
   hover: string;
   level: number;
   ids: string[];
 }
 
 const insert = (type: string) => (
-  item: Cell,
-  { id: hover, inline, hasInlineNeighbour }: Cell,
+  item: Partial<Cell>,
+  { id: hover, inline, hasInlineNeighbour }: Partial<Cell>,
   level: number = 0,
   ids: Array<string> = []
 ): InsertAction => {

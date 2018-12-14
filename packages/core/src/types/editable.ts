@@ -31,19 +31,23 @@ export type Config = {
   plugins: PluginService;
 };
 
+export interface Content {
+  plugin: ContentPlugin;
+  state: Object;
+}
+
+export interface Layout {
+  plugin: LayoutPlugin;
+  state: Object;
+}
+
 export type AbstractCell<T> = {
   id: string;
 
   rows: Array<T>;
 
-  content?: {
-    plugin: ContentPlugin;
-    state: Object;
-  };
-  layout?: {
-    plugin: LayoutPlugin;
-    state: Object;
-  };
+  content?: Content;
+  layout?: Layout;
 
   size: number;
   hover?: string;
@@ -132,7 +136,12 @@ export type ComponetizedCell = {
   onChange(state: Object): void;
 };
 
-export type Levels = { left: number, right: number, above: number, below: number };
+export type Levels = {
+  left: number;
+  right: number;
+  above: number;
+  below: number;
+};
 
 export type Row = {
   id: string;
@@ -140,6 +149,7 @@ export type Row = {
   cells: Array<Cell>;
   hasInlineChildren: boolean;
   levels?: Levels;
+  className?: string;
 };
 
 export type RowComponetized = {
@@ -215,9 +225,9 @@ export type Editables = {
 // tslint:disable-next-line:no-any
 export type NativeFactory = (
   // tslint:disable-next-line:no-any
-  hover: any,
+  hover?: any,
   // tslint:disable-next-line:no-any
-  monitor: any,
+  monitor?: any,
   // tslint:disable-next-line:no-any
-  component: any
-) => Object;
+  component?: any
+) => { name: string };

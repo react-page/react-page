@@ -26,7 +26,7 @@ import Row from '../../../components/Row';
 
 import { ComponetizedCell } from '../../../types/editable';
 
-class Rows extends React.PureComponent<ComponetizedCell> {
+class Rows extends React.PureComponent<Partial<ComponetizedCell>> {
   render() {
     const {
       node: { rows = [] },

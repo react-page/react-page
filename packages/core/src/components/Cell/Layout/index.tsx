@@ -73,6 +73,11 @@ class Layout extends React.PureComponent<ComponetizedCell> {
       onChange: updateCellContent,
       name,
       version,
+      isEditMode: nextProps.isEditMode,
+      isResizeMode: nextProps.isResizeMode,
+      isPreviewMode: nextProps.isPreviewMode,
+      isInsertMode: nextProps.isInsertMode,
+      isLayoutMode: nextProps.isLayoutMode,
     };
 
     // Basically we check if the focus state changed and if yes, we execute the callback handler from the plugin, that

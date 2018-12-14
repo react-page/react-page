@@ -55,8 +55,8 @@ export interface CellHoverAction extends Action {
  * @return {Action}
  */
 export const cellHover = (
-  { id: drag }: Cell,
-  { id: hover }: Cell,
+  { id: drag }: Partial<Cell>,
+  { id: hover }: Partial<Cell>,
   level: number = 0,
   position: PositionEnum
 ): CellHoverAction => ({
@@ -80,7 +80,7 @@ export const cellHover = (
  * @param {number} level Set the level if the dragged cells should hover over an ancestor of hover.
  * @return {Action}
  */
-export const cellHoverLeftOf = (drag: Cell, hover: Cell, level: number) =>
+export const cellHoverLeftOf = (drag: Partial<Cell>, hover: Partial<Cell>, level: number) =>
   cellHover(drag, hover, level, PositionEnum.LEFT_OF);
 
 /**
@@ -95,7 +95,7 @@ export const cellHoverLeftOf = (drag: Cell, hover: Cell, level: number) =>
  * @param {number} level Set the level if the dragged cells should hover over an ancestor of hover.
  * @return {Action}
  */
-export const cellHoverRightOf = (drag: Cell, hover: Cell, level: number) =>
+export const cellHoverRightOf = (drag: Partial<Cell>, hover: Partial<Cell>, level: number) =>
   cellHover(drag, hover, level, PositionEnum.RIGHT_OF);
 
 /**

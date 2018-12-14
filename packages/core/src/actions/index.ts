@@ -114,12 +114,7 @@ export const actions = dispatch => ({
   redo: bindActionCreators({redo}, dispatch).redo,
 });
 
-export type Unpacked<T> =
-    T extends (infer U)[] ? U :
-    // tslint:disable-next-line
-    T extends (...args: any[]) => infer U ? U :
-    // tslint:disable-next-line:no-shadowed-variable
-    T extends Promise<infer U> ? U :
-    T;
+// tslint:disable-next-line:no-any
+type ReturnType<T> = T extends (...args: any[]) => infer R ? R : any;
 
-export type ActionsTypes = Unpacked<typeof actions>;
+export type ActionsTypes = ReturnType<typeof actions>;
