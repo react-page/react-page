@@ -82,11 +82,11 @@ This handler is called when any key is pressed
 
 #### Parameters
 
--   `e`  the keydown event
--   `data`  utilities for hotkey logic
--   `state`  the current editor state
+-   `e` **[Event][24]** the keydown event
+-   `data` **{key: [string][15], isMod: [boolean][25], isShift: [boolean][25]}** utilities for hotkey logic
+-   `state` **any** the current editor state
 
-Returns **any** the new editor state if the plugin handles the hotkey
+Returns **any?** the new editor state if the plugin handles the hotkey
 
 ## Plugin
 
