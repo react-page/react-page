@@ -28,8 +28,8 @@ import { darkTheme } from 'ory-editor-ui/lib/ThemeProvider';
 
 // tslint:disable-next-line:no-any
 const changeUrl = (onChange: (state: any) => void) => (
-  event: React.ChangeEvent
-) => onChange({ url: event.target.nodeValue });
+  event: React.ChangeEvent<HTMLInputElement>
+) => event.target && onChange({ url: event.target.value });
 
 export interface HTML5VideoProps extends ContentPluginProps {}
 
@@ -47,6 +47,7 @@ const HTML5Video: React.SFC<HTML5VideoProps> = ({
           label="Video url"
           onChange={changeUrl(onChange)}
           value={url}
+          style={{ width: '512px' }}
         />
       </BottomToolbar>
     ) : null}
@@ -56,6 +57,7 @@ const HTML5Video: React.SFC<HTML5VideoProps> = ({
       loop={true}
       muted={true}
       width="100%"
+      key={url}
     >
       <source src={url} type={`video/${url.split('.').pop()}`} />
     </video>
