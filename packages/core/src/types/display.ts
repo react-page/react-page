@@ -21,13 +21,13 @@
  */
 
 export type Display = {
-  previous: string,
-  mode: string
+  previous: string;
+  mode: string;
 };
 
 export type DisplayAction = {
-  type: string,
-  mode: string,
-  fallback: string,
-  remember: boolean
+  type: string;
+  mode: string;
+  fallback: string;
+  remember: boolean;
 };

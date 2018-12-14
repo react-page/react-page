@@ -5,12 +5,12 @@
  * it under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- *  
+ *
  * ORY Editor is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Lesser General Public License for more details.
- *  
+ *
  * You should have received a copy of the GNU Lesser General Public License
  * along with ORY Editor.  If not, see <http://www.gnu.org/licenses/>.
  *
@@ -37,23 +37,22 @@ const icon =
   'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAhCAYAAACbffiEAAAA6UlEQVRYhe2ZQQ6CMBBFX0njHg7ESXTp1p3uvIBewc3Em3AfdelSFwRDCAm01JRO+pa0lP8zzc9kMCKyAa7AFqhIixdwB44WuACHuHq8KWm1vwtgF1lMCPaWkevUNE3Qr9R17XTu1P5uvUdV+IpbG2qMGBH5xBYRAjUVUWPEjj10SS3XRFry3kha/VBTETVGcmqtDTVGFqdWn7k9ku96f88QNRVRYySn1tpQY8QptXz7qinmnpt7rZTIqbU21BgJ2mv1+XfCDVFTETVGjIg8SG8KP+RZ0I7lU+dmgRNgaKfyZVw9znT/R85fOHJJE77U6UcAAAAASUVORK5CYII=';
 
 type Props = ComponetizedCell & {
-  isLeaf: boolean,
-  isOver: boolean,
-  isOverCurrent: boolean,
-  isDragging: boolean,
-  isInsertMode: boolean,
-  isLayoutMode: boolean,
-  node: { hover: string, inline: string },
-  children: React.ReactChildren,
-  className: string,
-  name: string,
-  dragType: string
-  connectDragSource<T>(e: T): T,
-  connectDragPreview(image: HTMLImageElement): void,
+  isLeaf: boolean;
+  isOver: boolean;
+  isOverCurrent: boolean;
+  isDragging: boolean;
+  isInsertMode: boolean;
+  isLayoutMode: boolean;
+  node: { hover: string; inline: string };
+  children: React.ReactChildren;
+  className: string;
+  name: string;
+  dragType: string;
+  connectDragSource<T>(e: T): T;
+  connectDragPreview(image: HTMLImageElement): void;
 };
 
 class Draggable extends React.PureComponent<Props> {
-
   props: Props;
   componentDidMount() {
     const img = new Image();

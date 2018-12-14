@@ -42,12 +42,13 @@ export interface BackgroundState {
   darken?: number | string;
 }
 
-class PluginComponent extends React.Component<LayoutPluginProps<BackgroundState>> {
-
-  handleChangeBackground: React.ChangeEventHandler<HTMLInputElement> = (e) =>
+class PluginComponent extends React.Component<
+  LayoutPluginProps<BackgroundState>
+> {
+  handleChangeBackground: React.ChangeEventHandler<HTMLInputElement> = e =>
     this.props.onChange({ background: e.target.value })
 
-  handleChangeDarken: React.ChangeEventHandler<HTMLInputElement> = (e) =>
+  handleChangeDarken: React.ChangeEventHandler<HTMLInputElement> = e =>
     this.props.onChange({ darken: e.target.value })
 
   render() {

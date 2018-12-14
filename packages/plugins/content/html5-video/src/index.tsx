@@ -27,7 +27,10 @@ import Component from './Component';
 
 export type Props = ContentPluginProps;
 
-const rejectPromise: (e: Event, props: Props) => void = (e: Event, props: Props) => Promise.reject();
+const rejectPromise: (e: Event, props: Props) => void = (
+  e: Event,
+  props: Props
+) => Promise.reject();
 
 export default {
   Component,

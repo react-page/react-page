@@ -47,7 +47,6 @@ export interface DraggableProps {
 }
 
 class Draggable extends React.Component<DraggableProps> {
-
   shouldComponentUpdate = shouldPureComponentUpdate;
 
   componentDidMount() {

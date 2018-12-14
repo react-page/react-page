@@ -164,7 +164,7 @@ describe('HoverService', () => {
           room: c.in.room,
           mouse: c.in.mouse,
           ancestors: c.in.ancestors,
-        // tslint:disable-next-line:no-any
+          // tslint:disable-next-line:no-any
         } as any
       );
     });

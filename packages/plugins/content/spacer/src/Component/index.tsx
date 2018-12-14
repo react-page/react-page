@@ -40,8 +40,8 @@ const fire = ({
   state,
   onChange,
 }: {
-  state: Object,
-  onChange(state: Object): void
+  state: Object;
+  onChange(state: Object): void;
 }) => onChange(state);
 
 const Solid = ({ height }: { height: number }) => <div style={{ height }} />;
@@ -59,7 +59,7 @@ class Spacer extends React.Component<ContentPluginProps> {
 
   onResize = (
     event: Event,
-    { size }: { size: { height: number, width: number } }
+    { size }: { size: { height: number; width: number } }
   ) => {
     const { onChange } = this.props;
     const state = compute(size);

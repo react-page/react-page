@@ -94,8 +94,12 @@ class Slate extends React.Component<SlateProps> {
   }
 
   onPaste = (e, data, state) => {
-    if (data.type !== 'html') { return; }
-    if (data.isShift) { return; }
+    if (data.type !== 'html') {
+      return;
+    }
+    if (data.isShift) {
+      return;
+    }
 
     const { document } = serializer.deserialize(data.html);
 
@@ -112,7 +116,7 @@ class Slate extends React.Component<SlateProps> {
       HoverButtons,
       ToolbarButtons,
       focus,
-    // tslint:disable-next-line:no-any
+      // tslint:disable-next-line:no-any
     } = this.props as any;
     const isOpened = editorState.selection.isExpanded && editorState.isFocused;
 

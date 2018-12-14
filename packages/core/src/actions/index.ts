@@ -79,39 +79,49 @@ export const actions = dispatch => ({
     blurAll: bindActionCreators({ blurAllCells }, dispatch).blurAllCells,
 
     drag: bindActionCreators({ dragCell }, dispatch).dragCell,
-    cancelDrag: bindActionCreators({cancelCellDrag}, dispatch).cancelCellDrag,
+    cancelDrag: bindActionCreators({ cancelCellDrag }, dispatch).cancelCellDrag,
 
-    hoverLeftOf: bindActionCreators({cellHoverLeftOf}, dispatch).cellHoverLeftOf,
-    hoverRightOf: bindActionCreators({cellHoverRightOf}, dispatch).cellHoverRightOf,
-    hoverAbove: bindActionCreators({cellHoverAbove}, dispatch).cellHoverAbove,
-    hoverBelow: bindActionCreators({cellHoverBelow}, dispatch).cellHoverBelow,
-    hoverFloatingLeft: bindActionCreators({cellHoverInlineLeft}, dispatch).cellHoverInlineLeft,
-    hoverFloatingRight: bindActionCreators({cellHoverInlineRight}, dispatch).cellHoverInlineRight,
-    clearHover: bindActionCreators({clearHover}, dispatch).clearHover,
+    hoverLeftOf: bindActionCreators({ cellHoverLeftOf }, dispatch)
+      .cellHoverLeftOf,
+    hoverRightOf: bindActionCreators({ cellHoverRightOf }, dispatch)
+      .cellHoverRightOf,
+    hoverAbove: bindActionCreators({ cellHoverAbove }, dispatch).cellHoverAbove,
+    hoverBelow: bindActionCreators({ cellHoverBelow }, dispatch).cellHoverBelow,
+    hoverFloatingLeft: bindActionCreators({ cellHoverInlineLeft }, dispatch)
+      .cellHoverInlineLeft,
+    hoverFloatingRight: bindActionCreators({ cellHoverInlineRight }, dispatch)
+      .cellHoverInlineRight,
+    clearHover: bindActionCreators({ clearHover }, dispatch).clearHover,
 
-    insertBelow: bindActionCreators({insertCellBelow}, dispatch).insertCellBelow,
-    insertAbove: bindActionCreators({insertCellAbove}, dispatch).insertCellAbove,
-    insertRightOf: bindActionCreators({insertCellRightOf}, dispatch).insertCellRightOf,
-    insertLeftOf: bindActionCreators({insertCellLeftOf}, dispatch).insertCellLeftOf,
-    insertFloatingLeft: bindActionCreators({insertCellLeftInline}, dispatch).insertCellLeftInline,
-    insertFloatingRight: bindActionCreators({insertCellRightInline}, dispatch).insertCellRightInline,
+    insertBelow: bindActionCreators({ insertCellBelow }, dispatch)
+      .insertCellBelow,
+    insertAbove: bindActionCreators({ insertCellAbove }, dispatch)
+      .insertCellAbove,
+    insertRightOf: bindActionCreators({ insertCellRightOf }, dispatch)
+      .insertCellRightOf,
+    insertLeftOf: bindActionCreators({ insertCellLeftOf }, dispatch)
+      .insertCellLeftOf,
+    insertFloatingLeft: bindActionCreators({ insertCellLeftInline }, dispatch)
+      .insertCellLeftInline,
+    insertFloatingRight: bindActionCreators({ insertCellRightInline }, dispatch)
+      .insertCellRightInline,
   },
 
   editable: {
-    add: bindActionCreators({updateEditable}, dispatch).updateEditable,
-    update: bindActionCreators({updateEditable}, dispatch).updateEditable,
+    add: bindActionCreators({ updateEditable }, dispatch).updateEditable,
+    update: bindActionCreators({ updateEditable }, dispatch).updateEditable,
   },
 
   mode: {
-    insert: bindActionCreators({insertMode}, dispatch).insertMode,
-    edit: bindActionCreators({editMode}, dispatch).editMode,
-    preview: bindActionCreators({previewMode}, dispatch).previewMode,
-    layout: bindActionCreators({layoutMode}, dispatch).layoutMode,
-    resize: bindActionCreators({resizeMode}, dispatch).resizeMode,
+    insert: bindActionCreators({ insertMode }, dispatch).insertMode,
+    edit: bindActionCreators({ editMode }, dispatch).editMode,
+    preview: bindActionCreators({ previewMode }, dispatch).previewMode,
+    layout: bindActionCreators({ layoutMode }, dispatch).layoutMode,
+    resize: bindActionCreators({ resizeMode }, dispatch).resizeMode,
   },
 
-  undo: bindActionCreators({undo}, dispatch).undo,
-  redo: bindActionCreators({redo}, dispatch).redo,
+  undo: bindActionCreators({ undo }, dispatch).undo,
+  redo: bindActionCreators({ redo }, dispatch).redo,
 });
 
 // tslint:disable-next-line:no-any

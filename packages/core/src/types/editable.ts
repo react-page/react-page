@@ -23,7 +23,12 @@
 // @flow
 /* eslint no-use-before-define: off */
 import * as React from 'react';
-import { ContentPlugin, LayoutPlugin, ContentPluginProps, NativePluginProps } from '../service/plugin/classes';
+import {
+  ContentPlugin,
+  LayoutPlugin,
+  ContentPluginProps,
+  NativePluginProps
+} from '../service/plugin/classes';
 import { PluginService } from '../index';
 
 export type Config = {

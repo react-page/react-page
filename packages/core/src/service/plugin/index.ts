@@ -22,7 +22,15 @@
 
 import { v4 } from 'uuid';
 import semver, { satisfies } from 'semver';
-import { ContentPlugin, LayoutPlugin, Plugin, NativePlugin, NativePluginProps, LayoutPluginProps, ContentPluginProps } from './classes';
+import {
+  ContentPlugin,
+  LayoutPlugin,
+  Plugin,
+  NativePlugin,
+  NativePluginProps,
+  LayoutPluginProps,
+  ContentPluginProps
+} from './classes';
 import { ComponetizedCell, NativeFactory } from '../../types/editable';
 import defaultPlugin from './default';
 import { layoutMissing, contentMissing } from './missing';
@@ -162,7 +170,9 @@ export default class PluginService {
       pluginWrongVersion = this.plugins.layout.find(find(name, '*'));
     }
     return {
-      plugin: plugin || new LayoutPlugin(layoutMissing({ name, version } as LayoutPluginProps)),
+      plugin:
+        plugin ||
+        new LayoutPlugin(layoutMissing({ name, version } as LayoutPluginProps)),
       pluginWrongVersion,
     };
   }
@@ -180,7 +190,11 @@ export default class PluginService {
       pluginWrongVersion = this.plugins.content.find(find(name, '*'));
     }
     return {
-      plugin: plugin || new ContentPlugin(contentMissing({ name, version } as ContentPluginProps)),
+      plugin:
+        plugin ||
+        new ContentPlugin(
+          contentMissing({ name, version } as ContentPluginProps)
+        ),
       pluginWrongVersion,
     };
   }

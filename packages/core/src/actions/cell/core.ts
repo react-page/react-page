@@ -102,7 +102,10 @@ export interface RemoveCellAction extends Action {
  * @param {string} ids An array of IDs for new cells that might be created.
  * @return {Action}
  */
-export const removeCell = (id: string, ids: string[] = []): RemoveCellAction => ({
+export const removeCell = (
+  id: string,
+  ids: string[] = []
+): RemoveCellAction => ({
   type: CELL_REMOVE,
   ts: new Date(),
   id,
@@ -126,7 +129,9 @@ export interface ResizeCellAction extends Action {
  * @param {number} size The cell's new size.
  * @return {Function}
  */
-export const resizeCell = (id: string) => (size: number = 1): ResizeCellAction => ({
+export const resizeCell = (id: string) => (
+  size: number = 1
+): ResizeCellAction => ({
   type: CELL_RESIZE,
   ts: new Date(),
   id,
@@ -170,7 +175,9 @@ export interface FocusPreviousCellAction extends Action {
 /**
  * Dispatch to focus a cell.
  */
-export const focusPreviousCell = (id: string) => (): FocusPreviousCellAction => ({
+export const focusPreviousCell = (
+  id: string
+) => (): FocusPreviousCellAction => ({
   type: CELL_FOCUS_PREV,
   ts: new Date(),
   id,
@@ -211,7 +218,10 @@ export interface CreateFallbackCellAction extends Action {
  * Creates a fallback cell, usually done when an editable is empty.
  */
 // tslint:disable-next-line:no-any
-export const createFallbackCell = (fallback: any, editable: string): CreateFallbackCellAction => ({
+export const createFallbackCell = (
+  fallback: any,
+  editable: string
+): CreateFallbackCellAction => ({
   type: CELL_CREATE_FALLBACK,
   ts: new Date(),
   editable,

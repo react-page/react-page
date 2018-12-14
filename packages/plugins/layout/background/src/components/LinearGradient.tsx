@@ -89,16 +89,15 @@ class LinearGradientComponent extends React.Component<
     this.props.onChange({
       gradients: []
         .concat(this.props.state.gradients ? this.props.state.gradients : [])
-        .map(
-          (g, i) =>
-            i === index
-              ? {
-                  ...g,
-                  colors: (g.colors ? g.colors : []).map(
-                    (c, cpI) => (cpI === cpIndex ? { ...c, color: e } : c)
-                  ),
-                }
-              : g
+        .map((g, i) =>
+          i === index
+            ? {
+                ...g,
+                colors: (g.colors ? g.colors : []).map((c, cpI) =>
+                  cpI === cpIndex ? { ...c, color: e } : c
+                ),
+              }
+            : g
         ),
     });
   }
@@ -116,19 +115,18 @@ class LinearGradientComponent extends React.Component<
       gradients: (this.props.state.gradients
         ? this.props.state.gradients
         : []
-      ).map(
-        (g, i) =>
-          i === index
-            ? {
-                ...g,
-                colors: (g.colors ? g.colors : []).concat({
-                  color:
-                    (g.colors ? g.colors : []).length % 2 === index % 2
-                      ? this.props.defaultGradientColor
-                      : this.props.defaultGradientSecondaryColor,
-                }),
-              }
-            : g
+      ).map((g, i) =>
+        i === index
+          ? {
+              ...g,
+              colors: (g.colors ? g.colors : []).concat({
+                color:
+                  (g.colors ? g.colors : []).length % 2 === index % 2
+                    ? this.props.defaultGradientColor
+                    : this.props.defaultGradientSecondaryColor,
+              }),
+            }
+          : g
       ),
     });
   }
@@ -137,16 +135,15 @@ class LinearGradientComponent extends React.Component<
     this.props.onChange({
       gradients: []
         .concat(this.props.state.gradients ? this.props.state.gradients : [])
-        .map(
-          (g, i) =>
-            i === index
-              ? {
-                  ...g,
-                  colors: (g.colors ? g.colors : []).filter(
-                    (c, cpI) => cpI !== cpIndex
-                  ),
-                }
-              : g
+        .map((g, i) =>
+          i === index
+            ? {
+                ...g,
+                colors: (g.colors ? g.colors : []).filter(
+                  (c, cpI) => cpI !== cpIndex
+                ),
+              }
+            : g
         ),
     });
   }

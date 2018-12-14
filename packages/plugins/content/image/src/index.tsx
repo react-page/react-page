@@ -27,7 +27,9 @@ import { ImagePluginSettings, ImageState } from './types/state';
 
 const imagePlugin = (settings?: ImagePluginSettings) => {
   return {
-    Component: (props: ContentPluginProps<ImageState>) => <Component {...props} {...settings} />,
+    Component: (props: ContentPluginProps<ImageState>) => (
+      <Component {...props} {...settings} />
+    ),
     name: 'ory/editor/core/content/image',
     version: '0.0.1',
     IconComponent: <Panorama />,

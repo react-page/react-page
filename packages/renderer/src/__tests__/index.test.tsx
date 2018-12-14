@@ -33,13 +33,13 @@ const Layout = ({ children, state: { className } }) => (
 );
 
 const plugins: Plugins = {
-  content: [slate() as unknown as ContentPluginProps],
+  content: [(slate() as unknown) as ContentPluginProps],
   layout: [
-    {
+    ({
       name: 'layout',
       version: '0.0.1',
       Component: Layout,
-    } as unknown as LayoutPluginProps,
+    } as unknown) as LayoutPluginProps,
   ],
 };
 

@@ -37,7 +37,7 @@ describe('actions', () => {
     'cellHoverInlineLeft',
   ];
 
-  all.map((actions) =>
+  all.map(actions =>
     Object.keys(actions).forEach((key: string) => {
       if (typeof actions[key] === 'function') {
         creators.push(actions[key]);
@@ -45,7 +45,7 @@ describe('actions', () => {
     })
   );
 
-  all.map((actions) =>
+  all.map(actions =>
     Object.keys(actions).forEach((key: string) => {
       if (typeof actions[key] === 'function') {
         // FIXME Ugly hack to circumvent object destructor on undefined which breaks tests completely.

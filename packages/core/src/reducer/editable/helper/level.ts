@@ -40,7 +40,11 @@ const computeRowLevels = (a: Row, b?: Levels): Row => {
   }
 
   delete props.levels;
-  return { levels: { left, right, above, below }, ...props, ...{ cells: newCells} };
+  return {
+    levels: { left, right, above, below },
+    ...props,
+    ...{ cells: newCells },
+  };
 };
 
 const computeCellLevels = (a: Cell, b?: Levels): Cell => {
@@ -59,7 +63,11 @@ const computeCellLevels = (a: Cell, b?: Levels): Cell => {
   }
 
   delete props.levels; // eslint-disable-line prefer-reflect
-  return { levels: { left, right, above, below }, ...props, ...{ rows: newRows} };
+  return {
+    levels: { left, right, above, below },
+    ...props,
+    ...{ rows: newRows },
+  };
 };
 
 export const computeDropLevels = (c: Cell): Cell => computeCellLevels(c);

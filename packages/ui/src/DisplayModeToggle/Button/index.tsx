@@ -31,11 +31,11 @@ const DisplayModeToggle = ({
   active,
   disabled,
 }: {
-  description: string,
-  icon: JSX.Element,
-  active: boolean,
-  disabled?: boolean,
-  onClick: React.MouseEventHandler<HTMLElement>,
+  description: string;
+  icon: JSX.Element;
+  active: boolean;
+  disabled?: boolean;
+  onClick: React.MouseEventHandler<HTMLElement>;
 }) => (
   <div className="ory-controls-mode-toggle-button">
     <div className="ory-controls-mode-toggle-button-inner">

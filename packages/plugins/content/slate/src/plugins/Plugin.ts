@@ -5,12 +5,12 @@
  * it under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- *  
+ *
  * ORY Editor is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Lesser General Public License for more details.
- *  
+ *
  * You should have received a copy of the GNU Lesser General Public License
  * along with ORY Editor.  If not, see <http://www.gnu.org/licenses/>.
  *
@@ -25,7 +25,7 @@ import { Value } from 'slate';
 export class PluginButtonProps {
   editorState: Value;
   focus: boolean;
-  onChange: (state: {value: Value}) => void;
+  onChange: (state: { value: Value }) => void;
 }
 
 /**
@@ -75,12 +75,16 @@ export default class Plugin {
   /**
    * @member the buttons to be added to the hover menu
    */
-  public hoverButtons: (React.ComponentClass<PluginButtonProps> | React.SFC<PluginButtonProps>)[];
+  public hoverButtons: (
+    | React.ComponentClass<PluginButtonProps>
+    | React.SFC<PluginButtonProps>)[];
 
   /**
    * @member the buttons to be added to the global toolbar
    */
-  public toolbarButtons: (React.ComponentClass<PluginButtonProps> | React.SFC<PluginButtonProps>)[];
+  public toolbarButtons: (
+    | React.ComponentClass<PluginButtonProps>
+    | React.SFC<PluginButtonProps>)[];
 
   /**
    * @member the function that renders marks

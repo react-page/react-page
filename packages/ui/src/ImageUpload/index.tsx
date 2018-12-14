@@ -10,12 +10,12 @@ const TOO_BIG_ERROR_CODE = 3;
 const UPLOADING_ERROR_CODE = 4;
 
 export type ImageLoaded = {
-  file: Object,
-  dataUrl: string
+  file: Object;
+  dataUrl: string;
 };
 
 export type ImageUploaded = {
-  url: string
+  url: string;
 };
 
 export type ImageUploadType = (
@@ -23,26 +23,25 @@ export type ImageUploadType = (
   reportProgress: (progress: number) => void
 ) => Promise<ImageUploaded>;
 export type ImageUploadProps = {
-  imageLoaded?: (image: ImageLoaded) => void,
-  imageUpload: ImageUploadType,
-  imageUploadError?: (errorCode: number) => void,
-  imageUploaded: (resp: ImageUploaded) => void,
-  buttonContent?: JSX.Element | string,
-  icon?: JSX.Element,
-  style?: React.CSSProperties,
-  maxFileSize?: number,
-  allowedExtensions?: string[]
+  imageLoaded?: (image: ImageLoaded) => void;
+  imageUpload: ImageUploadType;
+  imageUploadError?: (errorCode: number) => void;
+  imageUploaded: (resp: ImageUploaded) => void;
+  buttonContent?: JSX.Element | string;
+  icon?: JSX.Element;
+  style?: React.CSSProperties;
+  maxFileSize?: number;
+  allowedExtensions?: string[];
 };
 
 export type ImageUploadState = {
-  isUploading: boolean,
-  hasError: boolean,
-  errorText: string,
-  progress: number
+  isUploading: boolean;
+  hasError: boolean;
+  errorText: string;
+  progress: number;
 };
 
 class ImageUpload extends React.Component<ImageUploadProps, ImageUploadState> {
-
   static defaultProps = {
     buttonContent: 'Upload image',
     icon: <CloudUploadIcon style={{ marginLeft: '8px' }} />,
@@ -93,7 +92,7 @@ class ImageUpload extends React.Component<ImageUploadProps, ImageUploadState> {
     setTimeout(() => this.setState({ hasError: false, errorText: '' }), 5000);
   }
 
-  handleFileSelected: React.ChangeEventHandler<HTMLInputElement> = (e) => {
+  handleFileSelected: React.ChangeEventHandler<HTMLInputElement> = e => {
     if (!e.target.files || !e.target.files[0]) {
       this.handleError(NO_FILE_ERROR_CODE);
       return;
@@ -142,7 +141,8 @@ class ImageUpload extends React.Component<ImageUploadProps, ImageUploadState> {
     });
   }
 
-  handleFileUploadClick: React.MouseEventHandler<HTMLElement> = () => this.fileInput.click();
+  handleFileUploadClick: React.MouseEventHandler<HTMLElement> = () =>
+    this.fileInput.click()
 
   handleReportProgress = (progress: number) => this.setState({ progress });
 

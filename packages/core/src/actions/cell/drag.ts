@@ -80,8 +80,11 @@ export const cellHover = (
  * @param {number} level Set the level if the dragged cells should hover over an ancestor of hover.
  * @return {Action}
  */
-export const cellHoverLeftOf = (drag: Partial<Cell>, hover: Partial<Cell>, level: number) =>
-  cellHover(drag, hover, level, PositionEnum.LEFT_OF);
+export const cellHoverLeftOf = (
+  drag: Partial<Cell>,
+  hover: Partial<Cell>,
+  level: number
+) => cellHover(drag, hover, level, PositionEnum.LEFT_OF);
 
 /**
  * Creates a redux action for when a cell is hovering another cell on the right.
@@ -95,8 +98,11 @@ export const cellHoverLeftOf = (drag: Partial<Cell>, hover: Partial<Cell>, level
  * @param {number} level Set the level if the dragged cells should hover over an ancestor of hover.
  * @return {Action}
  */
-export const cellHoverRightOf = (drag: Partial<Cell>, hover: Partial<Cell>, level: number) =>
-  cellHover(drag, hover, level, PositionEnum.RIGHT_OF);
+export const cellHoverRightOf = (
+  drag: Partial<Cell>,
+  hover: Partial<Cell>,
+  level: number
+) => cellHover(drag, hover, level, PositionEnum.RIGHT_OF);
 
 /**
  * Creates a redux action for when a cell is hovering another cell above.

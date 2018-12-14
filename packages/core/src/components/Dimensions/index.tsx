@@ -35,8 +35,8 @@ const Dimensions = ({
 } = {}) => ComposedComponent => {
   type DecoratorProps = {};
   type DecoratorState = {
-    containerWidth?: number,
-    containerHeight?: number
+    containerWidth?: number;
+    containerHeight?: number;
   };
   class Decorator extends React.Component<DecoratorProps, DecoratorState> {
     containerRef: HTMLDivElement;
@@ -123,7 +123,7 @@ const Dimensions = ({
     }
   }
 
-  return props => <Decorator {...props}/>;
+  return props => <Decorator {...props} />;
 };
 
 export default Dimensions;

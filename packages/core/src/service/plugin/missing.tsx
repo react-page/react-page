@@ -39,7 +39,9 @@ const ContentMissingComponent = (props: ContentPluginProps<{}>) => (
   </div>
 );
 
-export const contentMissing = (plugin: ContentPluginProps): ContentPluginProps => ({
+export const contentMissing = (
+  plugin: ContentPluginProps
+): ContentPluginProps => ({
   Component: ContentMissingComponent,
   ...plugin,
 });
@@ -62,7 +64,8 @@ const LayoutMissingComponent: React.SFC = ({ children, ...props }) => (
   </div>
 );
 
-export const layoutMissing = (plugin: LayoutPluginProps): LayoutPluginProps => ({
-  Component: LayoutMissingComponent,
-  ...plugin,
-} as LayoutPluginProps);
+export const layoutMissing = (plugin: LayoutPluginProps): LayoutPluginProps =>
+  ({
+    Component: LayoutMissingComponent,
+    ...plugin,
+  } as LayoutPluginProps);

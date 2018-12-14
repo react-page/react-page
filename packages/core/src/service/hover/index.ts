@@ -142,8 +142,8 @@ export const getRoomScale = ({
   room,
   matrix,
 }: {
-  room: Room,
-  matrix: Matrix
+  room: Room;
+  matrix: Matrix;
 }): Vector => {
   const rows = matrix.length;
   const cells = matrix[0].length;
@@ -167,8 +167,8 @@ export const getMouseHoverCell = ({
   mouse,
   scale,
 }: {
-  mouse: Vector,
-  scale: Vector
+  mouse: Vector;
+  scale: Vector;
 }): MatrixIndex => ({
   cell: Math.floor(mouse.x / scale.x),
   row: Math.floor(mouse.y / scale.y),
@@ -189,13 +189,13 @@ export const computeHover = (
     matrix,
     callbacks,
   }: {
-    room: Room,
-    mouse: Vector,
-    callbacks: CallbackList,
-    matrix: Matrix
+    room: Room;
+    mouse: Vector;
+    callbacks: CallbackList;
+    matrix: Matrix;
   },
   m: string
-// tslint:disable-next-line:no-any
+  // tslint:disable-next-line:no-any
 ): any => {
   const scale = getRoomScale({ room, matrix });
   const hoverCell = getMouseHoverCell({ mouse, scale });
@@ -262,9 +262,9 @@ export const relativeMousePosition = ({
   position,
   scale,
 }: {
-  mouse: Vector,
-  scale: Vector,
-  position: MatrixIndex
+  mouse: Vector;
+  scale: Vector;
+  position: MatrixIndex;
 }) => ({
   x: Math.round(mouse.x - position.cell * scale.x),
   y: Math.round(mouse.y - position.row * scale.y),
@@ -278,9 +278,9 @@ export const computeLevel = ({
   levels,
   position,
 }: {
-  size: number,
-  levels: number,
-  position: number
+  size: number;
+  levels: number;
+  position: number;
 }) => {
   if (size <= (levels + 1) * 2) {
     return Math.round(position / (size / levels));
@@ -319,11 +319,11 @@ export const computeHorizontal = (
     scale,
     level,
   }: {
-    mouse: Vector,
-    position: MatrixIndex,
-    scale: Vector,
-    level: number,
-    hover: ComponetizedRow
+    mouse: Vector;
+    position: MatrixIndex;
+    scale: Vector;
+    level: number;
+    hover: ComponetizedRow;
   },
   inv: boolean = false
 ) => {
@@ -360,11 +360,11 @@ export const computeVertical = (
     position,
     scale,
   }: {
-    level: number,
-    mouse: Vector,
-    hover: ComponetizedRow,
-    position: MatrixIndex,
-    scale: Vector
+    level: number;
+    mouse: Vector;
+    hover: ComponetizedRow;
+    position: MatrixIndex;
+    scale: Vector;
   },
   inv: boolean = false
 ) => {
@@ -541,7 +541,7 @@ export const defaultCallbacks: CallbackList = {
           ...ctx,
           hover: hover,
           level: hover.node.levels.above,
-        // tslint:disable-next-line:no-any
+          // tslint:disable-next-line:no-any
         } as any,
         true
       )
@@ -559,7 +559,7 @@ export const defaultCallbacks: CallbackList = {
         ...ctx,
         hover,
         level: hover.node.levels.below,
-      // tslint:disable-next-line:no-any
+        // tslint:disable-next-line:no-any
       } as any)
     ),
 
@@ -577,7 +577,7 @@ export const defaultCallbacks: CallbackList = {
           ...ctx,
           hover,
           level: hover.node.levels.left,
-        // tslint:disable-next-line:no-any
+          // tslint:disable-next-line:no-any
         } as any,
         true
       )
@@ -595,7 +595,7 @@ export const defaultCallbacks: CallbackList = {
         ...ctx,
         hover,
         level: hover.node.levels.right,
-      // tslint:disable-next-line:no-any
+        // tslint:disable-next-line:no-any
       } as any)
     ),
 
@@ -657,7 +657,10 @@ export const defaultCallbacks: CallbackList = {
   },
 };
 
-export type HoverServiceProps = { matrices?: MatrixList, callbacks?: CallbackList };
+export type HoverServiceProps = {
+  matrices?: MatrixList;
+  callbacks?: CallbackList;
+};
 
 /**
  * The HoverService uses callbacks and matrices to compute hover logic.
@@ -668,10 +671,9 @@ export default class HoverService {
   callbacks: CallbackList = defaultCallbacks;
   matrices: MatrixList = defaultMatrices;
 
-  constructor({
-    matrices,
-    callbacks,
-  }: HoverServiceProps = {} as HoverServiceProps) {
+  constructor(
+    { matrices, callbacks }: HoverServiceProps = {} as HoverServiceProps
+  ) {
     this.matrices = matrices || this.matrices;
     this.callbacks = callbacks || this.callbacks;
   }
@@ -684,7 +686,7 @@ export default class HoverService {
       room,
       mouse,
       matrix: use = '10x10',
-    }: { room: Room, mouse: Vector, matrix: string }
+    }: { room: Room; mouse: Vector; matrix: string }
   ) {
     return computeHover(
       drag,

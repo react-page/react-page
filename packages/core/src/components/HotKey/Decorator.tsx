@@ -5,12 +5,12 @@
  * it under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- *  
+ *
  * ORY Editor is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Lesser General Public License for more details.
- *  
+ *
  * You should have received a copy of the GNU Lesser General Public License
  * along with ORY Editor.  If not, see <http://www.gnu.org/licenses/>.
  *
@@ -39,26 +39,26 @@ import {
   searchNodeEverywhere
 } from '../../selector/editable';
 
-import  { RootState } from '../../types/state';
-import  { Editable, ComponetizedCell } from '../../types/editable';
+import { RootState } from '../../types/state';
+import { Editable, ComponetizedCell } from '../../types/editable';
 
 type Props = {
-  children: React.ReactChildren,
-  id: string,
-  focus: string,
-  isEditMode: boolean,
-  editable: Editable,
-  undo(id: string): void,
-  redo(id: string): void,
-  removeCell(id: string): void,
-  focusCell(id: string): void,
-  blurAllCells(): void,
-  updateCellContent(): void,
-  updateCellLayout(): void,
-  node(cell: string, editable: string): Object,
+  children: React.ReactChildren;
+  id: string;
+  focus: string;
+  isEditMode: boolean;
+  editable: Editable;
+  undo(id: string): void;
+  redo(id: string): void;
+  removeCell(id: string): void;
+  focusCell(id: string): void;
+  blurAllCells(): void;
+  updateCellContent(): void;
+  updateCellLayout(): void;
+  node(cell: string, editable: string): Object;
   searchNodeEverywhere(
     id: string
-  ): { editable: Editable, node: ComponetizedCell }
+  ): { editable: Editable; node: ComponetizedCell };
 };
 
 const hotKeyHandler = (n: Object, key: string) =>
@@ -68,10 +68,10 @@ const hotKeyHandler = (n: Object, key: string) =>
     n
   );
 
-const nextLeaf = (order: Array<{id: string}> = [], current: string) => {
+const nextLeaf = (order: Array<{ id: string }> = [], current: string) => {
   let last;
 
-  return order.find((c: { id: string, isLeaf: boolean }) => {
+  return order.find((c: { id: string; isLeaf: boolean }) => {
     if (last === current) {
       return c.isLeaf;
     }
@@ -80,7 +80,7 @@ const nextLeaf = (order: Array<{id: string}> = [], current: string) => {
   });
 };
 
-const previousLeaf = (order: Array<{id: string}>, current: string) =>
+const previousLeaf = (order: Array<{ id: string }>, current: string) =>
   nextLeaf([...order].reverse(), current);
 
 const falser = (err: Error) => {
@@ -97,7 +97,6 @@ if (Mousetrap && Mousetrap.prototype) {
 let wasInitialized = false;
 
 class Decorator extends Component {
-
   props: Props;
 
   handlers = {
@@ -135,7 +134,10 @@ class Decorator extends Component {
       const { node: n } = this.props.searchNodeEverywhere(this.props.focus);
       hotKeyHandler(n, 'handleFocusNextHotKey')(e, n)
         .then(() => {
-          const found = nextLeaf(this.props.editable.cellOrder, this.props.focus);
+          const found = nextLeaf(
+            this.props.editable.cellOrder,
+            this.props.focus
+          );
           if (found) {
             this.props.blurAllCells();
             this.props.focusCell(found.id);
@@ -153,7 +155,10 @@ class Decorator extends Component {
       const { node: n } = this.props.searchNodeEverywhere(this.props.focus);
       hotKeyHandler(n, 'handleFocusPreviousHotKey')(e, n)
         .then(() => {
-          const found = previousLeaf(this.props.editable.cellOrder, this.props.focus);
+          const found = previousLeaf(
+            this.props.editable.cellOrder,
+            this.props.focus
+          );
           if (found) {
             this.props.blurAllCells();
             this.props.focusCell(found.id);

@@ -31,7 +31,11 @@ export type DisplayProps = PropTypes & {
   imagePreview?: ImageLoaded;
 };
 
-const Display: React.SFC<DisplayProps> = ({ isEditMode, state, imagePreview }) => {
+const Display: React.SFC<DisplayProps> = ({
+  isEditMode,
+  state,
+  imagePreview,
+}) => {
   const src = imagePreview ? imagePreview.dataUrl : state.src;
   const Image = <img className="ory-plugins-content-image" alt="" src={src} />;
   return src ? (

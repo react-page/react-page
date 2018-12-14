@@ -136,7 +136,9 @@ export default class BlockquotePlugin extends Plugin {
     switch ((props.node as Block).type) {
       case BLOCKQUOTE: {
         return (
-          <blockquote style={{ textAlign: (props.node as Block).data.get('align') }}>
+          <blockquote
+            style={{ textAlign: (props.node as Block).data.get('align') }}
+          >
             {props.children}
           </blockquote>
         );

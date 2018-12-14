@@ -47,24 +47,24 @@ export default class CodePlugin extends Plugin {
     this.DEFAULT_NODE = props.DEFAULT_NODE;
   }
 
-  createButton = (type: string, icon: JSX.Element): React.SFC<PluginButtonProps> => ({
-    editorState,
-    onChange,
-  }) => {
+  createButton = (
+    type: string,
+    icon: JSX.Element
+  ): React.SFC<PluginButtonProps> => ({ editorState, onChange }) => {
     const onClick: React.MouseEventHandler = e => {
       e.preventDefault();
-  
+
       onChange({
         value: editorState.change().toggleMark(type).value,
       });
     };
-  
+
     const isActive =
       editorState && editorState.marks.some(mark => mark.type === type);
-  
+
     return <ToolbarButton onClick={onClick} isActive={isActive} icon={icon} />;
   }
-  
+
   createNodeButton: (
     type: string,
     icon: JSX.Element
@@ -74,18 +74,18 @@ export default class CodePlugin extends Plugin {
   }) => {
     const onClick = e => {
       e.preventDefault();
-  
+
       const _isActive = editorState.blocks.some(block => block.type === type);
-  
+
       onChange({
         value: editorState
           .change()
           .setBlocks(_isActive ? this.DEFAULT_NODE : type).value,
       });
     };
-  
+
     const isActive = editorState.blocks.some(block => block.type === type);
-  
+
     return <ToolbarButton onClick={onClick} isActive={isActive} icon={icon} />;
   }
 

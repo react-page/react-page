@@ -180,8 +180,7 @@ class PluginComponent extends React.Component<
   handleImageLoaded = (imagePreview: ImageLoaded) =>
     this.setState({ imagePreview })
 
-  handleImageUploaded = () =>
-    this.setState({ imagePreview: undefined })
+  handleImageUploaded = () => this.setState({ imagePreview: undefined });
 
   renderUI = () => {
     switch (this.state.mode) {

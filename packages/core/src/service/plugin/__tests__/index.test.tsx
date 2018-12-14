@@ -24,7 +24,12 @@ import * as React from 'react';
 import * as unexpected from 'unexpected';
 
 import PluginService from '../index';
-import { Migration, NativePluginProps, LayoutPluginProps, ContentPluginProps } from '../classes';
+import {
+  Migration,
+  NativePluginProps,
+  LayoutPluginProps,
+  ContentPluginProps
+} from '../classes';
 
 const FOO = 'foo';
 const OLDEST_VERSION = '0.0.1';
@@ -148,8 +153,11 @@ describe('PluginService', () => {
     });
   });
 
-  const np = { name: 'baz', version: '0.0.1', Component: <div /> } as
-    | ContentPluginProps;
+  const np = {
+    name: 'baz',
+    version: '0.0.1',
+    Component: <div />,
+  } as ContentPluginProps;
   it('should add a content plugin', () => {
     plugins.addContentPlugin(np);
     expect(
@@ -176,7 +184,7 @@ describe('PluginService', () => {
   });
 
   it('should add a layout plugin', () => {
-    plugins.addLayoutPlugin(np as unknown as LayoutPluginProps);
+    plugins.addLayoutPlugin((np as unknown) as LayoutPluginProps);
     expect(
       plugins.findLayoutPlugin(np.name, np.version).plugin.name,
       'to equal',
@@ -191,7 +199,7 @@ describe('PluginService', () => {
   });
 
   it('should set layout plugins', () => {
-    plugins.setLayoutPlugins([np as unknown as LayoutPluginProps]);
+    plugins.setLayoutPlugins([(np as unknown) as LayoutPluginProps]);
     expect(
       plugins.findLayoutPlugin(np.name, np.version).plugin.name,
       'to equal',
@@ -208,12 +216,13 @@ describe('PluginService', () => {
     const p = new PluginService({
       content,
       layout,
-      native: () => ({
-        Component: () => <div />,
-        name: 'ory/editor/core/content/default-native',
-        version: '0.0.1',
-        createInitialState: () => ({}),
-      } as unknown as NativePluginProps),
+      native: () =>
+        (({
+          Component: () => <div />,
+          name: 'ory/editor/core/content/default-native',
+          version: '0.0.1',
+          createInitialState: () => ({}),
+        } as unknown) as NativePluginProps),
     });
     expect(p.hasNativePlugin(), 'to be truthy');
     expect(p.createNativePlugin(), 'to be defined');

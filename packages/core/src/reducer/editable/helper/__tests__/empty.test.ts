@@ -163,7 +163,7 @@ describe('isEmpty', () => {
       expect(isEmpty(c.in as any), 'to equal', c.empty);
       expect(
         // tslint:disable-next-line:no-any
-        (c.in.rows || c.in.cells as any).filter(emptyFilter).length,
+        (c.in.rows || (c.in.cells as any)).filter(emptyFilter).length,
         'to equal',
         c.empty ? 0 : 1
       );

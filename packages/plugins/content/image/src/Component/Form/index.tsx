@@ -35,7 +35,7 @@ import { darkTheme } from 'ory-editor-ui/lib/ThemeProvider';
 import { ImageLoaded, ImageUploaded } from 'ory-editor-ui/lib/ImageUpload';
 
 type StateType = {
-  imagePreview?: ImageLoaded
+  imagePreview?: ImageLoaded;
 };
 
 class Form extends React.Component<PropTypes, StateType> {
@@ -44,7 +44,9 @@ class Form extends React.Component<PropTypes, StateType> {
     this.state = {};
   }
 
-  handleChange = (onChange: Function) => (e: React.ChangeEvent<HTMLInputElement>) => {
+  handleChange = (onChange: Function) => (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
     const target = e.target;
     if (target instanceof HTMLInputElement) {
       // tslint:disable-next-line:no-any

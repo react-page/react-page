@@ -63,8 +63,8 @@ export const ToolbarButton: React.SFC<{
       isActive
         ? { color: 'rgb(0, 188, 212)' }
         : disabled
-          ? { color: 'gray' }
-          : { color: 'white' }
+        ? { color: 'gray' }
+        : { color: 'white' }
     }
     disabled={disabled}
   >

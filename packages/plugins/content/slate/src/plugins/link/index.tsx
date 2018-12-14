@@ -158,18 +158,10 @@ class LinkButton extends React.Component<PluginButtonProps, LinkButtonState> {
   render() {
     const actions = (
       <React.Fragment>
-        <Button
-          variant="flat"
-          color="primary"
-          onClick={this.handleClose}
-        >
+        <Button variant="flat" color="primary" onClick={this.handleClose}>
           Cancel
         </Button>
-        <Button
-          variant="flat"
-          color="primary"
-          onClick={this.handleSubmit}
-        >
+        <Button variant="flat" color="primary" onClick={this.handleSubmit}>
           Ok
         </Button>
       </React.Fragment>

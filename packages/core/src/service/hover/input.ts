@@ -79,7 +79,7 @@ export const computeAndDispatchInsert = (
       rightOf,
       inlineLeft,
       inlineRight,
-    // tslint:disable-next-line:no-any
+      // tslint:disable-next-line:no-any
     } as any,
     // tslint:disable-next-line:no-any
     hover as any,

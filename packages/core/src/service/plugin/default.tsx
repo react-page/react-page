@@ -25,7 +25,9 @@ import * as React from 'react';
 import { ContentPluginProps } from './classes';
 import { EditorState } from '../../types/editor';
 
-const handleChange = (onChange: (state: EditorState) => void) => (e: React.ChangeEvent) => {
+const handleChange = (onChange: (state: EditorState) => void) => (
+  e: React.ChangeEvent
+) => {
   if (e.target instanceof HTMLInputElement) {
     onChange({ value: e.target.value });
   }

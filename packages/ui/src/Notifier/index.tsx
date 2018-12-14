@@ -33,19 +33,21 @@ import { RootState } from 'ory-editor-core/lib/types/state';
 export const dismissedMobilePreviewKey = 'mobile-preview-dismissed';
 
 type Props = {
-  updateSetting: Function,
-  getSetting: Function,
+  updateSetting: Function;
+  getSetting: Function;
 
-  id: string,
-  open: boolean,
-  action: string,
-  message: string,
+  id: string;
+  open: boolean;
+  action: string;
+  message: string;
 
-  dismissed: boolean
+  dismissed: boolean;
 };
 
-const handleDismiss = (_updateSetting: typeof updateSetting, id: string) => () =>
-updateSetting(`notifier.${id}`, true);
+const handleDismiss = (
+  _updateSetting: typeof updateSetting,
+  id: string
+) => () => updateSetting(`notifier.${id}`, true);
 
 export interface NotifierProps {
   dismissed: boolean;

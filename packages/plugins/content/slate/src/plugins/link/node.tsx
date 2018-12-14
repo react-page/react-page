@@ -5,12 +5,12 @@
  * it under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- *  
+ *
  * ORY Editor is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Lesser General Public License for more details.
- *  
+ *
  * You should have received a copy of the GNU Lesser General Public License
  * along with ORY Editor.  If not, see <http://www.gnu.org/licenses/>.
  *
@@ -24,11 +24,7 @@ import * as React from 'react';
 import { RenderNodeProps } from 'slate-react';
 import { Block } from 'slate';
 
-const Link: React.SFC<RenderNodeProps> = ({
-  attributes,
-  children,
-  node,
-}) => {
+const Link: React.SFC<RenderNodeProps> = ({ attributes, children, node }) => {
   const { data } = node as Block;
   const href = data.get('href');
 

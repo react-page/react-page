@@ -82,35 +82,49 @@ export default (plugins: Plugin[] = hooks.defaultPlugins) => {
     return;
   };
 
-  const HoverButtons = ({ editorState, onChange, focus }: PluginButtonProps) => (
+  const HoverButtons = ({
+    editorState,
+    onChange,
+    focus,
+  }: PluginButtonProps) => (
     <div>
-      {plugins && plugins.map((plugin: Plugin, i: number) =>
-        plugin.hoverButtons && plugin.hoverButtons.map((Button, j: number) => (
-          <Button
-            key={`${i}-${j}`}
-            editorState={editorState}
-            onChange={onChange}
-            focus={focus}
-          />
-        ))
-      )}
+      {plugins &&
+        plugins.map(
+          (plugin: Plugin, i: number) =>
+            plugin.hoverButtons &&
+            plugin.hoverButtons.map((Button, j: number) => (
+              <Button
+                key={`${i}-${j}`}
+                editorState={editorState}
+                onChange={onChange}
+                focus={focus}
+              />
+            ))
+        )}
     </div>
   );
 
   props.HoverButtons = HoverButtons;
 
-  const ToolbarButtons = ({ editorState, onChange, focus }: PluginButtonProps) => (
+  const ToolbarButtons = ({
+    editorState,
+    onChange,
+    focus,
+  }: PluginButtonProps) => (
     <div>
-      {plugins && plugins.map((plugin: Plugin, i: number) =>
-        plugin.toolbarButtons && plugin.toolbarButtons.map((Button, j: number) => (
-          <Button
-            key={`${i}-${j}`}
-            editorState={editorState}
-            onChange={onChange}
-            focus={focus}
-          />
-        ))
-      )}
+      {plugins &&
+        plugins.map(
+          (plugin: Plugin, i: number) =>
+            plugin.toolbarButtons &&
+            plugin.toolbarButtons.map((Button, j: number) => (
+              <Button
+                key={`${i}-${j}`}
+                editorState={editorState}
+                onChange={onChange}
+                focus={focus}
+              />
+            ))
+        )}
     </div>
   );
   props.ToolbarButtons = ToolbarButtons;

@@ -33,7 +33,13 @@ import { Props } from '../types/props';
 import { Block } from 'slate';
 import { PluginButtonProps } from './Plugin';
 
-const createButton: (align: string, icon: JSX.Element) => React.SFC<PluginButtonProps> = (align, icon) => ({ editorState, onChange }) => {
+const createButton: (
+  align: string,
+  icon: JSX.Element
+) => React.SFC<PluginButtonProps> = (align, icon) => ({
+  editorState,
+  onChange,
+}) => {
   const onClick = e => {
     e.preventDefault();
 

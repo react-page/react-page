@@ -5,12 +5,12 @@
  * it under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- *  
+ *
  * ORY Editor is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Lesser General Public License for more details.
- *  
+ *
  * You should have received a copy of the GNU Lesser General Public License
  * along with ORY Editor.  If not, see <http://www.gnu.org/licenses/>.
  *
@@ -48,20 +48,19 @@ import { Dispatch } from 'redux';
 import { FocusCellAction } from './../../actions/cell/core';
 import { BlurAllCellsAction } from './../../actions/cell/core';
 
-const gridClass = ({
-  node: { size },
-  ...rest
-}: ComponetizedCell): string => {
+const gridClass = ({ node: { size }, ...rest }: ComponetizedCell): string => {
   if (rest.isPreviewMode || rest.isEditMode) {
-    return `ory-cell-${rest.isPreviewMode || rest.isEditMode ? 'sm' : 'xs'}-${size ||
-      12} ory-cell-xs-12`;
+    return `ory-cell-${
+      rest.isPreviewMode || rest.isEditMode ? 'sm' : 'xs'
+    }-${size || 12} ory-cell-xs-12`;
   }
 
   return `ory-cell-xs-${size || 12}`;
 };
 
-const stopClick = (_isEditMode: boolean) => (e: React.MouseEvent<HTMLDivElement>) =>
-  _isEditMode ? e.stopPropagation() : null;
+const stopClick = (_isEditMode: boolean) => (
+  e: React.MouseEvent<HTMLDivElement>
+) => (_isEditMode ? e.stopPropagation() : null);
 
 type CellProps = ComponetizedCell;
 

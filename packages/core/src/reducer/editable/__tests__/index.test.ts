@@ -63,7 +63,7 @@ const runCase = (currentState, action, expectedState) => {
 // tslint:disable-next-line:no-any
 export const createEditable = (
   id: string,
-// tslint:disable-next-line:no-any
+  // tslint:disable-next-line:no-any
   cells?: any[] | { hover: any }[]
 ) => {
   // tslint:disable-next-line:no-any
@@ -82,9 +82,9 @@ export const createEditable = (
 
 export const createCell = (
   id: string,
-// tslint:disable-next-line:no-any
+  // tslint:disable-next-line:no-any
   rows: any[],
-// tslint:disable-next-line:no-any
+  // tslint:disable-next-line:no-any
   additional?: any
 ) => {
   // tslint:disable-next-line:no-any
@@ -108,9 +108,9 @@ export const createLayoutCell = (
   id: string,
   name: string,
   state: { foo: number; bar?: number },
-// tslint:disable-next-line:no-any
+  // tslint:disable-next-line:no-any
   rows: any[],
-// tslint:disable-next-line:no-any
+  // tslint:disable-next-line:no-any
   additional?: any
 ) => {
   const cell = createCell(id, null, additional);

@@ -559,15 +559,15 @@ describe('selectors/editable/node', () => {
   it('should find the right node, everywhere', () => {
     expect(
       // tslint:disable-next-line:no-any
-      searchNodeEverywhere(state as any, '3a261db7-5351-437c-899b-27ebfaa31fe6').node
-        .id,
+      searchNodeEverywhere(state as any, '3a261db7-5351-437c-899b-27ebfaa31fe6')
+        .node.id,
       'to equal',
       '3a261db7-5351-437c-899b-27ebfaa31fe6'
     );
     expect(
       // tslint:disable-next-line:no-any
-      searchNodeEverywhere(state as any, '8781492f-91e6-46ca-b2a6-b34f2e54fac6').node
-        .id,
+      searchNodeEverywhere(state as any, '8781492f-91e6-46ca-b2a6-b34f2e54fac6')
+        .node.id,
       'to equal',
       '8781492f-91e6-46ca-b2a6-b34f2e54fac6'
     );

@@ -27,12 +27,11 @@ import { BottomToolbar } from 'ory-editor-ui';
 import { darkTheme } from 'ory-editor-ui/lib/ThemeProvider';
 
 // tslint:disable-next-line:no-any
-const changeUrl = (onChange: (state: any) => void) => (event: React.ChangeEvent) =>
-  onChange({ url: event.target.nodeValue });
+const changeUrl = (onChange: (state: any) => void) => (
+  event: React.ChangeEvent
+) => onChange({ url: event.target.nodeValue });
 
-export interface HTML5VideoProps extends ContentPluginProps {
-  
-}
+export interface HTML5VideoProps extends ContentPluginProps {}
 
 const HTML5Video: React.SFC<HTML5VideoProps> = ({
   readOnly,
@@ -51,7 +50,13 @@ const HTML5Video: React.SFC<HTML5VideoProps> = ({
         />
       </BottomToolbar>
     ) : null}
-    <video autoPlay={true} controls={true} loop={true} muted={true} width="100%">
+    <video
+      autoPlay={true}
+      controls={true}
+      loop={true}
+      muted={true}
+      width="100%"
+    >
       <source src={url} type={`video/${url.split('.').pop()}`} />
     </video>
   </div>
