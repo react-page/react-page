@@ -20,7 +20,6 @@
  *
  */
 
-// @flow
 import * as uuid from 'uuid';
 import { Cell } from '../../types/editable';
 import { Action } from 'redux';

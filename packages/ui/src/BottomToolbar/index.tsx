@@ -20,7 +20,6 @@
  *
  */
 
-// @flow
 import Drawer from '@material-ui/core/Drawer';
 import * as React from 'react';
 import ThemeProvider from '../ThemeProvider/index';

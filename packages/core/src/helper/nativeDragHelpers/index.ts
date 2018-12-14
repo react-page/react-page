@@ -20,7 +20,6 @@
  *
  */
 
-// @flow
 import { NativeTypes } from 'react-dnd-html5-backend';
 import { DropTargetMonitor } from 'dnd-core';
 

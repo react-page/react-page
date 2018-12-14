@@ -15,8 +15,7 @@
     "build:css:watch": "npm run build:css -- -w",
     "docs": "documentation build ./src/**/*.js --format md --github -o ../../../../docs/api/plugins/divider.md",
     "prebuild": "npm run clean",
-    "clean": "rimraf \"lib/*\"",
-    "flow:generate": "flow-typed install  --flowVersion=0.79.1"
+    "clean": "rimraf \"lib/*\""
   },
   "peerDependencies": {
     "react": "^16.0.0",

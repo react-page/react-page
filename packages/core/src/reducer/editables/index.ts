@@ -20,7 +20,6 @@
  *
  */
 
-// @flow
 import { set } from 'redux-undo/lib/debug';
 import undoable, { includeAction } from 'redux-undo';
 

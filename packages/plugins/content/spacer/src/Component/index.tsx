@@ -20,7 +20,6 @@
  *
  */
 
-// @flow
 import * as React from 'react';
 import { Resizable } from 'react-resizable';
 import classNames from 'classnames';

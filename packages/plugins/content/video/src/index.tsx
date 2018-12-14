@@ -20,8 +20,6 @@
  *
  */
 
-// @flow
-/* eslint-disable no-duplicate-imports */
 import * as React from 'react';
 import Component from './Component/index';
 import PlayArrow from '@material-ui/icons/PlayArrow';

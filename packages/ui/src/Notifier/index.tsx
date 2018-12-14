@@ -20,7 +20,6 @@
  *
  */
 
-// @flow
 import * as React from 'react';
 import Snackbar from '@material-ui/core/Snackbar';
 import { connect } from 'react-redux';

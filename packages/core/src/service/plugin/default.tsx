@@ -20,7 +20,6 @@
  *
  */
 
-// @flow
 import * as React from 'react';
 import { ContentPluginProps } from './classes';
 import { EditorState } from '../../types/editor';

@@ -113,7 +113,7 @@ $ yarn run start
 
 ### Run the toolchain
 
-The toolchain contains tests, eslint and flow types. It is highly recommended to run this toolchain while developing.
+The toolchain contains tests and tslint. It is highly recommended to run this toolchain while developing.
 
 ```bash
 # run the tests in watch mode
@@ -121,9 +121,6 @@ $ yarn run test:watch
 
 # run eslint in watch mode
 $ yarn run lint:watch
-
-# run flowtype in watch mode
-$ yarn run flow:watch
 ```
 
 ### Run the documentation
@@ -141,5 +138,10 @@ $ yarn run docs:api
 ```
 
 ## Known issues
+Occasionally you might see this error
+```
+Error: EPERM: operation not permitted, unlink 'C:\Coding\forks\editorBranches\editor\packages\ui\lib\DisplayModeToggle\index.d.ts'
+```
+when running build inside vscode. This appears to be a known issue with the editor locking declaration files. Just rerun build (and be patient while somebody fixes this for you).
 
 Known issues are tracked in the [issues tab](https://github.com/ory/editor/issues?q=is%3Aopen+is%3Aissue+label%3Abug).

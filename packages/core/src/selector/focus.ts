@@ -20,8 +20,6 @@
  *
  */
 
-// @flow
-
 import { RootState } from '../types/state';
 
 export const focus = (state: RootState) =>

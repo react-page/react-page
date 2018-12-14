@@ -20,7 +20,6 @@
  *
  */
 
-// @flow
 import * as React from 'react';
 import Component from './Component/index';
 import AspectRatio from '@material-ui/icons/AspectRatio';

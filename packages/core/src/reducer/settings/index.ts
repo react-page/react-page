@@ -20,7 +20,6 @@
  *
  */
 
-// @flow
 import { UPDATE_SETTING } from '../../actions/setting';
 
 export const settings = (

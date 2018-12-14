@@ -20,7 +20,6 @@
  *
  */
 
-// @flow
 const computeOrder = ({
   rows,
   cells,

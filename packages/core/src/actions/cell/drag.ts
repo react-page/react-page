@@ -20,7 +20,6 @@
  *
  */
 
-// @flow
 /**
  * @module src/editor/actions/cell/drag
  */

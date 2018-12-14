@@ -20,7 +20,6 @@
  *
  */
 
-// @flow
 import * as React from 'react';
 import PlayArrow from '@material-ui/icons/PlayArrow';
 import { iconStyle } from '../common';

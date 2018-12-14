@@ -20,8 +20,6 @@
  *
  */
 
-// @flow
-/* eslint-disable no-empty-function, no-unused-vars */
 import semver from 'semver';
 import { AnyAction } from 'redux';
 

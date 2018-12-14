@@ -20,7 +20,6 @@
  *
  */
 
-// @flow
 import { Action } from 'redux';
 import { Editable } from '../types/editable';
 import { gen } from './helpers';

@@ -20,7 +20,6 @@
  *
  */
 
-// @flow
 import * as React from 'react';
 import { shouldPureComponentUpdate } from 'ory-editor-core/lib/helper/shouldComponentUpdate';
 import { DragSource as dragSource } from 'react-dnd';

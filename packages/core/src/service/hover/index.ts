@@ -20,7 +20,6 @@
  *
  */
 
-// @flow
 import deepEqual from 'deep-equal';
 
 import { ComponetizedCell, ComponetizedRow } from '../../types/editable';

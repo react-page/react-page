@@ -217,8 +217,8 @@ export interface CreateFallbackCellAction extends Action {
 /**
  * Creates a fallback cell, usually done when an editable is empty.
  */
-// tslint:disable-next-line:no-any
 export const createFallbackCell = (
+  // tslint:disable-next-line:no-any
   fallback: any,
   editable: string
 ): CreateFallbackCellAction => ({

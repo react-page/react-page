@@ -20,7 +20,6 @@
  *
  */
 
-// @flow
 import * as React from 'react';
 import Display from './Display/index';
 import Form from './Form/index';

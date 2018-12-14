@@ -20,10 +20,6 @@
  *
  */
 
-// @flow
-// TODO lint: prefer-reflect doesn't work with slate state #158
-/* eslint no-duplicate-imports: ["off"] */
-/* eslint prefer-reflect: ["off"] */
 import Subject from '@material-ui/icons/Subject';
 import { compose, flatten, map, prop, pathOr } from 'ramda';
 import Html from 'slate-html-serializer';

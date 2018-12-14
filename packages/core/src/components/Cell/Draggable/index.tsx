@@ -20,7 +20,6 @@
  *
  */
 
-// @flow
 import * as React from 'react';
 import { DragSource as dragSource } from 'react-dnd';
 import { connect } from 'react-redux';

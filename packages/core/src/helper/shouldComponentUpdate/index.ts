@@ -20,7 +20,6 @@
  *
  */
 
-// @flow
 import equals from 'ramda/src/equals';
 
 export const shouldPureComponentUpdate = function(next: Object) {

@@ -20,7 +20,6 @@
  *
  */
 
-// @flow
 import * as React from 'react';
 import { NativeState } from './types/state';
 

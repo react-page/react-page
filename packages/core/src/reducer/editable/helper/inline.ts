@@ -20,7 +20,6 @@
  *
  */
 
-// @flow
 import { Row } from '../../../types/editable';
 
 export const computeRow = ({ cells = [], ...other }: Row): Row => ({

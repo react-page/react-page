@@ -20,8 +20,6 @@
  *
  */
 
-// @flow
-/* eslint-disable no-use-before-define, no-underscore-dangle */
 import { v4 } from 'uuid';
 import Editable from './components/Editable';
 import createStore from './store';

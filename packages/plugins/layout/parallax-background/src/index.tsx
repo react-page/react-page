@@ -20,7 +20,6 @@
  *
  */
 
-// @flow
 import * as React from 'react';
 import { v4 } from 'uuid';
 import Icon from '@material-ui/icons/CropLandscape';

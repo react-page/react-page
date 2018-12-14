@@ -20,8 +20,6 @@
  *
  */
 
-// @flow
-/* eslint no-use-before-define: "off" */
 import { Cell, Row } from '../../../types/editable';
 
 export const isEmpty = ({

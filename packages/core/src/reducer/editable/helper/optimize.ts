@@ -20,7 +20,6 @@
  *
  */
 
-// @flow
 import { emptyFilter } from './empty';
 import { Row, Cell } from '../../../types/editable';
 

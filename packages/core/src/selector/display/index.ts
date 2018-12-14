@@ -20,7 +20,6 @@
  *
  */
 
-// @flow
 import {
   DISPLAY_MODE_EDIT,
   DISPLAY_MODE_LAYOUT,

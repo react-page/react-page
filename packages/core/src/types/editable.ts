@@ -20,8 +20,6 @@
  *
  */
 
-// @flow
-/* eslint no-use-before-define: off */
 import * as React from 'react';
 import {
   ContentPlugin,

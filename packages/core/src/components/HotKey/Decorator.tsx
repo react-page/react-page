@@ -20,8 +20,6 @@
  *
  */
 
-// @flow
-/* eslint-disable no-empty-function */
 import { Component } from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';

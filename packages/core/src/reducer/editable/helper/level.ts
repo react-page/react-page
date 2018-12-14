@@ -20,8 +20,6 @@
  *
  */
 
-// @flow
-/* eslint no-use-before-define: "off" */
 import { Cell, Row, Levels } from '../../../types/editable';
 
 const computeRowLevels = (a: Row, b?: Levels): Row => {

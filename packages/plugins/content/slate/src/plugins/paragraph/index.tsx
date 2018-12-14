@@ -20,8 +20,6 @@
  *
  */
 
-// @flow
-/* eslint-disable prefer-reflect, default-case, react/display-name */
 import * as React from 'react';
 import Plugin from '../Plugin';
 import Paragraph from './node';
