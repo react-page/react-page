@@ -5,12 +5,12 @@
  * it under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- *  
+ *
  * ORY Editor is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Lesser General Public License for more details.
- *  
+ *
  * You should have received a copy of the GNU Lesser General Public License
  * along with ORY Editor.  If not, see <http://www.gnu.org/licenses/>.
  *
@@ -30,7 +30,11 @@ import { Plugins } from 'ory-editor-core/lib/service/plugin/classes';
 const gridClass = (size: number = 12): string =>
   `ory-cell-sm-${size} ory-cell-xs-12`;
 
-const HTMLRow = ({ cells = [], className, hasInlineChildren }: Partial<Row>) => (
+const HTMLRow = ({
+  cells = [],
+  className,
+  hasInlineChildren,
+}: Partial<Row>) => (
   <div
     className={classNames('ory-row', className, {
       'ory-row-has-floating-children': hasInlineChildren,

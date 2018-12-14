@@ -65,7 +65,7 @@ const update = (editor: Editor) => (editable: EditableType) => {
         ...nativeTypes(editor),
       ],
     },
-  // tslint:disable-next-line:no-any
+    // tslint:disable-next-line:no-any
   } as any);
 };
 
@@ -96,14 +96,14 @@ class Editor {
     store,
   }: {
     // tslint:disable-next-line:no-any
-    plugins?: { content: [], layout: [], native?: any },
-    middleware?: [],
-    editables?: EditableType[],
+    plugins?: { content: []; layout: []; native?: any };
+    middleware?: [];
+    editables?: EditableType[];
     // tslint:disable-next-line:no-any
-    defaultPlugin?: any,
+    defaultPlugin?: any;
     // tslint:disable-next-line:no-any
-    dragDropBackend?: any,
-    store?: Store<RootState>
+    dragDropBackend?: any;
+    store?: Store<RootState>;
   } = {}) {
     if (instance) {
       console.warn(

@@ -21,11 +21,11 @@
  */
 
 // @flow
-import { Action } from 'redux';
-import { Editable } from '../types/editable';
-import { gen } from './helpers';
+import { Action } from "redux";
+import { Editable } from "../types/editable";
+import { gen } from "./helpers";
 
-export const UPDATE_EDITABLE = 'UPDATE_EDITABLE';
+export const UPDATE_EDITABLE = "UPDATE_EDITABLE";
 
 export interface UpdateEditableAction extends Action {
   ts: Date;
@@ -37,5 +37,5 @@ export const updateEditable = (editable: Editable): UpdateEditableAction => ({
   type: UPDATE_EDITABLE,
   ts: new Date(),
   editable,
-  ids: gen(1),
+  ids: gen(1)
 });
