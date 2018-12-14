@@ -49,7 +49,6 @@
     "unexpected": "^10.38.0"
   },
   "scripts": {
-    "precommit": "npm-run-all prettier docs:api",
     "coveralls": "cat ./coverage/lcov.info | coveralls",
     "bootstrap": "lerna bootstrap",
     "build": "cross-env NODE_ENV=production lerna run build --stream",

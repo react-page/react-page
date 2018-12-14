@@ -13,7 +13,7 @@
     "build:lib:watch": "npm run build:lib -- --watch",
     "build:css": "postcss -c ../../../../postcss.config.js --dir lib/ src/index.css",
     "build:css:watch": "npm run build:css -- -w",
-    "docs": "documentation build ./src/**/*.js --format md --github -o ../../../../docs/api/plugins/divider.md",
+    "docs": "documentation build ./lib/**/*.js --format md --github -o ../../../../docs/api/plugins/divider.md",
     "prebuild": "npm run clean",
     "clean": "rimraf \"lib/*\""
   },
