@@ -112,3 +112,13 @@ export const insertCellLeftInline = insert(CELL_INSERT_INLINE_LEFT);
  * Insert a cell inside the hovering cell, on the right.
  */
 export const insertCellRightInline = insert(CELL_INSERT_INLINE_RIGHT);
+
+export const insertActions = {
+  insertCellRightInline,
+  insertCellLeftInline,
+  insertCellLeftOf,
+  insertCellRightOf,
+  insertCellAbove,
+  insertCellBelow,
+  insert,
+};

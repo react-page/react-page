@@ -38,6 +38,7 @@ import {
 } from '../../../selector/display';
 
 import { ComponetizedCell } from '../../../types/editable';
+import { ContentPluginProps } from '../../../service/plugin/classes';
 
 // TODO clean me up #157
 class Content extends React.PureComponent<ComponetizedCell> {
@@ -69,7 +70,7 @@ class Content extends React.PureComponent<ComponetizedCell> {
 
     // FIXME this is really shitty because it will break when the state changes before the blur comes through, see #157
     // tslint:disable-next-line:no-any
-    const pass: any = {
+    const pass: ContentPluginProps = {
       editable,
       id,
       state,

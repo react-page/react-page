@@ -213,3 +213,15 @@ export const cancelCellDrag = (): CancelCellDragAction => ({
   type: CELL_DRAG_CANCEL,
   ts: new Date(),
 });
+export const dragActions = {
+  cancelCellDrag,
+  clearHover,
+  dragCell,
+  cellHoverInlineRight,
+  cellHoverInlineLeft,
+  cellHoverBelow,
+  cellHoverAbove,
+  cellHoverRightOf,
+  cellHoverLeftOf,
+  cellHover,
+};

@@ -24,6 +24,7 @@ import { createStore, applyMiddleware, compose, Store } from 'redux';
 
 import rootReducer from './reducer';
 import { RootState } from './types/state';
+import { isProduction } from './const';
 
 declare global {
   interface Window {
@@ -38,7 +39,7 @@ declare global {
 export default (initialState: any, middleware: [] = []): Store<RootState> => {
   // tslint:disable-next-line:no-any
   const v: any =
-    process.env.NODE_ENV !== 'production' &&
+    !isProduction &&
     typeof window === 'object' &&
     window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
       ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({})

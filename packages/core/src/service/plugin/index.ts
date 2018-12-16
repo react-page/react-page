@@ -36,7 +36,7 @@ import {
   PluginsInternal,
   ContentPluginConfig,
 } from './classes';
-import { ComponetizedCell } from '../../types/editable';
+import { ComponetizedCell, EditableType } from '../../types/editable';
 import defaultPlugin from './default';
 import { layoutMissing, contentMissing } from './missing';
 import { EditorState } from '../../types/editor';
@@ -48,7 +48,7 @@ const find = (name: string, version: string = '*') => (
 /**
  * Iterate through an editable content tree and generate ids where missing.
  */
-export const generateMissingIds = (props: EditorState): Object => {
+export const generateMissingIds = (props: EditorState): EditorState => {
   const { rows, cells, id } = props;
 
   if ((rows || []).length > 0) {
@@ -234,7 +234,11 @@ export default class PluginService {
   }
 
   // tslint:disable-next-line:no-any
-  getNewPluginState = (found: any, state: any, version: string) => {
+  getNewPluginState = (found: { plugin: Plugin; pluginWrongVersion?: Plugin }, state: any, version: string): {
+    plugin: Plugin,
+    // tslint:disable-next-line:no-any
+    state: any
+  } => {
     if (
       !found.pluginWrongVersion ||
       semver.lt(found.pluginWrongVersion.version, version)
@@ -277,8 +281,7 @@ export default class PluginService {
       size,
       id,
     } = state;
-    // tslint:disable-next-line:no-any
-    const newState: any = { id, inline, size };
+    const newState: EditorState = { id, inline, size };
 
     const {
       plugin: { name: contentName = null, version: contentVersion = '*' } = {},
@@ -321,7 +324,7 @@ export default class PluginService {
   }
 
   // tslint:disable-next-line:no-any
-  serialize = (state: any): Object => {
+  serialize = (state: any): EditableType => {
     const { rows = [], cells = [], content, layout, inline, size, id } = state;
 
     // tslint:disable-next-line:no-any

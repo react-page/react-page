@@ -37,6 +37,7 @@ import { editableConfig, purifiedNode, node } from '../../selector/editable';
 import { blurAllCells } from '../../actions/cell';
 
 import { ComponetizedRow } from '../../types/editable';
+import { RootState } from '../../types/state';
 
 class Row extends React.PureComponent<ComponetizedRow> {
   // tslint:disable-next-line:no-any
@@ -68,8 +69,7 @@ const mapStateToProps = createStructuredSelector({
   isInsertMode,
   isEditMode,
   node: purifiedNode,
-  // tslint:disable-next-line:no-any
-  rawNode: (state: any, props: any) => () => node(state, props),
+  rawNode: (state: RootState, props: { id: string; editable: string }) => () => node(state, props),
 });
 
 const mapDispatchToProps = {

@@ -32,9 +32,14 @@ import forEach from 'ramda/src/forEach';
 import HTML5Backend, { NativeTypes } from 'react-dnd-html5-backend';
 import { DragDropContext as dragDropContext } from 'react-dnd';
 import { oryReducer } from './reducer';
-import { Store } from 'redux';
+import { Store, Middleware } from 'redux';
 import { RootState } from './types/state';
-import { Plugins } from './service/plugin/classes';
+import {
+  Plugins,
+  ContentPluginConfig,
+  LayoutPluginConfig
+} from './service/plugin/classes';
+import { isProduction } from './const';
 
 let instance: Editor;
 
@@ -70,18 +75,28 @@ const update = (editor: Editor) => (editable: EditableType) => {
 
 const dndBackend = HTML5Backend;
 
+export interface EditorProps<T extends RootState = RootState> {
+  // tslint:disable-next-line:no-any
+  plugins?: Plugins;
+  middleware?: [];
+  editables?: EditableType[];
+  defaultPlugin?: ContentPluginConfig;
+  // tslint:disable-next-line:no-any
+  dragDropBackend?: any;
+  store?: Store<T>;
+}
+
 /**
  * Editor is the core interface for dealing with the editor.
  */
-class Editor {
+class Editor<T extends RootState = RootState> {
   store: Store<RootState>;
   plugins: PluginService;
-  middleware: [];
+  middleware: Middleware[];
 
   // tslint:disable-next-line:no-any
   dragDropContext: any;
-  // tslint:disable-next-line:no-any
-  defaultPlugin: any;
+  defaultPlugin: ContentPluginConfig;
 
   trigger: ActionsTypes;
   query = {};
@@ -93,17 +108,7 @@ class Editor {
     defaultPlugin = pluginDefault,
     dragDropBackend,
     store,
-  }: {
-    // tslint:disable-next-line:no-any
-    plugins?: Plugins;
-    middleware?: [];
-    editables?: EditableType[];
-    // tslint:disable-next-line:no-any
-    defaultPlugin?: any;
-    // tslint:disable-next-line:no-any
-    dragDropBackend?: any;
-    store?: Store<RootState>;
-  } = {}) {
+  }: EditorProps<T> = {}) {
     if (instance) {
       console.warn(
         'You defined multiple instances of the Editor class, this can cause problems.'
@@ -126,46 +131,44 @@ class Editor {
     editables.forEach(this.trigger.editable.add);
   }
 
-  refreshEditables = () => {
-    // tslint:disable-next-line:no-any
-    forEach((editable: any) => {
-      // tslint:disable-next-line:no-console
-      console.log(this.plugins.serialize(editable));
+  public refreshEditables = () => {
+    forEach((editable: EditableType) => {
+      if (!isProduction) {
+        // tslint:disable-next-line:no-console
+        console.log(this.plugins.serialize(editable));
+      }
       // tslint:disable-next-line:no-any
       this.trigger.editable.update(this.plugins.serialize(editable) as any);
     }, this.store.getState().ory.editables.present);
   }
 
   // tslint:disable-next-line:no-any
-  setLayoutPlugins = (plugins: Array<any> = []) => {
+  public setLayoutPlugins = (plugins: LayoutPluginConfig[] = []) => {
     this.plugins.setLayoutPlugins(plugins);
     this.refreshEditables();
   }
 
-  // tslint:disable-next-line:no-any
-  addLayoutPlugin = (config: any) => {
+  public addLayoutPlugin = (config: LayoutPluginConfig) => {
     this.plugins.addLayoutPlugin(config);
     this.refreshEditables();
   }
 
-  removeLayoutPlugin = (name: string) => {
+  public removeLayoutPlugin = (name: string) => {
     this.plugins.removeLayoutPlugin(name);
     this.refreshEditables();
   }
 
-  // tslint:disable-next-line:no-any
-  setContentPlugins = (plugins: Array<any> = []) => {
+  public setContentPlugins = (plugins: ContentPluginConfig[] = []) => {
     this.plugins.setContentPlugins(plugins);
     this.refreshEditables();
   }
 
-  // tslint:disable-next-line:no-any
-  addContentPlugin = (config: any) => {
+  public addContentPlugin = (config: ContentPluginConfig) => {
     this.plugins.addContentPlugin(config);
     this.refreshEditables();
   }
 
-  removeContentPlugin = (name: string) => {
+  public removeContentPlugin = (name: string) => {
     this.plugins.removeContentPlugin(name);
     this.refreshEditables();
   }
@@ -173,6 +176,7 @@ class Editor {
 
 export { PluginService, Editable, Editor, oryReducer };
 
-export const createEmptyState: () => EditableType = () => ({ id: v4(), cells: [] } as EditableType);
+export const createEmptyState: () => EditableType = () =>
+  ({ id: v4(), cells: [] } as EditableType);
 
 export default Editor;

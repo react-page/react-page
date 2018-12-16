@@ -25,8 +25,8 @@ import { DropTarget as dropTarget } from 'react-dnd';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
 
-import * as hoverActions from '../../../actions/cell/drag';
-import * as insertActions from '../../../actions/cell/insert';
+import { dragActions } from '../../../actions/cell/drag';
+import { insertActions } from '../../../actions/cell/insert';
 import { target, connect as monitorConnect } from './helper/dnd';
 
 import { ComponetizedCell } from '../../../types/editable';
@@ -46,8 +46,6 @@ type Props = ComponetizedCell & {
 };
 
 class Droppable extends React.PureComponent<Props> {
-  props: Props;
-
   render() {
     const {
       connectDropTarget,
@@ -81,7 +79,7 @@ class Droppable extends React.PureComponent<Props> {
   }
 }
 
-const mapDispatchToProps = { ...hoverActions, ...insertActions };
+const mapDispatchToProps = { ...dragActions, ...insertActions };
 
 export default connect(
   null,

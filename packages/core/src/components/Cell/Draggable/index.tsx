@@ -25,8 +25,8 @@ import { DragSource as dragSource } from 'react-dnd';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
 
-import * as hoverActions from '../../../actions/cell/drag';
-import * as insertActions from '../../../actions/cell/insert';
+import { dragActions } from '../../../actions/cell/drag';
+import { insertActions } from '../../../actions/cell/insert';
 import { source, collect } from './helper/dnd';
 
 import { ComponetizedCell } from '../../../types/editable';
@@ -103,7 +103,7 @@ class Draggable extends React.PureComponent<Props> {
 }
 
 const mapDispatchToProps = {
-  ...hoverActions,
+  ...dragActions,
   ...insertActions,
 };
 

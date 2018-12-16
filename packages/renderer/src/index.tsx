@@ -31,11 +31,11 @@ import { EditableType } from 'ory-editor-core/lib/types/editable';
 const gridClass = (size: number = 12): string =>
   `ory-cell-sm-${size} ory-cell-xs-12`;
 
-const HTMLRow = ({
+const HTMLRow: React.SFC<Partial<Row>> = ({
   cells = [],
   className,
   hasInlineChildren,
-}: Partial<Row>) => (
+}) => (
   <div
     className={classNames('ory-row', className, {
       'ory-row-has-floating-children': hasInlineChildren,
@@ -52,7 +52,7 @@ const noop = () => {
   return;
 };
 
-const HTMLCell = (props: Cell) => {
+const HTMLCell: React.SFC<Cell> = props => {
   const {
     rows = [],
     layout = {} as Layout,
@@ -136,12 +136,14 @@ const HTMLCell = (props: Cell) => {
   );
 };
 
-export const HTMLRenderer = ({
+export interface HTMLRendererProps {
+  state: EditableType;
+  plugins?: Plugins;
+}
+
+export const HTMLRenderer: React.SFC<HTMLRendererProps> = ({
   state,
   plugins,
-}: {
-  state: EditableType;
-  plugins: Plugins;
 }) => {
   const service = new PluginService(plugins);
   const props = reducer(service.unserialize(state), { type: 'renderer/noop' });
