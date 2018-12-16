@@ -45,13 +45,13 @@ const Native: React.SFC<NativeProps> = ({ state: { item, itemType } }) => (
  * @param monitor the DropTargetMonitor as provided by react-dnd
  * @param component the React component of the item which the native element was dropped on
  */
-const plugin: NativeFactory = ({ monitor }) => ({
+const plugin: NativeFactory = (hover, monitor, component) => ({
   Component: Native,
   name: 'ory/editor/core/content/default-native',
   version: '0.0.1',
   createInitialState: () => ({
-    item: monitor.getItem(),
-    itemType: monitor.getItemType(),
+    item: monitor && monitor.getItem(),
+    itemType: monitor && monitor.getItemType(),
   }),
 
   // Set type to layout to create a layout cell instead of a content cell
