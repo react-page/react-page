@@ -20,19 +20,29 @@
  *
  */
 
-import { EditableType, Cell, Row, Config } from '../../types/editable';
+import {
+  EditableType,
+  Cell,
+  Row,
+  Config,
+  AbstractEditable,
+  AbstractCell
+} from '../../types/editable';
 import { RootState } from '../../types/state';
 
 // tslint:disable-next-line:no-any
-const nodeInner = (current: any, props: { id: string }): any => {
+const nodeInner = <T extends { id: string; rows?: Row[]; cells?: Cell[] }>(
+  current: Cell & Row,
+  props: { id: string }
+): Cell | Row => {
   const { id, rows = [], cells = [] } = current;
   if (id === props.id) {
     return current;
   }
 
-  let found = false;
+  let found: Cell | Row = undefined;
   // tslint:disable-next-line:no-any
-  [...rows, ...cells].find((n: any) => {
+  [...rows, ...cells].find(n => {
     const f = nodeInner(n, props);
     if (f) {
       found = f;
@@ -44,10 +54,9 @@ const nodeInner = (current: any, props: { id: string }): any => {
 };
 
 export const editable = (
-  state,
+  state: RootState,
   { id }: { id: string }
-): // tslint:disable-next-line:no-any
-any =>
+): AbstractEditable<AbstractCell<Row>> =>
   state &&
   state.ory &&
   state.ory.editables &&
@@ -80,11 +89,13 @@ export const editableConfig = (
   { editable: id }: { editable: string }
 ): Config => editable(state, { id }).config;
 
+export type NodeProps = { id: string; editable: string };
+
 export const node = (
   state: RootState,
-  props: { id: string; editable: string }
+  props: NodeProps
   // tslint:disable-next-line:no-any
-): any => {
+): Cell | Row => {
   const tree = editable(state, { id: props.editable });
   if (!tree) {
     throw new Error(`Could not find editable: ${props.editable}`);
@@ -110,19 +121,24 @@ export const searchNodeEverywhere = (state: RootState, id: string) => {
 export const purifiedNode = (
   state: RootState,
   props: { id: string; editable: string }
-  // tslint:disable-next-line:no-any
-): any => {
+): Row | Cell => {
   const found = node(state, props);
   if (!found) {
     return null;
   }
 
-  if (found.cells) {
-    found.cells = found.cells.map((c: Cell): string => c.id);
+  if ((found as Row).cells) {
+    (found as Row).cells = (found as Row).cells.map(
+      (c: Cell): string => c.id
+      // tslint:disable-next-line:no-any
+    ) as any;
   }
 
-  if (found.rows) {
-    found.rows = found.rows.map((r: Row): string => r.id);
+  if ((found as Cell).rows) {
+    (found as Cell).rows = (found as Cell).rows.map(
+      (r: Row): string => r.id
+      // tslint:disable-next-line:no-any
+    ) as any;
   }
 
   return found;

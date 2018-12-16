@@ -27,7 +27,7 @@ import { bindActionCreators } from 'redux';
 import { createStructuredSelector } from 'reselect';
 
 import Inner from './Inner';
-import { editableConfig, node, purifiedNode } from '../../selector/editable';
+import { editableConfig, node, purifiedNode, NodeProps } from '../../selector/editable';
 import {
   isPreviewMode,
   isEditMode,
@@ -47,6 +47,7 @@ import { ComponetizedCell } from '../../types/editable';
 import { Dispatch } from 'redux';
 import { FocusCellAction } from './../../actions/cell/core';
 import { BlurAllCellsAction } from './../../actions/cell/core';
+import { RootState } from '../../selector';
 
 const gridClass = ({ node: { size }, ...rest }: ComponetizedCell): string => {
   if (rest.isPreviewMode || rest.isEditMode) {
@@ -79,7 +80,6 @@ class Cell extends React.PureComponent<CellProps> {
         className={classNames('ory-cell', gridClass(this.props), {
           'ory-cell-has-inline-neighbour': hasInlineNeighbour,
           [`ory-cell-inline-${inline || ''}`]: inline,
-          // 'ory-cell-bring-to-front': inline, && (!this.props.isLayoutMode && !this.props.isInsertMode && !this.props.isResizeMode),
           'ory-cell-focused': focused,
           'ory-cell-resizing-overlay': this.props.isResizeMode,
           'ory-cell-bring-to-front':
@@ -117,8 +117,7 @@ const mapStateToProps = createStructuredSelector({
   isLayoutMode,
   config: editableConfig,
   node: purifiedNode,
-  // tslint:disable-next-line:no-any
-  rawNode: (state: any, props: any) => () => node(state, props),
+  rawNode: (state: RootState, props: NodeProps) => () => node(state, props),
 });
 
 const mapDispatchToProps = (

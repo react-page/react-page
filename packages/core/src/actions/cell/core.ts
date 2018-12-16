@@ -228,3 +228,16 @@ export const createFallbackCell = (
   ids: gen(1),
   fallback,
 });
+
+export const coreActions = {
+  createFallbackCell,
+  blurAllCells,
+  blurCell,
+  focusPreviousCell,
+  focusNextCell,
+  focusCell,
+  resizeCell,
+  removeCell,
+  updateCellLayout,
+  updateCellContent,
+};

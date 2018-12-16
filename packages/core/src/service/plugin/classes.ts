@@ -186,23 +186,23 @@ export type PluginProps<
   description?: string;
   handleRemoveHotKey?: (
     e: Event,
-    props: PluginProps<StateT> & ExtraPropsT
+    props: PluginProps<StateT, ExtraPropsT> & ExtraPropsT
   ) => Promise<void>;
   handleFocusNextHotKey?: (
     e: Event,
-    props: PluginProps<StateT> & ExtraPropsT
+    props: PluginProps<StateT, ExtraPropsT> & ExtraPropsT
   ) => Promise<void>;
   handleFocusPreviousHotKey?: (
     e: Event,
-    props: PluginProps<StateT> & ExtraPropsT
+    props: PluginProps<StateT, ExtraPropsT> & ExtraPropsT
   ) => Promise<void>;
   handleFocus?: (
-    props: PluginProps<StateT> & ExtraPropsT,
+    props: PluginProps<StateT, ExtraPropsT> & ExtraPropsT,
     focusSource: string,
     ref: HTMLElement
   ) => void;
   handleBlur?: (
-    props: PluginProps<StateT> & ExtraPropsT
+    props: PluginProps<StateT, ExtraPropsT> & ExtraPropsT
   ) => void;
   reducer?: (state: StateT, action: AnyAction) => StateT;
   migrations?: Migration[];

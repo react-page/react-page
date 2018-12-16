@@ -34,6 +34,7 @@ import {
 import { isEditMode, isPreviewMode } from '../../../selector/display';
 
 import { ComponetizedCell } from '../../../types/editable';
+import { LayoutPluginProps } from '../../../service/plugin/classes';
 
 // TODO clean me up #157
 class Layout extends React.PureComponent<ComponetizedCell> {
@@ -64,8 +65,7 @@ class Layout extends React.PureComponent<ComponetizedCell> {
     } = nextProps;
 
     // FIXME this is really shitty because it will break when the state changes before the blur comes through, see #157
-    // tslint:disable-next-line:no-any
-    const pass: any = {
+    const pass: LayoutPluginProps = {
       editable,
       id,
       state,
@@ -74,11 +74,12 @@ class Layout extends React.PureComponent<ComponetizedCell> {
       onChange: updateCellContent,
       name,
       version,
-      isEditMode: nextProps.isEditMode,
+      // Commented this out for consistency with the way Component is called
+      /*isEditMode: nextProps.isEditMode,
       isResizeMode: nextProps.isResizeMode,
       isPreviewMode: nextProps.isPreviewMode,
       isInsertMode: nextProps.isInsertMode,
-      isLayoutMode: nextProps.isLayoutMode,
+      isLayoutMode: nextProps.isLayoutMode,*/
     };
 
     // Basically we check if the focus state changed and if yes, we execute the callback handler from the plugin, that

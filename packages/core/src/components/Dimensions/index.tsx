@@ -24,8 +24,8 @@ import * as React from 'react';
 import onElementResize from 'element-resize-event';
 import classNames from 'classnames';
 
-const defaultGetWidth = element => element.clientWidth;
-const defaultGetHeight = element => element.clientHeight;
+const defaultGetWidth = (element: HTMLElement) => element.clientWidth;
+const defaultGetHeight = (element: HTMLElement) => element.clientHeight;
 
 const Dimensions = ({
   getHeight = defaultGetHeight,
@@ -64,7 +64,7 @@ const Dimensions = ({
     // This cann not be used here because it doesn't listen to state changes.
     // shouldComponentUpdate = shouldPureComponentUpdate
 
-    public mponentWillUnmount() {
+    public componentWillUnmount() {
       this.getWindow().removeEventListener('resize', this.onResize);
     }
 

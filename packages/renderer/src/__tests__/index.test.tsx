@@ -27,6 +27,7 @@ import slate from 'ory-editor-plugins-slate';
 import { LayoutPluginProps } from 'ory-editor-core/lib/service/plugin/classes';
 import { Plugins } from 'ory-editor-core/src/service/plugin/classes';
 import { ContentPluginProps } from 'ory-editor-core/lib/service/plugin/classes';
+import { EditableType } from 'ory-editor-core/lib/types/editable';
 
 const Layout = ({ children, state: { className } }) => (
   <div className={`${className}`}>{children}</div>
@@ -186,23 +187,33 @@ describe('HTMLRenderer', () => {
   });
 
   describe('two inlining content cells', () => {
-    const state = {
+    const state: EditableType = {
       id: '1',
       cells: [
         {
+          id: '1_1',
           rows: [
             {
+              id: '1_1_1',
               cells: [
                 {
+                  id: '1_1_1_1',
                   content: {
-                    plugin: { name: 'ory/editor/core/default' },
+                    plugin: {
+                      name: 'ory/editor/core/default',
+                      version: '0.0.1',
+                    },
                     state: { value: 'Lorem ipsum.' },
                   },
                   inline: 'left',
                 },
                 {
+                  id: '1_1_1_2',
                   content: {
-                    plugin: { name: 'ory/editor/core/default' },
+                    plugin: {
+                      name: 'ory/editor/core/default',
+                      version: '0.0.1',
+                    },
                     state: { value: 'dolor sit amet.' },
                   },
                 },

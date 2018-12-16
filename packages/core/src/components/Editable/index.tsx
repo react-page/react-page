@@ -26,23 +26,14 @@ import { Provider } from 'react-redux';
 import dragDropContext from '../DragDropContext';
 import HotKeyDecorator from '../HotKey/Decorator';
 import { editable } from '../../selector/editable';
-import PluginService from '../../service/plugin';
 import Inner from './Inner';
 
-import { Store } from 'redux';
-import { RootState } from '../../types/state';
-import { DragDropContext as LibDragDropContext } from 'react-dnd';
-import { ContentPlugin } from './../../service/plugin/classes';
 import { EditorState } from '../../types/editor';
+import Editor from '../../';
 
 export type PropTypes = {
   id: string;
-  editor: {
-    plugins: PluginService;
-    store: Store<RootState>;
-    defaultPlugin: ContentPlugin;
-    dragDropContext: LibDragDropContext;
-  };
+  editor: Editor;
   onChange?: Function;
 };
 

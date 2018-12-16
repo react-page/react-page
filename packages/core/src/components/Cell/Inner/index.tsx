@@ -53,7 +53,6 @@ class Inner extends React.PureComponent<ComponetizedCell> {
       },
       config: { whitelist = [] },
     } = this.props;
-    // const className = 'ory-cell-inner'
 
     if (rows.length && LayoutComponent) {
       return (
