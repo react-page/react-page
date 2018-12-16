@@ -229,7 +229,6 @@ export type Editables = {
   future: EditableType[];
 };
 
-// tslint:disable-next-line:no-any
 export type NativeFactory = (
   // tslint:disable-next-line:no-any
   hover?: any,

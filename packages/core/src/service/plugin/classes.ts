@@ -22,7 +22,7 @@
 
 import semver from 'semver';
 import { AnyAction } from 'redux';
-import { Omit } from '../../types/Omit';
+import { Omit } from '../../types/omit';
 import { NativeFactory } from '../../types/editable';
 
 export type Plugins = {

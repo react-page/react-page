@@ -22,6 +22,7 @@
 
 import * as React from 'react';
 import { NativeState } from './types/state';
+import { NativeFactory } from 'ory-editor-core/lib/types/editable';
 
 export interface NativeProps {
   state: NativeState;
@@ -44,8 +45,7 @@ const Native: React.SFC<NativeProps> = ({ state: { item, itemType } }) => (
  * @param monitor the DropTargetMonitor as provided by react-dnd
  * @param component the React component of the item which the native element was dropped on
  */
-// tslint:disable-next-line:no-any
-export default (hover: any, monitor: any, component: any) => ({
+const plugin: NativeFactory = ({ monitor }) => ({
   Component: Native,
   name: 'ory/editor/core/content/default-native',
   version: '0.0.1',
@@ -57,3 +57,4 @@ export default (hover: any, monitor: any, component: any) => ({
   // Set type to layout to create a layout cell instead of a content cell
   // type: 'layout'
 });
+export default plugin;
