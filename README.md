@@ -141,6 +141,13 @@ To generate API docs, run:
 $ yarn run docs:api
 ```
 
+### Recommended tools
+
+Feel free to use whatever works for you, these works for us. Especially care about using "prettier" when writing code as it will avoid merge conflicts on code style.
+
+IDE: vscode
+Vscode extensions: prettier, tslint, code spell checker, beautify css/sass/scss/less
+
 ## Known issues
 ### Unlink error
 Occasionally you might see this error
