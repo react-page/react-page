@@ -21,17 +21,15 @@
  */
 
 import Subject from '@material-ui/icons/Subject';
-import { compose, flatten, map, prop, pathOr } from 'ramda';
+import { compose, flatten, map, prop } from 'ramda';
 import Html from 'slate-html-serializer';
 import * as React from 'react';
-import { ActionTypes } from 'redux-undo';
 import Component, { SlateProps } from './Component';
 import Plugin from './plugins/Plugin';
 import * as hooks from './hooks';
 import parse5 from 'parse5';
 import v002 from './migrations/v002';
 import { Value } from 'slate';
-import { AnyAction } from 'redux';
 import { PluginButtonProps } from './plugins/Plugin';
 import { ContentPluginConfig } from 'ory-editor-core/lib/service/plugin/classes';
 import { SlateState } from './types/state';
@@ -170,29 +168,6 @@ export default (plugins: Plugin[] = hooks.defaultPlugins): ContentPluginConfig<S
       _props.onChange({
         editorState: _props.state.editorState.change().blur().value,
       });
-    },
-
-    // tslint:disable-next-line:no-any
-    reducer: (state: any, action: AnyAction) => {
-      if (
-        (action.type === ActionTypes.UNDO ||
-          action.type === ActionTypes.REDO) &&
-        pathOr(false, ['content', 'state', 'editorState'], state)
-      ) {
-        return {
-          ...state,
-          content: {
-            ...state.content,
-            state: {
-              ...state.content.state,
-              editorState: state.content.state.editorState.merge({
-                isNative: false,
-              }),
-            },
-          },
-        };
-      }
-      return state;
     },
 
     handleRemoveHotKey: hooks.handleRemoveHotKey,
