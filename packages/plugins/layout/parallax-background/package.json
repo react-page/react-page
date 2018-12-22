@@ -7,14 +7,13 @@
   "scripts": {
     "build": "npm-run-all --parallel build:lib build:css",
     "build:watch": "npm-run-all --parallel build:lib:watch build:css:watch",
-    "build:lib": "babel ./src --source-maps --ignore test.js --out-dir ./lib",
+    "build:lib": "tsc -p ./tsconfig.json",
     "build:lib:watch": "npm run build:lib -- --watch",
     "build:css": "postcss -c ../../../../postcss.config.js --dir lib/ src/index.css",
     "build:css:watch": "npm run build:css -- -w",
-    "docs": "documentation build ./src/**/*.js --format md --github -o ../../../../docs/api/plugins/parallax-background.md",
+    "docs": "documentation build ./lib/**/*.js --format md --github -o ../../../../docs/api/plugins/parallax-background.md",
     "prebuild": "npm run clean",
-    "clean": "rimraf \"lib/*\"",
-    "flow:generate": "flow-typed install  --flowVersion=0.79.1"
+    "clean": "rimraf \"lib/*\""
   },
   "peerDependencies": {
     "@material-ui/core": "^3.0.0",

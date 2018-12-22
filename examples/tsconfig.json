@@ -1,0 +1,65 @@
+{
+  "extends": "../packages/tsconfig.settings.json",
+  "compilerOptions": {
+    "rootDir": "src",
+    "outDir": "lib",
+    "allowJs": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "module": "esnext",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "preserve",
+    "declaration": false,
+    "declarationMap": false,
+    "composite": false
+  },
+  "include": [
+    "src"
+  ],
+  "exclude": [
+    "lib",
+    "node_modules",
+    "src/**/__tests__/**/*.*"
+  ],
+  "references": [
+    {
+      "path": "../packages/core"
+    },
+    {
+      "path": "../packages/ui"
+    },
+    {
+      "path": "../packages/renderer"
+    },
+    {
+      "path": "../packages/plugins/content/divider"
+    },
+    {
+      "path": "../packages/plugins/content/html5-video"
+    },
+    {
+      "path": "../packages/plugins/content/image"
+    },
+    {
+      "path": "../packages/plugins/content/native"
+    },
+    {
+      "path": "../packages/plugins/content/slate"
+    },
+    {
+      "path": "../packages/plugins/content/spacer"
+    },
+    {
+      "path": "../packages/plugins/content/video"
+    },
+    {
+      "path": "../packages/plugins/layout/background"
+    },
+    {
+      "path": "../packages/plugins/layout/parallax-background"
+    }
+  ]
+}
