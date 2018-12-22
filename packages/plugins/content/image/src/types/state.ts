@@ -1,4 +1,3 @@
-import { ImageUploadType } from 'ory-editor-ui/lib/ImageUpload';
 export interface ImageState {
   src: string;
   caption?: string;
@@ -6,7 +5,3 @@ export interface ImageState {
   target?: string;
   rel?: string;
 }
-
-export type ImagePluginSettings = {
-  imageUpload: ImageUploadType;
-};

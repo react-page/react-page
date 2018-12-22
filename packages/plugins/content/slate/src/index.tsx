@@ -24,7 +24,7 @@ import Subject from '@material-ui/icons/Subject';
 import { compose, flatten, map, prop } from 'ramda';
 import Html from 'slate-html-serializer';
 import * as React from 'react';
-import Component, { SlateProps } from './Component';
+import Component from './Component';
 import Plugin from './plugins/Plugin';
 import * as hooks from './hooks';
 import parse5 from 'parse5';
@@ -33,6 +33,11 @@ import { Value } from 'slate';
 import { PluginButtonProps } from './plugins/Plugin';
 import { ContentPluginConfig } from 'ory-editor-core/lib/service/plugin/classes';
 import { SlateState } from './types/state';
+import { SlateProps } from './types/component';
+import { SlateSettings } from './types/settings';
+import { pathOr } from 'ramda/src/pathOr';
+import { ActionTypes } from 'redux-undo';
+import { AnyAction } from 'redux';
 
 const createPlugins = compose(
   flatten,
@@ -48,40 +53,15 @@ export const html = new Html({
 
 export const defaultPlugins = hooks.defaultPlugins;
 
-export default (plugins: Plugin[] = hooks.defaultPlugins): ContentPluginConfig<SlateState> => {
-  // tslint:disable-next-line:no-any
-  let props: any = {};
-  props.plugins = (plugins ? plugins : []).concat(createPlugins(plugins));
-  props.onKeyDown = (
-    e: Event,
-    data: { key: string; isMod: boolean; isShift: boolean },
-    state: Value
-  ) => {
-    // we need to prevent slate from handling undo and redo
-    if (data.isMod && (data.key === 'z' || data.key === 'y')) {
-      return state;
-    }
-
-    if (data.isShift && data.key === 'enter') {
-      return state.change().insertText('\n').value;
-    }
-
-    for (let i = 0; i < plugins.length; i++) {
-      const { onKeyDown } = plugins[i];
-      const newState = onKeyDown && onKeyDown(e, data, state);
-
-      if (newState) {
-        return newState;
-      }
-    }
-
-    return;
-  };
+export default (
+  plugins: Plugin[] = hooks.defaultPlugins
+): ContentPluginConfig<SlateState> => {
+  let settings: SlateSettings = {};
+  settings.plugins = (plugins ? plugins : []).concat(createPlugins(plugins));
 
   const HoverButtons = ({
     editorState,
-    onChange,
-    focus,
+    editor,
   }: PluginButtonProps) => (
     <div>
       {plugins &&
@@ -92,20 +72,18 @@ export default (plugins: Plugin[] = hooks.defaultPlugins): ContentPluginConfig<S
               <Button
                 key={`${i}-${j}`}
                 editorState={editorState}
-                onChange={onChange}
-                focus={focus}
+                editor={editor}
               />
             ))
         )}
     </div>
   );
 
-  props.HoverButtons = HoverButtons;
+  settings.HoverButtons = HoverButtons;
 
   const ToolbarButtons = ({
     editorState,
-    onChange,
-    focus,
+    editor,
   }: PluginButtonProps) => (
     <div>
       {plugins &&
@@ -116,17 +94,15 @@ export default (plugins: Plugin[] = hooks.defaultPlugins): ContentPluginConfig<S
               <Button
                 key={`${i}-${j}`}
                 editorState={editorState}
-                onChange={onChange}
-                focus={focus}
+                editor={editor}
               />
             ))
         )}
     </div>
   );
-  props.ToolbarButtons = ToolbarButtons;
-
-  const Slate = (cellProps: SlateProps) => (
-    <Component {...cellProps} {...props} />
+  settings.ToolbarButtons = ToolbarButtons;
+  const Slate: React.SFC<SlateProps> = cellProps => (
+    <Component {...cellProps} {...settings} />
   );
   const StaticComponent = ({
     state: { editorState = {} as Value } = {},
@@ -148,26 +124,48 @@ export default (plugins: Plugin[] = hooks.defaultPlugins): ContentPluginConfig<S
 
     allowInlineNeighbours: true,
 
-    handleFocus: (_props: SlateProps, source: string) => {
+    /*handleFocus: (_props: SlateProps, source: string) => {
       if (source === 'onMouseDown') {
         return;
-      } else if (_props.state.editorState.isFocused) {
+      } else if (_props.state.editorState.selection.isFocused) {
         return;
       }
 
       setTimeout(() => {
-        _props.state.editorState.change().focus();
+        _props.state.editor && _props.state.editor.focus();
       }, 0);
     },
 
     handleBlur: (_props: SlateProps) => {
-      if (!_props.state.editorState.isFocused) {
+      if (!_props.state.editorState.selection.isFocused) {
         return;
       }
-
       _props.onChange({
-        editorState: _props.state.editorState.change().blur().value,
+        editorState: _props.state.editor && _props.state.editor.blur().value,
       });
+    },*/
+
+    // tslint:disable-next-line:no-any
+    reducer: (state: any, action: AnyAction) => {
+      if (
+        (action.type === ActionTypes.UNDO ||
+          action.type === ActionTypes.REDO) &&
+        pathOr(false, ['content', 'state', 'editorState'], state)
+      ) {
+        return {
+          ...state,
+          content: {
+            ...state.content,
+            state: {
+              ...state.content.state,
+              editorState: state.content.state.editorState.merge({
+                isNative: false,
+              }),
+            },
+          },
+        };
+      }
+      return state;
     },
 
     handleRemoveHotKey: hooks.handleRemoveHotKey,

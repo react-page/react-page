@@ -24,16 +24,17 @@ import * as React from 'react';
 import Plugin from '../Plugin';
 import Paragraph from './node';
 import { RenderNodeProps } from 'slate-react';
-import { Block } from 'slate';
+import { Block, Editor } from 'slate';
+import { NextType } from '../../types/next';
 
 export const P = 'PARAGRAPH/PARAGRAPH';
 
 export default class ParagraphPlugin extends Plugin {
   name = 'paragraph';
 
-  schema = {
+  /*schema = {
     nodes: { [P]: Paragraph },
-  };
+  };*/
 
   // tslint:disable-next-line:no-any
   deserialize = (el: any, next: any) => {
@@ -69,13 +70,13 @@ export default class ParagraphPlugin extends Plugin {
     }
   }
 
-  renderNode = (props: RenderNodeProps) => {
+  renderNode = (props: RenderNodeProps, editor: Editor, next: NextType) => {
     switch ((props.node as Block).type) {
       case P: {
         return <Paragraph {...props} />;
       }
       default:
-        return;
+        return next();
     }
   }
 }

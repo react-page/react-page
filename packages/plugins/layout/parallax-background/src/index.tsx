@@ -20,108 +20,26 @@
  *
  */
 
-import * as React from 'react';
-import { v4 } from 'uuid';
-import Icon from '@material-ui/icons/CropLandscape';
-import TextField from '@material-ui/core/TextField';
-import {
-  LayoutPluginProps,
-  LayoutPluginConfig
-} from 'ory-editor-core/lib/service/plugin/classes';
-import { BottomToolbar } from 'ory-editor-ui';
-import ThemeProvider, { darkTheme } from 'ory-editor-ui/lib/ThemeProvider';
-import { ContentPluginConfig } from 'ory-editor-core/lib/service/plugin/classes';
+import createPlugin from './createPlugin';
+import ParallaxBackgroundHtmlRenderer from './Renderer/ParallaxBackgroundHtmlRenderer';
+import ParallaxBackgroundDefaultControls from './Controls/ParallaxBackgroundDefaultControls';
+import { LayoutPluginConfig } from 'ory-editor-core/lib/service/plugin/classes';
+import { ParallaxBackgroundState } from './types/state';
+import { ParallaxBackgroundSettings } from './types/settings';
+import { MakeOptional } from './types/makeOptional';
 
-if (process.env.NODE_ENV !== 'production') {
-  console.warn(
-    // tslint:disable-next-line:max-line-length
-    'WARNING! Obsolete plugin loaded. \'ory/editor/core/layout/parallax-background\' has been deprecated, please use the new \'ory/editor/core/layout/background\' plugin instead!'
-  );
-}
+export type ParallaxBackgroundDefaultSettings = MakeOptional<
+  ParallaxBackgroundSettings,
+  'Renderer' | 'Controls'
+>;
 
-export interface BackgroundState {
-  background?: string;
-  darken?: number | string;
-}
+const parallaxBackgroundPlugin: (
+  settings: ParallaxBackgroundDefaultSettings
+) => LayoutPluginConfig<ParallaxBackgroundState> = settings =>
+  createPlugin({
+    Renderer: ParallaxBackgroundHtmlRenderer,
+    Controls: ParallaxBackgroundDefaultControls,
+    ...settings,
+  });
 
-class PluginComponent extends React.Component<
-  LayoutPluginProps<BackgroundState>
-> {
-  handleChangeBackground: React.ChangeEventHandler<HTMLInputElement> = e =>
-    this.props.onChange({ background: e.target.value })
-
-  handleChangeDarken: React.ChangeEventHandler<HTMLInputElement> = e =>
-    this.props.onChange({ darken: e.target.value })
-
-  render() {
-    const {
-      children,
-      focused,
-      state: { background = '', darken = 0.3 },
-    } = this.props;
-    return (
-      <ThemeProvider theme={darkTheme}>
-        <div
-          className="ory-plugins-layout-parallax-background"
-          style={{
-            backgroundImage: `linear-gradient(rgba(0, 0, 0, ${darken}), rgba(0, 0, 0, ${darken})), url('${background}')`,
-          }}
-        >
-          <BottomToolbar open={focused} theme={darkTheme}>
-            <TextField
-              placeholder="http://example.com/image.png"
-              label="Image location (URL)"
-              style={{ width: '256px' }}
-              value={background}
-              onChange={this.handleChangeBackground}
-            />
-            <TextField
-              placeholder="0.3"
-              label="Darken level"
-              style={{ width: '256px' }}
-              value={darken}
-              onChange={this.handleChangeDarken}
-            />
-          </BottomToolbar>
-          {children}
-        </div>
-      </ThemeProvider>
-    );
-  }
-}
-
-export interface ParallaxBackgroundPluginSettings {
-  defaultPlugin: ContentPluginConfig;
-}
-
-export default ({
-  defaultPlugin,
-}: ParallaxBackgroundPluginSettings): LayoutPluginConfig<BackgroundState> => ({
-  Component: PluginComponent,
-  name: 'ory/editor/core/layout/parallax-background',
-  version: '0.0.1',
-
-  text: 'Parallax Background (deprecated)',
-  IconComponent: <Icon />,
-
-  createInitialChildren: () => ({
-    id: v4(),
-    rows: [
-      {
-        id: v4(),
-        cells: [
-          {
-            content: {
-              plugin: defaultPlugin,
-              state: defaultPlugin.createInitialState(),
-            },
-            id: v4(),
-          },
-        ],
-      },
-    ],
-  }),
-
-  handleFocusNextHotKey: () => Promise.reject(),
-  handleFocusPreviousHotKey: () => Promise.reject(),
-});
+export default parallaxBackgroundPlugin;
