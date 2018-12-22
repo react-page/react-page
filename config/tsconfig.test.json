@@ -1,0 +1,30 @@
+{
+  "compilerOptions": {
+    "rootDirs": ["src"],
+    "outDir": "lib",
+    "baseUrl": ".",
+    "moduleResolution": "node",
+    "target": "es5",
+    "module": "commonjs",
+    "jsx": "react",
+    "experimentalDecorators": true,
+    "esModuleInterop": true,
+    "sourceMap": true,
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "noUnusedLocals": true,
+    "declaration": true,
+    "declarationMap": true,
+    "composite": true,
+    "lib": ["es7", "dom"],
+    "types": ["node", "jest"],
+    "paths": {
+      "react": [
+        "./node_modules/@types/react/index"
+      ],
+      "slate": [
+        "./node_modules/@types/slate/index"
+      ],
+    }
+  }
+}

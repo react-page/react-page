@@ -2,21 +2,21 @@
 
 ### Table of Contents
 
--   [index][1]
+-   [default][1]
     -   [Parameters][2]
 
-## index
+## default
 
-[packages/plugins/content/native/src/index.js:47-58][3]
+[packages/plugins/content/native/lib/index.js:51-61][3]
 
 ### Parameters
 
--   `hover` **any** the item which the native element was dropped on
--   `monitor` **any** the DropTargetMonitor as provided by react-dnd
--   `component` **any** the React component of the item which the native element was dropped on
+-   `hover`  the item which the native element was dropped on
+-   `monitor`  the DropTargetMonitor as provided by react-dnd
+-   `component`  the React component of the item which the native element was dropped on
 
-[1]: #index
+[1]: #default
 
 [2]: #parameters
 
-[3]: https://github.com/PeterKottas/editor/blob/ab5ff50a0efa9bd5c7e0fa5fa7d974e858745804/packages/plugins/content/native/src/index.js#L47-L58 "Source code on GitHub"
+[3]: https://github.com/PeterKottas/editor/blob/306e1ece52f6e4853e83bb83b6e37a9411533bdf/packages/plugins/content/native/lib/index.js#L51-L61 "Source code on GitHub"

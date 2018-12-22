@@ -31,7 +31,6 @@ Gruntfile.js
 .*ignore
 .eslintrc
 .jshintrc
-.flowconfig
 .documentup.json
 .yarn-metadata.json
 .*.yml

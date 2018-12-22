@@ -2,19 +2,19 @@
   "name": "ory-editor-plugins-slate",
   "version": "0.0.0",
   "main": "./lib/index.js",
+  "typings": "./lib/index.d.ts",
   "author": "ORY GmbH",
   "license": "GNU Lesser General Public License v3.0",
   "scripts": {
     "build": "npm-run-all --parallel build:lib build:css",
     "build:watch": "npm-run-all --parallel build:lib:watch build:css:watch",
-    "build:lib": "babel ./src --source-maps --ignore test.js --out-dir ./lib",
+    "build:lib": "tsc -p ./tsconfig.json",
     "build:lib:watch": "npm run build:lib -- --watch",
     "build:css": "postcss -c ../../../../postcss.config.js --dir lib/ src/index.css",
     "build:css:watch": "npm run build:css -- -w",
-    "docs": "documentation build ./src/**/*.js --format md --github -o ../../../../docs/api/plugins/slate.md",
+    "docs": "documentation build ./lib/**/*.js --format md --github -o ../../../../docs/api/plugins/slate.md",
     "prebuild": "npm run clean",
-    "clean": "rimraf \"lib/*\"",
-    "flow:generate": "flow-typed install  --flowVersion=0.79.1"
+    "clean": "rimraf \"lib/*\""
   },
   "peerDependencies": {
     "@material-ui/core": "^3.0.0",
@@ -34,10 +34,10 @@
     "selection-position": "^1.0.0",
     "slate": "^0.37.3",
     "slate-edit-blockquote": "^0.6.1",
+    "slate-edit-list": "^0.12.0",
     "slate-html-serializer": "0.6.21",
     "slate-plain-serializer": "^0.5.30",
-    "slate-react": "^0.15.4",
-    "slate-edit-list": "^0.12.0"
+    "slate-react": "^0.15.4"
   },
   "publishConfig": {
     "access": "public"
