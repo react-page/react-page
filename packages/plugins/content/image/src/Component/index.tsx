@@ -21,18 +21,65 @@
  */
 
 import * as React from 'react';
-import Display from './Display/index';
-import Form from './Form/index';
-import { ContentPluginProps } from 'ory-editor-core/lib/service/plugin/classes';
-import ThemeProvider, { darkTheme } from 'ory-editor-ui/lib/ThemeProvider';
-import { ImageState, ImagePluginSettings } from './../types/state';
+import { ImageLoaded, ImageUploaded } from 'ory-editor-ui/lib/ImageUpload';
+import { ImageProps } from '../types/component';
+import { ImageState } from './../types/state';
 
-export type PropTypes = ContentPluginProps<ImageState> & ImagePluginSettings;
+type StateType = {
+  imagePreview?: ImageLoaded;
+};
 
-const Image = (props: PropTypes) => (
-  <ThemeProvider theme={darkTheme}>
-    {props.readOnly ? <Display {...props} /> : <Form {...props} />}
-  </ThemeProvider>
-);
+class Form extends React.Component<ImageProps, StateType> {
+  constructor(props: ImageProps) {
+    super(props);
+    this.state = {};
+  }
 
-export default Image;
+  handleChange = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const target = e.target;
+    if (target instanceof HTMLInputElement) {
+      let change: Partial<ImageState> = {};
+
+      if (target.name === 'target') {
+        if (target.checked) {
+          change.target = '_blank';
+          // noopener is safer but not supported in IE, so noreferrer adds some security
+          change.rel = 'noreferrer noopener';
+        } else {
+          change.target = null;
+          change.rel = null;
+        }
+      } else {
+        change[target.name] = target.value;
+      }
+
+      this.props.onChange(change);
+      return;
+    }
+  }
+
+  handleImageLoaded = (image: ImageLoaded) =>
+    this.setState({ imagePreview: image })
+
+  handleImageUploaded = (resp: ImageUploaded) => {
+    this.setState({ imagePreview: undefined });
+    this.props.onChange({ src: resp.url });
+  }
+
+  render() {
+    const { Controls } = this.props;
+    return (
+      <Controls
+        {...this.props}
+        imagePreview={this.state.imagePreview}
+        handleImageLoaded={this.handleImageLoaded}
+        handleImageUploaded={this.handleImageUploaded}
+        handleChange={this.handleChange}
+      />
+    );
+  }
+}
+
+export default Form;

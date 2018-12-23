@@ -25,11 +25,12 @@ import * as React from 'react';
 import BoldIcon from '@material-ui/icons/FormatBold';
 import ItalicIcon from '@material-ui/icons/FormatItalic';
 import UnderlinedIcon from '@material-ui/icons/FormatUnderlined';
-import { makeTagMark, ToolbarButton } from '../helpers';
+import { ToolbarButton } from '../helpers';
 import Plugin, { PluginButtonProps } from './Plugin';
-import { Props } from '../types/props';
 import { RenderMarkProps } from 'slate-react';
-import { Mark, MarkProperties } from 'slate';
+import { Mark, MarkProperties, Editor } from 'slate';
+import { NextType } from '../types/next';
+import isHotkey from 'is-hotkey';
 
 export const STRONG = 'EMPHASIZE/STRONG';
 export const EM = 'EMPHASIZE/EM';
@@ -40,14 +41,12 @@ const createButton: (
   type: Mark | MarkProperties | string,
   icon: JSX.Element
 ) => React.SFC<PluginButtonProps> = (type, icon) => ({
+  editor,
   editorState,
-  onChange,
 }) => {
-  const onClick = e => {
+  const onClick = (e: React.MouseEvent) => {
     e.preventDefault();
-    onChange({
-      value: editorState.change().toggleMark(type).value,
-    });
+    editor.toggleMark(type);
   };
 
   const isActive =
@@ -57,17 +56,15 @@ const createButton: (
 };
 
 export default class EmphasizePlugin extends Plugin {
-  props: Props;
-
   name = 'emphasize';
 
-  schema = {
+  /*schema = {
     marks: {
       [STRONG]: makeTagMark('strong'),
       [EM]: makeTagMark('em'),
       [U]: makeTagMark('u'),
     },
-  };
+  };*/
 
   hoverButtons = [
     createButton(STRONG, <BoldIcon />),
@@ -75,25 +72,23 @@ export default class EmphasizePlugin extends Plugin {
     createButton(U, <UnderlinedIcon />),
   ];
 
-  onKeyDown = (e: Event, data: { key: string; isMod: boolean }, state) => {
-    if (data.isMod) {
-      let mark;
-
-      switch (data.key) {
-        case 'b':
-          mark = STRONG;
-          break;
-        case 'i':
-          mark = EM;
-          break;
-        case 'u':
-          mark = U;
-          break;
-        default:
-          return;
-      }
-
-      return state.change().toggleMark(mark).value;
+  onKeyDown = (e: KeyboardEvent, editor: Editor, next: NextType): boolean => {
+    let mark: string;
+    if (isHotkey('mod+b', e)) {
+      mark = STRONG;
+    }
+    if (isHotkey('mod+i', e)) {
+      mark = EM;
+    }
+    if (isHotkey('mod+u', e)) {
+      mark = U;
+    }
+    if (mark) {
+      editor.toggleMark(mark);
+      e.preventDefault();
+      return true;
+    } else {
+      return next();
     }
   }
 
@@ -141,7 +136,7 @@ export default class EmphasizePlugin extends Plugin {
     }
   }
 
-  renderMark = (props: RenderMarkProps) => {
+  renderMark = (props: RenderMarkProps, editor: Editor, next: NextType) => {
     const { children, mark, attributes } = props;
 
     switch (mark.type) {
@@ -152,7 +147,7 @@ export default class EmphasizePlugin extends Plugin {
       case U:
         return <u {...attributes}>{children}</u>;
       default:
-        return;
+        return next();
     }
   }
 }

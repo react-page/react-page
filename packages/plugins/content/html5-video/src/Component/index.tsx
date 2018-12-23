@@ -21,47 +21,48 @@
  */
 
 import * as React from 'react';
-import { ContentPluginProps } from 'ory-editor-core/lib/service/plugin/classes';
-import TextField from '@material-ui/core/TextField';
-import { BottomToolbar } from 'ory-editor-ui';
-import { darkTheme } from 'ory-editor-ui/lib/ThemeProvider';
+import { Html5VideoProps } from './../types/component';
 
-// tslint:disable-next-line:no-any
-const changeUrl = (onChange: (state: any) => void) => (
-  event: React.ChangeEvent<HTMLInputElement>
-) => event.target && onChange({ url: event.target.value });
+export interface HTML5VideoState {
+  url: string;
+}
 
-export interface HTML5VideoProps extends ContentPluginProps {}
+class HTML5Video extends React.PureComponent<Html5VideoProps, HTML5VideoState> {
+  constructor(props: Html5VideoProps) {
+    super(props);
+    this.state = {
+      url: undefined,
+    };
+    this.changeUrlPreview = this.changeUrlPreview.bind(this);
+    this.commitUrl = this.commitUrl.bind(this);
+  }
 
-const HTML5Video: React.SFC<HTML5VideoProps> = ({
-  readOnly,
-  onChange,
-  state: { url = '' },
-  focused,
-}) => (
-  <div className="ory-content-plugin-html5-video">
-    {!readOnly ? (
-      <BottomToolbar open={focused} theme={darkTheme}>
-        <TextField
-          placeholder="https://example.com/video.webm"
-          label="Video url"
-          onChange={changeUrl(onChange)}
-          value={url}
-          style={{ width: '512px' }}
-        />
-      </BottomToolbar>
-    ) : null}
-    <video
-      autoPlay={true}
-      controls={true}
-      loop={true}
-      muted={true}
-      width="100%"
-      key={url}
-    >
-      <source src={url} type={`video/${url.split('.').pop()}`} />
-    </video>
-  </div>
-);
+  render() {
+    const { Controls } = this.props;
+    return (
+      <Controls
+        {...this.props}
+        state={{
+          ...this.props.state,
+          url: this.state.url ? this.state.url : this.props.state.url,
+        }}
+        changeUrlPreview={this.changeUrlPreview}
+        commitUrl={this.commitUrl}
+      />
+    );
+  }
+
+  private changeUrlPreview(url: string) {
+    this.setState({ url });
+  }
+
+  private commitUrl() {
+    this.setState({ url: undefined }, () =>
+      this.props.onChange({ url: this.state.url })
+    );
+  }
+}
 
 export default HTML5Video;
+
+// <div className="ory-content-plugin-html5-video">

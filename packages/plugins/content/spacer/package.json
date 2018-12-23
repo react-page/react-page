@@ -23,12 +23,13 @@
     "react-dom": "^16.0.0"
   },
   "dependencies": {
-    "classnames": "^2.2.5",
+    "classnames": "2.2.6",
     "ory-editor-core": "0.0.0",
     "ory-editor-ui": "0.0.0",
-    "react-resizable": "^1.7.0"
+    "react-resizable": "1.7.5"
   },
-  "devDependencies": {},
+  "devDependencies": {
+  },
   "publishConfig": {
     "access": "public"
   }

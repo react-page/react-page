@@ -32,8 +32,10 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button';
-import { Data, Inline } from 'slate';
+import { Data, Inline, Editor } from 'slate';
 import { ThemeProvider } from 'ory-editor-ui';
+import { RenderNodeProps } from 'slate-react';
+import { NextType } from '../../types/next';
 
 export const A = 'LINK/LINK';
 
@@ -68,7 +70,7 @@ class LinkButton extends React.Component<PluginButtonProps, LinkButtonState> {
   }
 
   onClick = e => {
-    const { editorState, onChange } = this.props;
+    const { editorState, editor } = this.props;
     e.preventDefault();
 
     const hasLinks = editorState.inlines.some(
@@ -76,8 +78,7 @@ class LinkButton extends React.Component<PluginButtonProps, LinkButtonState> {
     );
 
     if (hasLinks) {
-      const newState = editorState.change().unwrapInline(A).value;
-      onChange({ value: newState });
+      editor.unwrapInline(A);
     } else if (editorState.selection.isExpanded) {
       this.setState({
         open: true,
@@ -99,9 +100,7 @@ class LinkButton extends React.Component<PluginButtonProps, LinkButtonState> {
 
   handleClose = () => {
     this.setState({ open: false });
-
-    const newState = this.props.editorState.change().focus().value;
-    window.setTimeout(() => this.props.onChange({ value: newState }), 1);
+    this.props.editor.focus();
   }
 
   handleSubmit = () => {
@@ -113,17 +112,13 @@ class LinkButton extends React.Component<PluginButtonProps, LinkButtonState> {
     }
 
     if (this.state.wasExpanded) {
-      const _newState = this.props.editorState
-        .change()
+      this.props.editor
         .focus()
         .wrapInline({
           type: A,
           data: { href: this.state.href },
         })
-        .collapseToEnd().value;
-
-      window.setTimeout(() => this.props.onChange({ value: _newState }), 1);
-      // window.setTimeout(() => this.props.focus(), 100);
+        .moveToEnd();
       return;
     }
 
@@ -132,19 +127,15 @@ class LinkButton extends React.Component<PluginButtonProps, LinkButtonState> {
       return;
     }
 
-    const newState = this.props.editorState
-      .change()
+    this.props.editor
       .insertText(this.state.title)
-      .extend(-this.state.title.length)
+      .moveFocusBackward(this.state.title.length)
       .wrapInline({
         type: A,
         data: { href: this.state.href },
       })
-      .collapseToEnd()
-      .focus().value;
-
-    this.props.onChange({ value: newState });
-    // window.setTimeout(() => this.props.focus(), 100);
+      .moveToEnd()
+      .focus();
   }
 
   onHrefChange = e => {
@@ -158,10 +149,10 @@ class LinkButton extends React.Component<PluginButtonProps, LinkButtonState> {
   render() {
     const actions = (
       <React.Fragment>
-        <Button variant="flat" color="primary" onClick={this.handleClose}>
+        <Button variant="text" color="primary" onClick={this.handleClose}>
           Cancel
         </Button>
-        <Button variant="flat" color="primary" onClick={this.handleSubmit}>
+        <Button variant="text" color="primary" onClick={this.handleSubmit}>
           Ok
         </Button>
       </React.Fragment>
@@ -219,9 +210,9 @@ class LinkButton extends React.Component<PluginButtonProps, LinkButtonState> {
 export default class LinkPlugin extends Plugin {
   name = 'link';
 
-  schema = {
+  /*schema = {
     nodes: { [A]: Link },
-  };
+  };*/
 
   hoverButtons = [LinkButton];
   toolbarButtons = [LinkButton];
@@ -263,13 +254,13 @@ export default class LinkPlugin extends Plugin {
     }
   }
 
-  renderNode = props => {
+  renderNode = (props: RenderNodeProps, editor: Editor, next: NextType) => {
     switch (props.node.type) {
       case A: {
         return <Link {...props} />;
       }
       default:
-        return;
+        return next();
     }
   }
 }

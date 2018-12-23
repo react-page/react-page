@@ -23,24 +23,37 @@
 /* eslint-disable prefer-reflect, default-case, react/display-name */
 import * as React from 'react';
 import CodeIcon from '@material-ui/icons/Code';
-import { Data } from 'slate';
-import { makeTagMark, ToolbarButton } from '../../helpers';
+import { Data, Editor } from 'slate';
+import { ToolbarButton } from '../../helpers';
 import Plugin, { PluginButtonProps } from '../Plugin';
 import Code from './node';
-import { Props } from '../../types/props';
+import { SlatePluginSettings } from './../../types/plugin';
+import { RenderMarkProps, RenderNodeProps } from 'slate-react';
+import { NextType } from '../../types/next';
+
+export interface BlockquotePluginSettings extends SlatePluginSettings {
+  DEFAULT_NODE: string;
+}
 
 export const CODE = 'CODE/CODE';
 
 export default class CodePlugin extends Plugin {
-  props: Props;
-
   name = 'code';
-  schema = {
-    marks: { [CODE]: makeTagMark('code') },
-    nodes: { [CODE]: Code },
-  };
+  /*schema = {
+    blocks: {
+      [CODE]: {
+        nodes: [
+          {
+            match: {}
+          }
+        ]
+      },
+    },
+    // marks: { [CODE]: makeTagMark('code') },
+    // nodes: { [CODE]: Code },
+  };*/
 
-  constructor(props: Props) {
+  constructor(props: BlockquotePluginSettings) {
     super();
     this.hoverButtons = [this.createButton(CODE, <CodeIcon />)];
     this.toolbarButtons = [this.createNodeButton(CODE, <CodeIcon />)];
@@ -50,13 +63,10 @@ export default class CodePlugin extends Plugin {
   createButton = (
     type: string,
     icon: JSX.Element
-  ): React.SFC<PluginButtonProps> => ({ editorState, onChange }) => {
+  ): React.SFC<PluginButtonProps> => ({ editorState, editor }) => {
     const onClick: React.MouseEventHandler = e => {
       e.preventDefault();
-
-      onChange({
-        value: editorState.change().toggleMark(type).value,
-      });
+      editor.toggleMark(type);
     };
 
     const isActive =
@@ -70,18 +80,14 @@ export default class CodePlugin extends Plugin {
     icon: JSX.Element
   ) => React.SFC<PluginButtonProps> = (type, icon) => ({
     editorState,
-    onChange,
+    editor,
   }) => {
     const onClick = e => {
       e.preventDefault();
 
       const _isActive = editorState.blocks.some(block => block.type === type);
 
-      onChange({
-        value: editorState
-          .change()
-          .setBlocks(_isActive ? this.DEFAULT_NODE : type).value,
-      });
+      editor.setBlocks(_isActive ? this.DEFAULT_NODE : type);
     };
 
     const isActive = editorState.blocks.some(block => block.type === type);
@@ -138,7 +144,7 @@ export default class CodePlugin extends Plugin {
     }
   }
 
-  renderMark = props => {
+  renderMark = (props: RenderMarkProps, editor: Editor, next: NextType) => {
     const { children, mark, attributes } = props;
 
     switch (mark.type) {
@@ -149,18 +155,18 @@ export default class CodePlugin extends Plugin {
           </code>
         );
       default:
-        return;
+        return next();
     }
   }
 
-  renderNode = props => {
+  renderNode = (props: RenderNodeProps, editor: Editor, next: NextType) => {
     const { node } = props;
 
     switch (node.type) {
       case CODE:
         return <Code {...props} />;
       default:
-        return;
+        return next();
     }
   }
 }

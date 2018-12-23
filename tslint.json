@@ -110,7 +110,7 @@
       "check-typecast"
     ]
   },
-  "cliOptions": {
-    "exclude": ["build", "**/*.d.ts", ".vscode", "node_modules"]
+  "linterOptions": {
+    "exclude": ["**/build/**/*.*", "**/*.d.ts", ".vscode", "**/node_modules/**/*.*"]
   }
 }

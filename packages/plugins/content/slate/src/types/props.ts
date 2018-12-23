@@ -19,13 +19,7 @@
  * @author Aeneas Rekkas <aeneas+oss@aeneas.io>
  *
  */
-import { Value, Block } from 'slate';
-export type Props = {
-  editorState?: Value;
-  DEFAULT_NODE: string;
-  onChange?(editorState: { value: Value }): void;
-  focus?(): void;
-};
+import { Block } from 'slate';
 
 export type NodeComponentProps = {
   attributes: React.Attributes;

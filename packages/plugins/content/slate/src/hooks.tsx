@@ -36,16 +36,18 @@ import LinkPlugin from './plugins/link/index';
 import ListsPlugin from './plugins/lists';
 import ParagraphPlugin, { P } from './plugins/paragraph/index';
 import parse5 from 'parse5';
+import Plugin from './plugins/Plugin';
 
 // FIXME #126
 import { Document, Value, BlockJSON, ValueJSON } from 'slate';
 import Html from 'slate-html-serializer';
 import Plain from 'slate-plain-serializer';
 import { SlateState } from './types/state';
+import { AbstractCell } from 'ory-editor-core/lib/types/editable';
 
 const DEFAULT_NODE = P;
 
-export const defaultPlugins = [
+export const defaultPlugins: Plugin[] = [
   new ParagraphPlugin(),
   new EmphasizePlugin(),
   new HeadingsPlugin({ DEFAULT_NODE }),
@@ -53,7 +55,7 @@ export const defaultPlugins = [
   new CodePlugin({ DEFAULT_NODE }),
   new ListsPlugin({ DEFAULT_NODE }),
   new BlockquotePlugin({ DEFAULT_NODE }),
-  new AlignmentPlugin(),
+  new AlignmentPlugin({ DEFAULT_NODE }),
 ];
 
 export const lineBreakSerializer = {
@@ -91,8 +93,6 @@ export const html = new Html({
   parseHtml: parse5.parseFragment,
 });
 
-const options = {};
-
 export const createInitialState = () => ({
   editorState: Value.fromJSON({
     document: {
@@ -120,13 +120,13 @@ export const unserialize = ({
   importFromHtml,
   serialized,
   editorState,
-// tslint:disable-next-line:no-any
-}: SlateState): SlateState => {
+}: // tslint:disable-next-line:no-any
+SlateState): SlateState => {
   if (serialized) {
     // tslint:disable-next-line:no-any
-    return { editorState: (Value.fromJSON as any)(serialized, options) };
+    return { editorState: (Value.fromJSON as any)(serialized) };
   } else if (importFromHtml) {
-    return { editorState: html.deserialize(importFromHtml, options) };
+    return { editorState: html.deserialize(importFromHtml) };
   } else if (editorState) {
     return { editorState };
   }
@@ -139,7 +139,7 @@ export const serialize = ({
   editorState,
 }: SlateState): { serialized: ValueJSON } => ({
   // tslint:disable-next-line:no-any
-  serialized: (editorState.toJSON as any)(editorState, options),
+  serialized: (editorState.toJSON as any)(editorState),
 });
 
 export const merge = (states: Object[]): Object => {
@@ -211,8 +211,7 @@ export const handleRemoveHotKey = (
     content: {
       state: { editorState },
     },
-  }: // tslint:disable-next-line:no-any
-  any
+  }: AbstractCell<string>
 ): Promise<void> =>
   new Promise<void>((resolve: Function, reject: Function) =>
     Plain.serialize(editorState).length < 1 ? resolve() : reject()
@@ -226,8 +225,7 @@ export const handleFocusPreviousHotKey = (
     content: {
       state: { editorState },
     },
-  }: // tslint:disable-next-line:no-any
-  any
+  }: AbstractCell<string>
 ): Promise<void> => {
   // const isArrowUp = e.keyCode === 38
 
@@ -241,7 +239,10 @@ export const handleFocusPreviousHotKey = (
       //   return resolve()
       // } else
       if (
-        editorState.selection.isAtStartOf(editorState.document.nodes.first())
+        editorState.selection.isCollapsed &&
+        editorState.selection.anchor.isAtStartOfNode(
+          editorState.document.nodes.first()
+        )
       ) {
         return resolve();
       }
@@ -256,8 +257,7 @@ export const handleFocusNextHotKey = (
     content: {
       state: { editorState },
     },
-  }: // tslint:disable-next-line:no-any
-  any
+  }: AbstractCell<string>
 ): Promise<void> => {
   // const isArrowDown = e.keyCode === 40
 
@@ -270,7 +270,12 @@ export const handleFocusNextHotKey = (
       // if (isArrowDown && next.top === current.top) {
       //   return resolve()
       // } else
-      if (editorState.selection.isAtEndOf(editorState.document.nodes.last())) {
+      if (
+        editorState.selection.isCollapsed &&
+        editorState.selection.anchor.isAtEndOfNode(
+          editorState.document.nodes.last()
+        )
+      ) {
         return resolve();
       }
       reject();

@@ -58,7 +58,7 @@ export const ToolbarButton: React.SFC<{
   onClick: React.MouseEventHandler;
 }> = ({ icon, isActive, onClick, disabled = false }) => (
   <IconButton
-    onClick={onClick}
+    onMouseDown={onClick}
     style={
       isActive
         ? { color: 'rgb(0, 188, 212)' }

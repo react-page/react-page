@@ -20,27 +20,13 @@
  *
  */
 
-import * as React from 'react';
-import Icon from '@material-ui/icons/PlayArrow';
-import { ContentPluginProps, ContentPluginConfig } from 'ory-editor-core/lib/service/plugin/classes';
-import Component from './Component';
+import createPlugin from './createPlugin';
+import Html5VideoHtmlRenderer from './Renderer/Html5VideoHtmlRenderer';
+import Html5VideoDefaultControls from './Controls/Html5VideoDefaultControls';
 
-export type Props = ContentPluginProps;
-
-const rejectPromise: (e: Event, props: Props) => Promise<void> = (
-  e: Event,
-  props: Props
-) => Promise.reject();
-
-const plugin: ContentPluginConfig = {
-  Component,
-  name: 'ory/sites/plugin/content/html5-video',
-  version: '0.0.1',
-  text: 'HTML 5 Video',
-  description: 'Add webm, ogg and other HTML5 video',
-  IconComponent: <Icon />,
-  handleFocusNextHotKey: rejectPromise,
-  handleFocusPreviousHotKey: rejectPromise,
-};
+const plugin = createPlugin({
+  Renderer: Html5VideoHtmlRenderer,
+  Controls: Html5VideoDefaultControls,
+});
 
 export default plugin;
