@@ -65,6 +65,9 @@ const createPlugin: (
       }
       setTimeout(() => ref.focus());
     },
+    createInitialState: () => ({
+      height: 24,
+    }),
   };
 };
 

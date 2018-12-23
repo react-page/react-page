@@ -5,7 +5,7 @@ import { defaultSpacerState } from './../default/state';
 const SpacerHtmlRenderer: React.SFC<SpacerHtmlRendererProps> = ({
   state: { height } = defaultSpacerState,
 }) => {
-  return <div style={{ height: `${height.toString()}px` }} />;
+  return <div style={{ height: `${(height || 0).toString()}px` }} />;
 };
 
 export default SpacerHtmlRenderer;

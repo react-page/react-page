@@ -11,8 +11,8 @@ const faintBlack = 'rgba(0, 0, 0, 0.12)';
 
 const SpacerDefaultControls: React.SFC<SpacerControlsProps> = props => {
   const {
-    readOnly,
     isPreviewMode,
+    isEditMode,
     focused,
     Renderer,
     changeHeightPreview,
@@ -26,7 +26,7 @@ const SpacerDefaultControls: React.SFC<SpacerControlsProps> = props => {
         'ory-plugins-content-spacer-read-only': isPreviewMode,
       })}
     >
-      {readOnly ? (
+      {!isEditMode  ? (
         <Renderer {...props} />
       ) : (
         <Resizable
