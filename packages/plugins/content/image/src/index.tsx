@@ -19,45 +19,23 @@
  * @author Aeneas Rekkas <aeneas+oss@aeneas.io>
  *
  */
-import * as React from 'react';
-import Component from './Component/index';
-import Panorama from '@material-ui/icons/Panorama';
-import { ContentPluginProps, ContentPluginConfig } from 'ory-editor-core/lib/service/plugin/classes';
-import { ImagePluginSettings, ImageState } from './types/state';
 
-const imagePlugin = (settings?: ImagePluginSettings): ContentPluginConfig<ImageState> => {
-  return {
-    Component: (props: ContentPluginProps<ImageState>) => (
-      <Component {...props} {...settings} />
-    ),
-    name: 'ory/editor/core/content/image',
-    version: '0.0.1',
-    IconComponent: <Panorama />,
-    text: 'Image',
-    isInlineable: true,
-    description: 'Loads an image from an url.',
+import createPlugin from './createPlugin';
+import ImageHtmlRenderer from './Renderer/ImageHtmlRenderer';
+import ImageDefaultControls from './Controls/ImageDefaultControls';
+import { ContentPluginConfig } from 'ory-editor-core/lib/service/plugin/classes';
+import { ImageState } from './types/state';
+import { ImageSettings } from './types/settings';
 
-    handleRemoveHotKey: (_: Event, __: ContentPluginProps): Promise<void> =>
-      Promise.reject(),
-    handleFocusPreviousHotKey: (
-      _: Event,
-      __: ContentPluginProps
-    ): Promise<void> => Promise.reject(),
-    handleFocusNextHotKey: (_: Event, __: ContentPluginProps): Promise<void> =>
-      Promise.reject(),
+const imagePlugin: (
+  settings?: Partial<ImageSettings>
+) => ContentPluginConfig<ImageState> = settings =>
+  createPlugin({
+    Renderer: ImageHtmlRenderer,
+    Controls: ImageDefaultControls,
+    ...settings,
+  });
 
-    // We need this because otherwise we lose hotkey focus on elements like spoilers.
-    // This could probably be solved in an easier way by listening to window.document?
-
-    // tslint:disable-next-line:no-any
-    handleFocus: (props: any, source: any, ref: HTMLElement) => {
-      if (!ref) {
-        return;
-      }
-      setTimeout(() => ref.focus());
-    },
-  };
-};
 const image = imagePlugin();
 export default image;
 

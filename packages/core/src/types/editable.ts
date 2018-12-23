@@ -36,16 +36,16 @@ export type Config = {
   plugins: PluginService;
 };
 
-export interface Content {
+// tslint:disable-next-line:no-any
+export interface Content<StateT = any> {
   plugin: ContentPluginConfig;
-  // tslint:disable-next-line:no-any
-  state: any;
+  state: StateT;
 }
 
-export interface Layout {
+// tslint:disable-next-line:no-any
+export interface Layout<StateT = any> {
   plugin: LayoutPluginConfig;
-  // tslint:disable-next-line:no-any
-  state: any;
+  state: StateT;
 }
 
 export type AbstractCell<T> = {

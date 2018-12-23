@@ -21,18 +21,48 @@
  */
 
 import * as React from 'react';
-import { ContentPluginProps } from 'ory-editor-core/lib/service/plugin/classes';
-import Display from './Display/index';
-import Form from './Form/index';
-import ThemeProvider, { darkTheme } from 'ory-editor-ui/lib/ThemeProvider';
-import { VideoState } from './types/state';
+import { VideoProps } from './../types/component';
 
-export type PropTypes = ContentPluginProps<VideoState>;
+export interface VideoState {
+  src: string;
+}
 
-const Video = (props: PropTypes) => (
-  <ThemeProvider theme={darkTheme}>
-    {props.readOnly ? <Display {...props} /> : <Form {...props} />}
-  </ThemeProvider>
-);
+class Video extends React.PureComponent<VideoProps, VideoState> {
+  constructor(props: VideoProps) {
+    super(props);
+    this.state = {
+      src: undefined,
+    };
+    this.changeSrcPreview = this.changeSrcPreview.bind(this);
+    this.commitSrc = this.commitSrc.bind(this);
+  }
+
+  render() {
+    const { Controls } = this.props;
+    return (
+      <Controls
+        {...this.props}
+        state={{
+          ...this.props.state,
+          src: this.state.src ? this.state.src : this.props.state.src,
+        }}
+        changeSrcPreview={this.changeSrcPreview}
+        commitSrc={this.commitSrc}
+      />
+    );
+  }
+
+  private changeSrcPreview(src: string) {
+    this.setState({ src });
+  }
+
+  private commitSrc() {
+    this.setState({ src: undefined }, () =>
+      this.props.onChange({ src: this.state.src })
+    );
+  }
+}
 
 export default Video;
+
+// <div className="ory-content-plugin--video">

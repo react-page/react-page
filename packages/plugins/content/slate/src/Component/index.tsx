@@ -20,20 +20,20 @@
  *
  */
 
-/* eslint-disable no-alert, prefer-reflect, no-underscore-dangle */
 import { createMuiTheme } from '@material-ui/core/styles';
 import * as React from 'react';
 import { Portal } from 'react-portal';
-import position from 'selection-position';
-import { Editor } from 'slate-react';
+import isHotkey from 'is-hotkey';
+import { NextType } from '../types/next';
+import { Editor, getEventTransfer } from 'slate-react';
 import { BottomToolbar, ThemeProvider } from 'ory-editor-ui';
 import { placeholder } from '../const';
+import debounce from 'lodash.debounce';
 
 import { html as serializer } from '../hooks';
-import { ContentPluginProps } from 'ory-editor-core/lib/service/plugin/classes';
-import { SlateState } from './../types/state';
-
-const onBlur = (_event, _data, state) => state;
+import { SlateProps } from './../types/component';
+import { Value, Editor as CoreEditor } from 'slate';
+import { Cancelable } from 'lodash';
 
 const theme = createMuiTheme({
   palette: {
@@ -44,45 +44,71 @@ const theme = createMuiTheme({
   },
 });
 
-export type SlateProps = ContentPluginProps<SlateState> & SlateState;
+export interface SlateState {
+  editorState?: Value;
+}
 
-class Slate extends React.Component<SlateProps> {
-  toolbar: HTMLDivElement;
-  selection: Selection;
+class Slate extends React.Component<SlateProps, SlateState> {
+  private toolbar: React.RefObject<HTMLDivElement>;
+  private editor: React.RefObject<CoreEditor>;
+  private flushStateDebounced: (() => void) & Cancelable;
+
+  constructor(props: SlateProps) {
+    super(props);
+    this.state = {};
+    this.editor = React.createRef();
+    this.toolbar = React.createRef();
+    this.flushStateDebounced = debounce(this.flushState, 1000, {
+      leading: true,
+      trailing: true,
+      maxWait: 10000,
+    });
+  }
+
   componentDidMount = () => {
-    this.selection = window.getSelection();
     this.updateToolbar();
   }
 
-  shouldComponentUpdate = nextProps =>
-    nextProps.state.editorState !== this.props.state.editorState ||
-    nextProps.focused !== this.props.focused ||
-    nextProps.readOnly !== this.props.readOnly
-
-  componentDidUpdate = () => this.updateToolbar();
-
-  onStateChange = ({ value }) => {
-    this.props.onChange({ editorState: value });
+  flushState = () => {
+    if (this.state.editorState) {
+      this.props.onChange({ editorState: this.state.editorState });
+    }
   }
 
-  handleOpen = portal => {
-    // this.toolbar = portal.firstChild
+  getState() {
+    return this.state.editorState !== undefined
+      ? this.state.editorState
+      : this.props.state.editorState;
+  }
+
+  onStateChange = ({ value }: { value: Value }) => {
+    this.setState(
+      {
+        editorState: value,
+      },
+      () => {
+        this.updateToolbar();
+      }
+    );
+    this.flushStateDebounced();
   }
 
   updateToolbar = () => {
-    const { editorState } = this.props.state;
-    const toolbar = this.toolbar;
+    const editorState = this.getState();
+    const toolbar = this.toolbar.current;
 
     if (
       !toolbar ||
-      editorState.isBlurred ||
+      editorState.selection.isBlurred ||
       editorState.selection.isCollapsed
     ) {
       return;
     }
-    const pos = position();
-    if (pos) {
-      const { left, top, width } = position();
+    let s = window.getSelection();
+    let oRange = s.getRangeAt(0); // get the text range
+    let oRect = oRange.getBoundingClientRect();
+    if (oRect) {
+      const { left, top, width } = oRect;
 
       toolbar.style.opacity = '1';
       toolbar.style.top = `${top + window.scrollY - toolbar.offsetHeight}px`;
@@ -93,65 +119,82 @@ class Slate extends React.Component<SlateProps> {
     }
   }
 
-  onPaste = (e, data, state) => {
-    if (data.type !== 'html') {
-      return;
-    }
-    if (data.isShift) {
-      return;
+  onPaste = (e: Event, editor: CoreEditor, next: NextType) => {
+    const transfer = getEventTransfer(e);
+    if (transfer.type !== 'html') {
+      return next();
     }
 
-    const { document } = serializer.deserialize(data.html);
+    // tslint:disable-next-line:no-any
+    const { document } = serializer.deserialize((transfer as any).html);
 
-    return state.change().insertFragment(document);
+    return editor.insertFragment(document);
+  }
+
+  onKeyDown = (
+    e: KeyboardEvent,
+    editor: CoreEditor,
+    next: NextType
+  ): boolean => {
+    // we need to prevent slate from handling undo and redo
+    if (isHotkey(['mod+z', 'mod+y'], e)) {
+      this.setState({ editorState: undefined });
+      return true;
+    }
+
+    if (isHotkey('shift+enter', e)) {
+      e.preventDefault();
+      editor.insertText('\n');
+      return true;
+    }
+
+    return next();
   }
 
   render() {
     const {
       focused,
       readOnly,
-      state: { editorState },
       plugins,
-      onKeyDown,
       HoverButtons,
       ToolbarButtons,
-      focus,
-      // tslint:disable-next-line:no-any
-    } = this.props as any;
-    const isOpened = editorState.selection.isExpanded && editorState.isFocused;
+    } = this.props;
+    const editorState = this.getState();
+    const isOpened =
+      editorState.selection.isExpanded && editorState.selection.isFocused;
 
     return (
       <div>
-        <Portal onOpen={this.handleOpen}>
-          {/* ory-prevent-blur is required to prevent global blurring */}
-          <ThemeProvider theme={theme}>
-            <div
-              className={
-                'ory-prevent-blur ory-plugins-content-slate-inline-toolbar ' +
-                (isOpened
-                  ? ''
-                  : 'ory-plugins-content-slate-inline-toolbar--hidden')
-              }
-              style={{ padding: 0 }}
-              ref={toolbar => {
-                this.toolbar = toolbar;
-                toolbar && this.updateToolbar();
-              }}
-            >
-              <HoverButtons
-                editorState={editorState}
-                onChange={this.onStateChange}
-                focus={focus}
-              />
-            </div>
-          </ThemeProvider>
-        </Portal>
+        {focused && (
+          <Portal>
+            {/* ory-prevent-blur is required to prevent global blurring */}
+            <ThemeProvider theme={theme}>
+              <div
+                className={
+                  'ory-prevent-blur ory-plugins-content-slate-inline-toolbar ' +
+                  (isOpened
+                    ? ''
+                    : 'ory-plugins-content-slate-inline-toolbar--hidden')
+                }
+                style={{ padding: 0 }}
+                ref={this.toolbar}
+              >
+                <HoverButtons
+                  editorState={editorState}
+                  editor={this.editor.current}
+                />
+              </div>
+            </ThemeProvider>
+          </Portal>
+        )}
         <Editor
+          ref={(this.editor as unknown) as React.RefObject<Editor>}
           onChange={this.onStateChange}
-          onKeyDown={onKeyDown}
+          onKeyDown={this.onKeyDown}
           readOnly={Boolean(readOnly)}
           className="ory-plugins-content-slate-container"
-          onBlur={onBlur}
+          // onBlur={this.onBlur}
+          // onFocus={this.onFocus}
           value={editorState}
           plugins={plugins}
           onPaste={this.onPaste}
@@ -160,9 +203,8 @@ class Slate extends React.Component<SlateProps> {
         {readOnly ? null : (
           <BottomToolbar open={focused}>
             <ToolbarButtons
+              editor={this.editor.current}
               editorState={editorState}
-              onChange={this.onStateChange}
-              focus={focus}
             />
           </BottomToolbar>
         )}

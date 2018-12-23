@@ -29,10 +29,13 @@ import H4Icon from '@material-ui/icons/Looks4';
 import H5Icon from '@material-ui/icons/Looks5';
 import H6Icon from '@material-ui/icons/Looks6';
 // import { Data } from 'slate'
-import { makeTagNode, ToolbarButton } from '../helpers';
+import { ToolbarButton } from '../helpers';
 import Plugin from './Plugin';
-import { Props } from '../types/props';
 import { PluginButtonProps } from './Plugin';
+import { SlatePluginSettings } from './../types/plugin';
+import { RenderNodeProps } from 'slate-react';
+import { Editor } from 'slate';
+import { NextType } from '../types/next';
 
 export const H1 = 'HEADINGS/HEADING-ONE';
 export const H2 = 'HEADINGS/HEADING-TWO';
@@ -49,12 +52,14 @@ const createNode = (type: string, el: any, next: any) => ({
   nodes: next(el.childNodes),
 });
 
-export default class HeadingsPlugin extends Plugin {
-  props: Props;
+export interface HeadingsPluginSettings extends SlatePluginSettings {
+  DEFAULT_NODE: string;
+}
 
+export default class HeadingsPlugin extends Plugin {
   name = 'headings';
 
-  schema = {
+  /*schema = {
     nodes: {
       [H1]: makeTagNode('h1'),
       [H2]: makeTagNode('h2'),
@@ -63,9 +68,9 @@ export default class HeadingsPlugin extends Plugin {
       [H5]: makeTagNode('h5'),
       [H6]: makeTagNode('h6'),
     },
-  };
+  };*/
 
-  constructor(props: Props) {
+  constructor(props: HeadingsPluginSettings) {
     super();
 
     this.DEFAULT_NODE = props.DEFAULT_NODE;
@@ -85,18 +90,15 @@ export default class HeadingsPlugin extends Plugin {
     icon: JSX.Element
   ) => React.SFC<PluginButtonProps> = (type, icon) => ({
     editorState,
-    onChange,
+    editor,
   }) => {
     const onClick = e => {
       e.preventDefault();
 
       const _isActive = editorState.blocks.some(block => block.type === type);
 
-      onChange({
-        value: editorState
-          .change()
-          .setBlocks(_isActive ? this.DEFAULT_NODE : type).value,
-      });
+      editor
+          .setBlocks(_isActive ? this.DEFAULT_NODE : type);
     };
 
     const isActive = editorState.blocks.some(block => block.type === type);
@@ -152,7 +154,7 @@ export default class HeadingsPlugin extends Plugin {
     }
   }
 
-  renderNode = props => {
+  renderNode = (props: RenderNodeProps, editor: Editor, next: NextType) => {
     const { children } = props;
     const style = { textAlign: props.node.data.get('align') };
     switch (props.node.type) {
@@ -169,7 +171,7 @@ export default class HeadingsPlugin extends Plugin {
       case H6:
         return <h6 style={style}>{children}</h6>;
       default:
-        return;
+        return next();
     }
   }
 }

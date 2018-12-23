@@ -20,12 +20,12 @@
  *
  */
 import { RenderMarkProps, RenderNodeProps } from 'slate-react';
-import { Value } from 'slate';
+import { Value, Editor } from 'slate';
+import { NextType } from '../types/next';
 
 export class PluginButtonProps {
+  editor: Editor;
   editorState: Value;
-  focus: boolean;
-  onChange: (state: { value: Value }) => void;
 }
 
 /**
@@ -45,15 +45,21 @@ export default class Plugin {
   /**
    * @member the schema that is automatically collected from all plugins
    */
-  schema: {
-    nodes?: { [key: string]: React.SFC };
-    marks?: { [key: string]: React.SFC };
+  public schema: {
+    // tslint:disable-next-line:no-any
+    document?: { [key: string]: any };
+    // tslint:disable-next-line:no-any
+    blocks?: { [key: string]: any };
+    // tslint:disable-next-line:no-any
+    inlines?: { [key: string]: any };
+    rules?: [];
   };
 
   /**
    * @member the slate plugins added to the editor
    */
-  plugins: Plugin[] = [];
+  // tslint:disable-next-line:no-any
+  plugins: any[] = [];
 
   /**
    * @member serialize a plugin's state to html
@@ -75,26 +81,34 @@ export default class Plugin {
   /**
    * @member the buttons to be added to the hover menu
    */
-  public hoverButtons: (
-    | React.ComponentClass<PluginButtonProps>
-    | React.SFC<PluginButtonProps>)[];
+  public hoverButtons: React.ComponentType<PluginButtonProps>[];
 
   /**
    * @member the buttons to be added to the global toolbar
    */
-  public toolbarButtons: (
-    | React.ComponentClass<PluginButtonProps>
-    | React.SFC<PluginButtonProps>)[];
+  public toolbarButtons: React.ComponentType<PluginButtonProps>[];
 
   /**
    * @member the function that renders marks
    */
-  public renderMark: (props: RenderMarkProps) => JSX.Element;
+  // tslint:disable-next-line:no-any
+  public renderMark: (
+    props: RenderMarkProps,
+    editor: Editor,
+    next: NextType
+  // tslint:disable-next-line:no-any
+  ) => any;
 
   /**
    * @member the function that renders nodes
    */
-  public renderNode: (props: RenderNodeProps) => JSX.Element;
+  // tslint:disable-next-line:no-any
+  public renderNode: (
+    props: RenderNodeProps,
+    editor: Editor,
+    next: NextType
+  // tslint:disable-next-line:no-any
+  ) => any;
 
   /**
    * This handler is called when any key is pressed
@@ -104,11 +118,9 @@ export default class Plugin {
    * @param state the current editor state
    * @returns the new editor state if the plugin handles the hotkey
    */
-  public onKeyDown = (
-    e: Event,
-    data: { key: string; isMod: boolean; isShift: boolean },
-    // tslint:disable-next-line:no-any
-    state: any
-    // tslint:disable-next-line:no-any
-  ): any => null
+  public onKeyDown: (
+    e: KeyboardEvent,
+    editor: Editor,
+    next: NextType
+  ) => boolean;
 }

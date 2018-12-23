@@ -52,7 +52,8 @@ import parallax from 'ory-editor-plugins-parallax-background';
 import 'ory-editor-plugins-parallax-background/lib/index.css';
 
 // The background plugin
-import background, { COLOR_MODE_FLAG, IMAGE_MODE_FLAG, GRADIENT_MODE_FLAG } from 'ory-editor-plugins-background';
+import background from 'ory-editor-plugins-background';
+import { ModeEnum } from 'ory-editor-plugins-background/lib/types/modeEnum';
 import 'ory-editor-plugins-background/lib/index.css';
 
 // The html5-video plugin
@@ -101,7 +102,7 @@ const plugins: Plugins = {
     background({
       defaultPlugin: slate(),
       imageUpload: fakeImageUploadService('/images/sea-bg.jpg'),
-      enabledModes: COLOR_MODE_FLAG | IMAGE_MODE_FLAG | GRADIENT_MODE_FLAG,
+      enabledModes: ModeEnum.COLOR_MODE_FLAG | ModeEnum.IMAGE_MODE_FLAG | ModeEnum.GRADIENT_MODE_FLAG,
     }),
     parallax({ defaultPlugin: slate() }),
   ],
@@ -121,7 +122,7 @@ const editor = new Editor({
   ],
 });
 
-// editor.trigger.mode.edit()
+editor.trigger.mode.edit();
 
 // Render the editables - the areas that are editable
 const elements = document.querySelectorAll<HTMLDivElement>('.editable');

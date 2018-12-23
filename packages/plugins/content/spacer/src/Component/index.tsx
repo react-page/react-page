@@ -21,96 +21,53 @@
  */
 
 import * as React from 'react';
-import { Resizable } from 'react-resizable';
-import classNames from 'classnames';
-import TextField from '@material-ui/core/TextField';
-import { darkTheme } from 'ory-editor-ui/lib/ThemeProvider';
+import { SpacerProps } from './../types/component';
 
-import { BottomToolbar } from 'ory-editor-ui';
-import { ContentPluginProps } from 'ory-editor-core/lib/service/plugin/classes';
+export interface SpacerState {
+  height: number;
+}
 
-const faintBlack = 'rgba(0, 0, 0, 0.12)';
-
-const compute = ({ height }: { height: number }) => ({
-  height: height > 24 ? height : 24,
-});
-
-const fire = ({
-  state,
-  onChange,
-}: {
-  state: Object;
-  onChange(state: Object): void;
-}) => onChange(state);
-
-const Solid = ({ height }: { height: number }) => <div style={{ height }} />;
-
-const handleChange = (onChange: Function) => (e: React.ChangeEvent) => {
-  const target = e.target;
-  if (target instanceof HTMLInputElement) {
-    onChange({ height: parseInt(target.value, 10) });
-    return;
-  }
-};
-
-class Spacer extends React.Component<ContentPluginProps> {
-  state = {};
-
-  onResize = (
-    event: Event,
-    { size }: { size: { height: number; width: number } }
-  ) => {
-    const { onChange } = this.props;
-    const state = compute(size);
-    fire({ onChange, state });
+class Spacer extends React.PureComponent<SpacerProps, SpacerState> {
+  constructor(props: SpacerProps) {
+    super(props);
+    this.state = {
+      height: undefined,
+    };
+    this.changeHeightPreview = this.changeHeightPreview.bind(this);
+    this.commitHeight = this.commitHeight.bind(this);
   }
 
   render() {
-    const { readOnly, isPreviewMode, focused, onChange } = this.props;
-    const height = this.props.state.height > 0 ? this.props.state.height : 1;
+    const { Controls } = this.props;
     return (
-      <div
-        style={{ border: 'solid 1px', borderColor: faintBlack }}
-        className={classNames('ory-plugins-content-spacer', {
-          'ory-plugins-content-spacer-read-only': isPreviewMode,
-        })}
-      >
-        {readOnly ? (
-          <Solid height={height} />
-        ) : (
-          <Resizable onResize={this.onResize} height={height} width={0}>
-            <div style={{ height, position: 'relative' }}>
-              <BottomToolbar open={focused} theme={darkTheme}>
-                <TextField
-                  placeholder="24"
-                  label="Element height (px)"
-                  style={{ width: '512px' }}
-                  value={height}
-                  onChange={handleChange(onChange)}
-                  color="white"
-                />
-              </BottomToolbar>
-              <div
-                style={{
-                  position: 'absolute',
-                  bottom: '0',
-                  height: '24px',
-                  width: '100%',
-                  background: faintBlack,
-                  textAlign: 'center',
-                }}
-              >
-                <svg
-                  viewBox="0 0 24 24"
-                  style={{ color: 'white', width: 24, height: 24 }}
-                >
-                  <path d="M20 9H4v2h16V9zM4 15h16v-2H4v2z" />
-                </svg>
-              </div>
-            </div>
-          </Resizable>
-        )}
-      </div>
+      <Controls
+        {...this.props}
+        state={{
+          ...this.props.state,
+          height: this.state.height
+            ? this.state.height
+            : this.props.state.height,
+        }}
+        changeHeightPreview={this.changeHeightPreview}
+        commitHeight={this.commitHeight}
+      />
+    );
+  }
+
+  private changeHeightPreview(height: number) {
+    if (!height || height < 24) {
+      height = 24;
+    }
+    this.setState({ height });
+  }
+
+  private commitHeight(height: number) {
+    let h = height ? height : this.state.height;
+    if (!h || h < 24) {
+      h = 24;
+    }
+    this.setState({ height: undefined }, () =>
+      this.props.onChange({ height: h })
     );
   }
 }

@@ -22,24 +22,29 @@
 
 import BlockquoteIcon from '@material-ui/icons/FormatQuote';
 import * as React from 'react';
-import createBlockquotePlugin from 'slate-edit-blockquote';
+import createBlockquotePlugin from '@guestbell/slate-edit-blockquote';
 
-import { makeTagNode, ToolbarButton } from '../helpers';
+import { ToolbarButton } from '../helpers';
 import Plugin, { PluginButtonProps } from './Plugin';
-import { Props } from '../types/props';
-import { Block } from 'slate';
+import { Block, Editor } from 'slate';
 import { RenderNodeProps } from 'slate-react';
+import { SlatePluginSettings } from './../types/plugin';
+import { NextType } from '../types/next';
 
 export const BLOCKQUOTE = 'BLOCKQUOTE/BLOCKQUOTE';
+
+export interface BlockquotePluginSettings extends SlatePluginSettings {
+  DEFAULT_NODE: string;
+}
 
 export default class BlockquotePlugin extends Plugin {
   name = 'blockquote';
 
-  schema = {
+  /*schema = {
     nodes: {
       [BLOCKQUOTE]: makeTagNode('blockquote'),
     },
-  };
+  };*/
 
   plugins = [
     createBlockquotePlugin({
@@ -48,7 +53,7 @@ export default class BlockquotePlugin extends Plugin {
     }),
   ];
 
-  constructor(props: Props) {
+  constructor(props: BlockquotePluginSettings) {
     super();
 
     this.DEFAULT_NODE = props.DEFAULT_NODE;
@@ -56,7 +61,7 @@ export default class BlockquotePlugin extends Plugin {
   }
 
   // eslint-disable-next-line react/display-name
-  Button: React.SFC<PluginButtonProps> = ({ editorState, onChange }) => {
+  Button: React.SFC<PluginButtonProps> = ({ editorState, editor }) => {
     const onClick: React.MouseEventHandler = e => {
       e.preventDefault();
 
@@ -69,15 +74,11 @@ export default class BlockquotePlugin extends Plugin {
         )
       );
 
-      let change = editorState.change();
-
       if (_isActive) {
-        change = change.unwrapBlock(BLOCKQUOTE);
+        editor.unwrapBlock(BLOCKQUOTE);
       } else {
-        change = change.wrapBlock(BLOCKQUOTE);
+        editor.wrapBlock(BLOCKQUOTE);
       }
-
-      onChange({ value: change.value });
     };
 
     const isActive = editorState.blocks.some(block =>
@@ -132,7 +133,7 @@ export default class BlockquotePlugin extends Plugin {
     }
   }
 
-  renderNode = (props: RenderNodeProps) => {
+  renderNode = (props: RenderNodeProps, editor: Editor, next: NextType) => {
     switch ((props.node as Block).type) {
       case BLOCKQUOTE: {
         return (
@@ -144,7 +145,7 @@ export default class BlockquotePlugin extends Plugin {
         );
       }
       default:
-        return;
+        return next();
     }
   }
 }

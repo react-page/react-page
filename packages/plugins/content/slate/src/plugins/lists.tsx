@@ -26,14 +26,15 @@ import ListIcon from '@material-ui/icons/List';
 import OrderedListIcon from '@material-ui/icons/FormatListNumbered';
 import IncreaseIndentIcon from '@material-ui/icons/FormatIndentIncrease';
 import DecreaseIndentIcon from '@material-ui/icons/FormatIndentDecrease';
-import createListPlugin from 'slate-edit-list';
+import createListPlugin, { EditListPluginInterface } from '@guestbell/slate-edit-list';
 
-import { makeTagNode, ToolbarButton } from '../helpers';
+import { ToolbarButton } from '../helpers';
 import Plugin from './Plugin';
-import { Props } from '../types/props';
 import { RenderNodeProps } from 'slate-react';
-import { Block } from 'slate';
+import { Block, Editor } from 'slate';
 import { PluginButtonProps } from './Plugin';
+import { SlatePluginSettings } from './../types/plugin';
+import { NextType } from '../types/next';
 
 export const UL = 'LISTS/UNORDERED-LIST';
 export const OL = 'LISTS/ORDERED-LIST';
@@ -42,13 +43,24 @@ export const LI = 'LISTS/LIST-ITEM';
 const INCREASE_INDENT = 'INCREASE_INDENT';
 const DECREASE_INDENT = 'DECREASE_INDENT';
 
+export interface ListsPluginSettings extends SlatePluginSettings {
+  DEFAULT_NODE: string;
+}
+
 export default class ListsPlugin extends Plugin {
-  plugin: createListPlugin;
-  props: Props;
+  plugin: EditListPluginInterface;
 
   name = 'lists';
 
-  constructor(props: Props) {
+  /*schema = {
+    nodes: {
+      [UL]: makeTagNode('ul'),
+      [OL]: makeTagNode('ol'),
+      [LI]: makeTagNode('li'),
+    },
+  };*/
+
+  constructor(props: ListsPluginSettings) {
     super();
 
     this.DEFAULT_NODE = props.DEFAULT_NODE;
@@ -57,14 +69,7 @@ export default class ListsPlugin extends Plugin {
       typeItem: LI,
       typeDefault: props.DEFAULT_NODE,
     });
-    this.plugins = [this.plugin];
-    this.schema = {
-      nodes: {
-        [UL]: makeTagNode('ul'),
-        [OL]: makeTagNode('ol'),
-        [LI]: makeTagNode('li'),
-      },
-    };
+    this.plugins = [this.plugin as unknown as Plugin];
     this.toolbarButtons = [
       this.createButton(UL, <ListIcon />),
       this.createButton(OL, <OrderedListIcon />),
@@ -78,7 +83,7 @@ export default class ListsPlugin extends Plugin {
     icon: JSX.Element
   ) => React.SFC<PluginButtonProps> = (type, icon) => ({
     editorState,
-    onChange,
+    editor,
   }) => {
     const {
       wrapInList,
@@ -89,24 +94,20 @@ export default class ListsPlugin extends Plugin {
     const onClick: React.MouseEventHandler = e => {
       e.preventDefault();
 
-      let change = editorState.change();
-
       if (type !== UL && type !== OL) {
         if (type === INCREASE_INDENT) {
-          increaseItemDepth(change);
+          increaseItemDepth(editor);
         } else {
-          decreaseItemDepth(change);
+          decreaseItemDepth(editor);
         }
       } else {
         const _inList = this.plugin.utils.isSelectionInList(editorState);
         if (_inList) {
-          unwrapList(change, type);
+          unwrapList(editor);
         } else {
-          wrapInList(change, type);
+          wrapInList(editor, type);
         }
       }
-
-      onChange({ value: change.value });
     };
 
     const inList = this.plugin.utils.isSelectionInList(editorState);
@@ -183,7 +184,7 @@ export default class ListsPlugin extends Plugin {
     }
   }
 
-  renderNode = (props: RenderNodeProps) => {
+  renderNode = (props: RenderNodeProps, editor: Editor, next: NextType) => {
     const { children, attributes } = props;
     switch ((props.node as Block).type) {
       case UL:
@@ -193,7 +194,7 @@ export default class ListsPlugin extends Plugin {
       case OL:
         return <ol {...attributes}>{children}</ol>;
       default:
-        return undefined;
+        return next();
     }
   }
 }

@@ -23,7 +23,7 @@
 import semver from 'semver';
 import { AnyAction } from 'redux';
 import { Omit } from '../../types/omit';
-import { NativeFactory } from '../../types/editable';
+import { NativeFactory, AbstractCell } from '../../types/editable';
 
 export type Plugins = {
   layout?: LayoutPluginConfig[];
@@ -186,15 +186,15 @@ export type PluginProps<
   description?: string;
   handleRemoveHotKey?: (
     e: Event,
-    props: PluginProps<StateT, ExtraPropsT> & ExtraPropsT
+    props: AbstractCell<string>
   ) => Promise<void>;
   handleFocusNextHotKey?: (
     e: Event,
-    props: PluginProps<StateT, ExtraPropsT> & ExtraPropsT
+    props: AbstractCell<string>
   ) => Promise<void>;
   handleFocusPreviousHotKey?: (
     e: Event,
-    props: PluginProps<StateT, ExtraPropsT> & ExtraPropsT
+    props: AbstractCell<string>
   ) => Promise<void>;
   handleFocus?: (
     props: PluginProps<StateT, ExtraPropsT> & ExtraPropsT,

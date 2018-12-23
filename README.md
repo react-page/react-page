@@ -149,13 +149,6 @@ IDE: vscode
 Vscode extensions: prettier, tslint, code spell checker, beautify css/sass/scss/less
 
 ## Known issues
-### Unlink error
-Occasionally you might see this error
-```
-Error: EPERM: operation not permitted, unlink 'C:\Coding\forks\editorBranches\editor\packages\ui\lib\DisplayModeToggle\index.d.ts'
-```
-when running build inside vscode. This appears to be a known issue with the editor locking declaration files. Just rerun build (and be patient while somebody fixes this for you).
-
 ### Types resolution error
 
 In case you change a lot of files, especially in core or UI, you might end up seeing old versions of these files when working on plugins. To fix this, run 
