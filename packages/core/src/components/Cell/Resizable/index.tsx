@@ -63,7 +63,9 @@ class Resizable extends React.PureComponent<ResizableProps, ResizableState> {
     }
 
     this.props.onChange(newSize);
-    this.setState({ width: newSize * this.state.stepWidth });
+    this.setState((prevState) => ({ 
+      width: newSize * prevState.stepWidth 
+    }));
   }
 
   render() {
