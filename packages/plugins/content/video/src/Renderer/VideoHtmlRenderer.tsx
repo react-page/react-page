@@ -47,8 +47,8 @@ const Display: React.SFC<VideoHtmlRendererProps> = ({ state: { src }, readOnly }
         width="100%"
         style={{
           position: 'absolute',
-          width: '100% !important',
-          height: '100% !important',
+          width: '100%',
+          height: '100%',
         }}
       />
     </div>
