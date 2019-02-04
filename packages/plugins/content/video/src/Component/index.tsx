@@ -57,8 +57,9 @@ class Video extends React.PureComponent<VideoProps, VideoState> {
   }
 
   private commitSrc() {
+    const src = this.state.src;
     this.setState({ src: undefined }, () =>
-      this.props.onChange({ src: this.state.src })
+      this.props.onChange({ src })
     );
   }
 }

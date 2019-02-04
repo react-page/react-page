@@ -42,7 +42,7 @@ const Form: React.SFC<VideoControlsProps> = props => {
   return (
     <div>
       <Renderer {...props} />
-      {!readOnly && focused && (
+      {!readOnly && (
         <BottomToolbar open={focused} theme={darkTheme}>
           <TextField
             placeholder={placeholder}
