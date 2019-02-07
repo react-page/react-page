@@ -25,7 +25,7 @@ import { RenderNodeProps } from 'slate-react';
 import { Block } from 'slate';
 
 const Link: React.SFC<RenderNodeProps> = ({ attributes, children, node }) => {
-  const { data } = node as Block;
+  const { data } = node as any as Block;
   const href = data.get('href');
 
   return (

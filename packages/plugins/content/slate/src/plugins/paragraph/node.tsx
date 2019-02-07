@@ -26,7 +26,7 @@ import { Block } from 'slate';
 
 const Paragraph: React.SFC<RenderNodeProps> = props => {
   const { children, attributes } = props;
-  const align = (props.node as Block).data.get('align');
+  const align = ((props as any).node as Block).data.get('align');
   return (
     <p {...attributes} style={{ textAlign: align }}>
       {children}
