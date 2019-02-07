@@ -71,6 +71,7 @@ export default class ParagraphPlugin extends Plugin {
   }
 
   renderNode = (props: RenderNodeProps, editor: Editor, next: NextType) => {
+    // tslint:disable-next-line:no-any
     switch (((props as any).node as Block).type) {
       case P: {
         return <Paragraph {...props} />;

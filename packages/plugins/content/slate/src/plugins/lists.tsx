@@ -186,6 +186,7 @@ export default class ListsPlugin extends Plugin {
 
   renderNode = (props: RenderNodeProps, editor: Editor, next: NextType) => {
     const { children, attributes } = props;
+    // tslint:disable-next-line:no-any
     switch (((props as any).node as Block).type) {
       case UL:
         return <ul {...attributes}>{children}</ul>;
