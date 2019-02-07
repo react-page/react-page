@@ -1,4 +1,4 @@
-# aeneasr/ory-editor
+![aeneasr/ory-editor](./docs/logo.png)
 
 [![Build Status](https://travis-ci.org/ory/editor.svg)](https://travis-ci.org/aeneasr/editor)
 [![Coverage Status](https://coveralls.io/repos/github/ory-am/editor/badge.svg?branch=master)](https://coveralls.io/github/ory/editor?branch=master)
@@ -160,3 +160,7 @@ Which builds the library code. If this doesn't help (and you're in vscode), make
 ### Other issues
 
 Known issues are tracked in the [issues tab](https://github.com/ory/editor/issues?q=is%3Aopen+is%3Aissue+label%3Abug).
+
+## Attributions
+
+Thank you [Tebriz](https://github.com/tebriz159) for contributing the logo!
