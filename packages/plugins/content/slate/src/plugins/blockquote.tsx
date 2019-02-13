@@ -134,11 +134,13 @@ export default class BlockquotePlugin extends Plugin {
   }
 
   renderNode = (props: RenderNodeProps, editor: Editor, next: NextType) => {
-    switch ((props.node as Block).type) {
+    // tslint:disable-next-line:no-any
+    switch (((props as any).node as Block).type) {
       case BLOCKQUOTE: {
         return (
           <blockquote
-            style={{ textAlign: (props.node as Block).data.get('align') }}
+            // tslint:disable-next-line:no-any
+            style={{ textAlign: ((props as any).node as Block).data.get('align') }}
           >
             {props.children}
           </blockquote>
