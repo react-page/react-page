@@ -22,7 +22,7 @@
     "react-dom": "^16.0.0"
   },
   "dependencies": {
-    "@material-ui/lab": "^1.0.0-alpha.10",
+    "@material-ui/lab": "^3.0.0-alpha.30",
     "ory-editor-core": "0.0.0",
     "ory-editor-ui": "0.0.0"
   },
