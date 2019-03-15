@@ -27,6 +27,7 @@ import ThemeProvider from '../ThemeProvider/index';
 
 export interface ProviderProps {
   editor: Editor;
+  onRemoveCell?: (state: any) => void;
 }
 
 class Provider extends React.Component<ProviderProps> {
