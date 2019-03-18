@@ -36,10 +36,19 @@ import {
   isInsertMode,
   isResizeMode
 } from 'ory-editor-core/lib/selector/display';
+import { searchNodeEverywhere } from "ory-editor-core/lib/selector/editable";
+import { RootState } from "ory-editor-core/lib/types/state";
+
 import { createStructuredSelector } from 'reselect';
 
 import Provider from '../Provider/index';
 import { ProviderProps } from './../Provider/index';
+
+interface DropProps {
+  searchNodeEverywhere: any;
+  onRemoveCell?: (state: any) => void;
+  removeCell(id: string): void;
+}
 
 const target = {
   hover: throttle(
@@ -55,14 +64,26 @@ const target = {
   ),
 
   // tslint:disable-next-line:no-any
-  drop(props: { removeCell(id: string): void }, monitor: any) {
+  drop(props: DropProps, monitor: any) {
     const item = monitor.getItem();
+    const maybeNode = props.searchNodeEverywhere(item.id);
+
     if (monitor.didDrop() || !monitor.isOver({ shallow: true })) {
       // If the item drop occurred deeper down the tree, don't do anything
       return;
     }
 
     props.removeCell(item.id);
+
+    if (!maybeNode) {
+      return;
+    }
+
+    const { node: n } = maybeNode;
+
+    if (props.onRemoveCell) {
+      props.onRemoveCell(n.content.state);
+    }
   },
 };
 
@@ -122,6 +143,8 @@ const mapStateToProps = createStructuredSelector({
   isPreviewMode,
   isInsertMode,
   isResizeMode,
+  searchNodeEverywhere: (state: RootState) => (id: string) =>
+    searchNodeEverywhere(state, id),
 });
 
 const Decorated = connect(
