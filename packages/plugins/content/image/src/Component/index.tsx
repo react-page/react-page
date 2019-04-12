@@ -20,33 +20,32 @@
  *
  */
 
-import * as React from 'react';
-import { ImageLoaded, ImageUploaded } from 'ory-editor-ui/lib/ImageUpload';
-import { ImageProps } from '../types/component';
-import { ImageState } from './../types/state';
+import * as React from "react";
+import { ImageLoaded, ImageUploaded } from "ory-editor-ui/lib/ImageUpload";
+import { ImageProps } from "../types/component";
+import { ImageState } from "./../types/state";
 
 type StateType = {
   imagePreview?: ImageLoaded;
 };
 
-class Form extends React.Component<ImageProps, StateType> {
+class Form extends React.PureComponent<ImageProps, StateType> {
   constructor(props: ImageProps) {
     super(props);
+
     this.state = {};
   }
 
-  handleChange = (
-    e: React.ChangeEvent<HTMLInputElement>
-  ) => {
+  handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const target = e.target;
     if (target instanceof HTMLInputElement) {
       let change: Partial<ImageState> = {};
 
-      if (target.name === 'target') {
+      if (target.name === "target") {
         if (target.checked) {
-          change.target = '_blank';
+          change.target = "_blank";
           // noopener is safer but not supported in IE, so noreferrer adds some security
-          change.rel = 'noreferrer noopener';
+          change.rel = "noreferrer noopener";
         } else {
           change.target = null;
           change.rel = null;
@@ -58,18 +57,40 @@ class Form extends React.Component<ImageProps, StateType> {
       this.props.onChange(change);
       return;
     }
+  };
+
+  handleChangeBorderRadius = (
+    event: React.ChangeEvent<HTMLInputElement>,
+    value: number
+  ) => {
+    let change: Partial<ImageState> = {};
+    change.borderRadius = value;
+
+    this.props.onChange(change);
+  };
+
+  handleChangeWidth = (
+    event: React.ChangeEvent<HTMLInputElement>,
+    value: number
+  ) => {
+    let change: Partial<ImageState> = {};
+    change.width = value;
+
+    this.props.onChange(change);
   }
 
+
   handleImageLoaded = (image: ImageLoaded) =>
-    this.setState({ imagePreview: image })
+    this.setState({ imagePreview: image });
 
   handleImageUploaded = (resp: ImageUploaded) => {
     this.setState({ imagePreview: undefined });
     this.props.onChange({ src: resp.url });
-  }
+  };
 
   render() {
     const { Controls } = this.props;
+    console.log('render');
     return (
       <Controls
         {...this.props}
@@ -77,6 +98,8 @@ class Form extends React.Component<ImageProps, StateType> {
         handleImageLoaded={this.handleImageLoaded}
         handleImageUploaded={this.handleImageUploaded}
         handleChange={this.handleChange}
+        handleChangeBorderRadius={this.handleChangeBorderRadius}
+        handleChangeWidth={this.handleChangeWidth}
       />
     );
   }

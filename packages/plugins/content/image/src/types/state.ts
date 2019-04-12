@@ -4,4 +4,6 @@ export interface ImageState {
   href?: string;
   target?: string;
   rel?: string;
+  width?: number;
+  borderRadius?: number;
 }
