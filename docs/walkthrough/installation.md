@@ -31,7 +31,7 @@ import './App.css';
 import 'ory-editor/dist/styles.css';
 
 // The react-tap-event-plugin is required by material-ui, see:
-//  https://github.com/callemall/material-ui#react-tap-event-plugin
+//  https://github.com/mui-org/material-ui#react-tap-event-plugin
 require('react-tap-event-plugin')()
 
 
