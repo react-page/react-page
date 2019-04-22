@@ -24,5 +24,7 @@ export interface BackgroundApi {
     gradientColorPreviewColorIndex?: number
   ) => void;
   handleImageLoaded: (imagePreview: ImageLoaded) => void;
-  handleImageUploaded: () => void;
+  handleImageUploaded: () => void;  
+  handleChangeForecolor: () => void;
+  handleChangeForecolorPreview: (forecolor: string) => void;
 }

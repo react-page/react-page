@@ -17,7 +17,8 @@ export type BackgroundState = {
   gradientColorPreviewColorIndex?: number;
   darkenPreview?: number;
   lightenPreview?: number;
-  imagePreview?: ImageLoaded;
+  imagePreview?: ImageLoaded;  
+  forecolorPreview?: string;
 };
 
 class BackgroundComponent extends React.Component<
@@ -91,6 +92,15 @@ BackgroundState
     this.props.onChange({ modeFlag });
   }
 
+  handleChangeForecolor = () => {
+    this.props.onChange({ forecolor: this.state.forecolorPreview });
+    this.setState({ forecolorPreview: undefined });
+  }
+
+  handleChangeForecolorPreview = (value: string) => {
+    this.setState({ forecolorPreview: value });
+  }
+
   render() {
     const {
       Controls,
@@ -110,6 +120,8 @@ BackgroundState
         handleChangeGradientColorPreview={this.handleChangeGradientColorPreview}
         handleImageLoaded={this.handleImageLoaded}
         handleImageUploaded={this.handleImageUploaded}
+        handleChangeForecolor={this.handleImageUploaded}
+        handleChangeForecolorPreview={this.handleImageUploaded}
         {...this.state}
       />
     );

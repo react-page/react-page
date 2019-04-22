@@ -11,6 +11,7 @@ const getStyles = (props: BackgroundRendererProps) => {
       isParallax = true,
       backgroundColor = props.defaultBackgroundColor,
       gradients = [],
+      forecolor = props.defaultForecolor,
     },
   } = props;
   let styles: React.CSSProperties = {};
@@ -87,6 +88,13 @@ const getStyles = (props: BackgroundRendererProps) => {
         : modeStr,
     };
   }
+  if (modeFlag & ModeEnum.TEXT_MODE_FLAG) {
+    const forecolorFinal = props.forecolorPreview ? props.forecolorPreview : forecolor;      
+    styles = {
+      ...styles,
+      color: forecolorFinal,
+    };
+  }
   return styles;
 };
 
@@ -98,7 +106,7 @@ const BackgroundHtmlRenderer: React.SFC<
     state: {
       darken = props.defaultDarken,
       lighten = props.defaultLighten,
-      hasPadding = props.defaultHasPadding,
+      hasPadding = props.defaultHasPadding,      
     },
   } = props;
   let darkenFinal =

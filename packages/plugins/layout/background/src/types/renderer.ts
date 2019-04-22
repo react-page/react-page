@@ -14,6 +14,7 @@ export interface BackgroundRendererExtraProps {
   darkenPreview?: number;
   lightenPreview?: number;
   imagePreview?: ImageLoaded;
+  forecolorPreview?: string;
 }
 
 export type BackgroundRendererProps = BackgroundProps & BackgroundRendererExtraProps;

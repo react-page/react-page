@@ -20,4 +20,5 @@ export type BackgroundSettings = {
   defaultHasPadding?: boolean;
   defaultIsParallax?: boolean;
   imageUpload: ImageUploadType;
+  defaultForecolor?: string;
 };

@@ -12,4 +12,5 @@ export interface BackgroundState {
   darken: number;
   hasPadding: boolean;
   gradients: Gradient[];
+  forecolor: string;
 }

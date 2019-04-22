@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { BackgroundSettings } from '../types/settings';
-import { IMAGE_MODE_FLAG, COLOR_MODE_FLAG, GRADIENT_MODE_FLAG } from './../const/mode';
+import { IMAGE_MODE_FLAG, COLOR_MODE_FLAG, GRADIENT_MODE_FLAG, TEXT_MODE_FLAG } from './../const/mode';
 
 export const defaultSettings: Partial<BackgroundSettings> = {
   defaultBackgroundColor: { r: 245, g: 0, b: 87, a: 1 },
@@ -12,7 +12,7 @@ export const defaultSettings: Partial<BackgroundSettings> = {
   defaultLighten: 0,
   defaultHasPadding: true,
   defaultIsParallax: true,
-  enabledModes: IMAGE_MODE_FLAG | COLOR_MODE_FLAG | GRADIENT_MODE_FLAG,
+  enabledModes: IMAGE_MODE_FLAG | COLOR_MODE_FLAG | GRADIENT_MODE_FLAG | TEXT_MODE_FLAG,
   Controls: () => <> Controls for this plugin were not provided</> ,
   Renderer: () => <>Renderer; for this plugin was not provided </>,
 };

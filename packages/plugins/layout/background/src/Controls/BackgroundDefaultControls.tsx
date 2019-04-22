@@ -6,6 +6,7 @@ import Switch from '@material-ui/core/Switch';
 import ColorComponent from './sub/Color';
 import LinearGradientComponent from './sub/LinearGradient';
 import ImageComponent from './sub/Image';
+import TextComponent from './sub/Text';
 import { BottomToolbar } from 'ory-editor-ui';
 import ThemeProvider, { darkTheme } from 'ory-editor-ui/lib/ThemeProvider';
 import Tabs from '@material-ui/core/Tabs';
@@ -13,6 +14,7 @@ import Tab from '@material-ui/core/Tab';
 import ImageIcon from '@material-ui/icons/Landscape';
 import ColorIcon from '@material-ui/icons/ColorLens';
 import GradientIcon from '@material-ui/icons/Gradient';
+import TextIcon from '@material-ui/icons/TextFields';
 import Typography from '@material-ui/core/Typography';
 import Slider from '@material-ui/lab/Slider';
 
@@ -40,7 +42,7 @@ class BackgroundDefaultControls extends React.Component<
         hasPadding = this.props.defaultHasPadding,
         modeFlag = this.props.defaultModeFlag,
         darken = this.props.defaultDarken,
-        lighten = this.props.defaultLighten,
+        lighten = this.props.defaultLighten,        
       },
     } = this.props;
     let darkenFinal =
@@ -106,6 +108,21 @@ class BackgroundDefaultControls extends React.Component<
                     }
                     label="Gradient"
                     value={ModeEnum.GRADIENT_MODE_FLAG}
+                  />
+                )}
+                {(this.props.enabledModes & ModeEnum.TEXT_MODE_FLAG) > 0 && (
+                  <Tab
+                    icon={
+                      <TextIcon
+                        color={
+                          (modeFlag & ModeEnum.TEXT_MODE_FLAG) > 0
+                            ? 'secondary'
+                            : undefined
+                        }
+                      />
+                    }
+                    label="Text"
+                    value={ModeEnum.TEXT_MODE_FLAG}
                   />
                 )}
               </Tabs>
@@ -183,6 +200,9 @@ class BackgroundDefaultControls extends React.Component<
       case ModeEnum.GRADIENT_MODE_FLAG:
         // label = 'Use gradient'
         break;
+      case ModeEnum.TEXT_MODE_FLAG:
+        // label = 'Use text'
+        break;
       default:
         label = 'Unknown mode';
         break;
@@ -249,6 +269,17 @@ class BackgroundDefaultControls extends React.Component<
             />
           </React.Fragment>
         );
+      case ModeEnum.TEXT_MODE_FLAG:        
+          return (
+            <React.Fragment>
+              {this.renderModeSwitch()}
+              <TextComponent
+                {...this.props}                                
+                ensureModeOn={this.ensureModeOn(ModeEnum.TEXT_MODE_FLAG)}
+                forecolor={this.props.forecolorPreview}
+              />
+            </React.Fragment>
+          );          
       case ModeEnum.IMAGE_MODE_FLAG:
       default:
         return (

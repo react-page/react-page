@@ -102,7 +102,7 @@ const plugins: Plugins = {
     background({
       defaultPlugin: slate(),
       imageUpload: fakeImageUploadService('/images/sea-bg.jpg'),
-      enabledModes: ModeEnum.COLOR_MODE_FLAG | ModeEnum.IMAGE_MODE_FLAG | ModeEnum.GRADIENT_MODE_FLAG,
+      enabledModes: ModeEnum.COLOR_MODE_FLAG | ModeEnum.IMAGE_MODE_FLAG | ModeEnum.GRADIENT_MODE_FLAG | ModeEnum.TEXT_MODE_FLAG,
     }),
     parallax({ defaultPlugin: slate() }),
   ],
