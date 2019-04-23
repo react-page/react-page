@@ -1,11 +1,13 @@
 import * as React from 'react';
 import Switch from '@material-ui/core/Switch';
 import TextField from '@material-ui/core/TextField';
+import SelectField from '@material-ui/core/Select';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import { ImageUpload } from 'ory-editor-ui';
 import Typography from '@material-ui/core/Typography';
 import { ImageLoaded, ImageUploaded } from 'ory-editor-ui/lib/ImageUpload';
 import { BackgroundProps } from '../../types/component';
+import { MenuItem } from '@material-ui/core';
 
 export interface ImageComponentProps {
   ensureModeOn: () => void;
@@ -19,7 +21,7 @@ BackgroundProps & ImageComponentProps
   handleChangeBackground = (e: React.ChangeEvent<HTMLInputElement>) => {
     this.props.ensureModeOn();
     this.props.onChange({ background: e.target.value });
-  }
+  }  
 
   handleChangeIsParallax = (e: React.ChangeEvent<HTMLInputElement>) => {
     this.props.ensureModeOn();
@@ -30,6 +32,21 @@ BackgroundProps & ImageComponentProps
           : !this.props.state.isParallax,
     });
   }
+
+  handleChangeBackgroundSize = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    this.props.ensureModeOn();
+    this.props.onChange({ backgroundSize: e.target.value });
+  }  
+
+  handleChangeBackgroundPositionH = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    this.props.ensureModeOn();
+    this.props.onChange({ backgroundPositionH: e.target.value });
+  }  
+
+  handleChangeBackgroundPositionV = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    this.props.ensureModeOn();
+    this.props.onChange({ backgroundPositionV: e.target.value });
+  }  
 
   handleImageLoaded = (image: ImageLoaded) => {
     this.props.ensureModeOn();
@@ -43,7 +60,7 @@ BackgroundProps & ImageComponentProps
 
   render() {
     const {
-      state: { isParallax = true, background = '' },
+      state: { isParallax = true, background = '', backgroundSize = 'cover', backgroundPositionH = 'center', backgroundPositionV = 'center' },
     } = this.props;
     return (
       <div>
@@ -81,6 +98,51 @@ BackgroundProps & ImageComponentProps
               />
             }
             label="Is parallax"
+          />
+        </div>
+        <div style={{ display: 'flex' }}>
+          <FormControlLabel
+            control={
+              <SelectField
+                value={backgroundSize}
+                onChange={this.handleChangeBackgroundSize}                
+              >
+                <MenuItem value="cover">Cover</MenuItem>
+                <MenuItem value="contain">Contain</MenuItem>
+                <MenuItem value="auto">Auto</MenuItem>
+              </SelectField>
+            }
+            label="Size"
+          />
+        </div>
+        <div style={{ display: 'flex' }}>
+          <FormControlLabel
+            control={
+              <SelectField
+                value={backgroundPositionH}
+                onChange={this.handleChangeBackgroundPositionH}                
+              >
+                <MenuItem value="left">Left</MenuItem>
+                <MenuItem value="center">Center</MenuItem>
+                <MenuItem value="right">Right</MenuItem>
+              </SelectField>
+            }
+            label="Horizontal position"
+          />
+        </div>
+        <div style={{ display: 'flex' }}>
+          <FormControlLabel
+            control={
+              <SelectField
+                value={backgroundPositionV}
+                onChange={this.handleChangeBackgroundPositionV}                
+              >
+                <MenuItem value="top">Top</MenuItem>
+                <MenuItem value="center">Center</MenuItem>
+                <MenuItem value="bottom">Bottom</MenuItem>
+              </SelectField>
+            }
+            label="Vertical position"
           />
         </div>
       </div>

@@ -27,4 +27,7 @@ export interface BackgroundApi {
   handleImageUploaded: () => void;  
   handleChangeForecolor: () => void;
   handleChangeForecolorPreview: (forecolor: string) => void;
+  handleChangeBackgroundSize: (backgroundSize: string) => void;
+  handleChangeBackgroundPositionH: (backgroundPositionH: string) => void;  
+  handleChangeBackgroundPositionV: (backgroundPositionV: string) => void;  
 }

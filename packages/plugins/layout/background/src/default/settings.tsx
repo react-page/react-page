@@ -15,4 +15,8 @@ export const defaultSettings: Partial<BackgroundSettings> = {
   enabledModes: IMAGE_MODE_FLAG | COLOR_MODE_FLAG | GRADIENT_MODE_FLAG | TEXT_MODE_FLAG,
   Controls: () => <> Controls for this plugin were not provided</> ,
   Renderer: () => <>Renderer; for this plugin was not provided </>,
+  defaultForecolor: '#aaa',
+  defaultBackgroundSize: 'cover',
+  defaultBackgroundPositionH: 'center',
+  defaultBackgroundPositionV: 'center',
 };

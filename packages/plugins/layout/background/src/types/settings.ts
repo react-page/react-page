@@ -21,4 +21,7 @@ export type BackgroundSettings = {
   defaultIsParallax?: boolean;
   imageUpload: ImageUploadType;
   defaultForecolor?: string;
+  defaultBackgroundSize?: string;
+  defaultBackgroundPositionH?: string;
+  defaultBackgroundPositionV?: string;
 };

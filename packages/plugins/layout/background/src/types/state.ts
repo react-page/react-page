@@ -13,4 +13,7 @@ export interface BackgroundState {
   hasPadding: boolean;
   gradients: Gradient[];
   forecolor: string;
+  backgroundSize: string;
+  backgroundPositionH: string;
+  backgroundPositionV: string;
 }

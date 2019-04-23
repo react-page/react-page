@@ -19,6 +19,9 @@ export type BackgroundState = {
   lightenPreview?: number;
   imagePreview?: ImageLoaded;  
   forecolorPreview?: string;
+  backgroundSize?: string;
+  backgroundPositionH?: string;
+  backgroundPositionV?: string;
 };
 
 class BackgroundComponent extends React.Component<
@@ -101,6 +104,18 @@ BackgroundState
     this.setState({ forecolorPreview: value });
   }
 
+  handleChangeBackgroundSize = (value: string) => {
+    this.setState({ backgroundSize: value });
+  }  
+
+  handleChangeBackgroundPositionH = (value: string) => {    
+    this.setState({ backgroundPositionH: value });
+  }  
+
+  handleChangeBackgroundPositionV = (value: string) => {
+    this.setState({ backgroundPositionH: value });
+  }  
+
   render() {
     const {
       Controls,
@@ -122,6 +137,9 @@ BackgroundState
         handleImageUploaded={this.handleImageUploaded}
         handleChangeForecolor={this.handleImageUploaded}
         handleChangeForecolorPreview={this.handleImageUploaded}
+        handleChangeBackgroundSize={this.handleChangeBackgroundSize}
+        handleChangeBackgroundPositionH={this.handleChangeBackgroundPositionH}
+        handleChangeBackgroundPositionV={this.handleChangeBackgroundPositionV}
         {...this.state}
       />
     );

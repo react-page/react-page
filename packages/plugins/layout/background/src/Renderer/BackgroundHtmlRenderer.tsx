@@ -12,6 +12,9 @@ const getStyles = (props: BackgroundRendererProps) => {
       backgroundColor = props.defaultBackgroundColor,
       gradients = [],
       forecolor = props.defaultForecolor,
+      backgroundSize = props.defaultBackgroundSize,
+      backgroundPositionH = props.defaultBackgroundPositionH,
+      backgroundPositionV = props.defaultBackgroundPositionV,
     },
   } = props;
   let styles: React.CSSProperties = {};
@@ -75,11 +78,14 @@ const getStyles = (props: BackgroundRendererProps) => {
     };
   }
   if (modeFlag & ModeEnum.IMAGE_MODE_FLAG) {
+    // tslint:disable-next-line
+    console.log(`${backgroundPositionH} ${backgroundPositionV} / ${backgroundSize}`);
+
     const backgroundFinal = props.imagePreview
       ? props.imagePreview.dataUrl
       : background;
     const modeStr =
-      `url('${backgroundFinal}') center / cover no-repeat` +
+      `url('${backgroundFinal}') ${backgroundPositionH} ${backgroundPositionV} / ${backgroundSize} no-repeat` +
       (isParallax ? ' fixed' : '');
     styles = {
       ...styles,
