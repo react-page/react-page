@@ -17,7 +17,7 @@ BackgroundProps & TextComponentProps
 
   render() {
     const {
-      state: { forecolor = '#fff' },
+      state: { forecolor = this.props.defaultForecolor },
     } = this.props;
     return (
       <div>
