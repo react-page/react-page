@@ -48,7 +48,7 @@ const createPlugin: (settings: ParallaxBackgroundSettings) => LayoutPluginConfig
   text: 'Parallax Background (deprecated)',
   IconComponent: <Icon />,
 
-  createInitialChildren: () => ({
+  createInitialChildren: settings.getInitialChildren || (() => ({
     id: v4(),
     rows: [
       {
@@ -64,7 +64,7 @@ const createPlugin: (settings: ParallaxBackgroundSettings) => LayoutPluginConfig
         ],
       },
     ],
-  }),
+  })),
 
   handleFocusNextHotKey: () => Promise.reject(),
   handleFocusPreviousHotKey: () => Promise.reject(),

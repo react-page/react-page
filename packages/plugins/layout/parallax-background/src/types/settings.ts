@@ -6,4 +6,5 @@ export type ParallaxBackgroundSettings = {
   Renderer: React.ComponentType<ParallaxBackgroundRendererProps>;
   Controls: React.ComponentType<ParallaxBackgroundControlsProps>;
   defaultPlugin: ContentPluginConfig;
+  getInitialChildren?: () => any;
 };

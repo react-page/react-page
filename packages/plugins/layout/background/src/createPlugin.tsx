@@ -41,7 +41,7 @@ const createPlugin = (settings: BackgroundSettings) => {
     text: 'Background',
     IconComponent: <Icon />,
 
-    createInitialChildren: () => ({
+    createInitialChildren: settings.getInitialChildren || (() => ({
       id: v4(),
       rows: [
         {
@@ -57,7 +57,7 @@ const createPlugin = (settings: BackgroundSettings) => {
           ],
         },
       ],
-    }),
+    })),
 
     handleFocusNextHotKey: () => Promise.reject(),
     handleFocusPreviousHotKey: () => Promise.reject(),

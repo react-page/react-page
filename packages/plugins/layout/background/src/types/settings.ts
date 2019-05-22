@@ -10,6 +10,7 @@ export type BackgroundSettings = {
   Controls: React.ComponentType<BackgroundControlsProps>;
   defaultPlugin: ContentPluginConfig;
   enabledModes?: ModeEnum;
+  getInitialChildren?: () => any;
   defaultBackgroundColor?: RGBColor;
   defaultGradientColor?: RGBColor;
   defaultGradientSecondaryColor?: RGBColor;
