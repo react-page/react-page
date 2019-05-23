@@ -154,10 +154,10 @@ class LinkButton extends React.Component<PluginButtonProps, LinkButtonState> {
     const actions = (
       <React.Fragment>
         <Button variant="text" color="primary" onClick={this.handleClose}>
-          {this.props.translations.linkPlugin.cancel}
+          {this.props.translations.linkPlugin!.cancel}
         </Button>
         <Button variant="text" color="primary" onClick={this.handleSubmit}>
-          {this.props.translations.linkPlugin.ok}
+          {this.props.translations.linkPlugin!.ok}
         </Button>
       </React.Fragment>
     );
@@ -177,18 +177,18 @@ class LinkButton extends React.Component<PluginButtonProps, LinkButtonState> {
           <span>
             <Dialog
               className="ory-prevent-blur"
-              title={this.props.translations.linkPlugin.createLink}
+              title={this.props.translations.linkPlugin!.createLink}
               // modal={false}
               open={this.state.open}
             >
               <DialogTitle id="confirmation-dialog-title">
-                {this.props.translations.linkPlugin.createLink}
+                {this.props.translations.linkPlugin!.createLink}
               </DialogTitle>
               <DialogContent>
                 {this.state.wasExpanded ? null : (
                   <div>
                     <TextField
-                      placeholder={this.props.translations.linkPlugin.linkTitlePlaceholder}
+                      placeholder={this.props.translations.linkPlugin!.linkTitlePlaceholder}
                       onChange={this.onTitleChange}
                       value={this.state.title}
                     />
@@ -196,7 +196,7 @@ class LinkButton extends React.Component<PluginButtonProps, LinkButtonState> {
                 )}
                 <div ref={this.onRef}>
                   <TextField
-                    placeholder={this.props.translations.linkPlugin.linkHrefPlaceholder}
+                    placeholder={this.props.translations.linkPlugin!.linkHrefPlaceholder}
                     onChange={this.onHrefChange}
                     value={this.state.href}
                   />
