@@ -10,6 +10,7 @@ export type BackgroundSettings = {
   Controls: React.ComponentType<BackgroundControlsProps>;
   defaultPlugin: ContentPluginConfig;
   enabledModes?: ModeEnum;
+  // tslint:disable-next-line:no-any
   getInitialChildren?: () => any;
   defaultBackgroundColor?: RGBColor;
   defaultGradientColor?: RGBColor;
