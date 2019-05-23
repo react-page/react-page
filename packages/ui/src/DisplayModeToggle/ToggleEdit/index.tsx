@@ -37,12 +37,16 @@ export interface InnerActionProps {
   editMode: React.MouseEventHandler<HTMLElement>;
 }
 
-export type InnerProps = InnerReduxProps & InnerActionProps;
+interface OwnProps {
+  label: string;
+}
+
+export type InnerProps = InnerReduxProps & InnerActionProps & OwnProps;
 
 const Inner: React.SFC<InnerProps> = props => (
   <Button
     icon={<Create />}
-    description="Edit things"
+    description={props.label}
     active={props.isEditMode}
     onClick={props.editMode}
   />

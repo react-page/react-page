@@ -37,12 +37,16 @@ export interface InnerActionProps {
   layoutMode: React.MouseEventHandler<HTMLElement>;
 }
 
-export type InnerProps = InnerReduxProps & InnerActionProps;
+interface OwnProps {
+  label: string;
+}
+
+export type InnerProps = InnerReduxProps & InnerActionProps & OwnProps;
 
 const Inner: React.SFC<InnerProps> = props => (
   <Button
     icon={<ViewQuilt />}
-    description="Move things"
+    description={props.label}
     active={props.isLayoutMode}
     onClick={props.layoutMode}
   />

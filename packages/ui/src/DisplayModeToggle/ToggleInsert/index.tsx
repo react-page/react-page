@@ -37,12 +37,16 @@ export interface InnerActionProps {
   insertMode: React.MouseEventHandler<HTMLElement>;
 }
 
-export type InnerProps = InnerReduxProps & InnerActionProps;
+interface OwnProps {
+  label: string;
+}
+
+export type InnerProps = InnerReduxProps & InnerActionProps & OwnProps;
 
 const Inner: React.SFC<InnerProps> = props => (
   <Button
     icon={<ContentAdd />}
-    description="Add things"
+    description={props.label}
     active={props.isInsertMode}
     onClick={props.insertMode}
   />
