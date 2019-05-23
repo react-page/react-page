@@ -36,12 +36,8 @@ import { Data, Inline, Editor } from 'slate';
 import { ThemeProvider } from 'ory-editor-ui';
 import { RenderNodeProps } from 'slate-react';
 import { NextType } from '../../types/next';
-import { SlatePluginSettings } from 'src/types/plugin';
 
 export const A = 'LINK/LINK';
-
-export interface LinkPluginSettings extends SlatePluginSettings {
-}
 
 export interface LinkButtonState {
   open: boolean;
