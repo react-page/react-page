@@ -26,7 +26,7 @@ import { NextType } from '../types/next';
 export class PluginButtonProps {
   editor: Editor;
   editorState: Value;
-  translations: { [key: string]: string };
+  translations: Object;
 }
 
 /**
