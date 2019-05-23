@@ -36,8 +36,12 @@ import { Data, Inline, Editor } from 'slate';
 import { ThemeProvider } from 'ory-editor-ui';
 import { RenderNodeProps } from 'slate-react';
 import { NextType } from '../../types/next';
+import { SlatePluginSettings } from 'src/types/plugin';
 
 export const A = 'LINK/LINK';
+
+export interface LinkPluginSettings extends SlatePluginSettings {
+}
 
 export interface LinkButtonState {
   open: boolean;
@@ -150,10 +154,10 @@ class LinkButton extends React.Component<PluginButtonProps, LinkButtonState> {
     const actions = (
       <React.Fragment>
         <Button variant="text" color="primary" onClick={this.handleClose}>
-          Cancel
+          {this.props.translations.linkPlugin.cancel}
         </Button>
         <Button variant="text" color="primary" onClick={this.handleSubmit}>
-          Ok
+          {this.props.translations.linkPlugin.ok}
         </Button>
       </React.Fragment>
     );
@@ -173,18 +177,18 @@ class LinkButton extends React.Component<PluginButtonProps, LinkButtonState> {
           <span>
             <Dialog
               className="ory-prevent-blur"
-              title="Create a link"
+              title={this.props.translations.linkPlugin.createLink}
               // modal={false}
               open={this.state.open}
             >
               <DialogTitle id="confirmation-dialog-title">
-                Create a link
+                {this.props.translations.linkPlugin.createLink}
               </DialogTitle>
               <DialogContent>
                 {this.state.wasExpanded ? null : (
                   <div>
                     <TextField
-                      placeholder="Link title"
+                      placeholder={this.props.translations.linkPlugin.linkTitlePlaceholder}
                       onChange={this.onTitleChange}
                       value={this.state.title}
                     />
@@ -192,7 +196,7 @@ class LinkButton extends React.Component<PluginButtonProps, LinkButtonState> {
                 )}
                 <div ref={this.onRef}>
                   <TextField
-                    placeholder="http://example.com/my/link.html"
+                    placeholder={this.props.translations.linkPlugin.linkHrefPlaceholder}
                     onChange={this.onHrefChange}
                     value={this.state.href}
                   />

@@ -24,8 +24,8 @@ const Html5VideoDefaultControls: React.SFC<Html5VideoControlsProps> = props => {
       {!readOnly && focused && (
         <BottomToolbar open={focused} theme={darkTheme}>
           <TextField
-            placeholder="https://example.com/video.webm"
-            label="Video url"
+            placeholder={props.translations.urlPlaceholder}
+            label={props.translations.urlLabel}
             onChange={e => changeUrlPreview(e.target.value)}
             onBlur={commitUrl}
             value={url}

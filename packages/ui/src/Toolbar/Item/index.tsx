@@ -27,11 +27,13 @@ import ListItemText from '@material-ui/core/ListItemText';
 import { Plugin } from 'ory-editor-core/lib/service/plugin/classes';
 import DragHandle from '@material-ui/icons/DragHandle';
 import Tooltip from 'rc-tooltip';
+import { Translations } from '../';
 
 export interface ItemProps {
   plugin: Plugin;
   // tslint:disable-next-line:no-any
   insert: any;
+  translations: Translations;
 }
 
 export interface ItemState {
@@ -78,7 +80,7 @@ class Item extends React.Component<ItemProps, ItemState> {
             <Tooltip
               visible={this.state.tooltipVisible}
               placement="bottomLeft"
-              overlay={<span>Drag me!</span>}
+              overlay={<span>{this.props.translations.dragMe}</span>}
             >
               <DragHandle className="ory-toolbar-item-drag-handle" />
             </Tooltip>

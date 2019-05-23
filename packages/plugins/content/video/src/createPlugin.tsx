@@ -33,18 +33,19 @@ import { defaultSettings } from './default/settings';
 const createPlugin: (
   settings: VideoSettings
 ) => ContentPluginConfig<VideoState> = (
-  settings = defaultSettings
+  settings
 ) => {
+  const mergedSettings = { ...defaultSettings, ...settings };
   const WrappedComponent: React.SFC<VideoProps> = props => (
-    <Spacer {...props} {...settings} />
+    <Spacer {...props} {...mergedSettings} />
   );
   return {
     Component: WrappedComponent,
     name: 'ory/editor/core/content/video',
     version: '0.0.1',
     IconComponent: <PlayArrow />,
-    text: 'Video',
-    description: 'Include videos from Vimeo or YouTube.',
+    text: mergedSettings.translations.pluginName,
+    description: mergedSettings.translations.pluginDescription,
     isInlineable: true,
 
     handleRemoveHotKey: (_: Event, __: ContentPluginProps): Promise<void> =>

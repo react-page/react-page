@@ -9,6 +9,15 @@ const BAD_EXTENSION_ERROR_CODE = 2;
 const TOO_BIG_ERROR_CODE = 3;
 const UPLOADING_ERROR_CODE = 4;
 
+export const defaultTranslations = {
+  buttonContent: 'Upload image',
+  noFileError: 'No file selected',
+  badExtensionError: 'Bad file type',
+  tooBigError: 'Too big',
+  uploadingError: 'Error while uploading',
+  unknownError: 'Unknown error',
+};
+
 export type ImageLoaded = {
   file: Object;
   dataUrl: string;
@@ -22,16 +31,17 @@ export type ImageUploadType = (
   file: File,
   reportProgress: (progress: number) => void
 ) => Promise<ImageUploaded>;
+
 export type ImageUploadProps = {
   imageLoaded?: (image: ImageLoaded) => void;
   imageUpload: ImageUploadType;
   imageUploadError?: (errorCode: number) => void;
   imageUploaded: (resp: ImageUploaded) => void;
-  buttonContent?: JSX.Element | string;
   icon?: JSX.Element;
   style?: React.CSSProperties;
   maxFileSize?: number;
   allowedExtensions?: string[];
+  translations?: { [key: string]: string };
 };
 
 export type ImageUploadState = {
@@ -43,10 +53,10 @@ export type ImageUploadState = {
 
 class ImageUpload extends React.Component<ImageUploadProps, ImageUploadState> {
   static defaultProps = {
-    buttonContent: 'Upload image',
     icon: <CloudUploadIcon style={{ marginLeft: '8px' }} />,
     allowedExtensions: ['jpg', 'jpeg', 'png'],
     maxFileSize: 5242880,
+    translations: defaultTranslations,
   };
   fileInput: HTMLInputElement;
 
@@ -70,19 +80,19 @@ class ImageUpload extends React.Component<ImageUploadProps, ImageUploadState> {
     let errorText = '';
     switch (errorCode) {
       case NO_FILE_ERROR_CODE:
-        errorText = 'No file selected';
+        errorText = this.props.translations.noFileError;
         break;
       case BAD_EXTENSION_ERROR_CODE:
-        errorText = 'Bad file type';
+        errorText = this.props.translations.badExtensionError;
         break;
       case TOO_BIG_ERROR_CODE:
-        errorText = 'Too big';
+        errorText = this.props.translations.tooBigError;
         break;
       case UPLOADING_ERROR_CODE:
-        errorText = 'Error while uploading';
+        errorText = this.props.translations.uploadingError;
         break;
       default:
-        errorText = 'Unknown error';
+        errorText = this.props.translations.unknownError;
         break;
     }
     // Need to flick "isUploading" because otherwise the handler doesn't fire properly
@@ -160,7 +170,7 @@ class ImageUpload extends React.Component<ImageUploadProps, ImageUploadState> {
     }
     return (
       <React.Fragment>
-        {this.props.buttonContent}
+        {this.props.translations.buttonContent}
         {this.props.icon}
       </React.Fragment>
     );

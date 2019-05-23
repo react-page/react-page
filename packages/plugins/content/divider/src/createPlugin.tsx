@@ -5,22 +5,21 @@ import Divider from './Component';
 import { DividerSettings } from './types/settings';
 import { DividerProps } from './types/component';
 import { DividerState } from './types/state';
+import { defaultSettings } from './default/settings';
 
 const createPlugin: (settings: DividerSettings) => ContentPluginConfig<DividerState> = (
-  settings = {
-    Controls: () => <>Controls for this plugin were not provided</>,
-    Renderer: () => <>Renderer for this plugin was not provided</>,
-  }
+  settings
 ) => {
-  const WrappedComponent: React.SFC<DividerProps> = props => <Divider {...props} {...settings} />;
+  const mergedSettings = { ...defaultSettings, ...settings };
+  const WrappedComponent: React.SFC<DividerProps> = props => <Divider {...props} {...mergedSettings} />;
   return {
     Component: WrappedComponent,
     StaticComponent: settings.Renderer,
     name: 'ory/editor/core/content/divider',
     version: '0.0.1',
     IconComponent: <Remove />,
-    text: 'Divider',
-    description: 'A horizontal divider.',
+    text: mergedSettings.translations.pluginName,
+    description: mergedSettings.translations.pluginDescription,
   };
 };
 

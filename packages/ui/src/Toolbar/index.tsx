@@ -38,10 +38,28 @@ import Provider from '../Provider/index';
 import { ProviderProps } from './../Provider/index';
 import { Plugin } from 'ory-editor-core/lib/service/plugin/classes';
 
+export interface Translations {
+  noPluginFoundContent: string | JSX.Element;
+  searchPlaceholder: string;
+  layoutPlugins: string | JSX.Element;
+  contentPlugins: string | JSX.Element;
+  insertPlugin: string | JSX.Element;
+  dragMe: string;
+}
+
+const defaultTranslations: Translations = {
+  noPluginFoundContent: 'No plugins found',
+  searchPlaceholder: 'Search plugins',
+  layoutPlugins: 'Layout plugins',
+  contentPlugins: 'Content plugins',
+  insertPlugin: 'Add plugin to content',
+  dragMe: 'Drag me!',
+};
+
 type Props = {
   isInsertMode: boolean;
   editor: Editor;
-  noPluginFoundContent: JSX.Element | string;
+  translations?: Translations;
 };
 
 interface RawState {
@@ -51,7 +69,7 @@ interface RawState {
 
 class Raw extends React.Component<Props, RawState> {
   static defaultProps = {
-    noPluginFoundContent: 'No plugins found',
+    translations: defaultTranslations,
   };
 
   input: HTMLInputElement;
@@ -113,26 +131,27 @@ class Raw extends React.Component<Props, RawState> {
         className="ory-toolbar-drawer"
         open={this.props.isInsertMode}
       >
-        <List subheader={<ListSubheader>Add plugin to content</ListSubheader>}>
+        <List subheader={<ListSubheader>{this.props.translations.insertPlugin}</ListSubheader>}>
           <ListItem>
             <TextField
               inputRef={this.onRef}
-              placeholder="Search plugins"
+              placeholder={this.props.translations.searchPlaceholder}
               fullWidth={true}
               onChange={this.onSearch}
             />
           </ListItem>
           {layout.length + content.length === 0 && (
-            <ListSubheader>{this.props.noPluginFoundContent}</ListSubheader>
+            <ListSubheader>{this.props.translations.noPluginFoundContent}</ListSubheader>
           )}
         </List>
         {content.length > 0 && (
-          <List subheader={<ListSubheader>Content plugins</ListSubheader>}>
+          <List subheader={<ListSubheader>{this.props.translations.contentPlugins}</ListSubheader>}>
             {content.map((plugin: ContentPlugin, k: Number) => {
               const initialState = plugin.createInitialState();
 
               return (
                 <Item
+                  translations={this.props.translations}
                   plugin={plugin}
                   key={k.toString()}
                   insert={{
@@ -147,13 +166,14 @@ class Raw extends React.Component<Props, RawState> {
           </List>
         )}
         {layout.length > 0 && (
-          <List subheader={<ListSubheader>Layout plugins</ListSubheader>}>
+          <List subheader={<ListSubheader>{this.props.translations.layoutPlugins}</ListSubheader>}>
             {layout.map((plugin: LayoutPlugin, k: Number) => {
               const initialState = plugin.createInitialState();
               const children = plugin.createInitialChildren();
 
               return (
                 <Item
+                  translations={this.props.translations}
                   plugin={plugin}
                   key={k.toString()}
                   insert={{

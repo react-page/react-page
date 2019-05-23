@@ -34,8 +34,6 @@ const Form: React.SFC<VideoControlsProps> = props => {
     focused,
     changeSrcPreview,
     commitSrc,
-    label,
-    placeholder,
     readOnly,
     state: { src } = defaultVideoState,
   } = props;
@@ -45,8 +43,8 @@ const Form: React.SFC<VideoControlsProps> = props => {
       {!readOnly && (
         <BottomToolbar open={focused} theme={darkTheme}>
           <TextField
-            placeholder={placeholder}
-            label={label}
+            placeholder={props.translations.placeholder}
+            label={props.translations.label}
             style={{ width: '512px' }}
             value={src}
             onChange={e => changeSrcPreview(e.target.value)}

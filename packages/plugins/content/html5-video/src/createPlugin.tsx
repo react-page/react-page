@@ -42,18 +42,19 @@ const rejectPromise: (e: Event, props: Props) => Promise<void> = (
 const createPlugin: (
   settings: Html5VideoSettings
 ) => ContentPluginConfig<Html5VideoState> = (
-  settings = defaultSettings
+  settings
 ) => {
+  const mergedSettings = { ...defaultSettings, ...settings };
   const WrappedComponent: React.SFC<Html5VideoProps> = props => (
-    <Html5Video {...props} {...settings} />
+    <Html5Video {...props} {...mergedSettings} />
   );
   return {
     Component: WrappedComponent,
     StaticComponent: settings.Renderer,
     name: 'ory/sites/plugin/content/html5-video',
     version: '0.0.1',
-    text: 'HTML 5 Video',
-    description: 'Add webm, ogg and other HTML5 video',
+    text: mergedSettings.translations.pluginName,
+    description: mergedSettings.translations.pluginDescription,
     IconComponent: <Icon />,
     handleFocusNextHotKey: rejectPromise,
     handleFocusPreviousHotKey: rejectPromise,
