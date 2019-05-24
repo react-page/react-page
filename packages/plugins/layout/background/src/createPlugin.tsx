@@ -43,7 +43,7 @@ const createPlugin = (settings: BackgroundSettings) => {
     description: mergedSettings.translations.pluginDescription,
     IconComponent: <Icon />,
 
-    createInitialChildren: () => ({
+    createInitialChildren: settings.getInitialChildren || (() => ({
       id: v4(),
       rows: [
         {
@@ -59,7 +59,7 @@ const createPlugin = (settings: BackgroundSettings) => {
           ],
         },
       ],
-    }),
+    })),
 
     handleFocusNextHotKey: () => Promise.reject(),
     handleFocusPreviousHotKey: () => Promise.reject(),
