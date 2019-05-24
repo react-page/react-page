@@ -36,12 +36,16 @@ export interface InnerActionProps {
   resizeMode: React.MouseEventHandler<HTMLElement>;
 }
 
-export type InnerProps = InnerReduxProps & InnerActionProps;
+interface OwnProps {
+  label: string;
+}
+
+export type InnerProps = InnerReduxProps & InnerActionProps & OwnProps;
 
 const Inner: React.SFC<InnerProps> = props => (
   <Button
     icon={<Resize />}
-    description="Resize things"
+    description={props.label}
     active={props.isResizeMode}
     onClick={props.resizeMode}
   />

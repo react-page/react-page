@@ -39,7 +39,7 @@ const SpacerDefaultControls: React.SFC<SpacerControlsProps> = props => {
             <BottomToolbar open={focused} theme={darkTheme}>
               <TextField
                 placeholder="24"
-                label="Element height (px)"
+                label={props.translations.elementHeightLabel}
                 style={{ width: '512px' }}
                 value={height}
                 onChange={e =>

@@ -33,18 +33,19 @@ import { defaultSettings } from './default/settings';
 const createPlugin: (
   settings: SpacerSettings
 ) => ContentPluginConfig<SpacerState> = (
-  settings = defaultSettings
+  settings
 ) => {
+  const mergedSettings = { ...defaultSettings, ...settings };
   const WrappedComponent: React.SFC<SpacerProps> = props => (
-    <Spacer {...props} {...settings} />
+    <Spacer {...props} {...mergedSettings} />
   );
   return {
     Component: WrappedComponent,
     name: 'ory/editor/core/content/spacer',
     version: '0.0.1',
     IconComponent: <AspectRatio />,
-    text: 'Spacer',
-    description: 'Resizeable, empty space.',
+    text: mergedSettings.translations.pluginName,
+    description: mergedSettings.translations.pluginDescription,
   
     handleRemoveHotKey: (_: Event, __: ContentPluginProps): Promise<void> =>
       Promise.reject(),

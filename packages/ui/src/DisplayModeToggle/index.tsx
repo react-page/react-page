@@ -29,31 +29,39 @@ import TogglePreview from './TogglePreview/index';
 import ToggleResize from './ToggleResize/index';
 import { ProviderProps } from './../Provider/index';
 
-const Inner: React.SFC<ProviderProps> = props => (
-  <Provider {...props}>
+const defaultTranslations = {
+  edit: 'Edit things',
+  insert: 'Add things',
+  layout: 'Move things',
+  resize: 'Resize things',
+  preview: 'Preview result',
+};
+
+const Inner: React.SFC<ProviderProps & { translations?: typeof defaultTranslations}> = ({ translations = defaultTranslations, ...rest }) => (
+  <Provider {...rest}>
     <div className="ory-controls-mode-toggle-control-group">
       <div className="ory-controls-mode-toggle-control">
-        <ToggleEdit />
+        <ToggleEdit label={translations.edit} />
         <div className="ory-controls-mode-toggle-clearfix" />
       </div>
 
       <div className="ory-controls-mode-toggle-control">
-        <ToggleInsert />
+        <ToggleInsert label={translations.insert} />
         <div className="ory-controls-mode-toggle-clearfix" />
       </div>
 
       <div className="ory-controls-mode-toggle-control">
-        <ToggleLayout />
+        <ToggleLayout label={translations.layout} />
         <div className="ory-controls-mode-toggle-clearfix" />
       </div>
 
       <div className="ory-controls-mode-toggle-control">
-        <ToggleResize />
+        <ToggleResize label={translations.resize} />
         <div className="ory-controls-mode-toggle-clearfix" />
       </div>
 
       <div className="ory-controls-mode-toggle-control">
-        <TogglePreview />
+        <TogglePreview label={translations.preview} />
         <div className="ory-controls-mode-toggle-clearfix" />
       </div>
     </div>

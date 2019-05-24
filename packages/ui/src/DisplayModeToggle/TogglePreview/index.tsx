@@ -35,12 +35,16 @@ export interface InnerActionProps {
   previewMode: React.MouseEventHandler<HTMLElement>;
 }
 
-export type InnerProps = InnerReduxProps & InnerActionProps;
+interface OwnProps {
+  label: string;
+}
+
+export type InnerProps = InnerReduxProps & InnerActionProps & OwnProps;
 
 const Inner: React.SFC<InnerProps> = props => (
   <Button
     icon={<Devices />}
-    description="Preview result"
+    description={props.label}
     active={props.isPreviewMode}
     onClick={props.previewMode}
   />

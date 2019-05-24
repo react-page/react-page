@@ -4,6 +4,7 @@ import { ContentPluginConfig } from 'ory-editor-core/lib/service/plugin/classes'
 import { RGBColor } from 'ory-editor-ui/lib/ColorPicker';
 import { ImageUploadType } from 'ory-editor-ui/lib/ImageUpload';
 import { ModeEnum } from './modeEnum';
+import { Translations } from './translations';
 
 export type BackgroundSettings = {
   Renderer: React.ComponentType<BackgroundRendererProps>;
@@ -20,4 +21,5 @@ export type BackgroundSettings = {
   defaultHasPadding?: boolean;
   defaultIsParallax?: boolean;
   imageUpload: ImageUploadType;
+  translations?: Translations;
 };

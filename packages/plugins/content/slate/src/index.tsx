@@ -38,6 +38,7 @@ import { SlateSettings } from './types/settings';
 import { pathOr } from 'ramda/src/pathOr';
 import { ActionTypes } from 'redux-undo';
 import { AnyAction } from 'redux';
+import { defaultSettings, defaultTranslations } from './default/settings';
 
 const createPlugins = compose(
   flatten,
@@ -54,7 +55,8 @@ export const html = new Html({
 export const defaultPlugins = hooks.defaultPlugins;
 
 export default (
-  plugins: Plugin[] = hooks.defaultPlugins
+  plugins: Plugin[] = hooks.defaultPlugins,
+  translations = defaultTranslations
 ): ContentPluginConfig<SlateState> => {
   let settings: SlateSettings = {};
   settings.plugins = (plugins ? plugins : []).concat(createPlugins(plugins));
@@ -70,6 +72,7 @@ export default (
             plugin.hoverButtons &&
             plugin.hoverButtons.map((Button, j: number) => (
               <Button
+                translations={translations}
                 key={`${i}-${j}`}
                 editorState={editorState}
                 editor={editor}
@@ -92,6 +95,7 @@ export default (
             plugin.toolbarButtons &&
             plugin.toolbarButtons.map((Button, j: number) => (
               <Button
+                translations={translations}
                 key={`${i}-${j}`}
                 editorState={editorState}
                 editor={editor}
@@ -101,8 +105,9 @@ export default (
     </div>
   );
   settings.ToolbarButtons = ToolbarButtons;
+  const mergedSettings = { ...defaultSettings, ...settings };
   const Slate: React.SFC<SlateProps> = cellProps => (
-    <Component {...cellProps} {...settings} />
+    <Component {...cellProps} {...mergedSettings} />
   );
   const StaticComponent = ({
     state: { editorState = {} as Value } = {},
@@ -119,8 +124,8 @@ export default (
     name: 'ory/editor/core/content/slate',
     version: '0.0.2',
     IconComponent: <Subject />,
-    text: 'Text',
-    description: 'An advanced rich text area.',
+    text: mergedSettings.translations.pluginName,
+    description: mergedSettings.translations.pluginDescription,
 
     allowInlineNeighbours: true,
 

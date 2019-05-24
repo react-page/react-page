@@ -27,7 +27,6 @@ import isHotkey from 'is-hotkey';
 import { NextType } from '../types/next';
 import { Editor, getEventTransfer } from 'slate-react';
 import { BottomToolbar, ThemeProvider } from 'ory-editor-ui';
-import { placeholder } from '../const';
 import debounce from 'lodash.debounce';
 
 import { html as serializer } from '../hooks';
@@ -180,6 +179,7 @@ class Slate extends React.Component<SlateProps, SlateState> {
                 ref={this.toolbar}
               >
                 <HoverButtons
+                  translations={this.props.translations}
                   editorState={editorState}
                   editor={this.editor.current}
                 />
@@ -198,11 +198,12 @@ class Slate extends React.Component<SlateProps, SlateState> {
           value={editorState}
           plugins={plugins}
           onPaste={this.onPaste}
-          placeholder={placeholder}
+          placeholder={this.props.translations.placeholder}
         />
         {readOnly ? null : (
           <BottomToolbar open={focused}>
             <ToolbarButtons
+              translations={this.props.translations}
               editor={this.editor.current}
               editorState={editorState}
             />

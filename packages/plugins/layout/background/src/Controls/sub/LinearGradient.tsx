@@ -192,8 +192,8 @@ class LinearGradientComponent extends React.Component<
             >
               <div>
                 <Typography variant="body1" id="linear-gradient-degree-label">
-                  Gradient rotation ({deg}
-                  deg)
+                  {this.props.translations.gradientRotation} ({deg}
+                  {this.props.translations.degrees})
                 </Typography>
                 <Slider
                   aria-labelledby="linear-gradient-degree-label"
@@ -207,7 +207,7 @@ class LinearGradientComponent extends React.Component<
               </div>
               <div>
                 <Typography variant="body1" id="linear-gradient-opacity-label">
-                  Gradient opacity ({(opacity * 100).toFixed(0)}
+                  {this.props.translations.gradientOpacity} ({(opacity * 100).toFixed(0)}
                   %)
                 </Typography>
                 <Slider
@@ -255,7 +255,7 @@ class LinearGradientComponent extends React.Component<
                 onClick={this.addColor(i)}
                 style={{ marginLeft: '8px' }}
               >
-                Add color
+                {this.props.translations.addColor}
               </Button>
               <IconButton aria-label="Delete" onClick={this.removeGradient(i)}>
                 <DeleteIcon />
@@ -272,7 +272,7 @@ class LinearGradientComponent extends React.Component<
             onClick={this.addGradient}
             disabled={gradients.length > 5}
           >
-            Add gradient
+            {this.props.translations.addGradient}
           </Button>
         </div>
       </div>

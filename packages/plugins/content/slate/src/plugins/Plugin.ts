@@ -22,10 +22,12 @@
 import { RenderMarkProps, RenderNodeProps } from 'slate-react';
 import { Value, Editor } from 'slate';
 import { NextType } from '../types/next';
+import { Translations } from '../types/translations';
 
 export class PluginButtonProps {
   editor: Editor;
   editorState: Value;
+  translations: Partial<Translations>;
 }
 
 /**

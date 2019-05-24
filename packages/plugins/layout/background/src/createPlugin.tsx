@@ -31,14 +31,16 @@ import BackgroundComponent from './Component';
 import { defaultSettings } from './default/settings';
 
 const createPlugin = (settings: BackgroundSettings) => {
+  const mergedSettings = { ...defaultSettings, ...settings};
   const plugin: LayoutPluginConfig<BackgroundState> = {
     Component: (props: BackgroundProps) => (
-      <BackgroundComponent {...props} {...defaultSettings} {...settings} />
+      <BackgroundComponent {...props} {...mergedSettings} />
     ),
     name: 'ory/editor/core/layout/background',
     version: '0.0.1',
 
-    text: 'Background',
+    text: mergedSettings.translations.pluginName,
+    description: mergedSettings.translations.pluginDescription,
     IconComponent: <Icon />,
 
     createInitialChildren: () => ({

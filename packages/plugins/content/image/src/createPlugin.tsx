@@ -28,20 +28,22 @@ import {
 } from 'ory-editor-core/lib/service/plugin/classes';
 import { ImageState } from './types/state';
 import { ImageSettings } from './types/settings';
+import { defaultSettings } from './default/settings';
 
 const createPlugin = (
   settings?: ImageSettings
 ): ContentPluginConfig<ImageState> => {
+  const mergedSettings = { ...defaultSettings, ...settings  };
   return {
     Component: (props: ContentPluginProps<ImageState>) => (
-      <Component {...props} {...settings} />
+      <Component {...props} {...mergedSettings} />
     ),
     name: 'ory/editor/core/content/image',
     version: '0.0.1',
     IconComponent: <Panorama />,
-    text: 'Image',
+    text: mergedSettings.translations.pluginName,
     isInlineable: true,
-    description: 'Loads an image from an url.',
+    description: mergedSettings.translations.pluginDescription,
 
     handleRemoveHotKey: (_: Event, __: ContentPluginProps): Promise<void> =>
       Promise.reject(),
