@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { ParallaxBackgroundControlsProps } from 'src/types/controls';
 import TextField from '@material-ui/core/TextField';
-import { BottomToolbar } from 'ory-editor-ui';
-import ThemeProvider, { darkTheme } from 'ory-editor-ui/lib/ThemeProvider';
+import { BottomToolbar } from '@react-page/ui';
+import ThemeProvider, { darkTheme } from '@react-page/ui/lib/ThemeProvider';
 
 const ParallaxBackgroundDefaultControls: React.SFC<
   ParallaxBackgroundControlsProps

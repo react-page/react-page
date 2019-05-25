@@ -1,5 +1,5 @@
 {
-  "name": "ory-editor-plugins-background",
+  "name": "@react-page/plugins-background",
   "version": "0.0.0",
   "main": "./lib/index.js",
   "author": "ORY GmbH",
@@ -23,8 +23,8 @@
   },
   "dependencies": {
     "@material-ui/lab": "^1.0.0-alpha.10",
-    "ory-editor-core": "0.0.0",
-    "ory-editor-ui": "0.0.0"
+    "@react-page/core": "0.0.0",
+    "@react-page/ui": "0.0.0"
   },
   "devDependencies": {},
   "publishConfig": {

@@ -1,5 +1,5 @@
 {
-  "name": "ory-editor-plugins-parallax-background",
+  "name": "@react-page/plugins-parallax-background",
   "version": "0.0.0",
   "main": "./lib/index.js",
   "author": "ORY GmbH",
@@ -22,8 +22,8 @@
     "react-dom": "^16.0.0"
   },
   "dependencies": {
-    "ory-editor-core": "0.0.0",
-    "ory-editor-ui": "0.0.0"
+    "@react-page/core": "0.0.0",
+    "@react-page/ui": "0.0.0"
   },
   "devDependencies": {},
   "publishConfig": {

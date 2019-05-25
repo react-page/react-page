@@ -24,7 +24,7 @@ import Avatar from '@material-ui/core/Avatar';
 import draggable from '../Draggable/index';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
-import { Plugin } from 'ory-editor-core/lib/service/plugin/classes';
+import { Plugin } from '@react-page/core/lib/service/plugin/classes';
 import DragHandle from '@material-ui/icons/DragHandle';
 import Tooltip from 'rc-tooltip';
 import { Translations } from '../';

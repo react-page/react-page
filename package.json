@@ -53,7 +53,7 @@
     "coveralls": "cat ./coverage/lcov.info | coveralls",
     "bootstrap": "lerna bootstrap",
     "build": "cross-env NODE_ENV=production lerna run build --stream",
-    "build:lib": "cross-env NODE_ENV=production lerna run build --ignore ory-editor-examples --stream",
+    "build:lib": "cross-env NODE_ENV=production lerna run build --ignore @react-page/examples --stream",
     "build:watch": "cross-env NODE_ENV=development lerna run build:watch --parallel",
     "clean": "lerna run clean",
     "clean:lerna": "lerna clean --yes",

@@ -1,5 +1,5 @@
 {
-  "name": "ory-editor-renderer",
+  "name": "@react-page/renderer",
   "version": "0.0.0",
   "main": "./lib/index.js",
   "typings": "./lib/index.d.ts",
@@ -20,10 +20,10 @@
   },
   "dependencies": {
     "classnames": "^2.2.5",
-    "ory-editor-core": "0.0.0"
+    "@react-page/core": "0.0.0"
   },
   "devDependencies": {
-    "ory-editor-plugins-slate": "0.0.0",
+    "@react-page/plugins-slate": "0.0.0",
     "@types/react": "16.7.17",
     "@types/slate": "^0.33.4",
     "@types/slate-react": "^0.12.1"

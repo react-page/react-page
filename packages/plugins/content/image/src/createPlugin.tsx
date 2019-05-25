@@ -25,7 +25,7 @@ import Panorama from '@material-ui/icons/Panorama';
 import {
   ContentPluginProps,
   ContentPluginConfig
-} from 'ory-editor-core/lib/service/plugin/classes';
+} from '@react-page/core/lib/service/plugin/classes';
 import { ImageState } from './types/state';
 import { ImageSettings } from './types/settings';
 import { defaultSettings } from './default/settings';

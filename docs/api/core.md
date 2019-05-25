@@ -819,7 +819,7 @@ Returns **\[...cell]**
 ### Examples
 
 ```javascript
-import { oryReducer } from 'ory-editor-core'
+import { oryReducer } from '@react-page/core'
 const reducer = combineReducers({
   ory: oryReducer,
   // ...

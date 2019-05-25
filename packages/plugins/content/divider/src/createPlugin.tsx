@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Remove from '@material-ui/icons/Remove';
-import { ContentPluginConfig } from 'ory-editor-core/lib/service/plugin/classes';
+import { ContentPluginConfig } from '@react-page/core/lib/service/plugin/classes';
 import Divider from './Component';
 import { DividerSettings } from './types/settings';
 import { DividerProps } from './types/component';

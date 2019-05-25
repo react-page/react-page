@@ -29,18 +29,18 @@ Next, open the file *src/components/App.js* and include the ORY Editor:
 import React, {Component} from 'react'
 
 // The editor core
-import Editor, { Editable, createEmptyState } from 'ory-editor-core'
-import 'ory-editor-core/lib/index.css' // we also want to load the stylesheets
+import Editor, { Editable, createEmptyState } from '@react-page/core'
+import '@react-page/core/lib/index.css' // we also want to load the stylesheets
 
 // Require our ui components (optional). You can implement and use your own ui too!
-import { Trash, DisplayModeToggle, Toolbar } from 'ory-editor-ui'
-import 'ory-editor-ui/lib/index.css'
+import { Trash, DisplayModeToggle, Toolbar } from '@react-page/ui'
+import '@react-page/ui/lib/index.css'
 
 // Load some exemplary plugins:
-import slate from 'ory-editor-plugins-slate' // The rich text area plugin
-import 'ory-editor-plugins-slate/lib/index.css' // Stylesheets for the rich text area plugin
-import parallax from 'ory-editor-plugins-parallax-background' // A plugin for parallax background images
-import 'ory-editor-plugins-parallax-background/lib/index.css' // Stylesheets for parallax background images
+import slate from '@react-page/plugins-slate' // The rich text area plugin
+import '@react-page/plugins-slate/lib/index.css' // Stylesheets for the rich text area plugin
+import parallax from '@react-page/plugins-parallax-background' // A plugin for parallax background images
+import '@react-page/plugins-parallax-background/lib/index.css' // Stylesheets for parallax background images
 require('react-tap-event-plugin')() // react-tap-event-plugin is required by material-ui which is used by ory-editor-ui so we need to call it here
 
 // Define which plugins we want to use. We only have slate and parallax available, so load those.
@@ -172,7 +172,7 @@ definition looks as follows
 
 ```jsx
 import React from 'react'
-import slate from 'ory-editor-plugins-slate'
+import slate from '@react-page/plugins-slate'
 
 // You are obviously not limited to material-ui, but we really enjoy
 // the material-ui svg icons!
@@ -217,7 +217,7 @@ The `ory-editor-renderer` package ships a lightweight HTML renderer module. You 
 and rendering the content client side.
 
 ```jsx
-import { HTMLRenderer } from 'ory-editor-renderer'
+import { HTMLRenderer } from '@react-page/renderer'
 
 const state = { /* ... */ }
 const plugins = {
@@ -237,9 +237,9 @@ Use the `onChange` callback to obtain a copy of the editor's state for saving to
 
 ```jsx
 import React, {Component} from 'react'
-import Editor, { Editable, createEmptyState } from 'ory-editor-core'
-import slate from 'ory-editor-plugins-slate' // The rich text area plugin
-import { Trash, DisplayModeToggle, Toolbar } from 'ory-editor-ui'
+import Editor, { Editable, createEmptyState } from '@react-page/core'
+import slate from '@react-page/plugins-slate' // The rich text area plugin
+import { Trash, DisplayModeToggle, Toolbar } from '@react-page/ui'
 const EditorPlugins = {
   content: [slate()],
   layout: [/* ... */],
@@ -275,8 +275,8 @@ The state could then be fetched and rendered by doing something like:
 ```jsx
 import React, {Component} from 'react'
 
-import { HTMLRenderer } from 'ory-editor-renderer'
-import { createEmptyState } from 'ory-editor-core'
+import { HTMLRenderer } from '@react-page/renderer'
+import { createEmptyState } from '@react-page/core'
 
 class MyEditorRenderer extends Component {
 
@@ -310,7 +310,7 @@ and images. Native drag support can be enabled by writing a `NativePlugin` and p
 In this example, we will use the default plugin, and take a look at how you can create your own later.
 
 ```jsx
-import native from 'ory-editor-plugins-default-native'
+import native from '@react-page/plugins-default-native'
 
 const editor = new Editor({
   plugins: {

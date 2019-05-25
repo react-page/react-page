@@ -1,6 +1,6 @@
 import { ParallaxBackgroundRendererProps } from './renderer';
 import { ParallaxBackgroundControlsProps } from './controls';
-import { ContentPluginConfig } from 'ory-editor-core/lib/service/plugin/classes';
+import { ContentPluginConfig } from '@react-page/core/lib/service/plugin/classes';
 
 export type ParallaxBackgroundSettings = {
   Renderer: React.ComponentType<ParallaxBackgroundRendererProps>;

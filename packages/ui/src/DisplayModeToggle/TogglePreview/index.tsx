@@ -22,8 +22,8 @@
 import * as React from 'react';
 import Devices from '@material-ui/icons/Devices';
 import { connect } from 'react-redux';
-import { previewMode } from 'ory-editor-core/lib/actions/display';
-import { isPreviewMode } from 'ory-editor-core/lib/selector/display';
+import { previewMode } from '@react-page/core/lib/actions/display';
+import { isPreviewMode } from '@react-page/core/lib/selector/display';
 import { createStructuredSelector } from 'reselect';
 import Button from '../Button/index';
 

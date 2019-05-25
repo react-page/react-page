@@ -22,7 +22,7 @@
 
 import * as React from 'react';
 import { NativeState } from './types/state';
-import { NativeFactory } from 'ory-editor-core/lib/types/editable';
+import { NativeFactory } from '@react-page/core/lib/types/editable';
 
 export interface NativeProps {
   state: NativeState;

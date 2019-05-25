@@ -21,7 +21,7 @@
  */
 
 import * as React from 'react';
-import { ImageLoaded, ImageUploaded } from 'ory-editor-ui/lib/ImageUpload';
+import { ImageLoaded, ImageUploaded } from '@react-page/ui/lib/ImageUpload';
 import { ImageProps } from '../types/component';
 import { ImageState } from './../types/state';
 

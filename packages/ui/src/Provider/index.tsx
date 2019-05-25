@@ -21,8 +21,8 @@
  */
 import * as React from 'react';
 import { Provider as ReduxProvider } from 'react-redux';
-import { Editor } from 'ory-editor-core/lib';
-import dragDropContext from 'ory-editor-core/lib/components/DragDropContext';
+import { Editor } from '@react-page/core/lib';
+import dragDropContext from '@react-page/core/lib/components/DragDropContext';
 import ThemeProvider from '../ThemeProvider/index';
 
 export interface ProviderProps {

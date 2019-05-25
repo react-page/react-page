@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { Html5VideoControlsProps } from './../types/controls';
 import TextField from '@material-ui/core/TextField';
-import { BottomToolbar } from 'ory-editor-ui';
-import { darkTheme } from 'ory-editor-ui/lib/ThemeProvider';
+import { BottomToolbar } from '@react-page/ui';
+import { darkTheme } from '@react-page/ui/lib/ThemeProvider';
 import { defaultHtml5VideoState } from '../default/state';
 
 export interface Html5VideoDefaultControlsProps {}

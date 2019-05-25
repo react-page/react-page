@@ -20,7 +20,7 @@
  *
  */
 // tslint:disable:max-line-length
-import { EditableType } from 'ory-editor-core/lib/types/editable';
+import { EditableType } from '@react-page/core/lib/types/editable';
 
 const content: EditableType[] = [
   {

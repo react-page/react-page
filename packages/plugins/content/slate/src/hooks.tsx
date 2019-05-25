@@ -43,7 +43,7 @@ import { Document, Value, BlockJSON, ValueJSON } from 'slate';
 import Html from 'slate-html-serializer';
 import Plain from 'slate-plain-serializer';
 import { SlateState } from './types/state';
-import { AbstractCell } from 'ory-editor-core/lib/types/editable';
+import { AbstractCell } from '@react-page/core/lib/types/editable';
 
 const DEFAULT_NODE = P;
 

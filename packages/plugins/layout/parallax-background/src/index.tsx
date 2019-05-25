@@ -23,7 +23,7 @@
 import createPlugin from './createPlugin';
 import ParallaxBackgroundHtmlRenderer from './Renderer/ParallaxBackgroundHtmlRenderer';
 import ParallaxBackgroundDefaultControls from './Controls/ParallaxBackgroundDefaultControls';
-import { LayoutPluginConfig } from 'ory-editor-core/lib/service/plugin/classes';
+import { LayoutPluginConfig } from '@react-page/core/lib/service/plugin/classes';
 import { ParallaxBackgroundState } from './types/state';
 import { ParallaxBackgroundSettings } from './types/settings';
 import { MakeOptional } from './types/makeOptional';

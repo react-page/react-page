@@ -8,7 +8,7 @@ layouts and is responsible for handling plugins.
 The ORY Editor uses a Redux store to manage the internal state. When creating a new `Editor` instance
 
 ```jsx
-import Editor from 'ory-editor-core'
+import Editor from '@react-page/core'
 
 const editor = new Editor()
 ```
@@ -17,7 +17,7 @@ the Redux store is created as well. Because of this, it is important to only ins
 application lifetime (this is called the *singleton* pattern).
 
 ```jsx
-import Editor from 'ory-editor-core'
+import Editor from '@react-page/core'
 
 const editor = new Editor()
 const editor2 = new Editor() // Don't do this.
@@ -42,10 +42,10 @@ To install the image plugin, we use npm: `npm install ory-editor-plugins-image`.
 to our editor instance:
 
 ```jsx
-import Editor from 'ory-editor-core'
+import Editor from '@react-page/core'
 
-import image from 'ory-editor-plugins-image'
-import 'ory-editor-plugins-image/lib/index.css'
+import image from '@react-page/plugins-image'
+import '@react-page/plugins-image/lib/index.css'
 
 const editor = new Editor({
   plugins: {
@@ -57,8 +57,8 @@ const editor = new Editor({
 Let's start from top to bottom. First, we import the image plugin and the CSS required for it:
 
 ```jsx
-import image from 'ory-editor-plugins-image'
-import 'ory-editor-plugins-image/lib/index.css'
+import image from '@react-page/plugins-image'
+import '@react-page/plugins-image/lib/index.css'
 ```
 
 We assume that you are running webpack with a plugin capable of importing CSS. If this confuses you, go
@@ -104,10 +104,10 @@ In that case, the javascript application will look something like this:
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-import Editor, { Editable } from 'ory-editor-core'
+import Editor, { Editable } from '@react-page/core'
 
-import image from 'ory-editor-plugins-image'
-import 'ory-editor-plugins-image/lib/index.css'
+import image from '@react-page/plugins-image'
+import '@react-page/plugins-image/lib/index.css'
 
 const editor = new Editor({
   plugins: {
@@ -129,7 +129,7 @@ To create an empty state, the core exports a method called `createEmptyState`. T
 amongst others, a unique id.
 
 ```
-import { createEmptyState } from 'ory-editor-core'
+import { createEmptyState } from '@react-page/core'
 
 const editable = createEmptyState()
 console.log(editable.id) // gives something like "29fb21c6-6e00-416f-a8e1-2be9fb84801c"
@@ -141,10 +141,10 @@ Adding this to the code from above we get:
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-import Editor, { Editable, createEmptyState } from 'ory-editor-core'
+import Editor, { Editable, createEmptyState } from '@react-page/core'
 
-import image from 'ory-editor-plugins-image'
-import 'ory-editor-plugins-image/lib/index.css'
+import image from '@react-page/plugins-image'
+import '@react-page/plugins-image/lib/index.css'
 
 const editable = createEmptyState()
 

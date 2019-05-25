@@ -22,9 +22,9 @@
 import * as React from 'react';
 import Drawer from '@material-ui/core/Drawer';
 import { connect } from 'react-redux';
-import { isInsertMode } from 'ory-editor-core/lib/selector/display';
+import { isInsertMode } from '@react-page/core/lib/selector/display';
 import { createStructuredSelector } from 'reselect';
-import { Editor } from 'ory-editor-core/lib';
+import { Editor } from '@react-page/core/lib';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListSubheader from '@material-ui/core/ListSubheader';
@@ -32,11 +32,11 @@ import TextField from '@material-ui/core/TextField';
 import {
   LayoutPlugin,
   ContentPlugin
-} from 'ory-editor-core/lib/service/plugin/classes';
+} from '@react-page/core/lib/service/plugin/classes';
 import Item from './Item/index';
 import Provider from '../Provider/index';
 import { ProviderProps } from './../Provider/index';
-import { Plugin } from 'ory-editor-core/lib/service/plugin/classes';
+import { Plugin } from '@react-page/core/lib/service/plugin/classes';
 
 export interface Translations {
   noPluginFoundContent: string | JSX.Element;
