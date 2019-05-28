@@ -5,8 +5,8 @@ import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 
-import { ColorPicker } from 'ory-editor-ui';
-import { RGBColor } from 'ory-editor-ui/lib/ColorPicker';
+import { ColorPicker } from '@react-page/ui';
+import { RGBColor } from '@react-page/ui/lib/ColorPicker';
 import { BackgroundProps } from '../../types/component';
 
 export interface LinearGradientComponentProps {

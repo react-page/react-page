@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { BackgroundSettings } from '../types/settings';
 import { IMAGE_MODE_FLAG, COLOR_MODE_FLAG, GRADIENT_MODE_FLAG } from './../const/mode';
-import { defaultTranslations as defaultImageUploadTranslations } from 'ory-editor-ui/lib/ImageUpload';
+import { defaultTranslations as defaultImageUploadTranslations } from '@react-page/ui/lib/ImageUpload';
 
 export const defaultTranslations = {
   ...defaultImageUploadTranslations,

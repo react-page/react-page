@@ -31,7 +31,7 @@ import parse5 from 'parse5';
 import v002 from './migrations/v002';
 import { Value } from 'slate';
 import { PluginButtonProps } from './plugins/Plugin';
-import { ContentPluginConfig } from 'ory-editor-core/lib/service/plugin/classes';
+import { ContentPluginConfig } from '@react-page/core/lib/service/plugin/classes';
 import { SlateState } from './types/state';
 import { SlateProps } from './types/component';
 import { SlateSettings } from './types/settings';

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { ColorPicker } from 'ory-editor-ui';
-import { RGBColor } from 'ory-editor-ui/lib/ColorPicker';
+import { ColorPicker } from '@react-page/ui';
+import { RGBColor } from '@react-page/ui/lib/ColorPicker';
 import { BackgroundProps } from '../../types/component';
 
 export interface ColorComponentProps {

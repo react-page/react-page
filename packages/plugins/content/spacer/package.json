@@ -1,5 +1,5 @@
 {
-  "name": "ory-editor-plugins-spacer",
+  "name": "@react-page/plugins-spacer",
   "version": "0.0.0",
   "main": "./lib/index.js",
   "typings": "./lib/index.d.ts",
@@ -24,8 +24,8 @@
   },
   "dependencies": {
     "classnames": "2.2.6",
-    "ory-editor-core": "0.0.0",
-    "ory-editor-ui": "0.0.0",
+    "@react-page/core": "0.0.0",
+    "@react-page/ui": "0.0.0",
     "react-resizable": "1.7.5"
   },
   "devDependencies": {

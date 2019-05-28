@@ -1,5 +1,5 @@
 {
-  "name": "ory-editor-plugins-default-native",
+  "name": "@react-page/plugins-default-native",
   "version": "0.0.0",
   "main": "./lib/index.js",
   "typings": "./lib/index.d.ts",
@@ -19,7 +19,7 @@
     "react-dom": "^16.0.0"
   },
   "dependencies": {
-    "ory-editor-core": "0.0.0"
+    "@react-page/core": "0.0.0"
   },
   "publishConfig": {
     "access": "public"

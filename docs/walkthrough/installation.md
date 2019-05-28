@@ -25,7 +25,7 @@ Next, open the file *src/components/App.js* and include the ORY Editor:
 
 ```jsx
 import React, { Component } from 'react';
-import Editor, { Editable, Controls, createEmptyState } from 'ory-editor'
+import Editor, { Editable, Controls, createEmptyState } from '@react-page/react-page'
 import logo from './logo.svg';
 import './App.css';
 import 'ory-editor/dist/styles.css';

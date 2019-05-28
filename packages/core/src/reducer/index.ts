@@ -36,7 +36,7 @@ const ory = combineReducers({
 
 /**
  * @example
- * import { oryReducer } from 'ory-editor-core'
+ * import { oryReducer } from '@react-page/core'
  * const reducer = combineReducers({
  *   ory: oryReducer,
  *   // ...

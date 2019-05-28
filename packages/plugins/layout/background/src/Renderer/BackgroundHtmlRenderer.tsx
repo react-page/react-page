@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { BackgroundRendererProps } from '../types/renderer';
 import { ModeEnum } from '../types/modeEnum';
-import { colorToString } from 'ory-editor-ui/lib/ColorPicker';
+import { colorToString } from '@react-page/ui/lib/ColorPicker';
 
 const getStyles = (props: BackgroundRendererProps) => {
   const {

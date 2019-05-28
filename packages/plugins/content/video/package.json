@@ -1,5 +1,5 @@
 {
-  "name": "ory-editor-plugins-video",
+  "name": "@react-page/plugins-video",
   "version": "0.0.0",
   "main": "./lib/index.js",
   "typings": "./lib/index.d.ts",
@@ -23,8 +23,8 @@
     "react-dom": "^16.0.0"
   },
   "dependencies": {
-    "ory-editor-core": "0.0.0",
-    "ory-editor-ui": "0.0.0",
+    "@react-page/core": "0.0.0",
+    "@react-page/ui": "0.0.0",
     "react-player": "1.7.1"
   },
   "devDependencies": {},

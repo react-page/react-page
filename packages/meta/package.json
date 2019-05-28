@@ -1,19 +1,19 @@
 {
-  "name": "ory-editor",
+  "name": "@react-page/react-page",
   "version": "0.0.0",
   "author": "ORY GmbH",
   "license": "GNU Lesser General Public License v3.0",
   "dependencies": {
-    "ory-editor-core": "0.0.0",
-    "ory-editor-renderer": "0.0.0",
-    "ory-editor-plugins-divider": "0.0.0",
-    "ory-editor-plugins-image": "0.0.0",
-    "ory-editor-plugins-slate": "0.0.0",
-    "ory-editor-plugins-spacer": "0.0.0",
-    "ory-editor-plugins-parallax-background": "0.0.0",
-    "ory-editor-plugins-video": "0.0.0",
-    "ory-editor-plugins-default-native": "0.0.0",
-    "ory-editor-ui": "0.0.0"
+    "@react-page/core": "0.0.0",
+    "@react-page/renderer": "0.0.0",
+    "@react-page/plugins-divider": "0.0.0",
+    "@react-page/plugins-image": "0.0.0",
+    "@react-page/plugins-slate": "0.0.0",
+    "@react-page/plugins-spacer": "0.0.0",
+    "@react-page/plugins-parallax-background": "0.0.0",
+    "@react-page/plugins-video": "0.0.0",
+    "@react-page/plugins-default-native": "0.0.0",
+    "@react-page/ui": "0.0.0"
   },
   "publishConfig": {
     "access": "public"

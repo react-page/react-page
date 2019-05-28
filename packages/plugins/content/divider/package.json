@@ -1,5 +1,5 @@
 {
-  "name": "ory-editor-plugins-divider",
+  "name": "@react-page/plugins-divider",
   "version": "0.0.0",
   "main": "./lib/index.js",
   "typings": "./lib/index.d.ts",
@@ -24,7 +24,7 @@
     "@material-ui/icons": "^3.0.0"
   },
   "dependencies": {
-    "ory-editor-core": "0.0.0"
+    "@react-page/core": "0.0.0"
   },
   "publishConfig": {
     "access": "public"

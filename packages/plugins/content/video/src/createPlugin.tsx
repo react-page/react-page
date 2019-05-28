@@ -23,8 +23,8 @@
 import * as React from 'react';
 import Spacer from './Component/index';
 import PlayArrow from '@material-ui/icons/PlayArrow';
-import { ContentPluginProps } from 'ory-editor-core/lib/service/plugin/classes';
-import { ContentPluginConfig } from 'ory-editor-core/lib/service/plugin/classes';
+import { ContentPluginProps } from '@react-page/core/lib/service/plugin/classes';
+import { ContentPluginConfig } from '@react-page/core/lib/service/plugin/classes';
 import { VideoSettings } from './types/settings';
 import { VideoProps } from './types/component';
 import { VideoState } from './types/state';

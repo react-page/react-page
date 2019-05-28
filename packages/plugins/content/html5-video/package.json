@@ -1,5 +1,5 @@
 {
-  "name": "ory-editor-plugins-html5-video",
+  "name": "@react-page/plugins-html5-video",
   "version": "0.0.0",
   "main": "./lib/index.js",
   "typings": "./lib/index.d.ts",
@@ -24,8 +24,8 @@
     "react-dom": "^16.0.0"
   },
   "dependencies": {
-    "ory-editor-core": "0.0.0",
-    "ory-editor-ui": "0.0.0"
+    "@react-page/core": "0.0.0",
+    "@react-page/ui": "0.0.0"
   },
   "publishConfig": {
     "access": "public"

@@ -1,4 +1,4 @@
-import { ContentPluginProps } from 'ory-editor-core/lib/service/plugin/classes';
+import { ContentPluginProps } from '@react-page/core/lib/service/plugin/classes';
 import { Html5VideoState } from './state';
 import { Html5VideoSettings } from './settings';
 

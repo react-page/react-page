@@ -9,3 +9,4 @@ coverage/
 lib/
 dist/
 examples/build
+*.tsbuildinfo

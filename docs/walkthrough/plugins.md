@@ -16,7 +16,7 @@ As well as the following layout plugin(s):
 Installing the default plugins is as easy as:
 
 ```jsx
-import { PluginService, plugins } from 'ory-editor'
+import { PluginService, plugins } from '@react-page/react-page'
 
 // And of course import your own plugins too:
 //
