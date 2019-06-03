@@ -46,4 +46,4 @@ const reducer = combineReducers({
  */
 export { reducer };
 
-export default combineReducers({ reducer });
+export default combineReducers({ reactPage: reducer });
