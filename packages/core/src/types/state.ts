@@ -2,7 +2,7 @@ import { Editables } from './editable';
 import { Display } from './display';
 
 export type RootState = {
-  ory: {
+  reactPage: {
     editables: Editables;
     display: Display;
     focus: string;

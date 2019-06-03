@@ -27,7 +27,7 @@ import { purifiedNode, searchNodeEverywhere } from '../index';
 const expect = unexpected.clone();
 
 const state = {
-  ory: {
+  reactPage: {
     editables: {
       present: [
         {

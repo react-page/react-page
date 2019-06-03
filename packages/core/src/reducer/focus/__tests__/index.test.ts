@@ -56,16 +56,16 @@ describe('editor/reducer/focus', () => {
     describe(`test case ${k}`, () => {
       it('should dispatch the action and return the expected result', () => {
         const reducer = combineReducers<RootState>({
-          ory: combineReducers({ focus }),
+          reactPage: combineReducers({ focus }),
         });
         const store = createStore<RootState>(
           reducer,
           // tslint:disable-next-line:no-any
-          { ory: { focus: c.s } as any },
+          { reactPage: { focus: c.s } as any },
           identity
         );
         store.dispatch(c.a());
-        expect(store.getState().ory, 'to equal', { focus: c.e });
+        expect(store.getState().reactPage, 'to equal', { focus: c.e });
       });
     });
   });
