@@ -9,4 +9,4 @@ git checkout -b release-$(git describe --tag)
 cd ./packages/meta
 npm cache clean --force
 cd ../../
-yarn publish
+lerna publish --no-git-tag-version --no-push --yes --force-publish=* $(git describe --tag)
