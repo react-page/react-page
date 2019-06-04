@@ -58,14 +58,14 @@ export const editable = (
   { id }: { id: string }
 ): AbstractEditable<AbstractCell<Row>> =>
   state &&
-  state.ory &&
-  state.ory.editables &&
-  state.ory.editables.present.find(
+  state.reactPage &&
+  state.reactPage.editables &&
+  state.reactPage.editables.present.find(
     ({ id: current }: EditableType = {} as EditableType) => current === id
   );
 
 export const editables = ({
-  ory: {
+  reactPage: {
     editables: { present },
   },
 }: RootState) => present;
@@ -105,12 +105,12 @@ export const node = (
 };
 
 export const searchNodeEverywhere = (state: RootState, id: string) => {
-  for (let i = 0; i < state.ory.editables.present.length; i++) {
-    const n = node(state, { id, editable: state.ory.editables.present[i].id });
+  for (let i = 0; i < state.reactPage.editables.present.length; i++) {
+    const n = node(state, { id, editable: state.reactPage.editables.present[i].id });
     if (n.id) {
       return {
         node: n,
-        editable: state.ory.editables.present[i],
+        editable: state.reactPage.editables.present[i],
       };
     }
   }

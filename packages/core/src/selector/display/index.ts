@@ -31,27 +31,27 @@ import {
 import { RootState } from '../../types/state';
 
 export const isPreviewMode = ({
-  ory: {
+  reactPage: {
     display: { mode },
   },
 }: RootState): boolean => mode === DISPLAY_MODE_PREVIEW;
 export const isLayoutMode = ({
-  ory: {
+  reactPage: {
     display: { mode },
   },
 }: RootState): boolean => mode === DISPLAY_MODE_LAYOUT;
 export const isEditMode = ({
-  ory: {
+  reactPage: {
     display: { mode },
   },
 }: RootState): boolean => mode === DISPLAY_MODE_EDIT;
 export const isInsertMode = ({
-  ory: {
+  reactPage: {
     display: { mode },
   },
 }: RootState): boolean => mode === DISPLAY_MODE_INSERT;
 export const isResizeMode = ({
-  ory: {
+  reactPage: {
     display: { mode },
   },
 }: RootState): boolean => mode === DISPLAY_MODE_RESIZING;

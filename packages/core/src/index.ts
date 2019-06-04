@@ -31,7 +31,7 @@ import { EditableType } from './types/editable';
 import forEach from 'ramda/src/forEach';
 import HTML5Backend, { NativeTypes } from 'react-dnd-html5-backend';
 import { DragDropContext as dragDropContext } from 'react-dnd';
-import { oryReducer } from './reducer';
+import { reducer } from './reducer';
 import { Store, Middleware } from 'redux';
 import { RootState } from './types/state';
 import {
@@ -44,7 +44,7 @@ import { isProduction } from './const';
 let instance: Editor;
 
 const initialState = () => ({
-  ory: {
+  reactPage: {
     editables: {
       past: [],
       present: [],
@@ -139,7 +139,7 @@ class Editor<T extends RootState = RootState> {
       }
       // tslint:disable-next-line:no-any
       this.trigger.editable.update(this.plugins.serialize(editable) as any);
-    }, this.store.getState().ory.editables.present);
+    }, this.store.getState().reactPage.editables.present);
   }
 
   // tslint:disable-next-line:no-any
@@ -174,7 +174,7 @@ class Editor<T extends RootState = RootState> {
   }
 }
 
-export { PluginService, Editable, Editor, oryReducer };
+export { PluginService, Editable, Editor, reducer };
 
 export const createEmptyState: () => EditableType = () =>
   ({ id: v4(), cells: [] } as EditableType);

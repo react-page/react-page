@@ -27,7 +27,7 @@ import { display } from './display';
 import { focus } from './focus';
 import { settings } from './settings';
 
-const ory = combineReducers({
+const reducer = combineReducers({
   editables,
   display,
   focus,
@@ -36,14 +36,14 @@ const ory = combineReducers({
 
 /**
  * @example
- * import { oryReducer } from '@react-page/core'
+ * import { reducer } from '@react-page/core'
  * const reducer = combineReducers({
- *   ory: oryReducer,
+ *   reactPage: reducer,
  *   // ...
  * })
  * const store = createStore(reducer, null, middleware)
  * new Editor({ store })
  */
-export { ory as oryReducer };
+export { reducer };
 
-export default combineReducers({ ory });
+export default combineReducers({ reactPage: reducer });
