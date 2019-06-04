@@ -8,6 +8,7 @@ The mantainers of this package have changed, the project has been renamed to `re
 
 |Old|New|
 |-|-|
+|ory-editor|@react-page/react-page|
 |ory-editor-core|@react-page/core|
 |ory-editor-plugins-divider|@react-page/plugins-divider|
 |ory-editor-plugins-html5-video|@react-page/plugins-html5-video|
