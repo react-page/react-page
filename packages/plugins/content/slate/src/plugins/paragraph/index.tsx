@@ -26,7 +26,7 @@ import { Plugin, PluginGetComponent } from '../Plugin';
 import { RenderNodeProps } from 'slate-react';
 import { Editor } from 'slate';
 import { NextType } from '../../types/next';
-import { SlatePluginSettings } from 'src/types/plugin';
+import { SlatePluginSettings } from '../../types/plugin';
 
 export const P = 'PARAGRAPH/PARAGRAPH';
 const DEFAULT_MAPPING = {

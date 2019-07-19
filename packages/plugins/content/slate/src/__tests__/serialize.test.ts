@@ -20,8 +20,12 @@
  *
  */
 import { Value } from 'slate';
-import { html } from '../hooks';
+
 import Plain from 'slate-plain-serializer';
+import serialization from '../serialization';
+import defaultPlugins from '../plugins/defaultPlugins';
+
+const serializationFunctions = serialization({ plugins: defaultPlugins });
 
 describe('serialize to html', () => {
   [
@@ -243,14 +247,18 @@ describe('serialize to html', () => {
   ].forEach((c, k) => {
     describe(`test case ${k}`, () => {
       it('should serialize properly', () => {
-        // tslint:disable-next-line:no-any
-        expect(html.serialize(Value.fromJSON(c.i as any))).toEqual(c.o);
+        expect(
+          // tslint:disable-next-line:no-any
+          serializationFunctions.slateToHtml(Value.fromJSON(c.i as any))
+        ).toEqual(c.o);
       });
       it(`should deserialize properly: ${c.o}`, () => {
         if (c.skip) {
           return;
         }
-        expect(Plain.serialize(html.deserialize(c.o))).toEqual(
+        expect(
+          Plain.serialize(serializationFunctions.htmlToSlate(c.o))
+        ).toEqual(
           // tslint:disable-next-line:no-any
           Plain.serialize(Value.fromJSON(c.i as any))
         );

@@ -36,7 +36,7 @@ import { Data, Inline, Editor } from 'slate';
 import { ThemeProvider } from '@react-page/ui';
 import { RenderNodeProps } from 'slate-react';
 import { NextType } from '../../types/next';
-import { SlatePluginSettings } from 'src/types/plugin';
+import { SlatePluginSettings } from '../../types/plugin';
 
 export const A = 'LINK/LINK';
 

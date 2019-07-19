@@ -32,7 +32,7 @@ import { Trash, DisplayModeToggle, Toolbar } from '@react-page/ui';
 import '@react-page/ui/lib/index.css';
 
 // The rich text area plugin
-import slate, { slatePlugins } from '@react-page/plugins-slate';
+import slate from '@react-page/plugins-slate';
 
 import '@react-page/plugins-slate/lib/index.css';
 
@@ -108,22 +108,8 @@ type Props = {
   // tslint:disable-next-line:no-any
   style: any
 };
-const RedH1 = ({ style, ...props }: Props) => (
-  <h1 style={{ ...style, color: 'red' }} {...props} />
-);
 
-const slatePlugin = slate([
-  new slatePlugins.HeadingsPlugin({
-    allowedLevels: [1],
-    getComponent: ({ type }: { type: string; data: any }) => RedH1,
-  }),
-  new slatePlugins.ParagraphPlugin(),
-  new slatePlugins.EmphasizePlugin(),
-  new slatePlugins.LinkPlugin(),
-  new slatePlugins.ListsPlugin(),
-
-  new slatePlugins.AlignmentPlugin(),
-]);
+const slatePlugin = slate();
 // Define which plugins we want to use (all of the above)
 const plugins: Plugins = {
   content: [

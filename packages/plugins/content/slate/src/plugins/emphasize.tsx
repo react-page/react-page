@@ -31,7 +31,7 @@ import { RenderMarkProps } from 'slate-react';
 import { Mark, MarkProperties, Editor } from 'slate';
 import { NextType } from '../types/next';
 import isHotkey from 'is-hotkey';
-import { SlatePluginSettings } from 'src/types/plugin';
+import { SlatePluginSettings } from '../types/plugin';
 
 export const STRONG = 'EMPHASIZE/STRONG';
 export const EM = 'EMPHASIZE/EM';
