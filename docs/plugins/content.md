@@ -32,6 +32,54 @@ By default we provide the following plugins:
 - ListsPlugin: place ordered and unordered lists
 - ParagraphPlugin: place paragraphs
 
+If you only want to include some plugins, you can specify them:
+
+```
+import slate, { slatePlugins } from '@react-page/plugins-slate';
+
+
+const slatePlugin = slate([
+  new slatePlugins.HeadingsPlugin(),
+  new slatePlugins.ParagraphPlugin(),
+]);
+
+const plugins: Plugins = {
+  content: [
+    slatePlugin,
+    // ...
+  ],
+  // ...
+
+};
+
+const editor = new Editor({
+  plugins: plugins,
+  // pass the content states
+  editables: [
+    ...content,
+    // creates an empty state, basically like the line above
+    createEmptyState(),
+  ],
+});
+```
+
+Some plugins allow further configuration. E.g. most plugins implement `getComponent` where you can override the component rendering:
+
+```
+
+// any custom component
+const RedH1 = ({ style, ...props }: Props) => (
+  <h1 style={{ ...style, color: 'red' }} {...props} />
+);
+
+const slatePlugin = slate([
+  new slatePlugins.HeadingsPlugin({
+    allowedLevels: [1],
+    getComponent: ({ type }: { type: string; data: any }) => RedH1,
+  })
+
+```
+
 ## Image
 
 The image plugin allows you to add images to your content by entering their URL. The image plugin does not support
