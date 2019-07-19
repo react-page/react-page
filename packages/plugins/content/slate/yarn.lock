@@ -26,29 +26,8 @@
     "@types/prop-types" "*"
     csstype "^2.2.0"
 
-"@types/slate-react@^0.12.1":
-  version "0.12.3"
-  resolved "https://registry.yarnpkg.com/@types/slate-react/-/slate-react-0.12.3.tgz#6a5f0b2d85cbe2ad5602428df285601e32066486"
-  integrity sha512-07SrDGKiS+hkTqMU2yKz+R3H+hw97ajciVf8C8IQbm0KCHX9pJi7jdiCAiRF+be8345DUMIIVg/tR/TXqHmYng==
-  dependencies:
-    "@types/react" "*"
-    "@types/slate" "*"
-    immutable "^3.8.2"
 
-"@types/slate@*":
-  version "0.43.5"
-  resolved "https://registry.yarnpkg.com/@types/slate/-/slate-0.43.5.tgz#b9429841904046a66d13fa722333c91cc1bdfce8"
-  integrity sha512-FPTMkt/W3ka2DAxfw49n0EiEiznGulDYj1EuIH3e6iHvlVpYMRaPIJfrciB0900gUMN2OHVQ/ESpCbJsaPzTpg==
-  dependencies:
-    "@types/react" "*"
-    immutable "^3.8.2"
 
-"@types/slate@^0.33.4":
-  version "0.33.4"
-  resolved "https://registry.yarnpkg.com/@types/slate/-/slate-0.33.4.tgz#593f8e7c3e48cd8e9490174fa60abf9da3d7ed74"
-  integrity sha512-R6an1pZRvgFSRjUnFW67lL0A8DTCDgTVQPT+Xf5x1cOhpZ92KXJaIa7g7sOgLXvzNSGdTX+4xzrNcP9P0rD5PA==
-  dependencies:
-    immutable "^3.8.2"
 
 asap@^2.0.6, asap@~2.0.3:
   version "2.0.6"

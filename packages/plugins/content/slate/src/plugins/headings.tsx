@@ -30,13 +30,13 @@ import H5Icon from '@material-ui/icons/Looks5';
 import H6Icon from '@material-ui/icons/Looks6';
 // import { Data } from 'slate'
 import { ToolbarButton } from '../helpers';
-import Plugin from './Plugin';
-import { PluginButtonProps } from './Plugin';
+import Plugin, { PluginButtonProps, PluginGetComponent } from './Plugin';
+
 import { SlatePluginSettings } from './../types/plugin';
 import { RenderNodeProps } from 'slate-react';
 import { Editor } from 'slate';
 import { NextType } from '../types/next';
-
+import DEFAULT_NODE from './DEFAULT_NODE';
 export const H1 = 'HEADINGS/HEADING-ONE';
 export const H2 = 'HEADINGS/HEADING-TWO';
 export const H3 = 'HEADINGS/HEADING-THREE';
@@ -53,36 +53,55 @@ const createNode = (type: string, el: any, next: any) => ({
 });
 
 export interface HeadingsPluginSettings extends SlatePluginSettings {
-  DEFAULT_NODE: string;
+  DEFAULT_NODE?: string;
+  allowedLevels?: number[];
 }
+
+const ALLOWED_TYPES = [H1, H2, H3, H4, H5, H6];
+const LEVELS = {
+  1: H1,
+  2: H2,
+  3: H3,
+  4: H4,
+  5: H5,
+  6: H6,
+};
+const ICONS = {
+  1: H1Icon,
+  2: H2Icon,
+  3: H3Icon,
+  4: H4Icon,
+  5: H5Icon,
+  6: H6Icon,
+};
+const DEFAULT_MAPPING = {
+  [H1]: 'h1',
+  [H2]: 'h2',
+  [H3]: 'h3',
+  [H4]: 'h4',
+  [H5]: 'h5',
+  [H6]: 'h6',
+};
+
+// tslint:disable-next-line:no-any
+const defaultGetComponent: PluginGetComponent = ({ type }) =>
+  DEFAULT_MAPPING[type];
 
 export default class HeadingsPlugin extends Plugin {
   name = 'headings';
+  allowedLevels: number[];
 
-  /*schema = {
-    nodes: {
-      [H1]: makeTagNode('h1'),
-      [H2]: makeTagNode('h2'),
-      [H3]: makeTagNode('h3'),
-      [H4]: makeTagNode('h4'),
-      [H5]: makeTagNode('h5'),
-      [H6]: makeTagNode('h6'),
-    },
-  };*/
-
-  constructor(props: HeadingsPluginSettings) {
+  constructor(props: HeadingsPluginSettings = {}) {
     super();
 
-    this.DEFAULT_NODE = props.DEFAULT_NODE;
+    this.DEFAULT_NODE = props.DEFAULT_NODE || DEFAULT_NODE;
+    this.allowedLevels = props.allowedLevels || [1, 2, 3, 4, 5, 6];
 
-    this.toolbarButtons = [
-      this.createButton(H1, <H1Icon />),
-      this.createButton(H2, <H2Icon />),
-      this.createButton(H3, <H3Icon />),
-      this.createButton(H4, <H4Icon />),
-      this.createButton(H5, <H5Icon />),
-      this.createButton(H6, <H6Icon />),
-    ];
+    this.getComponent = props.getComponent || defaultGetComponent;
+    this.toolbarButtons = this.allowedLevels.map(level => {
+      const Icon = ICONS[level];
+      return this.createButton(LEVELS[level], <Icon />);
+    });
   }
 
   createButton: (
@@ -97,8 +116,7 @@ export default class HeadingsPlugin extends Plugin {
 
       const _isActive = editorState.blocks.some(block => block.type === type);
 
-      editor
-          .setBlocks(_isActive ? this.DEFAULT_NODE : type);
+      editor.setBlocks(_isActive ? this.DEFAULT_NODE : type);
     };
 
     const isActive = editorState.blocks.some(block => block.type === type);
@@ -135,43 +153,36 @@ export default class HeadingsPlugin extends Plugin {
       return;
     }
     const style = { textAlign: object.data.get('align') };
-
-    switch (object.type) {
-      case H1:
-        return <h1 style={style}>{children}</h1>;
-      case H2:
-        return <h2 style={style}>{children}</h2>;
-      case H3:
-        return <h3 style={style}>{children}</h3>;
-      case H4:
-        return <h4 style={style}>{children}</h4>;
-      case H5:
-        return <h5 style={style}>{children}</h5>;
-      case H6:
-        return <h6 style={style}>{children}</h6>;
-      default:
-        return;
+    if (!ALLOWED_TYPES.includes(object.type)) {
+      return;
     }
+    const Component = this.getComponent({
+      type: object.type,
+      object: 'block',
+      data: object.data,
+    });
+
+    if (Component) {
+      return <Component style={style}>{children}</Component>;
+    }
+    return;
   }
 
   renderNode = (props: RenderNodeProps, editor: Editor, next: NextType) => {
     const { children } = props;
     const style = { textAlign: props.node.data.get('align') };
-    switch (props.node.type) {
-      case H1:
-        return <h1 style={style}>{children}</h1>;
-      case H2:
-        return <h2 style={style}>{children}</h2>;
-      case H3:
-        return <h3 style={style}>{children}</h3>;
-      case H4:
-        return <h4 style={style}>{children}</h4>;
-      case H5:
-        return <h5 style={style}>{children}</h5>;
-      case H6:
-        return <h6 style={style}>{children}</h6>;
-      default:
-        return next();
+    if (!ALLOWED_TYPES.includes(props.node.type)) {
+      return next();
     }
+    const Component = this.getComponent({
+      type: props.node.type,
+      object: 'block',
+      data: props.node.data,
+    });
+    if (Component) {
+      return <Component style={style}>{children}</Component>;
+    }
+
+    return next();
   }
 }
