@@ -25,7 +25,7 @@ import * as React from 'react';
 import CodeIcon from '@material-ui/icons/Code';
 import { Data, Editor } from 'slate';
 import { ToolbarButton } from '../../helpers';
-import { PluginButtonProps, Plugin, PluginGetComponent } from '../Plugin';
+import Plugin, { PluginButtonProps, PluginGetComponent } from '../Plugin';
 import Code from './node';
 import { SlatePluginSettings } from './../../types/plugin';
 import { RenderMarkProps, RenderNodeProps } from 'slate-react';

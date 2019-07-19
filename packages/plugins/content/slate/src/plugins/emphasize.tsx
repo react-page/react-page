@@ -26,7 +26,7 @@ import BoldIcon from '@material-ui/icons/FormatBold';
 import ItalicIcon from '@material-ui/icons/FormatItalic';
 import UnderlinedIcon from '@material-ui/icons/FormatUnderlined';
 import { ToolbarButton } from '../helpers';
-import { PluginButtonProps, Plugin, PluginGetComponent } from './Plugin';
+import Plugin, { PluginButtonProps, PluginGetComponent } from './Plugin';
 import { RenderMarkProps } from 'slate-react';
 import { Mark, MarkProperties, Editor } from 'slate';
 import { NextType } from '../types/next';

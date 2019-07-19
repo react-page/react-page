@@ -31,10 +31,10 @@ import createListPlugin, {
 } from '@guestbell/slate-edit-list';
 
 import { ToolbarButton } from '../helpers';
-import { Plugin, PluginGetComponent } from './Plugin';
+import Plugin, { PluginButtonProps, PluginGetComponent } from './Plugin';
 import { RenderNodeProps } from 'slate-react';
 import { Block, Editor } from 'slate';
-import { PluginButtonProps } from './Plugin';
+
 import { SlatePluginSettings } from './../types/plugin';
 import { NextType } from '../types/next';
 import DEFAULT_NODE from './DEFAULT_NODE';

@@ -25,7 +25,7 @@ import LinkIcon from '@material-ui/icons/Link';
 import * as React from 'react';
 import TextField from '@material-ui/core/TextField';
 import { ToolbarButton } from '../../helpers';
-import { PluginButtonProps, Plugin, PluginGetComponent } from '../Plugin';
+import Plugin, { PluginButtonProps, PluginGetComponent } from '../Plugin';
 
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';

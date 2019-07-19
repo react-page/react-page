@@ -30,8 +30,8 @@ import H5Icon from '@material-ui/icons/Looks5';
 import H6Icon from '@material-ui/icons/Looks6';
 // import { Data } from 'slate'
 import { ToolbarButton } from '../helpers';
-import { Plugin, PluginGetComponent } from './Plugin';
-import { PluginButtonProps } from './Plugin';
+import Plugin, { PluginButtonProps, PluginGetComponent } from './Plugin';
+
 import { SlatePluginSettings } from './../types/plugin';
 import { RenderNodeProps } from 'slate-react';
 import { Editor } from 'slate';

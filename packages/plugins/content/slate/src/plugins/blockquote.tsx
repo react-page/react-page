@@ -25,7 +25,7 @@ import * as React from 'react';
 import createBlockquotePlugin from '@guestbell/slate-edit-blockquote';
 
 import { ToolbarButton } from '../helpers';
-import { PluginButtonProps, Plugin, PluginGetComponent } from './Plugin';
+import Plugin, { PluginButtonProps, PluginGetComponent } from './Plugin';
 import { Block, Editor } from 'slate';
 import { RenderNodeProps } from 'slate-react';
 import { SlatePluginSettings } from './../types/plugin';

@@ -21,7 +21,7 @@
  */
 
 import * as React from 'react';
-import { Plugin, PluginGetComponent } from '../Plugin';
+import Plugin, { PluginGetComponent } from '../Plugin';
 
 import { RenderNodeProps } from 'slate-react';
 import { Editor } from 'slate';

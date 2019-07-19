@@ -25,7 +25,7 @@ import { compose, flatten, map, prop } from 'ramda';
 
 import * as React from 'react';
 import Component from './Component';
-import { Plugin } from './plugins/Plugin';
+import Plugin from './plugins/Plugin';
 import * as hooks from './hooks';
 
 import v002 from './migrations/v002';

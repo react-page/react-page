@@ -7,7 +7,7 @@ import LinkPlugin from './link/index';
 import ListsPlugin from './lists';
 import ParagraphPlugin from './paragraph';
 
-import { Plugin } from './Plugin';
+import Plugin from './Plugin';
 
 const defaultPlugins: Plugin[] = [
   new ParagraphPlugin(),

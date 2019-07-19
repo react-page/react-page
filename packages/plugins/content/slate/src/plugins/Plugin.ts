@@ -43,7 +43,7 @@ any;
 /**
  * @class this is the base class for slate plugins
  */
-export class Plugin {
+export default class Plugin {
   /**
    * @member a default node
    */

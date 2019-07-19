@@ -28,9 +28,9 @@ import AlignRightIcon from '@material-ui/icons/FormatAlignRight';
 import AlignJustifyIcon from '@material-ui/icons/FormatAlignJustify';
 
 import { ToolbarButton } from '../helpers';
-import { Plugin } from './Plugin';
+import Plugin, { PluginButtonProps } from './Plugin';
 import { Block } from 'slate';
-import { PluginButtonProps } from './Plugin';
+
 import { SlatePluginSettings } from './../types/plugin';
 import DEFAULT_NODE from './DEFAULT_NODE';
 
