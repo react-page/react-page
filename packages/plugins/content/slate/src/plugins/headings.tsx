@@ -30,7 +30,7 @@ import H5Icon from '@material-ui/icons/Looks5';
 import H6Icon from '@material-ui/icons/Looks6';
 // import { Data } from 'slate'
 import { ToolbarButton } from '../helpers';
-import Plugin from './Plugin';
+import { Plugin, PluginGetComponent } from './Plugin';
 import { PluginButtonProps } from './Plugin';
 import { SlatePluginSettings } from './../types/plugin';
 import { RenderNodeProps } from 'slate-react';
@@ -54,11 +54,26 @@ const createNode = (type: string, el: any, next: any) => ({
 
 export interface HeadingsPluginSettings extends SlatePluginSettings {
   DEFAULT_NODE?: string;
-  // tslint:disable-next-line:no-any
-  getComponent?: (type: string, data: any) => any;
+  allowedLevels?: number[];
 }
 
 const ALLOWED_TYPES = [H1, H2, H3, H4, H5, H6];
+const LEVELS = {
+  1: H1,
+  2: H2,
+  3: H3,
+  4: H4,
+  5: H5,
+  6: H6,
+};
+const ICONS = {
+  1: H1Icon,
+  2: H2Icon,
+  3: H3Icon,
+  4: H4Icon,
+  5: H5Icon,
+  6: H6Icon,
+};
 const DEFAULT_MAPPING = {
   [H1]: 'h1',
   [H2]: 'h2',
@@ -68,27 +83,25 @@ const DEFAULT_MAPPING = {
   [H6]: 'h6',
 };
 
-const defaultGetComponent = (type, data) => DEFAULT_MAPPING[type];
+// tslint:disable-next-line:no-any
+const defaultGetComponent: PluginGetComponent = ({ type }) =>
+  DEFAULT_MAPPING[type];
 
 export default class HeadingsPlugin extends Plugin {
   name = 'headings';
-  // tslint:disable-next-line:no-any
-  getComponent: (type: string, data: any) => any;
+  allowedLevels: number[];
 
   constructor(props: HeadingsPluginSettings = {}) {
     super();
 
     this.DEFAULT_NODE = props.DEFAULT_NODE || DEFAULT_NODE;
+    this.allowedLevels = props.allowedLevels || [1, 2, 3, 4, 5, 6];
 
     this.getComponent = props.getComponent || defaultGetComponent;
-    this.toolbarButtons = [
-      this.createButton(H1, <H1Icon />),
-      this.createButton(H2, <H2Icon />),
-      this.createButton(H3, <H3Icon />),
-      this.createButton(H4, <H4Icon />),
-      this.createButton(H5, <H5Icon />),
-      this.createButton(H6, <H6Icon />),
-    ];
+    this.toolbarButtons = this.allowedLevels.map(level => {
+      const Icon = ICONS[level];
+      return this.createButton(LEVELS[level], <Icon />);
+    });
   }
 
   createButton: (
@@ -143,7 +156,11 @@ export default class HeadingsPlugin extends Plugin {
     if (!ALLOWED_TYPES.includes(object.type)) {
       return;
     }
-    const Component = this.getComponent(object.type, object.data);
+    const Component = this.getComponent({
+      type: object.type,
+      object: 'block',
+      data: object.data,
+    });
 
     if (Component) {
       return <Component style={style}>{children}</Component>;
@@ -157,7 +174,11 @@ export default class HeadingsPlugin extends Plugin {
     if (!ALLOWED_TYPES.includes(props.node.type)) {
       return next();
     }
-    const Component = this.getComponent(props.node.type, props.node.data);
+    const Component = this.getComponent({
+      type: props.node.type,
+      object: 'block',
+      data: props.node.data,
+    });
     if (Component) {
       return <Component style={style}>{children}</Component>;
     }

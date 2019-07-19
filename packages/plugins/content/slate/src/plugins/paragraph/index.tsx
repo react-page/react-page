@@ -21,17 +21,30 @@
  */
 
 import * as React from 'react';
-import Plugin from '../Plugin';
-import Paragraph from './node';
+import { Plugin, PluginGetComponent } from '../Plugin';
+
 import { RenderNodeProps } from 'slate-react';
-import { Block, Editor } from 'slate';
+import { Editor } from 'slate';
 import { NextType } from '../../types/next';
+import { SlatePluginSettings } from 'src/types/plugin';
 
 export const P = 'PARAGRAPH/PARAGRAPH';
+const DEFAULT_MAPPING = {
+  [P]: 'p',
+};
+const ALLOWED_TYPES = [P];
+
+// tslint:disable-next-line:no-any
+const defaultGetComponent: PluginGetComponent = ({ type }) =>
+  DEFAULT_MAPPING[type];
 
 export default class ParagraphPlugin extends Plugin {
   name = 'paragraph';
 
+  constructor(props: SlatePluginSettings = {}) {
+    super();
+    this.getComponent = props.getComponent || defaultGetComponent;
+  }
   /*schema = {
     nodes: { [P]: Paragraph },
   };*/
@@ -60,24 +73,42 @@ export default class ParagraphPlugin extends Plugin {
     if (object.object !== 'block') {
       return;
     }
-    switch (object.type) {
-      case P:
-        return (
-          <p style={{ textAlign: object.data.get('align') }}>{children}</p>
-        );
-      default:
-        return;
+    if (!ALLOWED_TYPES.includes(object.type)) {
+      return;
+    }
+    const Component = this.getComponent({
+      type: object.type,
+      object: 'block',
+      data: object.data,
+    });
+    if (Component) {
+      return (
+        <Component style={{ textAlign: object.data.get('align') }}>
+          {children}
+        </Component>
+      );
     }
   }
 
   renderNode = (props: RenderNodeProps, editor: Editor, next: NextType) => {
-    // tslint:disable-next-line:no-any
-    switch (((props as any).node as Block).type) {
-      case P: {
-        return <Paragraph {...props} />;
-      }
-      default:
-        return next();
+    if (!ALLOWED_TYPES.includes(props.node.type)) {
+      return next();
     }
+    const Component = this.getComponent({
+      type: props.node.type,
+      object: 'block',
+      data: props.node.data,
+    });
+    if (Component) {
+      return (
+        <Component style={{ textAlign: props.node.data.get('align') }}>
+          {props.children}
+        </Component>
+      );
+    }
+
+    return next();
+
+    //
   }
 }

@@ -25,12 +25,12 @@ import { compose, flatten, map, prop } from 'ramda';
 
 import * as React from 'react';
 import Component from './Component';
-import Plugin from './plugins/Plugin';
+import { Plugin } from './plugins/Plugin';
 import * as hooks from './hooks';
 
 import v002 from './migrations/v002';
 import { Value } from 'slate';
-import { PluginButtonProps } from './plugins/Plugin';
+import { PluginButtonProps, PluginGetComponent } from './plugins/Plugin';
 import { ContentPluginConfig } from '@react-page/core/lib/service/plugin/classes';
 import { SlateState } from './types/state';
 import { SlateProps } from './types/component';
@@ -49,6 +49,8 @@ const createPlugins = compose(
 );
 
 export { defaultPlugins, slatePlugins };
+
+export { PluginGetComponent as SlatePluginGetComponent };
 
 export default (
   plugins: Plugin[] = defaultPlugins,

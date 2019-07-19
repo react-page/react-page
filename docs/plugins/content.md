@@ -21,8 +21,16 @@ encourage using our text editing solution.
 
 ### Customize text editing
 
-We wrote the text editing plugin in a way that allows you to customize if you want h1-h6 or lists, and you can even
-create your own logic. The documentation on this topic is still work in progress.
+By default we provide the following plugins:
+
+- AlignmentPlugin: allows to align left, right center and justify,
+- BlockquotePlugin: place a blockquote
+- CodePlugin: place code
+- EmphasizePlugin: place em tags
+- HeadingsPlugin: place headings h1 - h6
+- LinkPlugin: place links
+- ListsPlugin: place ordered and unordered lists
+- ParagraphPlugin: place paragraphs
 
 ## Image
 

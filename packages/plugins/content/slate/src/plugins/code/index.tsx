@@ -25,7 +25,7 @@ import * as React from 'react';
 import CodeIcon from '@material-ui/icons/Code';
 import { Data, Editor } from 'slate';
 import { ToolbarButton } from '../../helpers';
-import Plugin, { PluginButtonProps } from '../Plugin';
+import { PluginButtonProps, Plugin, PluginGetComponent } from '../Plugin';
 import Code from './node';
 import { SlatePluginSettings } from './../../types/plugin';
 import { RenderMarkProps, RenderNodeProps } from 'slate-react';
@@ -36,25 +36,27 @@ export interface BlockquotePluginSettings extends SlatePluginSettings {
 }
 
 export const CODE = 'CODE/CODE';
+const ALLOWED_TYPES = [CODE];
+
+const defaultGetComponent: PluginGetComponent = ({ type, object }) => {
+  if (type !== CODE) {
+    return null;
+  }
+
+  if (object === 'mark') {
+    return props => (
+      <code className="ory-plugins-content-slate-code" {...props} />
+    );
+  }
+  return Code;
+};
 
 export default class CodePlugin extends Plugin {
   name = 'code';
-  /*schema = {
-    blocks: {
-      [CODE]: {
-        nodes: [
-          {
-            match: {}
-          }
-        ]
-      },
-    },
-    // marks: { [CODE]: makeTagMark('code') },
-    // nodes: { [CODE]: Code },
-  };*/
 
   constructor(props: BlockquotePluginSettings = {}) {
     super();
+    this.getComponent = props.getComponent || defaultGetComponent;
     this.hoverButtons = [this.createButton(CODE, <CodeIcon />)];
     this.toolbarButtons = [this.createNodeButton(CODE, <CodeIcon />)];
     this.DEFAULT_NODE = props.DEFAULT_NODE || DEFAULT_NODE;
@@ -117,56 +119,44 @@ export default class CodePlugin extends Plugin {
 
   serialize = (
     // tslint:disable-next-line:no-any
-    object: { type: string; object: string; data: any },
+    object: { type: string; object: 'mark' | 'block'; data: any },
     // tslint:disable-next-line:no-any
     children: any[]
   ) => {
-    if (object.object === 'mark') {
-      switch (object.type) {
-        case CODE:
-          return (
-            <code className="ory-plugins-content-slate-code">{children}</code>
-          );
-        default:
-          return;
-      }
-    } else if (object.object === 'block') {
-      switch (object.type) {
-        case CODE:
-          return (
-            <pre style={{ overflow: 'scroll' }}>
-              <code>{children}</code>
-            </pre>
-          );
-        default:
-          return;
-      }
+    const Component = this.getComponent({
+      type: object.type,
+      object: object.object,
+    });
+    if (Component) {
+      return <Component children={children} />;
     }
+    return;
   }
 
   renderMark = (props: RenderMarkProps, editor: Editor, next: NextType) => {
-    const { children, mark, attributes } = props;
-
-    switch (mark.type) {
-      case CODE:
-        return (
-          <code {...attributes} className="ory-plugins-content-slate-code">
-            {children}
-          </code>
-        );
-      default:
-        return next();
+    const Component = this.getComponent({
+      type: props.mark.type,
+      object: 'mark',
+    });
+    if (Component) {
+      return <Component {...props} />;
     }
+    return next();
   }
 
   renderNode = (props: RenderNodeProps, editor: Editor, next: NextType) => {
-    const { node } = props;
-
-    switch (node.type) {
-      case CODE:
-        return <Code {...props} />;
-      default:
-        return next();
+    if (!ALLOWED_TYPES.includes(props.node.type)) {
+      return next();
     }
+    const Component = this.getComponent({
+      type: props.node.type,
+      object: 'block',
+      data: props.node.data,
+    });
+    if (Component) {
+      return <Component {...props} />;
+    }
+
+    return next();
   }
 }

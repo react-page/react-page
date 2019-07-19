@@ -32,7 +32,7 @@ import { Trash, DisplayModeToggle, Toolbar } from '@react-page/ui';
 import '@react-page/ui/lib/index.css';
 
 // The rich text area plugin
-import slate, { defaultPlugins, slatePlugins } from '@react-page/plugins-slate';
+import slate, { slatePlugins } from '@react-page/plugins-slate';
 
 import '@react-page/plugins-slate/lib/index.css';
 
@@ -111,11 +111,18 @@ type Props = {
 const RedH1 = ({ style, ...props }: Props) => (
   <h1 style={{ ...style, color: 'red' }} {...props} />
 );
+
 const slatePlugin = slate([
   new slatePlugins.HeadingsPlugin({
-    getComponent: type => (type === 'HEADINGS/HEADING-ONE' ? RedH1 : undefined),
+    allowedLevels: [1],
+    getComponent: ({ type }: { type: string; data: any }) => RedH1,
   }),
-  ...defaultPlugins,
+  new slatePlugins.ParagraphPlugin(),
+  new slatePlugins.EmphasizePlugin(),
+  new slatePlugins.LinkPlugin(),
+  new slatePlugins.ListsPlugin(),
+
+  new slatePlugins.AlignmentPlugin(),
 ]);
 // Define which plugins we want to use (all of the above)
 const plugins: Plugins = {

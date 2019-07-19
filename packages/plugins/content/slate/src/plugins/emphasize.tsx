@@ -26,15 +26,26 @@ import BoldIcon from '@material-ui/icons/FormatBold';
 import ItalicIcon from '@material-ui/icons/FormatItalic';
 import UnderlinedIcon from '@material-ui/icons/FormatUnderlined';
 import { ToolbarButton } from '../helpers';
-import Plugin, { PluginButtonProps } from './Plugin';
+import { PluginButtonProps, Plugin, PluginGetComponent } from './Plugin';
 import { RenderMarkProps } from 'slate-react';
 import { Mark, MarkProperties, Editor } from 'slate';
 import { NextType } from '../types/next';
 import isHotkey from 'is-hotkey';
+import { SlatePluginSettings } from 'src/types/plugin';
 
 export const STRONG = 'EMPHASIZE/STRONG';
 export const EM = 'EMPHASIZE/EM';
 export const U = 'EMPHASIZE/U';
+
+const ALLOWED_TYPES = [STRONG, EM, U];
+const DEFAULT_MAPPING = {
+  [STRONG]: 'strong',
+  [EM]: 'em',
+  [U]: 'u',
+};
+
+const defaultGetComponent: PluginGetComponent = ({ type }) =>
+  DEFAULT_MAPPING[type];
 
 // eslint-disable-next-line react/display-name
 const createButton: (
@@ -58,19 +69,16 @@ const createButton: (
 export default class EmphasizePlugin extends Plugin {
   name = 'emphasize';
 
-  /*schema = {
-    marks: {
-      [STRONG]: makeTagMark('strong'),
-      [EM]: makeTagMark('em'),
-      [U]: makeTagMark('u'),
-    },
-  };*/
-
   hoverButtons = [
     createButton(STRONG, <BoldIcon />),
     createButton(EM, <ItalicIcon />),
     createButton(U, <UnderlinedIcon />),
   ];
+
+  constructor(props: SlatePluginSettings = {}) {
+    super();
+    this.getComponent = props.getComponent || defaultGetComponent;
+  }
 
   onKeyDown = (e: KeyboardEvent, editor: Editor, next: NextType): boolean => {
     let mark: string;
@@ -119,35 +127,41 @@ export default class EmphasizePlugin extends Plugin {
     }
   }
 
-  // tslint:disable-next-line:no-any
-  serialize = (object: { type: string; object: string }, children: any[]) => {
+  serialize = (
+    // tslint:disable-next-line:no-any
+    object: { type: string; object: string; data: any },
+    // tslint:disable-next-line:no-any
+    children: any[]
+  ) => {
     if (object.object !== 'mark') {
       return;
     }
-    switch (object.type) {
-      case STRONG:
-        return <strong>{children}</strong>;
-      case EM:
-        return <em>{children}</em>;
-      case U:
-        return <u>{children}</u>;
-      default:
-        return;
+    if (!ALLOWED_TYPES.includes(object.type)) {
+      return;
     }
+    const Component = this.getComponent({
+      type: object.type,
+      data: object.data,
+      object: 'mark',
+    });
+
+    if (Component) {
+      return <Component>{children}</Component>;
+    }
+
+    return;
   }
 
   renderMark = (props: RenderMarkProps, editor: Editor, next: NextType) => {
     const { children, mark, attributes } = props;
 
-    switch (mark.type) {
-      case STRONG:
-        return <strong {...attributes}>{children}</strong>;
-      case EM:
-        return <em {...attributes}>{children}</em>;
-      case U:
-        return <u {...attributes}>{children}</u>;
-      default:
-        return next();
+    if (!ALLOWED_TYPES.includes(mark.type)) {
+      return next();
     }
+    const Component = this.getComponent({ type: mark.type, object: 'mark' });
+    if (Component) {
+      return <Component {...attributes}>{children}</Component>;
+    }
+    return next();
   }
 }

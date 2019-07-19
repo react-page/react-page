@@ -30,14 +30,32 @@ export class PluginButtonProps {
   translations: Partial<Translations>;
 }
 
+export type PluginGetComponent = (
+  props: {
+    type: string
+    object: 'mark' | 'block' | 'inline'
+    // tslint:disable-next-line:no-any
+    data?: any
+  }
+) => // tslint:disable-next-line:no-any
+any;
+
 /**
  * @class this is the base class for slate plugins
  */
-export default class Plugin {
+export class Plugin {
   /**
    * @member a default node
    */
   public DEFAULT_NODE: string;
+
+  // tslint:disable-next-line:no-any
+  /**
+   * @member returns a component based on the given type and data.
+   * If null is returned, the plugin skips this node
+   */
+
+  public getComponent: PluginGetComponent;
 
   /**
    * @member a unique identifier of the plugin
@@ -49,12 +67,12 @@ export default class Plugin {
    */
   public schema: {
     // tslint:disable-next-line:no-any
-    document?: { [key: string]: any };
+    document?: { [key: string]: any }
     // tslint:disable-next-line:no-any
-    blocks?: { [key: string]: any };
+    blocks?: { [key: string]: any }
     // tslint:disable-next-line:no-any
-    inlines?: { [key: string]: any };
-    rules?: [];
+    inlines?: { [key: string]: any }
+    rules?: []
   };
 
   /**
@@ -98,8 +116,8 @@ export default class Plugin {
     props: RenderMarkProps,
     editor: Editor,
     next: NextType
-  // tslint:disable-next-line:no-any
-  ) => any;
+  ) => // tslint:disable-next-line:no-any
+  any;
 
   /**
    * @member the function that renders nodes
@@ -109,8 +127,8 @@ export default class Plugin {
     props: RenderNodeProps,
     editor: Editor,
     next: NextType
-  // tslint:disable-next-line:no-any
-  ) => any;
+  ) => // tslint:disable-next-line:no-any
+  any;
 
   /**
    * This handler is called when any key is pressed
