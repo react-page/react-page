@@ -30,11 +30,11 @@ import { Block, Editor } from 'slate';
 import { RenderNodeProps } from 'slate-react';
 import { SlatePluginSettings } from './../types/plugin';
 import { NextType } from '../types/next';
-
+import DEFAULT_NODE from './DEFAULT_NODE';
 export const BLOCKQUOTE = 'BLOCKQUOTE/BLOCKQUOTE';
 
 export interface BlockquotePluginSettings extends SlatePluginSettings {
-  DEFAULT_NODE: string;
+  DEFAULT_NODE?: string;
 }
 
 export default class BlockquotePlugin extends Plugin {
@@ -53,10 +53,10 @@ export default class BlockquotePlugin extends Plugin {
     }),
   ];
 
-  constructor(props: BlockquotePluginSettings) {
+  constructor(props: BlockquotePluginSettings = {}) {
     super();
 
-    this.DEFAULT_NODE = props.DEFAULT_NODE;
+    this.DEFAULT_NODE = props.DEFAULT_NODE || DEFAULT_NODE;
     this.toolbarButtons = [this.Button];
   }
 
@@ -140,7 +140,9 @@ export default class BlockquotePlugin extends Plugin {
         return (
           <blockquote
             // tslint:disable-next-line:no-any
-            style={{ textAlign: ((props as any).node as Block).data.get('align') }}
+            style={{
+              textAlign: ((props as any).node as Block).data.get('align'),
+            }}
           >
             {props.children}
           </blockquote>

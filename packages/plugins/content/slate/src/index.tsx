@@ -22,12 +22,12 @@
 
 import Subject from '@material-ui/icons/Subject';
 import { compose, flatten, map, prop } from 'ramda';
-import Html from 'slate-html-serializer';
+
 import * as React from 'react';
 import Component from './Component';
 import Plugin from './plugins/Plugin';
 import * as hooks from './hooks';
-import parse5 from 'parse5';
+
 import v002 from './migrations/v002';
 import { Value } from 'slate';
 import { PluginButtonProps } from './plugins/Plugin';
@@ -39,32 +39,26 @@ import { pathOr } from 'ramda/src/pathOr';
 import { ActionTypes } from 'redux-undo';
 import { AnyAction } from 'redux';
 import { defaultSettings, defaultTranslations } from './default/settings';
+import defaultPlugins from './plugins/defaultPlugins';
+import * as slatePlugins from './plugins/index';
+import serialization from './serialization';
 
 const createPlugins = compose(
   flatten,
   map(prop('plugins'))
 );
 
-export const createInitialState = hooks.createInitialState;
-
-export const html = new Html({
-  rules: [...hooks.defaultPlugins, hooks.lineBreakSerializer],
-  parseHtml: parse5.parseFragment,
-});
-
-export const defaultPlugins = hooks.defaultPlugins;
+export { defaultPlugins, slatePlugins };
 
 export default (
-  plugins: Plugin[] = hooks.defaultPlugins,
+  plugins: Plugin[] = defaultPlugins,
   translations = defaultTranslations
 ): ContentPluginConfig<SlateState> => {
   let settings: SlateSettings = {};
   settings.plugins = (plugins ? plugins : []).concat(createPlugins(plugins));
 
-  const HoverButtons = ({
-    editorState,
-    editor,
-  }: PluginButtonProps) => (
+  const serializeFunctions = serialization({ plugins });
+  const HoverButtons = ({ editorState, editor }: PluginButtonProps) => (
     <div>
       {plugins &&
         plugins.map(
@@ -84,10 +78,7 @@ export default (
 
   settings.HoverButtons = HoverButtons;
 
-  const ToolbarButtons = ({
-    editorState,
-    editor,
-  }: PluginButtonProps) => (
+  const ToolbarButtons = ({ editorState, editor }: PluginButtonProps) => (
     <div>
       {plugins &&
         plugins.map(
@@ -107,14 +98,20 @@ export default (
   settings.ToolbarButtons = ToolbarButtons;
   const mergedSettings = { ...defaultSettings, ...settings };
   const Slate: React.SFC<SlateProps> = cellProps => (
-    <Component {...cellProps} {...mergedSettings} />
+    <Component
+      {...cellProps}
+      {...mergedSettings}
+      serializeFunctions={serializeFunctions}
+    />
   );
   const StaticComponent = ({
     state: { editorState = {} as Value } = {},
   }: SlateProps) => (
     <div
       className="ory-plugins-content-slate-container"
-      dangerouslySetInnerHTML={{ __html: html.serialize(editorState) }}
+      dangerouslySetInnerHTML={{
+        __html: serializeFunctions.slateToHtml(editorState),
+      }}
     />
   );
   return {
@@ -177,9 +174,9 @@ export default (
     handleFocusPreviousHotKey: hooks.handleFocusPreviousHotKey,
     handleFocusNextHotKey: hooks.handleFocusNextHotKey,
 
-    createInitialState: hooks.createInitialState,
-    serialize: hooks.serialize,
-    unserialize: hooks.unserialize,
+    createInitialState: serializeFunctions.createInitialState,
+    serialize: serializeFunctions.serialize,
+    unserialize: serializeFunctions.unserialize,
 
     // TODO this is disabled because of #207
     // merge = hooks.merge

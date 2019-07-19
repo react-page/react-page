@@ -30,9 +30,9 @@ import Code from './node';
 import { SlatePluginSettings } from './../../types/plugin';
 import { RenderMarkProps, RenderNodeProps } from 'slate-react';
 import { NextType } from '../../types/next';
-
+import DEFAULT_NODE from '../DEFAULT_NODE';
 export interface BlockquotePluginSettings extends SlatePluginSettings {
-  DEFAULT_NODE: string;
+  DEFAULT_NODE?: string;
 }
 
 export const CODE = 'CODE/CODE';
@@ -53,11 +53,11 @@ export default class CodePlugin extends Plugin {
     // nodes: { [CODE]: Code },
   };*/
 
-  constructor(props: BlockquotePluginSettings) {
+  constructor(props: BlockquotePluginSettings = {}) {
     super();
     this.hoverButtons = [this.createButton(CODE, <CodeIcon />)];
     this.toolbarButtons = [this.createNodeButton(CODE, <CodeIcon />)];
-    this.DEFAULT_NODE = props.DEFAULT_NODE;
+    this.DEFAULT_NODE = props.DEFAULT_NODE || DEFAULT_NODE;
   }
 
   createButton = (

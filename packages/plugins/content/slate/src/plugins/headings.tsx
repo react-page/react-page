@@ -36,7 +36,7 @@ import { SlatePluginSettings } from './../types/plugin';
 import { RenderNodeProps } from 'slate-react';
 import { Editor } from 'slate';
 import { NextType } from '../types/next';
-
+import DEFAULT_NODE from './DEFAULT_NODE';
 export const H1 = 'HEADINGS/HEADING-ONE';
 export const H2 = 'HEADINGS/HEADING-TWO';
 export const H3 = 'HEADINGS/HEADING-THREE';
@@ -53,28 +53,34 @@ const createNode = (type: string, el: any, next: any) => ({
 });
 
 export interface HeadingsPluginSettings extends SlatePluginSettings {
-  DEFAULT_NODE: string;
+  DEFAULT_NODE?: string;
+  // tslint:disable-next-line:no-any
+  getComponent?: (type: string, data: any) => any;
 }
+
+const ALLOWED_TYPES = [H1, H2, H3, H4, H5, H6];
+const DEFAULT_MAPPING = {
+  [H1]: 'h1',
+  [H2]: 'h2',
+  [H3]: 'h3',
+  [H4]: 'h4',
+  [H5]: 'h5',
+  [H6]: 'h6',
+};
+
+const defaultGetComponent = (type, data) => DEFAULT_MAPPING[type];
 
 export default class HeadingsPlugin extends Plugin {
   name = 'headings';
+  // tslint:disable-next-line:no-any
+  getComponent: (type: string, data: any) => any;
 
-  /*schema = {
-    nodes: {
-      [H1]: makeTagNode('h1'),
-      [H2]: makeTagNode('h2'),
-      [H3]: makeTagNode('h3'),
-      [H4]: makeTagNode('h4'),
-      [H5]: makeTagNode('h5'),
-      [H6]: makeTagNode('h6'),
-    },
-  };*/
-
-  constructor(props: HeadingsPluginSettings) {
+  constructor(props: HeadingsPluginSettings = {}) {
     super();
 
-    this.DEFAULT_NODE = props.DEFAULT_NODE;
+    this.DEFAULT_NODE = props.DEFAULT_NODE || DEFAULT_NODE;
 
+    this.getComponent = props.getComponent || defaultGetComponent;
     this.toolbarButtons = [
       this.createButton(H1, <H1Icon />),
       this.createButton(H2, <H2Icon />),
@@ -97,8 +103,7 @@ export default class HeadingsPlugin extends Plugin {
 
       const _isActive = editorState.blocks.some(block => block.type === type);
 
-      editor
-          .setBlocks(_isActive ? this.DEFAULT_NODE : type);
+      editor.setBlocks(_isActive ? this.DEFAULT_NODE : type);
     };
 
     const isActive = editorState.blocks.some(block => block.type === type);
@@ -135,43 +140,28 @@ export default class HeadingsPlugin extends Plugin {
       return;
     }
     const style = { textAlign: object.data.get('align') };
-
-    switch (object.type) {
-      case H1:
-        return <h1 style={style}>{children}</h1>;
-      case H2:
-        return <h2 style={style}>{children}</h2>;
-      case H3:
-        return <h3 style={style}>{children}</h3>;
-      case H4:
-        return <h4 style={style}>{children}</h4>;
-      case H5:
-        return <h5 style={style}>{children}</h5>;
-      case H6:
-        return <h6 style={style}>{children}</h6>;
-      default:
-        return;
+    if (!ALLOWED_TYPES.includes(object.type)) {
+      return;
     }
+    const Component = this.getComponent(object.type, object.data);
+
+    if (Component) {
+      return <Component style={style}>{children}</Component>;
+    }
+    return;
   }
 
   renderNode = (props: RenderNodeProps, editor: Editor, next: NextType) => {
     const { children } = props;
     const style = { textAlign: props.node.data.get('align') };
-    switch (props.node.type) {
-      case H1:
-        return <h1 style={style}>{children}</h1>;
-      case H2:
-        return <h2 style={style}>{children}</h2>;
-      case H3:
-        return <h3 style={style}>{children}</h3>;
-      case H4:
-        return <h4 style={style}>{children}</h4>;
-      case H5:
-        return <h5 style={style}>{children}</h5>;
-      case H6:
-        return <h6 style={style}>{children}</h6>;
-      default:
-        return next();
+    if (!ALLOWED_TYPES.includes(props.node.type)) {
+      return next();
     }
+    const Component = this.getComponent(props.node.type, props.node.data);
+    if (Component) {
+      return <Component style={style}>{children}</Component>;
+    }
+
+    return next();
   }
 }

@@ -26,7 +26,9 @@ import ListIcon from '@material-ui/icons/List';
 import OrderedListIcon from '@material-ui/icons/FormatListNumbered';
 import IncreaseIndentIcon from '@material-ui/icons/FormatIndentIncrease';
 import DecreaseIndentIcon from '@material-ui/icons/FormatIndentDecrease';
-import createListPlugin, { EditListPluginInterface } from '@guestbell/slate-edit-list';
+import createListPlugin, {
+  EditListPluginInterface
+} from '@guestbell/slate-edit-list';
 
 import { ToolbarButton } from '../helpers';
 import Plugin from './Plugin';
@@ -35,7 +37,7 @@ import { Block, Editor } from 'slate';
 import { PluginButtonProps } from './Plugin';
 import { SlatePluginSettings } from './../types/plugin';
 import { NextType } from '../types/next';
-
+import DEFAULT_NODE from './DEFAULT_NODE';
 export const UL = 'LISTS/UNORDERED-LIST';
 export const OL = 'LISTS/ORDERED-LIST';
 export const LI = 'LISTS/LIST-ITEM';
@@ -44,7 +46,7 @@ const INCREASE_INDENT = 'INCREASE_INDENT';
 const DECREASE_INDENT = 'DECREASE_INDENT';
 
 export interface ListsPluginSettings extends SlatePluginSettings {
-  DEFAULT_NODE: string;
+  DEFAULT_NODE?: string;
 }
 
 export default class ListsPlugin extends Plugin {
@@ -60,16 +62,16 @@ export default class ListsPlugin extends Plugin {
     },
   };*/
 
-  constructor(props: ListsPluginSettings) {
+  constructor(props: ListsPluginSettings = {}) {
     super();
 
-    this.DEFAULT_NODE = props.DEFAULT_NODE;
+    this.DEFAULT_NODE = props.DEFAULT_NODE || DEFAULT_NODE;
     this.plugin = createListPlugin({
       types: [UL, OL],
       typeItem: LI,
-      typeDefault: props.DEFAULT_NODE,
+      typeDefault: this.DEFAULT_NODE,
     });
-    this.plugins = [this.plugin as unknown as Plugin];
+    this.plugins = [(this.plugin as unknown) as Plugin];
     this.toolbarButtons = [
       this.createButton(UL, <ListIcon />),
       this.createButton(OL, <OrderedListIcon />),
@@ -126,8 +128,7 @@ export default class ListsPlugin extends Plugin {
     const itemDepth = this.plugin.utils.getItemDepth(editorState);
 
     const canIncreaseIndent = previousItem && currentItem && isIncreaseDecrease;
-    const canDecreaseIndent =
-      itemDepth > 1 && currentItem && isIncreaseDecrease;
+    const canDecreaseIndent = itemDepth > 1 && currentItem && isIncreaseDecrease;
 
     const increaseDecreaseDisabled =
       type === INCREASE_INDENT ? !canIncreaseIndent : !canDecreaseIndent;

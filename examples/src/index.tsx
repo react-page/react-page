@@ -32,7 +32,8 @@ import { Trash, DisplayModeToggle, Toolbar } from '@react-page/ui';
 import '@react-page/ui/lib/index.css';
 
 // The rich text area plugin
-import slate from '@react-page/plugins-slate';
+import slate, { defaultPlugins, slatePlugins } from '@react-page/plugins-slate';
+
 import '@react-page/plugins-slate/lib/index.css';
 
 // The spacer plugin
@@ -75,7 +76,10 @@ import './styles.css';
 import { ImageUploadType } from '@react-page/ui/lib/ImageUpload';
 import { Plugins } from '@react-page/core/lib/service/plugin/classes';
 
-const fakeImageUploadService: (url: string) => ImageUploadType = (defaultUrl) => (file, reportProgress) => {
+const fakeImageUploadService: (url: string) => ImageUploadType = defaultUrl => (
+  file,
+  reportProgress
+) => {
   return new Promise((resolve, reject) => {
     let counter = 0;
     const interval = setInterval(() => {
@@ -83,28 +87,56 @@ const fakeImageUploadService: (url: string) => ImageUploadType = (defaultUrl) =>
       reportProgress(counter * 10);
       if (counter > 9) {
         clearInterval(interval);
-        alert('This is a fake image upload service, please provide actual implementation via plugin properties');
+        alert(
+          'This is a fake image upload service, please provide actual implementation via plugin properties'
+        );
         resolve({ url: defaultUrl });
       }
     }, 500);
   });
 };
 
-if (process.env.NODE_ENV !== 'production' && process.env.REACT_APP_TRACE_UPDATES) {
+if (
+  process.env.NODE_ENV !== 'production' &&
+  process.env.REACT_APP_TRACE_UPDATES
+) {
   const { whyDidYouUpdate } = require('why-did-you-update');
   whyDidYouUpdate(React);
 }
 
+type Props = {
+  // tslint:disable-next-line:no-any
+  style: any
+};
+const RedH1 = ({ style, ...props }: Props) => (
+  <h1 style={{ ...style, color: 'red' }} {...props} />
+);
+const slatePlugin = slate([
+  new slatePlugins.HeadingsPlugin({
+    getComponent: type => (type === 'HEADINGS/HEADING-ONE' ? RedH1 : undefined),
+  }),
+  ...defaultPlugins,
+]);
 // Define which plugins we want to use (all of the above)
 const plugins: Plugins = {
-  content: [slate(), spacer, imagePlugin({ imageUpload: fakeImageUploadService('/images/react.png') }), video, divider, html5video],
+  content: [
+    slatePlugin,
+    spacer,
+    imagePlugin({ imageUpload: fakeImageUploadService('/images/react.png') }),
+    video,
+    divider,
+    html5video,
+  ],
   layout: [
     background({
-      defaultPlugin: slate(),
+      defaultPlugin: slatePlugin,
       imageUpload: fakeImageUploadService('/images/sea-bg.jpg'),
-      enabledModes: ModeEnum.COLOR_MODE_FLAG | ModeEnum.IMAGE_MODE_FLAG | ModeEnum.GRADIENT_MODE_FLAG,
+      enabledModes:
+        ModeEnum.COLOR_MODE_FLAG |
+        ModeEnum.IMAGE_MODE_FLAG |
+        ModeEnum.GRADIENT_MODE_FLAG,
     }),
-    parallax({ defaultPlugin: slate() }),
+    parallax({ defaultPlugin: slatePlugin }),
   ],
 
   // If you pass the native key the editor will be able to handle native drag and drop events (such as links, text, etc).
@@ -127,7 +159,7 @@ editor.trigger.mode.edit();
 // Render the editables - the areas that are editable
 const elements = document.querySelectorAll<HTMLDivElement>('.editable');
 elements.forEach(element => {
-  ReactDOM.render((
+  ReactDOM.render(
     <Editable
       editor={editor}
       id={element.dataset.id as string}
@@ -136,20 +168,25 @@ elements.forEach(element => {
           console.log(state)
         }
       }}*/
-    />
-  ), element);
+    />,
+    element
+  );
 });
 
 // Render the ui controls, you could implement your own here, of course.
-ReactDOM.render((
+ReactDOM.render(
   <div>
     <Trash editor={editor} />
     <DisplayModeToggle editor={editor} />
     <Toolbar editor={editor} />
-  </div>
-), document.getElementById('controls'));
+  </div>,
+  document.getElementById('controls')
+);
 
 // Render as beautified mark up (html)
-ReactDOM.render(<HTMLRenderer state={content[0]} plugins={plugins} />, document.getElementById('editable-static'));
+ReactDOM.render(
+  <HTMLRenderer state={content[0]} plugins={plugins} />,
+  document.getElementById('editable-static')
+);
 
 editor.trigger.editable.add({ id: '10', cells: [] });
