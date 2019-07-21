@@ -32,10 +32,10 @@ export class PluginButtonProps {
 
 export type PluginGetComponent = (
   props: {
-    type: string
-    object: 'mark' | 'block' | 'inline'
+    type: string;
+    object: 'mark' | 'block' | 'inline';
     // tslint:disable-next-line:no-any
-    data?: any
+    data?: any;
   }
 ) => // tslint:disable-next-line:no-any
 any;
@@ -67,12 +67,12 @@ export default class Plugin {
    */
   public schema: {
     // tslint:disable-next-line:no-any
-    document?: { [key: string]: any }
+    document?: { [key: string]: any };
     // tslint:disable-next-line:no-any
-    blocks?: { [key: string]: any }
+    blocks?: { [key: string]: any };
     // tslint:disable-next-line:no-any
-    inlines?: { [key: string]: any }
-    rules?: []
+    inlines?: { [key: string]: any };
+    rules?: [];
   };
 
   /**
