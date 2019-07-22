@@ -1,4 +1,4 @@
-![aeneasr/ory-editor](./docs/logo.png)
+# React Page (formerly known as ORY editor)
 
 [![Build Status](https://travis-ci.org/ory/editor.svg)](https://travis-ci.org/aeneasr/editor)
 [![Coverage Status](https://coveralls.io/repos/github/ory-am/editor/badge.svg?branch=master)](https://coveralls.io/github/ory/editor?branch=master)
@@ -7,11 +7,11 @@
 [![Follow twitter](https://img.shields.io/badge/follow-twitter-00cc99.svg)](https://twitter.com/_aeneasr)
 [![Follow GitHub](https://img.shields.io/badge/follow-github-00cc99.svg)](https://github.com/arekkas)
 
-The ORY Editor is a smart, extensible and modern editor ("WYSIWYG") for the web written in React. If you are fed up with the limitations of `contenteditable`, you are in the right place.
+ReactPage is a smart, extensible and modern editor ("WYSIWYG") for the web written in React. If you are fed up with the limitations of `contenteditable`, you are in the right place.
 
-<a href="docs/images/quick-example.gif"><img align="left" width="40%" alt="ORY Editor demo" src="docs/images/quick-example.gif"></a>
+<a href="docs/images/quick-example.gif"><img align="left" width="40%" alt="ReactPage demo" src="docs/images/quick-example.gif"></a>
 
-The ORY Editor is used at Germany's largest (~800k uniques per month) E-Learning Website
+ReactPage is used at Germany's largest (~800k uniques per month) E-Learning Website
 [www.serlo.org](http://de.serlo.org) to improve the wiki experience.
 
 Check out the demo at [ory-editor.aeneas.io](https://ory-editor.aeneas.io/)!
@@ -20,7 +20,6 @@ Check out the demo at [ory-editor.aeneas.io](https://ory-editor.aeneas.io/)!
 <br clear="both">
 <br clear="both">
 
-> **IMPORTANT**: This editor is pre-release and backwards compatibility is not guaranteed. It is maintained as a personal project by its author and core-maintainer [Aeneas Rekkas](http://github.com/aeneasr/).
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
@@ -42,7 +41,7 @@ Check out the demo at [ory-editor.aeneas.io](https://ory-editor.aeneas.io/)!
 ## Introduction
 
 I have been part of the [Wikipedia for learning](https://de.serlo.org) for almost a decade now.
-The experience and the lessons learned made me embark on the journey to build the ORY Editor.
+The experience and the lessons learned made me embark on the journey to build ReactPage.
 I wanted to make content editing on the web easy and enrich the Open Source Community with technology that moves
 the needle significantly for how content is created and edited on the web.
 
@@ -67,14 +66,14 @@ With these principles in mind, I went out and implemented the ORY Editor, which 
 
 ## Quickstart
 
-Currently the focus is on optimizing the ORY Editor for usage with React. Versions that do
+Currently the focus is on optimizing ReactPage for usage with React. Versions that do
 not require React in the future may be shipped at some point. **Please check the [ReactJS tutorial](https://ory.gitbooks.io/editor/content/tutorials.html#reactjs-example)!**
 
 ```
-$ npm install --save ory-editor
+$ npm install --save @react-page/react-page
 ```
 
-*Note: The `ory-editor` package is a metapackage. It includes the core, the default ui and some officially supported plugins. Use this package primarily for convenience.*
+*Note: The `@react-page/react-page` package is a metapackage. It includes the core, the default ui and some officially supported plugins. Use this package primarily for convenience.*
 
 ## Documentation
 
@@ -82,7 +81,7 @@ Check out the [user guide on gitbook](https://ory.gitbooks.io/editor/content/).
 
 ## How to run, develop, and contribute
 
-Do you want to run, develop or contribute to the ORY Editor? For that you need [Node](https://nodejs.org) installed on
+Do you want to run, develop or contribute to ReactPage? For that you need [Node](https://nodejs.org) installed on
 your system. Use git to check out this repository as followed.
 
 ```bash
@@ -92,7 +91,7 @@ $ cd editor
 
 ### Install dependencies
 
-The ORY Editor is a [monorepo](https://github.com/babel/babel/blob/master/doc/design/monorepo.md) that you initialize with:
+ReactPage is a [monorepo](https://github.com/babel/babel/blob/master/doc/design/monorepo.md) that you initialize with:
 
 ```bash
 $ npm i
