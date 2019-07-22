@@ -1,15 +1,12 @@
 # React Page (formerly known as ORY editor)
 
-[![Build Status](https://travis-ci.org/ory/editor.svg)](https://travis-ci.org/aeneasr/editor)
+[![Build Status](https://travis-ci.org/react-page/react-page.svg)](https://travis-ci.org/react-page/react-page)
 [![Coverage Status](https://coveralls.io/repos/github/ory-am/editor/badge.svg?branch=master)](https://coveralls.io/github/ory/editor?branch=master)
 [![Docs Guide](https://img.shields.io/badge/docs-guide-blue.svg)](https://ory.gitbooks.io/editor/content/)
 
-[![Follow twitter](https://img.shields.io/badge/follow-twitter-00cc99.svg)](https://twitter.com/_aeneasr)
-[![Follow GitHub](https://img.shields.io/badge/follow-github-00cc99.svg)](https://github.com/arekkas)
+React Page is a smart, extensible and modern editor ("WYSIWYG") for the web written in React. If you are fed up with the limitations of `contenteditable`, you are in the right place.
 
-ReactPage is a smart, extensible and modern editor ("WYSIWYG") for the web written in React. If you are fed up with the limitations of `contenteditable`, you are in the right place.
-
-<a href="docs/images/quick-example.gif"><img align="left" width="40%" alt="ReactPage demo" src="docs/images/quick-example.gif"></a>
+<a href="docs/images/quick-example.gif"><img align="left" width="40%" alt="React Page Demo" src="docs/images/quick-example.gif"></a>
 
 ReactPage is used at Germany's largest (~800k uniques per month) E-Learning Website
 [www.serlo.org](http://de.serlo.org) to improve the wiki experience.
@@ -62,7 +59,7 @@ I concluded that a solution must meet the following principles:
 * Based on reusable React Components, it gives developers, authors and designers new ways of working together and creating better and richer experiences more easily.
 * It works on mobile and touch devices.
 
-With these principles in mind, I went out and implemented the ORY Editor, which you are looking at right now.
+With these principles in mind, I went out and implemented the React Page, which you are looking at right now.
 
 ## Quickstart
 
@@ -85,7 +82,7 @@ Do you want to run, develop or contribute to ReactPage? For that you need [Node]
 your system. Use git to check out this repository as followed.
 
 ```bash
-$ git clone https://github.com/ory/editor.git
+$ git clone https://github.com/react-page/react-page.git
 $ cd editor
 ```
 
@@ -158,8 +155,13 @@ Which builds the library code. If this doesn't help (and you're in vscode), make
 
 ### Other issues
 
-Known issues are tracked in the [issues tab](https://github.com/ory/editor/issues?q=is%3Aopen+is%3Aissue+label%3Abug).
+Known issues are tracked in the [issues tab](https://github.com/react-page/react-page/issues?q=is%3Aissue+is%3Aopen+label%3Abug).
 
 ## Attributions
 
-Thank you [Tebriz](https://github.com/tebriz159) for contributing the logo!
+Formely known as ORY Editor
+
+Original Library created by [@aeneasr](https://github.com/aeneasr) [@ory](https://github.com/ory)
+
+[![Follow twitter](https://img.shields.io/badge/follow-twitter-00cc99.svg)](https://twitter.com/_aeneasr)
+[![Follow GitHub](https://img.shields.io/badge/follow-github-00cc99.svg)](https://github.com/arekkas)
