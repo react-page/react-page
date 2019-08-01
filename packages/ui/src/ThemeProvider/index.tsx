@@ -23,20 +23,16 @@ import * as React from 'react';
 import { JssProvider } from 'react-jss';
 import {
   MuiThemeProvider,
-  createGenerateClassName,
   createMuiTheme,
   Theme
 } from '@material-ui/core/styles';
+import { createGenerateClassName } from '@material-ui/styles';
 import darkTheme from './DarkTheme/index';
 import { ThemeOptions } from '@material-ui/core/styles/createMuiTheme';
 export { darkTheme };
 
 const generateClassName = createGenerateClassName({ productionPrefix: 'ory' });
-export const themeOptions: ThemeOptions = {
-  typography: {
-    useNextVariants: true,
-  },
-};
+export const themeOptions: ThemeOptions = {};
 const theme = createMuiTheme(themeOptions);
 
 export interface ThemeProviderProps {

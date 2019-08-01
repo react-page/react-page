@@ -15,8 +15,8 @@
     "clean": "rimraf \"lib/*\""
   },
   "peerDependencies": {
-    "react": "^16.0.0",
-    "react-dom": "^16.0.0"
+    "react": "^16.8.0",
+    "react-dom": "^16.8.0"
   },
   "dependencies": {
     "classnames": "^2.2.5",
@@ -24,7 +24,7 @@
   },
   "devDependencies": {
     "@react-page/plugins-slate": "0.0.0",
-    "@types/react": "16.7.17",
+    "@types/react": "16.8.0",
     "@types/slate": "^0.33.4",
     "@types/slate-react": "^0.12.1"
   },

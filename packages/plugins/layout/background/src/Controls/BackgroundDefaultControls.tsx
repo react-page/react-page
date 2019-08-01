@@ -14,7 +14,7 @@ import ImageIcon from '@material-ui/icons/Landscape';
 import ColorIcon from '@material-ui/icons/ColorLens';
 import GradientIcon from '@material-ui/icons/Gradient';
 import Typography from '@material-ui/core/Typography';
-import Slider from '@material-ui/lab/Slider';
+import Slider from '@material-ui/core/Slider';
 
 export interface BackgroundDefaultControlsState {
   mode: ModeEnum;
@@ -121,7 +121,7 @@ class BackgroundDefaultControls extends React.Component<
                     aria-labelledby="linear-gradient-darken-label"
                     value={darkenFinal}
                     onChange={(e, value) =>
-                      this.props.handleChangeDarkenPreview(value)
+                      this.props.handleChangeDarkenPreview(value instanceof Array ? value[0] : value)
                     }
                     onDragEnd={this.props.handleChangeDarken}
                     step={0.01}
@@ -141,7 +141,7 @@ class BackgroundDefaultControls extends React.Component<
                     aria-labelledby="linear-gradient-lighten-label"
                     value={lightenFinal}
                     onChange={(e, value) =>
-                      this.props.handleChangeLightenPreview(value)
+                      this.props.handleChangeLightenPreview(value instanceof Array ? value[0] : value)
                     }
                     onDragEnd={this.props.handleChangeLighten}
                     step={0.01}
