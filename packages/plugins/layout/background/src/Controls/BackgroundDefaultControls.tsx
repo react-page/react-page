@@ -14,7 +14,7 @@ import ImageIcon from '@material-ui/icons/Landscape';
 import ColorIcon from '@material-ui/icons/ColorLens';
 import GradientIcon from '@material-ui/icons/Gradient';
 import Typography from '@material-ui/core/Typography';
-import Slider from '@material-ui/lab/Slider';
+import Slider from '@material-ui/core/Slider';
 
 export interface BackgroundDefaultControlsState {
   mode: ModeEnum;
