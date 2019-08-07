@@ -30,29 +30,23 @@ import { defaultVideoState } from '../default/state';
 
 const Form: React.SFC<VideoControlsProps> = props => {
   const {
-    Renderer,
     focused,
     changeSrcPreview,
     commitSrc,
-    readOnly,
+
     state: { src } = defaultVideoState,
   } = props;
   return (
-    <div>
-      <Renderer {...props} />
-      {!readOnly && (
-        <BottomToolbar open={focused} theme={darkTheme}>
-          <TextField
-            placeholder={props.translations.placeholder}
-            label={props.translations.label}
-            style={{ width: '512px' }}
-            value={src}
-            onChange={e => changeSrcPreview(e.target.value)}
-            onBlur={commitSrc}
-          />
-        </BottomToolbar>
-      )}
-    </div>
+    <BottomToolbar open={focused} theme={darkTheme}>
+      <TextField
+        placeholder={props.translations.placeholder}
+        label={props.translations.label}
+        style={{ width: '512px' }}
+        value={src}
+        onChange={e => changeSrcPreview(e.target.value)}
+        onBlur={commitSrc}
+      />
+    </BottomToolbar>
   );
 };
 

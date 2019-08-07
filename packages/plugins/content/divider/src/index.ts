@@ -22,11 +22,10 @@
 
 import createPlugin from './createPlugin';
 import DividerHtmlRenderer from './Renderer/DividerHtmlRenderer';
-import DividerDefaultControls from './Controls/DividerDefaultControls';
 
 const plugin = createPlugin({
   Renderer: DividerHtmlRenderer,
-  Controls: DividerDefaultControls,
+  Controls: () => null,
 });
 
 export default plugin;
