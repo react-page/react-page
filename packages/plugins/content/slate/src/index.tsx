@@ -21,20 +21,20 @@
  */
 
 import Subject from '@material-ui/icons/Subject';
-import { compose, flatten, map, prop } from 'ramda';
 
 import * as React from 'react';
+
 import Component from './Component';
-import StaticComponent from './StaticComponent';
+import Renderer from './Renderer';
+
 import Plugin from './plugins/Plugin';
 import * as hooks from './hooks';
 
 import v002 from './migrations/v002';
 
-import { PluginButtonProps, PluginGetComponent } from './plugins/Plugin';
+import { PluginGetComponent } from './plugins/Plugin';
 import { ContentPluginConfig } from '@react-page/core/lib/service/plugin/classes';
 import { SlateState } from './types/state';
-import { SlateProps } from './types/component';
 import { SlateSettings } from './types/settings';
 import { pathOr } from 'ramda/src/pathOr';
 import { ActionTypes } from 'redux-undo';
@@ -43,74 +43,47 @@ import { defaultSettings, defaultTranslations } from './default/settings';
 import defaultPlugins from './plugins/defaultPlugins';
 import * as slatePlugins from './plugins/index';
 import serialization from './serialization';
-
-const createPlugins = compose(
-  flatten,
-  map(prop('plugins'))
-);
+import { SlateProps } from './types/component';
+import { lazyLoad } from '@react-page/core';
+import createInitialState from './serialization/createInitialState';
 
 export { defaultPlugins, slatePlugins };
 
 export { PluginGetComponent as SlatePluginGetComponent };
+
+const Controls = lazyLoad(() => import('./Controls/'));
 
 export default (
   plugins: Plugin[] = defaultPlugins,
   translations = defaultTranslations
 ): ContentPluginConfig<SlateState> => {
   let settings: SlateSettings = {};
-  settings.plugins = (plugins ? plugins : []).concat(createPlugins(plugins));
+  const basePlugins = plugins ? plugins : [];
+  // plugins can have child plugins, let's merge them
+  settings.plugins = basePlugins.concat(
+    basePlugins.reduce((acc, plugin) => {
+      if (plugin.plugins) {
+        return [...acc, ...plugin.plugins];
+      }
+      return acc;
+    }, [])
+  );
 
   const serializeFunctions = serialization({ plugins });
-  const HoverButtons = ({ editorState, editor }: PluginButtonProps) => (
-    <div>
-      {plugins &&
-        plugins.map(
-          (plugin: Plugin, i: number) =>
-            plugin.hoverButtons &&
-            plugin.hoverButtons.map((Button, j: number) => (
-              <Button
-                translations={translations}
-                key={`${i}-${j}`}
-                editorState={editorState}
-                editor={editor}
-              />
-            ))
-        )}
-    </div>
-  );
 
-  settings.HoverButtons = HoverButtons;
-
-  const ToolbarButtons = ({ editorState, editor }: PluginButtonProps) => (
-    <div>
-      {plugins &&
-        plugins.map(
-          (plugin: Plugin, i: number) =>
-            plugin.toolbarButtons &&
-            plugin.toolbarButtons.map((Button, j: number) => (
-              <Button
-                translations={translations}
-                key={`${i}-${j}`}
-                editorState={editorState}
-                editor={editor}
-              />
-            ))
-        )}
-    </div>
-  );
-  settings.ToolbarButtons = ToolbarButtons;
   const mergedSettings = { ...defaultSettings, ...settings };
-  const Slate: React.SFC<SlateProps> = cellProps => (
-    <Component
-      {...cellProps}
-      {...mergedSettings}
-      serializeFunctions={serializeFunctions}
-    />
-  );
 
   return {
-    Component: Slate,
-    StaticComponent: props => <StaticComponent {...props} plugins={plugins} />,
+    Component: (props: SlateProps) => (
+      <Component
+        Renderer={Renderer}
+        Controls={Controls}
+        serializeFunctions={serializeFunctions}
+        {...props}
+        {...mergedSettings}
+      />
+    ),
+
     name: 'ory/editor/core/content/slate',
     version: '0.0.2',
     IconComponent: <Subject />,
@@ -118,27 +91,6 @@ export default (
     description: mergedSettings.translations.pluginDescription,
 
     allowInlineNeighbours: true,
-
-    /*handleFocus: (_props: SlateProps, source: string) => {
-      if (source === 'onMouseDown') {
-        return;
-      } else if (_props.state.editorState.selection.isFocused) {
-        return;
-      }
-
-      setTimeout(() => {
-        _props.state.editor && _props.state.editor.focus();
-      }, 0);
-    },
-
-    handleBlur: (_props: SlateProps) => {
-      if (!_props.state.editorState.selection.isFocused) {
-        return;
-      }
-      _props.onChange({
-        editorState: _props.state.editor && _props.state.editor.blur().value,
-      });
-    },*/
 
     // tslint:disable-next-line:no-any
     reducer: (state: any, action: AnyAction) => {

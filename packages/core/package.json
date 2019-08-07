@@ -23,6 +23,7 @@
     "react-dom": "^16.0.0"
   },
   "dependencies": {
+    "@loadable/component": "^5.10.2",
     "classnames": "^2.2.5",
     "deep-equal": "^1.0.1",
     "dnd-core": "^2.3.0",

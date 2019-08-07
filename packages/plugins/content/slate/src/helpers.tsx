@@ -20,9 +20,11 @@
  *
  */
 
-import IconButton from '@material-ui/core/IconButton';
 import * as React from 'react';
 import { NodeComponentProps } from './types/props';
+import { lazyLoad } from '@react-page/core';
+
+const IconButton = lazyLoad(() => import('@material-ui/core/IconButton'));
 
 export const makeTagNode = Tag => {
   const NodeComponent: React.SFC<NodeComponentProps> = ({

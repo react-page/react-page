@@ -38,17 +38,22 @@ class HTML5Video extends React.PureComponent<Html5VideoProps, HTML5VideoState> {
   }
 
   render() {
-    const { Controls } = this.props;
+    const { Controls, readOnly, Renderer } = this.props;
     return (
-      <Controls
-        {...this.props}
-        state={{
-          ...this.props.state,
-          url: this.state.url ? this.state.url : this.props.state.url,
-        }}
-        changeUrlPreview={this.changeUrlPreview}
-        commitUrl={this.commitUrl}
-      />
+      <>
+        {!readOnly ? (
+          <Controls
+            {...this.props}
+            state={{
+              ...this.props.state,
+              url: this.state.url ? this.state.url : this.props.state.url,
+            }}
+            changeUrlPreview={this.changeUrlPreview}
+            commitUrl={this.commitUrl}
+          />
+        ) : null}
+        <Renderer {...this.props} />
+      </>
     );
   }
 

@@ -21,11 +21,17 @@
  */
 
 import createPlugin from './createPlugin';
+
+import { lazyLoad } from '@react-page/core';
+
 import ImageHtmlRenderer from './Renderer/ImageHtmlRenderer';
-import ImageDefaultControls from './Controls/ImageDefaultControls';
 import { ContentPluginConfig } from '@react-page/core/lib/service/plugin/classes';
 import { ImageState } from './types/state';
 import { ImageSettings } from './types/settings';
+
+const ImageDefaultControls = lazyLoad(() =>
+  import('./Controls/ImageDefaultControls')
+);
 
 const imagePlugin: (
   settings?: Partial<ImageSettings>

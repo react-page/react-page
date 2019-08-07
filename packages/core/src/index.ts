@@ -34,6 +34,7 @@ import { DragDropContext as dragDropContext } from 'react-dnd';
 import { reducer } from './reducer';
 import { Store, Middleware } from 'redux';
 import { RootState } from './types/state';
+import lazyLoad from './helper/lazyLoad';
 import {
   Plugins,
   ContentPluginConfig,
@@ -174,7 +175,7 @@ class Editor<T extends RootState = RootState> {
   }
 }
 
-export { PluginService, Editable, Editor, reducer };
+export { PluginService, Editable, Editor, reducer, lazyLoad };
 
 export const createEmptyState: () => EditableType = () =>
   ({ id: v4(), cells: [] } as EditableType);

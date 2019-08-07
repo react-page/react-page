@@ -38,17 +38,22 @@ class Video extends React.PureComponent<VideoProps, VideoState> {
   }
 
   render() {
-    const { Controls } = this.props;
+    const { Controls, readOnly, Renderer } = this.props;
     return (
-      <Controls
-        {...this.props}
-        state={{
-          ...this.props.state,
-          src: this.state.src ? this.state.src : this.props.state.src,
-        }}
-        changeSrcPreview={this.changeSrcPreview}
-        commitSrc={this.commitSrc}
-      />
+      <>
+        {!readOnly ? (
+          <Controls
+            {...this.props}
+            state={{
+              ...this.props.state,
+              src: this.state.src ? this.state.src : this.props.state.src,
+            }}
+            changeSrcPreview={this.changeSrcPreview}
+            commitSrc={this.commitSrc}
+          />
+        ) : null}
+        <Renderer {...this.props} />
+      </>
     );
   }
 
@@ -58,9 +63,7 @@ class Video extends React.PureComponent<VideoProps, VideoState> {
 
   private commitSrc() {
     const src = this.state.src;
-    this.setState({ src: undefined }, () =>
-      this.props.onChange({ src })
-    );
+    this.setState({ src: undefined }, () => this.props.onChange({ src }));
   }
 }
 
