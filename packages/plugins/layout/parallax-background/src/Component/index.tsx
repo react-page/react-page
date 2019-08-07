@@ -23,24 +23,29 @@ class ParallaxBackground extends React.Component<
   }
 
   render() {
-    const { Controls } = this.props;
+    const { Controls, readOnly, Renderer } = this.props;
     return (
-      <Controls
-        {...this.props}
-        state={{
-          ...this.props.state,
-          darken: this.state.darken
-            ? this.state.darken
-            : this.props.state.darken,
-          background: this.state.background
-            ? this.state.background
-            : this.props.state.background,
-        }}
-        handleDarkenPreviewChange={this.handleDarkenPreviewChange}
-        commitDarken={this.commitDarken}
-        handleBackgroundPreviewChange={this.handleBackgroundPreviewChange}
-        commitBackground={this.commitBackground}
-      />
+      <>
+        {!readOnly ? (
+          <Controls
+            {...this.props}
+            state={{
+              ...this.props.state,
+              darken: this.state.darken
+                ? this.state.darken
+                : this.props.state.darken,
+              background: this.state.background
+                ? this.state.background
+                : this.props.state.background,
+            }}
+            handleDarkenPreviewChange={this.handleDarkenPreviewChange}
+            commitDarken={this.commitDarken}
+            handleBackgroundPreviewChange={this.handleBackgroundPreviewChange}
+            commitBackground={this.commitBackground}
+          />
+        ) : null}
+        <Renderer {...this.props} />
+      </>
     );
   }
 
