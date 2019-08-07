@@ -46,7 +46,8 @@ export default class BlockquotePlugin extends Plugin {
     },
   };*/
 
-  plugins = [
+  // tslint:disable-next-line:no-any
+  plugins: any = [
     createBlockquotePlugin({
       type: BLOCKQUOTE,
       typeDefault: this.DEFAULT_NODE,
@@ -140,7 +141,9 @@ export default class BlockquotePlugin extends Plugin {
         return (
           <blockquote
             // tslint:disable-next-line:no-any
-            style={{ textAlign: ((props as any).node as Block).data.get('align') }}
+            style={{
+              textAlign: ((props as any).node as Block).data.get('align'),
+            }}
           >
             {props.children}
           </blockquote>
