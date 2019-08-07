@@ -29,10 +29,9 @@ import { Editor, getEventTransfer } from 'slate-react';
 import { BottomToolbar, ThemeProvider } from '@react-page/ui';
 import debounce from 'lodash.debounce';
 
-import { html as serializer } from '../hooks';
-import { SlateProps } from './../types/component';
 import { Value, Editor as CoreEditor } from 'slate';
 import { Cancelable } from 'lodash';
+import { SlateProps } from 'src/types/component';
 
 const theme = createMuiTheme({
   palette: {
@@ -124,8 +123,10 @@ class Slate extends React.Component<SlateProps, SlateState> {
       return next();
     }
 
-    // tslint:disable-next-line:no-any
-    const { document } = serializer.deserialize((transfer as any).html);
+    const { document } = this.props.serializeFunctions.htmlToSlate(
+      // tslint:disable-next-line:no-any
+      (transfer as any).html
+    );
 
     return editor.insertFragment(document);
   }

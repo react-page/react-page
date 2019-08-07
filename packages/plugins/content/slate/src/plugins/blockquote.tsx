@@ -25,16 +25,24 @@ import * as React from 'react';
 import createBlockquotePlugin from '@guestbell/slate-edit-blockquote';
 
 import { ToolbarButton } from '../helpers';
-import Plugin, { PluginButtonProps } from './Plugin';
+import Plugin, { PluginButtonProps, PluginGetComponent } from './Plugin';
 import { Block, Editor } from 'slate';
 import { RenderNodeProps } from 'slate-react';
 import { SlatePluginSettings } from './../types/plugin';
 import { NextType } from '../types/next';
-
+import DEFAULT_NODE from './DEFAULT_NODE';
 export const BLOCKQUOTE = 'BLOCKQUOTE/BLOCKQUOTE';
 
+const ALLOWED_TYPES = [BLOCKQUOTE];
+const DEFAULT_MAPPING = {
+  [BLOCKQUOTE]: 'blockquote',
+};
+
+const defaultGetComponent: PluginGetComponent = ({ type }) =>
+  DEFAULT_MAPPING[type];
+
 export interface BlockquotePluginSettings extends SlatePluginSettings {
-  DEFAULT_NODE: string;
+  DEFAULT_NODE?: string;
 }
 
 export default class BlockquotePlugin extends Plugin {
@@ -54,11 +62,12 @@ export default class BlockquotePlugin extends Plugin {
     }),
   ];
 
-  constructor(props: BlockquotePluginSettings) {
+  constructor(props: BlockquotePluginSettings = {}) {
     super();
 
-    this.DEFAULT_NODE = props.DEFAULT_NODE;
+    this.DEFAULT_NODE = props.DEFAULT_NODE || DEFAULT_NODE;
     this.toolbarButtons = [this.Button];
+    this.getComponent = props.getComponent || defaultGetComponent;
   }
 
   // eslint-disable-next-line react/display-name
@@ -122,35 +131,40 @@ export default class BlockquotePlugin extends Plugin {
     if (object.object !== 'block') {
       return;
     }
-    switch (object.type) {
-      case BLOCKQUOTE:
-        return (
-          <blockquote style={{ textAlign: object.data.get('align') }}>
-            {children}
-          </blockquote>
-        );
-      default:
-        return;
+    if (!ALLOWED_TYPES.includes(object.type)) {
+      return;
+    }
+    const Component = this.getComponent({
+      type: object.type,
+      object: 'block',
+      data: object.data,
+    });
+    if (Component) {
+      return (
+        <Component style={{ textAlign: object.data.get('align') }}>
+          {children}
+        </Component>
+      );
     }
   }
 
   renderNode = (props: RenderNodeProps, editor: Editor, next: NextType) => {
     // tslint:disable-next-line:no-any
-    switch (((props as any).node as Block).type) {
-      case BLOCKQUOTE: {
-        return (
-          <blockquote
-            // tslint:disable-next-line:no-any
-            style={{
-              textAlign: ((props as any).node as Block).data.get('align'),
-            }}
-          >
-            {props.children}
-          </blockquote>
-        );
-      }
-      default:
-        return next();
+
+    if (!ALLOWED_TYPES.includes(props.node.type)) {
+      return next();
+    }
+    const Component = this.getComponent({
+      type: props.node.type,
+      object: 'block',
+      data: props.node.data,
+    });
+    if (Component) {
+      return (
+        <Component style={{ textAlign: props.node.data.get('align') }}>
+          {props.children}
+        </Component>
+      );
     }
   }
 }

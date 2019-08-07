@@ -1,5 +1,5 @@
-import Plugin from '../plugins/Plugin';
-import { PluginButtonProps } from './../plugins/Plugin';
+import Plugin, { PluginButtonProps } from '../plugins/Plugin';
+
 import { Translations } from './translations';
 
 export interface SlateSettings {

@@ -27,18 +27,27 @@ import map from 'ramda/src/map';
 import * as unexpected from 'unexpected';
 import { SlateState } from '../types/state';
 
+import serialization from '../serialization';
+import defaultPlugins from '../plugins/defaultPlugins';
+
+const serializationFunctions = serialization({ plugins: defaultPlugins });
+
 const expect = unexpected.clone();
 
 describe('hooks', () => {
   describe('merge', () => {
     it('does nothing if only one state is passed', () => {
-      const expected = hooks.unserialize({
+      const expected = serializationFunctions.unserialize({
         importFromHtml:
           '<h1>European? British? These ‘Brexit’ Voters Identify as English</h1>',
       });
       const subject = hooks.merge([expected]);
 
-      expect(hooks.serialize(subject), 'to equal', hooks.serialize(expected));
+      expect(
+        serializationFunctions.serialize(subject),
+        'to equal',
+        serializationFunctions.serialize(expected)
+      );
     });
 
     it('merges the states if more than one state is passed', () => {
@@ -48,27 +57,35 @@ describe('hooks', () => {
       ];
 
       const subject = hooks.merge(
-        map(importFromHtml => hooks.unserialize({ importFromHtml }), html)
+        map(
+          importFromHtml =>
+            serializationFunctions.unserialize({ importFromHtml }),
+          html
+        )
       );
 
-      const expected = hooks.unserialize({
+      const expected = serializationFunctions.unserialize({
         importFromHtml: html.join(''),
       });
 
-      expect(hooks.serialize(subject), 'to equal', hooks.serialize(expected));
+      expect(
+        serializationFunctions.serialize(subject),
+        'to equal',
+        serializationFunctions.serialize(expected)
+      );
     });
   });
 
   describe('split', () => {
     it('does nothing if the state contains only one block element', () => {
-      const expected = hooks.unserialize({
+      const expected = serializationFunctions.unserialize({
         importFromHtml:
           '<h1>European? British? These ‘Brexit’ Voters Identify as English</h1>',
       });
       const subject = hooks.split(expected);
 
-      expect(map(hooks.serialize, subject), 'to equal', [
-        hooks.serialize(expected),
+      expect(map(serializationFunctions.serialize, subject), 'to equal', [
+        serializationFunctions.serialize(expected),
       ]);
     });
 
@@ -78,18 +95,20 @@ describe('hooks', () => {
         '<p>Lorem ipsum dolor sit</p>',
       ];
 
-      const editorState = hooks.unserialize({ importFromHtml: html.join('') });
+      const editorState = serializationFunctions.unserialize({
+        importFromHtml: html.join(''),
+      });
 
       const splitStates: SlateState[] = hooks.split(editorState);
 
       expect(
-        hooks.html.serialize(splitStates[0].editorState),
+        serializationFunctions.slateToHtml(splitStates[0].editorState),
         'to equal',
         html[0]
       );
 
       expect(
-        hooks.html.serialize(splitStates[1].editorState),
+        serializationFunctions.slateToHtml(splitStates[1].editorState),
         'to equal',
         html[1]
       );
