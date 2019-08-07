@@ -1,7 +1,9 @@
 import * as React from 'react';
 import { ImageRendererProps } from '../types/renderer';
 import { iconStyle } from './../common/styles';
-import ImageIcon from '@material-ui/icons/Landscape';
+import lazyLoad from '@react-page/core/lib/helpers/lazyLoad';
+
+const ImageIcon = lazyLoad(() => import('@material-ui/icons/Landscape'));
 
 const ImageHtmlRenderer: React.SFC<ImageRendererProps> = props => {
   const { isEditMode, state, imagePreview } = props;
