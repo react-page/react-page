@@ -46,6 +46,7 @@ export default class BlockquotePlugin extends Plugin {
     },
   };*/
 
+  // tslint:disable-next-line:no-any
   plugins: any = [
     createBlockquotePlugin({
       type: BLOCKQUOTE,
