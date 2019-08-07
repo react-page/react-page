@@ -104,11 +104,6 @@ if (
   whyDidYouUpdate(React);
 }
 
-type Props = {
-  // tslint:disable-next-line:no-any
-  style: any
-};
-
 const slatePlugin = slate();
 // Define which plugins we want to use (all of the above)
 const plugins: Plugins = {
