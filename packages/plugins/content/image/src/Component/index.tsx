@@ -35,9 +35,7 @@ class Form extends React.Component<ImageProps, StateType> {
     this.state = {};
   }
 
-  handleChange = (
-    e: React.ChangeEvent<HTMLInputElement>
-  ) => {
+  handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const target = e.target;
     if (target instanceof HTMLInputElement) {
       let change: Partial<ImageState> = {};
@@ -69,15 +67,20 @@ class Form extends React.Component<ImageProps, StateType> {
   }
 
   render() {
-    const { Controls } = this.props;
+    const { Controls, Renderer, readOnly, focused } = this.props;
     return (
-      <Controls
-        {...this.props}
-        imagePreview={this.state.imagePreview}
-        handleImageLoaded={this.handleImageLoaded}
-        handleImageUploaded={this.handleImageUploaded}
-        handleChange={this.handleChange}
-      />
+      <>
+        <Renderer {...this.props} />
+        {!readOnly && focused ? (
+          <Controls
+            {...this.props}
+            imagePreview={this.state.imagePreview}
+            handleImageLoaded={this.handleImageLoaded}
+            handleImageUploaded={this.handleImageUploaded}
+            handleChange={this.handleChange}
+          />
+        ) : null}
+      </>
     );
   }
 }
