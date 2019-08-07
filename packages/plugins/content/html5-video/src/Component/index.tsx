@@ -38,10 +38,10 @@ class HTML5Video extends React.PureComponent<Html5VideoProps, HTML5VideoState> {
   }
 
   render() {
-    const { Controls, readOnly, focused, Renderer } = this.props;
+    const { Controls, readOnly, Renderer } = this.props;
     return (
       <>
-        {!readOnly && focused ? (
+        {!readOnly ? (
           <Controls
             {...this.props}
             state={{

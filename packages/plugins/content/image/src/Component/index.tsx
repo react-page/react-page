@@ -67,11 +67,11 @@ class Form extends React.Component<ImageProps, StateType> {
   }
 
   render() {
-    const { Controls, Renderer, readOnly, focused } = this.props;
+    const { Controls, Renderer, readOnly } = this.props;
     return (
       <>
         <Renderer {...this.props} />
-        {!readOnly && focused ? (
+        {!readOnly ? (
           <Controls
             {...this.props}
             imagePreview={this.state.imagePreview}
