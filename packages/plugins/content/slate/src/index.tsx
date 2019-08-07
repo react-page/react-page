@@ -45,6 +45,7 @@ import * as slatePlugins from './plugins/index';
 import serialization from './serialization';
 import { SlateProps } from './types/component';
 import { lazyLoad } from '@react-page/core';
+import createInitialState from './serialization/createInitialState';
 
 export { defaultPlugins, slatePlugins };
 
@@ -117,8 +118,7 @@ export default (
     handleRemoveHotKey: hooks.handleRemoveHotKey,
     handleFocusPreviousHotKey: hooks.handleFocusPreviousHotKey,
     handleFocusNextHotKey: hooks.handleFocusNextHotKey,
-
-    createInitialState: serializeFunctions.createInitialState,
+    createInitialState: createInitialState,
     serialize: serializeFunctions.serialize,
     unserialize: serializeFunctions.unserialize,
 
