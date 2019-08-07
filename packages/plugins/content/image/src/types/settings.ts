@@ -1,4 +1,4 @@
-import { ImageUploadType } from '@react-page/ui/lib/ImageUpload';
+import { ImageUploadType } from '@react-page/ui/lib/ImageUpload/types';
 import { ImageRendererProps } from './renderer';
 import { ImageControlsProps } from './controls';
 import { Translations } from './translations';

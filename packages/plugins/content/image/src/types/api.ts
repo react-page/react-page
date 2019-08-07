@@ -1,4 +1,7 @@
-import { ImageLoaded, ImageUploaded } from '@react-page/ui/lib/ImageUpload';
+import {
+  ImageLoaded,
+  ImageUploaded
+} from '@react-page/ui/lib/ImageUpload/types';
 
 export interface ImageApi {
   handleImageLoaded: (image: ImageLoaded) => void;

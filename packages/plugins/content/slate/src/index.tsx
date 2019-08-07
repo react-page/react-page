@@ -166,8 +166,7 @@ export default (
     handleRemoveHotKey: hooks.handleRemoveHotKey,
     handleFocusPreviousHotKey: hooks.handleFocusPreviousHotKey,
     handleFocusNextHotKey: hooks.handleFocusNextHotKey,
-
-    createInitialState: serializeFunctions.createInitialState,
+    createInitialState: createInitialState,
     serialize: serializeFunctions.serialize,
     unserialize: serializeFunctions.unserialize,
 

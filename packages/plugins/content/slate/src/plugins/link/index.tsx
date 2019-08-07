@@ -21,22 +21,19 @@
  */
 
 /* eslint-disable no-alert, prefer-reflect, default-case, react/display-name */
-import LinkIcon from '@material-ui/icons/Link';
 import * as React from 'react';
-import TextField from '@material-ui/core/TextField';
-import { ToolbarButton } from '../../helpers';
-import Plugin, { PluginButtonProps, PluginGetComponent } from '../Plugin';
 
-import Dialog from '@material-ui/core/Dialog';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogActions from '@material-ui/core/DialogActions';
-import Button from '@material-ui/core/Button';
-import { Data, Inline, Editor } from 'slate';
-import { ThemeProvider } from '@react-page/ui';
+import Plugin, { PluginGetComponent } from '../Plugin';
+
+import { Data, Editor } from 'slate';
+
 import { RenderNodeProps } from 'slate-react';
 import { NextType } from '../../types/next';
 import { SlatePluginSettings } from '../../types/plugin';
+
+import { lazyLoad } from '@react-page/core';
+
+const LinkButton = lazyLoad(() => import('./LinkButton'));
 
 export const A = 'LINK/LINK';
 
@@ -56,170 +53,6 @@ export interface LinkButtonState {
   title: string;
   hadLinks: boolean;
   wasExpanded: boolean;
-}
-
-class LinkButton extends React.Component<PluginButtonProps, LinkButtonState> {
-  state = {
-    open: false,
-    href: '',
-    title: '',
-    hadLinks: false,
-    wasExpanded: false,
-  };
-
-  input: HTMLDivElement;
-
-  onRef = (component: HTMLDivElement) => {
-    if (!component && true) {
-      return null;
-    }
-
-    const e = component.querySelector('input');
-    if (e) {
-      e.focus();
-    }
-  }
-
-  onClick = e => {
-    const { editorState, editor } = this.props;
-    e.preventDefault();
-
-    const hasLinks = editorState.inlines.some(
-      (inline: Inline) => inline.type === A
-    );
-
-    if (hasLinks) {
-      editor.unwrapInline(A);
-    } else if (editorState.selection.isExpanded) {
-      this.setState({
-        open: true,
-        wasExpanded: editorState.selection.isExpanded,
-        href: '',
-        title: '',
-        hadLinks: hasLinks,
-      });
-    } else {
-      this.setState({
-        open: true,
-        wasExpanded: editorState.selection.isExpanded,
-        href: '',
-        title: '',
-        hadLinks: hasLinks,
-      });
-    }
-  }
-
-  handleClose = () => {
-    this.setState({ open: false });
-    this.props.editor.focus();
-  }
-
-  handleSubmit = () => {
-    this.setState({ open: false });
-
-    if (!this.state.href) {
-      this.handleClose();
-      return;
-    }
-
-    if (this.state.wasExpanded) {
-      this.props.editor
-        .focus()
-        .wrapInline({
-          type: A,
-          data: { href: this.state.href },
-        })
-        .moveToEnd();
-      return;
-    }
-
-    if (!this.state.title) {
-      this.handleClose();
-      return;
-    }
-
-    this.props.editor
-      .insertText(this.state.title)
-      .moveFocusBackward(this.state.title.length)
-      .wrapInline({
-        type: A,
-        data: { href: this.state.href },
-      })
-      .moveToEnd()
-      .focus();
-  }
-
-  onHrefChange = e => {
-    this.setState({ href: e.target.value });
-  }
-
-  onTitleChange = e => {
-    this.setState({ title: e.target.value });
-  }
-
-  render() {
-    const actions = (
-      <React.Fragment>
-        <Button variant="text" color="primary" onClick={this.handleClose}>
-          {this.props.translations.linkPlugin!.cancel}
-        </Button>
-        <Button variant="text" color="primary" onClick={this.handleSubmit}>
-          {this.props.translations.linkPlugin!.ok}
-        </Button>
-      </React.Fragment>
-    );
-    const { editorState } = this.props;
-
-    const hasLinks = editorState.inlines.some(
-      (inline: Inline) => inline.type === A
-    );
-    return (
-      <ThemeProvider>
-        <span>
-          <ToolbarButton
-            onClick={this.onClick}
-            isActive={hasLinks}
-            icon={<LinkIcon />}
-          />
-          <span>
-            <Dialog
-              className="ory-prevent-blur"
-              title={this.props.translations.linkPlugin!.createLink}
-              // modal={false}
-              open={this.state.open}
-            >
-              <DialogTitle id="confirmation-dialog-title">
-                {this.props.translations.linkPlugin!.createLink}
-              </DialogTitle>
-              <DialogContent>
-                {this.state.wasExpanded ? null : (
-                  <div>
-                    <TextField
-                      placeholder={
-                        this.props.translations.linkPlugin!.linkTitlePlaceholder
-                      }
-                      onChange={this.onTitleChange}
-                      value={this.state.title}
-                    />
-                  </div>
-                )}
-                <div ref={this.onRef}>
-                  <TextField
-                    placeholder={
-                      this.props.translations.linkPlugin!.linkHrefPlaceholder
-                    }
-                    onChange={this.onHrefChange}
-                    value={this.state.href}
-                  />
-                </div>
-              </DialogContent>
-              <DialogActions>{actions}</DialogActions>
-            </Dialog>
-          </span>
-        </span>
-      </ThemeProvider>
-    );
-  }
 }
 
 export default class LinkPlugin extends Plugin {
