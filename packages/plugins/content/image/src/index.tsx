@@ -23,7 +23,7 @@
 import createPlugin from './createPlugin';
 import ImageHtmlRenderer from './Renderer/ImageHtmlRenderer';
 
-import lazyLoad from '@react-page/core/lib/helpers/lazyLoad';
+import { lazyLoad } from '@react-page/core';
 import { ContentPluginConfig } from '@react-page/core/lib/service/plugin/classes';
 
 import { ImageState } from './types/state';

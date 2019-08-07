@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { ImageRendererProps } from '../types/renderer';
 import { iconStyle } from './../common/styles';
-import lazyLoad from '@react-page/core/lib/helpers/lazyLoad';
+import { lazyLoad } from '@react-page/core';
 
 const ImageIcon = lazyLoad(() => import('@material-ui/icons/Landscape'));
 
