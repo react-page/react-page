@@ -1,5 +1,5 @@
 import { createMuiTheme } from '@material-ui/core/styles';
-import { themeOptions } from '../index';
+import { themeOptions } from '../themeOptions';
 
 const theme = createMuiTheme({
   ...themeOptions,

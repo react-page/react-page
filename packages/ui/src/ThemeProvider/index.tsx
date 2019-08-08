@@ -28,15 +28,10 @@ import {
   Theme
 } from '@material-ui/core/styles';
 import darkTheme from './DarkTheme/index';
-import { ThemeOptions } from '@material-ui/core/styles/createMuiTheme';
+import { themeOptions } from './themeOptions';
 export { darkTheme };
 
 const generateClassName = createGenerateClassName({ productionPrefix: 'ory' });
-export const themeOptions: ThemeOptions = {
-  typography: {
-    useNextVariants: true,
-  },
-};
 const theme = createMuiTheme(themeOptions);
 
 export interface ThemeProviderProps {
