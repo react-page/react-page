@@ -252,12 +252,12 @@ describe('serialize to html', () => {
           serializationFunctions.slateToHtml(Value.fromJSON(c.i as any))
         ).toEqual(c.o);
       });
-      it(`should deserialize properly: ${c.o}`, () => {
+      it(`should deserialize properly: ${c.o}`, async () => {
         if (c.skip) {
           return;
         }
         expect(
-          Plain.serialize(serializationFunctions.htmlToSlate(c.o))
+          Plain.serialize(await serializationFunctions.htmlToSlate(c.o))
         ).toEqual(
           // tslint:disable-next-line:no-any
           Plain.serialize(Value.fromJSON(c.i as any))

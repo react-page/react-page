@@ -177,7 +177,7 @@ export type PluginProps<
   // tslint:disable-next-line:no-any
   serialize?: (state: StateT) => any;
   // tslint:disable-next-line:no-any
-  unserialize?: (raw: any) => StateT;
+  unserialize?: (raw: any) => Promise<StateT>;
   description?: string;
   handleRemoveHotKey?: (e: Event, props: AbstractCell<string>) => Promise<void>;
   handleFocusNextHotKey?: (
@@ -361,7 +361,7 @@ export class Plugin<T = any, ExtraProps = {}> {
    * @param state the plugin state.
    * @returns the unserialized state.
    */
-  unserialize = (state: Object): Object => state;
+  unserialize = (state: Object): Promise<Object> => Promise.resolve(state);
 
   /**
    * Will be called when the user presses the delete key. When returning a resolving promise,

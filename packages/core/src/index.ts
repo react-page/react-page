@@ -59,8 +59,8 @@ const nativeTypes = (editor: Editor) =>
     ? [NativeTypes.URL, NativeTypes.FILE, NativeTypes.TEXT]
     : [];
 
-const update = (editor: Editor) => (editable: EditableType) => {
-  const state = editor.plugins.unserialize(editable);
+const update = (editor: Editor) => async (editable: EditableType) => {
+  const state = await editor.plugins.unserialize(editable);
   actions(editor.store.dispatch).editable.update({
     ...state,
     config: {

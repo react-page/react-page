@@ -1,6 +1,5 @@
-import Html from 'slate-html-serializer';
 import React from 'react';
-import parse5 from 'parse5';
+
 import { SlateState } from '../types/state';
 import { Value, ValueJSON } from 'slate';
 
@@ -9,8 +8,8 @@ import { PluginProps } from '@react-page/core/lib/service/plugin/classes';
 import createInitialState from './createInitialState';
 
 type AdditionalSlateFunctions = {
-  slateToHtml: (editorState: EditorState) => string;
-  htmlToSlate: (html: string) => EditorState;
+  slateToHtml: (editorState: EditorState) => Promise<string>;
+  htmlToSlate: (html: string) => Promise<EditorState>;
 };
 export type SerializationFunctions = Pick<
   PluginProps<SlateState>,
@@ -47,26 +46,39 @@ export default ({ plugins }): SerializationFunctions => {
       }
     },
   };
+  let htmlSerializer;
+  const getSlateHtmlSerializer = async () => {
+    if (!htmlSerializer) {
+      const {
+        default: SlateHtmlSerializer,
+      } = await import('slate-html-serializer');
+      console.log('loading parse5');
+      const { parseFragment } = await import('parse5');
+      console.log('loading parse5 done');
+      htmlSerializer = new SlateHtmlSerializer({
+        rules: [...plugins, lineBreakSerializer],
+        parseHtml: parseFragment,
+      });
+    }
+    return htmlSerializer;
+  };
 
-  const html = new Html({
-    rules: [...plugins, lineBreakSerializer],
-    parseHtml: parse5.parseFragment,
-  });
+  const htmlToSlate = async (htmlString: string) =>
+    (await getSlateHtmlSerializer()).deserialize(htmlString);
+  const slateToHtml = async (editorState: EditorState) =>
+    (await getSlateHtmlSerializer()).serialize(editorState);
 
-  const htmlToSlate = (htmlString: string) => html.deserialize(htmlString);
-  const slateToHtml = (editorState: EditorState) => html.serialize(editorState);
-
-  const unserialize = ({
+  const unserialize = async ({
     importFromHtml,
     serialized,
     editorState,
   }: // tslint:disable-next-line:no-any
-  SlateState): SlateState => {
+  SlateState): Promise<SlateState> => {
     if (serialized) {
       // tslint:disable-next-line:no-any
       return { editorState: (Value.fromJSON as any)(serialized) };
     } else if (importFromHtml) {
-      return { editorState: htmlToSlate(importFromHtml) };
+      return { editorState: await htmlToSlate(importFromHtml) };
     } else if (editorState) {
       return { editorState };
     }
@@ -81,7 +93,6 @@ export default ({ plugins }): SerializationFunctions => {
     // tslint:disable-next-line:no-any
     serialized: (editorState.toJSON as any)(editorState),
   });
-
   return {
     serialize,
     unserialize,

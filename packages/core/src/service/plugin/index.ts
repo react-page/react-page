@@ -34,7 +34,7 @@ import {
   LayoutPluginConfig,
   PluginConfig,
   PluginsInternal,
-  ContentPluginConfig,
+  ContentPluginConfig
 } from './classes';
 import { ComponetizedCell, EditableType } from '../../types/editable';
 import defaultPlugin from './default';
@@ -69,11 +69,7 @@ export default class PluginService {
   /**
    * Instantiate a new PluginService instance. You can provide your own set of content and layout plugins here.
    */
-  constructor({
-    content = [],
-    layout = [],
-    native,
-  }: Plugins = {} as Plugins) {
+  constructor({ content = [], layout = [], native }: Plugins = {} as Plugins) {
     this.plugins = {
       content: [defaultPlugin, ...content].map(
         // tslint:disable-next-line:no-any
@@ -160,7 +156,9 @@ export default class PluginService {
     name: string,
     version: string
   ): { plugin: LayoutPlugin; pluginWrongVersion?: LayoutPlugin } => {
-    const plugin = this.plugins.layout.find(find(name, version)) as LayoutPlugin;
+    const plugin = this.plugins.layout.find(
+      find(name, version)
+    ) as LayoutPlugin;
     let pluginWrongVersion = undefined;
     if (!plugin) {
       pluginWrongVersion = this.plugins.layout.find(find(name, '*'));
@@ -233,12 +231,16 @@ export default class PluginService {
     return state;
   }
 
-  // tslint:disable-next-line:no-any
-  getNewPluginState = (found: { plugin: Plugin; pluginWrongVersion?: Plugin }, state: any, version: string): {
-    plugin: Plugin,
+  getNewPluginState = async (
+    found: { plugin: Plugin; pluginWrongVersion?: Plugin },
     // tslint:disable-next-line:no-any
-    state: any
-  } => {
+    state: any,
+    version: string
+  ): Promise<{
+    plugin: Plugin;
+    // tslint:disable-next-line:no-any
+    state: any;
+  }> => {
     if (
       !found.pluginWrongVersion ||
       semver.lt(found.pluginWrongVersion.version, version)
@@ -246,7 +248,7 @@ export default class PluginService {
       // Standard case
       return {
         plugin: found.plugin,
-        state: found.plugin.unserialize(state),
+        state: await found.plugin.unserialize(state),
       };
     } else {
       // Attempt to migrate
@@ -258,20 +260,20 @@ export default class PluginService {
       if (found.pluginWrongVersion && migratedState) {
         return {
           plugin: found.pluginWrongVersion,
-          state: found.pluginWrongVersion.unserialize(migratedState),
+          state: await found.pluginWrongVersion.unserialize(migratedState),
         };
       } else {
         // Unable to migrate, fallback to missing plugin
         return {
           plugin: found.plugin,
-          state: found.plugin.unserialize(state),
+          state: await found.plugin.unserialize(state),
         };
       }
     }
   }
 
   // tslint:disable-next-line:no-any
-  unserialize = (state: any): Object => {
+  unserialize = async (state: any): Promise<Object> => {
     const {
       rows = [],
       cells = [],
@@ -294,7 +296,7 @@ export default class PluginService {
 
     if (contentName) {
       const found = this.findContentPlugin(contentName, contentVersion);
-      const newContentState = this.getNewPluginState(
+      const newContentState = await this.getNewPluginState(
         found,
         contentState,
         contentVersion
@@ -304,7 +306,7 @@ export default class PluginService {
 
     if (layoutName) {
       const found = this.findLayoutPlugin(layoutName, layoutVersion);
-      const newLayoutState = this.getNewPluginState(
+      const newLayoutState = await this.getNewPluginState(
         found,
         layoutState,
         layoutVersion
@@ -313,11 +315,11 @@ export default class PluginService {
     }
 
     if ((rows || []).length) {
-      newState.rows = rows.map(this.unserialize);
+      newState.rows = await Promise.all(rows.map(this.unserialize));
     }
 
     if ((cells || []).length) {
-      newState.cells = cells.map(this.unserialize);
+      newState.cells = await Promise.all(cells.map(this.unserialize));
     }
 
     return generateMissingIds(newState);

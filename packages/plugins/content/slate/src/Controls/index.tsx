@@ -175,12 +175,15 @@ class Slate extends React.Component<SlateProps, SlateState> {
       return next();
     }
 
-    const { document } = this.props.serializeFunctions.htmlToSlate(
-      // tslint:disable-next-line:no-any
-      (transfer as any).html
-    );
-
-    return editor.insertFragment(document);
+    this.props.serializeFunctions
+      .htmlToSlate(
+        // tslint:disable-next-line:no-any
+        (transfer as any).html
+      )
+      .then(({ document }) => {
+        editor.insertFragment(document);
+      });
+    return true;
   }
 
   onKeyDown = (
