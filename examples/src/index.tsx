@@ -73,7 +73,7 @@ import { HTMLRenderer } from '@react-page/renderer';
 // The content state
 import content from './content';
 import './styles.css';
-import { ImageUploadType } from '@react-page/ui/lib/ImageUpload';
+import { ImageUploadType } from '@react-page/ui/lib/ImageUpload/types';
 import { Plugins } from '@react-page/core/lib/service/plugin/classes';
 
 const fakeImageUploadService: (url: string) => ImageUploadType = defaultUrl => (
