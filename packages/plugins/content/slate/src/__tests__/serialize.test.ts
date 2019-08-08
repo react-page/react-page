@@ -246,10 +246,10 @@ describe('serialize to html', () => {
     },
   ].forEach((c, k) => {
     describe(`test case ${k}`, () => {
-      it('should serialize properly', () => {
+      it('should serialize properly', async () => {
         expect(
           // tslint:disable-next-line:no-any
-          serializationFunctions.slateToHtml(Value.fromJSON(c.i as any))
+          await serializationFunctions.slateToHtml(Value.fromJSON(c.i as any))
         ).toEqual(c.o);
       });
       it(`should deserialize properly: ${c.o}`, async () => {

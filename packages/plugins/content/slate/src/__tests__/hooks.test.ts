@@ -36,8 +36,8 @@ const expect = unexpected.clone();
 
 describe('hooks', () => {
   describe('merge', () => {
-    it('does nothing if only one state is passed', () => {
-      const expected = serializationFunctions.unserialize({
+    it('does nothing if only one state is passed', async () => {
+      const expected = await serializationFunctions.unserialize({
         importFromHtml:
           '<h1>European? British? These ‘Brexit’ Voters Identify as English</h1>',
       });
@@ -50,21 +50,23 @@ describe('hooks', () => {
       );
     });
 
-    it('merges the states if more than one state is passed', () => {
+    it('merges the states if more than one state is passed', async () => {
       const html = [
         '<h1>European? British? These ‘Brexit’ Voters Identify as English</h1>',
         '<p>Lorem ipsum dolor sit</p>',
       ];
 
       const subject = hooks.merge(
-        map(
-          importFromHtml =>
-            serializationFunctions.unserialize({ importFromHtml }),
-          html
+        await Promise.all(
+          map(
+            importFromHtml =>
+              serializationFunctions.unserialize({ importFromHtml }),
+            html
+          )
         )
       );
 
-      const expected = serializationFunctions.unserialize({
+      const expected = await serializationFunctions.unserialize({
         importFromHtml: html.join(''),
       });
 
@@ -77,8 +79,8 @@ describe('hooks', () => {
   });
 
   describe('split', () => {
-    it('does nothing if the state contains only one block element', () => {
-      const expected = serializationFunctions.unserialize({
+    it('does nothing if the state contains only one block element', async () => {
+      const expected = await serializationFunctions.unserialize({
         importFromHtml:
           '<h1>European? British? These ‘Brexit’ Voters Identify as English</h1>',
       });
@@ -89,26 +91,26 @@ describe('hooks', () => {
       ]);
     });
 
-    it('splits the state if it contains more than one block element', () => {
+    it('splits the state if it contains more than one block element', async () => {
       const html = [
         '<h1>European? British? These ‘Brexit’ Voters Identify as English</h1>',
         '<p>Lorem ipsum dolor sit</p>',
       ];
 
-      const editorState = serializationFunctions.unserialize({
+      const editorState = await serializationFunctions.unserialize({
         importFromHtml: html.join(''),
       });
 
       const splitStates: SlateState[] = hooks.split(editorState);
 
       expect(
-        serializationFunctions.slateToHtml(splitStates[0].editorState),
+        await serializationFunctions.slateToHtml(splitStates[0].editorState),
         'to equal',
         html[0]
       );
 
       expect(
-        serializationFunctions.slateToHtml(splitStates[1].editorState),
+        await serializationFunctions.slateToHtml(splitStates[1].editorState),
         'to equal',
         html[1]
       );
