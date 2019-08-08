@@ -26,8 +26,8 @@
   "devDependencies": {
     "@react-page/plugins-slate": "0.0.0",
     "@types/react": "16.7.17",
-    "@types/slate": "^0.33.4",
-    "@types/slate-react": "^0.12.1"
+    "@types/slate": "^0.44.9",
+    "@types/slate-react": "^0.21.0"
   },
   "publishConfig": {
     "access": "public"
