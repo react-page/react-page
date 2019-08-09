@@ -150,6 +150,7 @@ export default class BlockquotePlugin extends Plugin {
 
   renderNode = (props: RenderNodeProps, editor: Editor, next: NextType) => {
     // tslint:disable-next-line:no-any
+<<<<<<< HEAD
 
     if (!ALLOWED_TYPES.includes(props.node.type)) {
       return next();
@@ -165,6 +166,23 @@ export default class BlockquotePlugin extends Plugin {
           {props.children}
         </Component>
       );
+=======
+    switch (((props as any).node as Block).type) {
+      case BLOCKQUOTE: {
+        return (
+          <blockquote
+            style={{
+              // tslint:disable-next-line:no-any
+              textAlign: ((props as any).node as Block).data.get('align'),
+            }}
+          >
+            {props.children}
+          </blockquote>
+        );
+      }
+      default:
+        return next();
+>>>>>>> esnext
     }
   }
 }
