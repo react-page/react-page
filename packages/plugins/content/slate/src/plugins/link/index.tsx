@@ -79,11 +79,7 @@ export default class LinkPlugin extends Plugin {
           type: A,
           nodes: next(el.childNodes),
           data: Data.create({
-            href: (
-              el.attrs.find(({ name }) => name === 'href') || {
-                value: '',
-              }
-            ).value,
+            href: el.getAttribute('href') || '',
           }),
         };
       default:

@@ -1,12 +1,13 @@
 import Html from 'slate-html-serializer';
-import React from 'react';
-import parse5 from 'parse5';
+
 import { SlateState } from '../types/state';
 import { Value, ValueJSON } from 'slate';
 
 import { EditorState } from '@react-page/core/lib/types/editor';
 import { PluginProps } from '@react-page/core/lib/service/plugin/classes';
 import createInitialState from './createInitialState';
+
+const parseHtml = require('jsdom').fragment; // we exclude that on browsers through package.json's browser field
 
 type AdditionalSlateFunctions = {
   slateToHtml: (editorState: EditorState) => string;
@@ -18,39 +19,12 @@ export type SerializationFunctions = Pick<
 > &
   AdditionalSlateFunctions;
 export default ({ plugins }): SerializationFunctions => {
-  const lineBreakSerializer = {
-    // tslint:disable-next-line:no-any
-    deserialize(el: any) {
-      if (el.tagName.toLowerCase() === 'br') {
-        return { object: 'text', text: '\n' };
-      }
-      if (el.nodeName === '#text') {
-        if (el.value && el.value.match(/<!--.*?-->/)) {
-          return;
-        }
-
-        return {
-          object: 'text',
-          leaves: [
-            {
-              object: 'leaf',
-              text: el.value,
-            },
-          ],
-        };
-      }
-    },
-    // tslint:disable-next-line:no-any
-    serialize(object: any, children: string) {
-      if (object.type === 'text' || children === '\n') {
-        return <br />;
-      }
-    },
-  };
+  // tslint:disable-next-line:no-any
 
   const html = new Html({
-    rules: [...plugins, lineBreakSerializer],
-    parseHtml: parse5.parseFragment,
+    rules: plugins,
+    // tslint:disable-next-line:no-any
+    parseHtml,
   });
 
   const htmlToSlate = (htmlString: string) => html.deserialize(htmlString);
