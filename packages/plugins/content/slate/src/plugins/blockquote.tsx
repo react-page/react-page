@@ -140,8 +140,8 @@ export default class BlockquotePlugin extends Plugin {
       case BLOCKQUOTE: {
         return (
           <blockquote
-            // tslint:disable-next-line:no-any
             style={{
+              // tslint:disable-next-line:no-any
               textAlign: ((props as any).node as Block).data.get('align'),
             }}
           >
