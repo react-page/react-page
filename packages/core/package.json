@@ -49,6 +49,7 @@
   },
   "devDependencies": {
     "@types/jest": "^23.3.10",
+    "@types/loadable__component": "^5.10.0",
     "@types/uuid": "^3.4.4"
   }
 }
