@@ -60,6 +60,9 @@
     },
     {
       "path": "../packages/plugins/layout/parallax-background"
+    },
+    {
+      "path": "../packages/plugins/createPluginMaterialUi"
     }
   ]
 }

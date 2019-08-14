@@ -69,7 +69,8 @@ import divider from '@react-page/plugins-divider';
 
 // Renders json state to html, can be used on server and client side
 import { HTMLRenderer } from '@react-page/renderer';
-
+import customContentPlugin from './customContentPlugin';
+import customLayoutPlugin from './customLayoutPlugin';
 // The content state
 import content from './content';
 import './styles.css';
@@ -114,6 +115,7 @@ const plugins: Plugins = {
     video,
     divider,
     html5video,
+    customContentPlugin(),
   ],
   layout: [
     background({
@@ -125,6 +127,7 @@ const plugins: Plugins = {
         ModeEnum.GRADIENT_MODE_FLAG,
     }),
     parallax({ defaultPlugin: slatePlugin }),
+    customLayoutPlugin({ defaultPlugin: slatePlugin }),
   ],
 
   // If you pass the native key the editor will be able to handle native drag and drop events (such as links, text, etc).
