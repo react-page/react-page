@@ -12,6 +12,7 @@
     "@react-page/plugins-html5-video": "0.0.0",
     "@react-page/plugins-image": "0.0.0",
     "@react-page/plugins-parallax-background": "0.0.0",
+    "@react-page/create-plugin-materialui": "0.0.0",
     "@react-page/plugins-slate": "0.0.0",
     "@react-page/plugins-spacer": "0.0.0",
     "@react-page/plugins-video": "0.0.0",
@@ -21,10 +22,12 @@
     "react-dom": "^16.6.3",
     "react-jss": "8.6.1",
     "react-scripts": "2.1.1",
-    "source-map-explorer": "^2.0.1"
+    "source-map-explorer": "^2.0.1",
+    "uuid": "^3.0.1"
   },
   "devDependencies": {
-    "why-did-you-update": "0.0.8"
+    "why-did-you-update": "0.0.8",
+    "@types/uuid": "^3.4.4"
   },
   "scripts": {
     "start": "react-scripts start",
