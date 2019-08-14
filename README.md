@@ -17,7 +17,6 @@ Check out the demo at [ory-editor.aeneas.io](https://ory-editor.aeneas.io/)!
 <br clear="both">
 <br clear="both">
 
-
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
@@ -46,18 +45,18 @@ the needle significantly for how content is created and edited on the web.
 
 I had to realize that existing open source content editing solutions had one of the three flaws:
 
-* The produced markup was horrific, a lot of sanitation had to take place and XSS is always a threat.
-* The author must learn special mark up, like markdown, before being able to produce content. These text-based solutions are usually unable to specify a layout and complex data structures like tables are annoying to edit.
-* Editors based on contenteditable are unable to work with layouts (e.g. flexbox or floating grids).
+- The produced markup was horrific, a lot of sanitation had to take place and XSS is always a threat.
+- The author must learn special mark up, like markdown, before being able to produce content. These text-based solutions are usually unable to specify a layout and complex data structures like tables are annoying to edit.
+- Editors based on contenteditable are unable to work with layouts (e.g. flexbox or floating grids).
 
 ### So what's different?
 
 I concluded that a solution must meet the following principles:
 
-* The state is a normalized JSON object, no HTML involved.
-* It is a visual editor that does not require programming experience or special training.
-* Based on reusable React Components, it gives developers, authors and designers new ways of working together and creating better and richer experiences more easily.
-* It works on mobile and touch devices.
+- The state is a normalized JSON object, no HTML involved.
+- It is a visual editor that does not require programming experience or special training.
+- Based on reusable React Components, it gives developers, authors and designers new ways of working together and creating better and richer experiences more easily.
+- It works on mobile and touch devices.
 
 With these principles in mind, I went out and implemented the React Page, which you are looking at right now.
 
@@ -67,10 +66,14 @@ Currently the focus is on optimizing ReactPage for usage with React. Versions th
 not require React in the future may be shipped at some point. **Please check the [ReactJS tutorial](https://ory.gitbooks.io/editor/content/tutorials.html#reactjs-example)!**
 
 ```
+$ yarn add @react-page/react-page
+
+or with npm:
+
 $ npm install --save @react-page/react-page
 ```
 
-*Note: The `@react-page/react-page` package is a metapackage. It includes the core, the default ui and some officially supported plugins. Use this package primarily for convenience.*
+_Note: The `@react-page/react-page` package is a metapackage. It includes the core, the default ui and some officially supported plugins. Use this package primarily for convenience._
 
 ## Documentation
 
@@ -91,16 +94,11 @@ $ cd editor
 ReactPage is a [monorepo](https://github.com/babel/babel/blob/master/doc/design/monorepo.md) that you initialize with:
 
 ```bash
-$ npm i
-$ npm run bootstrap
-```
-
-You can also use [yarn](https://yarnpkg.com/lang/en/).
-
-```bash
 $ yarn
 $ yarn bootstrap
 ```
+
+we use [yarn](https://yarnpkg.com/lang/en/), but npm should work as well.
 
 ### Run the example(s)
 
@@ -108,7 +106,7 @@ Here are some [examples](examples/) that are a good starting point if you want t
 To run the examples, use one of the following commands:
 
 ```
-$ npm run start
+$ yarn start
 ```
 
 ### Run the toolchain
@@ -145,12 +143,15 @@ IDE: vscode
 Vscode extensions: prettier, tslint, code spell checker, beautify css/sass/scss/less
 
 ## Known issues
+
 ### Types resolution error
 
-In case you change a lot of files, especially in core or UI, you might end up seeing old versions of these files when working on plugins. To fix this, run 
+In case you change a lot of files, especially in core or UI, you might end up seeing old versions of these files when working on plugins. To fix this, run
+
 ```
-$ npm run build:lib
+$ yarn run build:lib
 ```
+
 Which builds the library code. If this doesn't help (and you're in vscode), make sure to reload window (CTRL+SHIFT+P -> Reload Window). That forces vscode to reinitialize typescript declaration files.
 
 ### Other issues
