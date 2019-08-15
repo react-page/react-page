@@ -30,9 +30,14 @@ import { BottomToolbar, ThemeProvider } from '@react-page/ui';
 import debounce from 'lodash.debounce';
 
 import { Value, Editor as CoreEditor } from 'slate';
-import { Cancelable } from 'lodash';
+
 import { SlateProps } from 'src/types/component';
 import Plugin, { PluginButtonProps } from 'src/plugins/Plugin';
+
+interface Cancelable {
+  cancel(): void;
+  flush(): void;
+}
 
 const theme = createMuiTheme({
   palette: {
