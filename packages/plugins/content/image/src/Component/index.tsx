@@ -71,19 +71,17 @@ class Form extends React.Component<ImageProps, StateType> {
 
   render() {
     const { Controls, Renderer, readOnly } = this.props;
-    return (
-      <>
-        <Renderer {...this.props} />
-        {!readOnly ? (
-          <Controls
-            {...this.props}
-            imagePreview={this.state.imagePreview}
-            handleImageLoaded={this.handleImageLoaded}
-            handleImageUploaded={this.handleImageUploaded}
-            handleChange={this.handleChange}
-          />
-        ) : null}
-      </>
+    // only render either controls or renderer, because controls also include renderer
+    return !readOnly ? (
+      <Controls
+        {...this.props}
+        imagePreview={this.state.imagePreview}
+        handleImageLoaded={this.handleImageLoaded}
+        handleImageUploaded={this.handleImageUploaded}
+        handleChange={this.handleChange}
+      />
+    ) : (
+      <Renderer {...this.props} />
     );
   }
 }
