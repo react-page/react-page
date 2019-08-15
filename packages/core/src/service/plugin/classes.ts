@@ -113,8 +113,7 @@ export type ContentPluginExtraProps<T = any> = {
 export type ContentPluginProps<
   // tslint:disable-next-line:no-any
   T = any
-> = ContentPluginExtraProps &
-  PluginProps<T, ContentPluginExtraProps<T>>;
+> = ContentPluginExtraProps & PluginProps<T, ContentPluginExtraProps<T>>;
 
 // tslint:disable-next-line:no-any
 export type LayoutPluginExtraProps<T = any> = {
@@ -127,8 +126,7 @@ export type LayoutPluginExtraProps<T = any> = {
 export type LayoutPluginProps<
   // tslint:disable-next-line:no-any
   T = any
-> = LayoutPluginExtraProps &
-  PluginProps<T, LayoutPluginExtraProps<T>>;
+> = LayoutPluginExtraProps & PluginProps<T, LayoutPluginExtraProps<T>>;
 
 // tslint:disable-next-line:no-any
 export type PluginComponentType<T = any> = React.ComponentType<T>;
@@ -176,18 +174,12 @@ export type PluginProps<
 
   text?: string;
 
-  StaticComponent?: PluginComponentType<
-    PluginProps<StateT, ExtraPropsT> & ExtraPropsT
-  >;
   // tslint:disable-next-line:no-any
   serialize?: (state: StateT) => any;
   // tslint:disable-next-line:no-any
   unserialize?: (raw: any) => StateT;
   description?: string;
-  handleRemoveHotKey?: (
-    e: Event,
-    props: AbstractCell<string>
-  ) => Promise<void>;
+  handleRemoveHotKey?: (e: Event, props: AbstractCell<string>) => Promise<void>;
   handleFocusNextHotKey?: (
     e: Event,
     props: AbstractCell<string>
@@ -201,9 +193,7 @@ export type PluginProps<
     focusSource: string,
     ref: HTMLElement
   ) => void;
-  handleBlur?: (
-    props: PluginProps<StateT, ExtraPropsT> & ExtraPropsT
-  ) => void;
+  handleBlur?: (props: PluginProps<StateT, ExtraPropsT> & ExtraPropsT) => void;
   reducer?: (state: StateT, action: AnyAction) => StateT;
   migrations?: Migration[];
   createInitialState?: () => StateT;
@@ -301,12 +291,6 @@ export class Plugin<T = any, ExtraProps = {}> {
   // Component: Element<*> | Component<*, *, *> | (props: any) => Element<*>
 
   /**
-   * @member the plugin's react component for rendering static content.
-   */
-  // tslint:disable-next-line:no-any
-  StaticComponent: any;
-
-  /**
    * @member the text that will be shown alongside the icon in the toolbar.
    */
   text: string;
@@ -318,7 +302,6 @@ export class Plugin<T = any, ExtraProps = {}> {
       Component,
       IconComponent,
       text,
-      StaticComponent,
       serialize,
       unserialize,
       description,
@@ -342,7 +325,6 @@ export class Plugin<T = any, ExtraProps = {}> {
     this.name = name;
     this.version = version;
     this.Component = Component;
-    this.StaticComponent = StaticComponent;
     this.IconComponent = IconComponent;
     this.text = text;
     this.description = description;
@@ -464,9 +446,7 @@ export class ContentPlugin<StateT = any> extends Plugin<
    */
   allowInlineNeighbours: boolean;
   // tslint:disable-next-line:no-any
-  constructor(
-    config: ContentPluginConfig<StateT>
-  ) {
+  constructor(config: ContentPluginConfig<StateT>) {
     super(config);
     const {
       createInitialState,
@@ -506,9 +486,7 @@ export class LayoutPlugin<StateT = any> extends Plugin<
   StateT,
   LayoutPluginExtraProps
 > {
-  constructor(
-    config: LayoutPluginConfig<StateT>
-  ) {
+  constructor(config: LayoutPluginConfig<StateT>) {
     super(config);
     const { createInitialState, createInitialChildren } = config;
 

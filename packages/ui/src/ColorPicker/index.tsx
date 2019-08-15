@@ -2,21 +2,9 @@ import * as React from 'react';
 import Button from '@material-ui/core/Button';
 import Popover from '@material-ui/core/Popover';
 import ColorizeIcon from '@material-ui/icons/Colorize';
-import { ChromePicker, ColorChangeHandler, RGBColor } from 'react-color';
-
-export interface ColorPickerProps {
-  onChange: (color: RGBColor) => void;
-  onChangeComplete: (color: RGBColor) => void;
-  color: RGBColor;
-  buttonContent: JSX.Element | string;
-  icon: JSX.Element | string;
-  onDialogOpen: () => void;
-  style?: React.CSSProperties;
-}
-
-type ColorPickerState = {
-  isColorPickerVisible: boolean;
-};
+import { ChromePicker, ColorChangeHandler } from 'react-color';
+import { ColorPickerProps, ColorPickerState } from './types';
+import { colorToString } from './colorToString';
 
 class ColorPicker extends React.Component<ColorPickerProps> {
   static defaultProps: Partial<ColorPickerProps> = {
@@ -89,10 +77,5 @@ class ColorPicker extends React.Component<ColorPickerProps> {
     );
   }
 }
-
-export { RGBColor };
-
-export const colorToString = (c: RGBColor) =>
-  c && 'rgba(' + c.r + ', ' + c.g + ', ' + c.b + ', ' + c.a + ')';
 
 export default ColorPicker;

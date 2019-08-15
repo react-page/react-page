@@ -21,8 +21,13 @@
  */
 
 import createPlugin from './createPlugin';
+import { lazyLoad } from '@react-page/core';
+
 import Html5VideoHtmlRenderer from './Renderer/Html5VideoHtmlRenderer';
-import Html5VideoDefaultControls from './Controls/Html5VideoDefaultControls';
+
+const Html5VideoDefaultControls = lazyLoad(() =>
+  import('./Controls/Html5VideoDefaultControls')
+);
 
 const plugin = createPlugin({
   Renderer: Html5VideoHtmlRenderer,

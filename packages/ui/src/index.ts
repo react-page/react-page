@@ -25,7 +25,8 @@ import DisplayModeToggle from './DisplayModeToggle/index';
 import BottomToolbar from './BottomToolbar/index';
 import ThemeProvider from './ThemeProvider/index';
 import ImageUpload from './ImageUpload/index';
-import ColorPicker, { colorToString } from './ColorPicker/index';
+import ColorPicker from './ColorPicker/index';
+import { colorToString } from './ColorPicker/colorToString';
 
 export {
   Trash,

@@ -3,13 +3,15 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@material-ui/core": "3.6.1",
+    "@material-ui/icons": "3.0.1",
     "@react-page/core": "0.0.0",
+    "@react-page/plugins-background": "0.0.0",
     "@react-page/plugins-default-native": "0.0.0",
     "@react-page/plugins-divider": "0.0.0",
     "@react-page/plugins-html5-video": "0.0.0",
     "@react-page/plugins-image": "0.0.0",
     "@react-page/plugins-parallax-background": "0.0.0",
-    "@react-page/plugins-background": "0.0.0",
     "@react-page/plugins-slate": "0.0.0",
     "@react-page/plugins-spacer": "0.0.0",
     "@react-page/plugins-video": "0.0.0",
@@ -17,17 +19,17 @@
     "@react-page/ui": "0.0.0",
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
-    "@material-ui/core": "3.6.1",
-    "@material-ui/icons": "3.0.1",
+    "react-jss": "8.6.1",
     "react-scripts": "2.1.1",
-    "react-jss": "8.6.1"
+    "source-map-explorer": "^2.0.1"
   },
   "devDependencies": {
     "why-did-you-update": "0.0.8"
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build"
+    "build": "react-scripts build",
+    "analyze": "source-map-explorer 'build/static/js/*.js'"
   },
   "browserslist": [
     ">0.2%",

@@ -4,7 +4,10 @@ import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import { ImageUpload } from '@react-page/ui';
 import Typography from '@material-ui/core/Typography';
-import { ImageLoaded, ImageUploaded } from '@react-page/ui/lib/ImageUpload';
+import {
+  ImageLoaded,
+  ImageUploaded
+} from '@react-page/ui/lib/ImageUpload/types';
 import { BackgroundProps } from '../../types/component';
 
 export interface ImageComponentProps {
@@ -14,7 +17,7 @@ export interface ImageComponentProps {
 }
 
 class ImageComponent extends React.Component<
-BackgroundProps & ImageComponentProps
+  BackgroundProps & ImageComponentProps
 > {
   handleChangeBackground = (e: React.ChangeEvent<HTMLInputElement>) => {
     this.props.ensureModeOn();

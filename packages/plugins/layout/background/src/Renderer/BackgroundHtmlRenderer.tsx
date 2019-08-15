@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { BackgroundRendererProps } from '../types/renderer';
 import { ModeEnum } from '../types/modeEnum';
-import { colorToString } from '@react-page/ui/lib/ColorPicker';
+import { colorToString } from '@react-page/ui/lib/ColorPicker/colorToString';
 
 const getStyles = (props: BackgroundRendererProps) => {
   const {
@@ -90,9 +90,7 @@ const getStyles = (props: BackgroundRendererProps) => {
   return styles;
 };
 
-const BackgroundHtmlRenderer: React.SFC<
-  BackgroundRendererProps
-> = props => {
+const BackgroundHtmlRenderer: React.SFC<BackgroundRendererProps> = props => {
   const {
     children,
     state: {

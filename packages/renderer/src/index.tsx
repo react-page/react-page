@@ -24,7 +24,12 @@ import * as React from 'react';
 import classNames from 'classnames';
 import PluginService from '@react-page/core/lib/service/plugin';
 import { editable as reducer } from '@react-page/core/lib/reducer/editable';
-import { Cell, Row, Layout, Content } from '@react-page/core/lib/types/editable';
+import {
+  Cell,
+  Row,
+  Layout,
+  Content
+} from '@react-page/core/lib/types/editable';
 import { Plugins } from '@react-page/core/lib/service/plugin/classes';
 import { EditableType } from '@react-page/core/lib/types/editable';
 
@@ -95,14 +100,13 @@ const HTMLCell: React.SFC<Cell> = props => {
   } else if (content.plugin) {
     const {
       state,
-      plugin: { Component, StaticComponent, name, version },
+      plugin: { Component, name, version },
     } = content;
-    const Renderer = StaticComponent || Component;
 
     return (
       <div className={cn}>
         <div className="ory-cell-inner ory-cell-leaf">
-          <Renderer
+          <Component
             isPreviewMode={true}
             readOnly={true}
             state={state}

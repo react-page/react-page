@@ -21,8 +21,13 @@
  */
 
 import createPlugin from './createPlugin';
+
 import SpacerHtmlRenderer from './Renderer/SpacerHtmlRenderer';
-import SpacerDefaultControls from './Controls/SpacerDefaultControls';
+import { lazyLoad } from '@react-page/core';
+
+const SpacerDefaultControls = lazyLoad(() =>
+  import('./Controls/SpacerDefaultControls')
+);
 
 const plugin = createPlugin({
   Renderer: SpacerHtmlRenderer,

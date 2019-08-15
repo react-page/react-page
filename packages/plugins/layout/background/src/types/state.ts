@@ -1,4 +1,4 @@
-import { RGBColor } from '@react-page/ui/lib/ColorPicker';
+import { RGBColor } from '@react-page/ui/lib/ColorPicker/types';
 import { Gradient } from './gradient';
 import { ModeEnum } from './modeEnum';
 

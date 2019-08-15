@@ -3,34 +3,13 @@ import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import ErrorIcon from '@material-ui/icons/Error';
+import { ImageLoaded, ImageUploadType, ImageUploaded } from './types';
+import { defaultTranslations } from './defaultTranslations';
 
 const NO_FILE_ERROR_CODE = 1;
 const BAD_EXTENSION_ERROR_CODE = 2;
 const TOO_BIG_ERROR_CODE = 3;
 const UPLOADING_ERROR_CODE = 4;
-
-export const defaultTranslations = {
-  buttonContent: 'Upload image',
-  noFileError: 'No file selected',
-  badExtensionError: 'Bad file type',
-  tooBigError: 'Too big',
-  uploadingError: 'Error while uploading',
-  unknownError: 'Unknown error',
-};
-
-export type ImageLoaded = {
-  file: Object;
-  dataUrl: string;
-};
-
-export type ImageUploaded = {
-  url: string;
-};
-
-export type ImageUploadType = (
-  file: File,
-  reportProgress: (progress: number) => void
-) => Promise<ImageUploaded>;
 
 export type ImageUploadProps = {
   imageLoaded?: (image: ImageLoaded) => void;

@@ -1,8 +1,8 @@
 import * as React from 'react';
 
 import { BackgroundProps } from '../types/component';
-import { RGBColor } from '@react-page/ui/lib/ColorPicker';
-import { ImageLoaded } from '@react-page/ui/lib/ImageUpload';
+import { RGBColor } from '@react-page/ui/lib/ColorPicker/types';
+import { ImageLoaded } from '@react-page/ui/lib/ImageUpload/types';
 import { ModeEnum } from '../types/modeEnum';
 import { BackgroundApi } from '../types/api';
 
@@ -20,14 +20,12 @@ export type BackgroundState = {
   imagePreview?: ImageLoaded;
 };
 
-class BackgroundComponent extends React.Component<
-BackgroundProps,
-BackgroundState
-> implements BackgroundApi {
+class BackgroundComponent
+  extends React.Component<BackgroundProps, BackgroundState>
+  implements BackgroundApi {
   constructor(props: BackgroundProps) {
     super(props);
-    this.state = {
-    };
+    this.state = {};
   }
 
   handleChangeDarken = () => {
@@ -92,26 +90,35 @@ BackgroundState
   }
 
   render() {
-    const {
-      Controls,
-    } = this.props;
+    const { Controls, Renderer, readOnly } = this.props;
     return (
-      <Controls 
-        {...this.props}
-        handleChangeDarken={this.handleChangeDarken}
-        handleChangeDarkenPreview={this.handleChangeDarkenPreview}
-        handleChangeLighten={this.handleChangeLighten}
-        handleChangeLightenPreview={this.handleChangeLightenPreview}
-        handleChangeHasPadding={this.handleChangeHasPadding}
-        handleChangeModeSwitch={this.handleChangeModeSwitch}
-        handleChangeBackgroundColorPreview={this.handleChangeBackgroundColorPreview}
-        handleChangeGradientDegPreview={this.handleChangeGradientDegPreview}
-        handleChangeGradientOpacityPreview={this.handleChangeGradientOpacityPreview}
-        handleChangeGradientColorPreview={this.handleChangeGradientColorPreview}
-        handleImageLoaded={this.handleImageLoaded}
-        handleImageUploaded={this.handleImageUploaded}
-        {...this.state}
-      />
+      <>
+        {!readOnly ? (
+          <Controls
+            {...this.props}
+            handleChangeDarken={this.handleChangeDarken}
+            handleChangeDarkenPreview={this.handleChangeDarkenPreview}
+            handleChangeLighten={this.handleChangeLighten}
+            handleChangeLightenPreview={this.handleChangeLightenPreview}
+            handleChangeHasPadding={this.handleChangeHasPadding}
+            handleChangeModeSwitch={this.handleChangeModeSwitch}
+            handleChangeBackgroundColorPreview={
+              this.handleChangeBackgroundColorPreview
+            }
+            handleChangeGradientDegPreview={this.handleChangeGradientDegPreview}
+            handleChangeGradientOpacityPreview={
+              this.handleChangeGradientOpacityPreview
+            }
+            handleChangeGradientColorPreview={
+              this.handleChangeGradientColorPreview
+            }
+            handleImageLoaded={this.handleImageLoaded}
+            handleImageUploaded={this.handleImageUploaded}
+            {...this.state}
+          />
+        ) : null}
+        <Renderer {...this.props} />
+      </>
     );
   }
 }

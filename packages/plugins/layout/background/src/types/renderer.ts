@@ -1,6 +1,6 @@
 import { BackgroundProps } from './component';
-import { RGBColor } from '@react-page/ui/lib/ColorPicker';
-import { ImageLoaded } from '@react-page/ui/lib/ImageUpload';
+import { RGBColor } from '@react-page/ui/lib/ColorPicker/types';
+import { ImageLoaded } from '@react-page/ui/lib/ImageUpload/types';
 
 export interface BackgroundRendererExtraProps {
   backgroundColorPreview?: RGBColor;
@@ -16,4 +16,5 @@ export interface BackgroundRendererExtraProps {
   imagePreview?: ImageLoaded;
 }
 
-export type BackgroundRendererProps = BackgroundProps & BackgroundRendererExtraProps;
+export type BackgroundRendererProps = BackgroundProps &
+  BackgroundRendererExtraProps;

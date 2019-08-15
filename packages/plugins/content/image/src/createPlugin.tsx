@@ -21,7 +21,7 @@
  */
 import * as React from 'react';
 import Component from './Component/index';
-import Panorama from '@material-ui/icons/Panorama';
+
 import {
   ContentPluginProps,
   ContentPluginConfig
@@ -29,11 +29,14 @@ import {
 import { ImageState } from './types/state';
 import { ImageSettings } from './types/settings';
 import { defaultSettings } from './default/settings';
+import { lazyLoad } from '@react-page/core';
+
+const Panorama = lazyLoad(() => import('@material-ui/icons/Panorama'));
 
 const createPlugin = (
   settings?: ImageSettings
 ): ContentPluginConfig<ImageState> => {
-  const mergedSettings = { ...defaultSettings, ...settings  };
+  const mergedSettings = { ...defaultSettings, ...settings };
   return {
     Component: (props: ContentPluginProps<ImageState>) => (
       <Component {...props} {...mergedSettings} />

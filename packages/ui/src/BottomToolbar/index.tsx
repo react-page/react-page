@@ -42,6 +42,9 @@ const BottomToolbar: React.SFC<BottomToolbar> = ({
 }) => (
   <ThemeProvider theme={theme}>
     <Drawer
+      SlideProps={{
+        unmountOnExit: true,
+      }}
       variant="persistent"
       className={className}
       open={open}

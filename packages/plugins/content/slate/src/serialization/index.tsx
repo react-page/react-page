@@ -2,14 +2,15 @@ import Html from 'slate-html-serializer';
 import React from 'react';
 import parse5 from 'parse5';
 import { SlateState } from '../types/state';
-import { Value, ValueJSON, BlockJSON } from 'slate';
-import { P } from '../plugins/paragraph';
+import { Value, ValueJSON } from 'slate';
+
 import { EditorState } from '@react-page/core/lib/types/editor';
 import { PluginProps } from '@react-page/core/lib/service/plugin/classes';
+import createInitialState from './createInitialState';
 
 type AdditionalSlateFunctions = {
-  slateToHtml: (editorState: EditorState) => string
-  htmlToSlate: (html: string) => EditorState
+  slateToHtml: (editorState: EditorState) => string;
+  htmlToSlate: (html: string) => EditorState;
 };
 export type SerializationFunctions = Pick<
   PluginProps<SlateState>,
@@ -81,33 +82,9 @@ export default ({ plugins }): SerializationFunctions => {
     serialized: (editorState.toJSON as any)(editorState),
   });
 
-  const createInitialState = () => ({
-    editorState: Value.fromJSON({
-      document: {
-        nodes: [
-          {
-            object: 'block',
-            type: P,
-            nodes: [
-              {
-                object: 'text',
-                leaves: [
-                  {
-                    text: '',
-                  },
-                ],
-              },
-            ],
-          } as BlockJSON,
-        ],
-      },
-    }),
-  });
-
   return {
     serialize,
     unserialize,
-    createInitialState,
     slateToHtml,
     htmlToSlate,
   };
