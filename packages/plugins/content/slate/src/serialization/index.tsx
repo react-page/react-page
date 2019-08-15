@@ -7,7 +7,7 @@ import { EditorState } from '@react-page/core/lib/types/editor';
 import { PluginProps } from '@react-page/core/lib/service/plugin/classes';
 import createInitialState from './createInitialState';
 
-const parseHtml = require('jsdom').fragment; // we exclude that on browsers through package.json's browser field
+import parseHtml from '../parseHtml/parseHtml';
 
 type AdditionalSlateFunctions = {
   slateToHtml: (editorState: EditorState) => string;

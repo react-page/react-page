@@ -52,6 +52,7 @@
     "@types/lodash.debounce": "4.0.4"
   },
   "browser": {
-    "jsdom": false
+    "./lib/parseHtml/parseHtml.js": "./lib/parseHtml/parseHtml.browser.js",
+    "./lib-es/parseHtml/parseHtml.js": "./lib-es/parseHtml/parseHtml.browser.js"
   }
 }
