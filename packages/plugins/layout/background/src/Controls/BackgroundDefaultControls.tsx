@@ -117,7 +117,7 @@ class BackgroundDefaultControls extends React.Component<
                 aria-labelledby="linear-gradient-darken-label"
                 value={darkenFinal}
                 onChange={(e, value) =>
-                  this.props.handleChangeDarkenPreview(value)
+                  this.props.handleChangeDarkenPreview(value instanceof Array ? value[0] : value)
                 }
                 onDragEnd={this.props.handleChangeDarken}
                 step={0.01}
@@ -135,7 +135,7 @@ class BackgroundDefaultControls extends React.Component<
                 aria-labelledby="linear-gradient-lighten-label"
                 value={lightenFinal}
                 onChange={(e, value) =>
-                  this.props.handleChangeLightenPreview(value)
+                  this.props.handleChangeLightenPreview(value instanceof Array ? value[0] : value)
                 }
                 onDragEnd={this.props.handleChangeLighten}
                 step={0.01}
