@@ -179,7 +179,7 @@ describe('HTMLRenderer', () => {
         it('should pass', () => {
           expect(wrapper.html()).toEqual(
             // tslint:disable-next-line:max-line-length
-            '<div class="ory-cell ory-cell-sm-12 ory-cell-xs-12"><div class="ory-cell-inner ory-cell-leaf"><div class="ory-plugins-content-slate-container"><p style="text-align:center">Asdfg</p></div></div></div>'
+            '<div class="ory-cell ory-cell-sm-12 ory-cell-xs-12"><div class="ory-cell-inner ory-cell-leaf"><div data-slate-editor="true" data-key="0" class="ory-plugins-content-slate-container" autocorrect="on" spellcheck="true" style="outline:none;white-space:pre-wrap;word-wrap:break-word" data-gramm="false"><p style="text-align:center"><span data-key="2"><span data-slate-leaf="true" data-offset-key="2:0"><span data-slate-content="true">Asdfg</span></span></span></p></div></div></div>'
           );
         });
       });

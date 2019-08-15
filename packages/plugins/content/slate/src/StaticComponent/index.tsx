@@ -21,18 +21,13 @@
  */
 
 import * as React from 'react';
-import { RenderNodeProps } from 'slate-react';
-import { Block } from 'slate';
+import { Editor } from 'slate-react';
 
-const Paragraph: React.SFC<RenderNodeProps> = props => {
-  const { children, attributes } = props;
-  // tslint:disable-next-line:no-any
-  const align = ((props as any).node as Block).data.get('align');
-  return (
-    <p {...attributes} style={{ textAlign: align }}>
-      {children}
-    </p>
-  );
-};
-
-export default Paragraph;
+export default ({ plugins, state }) => (
+  <Editor
+    readOnly={true}
+    className="ory-plugins-content-slate-container"
+    value={state.editorState}
+    plugins={plugins}
+  />
+);

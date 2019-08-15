@@ -26,121 +26,13 @@ import map from 'ramda/src/map';
 import path from 'ramda/src/path';
 import reduce from 'ramda/src/reduce';
 import tail from 'ramda/src/tail';
-import React from 'react';
-import AlignmentPlugin from './plugins/alignment';
-import BlockquotePlugin from './plugins/blockquote';
-import CodePlugin from './plugins/code/index';
-import EmphasizePlugin from './plugins/emphasize';
-import HeadingsPlugin from './plugins/headings';
-import LinkPlugin from './plugins/link/index';
-import ListsPlugin from './plugins/lists';
-import ParagraphPlugin, { P } from './plugins/paragraph/index';
-import parse5 from 'parse5';
-import Plugin from './plugins/Plugin';
 
 // FIXME #126
-import { Document, Value, BlockJSON, ValueJSON } from 'slate';
-import Html from 'slate-html-serializer';
+import { Document, Value } from 'slate';
+
 import Plain from 'slate-plain-serializer';
-import { SlateState } from './types/state';
+
 import { AbstractCell } from '@react-page/core/lib/types/editable';
-
-const DEFAULT_NODE = P;
-
-export const defaultPlugins: Plugin[] = [
-  new ParagraphPlugin(),
-  new EmphasizePlugin(),
-  new HeadingsPlugin({ DEFAULT_NODE }),
-  new LinkPlugin(),
-  new CodePlugin({ DEFAULT_NODE }),
-  new ListsPlugin({ DEFAULT_NODE }),
-  new BlockquotePlugin({ DEFAULT_NODE }),
-  new AlignmentPlugin({ DEFAULT_NODE }),
-];
-
-export const lineBreakSerializer = {
-  // tslint:disable-next-line:no-any
-  deserialize(el: any) {
-    if (el.tagName.toLowerCase() === 'br') {
-      return { object: 'text', text: '\n' };
-    }
-    if (el.nodeName === '#text') {
-      if (el.value && el.value.match(/<!--.*?-->/)) {
-        return;
-      }
-
-      return {
-        object: 'text',
-        leaves: [
-          {
-            object: 'leaf',
-            text: el.value,
-          },
-        ],
-      };
-    }
-  },
-  // tslint:disable-next-line:no-any
-  serialize(object: any, children: string) {
-    if (object.type === 'text' || children === '\n') {
-      return <br />;
-    }
-  },
-};
-
-export const html = new Html({
-  rules: [...defaultPlugins, lineBreakSerializer],
-  parseHtml: parse5.parseFragment,
-});
-
-export const createInitialState = () => ({
-  editorState: Value.fromJSON({
-    document: {
-      nodes: [
-        {
-          object: 'block',
-          type: P,
-          nodes: [
-            {
-              object: 'text',
-              leaves: [
-                {
-                  text: '',
-                },
-              ],
-            },
-          ],
-        } as BlockJSON,
-      ],
-    },
-  }),
-});
-
-export const unserialize = ({
-  importFromHtml,
-  serialized,
-  editorState,
-}: // tslint:disable-next-line:no-any
-SlateState): SlateState => {
-  if (serialized) {
-    // tslint:disable-next-line:no-any
-    return { editorState: (Value.fromJSON as any)(serialized) };
-  } else if (importFromHtml) {
-    return { editorState: html.deserialize(importFromHtml) };
-  } else if (editorState) {
-    return { editorState };
-  }
-
-  return createInitialState();
-};
-
-// tslint:disable-next-line:no-any
-export const serialize = ({
-  editorState,
-}: SlateState): { serialized: ValueJSON } => ({
-  // tslint:disable-next-line:no-any
-  serialized: (editorState.toJSON as any)(editorState),
-});
 
 export const merge = (states: Object[]): Object => {
   const nodes = map(path(['editorState', 'document', 'nodes']), states);

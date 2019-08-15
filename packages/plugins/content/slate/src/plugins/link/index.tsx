@@ -25,8 +25,8 @@ import LinkIcon from '@material-ui/icons/Link';
 import * as React from 'react';
 import TextField from '@material-ui/core/TextField';
 import { ToolbarButton } from '../../helpers';
-import Plugin, { PluginButtonProps } from '../Plugin';
-import Link from './node';
+import Plugin, { PluginButtonProps, PluginGetComponent } from '../Plugin';
+
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -36,8 +36,19 @@ import { Data, Inline, Editor } from 'slate';
 import { ThemeProvider } from '@react-page/ui';
 import { RenderNodeProps } from 'slate-react';
 import { NextType } from '../../types/next';
+import { SlatePluginSettings } from '../../types/plugin';
 
 export const A = 'LINK/LINK';
+
+const ALLOWED_TYPES = [A];
+
+const DEFAULT_MAPPING = {
+  [A]: 'a',
+};
+
+// tslint:disable-next-line:no-any
+const defaultGetComponent: PluginGetComponent = ({ type }) =>
+  DEFAULT_MAPPING[type];
 
 export interface LinkButtonState {
   open: boolean;
@@ -184,7 +195,9 @@ class LinkButton extends React.Component<PluginButtonProps, LinkButtonState> {
                 {this.state.wasExpanded ? null : (
                   <div>
                     <TextField
-                      placeholder={this.props.translations.linkPlugin!.linkTitlePlaceholder}
+                      placeholder={
+                        this.props.translations.linkPlugin!.linkTitlePlaceholder
+                      }
                       onChange={this.onTitleChange}
                       value={this.state.title}
                     />
@@ -192,7 +205,9 @@ class LinkButton extends React.Component<PluginButtonProps, LinkButtonState> {
                 )}
                 <div ref={this.onRef}>
                   <TextField
-                    placeholder={this.props.translations.linkPlugin!.linkHrefPlaceholder}
+                    placeholder={
+                      this.props.translations.linkPlugin!.linkHrefPlaceholder
+                    }
                     onChange={this.onHrefChange}
                     value={this.state.href}
                   />
@@ -216,6 +231,12 @@ export default class LinkPlugin extends Plugin {
 
   hoverButtons = [LinkButton];
   toolbarButtons = [LinkButton];
+
+  constructor(props: SlatePluginSettings = {}) {
+    super();
+
+    this.getComponent = props.getComponent || defaultGetComponent;
+  }
 
   deserialize = (el, next) => {
     switch (el.tagName.toLowerCase()) {
@@ -246,21 +267,31 @@ export default class LinkPlugin extends Plugin {
     if (object.object !== 'inline') {
       return;
     }
-    switch (object.type) {
-      case A:
-        return <a href={object.data.get('href')}>{children}</a>;
-      default:
-        return;
+    const Component = this.getComponent({
+      type: object.type,
+      object: 'inline',
+      data: object.data,
+    });
+
+    if (!Component) {
+      return null;
     }
+    return <Component href={object.data.get('href')}>{children}</Component>;
   }
 
   renderNode = (props: RenderNodeProps, editor: Editor, next: NextType) => {
-    switch (props.node.type) {
-      case A: {
-        return <Link {...props} />;
-      }
-      default:
-        return next();
+    if (!ALLOWED_TYPES.includes(props.node.type)) {
+      return next();
     }
+    const Component = this.getComponent({
+      type: props.node.type,
+      object: 'inline',
+      data: props.node.data,
+    });
+    if (Component) {
+      return <Component {...props} />;
+    }
+
+    return next();
   }
 }

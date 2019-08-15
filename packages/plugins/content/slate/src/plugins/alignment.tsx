@@ -28,20 +28,21 @@ import AlignRightIcon from '@material-ui/icons/FormatAlignRight';
 import AlignJustifyIcon from '@material-ui/icons/FormatAlignJustify';
 
 import { ToolbarButton } from '../helpers';
-import Plugin from './Plugin';
+import Plugin, { PluginButtonProps } from './Plugin';
 import { Block } from 'slate';
-import { PluginButtonProps } from './Plugin';
+
 import { SlatePluginSettings } from './../types/plugin';
+import DEFAULT_NODE from './DEFAULT_NODE';
 
 export interface AlignmentPluginSettings extends SlatePluginSettings {
-  DEFAULT_NODE: string;
+  DEFAULT_NODE?: string;
 }
 
 const createButton: (
   align: string,
   icon: JSX.Element,
   type: string
-  ) => React.SFC<PluginButtonProps> = (align, icon, type) => ({
+) => React.SFC<PluginButtonProps> = (align, icon, type) => ({
   editorState,
   editor,
 }) => {
@@ -67,13 +68,14 @@ const createButton: (
 export default class AlignmentPlugin extends Plugin {
   name = 'alignment';
 
-  constructor(props?: AlignmentPluginSettings) {
+  constructor(props: AlignmentPluginSettings = {}) {
     super();
+    this.DEFAULT_NODE = props.DEFAULT_NODE || DEFAULT_NODE;
     this.toolbarButtons = [
-      createButton('left', <AlignLeftIcon />, props.DEFAULT_NODE),
-      createButton('center', <AlignCenterIcon />, props.DEFAULT_NODE),
-      createButton('right', <AlignRightIcon />, props.DEFAULT_NODE),
-      createButton('justify', <AlignJustifyIcon />, props.DEFAULT_NODE),
+      createButton('left', <AlignLeftIcon />, this.DEFAULT_NODE),
+      createButton('center', <AlignCenterIcon />, this.DEFAULT_NODE),
+      createButton('right', <AlignRightIcon />, this.DEFAULT_NODE),
+      createButton('justify', <AlignJustifyIcon />, this.DEFAULT_NODE),
     ];
   }
 }
