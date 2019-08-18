@@ -23,7 +23,7 @@
 /* eslint-disable no-alert, prefer-reflect, default-case, react/display-name */
 import * as React from 'react';
 
-import Plugin, { PluginGetComponent } from '../Plugin';
+import Plugin, { PluginGetComponent, PluginButtonProps } from '../Plugin';
 
 import { Data, Editor } from 'slate';
 
@@ -62,8 +62,8 @@ export default class LinkPlugin extends Plugin {
     nodes: { [A]: Link },
   };*/
 
-  hoverButtons = [LinkButton];
-  toolbarButtons = [LinkButton];
+  hoverButtons: React.ComponentType<PluginButtonProps>[] = [LinkButton];
+  toolbarButtons: React.ComponentType<PluginButtonProps>[] = [LinkButton];
 
   constructor(props: SlatePluginSettings = {}) {
     super();
@@ -118,7 +118,11 @@ export default class LinkPlugin extends Plugin {
       data: props.node.data,
     });
     if (Component) {
-      return <Component {...props} />;
+      return (
+        <Component href={props.node.data.get('href')}>
+          {props.children}
+        </Component>
+      );
     }
 
     return next();
