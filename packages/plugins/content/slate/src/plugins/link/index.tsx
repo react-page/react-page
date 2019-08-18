@@ -118,7 +118,11 @@ export default class LinkPlugin extends Plugin {
       data: props.node.data,
     });
     if (Component) {
-      return <Component {...props} />;
+      return (
+        <Component href={props.node.data.get('href')}>
+          {props.children}
+        </Component>
+      );
     }
 
     return next();
