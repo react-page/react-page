@@ -23,58 +23,58 @@ and install the editor using npm:
 $ npm i --save ory-editor
 ```
 
-Next, open the file *src/components/App.js* and include the ORY Editor:
+Next, open the file _src/components/App.js_ and include the ORY Editor:
 
 ```jsx
-import React, {Component} from 'react'
+import React, { Component } from "react";
 
 // The editor core
-import Editor, { Editable, createEmptyState } from '@react-page/core'
-import '@react-page/core/lib/index.css' // we also want to load the stylesheets
+import Editor, { Editable, createEmptyState } from "@react-page/core";
+import "@react-page/core/lib/index.css"; // we also want to load the stylesheets
 
 // Require our ui components (optional). You can implement and use your own ui too!
-import { Trash, DisplayModeToggle, Toolbar } from '@react-page/ui'
-import '@react-page/ui/lib/index.css'
+import { Trash, DisplayModeToggle, Toolbar } from "@react-page/ui";
+import "@react-page/ui/lib/index.css";
 
 // Load some exemplary plugins:
-import slate from '@react-page/plugins-slate' // The rich text area plugin
-import '@react-page/plugins-slate/lib/index.css' // Stylesheets for the rich text area plugin
-import parallax from '@react-page/plugins-parallax-background' // A plugin for parallax background images
-import '@react-page/plugins-parallax-background/lib/index.css' // Stylesheets for parallax background images
-require('react-tap-event-plugin')() // react-tap-event-plugin is required by material-ui which is used by ory-editor-ui so we need to call it here
+import slate from "@react-page/plugins-slate"; // The rich text area plugin
+import "@react-page/plugins-slate/lib/index.css"; // Stylesheets for the rich text area plugin
+import parallax from "@react-page/plugins-parallax-background"; // A plugin for parallax background images
+import "@react-page/plugins-parallax-background/lib/index.css"; // Stylesheets for parallax background images
+require("react-tap-event-plugin")(); // react-tap-event-plugin is required by material-ui which is used by ory-editor-ui so we need to call it here
 
 // Define which plugins we want to use. We only have slate and parallax available, so load those.
 const plugins = {
   content: [slate()], // Define plugins for content cells. To import multiple plugins, use [slate(), image, spacer, divider]
   layout: [parallax({ defaultPlugin: slate() })] // Define plugins for layout cells
-}
+};
 
 // Creates an empty editable
-const content = createEmptyState()
+const content = createEmptyState();
 
 // Instantiate the editor
 const editor = new Editor({
   plugins,
   // pass the content state - you can add multiple editables here
-  editables: [content],
-})
+  editables: [content]
+});
 
 class App extends Component {
   render() {
     return (
       <div>
         <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo"/>
+          <img src={logo} className="App-logo" alt="logo" />
           <h2>Welcome to React</h2>
         </div>
 
         {/* Content area */}
-        <Editable editor={editor} id={content.id}/>
+        <Editable editor={editor} id={content.id} />
 
         {/*  Default user interface  */}
-        <Trash editor={editor}/>
-        <DisplayModeToggle editor={editor}/>
-        <Toolbar editor={editor}/>
+        <Trash editor={editor} />
+        <DisplayModeToggle editor={editor} />
+        <Toolbar editor={editor} />
       </div>
     );
   }
@@ -89,6 +89,10 @@ That's it, congratulations! You should see something like this now:
 
 ## Writing Plugins
 
+Notice: there is a new package in development, that helps you to create custom plugins.
+
+[See this section](./plugins/content.md)
+
 ### Writing a content plugin
 
 Of course, you are not limited to this functionality and can easily write
@@ -96,66 +100,60 @@ your own plugins. Plugins have two parts, one plugin definition and a
 ReactJS component. A minimal plugin definition looks as followed
 
 ```jsx
-import React, {Component} from 'react'
+import React, { Component } from "react";
 
 // You are obviously not limited to material-ui, but we really enjoy
 // the material-ui svg icons!
-import StarIcon from 'material-ui/svg-icons/toggle/star'
+import StarIcon from "material-ui/svg-icons/toggle/star";
 
 // This is the ReactJS component which you can find below this snippet
-import InputTextField from './Component'
+import InputTextField from "./Component";
 
 export default {
   Component: InputTextField,
   IconComponent: <StarIcon />,
-  name: 'example/content/input-text-field',
-  version: '0.0.1',
-  text: 'Input Text Field'
-}
+  name: "example/content/input-text-field",
+  version: "0.0.1",
+  text: "Input Text Field"
+};
 ```
 
 and a minimalistic plugin example could look like:
 
 ```jsx
-import React from 'react'
+import React from "react";
 
 // A callback function for the input field
-const onInput = (onChange) => {
-  return (e) => {
+const onInput = onChange => {
+  return e => {
     // Dispatch the onChange action with the new value
     onChange({
       value: e.target.value
-    })
-  }
-}
+    });
+  };
+};
 
-const InputTextField = (props) => {
+const InputTextField = props => {
   const {
     state: { value },
     readOnly,
     onChange
-  } = props
+  } = props;
 
   // If readOnly is false, it means that we are in edit mode!
   if (!readOnly) {
     return (
       <div className="my-plugin">
-        <input
-          type="text"
-          onChange={onInput(onChange)} value={value} />
+        <input type="text" onChange={onInput(onChange)} value={value} />
       </div>
-    )
+    );
   }
 
   // If we are not in edit mode, remove the input field
-  return (
-    <div className="my-plugin">
-      {value}
-    </div>
-  )
-}
+  return <div className="my-plugin">{value}</div>;
+};
 
-export default InputTextField
+export default InputTextField;
 ```
 
 Of course, there are more settings and callbacks available. We encourage checking out the API docs on this topic!
@@ -171,25 +169,23 @@ otherwise, it will automatically destroyed. A minimal layout plugin
 definition looks as follows
 
 ```jsx
-import React from 'react'
-import slate from '@react-page/plugins-slate'
+import React from "react";
+import slate from "@react-page/plugins-slate";
 
 // You are obviously not limited to material-ui, but we really enjoy
 // the material-ui svg icons!
-import CropSquare from 'material-ui/svg-icons/image/crop-square'
+import CropSquare from "material-ui/svg-icons/image/crop-square";
 
 const BlackBorderPlugin = ({ children }) => (
-  <div style={{ border: '1px solid black', padding: '16px' }}>
-    {children}
-  </div>
-)
+  <div style={{ border: "1px solid black", padding: "16px" }}>{children}</div>
+);
 
 export default {
   Component: BlackBorderPlugin,
   IconComponent: <CropSquare />,
-  name: 'example/layout/black-border',
-  version: '0.0.1',
-  text: 'Black border',
+  name: "example/layout/black-border",
+  version: "0.0.1",
+  text: "Black border",
   createInitialChildren: () => ({
     id: v4(),
     rows: [
@@ -207,8 +203,9 @@ export default {
       }
     ]
   })
-}
+};
 ```
+
 On that example, the initial children is a slate plugin.
 
 ## Rendering HTML
@@ -217,36 +214,42 @@ The `ory-editor-renderer` package ships a lightweight HTML renderer module. You 
 and rendering the content client side.
 
 ```jsx
-import { HTMLRenderer } from '@react-page/renderer'
+import { HTMLRenderer } from "@react-page/renderer";
 
-const state = { /* ... */ }
+const state = {
+  /* ... */
+};
 const plugins = {
-  layout: [/* ... */],
-  content: [/* ... */]
-}
+  layout: [
+    /* ... */
+  ],
+  content: [
+    /* ... */
+  ]
+};
 
-const element = document.getElementById('editable')
-ReactDOM.render((
-  <HTMLRenderer state={content[0]} plugins={plugins}/>
-), element)
+const element = document.getElementById("editable");
+ReactDOM.render(<HTMLRenderer state={content[0]} plugins={plugins} />, element);
 ```
 
 ## Saving and restoring editor contents
 
-Use the `onChange` callback to obtain a copy of the editor's state for saving to persistent storage.  The state can then be later loaded into the editor, or used by the `ory-editor-renderer` package for rendering to HTML.
+Use the `onChange` callback to obtain a copy of the editor's state for saving to persistent storage. The state can then be later loaded into the editor, or used by the `ory-editor-renderer` package for rendering to HTML.
 
 ```jsx
-import React, {Component} from 'react'
-import Editor, { Editable, createEmptyState } from '@react-page/core'
-import slate from '@react-page/plugins-slate' // The rich text area plugin
-import { Trash, DisplayModeToggle, Toolbar } from '@react-page/ui'
+import React, { Component } from "react";
+import Editor, { Editable, createEmptyState } from "@react-page/core";
+import slate from "@react-page/plugins-slate"; // The rich text area plugin
+import { Trash, DisplayModeToggle, Toolbar } from "@react-page/ui";
 const EditorPlugins = {
   content: [slate()],
-  layout: [/* ... */],
+  layout: [
+    /* ... */
+  ]
 };
 
 function saveToDatabase(state) {
-    return fetch('/my/save/url', { method: 'POST', body: state });
+  return fetch("/my/save/url", { method: "POST", body: state });
 }
 
 class MyEditor extends Component {
@@ -260,18 +263,22 @@ class MyEditor extends Component {
         <toolbar>
           <button onClick={() => saveToDatabase(this.editorState)}>Save</button>
         </toolbar>
-        <Editable editor={editor} id={content.id} onChange={state => (this.editorState = state)} />
-        <Trash editor={editor}/>
-        <DisplayModeToggle editor={editor}/>
-        <Toolbar editor={editor}/>
+        <Editable
+          editor={editor}
+          id={content.id}
+          onChange={state => (this.editorState = state)}
+        />
+        <Trash editor={editor} />
+        <DisplayModeToggle editor={editor} />
+        <Toolbar editor={editor} />
       </div>
-    )
+    );
   }
 }
 ```
 
-
 The state could then be fetched and rendered by doing something like:
+
 ```jsx
 import React, {Component} from 'react'
 
@@ -310,15 +317,15 @@ and images. Native drag support can be enabled by writing a `NativePlugin` and p
 In this example, we will use the default plugin, and take a look at how you can create your own later.
 
 ```jsx
-import native from '@react-page/plugins-default-native'
+import native from "@react-page/plugins-default-native";
 
 const editor = new Editor({
   plugins: {
-   layout: [],
-   content: [],
-   native
- }
-})
+    layout: [],
+    content: [],
+    native
+  }
+});
 ```
 
 If native is undefined or null, native dragging wil be disabled. This is the default setting.
@@ -331,15 +338,15 @@ coming from react-dnd and `component` is the React component of the cell or row 
 In sum, an exemplary plugin looks like this:
 
 ```jsx
-import React from 'react'
+import React from "react";
 
-const Native = () => <div>native</div>
+const Native = () => <div>native</div>;
 
 export default (hover, monitor, component) => ({
   Component: Native,
-  name: 'my-native-plugin',
-  version: '0.0.1'
-})
+  name: "my-native-plugin",
+  version: "0.0.1"
+});
 ```
 
 Because this plugin is wrapped in a factory, we are able to modify its behaviour based on the properties we receive.
@@ -351,7 +358,7 @@ export default (hover, monitor, component) => ({
   createInitialState: () => ({
     item: monitor.getItem()
   })
-})
+});
 ```
 
 Per default, the editor assumes that dropping the native element creates a content cell. To change this behaviour, use
@@ -360,6 +367,6 @@ the key `type`:
 ```jsx
 export default (hover, monitor, component) => ({
   // ...
-  type: 'layout'
-})
+  type: "layout"
+});
 ```

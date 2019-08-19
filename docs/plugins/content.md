@@ -120,3 +120,33 @@ The spacer is a plugin which you can use to create an empty fixed height cell.
 </p>
 
 The spacer plugin is not configurable.
+
+## Create your own plugins
+
+A content plugin in its minimal form is described with this object:
+
+```
+{
+  Component: YourComponent,
+  name: 'some/unique/name',
+  version: '0.0.1',
+  IconComponent: <YourIcon />,
+  text: "Name of the plugin",
+  description: "description of the plugin
+}
+```
+
+`Component` receives the Component that renders the content of your plugin and its controls (if any). It will receive the following props:
+
+- `state` (object): the properties of the plugin. this is usually defined by the Controls of the plugin
+- `readOnly` (boolean): true means the editor just shows the content. If false, the editor is in edit mode and you should allow users to configure your Component. Usually you will render the plugins controls if readOnly is false
+- `focused` (boolean): whether the plugin is select in edit mode. You should reveal the controls if this property is true
+- `onChange`: (function): Call this function with a new `state` to update the `state` of the plugin. This is usally the responsiblity of the controls
+
+Most built-in plugins use a bottom toolbar with a form as Controls. See for example the image plugin which allows to define the image url and other properties.
+
+### Create your own plugin with default material-ui controls
+
+Because it can be tedious to implement controls for a plugin, we started to develop a plugin that make this much easier: `@react-page/create-plugin-materialui`
+
+See [the readme of this library for more information](/packages/plugins/createPluginMaterialUi/README.md)
