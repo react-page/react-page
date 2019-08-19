@@ -26,6 +26,7 @@ import createStore from './store';
 import { actions, ActionsTypes } from './actions';
 import { selectors } from './selector';
 import PluginService from './service/plugin';
+import { ContentPlugin, LayoutPlugin } from './service/plugin/classes';
 import pluginDefault from './service/plugin/default';
 import { EditableType } from './types/editable';
 import forEach from 'ramda/src/forEach';
@@ -175,7 +176,15 @@ class Editor<T extends RootState = RootState> {
   }
 }
 
-export { PluginService, Editable, Editor, reducer, lazyLoad };
+export {
+  PluginService,
+  ContentPlugin,
+  LayoutPlugin,
+  Editable,
+  Editor,
+  reducer,
+  lazyLoad
+};
 
 export const createEmptyState: () => EditableType = () =>
   ({ id: v4(), cells: [] } as EditableType);
