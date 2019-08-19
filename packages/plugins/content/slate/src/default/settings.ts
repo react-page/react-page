@@ -10,6 +10,7 @@ export const defaultTranslations = {
     createLink: 'Create a link',
     linkTitlePlaceholder: 'Link title',
     linkHrefPlaceholder: 'http://example.com/my/link.html',
+    linkOpenInNewWindowLabel: 'Open in new window',
   },
 };
 
