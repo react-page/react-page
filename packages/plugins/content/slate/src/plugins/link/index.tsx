@@ -40,7 +40,14 @@ export const A = 'LINK/LINK';
 const ALLOWED_TYPES = [A];
 
 const DEFAULT_MAPPING = {
-  [A]: 'a',
+  [A]: ({ children, data }) => (
+    <a
+      target={data.get('openInNewWindow') ? '_blank' : undefined}
+      href={data.get('href')}
+    >
+      {children}
+    </a>
+  ),
 };
 
 // tslint:disable-next-line:no-any
@@ -105,7 +112,7 @@ export default class LinkPlugin extends Plugin {
     if (!Component) {
       return null;
     }
-    return <Component href={object.data.get('href')}>{children}</Component>;
+    return <Component data={object.data} children={children} />;
   }
 
   renderNode = (props: RenderNodeProps, editor: Editor, next: NextType) => {
@@ -118,11 +125,7 @@ export default class LinkPlugin extends Plugin {
       data: props.node.data,
     });
     if (Component) {
-      return (
-        <Component href={props.node.data.get('href')}>
-          {props.children}
-        </Component>
-      );
+      return <Component data={props.node.data} children={props.children} />;
     }
 
     return next();
