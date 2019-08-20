@@ -32,7 +32,9 @@ import debounce from 'lodash.debounce';
 import { Value, Editor as CoreEditor } from 'slate';
 
 import { SlateProps } from 'src/types/component';
-import Plugin, { PluginButtonProps } from 'src/plugins/Plugin';
+
+import SlatePlugin from '../types/SlatePlugin';
+import { PluginButtonProps } from '../types/slatePluginDefinitions';
 
 interface Cancelable {
   cancel(): void;
@@ -61,7 +63,7 @@ const HoverButtons = ({
   <div>
     {plugins &&
       plugins.map(
-        (plugin: Plugin, i: number) =>
+        (plugin: SlatePlugin, i: number) =>
           plugin.hoverButtons &&
           plugin.hoverButtons.map((Button, j: number) => (
             <Button
@@ -84,7 +86,7 @@ const ToolbarButtons = ({
   <div>
     {plugins &&
       plugins.map(
-        (plugin: Plugin, i: number) =>
+        (plugin: SlatePlugin, i: number) =>
           plugin.toolbarButtons &&
           plugin.toolbarButtons.map((Button, j: number) => (
             <Button
@@ -205,6 +207,7 @@ class Slate extends React.Component<SlateProps, SlateState> {
 
   render() {
     const { focused, readOnly, plugins } = this.props;
+
     const editorState = this.getState();
     const showHoverToolbar =
       editorState.selection.isExpanded && editorState.selection.isFocused;

@@ -22,7 +22,12 @@ export default ({ plugins }): SerializationFunctions => {
   // tslint:disable-next-line:no-any
 
   const html = new Html({
-    rules: plugins,
+    rules: plugins
+      .filter(p => p.serialize && p.unserialize)
+      .map(p => ({
+        serialize: p.serialize,
+        deserialize: p.unserialize,
+      })),
     // tslint:disable-next-line:no-any
     parseHtml,
   });

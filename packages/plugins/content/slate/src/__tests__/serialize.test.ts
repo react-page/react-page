@@ -104,7 +104,7 @@ describe('serialize to html', () => {
           ],
         },
       },
-      o: '<pre style="overflow:scroll"><code>asdf</code></pre>',
+      o: '<code style="display:block;overflow:scroll">asdf</code>',
       // TODO this should not be skipped but it's a workaround for deserialization...
       skip: true,
     },
@@ -140,7 +140,7 @@ describe('serialize to html', () => {
           ],
         },
       },
-      o: '<p>a<code class="ory-plugins-content-slate-code">bc</code>de</p>',
+      o: '<p>a<code style="white-space:pre-wrap">bc</code>de</p>',
       skip: true,
     },
     {

@@ -27,12 +27,11 @@ import * as React from 'react';
 import Component from './Component';
 import Renderer from './Renderer';
 
-import Plugin from './plugins/Plugin';
+import SlatePlugin, { SlatePluginOrCollection } from './types/SlatePlugin';
 import * as hooks from './hooks';
 
 import v002 from './migrations/v002';
 
-import { PluginGetComponent } from './plugins/Plugin';
 import { ContentPluginConfig } from '@react-page/core/lib/service/plugin/classes';
 import { SlateState } from './types/state';
 import { SlateSettings } from './types/settings';
@@ -49,27 +48,31 @@ import createInitialState from './serialization/createInitialState';
 
 export { defaultPlugins, slatePlugins };
 
-export { PluginGetComponent as SlatePluginGetComponent };
-
 const Controls = lazyLoad(() => import('./Controls/'));
 
+// tslint:disable-next-line:no-any
+function flattenDeep<T>(arr1: any): T[] {
+  return arr1.reduce(
+    // tslint:disable-next-line:no-any
+    (acc: T[], val: any) =>
+      Array.isArray(val) ? acc.concat(flattenDeep(val)) : acc.concat(val),
+    []
+  );
+}
+
 export default (
-  plugins: Plugin[] = defaultPlugins,
+  unflattenedPlugins: SlatePluginOrCollection[] = defaultPlugins,
   translations = defaultTranslations
 ): ContentPluginConfig<SlateState> => {
   let settings: SlateSettings = {};
-  const basePlugins = plugins ? plugins : [];
-  // plugins can have child plugins, let's merge them
-  settings.plugins = basePlugins.concat(
-    basePlugins.reduce((acc, plugin) => {
-      if (plugin.plugins) {
-        return [...acc, ...plugin.plugins];
-      }
-      return acc;
-    }, [])
-  );
+  // plugins should be flatten
+  const plugins = flattenDeep<SlatePlugin>(unflattenedPlugins);
 
-  const serializeFunctions = serialization({ plugins });
+  settings.plugins = plugins;
+
+  const serializeFunctions = serialization({
+    plugins,
+  });
 
   const mergedSettings = { ...defaultSettings, ...settings };
 
