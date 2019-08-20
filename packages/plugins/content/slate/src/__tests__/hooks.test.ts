@@ -29,9 +29,11 @@ import { SlateState } from '../types/state';
 
 import serialization from '../serialization';
 import defaultPlugins from '../plugins/defaultPlugins';
+import flattenDeep from '../flattenDeep';
 
-const serializationFunctions = serialization({ plugins: defaultPlugins });
-
+const serializationFunctions = serialization({
+  plugins: flattenDeep(defaultPlugins),
+});
 const expect = unexpected.clone();
 
 describe('hooks', () => {

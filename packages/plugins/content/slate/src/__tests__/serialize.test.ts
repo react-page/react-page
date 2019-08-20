@@ -20,12 +20,15 @@
  *
  */
 import { Value } from 'slate';
-
 import Plain from 'slate-plain-serializer';
-import serialization from '../serialization';
-import defaultPlugins from '../plugins/defaultPlugins';
 
-const serializationFunctions = serialization({ plugins: defaultPlugins });
+import defaultPlugins from '../plugins/defaultPlugins';
+import serialization from '../serialization';
+import flattenDeep from '../flattenDeep';
+
+const serializationFunctions = serialization({
+  plugins: flattenDeep(defaultPlugins),
+});
 
 describe('serialize to html', () => {
   [
@@ -66,18 +69,18 @@ describe('serialize to html', () => {
               nodes: [
                 {
                   object: 'text',
-                  leaves: [
-                    { text: 'some ' },
-                    {
-                      marks: [{ data: {}, type: 'EMPHASIZE/EM' }],
-                      text: 'projects',
-                    },
-                    { text: '-' },
-                    {
-                      marks: [{ data: {}, type: 'EMPHASIZE/STRONG' }],
-                      text: 'foo',
-                    },
-                  ],
+                  text: 'some ',
+                },
+                {
+                  object: 'text',
+                  marks: [{ data: {}, type: 'EMPHASIZE/EM' }],
+                  text: 'projects',
+                },
+                { object: 'text', text: '-' },
+                {
+                  object: 'text',
+                  marks: [{ data: {}, type: 'EMPHASIZE/STRONG' }],
+                  text: 'foo',
                 },
               ],
               type: 'PARAGRAPH/PARAGRAPH',
@@ -104,7 +107,7 @@ describe('serialize to html', () => {
           ],
         },
       },
-      o: '<pre style="overflow:scroll"><code>asdf</code></pre>',
+      o: '<code style="display:block;overflow:scroll">asdf</code>',
       // TODO this should not be skipped but it's a workaround for deserialization...
       skip: true,
     },
@@ -118,29 +121,27 @@ describe('serialize to html', () => {
               nodes: [
                 {
                   object: 'text',
-                  leaves: [
+                  text: 'a',
+                },
+                {
+                  text: 'bc',
+                  object: 'text',
+                  marks: [
                     {
-                      text: 'a',
-                    },
-                    {
-                      text: 'bc',
-                      marks: [
-                        {
-                          type: 'CODE/CODE',
-                        },
-                      ],
-                    },
-                    {
-                      text: 'de',
+                      type: 'CODE/CODE',
                     },
                   ],
+                },
+                {
+                  object: 'text',
+                  text: 'de',
                 },
               ],
             },
           ],
         },
       },
-      o: '<p>a<code class="ory-plugins-content-slate-code">bc</code>de</p>',
+      o: '<p>a<code style="white-space:pre-wrap">bc</code>de</p>',
       skip: true,
     },
     {

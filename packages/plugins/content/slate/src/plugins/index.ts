@@ -1,19 +1,18 @@
-import AlignmentPlugin from './alignment';
-import BlockquotePlugin from './blockquote';
-import CodePlugin from './code/index';
-import EmphasizePlugin from './emphasize';
-import HeadingsPlugin from './headings';
-import LinkPlugin from './link/index';
-import ListsPlugin from './lists';
-import ParagraphPlugin from './paragraph/index';
-
+import alignment from './alignment';
+import blockquote from './blockquote';
+import code from './code/';
+import emphasize from './emphasize';
+import headings from './headings';
+import link from './link';
+import lists from './lists';
+import paragraph from './paragraph';
 export {
-  AlignmentPlugin,
-  BlockquotePlugin,
-  CodePlugin,
-  EmphasizePlugin,
-  HeadingsPlugin,
-  LinkPlugin,
-  ListsPlugin,
-  ParagraphPlugin
+  alignment,
+  blockquote,
+  code,
+  emphasize,
+  headings,
+  link,
+  lists,
+  paragraph
 };

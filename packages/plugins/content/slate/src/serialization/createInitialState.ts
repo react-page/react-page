@@ -1,5 +1,5 @@
 import { Value, BlockJSON } from 'slate';
-import { P } from '../plugins/paragraph';
+import DEFAULT_NODE from '../plugins/DEFAULT_NODE';
 
 export default () => ({
   editorState: Value.fromJSON({
@@ -7,15 +7,11 @@ export default () => ({
       nodes: [
         {
           object: 'block',
-          type: P,
+          type: DEFAULT_NODE,
           nodes: [
             {
               object: 'text',
-              leaves: [
-                {
-                  text: '',
-                },
-              ],
+              text: '',
             },
           ],
         } as BlockJSON,

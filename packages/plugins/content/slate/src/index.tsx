@@ -27,12 +27,12 @@ import * as React from 'react';
 import Component from './Component';
 import Renderer from './Renderer';
 
-import Plugin from './plugins/Plugin';
+import SlatePlugin, { SlatePluginOrCollection } from './types/SlatePlugin';
 import * as hooks from './hooks';
 
 import v002 from './migrations/v002';
+import v003 from './migrations/v003';
 
-import { PluginGetComponent } from './plugins/Plugin';
 import { ContentPluginConfig } from '@react-page/core/lib/service/plugin/classes';
 import { SlateState } from './types/state';
 import { SlateSettings } from './types/settings';
@@ -42,34 +42,30 @@ import { AnyAction } from 'redux';
 import { defaultSettings, defaultTranslations } from './default/settings';
 import defaultPlugins from './plugins/defaultPlugins';
 import * as slatePlugins from './plugins/index';
+import * as pluginFactories from './pluginFactories/index';
 import serialization from './serialization';
 import { SlateProps } from './types/component';
 import { lazyLoad } from '@react-page/core';
 import createInitialState from './serialization/createInitialState';
+import flattenDeep from './flattenDeep';
 
-export { defaultPlugins, slatePlugins };
-
-export { PluginGetComponent as SlatePluginGetComponent };
+export { defaultPlugins, slatePlugins, pluginFactories };
 
 const Controls = lazyLoad(() => import('./Controls/'));
 
 export default (
-  plugins: Plugin[] = defaultPlugins,
+  unflattenedPlugins: SlatePluginOrCollection[] = defaultPlugins,
   translations = defaultTranslations
 ): ContentPluginConfig<SlateState> => {
   let settings: SlateSettings = {};
-  const basePlugins = plugins ? plugins : [];
-  // plugins can have child plugins, let's merge them
-  settings.plugins = basePlugins.concat(
-    basePlugins.reduce((acc, plugin) => {
-      if (plugin.plugins) {
-        return [...acc, ...plugin.plugins];
-      }
-      return acc;
-    }, [])
-  );
+  // plugins should be flatten
+  const plugins = flattenDeep<SlatePlugin>(unflattenedPlugins);
 
-  const serializeFunctions = serialization({ plugins });
+  settings.plugins = plugins;
+
+  const serializeFunctions = serialization({
+    plugins,
+  });
 
   const mergedSettings = { ...defaultSettings, ...settings };
 
@@ -85,7 +81,7 @@ export default (
     ),
 
     name: 'ory/editor/core/content/slate',
-    version: '0.0.2',
+    version: '0.0.3',
     IconComponent: <Subject />,
     text: mergedSettings.translations.pluginName,
     description: mergedSettings.translations.pluginDescription,
@@ -126,6 +122,6 @@ export default (
     // merge = hooks.merge
     // split = hooks.split
 
-    migrations: [v002],
+    migrations: [v002, v003],
   };
 };

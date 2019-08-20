@@ -38,10 +38,10 @@
     "ramda": "^0.24.1",
     "react-portal": "4.1.5",
     "redux-undo": "1.0.0-beta9-7",
-    "slate": "^0.44.9",
-    "slate-html-serializer": "0.7.33",
-    "slate-plain-serializer": "^0.6.33",
-    "slate-react": "^0.21.15",
+    "slate": "^0.47.7",
+    "slate-html-serializer": "^0.8.9",
+    "slate-plain-serializer": "^0.7.9",
+    "slate-react": "^0.22.7",
     "slate-schema-violations": "0.1.39"
   },
   "publishConfig": {
