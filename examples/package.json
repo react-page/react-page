@@ -2,10 +2,14 @@
   "name": "@react-page/examples",
   "version": "0.1.0",
   "private": true,
-  "dependencies": {
+  "peerDependencies": {
     "@material-ui/core": "^4.3.0",
     "@material-ui/icons": "^4.2.1",
     "@material-ui/styles": "^4.3.0",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6"
+  },
+  "dependencies": {
     "@react-page/core": "0.0.0",
     "@react-page/plugins-background": "0.0.0",
     "@react-page/plugins-default-native": "0.0.0",
@@ -19,8 +23,6 @@
     "@react-page/plugins-video": "0.0.0",
     "@react-page/renderer": "0.0.0",
     "@react-page/ui": "0.0.0",
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6",
     "react-jss": "8.6.1",
     "react-scripts": "2.1.1",
     "source-map-explorer": "^2.0.1",
