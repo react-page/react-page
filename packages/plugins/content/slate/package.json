@@ -18,9 +18,6 @@
     "clean": "rimraf \"lib/*\""
   },
   "peerDependencies": {
-    "@material-ui/core": "^4.3.0",
-    "@material-ui/icons": "^4.2.1",
-    "@material-ui/styles": "^4.3.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6"
   },
@@ -28,6 +25,9 @@
     "@guestbell/slate-common": "0.3.0",
     "@guestbell/slate-edit-blockquote": "0.3.0",
     "@guestbell/slate-edit-list": "0.3.0",
+    "@material-ui/core": "^4.3.0",
+    "@material-ui/icons": "^4.2.1",
+    "@material-ui/styles": "^4.3.0",
     "@react-page/core": "0.0.0",
     "@react-page/ui": "0.0.0",
     "deep-rename-keys": "^0.2.1",
