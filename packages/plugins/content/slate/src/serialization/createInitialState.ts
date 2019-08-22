@@ -11,11 +11,7 @@ export default () => ({
           nodes: [
             {
               object: 'text',
-              leaves: [
-                {
-                  text: '',
-                },
-              ],
+              text: '',
             },
           ],
         } as BlockJSON,

@@ -1,4 +1,9 @@
-import { RenderMarkProps, RenderNodeProps } from 'slate-react';
+import {
+  RenderMarkProps,
+  RenderNodeProps,
+  RenderBlockProps,
+  RenderInlineProps
+} from 'slate-react';
 import { Editor } from 'slate';
 import { NextType } from './next';
 import { PluginButtonProps } from './slatePluginDefinitions';
@@ -54,8 +59,15 @@ export default interface SlatePlugin {
    * @member the function that renders nodes
    */
   // tslint:disable-next-line:no-any
-  renderNode?: (
-    props: RenderNodeProps,
+  renderBlock?: (
+    props: RenderBlockProps,
+    editor: Editor,
+    next: NextType
+  ) => // tslint:disable-next-line:no-any
+  any;
+
+  renderInline?: (
+    props: RenderInlineProps,
     editor: Editor,
     next: NextType
   ) => // tslint:disable-next-line:no-any

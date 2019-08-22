@@ -31,6 +31,7 @@ import SlatePlugin, { SlatePluginOrCollection } from './types/SlatePlugin';
 import * as hooks from './hooks';
 
 import v002 from './migrations/v002';
+import v003 from './migrations/v003';
 
 import { ContentPluginConfig } from '@react-page/core/lib/service/plugin/classes';
 import { SlateState } from './types/state';
@@ -88,7 +89,7 @@ export default (
     ),
 
     name: 'ory/editor/core/content/slate',
-    version: '0.0.2',
+    version: '0.0.3',
     IconComponent: <Subject />,
     text: mergedSettings.translations.pluginName,
     description: mergedSettings.translations.pluginDescription,
@@ -129,6 +130,6 @@ export default (
     // merge = hooks.merge
     // split = hooks.split
 
-    migrations: [v002],
+    migrations: [v002, v003],
   };
 };

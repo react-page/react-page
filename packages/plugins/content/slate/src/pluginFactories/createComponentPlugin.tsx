@@ -1,4 +1,9 @@
-import { RenderNodeProps, RenderMarkProps } from 'slate-react';
+import {
+  RenderNodeProps,
+  RenderMarkProps,
+  RenderInlineProps,
+  RenderBlockProps
+} from 'slate-react';
 import { Data, Editor } from 'slate';
 import React from 'react';
 import { NextType } from '../types/next';
@@ -65,7 +70,24 @@ function createComponentPluginWithDefinition<T extends {}>(
       );
     },
 
-    renderNode: (props: RenderNodeProps, editor: Editor, next: NextType) => {
+    renderBlock: (props: RenderBlockProps, editor: Editor, next: NextType) => {
+      const { children, node } = props;
+
+      if (node.type !== pluginDefintion.type) {
+        return next();
+      }
+      if (node.object !== pluginDefintion.object) {
+        return next();
+      }
+
+      const { Component } = pluginDefintion;
+      return <Component data={node.data as MapLike<T>} children={children} />;
+    },
+    renderInline: (
+      props: RenderInlineProps,
+      editor: Editor,
+      next: NextType
+    ) => {
       const { children, node } = props;
       if (node.type !== pluginDefintion.type) {
         return next();
