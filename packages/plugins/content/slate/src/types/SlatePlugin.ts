@@ -1,6 +1,5 @@
 import {
   RenderMarkProps,
-  RenderNodeProps,
   RenderBlockProps,
   RenderInlineProps
 } from 'slate-react';

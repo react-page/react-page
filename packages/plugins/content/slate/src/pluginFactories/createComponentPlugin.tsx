@@ -1,5 +1,4 @@
 import {
-  RenderNodeProps,
   RenderMarkProps,
   RenderInlineProps,
   RenderBlockProps

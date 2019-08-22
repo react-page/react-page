@@ -3,7 +3,7 @@ import { NextType } from '../../types/next';
 import isHotkey from 'is-hotkey';
 
 import { SlatePluginDefinition } from '../../types/slatePluginDefinitions';
-import SlateHelpers from './slateHelpers';
+import SlateHelpers from './SlateHelpers';
 
 export default <T>(config: SlatePluginDefinition<T>) => (
   e: KeyboardEvent,

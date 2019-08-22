@@ -28,7 +28,7 @@ import {
 } from '../../types/slatePluginDefinitions';
 
 import ToolbarButton from './ToolbarButton';
-import SlateHelpers from '../utils/slateHelpers';
+import SlateHelpers from '../utils/SlateHelpers';
 
 export interface PluginState {
   showControls: boolean;
