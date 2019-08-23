@@ -23,10 +23,10 @@ import * as React from 'react';
 import { JssProvider } from 'react-jss';
 import {
   MuiThemeProvider,
-  createGenerateClassName,
   createMuiTheme,
   Theme
 } from '@material-ui/core/styles';
+import { createGenerateClassName } from '@material-ui/styles';
 import darkTheme from './DarkTheme/index';
 import { themeOptions } from './themeOptions';
 export { darkTheme };
