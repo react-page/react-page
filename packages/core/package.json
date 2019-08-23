@@ -19,8 +19,8 @@
     "clean": "rimraf \"lib/*\" && rimraf \"lib-es/*\""
   },
   "peerDependencies": {
-    "react": "^16.0.0",
-    "react-dom": "^16.0.0"
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6"
   },
   "dependencies": {
     "@loadable/component": "^5.10.2",
