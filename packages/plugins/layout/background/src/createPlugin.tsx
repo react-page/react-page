@@ -21,7 +21,6 @@
  */
 import * as React from 'react';
 import { v4 } from 'uuid';
-import Icon from '@material-ui/icons/CropLandscape';
 
 import { LayoutPluginConfig } from '@react-page/core/lib/service/plugin/classes';
 import { BackgroundSettings } from './types/settings';
@@ -29,9 +28,12 @@ import { BackgroundState } from './types/state';
 import { BackgroundProps } from './types/component';
 import BackgroundComponent from './Component';
 import { defaultSettings } from './default/settings';
+import { lazyLoad } from '@react-page/core';
+
+const Icon = lazyLoad(() => import('@material-ui/icons/CropLandscape'));
 
 const createPlugin = (settings: BackgroundSettings) => {
-  const mergedSettings = { ...defaultSettings, ...settings};
+  const mergedSettings = { ...defaultSettings, ...settings };
   const plugin: LayoutPluginConfig<BackgroundState> = {
     Component: (props: BackgroundProps) => (
       <BackgroundComponent {...props} {...mergedSettings} />
@@ -43,23 +45,25 @@ const createPlugin = (settings: BackgroundSettings) => {
     description: mergedSettings.translations.pluginDescription,
     IconComponent: <Icon />,
 
-    createInitialChildren: settings.getInitialChildren || (() => ({
-      id: v4(),
-      rows: [
-        {
-          id: v4(),
-          cells: [
-            {
-              content: {
-                plugin: settings.defaultPlugin,
-                state: settings.defaultPlugin.createInitialState(),
+    createInitialChildren:
+      settings.getInitialChildren ||
+      (() => ({
+        id: v4(),
+        rows: [
+          {
+            id: v4(),
+            cells: [
+              {
+                content: {
+                  plugin: settings.defaultPlugin,
+                  state: settings.defaultPlugin.createInitialState(),
+                },
+                id: v4(),
               },
-              id: v4(),
-            },
-          ],
-        },
-      ],
-    })),
+            ],
+          },
+        ],
+      })),
 
     handleFocusNextHotKey: () => Promise.reject(),
     handleFocusPreviousHotKey: () => Promise.reject(),

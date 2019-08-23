@@ -24,9 +24,12 @@ import * as React from 'react';
 import PlayArrow from '@material-ui/icons/PlayArrow';
 import { iconStyle } from '../common/styles';
 import ReactPlayer from 'react-player';
-import { VideoHtmlRendererProps } from 'src/types/renderer';
+import { VideoHtmlRendererProps } from '../types/renderer';
 
-const Display: React.SFC<VideoHtmlRendererProps> = ({ state: { src }, readOnly }) =>
+const Display: React.SFC<VideoHtmlRendererProps> = ({
+  state: { src },
+  readOnly,
+}) =>
   src ? (
     <div style={{ position: 'relative', height: 0, paddingBottom: '65.25%' }}>
       {readOnly ? null : (

@@ -1,6 +1,6 @@
 # Content plugins
 
-The ORY Editor ships a few handy content plugins per default:
+react-page ships a few handy content plugins per default:
 
 1. A plugin for [text editing](#text-editing), based on [Slate](http://slatejs.org).
 2. A plugin for embedding [images](#image).
@@ -9,12 +9,12 @@ The ORY Editor ships a few handy content plugins per default:
 
 ## Text editing
 
-The text editing allows you to create and modify rich-text and is optimized for use with the ORY Editor. We strongly
+The text editing allows you to create and modify rich-text and is optimized for use with react-page. We strongly
 encourage using our text editing solution.
 
 <p>
   <figure align="center">
-    <img alt="Text editing plugin" src="/images/text-editing-plugin.gif"><br>
+    <img alt="Text editing plugin" src="/docs/images/text-editing-plugin.gif"><br>
     <figcaption>The text editing plugin based on <a href="http://slatejs.org">Slate</a></figcaption>
   </figure>
 </p>
@@ -23,14 +23,16 @@ encourage using our text editing solution.
 
 By default we provide the following plugins:
 
-- AlignmentPlugin: allows to align left, right center and justify,
-- BlockquotePlugin: place a blockquote
-- CodePlugin: place code
-- EmphasizePlugin: place em tags
-- HeadingsPlugin: place headings h1 - h6
-- LinkPlugin: place links
-- ListsPlugin: place ordered and unordered lists
-- ParagraphPlugin: place paragraphs
+- `alignment`: allows to align left, right center and justify,
+- `blockquote`: place a blockquote
+- `code`: place code
+- `emphasize`: place em, strong and ul tags
+- `headings`: place headings h1 - h6
+- `link`: place links
+- `lists`: place ordered and unordered lists
+- `paragraph`: default paragraph
+
+[See the full list here](/packages/plugins/content/slate/plugins/defaultPlugins.tsx)
 
 If you only want to include some plugins, you can specify them:
 
@@ -39,9 +41,13 @@ import slate, { slatePlugins } from '@react-page/plugins-slate';
 
 
 const slatePlugin = slate([
-  new slatePlugins.HeadingsPlugin(),
-  new slatePlugins.ParagraphPlugin(),
-]);
+  slatePlugins.headings.h1(),
+  slatePlugins.headings.h2(),
+  slatePlugins.headings.h3(),
+  slatePlugins.emphasize.em(),
+  slatePlugins.emphasize.strong(),
+  slatePlugins.paragraph() // make sure to always include that
+];
 
 const plugins: Plugins = {
   content: [
@@ -63,7 +69,7 @@ const editor = new Editor({
 });
 ```
 
-Some plugins allow further configuration. E.g. most plugins implement `getComponent` where you can override the component rendering:
+You can customize slate plugins by providing a customize function. It will take the plugin's default config and you can return a new config. Most obvious usecase is to change the component that renders the plugin's content:
 
 ```
 
@@ -73,10 +79,90 @@ const RedH1 = ({ style, ...props }: Props) => (
 );
 
 const slatePlugin = slate([
-  new slatePlugins.HeadingsPlugin({
-    allowedLevels: [1],
-    getComponent: ({ type }: { type: string; data: any }) => RedH1,
-  })
+  slatePlugins.headings.h1(def => ({
+    ...def, // spread it, so that the new config contains all defaults
+    Component: ({data, children}) => (
+      <RedH1 style={{textAlign: data.get("align")}}>{children}</RedH1>
+    )
+  }))
+  // ...
+
+```
+
+If you use typescript (and you should!), you will get nice typechecking in the customize function.
+
+### Create your own slate plugins
+
+If you want to create your own slate plugins, we provide a bunch of factory functions to help you with that:
+
+- `createComponentPlugin`: allows to create a plugin which has a component (most built-in plugins use this factory).
+- `createSimpleHtmlBlockPlugin`: a more convenient variant of `createComponentPlugin`. It renders a simple component with a html-tag and has built-in serialization. used by plugins like `headings` or `blockquote`
+- `createMarkPlugin`: similar to `createSimpleHtmlBlockPlugin` but renders a "mark" with a hover button on selection
+- `createDataPlugin`: this plugin toggles data on the current block or inline element, but does not render a component. E.g. the alignment-plugin uses this factory
+  you can import these with:
+
+```
+import {pluginFactories} from '@react-page/plugins-slate'
+```
+
+### Slate-Plugins with custom data
+
+Some plugins require custom data that the user has to provide. E.g. the `link` plugin needs a `href: string`. This is currently possible, but you need to implement the controls yourself. We will provide a more convenient way to create these plugins in the future.
+
+In the meantime, [look at the `link` plugin as an example](/packages/plugins/content/slate/plugins/link/index.tsx)
+
+For **typescript**-users: As you can see, all factories take a generic type Argument. E.g.
+
+```
+type LinkData = {
+  href: string;
+  openInNewWindow?: boolean;
+};
+
+
+const yourLinkPlugin = createComponentPlugin<LinkData>({
+  ...
+})
+```
+
+this ensures that whenver data is used, the type is correct. Very handy also for consumers of your plugin:
+
+```
+const linkWithMyOverrriddenComponent = yourLinkPlugin(def => ({
+  ...def,
+  Component: ({data, children}) => (
+    <SuperFancyLink href={data.get("href") /* neat! autocompletion and type checking here! */}>
+      {children}
+    </SuperFancyLink>
+  )
+}))
+
+```
+
+the consumer could even change the add more properties to the data type, altough its up to him/her to adjust the controls and serialization so that the new DataType is satisfied:
+
+```
+
+const linkWithTracking = yourLinkPlugin<{campaignTrackingId: string}>(def => ({
+  ...def,
+  Component: ({data, children}) => (
+    <LinkWithTracking href={data.get("href")} campaignTrackingId={data.get("campaignTrackingId")}>
+      {children}
+    </LinkWithTracking>
+  ),
+  Controls: () => ...// need to set also data for `campaignTrackingId`
+
+  // also deserialize needs to be update, because `campaignTrackingId` is not defined as optional above
+  deserialize: {
+    // we spread in all defaults, but update getData to also include `campaignTrackingId`
+    ...def.deserialize,
+    getData: el => ({
+      ...def.serialization.getData(el),
+      campaignTrackingId: "some-default-id"
+    })
+
+  }
+}))
 
 ```
 
@@ -87,7 +173,7 @@ uploads.
 
 <p>
   <figure align="center">
-    <img alt="Image plugin" src="/images/image-plugin.gif"><br>
+    <img alt="Image plugin" src="/docs/images/image-plugin.gif"><br>
     <figcaption>The image plugin</figcaption>
   </figure>
 </p>
@@ -101,7 +187,7 @@ uploads.
 
 <p>
   <figure align="center">
-    <img alt="Video plugin" src="/images/video-plugin.gif"><br>
+    <img alt="Video plugin" src="/docs/images/video-plugin.gif"><br>
     <figcaption>The video plugin</figcaption>
   </figure>
 </p>
@@ -114,7 +200,7 @@ The spacer is a plugin which you can use to create an empty fixed height cell.
 
 <p>
   <figure align="center">
-    <img alt="Spacer plugin" src="/images/spacer-plugin.gif"><br>
+    <img alt="Spacer plugin" src="/docs/images/spacer-plugin.gif"><br>
     <figcaption>The spacer plugin</figcaption>
   </figure>
 </p>
@@ -150,3 +236,7 @@ Most built-in plugins use a bottom toolbar with a form as Controls. See for exam
 Because it can be tedious to implement controls for a plugin, we started to develop a plugin that make this much easier: `@react-page/create-plugin-materialui`
 
 See [the readme of this library for more information](/packages/plugins/createPluginMaterialUi/README.md)
+
+```
+
+```

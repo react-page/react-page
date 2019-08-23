@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { ParallaxBackgroundControlsProps } from 'src/types/controls';
+import { ParallaxBackgroundControlsProps } from '../types/controls';
 import TextField from '@material-ui/core/TextField';
 import { BottomToolbar } from '@react-page/ui';
 import ThemeProvider, { darkTheme } from '@react-page/ui/lib/ThemeProvider';

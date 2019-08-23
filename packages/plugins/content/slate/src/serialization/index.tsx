@@ -8,6 +8,7 @@ import { PluginProps } from '@react-page/core/lib/service/plugin/classes';
 import createInitialState from './createInitialState';
 
 import parseHtml from '../parseHtml/parseHtml';
+import SlatePlugin from '../types/SlatePlugin';
 
 type AdditionalSlateFunctions = {
   slateToHtml: (editorState: EditorState) => string;
@@ -18,11 +19,18 @@ export type SerializationFunctions = Pick<
   'serialize' | 'unserialize' | 'createInitialState'
 > &
   AdditionalSlateFunctions;
-export default ({ plugins }): SerializationFunctions => {
+export default ({ plugins }: { plugins: SlatePlugin[] }) => {
   // tslint:disable-next-line:no-any
 
+  const rules = plugins
+    .filter(p => p.serialize && p.deserialize)
+    .map(p => ({
+      serialize: p.serialize,
+      deserialize: p.deserialize,
+    }));
+
   const html = new Html({
-    rules: plugins,
+    rules: rules,
     // tslint:disable-next-line:no-any
     parseHtml,
   });

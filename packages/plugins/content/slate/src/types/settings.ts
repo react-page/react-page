@@ -1,4 +1,4 @@
-import Plugin from '../plugins/Plugin';
+import Plugin from './SlatePlugin';
 
 import { Translations } from './translations';
 

@@ -22,19 +22,20 @@
 
 import * as React from 'react';
 import Spacer from './Component/index';
-import PlayArrow from '@material-ui/icons/PlayArrow';
+
 import { ContentPluginProps } from '@react-page/core/lib/service/plugin/classes';
 import { ContentPluginConfig } from '@react-page/core/lib/service/plugin/classes';
 import { VideoSettings } from './types/settings';
 import { VideoProps } from './types/component';
 import { VideoState } from './types/state';
 import { defaultSettings } from './default/settings';
+import { lazyLoad } from '@react-page/core';
+
+const PlayArrow = lazyLoad(() => import('@material-ui/icons/PlayArrow'));
 
 const createPlugin: (
   settings: VideoSettings
-) => ContentPluginConfig<VideoState> = (
-  settings
-) => {
+) => ContentPluginConfig<VideoState> = settings => {
   const mergedSettings = { ...defaultSettings, ...settings };
   const WrappedComponent: React.SFC<VideoProps> = props => (
     <Spacer {...props} {...mergedSettings} />

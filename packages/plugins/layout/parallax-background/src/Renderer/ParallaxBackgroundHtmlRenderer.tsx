@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { ParallaxBackgroundRendererProps } from 'src/types/renderer';
+import { ParallaxBackgroundRendererProps } from '../types/renderer';
 import { defaultState } from '../default/state';
 
 const ParallaxBackgroundHtmlRenderer: React.SFC<

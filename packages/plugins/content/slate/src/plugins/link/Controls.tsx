@@ -26,16 +26,15 @@ import * as React from 'react';
 import TextField from '@material-ui/core/TextField';
 import Checkbox from '@material-ui/core/Checkbox';
 
-import { PluginButtonProps } from '../Plugin';
-
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button';
 import { FormControlLabel } from '@material-ui/core';
+import { SlatePluginControls } from '../../types/slatePluginDefinitions';
+import { LinkData } from '.';
 
-const A = 'LINK/LINK';
 export interface LinkControlsState {
   href: string;
   title: string;
@@ -47,16 +46,27 @@ export interface Props {
 }
 
 class Controls extends React.Component<
-  Props & PluginButtonProps,
+  SlatePluginControls<LinkData>,
   LinkControlsState
 > {
-  state = {
-    href: '',
-    title: '',
-    openInNewWindow: false,
-  };
-
   input: HTMLDivElement;
+  constructor(props: SlatePluginControls<LinkData>) {
+    super(props);
+    this.state = {
+      href: props.data.href,
+      title: '',
+      openInNewWindow: props.data.openInNewWindow,
+    };
+  }
+
+  componentDidUpdate(oldProps: SlatePluginControls<LinkData>) {
+    if (this.props.open !== oldProps.open) {
+      this.setState({
+        href: this.props.data.href,
+        openInNewWindow: this.props.data.openInNewWindow,
+      });
+    }
+  }
 
   onRef = (component: HTMLDivElement) => {
     if (!component && true) {
@@ -69,10 +79,6 @@ class Controls extends React.Component<
     }
   }
 
-  textIsSelected = () => {
-    return this.props.editorState.selection.isExpanded;
-  }
-
   handleClose = () => {
     this.props.close();
     this.props.editor.focus();
@@ -82,7 +88,7 @@ class Controls extends React.Component<
     this.props.close();
 
     if (!this.state.href) {
-      this.handleClose();
+      this.props.remove();
       return;
     }
 
@@ -91,30 +97,15 @@ class Controls extends React.Component<
       openInNewWindow: this.state.openInNewWindow,
     };
 
-    if (this.textIsSelected()) {
-      this.props.editor
-        .focus()
-        .wrapInline({
-          type: A,
-          data,
-        })
-        .moveToEnd();
-      return;
-    } else {
+    if (this.props.shouldInsertWithText) {
       // no text is selected. so we need a title
       if (!this.state.title) {
         this.handleClose();
         return;
       }
-      this.props.editor
-        .insertText(this.state.title)
-        .moveFocusBackward(this.state.title.length)
-        .wrapInline({
-          type: A,
-          data,
-        })
-        .moveToEnd()
-        .focus();
+      this.props.addWithText(this.state.title, data);
+    } else {
+      this.props.add(data);
     }
   }
 
@@ -153,7 +144,7 @@ class Controls extends React.Component<
           {this.props.translations.linkPlugin!.createLink}
         </DialogTitle>
         <DialogContent>
-          {this.textIsSelected() ? null : (
+          {!this.props.shouldInsertWithText ? null : (
             <div>
               <TextField
                 placeholder={

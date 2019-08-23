@@ -15,7 +15,7 @@
     "build:css:watch": "npm run build:css -- -w",
     "docs": "documentation build ./lib/**/*.js --format md --github -o ../../docs/api/ui.md",
     "prebuild": "npm run clean",
-    "clean": "rimraf \"lib/**/*\""
+    "clean": "rimraf \"lib/**/*\" && rimraf \"lib-es/*\""
   },
   "peerDependencies": {
     "react": "^16.8.6",
@@ -23,6 +23,7 @@
     "react-jss": "^8.6.1"
   },
   "dependencies": {
+    "@loadable/component": "^5.10.2",
     "@material-ui/core": "^4.3.0",
     "@material-ui/icons": "^4.2.1",
     "@material-ui/styles": "^4.3.0",

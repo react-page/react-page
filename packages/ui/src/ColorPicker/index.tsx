@@ -41,12 +41,15 @@ class ColorPicker extends React.Component<ColorPickerProps> {
           }}
           variant="contained"
           onClick={this.handleClickShowColorPicker}
-          style={{
-            ...this.props.style,
-            borderColor: colorToString(this.props.color),
-            borderStyle: 'solid',
-            borderWidth: '2px',
-          }}
+          style={
+            {
+              ...this.props.style,
+              borderColor: colorToString(this.props.color),
+              borderStyle: 'solid',
+              borderWidth: '2px',
+              // tslint:disable-next-line:no-any
+            } as any
+          }
         >
           {this.props.buttonContent}
           {this.props.icon}

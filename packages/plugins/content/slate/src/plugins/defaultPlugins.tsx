@@ -1,23 +1,42 @@
-import AlignmentPlugin from './alignment';
-import BlockquotePlugin from './blockquote';
-import CodePlugin from './code/index';
-import EmphasizePlugin from './emphasize';
-import HeadingsPlugin from './headings';
-import LinkPlugin from './link/index';
-import ListsPlugin from './lists';
-import ParagraphPlugin from './paragraph';
+import paragraph from './paragraph';
+import link from './link';
 
-import Plugin from './Plugin';
+import emphasize from './emphasize';
 
-const defaultPlugins: Plugin[] = [
-  new ParagraphPlugin(),
+import headings from './headings';
+import { SlatePluginOrCollection } from '../types/SlatePlugin';
+import alignment from './alignment';
+import blockquote from './blockquote';
+import code from './code';
+import lists from './lists';
 
-  new EmphasizePlugin(),
-  new HeadingsPlugin(),
-  new LinkPlugin(),
-  new CodePlugin(),
+const defaultPlugins: SlatePluginOrCollection[] = [
+  headings.h1(),
+  headings.h2(),
+  headings.h3(),
+  headings.h4(),
+  headings.h5(),
+  headings.h6(),
+  link(),
+  lists.ul(),
+  lists.ol(),
+  lists.indention(),
+  emphasize.em(),
+  emphasize.strong(),
+  emphasize.underline(),
+  alignment.left(),
+  alignment.center(),
+  alignment.right(),
+  alignment.justify(),
+  paragraph(),
+  blockquote(),
+  code.mark(),
+  code.block(),
+
+  /*
   new ListsPlugin(),
-  new BlockquotePlugin(),
-  new AlignmentPlugin(),
+ 
+  */
 ];
+
 export default defaultPlugins;
