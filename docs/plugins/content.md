@@ -14,7 +14,7 @@ encourage using our text editing solution.
 
 <p>
   <figure align="center">
-    <img alt="Text editing plugin" src="/images/text-editing-plugin.gif"><br>
+    <img alt="Text editing plugin" src="/docs/images/text-editing-plugin.gif"><br>
     <figcaption>The text editing plugin based on <a href="http://slatejs.org">Slate</a></figcaption>
   </figure>
 </p>
@@ -127,7 +127,7 @@ const yourLinkPlugin = createComponentPlugin<LinkData>({
 
 this ensures that whenver data is used, the type is correct. Very handy also for consumers of your plugin:
 
-````
+```
 const linkWithMyOverrriddenComponent = yourLinkPlugin(def => ({
   ...def,
   Component: ({data, children}) => (
@@ -163,8 +163,8 @@ const linkWithTracking = yourLinkPlugin<{campaignTrackingId: string}>(def => ({
 
   }
 }))
-```
 
+```
 
 ## Image
 
@@ -173,7 +173,7 @@ uploads.
 
 <p>
   <figure align="center">
-    <img alt="Image plugin" src="/images/image-plugin.gif"><br>
+    <img alt="Image plugin" src="/docs/images/image-plugin.gif"><br>
     <figcaption>The image plugin</figcaption>
   </figure>
 </p>
@@ -187,7 +187,7 @@ uploads.
 
 <p>
   <figure align="center">
-    <img alt="Video plugin" src="/images/video-plugin.gif"><br>
+    <img alt="Video plugin" src="/docs/images/video-plugin.gif"><br>
     <figcaption>The video plugin</figcaption>
   </figure>
 </p>
@@ -200,7 +200,7 @@ The spacer is a plugin which you can use to create an empty fixed height cell.
 
 <p>
   <figure align="center">
-    <img alt="Spacer plugin" src="/images/spacer-plugin.gif"><br>
+    <img alt="Spacer plugin" src="/docs/images/spacer-plugin.gif"><br>
     <figcaption>The spacer plugin</figcaption>
   </figure>
 </p>
@@ -236,4 +236,7 @@ Most built-in plugins use a bottom toolbar with a form as Controls. See for exam
 Because it can be tedious to implement controls for a plugin, we started to develop a plugin that make this much easier: `@react-page/create-plugin-materialui`
 
 See [the readme of this library for more information](/packages/plugins/createPluginMaterialUi/README.md)
-````
+
+```
+
+```
