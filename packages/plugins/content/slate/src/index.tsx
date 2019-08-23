@@ -20,8 +20,6 @@
  *
  */
 
-import Subject from '@material-ui/icons/Subject';
-
 import * as React from 'react';
 
 import Component from './Component';
@@ -51,6 +49,7 @@ import flattenDeep from './flattenDeep';
 
 export { defaultPlugins, slatePlugins, pluginFactories };
 
+const Subject = lazyLoad(() => import('@material-ui/icons/Subject'));
 const Controls = lazyLoad(() => import('./Controls/'));
 
 export default (

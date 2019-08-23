@@ -13,7 +13,7 @@
     "@material-ui/core": "^3.6.1",
     "@material-ui/icons": "^3.0.1",
     "@types/jest": "^23.3.10",
-    "@types/react": "16.7.17",
+    "@types/react": "16.9.1",
     "@types/react-dom": "16.0.11",
     "@types/slate": "^0.47.0",
     "@types/slate-react": "^0.22.0",

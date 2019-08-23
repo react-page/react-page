@@ -22,14 +22,15 @@
 
 import * as React from 'react';
 import { v4 } from 'uuid';
-import Icon from '@material-ui/icons/CropLandscape';
-import {
-  LayoutPluginConfig
-} from '@react-page/core/lib/service/plugin/classes';
+
+import { LayoutPluginConfig } from '@react-page/core/lib/service/plugin/classes';
 import { ParallaxBackgroundSettings } from './types/settings';
 import { ParallaxBackgroundState } from './types/state';
 import { ContentPluginProps } from '@react-page/core/lib/service/plugin/classes';
 import Component from './Component';
+import { lazyLoad } from '@react-page/core';
+
+const Icon = lazyLoad(() => import('@material-ui/icons/CropLandscape'));
 
 if (process.env.NODE_ENV !== 'production') {
   console.warn(
@@ -38,7 +39,9 @@ if (process.env.NODE_ENV !== 'production') {
   );
 }
 
-const createPlugin: (settings: ParallaxBackgroundSettings) => LayoutPluginConfig<ParallaxBackgroundState> = settings => ({
+const createPlugin: (
+  settings: ParallaxBackgroundSettings
+) => LayoutPluginConfig<ParallaxBackgroundState> = settings => ({
   Component: (props: ContentPluginProps<ParallaxBackgroundState>) => (
     <Component {...props} {...settings} />
   ),
@@ -48,23 +51,25 @@ const createPlugin: (settings: ParallaxBackgroundSettings) => LayoutPluginConfig
   text: 'Parallax Background (deprecated)',
   IconComponent: <Icon />,
 
-  createInitialChildren: settings.getInitialChildren || (() => ({
-    id: v4(),
-    rows: [
-      {
-        id: v4(),
-        cells: [
-          {
-            content: {
-              plugin: settings.defaultPlugin,
-              state: settings.defaultPlugin.createInitialState(),
+  createInitialChildren:
+    settings.getInitialChildren ||
+    (() => ({
+      id: v4(),
+      rows: [
+        {
+          id: v4(),
+          cells: [
+            {
+              content: {
+                plugin: settings.defaultPlugin,
+                state: settings.defaultPlugin.createInitialState(),
+              },
+              id: v4(),
             },
-            id: v4(),
-          },
-        ],
-      },
-    ],
-  })),
+          ],
+        },
+      ],
+    })),
 
   handleFocusNextHotKey: () => Promise.reject(),
   handleFocusPreviousHotKey: () => Promise.reject(),

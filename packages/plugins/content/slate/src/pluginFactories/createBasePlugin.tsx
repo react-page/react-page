@@ -1,11 +1,13 @@
 import React from 'react';
-import PluginButton from './components/PluginButton';
+
 import SlatePlugin from '../types/SlatePlugin';
 import simpleToggleHotKeyHandler from './utils/simpleToggleHotKeyHandler';
 import {
   SlatePluginDefinition,
   PluginButtonProps
 } from '../types/slatePluginDefinitions';
+import { lazyLoad } from '@react-page/core';
+const PluginButton = lazyLoad(() => import('./components/PluginButton'));
 
 function createBasePlugin<T extends {}>(
   pluginDefintion: SlatePluginDefinition<T>

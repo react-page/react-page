@@ -15,7 +15,7 @@
     "build:css:watch": "npm run build:css -- -w",
     "docs": "documentation build ./lib/**/*.js --format md --github -o ../../docs/api/ui.md",
     "prebuild": "npm run clean",
-    "clean": "rimraf \"lib/**/*\""
+    "clean": "rimraf \"lib/**/*\" && rimraf \"lib-es/*\""
   },
   "peerDependencies": {
     "@material-ui/core": "^3.0.0",
@@ -28,6 +28,7 @@
     "classnames": "^2.2.5",
     "device.js": "^2.3.0",
     "lodash.throttle": "^4.1.1",
+    "@loadable/component": "^5.10.2",
     "@react-page/core": "0.0.0",
     "rc-tooltip": "^3.4.3",
     "react-color": "^2.14.1",

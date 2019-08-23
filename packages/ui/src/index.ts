@@ -1,31 +1,14 @@
-/*
- * This file is part of ORY Editor.
- *
- * ORY Editor is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * ORY Editor is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public License
- * along with ORY Editor.  If not, see <http://www.gnu.org/licenses/>.
- *
- * @license LGPL-3.0
- * @copyright 2016-2018 Aeneas Rekkas
- * @author Aeneas Rekkas <aeneas+oss@aeneas.io>
- *
- */
-import Trash from './Trash/index';
-import Toolbar from './Toolbar/index';
-import DisplayModeToggle from './DisplayModeToggle/index';
-import BottomToolbar from './BottomToolbar/index';
-import ThemeProvider from './ThemeProvider/index';
-import ImageUpload from './ImageUpload/index';
-import ColorPicker from './ColorPicker/index';
+// something is wrong with lerna, typescript and this import: import { lazyLoad } from '@react-page/core';
+import loadable from '@loadable/component';
+
+const Trash = loadable(() => import('./Trash/index'));
+const Toolbar = loadable(() => import('./Toolbar/index'));
+const DisplayModeToggle = loadable(() => import('./DisplayModeToggle/index'));
+const BottomToolbar = loadable(() => import('./BottomToolbar/index'));
+const ThemeProvider = loadable(() => import('./ThemeProvider/index'));
+const ImageUpload = loadable(() => import('./ImageUpload/index'));
+const ColorPicker = loadable(() => import('./ColorPicker/index'));
+
 import { colorToString } from './ColorPicker/colorToString';
 
 export {
