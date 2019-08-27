@@ -7,11 +7,18 @@ import {
   PluginButtonProps
 } from '../types/slatePluginDefinitions';
 import { lazyLoad } from '@react-page/core';
-const PluginButton = lazyLoad(() => import('./components/PluginButton'));
 
 function createBasePlugin<T extends {}>(
   pluginDefintion: SlatePluginDefinition<T>
 ): SlatePlugin {
+  const PluginButton = lazyLoad(
+    () =>
+      (import('./components/PluginButton') as unknown) as Promise<
+        React.ComponentType<
+          PluginButtonProps & { config: SlatePluginDefinition<T> }
+        >
+      >
+  );
   const Button = (props: PluginButtonProps) => (
     <PluginButton {...props} config={pluginDefintion} />
   );

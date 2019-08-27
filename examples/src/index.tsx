@@ -32,7 +32,9 @@ import { Trash, DisplayModeToggle, Toolbar } from '@react-page/ui';
 import '@react-page/ui/lib/index.css';
 
 // The rich text area plugin
-import slate from '@react-page/plugins-slate';
+import slate, {
+  defaultPlugins as defaultSlatePlugins
+} from '@react-page/plugins-slate';
 
 import '@react-page/plugins-slate/lib/index.css';
 
@@ -54,7 +56,7 @@ import '@react-page/plugins-parallax-background/lib/index.css';
 
 // The background plugin
 import background from '@react-page/plugins-background';
-import { ModeEnum } from '@react-page/plugins-background/lib/types/modeEnum';
+import { ModeEnum } from '@react-page/plugins-background';
 import '@react-page/plugins-background/lib/index.css';
 
 // The html5-video plugin
@@ -75,7 +77,8 @@ import customLayoutPlugin from './customLayoutPlugin';
 import content from './content';
 import './styles.css';
 import { ImageUploadType } from '@react-page/ui/lib/ImageUpload/types';
-import { Plugins } from '@react-page/core/lib/service/plugin/classes';
+import { Plugins } from '@react-page/core';
+import customSlatePlugin from './customSlatePlugin';
 
 const fakeImageUploadService: (url: string) => ImageUploadType = defaultUrl => (
   file,
@@ -105,7 +108,7 @@ if (
   whyDidYouUpdate(React);
 }
 
-const slatePlugin = slate();
+const slatePlugin = slate([...defaultSlatePlugins, customSlatePlugin()]);
 // Define which plugins we want to use (all of the above)
 const plugins: Plugins = {
   content: [

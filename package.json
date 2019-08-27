@@ -48,7 +48,7 @@
     "ts-jest": "^23.10.5",
     "tslint": "^5.11.0",
     "tslint-react": "^3.6.0",
-    "typescript": "^3.2.2",
+    "typescript": "^3.5.1",
     "unexpected": "^10.38.0"
   },
   "scripts": {
@@ -57,7 +57,7 @@
     "build": "cross-env NODE_ENV=production lerna run build --stream",
     "build:lib": "cross-env NODE_ENV=production lerna run build --ignore @react-page/examples --stream",
     "build:watch": "cross-env NODE_ENV=development lerna run build:watch --parallel",
-    "clean": "lerna run clean",
+    "clean": "lerna run clean && find . -name tsconfig-es.tsbuildinfo  -delete && find . -name tsconfig.tsbuildinfo  -delete",
     "clean:lerna": "lerna clean --yes",
     "docs:api": "cross-env NODE_ENV=development lerna run docs --stream",
     "docs:guide": "gitbook serve -http",

@@ -1,13 +1,13 @@
 import * as React from 'react';
 import { BackgroundControlsProps } from '../types/controls';
-import { ModeEnum } from '../types/modeEnum';
+import { ModeEnum } from '../types/ModeEnum';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 import ColorComponent from './sub/Color';
 import LinearGradientComponent from './sub/LinearGradient';
 import ImageComponent from './sub/Image';
 import { BottomToolbar } from '@react-page/ui';
-import ThemeProvider, { darkTheme } from '@react-page/ui/lib/ThemeProvider';
+
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import ImageIcon from '@material-ui/icons/Landscape';
@@ -51,112 +51,113 @@ class BackgroundDefaultControls extends React.Component<
         ? this.props.lightenPreview
         : lighten;
     return (
-      <ThemeProvider theme={darkTheme}>
-        <BottomToolbar open={focused} theme={darkTheme}>
-          <Tabs
-            value={this.state.mode}
-            onChange={this.handleChangeMode}
-            centered={true}
-          >
-            {(this.props.enabledModes & ModeEnum.IMAGE_MODE_FLAG) > 0 && (
-              <Tab
-                icon={
-                  <ImageIcon
-                    color={
-                      (modeFlag & ModeEnum.IMAGE_MODE_FLAG) > 0
-                        ? 'secondary'
-                        : undefined
-                    }
-                  />
-                }
-                label={this.props.translations.imageMode}
-                value={ModeEnum.IMAGE_MODE_FLAG}
-              />
-            )}
-            {(this.props.enabledModes & ModeEnum.COLOR_MODE_FLAG) > 0 && (
-              <Tab
-                icon={
-                  <ColorIcon
-                    color={
-                      (modeFlag & ModeEnum.COLOR_MODE_FLAG) > 0
-                        ? 'secondary'
-                        : undefined
-                    }
-                  />
-                }
-                label={this.props.translations.colorMode}
-                value={ModeEnum.COLOR_MODE_FLAG}
-              />
-            )}
-            {(this.props.enabledModes & ModeEnum.GRADIENT_MODE_FLAG) > 0 && (
-              <Tab
-                icon={
-                  <GradientIcon
-                    color={
-                      (modeFlag & ModeEnum.GRADIENT_MODE_FLAG) > 0
-                        ? 'secondary'
-                        : undefined
-                    }
-                  />
-                }
-                label={this.props.translations.gradientMode}
-                value={ModeEnum.GRADIENT_MODE_FLAG}
-              />
-            )}
-          </Tabs>
-          {this.renderUI()}
-          <br />
-          <div style={{ display: 'flex' }}>
-            <div style={{ flex: '1', marginRight: '8px' }}>
-              <Typography variant="body1" id="linear-gradient-darken-label">
-                {this.props.translations.darken} (
-                {(darkenFinal * 100).toFixed(0)}
-                %)
-              </Typography>
-              <Slider
-                aria-labelledby="linear-gradient-darken-label"
-                value={darkenFinal}
-                onChange={(e, value) =>
-                  this.props.handleChangeDarkenPreview(value instanceof Array ? value[0] : value)
-                }
-                onDragEnd={this.props.handleChangeDarken}
-                step={0.01}
-                min={0}
-                max={1}
-              />
-            </div>
-            <div style={{ flex: '1', marginLeft: '8px' }}>
-              <Typography variant="body1" id="linear-gradient-lighten-label">
-                {this.props.translations.lighten} (
-                {(lightenFinal * 100).toFixed(0)}
-                %)
-              </Typography>
-              <Slider
-                aria-labelledby="linear-gradient-lighten-label"
-                value={lightenFinal}
-                onChange={(e, value) =>
-                  this.props.handleChangeLightenPreview(value instanceof Array ? value[0] : value)
-                }
-                onDragEnd={this.props.handleChangeLighten}
-                step={0.01}
-                min={0}
-                max={1}
-              />
-            </div>
-          </div>
-          <div style={{ display: 'flex' }}>
-            <FormControlLabel
-              control={
-                <Switch
-                  onChange={this.props.handleChangeHasPadding}
-                  checked={hasPadding}
+      <BottomToolbar open={focused}>
+        <Tabs
+          value={this.state.mode}
+          onChange={this.handleChangeMode}
+          centered={true}
+        >
+          {(this.props.enabledModes & ModeEnum.IMAGE_MODE_FLAG) > 0 && (
+            <Tab
+              icon={
+                <ImageIcon
+                  color={
+                    (modeFlag & ModeEnum.IMAGE_MODE_FLAG) > 0
+                      ? 'secondary'
+                      : undefined
+                  }
                 />
               }
-              label={this.props.translations.usePadding}
+              label={this.props.translations.imageMode}
+              value={ModeEnum.IMAGE_MODE_FLAG}
+            />
+          )}
+          {(this.props.enabledModes & ModeEnum.COLOR_MODE_FLAG) > 0 && (
+            <Tab
+              icon={
+                <ColorIcon
+                  color={
+                    (modeFlag & ModeEnum.COLOR_MODE_FLAG) > 0
+                      ? 'secondary'
+                      : undefined
+                  }
+                />
+              }
+              label={this.props.translations.colorMode}
+              value={ModeEnum.COLOR_MODE_FLAG}
+            />
+          )}
+          {(this.props.enabledModes & ModeEnum.GRADIENT_MODE_FLAG) > 0 && (
+            <Tab
+              icon={
+                <GradientIcon
+                  color={
+                    (modeFlag & ModeEnum.GRADIENT_MODE_FLAG) > 0
+                      ? 'secondary'
+                      : undefined
+                  }
+                />
+              }
+              label={this.props.translations.gradientMode}
+              value={ModeEnum.GRADIENT_MODE_FLAG}
+            />
+          )}
+        </Tabs>
+        {this.renderUI()}
+        <br />
+        <div style={{ display: 'flex' }}>
+          <div style={{ flex: '1', marginRight: '8px' }}>
+            <Typography variant="body1" id="linear-gradient-darken-label">
+              {this.props.translations.darken} ({(darkenFinal * 100).toFixed(0)}
+              %)
+            </Typography>
+            <Slider
+              aria-labelledby="linear-gradient-darken-label"
+              value={darkenFinal}
+              onChange={(e, value) =>
+                this.props.handleChangeDarkenPreview(
+                  value instanceof Array ? value[0] : value
+                )
+              }
+              onDragEnd={this.props.handleChangeDarken}
+              step={0.01}
+              min={0}
+              max={1}
             />
           </div>
-        </BottomToolbar>
-      </ThemeProvider>
+          <div style={{ flex: '1', marginLeft: '8px' }}>
+            <Typography variant="body1" id="linear-gradient-lighten-label">
+              {this.props.translations.lighten} (
+              {(lightenFinal * 100).toFixed(0)}
+              %)
+            </Typography>
+            <Slider
+              aria-labelledby="linear-gradient-lighten-label"
+              value={lightenFinal}
+              onChange={(e, value) =>
+                this.props.handleChangeLightenPreview(
+                  value instanceof Array ? value[0] : value
+                )
+              }
+              onDragEnd={this.props.handleChangeLighten}
+              step={0.01}
+              min={0}
+              max={1}
+            />
+          </div>
+        </div>
+        <div style={{ display: 'flex' }}>
+          <FormControlLabel
+            control={
+              <Switch
+                onChange={this.props.handleChangeHasPadding}
+                checked={hasPadding}
+              />
+            }
+            label={this.props.translations.usePadding}
+          />
+        </div>
+      </BottomToolbar>
     );
   }
 

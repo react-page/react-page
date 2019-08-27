@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Html5VideoControlsProps } from './../types/controls';
 import TextField from '@material-ui/core/TextField';
 import { BottomToolbar } from '@react-page/ui';
-import { darkTheme } from '@react-page/ui/lib/ThemeProvider';
+
 import { defaultHtml5VideoState } from '../default/state';
 
 export interface Html5VideoDefaultControlsProps {}
@@ -19,7 +19,7 @@ const Html5VideoDefaultControls: React.SFC<Html5VideoControlsProps> = props => {
     focused,
   } = props;
   return (
-    <BottomToolbar open={focused} theme={darkTheme}>
+    <BottomToolbar open={focused}>
       <TextField
         placeholder={props.translations.urlPlaceholder}
         label={props.translations.urlLabel}

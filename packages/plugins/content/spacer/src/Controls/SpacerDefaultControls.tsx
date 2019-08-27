@@ -2,7 +2,7 @@ import * as React from 'react';
 import { SpacerControlsProps } from '../types/controls';
 import { Resizable } from 'react-resizable';
 import { BottomToolbar } from '@react-page/ui';
-import { darkTheme } from '@react-page/ui/lib/ThemeProvider';
+
 import { defaultSpacerState } from './../default/state';
 import classNames from 'classnames';
 import TextField from '@material-ui/core/TextField';
@@ -26,7 +26,7 @@ const SpacerDefaultControls: React.SFC<SpacerControlsProps> = props => {
         'ory-plugins-content-spacer-read-only': isPreviewMode,
       })}
     >
-      {!isEditMode  ? (
+      {!isEditMode ? (
         <Renderer {...props} />
       ) : (
         <Resizable
@@ -36,7 +36,7 @@ const SpacerDefaultControls: React.SFC<SpacerControlsProps> = props => {
           width={0}
         >
           <div style={{ height, position: 'relative' }}>
-            <BottomToolbar open={focused} theme={darkTheme}>
+            <BottomToolbar open={focused}>
               <TextField
                 placeholder="24"
                 label={props.translations.elementHeightLabel}

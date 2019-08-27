@@ -3,7 +3,7 @@ import * as React from 'react';
 import { BackgroundProps } from '../types/component';
 import { RGBColor } from '@react-page/ui/lib/ColorPicker/types';
 import { ImageLoaded } from '@react-page/ui/lib/ImageUpload/types';
-import { ModeEnum } from '../types/modeEnum';
+import { ModeEnum } from '../types/ModeEnum';
 import { BackgroundApi } from '../types/api';
 
 export type BackgroundState = {

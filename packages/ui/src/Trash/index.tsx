@@ -24,18 +24,12 @@ import * as React from 'react';
 import { DropTarget as dropTarget } from 'react-dnd';
 import Delete from '@material-ui/icons/Delete';
 import Fab from '@material-ui/core/Fab';
-import { Editor } from '@react-page/core';
+import { Editor, Actions } from '@react-page/core';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
-import { removeCell } from '@react-page/core/lib/actions/cell/core';
+
 import throttle from 'lodash.throttle';
-import {
-  isEditMode,
-  isLayoutMode,
-  isPreviewMode,
-  isInsertMode,
-  isResizeMode
-} from '@react-page/core/lib/selector/display';
+
 import { createStructuredSelector } from 'reselect';
 
 import Provider from '../Provider/index';
@@ -113,16 +107,10 @@ const types = ({ editor }: { editor: Editor }) => {
 };
 
 const mapDispatchToProps = {
-  removeCell,
+  removeCell: Actions.Cell.removeCell,
 };
 
-const mapStateToProps = createStructuredSelector({
-  isEditMode,
-  isLayoutMode,
-  isPreviewMode,
-  isInsertMode,
-  isResizeMode,
-});
+const mapStateToProps = createStructuredSelector(Actions.Display);
 
 const Decorated = connect(
   mapStateToProps,

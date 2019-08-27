@@ -22,7 +22,7 @@
 
 import Drawer from '@material-ui/core/Drawer';
 import * as React from 'react';
-import ThemeProvider from '../ThemeProvider/index';
+import ThemeProvider, { darkTheme } from '../ThemeProvider/index';
 import { Theme } from '@material-ui/core';
 
 const darkBlack = 'rgba(0, 0, 0, 0.87)';
@@ -32,13 +32,15 @@ export interface BottomToolbar {
   children?: Object;
   className?: string;
   theme?: Theme;
+  anchor?: 'top' | 'bottom';
 }
 
 const BottomToolbar: React.SFC<BottomToolbar> = ({
   open = false,
   children,
   className,
-  theme,
+  theme = darkTheme,
+  anchor = 'bottom',
 }) => (
   <ThemeProvider theme={theme}>
     <Drawer
@@ -48,7 +50,7 @@ const BottomToolbar: React.SFC<BottomToolbar> = ({
       variant="persistent"
       className={className}
       open={open}
-      anchor="bottom"
+      anchor={anchor}
       PaperProps={{
         style: {
           backgroundColor: 'transparent',

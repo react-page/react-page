@@ -12,8 +12,8 @@
     "build:lib": "tsc -p ./tsconfig.json && tsc -p ./tsconfig-es.json",
     "build:lib:watch": "npm run build:lib -- --watch",
     "docs": "documentation build ./lib/**/*.js --format md --github -o ../../../../docs/api/plugins/divider.md",
-    "prebuild": "npm run clean",
-    "clean": "rimraf \"lib/*\" && rimraf \"lib-es/*\""
+    "prebuild": "echo 'would clean'",
+    "clean": "rimraf \"./lib/*\" && rimraf \"./lib-es/*\""
   },
   "peerDependencies": {
     "react": "^16.8.6",

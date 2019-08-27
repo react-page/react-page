@@ -25,8 +25,8 @@ import Button from '../Button';
 
 import { connect } from 'react-redux';
 
-import { layoutMode } from '@react-page/core/lib/actions/display';
-import { isLayoutMode } from '@react-page/core/lib/selector/display';
+import { Selectors, Actions } from '@react-page/core';
+
 import { createStructuredSelector } from 'reselect';
 
 export interface InnerReduxProps {
@@ -52,8 +52,10 @@ const Inner: React.SFC<InnerProps> = props => (
   />
 );
 
-const mapStateToProps = createStructuredSelector({ isLayoutMode });
-const mapDispatchToProps = { layoutMode };
+const mapStateToProps = createStructuredSelector({
+  isLayoutMode: Selectors.Display.isLayoutMode,
+});
+const mapDispatchToProps = { layoutMode: Actions.Display.layoutMode };
 
 export default connect(
   mapStateToProps,

@@ -140,7 +140,7 @@ class Controls extends React.Component<
         // modal={false}
         open={this.props.open}
       >
-        <DialogTitle id="confirmation-dialog-title">
+        <DialogTitle>
           {this.props.translations.linkPlugin!.createLink}
         </DialogTitle>
         <DialogContent>

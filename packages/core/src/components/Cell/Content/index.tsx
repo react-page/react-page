@@ -44,7 +44,7 @@ import { ContentPluginProps } from '../../../service/plugin/classes';
 class Content extends React.PureComponent<ComponetizedCell> {
   private ref: HTMLDivElement;
 
-  componentWillReceiveProps(nextProps: ComponetizedCell) {
+  UNSAFE_componentWillReceiveProps(nextProps: ComponetizedCell) {
     const {
       node: { focused: was },
     } = this.props;

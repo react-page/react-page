@@ -22,8 +22,7 @@
 import * as React from 'react';
 import Resize from '@material-ui/icons/SettingsOverscan';
 import { connect } from 'react-redux';
-import { resizeMode } from '@react-page/core/lib/actions/display';
-import { isResizeMode } from '@react-page/core/lib/selector/display';
+import { Selectors, Actions } from '@react-page/core';
 import { createStructuredSelector } from 'reselect';
 
 import Button from '../Button/index';
@@ -51,8 +50,10 @@ const Inner: React.SFC<InnerProps> = props => (
   />
 );
 
-const mapStateToProps = createStructuredSelector({ isResizeMode });
-const mapDispatchToProps = { resizeMode };
+const mapStateToProps = createStructuredSelector({
+  isResizeMode: Selectors.Display.isResizeMode,
+});
+const mapDispatchToProps = { resizeMode: Actions.Display.resizeMode };
 
 export default connect(
   mapStateToProps,

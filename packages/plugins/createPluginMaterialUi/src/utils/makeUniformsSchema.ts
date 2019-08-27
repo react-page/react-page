@@ -1,9 +1,9 @@
 import Ajv from 'ajv';
-import { JSONSchema7 } from 'json-schema';
+import { JsonSchema } from '../types/jsonSchema';
 import { JSONSchemaBridge } from 'uniforms-bridge-json-schema';
 const ajv = new Ajv({ allErrors: true, useDefaults: true });
 
-function createValidator(schema: JSONSchema7) {
+function createValidator<T extends object>(schema: JsonSchema<T>) {
   const validator = ajv.compile(schema);
   // tslint:disable-next-line:no-any
   return (model: any) => {
@@ -14,10 +14,14 @@ function createValidator(schema: JSONSchema7) {
   };
 }
 
-export default (jsonSchema: JSONSchema7) => {
-  const fullSchema: JSONSchema7 = {
+function makeUniformsSchema<T extends {}>(
+  jsonSchema: Omit<JsonSchema<T>, 'type'>
+) {
+  const fullSchema: JsonSchema<T> = {
     type: 'object',
     ...jsonSchema,
   };
   return new JSONSchemaBridge(fullSchema, createValidator(fullSchema));
-};
+}
+
+export default makeUniformsSchema;

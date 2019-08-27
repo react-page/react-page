@@ -29,6 +29,7 @@ import {
 
 import ToolbarButton from './ToolbarButton';
 import SlateHelpers from '../utils/SlateHelpers';
+import UniformsControls from './UniformsControls';
 
 export interface PluginState {
   showControls: boolean;
@@ -36,6 +37,7 @@ export interface PluginState {
 
 type Props<T extends {}> = {
   config: SlatePluginDefinition<T>;
+  isActive: boolean;
 } & PluginButtonProps;
 
 class PluginButton<T = {}> extends React.Component<Props<T>, PluginState> {
@@ -76,13 +78,23 @@ class PluginButton<T = {}> extends React.Component<Props<T>, PluginState> {
 
   getData = () => {
     const currentNode = this.getCurrentNode();
+    if (currentNode) {
+      console.log(currentNode.get('type'), currentNode.data.toJS());
+    }
     return currentNode && currentNode.data ? currentNode.data.toJS() : {};
   }
 
-  hasControls = () => Boolean(this.props.config.Controls);
+  hasControls = () => {
+    return (
+      Boolean(this.props.config.Controls) || Boolean(this.props.config.schema)
+    );
+  }
 
   onClick = (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
+
+    console.log('on click', this.hasControls(), this.state.showControls);
+    console.log(this.getData());
     if (this.hasControls()) {
       this.setState({ showControls: !this.state.showControls });
     } else {
@@ -95,12 +107,13 @@ class PluginButton<T = {}> extends React.Component<Props<T>, PluginState> {
   }
 
   close = () => {
+    console.log('close');
     this.setState({ showControls: false });
   }
 
   render() {
-    const { Controls } = this.props.config;
-
+    const { Controls: PassedControls } = this.props.config;
+    const Controls = PassedControls || UniformsControls;
     return (
       <ThemeProvider>
         <>
@@ -117,11 +130,18 @@ class PluginButton<T = {}> extends React.Component<Props<T>, PluginState> {
 
           {this.hasControls() ? (
             <Controls
+              schema={this.props.config.schema}
               close={this.close}
               open={this.state.showControls}
               add={this.add}
               remove={this.remove}
-              shouldInsertWithText={!this.textIsSelected() && !this.isActive()}
+              isActive={this.isActive()}
+              shouldInsertWithText={
+                this.props.config.pluginType === 'component' &&
+                this.props.config.object === 'mark' &&
+                !this.textIsSelected() &&
+                !this.isActive()
+              }
               addWithText={this.addWithText}
               data={this.getData()}
               {...this.props}

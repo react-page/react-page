@@ -3,7 +3,7 @@ import { BackgroundControlsProps } from './controls';
 import { ContentPluginConfig } from '@react-page/core/lib/service/plugin/classes';
 import { RGBColor } from '@react-page/ui/lib/ColorPicker/types';
 import { ImageUploadType } from '@react-page/ui/lib/ImageUpload/types';
-import { ModeEnum } from './modeEnum';
+import { ModeEnum } from './ModeEnum';
 import { Translations } from './translations';
 
 export type BackgroundSettings = {

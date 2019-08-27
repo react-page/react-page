@@ -33,15 +33,16 @@ function createListPlugin<T = {}>(def: ListDef) {
     >;
   }) {
     return [
-      createSimpleHtmlBlockPlugin({
+      createSimpleHtmlBlockPlugin<T>({
         type: def.type,
         icon: def.icon,
         noButton: def.noButton,
         tagName: def.tagName,
+
         customAdd: editor => slateEditList.changes.wrapInList(editor, def.type),
         customRemove: editor => slateEditList.changes.unwrapList(editor),
       })(customizers && customizers.customizeList),
-      createListItemPlugin(def.listItem)(
+      createListItemPlugin<T>(def.listItem)(
         customizers && customizers.customizeListItem
       ),
       {
@@ -50,25 +51,5 @@ function createListPlugin<T = {}>(def: ListDef) {
     ];
   };
 }
-
-const list = createListPlugin({
-  type: 'foo',
-  tagName: 'ul',
-  listItem: {
-    type: 'asdf',
-    tagName: 'li',
-    defaultNode: 'paragraph',
-  },
-});
-
-list<{ foo?: string }>({
-  customizeList: def => ({
-    ...def,
-    Component: props => {
-      props.data.get('foo');
-      return null;
-    },
-  }),
-});
 
 export default createListPlugin;

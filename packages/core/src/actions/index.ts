@@ -63,6 +63,26 @@ import {
   layoutMode,
   resizeMode
 } from './display';
+import { cellActions } from './cell';
+import { updateSetting } from './setting';
+const Display = {
+  insertMode,
+  editMode,
+  previewMode,
+  layoutMode,
+  resizeMode,
+};
+
+const Setting = {
+  updateSetting,
+};
+const Cell = cellActions;
+
+export const Actions = {
+  Display,
+  Cell,
+  Setting,
+};
 
 export const actions = dispatch => ({
   cell: {

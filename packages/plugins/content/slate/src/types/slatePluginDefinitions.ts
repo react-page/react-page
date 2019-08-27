@@ -1,6 +1,6 @@
 import { Editor, Value } from 'slate';
 import { NextType } from '../types/next';
-
+import { JsonSchema } from '@react-page/create-plugin-materialui';
 import { Translations } from './translations';
 
 export interface PluginButtonProps {
@@ -9,23 +9,31 @@ export interface PluginButtonProps {
   translations: Partial<Translations>;
 }
 
-export type SlatePluginControls<T> = {
+export type SlatePluginControls<T extends {}> = {
   open: boolean;
   close: () => void;
+  isActive: boolean;
+
+  cancelLabel?: string;
+  submitLabel?: string;
+  removeLabel?: string;
+  schema?: JsonSchema<T>;
   data: T;
   add: (data?: T) => void;
   addWithText: (text: string, data?: T) => void;
   remove: () => void;
   shouldInsertWithText: boolean;
+  getInitialData?: () => T;
 } & PluginButtonProps;
 
-export type SlateBasePluginDefinition<T> = {
+export type SlateBasePluginDefinition<T extends {}> = {
   hotKey?: string;
   onKeyDown?: (
     e: KeyboardEvent | Event,
     editor: Editor,
     next: NextType
   ) => void;
+  schema?: JsonSchema<T>;
   Controls?: React.ComponentType<SlatePluginControls<T>>;
   icon?: JSX.Element;
   addHoverButton: boolean;
@@ -73,7 +81,7 @@ export type SlateComponentPluginDefinition<
 > = SlateNodeBasePluginDefinition<T> & {
   type: string;
 
-  deserialize: {
+  deserialize?: {
     tagName: string;
     getData?: (el: HTMLElement) => T;
   };

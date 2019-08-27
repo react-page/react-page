@@ -24,12 +24,12 @@ import * as React from 'react';
 import Snackbar from '@material-ui/core/Snackbar';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { updateSetting } from '@react-page/core/lib/actions/setting';
-import { getSetting } from '@react-page/core/lib/selector/setting';
-import i18n from '@react-page/core/lib/service/i18n';
-import { RootState } from '@react-page/core/lib/types/state';
+import { Actions, Selectors, RootState, i18n } from '@react-page/core';
 
 export const dismissedMobilePreviewKey = 'mobile-preview-dismissed';
+
+const { getSetting } = Selectors.Setting;
+const { updateSetting } = Actions.Setting;
 
 type Props = {
   updateSetting: Function;
@@ -54,10 +54,12 @@ export interface NotifierProps {
   open: boolean;
   action: string;
   message: string;
-  updateSetting: typeof updateSetting;
+  // weird error with typeof updateSetting
+  // tslint:disable-next-line:no-any
+  updateSetting: any;
 }
 
-const Notifier: React.SFC<NotifierProps> = props => (
+const Notifier = (props: NotifierProps) => (
   <Snackbar
     open={props.open && !props.dismissed}
     action={props.action}

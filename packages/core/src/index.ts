@@ -23,12 +23,12 @@
 import { v4 } from 'uuid';
 import Editable from './components/Editable';
 import createStore from './store';
-import { actions, ActionsTypes } from './actions';
-import { selectors } from './selector';
+import { actions, ActionsTypes, Actions } from './actions';
+import { selectors, Selectors } from './selector';
 import PluginService from './service/plugin';
 import { ContentPlugin, LayoutPlugin } from './service/plugin/classes';
 import pluginDefault from './service/plugin/default';
-import { EditableType } from './types/editable';
+import { EditableType, NativeFactory } from './types/editable';
 import forEach from 'ramda/src/forEach';
 import HTML5Backend, { NativeTypes } from 'react-dnd-html5-backend';
 import { DragDropContext as dragDropContext } from 'react-dnd';
@@ -42,7 +42,19 @@ import {
   LayoutPluginConfig
 } from './service/plugin/classes';
 import { isProduction } from './const';
-
+import { shouldPureComponentUpdate } from './helper/shouldComponentUpdate';
+export { shouldPureComponentUpdate };
+import i18n from './service/i18n';
+import DragDropContext from './components/DragDropContext';
+export {
+  Plugins,
+  NativeFactory,
+  Actions,
+  Selectors,
+  RootState,
+  i18n,
+  DragDropContext
+};
 let instance: Editor;
 
 const initialState = () => ({

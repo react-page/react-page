@@ -13,8 +13,8 @@
     "build:css": "postcss -c ../../../../postcss.config.js --dir lib/ src/index.css",
     "build:css:watch": "npm run build:css -- -w",
     "docs": "documentation build ./lib/**/*.js --format md --github -o ../../../../docs/api/plugins/parallax-background.md",
-    "prebuild": "npm run clean",
-    "clean": "rimraf \"lib/*\" && rimraf \"lib-es/*\""
+    "prebuild": "echo 'would clean'",
+    "clean": "rimraf \"./lib/*\" && rimraf \"./lib-es/*\""
   },
   "peerDependencies": {
     "react": "^16.8.6",

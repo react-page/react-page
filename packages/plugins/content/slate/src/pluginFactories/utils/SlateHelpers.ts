@@ -19,6 +19,10 @@ export default class SlateHelpers<T> {
       return null;
     }
     const editorState = editor.value;
+    console.log(
+      'get current node',
+      config.pluginType === 'component' && config.type
+    );
     const predicate =
       config.pluginType === 'component'
         ? (el: Inline | Mark | Block) => el.type === config.type
@@ -39,13 +43,14 @@ export default class SlateHelpers<T> {
       if (config.pluginType === 'data' || config.replaceOnRemove) {
         return editorState.blocks.find(predicate);
       } else {
-        return editorState.blocks.find(block =>
-          Boolean(
-            editorState.document.getClosest(block.key, parent =>
-              predicate(parent as Block)
-            )
-          )
+        const matchingBlocks = editorState.blocks.map(block =>
+          editorState.document.getClosest(block.key, parent => {
+            return predicate(parent as Block);
+          })
         );
+        if (matchingBlocks.size > 0) {
+          return matchingBlocks.get(0);
+        }
       }
     }
   }

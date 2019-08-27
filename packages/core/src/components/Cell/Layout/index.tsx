@@ -39,7 +39,7 @@ import { LayoutPluginProps } from '../../../service/plugin/classes';
 // TODO clean me up #157
 class Layout extends React.PureComponent<ComponetizedCell> {
   ref: HTMLDivElement;
-  componentWillReceiveProps(nextProps: ComponetizedCell) {
+  UNSAFE_componentWillReceiveProps(nextProps: ComponetizedCell) {
     const {
       node: { focused: was },
     } = this.props;
