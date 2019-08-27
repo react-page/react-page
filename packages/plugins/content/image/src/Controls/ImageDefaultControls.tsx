@@ -4,9 +4,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import Checkbox from '@material-ui/core/Checkbox';
-import { ImageUpload } from '@react-page/ui';
-
-import { BottomToolbar } from '@react-page/ui';
+import { BottomToolbar, ImageUpload } from '@react-page/ui';
 
 const ImageDefaultControls: React.SFC<ImageControlsProps> = props => {
   const {

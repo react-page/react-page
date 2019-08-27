@@ -170,6 +170,7 @@ elements.forEach(element => {
 // Render the ui controls, you could implement your own here, of course.
 ReactDOM.render(
   <EditorUi editor={editor} />,
+
   document.getElementById('controls')
 );
 
