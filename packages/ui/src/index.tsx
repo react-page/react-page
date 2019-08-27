@@ -1,6 +1,6 @@
 // something is wrong with lerna, typescript and this import: import { lazyLoad } from '@react-page/core';
 import loadable from '@loadable/component';
-
+import React from 'react';
 const Trash = loadable(() => import('./Trash/index'));
 const Toolbar = loadable(() => import('./Toolbar/index'));
 const DisplayModeToggle = loadable(() => import('./DisplayModeToggle/index'));
@@ -11,6 +11,13 @@ const ColorPicker = loadable(() => import('./ColorPicker/index'));
 
 import { colorToString } from './ColorPicker/colorToString';
 
+export default ({ editor }) => (
+  <ThemeProvider>
+    <Trash editor={editor} />
+    <DisplayModeToggle editor={editor} />
+    <Toolbar editor={editor} />
+  </ThemeProvider>
+);
 export {
   Trash,
   Toolbar,

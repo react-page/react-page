@@ -20,7 +20,6 @@
  *
  */
 
-import { createMuiTheme } from '@material-ui/core/styles';
 import * as React from 'react';
 import { Portal } from 'react-portal';
 import isHotkey from 'is-hotkey';
@@ -40,12 +39,6 @@ interface Cancelable {
   cancel(): void;
   flush(): void;
 }
-
-const theme = createMuiTheme({
-  palette: {
-    type: 'dark',
-  },
-});
 
 export interface SlateState {
   editorState?: Value;
@@ -215,25 +208,24 @@ class Slate extends React.Component<SlateProps, SlateState> {
         {focused && (
           <Portal>
             {/* ory-prevent-blur is required to prevent global blurring */}
-            <ThemeProvider theme={theme}>
-              <div
-                className={
-                  'ory-prevent-blur ory-plugins-content-slate-inline-toolbar ' +
-                  (showHoverToolbar
-                    ? ''
-                    : 'ory-plugins-content-slate-inline-toolbar--hidden')
-                }
-                style={{ padding: 0 }}
-                ref={this.toolbar}
-              >
-                <HoverButtons
-                  translations={this.props.translations}
-                  editorState={editorState}
-                  editor={this.editor.current}
-                  {...this.props}
-                />
-              </div>
-            </ThemeProvider>
+
+            <div
+              className={
+                'ory-prevent-blur ory-plugins-content-slate-inline-toolbar ' +
+                (showHoverToolbar
+                  ? ''
+                  : 'ory-plugins-content-slate-inline-toolbar--hidden')
+              }
+              style={{ padding: 0 }}
+              ref={this.toolbar}
+            >
+              <HoverButtons
+                translations={this.props.translations}
+                editorState={editorState}
+                editor={this.editor.current}
+                {...this.props}
+              />
+            </div>
           </Portal>
         )}
         <Editor

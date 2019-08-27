@@ -28,7 +28,7 @@ import Editor, { Editable, createEmptyState } from '@react-page/core';
 import '@react-page/core/lib/index.css'; // we also want to load the stylesheets
 
 // The default ui components
-import { Trash, DisplayModeToggle, Toolbar } from '@react-page/ui';
+import EditorUi from '@react-page/ui';
 import '@react-page/ui/lib/index.css';
 
 // The rich text area plugin
@@ -169,11 +169,7 @@ elements.forEach(element => {
 
 // Render the ui controls, you could implement your own here, of course.
 ReactDOM.render(
-  <div>
-    <Trash editor={editor} />
-    <DisplayModeToggle editor={editor} />
-    <Toolbar editor={editor} />
-  </div>,
+  <EditorUi editor={editor} />,
   document.getElementById('controls')
 );
 

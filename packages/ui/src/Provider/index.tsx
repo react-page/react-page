@@ -23,7 +23,7 @@ import * as React from 'react';
 import { Provider as ReduxProvider } from 'react-redux';
 import { Editor, DragDropContext } from '@react-page/core';
 
-import ThemeProvider, { darkTheme } from '../ThemeProvider/index';
+import ThemeProvider from '../ThemeProvider/index';
 
 export interface ProviderProps {
   editor: Editor;
@@ -43,7 +43,7 @@ class Provider extends React.Component<ProviderProps> {
     return (
       <ReduxProvider store={editor.store}>
         <DragDropContextProvider>
-          <ThemeProvider theme={darkTheme}>{children}</ThemeProvider>
+          <ThemeProvider>{children}</ThemeProvider>
         </DragDropContextProvider>
       </ReduxProvider>
     );

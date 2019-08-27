@@ -21,7 +21,7 @@
  */
 
 import * as React from 'react';
-import { ThemeProvider } from '@react-page/ui';
+
 import {
   SlatePluginDefinition,
   PluginButtonProps
@@ -39,7 +39,6 @@ type Props<T extends {}> = {
   config: SlatePluginDefinition<T>;
   isActive: boolean;
 } & PluginButtonProps;
-
 class PluginButton<T = {}> extends React.Component<Props<T>, PluginState> {
   state = {
     showControls: false,
@@ -73,14 +72,15 @@ class PluginButton<T = {}> extends React.Component<Props<T>, PluginState> {
   }
   isDisabled = () => {
     const { config, editor } = this.props;
+    if (!editor) {
+      return true;
+    }
     return config.isDisabled ? config.isDisabled(editor) : false;
   }
 
   getData = () => {
     const currentNode = this.getCurrentNode();
-    if (currentNode) {
-      console.log(currentNode.get('type'), currentNode.data.toJS());
-    }
+
     return currentNode && currentNode.data ? currentNode.data.toJS() : {};
   }
 
@@ -115,40 +115,38 @@ class PluginButton<T = {}> extends React.Component<Props<T>, PluginState> {
     const { Controls: PassedControls } = this.props.config;
     const Controls = PassedControls || UniformsControls;
     return (
-      <ThemeProvider>
-        <>
-          <ToolbarButton
-            onClick={this.onClick}
-            disabled={this.isDisabled()}
-            isActive={this.isActive()}
-            icon={
-              this.props.config.icon ||
-              (this.props.config.pluginType === 'component' &&
-                this.props.config.deserialize.tagName)
-            }
-          />
+      <>
+        <ToolbarButton
+          onClick={this.onClick}
+          disabled={this.isDisabled()}
+          isActive={this.isActive()}
+          icon={
+            this.props.config.icon ||
+            (this.props.config.pluginType === 'component' &&
+              this.props.config.deserialize.tagName)
+          }
+        />
 
-          {this.hasControls() ? (
-            <Controls
-              schema={this.props.config.schema}
-              close={this.close}
-              open={this.state.showControls}
-              add={this.add}
-              remove={this.remove}
-              isActive={this.isActive()}
-              shouldInsertWithText={
-                this.props.config.pluginType === 'component' &&
-                this.props.config.object === 'mark' &&
-                !this.textIsSelected() &&
-                !this.isActive()
-              }
-              addWithText={this.addWithText}
-              data={this.getData()}
-              {...this.props}
-            />
-          ) : null}
-        </>
-      </ThemeProvider>
+        {this.hasControls() ? (
+          <Controls
+            schema={this.props.config.schema}
+            close={this.close}
+            open={this.state.showControls}
+            add={this.add}
+            remove={this.remove}
+            isActive={this.isActive()}
+            shouldInsertWithText={
+              this.props.config.pluginType === 'component' &&
+              this.props.config.object === 'mark' &&
+              !this.textIsSelected() &&
+              !this.isActive()
+            }
+            addWithText={this.addWithText}
+            data={this.getData()}
+            {...this.props}
+          />
+        ) : null}
+      </>
     );
   }
 }

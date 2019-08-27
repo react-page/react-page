@@ -18,11 +18,11 @@ export default class SlateHelpers<T> {
       // currently not implemented
       return null;
     }
+    if (!editor) {
+      return null;
+    }
     const editorState = editor.value;
-    console.log(
-      'get current node',
-      config.pluginType === 'component' && config.type
-    );
+
     const predicate =
       config.pluginType === 'component'
         ? (el: Inline | Mark | Block) => el.type === config.type
@@ -49,7 +49,7 @@ export default class SlateHelpers<T> {
           })
         );
         if (matchingBlocks.size > 0) {
-          return matchingBlocks.get(0);
+          return matchingBlocks.get(0) as Block;
         }
       }
     }
