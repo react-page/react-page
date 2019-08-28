@@ -20,6 +20,7 @@ export default pluginFactories.createComponentPlugin<{
     properties: {
       color: {
         type: 'string',
+        enum: ['red', 'blue', 'green', 'orange'],
       },
     },
   },
