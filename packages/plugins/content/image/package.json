@@ -14,8 +14,8 @@
     "build:css": "postcss -c ../../../../postcss.config.js --dir lib/ src/index.css",
     "build:css:watch": "npm run build:css -- -w",
     "docs": "documentation build ./lib/**/*.js --format md --github -o ../../../../docs/api/plugins/image.md",
-    "prebuild": "yarn clean'",
-    "clean": "rimraf \"lib/*\" && rimraf \"lib-es/*\""
+    "prebuild": "yarn clean",
+    "clean": "rimraf \"lib\" && rimraf \"lib-es\""
   },
   "peerDependencies": {
     "react": "^16.8.6",
