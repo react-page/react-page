@@ -33,7 +33,7 @@ import Editor, { Editable, createEmptyState } from "@react-page/core";
 import "@react-page/core/lib/index.css"; // we also want to load the stylesheets
 
 // Require our ui components (optional). You can implement and use your own ui too!
-import { Trash, DisplayModeToggle, Toolbar } from "@react-page/ui";
+import EditorUI from "@react-page/ui";
 import "@react-page/ui/lib/index.css";
 
 // Load some exemplary plugins:
@@ -72,9 +72,7 @@ class App extends Component {
         <Editable editor={editor} id={content.id} />
 
         {/*  Default user interface  */}
-        <Trash editor={editor} />
-        <DisplayModeToggle editor={editor} />
-        <Toolbar editor={editor} />
+        <EditorUI editor={editor} />
       </div>
     );
   }
@@ -240,7 +238,7 @@ Use the `onChange` callback to obtain a copy of the editor's state for saving to
 import React, { Component } from "react";
 import Editor, { Editable, createEmptyState } from "@react-page/core";
 import slate from "@react-page/plugins-slate"; // The rich text area plugin
-import { Trash, DisplayModeToggle, Toolbar } from "@react-page/ui";
+import EditorUI from "@react-page/ui";
 const EditorPlugins = {
   content: [slate()],
   layout: [
@@ -268,9 +266,7 @@ class MyEditor extends Component {
           id={content.id}
           onChange={state => (this.editorState = state)}
         />
-        <Trash editor={editor} />
-        <DisplayModeToggle editor={editor} />
-        <Toolbar editor={editor} />
+        <EditorUI editor={editor} />
       </div>
     );
   }

@@ -4,7 +4,6 @@ import React from 'react';
 import { lazyLoad } from '@react-page/core';
 
 const LinkIcon = lazyLoad(() => import('@material-ui/icons/Link'));
-// const Controls = lazyLoad(() => import('./Controls'));
 
 export type LinkData = {
   href: string;
@@ -14,11 +13,9 @@ export type LinkData = {
 export default createComponentPlugin<LinkData>({
   type: 'LINK/LINK',
   object: 'inline',
-
   icon: <LinkIcon />,
   addHoverButton: true,
   addToolbarButton: true,
-  // Controls,
   schema: {
     type: 'object',
     required: ['href'],
