@@ -22,9 +22,9 @@
 import * as React from 'react';
 import Drawer from '@material-ui/core/Drawer';
 import { connect } from 'react-redux';
-import { isInsertMode } from '@react-page/core/lib/selector/display';
+import { Selectors, Editor } from '@react-page/core';
 import { createStructuredSelector } from 'reselect';
-import { Editor } from '@react-page/core/lib';
+
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListSubheader from '@material-ui/core/ListSubheader';
@@ -34,8 +34,8 @@ import {
   ContentPlugin
 } from '@react-page/core/lib/service/plugin/classes';
 import Item from './Item/index';
-import Provider from '../Provider/index';
-import { ProviderProps } from './../Provider/index';
+
+import { useEditor } from './../Provider/index';
 import { Plugin } from '@react-page/core/lib/service/plugin/classes';
 
 export interface Translations {
@@ -130,8 +130,19 @@ class Raw extends React.Component<Props, RawState> {
         variant="persistent"
         className="ory-toolbar-drawer"
         open={this.props.isInsertMode}
+        PaperProps={{
+          style: {
+            width: 320,
+          },
+        }}
       >
-        <List subheader={<ListSubheader>{this.props.translations.insertPlugin}</ListSubheader>}>
+        <List
+          subheader={
+            <ListSubheader>
+              {this.props.translations.insertPlugin}
+            </ListSubheader>
+          }
+        >
           <ListItem>
             <TextField
               inputRef={this.onRef}
@@ -141,11 +152,19 @@ class Raw extends React.Component<Props, RawState> {
             />
           </ListItem>
           {layout.length + content.length === 0 && (
-            <ListSubheader>{this.props.translations.noPluginFoundContent}</ListSubheader>
+            <ListSubheader>
+              {this.props.translations.noPluginFoundContent}
+            </ListSubheader>
           )}
         </List>
         {content.length > 0 && (
-          <List subheader={<ListSubheader>{this.props.translations.contentPlugins}</ListSubheader>}>
+          <List
+            subheader={
+              <ListSubheader>
+                {this.props.translations.contentPlugins}
+              </ListSubheader>
+            }
+          >
             {content.map((plugin: ContentPlugin, k: Number) => {
               const initialState = plugin.createInitialState();
 
@@ -166,7 +185,13 @@ class Raw extends React.Component<Props, RawState> {
           </List>
         )}
         {layout.length > 0 && (
-          <List subheader={<ListSubheader>{this.props.translations.layoutPlugins}</ListSubheader>}>
+          <List
+            subheader={
+              <ListSubheader>
+                {this.props.translations.layoutPlugins}
+              </ListSubheader>
+            }
+          >
             {layout.map((plugin: LayoutPlugin, k: Number) => {
               const initialState = plugin.createInitialState();
               const children = plugin.createInitialChildren();
@@ -193,14 +218,15 @@ class Raw extends React.Component<Props, RawState> {
   }
 }
 
-const mapStateToProps = createStructuredSelector({ isInsertMode });
+const mapStateToProps = createStructuredSelector({
+  isInsertMode: Selectors.Display.isInsertMode,
+});
 
 const Decorated = connect(mapStateToProps)(Raw);
 
-const Toolbar: React.SFC<ProviderProps> = props => (
-  <Provider {...props}>
-    <Decorated {...props} />
-  </Provider>
-);
+const Toolbar: React.SFC = () => {
+  const editor = useEditor();
+  return <Decorated editor={editor} />;
+};
 
 export default Toolbar;

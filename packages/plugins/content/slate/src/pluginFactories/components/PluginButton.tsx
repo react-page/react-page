@@ -93,8 +93,6 @@ class PluginButton<T = {}> extends React.Component<Props<T>, PluginState> {
   onClick = (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
 
-    console.log('on click', this.hasControls(), this.state.showControls);
-    console.log(this.getData());
     if (this.hasControls()) {
       this.setState({ showControls: !this.state.showControls });
     } else {
@@ -107,7 +105,6 @@ class PluginButton<T = {}> extends React.Component<Props<T>, PluginState> {
   }
 
   close = () => {
-    console.log('close');
     this.setState({ showControls: false });
   }
 

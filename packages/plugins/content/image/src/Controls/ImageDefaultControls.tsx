@@ -45,7 +45,7 @@ const ImageDefaultControls: React.SFC<ImageControlsProps> = props => {
                   : props.translations.imageUrl
               }
               name="src"
-              style={{ flex: 1 }}
+              // style={{ flex: 1 }}
               value={props.state.src}
               onChange={handleChange}
             />

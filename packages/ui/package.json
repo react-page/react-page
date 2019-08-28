@@ -20,13 +20,14 @@
   "peerDependencies": {
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
-    "react-jss": "^8.6.1"
+    "react-redux": "*"
   },
   "dependencies": {
     "@loadable/component": "^5.10.2",
-    "@material-ui/core": "^4.3.0",
+    "@material-ui/core": "^4.3.3",
     "@material-ui/icons": "^4.2.1",
-    "@material-ui/styles": "^4.3.0",
+    "@material-ui/styles": "^4.3.3",
+    "react-jss": "^8.6.1",
     "@react-page/core": "0.0.0",
     "classnames": "^2.2.5",
     "device.js": "^2.3.0",
@@ -34,7 +35,6 @@
     "rc-tooltip": "^3.4.3",
     "react-color": "^2.14.1",
     "react-dnd": "^2.4.0",
-    "react-redux": "^5.0.4",
     "reselect": "^3.0.0"
   },
   "devDependencies": {

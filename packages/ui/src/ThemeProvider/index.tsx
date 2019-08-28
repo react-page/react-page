@@ -20,18 +20,21 @@
  *
  */
 import * as React from 'react';
-import { JssProvider } from 'react-jss';
+
+import { createMuiTheme, Theme } from '@material-ui/core/styles';
 import {
-  MuiThemeProvider,
-  createMuiTheme,
-  Theme
-} from '@material-ui/core/styles';
+  ThemeProvider as MaterialUiThemeProvider,
+  StylesProvider
+} from '@material-ui/styles';
 import { createGenerateClassName } from '@material-ui/styles';
 import darkTheme from './DarkTheme/index';
 import { themeOptions } from './themeOptions';
 export { darkTheme };
 
-const generateClassName = createGenerateClassName({ productionPrefix: 'ory' });
+const generateClassName = createGenerateClassName({
+  disableGlobal: true,
+  productionPrefix: 'ory',
+});
 const theme = createMuiTheme(themeOptions);
 
 export interface ThemeProviderProps {
@@ -41,11 +44,11 @@ export interface ThemeProviderProps {
 class ThemeProvider extends React.Component<ThemeProviderProps> {
   render() {
     return (
-      <JssProvider generateClassName={generateClassName}>
-        <MuiThemeProvider theme={this.props.theme || theme}>
+      <StylesProvider injectFirst={true} generateClassName={generateClassName}>
+        <MaterialUiThemeProvider theme={this.props.theme || theme}>
           {this.props.children}
-        </MuiThemeProvider>
-      </JssProvider>
+        </MaterialUiThemeProvider>
+      </StylesProvider>
     );
   }
 }

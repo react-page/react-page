@@ -22,16 +22,17 @@
 
 import Drawer from '@material-ui/core/Drawer';
 import * as React from 'react';
-import ThemeProvider, { darkTheme } from '../ThemeProvider/index';
-import { Theme } from '@material-ui/core';
+
+import ThemeProvider, { darkTheme } from '../ThemeProvider';
 
 const darkBlack = 'rgba(0, 0, 0, 0.87)';
-
+const bright = 'rgba(255,255,255, 0.98)';
+const brightBorder = 'rgba(0, 0, 0, 0.12)';
 export interface BottomToolbar {
   open?: boolean;
   children?: Object;
   className?: string;
-  theme?: Theme;
+  dark: boolean;
   anchor?: 'top' | 'bottom';
 }
 
@@ -39,10 +40,10 @@ const BottomToolbar: React.SFC<BottomToolbar> = ({
   open = false,
   children,
   className,
-  theme = darkTheme,
+  dark = false,
   anchor = 'bottom',
 }) => (
-  <ThemeProvider theme={theme}>
+  <ThemeProvider theme={dark ? darkTheme : null}>
     <Drawer
       SlideProps={{
         unmountOnExit: true,
@@ -55,16 +56,18 @@ const BottomToolbar: React.SFC<BottomToolbar> = ({
         style: {
           backgroundColor: 'transparent',
           border: 'none',
+          overflow: 'visible',
         },
       }}
     >
       <div
         style={{
-          border: `${darkBlack} 1px solid`,
+          border: `${dark ? darkBlack : brightBorder} 1px solid`,
           borderRadius: '4px 4px 0 0',
-          backgroundColor: darkBlack,
+          backgroundColor: dark ? darkBlack : bright,
           padding: '12px 24px',
           margin: 'auto',
+          boxShadow: '0px 1px 6px -1px rgba(0,0,0,0.2)',
         }}
       >
         {children}

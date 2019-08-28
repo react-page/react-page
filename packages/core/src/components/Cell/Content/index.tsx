@@ -177,7 +177,8 @@ const mapDispatchToProps = (
     {
       updateCellContent: updateCellContent(id),
     },
-    dispatch
+    // tslint:disable-next-line:no-any
+    dispatch as any
   );
 
 export default connect(

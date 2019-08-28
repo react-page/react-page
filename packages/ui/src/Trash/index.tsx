@@ -31,9 +31,7 @@ import classNames from 'classnames';
 import throttle from 'lodash.throttle';
 
 import { createStructuredSelector } from 'reselect';
-
-import Provider from '../Provider/index';
-import { ProviderProps } from './../Provider/index';
+import { useEditor } from '../Provider';
 
 const target = {
   hover: throttle(
@@ -67,6 +65,7 @@ const connectMonitor = (_connect: any, monitor: any) => ({
 });
 
 export interface RawProps {
+  editor: Editor;
   isLayoutMode: boolean;
   isOverCurrent: boolean;
   connectDropTarget: (node: JSX.Element) => JSX.Element;
@@ -112,15 +111,16 @@ const mapDispatchToProps = {
 
 const mapStateToProps = createStructuredSelector(Actions.Display);
 
-const Decorated = connect(
+// tslint:disable-next-line:no-any
+const Decorated: any = connect(
   mapStateToProps,
   mapDispatchToProps
 )(dropTarget(types, target, connectMonitor)(Raw));
 
-const Trash: React.SFC<ProviderProps> = props => (
-  <Provider {...props}>
-    <Decorated {...props} />
-  </Provider>
-);
+const Trash: React.SFC = () => {
+  const editor = useEditor();
+
+  return <Decorated editor={editor} />;
+};
 
 export default Trash;

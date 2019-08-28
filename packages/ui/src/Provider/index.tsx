@@ -22,13 +22,15 @@
 import * as React from 'react';
 import { Provider as ReduxProvider } from 'react-redux';
 import { Editor, DragDropContext } from '@react-page/core';
-
 import ThemeProvider from '../ThemeProvider/index';
 
 export interface ProviderProps {
   editor: Editor;
 }
 
+const EditorContext = React.createContext<Editor>(null);
+
+export const useEditor = () => React.useContext<Editor>(EditorContext);
 class Provider extends React.Component<ProviderProps> {
   // tslint:disable-next-line:no-any
   private DragDropContext: any;
@@ -43,7 +45,9 @@ class Provider extends React.Component<ProviderProps> {
     return (
       <ReduxProvider store={editor.store}>
         <DragDropContextProvider>
-          <ThemeProvider>{children}</ThemeProvider>
+          <EditorContext.Provider value={editor}>
+            <ThemeProvider>{children}</ThemeProvider>
+          </EditorContext.Provider>
         </DragDropContextProvider>
       </ReduxProvider>
     );
