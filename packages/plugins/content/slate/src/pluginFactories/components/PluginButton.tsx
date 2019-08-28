@@ -134,7 +134,6 @@ class PluginButton<T = {}> extends React.Component<Props<T>, PluginState> {
             isActive={this.isActive()}
             shouldInsertWithText={
               this.props.config.pluginType === 'component' &&
-              this.props.config.object === 'mark' &&
               !this.textIsSelected() &&
               !this.isActive()
             }

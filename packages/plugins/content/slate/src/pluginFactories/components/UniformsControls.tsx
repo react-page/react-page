@@ -6,7 +6,8 @@ import Button from '@material-ui/core/Button';
 import { SlatePluginControls } from '../../types/slatePluginDefinitions';
 import { makeUniformsSchema } from '@react-page/create-plugin-materialui';
 import { AutoForm, AutoFields } from 'uniforms-material';
-
+import DeleteIcon from '@material-ui/icons/Delete';
+import DoneIcon from '@material-ui/icons/Done';
 import { Dialog, DialogContent, DialogActions } from '@material-ui/core';
 
 function Controls<T>(props: SlatePluginControls<T>) {
@@ -47,7 +48,11 @@ function Controls<T>(props: SlatePluginControls<T>) {
   };
 
   return (
-    <Dialog className="ory-prevent-blur" open={props.open}>
+    <Dialog
+      PaperProps={{ style: { minWidth: 300 } }}
+      className="ory-prevent-blur"
+      open={props.open}
+    >
       <DialogContent>
         {!props.shouldInsertWithText ? null : (
           <div>
@@ -71,16 +76,23 @@ function Controls<T>(props: SlatePluginControls<T>) {
         </AutoForm>
       </DialogContent>
       <DialogActions>
-        {props.isActive ? (
-          <Button variant="text" color="primary" onClick={onRemove}>
-            {props.removeLabel || 'Remove'}
-          </Button>
-        ) : null}
-        <Button variant="text" color="primary" onClick={onCancel}>
+        <Button
+          variant="text"
+          onClick={onCancel}
+          style={{ marginRight: 'auto' }}
+        >
           {props.cancelLabel || 'Cancel'}
         </Button>
-        <Button variant="text" color="primary" onClick={onSubmit}>
+        {props.isActive ? (
+          <Button variant="contained" color="secondary" onClick={onRemove}>
+            {props.removeLabel || 'Remove'}
+            <DeleteIcon style={{ marginLeft: 10 }} />
+          </Button>
+        ) : null}
+
+        <Button variant="contained" color="primary" onClick={onSubmit}>
           {props.submitLabel || 'Ok'}
+          <DoneIcon style={{ marginLeft: 10 }} />
         </Button>
       </DialogActions>
     </Dialog>
