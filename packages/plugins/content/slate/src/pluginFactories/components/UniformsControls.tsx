@@ -52,7 +52,7 @@ function Controls<T>(props: SlatePluginControls<T>) {
         {!props.shouldInsertWithText ? null : (
           <div>
             <TextField
-              placeholder={props.translations.linkPlugin!.linkTitlePlaceholder}
+              placeholder={'Text'}
               onChange={e => setText(e.target.value)}
               value={text}
             />

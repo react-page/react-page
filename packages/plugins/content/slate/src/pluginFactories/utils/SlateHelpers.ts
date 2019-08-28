@@ -61,11 +61,17 @@ export default class SlateHelpers<T> {
 
   remove = () => {
     const { config, editor } = this;
+
     if (config.customRemove) {
       config.customRemove(editor);
     } else if (config.pluginType === 'component') {
       if (config.object === 'mark') {
-        editor.removeMark(config.type);
+        editor.removeMark({
+          type: config.type,
+          data: this.getCurrentNode()
+            ? this.getCurrentNode().get('data')
+            : undefined,
+        });
       } else if (config.object === 'inline') {
         editor.unwrapInline(config.type);
       } else if (config.object === 'block') {

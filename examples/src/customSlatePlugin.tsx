@@ -4,14 +4,14 @@ import React from 'react';
 export default pluginFactories.createComponentPlugin<{
   color: string;
 }>({
-  addHoverButton: false,
+  addHoverButton: true,
   addToolbarButton: true,
   type: 'SetColor',
-  object: 'block',
+  object: 'mark',
   icon: <span>Color</span>,
   Component: props => {
     return (
-      <div style={{ color: props.data.get('color') }}>{props.children}</div>
+      <span style={{ color: props.data.get('color') }}>{props.children}</span>
     );
   },
   schema: {
