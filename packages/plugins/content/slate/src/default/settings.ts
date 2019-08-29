@@ -1,5 +1,3 @@
-import { SlateSettings } from '../types/settings';
-
 export const defaultTranslations = {
   pluginName: 'Text',
   pluginDescription: 'An advanced rich text area.',
@@ -12,8 +10,4 @@ export const defaultTranslations = {
     linkHrefPlaceholder: 'http://example.com/my/link.html',
     linkOpenInNewWindowLabel: 'Open in new window',
   },
-};
-
-export const defaultSettings: SlateSettings = {
-  translations: defaultTranslations,
 };

@@ -32,9 +32,7 @@ import EditorUi from '@react-page/ui';
 import '@react-page/ui/lib/index.css';
 
 // The rich text area plugin
-import slate, {
-  defaultPlugins as defaultSlatePlugins
-} from '@react-page/plugins-slate';
+import slate from '@react-page/plugins-slate';
 
 import '@react-page/plugins-slate/lib/index.css';
 
@@ -108,7 +106,10 @@ if (
   whyDidYouUpdate(React);
 }
 
-const slatePlugin = slate([...defaultSlatePlugins, customSlatePlugin()]);
+const slatePlugin = slate(def => ({
+  ...def,
+  plugins: [...def.plugins, customSlatePlugin()],
+}));
 // Define which plugins we want to use (all of the above)
 const plugins: Plugins = {
   content: [

@@ -40,14 +40,17 @@ If you only want to include some plugins, you can specify them:
 import slate, { slatePlugins } from '@react-page/plugins-slate';
 
 
-const slatePlugin = slate([
-  slatePlugins.headings.h1(),
-  slatePlugins.headings.h2(),
-  slatePlugins.headings.h3(),
-  slatePlugins.emphasize.em(),
-  slatePlugins.emphasize.strong(),
-  slatePlugins.paragraph() // make sure to always include that
-];
+const slatePlugin = slate(def => ({
+  ...def,
+  plugins: [
+    slatePlugins.headings.h1(),
+    slatePlugins.headings.h2(),
+    slatePlugins.headings.h3(),
+    slatePlugins.emphasize.em(),
+    slatePlugins.emphasize.strong(),
+    slatePlugins.paragraph() // make sure to always include that
+  ]
+})
 
 const plugins: Plugins = {
   content: [
@@ -69,6 +72,21 @@ const editor = new Editor({
 });
 ```
 
+or if you want to add an additional plugin, you can use all default plugins like this:
+
+```
+import slate, { slatePlugins } from '@react-page/plugins-slate';
+
+
+const slatePlugin = slate(def => ({
+  ...def,
+  plugins: [
+   ...def.plugins,
+   myAdditionalPlugin
+  ]
+})
+```
+
 You can customize slate plugins by providing a customize function. It will take the plugin's default config and you can return a new config. Most obvious usecase is to change the component that renders the plugin's content:
 
 ```
@@ -78,14 +96,20 @@ const RedH1 = ({ style, ...props }: Props) => (
   <h1 style={{ ...style, color: 'red' }} {...props} />
 );
 
-const slatePlugin = slate([
-  slatePlugins.headings.h1(def => ({
-    ...def, // spread it, so that the new config contains all defaults
-    Component: ({data, children}) => (
-      <RedH1 style={{textAlign: data.get("align")}}>{children}</RedH1>
-    )
-  }))
-  // ...
+const slatePlugin = slate(slateDef => ({
+  ...slateDef,
+  plugins: [
+    slatePlugins.headings.h1(h1Def => ({
+      ...h1Def, // spread it, so that the new config contains all defaults
+      Component: ({data, children}) => (
+        <RedH1 style={{textAlign: data.get("align")}}>{children}</RedH1>
+      )
+    }))
+
+  ]
+})
+
+
 
 ```
 
