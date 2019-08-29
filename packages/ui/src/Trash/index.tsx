@@ -24,7 +24,7 @@ import * as React from 'react';
 import { DropTarget as dropTarget } from 'react-dnd';
 import Delete from '@material-ui/icons/Delete';
 import Fab from '@material-ui/core/Fab';
-import { Editor, Actions } from '@react-page/core';
+import { Editor, Actions, Selectors } from '@react-page/core';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
 
@@ -74,6 +74,7 @@ export interface RawProps {
 class Raw extends React.Component<RawProps> {
   render() {
     const { connectDropTarget, isOverCurrent } = this.props;
+
     return connectDropTarget(
       <div
         className={classNames('ory-controls-trash', {
@@ -109,7 +110,7 @@ const mapDispatchToProps = {
   removeCell: Actions.Cell.removeCell,
 };
 
-const mapStateToProps = createStructuredSelector(Actions.Display);
+const mapStateToProps = createStructuredSelector(Selectors.Display);
 
 // tslint:disable-next-line:no-any
 const Decorated: any = connect(
