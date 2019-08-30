@@ -14,11 +14,13 @@ export default pluginFactories.createComponentPlugin<{
       <span style={{ color: props.data.get('color') }}>{props.children}</span>
     );
   },
+
   schema: {
     type: 'object',
     required: ['color'],
     properties: {
       color: {
+        default: 'blue',
         type: 'string',
         enum: ['red', 'blue', 'green', 'orange'],
       },

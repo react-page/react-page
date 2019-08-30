@@ -81,7 +81,11 @@ class PluginButton<T = {}> extends React.Component<Props<T>, PluginState> {
   getData = () => {
     const currentNode = this.getCurrentNode();
 
-    return currentNode && currentNode.data ? currentNode.data.toJS() : {};
+    return currentNode && currentNode.data
+      ? currentNode.data.toJS()
+      : this.props.config.getInitialData
+      ? this.props.config.getInitialData()
+      : {};
   }
 
   hasControls = () => {
