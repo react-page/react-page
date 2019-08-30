@@ -3,7 +3,7 @@ import Plugin from './SlatePlugin';
 import { Translations } from './translations';
 
 export interface SlateSettings {
-  plugins?: Plugin[];
+  plugins: Plugin[];
 
   translations?: Translations;
 }

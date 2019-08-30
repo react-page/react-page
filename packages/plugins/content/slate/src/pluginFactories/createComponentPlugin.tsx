@@ -19,21 +19,24 @@ function createComponentPluginWithDefinition<T extends {}>(
 ): SlatePlugin {
   return {
     ...createSlateBasePlugin({ ...pluginDefintion, pluginType: 'component' }),
-    // tslint:disable-next-line:no-any
-    deserialize: (el: HTMLElement, next: (childnodes: any) => any) => {
-      const tagName = el.tagName.toLowerCase();
-      if (tagName !== pluginDefintion.deserialize.tagName) {
-        return;
-      }
-      return {
-        object: pluginDefintion.object,
-        type: pluginDefintion.type,
-        nodes: next(el.childNodes),
-        data: pluginDefintion.deserialize.getData
-          ? Data.create(pluginDefintion.deserialize.getData(el))
-          : undefined,
-      };
-    },
+
+    deserialize: pluginDefintion.deserialize
+      ? // tslint:disable-next-line:no-any
+        (el: HTMLElement, next: (childnodes: any) => any) => {
+          const tagName = el.tagName.toLowerCase();
+          if (tagName !== pluginDefintion.deserialize.tagName) {
+            return;
+          }
+          return {
+            object: pluginDefintion.object,
+            type: pluginDefintion.type,
+            nodes: next(el.childNodes),
+            data: pluginDefintion.deserialize.getData
+              ? Data.create(pluginDefintion.deserialize.getData(el))
+              : undefined,
+          };
+        }
+      : null,
     serialize: (
       // tslint:disable-next-line:no-any
       node: { type: string; object: SlateNodeObjectType; data: any },

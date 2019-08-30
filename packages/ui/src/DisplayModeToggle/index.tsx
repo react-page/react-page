@@ -21,13 +21,11 @@
  */
 import * as React from 'react';
 
-import Provider from '../Provider/index';
 import ToggleEdit from './ToggleEdit/index';
 import ToggleInsert from './ToggleInsert/index';
 import ToggleLayout from './ToggleLayout/index';
 import TogglePreview from './TogglePreview/index';
 import ToggleResize from './ToggleResize/index';
-import { ProviderProps } from './../Provider/index';
 
 const defaultTranslations = {
   edit: 'Edit things',
@@ -37,35 +35,35 @@ const defaultTranslations = {
   preview: 'Preview result',
 };
 
-const Inner: React.SFC<ProviderProps & { translations?: typeof defaultTranslations}> = ({ translations = defaultTranslations, ...rest }) => (
-  <Provider {...rest}>
-    <div className="ory-controls-mode-toggle-control-group">
-      <div className="ory-controls-mode-toggle-control">
-        <ToggleEdit label={translations.edit} />
-        <div className="ory-controls-mode-toggle-clearfix" />
-      </div>
-
-      <div className="ory-controls-mode-toggle-control">
-        <ToggleInsert label={translations.insert} />
-        <div className="ory-controls-mode-toggle-clearfix" />
-      </div>
-
-      <div className="ory-controls-mode-toggle-control">
-        <ToggleLayout label={translations.layout} />
-        <div className="ory-controls-mode-toggle-clearfix" />
-      </div>
-
-      <div className="ory-controls-mode-toggle-control">
-        <ToggleResize label={translations.resize} />
-        <div className="ory-controls-mode-toggle-clearfix" />
-      </div>
-
-      <div className="ory-controls-mode-toggle-control">
-        <TogglePreview label={translations.preview} />
-        <div className="ory-controls-mode-toggle-clearfix" />
-      </div>
+const Inner: React.SFC<{ translations?: typeof defaultTranslations }> = ({
+  translations = defaultTranslations,
+}) => (
+  <div className="ory-controls-mode-toggle-control-group">
+    <div className="ory-controls-mode-toggle-control">
+      <ToggleEdit label={translations.edit} />
+      <div className="ory-controls-mode-toggle-clearfix" />
     </div>
-  </Provider>
+
+    <div className="ory-controls-mode-toggle-control">
+      <ToggleInsert label={translations.insert} />
+      <div className="ory-controls-mode-toggle-clearfix" />
+    </div>
+
+    <div className="ory-controls-mode-toggle-control">
+      <ToggleLayout label={translations.layout} />
+      <div className="ory-controls-mode-toggle-clearfix" />
+    </div>
+
+    <div className="ory-controls-mode-toggle-control">
+      <ToggleResize label={translations.resize} />
+      <div className="ory-controls-mode-toggle-clearfix" />
+    </div>
+
+    <div className="ory-controls-mode-toggle-control">
+      <TogglePreview label={translations.preview} />
+      <div className="ory-controls-mode-toggle-clearfix" />
+    </div>
+  </div>
 );
 
 export default Inner;

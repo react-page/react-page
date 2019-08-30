@@ -27,7 +27,12 @@ import { bindActionCreators } from 'redux';
 import { createStructuredSelector } from 'reselect';
 
 import Inner from './Inner';
-import { editableConfig, node, purifiedNode, NodeProps } from '../../selector/editable';
+import {
+  editableConfig,
+  node,
+  purifiedNode,
+  NodeProps
+} from '../../selector/editable';
 import {
   isPreviewMode,
   isEditMode,
@@ -130,7 +135,8 @@ const mapDispatchToProps = (
       focusCell: focusCell(id),
       blurAllCells,
     },
-    dispatch
+    // tslint:disable-next-line:no-any
+    dispatch as any
   );
 
 export default connect(

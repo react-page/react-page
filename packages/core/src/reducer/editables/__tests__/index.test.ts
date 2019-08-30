@@ -73,16 +73,22 @@ describe('editor/reducer/editables', () => {
     describe(`test case ${k}`, () => {
       it('should update an existing editable', () => {
         const reducer = combineReducers<RootState>({
-          reactPage: combineReducers({ editables }),
+          // tslint:disable-next-line:no-any
+          reactPage: combineReducers({ editables }) as any,
         });
-        const store = createStore<RootState>(
+        // tslint:disable-next-line:no-any
+        const store = createStore<RootState, any, any, any>(
           reducer,
           // tslint:disable-next-line:no-any
           { reactPage: { editables: c.i as any } as any },
           identity
         );
         store.dispatch(c.a);
-        expect(store.getState().reactPage.editables.past.length, 'to equal', c.e.pa);
+        expect(
+          store.getState().reactPage.editables.past.length,
+          'to equal',
+          c.e.pa
+        );
         expect(
           store.getState().reactPage.editables.present.length,
           'to equal',

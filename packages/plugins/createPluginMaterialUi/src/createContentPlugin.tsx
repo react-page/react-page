@@ -5,14 +5,21 @@ import {
   ContentPluginProps,
   ContentPluginConfig
 } from '@react-page/core/lib/service/plugin/classes';
-import { CreateContentPluginConfig } from './types';
+import { ContentPluginDefinition, ControlsType } from './types';
 
-const Controls = lazyLoad(() => import('./Controls'));
-function createPlugin<T extends {}>({
+type CustomizeFunction<T, CT> = (
+  def: ContentPluginDefinition<T>
+) => ContentPluginDefinition<T & CT>;
+
+function createPluginWithDef<T extends {}>({
   schema,
   Renderer,
   ...pluginSettings
-}: CreateContentPluginConfig<T>): ContentPluginConfig<T> {
+}: ContentPluginDefinition<T>): ContentPluginConfig<T> {
+  const Controls = lazyLoad(
+    () => (import('./Controls') as unknown) as Promise<ControlsType<T>>
+  );
+
   return {
     Component: (props: ContentPluginProps<T>) => {
       return (
@@ -28,4 +35,14 @@ function createPlugin<T extends {}>({
     ...pluginSettings,
   };
 }
-export default createPlugin;
+
+function createContentPlugin<T>(definition: ContentPluginDefinition<T>) {
+  return function<CT>(customize?: CustomizeFunction<T, CT>) {
+    if (customize) {
+      return createPluginWithDef<T & CT>(customize(definition));
+    }
+    return createPluginWithDef<T>(definition);
+  };
+}
+
+export default createContentPlugin;

@@ -6,10 +6,10 @@ type ListItemDef = {
   defaultNode: string;
 };
 
-export default (def: ListItemDef) => {
-  return createSimpleHtmlBlockPlugin({
+export default function<T>(def: ListItemDef) {
+  return createSimpleHtmlBlockPlugin<T>({
     noButton: true,
     tagName: def.tagName,
     type: def.type,
   });
-};
+}

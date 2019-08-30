@@ -1,4 +1,5 @@
-import { JSONSchema7 } from 'json-schema';
+import { JsonSchema } from './jsonSchema';
+
 import {
   ContentPluginProps,
   ContentPluginConfig,
@@ -7,8 +8,10 @@ import {
   PluginProps
 } from '@react-page/core/lib/service/plugin/classes';
 
-type CommonProps = {
-  schema: JSONSchema7;
+export type ControlsType<T> = React.ComponentType<ControlProps<T>>;
+
+type CommonProps<T extends {}> = {
+  schema: Omit<JsonSchema<T>, 'type'>;
 };
 
 type CommonContentPluginProps<T> = {
@@ -18,14 +21,14 @@ type CommonLayoutPluginProps<T> = {
   Renderer: React.ComponentType<LayoutPluginProps<T>>;
 };
 
-export type ControlProps<T> = CommonProps & {
+export type ControlProps<T> = CommonProps<T> & {
   Renderer: React.ComponentType<PluginProps<T>>;
 } & PluginProps<T>;
 
-export type CreateContentPluginConfig<T> = CommonProps &
+export type ContentPluginDefinition<T> = CommonProps<T> &
   CommonContentPluginProps<T> &
   ContentPluginConfig<T>;
 
-export type CreateLayoutPluginConfig<T> = CommonProps &
+export type LayoutPluginDefinition<T> = CommonProps<T> &
   CommonLayoutPluginProps<T> &
   LayoutPluginConfig<T>;

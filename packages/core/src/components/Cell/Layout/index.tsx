@@ -39,7 +39,7 @@ import { LayoutPluginProps } from '../../../service/plugin/classes';
 // TODO clean me up #157
 class Layout extends React.PureComponent<ComponetizedCell> {
   ref: HTMLDivElement;
-  componentWillReceiveProps(nextProps: ComponetizedCell) {
+  UNSAFE_componentWillReceiveProps(nextProps: ComponetizedCell) {
     const {
       node: { focused: was },
     } = this.props;
@@ -168,7 +168,8 @@ const mapDispatchToProps = (
     {
       updateCellLayout: updateCellLayout(id),
     },
-    dispatch
+    // tslint:disable-next-line:no-any
+    dispatch as any
   );
 
 export default connect(

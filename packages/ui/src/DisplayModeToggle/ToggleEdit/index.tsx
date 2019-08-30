@@ -25,8 +25,7 @@ import Button from '../Button/index';
 
 import { connect } from 'react-redux';
 
-import { editMode } from '@react-page/core/lib/actions/display';
-import { isEditMode } from '@react-page/core/lib/selector/display';
+import { Actions, Selectors } from '@react-page/core';
 import { createStructuredSelector } from 'reselect';
 
 export interface InnerReduxProps {
@@ -52,8 +51,10 @@ const Inner: React.SFC<InnerProps> = props => (
   />
 );
 
-const mapStateToProps = createStructuredSelector({ isEditMode });
-const mapDispatchToProps = { editMode };
+const mapStateToProps = createStructuredSelector({
+  isEditMode: Selectors.Display.isEditMode,
+});
+const mapDispatchToProps = { editMode: Actions.Display.editMode };
 
 export default connect(
   mapStateToProps,

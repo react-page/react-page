@@ -28,7 +28,7 @@ import Editor, { Editable, createEmptyState } from '@react-page/core';
 import '@react-page/core/lib/index.css'; // we also want to load the stylesheets
 
 // The default ui components
-import { Trash, DisplayModeToggle, Toolbar } from '@react-page/ui';
+import EditorUi from '@react-page/ui';
 import '@react-page/ui/lib/index.css';
 
 // The rich text area plugin
@@ -54,7 +54,7 @@ import '@react-page/plugins-parallax-background/lib/index.css';
 
 // The background plugin
 import background from '@react-page/plugins-background';
-import { ModeEnum } from '@react-page/plugins-background/lib/types/modeEnum';
+import { ModeEnum } from '@react-page/plugins-background';
 import '@react-page/plugins-background/lib/index.css';
 
 // The html5-video plugin
@@ -75,7 +75,8 @@ import customLayoutPlugin from './customLayoutPlugin';
 import content from './content';
 import './styles.css';
 import { ImageUploadType } from '@react-page/ui/lib/ImageUpload/types';
-import { Plugins } from '@react-page/core/lib/service/plugin/classes';
+import { Plugins } from '@react-page/core';
+import customSlatePlugin from './customSlatePlugin';
 
 const fakeImageUploadService: (url: string) => ImageUploadType = defaultUrl => (
   file,
@@ -105,7 +106,10 @@ if (
   whyDidYouUpdate(React);
 }
 
-const slatePlugin = slate();
+const slatePlugin = slate(def => ({
+  ...def,
+  plugins: [...def.plugins, customSlatePlugin()],
+}));
 // Define which plugins we want to use (all of the above)
 const plugins: Plugins = {
   content: [
@@ -166,11 +170,8 @@ elements.forEach(element => {
 
 // Render the ui controls, you could implement your own here, of course.
 ReactDOM.render(
-  <div>
-    <Trash editor={editor} />
-    <DisplayModeToggle editor={editor} />
-    <Toolbar editor={editor} />
-  </div>,
+  <EditorUi editor={editor} />,
+
   document.getElementById('controls')
 );
 

@@ -15,16 +15,16 @@
     "build:css:watch": "npm run build:css -- -w",
     "docs": "documentation build ./lib/**/*.js --format md --github -o ../../../../docs/api/plugins/video.md",
     "prebuild": "npm run clean",
-    "clean": "rimraf \"lib/*\" && rimraf \"lib-es/*\""
+    "clean": "rimraf \"lib\" && rimraf \"lib-es\""
   },
   "peerDependencies": {
     "react": "^16.8.6",
-    "react-dom": "^16.8.6"
+    "react-dom": "^16.8.6",
+    "@material-ui/core": "*",
+    "@material-ui/icons": "*",
+    "@material-ui/styles": "*"
   },
   "dependencies": {
-    "@material-ui/core": "^4.3.0",
-    "@material-ui/icons": "^4.2.1",
-    "@material-ui/styles": "^4.3.0",
     "@react-page/core": "0.0.0",
     "@react-page/ui": "0.0.0",
     "react-player": "1.7.1"

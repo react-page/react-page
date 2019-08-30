@@ -1,4 +1,10 @@
 import createContentPlugin from './createContentPlugin';
 import createLayoutPlugin from './createLayoutPlugin';
-
-export { createContentPlugin, createLayoutPlugin };
+import makeUniformsSchema from './utils/makeUniformsSchema';
+import { JsonSchema } from './types/jsonSchema';
+export {
+  createContentPlugin,
+  createLayoutPlugin,
+  makeUniformsSchema,
+  JsonSchema
+};

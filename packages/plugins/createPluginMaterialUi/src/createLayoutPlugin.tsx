@@ -5,14 +5,21 @@ import {
   LayoutPluginConfig,
   LayoutPluginProps
 } from '@react-page/core/lib/service/plugin/classes';
-import { CreateLayoutPluginConfig } from './types';
-const Controls = lazyLoad(() => import('./Controls'));
+import { LayoutPluginDefinition, ControlsType } from './types';
 
-function createPlugin<T extends {}>({
+type CustomizeFunction<T, CT> = (
+  def: LayoutPluginDefinition<T>
+) => LayoutPluginDefinition<T & CT>;
+
+function createPluginWithDef<T extends {}>({
   schema,
   Renderer,
   ...pluginSettings
-}: CreateLayoutPluginConfig<T>): LayoutPluginConfig<T> {
+}: LayoutPluginDefinition<T>): LayoutPluginConfig<T> {
+  const Controls = lazyLoad(
+    () => (import('./Controls') as unknown) as Promise<ControlsType<T>>
+  );
+
   return {
     Component: (props: LayoutPluginProps<T>) => {
       return (
@@ -28,4 +35,14 @@ function createPlugin<T extends {}>({
     ...pluginSettings,
   };
 }
-export default createPlugin;
+
+function createContentPlugin<T>(definition: LayoutPluginDefinition<T>) {
+  return function<CT>(customize?: CustomizeFunction<T, CT>) {
+    if (customize) {
+      return createPluginWithDef<T & CT>(customize(definition));
+    }
+    return createPluginWithDef<T>(definition);
+  };
+}
+
+export default createContentPlugin;

@@ -16,7 +16,7 @@
     "build:css:watch": "npm run build:css -- -w",
     "docs": "documentation build ./lib/**/*.js --format md --github -o ../../docs/api/core.md",
     "prebuild": "npm run clean",
-    "clean": "rimraf \"lib/*\" && rimraf \"lib-es/*\""
+    "clean": "rimraf \"lib\" && rimraf \"lib-es\""
   },
   "peerDependencies": {
     "react": "^16.8.6",
@@ -36,9 +36,9 @@
     "react-dnd-html5-backend": "^2.4.0",
     "react-draggable": "^3.0.3",
     "react-hotkeys": "^0.10.0",
-    "react-redux": "^5.0.4",
+    "react-redux": "^7.1.1",
     "react-resizable": "^1.7.3",
-    "redux": "^3.6.0",
+    "redux": "^4.0.4",
     "redux-undo": "1.0.0-beta9-7",
     "reselect": "^3.0.0",
     "semver": "^5.3.0",

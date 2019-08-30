@@ -21,30 +21,34 @@
  */
 import * as React from 'react';
 import { Provider as ReduxProvider } from 'react-redux';
-import { Editor } from '@react-page/core/lib';
-import dragDropContext from '@react-page/core/lib/components/DragDropContext';
+import { Editor, DragDropContext } from '@react-page/core';
 import ThemeProvider from '../ThemeProvider/index';
 
 export interface ProviderProps {
   editor: Editor;
 }
 
+const EditorContext = React.createContext<Editor>(null);
+
+export const useEditor = () => React.useContext<Editor>(EditorContext);
 class Provider extends React.Component<ProviderProps> {
   // tslint:disable-next-line:no-any
   private DragDropContext: any;
   constructor(props: ProviderProps) {
     super(props);
-    this.DragDropContext = dragDropContext(props.editor.dragDropContext);
+    this.DragDropContext = DragDropContext(props.editor.dragDropContext);
   }
 
   public render() {
     const { editor, children = [] } = this.props;
-    const DragDropContext = this.DragDropContext;
+    const DragDropContextProvider = this.DragDropContext;
     return (
       <ReduxProvider store={editor.store}>
-        <DragDropContext>
-          <ThemeProvider>{children}</ThemeProvider>
-        </DragDropContext>
+        <DragDropContextProvider>
+          <EditorContext.Provider value={editor}>
+            <ThemeProvider>{children}</ThemeProvider>
+          </EditorContext.Provider>
+        </DragDropContextProvider>
       </ReduxProvider>
     );
   }

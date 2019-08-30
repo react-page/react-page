@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { BackgroundRendererProps } from '../types/renderer';
-import { ModeEnum } from '../types/modeEnum';
+import { ModeEnum } from '../types/ModeEnum';
 import { colorToString } from '@react-page/ui';
 
 const getStyles = (props: BackgroundRendererProps) => {

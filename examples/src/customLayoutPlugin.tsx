@@ -42,4 +42,4 @@ export default (settings: any) =>
         backgroundColor: { type: 'string' },
       },
     },
-  });
+  })();

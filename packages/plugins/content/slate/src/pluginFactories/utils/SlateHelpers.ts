@@ -18,7 +18,11 @@ export default class SlateHelpers<T> {
       // currently not implemented
       return null;
     }
+    if (!editor) {
+      return null;
+    }
     const editorState = editor.value;
+
     const predicate =
       config.pluginType === 'component'
         ? (el: Inline | Mark | Block) => el.type === config.type
@@ -39,13 +43,14 @@ export default class SlateHelpers<T> {
       if (config.pluginType === 'data' || config.replaceOnRemove) {
         return editorState.blocks.find(predicate);
       } else {
-        return editorState.blocks.find(block =>
-          Boolean(
-            editorState.document.getClosest(block.key, parent =>
-              predicate(parent as Block)
-            )
-          )
+        const matchingBlocks = editorState.blocks.map(block =>
+          editorState.document.getClosest(block.key, parent => {
+            return predicate(parent as Block);
+          })
         );
+        if (matchingBlocks.size > 0) {
+          return matchingBlocks.get(0) as Block;
+        }
       }
     }
   }
@@ -56,11 +61,17 @@ export default class SlateHelpers<T> {
 
   remove = () => {
     const { config, editor } = this;
+
     if (config.customRemove) {
       config.customRemove(editor);
     } else if (config.pluginType === 'component') {
       if (config.object === 'mark') {
-        editor.removeMark(config.type);
+        editor.removeMark({
+          type: config.type,
+          data: this.getCurrentNode()
+            ? this.getCurrentNode().get('data')
+            : undefined,
+        });
       } else if (config.object === 'inline') {
         editor.unwrapInline(config.type);
       } else if (config.object === 'block') {

@@ -24,22 +24,14 @@ import * as React from 'react';
 import { DropTarget as dropTarget } from 'react-dnd';
 import Delete from '@material-ui/icons/Delete';
 import Fab from '@material-ui/core/Fab';
-import { Editor } from '@react-page/core';
+import { Editor, Actions, Selectors } from '@react-page/core';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
-import { removeCell } from '@react-page/core/lib/actions/cell/core';
-import throttle from 'lodash.throttle';
-import {
-  isEditMode,
-  isLayoutMode,
-  isPreviewMode,
-  isInsertMode,
-  isResizeMode
-} from '@react-page/core/lib/selector/display';
-import { createStructuredSelector } from 'reselect';
 
-import Provider from '../Provider/index';
-import { ProviderProps } from './../Provider/index';
+import throttle from 'lodash.throttle';
+
+import { createStructuredSelector } from 'reselect';
+import { useEditor } from '../Provider';
 
 const target = {
   hover: throttle(
@@ -73,6 +65,7 @@ const connectMonitor = (_connect: any, monitor: any) => ({
 });
 
 export interface RawProps {
+  editor: Editor;
   isLayoutMode: boolean;
   isOverCurrent: boolean;
   connectDropTarget: (node: JSX.Element) => JSX.Element;
@@ -81,6 +74,7 @@ export interface RawProps {
 class Raw extends React.Component<RawProps> {
   render() {
     const { connectDropTarget, isOverCurrent } = this.props;
+
     return connectDropTarget(
       <div
         className={classNames('ory-controls-trash', {
@@ -113,26 +107,21 @@ const types = ({ editor }: { editor: Editor }) => {
 };
 
 const mapDispatchToProps = {
-  removeCell,
+  removeCell: Actions.Cell.removeCell,
 };
 
-const mapStateToProps = createStructuredSelector({
-  isEditMode,
-  isLayoutMode,
-  isPreviewMode,
-  isInsertMode,
-  isResizeMode,
-});
+const mapStateToProps = createStructuredSelector(Selectors.Display);
 
-const Decorated = connect(
+// tslint:disable-next-line:no-any
+const Decorated: any = connect(
   mapStateToProps,
   mapDispatchToProps
 )(dropTarget(types, target, connectMonitor)(Raw));
 
-const Trash: React.SFC<ProviderProps> = props => (
-  <Provider {...props}>
-    <Decorated {...props} />
-  </Provider>
-);
+const Trash: React.SFC = () => {
+  const editor = useEditor();
+
+  return <Decorated editor={editor} />;
+};
 
 export default Trash;

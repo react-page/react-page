@@ -68,7 +68,12 @@ class Item extends React.Component<ItemProps, ItemState> {
     // not using css modules here because they don't work with svg icons
     return (
       <ListItem className="ory-toolbar-item">
-        <Avatar children={plugin.IconComponent} />
+        <Avatar
+          children={plugin.IconComponent}
+          style={{
+            marginRight: 16,
+          }}
+        />
         <ListItemText primary={plugin.text} secondary={plugin.description} />
         <span
           className="ory-toolbar-item-drag-handle-button"

@@ -4,18 +4,22 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import Checkbox from '@material-ui/core/Checkbox';
-import { ImageUpload } from '@react-page/ui';
-
-import { BottomToolbar } from '@react-page/ui';
-import { darkTheme, default as ThemeProvider } from '@react-page/ui/lib/ThemeProvider';
+import { BottomToolbar, ImageUpload } from '@react-page/ui';
 
 const ImageDefaultControls: React.SFC<ImageControlsProps> = props => {
-  const { Renderer, handleImageLoaded, handleImageUploaded, handleChange, readOnly, focused } = props;
+  const {
+    Renderer,
+    handleImageLoaded,
+    handleImageUploaded,
+    handleChange,
+    readOnly,
+    focused,
+  } = props;
   return (
     <div>
       <Renderer {...props} imagePreview={props.imagePreview} />
-      {!readOnly && focused && <ThemeProvider theme={darkTheme}>
-        <BottomToolbar open={props.focused} theme={darkTheme}>
+      {!readOnly && focused && (
+        <BottomToolbar open={props.focused}>
           <div style={{ display: 'flex' }}>
             {props.imageUpload && (
               <React.Fragment>
@@ -35,9 +39,13 @@ const ImageDefaultControls: React.SFC<ImageControlsProps> = props => {
             )}
             <TextField
               placeholder={props.translations.srcPlaceholder}
-              label={props.imageUpload ? props.translations.haveUrl : props.translations.imageUrl}
+              label={
+                props.imageUpload
+                  ? props.translations.haveUrl
+                  : props.translations.imageUrl
+              }
               name="src"
-              style={{ flex: 1 }}
+              // style={{ flex: 1 }}
               value={props.state.src}
               onChange={handleChange}
             />
@@ -63,7 +71,7 @@ const ImageDefaultControls: React.SFC<ImageControlsProps> = props => {
             label={props.translations.openNewWindow}
           />
         </BottomToolbar>
-      </ThemeProvider>}
+      )}
     </div>
   );
 };

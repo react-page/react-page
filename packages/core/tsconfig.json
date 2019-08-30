@@ -3,14 +3,8 @@
   "compilerOptions": {
     "rootDir": "src",
     "outDir": "lib",
-    "baseUrl": ".",
+    "baseUrl": "."
   },
-  "include": [
-    "src"
-  ],
-  "exclude": [
-    "lib",
-    "node_modules",
-    "src/**/__tests__/**/*.*"
-  ]
+  "include": ["src"],
+  "exclude": ["lib", "node_modules", "src/**/__tests__/**/*.*"]
 }

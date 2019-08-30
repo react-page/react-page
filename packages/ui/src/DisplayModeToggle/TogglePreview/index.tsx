@@ -22,8 +22,8 @@
 import * as React from 'react';
 import Devices from '@material-ui/icons/Devices';
 import { connect } from 'react-redux';
-import { previewMode } from '@react-page/core/lib/actions/display';
-import { isPreviewMode } from '@react-page/core/lib/selector/display';
+import { Actions, Selectors } from '@react-page/core';
+
 import { createStructuredSelector } from 'reselect';
 import Button from '../Button/index';
 
@@ -50,8 +50,10 @@ const Inner: React.SFC<InnerProps> = props => (
   />
 );
 
-const mapStateToProps = createStructuredSelector({ isPreviewMode });
-const mapDispatchToProps = { previewMode };
+const mapStateToProps = createStructuredSelector({
+  isPreviewMode: Selectors.Display.isPreviewMode,
+});
+const mapDispatchToProps = { previewMode: Actions.Display.previewMode };
 
 export default connect(
   mapStateToProps,

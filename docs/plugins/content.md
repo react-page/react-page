@@ -40,14 +40,17 @@ If you only want to include some plugins, you can specify them:
 import slate, { slatePlugins } from '@react-page/plugins-slate';
 
 
-const slatePlugin = slate([
-  slatePlugins.headings.h1(),
-  slatePlugins.headings.h2(),
-  slatePlugins.headings.h3(),
-  slatePlugins.emphasize.em(),
-  slatePlugins.emphasize.strong(),
-  slatePlugins.paragraph() // make sure to always include that
-];
+const slatePlugin = slate(def => ({
+  ...def,
+  plugins: [
+    slatePlugins.headings.h1(),
+    slatePlugins.headings.h2(),
+    slatePlugins.headings.h3(),
+    slatePlugins.emphasize.em(),
+    slatePlugins.emphasize.strong(),
+    slatePlugins.paragraph() // make sure to always include that
+  ]
+})
 
 const plugins: Plugins = {
   content: [
@@ -69,6 +72,21 @@ const editor = new Editor({
 });
 ```
 
+or if you want to add an additional plugin, you can use all default plugins like this:
+
+```
+import slate, { slatePlugins } from '@react-page/plugins-slate';
+
+
+const slatePlugin = slate(def => ({
+  ...def,
+  plugins: [
+   ...def.plugins,
+   myAdditionalPlugin
+  ]
+})
+```
+
 You can customize slate plugins by providing a customize function. It will take the plugin's default config and you can return a new config. Most obvious usecase is to change the component that renders the plugin's content:
 
 ```
@@ -78,14 +96,20 @@ const RedH1 = ({ style, ...props }: Props) => (
   <h1 style={{ ...style, color: 'red' }} {...props} />
 );
 
-const slatePlugin = slate([
-  slatePlugins.headings.h1(def => ({
-    ...def, // spread it, so that the new config contains all defaults
-    Component: ({data, children}) => (
-      <RedH1 style={{textAlign: data.get("align")}}>{children}</RedH1>
-    )
-  }))
-  // ...
+const slatePlugin = slate(slateDef => ({
+  ...slateDef,
+  plugins: [
+    slatePlugins.headings.h1(h1Def => ({
+      ...h1Def, // spread it, so that the new config contains all defaults
+      Component: ({data, children}) => (
+        <RedH1 style={{textAlign: data.get("align")}}>{children}</RedH1>
+      )
+    }))
+
+  ]
+})
+
+
 
 ```
 
@@ -107,9 +131,11 @@ import {pluginFactories} from '@react-page/plugins-slate'
 
 ### Slate-Plugins with custom data
 
-Some plugins require custom data that the user has to provide. E.g. the `link` plugin needs a `href: string`. This is currently possible, but you need to implement the controls yourself. We will provide a more convenient way to create these plugins in the future.
+Some plugins require custom data that the user has to provide. E.g. the `link` plugin needs a `href: string`. Easiest way is to define a jsonSchema for your slate plugin. This will auto-generate a form that can update your plugin.
 
-In the meantime, [look at the `link` plugin as an example](/packages/plugins/content/slate/plugins/link/index.tsx)
+[look at the `link` plugin as an example how to do that](/packages/plugins/content/slate/plugins/link/index.tsx)
+
+[See also this helper library for more information](/packages/plugins/createPluginMaterialUi/README.md)
 
 For **typescript**-users: As you can see, all factories take a generic type Argument. E.g.
 
@@ -150,9 +176,24 @@ const linkWithTracking = yourLinkPlugin<{campaignTrackingId: string}>(def => ({
       {children}
     </LinkWithTracking>
   ),
-  Controls: () => ...// need to set also data for `campaignTrackingId`
+  schema: {
+    // this now needs to be compatible to your new data.
+    // its best to spread in the default schema (if `yourLinkPlugin` already defines one)
+    // and extend it.
+    // typescript will help you with that
+    ...def.schema,
+    required: [...def.schema.required,"campaignTrackingId"]
+    properties: {
+      ...def.schema.properties,
+      campaignTrackingId: {
+        title: "Campaign Tracking ID",
+        type: "string"
+      }
+    }
+  },
+  Controls: null /* if you use schema, set this null, otherwise typescript will complain
 
-  // also deserialize needs to be update, because `campaignTrackingId` is not defined as optional above
+  // deserialize needs to be update, because `campaignTrackingId` is not defined as optional above
   deserialize: {
     // we spread in all defaults, but update getData to also include `campaignTrackingId`
     ...def.deserialize,
@@ -236,7 +277,3 @@ Most built-in plugins use a bottom toolbar with a form as Controls. See for exam
 Because it can be tedious to implement controls for a plugin, we started to develop a plugin that make this much easier: `@react-page/create-plugin-materialui`
 
 See [the readme of this library for more information](/packages/plugins/createPluginMaterialUi/README.md)
-
-```
-
-```

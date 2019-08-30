@@ -21,7 +21,7 @@
  */
 
 import * as React from 'react';
-import { ThemeProvider } from '@react-page/ui';
+
 import {
   SlatePluginDefinition,
   PluginButtonProps
@@ -29,6 +29,7 @@ import {
 
 import ToolbarButton from './ToolbarButton';
 import SlateHelpers from '../utils/SlateHelpers';
+import UniformsControls from './UniformsControls';
 
 export interface PluginState {
   showControls: boolean;
@@ -36,8 +37,8 @@ export interface PluginState {
 
 type Props<T extends {}> = {
   config: SlatePluginDefinition<T>;
+  isActive: boolean;
 } & PluginButtonProps;
-
 class PluginButton<T = {}> extends React.Component<Props<T>, PluginState> {
   state = {
     showControls: false,
@@ -71,18 +72,27 @@ class PluginButton<T = {}> extends React.Component<Props<T>, PluginState> {
   }
   isDisabled = () => {
     const { config, editor } = this.props;
+    if (!editor) {
+      return true;
+    }
     return config.isDisabled ? config.isDisabled(editor) : false;
   }
 
   getData = () => {
     const currentNode = this.getCurrentNode();
+
     return currentNode && currentNode.data ? currentNode.data.toJS() : {};
   }
 
-  hasControls = () => Boolean(this.props.config.Controls);
+  hasControls = () => {
+    return (
+      Boolean(this.props.config.Controls) || Boolean(this.props.config.schema)
+    );
+  }
 
   onClick = (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
+
     if (this.hasControls()) {
       this.setState({ showControls: !this.state.showControls });
     } else {
@@ -99,36 +109,40 @@ class PluginButton<T = {}> extends React.Component<Props<T>, PluginState> {
   }
 
   render() {
-    const { Controls } = this.props.config;
-
+    const { Controls: PassedControls } = this.props.config;
+    const Controls = PassedControls || UniformsControls;
     return (
-      <ThemeProvider>
-        <>
-          <ToolbarButton
-            onClick={this.onClick}
-            disabled={this.isDisabled()}
-            isActive={this.isActive()}
-            icon={
-              this.props.config.icon ||
-              (this.props.config.pluginType === 'component' &&
-                this.props.config.deserialize.tagName)
-            }
-          />
+      <>
+        <ToolbarButton
+          onClick={this.onClick}
+          disabled={this.isDisabled()}
+          isActive={this.isActive()}
+          icon={
+            this.props.config.icon ||
+            (this.props.config.pluginType === 'component' &&
+              this.props.config.deserialize.tagName)
+          }
+        />
 
-          {this.hasControls() ? (
-            <Controls
-              close={this.close}
-              open={this.state.showControls}
-              add={this.add}
-              remove={this.remove}
-              shouldInsertWithText={!this.textIsSelected() && !this.isActive()}
-              addWithText={this.addWithText}
-              data={this.getData()}
-              {...this.props}
-            />
-          ) : null}
-        </>
-      </ThemeProvider>
+        {this.hasControls() ? (
+          <Controls
+            schema={this.props.config.schema}
+            close={this.close}
+            open={this.state.showControls}
+            add={this.add}
+            remove={this.remove}
+            isActive={this.isActive()}
+            shouldInsertWithText={
+              this.props.config.pluginType === 'component' &&
+              !this.textIsSelected() &&
+              !this.isActive()
+            }
+            addWithText={this.addWithText}
+            data={this.getData()}
+            {...this.props}
+          />
+        ) : null}
+      </>
     );
   }
 }
