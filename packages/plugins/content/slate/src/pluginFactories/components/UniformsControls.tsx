@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import TextField from '@material-ui/core/TextField';
 
 import Button from '@material-ui/core/Button';
@@ -11,18 +11,12 @@ import DoneIcon from '@material-ui/icons/Done';
 import { Dialog, DialogContent, DialogActions } from '@material-ui/core';
 
 function Controls<T>(props: SlatePluginControls<T>) {
-  const [data, setData] = useState();
-  const [text, setText] = useState(null);
+  const uniformsSchema = makeUniformsSchema<T>(props.schema);
 
-  useEffect(
-    () => {
-      // update data if reopens
-      if (props.open) {
-        setData(props.data);
-      }
-    },
-    [props.open]
-  );
+  // tslint:disable-next-line:no-any
+  const formRef = useRef<any>();
+
+  const [text, setText] = useState(null);
 
   const onCancel = () => {
     props.close();
@@ -30,7 +24,7 @@ function Controls<T>(props: SlatePluginControls<T>) {
   };
 
   const onSubmit = useCallback(
-    () => {
+    data => {
       if (props.shouldInsertWithText) {
         props.addWithText(text, data);
       } else {
@@ -39,7 +33,16 @@ function Controls<T>(props: SlatePluginControls<T>) {
       props.close();
       props.editor.focus();
     },
-    [props.shouldInsertWithText, data, text]
+    [props.shouldInsertWithText, text]
+  );
+
+  const submitForm = useCallback(
+    () => {
+      if (formRef.current) {
+        formRef.current.submit();
+      }
+    },
+    [formRef.current]
   );
 
   const onRemove = () => {
@@ -65,12 +68,10 @@ function Controls<T>(props: SlatePluginControls<T>) {
         )}
 
         <AutoForm
-          model={data}
-          autosave={true}
-          schema={makeUniformsSchema<T>(props.schema)}
-          onSubmit={m => {
-            setData(m);
-          }}
+          ref={formRef}
+          model={props.data}
+          schema={uniformsSchema}
+          onSubmit={onSubmit}
         >
           <AutoFields />
         </AutoForm>
@@ -90,7 +91,7 @@ function Controls<T>(props: SlatePluginControls<T>) {
           </Button>
         ) : null}
 
-        <Button variant="contained" color="primary" onClick={onSubmit}>
+        <Button variant="contained" color="primary" onClick={submitForm}>
           {props.submitLabel || 'Ok'}
           <DoneIcon style={{ marginLeft: 10 }} />
         </Button>

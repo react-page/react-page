@@ -91,6 +91,10 @@ export default class SlateHelpers<T> {
     const data =
       passedData || (config.getInitialData ? config.getInitialData() : null);
     if (this.isActive()) {
+      console.log('already active, update', this.getCurrentNode().toJS(), {
+        passedData,
+        data,
+      });
       // is active, we just update the node with the new data
       const node = this.getCurrentNode();
       if (node.object !== 'mark') {
