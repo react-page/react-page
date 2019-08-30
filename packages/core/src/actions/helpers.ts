@@ -21,11 +21,12 @@
  */
 
 import { v4 } from 'uuid';
+import { NewIds } from '../types/editable';
 
-export const gen = (c: number = 1) => {
-  const ret: string[] = [];
-  for (let i = 0; i < c; i++) {
-    ret.push(v4());
-  }
-  return ret;
+export const generateIds = (): NewIds => {
+  return {
+    cell: v4(),
+    item: v4(),
+    others: [v4(), v4(), v4()],
+  };
 };

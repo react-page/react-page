@@ -50,7 +50,7 @@ export const rawEditableReducer = (
             plugin: action.fallback,
             state: action.fallback.createInitialState(),
           },
-          id: action.ids[0],
+          id: action.ids.cell,
         };
         newCells = decorate(cells([c], action));
       }
