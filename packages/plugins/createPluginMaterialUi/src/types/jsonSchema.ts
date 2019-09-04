@@ -22,8 +22,9 @@ type NumberProperty = {
   exclusiveMaximum?: boolean;
 } & CommonPropertyProps;
 
+type ObjectProperty<T extends object> = JsonSchema<T> & CommonPropertyProps;
 type Property<T> = T extends object
-  ? JsonSchema<T>
+  ? ObjectProperty<T>
   : T extends string
   ? StringProperty
   : T extends number
