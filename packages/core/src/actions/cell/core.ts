@@ -20,9 +20,11 @@
  *
  */
 
-import { gen } from '../helpers';
 import { Action } from 'redux';
 import { EditorState } from '../../types/editor';
+import uuid from 'uuid';
+import { NewIds } from '../../types/editable';
+import { generateIds } from '../helpers';
 
 export const CELL_UPDATE_CONTENT = 'CELL_UPDATE_CONTENT';
 export const CELL_UPDATE_LAYOUT = 'CELL_UPDATE_LAYOUT';
@@ -88,7 +90,7 @@ export const updateCellLayout = (id: string) => (
 export interface RemoveCellAction extends Action {
   ts: Date;
   id: string;
-  ids: string[];
+  ids: NewIds;
 }
 /**
  * An action creator for removing a cell.
@@ -99,17 +101,17 @@ export interface RemoveCellAction extends Action {
  * store.dispatch(removeCell(cell.id, ['1', '2', '3', '4', ...]))
  *
  * @param {string} id The id of the cell that should be removed.
- * @param {string} ids An array of IDs for new cells that might be created.
+ * @param {string} ids An object of IDs for new cells that might be created.
  * @return {Action}
  */
 export const removeCell = (
   id: string,
-  ids: string[] = []
+  ids: NewIds = null
 ): RemoveCellAction => ({
   type: CELL_REMOVE,
   ts: new Date(),
   id,
-  ids: ids.length > 0 ? ids : gen(1),
+  ids: ids ? ids : generateIds(),
 });
 
 export interface ResizeCellAction extends Action {
@@ -210,7 +212,9 @@ export const blurAllCells = (): BlurAllCellsAction => ({
 export interface CreateFallbackCellAction extends Action {
   ts: Date;
   editable: string;
-  ids: string[];
+  ids: {
+    cell: string;
+  };
   // tslint:disable-next-line:no-any
   fallback: any;
 }
@@ -225,7 +229,9 @@ export const createFallbackCell = (
   type: CELL_CREATE_FALLBACK,
   ts: new Date(),
   editable,
-  ids: gen(1),
+  ids: {
+    cell: uuid.v4(),
+  },
   fallback,
 });
 

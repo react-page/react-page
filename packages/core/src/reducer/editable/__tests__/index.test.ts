@@ -20,11 +20,12 @@
  *
  */
 
-import { combineReducers, createStore } from 'redux';
+import { combineReducers, createStore, applyMiddleware } from 'redux';
 import { rawEditableReducer } from '../index';
 import * as actions from '../../../actions/cell/index';
 import { decorate } from '../helper/tree';
 import { cellOrder } from '../helper/order';
+import thunk from 'redux-thunk';
 
 const walker = ({ cells = [], rows = [], hover = null, ...other }) => {
   if (cells.length) {
@@ -43,7 +44,7 @@ const _cells = state => decorate(state).map(walker);
 
 const simulateDispatch = (currentState, action) => {
   const reducer = combineReducers({ editable: rawEditableReducer });
-  const store = createStore(reducer, currentState);
+  const store = createStore(reducer, currentState, applyMiddleware(thunk));
   store.dispatch(action);
 
   return store.getState();
@@ -320,7 +321,7 @@ test('last cell remove', () => {
     createContentCell('0', 'foo'),
   ]);
 
-  const action = actions.removeCell('0', ['1']);
+  const action = actions.removeCell('0');
 
   const actualState = simulateDispatch(currentState, action);
 
@@ -498,10 +499,14 @@ test('insert cell right of, clean up tree afterwards', () => {
   ]);
 
   const action = actions.insertCellRightOf(
-    createContentCell('i', 'insert'),
+    createContentCell('i', 'myPlugin'),
     { id: '00000000' },
     0,
-    ['i0', 'i00', 'i000', 'i0000', 'i00000']
+    {
+      cell: 'id-cell',
+      item: 'id-item',
+      others: ['id-others-1', 'id-others-2', 'id-others-3'],
+    }
   );
 
   const expectedState = createEditable(
@@ -509,8 +514,8 @@ test('insert cell right of, clean up tree afterwards', () => {
     _cells([
       createCell('0', [
         createRow('0000000', [
-          createContentCell('i0', 'foo'),
-          createContentCell('i00', 'insert'),
+          createContentCell('id-others-1', 'foo'),
+          createContentCell('id-item', 'myPlugin'),
         ]),
         createRow('0000001', [createContentCell('00000010', 'bar')]),
       ]),
@@ -541,21 +546,25 @@ test('anti-recursion test: cell insert below of two level', () => {
   ]);
 
   const action = actions.insertCellBelow(
-    createContentCell('i', 'insert'),
+    createContentCell('i', 'myPlugin'),
     { id: '00000000' },
     2,
-    ['i0', 'i00', 'i000', 'i0000', 'i00000']
+    {
+      cell: 'id-cell',
+      item: 'id-item',
+      others: ['id-others-1', 'id-others-2', 'id-others-3'],
+    }
   );
 
   const expectedState = createEditable(
     'editable',
     _cells([
       createCell(
-        'i0',
+        'id-cell',
         [
           createRow('0000000', [createContentCell('00000000', 'foo')]),
           createRow('0000001', [createContentCell('00000010', 'bar')]),
-          createRow('i0000', [createContentCell('i00000', 'insert')], {
+          createRow('id-others-3', [createContentCell('id-item', 'myPlugin')], {
             hasInlineChildren: false,
           }),
         ],
@@ -579,10 +588,14 @@ test('cell insert right of cell', () => {
   ]);
 
   const action = actions.insertCellRightOf(
-    createContentCell('i', 'insert'),
+    createContentCell('i', 'myPlugin'),
     { id: '000' },
     0,
-    ['i0', 'i00', 'i000', 'i0000', 'i00000']
+    {
+      cell: 'id-cell',
+      item: 'id-item',
+      others: ['id-others-1', 'id-others-2', 'id-others-3'],
+    }
   );
 
   const expectedState = createEditable(
@@ -590,8 +603,8 @@ test('cell insert right of cell', () => {
     _cells([
       createCell('0', [
         createRow('00', [
-          createContentCell('i0', 'foo'),
-          createContentCell('i00', 'insert'),
+          createContentCell('id-others-1', 'foo'),
+          createContentCell('id-item', 'myPlugin'),
         ]),
         createRow('01', [createContentCell('010', 'bar')]),
       ]),
@@ -610,18 +623,22 @@ test('cell insert below of cell - one level deep (row)', () => {
   ]);
 
   const action = actions.insertCellBelow(
-    createContentCell('i', 'insert'),
+    createContentCell('i', 'myPlugin'),
     { id: '000' },
     1,
-    ['i0', 'i00', 'i000', 'i0000', 'i00000']
+    {
+      cell: 'id-cell',
+      item: 'id-item',
+      others: ['id-others-1', 'id-others-2', 'id-others-3'],
+    }
   );
 
   const expectedState = createEditable(
     'editable',
     _cells([
       createCell('0', [
-        createRow('i0', [createContentCell('000', 'foo')]),
-        createRow('i00', [createContentCell('i000', 'insert')], {
+        createRow('id-others-1', [createContentCell('000', 'foo')]),
+        createRow('id-others-2', [createContentCell('id-item', 'myPlugin')], {
           hasInlineChildren: false,
         }),
         createRow('01', [createContentCell('010', 'bar')]),
@@ -641,10 +658,14 @@ test('cell insert left of cell - one level deep (row)', () => {
   ]);
 
   const action = actions.insertCellLeftOf(
-    createContentCell('i', 'insert'),
+    createContentCell('i', 'myPlugin'),
     { id: '000' },
     1,
-    ['i0', 'i00', 'i000', 'i0000', 'i00000']
+    {
+      cell: 'id-cell',
+      item: 'id-item',
+      others: ['id-others-1', 'id-others-2', 'id-others-3'],
+    }
   );
 
   const expectedState = createEditable(
@@ -652,7 +673,7 @@ test('cell insert left of cell - one level deep (row)', () => {
     _cells([
       createCell('0', [
         createRow('00', [
-          createContentCell('i0', 'insert'),
+          createContentCell('id-item', 'myPlugin'),
           createContentCell('000', 'foo'),
         ]),
         createRow('01', [createContentCell('010', 'bar')]),
@@ -672,10 +693,14 @@ test('cell insert left of cell', () => {
   ]);
 
   const action = actions.insertCellLeftOf(
-    createContentCell('i', 'insert'),
+    createContentCell('i', 'myPlugin'),
     { id: '000' },
     0,
-    ['i0', 'i00', 'i000', 'i0000', 'i00000']
+    {
+      cell: 'id-cell',
+      item: 'id-item',
+      others: ['id-others-1', 'id-others-2', 'id-others-3'],
+    }
   );
 
   const expectedState = createEditable(
@@ -683,8 +708,8 @@ test('cell insert left of cell', () => {
     _cells([
       createCell('0', [
         createRow('00', [
-          createContentCell('i0', 'insert'),
-          createContentCell('i00', 'foo'),
+          createContentCell('id-item', 'myPlugin'),
+          createContentCell('id-others-1', 'foo'),
         ]),
         createRow('01', [createContentCell('010', 'bar')]),
       ]),
@@ -703,20 +728,24 @@ test('cell insert above cell', () => {
   ]);
 
   const action = actions.insertCellAbove(
-    createContentCell('i', 'insert'),
+    createContentCell('i', 'myPlugin'),
     { id: '000' },
     0,
-    ['i0', 'i00', 'i000', 'i0000', 'i00000']
+    {
+      cell: 'id-cell',
+      item: 'id-item',
+      others: ['id-others-1', 'id-others-2', 'id-others-3'],
+    }
   );
 
   const expectedState = createEditable(
     'editable',
     _cells([
       createCell('0', [
-        createRow('i00', [createContentCell('i000', 'insert')], {
+        createRow('id-others-1', [createContentCell('id-item', 'myPlugin')], {
           hasInlineChildren: false,
         }),
-        createRow('i0000', [createContentCell('i00000', 'foo')], {
+        createRow('id-others-2', [createContentCell('id-others-3', 'foo')], {
           hasInlineChildren: false,
         }),
         createRow('01', [createContentCell('010', 'bar')]),
@@ -736,20 +765,24 @@ test('cell insert below cell', () => {
   ]);
 
   const action = actions.insertCellBelow(
-    createContentCell('i', 'insert'),
+    createContentCell('i', 'myPlugin'),
     { id: '000' },
     0,
-    ['i0', 'i00', 'i000', 'i0000', 'i00000']
+    {
+      cell: 'id-cell',
+      item: 'id-item',
+      others: ['id-others-1', 'id-others-2', 'id-others-3'],
+    }
   );
 
   const expectedState = createEditable(
     'editable',
     _cells([
       createCell('0', [
-        createRow('i00', [createContentCell('i000', 'foo')], {
+        createRow('id-others-1', [createContentCell('id-others-2', 'foo')], {
           hasInlineChildren: false,
         }),
-        createRow('i0000', [createContentCell('i00000', 'insert')], {
+        createRow('id-others-3', [createContentCell('id-item', 'myPlugin')], {
           hasInlineChildren: false,
         }),
         createRow('01', [createContentCell('010', 'bar')]),
@@ -772,17 +805,21 @@ test('cell move below another cell', () => {
     createContentCell('000', 'foo'),
     { id: '010' },
     0,
-    ['i0', 'i00', 'i000', 'i0000', 'i00000']
+    {
+      cell: 'id-cell',
+      item: 'id-item',
+      others: ['id-others-1', 'id-others-2', 'id-others-3'],
+    }
   );
 
   const expectedState = createEditable(
     'editable',
     _cells([
       createCell('0', [
-        createRow('i00', [createContentCell('i000', 'bar')], {
+        createRow('id-others-1', [createContentCell('id-others-2', 'bar')], {
           hasInlineChildren: false,
         }),
-        createRow('i0000', [createContentCell('i00000', 'foo')], {
+        createRow('id-others-3', [createContentCell('id-item', 'foo')], {
           hasInlineChildren: false,
         }),
       ]),
@@ -803,10 +840,14 @@ test('cell insert inline cell left of', () => {
   ]);
 
   const action = actions.insertCellLeftInline(
-    createContentCell('i', 'insert'),
+    createContentCell('i', 'myPlugin'),
     { id: '000' },
     0,
-    ['i0', 'i00', 'i000', 'i0000', 'i00000']
+    {
+      cell: 'id-cell',
+      item: 'id-item',
+      others: ['id-others-1', 'id-others-2', 'id-others-3'],
+    }
   );
 
   const expectedState = createEditable(
@@ -815,13 +856,17 @@ test('cell insert inline cell left of', () => {
       createCell('0', [
         createRow('00', [
           createCell(
-            'i0',
+            'id-cell',
             [
               createRow(
-                'i00',
+                'id-others-1',
                 [
-                  createContentCell('i000', 'insert', null, { inline: 'left' }),
-                  createContentCell('i0000', 'foo', null, { inline: null }),
+                  createContentCell('id-item', 'myPlugin', null, {
+                    inline: 'left',
+                  }),
+                  createContentCell('id-others-2', 'foo', null, {
+                    inline: null,
+                  }),
                   // FIXME: the row with id i00 has inline children!
                 ],
                 { hasInlineChildren: true }
@@ -855,7 +900,11 @@ test('move inline cell from left to right', () => {
     createContentCell('000', 'foo', null, { inline: 'left' }),
     { id: '001' },
     0,
-    ['i0', 'i00', 'i000', 'i0000', 'i00000']
+    {
+      cell: 'id-cell',
+      item: 'id-item',
+      others: ['id-others-1', 'id-others-2', 'id-others-3'],
+    }
   );
 
   const expectedState = createEditable(
@@ -863,10 +912,10 @@ test('move inline cell from left to right', () => {
     _cells([
       createCell('0', [
         createRow(
-          'i00',
+          'id-others-1',
           [
-            createContentCell('i000', 'foo', null, { inline: 'right' }),
-            createContentCell('i0000', 'bar', null, { inline: null }),
+            createContentCell('id-item', 'foo', null, { inline: 'right' }),
+            createContentCell('id-others-2', 'bar', null, { inline: null }),
           ],
           { hasInlineChildren: true }
         ),
@@ -888,17 +937,21 @@ test('cell insert cell left of inline row', () => {
   ]);
 
   const action = actions.insertCellLeftOf(
-    createContentCell('i', 'insert'),
+    createContentCell('i', 'myPlugin'),
     { id: '000' },
     2,
-    ['i0', 'i00', 'i000', 'i0000', 'i00000']
+    {
+      cell: 'id-cell',
+      item: 'id-item',
+      others: ['id-others-1', 'id-others-2', 'id-others-3'],
+    }
   );
 
   const expectedState = createEditable(
     'editable',
     _cells([
-      createContentCell('i0', 'insert', null, { size: 6 }),
-      createCell('i00', [
+      createContentCell('id-item', 'myPlugin', null, { size: 6 }),
+      createCell('id-others-1', [
         createRow(
           '00',
           [
@@ -925,10 +978,14 @@ test('cell insert below inline row', () => {
   ]);
 
   const action = actions.insertCellBelow(
-    createContentCell('i', 'insert'),
+    createContentCell('i', 'myPlugin'),
     { id: '000' },
     1,
-    ['i0', 'i00', 'i000', 'i0000', 'i00000']
+    {
+      cell: 'id-cell',
+      item: 'id-item',
+      others: ['id-others-1', 'id-others-2', 'id-others-3'],
+    }
   );
 
   const expectedState = createEditable(
@@ -936,15 +993,15 @@ test('cell insert below inline row', () => {
     _cells([
       createCell('0', [
         createRow(
-          'i0',
+          'id-others-1',
           [
             createContentCell('000', 'foo', null, { inline: 'left' }),
             createContentCell('001', 'bar', null),
           ],
           { hasInlineChildren: true }
         ),
-        createRow('i00', [
-          createContentCell('i000', 'insert', null, { size: 6 }),
+        createRow('id-others-2', [
+          createContentCell('id-item', 'myPlugin', null, { size: 6 }),
         ]),
       ]),
     ])
@@ -964,17 +1021,21 @@ test('cell insert below inline row - 2 level', () => {
   ]);
 
   const action = actions.insertCellBelow(
-    createContentCell('i', 'insert'),
+    createContentCell('i', 'myPlugin'),
     { id: '000' },
     2,
-    ['i0', 'i00', 'i000', 'i0000', 'i00000']
+    {
+      cell: 'id-cell',
+      item: 'id-item',
+      others: ['id-others-1', 'id-others-2', 'id-others-3'],
+    }
   );
 
   const expectedState = createEditable(
     'editable',
     _cells([
       createCell(
-        'i0',
+        'id-cell',
         [
           createRow(
             '00',
@@ -984,8 +1045,8 @@ test('cell insert below inline row - 2 level', () => {
             ],
             { hasInlineChildren: true }
           ),
-          createRow('i0000', [
-            createContentCell('i00000', 'insert', null, { size: 6 }),
+          createRow('id-others-3', [
+            createContentCell('id-item', 'myPlugin', null, { size: 6 }),
           ]),
         ],
         {

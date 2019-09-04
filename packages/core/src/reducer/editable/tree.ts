@@ -147,19 +147,21 @@ export const cell = (s: Cell, a: AnyAction): Cell =>
           if (isHoveringThis(state, action as CellHoverAction)) {
             return {
               ...createCell(),
-              id: action.ids[0],
+              id: action.ids.cell,
               hover: null,
               rows: rows(
                 [
                   {
                     ...createRow(),
-                    id: action.ids[1],
-                    cells: [{ ...action.item, id: action.ids[2], inline: null }],
+                    id: action.ids.others[0],
+                    cells: [
+                      { ...action.item, id: action.ids.item, inline: null },
+                    ],
                   },
                   {
                     ...createRow(),
-                    id: action.ids[3],
-                    cells: [{ ...reduce(), id: action.ids[4] }],
+                    id: action.ids.others[1],
+                    cells: [{ ...reduce(), id: action.ids.others[2] }],
                   },
                 ],
                 { ...action, hover: null }
@@ -172,19 +174,21 @@ export const cell = (s: Cell, a: AnyAction): Cell =>
           if (isHoveringThis(state, action as CellHoverAction)) {
             return {
               ...createCell(),
-              id: action.ids[0],
+              id: action.ids.cell,
               hover: null,
               rows: rows(
                 [
                   {
                     ...createRow(),
-                    id: action.ids[1],
-                    cells: [{ ...reduce(), id: action.ids[2] }],
+                    id: action.ids.others[0],
+                    cells: [{ ...reduce(), id: action.ids.others[1] }],
                   },
                   {
                     ...createRow(),
-                    id: action.ids[3],
-                    cells: [{ ...action.item, id: action.ids[4], inline: null }],
+                    id: action.ids.others[2],
+                    cells: [
+                      { ...action.item, id: action.ids.item, inline: null },
+                    ],
                   },
                 ],
                 { ...action, hover: null }
@@ -219,8 +223,8 @@ export const cells = (s: Cell[] = [], a: AnyAction): Cell[] =>
             .map((c: Cell) =>
               isHoveringThis(c, action as CellHoverAction)
                 ? [
-                    { ...action.item, id: action.ids[0], inline: null },
-                    { ...c, id: action.ids[1] },
+                    { ...action.item, id: action.ids.item, inline: null },
+                    { ...c, id: action.ids.others[0] },
                   ]
                 : [c]
             )
@@ -233,8 +237,8 @@ export const cells = (s: Cell[] = [], a: AnyAction): Cell[] =>
             .map((c: Cell) =>
               isHoveringThis(c, action as CellHoverAction)
                 ? [
-                    { ...c, id: action.ids[0] },
-                    { ...action.item, id: action.ids[1], inline: null },
+                    { ...c, id: action.ids.others[0] },
+                    { ...action.item, id: action.ids.item, inline: null },
                   ]
                 : [c]
             )
@@ -250,11 +254,11 @@ export const cells = (s: Cell[] = [], a: AnyAction): Cell[] =>
                 return [
                   {
                     ...createCell(),
-                    id: action.ids[0],
+                    id: action.ids.cell,
                     rows: [
                       {
                         ...createRow(),
-                        id: action.ids[1],
+                        id: action.ids.others[0],
                         cells: [
                           {
                             ...action.item,
@@ -262,14 +266,14 @@ export const cells = (s: Cell[] = [], a: AnyAction): Cell[] =>
                               action.type === CELL_INSERT_INLINE_RIGHT
                                 ? 'right'
                                 : 'left',
-                            id: action.ids[2],
+                            id: action.ids.item,
                             size: 0,
                           },
                           {
                             ...c,
-                            id: action.ids[3],
+                            id: action.ids.others[1],
                             inline: null,
-                            hasInlineNeighbour: action.ids[2],
+                            hasInlineNeighbour: action.ids.item,
                             size: 0,
                           },
                         ],
@@ -314,7 +318,7 @@ export const row = (s: Row, a: AnyAction): Row =>
               hover: null,
               cells: cells(
                 [
-                  { ...action.item, id: action.ids[0], inline: null },
+                  { ...action.item, id: action.ids.item, inline: null },
                   ...state.cells,
                 ],
                 { ...action, hover: null }
@@ -331,7 +335,7 @@ export const row = (s: Row, a: AnyAction): Row =>
               cells: cells(
                 [
                   ...state.cells,
-                  { ...action.item, id: action.ids[0], inline: null },
+                  { ...action.item, id: action.ids.item, inline: null },
                 ],
                 { ...action, hover: null }
               ),
@@ -365,13 +369,13 @@ export const rows = (s: Row[] = [], a: AnyAction): Row[] =>
                       {
                         ...createRow(),
                         cells: [
-                          { ...action.item, id: action.ids[1], inline: null },
+                          { ...action.item, id: action.ids.item, inline: null },
                         ],
-                        id: action.ids[0],
+                        id: action.ids.others[0],
                       },
                       {
                         ...r,
-                        id: action.ids[2],
+                        id: action.ids.others[1],
                       },
                     ]
                   : [r]
@@ -385,14 +389,14 @@ export const rows = (s: Row[] = [], a: AnyAction): Row[] =>
                   ? [
                       {
                         ...r,
-                        id: action.ids[0],
+                        id: action.ids.others[0],
                       },
                       {
                         ...createRow(),
                         cells: [
-                          { ...action.item, id: action.ids[2], inline: null },
+                          { ...action.item, id: action.ids.item, inline: null },
                         ],
-                        id: action.ids[1],
+                        id: action.ids.others[1],
                       },
                     ]
                   : [r]

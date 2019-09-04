@@ -29,23 +29,6 @@ export const source = {
       ...props,
     };
   },
-
-  // tslint:disable-next-line:no-any
-  endDrag(props: any, monitor: any) {
-    const item = monitor.getItem();
-    if (monitor.didDrop()) {
-      setTimeout(() => {
-        item.insertMode();
-      }, 10);
-      // If the item drop occurred deeper down the tree, don't do anything
-      return;
-    }
-
-    item.clearHover();
-    setTimeout(() => {
-      item.insertMode();
-    }, 100);
-  },
 };
 
 // tslint:disable-next-line:no-any
