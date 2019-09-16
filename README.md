@@ -8,7 +8,7 @@ React Page is a smart, extensible and modern editor ("WYSIWYG") for the web writ
 
 <a href="docs/images/quick-example.gif"><img align="left" width="40%" alt="React Page Demo" src="docs/images/quick-example.gif"></a>
 
-ReactPage is used at Germany's largest (~800k uniques per month) E-Learning Website
+React Page is used at Germany's largest (~800k uniques per month) E-Learning Website
 [www.serlo.org](http://de.serlo.org) to improve the wiki experience.
 
 Check out the demo at [ory-editor.aeneas.io](https://ory-editor.aeneas.io/)!
@@ -37,7 +37,7 @@ Check out the demo at [ory-editor.aeneas.io](https://ory-editor.aeneas.io/)!
 ## Introduction
 
 I have been part of the [Wikipedia for learning](https://de.serlo.org) for almost a decade now.
-The experience and the lessons learned made me embark on the journey to build ReactPage.
+The experience and the lessons learned made me embark on the journey to build React Page.
 I wanted to make content editing on the web easy and enrich the Open Source Community with technology that moves
 the needle significantly for how content is created and edited on the web.
 
@@ -70,7 +70,7 @@ You can additionally use `@react-page/renderer` to have a minimal renderer.
 
 ## Quickstart
 
-Currently the focus is on optimizing ReactPage for usage with React. Versions that do
+Currently the focus is on optimizing React Page for usage with React. Versions that do
 not require React in the future may be shipped at some point. **Please check the [ReactJS tutorial](https://ory.gitbooks.io/editor/content/tutorials.html#reactjs-example)!**
 
 ```
@@ -89,7 +89,7 @@ Check out the [user guide on gitbook](https://ory.gitbooks.io/editor/content/).
 
 ## How to run, develop, and contribute
 
-Do you want to run, develop or contribute to ReactPage? For that you need [Node](https://nodejs.org) installed on
+Do you want to run, develop or contribute to React Page? For that you need [Node](https://nodejs.org) installed on
 your system. Use git to check out this repository as followed.
 
 ```bash
@@ -99,7 +99,7 @@ $ cd editor
 
 ### Install dependencies
 
-ReactPage is a [monorepo](https://github.com/babel/babel/blob/master/doc/design/monorepo.md) that you initialize with:
+React Page is a [monorepo](https://github.com/babel/babel/blob/master/doc/design/monorepo.md) that you initialize with:
 
 ```bash
 $ yarn
@@ -177,4 +177,4 @@ Original Library created by [@aeneasr](https://github.com/aeneasr) [@ory](https:
 
 ## Community
 
-join us on slack: https://reactpage.slack.com
+join us on slack: https://react page.slack.com

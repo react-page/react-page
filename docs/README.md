@@ -1,21 +1,18 @@
 # Introduction
 
-Welcome to the ORY Editor guide. Please be aware that the ORY Editor requires substantial knowledge of ReactJS, build tools
-like webpack, and ES6. If you lack this knowledge ask in our [Chat](https://gitter.im/ory-am/editor) for help.
+Welcome to the React Page guide. Please be aware that the React Page requires substantial knowledge of ReactJS, build tools like webpack, and ES6.
 
 ## Demonstration
 
 Seeing is believing, so let's start with a demo!
 
-![ORY Editor Demo](./images/inline-edit-md.gif)
+![React Page Demo](./images/inline-edit-md.gif)
 
 A demo available at [editor.ory.sh](https://editor.ory.sh/) so go ahead and try it yourself!
 
 ## Why it's different
 
-Before founding ORY, we built something [like the Wikipedia](https://de.serlo.org), but for learning. The content is
-crowd sourced and over half a million people use this platform every month. We had to realize that existing open source
-content editing solutions had one of the three flaws:
+Before founding React Page, we built something [like the Wikipedia](https://de.serlo.org), but for learning. The content is crowd sourced and over half a million people use this platform every month. We had to realize that existing open source content editing solutions had one of the three flaws:
 
 1. The produced markup was horrific, a lot of sanitation had to take place and XSS is always a threat.
 2. The author must learn special mark up, like markdown, before being able to produce content. These text-based solutions
@@ -32,11 +29,11 @@ We concluded that a solution must meet the following principles:
    better and richer experiences more easily.
 5. It works on mobile and touch devices.
 
-With these principles in mind, we went out and implemented the ORY Editor, which you are looking at right now.
+With these principles in mind, we went out and implemented the React Page, which you are looking at right now.
 
 ## How it works
 
-The ORY Editor is primarily a tool to create and modify layouts. At the core, there are _Cells_ and _Rows_. The layout
+The React Page is primarily a tool to create and modify layouts. At the core, there are _Cells_ and _Rows_. The layout
 system is very similar to the [bootstrap grid system](http://getbootstrap.com/css/#grid) where you have
 rows and columns.
 
@@ -70,22 +67,13 @@ There are four distinct data types:
    What the layout looks like is defined by by a **layout plugin**. A layout cell must always have at least one child or
    it will be automatically removed.
 
-<p>
+<p style="text-align: center">
   <figure align="center">
     <img alt="A content cell" src="./images/content-cell.png"><br>
     <figcaption align="center"><em>A content cell with the image plugin</em></figcaption>
   </figure>
 </p>
 
-<p>
-  <figure align="center">
-    <img alt="A layout cell" src="./images/layout-cell.gif"><br>
-    <figcaption align="center"><em>A layout cell with a switchable background image plugin</em></figcaption>
-  </figure>
-</p>
+The grid system is baked into the ORY Editor. It takes care of any drag and drop logic, resizing, focus detection and so on. As a developer, you will primarily extend the functionality using layout and content plugins. Additionally, the editor takes care of the whole data model. The plugins are just simple ReactJS components that receive properties such as `onChange`, `readOnly`, `state` by the editor. You will learn in later sections how plugins work exactly, what their API looks like, and also how to write your own.
 
-The grid system is baked into the ORY Editor. It takes care of any drag and drop logic, resizing, focus detection and so
-on. As a developer, you will primarily extend the functionality using layout and content plugins. Additionally,
-the editor takes care of the whole data model. The plugins are just simple ReactJS components that receive
-properties such as `onChange`, `readOnly`, `state` by the editor. You will learn in later sections how plugins
-work exactly, what their API looks like, and also how to write your own.
+You can now visit the [Summary](SUMMARY.md) to get started.
