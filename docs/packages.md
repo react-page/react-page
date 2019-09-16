@@ -24,8 +24,7 @@ HTML rendering component is responsible for outputting static HTML and mounting 
 
 ### [@react-page/plugins-slate](https://www.npmjs.com/package/@react-page/plugins-slate)
 
-The text editing allows you to create and modify rich-text and is optimized for use with the React Page. We strongly
-encourage using our text editing solution.
+The text editing allows you to create and modify rich-text and is optimized for use with the React Page. We strongly encourage using our text editing solution. You can check more config options about this plugin [here](plugins/slate.md).
 
 <p>
   <figure align="center">
@@ -87,3 +86,8 @@ The parallax background plugin is a layout plugin, allowing you to add a paralla
 </p>
 
 The parallax background plugin is not configurable.
+
+
+## Didn't find what you were looking for?
+
+That's fine, you can create your own plugins and use them, check the instructions [here](plugins/create.md).
