@@ -12,18 +12,6 @@ There are many ways to help editor besides contributing code:
  - Fix bugs or file issues
  - Improve the documentation
 
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-**Table of Contents**
-
-- [Contributing Code](#contributing-code)
-- [Code Style](#code-style)
-- [Developer’s Certificate of Origin](#developer%E2%80%99s-certificate-of-origin)
-- [Pull request procedure](#pull-request-procedure)
-- [Conduct](#conduct)
-
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
-
 ## Contributing Code
 
 Unless you are fixing a known bug, we **strongly** recommend discussing it with the core team via a GitHub issue before
@@ -39,96 +27,81 @@ At least one review from a maintainer is required for all patches (even patches 
 Reviewers should leave a "LGTM" comment once they are satisfied with the patch. If the patch was submitted by a maintainer
 with write access, the pull request should be merged by the submitter after review.
 
-## Code Style
+## How to run, develop, and contribute
 
-Please follow these guidelines when formatting source code:
+Do you want to run, develop or contribute to React Page? For that you need [Node](https://nodejs.org) installed on
+your system. Use git to check out this repository as followed.
 
-* JavaScript should match the ...
-
-## Developer’s Certificate of Origin
-
-All contributions must include acceptance of the DCO:
-
-```text
-Developer Certificate of Origin
-Version 1.1
-
-Copyright (C) 2004, 2006 The Linux Foundation and its contributors.
-660 York Street, Suite 102,
-San Francisco, CA 94110 USA
-
-Everyone is permitted to copy and distribute verbatim copies of this
-license document, but changing it is not allowed.
-
-
-Developer's Certificate of Origin 1.1
-
-By making a contribution to this project, I certify that:
-
-(a) The contribution was created in whole or in part by me and I
-    have the right to submit it under the open source license
-    indicated in the file; or
-
-(b) The contribution is based upon previous work that, to the best
-    of my knowledge, is covered under an appropriate open source
-    license and I have the right under that license to submit that
-    work with modifications, whether created in whole or in part
-    by me, under the same open source license (unless I am
-    permitted to submit under a different license), as indicated
-    in the file; or
-
-(c) The contribution was provided directly to me by some other
-    person who certified (a), (b) or (c) and I have not modified
-    it.
-
-(d) I understand and agree that this project and the contribution
-    are public and that a record of the contribution (including all
-    personal information I submit with it, including my sign-off) is
-    maintained indefinitely and may be redistributed consistent with
-    this project or the open source license(s) involved.
+```bash
+$ git clone https://github.com/react-page/react-page.git
+$ cd editor
 ```
 
-To accept the DCO, simply add this line to each commit message with your name and email address (`git commit -s` will do this for you):
+### Install dependencies
 
-```text
-Signed-off-by: Jane Example <jane@example.com>
+React Page is a [monorepo](https://github.com/babel/babel/blob/master/doc/design/monorepo.md) that you initialize with:
+
+```bash
+$ yarn
+$ yarn bootstrap
 ```
 
-For legal reasons, no anonymous or pseudonymous contributions are accepted ([contact us](mailto:aeneas@ory.am) if this is an issue).
+we use [yarn](https://yarnpkg.com/lang/en/), but npm should work as well.
 
-## Pull request procedure
+### Run the example(s)
 
-To make a pull request, you will need a GitHub account; if you are unclear on this process, see GitHub's documentation
-on [forking](https://help.github.com/articles/fork-a-repo) and [pull requests](https://help.github.com/articles/using-pull-requests).
-Pull requests should be targeted at the `master` branch. Before creating a pull request, go through this checklist:
+Here are some [examples](examples/) that are a good starting point if you want to familiarize yourself with the editor.
+To run the examples, use one of the following commands:
 
-1. Create a feature branch off of `master` so that changes do not get mixed up.
-1. [Rebase](https://git-scm.com/book/en/Git-Branching-Rebasing) your local changes against the `master` branch.
-1. Run the full project test suite with the `go test ./...` (or equivalent) command and confirm that it passes.
-1. Run `gofmt -s` (if the project is written in Go).
-1. Accept the Developer's Certificate of Origin on all commits (see above).
-1. Ensure that each commit has a subsystem prefix (ex: `controller: `).
+```
+$ yarn start
+```
 
-Pull requests will be treated as "review requests," and maintainers will give feedback on the style and substance of the patch.
+### Run the toolchain
 
-Normally, all pull requests must include tests that test your change. Occasionally, a change will be very difficult to test for.
-In those cases, please include a note in your commit message explaining why.
+The tool chain contains tests and tslint. It is highly recommended to run this while developing.
 
-## Conduct
+```bash
+# run the tests in watch mode
+$ yarn run test:watch
 
-Whether you are a regular contributor or a newcomer, we care about making this community a safe
-place for you and we've got your back.
+# run tslint in watch mode
+$ yarn run lint:watch
+```
 
-* We are committed to providing a friendly, safe and welcoming environment for all, regardless of gender, sexual orientation,
-disability, ethnicity, religion, or similar personal characteristic.
-* Please avoid using nicknames that might detract from a friendly, safe and welcoming environment for all.
-* Be kind and courteous. There is no need to be mean or rude.
-* We will exclude you from interaction if you insult, demean or harass anyone. In particular, we do not tolerate
-behavior that excludes people in socially marginalized groups.
-* Private harassment is also unacceptable. No matter who you are, if you feel you have been or are being harassed or
-made uncomfortable by a community member, please contact one of the channel ops or a member of the the ORY Edito
-core team immediately.
-* Likewise any spamming, trolling, flaming, baiting or other attention-stealing behaviour is not welcome.
+### Run the documentation
 
-We welcome discussion about creating a welcoming, safe, and productive environment for the community. If you have any
-questions, feedback, or concerns please let us know with a GitHub issue.
+To run the guide in watch mode, do:
+
+```bash
+$ yarn run docs:guide
+```
+
+To generate API docs, run:
+
+```bash
+$ yarn run docs:api
+```
+
+### Recommended tools
+
+Feel free to use whatever works for you, these works for us. Especially care about using "prettier" when writing code as it will avoid merge conflicts on code style.
+
+IDE: vscode
+Vscode extensions: prettier, tslint, code spell checker, beautify css/sass/scss/less
+
+## Known issues
+
+### Types resolution error
+
+In case you change a lot of files, especially in core or UI, you might end up seeing old versions of these files when working on plugins. To fix this, run
+
+```
+$ yarn run build:lib
+```
+
+Which builds the library code. If this doesn't help (and you're in vscode), make sure to reload window (CTRL+SHIFT+P -> Reload Window). That forces vscode to reinitialize typescript declaration files.
+
+### Other issues
+
+Known issues are tracked in the [issues tab](https://github.com/react-page/react-page/issues?q=is%3Aissue+is%3Aopen+label%3Abug).
