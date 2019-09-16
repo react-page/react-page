@@ -4,27 +4,27 @@
 
 The editor consists of multiple packages. A meta package available at [ory-editor](https://www.npmjs.com/package/ory-editor).
 
-## [ory-editor-core](https://www.npmjs.com/package/ory-editor-core)
+## [@react-page/core](https://www.npmjs.com/package/@react-page/core)
 
-This package is the ORY Editor's core. It contains the logic for creating and modifying layouts and is responsible for
+This package is the React Page's core. It contains the logic for creating and modifying layouts and is responsible for
 handling plugins.
 
-## [ory-editor-ui](https://www.npmjs.com/package/ory-editor-ui)
+## [@react-page/ui](https://www.npmjs.com/package/@react-page/ui)
 
-This repository contains ORY Editor UI React Components that are based on
+This repository contains React Page UI React Components that are based on
 [mui-org/material-ui](https://github.com/mui-org/material-ui). While there is no need for you to use them, they
-offer an easy way to start working with the ORY Editor.
+offer an easy way to start working with the React Page.
 
-## [ory-editor-renderer](https://www.npmjs.com/package/ory-editor-renderer)
+## [@react-page/renderer](https://www.npmjs.com/package/@react-page/renderer)
 
-This package contains rendering components for ORY Editor states. Currently, only HTML rendering is supported. The
+This package contains rendering components for React Page states. Currently, only HTML rendering is supported. The
 HTML rendering component is responsible for outputting static HTML and mounting dynamic plugins on the user-agent side.
 
 ## Plugins
 
-### [ory-editor-plugins-slate](https://www.npmjs.com/package/ory-editor-plugins-slate)
+### [@react-page/plugins-slate](https://www.npmjs.com/package/@react-page/plugins-slate)
 
-The text editing allows you to create and modify rich-text and is optimized for use with the ORY Editor. We strongly
+The text editing allows you to create and modify rich-text and is optimized for use with the React Page. We strongly
 encourage using our text editing solution.
 
 <p>
@@ -34,7 +34,7 @@ encourage using our text editing solution.
   </figure>
 </p>
 
-### [ory-editor-plugins-image](https://www.npmjs.com/package/ory-editor-plugins-image)
+### [@react-page/plugins-image](https://www.npmjs.com/package/@react-page/plugins-image)
 
 The image plugin allows you to add images to your content by entering their URL. The image plugin does not support
 uploads.
@@ -48,7 +48,7 @@ uploads.
 
 The image plugin is not configurable.
 
-### [ory-editor-plugins-video](https://www.npmjs.com/package/ory-editor-plugins-video)
+### [@react-page/plugins-video](https://www.npmjs.com/package/@react-page/plugins-video)
 
 The image plugin allows you to add images to your content by entering their URL. The image plugin does not support
 uploads.
@@ -62,7 +62,7 @@ uploads.
 
 The video plugin is not configurable.
 
-### [ory-editor-plugins-spacer](https://www.npmjs.com/package/ory-editor-plugins-spacer)
+### [@react-page/plugins-spacer](https://www.npmjs.com/package/@react-page/plugins-spacer)
 
 The spacer is a plugin which you can use to create an empty fixed height cell.
 
@@ -75,7 +75,7 @@ The spacer is a plugin which you can use to create an empty fixed height cell.
 
 The spacer plugin is not configurable.
 
-### [ory-editor-plugins-parallax-background](https://www.npmjs.com/package/ory-editor-plugins-parallax-background)
+### [@react-page/plugins-parallax-background](https://www.npmjs.com/package/@react-page/plugins-parallax-background)
 
 The parallax background plugin is a layout plugin, allowing you to add a parallax background image to your content.
 
