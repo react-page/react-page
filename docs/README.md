@@ -74,6 +74,6 @@ There are four distinct data types:
   </figure>
 </p>
 
-The grid system is baked into the ORY Editor. It takes care of any drag and drop logic, resizing, focus detection and so on. As a developer, you will primarily extend the functionality using layout and content plugins. Additionally, the editor takes care of the whole data model. The plugins are just simple ReactJS components that receive properties such as `onChange`, `readOnly`, `state` by the editor. You will learn in later sections how plugins work exactly, what their API looks like, and also how to write your own.
+The grid system is baked into the React Page. It takes care of any drag and drop logic, resizing, focus detection and so on. As a developer, you will primarily extend the functionality using layout and content plugins. Additionally, the editor takes care of the whole data model. The plugins are just simple ReactJS components that receive properties such as `onChange`, `readOnly`, `state` by the editor. You will learn in later sections how plugins work exactly, what their API looks like, and also how to write your own.
 
 You can now visit the [Summary](SUMMARY.md) to get started.

@@ -2,7 +2,7 @@
 
 ## Packages
 
-The editor consists of multiple packages. A meta package available at [ory-editor](https://www.npmjs.com/package/ory-editor).
+The editor consists of multiple packages. A meta package available at [react-page](https://www.npmjs.com/package/@react-page/react-page).
 
 ## [@react-page/core](https://www.npmjs.com/package/@react-page/core)
 
@@ -28,7 +28,7 @@ The text editing allows you to create and modify rich-text and is optimized for 
 
 <p>
   <figure align="center">
-    <img alt="Text editing plugin" src="/docs/images/text-editing-plugin.gif"><br>
+    <img alt="Text editing plugin" src="./images/text-editing-plugin.gif"><br>
     <figcaption>The text editing plugin based on <a href="http://slatejs.org">Slate</a></figcaption>
   </figure>
 </p>
@@ -40,7 +40,7 @@ uploads.
 
 <p>
   <figure align="center">
-    <img alt="Image plugin" src="/docs/images/image-plugin.gif"><br>
+    <img alt="Image plugin" src="./images/image-plugin.gif"><br>
     <figcaption>The image plugin</figcaption>
   </figure>
 </p>
@@ -54,7 +54,7 @@ uploads.
 
 <p>
   <figure align="center">
-    <img alt="Video plugin" src="/docs/images/video-plugin.gif"><br>
+    <img alt="Video plugin" src="./images/video-plugin.gif"><br>
     <figcaption>The video plugin</figcaption>
   </figure>
 </p>
@@ -67,7 +67,7 @@ The spacer is a plugin which you can use to create an empty fixed height cell.
 
 <p>
   <figure align="center">
-    <img alt="Spacer plugin" src="/docs/images/spacer-plugin.gif"><br>
+    <img alt="Spacer plugin" src="./images/spacer-plugin.gif"><br>
     <figcaption>The spacer plugin</figcaption>
   </figure>
 </p>
@@ -80,7 +80,7 @@ The parallax background plugin is a layout plugin, allowing you to add a paralla
 
 <p>
   <figure align="center">
-    <img alt="Spacer plugin" src="/docs/images/parallax-background.gif"><br>
+    <img alt="Spacer plugin" src="./images/parallax-background.gif"><br>
     <figcaption>The parallax background plugin</figcaption>
   </figure>
 </p>

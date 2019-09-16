@@ -31,7 +31,7 @@ Let's take an image plugin for starter. The image plugin is a simple content plu
 
 <p>
   <figure align="center">
-    <img alt="A content cell" src="/images/content-cell.png"><br>
+    <img alt="A content cell" src="./images/content-cell.png"><br>
     <figcaption align="center"><em>react page image plugin</em></figcaption>
   </figure>
 </p>

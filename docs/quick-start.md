@@ -2,10 +2,10 @@
 
 ## ReactJS Example
 
-In this section, we will create a minimalistic react app that uses the ORY Editor.
+In this section, we will create a minimalistic react app that uses the React Page.
 Before we skip ahead, make sure that [node.js](https://nodejs.org/en/) is installed on your system.
 
-At the moment, the ORY Editor is available only through npm and works best in a ReactJS environment.
+At the moment, the React Page is available only through npm and works best in a ReactJS environment.
 
 ### [ReactJS](https://facebook.github.io/react/)
 
@@ -23,7 +23,7 @@ and install the editor using npm:
 $ npm i --save ory-editor
 ```
 
-Next, open the file _src/components/App.js_ and include the ORY Editor:
+Next, open the file _src/components/App.js_ and include the React Page:
 
 ```jsx
 import React, { Component } from "react";
@@ -83,7 +83,7 @@ export default App;
 
 That's it, congratulations! You should see something like this now:
 
-![Example app](/images/react-example-app.png)
+![Example app](/docs/images/react-example-app.png)
 
 ## Rendering HTML
 
@@ -187,7 +187,7 @@ ReactDOM.render((
 
 ## Handling native drag events
 
-The ORY Editor is capable of handling native drag and drop events. Native events include dragging of links, text,
+The React Page is capable of handling native drag and drop events. Native events include dragging of links, text,
 and images. Native drag support can be enabled by writing a `NativePlugin` and passing it during instantiation.
 In this example, we will use the default plugin, and take a look at how you can create your own later.
 
