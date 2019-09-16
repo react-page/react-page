@@ -96,8 +96,8 @@ export default (
   return {
     Component: (props: SlateProps) => (
       <Component
-        Renderer={Renderer}
-        Controls={Controls}
+        Renderer={settings.Renderer}
+        Controls={settings.Controls}
         plugins={plugins}
         translations={settings.translations}
         serializeFunctions={serializeFunctions}

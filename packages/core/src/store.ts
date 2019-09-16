@@ -21,7 +21,7 @@
  */
 
 import { createStore, applyMiddleware, compose, Store } from 'redux';
-
+import thunk from 'redux-thunk';
 import rootReducer from './reducer';
 import { RootState } from './types/state';
 import { isProduction } from './const';
@@ -48,6 +48,6 @@ export default (initialState: any, middleware: [] = []): Store<RootState> => {
   return createStore(
     rootReducer,
     initialState,
-    v(applyMiddleware(...middleware))
+    v(applyMiddleware(...middleware, thunk))
   );
 };

@@ -52,6 +52,7 @@ function Controls<T>(props: SlatePluginControls<T>) {
 
   return (
     <Dialog
+      disableEnforceFocus={true}
       PaperProps={{ style: { minWidth: 300 } }}
       className="ory-prevent-blur"
       open={props.open}

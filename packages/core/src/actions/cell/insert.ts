@@ -19,10 +19,10 @@
  * @author Aeneas Rekkas <aeneas+oss@aeneas.io>
  *
  */
-
-import * as uuid from 'uuid';
-import { Cell } from '../../types/editable';
+import { Cell, NewIds } from '../../types/editable';
 import { Action } from 'redux';
+import { Actions } from '../../';
+import { generateIds } from '../helpers';
 
 export const CELL_INSERT_ABOVE = 'CELL_INSERT_ABOVE';
 export const CELL_INSERT_BELOW = 'CELL_INSERT_BELOW';
@@ -31,28 +31,20 @@ export const CELL_INSERT_RIGHT_OF = 'CELL_INSERT_RIGHT_OF';
 export const CELL_INSERT_INLINE_LEFT = 'CELL_INSERT_INLINE_LEFT';
 export const CELL_INSERT_INLINE_RIGHT = 'CELL_INSERT_INLINE_RIGHT';
 
-const gen = (c: number = 1) => {
-  const ret = [];
-  for (let i = 0; i <= c; i++) {
-    ret.push(uuid.v4());
-  }
-  return ret;
-};
-
 export interface InsertAction extends Action {
   ts: Date;
   item: Partial<Cell>;
   hover: string;
   level: number;
-  ids: string[];
+  ids: NewIds;
 }
 
 const insert = (type: string) => (
   item: Partial<Cell>,
   { id: hover, inline, hasInlineNeighbour }: Partial<Cell>,
   level: number = 0,
-  ids: Array<string> = []
-): InsertAction => {
+  ids: NewIds = null
+) => {
   let l = level;
   switch (type) {
     case CELL_INSERT_ABOVE:
@@ -73,13 +65,28 @@ const insert = (type: string) => (
     default:
   }
 
-  return {
+  const insertAction = {
     type,
     ts: new Date(),
     item,
     hover,
     level: l,
-    ids: ids.length > 0 ? ids : gen(5),
+    // FIXME: item handling is a bit confusing,
+    // we now give some of them a name like "cell" or "item",
+    // but the purpose of the others is unclear
+    ids: ids ? ids : generateIds(),
+  };
+
+  return dispatch => {
+    dispatch(insertAction);
+    // FIXME: checking if an item is new or just moved around is a bit awkward
+    const isNew = !item.id;
+    if (isNew) {
+      dispatch(Actions.Display.editMode());
+      setTimeout(() => {
+        dispatch(Actions.Cell.focusCell(insertAction.ids.item)());
+      }, 300);
+    }
   };
 };
 

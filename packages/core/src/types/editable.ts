@@ -27,7 +27,7 @@ import {
   ContentPluginProps,
   NativePluginConfig,
   ContentPluginConfig,
-  LayoutPluginConfig,
+  LayoutPluginConfig
 } from '../service/plugin/classes';
 import { PluginService } from '../index';
 
@@ -58,7 +58,7 @@ export type AbstractCell<T> = {
 
   size?: number;
   hover?: string;
-  inline?: string | null; 
+  inline?: string | null;
   focused?: boolean;
   focusSource?: string;
   resizable?: boolean;
@@ -237,3 +237,9 @@ export type NativeFactory = (
   // tslint:disable-next-line:no-any
   component?: any
 ) => NativePluginConfig;
+
+export type NewIds = {
+  item: string;
+  cell: string;
+  others: [string, string, string];
+};
