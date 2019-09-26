@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "main": "./lib/index.js",
   "module": "./lib-es/index.js",
+  "sideEffects": false,
   "typings": "./lib/index.d.ts",
   "author": "ORY GmbH",
   "license": "GNU Lesser General Public License v3.0",
