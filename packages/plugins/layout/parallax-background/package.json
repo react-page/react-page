@@ -3,7 +3,6 @@
   "version": "0.0.0",
   "main": "./lib/index.js",
   "module": "./lib-es/index.js",
-  "sideEffects": false,
   "author": "ORY GmbH",
   "license": "GNU Lesser General Public License v3.0",
   "scripts": {
