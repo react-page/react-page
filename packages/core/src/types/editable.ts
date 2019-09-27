@@ -29,7 +29,7 @@ import {
   ContentPluginConfig,
   LayoutPluginConfig
 } from '../service/plugin/classes';
-import { PluginService } from '../index';
+import PluginService from '../service/plugin';
 
 export type Config = {
   whitelist: Array<string>;

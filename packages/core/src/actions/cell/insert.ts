@@ -21,8 +21,10 @@
  */
 import { Cell, NewIds } from '../../types/editable';
 import { Action } from 'redux';
-import { Actions } from '../../';
+
 import { generateIds } from '../helpers';
+import { editMode } from '../display';
+import { focusCell } from './core';
 
 export const CELL_INSERT_ABOVE = 'CELL_INSERT_ABOVE';
 export const CELL_INSERT_BELOW = 'CELL_INSERT_BELOW';
@@ -82,9 +84,9 @@ const insert = (type: string) => (
     // FIXME: checking if an item is new or just moved around is a bit awkward
     const isNew = !item.id;
     if (isNew) {
-      dispatch(Actions.Display.editMode());
+      dispatch(editMode());
       setTimeout(() => {
-        dispatch(Actions.Cell.focusCell(insertAction.ids.item)());
+        dispatch(focusCell(insertAction.ids.item)());
       }, 300);
     }
   };
