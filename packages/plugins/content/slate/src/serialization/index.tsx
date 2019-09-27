@@ -42,26 +42,29 @@ export default ({ plugins }: { plugins: SlatePlugin[] }) => {
     importFromHtml,
     serialized,
     editorState,
+    ...rest
   }: // tslint:disable-next-line:no-any
   SlateState): SlateState => {
     if (serialized) {
       // tslint:disable-next-line:no-any
-      return { editorState: (Value.fromJSON as any)(serialized) };
+      return { editorState: (Value.fromJSON as any)(serialized), ...rest };
     } else if (importFromHtml) {
-      return { editorState: htmlToSlate(importFromHtml) };
+      return { editorState: htmlToSlate(importFromHtml), ...rest };
     } else if (editorState) {
-      return { editorState };
+      return { editorState, ...rest };
     }
 
-    return createInitialState();
+    return { ...createInitialState(), ...rest };
   };
 
   // tslint:disable-next-line:no-any
   const serialize = ({
     editorState,
+    ...rest
   }: SlateState): { serialized: ValueJSON } => ({
     // tslint:disable-next-line:no-any
     serialized: (editorState.toJSON as any)(editorState),
+    ...rest,
   });
 
   return {
