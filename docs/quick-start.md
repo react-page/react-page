@@ -41,7 +41,6 @@ import slate from "@react-page/plugins-slate"; // The rich text area plugin
 import "@react-page/plugins-slate/lib/index.css"; // Stylesheets for the rich text area plugin
 import parallax from "@react-page/plugins-parallax-background"; // A plugin for parallax background images
 import "@react-page/plugins-parallax-background/lib/index.css"; // Stylesheets for parallax background images
-require("react-tap-event-plugin")(); // react-tap-event-plugin is required by material-ui which is used by ory-editor-ui so we need to call it here
 
 // Define which plugins we want to use. We only have slate and parallax available, so load those.
 const plugins = {
