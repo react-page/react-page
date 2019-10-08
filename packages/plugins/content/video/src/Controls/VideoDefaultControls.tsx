@@ -35,8 +35,9 @@ const Form: React.SFC<VideoControlsProps> = props => {
 
     state: { src } = defaultVideoState,
   } = props;
+
   return (
-    <BottomToolbar open={focused}>
+    <BottomToolbar open={focused} title={props.translations.pluginName}>
       <TextField
         placeholder={props.translations.placeholder}
         label={props.translations.label}
