@@ -96,7 +96,13 @@ class Draggable extends React.PureComponent<Props> {
             <span>{name}</span>
           </div>
         </div>
-        {children}
+        <div
+          style={{
+            pointerEvents: 'none',
+          }} /* without that, you cant drop an item to trash if the trash button is above an item that contains a iframe or similar like youtue */
+        >
+          {children}
+        </div>
       </div>
     );
   }
