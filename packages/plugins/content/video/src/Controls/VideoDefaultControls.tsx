@@ -32,12 +32,16 @@ const Form: React.SFC<VideoControlsProps> = props => {
     focused,
     changeSrcPreview,
     commitSrc,
-
+    remove,
     state: { src } = defaultVideoState,
   } = props;
 
   return (
-    <BottomToolbar open={focused} title={props.translations.pluginName}>
+    <BottomToolbar
+      open={focused}
+      title={props.translations.pluginName}
+      onDelete={remove}
+    >
       <TextField
         placeholder={props.translations.placeholder}
         label={props.translations.label}
