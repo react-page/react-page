@@ -19,11 +19,12 @@
  * @author Aeneas Rekkas <aeneas+oss@aeneas.io>
  *
  */
-
+import Delete from '@material-ui/icons/Delete';
 import Drawer from '@material-ui/core/Drawer';
 import * as React from 'react';
 
 import ThemeProvider, { darkTheme } from '../ThemeProvider';
+import { Typography, Divider, IconButton } from '@material-ui/core';
 
 const darkBlack = 'rgba(0, 0, 0, 0.87)';
 const bright = 'rgba(255,255,255, 0.98)';
@@ -33,7 +34,9 @@ export interface BottomToolbar {
   children?: Object;
   className?: string;
   dark: boolean;
+  title?: string;
   anchor?: 'top' | 'bottom';
+  onDelete?: () => void;
 }
 
 const BottomToolbar: React.SFC<BottomToolbar> = ({
@@ -42,6 +45,8 @@ const BottomToolbar: React.SFC<BottomToolbar> = ({
   className,
   dark = false,
   anchor = 'bottom',
+  onDelete = null,
+  title,
 }) => (
   <ThemeProvider theme={dark ? darkTheme : null}>
     <Drawer
@@ -68,8 +73,27 @@ const BottomToolbar: React.SFC<BottomToolbar> = ({
           padding: '12px 24px',
           margin: 'auto',
           boxShadow: '0px 1px 6px -1px rgba(0,0,0,0.2)',
+          position: 'relative',
         }}
       >
+        {title || onDelete ? (
+          <>
+            <Typography>{title}</Typography>
+            {onDelete ? (
+              <IconButton
+                onClick={onDelete}
+                aria-label="delete"
+                color="secondary"
+                style={{ position: 'absolute', top: 0, right: 0 }}
+              >
+                <Delete fontSize="small" />
+              </IconButton>
+            ) : null}
+            <Divider
+              style={{ marginLeft: -24, marginRight: -24, marginBottom: 12 }}
+            />
+          </>
+        ) : null}
         {children}
       </div>
     </Drawer>

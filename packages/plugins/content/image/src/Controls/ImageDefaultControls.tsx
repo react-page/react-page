@@ -14,12 +14,17 @@ const ImageDefaultControls: React.SFC<ImageControlsProps> = props => {
     handleChange,
     readOnly,
     focused,
+    remove,
   } = props;
   return (
     <div>
       <Renderer {...props} imagePreview={props.imagePreview} />
       {!readOnly && focused && (
-        <BottomToolbar open={props.focused}>
+        <BottomToolbar
+          open={props.focused}
+          title={props.translations.pluginName}
+          onDelete={remove}
+        >
           <div style={{ display: 'flex' }}>
             {props.imageUpload && (
               <React.Fragment>

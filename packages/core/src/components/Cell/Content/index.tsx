@@ -84,6 +84,7 @@ class Content extends React.PureComponent<ComponetizedCell> {
       isPreviewMode: nextProps.isPreviewMode,
       isInsertMode: nextProps.isInsertMode,
       isLayoutMode: nextProps.isLayoutMode,
+      remove: nextProps.removeCell,
     };
 
     // Basically we check if the focus state changed and if yes, we execute the callback handler from the plugin, that
@@ -111,6 +112,7 @@ class Content extends React.PureComponent<ComponetizedCell> {
             Component = () => null,
             name = 'N/A',
             version = 'N/A',
+            text = 'unnamed plugin',
           } = {},
           state = {},
         } = {},
@@ -145,6 +147,7 @@ class Content extends React.PureComponent<ComponetizedCell> {
           state={state}
           focused={this.props.isEditMode && focused}
           name={name}
+          text={text}
           version={version}
           readOnly={!this.props.isEditMode}
           onChange={this.props.updateCellContent}
@@ -155,6 +158,7 @@ class Content extends React.PureComponent<ComponetizedCell> {
           isPreviewMode={this.props.isPreviewMode}
           isEditMode={this.props.isEditMode}
           isLayoutMode={this.props.isLayoutMode}
+          remove={this.props.removeCell}
         />
       </div>
     );

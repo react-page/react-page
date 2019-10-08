@@ -74,6 +74,7 @@ class Layout extends React.PureComponent<ComponetizedCell> {
       onChange: updateCellContent,
       name,
       version,
+      remove: this.props.removeCell,
       // Commented this out for consistency with the way Component is called
       /*isEditMode: nextProps.isEditMode,
       isResizeMode: nextProps.isResizeMode,
@@ -105,8 +106,8 @@ class Layout extends React.PureComponent<ComponetizedCell> {
       ancestors = [],
     }: ComponetizedCell = this.props;
     const { plugin, state } = layout;
-    const { Component, version, name } = plugin;
-    const { focusCell, blurCell } = this.props;
+    const { Component, version, name, text } = plugin;
+    const { focusCell, blurCell, removeCell } = this.props;
 
     let focusProps;
     if (!this.props.isPreviewMode) {
@@ -140,9 +141,11 @@ class Layout extends React.PureComponent<ComponetizedCell> {
           editable={editable}
           focused={this.props.isEditMode && focused}
           name={name}
+          text={text}
           version={version}
           readOnly={!this.props.isEditMode}
           onChange={this.props.updateCellLayout}
+          remove={removeCell}
         >
           {rows.map((r: string) => (
             <Row

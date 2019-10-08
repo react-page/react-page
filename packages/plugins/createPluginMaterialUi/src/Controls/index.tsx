@@ -19,13 +19,13 @@ function Controls<T>(props: ControlProps<T>) {
     saveDebounced(model);
   };
 
-  const { focused, state, schema, Renderer } = props;
-
+  const { focused, state, schema, Renderer, remove } = props;
+  console.log('remove', remove, props, props.text);
   return (
     <>
       <Renderer {...props} state={preview || state} />
 
-      <BottomToolbar open={focused}>
+      <BottomToolbar open={focused} title={props.text} onDelete={remove}>
         <AutoForm
           model={preview || state}
           autosave={true}

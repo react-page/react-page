@@ -50,7 +50,11 @@ import Resizable from './Resizable';
 
 import { ComponetizedCell } from '../../types/editable';
 import { Dispatch } from 'redux';
-import { FocusCellAction } from './../../actions/cell/core';
+import {
+  FocusCellAction,
+  removeCell,
+  RemoveCellAction
+} from './../../actions/cell/core';
 import { BlurAllCellsAction } from './../../actions/cell/core';
 import { RootState } from '../../selector';
 
@@ -126,7 +130,9 @@ const mapStateToProps = createStructuredSelector({
 });
 
 const mapDispatchToProps = (
-  dispatch: Dispatch<ResizeCellAction | FocusCellAction | BlurAllCellsAction>,
+  dispatch: Dispatch<
+    ResizeCellAction | FocusCellAction | BlurAllCellsAction | RemoveCellAction
+  >,
   { id }: { id: string }
 ) =>
   bindActionCreators(
@@ -134,6 +140,7 @@ const mapDispatchToProps = (
       resizeCell: resizeCell(id),
       focusCell: focusCell(id),
       blurAllCells,
+      removeCell: () => removeCell(id),
     },
     // tslint:disable-next-line:no-any
     dispatch as any

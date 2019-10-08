@@ -17,9 +17,14 @@ const Html5VideoDefaultControls: React.SFC<Html5VideoControlsProps> = props => {
     commitUrl,
     changeUrlPreview,
     focused,
+    remove,
   } = props;
   return (
-    <BottomToolbar open={focused}>
+    <BottomToolbar
+      open={focused}
+      title={props.translations.pluginName}
+      onDelete={remove}
+    >
       <TextField
         placeholder={props.translations.urlPlaceholder}
         label={props.translations.urlLabel}

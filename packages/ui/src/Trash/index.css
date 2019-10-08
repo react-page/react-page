@@ -23,7 +23,7 @@
 .ory-controls-trash {
   position: fixed;
   bottom: -64px;
-  z-index: 100;
+  z-index: 500;
   left: 50%;
   transition: bottom 200ms ease;
   padding: 8px;
@@ -32,4 +32,3 @@
 .ory-controls-trash.ory-controls-trash-active {
   bottom: 16px;
 }
-

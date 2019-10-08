@@ -45,7 +45,8 @@ export type OmitInPluginConfig =
   | 'readOnly'
   | 'state'
   | 'onChange'
-  | 'focused';
+  | 'focused'
+  | 'remove';
 
 // tslint:disable-next-line:no-any
 export type PluginConfig<T = any, ExtraProps = {}> = Omit<
@@ -203,6 +204,7 @@ export type PluginProps<
   blur?: (id: string) => void;
 
   editable?: string;
+  remove?: () => void; // removes the plugin
   /**
    * Should be called with the new state if the plugin's state changes.
    *
