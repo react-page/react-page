@@ -20,7 +20,7 @@ function Controls<T>(props: ControlProps<T>) {
   };
 
   const { focused, state, schema, Renderer, remove } = props;
-  console.log('remove', remove, props, props.text);
+
   return (
     <>
       <Renderer {...props} state={preview || state} />
