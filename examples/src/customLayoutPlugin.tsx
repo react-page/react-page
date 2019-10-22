@@ -1,10 +1,10 @@
 import { createLayoutPlugin } from '@react-page/create-plugin-materialui';
 import React from 'react';
+import slate from '@react-page/plugins-slate';
 
 // tslint:disable-next-line:no-any
-export default (settings: any) =>
+export default () =>
   createLayoutPlugin({
-    ...settings,
     // tslint:disable-next-line:no-any
     Renderer: ({ children, state }: any) => (
       <div
@@ -20,18 +20,33 @@ export default (settings: any) =>
       return [
         [
           {
-            content: { plugin: settings.defaultPlugin },
+            content: { plugin: slate() },
           },
           {
-            content: { plugin: settings.defaultPlugin },
+            content: { plugin: slate() },
           },
         ],
         [
           {
-            content: { plugin: settings.defaultPlugin },
-          },
-          {
-            content: { plugin: settings.defaultPlugin },
+            content: {
+              plugin: slate(def => ({
+                ...def,
+                createInitialSlateState: () => ({
+                  children: [
+                    {
+                      plugin: def.plugins.headings.h1,
+                      children: ['Hello World'],
+                    },
+                    {
+                      plugin: def.plugins.paragraphs.paragraph,
+                      children: [
+                        'You can create slate plugins with initial state like this',
+                      ],
+                    },
+                  ],
+                }),
+              })),
+            },
           },
         ],
       ];

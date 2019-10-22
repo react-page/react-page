@@ -24,10 +24,9 @@ import Plain from 'slate-plain-serializer';
 
 import defaultPlugins from '../plugins/defaultPlugins';
 import serialization from '../serialization';
-import flattenDeep from '../flattenDeep';
-
+import makeSlatePluginsFromDef from '../utils/makeSlatePluginsFromDef';
 const serializationFunctions = serialization({
-  plugins: flattenDeep(defaultPlugins),
+  plugins: makeSlatePluginsFromDef(defaultPlugins),
 });
 
 describe('serialize to html', () => {

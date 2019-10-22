@@ -29,10 +29,10 @@ import { SlateState } from '../types/state';
 
 import serialization from '../serialization';
 import defaultPlugins from '../plugins/defaultPlugins';
-import flattenDeep from '../flattenDeep';
+import makeSlatePluginsFromDef from '../utils/makeSlatePluginsFromDef';
 
 const serializationFunctions = serialization({
-  plugins: flattenDeep(defaultPlugins),
+  plugins: makeSlatePluginsFromDef(defaultPlugins),
 });
 const expect = unexpected.clone();
 

@@ -107,7 +107,12 @@ if (
 
 const slatePlugin = slate(def => ({
   ...def,
-  plugins: [...def.plugins, customSlatePlugin()],
+  plugins: {
+    ...def.plugins,
+    custom: {
+      custom1: customSlatePlugin,
+    },
+  },
 }));
 // Define which plugins we want to use (all of the above)
 const plugins: Plugins = {
@@ -130,7 +135,7 @@ const plugins: Plugins = {
         ModeEnum.GRADIENT_MODE_FLAG,
     }),
     parallax({ defaultPlugin: slatePlugin }),
-    customLayoutPlugin({ defaultPlugin: slatePlugin }),
+    customLayoutPlugin(),
   ],
 
   // If you pass the native key the editor will be able to handle native drag and drop events (such as links, text, etc).

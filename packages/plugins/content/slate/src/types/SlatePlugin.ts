@@ -5,7 +5,11 @@ import {
 } from 'slate-react';
 import { Editor } from 'slate';
 import { NextType } from './next';
-import { PluginButtonProps } from './slatePluginDefinitions';
+import {
+  PluginButtonProps,
+  SlateNodeObjectType,
+  SlatePluginDefinition
+} from './slatePluginDefinitions';
 
 /**
  * this is a more low level plugin
@@ -15,6 +19,12 @@ export default interface SlatePlugin {
    * @member a default node
    */
   DEFAULT_NODE?: string;
+
+  /**
+   * @member pluginDefintion is only used in createInitialSlateState to simplify creating initial slate state
+   */
+  // tslint:disable-next-line:no-any
+  pluginDefintion?: SlatePluginDefinition<any>;
 
   /**
    * @member serialize a plugin's state to html
@@ -88,4 +98,13 @@ export default interface SlatePlugin {
   ) => void;
 }
 
-export type SlatePluginOrCollection = SlatePlugin | SlatePlugin[];
+export type SlatePluginOrListOfPlugins = SlatePlugin | SlatePlugin[];
+
+export type SlatePluginOrFactory =
+  // tslint:disable-next-line:no-any
+  ((...args: any) => SlatePluginOrListOfPlugins) | SlatePluginOrListOfPlugins;
+export type SlatePluginCollection = {
+  [group: string]: {
+    [key: string]: SlatePluginOrFactory;
+  };
+};
