@@ -49,6 +49,7 @@ const createPlugin: (
     <Html5Video {...props} {...mergedSettings} />
   );
   return {
+    
     Component: WrappedComponent,
     name: 'ory/sites/plugin/content/html5-video',
     version: '0.0.1',

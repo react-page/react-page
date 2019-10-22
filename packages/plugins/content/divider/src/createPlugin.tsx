@@ -24,6 +24,7 @@ const createPlugin: (
     IconComponent: <Remove />,
     text: mergedSettings.translations.pluginName,
     description: mergedSettings.translations.pluginDescription,
+    
   };
 };
 

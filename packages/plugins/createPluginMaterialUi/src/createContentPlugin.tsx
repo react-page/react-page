@@ -33,6 +33,7 @@ function createPluginWithDef<T extends {}>({
       );
     },
     ...pluginSettings,
+    
   };
 }
 

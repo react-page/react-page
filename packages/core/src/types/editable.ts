@@ -24,7 +24,6 @@ import * as React from 'react';
 import {
   ContentPlugin,
   LayoutPlugin,
-  ContentPluginProps,
   NativePluginConfig,
   ContentPluginConfig,
   LayoutPluginConfig
@@ -217,7 +216,7 @@ export type EditableComponentState = {
   isEditMode: boolean;
   isLayoutMode: boolean;
   isPreviewMode: boolean;
-  defaultPlugin: ContentPluginProps;
+  defaultPlugin: ContentPluginConfig;
 
   blurAllCells(): void;
   createFallbackCell(plugin: ContentPlugin | LayoutPlugin, id: string): void;

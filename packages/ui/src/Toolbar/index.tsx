@@ -31,12 +31,13 @@ import ListSubheader from '@material-ui/core/ListSubheader';
 import TextField from '@material-ui/core/TextField';
 import {
   LayoutPlugin,
-  ContentPlugin
-} from '@react-page/core/lib/service/plugin/classes';
+  ContentPlugin,
+  Plugin,
+  sanitizeInitialChildren
+} from '@react-page/core';
 import Item from './Item/index';
 
 import { useEditor } from './../Provider/index';
-import { Plugin } from '@react-page/core/lib/service/plugin/classes';
 
 export interface Translations {
   noPluginFoundContent: string | JSX.Element;
@@ -194,7 +195,9 @@ class Raw extends React.Component<Props, RawState> {
           >
             {layout.map((plugin: LayoutPlugin, k: Number) => {
               const initialState = plugin.createInitialState();
-              const children = plugin.createInitialChildren();
+              const children = sanitizeInitialChildren(
+                plugin.createInitialChildren()
+              );
 
               return (
                 <Item

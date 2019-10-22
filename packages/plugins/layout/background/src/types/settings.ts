@@ -1,6 +1,6 @@
 import { BackgroundRendererProps } from './renderer';
 import { BackgroundControlsProps } from './controls';
-import { ContentPluginConfig } from '@react-page/core/lib/service/plugin/classes';
+import { InitialChildrenDef, ContentPluginConfig } from '@react-page/core';
 import { RGBColor } from '@react-page/ui/lib/ColorPicker/types';
 import { ImageUploadType } from '@react-page/ui/lib/ImageUpload/types';
 import { ModeEnum } from './ModeEnum';
@@ -12,7 +12,7 @@ export type BackgroundSettings = {
   defaultPlugin: ContentPluginConfig;
   enabledModes?: ModeEnum;
   // tslint:disable-next-line:no-any
-  getInitialChildren?: () => any;
+  getInitialChildren?: () => InitialChildrenDef;
   defaultBackgroundColor?: RGBColor;
   defaultGradientColor?: RGBColor;
   defaultGradientSecondaryColor?: RGBColor;

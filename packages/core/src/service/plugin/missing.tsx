@@ -21,7 +21,11 @@
  */
 
 import * as React from 'react';
-import { ContentPluginProps, LayoutPluginProps } from './classes';
+import {
+  LayoutPluginConfig,
+  ContentPluginConfig,
+  ContentPluginProps
+} from './classes';
 
 const ContentMissingComponent = (props: ContentPluginProps<{}>) => (
   <div
@@ -38,11 +42,14 @@ const ContentMissingComponent = (props: ContentPluginProps<{}>) => (
   </div>
 );
 
-export const contentMissing = (
-  plugin: ContentPluginProps
-): ContentPluginProps => ({
+export const contentMissing = ({
+  name,
+  version,
+}: Pick<ContentPluginConfig, 'name' | 'version'>): ContentPluginConfig => ({
   Component: ContentMissingComponent,
-  ...plugin,
+
+  name,
+  version,
 });
 
 const LayoutMissingComponent: React.SFC = ({ children, ...props }) => (
@@ -63,8 +70,12 @@ const LayoutMissingComponent: React.SFC = ({ children, ...props }) => (
   </div>
 );
 
-export const layoutMissing = (plugin: LayoutPluginProps): LayoutPluginProps =>
-  ({
-    Component: LayoutMissingComponent,
-    ...plugin,
-  } as LayoutPluginProps);
+export const layoutMissing = ({
+  name,
+  version,
+}: Pick<LayoutPluginConfig, 'name' | 'version'>): LayoutPluginConfig => ({
+  Component: LayoutMissingComponent,
+
+  name,
+  version,
+});

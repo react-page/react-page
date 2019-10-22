@@ -74,10 +74,9 @@ import { ImageUploadType } from '@react-page/ui/lib/ImageUpload/types';
 import { Plugins } from '@react-page/core';
 import customSlatePlugin from './customSlatePlugin';
 
-const fakeImageUploadService: (url: string) => ImageUploadType = defaultUrl => (
-  file,
-  reportProgress
-) => {
+const fakeImageUploadService: (
+  url: string
+) => ImageUploadType = defaultUrl => (file, reportProgress) => {
   return new Promise((resolve, reject) => {
     let counter = 0;
     const interval = setInterval(() => {
