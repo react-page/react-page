@@ -21,14 +21,16 @@
  */
 
 import * as React from 'react';
-import { v4 } from 'uuid';
 
-import { LayoutPluginConfig } from '@react-page/core/lib/service/plugin/classes';
+import {
+  lazyLoad,
+  LayoutPluginConfig,
+  ContentPluginProps
+} from '@react-page/core';
 import { ParallaxBackgroundSettings } from './types/settings';
 import { ParallaxBackgroundState } from './types/state';
-import { ContentPluginProps } from '@react-page/core/lib/service/plugin/classes';
+
 import Component from './Component';
-import { lazyLoad } from '@react-page/core';
 
 const Icon = lazyLoad(() => import('@material-ui/icons/CropLandscape'));
 
@@ -50,26 +52,9 @@ const createPlugin: (
 
   text: 'Parallax Background (deprecated)',
   IconComponent: <Icon />,
-
   createInitialChildren:
     settings.getInitialChildren ||
-    (() => ({
-      id: v4(),
-      rows: [
-        {
-          id: v4(),
-          cells: [
-            {
-              content: {
-                plugin: settings.defaultPlugin,
-                state: settings.defaultPlugin.createInitialState(),
-              },
-              id: v4(),
-            },
-          ],
-        },
-      ],
-    })),
+    (() => [[{ content: { plugin: settings.defaultPlugin } }]]),
 
   handleFocusNextHotKey: () => Promise.reject(),
   handleFocusPreviousHotKey: () => Promise.reject(),

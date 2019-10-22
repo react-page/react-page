@@ -30,7 +30,6 @@ Most built-in plugins use a bottom toolbar with a form as Controls. See for exam
 
 Plugins have two parts, one plugin definition and a ReactJS component. A minimal plugin definition looks as followed
 
-
 ```jsx
 import React, { Component } from "react";
 
@@ -96,7 +95,6 @@ Make sure the `onChange` prop is never passed through to an HTML element (eg via
 
 A layout plugin will require an initial children, otherwise, it will automatically destroyed. A minimal layout plugin definition looks as follows
 
-
 ```jsx
 import React from "react";
 import slate from "@react-page/plugins-slate";
@@ -115,23 +113,14 @@ export default {
   name: "example/layout/black-border",
   version: "0.0.1",
   text: "Black border",
-  createInitialChildren: () => ({
-    id: v4(),
-    rows: [
+  createInitialChildren: () => [
+    [
       {
-        id: v4(),
-        cells: [
-          {
-            content: {
-              plugin: slate(),
-              state: slate().createInitialState()
-            },
-            id: v4()
-          }
-        ]
+        content: { plugin: slate() }
+        // or another layout plugin: layout: { plugin: someLayoutPlugin() }
       }
     ]
-  })
+  ]
 };
 ```
 

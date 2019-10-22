@@ -38,22 +38,41 @@ import { RootState } from './types/state';
 import lazyLoad from './helper/lazyLoad';
 import {
   Plugins,
+  Plugin,
   ContentPluginConfig,
-  LayoutPluginConfig
+  LayoutPluginConfig,
+  ContentPluginProps,
+  LayoutPluginProps
 } from './service/plugin/classes';
 import { isProduction } from './const';
 import { shouldPureComponentUpdate } from './helper/shouldComponentUpdate';
 export { shouldPureComponentUpdate };
 import i18n from './service/i18n';
+import { InitialChildrenDef } from './helper/createInitialChildren';
+import sanitizeInitialChildren from './helper/sanitizeInitialChildren';
 import DragDropContext from './components/DragDropContext';
 export {
+  Plugin,
   Plugins,
+  ContentPluginConfig,
+  ContentPluginProps,
+  LayoutPluginConfig,
+  LayoutPluginProps,
   NativeFactory,
   Actions,
   Selectors,
   RootState,
   i18n,
-  DragDropContext
+  DragDropContext,
+  InitialChildrenDef,
+  sanitizeInitialChildren,
+  PluginService,
+  ContentPlugin,
+  LayoutPlugin,
+  Editable,
+  Editor,
+  reducer,
+  lazyLoad
 };
 let instance: Editor;
 
@@ -156,47 +175,69 @@ class Editor<T extends RootState = RootState> {
     }, this.store.getState().reactPage.editables.present);
   }
 
-  // tslint:disable-next-line:no-any
+  /**
+   * @deprecated in order to reduce the api surface, we will remove this method in the future
+   */
   public setLayoutPlugins = (plugins: LayoutPluginConfig[] = []) => {
+    console.warn(
+      'in order to reduce the api surface, we will remove setLayoutPlugins in the future'
+    );
     this.plugins.setLayoutPlugins(plugins);
     this.refreshEditables();
   }
-
+  /**
+   * @deprecated in order to reduce the api surface, we will remove this method in the future
+   */
   public addLayoutPlugin = (config: LayoutPluginConfig) => {
+    console.warn(
+      'in order to reduce the api surface, we will remove addLayoutPlugin in the future'
+    );
     this.plugins.addLayoutPlugin(config);
     this.refreshEditables();
   }
-
+  /**
+   * @deprecated in order to reduce the api surface, we will remove this method in the future
+   */
   public removeLayoutPlugin = (name: string) => {
+    console.warn(
+      'in order to reduce the api surface, we will remove removeLayoutPlugin in the future'
+    );
     this.plugins.removeLayoutPlugin(name);
     this.refreshEditables();
   }
-
+  /**
+   * @deprecated in order to reduce the api surface, we will remove this method in the future
+   */
   public setContentPlugins = (plugins: ContentPluginConfig[] = []) => {
+    console.warn(
+      'in order to reduce the api surface, we will remove setContentPlugins in the future'
+    );
     this.plugins.setContentPlugins(plugins);
     this.refreshEditables();
   }
 
+  /**
+   * @deprecated in order to reduce the api surface, we will remove this method in the future
+   */
   public addContentPlugin = (config: ContentPluginConfig) => {
+    console.warn(
+      'in order to reduce the api surface, we will remove addContentPlugin in the future'
+    );
     this.plugins.addContentPlugin(config);
     this.refreshEditables();
   }
 
+  /**
+   * @deprecated in order to reduce the api surface, we will remove this method in the future
+   */
   public removeContentPlugin = (name: string) => {
+    console.warn(
+      'in order to reduce the api surface, we will remove removeContentPlugin in the future'
+    );
     this.plugins.removeContentPlugin(name);
     this.refreshEditables();
   }
 }
-
-export {
-  PluginService,
-  ContentPlugin,
-  LayoutPlugin,
-  Editable,
-  Editor,
-  reducer,
-  lazyLoad
-};
 
 export const createEmptyState: () => EditableType = () =>
   ({ id: v4(), cells: [] } as EditableType);

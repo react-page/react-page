@@ -41,6 +41,7 @@ const createPlugin: (
     <Spacer {...props} {...mergedSettings} />
   );
   return {
+    
     Component: WrappedComponent,
     name: 'ory/editor/core/content/video',
     version: '0.0.1',

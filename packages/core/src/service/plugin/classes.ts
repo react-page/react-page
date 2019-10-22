@@ -24,6 +24,7 @@ import semver from 'semver';
 import { AnyAction } from 'redux';
 import { Omit } from '../../types/omit';
 import { NativeFactory, AbstractCell } from '../../types/editable';
+import { InitialChildrenDef } from '../../helper/createInitialChildren';
 
 export type Plugins = {
   layout?: LayoutPluginConfig[];
@@ -119,7 +120,7 @@ export type ContentPluginProps<
 // tslint:disable-next-line:no-any
 export type LayoutPluginExtraProps<T = any> = {
   // tslint:disable-next-line:no-any
-  createInitialChildren?: () => any;
+  createInitialChildren?: () => InitialChildrenDef;
 
   Component?: PluginComponentType<LayoutPluginProps<T>>;
 };
@@ -513,14 +514,14 @@ export class LayoutPlugin<StateT = any> extends Plugin<
    * @returns the initial state.
    */
   // tslint:disable-next-line:no-any
-  createInitialChildren = (): any => ({} as any);
+  createInitialChildren = (): InitialChildrenDef => [];
 }
 
 // tslint:disable-next-line:no-any
 export type NativePluginProps<StateT = any> = PluginProps<StateT> & {
   type?: string;
   // tslint:disable-next-line:no-any
-  createInitialChildren?: () => any;
+  createInitialChildren?: () => InitialChildrenDef;
   allowInlineNeighbours?: boolean;
   isInlineable?: boolean;
 };
@@ -567,7 +568,7 @@ export class NativePlugin<StateT> extends Plugin<StateT> {
    *
    * @returns the initial state.
    */
-  createInitialChildren = (): Object => ({});
+  createInitialChildren = (): InitialChildrenDef => [];
 
   /**
    * Create the plugin's initial state.

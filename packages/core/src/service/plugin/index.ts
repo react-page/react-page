@@ -28,13 +28,11 @@ import {
   Plugin,
   NativePlugin,
   NativePluginProps,
-  LayoutPluginProps,
-  ContentPluginProps,
   Plugins,
   LayoutPluginConfig,
   PluginConfig,
   PluginsInternal,
-  ContentPluginConfig,
+  ContentPluginConfig
 } from './classes';
 import { ComponetizedCell, EditableType } from '../../types/editable';
 import defaultPlugin from './default';
@@ -69,11 +67,7 @@ export default class PluginService {
   /**
    * Instantiate a new PluginService instance. You can provide your own set of content and layout plugins here.
    */
-  constructor({
-    content = [],
-    layout = [],
-    native,
-  }: Plugins = {} as Plugins) {
+  constructor({ content = [], layout = [], native }: Plugins = {} as Plugins) {
     this.plugins = {
       content: [defaultPlugin, ...content].map(
         // tslint:disable-next-line:no-any
@@ -130,7 +124,7 @@ export default class PluginService {
 
   removeLayoutPlugin = (name: string) => {
     this.plugins.layout = this.plugins.layout.filter(
-      (plugin: LayoutPluginConfig) => plugin.name !== name
+      plugin => plugin.name !== name
     );
   }
 
@@ -149,7 +143,7 @@ export default class PluginService {
 
   removeContentPlugin = (name: string) => {
     this.plugins.content = this.plugins.content.filter(
-      (plugin: ContentPlugin) => plugin.name !== name
+      plugin => plugin.name !== name
     );
   }
 
@@ -160,15 +154,15 @@ export default class PluginService {
     name: string,
     version: string
   ): { plugin: LayoutPlugin; pluginWrongVersion?: LayoutPlugin } => {
-    const plugin = this.plugins.layout.find(find(name, version)) as LayoutPlugin;
+    const plugin = this.plugins.layout.find(
+      find(name, version)
+    ) as LayoutPlugin;
     let pluginWrongVersion = undefined;
     if (!plugin) {
       pluginWrongVersion = this.plugins.layout.find(find(name, '*'));
     }
     return {
-      plugin:
-        plugin ||
-        new LayoutPlugin(layoutMissing({ name, version } as LayoutPluginProps)),
+      plugin: plugin || new LayoutPlugin(layoutMissing({ name, version })),
       pluginWrongVersion,
     };
   }
@@ -186,11 +180,7 @@ export default class PluginService {
       pluginWrongVersion = this.plugins.content.find(find(name, '*'));
     }
     return {
-      plugin:
-        plugin ||
-        new ContentPlugin(
-          contentMissing({ name, version } as ContentPluginProps)
-        ),
+      plugin: plugin || new ContentPlugin(contentMissing({ name, version })),
       pluginWrongVersion,
     };
   }
@@ -233,11 +223,15 @@ export default class PluginService {
     return state;
   }
 
-  // tslint:disable-next-line:no-any
-  getNewPluginState = (found: { plugin: Plugin; pluginWrongVersion?: Plugin }, state: any, version: string): {
-    plugin: Plugin,
+  getNewPluginState = (
+    found: { plugin: Plugin; pluginWrongVersion?: Plugin },
     // tslint:disable-next-line:no-any
-    state: any
+    state: any,
+    version: string
+  ): {
+    plugin: Plugin;
+    // tslint:disable-next-line:no-any
+    state: any;
   } => {
     if (
       !found.pluginWrongVersion ||

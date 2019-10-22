@@ -94,6 +94,7 @@ export default (
   });
 
   return {
+    
     Component: (props: SlateProps) => (
       <Component
         Renderer={settings.Renderer}

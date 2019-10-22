@@ -36,7 +36,7 @@ const Default: React.SFC<ContentPluginProps<{ value: string }>> = ({
   readOnly,
   state: { value },
   onChange,
-})  =>
+}) =>
   readOnly ? (
     <div>{value}</div>
   ) : (
@@ -50,6 +50,7 @@ const Default: React.SFC<ContentPluginProps<{ value: string }>> = ({
 const _defaultContentPlugin: ContentPluginConfig<{}> = {
   Component: Default,
   name: 'ory/editor/core/default',
+  
   version: '0.0.1',
   createInitialState: () => ({
     value:

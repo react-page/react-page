@@ -41,6 +41,7 @@ const createPlugin = (
     Component: (props: ContentPluginProps<ImageState>) => (
       <Component {...props} {...mergedSettings} />
     ),
+    
     name: 'ory/editor/core/content/image',
     version: '0.0.1',
     IconComponent: <Panorama />,

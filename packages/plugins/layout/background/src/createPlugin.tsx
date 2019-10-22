@@ -20,15 +20,13 @@
  *
  */
 import * as React from 'react';
-import { v4 } from 'uuid';
 
-import { LayoutPluginConfig } from '@react-page/core/lib/service/plugin/classes';
 import { BackgroundSettings } from './types/settings';
 import { BackgroundState } from './types/state';
 import { BackgroundProps } from './types/component';
 import BackgroundComponent from './Component';
 import { defaultSettings } from './default/settings';
-import { lazyLoad } from '@react-page/core';
+import { LayoutPluginConfig, lazyLoad } from '@react-page/core';
 
 const Icon = lazyLoad(() => import('@material-ui/icons/CropLandscape'));
 
@@ -38,6 +36,7 @@ const createPlugin = (settings: BackgroundSettings) => {
     Component: (props: BackgroundProps) => (
       <BackgroundComponent {...props} {...mergedSettings} />
     ),
+
     name: 'ory/editor/core/layout/background',
     version: '0.0.1',
 
@@ -47,23 +46,7 @@ const createPlugin = (settings: BackgroundSettings) => {
 
     createInitialChildren:
       settings.getInitialChildren ||
-      (() => ({
-        id: v4(),
-        rows: [
-          {
-            id: v4(),
-            cells: [
-              {
-                content: {
-                  plugin: settings.defaultPlugin,
-                  state: settings.defaultPlugin.createInitialState(),
-                },
-                id: v4(),
-              },
-            ],
-          },
-        ],
-      })),
+      (() => [[{ content: { plugin: settings.defaultPlugin } }]]),
 
     handleFocusNextHotKey: () => Promise.reject(),
     handleFocusPreviousHotKey: () => Promise.reject(),
