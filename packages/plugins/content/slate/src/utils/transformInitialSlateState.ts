@@ -42,16 +42,11 @@ const transformChildren = (defNodes: SlateDefNode[]) =>
       };
     }
   });
-const log = arg => {
-  // tslint:disable-next-line:no-console
-  console.log(arg);
-  return arg;
-};
 
 export default (def: InitialSlateStateDef) => ({
   editorState: Value.fromJSON({
     document: {
-      nodes: log(transformChildren(log(def.children))),
+      nodes: transformChildren(def.children),
     },
   }),
 });
