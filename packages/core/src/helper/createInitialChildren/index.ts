@@ -58,10 +58,10 @@ export default (rows: RowDef[]): ChildrenDef => ({
         id: v4(),
         layout: cell.layout
           ? withDefaultState(cell.layout, LayoutPlugin)
-          : null,
+          : undefined,
         content: cell.content
           ? withDefaultState(cell.content, ContentPlugin)
-          : null,
+          : undefined,
       };
     }),
   })),
