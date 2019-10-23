@@ -28,6 +28,7 @@ export default () =>
                 createInitialSlateState: () => ({
                   children: [
                     {
+                      // you can use the plugin-function itself here
                       plugin: def.plugins.headings.h1,
                       children: ['Hello World'],
                     },

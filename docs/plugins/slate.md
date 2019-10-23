@@ -16,19 +16,17 @@ By default we provide the following plugins:
 If you only want to include some plugins, you can specify them:
 
 ```jsx
-import slate, { slatePlugins } from '@react-page/plugins-slate';
+import slate from '@react-page/plugins-slate';
 
 
 const slatePlugin = slate(def => ({
   ...def,
-  plugins: [
-    slatePlugins.headings.h1(),
-    slatePlugins.headings.h2(),
-    slatePlugins.headings.h3(),
-    slatePlugins.emphasize.em(),
-    slatePlugins.emphasize.strong(),
-    slatePlugins.paragraph() // make sure to always include that
-  ]
+  plugins: {
+    headings: def.plugins.headings,
+    emphasize: def.plugins.emphasize,
+    paragraphs: def.plugins.paragraphs /* make sure to always include that */
+  }
+
 })
 
 const plugins: Plugins = {
@@ -54,17 +52,21 @@ const editor = new Editor({
 or if you want to add an additional plugin, you can use all default plugins like this:
 
 ```jsx
-import slate, { slatePlugins } from '@react-page/plugins-slate';
+import slate from '@react-page/plugins-slate';
 
 
 const slatePlugin = slate(def => ({
   ...def,
-  plugins: [
-   ...def.plugins,
-   myAdditionalPlugin
-  ]
+  plugins: {
+    ...def.plugins.
+    yourCustomNamespace: {
+      myCustomPlugin: myCustomPlugin()
+    }
+  }
 })
 ```
+
+Notice: `yourCustomNamespace` and `myCustomPlugin` can be named arbitrary. Typescript users will find the existing type definition on def.plugins usefull to see which plugins do exist.
 
 You can customize slate plugins by providing a customize function. It will take the plugin's default config and you can return a new config. Most obvious usecase is to change the component that renders the plugin's content:
 
@@ -76,15 +78,18 @@ const RedH1 = ({ style, ...props }: Props) => (
 
 const slatePlugin = slate(slateDef => ({
   ...slateDef,
-  plugins: [
-    slatePlugins.headings.h1(h1Def => ({
+  plugins: {
+    emphasize: slateDef.plugins.emphasize,
+    headings: {
+      h1: slateDef.plugins.headings.h1(h1Def => ({
       ...h1Def, // spread it, so that the new config contains all defaults
       Component: ({data, children}) => (
         <RedH1 style={{textAlign: data.get("align")}}>{children}</RedH1>
       )
     }))
+    }
+  }
 
-  ]
 })
 ```
 
@@ -101,7 +106,7 @@ If you want to create your own slate plugins, we provide a bunch of factory func
   you can import these with:
 
 ```jsx
-import { pluginFactories } from '@react-page/plugins-slate'
+import { pluginFactories } from "@react-page/plugins-slate";
 ```
 
 ### Slate-Plugins with custom data
@@ -131,12 +136,14 @@ this ensures that whenver data is used, the type is correct. Very handy also for
 ```jsx
 const linkWithMyOverrriddenComponent = yourLinkPlugin(def => ({
   ...def,
-  Component: ({data, children}) => (
-    <SuperFancyLink href={data.get("href") /* neat! autocompletion and type checking here! */}>
+  Component: ({ data, children }) => (
+    <SuperFancyLink
+      href={data.get("href") /* neat! autocompletion and type checking here! */}
+    >
       {children}
     </SuperFancyLink>
   )
-}))
+}));
 ```
 
 the consumer could even change the add more properties to the data type, altough its up to him/her to adjust the controls and serialization so that the new DataType is satisfied:
