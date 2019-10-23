@@ -12,13 +12,14 @@ const transformChildren = (defNodes: SlateDefNode[]) =>
   defNodes.map(defNode => {
     if ((defNode as SlatePluginNode).plugin) {
       const defPluginNode: SlatePluginNode = defNode as SlatePluginNode;
-      const slatePlugin =
+      const slatePluginOrList =
         typeof defPluginNode.plugin === 'function'
           ? defPluginNode.plugin()
           : defPluginNode.plugin;
-      const firstComponentPlugin = flattenDeep<SlatePlugin>(slatePlugin).find(
-        plugin => plugin.pluginDefintion.pluginType === 'component'
-      );
+
+      const firstComponentPlugin = flattenDeep<SlatePlugin>(
+        slatePluginOrList
+      ).find(plugin => plugin.pluginDefintion.pluginType === 'component');
       if (
         firstComponentPlugin &&
         firstComponentPlugin.pluginDefintion &&
@@ -37,15 +38,20 @@ const transformChildren = (defNodes: SlateDefNode[]) =>
     } else {
       return {
         object: 'text',
-        text: '',
+        text: defNode as string,
       };
     }
   });
+const log = arg => {
+  // tslint:disable-next-line:no-console
+  console.log(arg);
+  return arg;
+};
 
 export default (def: InitialSlateStateDef) => ({
   editorState: Value.fromJSON({
     document: {
-      nodes: transformChildren(def.children),
+      nodes: log(transformChildren(log(def.children))),
     },
   }),
 });

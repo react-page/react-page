@@ -4,13 +4,12 @@ import links from './links';
 import emphasize from './emphasize';
 
 import headings from './headings';
-import { SlatePluginCollection } from '../types/SlatePlugin';
 import alignment from './alignment';
 import quotes from './quotes';
 import code from './code';
 import lists from './lists';
 
-const defaultPlugins: SlatePluginCollection = {
+const defaultPlugins = {
   headings,
   links,
   lists,

@@ -7,7 +7,6 @@ import { Editor } from 'slate';
 import { NextType } from './next';
 import {
   PluginButtonProps,
-  SlateNodeObjectType,
   SlatePluginDefinition
 } from './slatePluginDefinitions';
 

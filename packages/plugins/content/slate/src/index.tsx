@@ -69,7 +69,10 @@ type SlateDefinition = {
   createInitialSlateState: () => InitialSlateStateDef;
   allowInlineNeighbours: boolean;
 };
-const defaultConfig: SlateDefinition = {
+type DefaultSlateDefinition = SlateDefinition & {
+  plugins: typeof defaultPlugins;
+};
+const defaultConfig: DefaultSlateDefinition = {
   icon: <Subject />,
   plugins: defaultPlugins,
   Renderer,
@@ -89,7 +92,7 @@ const defaultConfig: SlateDefinition = {
   allowInlineNeighbours: true,
 };
 
-type CustomizeFunction = (def: SlateDefinition) => SlateDefinition;
+type CustomizeFunction = (def: DefaultSlateDefinition) => SlateDefinition;
 export default (
   customize?: CustomizeFunction
 ): ContentPluginConfig<SlateState> => {

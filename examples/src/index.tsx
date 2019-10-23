@@ -77,6 +77,7 @@ import './styles.css';
 import { ImageUploadType } from '@react-page/ui/lib/ImageUpload/types';
 import { Plugins } from '@react-page/core';
 import customSlatePlugin from './customSlatePlugin';
+import customLayoutPluginWithInitialState from './customLayoutPluginWithInitialState';
 
 const fakeImageUploadService: (
   url: string
@@ -136,6 +137,7 @@ const plugins: Plugins = {
     }),
     parallax({ defaultPlugin: slatePlugin }),
     customLayoutPlugin(),
+    customLayoutPluginWithInitialState(),
   ],
 
   // If you pass the native key the editor will be able to handle native drag and drop events (such as links, text, etc).

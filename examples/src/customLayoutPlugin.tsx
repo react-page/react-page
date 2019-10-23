@@ -4,7 +4,9 @@ import slate from '@react-page/plugins-slate';
 
 // tslint:disable-next-line:no-any
 export default () =>
-  createLayoutPlugin({
+  createLayoutPlugin<{
+    backgroundColor: string;
+  }>({
     // tslint:disable-next-line:no-any
     Renderer: ({ children, state }: any) => (
       <div
@@ -28,25 +30,10 @@ export default () =>
         ],
         [
           {
-            content: {
-              plugin: slate(def => ({
-                ...def,
-                createInitialSlateState: () => ({
-                  children: [
-                    {
-                      plugin: def.plugins.headings.h1,
-                      children: ['Hello World'],
-                    },
-                    {
-                      plugin: def.plugins.paragraphs.paragraph,
-                      children: [
-                        'You can create slate plugins with initial state like this',
-                      ],
-                    },
-                  ],
-                }),
-              })),
-            },
+            content: { plugin: slate() },
+          },
+          {
+            content: { plugin: slate() },
           },
         ],
       ];
@@ -57,6 +44,7 @@ export default () =>
     description: 'Some custom layout plugin',
     version: '0.0.1',
     schema: {
+      required: ['backgroundColor'],
       properties: {
         backgroundColor: { type: 'string' },
       },

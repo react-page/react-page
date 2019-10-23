@@ -4,6 +4,7 @@ import React from 'react';
 import DEFAULT_NODE from '../DEFAULT_NODE';
 
 import createIndentionPlugin from '../../pluginFactories/createListIndentionPlugin';
+import { createListItemPlugin } from '../../pluginFactories';
 
 const ListIcon = lazyLoad(() =>
   import('@material-ui/icons/FormatListBulleted')
@@ -45,6 +46,13 @@ const ul = createListsPlugin({
   },
 });
 
+// only used for easier access on createInitialSlateState
+const li = createListItemPlugin({
+  defaultNode: DEFAULT_NODE,
+  tagName: 'li',
+  type: LI,
+});
+
 const indention = createIndentionPlugin({
   iconIncrease: <IncreaseIndentIcon />,
   iconDecrease: <DecreaseIndentIcon />,
@@ -55,5 +63,6 @@ const indention = createIndentionPlugin({
 export default {
   ol,
   ul,
+  li,
   indention,
 };
