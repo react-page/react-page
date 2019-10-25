@@ -24,6 +24,7 @@ function createBasePlugin<T extends {}>(
   );
 
   return {
+    pluginDefintion,
     onKeyDown:
       pluginDefintion.onKeyDown || pluginDefintion.hotKey
         ? simpleToggleHotKeyHandler<T>(pluginDefintion)

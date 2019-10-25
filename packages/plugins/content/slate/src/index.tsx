@@ -25,7 +25,7 @@ import * as React from 'react';
 import Component from './Component';
 import Renderer from './Renderer';
 
-import SlatePlugin, { SlatePluginOrCollection } from './types/SlatePlugin';
+import { SlatePluginCollection } from './types/SlatePlugin';
 import * as hooks from './hooks';
 
 import v002 from './migrations/v002';
@@ -44,10 +44,12 @@ import * as pluginFactories from './pluginFactories/index';
 import serialization from './serialization';
 import { SlateProps } from './types/component';
 import { lazyLoad } from '@react-page/core';
-import createInitialState from './serialization/createInitialState';
-import flattenDeep from './flattenDeep';
+
 import { SlateRendererProps } from './types/renderer';
 import { SlateControlsProps } from './types/controls';
+import makeSlatePluginsFromDef from './utils/makeSlatePluginsFromDef';
+import { InitialSlateStateDef } from './types/initialSlateState';
+import transformInitialSlateState from './utils/transformInitialSlateState';
 
 export { defaultPlugins, slatePlugins, pluginFactories };
 
@@ -57,17 +59,20 @@ const Controls = lazyLoad(() => import('./Controls/'));
 const migrations = [v002, v003];
 type SlateDefinition = {
   icon: JSX.Element;
-  plugins: SlatePluginOrCollection[];
+  plugins: SlatePluginCollection;
   Renderer: React.ComponentType<SlateRendererProps>;
   Controls: React.ComponentType<SlateControlsProps>;
   name: string;
   version: string;
   translations: typeof defaultTranslations;
   migrations: typeof migrations;
-  createInitialState: typeof createInitialState;
+  createInitialSlateState: () => InitialSlateStateDef;
   allowInlineNeighbours: boolean;
 };
-const defaultConfig: SlateDefinition = {
+type DefaultSlateDefinition = SlateDefinition & {
+  plugins: typeof defaultPlugins;
+};
+const defaultConfig: DefaultSlateDefinition = {
   icon: <Subject />,
   plugins: defaultPlugins,
   Renderer,
@@ -76,20 +81,31 @@ const defaultConfig: SlateDefinition = {
   version: '0.0.3',
   translations: defaultTranslations,
   migrations,
-  createInitialState,
+  createInitialSlateState: () => ({
+    children: [
+      {
+        plugin: defaultPlugins.paragraphs.paragraph,
+        children: [''],
+      },
+    ],
+  }),
   allowInlineNeighbours: true,
 };
 
-type CustomizeFunction = (def: SlateDefinition) => SlateDefinition;
+type CustomizeFunction = (def: DefaultSlateDefinition) => SlateDefinition;
 export default (
   customize?: CustomizeFunction
 ): ContentPluginConfig<SlateState> => {
   const settings = customize ? customize(defaultConfig) : defaultConfig;
+  const createInitialState = () =>
+    transformInitialSlateState(settings.createInitialSlateState());
 
   // plugins should be flatten
-  const plugins = flattenDeep<SlatePlugin>(settings.plugins);
-
+  // NEW: to make it easier to manage and group plugins,
+  // they now need to be an object of object with group and keys, see type SlatePluginCollection
+  const plugins = makeSlatePluginsFromDef(settings.plugins);
   const serializeFunctions = serialization({
+    createInitialState,
     plugins,
   });
 
@@ -140,7 +156,7 @@ export default (
     handleRemoveHotKey: hooks.handleRemoveHotKey,
     handleFocusPreviousHotKey: hooks.handleFocusPreviousHotKey,
     handleFocusNextHotKey: hooks.handleFocusNextHotKey,
-    createInitialState: settings.createInitialState,
+    createInitialState: createInitialState,
     serialize: serializeFunctions.serialize,
     unserialize: serializeFunctions.unserialize,
 

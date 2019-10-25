@@ -4,8 +4,10 @@ import createSimpleHtmlBlockPlugin from '../pluginFactories/createSimpleHtmlBloc
 
 const BlockquoteIcon = lazyLoad(() => import('@material-ui/icons/FormatQuote'));
 
-export default createSimpleHtmlBlockPlugin({
-  type: 'BLOCKQUOTE/BLOCKQUOTE',
-  icon: <BlockquoteIcon />,
-  tagName: 'blockquote',
-});
+export default {
+  blockQuote: createSimpleHtmlBlockPlugin({
+    type: 'BLOCKQUOTE/BLOCKQUOTE',
+    icon: <BlockquoteIcon />,
+    tagName: 'blockquote',
+  }),
+};

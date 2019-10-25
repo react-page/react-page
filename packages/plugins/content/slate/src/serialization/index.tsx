@@ -5,7 +5,6 @@ import { Value, ValueJSON } from 'slate';
 
 import { EditorState } from '@react-page/core/lib/types/editor';
 import { PluginProps } from '@react-page/core/lib/service/plugin/classes';
-import createInitialState from './createInitialState';
 
 import parseHtml from '../parseHtml/parseHtml';
 import SlatePlugin from '../types/SlatePlugin';
@@ -16,12 +15,18 @@ type AdditionalSlateFunctions = {
 };
 export type SerializationFunctions = Pick<
   PluginProps<SlateState>,
-  'serialize' | 'unserialize' | 'createInitialState'
+  'serialize' | 'unserialize'
 > &
   AdditionalSlateFunctions;
-export default ({ plugins }: { plugins: SlatePlugin[] }) => {
-  // tslint:disable-next-line:no-any
 
+export default ({
+  createInitialState,
+  plugins,
+}: {
+  // tslint:disable-next-line:no-any
+  createInitialState?: () => any;
+  plugins: SlatePlugin[];
+}) => {
   const rules = plugins
     .filter(p => p.serialize && p.deserialize)
     .map(p => ({
@@ -54,7 +59,7 @@ export default ({ plugins }: { plugins: SlatePlugin[] }) => {
       return { editorState, ...rest };
     }
 
-    return { ...createInitialState(), ...rest };
+    return { ...(createInitialState ? createInitialState() : {}), ...rest };
   };
 
   // tslint:disable-next-line:no-any

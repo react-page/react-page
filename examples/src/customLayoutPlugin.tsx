@@ -1,10 +1,12 @@
 import { createLayoutPlugin } from '@react-page/create-plugin-materialui';
 import React from 'react';
+import slate from '@react-page/plugins-slate';
 
 // tslint:disable-next-line:no-any
-export default (settings: any) =>
-  createLayoutPlugin({
-    ...settings,
+export default () =>
+  createLayoutPlugin<{
+    backgroundColor: string;
+  }>({
     // tslint:disable-next-line:no-any
     Renderer: ({ children, state }: any) => (
       <div
@@ -20,18 +22,18 @@ export default (settings: any) =>
       return [
         [
           {
-            content: { plugin: settings.defaultPlugin },
+            content: { plugin: slate() },
           },
           {
-            content: { plugin: settings.defaultPlugin },
+            content: { plugin: slate() },
           },
         ],
         [
           {
-            content: { plugin: settings.defaultPlugin },
+            content: { plugin: slate() },
           },
           {
-            content: { plugin: settings.defaultPlugin },
+            content: { plugin: slate() },
           },
         ],
       ];
@@ -42,6 +44,7 @@ export default (settings: any) =>
     description: 'Some custom layout plugin',
     version: '0.0.1',
     schema: {
+      required: ['backgroundColor'],
       properties: {
         backgroundColor: { type: 'string' },
       },
