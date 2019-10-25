@@ -1,7 +1,8 @@
 import {
   RenderMarkProps,
   RenderBlockProps,
-  RenderInlineProps
+  RenderInlineProps,
+  Plugin
 } from 'slate-react';
 import { Editor } from 'slate';
 import { NextType } from './next';
@@ -10,7 +11,7 @@ import { PluginButtonProps } from './slatePluginDefinitions';
 /**
  * this is a more low level plugin
  */
-export default interface SlatePlugin {
+export default interface SlatePlugin extends Plugin {
   /**
    * @member a default node
    */
@@ -71,21 +72,6 @@ export default interface SlatePlugin {
     next: NextType
   ) => // tslint:disable-next-line:no-any
   any;
-
-  /**
-   * This handler is called when any key is pressed
-   *
-   * @param e the keydown event
-   * @param data utilities for hotkey logic
-   * @param state the current editor state
-   * @returns the new editor state if the plugin handles the hotkey
-   */
-  onKeyDown?: (
-    e: KeyboardEvent | Event,
-    editor: Editor,
-    // tslint:disable-next-line:no-any
-    next: NextType | any
-  ) => void;
 }
 
 export type SlatePluginOrCollection = SlatePlugin | SlatePlugin[];
