@@ -23,8 +23,13 @@
 import * as React from 'react';
 import PlayArrow from '@material-ui/icons/PlayArrow';
 import { iconStyle } from '../common/styles';
-import ReactPlayer from 'react-player';
+
+import { lazyLoad } from '@react-page/core';
+
 import { VideoHtmlRendererProps } from '../types/renderer';
+
+// react player is big, better lazy load it.
+const ReactPlayer = lazyLoad(() => import('react-player'));
 
 const Display: React.SFC<VideoHtmlRendererProps> = ({
   state: { src },
