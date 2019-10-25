@@ -16,8 +16,14 @@
     "declarationMap": false,
     "composite": false
   },
-  "include": ["src"],
-  "exclude": ["lib", "node_modules", "src/**/__tests__/**/*.*"],
+  "include": [
+    "src"
+  ],
+  "exclude": [
+    "lib",
+    "node_modules",
+    "src/**/__tests__/**/*.*"
+  ],
   "references": [
     {
       "path": "../packages/core"
@@ -52,7 +58,6 @@
     {
       "path": "../packages/plugins/layout/background"
     },
-
     {
       "path": "../packages/plugins/createPluginMaterialUi"
     }
