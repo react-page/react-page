@@ -74,19 +74,9 @@ The spacer is a plugin which you can use to create an empty fixed height cell.
 
 The spacer plugin is not configurable.
 
-### [@react-page/plugins-parallax-background](https://www.npmjs.com/package/@react-page/plugins-parallax-background)
+### [@react-page/plugins-background](https://www.npmjs.com/package/@react-page/plugins-background)
 
-The parallax background plugin is a layout plugin, allowing you to add a parallax background image to your content.
-
-<p>
-  <figure align="center">
-    <img alt="Spacer plugin" src="./images/parallax-background.gif"><br>
-    <figcaption>The parallax background plugin</figcaption>
-  </figure>
-</p>
-
-The parallax background plugin is not configurable.
-
+The background plugin is a layout plugin, allowing you to add a background image, gradients and parallax-backgrounds to your content.
 
 ## Didn't find what you were looking for?
 

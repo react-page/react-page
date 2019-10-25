@@ -48,10 +48,6 @@ import '@react-page/plugins-image/lib/index.css';
 import video from '@react-page/plugins-video';
 import '@react-page/plugins-video/lib/index.css';
 
-// The parallax plugin
-import parallax from '@react-page/plugins-parallax-background';
-import '@react-page/plugins-parallax-background/lib/index.css';
-
 // The background plugin
 import background from '@react-page/plugins-background';
 import { ModeEnum } from '@react-page/plugins-background';
@@ -130,7 +126,6 @@ const plugins: Plugins = {
         ModeEnum.IMAGE_MODE_FLAG |
         ModeEnum.GRADIENT_MODE_FLAG,
     }),
-    parallax({ defaultPlugin: slatePlugin }),
     customLayoutPlugin({ defaultPlugin: slatePlugin }),
   ],
 
