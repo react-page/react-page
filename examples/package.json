@@ -20,7 +20,7 @@
     "@react-page/plugins-video": "0.0.0",
     "@react-page/renderer": "0.0.0",
     "@react-page/ui": "0.0.0",
-    "react-scripts": "2.1.1",
+    "react-scripts": "3.2.0",
     "source-map-explorer": "^2.0.1",
     "uuid": "^3.0.1"
   },

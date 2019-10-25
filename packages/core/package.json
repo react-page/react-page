@@ -11,11 +11,11 @@
     "build": "npm-run-all --parallel build:lib build:css",
     "build:watch": "npm-run-all --parallel build:lib:watch build:css:watch",
     "build:lib": "tsc -p ./tsconfig.json && tsc -p ./tsconfig-es.json",
-    "build:lib:watch": "npm run build:lib -- --watch",
+    "build:lib:watch": "npm-run-all build:lib -- --watch",
     "build:css": "postcss -c ../../postcss.config.js --dir lib/ src/index.css",
-    "build:css:watch": "npm run build:css -- -w",
+    "build:css:watch": "npm-run-all build:css -- -w",
     "docs": "documentation build ./lib/**/*.js --format md --github -o ../../docs/api/core.md",
-    "prebuild": "npm run clean",
+    "prebuild": "npm-run-all clean",
     "clean": "rimraf \"lib\" && rimraf \"lib-es\""
   },
   "peerDependencies": {
