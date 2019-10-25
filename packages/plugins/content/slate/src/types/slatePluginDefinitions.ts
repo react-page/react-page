@@ -28,11 +28,7 @@ export type SlatePluginControls<T extends {}> = {
 
 export type SlateBasePluginDefinition<T extends {}> = {
   hotKey?: string;
-  onKeyDown?: (
-    e: KeyboardEvent | Event,
-    editor: Editor,
-    next: NextType
-  ) => void;
+  onKeyDown?: (e: React.KeyboardEvent, editor: Editor, next: NextType) => void;
   schema?: JsonSchema<T>;
   Controls?: React.ComponentType<SlatePluginControls<T>>;
   icon?: JSX.Element;

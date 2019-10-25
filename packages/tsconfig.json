@@ -11,7 +11,6 @@
     { "path": "plugins/content/slate" },
     { "path": "plugins/content/spacer" },
     { "path": "plugins/content/video" },
-    { "path": "plugins/layout/background" },
-    { "path": "plugins/layout/parallax-background" }
+    { "path": "plugins/layout/background" }
   ]
 }

@@ -11,7 +11,7 @@
     "build": "npm-run-all --parallel build:lib",
     "build:watch": "npm-run-all --parallel build:lib:watch",
     "build:lib": "tsc -p ./tsconfig.json && tsc -p ./tsconfig-es.json",
-    "build:lib:watch": "npm run build:lib -- --watch",
+    "build:lib:watch": "npm-run-all build:lib -- --watch",
     "docs": "documentation build ./lib/**/*.js --format md --github -o ../../../docs/api/plugins/image.md",
     "prebuild": "yarn clean",
     "clean": "rimraf \"lib\" && rimraf \"lib-es\""
@@ -19,16 +19,16 @@
   "peerDependencies": {
     "@material-ui/core": "*",
     "@material-ui/icons": "*",
-    "react": "^16.0.0",
-    "react-dom": "^16.0.0"
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6"
   },
   "dependencies": {
     "@react-page/core": "0.0.0",
     "@react-page/ui": "0.0.0",
     "lodash.debounce": "^4.0.8",
-    "uniforms": "^2.4.0",
-    "uniforms-bridge-json-schema": "^2.4.0",
-    "uniforms-material": "^2.4.0"
+    "uniforms": "^2.5.0",
+    "uniforms-bridge-json-schema": "^2.5.0",
+    "uniforms-material": "^2.5.0"
   },
   "publishConfig": {
     "access": "public"

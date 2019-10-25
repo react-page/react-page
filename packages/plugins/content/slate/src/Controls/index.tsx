@@ -161,7 +161,7 @@ class Slate extends React.Component<SlateProps, SlateState> {
     }
   }
 
-  onPaste = (e: Event, editor: CoreEditor, next: NextType) => {
+  onPaste = (e: React.ClipboardEvent, editor: CoreEditor, next: NextType) => {
     const transfer = getEventTransfer(e);
     if (transfer.type !== 'html') {
       return next();
@@ -176,17 +176,17 @@ class Slate extends React.Component<SlateProps, SlateState> {
   }
 
   onKeyDown = (
-    e: KeyboardEvent,
+    e: React.KeyboardEvent,
     editor: CoreEditor,
     next: NextType
   ): boolean => {
     // we need to prevent slate from handling undo and redo
-    if (isHotkey(['mod+z', 'mod+y'], e)) {
+    if (isHotkey(['mod+z', 'mod+y'], e.nativeEvent)) {
       this.setState({ editorState: undefined });
       return true;
     }
 
-    if (isHotkey('shift+enter', e)) {
+    if (isHotkey('shift+enter', e.nativeEvent)) {
       e.preventDefault();
       editor.insertText('\n');
       return true;

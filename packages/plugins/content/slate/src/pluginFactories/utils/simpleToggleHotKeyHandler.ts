@@ -6,7 +6,7 @@ import { SlatePluginDefinition } from '../../types/slatePluginDefinitions';
 import SlateHelpers from './SlateHelpers';
 
 export default <T>(config: SlatePluginDefinition<T>) => (
-  e: KeyboardEvent,
+  e: React.KeyboardEvent,
   editor: Editor,
   next: NextType
 ): boolean => {
@@ -15,7 +15,7 @@ export default <T>(config: SlatePluginDefinition<T>) => (
   if (config.isDisabled && config.isDisabled(editor)) {
     return;
   }
-  if (isHotkey(hotKey, e)) {
+  if (isHotkey(hotKey, e.nativeEvent)) {
     if (slateHelpers.isActive()) {
       slateHelpers.remove();
     } else {

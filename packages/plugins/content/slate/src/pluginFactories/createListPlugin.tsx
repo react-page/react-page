@@ -46,7 +46,8 @@ function createListPlugin<T = {}>(def: ListDef) {
         customizers && customizers.customizeListItem
       ),
       {
-        onKeyDown: slateEditList.onKeyDown,
+        onKeyDown: (e: React.KeyboardEvent, editor, next) =>
+          slateEditList.onKeyDown((e as unknown) as Event, editor, next),
       },
     ];
   };

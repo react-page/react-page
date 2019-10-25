@@ -20,8 +20,8 @@
  *
  */
 
-import * as React from 'react';
-import * as ReactDOM from 'react-dom';
+import React from 'react';
+import ReactDOM from 'react-dom';
 
 // The editor core
 import Editor, { Editable, createEmptyState } from '@react-page/core';
@@ -47,10 +47,6 @@ import '@react-page/plugins-image/lib/index.css';
 // The video plugin
 import video from '@react-page/plugins-video';
 import '@react-page/plugins-video/lib/index.css';
-
-// The parallax plugin
-import parallax from '@react-page/plugins-parallax-background';
-import '@react-page/plugins-parallax-background/lib/index.css';
 
 // The background plugin
 import background from '@react-page/plugins-background';
@@ -79,9 +75,10 @@ import { Plugins } from '@react-page/core';
 import customSlatePlugin from './customSlatePlugin';
 import customLayoutPluginWithInitialState from './customLayoutPluginWithInitialState';
 
-const fakeImageUploadService: (
-  url: string
-) => ImageUploadType = defaultUrl => (file, reportProgress) => {
+const fakeImageUploadService: (url: string) => ImageUploadType = defaultUrl => (
+  file,
+  reportProgress
+) => {
   return new Promise((resolve, reject) => {
     let counter = 0;
     const interval = setInterval(() => {
@@ -135,7 +132,6 @@ const plugins: Plugins = {
         ModeEnum.IMAGE_MODE_FLAG |
         ModeEnum.GRADIENT_MODE_FLAG,
     }),
-    parallax({ defaultPlugin: slatePlugin }),
     customLayoutPlugin(),
     customLayoutPluginWithInitialState(),
   ],
