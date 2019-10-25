@@ -27,7 +27,7 @@
   "dependencies": {
     "@react-page/core": "0.0.0",
     "@react-page/ui": "0.0.0",
-    "react-player": "1.7.1"
+    "react-player": "^1.13.0"
   },
   "devDependencies": {},
   "publishConfig": {
