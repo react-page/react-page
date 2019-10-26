@@ -35,6 +35,7 @@ import { isEditMode, isPreviewMode } from '../../../selector/display';
 
 import { ComponetizedCell } from '../../../types/editable';
 import { LayoutPluginProps } from '../../../service/plugin/classes';
+import scollIntoViewWithOffset from '../utils/scollIntoViewWithOffset';
 
 // TODO clean me up #157
 class Layout extends React.PureComponent<ComponetizedCell> {
@@ -89,6 +90,9 @@ class Layout extends React.PureComponent<ComponetizedCell> {
       // We need this because otherwise we lose hotkey focus on elements like spoilers.
       // This could probably be solved in an easier way by listening to window.document?
       handleFocus(pass, focusSource, this.ref);
+      if (this.ref) {
+        scollIntoViewWithOffset(this.ref, 100);
+      }
     } else if (was && !is) {
       handleBlur(pass);
     }
