@@ -90,7 +90,7 @@ const ToolbarButtons = ({
   </div>
 );
 
-class Slate extends React.Component<SlateProps, SlateState> {
+class Slate extends React.PureComponent<SlateProps, SlateState> {
   private toolbar: React.RefObject<HTMLDivElement>;
   private editor: React.RefObject<CoreEditor>;
   private flushStateDebounced: (() => void) & Cancelable;
@@ -204,8 +204,8 @@ class Slate extends React.Component<SlateProps, SlateState> {
     const showBottomToolbar = Boolean(focused);
 
     return (
-      <div>
-        {focused && (
+      <>
+        {!readOnly && focused && (
           <Portal>
             {/* ory-prevent-blur is required to prevent global blurring */}
 
@@ -252,7 +252,7 @@ class Slate extends React.Component<SlateProps, SlateState> {
             />
           </BottomToolbar>
         ) : null}
-      </div>
+      </>
     );
   }
 }
