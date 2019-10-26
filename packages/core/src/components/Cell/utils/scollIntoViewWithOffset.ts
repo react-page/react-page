@@ -1,4 +1,8 @@
-export default (element: HTMLElement, offset = 0) => {
+export default (
+  element: HTMLElement,
+  offset = 0,
+  behavior: ScrollBehavior = 'smooth'
+) => {
   if (!element) {
     return;
   }
@@ -9,6 +13,6 @@ export default (element: HTMLElement, offset = 0) => {
 
   window.scrollTo({
     top: offsetPosition,
-    behavior: 'smooth',
+    behavior,
   });
 };
