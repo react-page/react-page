@@ -39,6 +39,7 @@ import {
 
 import { ComponetizedCell } from '../../../types/editable';
 import { ContentPluginProps } from '../../../service/plugin/classes';
+import scollIntoViewWithOffset from '../utils/scollIntoViewWithOffset';
 
 // TODO clean me up #157
 class Content extends React.PureComponent<ComponetizedCell> {
@@ -92,7 +93,12 @@ class Content extends React.PureComponent<ComponetizedCell> {
     if (!was && is) {
       // We need this because otherwise we lose hotkey focus on elements like spoilers.
       // This could probably be solved in an easier way by listening to window.document?
+
       handleFocus(pass, focusSource, this.ref);
+      // scroll to the plugin
+      if (this.ref) {
+        scollIntoViewWithOffset(this.ref, 100);
+      }
     } else if (was && !is) {
       handleBlur(pass);
     }
