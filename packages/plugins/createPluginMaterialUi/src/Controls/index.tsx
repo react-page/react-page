@@ -35,14 +35,16 @@ function Controls<T>(props: ControlProps<T>) {
       <Renderer {...props} state={preview || state} />
 
       <BottomToolbar open={focused} title={props.text} onDelete={remove}>
-        <AutoForm
-          model={preview || state}
-          autosave={true}
-          schema={makeUniformsSchema<T>(schema)}
-          onSubmit={onSubmit}
-        >
-          <AutoFields />
-        </AutoForm>
+        <div style={{ marginBottom: 12 }}>
+          <AutoForm
+            model={preview || state}
+            autosave={true}
+            schema={makeUniformsSchema<T>(schema)}
+            onSubmit={onSubmit}
+          >
+            <AutoFields />
+          </AutoForm>
+        </div>
       </BottomToolbar>
     </>
   );

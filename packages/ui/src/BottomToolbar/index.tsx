@@ -71,14 +71,15 @@ const BottomToolbar: React.SFC<BottomToolbar> = ({
           borderRadius: '4px 4px 0 0',
           backgroundColor: dark ? darkBlack : bright,
           padding: '12px 24px',
+
           margin: 'auto',
-          boxShadow: '0px 1px 6px -1px rgba(0,0,0,0.2)',
+          boxShadow: '0px 1px 8px -1px rgba(0,0,0,0.4)',
           position: 'relative',
         }}
       >
         {title || onDelete ? (
           <>
-            <Typography>{title}</Typography>
+            <Typography variant="subtitle1">{title}</Typography>
             {onDelete ? (
               <IconButton
                 onClick={onDelete}
