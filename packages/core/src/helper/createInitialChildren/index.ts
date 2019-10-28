@@ -15,6 +15,9 @@ type CellDef = {
     plugin: LayoutPluginConfig;
     state?: object;
   };
+  size?: number;
+  // tslint:disable-next-line:no-any
+  [key: string]: any;
 };
 export type RowDef = CellDef[];
 
@@ -32,6 +35,9 @@ export type ChildrenDef = {
         plugin: LayoutPlugin;
         state?: object;
       };
+      size?: number;
+      // tslint:disable-next-line:no-any
+      [key: string]: any;
     }[];
   }[];
 };
@@ -53,15 +59,12 @@ export default (rows: RowDef[]): ChildrenDef => ({
   id: v4(),
   rows: rows.map(row => ({
     id: v4(),
-    cells: row.map(cell => {
+    cells: row.map(({ layout, content, ...rest }) => {
       return {
         id: v4(),
-        layout: cell.layout
-          ? withDefaultState(cell.layout, LayoutPlugin)
-          : undefined,
-        content: cell.content
-          ? withDefaultState(cell.content, ContentPlugin)
-          : undefined,
+        layout: layout ? withDefaultState(layout, LayoutPlugin) : undefined,
+        content: content ? withDefaultState(content, ContentPlugin) : undefined,
+        ...rest,
       };
     }),
   })),
