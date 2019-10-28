@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { Fragment, useState, useCallback } from 'react';
 import { ControlProps } from '../types';
 
 import {
@@ -40,14 +40,22 @@ function Controls<T>(props: ControlProps<T>) {
         onDelete={remove}
         icon={props.IconComponent}
       >
-        <div style={{ marginBottom: 12 }}>
+        <div style={{ marginBottom: 24 }}>
           <AutoForm
             model={preview || state}
             autosave={true}
             schema={makeUniformsSchema<T>(schema)}
             onSubmit={onSubmit}
           >
-            <AutoFields />
+            <div
+              style={{
+                columnCount: 2,
+                columnRule: '1px solid #E0E0E0',
+                columnGap: 48,
+              }}
+            >
+              <AutoFields element={Fragment} />
+            </div>
           </AutoForm>
         </div>
       </BottomToolbar>

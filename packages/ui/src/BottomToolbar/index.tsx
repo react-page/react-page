@@ -86,6 +86,7 @@ const BottomToolbar: React.SFC<BottomToolbarProps> = ({
           boxShadow: '0px 1px 8px -1px rgba(0,0,0,0.4)',
           position: 'relative',
           minWidth: '50vw',
+          maxWidth: 'calc(100vw - 220px)',
         }}
       >
         {title || onDelete ? (
