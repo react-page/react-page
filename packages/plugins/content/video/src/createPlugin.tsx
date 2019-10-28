@@ -29,9 +29,6 @@ import { VideoSettings } from './types/settings';
 import { VideoProps } from './types/component';
 import { VideoState } from './types/state';
 import { defaultSettings } from './default/settings';
-import { lazyLoad } from '@react-page/core';
-
-const PlayArrow = lazyLoad(() => import('@material-ui/icons/PlayArrow'));
 
 const createPlugin: (
   settings: VideoSettings
@@ -41,11 +38,10 @@ const createPlugin: (
     <Spacer {...props} {...mergedSettings} />
   );
   return {
-    
     Component: WrappedComponent,
     name: 'ory/editor/core/content/video',
     version: '0.0.1',
-    IconComponent: <PlayArrow />,
+    IconComponent: mergedSettings.IconComponent,
     text: mergedSettings.translations.pluginName,
     description: mergedSettings.translations.pluginDescription,
     isInlineable: true,

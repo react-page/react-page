@@ -1,5 +1,7 @@
 import * as React from 'react';
 import { ImageSettings } from '../types/settings';
+import { lazyLoad } from '@react-page/core';
+const Panorama = lazyLoad(() => import('@material-ui/icons/Panorama'));
 
 export const defaultTranslations = {
   pluginName: 'Image',
@@ -14,7 +16,8 @@ export const defaultTranslations = {
 };
 
 export const defaultSettings: ImageSettings = {
-  Controls: () => <> Controls for this plugin were not provided</> ,
+  Controls: () => <> Controls for this plugin were not provided</>,
   Renderer: () => <>Renderer; for this plugin was not provided </>,
   translations: defaultTranslations,
+  IconComponent: <Panorama />,
 };

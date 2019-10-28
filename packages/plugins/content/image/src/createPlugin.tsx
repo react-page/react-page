@@ -29,9 +29,6 @@ import {
 import { ImageState } from './types/state';
 import { ImageSettings } from './types/settings';
 import { defaultSettings } from './default/settings';
-import { lazyLoad } from '@react-page/core';
-
-const Panorama = lazyLoad(() => import('@material-ui/icons/Panorama'));
 
 const createPlugin = (
   settings?: ImageSettings
@@ -41,10 +38,10 @@ const createPlugin = (
     Component: (props: ContentPluginProps<ImageState>) => (
       <Component {...props} {...mergedSettings} />
     ),
-    
+
     name: 'ory/editor/core/content/image',
     version: '0.0.1',
-    IconComponent: <Panorama />,
+    IconComponent: mergedSettings.IconComponent,
     text: mergedSettings.translations.pluginName,
     isInlineable: true,
     description: mergedSettings.translations.pluginDescription,

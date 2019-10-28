@@ -51,7 +51,11 @@ class BackgroundDefaultControls extends React.Component<
         ? this.props.lightenPreview
         : lighten;
     return (
-      <BottomToolbar open={focused}>
+      <BottomToolbar
+        open={focused}
+        title={this.props.translations.pluginName}
+        icon={this.props.IconComponent}
+      >
         <Tabs
           value={this.state.mode}
           onChange={this.handleChangeMode}

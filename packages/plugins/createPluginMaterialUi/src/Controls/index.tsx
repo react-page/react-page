@@ -34,7 +34,12 @@ function Controls<T>(props: ControlProps<T>) {
     <>
       <Renderer {...props} state={preview || state} />
 
-      <BottomToolbar open={focused} title={props.text} onDelete={remove}>
+      <BottomToolbar
+        open={focused}
+        title={props.text}
+        onDelete={remove}
+        icon={props.IconComponent}
+      >
         <div style={{ marginBottom: 12 }}>
           <AutoForm
             model={preview || state}

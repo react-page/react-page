@@ -31,9 +31,7 @@ import { Html5VideoSettings } from './types/settings';
 import { Html5VideoProps } from './types/component';
 import { Html5VideoState } from './types/state';
 import { defaultSettings } from './default/settings';
-import { lazyLoad } from '@react-page/core';
 
-const Icon = lazyLoad(() => import('@material-ui/icons/PlayArrow'));
 export type Props = ContentPluginProps;
 
 const rejectPromise: (e: Event, props: Props) => Promise<void> = (
@@ -49,13 +47,12 @@ const createPlugin: (
     <Html5Video {...props} {...mergedSettings} />
   );
   return {
-    
     Component: WrappedComponent,
     name: 'ory/sites/plugin/content/html5-video',
     version: '0.0.1',
     text: mergedSettings.translations.pluginName,
     description: mergedSettings.translations.pluginDescription,
-    IconComponent: <Icon />,
+    IconComponent: mergedSettings.IconComponent,
     handleFocusNextHotKey: rejectPromise,
     handleFocusPreviousHotKey: rejectPromise,
     createInitialState: () => ({

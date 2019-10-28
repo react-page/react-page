@@ -8,4 +8,5 @@ export interface VideoSettings {
   placeholder?: string;
   label?: string;
   translations?: Translations;
+  IconComponent?: React.ReactNode;
 }

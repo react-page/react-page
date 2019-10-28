@@ -69,7 +69,7 @@ class Item extends React.Component<ItemProps, ItemState> {
     return (
       <ListItem className="ory-toolbar-item">
         <Avatar
-          children={plugin.IconComponent}
+          children={plugin.IconComponent || plugin.text[0]}
           style={{
             marginRight: 16,
           }}
