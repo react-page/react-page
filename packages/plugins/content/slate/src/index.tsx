@@ -92,9 +92,11 @@ const defaultConfig: DefaultSlateDefinition = {
   allowInlineNeighbours: true,
 };
 
-type CustomizeFunction = (def: DefaultSlateDefinition) => SlateDefinition;
+export type SlateCustomizeFunction = (
+  def: DefaultSlateDefinition
+) => SlateDefinition;
 export default (
-  customize?: CustomizeFunction
+  customize?: SlateCustomizeFunction
 ): ContentPluginConfig<SlateState> => {
   const settings = customize ? customize(defaultConfig) : defaultConfig;
   const createInitialState = () =>
@@ -110,7 +112,6 @@ export default (
   });
 
   return {
-    
     Component: (props: SlateProps) => (
       <Component
         Renderer={settings.Renderer}
