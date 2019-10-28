@@ -23,7 +23,7 @@ type NumberProperty = {
 } & CommonPropertyProps;
 
 type ObjectProperty<T extends object> = JsonSchema<T> & CommonPropertyProps;
-type Property<T> = T extends object
+export type JsonSchemaProperty<T> = T extends object
   ? ObjectProperty<T>
   : T extends string
   ? StringProperty
@@ -36,7 +36,7 @@ type Property<T> = T extends object
 export type JsonSchema<T extends object> = {
   title?: string;
   type: 'object';
-  properties: { [K in keyof T]-?: Property<T[K]> };
+  properties: { [K in keyof T]-?: JsonSchemaProperty<T[K]> };
   // required: string[];
   /** union to tuple conversion is expensive, we do a poor mans version here */
   required: Array<keyof T>;
