@@ -37,6 +37,7 @@ const bright = 'rgba(255,255,255, 0.98)';
 const brightBorder = 'rgba(0, 0, 0, 0.12)';
 export interface BottomToolbarProps {
   open?: boolean;
+  hideHeader?: boolean;
   children?: Object;
   className?: string;
   dark: boolean;
@@ -52,7 +53,7 @@ const BottomToolbar: React.SFC<BottomToolbarProps> = ({
   children,
   className,
   dark = false,
-
+  hideHeader = false,
   anchor = 'bottom',
   onDelete = null,
   title,
@@ -89,46 +90,50 @@ const BottomToolbar: React.SFC<BottomToolbarProps> = ({
           maxWidth: 'calc(100vw - 220px)',
         }}
       >
-        <Grid container={true} direction="row" alignItems="center">
-          <Grid item={true}>
-            <Avatar
-              children={icon || (title ? title[0] : '')}
+        {!hideHeader ? (
+          <>
+            <Grid container={true} direction="row" alignItems="center">
+              <Grid item={true}>
+                <Avatar
+                  children={icon || (title ? title[0] : '')}
+                  style={{
+                    marginRight: 16,
+                  }}
+                />
+              </Grid>
+              <Grid item={true}>
+                <Typography variant="subtitle1">{title}</Typography>
+              </Grid>
+              {onDelete ? (
+                <Grid item={true} style={{ marginLeft: 'auto' }}>
+                  <IconButton
+                    onClick={onDelete}
+                    aria-label="delete"
+                    color="secondary"
+                  >
+                    <Delete fontSize="small" />
+                  </IconButton>
+                  <IconButton
+                    onClick={onDelete}
+                    aria-label="delete"
+                    color="secondary"
+                  >
+                    <Delete fontSize="small" />
+                  </IconButton>
+                </Grid>
+              ) : null}
+            </Grid>
+
+            <Divider
               style={{
-                marginRight: 16,
+                marginLeft: -24,
+                marginRight: -24,
+                marginTop: 12,
+                marginBottom: 12,
               }}
             />
-          </Grid>
-          <Grid item={true}>
-            <Typography variant="subtitle1">{title}</Typography>
-          </Grid>
-          {onDelete ? (
-            <Grid item={true} style={{ marginLeft: 'auto' }}>
-              <IconButton
-                onClick={onDelete}
-                aria-label="delete"
-                color="secondary"
-              >
-                <Delete fontSize="small" />
-              </IconButton>
-              <IconButton
-                onClick={onDelete}
-                aria-label="delete"
-                color="secondary"
-              >
-                <Delete fontSize="small" />
-              </IconButton>
-            </Grid>
-          ) : null}
-        </Grid>
-
-        <Divider
-          style={{
-            marginLeft: -24,
-            marginRight: -24,
-            marginTop: 12,
-            marginBottom: 12,
-          }}
-        />
+          </>
+        ) : null}
 
         {children}
       </div>

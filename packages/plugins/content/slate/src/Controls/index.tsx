@@ -243,7 +243,7 @@ class Slate extends React.PureComponent<SlateProps, SlateState> {
         />
 
         {!readOnly ? (
-          <BottomToolbar open={showBottomToolbar} dark={true}>
+          <BottomToolbar open={showBottomToolbar} dark={true} hideHeader={true}>
             <ToolbarButtons
               {...this.props}
               translations={this.props.translations}
