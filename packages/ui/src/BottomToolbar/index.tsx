@@ -89,43 +89,47 @@ const BottomToolbar: React.SFC<BottomToolbarProps> = ({
           maxWidth: 'calc(100vw - 220px)',
         }}
       >
-        {title || onDelete ? (
-          <>
-            <Grid container={true} direction="row" alignItems="center">
-              <Grid item={true}>
-                <Avatar
-                  children={icon || (title ? title[0] : '')}
-                  style={{
-                    marginRight: 16,
-                  }}
-                />
-              </Grid>
-              <Grid item={true}>
-                <Typography variant="subtitle1">{title}</Typography>
-              </Grid>
-              {onDelete ? (
-                <Grid item={true} style={{ marginLeft: 'auto' }}>
-                  <IconButton
-                    onClick={onDelete}
-                    aria-label="delete"
-                    color="secondary"
-                  >
-                    <Delete fontSize="small" />
-                  </IconButton>
-                </Grid>
-              ) : null}
-            </Grid>
-
-            <Divider
+        <Grid container={true} direction="row" alignItems="center">
+          <Grid item={true}>
+            <Avatar
+              children={icon || (title ? title[0] : '')}
               style={{
-                marginLeft: -24,
-                marginRight: -24,
-                marginTop: 12,
-                marginBottom: 12,
+                marginRight: 16,
               }}
             />
-          </>
-        ) : null}
+          </Grid>
+          <Grid item={true}>
+            <Typography variant="subtitle1">{title}</Typography>
+          </Grid>
+          {onDelete ? (
+            <Grid item={true} style={{ marginLeft: 'auto' }}>
+              <IconButton
+                onClick={onDelete}
+                aria-label="delete"
+                color="secondary"
+              >
+                <Delete fontSize="small" />
+              </IconButton>
+              <IconButton
+                onClick={onDelete}
+                aria-label="delete"
+                color="secondary"
+              >
+                <Delete fontSize="small" />
+              </IconButton>
+            </Grid>
+          ) : null}
+        </Grid>
+
+        <Divider
+          style={{
+            marginLeft: -24,
+            marginRight: -24,
+            marginTop: 12,
+            marginBottom: 12,
+          }}
+        />
+
         {children}
       </div>
     </Drawer>
