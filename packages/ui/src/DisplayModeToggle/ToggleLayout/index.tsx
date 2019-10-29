@@ -23,9 +23,7 @@ import * as React from 'react';
 import ViewQuilt from '@material-ui/icons/ViewQuilt';
 import Button from '../Button';
 
-import { connect } from '@react-page/core';
-
-import { Selectors, Actions } from '@react-page/core';
+import { connect, Selectors, Actions } from '@react-page/core';
 
 import { createStructuredSelector } from 'reselect';
 

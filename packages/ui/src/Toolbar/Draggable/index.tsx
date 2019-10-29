@@ -24,9 +24,8 @@ import * as React from 'react';
 import { DragSource as dragSource } from 'react-dnd';
 import { source, collect } from './helper/index';
 import classNames from 'classnames';
-import { connect } from '@react-page/core';
 
-import { Actions, shouldPureComponentUpdate } from '@react-page/core';
+import { connect, Actions, shouldPureComponentUpdate } from '@react-page/core';
 
 const instances = {};
 

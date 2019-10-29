@@ -21,8 +21,8 @@
  */
 import * as React from 'react';
 import Resize from '@material-ui/icons/SettingsOverscan';
-import { connect } from '@react-page/core';
-import { Selectors, Actions } from '@react-page/core';
+
+import { connect, Selectors, Actions } from '@react-page/core';
 import { createStructuredSelector } from 'reselect';
 
 import Button from '../Button/index';
