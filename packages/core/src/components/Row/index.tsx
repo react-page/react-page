@@ -21,7 +21,7 @@
  */
 
 import * as React from 'react';
-import { connect } from 'react-redux';
+import { connect } from '../../reduxConnect';
 import { createStructuredSelector } from 'reselect';
 
 import droppable from './Droppable';
@@ -69,7 +69,8 @@ const mapStateToProps = createStructuredSelector({
   isInsertMode,
   isEditMode,
   node: purifiedNode,
-  rawNode: (state: RootState, props: { id: string; editable: string }) => () => node(state, props),
+  rawNode: (state: RootState, props: { id: string; editable: string }) => () =>
+    node(state, props),
 });
 
 const mapDispatchToProps = {

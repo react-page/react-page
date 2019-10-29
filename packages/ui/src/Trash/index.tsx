@@ -25,7 +25,7 @@ import { DropTarget as dropTarget } from 'react-dnd';
 import Delete from '@material-ui/icons/Delete';
 import Fab from '@material-ui/core/Fab';
 import { Editor, Actions, Selectors } from '@react-page/core';
-import { connect } from 'react-redux';
+import { connect } from '@react-page/core';
 import classNames from 'classnames';
 
 import throttle from 'lodash.throttle';

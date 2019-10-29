@@ -21,7 +21,7 @@
  */
 import * as React from 'react';
 import Drawer from '@material-ui/core/Drawer';
-import { connect } from 'react-redux';
+import { connect } from '@react-page/core';
 import { Selectors, Editor } from '@react-page/core';
 import { createStructuredSelector } from 'reselect';
 

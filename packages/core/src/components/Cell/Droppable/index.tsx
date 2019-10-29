@@ -22,7 +22,7 @@
 
 import * as React from 'react';
 import { DropTarget as dropTarget } from 'react-dnd';
-import { connect } from 'react-redux';
+import { connect } from '../../../reduxConnect';
 import classNames from 'classnames';
 
 import { dragActions } from '../../../actions/cell/drag';

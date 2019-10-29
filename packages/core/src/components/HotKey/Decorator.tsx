@@ -21,7 +21,7 @@
  */
 
 import { Component } from 'react';
-import { connect } from 'react-redux';
+import { connect } from '../../reduxConnect';
 import { createStructuredSelector } from 'reselect';
 import pathOr from 'ramda/src/pathOr';
 import Mousetrap from 'mousetrap';

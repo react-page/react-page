@@ -22,7 +22,7 @@
 
 import * as React from 'react';
 import Snackbar from '@material-ui/core/Snackbar';
-import { connect } from 'react-redux';
+import { connect } from '@react-page/core';
 import { createStructuredSelector } from 'reselect';
 import { Actions, Selectors, RootState, i18n } from '@react-page/core';
 

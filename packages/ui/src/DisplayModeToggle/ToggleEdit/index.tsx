@@ -23,7 +23,7 @@ import * as React from 'react';
 import Create from '@material-ui/icons/Create';
 import Button from '../Button/index';
 
-import { connect } from 'react-redux';
+import { connect } from '@react-page/core';
 
 import { Actions, Selectors } from '@react-page/core';
 import { createStructuredSelector } from 'reselect';
