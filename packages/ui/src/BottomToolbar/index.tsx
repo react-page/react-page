@@ -113,13 +113,6 @@ const BottomToolbar: React.SFC<BottomToolbarProps> = ({
                   >
                     <Delete fontSize="small" />
                   </IconButton>
-                  <IconButton
-                    onClick={onDelete}
-                    aria-label="delete"
-                    color="secondary"
-                  >
-                    <Delete fontSize="small" />
-                  </IconButton>
                 </Grid>
               ) : null}
             </Grid>
