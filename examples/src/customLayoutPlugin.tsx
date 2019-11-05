@@ -1,6 +1,6 @@
 import { createLayoutPlugin } from '@react-page/create-plugin-materialui';
 import React from 'react';
-import slate from '@react-page/plugins-slate';
+import { defaultSlate, reducedSlate } from './plugins';
 
 // tslint:disable-next-line:no-any
 export default () =>
@@ -22,18 +22,18 @@ export default () =>
       return [
         [
           {
-            content: { plugin: slate() },
+            content: { plugin: defaultSlate },
           },
           {
-            content: { plugin: slate() },
+            content: { plugin: defaultSlate },
           },
         ],
         [
           {
-            content: { plugin: slate() },
+            content: { plugin: reducedSlate },
           },
           {
-            content: { plugin: slate() },
+            content: { plugin: reducedSlate },
           },
         ],
       ];
