@@ -21,7 +21,6 @@
  */
 
 import * as React from 'react';
-import { Provider } from 'react-redux';
 
 import dragDropContext from '../DragDropContext';
 import HotKeyDecorator from '../HotKey/Decorator';
@@ -30,6 +29,7 @@ import Inner from './Inner';
 
 import { EditorState } from '../../types/editor';
 import Editor from '../../';
+import { ReduxProvider } from '../../reduxConnect';
 
 export type PropTypes = {
   id: string;
@@ -85,13 +85,13 @@ class Editable extends React.PureComponent<PropTypes> {
     const DragDropContext = this.DragDropContext;
 
     return (
-      <Provider store={store}>
+      <ReduxProvider store={store}>
         <DragDropContext>
           <HotKeyDecorator id={id}>
             <Inner id={id} defaultPlugin={defaultPlugin} />
           </HotKeyDecorator>
         </DragDropContext>
-      </Provider>
+      </ReduxProvider>
     );
   }
 }

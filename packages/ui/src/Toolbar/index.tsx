@@ -21,8 +21,8 @@
  */
 import * as React from 'react';
 import Drawer from '@material-ui/core/Drawer';
-import { connect } from 'react-redux';
-import { Selectors, Editor } from '@react-page/core';
+
+import { connect, Selectors, Editor } from '@react-page/core';
 import { createStructuredSelector } from 'reselect';
 
 import List from '@material-ui/core/List';

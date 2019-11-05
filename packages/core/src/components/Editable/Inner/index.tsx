@@ -21,7 +21,7 @@
  */
 import throttle from 'lodash.throttle';
 import * as React from 'react';
-import { connect } from 'react-redux';
+import { connect } from '../../../reduxConnect';
 import { createStructuredSelector } from 'reselect';
 
 import { ContentPlugin } from '../../../service/plugin/classes';

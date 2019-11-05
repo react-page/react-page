@@ -22,7 +22,7 @@
 import { Value } from 'slate';
 import Plain from 'slate-plain-serializer';
 
-import defaultPlugins from '../plugins/defaultPlugins';
+import * as defaultPlugins from '../plugins';
 import serialization from '../serialization';
 import makeSlatePluginsFromDef from '../utils/makeSlatePluginsFromDef';
 const serializationFunctions = serialization({

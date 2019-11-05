@@ -23,9 +23,7 @@ import * as React from 'react';
 import Create from '@material-ui/icons/Create';
 import Button from '../Button/index';
 
-import { connect } from 'react-redux';
-
-import { Actions, Selectors } from '@react-page/core';
+import { connect, Actions, Selectors } from '@react-page/core';
 import { createStructuredSelector } from 'reselect';
 
 export interface InnerReduxProps {

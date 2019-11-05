@@ -51,6 +51,7 @@ import i18n from './service/i18n';
 import { InitialChildrenDef } from './helper/createInitialChildren';
 import sanitizeInitialChildren from './helper/sanitizeInitialChildren';
 import DragDropContext from './components/DragDropContext';
+import { ReduxProvider, connect, ReduxContext } from './reduxConnect';
 export {
   Plugin,
   Plugins,
@@ -72,7 +73,10 @@ export {
   Editable,
   Editor,
   reducer,
-  lazyLoad
+  lazyLoad,
+  ReduxProvider,
+  connect,
+  ReduxContext
 };
 let instance: Editor;
 

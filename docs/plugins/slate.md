@@ -11,7 +11,7 @@ By default we provide the following plugins:
 - `lists`: place ordered and unordered lists
 - `paragraph`: default paragraph
 
-[See the full list here](/packages/plugins/content/slate/plugins/defaultPlugins.tsx)
+[See the full list here](/packages/plugins/content/slate/plugins/index.tsx)
 
 If you only want to include some plugins, you can specify them:
 

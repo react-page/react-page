@@ -22,7 +22,7 @@
 
 import * as React from 'react';
 import { HotKeys } from 'react-hotkeys';
-import { connect } from 'react-redux';
+import { connect } from '../../reduxConnect';
 import pathOr from 'ramda/src/pathOr';
 import { createStructuredSelector } from 'reselect';
 

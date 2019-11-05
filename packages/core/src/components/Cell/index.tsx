@@ -21,7 +21,7 @@
  */
 
 import * as React from 'react';
-import { connect } from 'react-redux';
+import { connect } from '../../reduxConnect';
 import classNames from 'classnames';
 import { bindActionCreators } from 'redux';
 import { createStructuredSelector } from 'reselect';

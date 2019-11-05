@@ -22,7 +22,7 @@
 
 import * as React from 'react';
 import { Resizable as ReactResizeable } from 'react-resizable';
-import { connect } from 'react-redux';
+import { connect } from '../../../reduxConnect';
 import classNames from 'classnames';
 import { createStructuredSelector } from 'reselect';
 

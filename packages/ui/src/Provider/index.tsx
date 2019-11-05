@@ -20,8 +20,8 @@
  *
  */
 import * as React from 'react';
-import { Provider as ReduxProvider } from 'react-redux';
-import { Editor, DragDropContext } from '@react-page/core';
+
+import { Editor, DragDropContext, ReduxProvider } from '@react-page/core';
 import ThemeProvider from '../ThemeProvider/index';
 
 export interface ProviderProps {

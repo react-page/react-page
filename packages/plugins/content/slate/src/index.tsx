@@ -38,8 +38,8 @@ import { pathOr } from 'ramda/src/pathOr';
 import { ActionTypes } from 'redux-undo';
 import { AnyAction } from 'redux';
 import { defaultTranslations } from './default/settings';
-import defaultPlugins from './plugins/defaultPlugins';
-import * as slatePlugins from './plugins/index';
+
+import * as defaultPlugins from './plugins/index';
 import * as pluginFactories from './pluginFactories/index';
 import serialization from './serialization';
 import { SlateProps } from './types/component';
@@ -51,6 +51,7 @@ import makeSlatePluginsFromDef from './utils/makeSlatePluginsFromDef';
 import { InitialSlateStateDef } from './types/initialSlateState';
 import transformInitialSlateState from './utils/transformInitialSlateState';
 
+const slatePlugins = defaultPlugins;
 export { defaultPlugins, slatePlugins, pluginFactories };
 
 const Subject = lazyLoad(() => import('@material-ui/icons/Subject'));
