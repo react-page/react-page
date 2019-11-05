@@ -210,48 +210,47 @@ const infoboxSlate = slate(def => ({
 
 
 const infobox = createLayoutPlugin({
-
-    Renderer: ({ children, state }: any) => (
-      <div
-        style={{
-          border: '1px solid black',
-          borderRadius: 4,
-          padding: 20
-        }}
-      >
-        {children}
-      </div>
-    ),
-    createInitialChildren: () => {
-      return [
-        [
-          {
-            content: {
-              plugin: infoboxSlate
-              state: infoboxSlate.createInitialSlateState(({ plugins }) => ({
-                children: [
-                  {
-                    plugin: plugins.headings.h3,
-                    children: ['Hello world'],
-                  },
-                  {
-                    plugin: plugins.paragraphs.paragraph,
-                    children: ['Title and paragraph'],
-                  },
-                ],
-              })),
-            },
+  Renderer: ({ children, state }: any) => (
+    <div
+      style={{
+        border: '1px solid black',
+        borderRadius: 4,
+        padding: 20
+      }}
+    >
+      {children}
+    </div>
+  ),
+  createInitialChildren: () => {
+    return [
+      [
+        {
+          content: {
+            plugin: infoboxSlate
+            state: infoboxSlate.createInitialSlateState(({ plugins }) => ({
+              children: [
+                {
+                  plugin: plugins.headings.h3,
+                  children: ['Hello world'],
+                },
+                {
+                  plugin: plugins.paragraphs.paragraph,
+                  children: ['Title and paragraph'],
+                },
+              ],
+            })),
           },
+        },
 
-        ],
-      ];
-    },
-    name: 'infobox',
-    text: 'infobox',
-    description: 'Some infobox',
-    version: '0.0.1',
-    schema: null
-  })
+      ],
+    ];
+  },
+  name: 'infobox',
+  text: 'infobox',
+  description: 'Some infobox',
+  version: '0.0.1',
+  schema: null
+})
 
 
 // dont forget to add this custom plugin to your plugins:
