@@ -16,11 +16,13 @@ const ImageDefaultControls: React.SFC<ImageControlsProps> = props => {
     focused,
     remove,
   } = props;
+
   return (
     <div>
       <Renderer {...props} imagePreview={props.imagePreview} />
       {!readOnly && focused && (
         <BottomToolbar
+          icon={props.IconComponent}
           open={props.focused}
           title={props.translations.pluginName}
           onDelete={remove}

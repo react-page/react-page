@@ -82,13 +82,14 @@ const insert = (type: string) => (
   return dispatch => {
     dispatch(insertAction);
     // FIXME: checking if an item is new or just moved around is a bit awkward
-    const isNew = !item.id;
+    const isNew = !item.id || (item.rows && !item.levels);
+
     if (isNew) {
       dispatch(editMode());
-      setTimeout(() => {
-        dispatch(focusCell(insertAction.ids.item)());
-      }, 300);
     }
+    setTimeout(() => {
+      dispatch(focusCell(insertAction.ids.item)());
+    }, 300);
   };
 };
 

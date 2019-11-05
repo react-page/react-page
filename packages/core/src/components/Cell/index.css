@@ -39,8 +39,7 @@
 }
 
 .ory-cell-focused {
-  /* box-shadow: 0 0 5px rgb(81, 203, 238); */
-  /* outline: 1px solid rgb(81, 203, 238); */
+  box-shadow: 0 0 1000px rgba(0, 0, 0, 0.5);
 }
 
 .ory-cell {

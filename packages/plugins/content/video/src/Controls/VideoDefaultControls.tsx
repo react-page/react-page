@@ -40,6 +40,7 @@ const Form: React.SFC<VideoControlsProps> = props => {
     <BottomToolbar
       open={focused}
       title={props.translations.pluginName}
+      icon={props.IconComponent}
       onDelete={remove}
     >
       <TextField

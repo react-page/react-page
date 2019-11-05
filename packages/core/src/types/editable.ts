@@ -120,6 +120,7 @@ export type ComponetizedCell = {
   resizeCell(id: string): void;
   focusCell(props: { source?: string }): void;
   blurCell(id: string): void;
+
   blurAllCells(): void;
   updateCellContent(state: Object): void;
   updateCellLayout(state: Object): void;
@@ -216,6 +217,7 @@ export type EditableComponentState = {
   isEditMode: boolean;
   isLayoutMode: boolean;
   isPreviewMode: boolean;
+  displayMode: string;
   defaultPlugin: ContentPluginConfig;
 
   blurAllCells(): void;

@@ -6,6 +6,7 @@ const Trash = loadable(() => import('./Trash/index'));
 const Toolbar = loadable(() => import('./Toolbar/index'));
 const DisplayModeToggle = loadable(() => import('./DisplayModeToggle/index'));
 const BottomToolbar = loadable(() => import('./BottomToolbar/index'));
+
 const ThemeProvider = loadable(() => import('./ThemeProvider/index'));
 const ImageUpload = loadable(() => import('./ImageUpload/index'));
 const ColorPicker = loadable(() => import('./ColorPicker/index'));

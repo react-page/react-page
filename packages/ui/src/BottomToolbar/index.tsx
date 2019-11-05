@@ -24,29 +24,40 @@ import Drawer from '@material-ui/core/Drawer';
 import * as React from 'react';
 
 import ThemeProvider, { darkTheme } from '../ThemeProvider';
-import { Typography, Divider, IconButton } from '@material-ui/core';
+import {
+  Typography,
+  Divider,
+  IconButton,
+  Grid,
+  Avatar
+} from '@material-ui/core';
 
 const darkBlack = 'rgba(0, 0, 0, 0.87)';
 const bright = 'rgba(255,255,255, 0.98)';
 const brightBorder = 'rgba(0, 0, 0, 0.12)';
-export interface BottomToolbar {
+export interface BottomToolbarProps {
   open?: boolean;
+  hideHeader?: boolean;
   children?: Object;
   className?: string;
   dark: boolean;
   title?: string;
-  anchor?: 'top' | 'bottom';
+  anchor?: 'top' | 'bottom' | 'left' | 'right';
   onDelete?: () => void;
+  // tslint:disable-next-line:no-any
+  icon?: any;
 }
 
-const BottomToolbar: React.SFC<BottomToolbar> = ({
+const BottomToolbar: React.SFC<BottomToolbarProps> = ({
   open = false,
   children,
   className,
   dark = false,
+  hideHeader = false,
   anchor = 'bottom',
   onDelete = null,
   title,
+  icon = null,
 }) => (
   <ThemeProvider theme={dark ? darkTheme : null}>
     <Drawer
@@ -71,29 +82,59 @@ const BottomToolbar: React.SFC<BottomToolbar> = ({
           borderRadius: '4px 4px 0 0',
           backgroundColor: dark ? darkBlack : bright,
           padding: '12px 24px',
+
           margin: 'auto',
-          boxShadow: '0px 1px 6px -1px rgba(0,0,0,0.2)',
+          boxShadow: '0px 1px 8px -1px rgba(0,0,0,0.4)',
           position: 'relative',
+          minWidth: '50vw',
+          maxWidth: 'calc(100vw - 220px)',
         }}
       >
-        {title || onDelete ? (
+        {!hideHeader ? (
           <>
-            <Typography>{title}</Typography>
-            {onDelete ? (
-              <IconButton
-                onClick={onDelete}
-                aria-label="delete"
-                color="secondary"
-                style={{ position: 'absolute', top: 0, right: 0 }}
-              >
-                <Delete fontSize="small" />
-              </IconButton>
-            ) : null}
+            <Grid container={true} direction="row" alignItems="center">
+              <Grid item={true}>
+                <Avatar
+                  children={icon || (title ? title[0] : '')}
+                  style={{
+                    marginRight: 16,
+                  }}
+                />
+              </Grid>
+              <Grid item={true}>
+                <Typography variant="subtitle1">{title}</Typography>
+              </Grid>
+              {onDelete ? (
+                <Grid item={true} style={{ marginLeft: 'auto' }}>
+                  <IconButton
+                    onClick={onDelete}
+                    aria-label="delete"
+                    color="secondary"
+                  >
+                    <Delete fontSize="small" />
+                  </IconButton>
+                  <IconButton
+                    onClick={onDelete}
+                    aria-label="delete"
+                    color="secondary"
+                  >
+                    <Delete fontSize="small" />
+                  </IconButton>
+                </Grid>
+              ) : null}
+            </Grid>
+
             <Divider
-              style={{ marginLeft: -24, marginRight: -24, marginBottom: 12 }}
+              style={{
+                marginLeft: -24,
+                marginRight: -24,
+                marginTop: 12,
+                marginBottom: 12,
+              }}
             />
           </>
         ) : null}
+
         {children}
       </div>
     </Drawer>
