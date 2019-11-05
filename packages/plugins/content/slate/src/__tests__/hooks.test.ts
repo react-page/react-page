@@ -28,7 +28,7 @@ import * as unexpected from 'unexpected';
 import { SlateState } from '../types/state';
 
 import serialization from '../serialization';
-import defaultPlugins from '../plugins/defaultPlugins';
+import * as defaultPlugins from '../plugins';
 import makeSlatePluginsFromDef from '../utils/makeSlatePluginsFromDef';
 
 const serializationFunctions = serialization({
