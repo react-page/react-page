@@ -37,7 +37,7 @@
     "react-draggable": "^3.0.3",
     "react-hotkeys": "^0.10.0",
     "react-redux": "^7.1.1",
-    "react-resizable": "^1.7.3",
+    "react-resizable": "^1.9.0",
     "redux": "^4.0.4",
     "redux-thunk": "^2.3.0",
     "redux-undo": "1.0.0-beta9-7",
