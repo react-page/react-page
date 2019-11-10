@@ -27,12 +27,8 @@ type ArrayProperty<T> = {
   type: 'array';
   items: JsonSchemaProperty<T>;
 };
-export type JsonSchemaProperty<T> = T extends (
-  | string
-  | number
-  | object
-  | boolean)[]
-  ? ArrayProperty<T[0]>
+export type JsonSchemaProperty<T> = T extends (infer U)[]
+  ? ArrayProperty<U>
   : T extends object
   ? ObjectProperty<T>
   : T extends string
