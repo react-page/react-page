@@ -23,7 +23,17 @@ type NumberProperty = {
 } & CommonPropertyProps;
 
 type ObjectProperty<T extends object> = JsonSchema<T> & CommonPropertyProps;
-export type JsonSchemaProperty<T> = T extends object
+type ArrayProperty<T> = {
+  type: 'array';
+  items: JsonSchemaProperty<T>;
+};
+export type JsonSchemaProperty<T> = T extends (
+  | string
+  | number
+  | object
+  | boolean)[]
+  ? ArrayProperty<T[0]>
+  : T extends object
   ? ObjectProperty<T>
   : T extends string
   ? StringProperty
