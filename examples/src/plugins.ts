@@ -61,6 +61,7 @@ import { ImageUploadType } from '@react-page/ui/lib/ImageUpload/types';
 import { Plugins } from '@react-page/core';
 import customSlatePlugin from './customSlatePlugin';
 import customLayoutPluginWithInitialState from './customLayoutPluginWithInitialState';
+import customContentPluginWithListField from './customContentPluginWithListField';
 
 const fakeImageUploadService: (url: string) => ImageUploadType = defaultUrl => (
   file,
@@ -126,6 +127,7 @@ export const plugins: Plugins = {
     divider,
     html5video,
     customContentPlugin(),
+    customContentPluginWithListField(),
   ],
   layout: [
     background({

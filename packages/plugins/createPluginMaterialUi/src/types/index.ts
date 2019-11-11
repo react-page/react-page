@@ -10,8 +10,12 @@ import {
 
 export type ControlsType<T> = React.ComponentType<ControlProps<T>>;
 
+export type ControlsLayout = {
+  columnCount: number;
+};
 type CommonProps<T extends {}> = {
   schema: Omit<JsonSchema<T>, 'type'>;
+  controlsLayout?: ControlsLayout;
 };
 
 type CommonContentPluginProps<T> = {

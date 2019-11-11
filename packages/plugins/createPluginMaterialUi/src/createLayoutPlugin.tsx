@@ -13,6 +13,7 @@ type CustomizeFunction<T, CT> = (
 
 function createPluginWithDef<T extends {}>({
   schema,
+  controlsLayout,
   Renderer,
   ...pluginSettings
 }: LayoutPluginDefinition<T>): LayoutPluginConfig<T> {
@@ -25,7 +26,12 @@ function createPluginWithDef<T extends {}>({
       return (
         <>
           {!props.readOnly ? (
-            <Controls schema={schema} Renderer={Renderer} {...props} />
+            <Controls
+              controlsLayout={controlsLayout}
+              schema={schema}
+              Renderer={Renderer}
+              {...props}
+            />
           ) : (
             <Renderer {...props} />
           )}

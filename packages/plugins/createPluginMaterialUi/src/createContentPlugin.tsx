@@ -14,6 +14,7 @@ type CustomizeFunction<T, CT> = (
 function createPluginWithDef<T extends {}>({
   schema,
   Renderer,
+  controlsLayout,
   ...pluginSettings
 }: ContentPluginDefinition<T>): ContentPluginConfig<T> {
   const Controls = lazyLoad(
@@ -25,7 +26,12 @@ function createPluginWithDef<T extends {}>({
       return (
         <>
           {!props.readOnly ? (
-            <Controls schema={schema} Renderer={Renderer} {...props} />
+            <Controls
+              controlsLayout={controlsLayout}
+              schema={schema}
+              Renderer={Renderer}
+              {...props}
+            />
           ) : (
             <Renderer {...props} />
           )}
@@ -33,7 +39,6 @@ function createPluginWithDef<T extends {}>({
       );
     },
     ...pluginSettings,
-    
   };
 }
 
