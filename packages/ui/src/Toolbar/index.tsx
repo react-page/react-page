@@ -115,7 +115,18 @@ class Raw extends React.Component<Props, RawState> {
     return (
       plugin &&
       plugin.name &&
-      plugin.name.toLowerCase().startsWith(this.state.searchText.toLowerCase())
+      !plugin.hideInMenu &&
+      (plugin.name
+        .toLowerCase()
+        .startsWith(this.state.searchText.toLowerCase()) ||
+        (plugin.description &&
+          plugin.description
+            .toLowerCase()
+            .startsWith(this.state.searchText.toLowerCase())) ||
+        (plugin.text &&
+          plugin.text
+            .toLowerCase()
+            .startsWith(this.state.searchText.toLowerCase())))
     );
   }
 
@@ -195,6 +206,7 @@ class Raw extends React.Component<Props, RawState> {
           >
             {layout.map((plugin: LayoutPlugin, k: Number) => {
               const initialState = plugin.createInitialState();
+
               const children = sanitizeInitialChildren(
                 plugin.createInitialChildren()
               );

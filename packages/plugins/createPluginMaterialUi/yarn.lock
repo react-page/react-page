@@ -60,7 +60,7 @@ tslib@^1.0.0:
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-1.10.0.tgz#c3c19f95973fb0a62973fb09d90d961ee43e5c8a"
   integrity sha512-qOebF53frne81cf0S9B41ByenJ3/IuH8yJKngAX35CmiZySA0khhkovshKK+jGCaMnVomla7gVlIcc3EvKPbTQ==
 
-uniforms-bridge-json-schema@^2.5.0:
+uniforms-bridge-json-schema@~2.5.0:
   version "2.5.0"
   resolved "https://registry.yarnpkg.com/uniforms-bridge-json-schema/-/uniforms-bridge-json-schema-2.5.0.tgz#2b3d94b2861bfcebfc85012bfe62c87ee9bfd905"
   integrity sha512-cnRw8UhNKkP2yXeY/IOcTgFYZ7IS0S228lMti/XypF1x48AF/NOk+lDu37IX/g1nWeJDA9ucsDmcc/1Jk7Sfiw==
@@ -70,7 +70,7 @@ uniforms-bridge-json-schema@^2.5.0:
     tslib "^1.0.0"
     uniforms "^2.5.0"
 
-uniforms-material@^2.5.0:
+uniforms-material@~2.5.0:
   version "2.5.0"
   resolved "https://registry.yarnpkg.com/uniforms-material/-/uniforms-material-2.5.0.tgz#38998941ef2b3abe8a3f1af4fa03e5253fbc5054"
   integrity sha512-oPm/X6P1Q6R3zaeYR55gKotsbxggBkoTQiF9QJemYP6aPJyKVXfvJS591vsSaDjK8JolhJnKk75gIxxnxjCdUg==
@@ -82,6 +82,16 @@ uniforms-material@^2.5.0:
     uniforms "^2.5.0"
 
 uniforms@^2.5.0:
+  version "2.6.0"
+  resolved "https://registry.yarnpkg.com/uniforms/-/uniforms-2.6.0.tgz#05fcb8c866b8a7e924c5c8c77182799105ce3fa2"
+  integrity sha512-utHxTyxnt5jV/SGJOigfSIRzk9zW2EXpgFIS4h/d/rfZ5rVPFCdPgZJ3S7S0Op5gmHT5jWei9/Ai0Hs50DT+lA==
+  dependencies:
+    invariant "^2.0.0"
+    lodash "^4.0.0"
+    prop-types "^15.5.7"
+    tslib "^1.0.0"
+
+uniforms@~2.5.0:
   version "2.5.0"
   resolved "https://registry.yarnpkg.com/uniforms/-/uniforms-2.5.0.tgz#4278532a0b82b4f78a52d41d213fbb9439843d98"
   integrity sha512-o+v01Qf42iYLW6AUZogiyyGioLaiIEhOdM4X8FDW7hS3t8A9PyZNH+UGQTUrusQx2Huw/a//8FA9REx9jqU4vg==

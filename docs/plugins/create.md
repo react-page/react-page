@@ -117,7 +117,6 @@ export default {
     [
       {
         content: { plugin: slate() }
-        // or another layout plugin: layout: { plugin: someLayoutPlugin() }
       }
     ]
   ]
@@ -125,3 +124,5 @@ export default {
 ```
 
 On that example, the initial children is a slate plugin.
+
+See [slate](./slate.md) for a more in-depth example

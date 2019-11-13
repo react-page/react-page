@@ -13,7 +13,7 @@ const SpacerDefaultControls: React.SFC<SpacerControlsProps> = props => {
   const {
     isPreviewMode,
     isEditMode,
-    focused,
+    remove,
     Renderer,
     changeHeightPreview,
     commitHeight,
@@ -36,7 +36,12 @@ const SpacerDefaultControls: React.SFC<SpacerControlsProps> = props => {
           width={0}
         >
           <div style={{ height, position: 'relative' }}>
-            <BottomToolbar open={focused}>
+            <BottomToolbar
+              icon={props.IconComponent}
+              open={props.focused}
+              title={props.translations.pluginName}
+              onDelete={remove}
+            >
               <TextField
                 placeholder="24"
                 label={props.translations.elementHeightLabel}
@@ -46,7 +51,6 @@ const SpacerDefaultControls: React.SFC<SpacerControlsProps> = props => {
                   changeHeightPreview(parseInt(e.target.value, 10))
                 }
                 onBlur={() => commitHeight()}
-                color="white"
                 type="number"
               />
             </BottomToolbar>

@@ -1,6 +1,6 @@
 import { createLayoutPlugin } from '@react-page/create-plugin-materialui';
 import React from 'react';
-import slate from '@react-page/plugins-slate';
+import { defaultSlate, reducedSlate } from './plugins';
 
 // tslint:disable-next-line:no-any
 export default () =>
@@ -23,70 +23,63 @@ export default () =>
         [
           {
             content: {
-              plugin: slate(def => ({
-                ...def,
-                createInitialSlateState: () => ({
-                  children: [
-                    {
-                      // you can use the plugin-function itself here
-                      plugin: def.plugins.headings.h1,
-                      children: ['Hello World'],
-                    },
-                    {
-                      plugin: def.plugins.paragraphs.paragraph,
-                      children: [
-                        'You can create slate plugins with initial state like this',
-                      ],
-                    },
-                  ],
-                }),
+              plugin: reducedSlate,
+              state: reducedSlate.createInitialSlateState(({ plugins }) => ({
+                children: [
+                  {
+                    plugin: plugins.headings.h2,
+                    children: ['Hello world'],
+                  },
+                  {
+                    plugin: plugins.paragraphs.paragraph,
+                    children: ['Title and paragraph'],
+                  },
+                ],
               })),
             },
           },
           {
             content: {
-              plugin: slate(def => ({
-                ...def,
-                createInitialSlateState: () => ({
-                  children: [
-                    {
-                      plugin: def.plugins.headings.h1,
-                      children: ['A default list'],
-                    },
-                    {
-                      plugin: def.plugins.lists.ul,
-                      children: [
-                        {
-                          plugin: def.plugins.lists.li,
-                          children: [
-                            {
-                              plugin: def.plugins.paragraphs.paragraph,
-                              children: ['one'],
-                            },
-                          ],
-                        },
-                        {
-                          plugin: def.plugins.lists.li,
-                          children: [
-                            {
-                              plugin: def.plugins.paragraphs.paragraph,
-                              children: ['two'],
-                            },
-                          ],
-                        },
-                        {
-                          plugin: def.plugins.lists.li,
-                          children: [
-                            {
-                              plugin: def.plugins.paragraphs.paragraph,
-                              children: ['three'],
-                            },
-                          ],
-                        },
-                      ],
-                    },
-                  ],
-                }),
+              plugin: defaultSlate,
+              state: defaultSlate.createInitialSlateState(({ plugins }) => ({
+                children: [
+                  {
+                    plugin: plugins.headings.h1,
+                    children: ['A default list'],
+                  },
+                  {
+                    plugin: plugins.lists.ul,
+                    children: [
+                      {
+                        plugin: plugins.lists.li,
+                        children: [
+                          {
+                            plugin: plugins.paragraphs.paragraph,
+                            children: ['one'],
+                          },
+                        ],
+                      },
+                      {
+                        plugin: plugins.lists.li,
+                        children: [
+                          {
+                            plugin: plugins.paragraphs.paragraph,
+                            children: ['two'],
+                          },
+                        ],
+                      },
+                      {
+                        plugin: plugins.lists.li,
+                        children: [
+                          {
+                            plugin: plugins.paragraphs.paragraph,
+                            children: ['three'],
+                          },
+                        ],
+                      },
+                    ],
+                  },
+                ],
               })),
             },
           },
@@ -94,29 +87,18 @@ export default () =>
         [
           {
             content: {
-              plugin: slate(def => ({
-                ...def,
-                plugins: {
-                  paragraphs: def.plugins.paragraphs,
-                  headings: {
-                    h3: def.plugins.headings.h3,
+              plugin: reducedSlate,
+              state: reducedSlate.createInitialSlateState(({ plugins }) => ({
+                children: [
+                  {
+                    plugin: plugins.headings.h2,
+                    children: ['Hello world'],
                   },
-                  emphasize: def.plugins.emphasize,
-                },
-                createInitialSlateState: () => ({
-                  children: [
-                    {
-                      plugin: def.plugins.headings.h3,
-                      children: ['you can also restrict slate plugins in here'],
-                    },
-                    {
-                      plugin: def.plugins.paragraphs.paragraph,
-                      children: [
-                        'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. ',
-                      ],
-                    },
-                  ],
-                }),
+                  {
+                    plugin: plugins.paragraphs.paragraph,
+                    children: ['Another entry'],
+                  },
+                ],
               })),
             },
           },

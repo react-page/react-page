@@ -34,7 +34,7 @@ class BackgroundDefaultControls extends React.Component<
   public render() {
     const {
       focused,
-
+      remove,
       state: {
         hasPadding = this.props.defaultHasPadding,
         modeFlag = this.props.defaultModeFlag,
@@ -55,6 +55,7 @@ class BackgroundDefaultControls extends React.Component<
         open={focused}
         title={this.props.translations.pluginName}
         icon={this.props.IconComponent}
+        onDelete={remove}
       >
         <Tabs
           value={this.state.mode}

@@ -185,3 +185,91 @@ const linkWithTracking = yourLinkPlugin<{campaignTrackingId: string}>(def => ({
   }
 }))
 ```
+
+### Prefilled layouts
+
+You might want to restrict slate in certain layout plugins. E.g. you have a info-box where you only want to allow: h3, bold, emphasize and underline:
+
+```
+// this is the default slate configuration with all plugins
+const defaultSlate = slate();
+
+// this will be our restricted slate
+const infoboxSlate = slate(def => ({
+  ...def,
+  name: def.name + '/infobox', // give it some  name, it has to be unique
+  hideInMenu: true, // We don't want to show it in the menu, we need it only for layout-plugins
+  plugins: {
+    headings: {
+      h3: def.plugins.headings.h3,
+    },
+    paragraphs: def.plugins.paragraphs,
+    emphasize: def.plugins.emphasize,
+  },
+}));
+
+
+const infobox = createLayoutPlugin({
+  Renderer: ({ children, state }: any) => (
+    <div
+      style={{
+        border: '1px solid black',
+        borderRadius: 4,
+        padding: 20
+      }}
+    >
+      {children}
+    </div>
+  ),
+  createInitialChildren: () => {
+    return [
+      [
+        {
+          content: {
+            plugin: infoboxSlate
+            state: infoboxSlate.createInitialSlateState(({ plugins }) => ({
+              children: [
+                {
+                  plugin: plugins.headings.h3,
+                  children: ['Hello world'],
+                },
+                {
+                  plugin: plugins.paragraphs.paragraph,
+                  children: ['Title and paragraph'],
+                },
+              ],
+            })),
+          },
+        },
+
+      ],
+    ];
+  },
+  name: 'infobox',
+  text: 'infobox',
+  description: 'Some infobox',
+  version: '0.0.1',
+  schema: null
+})
+
+
+// dont forget to add this custom plugin to your plugins:
+
+
+const editor = new Editor({
+  plugins: {
+    content: [
+      defaultSlate,
+      infoboxSlate,
+      // ...
+    ],
+    layout: [
+      infobox,
+      ...
+    ]
+  }
+  // ...
+})
+
+
+```

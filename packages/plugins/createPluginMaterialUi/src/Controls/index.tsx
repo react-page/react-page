@@ -1,5 +1,5 @@
 import React, { Fragment, useState, useCallback } from 'react';
-import { ControlProps } from '../types';
+import { ControlProps, ControlsLayout } from '../types';
 
 import {
   AutoForm as AutoFormOrg,
@@ -15,6 +15,9 @@ const AutoForm: any = AutoFormOrg;
 // tslint:disable-next-line:no-any
 const AutoFields: any = AutoFieldsOrg;
 
+const defaultControlsLayout: ControlsLayout = {
+  columnCount: 2,
+};
 function Controls<T>(props: ControlProps<T>) {
   const saveDebounced = useCallback(
     debounce((m: T) => props.onChange(m), 1000),
@@ -28,8 +31,14 @@ function Controls<T>(props: ControlProps<T>) {
     saveDebounced(model);
   };
 
-  const { focused, state, schema, Renderer, remove } = props;
-
+  const {
+    focused,
+    state,
+    schema,
+    controlsLayout = defaultControlsLayout,
+    Renderer,
+    remove,
+  } = props;
   return (
     <>
       <Renderer {...props} state={preview || state} />
@@ -40,7 +49,7 @@ function Controls<T>(props: ControlProps<T>) {
         onDelete={remove}
         icon={props.IconComponent}
       >
-        <div style={{ marginBottom: 24 }}>
+        <div style={{ marginBottom: 24, maxHeight: '50vh', overflow: 'auto' }}>
           <AutoForm
             model={preview || state}
             autosave={true}
@@ -49,7 +58,7 @@ function Controls<T>(props: ControlProps<T>) {
           >
             <div
               style={{
-                columnCount: 2,
+                columnCount: controlsLayout.columnCount || 2,
                 columnRule: '1px solid #E0E0E0',
                 columnGap: 48,
               }}

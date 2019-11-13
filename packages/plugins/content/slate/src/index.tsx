@@ -50,6 +50,7 @@ import { SlateControlsProps } from './types/controls';
 import makeSlatePluginsFromDef from './utils/makeSlatePluginsFromDef';
 import { InitialSlateStateDef } from './types/initialSlateState';
 import transformInitialSlateState from './utils/transformInitialSlateState';
+import { Value } from 'slate';
 
 const slatePlugins = defaultPlugins;
 export { defaultPlugins, slatePlugins, pluginFactories };
@@ -67,12 +68,17 @@ type SlateDefinition = {
   version: string;
   translations: typeof defaultTranslations;
   migrations: typeof migrations;
-  createInitialSlateState: () => InitialSlateStateDef;
+  createInitialSlateState: CreateInitialStateCustomizer;
   allowInlineNeighbours: boolean;
+  hideInMenu?: boolean;
 };
 type DefaultSlateDefinition = SlateDefinition & {
   plugins: typeof defaultPlugins;
 };
+export type CreateInitialStateCustomizer = (
+  { plugins }: { plugins: SlatePluginCollection }
+) => InitialSlateStateDef;
+
 const defaultConfig: DefaultSlateDefinition = {
   icon: <Subject />,
   plugins: defaultPlugins,
@@ -82,10 +88,11 @@ const defaultConfig: DefaultSlateDefinition = {
   version: '0.0.3',
   translations: defaultTranslations,
   migrations,
-  createInitialSlateState: () => ({
+
+  createInitialSlateState: ({ plugins }) => ({
     children: [
       {
-        plugin: defaultPlugins.paragraphs.paragraph,
+        plugin: plugins.paragraphs.paragraph,
         children: [''],
       },
     ],
@@ -93,15 +100,24 @@ const defaultConfig: DefaultSlateDefinition = {
   allowInlineNeighbours: true,
 };
 
+type CreateInitialSlateState = (
+  custom?: CreateInitialStateCustomizer
+) => { editorState: Value };
+export type SlatePlugin = ContentPluginConfig<SlateState> & {
+  createInitialSlateState: CreateInitialSlateState;
+};
 export type SlateCustomizeFunction = (
   def: DefaultSlateDefinition
 ) => SlateDefinition;
-export default (
-  customize?: SlateCustomizeFunction
-): ContentPluginConfig<SlateState> => {
+export default (customize?: SlateCustomizeFunction): SlatePlugin => {
   const settings = customize ? customize(defaultConfig) : defaultConfig;
-  const createInitialState = () =>
-    transformInitialSlateState(settings.createInitialSlateState());
+  const createInitialState = (
+    customizeInitialSlateState?: CreateInitialStateCustomizer
+  ) => {
+    const func = customizeInitialSlateState || settings.createInitialSlateState;
+
+    return transformInitialSlateState(func({ plugins: settings.plugins }));
+  };
 
   // plugins should be flatten
   // NEW: to make it easier to manage and group plugins,
@@ -129,7 +145,7 @@ export default (
     IconComponent: settings.icon,
     text: settings.translations.pluginName,
     description: settings.translations.pluginDescription,
-
+    hideInMenu: settings.hideInMenu,
     allowInlineNeighbours: settings.allowInlineNeighbours,
 
     // tslint:disable-next-line:no-any
@@ -159,6 +175,7 @@ export default (
     handleFocusPreviousHotKey: hooks.handleFocusPreviousHotKey,
     handleFocusNextHotKey: hooks.handleFocusNextHotKey,
     createInitialState: createInitialState,
+    createInitialSlateState: createInitialState,
     serialize: serializeFunctions.serialize,
     unserialize: serializeFunctions.unserialize,
 

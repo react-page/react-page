@@ -121,6 +121,7 @@ export type ContentPluginProps<
 export type LayoutPluginExtraProps<T = any> = {
   // tslint:disable-next-line:no-any
   createInitialChildren?: () => InitialChildrenDef;
+  plugins?: Pick<Plugins, 'content' | 'layout'>;
 
   Component?: PluginComponentType<LayoutPluginProps<T>>;
 };
@@ -173,6 +174,7 @@ export type PluginProps<
   >;
 
   IconComponent?: React.ReactNode;
+  hideInMenu?: boolean;
 
   text?: string;
 
@@ -198,7 +200,9 @@ export type PluginProps<
   handleBlur?: (props: PluginProps<StateT, ExtraPropsT> & ExtraPropsT) => void;
   reducer?: (state: StateT, action: AnyAction) => StateT;
   migrations?: Migration[];
-  createInitialState?: () => StateT;
+
+  // tslint:disable-next-line:no-any
+  createInitialState?: (...args: any[]) => StateT;
 
   focus?: (props: { source: string }) => void;
 
@@ -297,6 +301,7 @@ export class Plugin<T = any, ExtraProps = {}> {
    * @member the text that will be shown alongside the icon in the toolbar.
    */
   text: string;
+  hideInMenu?: boolean;
   // tslint:disable-next-line:no-any
   constructor(config: PluginConfig<T, ExtraProps>) {
     const {
@@ -333,6 +338,7 @@ export class Plugin<T = any, ExtraProps = {}> {
     this.description = description;
     this.config = config;
     this.migrations = migrations ? migrations : [];
+    this.hideInMenu = config.hideInMenu;
 
     this.serialize = serialize ? serialize.bind(this) : this.serialize;
     this.unserialize = unserialize ? unserialize.bind(this) : this.unserialize;
@@ -489,9 +495,22 @@ export class LayoutPlugin<StateT = any> extends Plugin<
   StateT,
   LayoutPluginExtraProps
 > {
+  // child plugins. They are only relevant for childrens on renderings
+  plugins?: Pick<PluginsInternal, 'layout' | 'content'>;
   constructor(config: LayoutPluginConfig<StateT>) {
     super(config);
     const { createInitialState, createInitialChildren } = config;
+    // child plugins
+    this.plugins = config.plugins
+      ? {
+          content: config.plugins.content
+            ? config.plugins.content.map(p => new ContentPlugin(p))
+            : null,
+          layout: config.plugins.layout
+            ? config.plugins.layout.map(p => new LayoutPlugin(p))
+            : null,
+        }
+      : null;
 
     this.createInitialState = createInitialState
       ? createInitialState.bind(this)
@@ -575,5 +594,6 @@ export class NativePlugin<StateT> extends Plugin<StateT> {
    *
    * @returns the initial state.
    */
-  createInitialState = (): Object => ({});
+  // tslint:disable-next-line:no-any
+  createInitialState = (...args: any[]): Object => ({});
 }
