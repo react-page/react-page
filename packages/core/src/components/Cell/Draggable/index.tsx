@@ -20,16 +20,14 @@
  *
  */
 
-import * as React from 'react';
-import { DragSource as dragSource } from 'react-dnd';
-import { connect } from '../../../reduxConnect';
 import classNames from 'classnames';
-
+import * as React from 'react';
+import { DragSource as dragSource } from 'react-dnd-cjs';
 import { dragActions } from '../../../actions/cell/drag';
 import { insertActions } from '../../../actions/cell/insert';
-import { source, collect } from './helper/dnd';
-
+import { connect } from '../../../reduxConnect';
 import { ComponetizedCell } from '../../../types/editable';
+import { collect, source } from './helper/dnd';
 
 const icon =
   // tslint:disable-next-line:max-line-length
@@ -111,7 +109,9 @@ export default connect(
   null,
   mapDispatchToProps
 )(
-  dragSource(({ dragType }: { dragType: string }) => dragType, source, collect)(
-    Draggable
-  )
+  dragSource<Props>(
+    ({ dragType }: { dragType: string }) => dragType,
+    source,
+    collect
+  )(Draggable)
 );

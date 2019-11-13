@@ -20,13 +20,11 @@
  *
  */
 
+import { DragSourceMonitor } from 'react-dnd-cjs';
 import { findDOMNode } from 'react-dom';
-
-import HoverService from '../hover';
-
 import { ComponetizedCell } from '../../types/editable';
-import { Vector, Room, Callbacks } from '../../types/hover';
-import { DragSourceMonitor } from 'react-dnd';
+import { Callbacks, Room, Vector } from '../../types/hover';
+import HoverService from '../hover';
 
 const hoverService = new HoverService();
 
@@ -40,7 +38,9 @@ export const computeCurrentDropPosition = (
 ) => {
   const mousePosition = monitor.getClientOffset();
   /* eslint-disable react/no-find-dom-node */
-  const componentPosition = (findDOMNode(component) as HTMLElement).getBoundingClientRect();
+  const componentPosition = (findDOMNode(
+    component
+  ) as HTMLElement).getBoundingClientRect();
   const room: Room = {
     height: componentPosition.bottom - componentPosition.top,
     width: componentPosition.right - componentPosition.left,

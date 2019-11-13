@@ -21,12 +21,12 @@
  */
 
 import {
-  EditableType,
-  Cell,
-  Row,
-  Config,
+  AbstractCell,
   AbstractEditable,
-  AbstractCell
+  Cell,
+  Config,
+  EditableType,
+  Row
 } from '../../types/editable';
 import { RootState } from '../../types/state';
 
@@ -72,6 +72,7 @@ export const editables = ({
 
 export const purifiedEditable = (state: RootState, props: EditableType) => {
   const found = editable(state, props);
+
   if (!found) {
     return null;
   }
@@ -106,7 +107,10 @@ export const node = (
 
 export const searchNodeEverywhere = (state: RootState, id: string) => {
   for (let i = 0; i < state.reactPage.editables.present.length; i++) {
-    const n = node(state, { id, editable: state.reactPage.editables.present[i].id });
+    const n = node(state, {
+      id,
+      editable: state.reactPage.editables.present[i].id,
+    });
     if (n.id) {
       return {
         node: n,

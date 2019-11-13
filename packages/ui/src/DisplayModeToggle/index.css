@@ -22,15 +22,6 @@
 
 @import "Button/index.css";
 
-.ory-controls-mode-toggle-control-group {
-  position: fixed;
-  z-index: 10001;
-  bottom: 0;
-  right: 0;
-  padding: 16px;
-  transition: all 200ms ease;
-}
-
 .ory-controls-mode-toggle-clearfix {
   clear: both;
 }

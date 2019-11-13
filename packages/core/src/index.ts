@@ -20,41 +20,43 @@
  *
  */
 
-import { v4 } from 'uuid';
-import Editable from './components/Editable';
-import createStore from './store';
-import { actions, ActionsTypes, Actions } from './actions';
-import { selectors, Selectors } from './selector';
-import PluginService from './service/plugin';
-import { ContentPlugin, LayoutPlugin } from './service/plugin/classes';
-import pluginDefault from './service/plugin/default';
-import { EditableType, NativeFactory } from './types/editable';
 import forEach from 'ramda/src/forEach';
-import HTML5Backend, { NativeTypes } from 'react-dnd-html5-backend';
-import { DragDropContext as dragDropContext } from 'react-dnd';
-import { reducer } from './reducer';
-import { Store, Middleware } from 'redux';
-import { RootState } from './types/state';
-import lazyLoad from './helper/lazyLoad';
-import {
-  Plugins,
-  Plugin,
-  ContentPluginConfig,
-  LayoutPluginConfig,
-  ContentPluginProps,
-  LayoutPluginProps
-} from './service/plugin/classes';
+import { NativeTypes } from 'react-dnd-html5-backend-cjs';
+import { Middleware, Store } from 'redux';
+import { v4 } from 'uuid';
+import { actions, Actions, ActionsTypes } from './actions';
+import DragDropProvider from './components/DragDropProvider';
+import Editable from './components/Editable';
 import { isProduction } from './const';
-import { shouldPureComponentUpdate } from './helper/shouldComponentUpdate';
-export { shouldPureComponentUpdate };
-import i18n from './service/i18n';
 import { InitialChildrenDef } from './helper/createInitialChildren';
+import lazyLoad from './helper/lazyLoad';
 import sanitizeInitialChildren from './helper/sanitizeInitialChildren';
-import DragDropContext from './components/DragDropContext';
-import { ReduxProvider, connect, ReduxContext } from './reduxConnect';
+import { shouldPureComponentUpdate } from './helper/shouldComponentUpdate';
+import { reducer } from './reducer';
+import { connect, ReduxContext, ReduxProvider } from './reduxConnect';
+import { selectors, Selectors } from './selector';
+import i18n from './service/i18n';
+import PluginService from './service/plugin';
+import {
+  ContentPlugin,
+  ContentPluginConfig,
+  ContentPluginProps,
+  LayoutPlugin,
+  LayoutPluginConfig,
+  LayoutPluginProps,
+  Plugin,
+  Plugins
+} from './service/plugin/classes';
+import pluginDefault from './service/plugin/default';
+import createStore from './store';
+import { EditableType, NativeFactory } from './types/editable';
+import { RootState } from './types/state';
+
+export { shouldPureComponentUpdate };
 export {
   Plugin,
   Plugins,
+  EditableType,
   ContentPluginConfig,
   ContentPluginProps,
   LayoutPluginConfig,
@@ -64,7 +66,6 @@ export {
   Selectors,
   RootState,
   i18n,
-  DragDropContext,
   InitialChildrenDef,
   sanitizeInitialChildren,
   PluginService,
@@ -75,10 +76,10 @@ export {
   reducer,
   lazyLoad,
   ReduxProvider,
+  DragDropProvider,
   connect,
   ReduxContext
 };
-let instance: Editor;
 
 const initialState = () => ({
   reactPage: {
@@ -110,16 +111,13 @@ const update = (editor: Editor) => (editable: EditableType) => {
   } as any);
 };
 
-const dndBackend = HTML5Backend;
-
 export interface EditorProps<T extends RootState = RootState> {
   // tslint:disable-next-line:no-any
   plugins?: Plugins;
   middleware?: [];
   editables?: EditableType[];
   defaultPlugin?: ContentPluginConfig;
-  // tslint:disable-next-line:no-any
-  dragDropBackend?: any;
+
   store?: Store<T>;
 }
 
@@ -131,8 +129,6 @@ class Editor<T extends RootState = RootState> {
   plugins: PluginService;
   middleware: Middleware[];
 
-  // tslint:disable-next-line:no-any
-  dragDropContext: any;
   defaultPlugin: ContentPluginConfig;
 
   trigger: ActionsTypes;
@@ -143,23 +139,15 @@ class Editor<T extends RootState = RootState> {
     middleware = [],
     editables = [],
     defaultPlugin = pluginDefault,
-    dragDropBackend,
+
     store,
   }: EditorProps<T> = {}) {
-    if (instance) {
-      console.warn(
-        'You defined multiple instances of the Editor class, this can cause problems.'
-      );
-    }
-
-    instance = this;
     this.store = store || createStore(initialState(), middleware);
     this.plugins = new PluginService(plugins);
     this.middleware = middleware;
     this.trigger = actions(this.store.dispatch);
     this.query = selectors(this.store);
     this.defaultPlugin = defaultPlugin;
-    this.dragDropContext = dragDropContext(dragDropBackend || dndBackend);
     // tslint:disable-next-line:no-any
     this.trigger.editable.add = update(this) as any;
     // tslint:disable-next-line:no-any

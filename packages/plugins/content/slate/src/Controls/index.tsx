@@ -20,18 +20,15 @@
  *
  */
 
+import { BottomToolbar } from '@react-page/ui';
+import isHotkey from 'is-hotkey';
+import debounce from 'lodash.debounce';
 import * as React from 'react';
 import { Portal } from 'react-portal';
-import isHotkey from 'is-hotkey';
-import { NextType } from '../types/next';
+import { Editor as CoreEditor, Value } from 'slate';
 import { Editor, getEventTransfer } from 'slate-react';
-import { BottomToolbar } from '@react-page/ui';
-import debounce from 'lodash.debounce';
-
-import { Value, Editor as CoreEditor } from 'slate';
-
 import { SlateProps } from '../types/component';
-
+import { NextType } from '../types/next';
 import SlatePlugin from '../types/SlatePlugin';
 import { PluginButtonProps } from '../types/slatePluginDefinitions';
 
@@ -207,11 +204,9 @@ class Slate extends React.PureComponent<SlateProps, SlateState> {
       <>
         {!readOnly && focused && (
           <Portal>
-            {/* ory-prevent-blur is required to prevent global blurring */}
-
             <div
               className={
-                'ory-prevent-blur ory-plugins-content-slate-inline-toolbar ' +
+                'ory-plugins-content-slate-inline-toolbar ' +
                 (showHoverToolbar
                   ? ''
                   : 'ory-plugins-content-slate-inline-toolbar--hidden')

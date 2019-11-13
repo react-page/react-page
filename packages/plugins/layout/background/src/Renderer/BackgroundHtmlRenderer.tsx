@@ -1,7 +1,7 @@
-import * as React from 'react';
-import { BackgroundRendererProps } from '../types/renderer';
-import { ModeEnum } from '../types/ModeEnum';
 import { colorToString } from '@react-page/ui';
+import * as React from 'react';
+import { ModeEnum } from '../types/ModeEnum';
+import { BackgroundRendererProps } from '../types/renderer';
 
 const getStyles = (props: BackgroundRendererProps) => {
   const {
@@ -106,7 +106,7 @@ const BackgroundHtmlRenderer: React.SFC<BackgroundRendererProps> = props => {
   const containerStyles = getStyles(props);
   return (
     <div
-      className="ory-prevent-blur ory-plugins-layout-background"
+      className="ory-plugins-layout-background"
       style={{ ...containerStyles, ...(hasPadding ? {} : { padding: 0 }) }}
     >
       <div

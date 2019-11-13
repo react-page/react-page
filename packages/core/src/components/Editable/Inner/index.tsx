@@ -21,19 +21,16 @@
  */
 import throttle from 'lodash.throttle';
 import * as React from 'react';
-import { connect } from '../../../reduxConnect';
 import { createStructuredSelector } from 'reselect';
-
-import { ContentPlugin } from '../../../service/plugin/classes';
-import Cell from '../../Cell';
-import { purifiedEditable } from '../../../selector/editable';
-import dimensions from '../../Dimensions';
-import { blurAllCells, createFallbackCell } from '../../../actions/cell';
-import { enableGlobalBlurring, disableGlobalBlurring } from './blur';
-
-import { EditableComponentState } from '../../../types/editable';
-import { RootState } from '../../../selector';
+import { createFallbackCell } from '../../../actions/cell';
 import scollIntoViewWithOffset from '../../../components/Cell/utils/scollIntoViewWithOffset';
+import { connect } from '../../../reduxConnect';
+import { RootState } from '../../../selector';
+import { purifiedEditable } from '../../../selector/editable';
+import { ContentPlugin } from '../../../service/plugin/classes';
+import { EditableComponentState } from '../../../types/editable';
+import Cell from '../../Cell';
+import dimensions from '../../Dimensions';
 function isElementInViewport(el: HTMLDivElement) {
   const rect = el.getBoundingClientRect();
 
@@ -68,8 +65,8 @@ class Inner extends React.PureComponent<EditableComponentState> {
       }
     }
   }, 600);
+
   componentDidMount() {
-    enableGlobalBlurring(this.props.blurAllCells);
     this.createFallbackCell();
     window.addEventListener('scroll', this.onScroll);
   }
@@ -87,11 +84,11 @@ class Inner extends React.PureComponent<EditableComponentState> {
   }
 
   componentWillUnmount() {
-    disableGlobalBlurring(this.props.blurAllCells);
     window.removeEventListener('scroll', this.onScroll);
   }
   createFallbackCell = () => {
     const { node, defaultPlugin, id } = this.props;
+
     if (!node) {
       return;
     }
@@ -104,13 +101,14 @@ class Inner extends React.PureComponent<EditableComponentState> {
 
   render() {
     const { id, containerWidth, containerHeight, node } = this.props;
+
     if (!node) {
       return null;
     }
 
     const { cells = [] } = node;
     return (
-      <div ref={this.ref} className="ory-editable ory-prevent-blur">
+      <div ref={this.ref} className="ory-editable">
         {cells.map((c: string) => (
           <Cell
             rowWidth={containerWidth}
@@ -137,7 +135,7 @@ const mapStateToProps = createStructuredSelector({
   displayMode,
 });
 
-const mapDispatchToProps = { blurAllCells, createFallbackCell };
+const mapDispatchToProps = { createFallbackCell };
 
 export default dimensions()(
   connect(

@@ -20,19 +20,24 @@
  *
  */
 
-import * as React from 'react';
-import { DropTarget as dropTarget } from 'react-dnd';
-import Delete from '@material-ui/icons/Delete';
 import Fab from '@material-ui/core/Fab';
-import { connect, Editor, Actions, Selectors } from '@react-page/core';
-
+import Delete from '@material-ui/icons/Delete';
+import { Actions, connect, Editor, Selectors } from '@react-page/core';
 import classNames from 'classnames';
-
 import throttle from 'lodash.throttle';
-
+import * as React from 'react';
+import { DropTarget as dropTarget } from 'react-dnd-cjs';
 import { createStructuredSelector } from 'reselect';
 import { useEditor } from '../Provider';
 
+export interface RawProps {
+  editor: Editor;
+  isLayoutMode: boolean;
+  isOverCurrent: boolean;
+  connectDropTarget: (node: JSX.Element) => JSX.Element;
+}
+
+type TargetProps = { removeCell(id: string): void } & RawProps;
 const target = {
   hover: throttle(
     // tslint:disable-next-line:no-any
@@ -47,7 +52,7 @@ const target = {
   ),
 
   // tslint:disable-next-line:no-any
-  drop(props: { removeCell(id: string): void }, monitor: any) {
+  drop(props: TargetProps, monitor: any) {
     const item = monitor.getItem();
     if (monitor.didDrop() || !monitor.isOver({ shallow: true })) {
       // If the item drop occurred deeper down the tree, don't do anything
@@ -63,13 +68,6 @@ const connectMonitor = (_connect: any, monitor: any) => ({
   connectDropTarget: _connect.dropTarget(),
   isOverCurrent: monitor.isOver({ shallow: true }),
 });
-
-export interface RawProps {
-  editor: Editor;
-  isLayoutMode: boolean;
-  isOverCurrent: boolean;
-  connectDropTarget: (node: JSX.Element) => JSX.Element;
-}
 
 class Raw extends React.Component<RawProps> {
   render() {
@@ -116,7 +114,7 @@ const mapStateToProps = createStructuredSelector(Selectors.Display);
 const Decorated: any = connect(
   mapStateToProps,
   mapDispatchToProps
-)(dropTarget(types, target, connectMonitor)(Raw));
+)(dropTarget<TargetProps>(types, target, connectMonitor)(Raw));
 
 const Trash: React.SFC = () => {
   const editor = useEditor();

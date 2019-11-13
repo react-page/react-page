@@ -1,18 +1,15 @@
-import React, { useState, useCallback, useRef } from 'react';
-import TextField from '@material-ui/core/TextField';
-
+import { Dialog, DialogActions, DialogContent } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
-
-import { SlatePluginControls } from '../../types/slatePluginDefinitions';
-import { makeUniformsSchema } from '@react-page/create-plugin-materialui';
-import {
-  AutoForm as AutoFormOrg,
-  AutoFields as AutoFieldsOrg
-} from 'uniforms-material';
-
+import TextField from '@material-ui/core/TextField';
 import DeleteIcon from '@material-ui/icons/Delete';
 import DoneIcon from '@material-ui/icons/Done';
-import { Dialog, DialogContent, DialogActions } from '@material-ui/core';
+import { makeUniformsSchema } from '@react-page/create-plugin-materialui';
+import React, { useCallback, useRef, useState } from 'react';
+import {
+  AutoFields as AutoFieldsOrg,
+  AutoForm as AutoFormOrg
+} from 'uniforms-material';
+import { SlatePluginControls } from '../../types/slatePluginDefinitions';
 
 // see https://github.com/vazco/uniforms/issues/617
 // tslint:disable-next-line:no-any
@@ -64,7 +61,6 @@ function Controls<T>(props: SlatePluginControls<T>) {
     <Dialog
       disableEnforceFocus={true}
       PaperProps={{ style: { minWidth: 300 } }}
-      className="ory-prevent-blur"
       open={props.open}
     >
       <DialogContent>

@@ -20,16 +20,14 @@
  *
  */
 
-import * as React from 'react';
-import { DropTarget as dropTarget } from 'react-dnd';
-import { connect } from '../../../reduxConnect';
 import classNames from 'classnames';
-
+import * as React from 'react';
+import { DropTarget as dropTarget } from 'react-dnd-cjs';
 import { dragActions } from '../../../actions/cell/drag';
 import { insertActions } from '../../../actions/cell/insert';
-import { target, connect as monitorConnect } from './helper/dnd';
-
+import { connect } from '../../../reduxConnect';
 import { ComponetizedCell } from '../../../types/editable';
+import { connect as monitorConnect, target } from './helper/dnd';
 
 type Props = ComponetizedCell & {
   isLeaf: boolean;
@@ -85,7 +83,7 @@ export default connect(
   null,
   mapDispatchToProps
 )(
-  dropTarget(
+  dropTarget<Props>(
     ({ dropTypes }: { dropTypes: Array<string> }) => dropTypes,
     target,
     monitorConnect
