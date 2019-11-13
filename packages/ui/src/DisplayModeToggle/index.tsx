@@ -20,7 +20,6 @@
  *
  */
 import * as React from 'react';
-
 import ToggleEdit from './ToggleEdit/index';
 import ToggleInsert from './ToggleInsert/index';
 import ToggleLayout from './ToggleLayout/index';
@@ -35,33 +34,82 @@ const defaultTranslations = {
   preview: 'Preview result',
 };
 
-const Inner: React.SFC<{ translations?: typeof defaultTranslations }> = ({
-  translations = defaultTranslations,
-}) => (
-  <div className="ory-controls-mode-toggle-control-group">
-    <div className="ory-controls-mode-toggle-control">
-      <ToggleEdit label={translations.edit} />
-      <div className="ory-controls-mode-toggle-clearfix" />
-    </div>
+const getStickyNessstyle = (stickyness: StickyNess): React.CSSProperties => {
+  if (
+    !stickyness ||
+    (!stickyness.shouldStickToBottom && !stickyness.shouldStickToTop)
+  ) {
+    return {
+      position: 'fixed',
+    };
+  }
 
-    <div className="ory-controls-mode-toggle-control">
-      <ToggleInsert label={translations.insert} />
-      <div className="ory-controls-mode-toggle-clearfix" />
-    </div>
+  return {
+    position: 'absolute',
+    bottom: stickyness.shouldStickToBottom ? 0 : 'auto',
+    top: stickyness.shouldStickToTop ? 0 : 'auto',
+    right: -stickyness.rightOffset || 0,
+  };
+};
 
-    <div className="ory-controls-mode-toggle-control">
-      <ToggleLayout label={translations.layout} />
-      <div className="ory-controls-mode-toggle-clearfix" />
-    </div>
+export type StickyNess = {
+  shouldStickToTop: boolean;
+  shouldStickToBottom: boolean;
+  rightOffset: number;
+  stickyElRef?: React.Ref<HTMLDivElement>;
+};
+const Inner: React.SFC<{
+  translations?: typeof defaultTranslations;
+  stickyNess: StickyNess;
+}> = ({ stickyNess, translations = defaultTranslations }) => (
+  <div
+    className="ory-controls-mode-toggle-control-group"
+    style={{
+      position: 'fixed',
+      zIndex: 10001,
+      bottom: 0,
+      right: 0,
+      display: 'flex',
+      maxHeight: '100%',
+      ...getStickyNessstyle(stickyNess),
+    }}
+  >
+    <div
+      ref={stickyNess.stickyElRef}
+      style={{
+        padding: 16,
+        position: 'relative',
 
-    <div className="ory-controls-mode-toggle-control">
-      <ToggleResize label={translations.resize} />
-      <div className="ory-controls-mode-toggle-clearfix" />
-    </div>
+        flexFlow: 'column wrap',
+        direction: 'rtl',
 
-    <div className="ory-controls-mode-toggle-control">
-      <TogglePreview label={translations.preview} />
-      <div className="ory-controls-mode-toggle-clearfix" />
+        display: 'flex',
+      }}
+    >
+      <div className="ory-controls-mode-toggle-control">
+        <ToggleEdit label={translations.edit} />
+        <div className="ory-controls-mode-toggle-clearfix" />
+      </div>
+
+      <div className="ory-controls-mode-toggle-control">
+        <ToggleInsert label={translations.insert} />
+        <div className="ory-controls-mode-toggle-clearfix" />
+      </div>
+
+      <div className="ory-controls-mode-toggle-control">
+        <ToggleLayout label={translations.layout} />
+        <div className="ory-controls-mode-toggle-clearfix" />
+      </div>
+
+      <div className="ory-controls-mode-toggle-control">
+        <ToggleResize label={translations.resize} />
+        <div className="ory-controls-mode-toggle-clearfix" />
+      </div>
+
+      <div className="ory-controls-mode-toggle-control">
+        <TogglePreview label={translations.preview} />
+        <div className="ory-controls-mode-toggle-clearfix" />
+      </div>
     </div>
   </div>
 );

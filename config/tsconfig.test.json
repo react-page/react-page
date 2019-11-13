@@ -6,6 +6,7 @@
     "moduleResolution": "node",
     "target": "es5",
     "module": "commonjs",
+    "allowJs": true,
     "jsx": "react",
     "experimentalDecorators": true,
     "esModuleInterop": true,
@@ -19,12 +20,8 @@
     "lib": ["es7", "dom"],
     "types": ["node", "jest"],
     "paths": {
-      "react": [
-        "./node_modules/@types/react/index"
-      ],
-      "slate": [
-        "./node_modules/@types/slate/index"
-      ],
+      "react": ["./node_modules/@types/react/index"],
+      "slate": ["./node_modules/@types/slate/index"]
     }
   }
 }
