@@ -20,48 +20,36 @@
  *
  */
 
-import React from 'react';
-
-// The rich text area plugin
-import slate from '@react-page/plugins-slate';
-
-import '@react-page/plugins-slate/lib/index.css';
-
-// The spacer plugin
-import spacer from '@react-page/plugins-spacer';
-import '@react-page/plugins-spacer/lib/index.css';
-
-// The image plugin
-import { imagePlugin } from '@react-page/plugins-image';
-import '@react-page/plugins-image/lib/index.css';
-
-// The video plugin
-import video from '@react-page/plugins-video';
-import '@react-page/plugins-video/lib/index.css';
-
+import { Plugins } from '@react-page/core';
 // The background plugin
-import background from '@react-page/plugins-background';
-import { ModeEnum } from '@react-page/plugins-background';
+import background, { ModeEnum } from '@react-page/plugins-background';
 import '@react-page/plugins-background/lib/index.css';
-
+// The native handler plugin
+import native from '@react-page/plugins-default-native';
+// The divider plugin
+import divider from '@react-page/plugins-divider';
 // The html5-video plugin
 import html5video from '@react-page/plugins-html5-video';
 import '@react-page/plugins-html5-video/lib/index.css';
-
-// The native handler plugin
-import native from '@react-page/plugins-default-native';
-
-// The divider plugin
-import divider from '@react-page/plugins-divider';
-
-import customContentPlugin from './customContentPlugin';
-import customLayoutPlugin from './customLayoutPlugin';
-
+// The image plugin
+import { imagePlugin } from '@react-page/plugins-image';
+import '@react-page/plugins-image/lib/index.css';
+// The rich text area plugin
+import slate from '@react-page/plugins-slate';
+import '@react-page/plugins-slate/lib/index.css';
+// The spacer plugin
+import spacer from '@react-page/plugins-spacer';
+import '@react-page/plugins-spacer/lib/index.css';
+// The video plugin
+import video from '@react-page/plugins-video';
+import '@react-page/plugins-video/lib/index.css';
 import { ImageUploadType } from '@react-page/ui/lib/ImageUpload/types';
-import { Plugins } from '@react-page/core';
-import customSlatePlugin from './customSlatePlugin';
-import customLayoutPluginWithInitialState from './customLayoutPluginWithInitialState';
+import React from 'react';
+import customContentPlugin from './customContentPlugin';
 import customContentPluginWithListField from './customContentPluginWithListField';
+import customLayoutPlugin from './customLayoutPlugin';
+import customLayoutPluginWithInitialState from './customLayoutPluginWithInitialState';
+import customSlatePlugin from './customSlatePlugin';
 
 const fakeImageUploadService: (url: string) => ImageUploadType = defaultUrl => (
   file,

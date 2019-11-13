@@ -1,10 +1,10 @@
-import * as React from 'react';
 import Button from '@material-ui/core/Button';
 import Popover from '@material-ui/core/Popover';
 import ColorizeIcon from '@material-ui/icons/Colorize';
+import * as React from 'react';
 import { ChromePicker, ColorChangeHandler } from 'react-color';
-import { ColorPickerProps, ColorPickerState } from './types';
 import { colorToString } from './colorToString';
+import { ColorPickerProps, ColorPickerState } from './types';
 
 class ColorPicker extends React.Component<ColorPickerProps> {
   static defaultProps: Partial<ColorPickerProps> = {
@@ -55,7 +55,6 @@ class ColorPicker extends React.Component<ColorPickerProps> {
           {this.props.icon}
         </Button>
         <Popover
-          className="ory-prevent-blur"
           open={this.state.isColorPickerVisible}
           anchorEl={this.anchorEl}
           onClose={this.handleClickShowColorPicker}
@@ -68,7 +67,7 @@ class ColorPicker extends React.Component<ColorPickerProps> {
             horizontal: 'center',
           }}
         >
-          <div className="ory-prevent-blur">
+          <div>
             <ChromePicker
               color={this.props.color}
               onChange={this.onChange}
