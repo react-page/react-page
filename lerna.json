@@ -6,6 +6,7 @@
     "packages/renderer",
     "packages/ui",
     "packages/meta",
+    "packages/editor",
     "packages/plugins/content/*",
     "packages/plugins/layout/*",
     "packages/plugins/createPluginMaterialUi",

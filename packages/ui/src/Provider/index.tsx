@@ -19,9 +19,10 @@
  * @author Aeneas Rekkas <aeneas+oss@aeneas.io>
  *
  */
+import { Editor, ReduxProvider } from '@react-page/core';
 import * as React from 'react';
-
-import { Editor, DragDropContext, ReduxProvider } from '@react-page/core';
+import { DndProvider } from 'react-dnd';
+import HTML5Backend from 'react-dnd-html5-backend';
 import ThemeProvider from '../ThemeProvider/index';
 
 export interface ProviderProps {
@@ -33,23 +34,21 @@ const EditorContext = React.createContext<Editor>(null);
 export const useEditor = () => React.useContext<Editor>(EditorContext);
 class Provider extends React.Component<ProviderProps> {
   // tslint:disable-next-line:no-any
-  private DragDropContext: any;
+
   constructor(props: ProviderProps) {
     super(props);
-    this.DragDropContext = DragDropContext(props.editor.dragDropContext);
   }
 
   public render() {
     const { editor, children = [] } = this.props;
-    const DragDropContextProvider = this.DragDropContext;
     return (
-      <ReduxProvider store={editor.store}>
-        <DragDropContextProvider>
+      <DndProvider backend={HTML5Backend}>
+        <ReduxProvider store={editor.store}>
           <EditorContext.Provider value={editor}>
             <ThemeProvider>{children}</ThemeProvider>
           </EditorContext.Provider>
-        </DragDropContextProvider>
-      </ReduxProvider>
+        </ReduxProvider>
+      </DndProvider>
     );
   }
 }
