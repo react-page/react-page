@@ -20,12 +20,11 @@
  *
  */
 
-import * as React from 'react';
-import { DragSource as dragSource } from 'react-dnd';
-import { source, collect } from './helper/index';
+import { Actions, connect, shouldPureComponentUpdate } from '@react-page/core';
 import classNames from 'classnames';
-
-import { connect, Actions, shouldPureComponentUpdate } from '@react-page/core';
+import * as React from 'react';
+import { DragSource as dragSource } from 'react-dnd-cjs';
+import { collect, source } from './helper/index';
 
 const instances = {};
 

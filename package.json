@@ -43,7 +43,7 @@
     "react-dom": "~16.9.0",
     "redux": "^3.6.0",
     "rimraf": "2.6.2",
-    "ts-jest": "^23.10.5",
+    "ts-jest": "^24.1.0",
     "tslint": "^5.11.0",
     "tslint-react": "^3.6.0",
     "typescript": "^3.6.4",
@@ -82,7 +82,7 @@
       "jsx"
     ],
     "transform": {
-      "^.+\\.(ts|tsx)$": "ts-jest"
+      "^.+\\.(ts|tsx|js)$": "ts-jest"
     },
     "globals": {
       "ts-jest": {

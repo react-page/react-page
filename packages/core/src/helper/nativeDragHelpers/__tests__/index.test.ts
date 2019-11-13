@@ -21,7 +21,7 @@
  */
 
 import * as unexpected from 'unexpected';
-import { NativeTypes } from 'react-dnd-html5-backend';
+import { NativeTypes } from 'react-dnd-html5-backend-cjs';
 import { isNativeHTMLElementDrag } from '../index';
 
 const expect = unexpected.clone();

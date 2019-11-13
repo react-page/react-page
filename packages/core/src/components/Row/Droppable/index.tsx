@@ -21,13 +21,12 @@
  */
 
 import * as React from 'react';
-import { DropTarget as dropTarget } from 'react-dnd';
-import { connect } from '../../../reduxConnect';
-import { ComponetizedRow } from '../../../types/editable';
-
+import { DropTarget as dropTarget } from 'react-dnd-cjs';
 import { dragActions } from '../../../actions/cell/drag';
 import { insertActions } from '../../../actions/cell/insert';
-import { target, connect as monitorConnect } from './dnd';
+import { connect } from '../../../reduxConnect';
+import { ComponetizedRow } from '../../../types/editable';
+import { connect as monitorConnect, target } from './dnd';
 
 export type Props = ComponetizedRow & {
   children: React.ReactChildren;

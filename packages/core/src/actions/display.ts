@@ -36,7 +36,7 @@ export type DisplayModes =
   | 'insert'
   | 'resizing';
 
-export const DEFAULT_DISPLAY_MODE = DISPLAY_MODE_PREVIEW;
+export const DEFAULT_DISPLAY_MODE = DISPLAY_MODE_EDIT;
 
 export interface SetDisplayModeAction extends Action {
   ts: Date;
