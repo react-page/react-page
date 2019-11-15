@@ -27,7 +27,12 @@ import scollIntoViewWithOffset from '../../../components/Cell/utils/scollIntoVie
 import { connect } from '../../../reduxConnect';
 import { RootState } from '../../../selector';
 import { purifiedEditable } from '../../../selector/editable';
-import { ContentPlugin } from '../../../service/plugin/classes';
+import {
+  ContentPlugin,
+  ContentPluginConfig,
+  LayoutPlugin,
+  LayoutPluginConfig
+} from '../../../service/plugin/classes';
 import { EditableComponentState } from '../../../types/editable';
 import Cell from '../../Cell';
 import dimensions from '../../Dimensions';
@@ -95,7 +100,15 @@ class Inner extends React.PureComponent<EditableComponentState> {
 
     const { cells = [] } = node;
     if (cells.length === 0) {
-      this.props.createFallbackCell(new ContentPlugin(defaultPlugin), id);
+      // FIXME: one more reason to unify layout and content plugins...
+      if ((defaultPlugin as LayoutPluginConfig).createInitialChildren) {
+        this.props.createFallbackCell(new LayoutPlugin(defaultPlugin), id);
+      } else {
+        this.props.createFallbackCell(
+          new ContentPlugin(defaultPlugin as ContentPluginConfig),
+          id
+        );
+      }
     }
   }
 

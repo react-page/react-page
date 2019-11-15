@@ -1,6 +1,7 @@
 import {
   ContentPluginConfig,
   EditableType,
+  LayoutPluginConfig,
   lazyLoad,
   Plugins
 } from '@react-page/core';
@@ -11,7 +12,7 @@ const EditableEditor = lazyLoad(() => import('./EditableEditor'));
 
 type Props = {
   plugins?: Plugins;
-  defaultPlugin?: ContentPluginConfig;
+  defaultPlugin?: ContentPluginConfig | LayoutPluginConfig;
   value?: EditableType;
   onChange?: (v: EditableType) => void;
   readOnly?: boolean;

@@ -116,7 +116,7 @@ export interface EditorProps<T extends RootState = RootState> {
   plugins?: Plugins;
   middleware?: [];
   editables?: EditableType[];
-  defaultPlugin?: ContentPluginConfig;
+  defaultPlugin?: ContentPluginConfig | LayoutPluginConfig;
 
   store?: Store<T>;
 }
@@ -129,7 +129,7 @@ class Editor<T extends RootState = RootState> {
   plugins: PluginService;
   middleware: Middleware[];
 
-  defaultPlugin: ContentPluginConfig;
+  defaultPlugin: ContentPluginConfig | LayoutPluginConfig;
 
   trigger: ActionsTypes;
   query = {};
