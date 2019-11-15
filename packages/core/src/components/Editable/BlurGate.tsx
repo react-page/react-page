@@ -27,15 +27,19 @@ const isInSameTree = (parent, child) => {
   return false;
 };
 
-export const useBlurAll = (rootElRef, blurAllCellsDispatch) => {
+export const useBlurAll = blurAllCellsDispatch => {
+  const ref = React.createRef<HTMLDivElement>();
   useEffect(
     () => {
+      if (!ref.current) {
+        return null;
+      }
       if (!document && !document.body) {
         return null;
       }
 
       const onMouseDown = e => {
-        if (!isInSameTree(rootElRef.current, e.target)) {
+        if (!isInSameTree(ref.current, e.target)) {
           blurAllCellsDispatch();
         }
       };
@@ -44,15 +48,15 @@ export const useBlurAll = (rootElRef, blurAllCellsDispatch) => {
         document.body.removeEventListener('mousedown', onMouseDown);
       };
     },
-    [rootElRef.current]
+    [ref.current, blurAllCellsDispatch]
   );
+  return ref;
 };
 
 const mapDispatchToProps = { blurAllCells };
 
 const BlurGate = props => {
-  const ref = React.createRef<HTMLDivElement>();
-  useBlurAll(ref, props.blurAllCells);
+  const ref = useBlurAll(props.blurAllCells);
   return <div ref={ref}>{props.children}</div>;
 };
 export default connect(
