@@ -34,7 +34,7 @@ const defaultTranslations = {
   preview: 'Preview result',
 };
 
-const getStickyNessstyle = (stickyness: StickyNess): React.CSSProperties => {
+const getStickyNessstyle = (stickyness?: StickyNess): React.CSSProperties => {
   if (
     !stickyness ||
     (!stickyness.shouldStickToBottom && !stickyness.shouldStickToTop)
@@ -60,7 +60,7 @@ export type StickyNess = {
 };
 const Inner: React.SFC<{
   translations?: typeof defaultTranslations;
-  stickyNess: StickyNess;
+  stickyNess?: StickyNess;
 }> = ({ stickyNess, translations = defaultTranslations }) => (
   <div
     className="ory-controls-mode-toggle-control-group"

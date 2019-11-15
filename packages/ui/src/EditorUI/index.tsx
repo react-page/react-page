@@ -15,7 +15,7 @@ export default ({
 }: {
   // tslint:disable-next-line:no-any
   editor: Editor;
-  stickyNess: StickyNess;
+  stickyNess?: StickyNess;
 }) => (
   <Provider editor={editor}>
     <Trash />
