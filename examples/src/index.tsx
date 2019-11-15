@@ -5,7 +5,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 // The content state
 import contents from './contents';
-import { defaultSlate, plugins } from './plugins';
+import customLayoutPluginWithInitialState from './customLayoutPluginWithInitialState';
+import { plugins } from './plugins';
 import './styles.css';
 
 if (
@@ -22,7 +23,7 @@ elements.forEach((element, index) => {
   ReactDOM.render(
     <Editor
       plugins={plugins}
-      defaultPlugin={defaultSlate}
+      defaultPlugin={customLayoutPluginWithInitialState()}
       value={contents[index]}
     />,
     element

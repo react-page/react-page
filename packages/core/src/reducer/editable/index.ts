@@ -20,13 +20,14 @@
  *
  */
 
+import { AnyAction } from 'redux';
 import { CELL_CREATE_FALLBACK } from '../../actions/cell';
+import sanitizeInitialChildren from '../../helper/sanitizeInitialChildren';
+import { Cell, createCell } from '../../types/editable';
+import { EditorState } from '../../types/editor';
 import { cellOrder } from './helper/order';
 import { decorate } from './helper/tree';
 import { cells } from './tree';
-import { createCell } from '../../types/editable';
-import { EditorState } from '../../types/editor';
-import { AnyAction } from 'redux';
 
 export const rawEditableReducer = (
   state: EditorState = {
@@ -44,15 +45,32 @@ export const rawEditableReducer = (
   switch (action.type) {
     case CELL_CREATE_FALLBACK:
       if (action.editable === state.id) {
-        const c = {
-          ...createCell(),
-          content: {
-            plugin: action.fallback,
-            state: action.fallback.createInitialState(),
-          },
-          id: action.ids.cell,
-        };
-        newCells = decorate(cells([c], action));
+        if (action.fallback.createInitialChildren) {
+          const children = sanitizeInitialChildren(
+            action.fallback.createInitialChildren()
+          );
+
+          const c: Cell = {
+            ...createCell(),
+            ...children,
+            layout: {
+              plugin: action.fallback,
+              state: action.fallback.createInitialState(),
+            },
+            id: action.ids.cell,
+          };
+          newCells = decorate(cells([c], action));
+        } else {
+          const c: Cell = {
+            ...createCell(),
+            content: {
+              plugin: action.fallback,
+              state: action.fallback.createInitialState(),
+            },
+            id: action.ids.cell,
+          };
+          newCells = decorate(cells([c], action));
+        }
       }
       break;
     default:

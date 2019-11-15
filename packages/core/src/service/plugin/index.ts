@@ -20,24 +20,24 @@
  *
  */
 
-import { v4 } from 'uuid';
 import semver, { satisfies } from 'semver';
+import { v4 } from 'uuid';
+import { ComponetizedCell, EditableType } from '../../types/editable';
+import { EditorState } from '../../types/editor';
 import {
   ContentPlugin,
+  ContentPluginConfig,
   LayoutPlugin,
-  Plugin,
+  LayoutPluginConfig,
   NativePlugin,
   NativePluginProps,
-  Plugins,
-  LayoutPluginConfig,
+  Plugin,
   PluginConfig,
-  PluginsInternal,
-  ContentPluginConfig
+  Plugins,
+  PluginsInternal
 } from './classes';
-import { ComponetizedCell, EditableType } from '../../types/editable';
 import defaultPlugin from './default';
-import { layoutMissing, contentMissing } from './missing';
-import { EditorState } from '../../types/editor';
+import { contentMissing, layoutMissing } from './missing';
 
 const find = (name: string, version: string = '*') => (
   plugin: PluginConfig
