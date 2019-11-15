@@ -28,7 +28,7 @@ const isInSameTree = (parent, child) => {
 };
 
 export const useBlurAll = blurAllCellsDispatch => {
-  const ref = React.createRef<HTMLDivElement>();
+  const ref = React.useRef<HTMLDivElement>();
   useEffect(
     () => {
       if (!ref.current) {
@@ -48,7 +48,7 @@ export const useBlurAll = blurAllCellsDispatch => {
         document.body.removeEventListener('mousedown', onMouseDown);
       };
     },
-    [ref.current, blurAllCellsDispatch]
+    [ref.current]
   );
   return ref;
 };
