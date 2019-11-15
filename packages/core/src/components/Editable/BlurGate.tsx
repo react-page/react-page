@@ -28,21 +28,24 @@ const isInSameTree = (parent, child) => {
 };
 
 export const useBlurAll = (rootElRef, blurAllCellsDispatch) => {
-  useEffect(() => {
-    if (!document && !document.body) {
-      return null;
-    }
-
-    const onMouseDown = e => {
-      if (!isInSameTree(rootElRef.current, e.target)) {
-        blurAllCellsDispatch();
+  useEffect(
+    () => {
+      if (!document && !document.body) {
+        return null;
       }
-    };
-    document.body.addEventListener('mousedown', onMouseDown);
-    return () => {
-      document.body.removeEventListener('mousedown', onMouseDown);
-    };
-  }, []);
+
+      const onMouseDown = e => {
+        if (!isInSameTree(rootElRef.current, e.target)) {
+          blurAllCellsDispatch();
+        }
+      };
+      document.body.addEventListener('mousedown', onMouseDown);
+      return () => {
+        document.body.removeEventListener('mousedown', onMouseDown);
+      };
+    },
+    [rootElRef.current]
+  );
 };
 
 const mapDispatchToProps = { blurAllCells };
