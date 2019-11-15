@@ -25,6 +25,7 @@ elements.forEach((element, index) => {
       plugins={plugins}
       defaultPlugin={customLayoutPluginWithInitialState()}
       value={contents[index]}
+      // onChange={s => console.log('on change, new state', s)}
     />,
     element
   );

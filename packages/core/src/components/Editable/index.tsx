@@ -1,3 +1,4 @@
+import { equals } from 'ramda';
 import * as React from 'react';
 import Editor from '../../';
 import { ReduxProvider } from '../../reduxConnect';
@@ -16,6 +17,8 @@ export type PropTypes = {
 class Editable extends React.PureComponent<PropTypes> {
   unsubscribe: Function;
   previousState: EditorState = {};
+  // tslint:disable-next-line:no-any
+  previousSerialized: any;
 
   constructor(props: PropTypes) {
     super(props);
@@ -28,6 +31,7 @@ class Editable extends React.PureComponent<PropTypes> {
 
     this.unsubscribe = this.props.editor.store.subscribe(this.onChange);
     this.previousState = null;
+    this.previousSerialized = null;
   }
 
   componentWillUnmount() {
@@ -43,11 +47,22 @@ class Editable extends React.PureComponent<PropTypes> {
     const state: EditorState = editable(this.props.editor.store.getState(), {
       id: this.props.id,
     });
-    if (state === this.previousState || !state) {
+    // prevent uneeded updates
+    const isEqual = equals(state, this.previousState);
+
+    if (!state || isEqual) {
       return;
     }
+    this.previousState = state;
 
     const serialized = this.props.editor.plugins.serialize(state);
+
+    const serializedEqual = equals(this.previousSerialized, serialized);
+
+    if (serializedEqual) {
+      return;
+    }
+    this.previousSerialized = serialized;
     onChange(serialized);
   }
 
