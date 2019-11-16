@@ -20,28 +20,27 @@
  *
  */
 
-import { set } from 'redux-undo/lib/debug';
-import undoable, { includeAction } from 'redux-undo';
-
-import { editable } from '../editable';
-import { UPDATE_EDITABLE } from '../../actions/editables';
-import { EditableType, Editables } from '../../types/editable';
-import {
-  CELL_UPDATE_CONTENT,
-  CELL_UPDATE_LAYOUT,
-  CELL_REMOVE,
-  CELL_RESIZE
-} from '../../actions/cell/core';
-import { isProduction } from '../../const';
 import { AnyAction } from 'redux';
+import undoable, { includeAction } from 'redux-undo';
+import { set } from 'redux-undo/lib/debug';
+import {
+  CELL_REMOVE,
+  CELL_RESIZE,
+  CELL_UPDATE_CONTENT,
+  CELL_UPDATE_LAYOUT
+} from '../../actions/cell/core';
 import {
   CELL_INSERT_ABOVE,
   CELL_INSERT_BELOW,
-  CELL_INSERT_LEFT_OF,
-  CELL_INSERT_RIGHT_OF,
   CELL_INSERT_INLINE_LEFT,
-  CELL_INSERT_INLINE_RIGHT
+  CELL_INSERT_INLINE_RIGHT,
+  CELL_INSERT_LEFT_OF,
+  CELL_INSERT_RIGHT_OF
 } from '../../actions/cell/insert';
+import { UPDATE_EDITABLE } from '../../actions/editables';
+import { isProduction } from '../../const';
+import { Editables, EditableType } from '../../types/editable';
+import { editable } from '../editable';
 
 if (!isProduction) {
   set(true);
@@ -90,6 +89,7 @@ export const editables = (
   action: AnyAction
 ) => {
   const { past = [], present = [], future = [] } = state;
+
   switch (action.type) {
     case UPDATE_EDITABLE:
       return inner(

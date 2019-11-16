@@ -8,8 +8,8 @@ export default ({ plugins, defaultPlugin, value, onChange }) => {
     editor: new Editor({ defaultPlugin, plugins }),
     editorState: null,
   });
-  editorRef.current.editorState = value || createEmptyState();
 
+  editorRef.current.editorState = value || createEmptyState();
   // updating plugins is not yet supported, so we have an editor ref  that stays the same during lifetime of the editor
   useEffect(
     () => {
@@ -17,7 +17,7 @@ export default ({ plugins, defaultPlugin, value, onChange }) => {
         editorRef.current.editorState
       );
     },
-    [editorRef.current.editorState]
+    [editorRef.current.editorState !== value]
   );
 
   const { editor, editorState } = editorRef.current;

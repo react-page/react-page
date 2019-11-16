@@ -17,11 +17,20 @@ if (
   whyDidYouUpdate(React);
 }
 
+// tslint:disable-next-line:no-any
+const KeepStateEditor = ({ value, ...props }: any) => {
+  const [state, setState] = React.useState(value);
+  // here you would normally persist the state somewhere (e.g a database)
+  // <Editor /> is stateful, so you don't nesseary have to keep the value updated
+  // if you do, you have to guarantee that the value is referencially equal to what has been passed by `onChange`
+  // or the editor will blur its fields (and other problems)
+  return <Editor {...props} value={state} onChange={setState} />;
+};
 // Render the editables - the areas that are editable
 const elements = document.querySelectorAll<HTMLDivElement>('.editable');
 elements.forEach((element, index) => {
   ReactDOM.render(
-    <Editor
+    <KeepStateEditor
       plugins={plugins}
       defaultPlugin={customLayoutPluginWithInitialState()}
       value={contents[index]}
