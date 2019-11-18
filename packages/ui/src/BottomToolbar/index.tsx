@@ -10,6 +10,7 @@ import Delete from '@material-ui/icons/Delete';
 import FormatSize from '@material-ui/icons/FormatSize';
 import * as React from 'react';
 import DraftSwitch from '../DraftSwitch';
+import DuplicateButton from '../DuplicateButton';
 import ThemeProvider, { darkTheme } from '../ThemeProvider';
 
 const darkBlack = 'rgba(0, 0, 0, 0.87)';
@@ -116,25 +117,30 @@ const BottomToolbar: React.SFC<BottomToolbarProps> = ({
               <Grid item={true}>
                 <Typography variant="subtitle1">{title}</Typography>
               </Grid>
+              <Grid item={true}>
+                {' '}
+                <IconButton
+                  onClick={toggleSize}
+                  aria-label="toggle Size"
+                  color="primary"
+                >
+                  <FormatSize />
+                </IconButton>
+              </Grid>
 
               <Grid item={true} style={{ marginLeft: 'auto' }}>
                 <DraftSwitch id={id} editable={editable} />
+                <DuplicateButton id={id} editable={editable} />
+
                 {onDelete ? (
                   <IconButton
                     onClick={onDelete}
                     aria-label="delete"
                     color="secondary"
                   >
-                    <Delete fontSize="small" />
+                    <Delete />
                   </IconButton>
                 ) : null}
-                <IconButton
-                  onClick={toggleSize}
-                  aria-label="toggle Size"
-                  color="secondary"
-                >
-                  <FormatSize fontSize="small" />
-                </IconButton>
               </Grid>
             </Grid>
           </>

@@ -20,12 +20,12 @@
  *
  */
 
-import { combineReducers, createStore, applyMiddleware } from 'redux';
-import { rawEditableReducer } from '../index';
-import * as actions from '../../../actions/cell/index';
-import { decorate } from '../helper/tree';
-import { cellOrder } from '../helper/order';
+import { applyMiddleware, combineReducers, createStore } from 'redux';
 import thunk from 'redux-thunk';
+import * as actions from '../../../actions/cell/index';
+import { cellOrder } from '../helper/order';
+import { decorate } from '../helper/tree';
+import { rawEditableReducer } from '../index';
 
 const walker = ({ cells = [], rows = [], hover = null, ...other }) => {
   if (cells.length) {

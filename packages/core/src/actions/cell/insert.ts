@@ -19,11 +19,11 @@
  * @author Aeneas Rekkas <aeneas+oss@aeneas.io>
  *
  */
-import { Cell, NewIds } from '../../types/editable';
 import { Action } from 'redux';
-
-import { generateIds } from '../helpers';
+import { v4 } from 'uuid';
+import { Cell, NewIds } from '../../types/editable';
 import { editMode } from '../display';
+import { generateIds } from '../helpers';
 import { focusCell } from './core';
 
 export const CELL_INSERT_ABOVE = 'CELL_INSERT_ABOVE';
@@ -32,6 +32,7 @@ export const CELL_INSERT_LEFT_OF = 'CELL_INSERT_LEFT_OF';
 export const CELL_INSERT_RIGHT_OF = 'CELL_INSERT_RIGHT_OF';
 export const CELL_INSERT_INLINE_LEFT = 'CELL_INSERT_INLINE_LEFT';
 export const CELL_INSERT_INLINE_RIGHT = 'CELL_INSERT_INLINE_RIGHT';
+export const CELL_DUPLICATE = 'CELL_DUPLICATE';
 
 export interface InsertAction extends Action {
   ts: Date;
@@ -48,6 +49,7 @@ const insert = (type: string) => (
   ids: NewIds = null
 ) => {
   let l = level;
+  console.log(item, level);
   switch (type) {
     case CELL_INSERT_ABOVE:
     case CELL_INSERT_BELOW: {
@@ -123,6 +125,23 @@ export const insertCellLeftInline = insert(CELL_INSERT_INLINE_LEFT);
  */
 export const insertCellRightInline = insert(CELL_INSERT_INLINE_RIGHT);
 
+// set new ids recursivly
+const newIds = ({ id, ...item }: Partial<Cell>) => {
+  return {
+    ...item,
+    id: v4(),
+    rows: item.rows
+      ? item.rows.map(row => ({
+          ...row,
+          id: v4(),
+          cells: row.cells ? row.cells.map(newIds) : undefined,
+        }))
+      : undefined,
+  };
+};
+export const duplicateCell = item => dispatch =>
+  dispatch(insertCellBelow(newIds(item), item));
+
 export const insertActions = {
   insertCellRightInline,
   insertCellLeftInline,
@@ -130,5 +149,6 @@ export const insertActions = {
   insertCellRightOf,
   insertCellAbove,
   insertCellBelow,
+  duplicateCell,
   insert,
 };

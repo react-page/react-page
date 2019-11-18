@@ -12,19 +12,26 @@ const DraftSwitch = ({ id, node, setDraft }) => {
       labelPlacement="start"
       control={
         <Switch
+          color="primary"
           checked={!node.isDraft}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
             setDraft(id, !e.target.checked)
           }
         />
       }
-      label={node.isDraft ? <NonVisibleIcon /> : <VisibleIcon />}
+      label={
+        node.isDraft ? (
+          <NonVisibleIcon style={{ marginTop: 5 }} />
+        ) : (
+          <VisibleIcon style={{ marginTop: 5 }} />
+        )
+      }
     />
   ) : null;
 };
 
 const mapStateToProps = createStructuredSelector({
-  node: Selectors.Editable.purifiedNode,
+  node: Selectors.Editable.node,
 });
 
 const mapDispatchToProps = {
