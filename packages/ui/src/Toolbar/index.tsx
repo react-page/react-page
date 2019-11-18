@@ -19,25 +19,25 @@
  * @author Aeneas Rekkas <aeneas+oss@aeneas.io>
  *
  */
-import * as React from 'react';
 import Drawer from '@material-ui/core/Drawer';
-
-import { connect, Selectors, Editor } from '@react-page/core';
-import { createStructuredSelector } from 'reselect';
-
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListSubheader from '@material-ui/core/ListSubheader';
 import TextField from '@material-ui/core/TextField';
 import {
-  LayoutPlugin,
+  connect,
   ContentPlugin,
+  Editor,
+  LayoutPlugin,
   Plugin,
-  sanitizeInitialChildren
+  sanitizeInitialChildren,
+  Selectors
 } from '@react-page/core';
-import Item from './Item/index';
-
+import * as React from 'react';
+import { Portal } from 'react-portal';
+import { createStructuredSelector } from 'reselect';
 import { useEditor } from './../Provider/index';
+import Item from './Item/index';
 
 export interface Translations {
   noPluginFoundContent: string | JSX.Element;
@@ -138,97 +138,99 @@ class Raw extends React.Component<Props, RawState> {
     const layout = plugins.plugins.layout.filter(this.searchFilter);
 
     return (
-      <Drawer
-        variant="persistent"
-        className="ory-toolbar-drawer"
-        open={this.props.isInsertMode}
-        PaperProps={{
-          style: {
-            width: 320,
-          },
-        }}
-      >
-        <List
-          subheader={
-            <ListSubheader>
-              {this.props.translations.insertPlugin}
-            </ListSubheader>
-          }
+      <Portal>
+        <Drawer
+          variant="persistent"
+          className="ory-toolbar-drawer"
+          open={this.props.isInsertMode}
+          PaperProps={{
+            style: {
+              width: 320,
+            },
+          }}
         >
-          <ListItem>
-            <TextField
-              inputRef={this.onRef}
-              placeholder={this.props.translations.searchPlaceholder}
-              fullWidth={true}
-              onChange={this.onSearch}
-            />
-          </ListItem>
-          {layout.length + content.length === 0 && (
-            <ListSubheader>
-              {this.props.translations.noPluginFoundContent}
-            </ListSubheader>
+          <List
+            subheader={
+              <ListSubheader>
+                {this.props.translations.insertPlugin}
+              </ListSubheader>
+            }
+          >
+            <ListItem>
+              <TextField
+                inputRef={this.onRef}
+                placeholder={this.props.translations.searchPlaceholder}
+                fullWidth={true}
+                onChange={this.onSearch}
+              />
+            </ListItem>
+            {layout.length + content.length === 0 && (
+              <ListSubheader>
+                {this.props.translations.noPluginFoundContent}
+              </ListSubheader>
+            )}
+          </List>
+          {content.length > 0 && (
+            <List
+              subheader={
+                <ListSubheader>
+                  {this.props.translations.contentPlugins}
+                </ListSubheader>
+              }
+            >
+              {content.map((plugin: ContentPlugin, k: Number) => {
+                const initialState = plugin.createInitialState();
+
+                return (
+                  <Item
+                    translations={this.props.translations}
+                    plugin={plugin}
+                    key={k.toString()}
+                    insert={{
+                      content: {
+                        plugin,
+                        state: initialState,
+                      },
+                    }}
+                  />
+                );
+              })}
+            </List>
           )}
-        </List>
-        {content.length > 0 && (
-          <List
-            subheader={
-              <ListSubheader>
-                {this.props.translations.contentPlugins}
-              </ListSubheader>
-            }
-          >
-            {content.map((plugin: ContentPlugin, k: Number) => {
-              const initialState = plugin.createInitialState();
+          {layout.length > 0 && (
+            <List
+              subheader={
+                <ListSubheader>
+                  {this.props.translations.layoutPlugins}
+                </ListSubheader>
+              }
+            >
+              {layout.map((plugin: LayoutPlugin, k: Number) => {
+                const initialState = plugin.createInitialState();
 
-              return (
-                <Item
-                  translations={this.props.translations}
-                  plugin={plugin}
-                  key={k.toString()}
-                  insert={{
-                    content: {
-                      plugin,
-                      state: initialState,
-                    },
-                  }}
-                />
-              );
-            })}
-          </List>
-        )}
-        {layout.length > 0 && (
-          <List
-            subheader={
-              <ListSubheader>
-                {this.props.translations.layoutPlugins}
-              </ListSubheader>
-            }
-          >
-            {layout.map((plugin: LayoutPlugin, k: Number) => {
-              const initialState = plugin.createInitialState();
+                const children = sanitizeInitialChildren(
+                  plugin.createInitialChildren()
+                );
 
-              const children = sanitizeInitialChildren(
-                plugin.createInitialChildren()
-              );
-
-              return (
-                <Item
-                  translations={this.props.translations}
-                  plugin={plugin}
-                  key={k.toString()}
-                  insert={{
-                    ...children,
-                    layout: {
-                      plugin,
-                      state: initialState,
-                    },
-                  }}
-                />
-              );
-            })}
-          </List>
-        )}
-      </Drawer>
+                return (
+                  <Item
+                    translations={this.props.translations}
+                    plugin={plugin}
+                    key={k.toString()}
+                    insert={{
+                      ...children,
+                      layout: {
+                        plugin,
+                        state: initialState,
+                      },
+                    }}
+                  />
+                );
+              })}
+            </List>
+          )}
+        </Drawer>
+      </Portal>
     );
   }
 }
