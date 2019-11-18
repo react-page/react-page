@@ -6,12 +6,6 @@
   - [How it works](README.md#how-it-works)
 - Guides
   - [Quick Start](quick-start.md)
-  - [Core Component](core.md)
-    - [Getting started](core.md#getting-started)
-    - [Adding plugins](core.md#adding-plugins)
-    - [Rendering](core.md#rendering)
-      - [Creating an empty state](core.md#creating-an-empty-state)
-    - [Saving and loading](core.md#saving-and-loading)
   * [UI Components](packages.md#react-pageui)
   * [HTML Renderer](packages.md#react-pagerenderer)
   * [Plugins](packages.md#plugins)
