@@ -59,6 +59,7 @@ export type AbstractCell<T> = {
   hover?: string;
   inline?: string | null;
   focused?: boolean;
+  isDraft?: boolean;
   focusSource?: string;
   resizable?: boolean;
   bounds?: { left: number; right: number };

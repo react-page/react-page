@@ -20,18 +20,18 @@
  *
  */
 
-import * as React from 'react';
-import classNames from 'classnames';
-import PluginService from '@react-page/core/lib/service/plugin';
 import { editable as reducer } from '@react-page/core/lib/reducer/editable';
+import PluginService from '@react-page/core/lib/service/plugin';
+import { Plugins } from '@react-page/core/lib/service/plugin/classes';
 import {
   Cell,
-  Row,
+  Content,
+  EditableType,
   Layout,
-  Content
+  Row
 } from '@react-page/core/lib/types/editable';
-import { Plugins } from '@react-page/core/lib/service/plugin/classes';
-import { EditableType } from '@react-page/core/lib/types/editable';
+import classNames from 'classnames';
+import * as React from 'react';
 
 const gridClass = (size: number = 12): string =>
   `ory-cell-sm-${size} ory-cell-xs-12`;
@@ -66,12 +66,16 @@ const HTMLCell: React.SFC<Cell> = props => {
     inline,
     size,
     id,
+    isDraft,
   } = props;
   const cn = classNames('ory-cell', gridClass(size), {
     'ory-cell-has-inline-neighbour': hasInlineNeighbour,
     [`ory-cell-inline-${inline || ''}`]: inline,
   });
 
+  if (isDraft) {
+    return null;
+  }
   if (layout.plugin) {
     const {
       state,

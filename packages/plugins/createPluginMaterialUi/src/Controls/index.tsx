@@ -1,12 +1,11 @@
-import React, { Fragment, useState, useCallback } from 'react';
-import { ControlProps, ControlsLayout } from '../types';
-
-import {
-  AutoForm as AutoFormOrg,
-  AutoFields as AutoFieldsOrg
-} from 'uniforms-material';
-import debounce from 'lodash.debounce';
 import { BottomToolbar } from '@react-page/ui';
+import debounce from 'lodash.debounce';
+import React, { Fragment, useCallback, useState } from 'react';
+import {
+  AutoFields as AutoFieldsOrg,
+  AutoForm as AutoFormOrg
+} from 'uniforms-material';
+import { ControlProps, ControlsLayout } from '../types';
 import makeUniformsSchema from '../utils/makeUniformsSchema';
 
 // see https://github.com/vazco/uniforms/issues/617
@@ -48,6 +47,7 @@ function Controls<T>(props: ControlProps<T>) {
         title={props.text}
         onDelete={remove}
         icon={props.IconComponent}
+        {...props}
       >
         <div style={{ marginBottom: 24, maxHeight: '50vh', overflow: 'auto' }}>
           <AutoForm

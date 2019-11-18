@@ -9,6 +9,7 @@ import Drawer from '@material-ui/core/Drawer';
 import Delete from '@material-ui/icons/Delete';
 import FormatSize from '@material-ui/icons/FormatSize';
 import * as React from 'react';
+import DraftSwitch from '../DraftSwitch';
 import ThemeProvider, { darkTheme } from '../ThemeProvider';
 
 const darkBlack = 'rgba(0, 0, 0, 0.87)';
@@ -16,7 +17,7 @@ const bright = 'rgba(255,255,255, 0.98)';
 const brightBorder = 'rgba(0, 0, 0, 0.12)';
 export interface BottomToolbarProps {
   open?: boolean;
-  hideHeader?: boolean;
+
   children?: Object;
   className?: string;
   dark: boolean;
@@ -25,6 +26,9 @@ export interface BottomToolbarProps {
   onDelete?: () => void;
   // tslint:disable-next-line:no-any
   icon?: any;
+  // FIXME: seems like we use more and more information about the current cell. we should refactor this
+  id: string;
+  editable: string;
 }
 
 const SIZES = [1, 0.8, 0.6, 1.2];
@@ -34,11 +38,13 @@ const BottomToolbar: React.SFC<BottomToolbarProps> = ({
   children,
   className,
   dark = false,
-  hideHeader = false,
+
   anchor = 'bottom',
   onDelete = null,
   title,
   icon = null,
+  id,
+  editable,
 }) => {
   const [size, setSize] = React.useState(lastSize);
   const toggleSize = () => {
@@ -85,9 +91,19 @@ const BottomToolbar: React.SFC<BottomToolbarProps> = ({
             transition: '0.3s',
           }}
         >
-          {!hideHeader ? (
-            <>
-              <Grid container={true} direction="row" alignItems="center">
+          {children}
+          <Divider
+            style={{
+              marginLeft: -24,
+              marginRight: -24,
+              marginTop: 12,
+              marginBottom: 12,
+            }}
+          />
+
+          <>
+            <Grid container={true} direction="row" alignItems="center">
+              {icon || title ? (
                 <Grid item={true}>
                   <Avatar
                     children={icon || (title ? title[0] : '')}
@@ -96,42 +112,32 @@ const BottomToolbar: React.SFC<BottomToolbarProps> = ({
                     }}
                   />
                 </Grid>
-                <Grid item={true}>
-                  <Typography variant="subtitle1">{title}</Typography>
-                </Grid>
-
-                <Grid item={true} style={{ marginLeft: 'auto' }}>
-                  {onDelete ? (
-                    <IconButton
-                      onClick={onDelete}
-                      aria-label="delete"
-                      color="secondary"
-                    >
-                      <Delete fontSize="small" />
-                    </IconButton>
-                  ) : null}
-                  <IconButton
-                    onClick={toggleSize}
-                    aria-label="toggle Size"
-                    color="secondary"
-                  >
-                    <FormatSize fontSize="small" />
-                  </IconButton>
-                </Grid>
+              ) : null}
+              <Grid item={true}>
+                <Typography variant="subtitle1">{title}</Typography>
               </Grid>
 
-              <Divider
-                style={{
-                  marginLeft: -24,
-                  marginRight: -24,
-                  marginTop: 12,
-                  marginBottom: 12,
-                }}
-              />
-            </>
-          ) : null}
-
-          {children}
+              <Grid item={true} style={{ marginLeft: 'auto' }}>
+                <DraftSwitch id={id} editable={editable} />
+                {onDelete ? (
+                  <IconButton
+                    onClick={onDelete}
+                    aria-label="delete"
+                    color="secondary"
+                  >
+                    <Delete fontSize="small" />
+                  </IconButton>
+                ) : null}
+                <IconButton
+                  onClick={toggleSize}
+                  aria-label="toggle Size"
+                  color="secondary"
+                >
+                  <FormatSize fontSize="small" />
+                </IconButton>
+              </Grid>
+            </Grid>
+          </>
         </div>
       </Drawer>
     </ThemeProvider>

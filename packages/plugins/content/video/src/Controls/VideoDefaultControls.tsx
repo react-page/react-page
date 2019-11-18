@@ -20,12 +20,11 @@
  *
  */
 
-import * as React from 'react';
 import TextField from '@material-ui/core/TextField';
-
 import { BottomToolbar } from '@react-page/ui';
-import { VideoControlsProps } from '../types/controls';
+import * as React from 'react';
 import { defaultVideoState } from '../default/state';
+import { VideoControlsProps } from '../types/controls';
 
 const Form: React.SFC<VideoControlsProps> = props => {
   const {
@@ -42,6 +41,7 @@ const Form: React.SFC<VideoControlsProps> = props => {
       title={props.translations.pluginName}
       icon={props.IconComponent}
       onDelete={remove}
+      {...props}
     >
       <TextField
         placeholder={props.translations.placeholder}

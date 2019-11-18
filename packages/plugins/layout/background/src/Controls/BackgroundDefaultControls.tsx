@@ -1,20 +1,19 @@
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Slider from '@material-ui/core/Slider';
+import Switch from '@material-ui/core/Switch';
+import Tab from '@material-ui/core/Tab';
+import Tabs from '@material-ui/core/Tabs';
+import Typography from '@material-ui/core/Typography';
+import ColorIcon from '@material-ui/icons/ColorLens';
+import GradientIcon from '@material-ui/icons/Gradient';
+import ImageIcon from '@material-ui/icons/Landscape';
+import { BottomToolbar } from '@react-page/ui';
 import * as React from 'react';
 import { BackgroundControlsProps } from '../types/controls';
 import { ModeEnum } from '../types/ModeEnum';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Switch from '@material-ui/core/Switch';
 import ColorComponent from './sub/Color';
-import LinearGradientComponent from './sub/LinearGradient';
 import ImageComponent from './sub/Image';
-import { BottomToolbar } from '@react-page/ui';
-
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
-import ImageIcon from '@material-ui/icons/Landscape';
-import ColorIcon from '@material-ui/icons/ColorLens';
-import GradientIcon from '@material-ui/icons/Gradient';
-import Typography from '@material-ui/core/Typography';
-import Slider from '@material-ui/core/Slider';
+import LinearGradientComponent from './sub/LinearGradient';
 
 export interface BackgroundDefaultControlsState {
   mode: ModeEnum;
@@ -56,6 +55,7 @@ class BackgroundDefaultControls extends React.Component<
         title={this.props.translations.pluginName}
         icon={this.props.IconComponent}
         onDelete={remove}
+        {...this.props}
       >
         <Tabs
           value={this.state.mode}

@@ -193,7 +193,7 @@ class Slate extends React.PureComponent<SlateProps, SlateState> {
   }
 
   render() {
-    const { focused, readOnly, plugins } = this.props;
+    const { focused, readOnly, plugins, remove } = this.props;
 
     const editorState = this.getState();
     const showHoverToolbar =
@@ -238,7 +238,12 @@ class Slate extends React.PureComponent<SlateProps, SlateState> {
         />
 
         {!readOnly ? (
-          <BottomToolbar open={showBottomToolbar} dark={true} hideHeader={true}>
+          <BottomToolbar
+            open={showBottomToolbar}
+            dark={true}
+            onDelete={remove}
+            {...this.props}
+          >
             <ToolbarButtons
               {...this.props}
               translations={this.props.translations}

@@ -1,10 +1,10 @@
-import * as React from 'react';
-import { ImageControlsProps } from '../types/controls';
+import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
-import Checkbox from '@material-ui/core/Checkbox';
 import { BottomToolbar, ImageUpload } from '@react-page/ui';
+import * as React from 'react';
+import { ImageControlsProps } from '../types/controls';
 
 const ImageDefaultControls: React.SFC<ImageControlsProps> = props => {
   const {
@@ -26,6 +26,7 @@ const ImageDefaultControls: React.SFC<ImageControlsProps> = props => {
           open={props.focused}
           title={props.translations.pluginName}
           onDelete={remove}
+          {...props}
         >
           <div style={{ display: 'flex' }}>
             {props.imageUpload && (
