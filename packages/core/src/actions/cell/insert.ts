@@ -49,7 +49,7 @@ const insert = (type: string) => (
   ids: NewIds = null
 ) => {
   let l = level;
-  console.log(item, level);
+
   switch (type) {
     case CELL_INSERT_ABOVE:
     case CELL_INSERT_BELOW: {
