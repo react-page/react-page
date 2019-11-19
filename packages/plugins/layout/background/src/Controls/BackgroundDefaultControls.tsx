@@ -124,7 +124,7 @@ class BackgroundDefaultControls extends React.Component<
                   value instanceof Array ? value[0] : value
                 )
               }
-              onDragEnd={this.props.handleChangeDarken}
+              onChangeCommitted={this.props.handleChangeDarken}
               step={0.01}
               min={0}
               max={1}
@@ -144,7 +144,7 @@ class BackgroundDefaultControls extends React.Component<
                   value instanceof Array ? value[0] : value
                 )
               }
-              onDragEnd={this.props.handleChangeLighten}
+              onChangeCommitted={this.props.handleChangeLighten}
               step={0.01}
               min={0}
               max={1}
