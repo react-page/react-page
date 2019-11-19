@@ -1,12 +1,11 @@
-import * as React from 'react';
 import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
 import Slider from '@material-ui/core/Slider';
 import Typography from '@material-ui/core/Typography';
-import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
-
 import { ColorPicker } from '@react-page/ui';
 import { RGBColor } from '@react-page/ui/lib/ColorPicker/types';
+import * as React from 'react';
 import { BackgroundProps } from '../../types/component';
 
 export interface LinearGradientComponentProps {
@@ -199,7 +198,7 @@ class LinearGradientComponent extends React.Component<
                   aria-labelledby="linear-gradient-degree-label"
                   value={deg}
                   onChange={this.handleChangeDegPreview(i)}
-                  onDragEnd={this.handleChangeDeg(i, deg)}
+                  onChangeCommitted={this.handleChangeDeg(i, deg)}
                   step={5}
                   min={0}
                   max={360}
@@ -215,7 +214,7 @@ class LinearGradientComponent extends React.Component<
                   aria-labelledby="linear-gradient-opacity-label"
                   value={opacity}
                   onChange={this.handleChangeOpacityPreview(i)}
-                  onDragEnd={this.handleChangeOpacity(i, opacity)}
+                  onChangeCommitted={this.handleChangeOpacity(i, opacity)}
                   step={0.01}
                   min={0}
                   max={1}
