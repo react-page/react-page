@@ -273,9 +273,10 @@ export default class PluginService {
       layout = {},
       inline,
       size,
+      isDraft,
       id,
     } = state;
-    const newState: EditorState = { id, inline, size };
+    const newState: EditorState = { id, inline, size, isDraft };
 
     const {
       plugin: { name: contentName = null, version: contentVersion = '*' } = {},
