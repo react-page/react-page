@@ -28,6 +28,8 @@ Finally you can check the rest of the docs [here](./docs/SUMMARY.md)
 
 We also provide docummentations for all of the public api methods, the docs are available [here](./docs/api)
 
+(currently outdated, sorry! )
+
 ## Attributions
 
 Formely known as ORY Editor

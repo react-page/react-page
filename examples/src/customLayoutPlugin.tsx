@@ -1,6 +1,6 @@
 import { createLayoutPlugin } from '@react-page/create-plugin-materialui';
 import React from 'react';
-import { defaultSlate, reducedSlate } from './plugins';
+import { defaultSlate, reducedSlate } from './slate';
 
 // tslint:disable-next-line:no-any
 export default () =>

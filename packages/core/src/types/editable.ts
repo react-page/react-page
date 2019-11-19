@@ -21,14 +21,14 @@
  */
 
 import * as React from 'react';
+import PluginService from '../service/plugin';
 import {
   ContentPlugin,
-  LayoutPlugin,
-  NativePluginConfig,
   ContentPluginConfig,
-  LayoutPluginConfig
+  LayoutPlugin,
+  LayoutPluginConfig,
+  NativePluginConfig
 } from '../service/plugin/classes';
-import PluginService from '../service/plugin';
 
 export type Config = {
   whitelist: Array<string>;
@@ -38,13 +38,13 @@ export type Config = {
 // tslint:disable-next-line:no-any
 export interface Content<StateT = any> {
   plugin: ContentPluginConfig;
-  state: StateT;
+  state?: StateT;
 }
 
 // tslint:disable-next-line:no-any
 export interface Layout<StateT = any> {
   plugin: LayoutPluginConfig;
-  state: StateT;
+  state?: StateT;
 }
 
 export type AbstractCell<T> = {
@@ -218,7 +218,7 @@ export type EditableComponentState = {
   isLayoutMode: boolean;
   isPreviewMode: boolean;
   displayMode: string;
-  defaultPlugin: ContentPluginConfig;
+  defaultPlugin: ContentPluginConfig | LayoutPluginConfig;
 
   blurAllCells(): void;
   createFallbackCell(plugin: ContentPlugin | LayoutPlugin, id: string): void;

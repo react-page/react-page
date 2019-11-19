@@ -20,8 +20,8 @@
  *
  */
 
-import { NativeTypes } from 'react-dnd-html5-backend';
 import { DropTargetMonitor } from 'dnd-core';
+import { NativeTypes } from 'react-dnd-html5-backend-cjs';
 
 export const isNativeHTMLElementDrag = (monitor: DropTargetMonitor) => {
   switch (monitor.getItemType()) {

@@ -35,15 +35,17 @@
   border: 1px transparent solid;
   padding: 2px 8px;
   text-align: right;
-  max-width: 0;
+  display: none;
   transition: all 200ms ease;
   white-space: nowrap;
   overflow: hidden;
 }
 
-.ory-controls-mode-toggle-button:hover .ory-controls-mode-toggle-button-description {
+.ory-controls-mode-toggle-button:hover
+  .ory-controls-mode-toggle-button-description {
   max-width: 999px;
   background: var(--darkBlack);
   color: var(--white);
+  display: block;
   border: 1px solid var(--faintBlack);
 }
