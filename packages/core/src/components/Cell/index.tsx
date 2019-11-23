@@ -97,7 +97,7 @@ class Cell extends React.PureComponent<CellProps> {
         })}
         onClick={stopClick(this.props.isEditMode)}
       >
-        {resizable && this.props.isResizeMode && rowWidth && rowHeight ? (
+        {resizable && this.props.isResizeMode && rowWidth ? (
           <Resizable
             {...this.props}
             id={id}
