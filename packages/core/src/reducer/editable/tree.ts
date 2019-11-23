@@ -21,39 +21,37 @@
  */
 
 import pathOr from 'ramda/src/pathOr';
-
+import { AnyAction } from 'redux';
 import {
-  optimizeCell,
-  optimizeRow,
-  optimizeRows,
-  optimizeCells,
-  flatten
-} from './helper/optimize';
-import { mergeDecorator } from './helper/merge';
-import { isHoveringThis } from './helper/hover';
-import { resizeCells } from './helper/sizing';
-import { computeRow } from './helper/inline';
-import { createCell, createRow } from '../../types/editable';
-import {
-  CELL_REMOVE,
-  CELL_UPDATE_LAYOUT,
-  CELL_UPDATE_CONTENT,
-  CELL_INSERT_LEFT_OF,
-  CELL_INSERT_RIGHT_OF,
+  CELL_BLUR,
+  CELL_BLUR_ALL,
+  CELL_DRAG_HOVER,
+  CELL_FOCUS,
   CELL_INSERT_ABOVE,
   CELL_INSERT_BELOW,
   CELL_INSERT_INLINE_LEFT,
   CELL_INSERT_INLINE_RIGHT,
-  CELL_DRAG_HOVER,
+  CELL_INSERT_LEFT_OF,
+  CELL_INSERT_RIGHT_OF,
+  CELL_REMOVE,
   CELL_RESIZE,
-  CELL_FOCUS,
-  CELL_BLUR,
-  CELL_BLUR_ALL
+  CELL_UPDATE_CONTENT,
+  CELL_UPDATE_IS_DRAFT,
+  CELL_UPDATE_LAYOUT
 } from '../../actions/cell';
-
-import { Cell, Row } from '../../types/editable';
-import { AnyAction } from 'redux';
+import { Cell, createCell, createRow, Row } from '../../types/editable';
 import { CellHoverAction } from './../../actions/cell/drag';
+import { isHoveringThis } from './helper/hover';
+import { computeRow } from './helper/inline';
+import { mergeDecorator } from './helper/merge';
+import {
+  flatten,
+  optimizeCell,
+  optimizeCells,
+  optimizeRow,
+  optimizeRows
+} from './helper/optimize';
+import { resizeCells } from './helper/sizing';
 
 const inner = (cb: Function, action: Object) => (state: Object) =>
   cb(state, action);
@@ -84,6 +82,12 @@ export const cell = (s: Cell, a: AnyAction): Cell =>
       };
 
       switch (action.type) {
+        case CELL_UPDATE_IS_DRAFT:
+          if (action.id === state.id) {
+            // If this cell is being focused, set the data
+            return { ...reduce(), isDraft: action.isDraft };
+          }
+          return { ...reduce(), focused: false, focusSource: null };
         case CELL_UPDATE_CONTENT:
           if (action.id === state.id) {
             // If this cell is being updated, set the data

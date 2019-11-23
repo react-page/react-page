@@ -1,12 +1,11 @@
 import { Value } from 'slate';
-import SlatePlugin from '../types/SlatePlugin';
-
-import flattenDeep from './flattenDeep';
 import {
   InitialSlateStateDef,
   SlateDefNode,
   SlatePluginNode
 } from '../types/initialSlateState';
+import SlatePlugin from '../types/SlatePlugin';
+import flattenDeep from './flattenDeep';
 
 /**
  * FIXME: transformInitialSlateState does some polymorphic type magic, so that it is directly
@@ -48,6 +47,7 @@ const transformChildren = (defNodes: SlateDefNode[]) =>
         return {
           object: firstComponentPlugin.pluginDefintion.object,
           type: firstComponentPlugin.pluginDefintion.type,
+          data: defPluginNode.data,
           nodes: defPluginNode.children
             ? transformChildren(defPluginNode.children)
             : [],

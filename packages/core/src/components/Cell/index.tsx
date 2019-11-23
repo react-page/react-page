@@ -20,43 +20,40 @@
  *
  */
 
-import * as React from 'react';
-import { connect } from '../../reduxConnect';
 import classNames from 'classnames';
-import { bindActionCreators } from 'redux';
+import * as React from 'react';
+import { bindActionCreators, Dispatch } from 'redux';
 import { createStructuredSelector } from 'reselect';
-
-import Inner from './Inner';
+import {
+  blurAllCells,
+  focusCell,
+  resizeCell,
+  ResizeCellAction
+} from '../../actions/cell';
+import { connect } from '../../reduxConnect';
+import { RootState } from '../../selector';
+import {
+  isEditMode,
+  isInsertMode,
+  isLayoutMode,
+  isPreviewMode,
+  isResizeMode
+} from '../../selector/display';
 import {
   editableConfig,
   node,
-  purifiedNode,
-  NodeProps
+  NodeProps,
+  purifiedNode
 } from '../../selector/editable';
-import {
-  isPreviewMode,
-  isEditMode,
-  isResizeMode,
-  isInsertMode,
-  isLayoutMode
-} from '../../selector/display';
-import {
-  resizeCell,
-  focusCell,
-  blurAllCells,
-  ResizeCellAction
-} from '../../actions/cell';
-import Resizable from './Resizable';
-
 import { ComponetizedCell } from '../../types/editable';
-import { Dispatch } from 'redux';
 import {
+  BlurAllCellsAction,
   FocusCellAction,
   removeCell,
   RemoveCellAction
 } from './../../actions/cell/core';
-import { BlurAllCellsAction } from './../../actions/cell/core';
-import { RootState } from '../../selector';
+import Inner from './Inner';
+import Resizable from './Resizable';
 
 const gridClass = ({ node: { size }, ...rest }: ComponetizedCell): string => {
   if (rest.isPreviewMode || rest.isEditMode) {
@@ -81,8 +78,11 @@ class Cell extends React.PureComponent<CellProps> {
       rowWidth,
       rowHeight,
       updateDimensions,
-      node: { inline, resizable, hasInlineNeighbour, focused },
+      node: { inline, resizable, hasInlineNeighbour, focused, isDraft },
     } = this.props;
+    if (isDraft && this.props.isPreviewMode) {
+      return null;
+    }
 
     return (
       <div
@@ -90,6 +90,7 @@ class Cell extends React.PureComponent<CellProps> {
           'ory-cell-has-inline-neighbour': hasInlineNeighbour,
           [`ory-cell-inline-${inline || ''}`]: inline,
           'ory-cell-focused': focused,
+          'ory-cell-is-draft': isDraft,
           'ory-cell-resizing-overlay': this.props.isResizeMode,
           'ory-cell-bring-to-front':
             !this.props.isResizeMode && !this.props.isLayoutMode && inline, // inline must not be active for resize/layout

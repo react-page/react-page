@@ -1,11 +1,10 @@
-import * as React from 'react';
-import { SpacerControlsProps } from '../types/controls';
-import { Resizable } from 'react-resizable';
-import { BottomToolbar } from '@react-page/ui';
-
-import { defaultSpacerState } from './../default/state';
-import classNames from 'classnames';
 import TextField from '@material-ui/core/TextField';
+import { BottomToolbar } from '@react-page/ui';
+import classNames from 'classnames';
+import * as React from 'react';
+import { Resizable } from 'react-resizable';
+import { SpacerControlsProps } from '../types/controls';
+import { defaultSpacerState } from './../default/state';
 
 const faintBlack = 'rgba(0, 0, 0, 0.12)';
 
@@ -37,6 +36,7 @@ const SpacerDefaultControls: React.SFC<SpacerControlsProps> = props => {
         >
           <div style={{ height, position: 'relative' }}>
             <BottomToolbar
+              {...props}
               icon={props.IconComponent}
               open={props.focused}
               title={props.translations.pluginName}

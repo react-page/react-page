@@ -37,9 +37,14 @@
   float: none;
   width: 100%;
 }
+.ory-cell-is-draft {
+  opacity: 0.3;
+  outline: 1px dashed black;
+}
 
 .ory-cell-focused {
   box-shadow: 0 0 1000px rgba(0, 0, 0, 0.5);
+  opacity: 1;
 }
 
 .ory-cell {

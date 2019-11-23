@@ -273,9 +273,10 @@ export default class PluginService {
       layout = {},
       inline,
       size,
+      isDraft,
       id,
     } = state;
-    const newState: EditorState = { id, inline, size };
+    const newState: EditorState = { id, inline, size, isDraft };
 
     const {
       plugin: { name: contentName = null, version: contentVersion = '*' } = {},
@@ -319,10 +320,19 @@ export default class PluginService {
 
   // tslint:disable-next-line:no-any
   serialize = (state: any): EditableType => {
-    const { rows = [], cells = [], content, layout, inline, size, id } = state;
+    const {
+      rows = [],
+      cells = [],
+      content,
+      layout,
+      inline,
+      isDraft,
+      size,
+      id,
+    } = state;
 
     // tslint:disable-next-line:no-any
-    const newState: any = { id, inline, size };
+    const newState: any = { id, inline, size, isDraft };
     if (content && content.plugin) {
       newState.content = {
         plugin: { name: content.plugin.name, version: content.plugin.version },

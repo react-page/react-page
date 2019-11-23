@@ -1,9 +1,8 @@
-import * as React from 'react';
-import { Html5VideoControlsProps } from './../types/controls';
 import TextField from '@material-ui/core/TextField';
 import { BottomToolbar } from '@react-page/ui';
-
+import * as React from 'react';
 import { defaultHtml5VideoState } from '../default/state';
+import { Html5VideoControlsProps } from './../types/controls';
 
 export interface Html5VideoDefaultControlsProps {}
 
@@ -17,6 +16,7 @@ const Html5VideoDefaultControls: React.SFC<Html5VideoControlsProps> = props => {
     commitUrl,
     changeUrlPreview,
     focused,
+
     remove,
   } = props;
   return (
@@ -24,6 +24,7 @@ const Html5VideoDefaultControls: React.SFC<Html5VideoControlsProps> = props => {
       open={focused}
       title={props.translations.pluginName}
       onDelete={remove}
+      {...props}
     >
       <TextField
         placeholder={props.translations.urlPlaceholder}

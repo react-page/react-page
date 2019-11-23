@@ -21,12 +21,13 @@
  */
 
 import { Action } from 'redux';
-import { EditorState } from '../../types/editor';
 import uuid from 'uuid';
 import { NewIds } from '../../types/editable';
+import { EditorState } from '../../types/editor';
 import { generateIds } from '../helpers';
 
 export const CELL_UPDATE_CONTENT = 'CELL_UPDATE_CONTENT';
+export const CELL_UPDATE_IS_DRAFT = 'CELL_UPDATE_IS_DRAFT';
 export const CELL_UPDATE_LAYOUT = 'CELL_UPDATE_LAYOUT';
 export const CELL_REMOVE = 'CELL_REMOVE';
 export const CELL_RESIZE = 'CELL_RESIZE';
@@ -41,6 +42,12 @@ export interface UpdateCellContentAction extends Action {
   ts: Date;
   id: string;
   state: EditorState;
+}
+
+export interface UpdateCellIsDraftAction extends Action {
+  ts: Date;
+  id: string;
+  isDraft: boolean;
 }
 /**
  * An action creator for updating a cell's content data.
@@ -60,6 +67,27 @@ export const updateCellContent = (id: string) => (
   ts: new Date(),
   id,
   state,
+});
+
+/**
+ * An action creator for setting the cell's isDraft property
+ *
+ * @example
+ * // const store = redux.createStore()
+ * // const cell = { id: '1', ... }
+ * store.dispatch(updateCellContent(cell.id, { foo: 'bar' }))
+ *
+ * @param {string} id The id of the cell that should be updated
+ * @return {Action}
+ */
+export const updateCellIsDraft = (
+  id: string,
+  isDraft: boolean = false
+): UpdateCellIsDraftAction => ({
+  type: CELL_UPDATE_IS_DRAFT,
+  ts: new Date(),
+  id,
+  isDraft,
 });
 
 export interface UpdateCellLayoutAction extends Action {
@@ -246,4 +274,5 @@ export const coreActions = {
   removeCell,
   updateCellLayout,
   updateCellContent,
+  updateCellIsDraft,
 };
