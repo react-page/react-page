@@ -70,6 +70,9 @@ const Dimensions = ({
 
     public updateDimensions = () => {
       const container = this.containerRef;
+      if (!container) {
+        return;
+      }
       const containerWidth = getWidth(container);
       const containerHeight = getHeight(container);
 
