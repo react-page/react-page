@@ -30,6 +30,8 @@ export interface BottomToolbarProps {
   // FIXME: seems like we use more and more information about the current cell. we should refactor this
   id: string;
   editable: string;
+  // tslint:disable-next-line:no-any
+  theme: any;
 }
 
 const SIZES = [1, 0.8, 0.6, 1.2];
@@ -39,6 +41,7 @@ const BottomToolbar: React.SFC<BottomToolbarProps> = ({
   children,
   className,
   dark = false,
+  theme,
 
   anchor = 'bottom',
   onDelete = null,
@@ -56,7 +59,7 @@ const BottomToolbar: React.SFC<BottomToolbarProps> = ({
   };
 
   return (
-    <ThemeProvider theme={dark ? darkTheme : null}>
+    <ThemeProvider theme={theme ? theme : dark ? darkTheme : null}>
       <Drawer
         SlideProps={{
           unmountOnExit: true,
