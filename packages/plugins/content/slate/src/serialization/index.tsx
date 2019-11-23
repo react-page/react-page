@@ -1,13 +1,11 @@
-import Html from 'slate-html-serializer';
-
-import { SlateState } from '../types/state';
-import { Value, ValueJSON } from 'slate';
-
-import { EditorState } from '@react-page/core/lib/types/editor';
 import { PluginProps } from '@react-page/core/lib/service/plugin/classes';
-
+import { EditorState } from '@react-page/core/lib/types/editor';
+import { Value, ValueJSON } from 'slate';
+import Html from 'slate-html-serializer';
 import parseHtml from '../parseHtml/parseHtml';
+import DEFAULT_NODE from '../plugins/DEFAULT_NODE';
 import SlatePlugin from '../types/SlatePlugin';
+import { SlateState } from '../types/state';
 
 type AdditionalSlateFunctions = {
   slateToHtml: (editorState: EditorState) => string;
@@ -38,6 +36,7 @@ export default ({
     rules: rules,
     // tslint:disable-next-line:no-any
     parseHtml,
+    defaultBlock: DEFAULT_NODE,
   });
 
   const htmlToSlate = (htmlString: string) => html.deserialize(htmlString);
