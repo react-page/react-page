@@ -20,16 +20,15 @@
  *
  */
 
+import classNames from 'classnames';
+import throttle from 'lodash/throttle';
 import * as React from 'react';
 import { Resizable as ReactResizeable } from 'react-resizable';
-import { connect } from '../../../reduxConnect';
-import classNames from 'classnames';
 import { createStructuredSelector } from 'reselect';
-
-import { resizeMode, editMode } from '../../../actions/display';
-import { computeStepWidth, widthToSize } from './helper';
+import { editMode, resizeMode } from '../../../actions/display';
+import { connect } from '../../../reduxConnect';
 import { ComponetizedCell } from '../../../types/editable';
-
+import { computeStepWidth, widthToSize } from './helper';
 type ResizableProps = ComponetizedCell;
 
 export interface ResizableState {
@@ -39,10 +38,14 @@ export interface ResizableState {
 }
 
 class Resizable extends React.PureComponent<ResizableProps, ResizableState> {
+  // tslint:disable-next-line:no-any
+  onChangeSizeThrottled: any;
   constructor(props: ResizableProps) {
     super(props);
 
     const sw = computeStepWidth(props);
+
+    this.onChangeSizeThrottled = throttle(this.onChangeSize, 100);
     this.state = {
       stepWidth: sw,
       width: props.node.size * sw,
@@ -50,22 +53,30 @@ class Resizable extends React.PureComponent<ResizableProps, ResizableState> {
     };
   }
 
-  onResize = (event: Event, { size }: { size: { width: number } }) => {
-    const newSize = widthToSize(this.state, this.props, size);
-    if (!newSize) {
-      console.warn('Expected resize event to yield a valid size, but got', {
-        newSize,
-        size,
-        props: this.props,
-        state: this.state,
-      });
+  onChangeSize = (size: { width: number }) => {
+    if (isNaN(size.width)) {
       return;
     }
-
+    const newSize = widthToSize(this.state, this.props, size);
     this.props.onChange(newSize);
-    this.setState({ width: newSize * this.state.stepWidth });
   }
 
+  onResize = (event: Event, { size }: { size: { width: number } }) => {
+    if (isNaN(size.width)) {
+      return;
+    }
+    this.setState({ width: size.width });
+    this.onChangeSizeThrottled(size);
+  }
+
+  onResizeStop = (event: Event, { size }: { size: { width: number } }) => {
+    if (isNaN(size.width)) {
+      return;
+    }
+    this.onChangeSize(size);
+    const newSize = widthToSize(this.state, this.props, size);
+    this.setState({ width: newSize * this.state.stepWidth });
+  }
   render() {
     const {
       node: { bounds, inline },
@@ -78,6 +89,7 @@ class Resizable extends React.PureComponent<ResizableProps, ResizableState> {
           [`ory-cell-resizable-inline-${inline || ''}`]: inline,
         })}
         onResize={this.onResize}
+        onResizeStop={this.onResizeStop}
         minConstraints={inline ? null : [this.state.stepWidth, Infinity]}
         maxConstraints={
           inline ? null : [bounds.right * this.state.stepWidth, Infinity]
