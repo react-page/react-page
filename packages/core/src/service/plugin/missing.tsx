@@ -21,11 +21,11 @@
  */
 
 import * as React from 'react';
-import { LayoutPluginProps } from 'src';
 import {
   ContentPluginConfig,
   ContentPluginProps,
-  LayoutPluginConfig
+  LayoutPluginConfig,
+  LayoutPluginProps
 } from './classes';
 
 const ContentMissingComponent = (props: ContentPluginProps<{}>) => (
