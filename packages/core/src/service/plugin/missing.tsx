@@ -21,10 +21,11 @@
  */
 
 import * as React from 'react';
+import { LayoutPluginProps } from 'src';
 import {
-  LayoutPluginConfig,
   ContentPluginConfig,
-  ContentPluginProps
+  ContentPluginProps,
+  LayoutPluginConfig
 } from './classes';
 
 const ContentMissingComponent = (props: ContentPluginProps<{}>) => (
@@ -38,6 +39,7 @@ const ContentMissingComponent = (props: ContentPluginProps<{}>) => (
     }}
   >
     The requested content plugin could not be found.
+    <button onClick={props.remove}>Delete Plugin</button>
     <pre>{JSON.stringify(props, null, 2)}</pre>
   </div>
 );
@@ -52,7 +54,11 @@ export const contentMissing = ({
   version,
 });
 
-const LayoutMissingComponent: React.SFC = ({ children, ...props }) => (
+const LayoutMissingComponent: React.SFC = ({
+  children,
+  ...props
+}: // tslint:disable-next-line:no-any
+LayoutPluginProps<{}> & { children: any }) => (
   <div>
     <div
       style={{
@@ -64,6 +70,7 @@ const LayoutMissingComponent: React.SFC = ({ children, ...props }) => (
       }}
     >
       The requested layout plugin could not be found.
+      <button onClick={props.remove}>Delete Plugin</button>
       <pre>{JSON.stringify(props, null, 2)}</pre>
     </div>
     {children}
