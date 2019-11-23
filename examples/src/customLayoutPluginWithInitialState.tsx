@@ -93,10 +93,16 @@ export default () =>
                   {
                     plugin: plugins.headings.h2,
                     children: ['Hello world'],
+                    data: {
+                      align: 'center',
+                    },
                   },
                   {
                     plugin: plugins.paragraphs.paragraph,
                     children: ['Another entry'],
+                    data: {
+                      align: 'center',
+                    },
                   },
                 ],
               })),
