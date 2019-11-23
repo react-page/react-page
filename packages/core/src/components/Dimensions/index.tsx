@@ -20,9 +20,9 @@
  *
  */
 
-import * as React from 'react';
-import onElementResize from 'element-resize-event';
 import classNames from 'classnames';
+import onElementResize from 'element-resize-event';
+import * as React from 'react';
 
 const defaultGetWidth = (element: HTMLElement) => element.clientWidth;
 const defaultGetHeight = (element: HTMLElement) => element.clientHeight;
@@ -105,6 +105,7 @@ const Dimensions = ({
 
     onContainerRef = ref => {
       this.containerRef = ref;
+      this.updateDimensions();
     }
 
     render() {
