@@ -41,4 +41,4 @@ Original Library created by [@aeneasr](https://github.com/aeneasr) [@ory](https:
 
 ## Community
 
-join us on slack: https://react-page.slack.com
+join us on slack: https://reactpage.slack.com
