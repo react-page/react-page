@@ -1,12 +1,12 @@
 import SlatePlugin from '../types/SlatePlugin';
-import createBasePlugin from './createBasePlugin';
 import { SlateDataPluginDefinition } from '../types/slatePluginDefinitions';
+import createBasePlugin from './createBasePlugin';
 
 function createDataPluginWithDefinition<T extends {}>(
-  pluginDefintion: SlateDataPluginDefinition<T>
+  pluginDefinition: SlateDataPluginDefinition<T>
 ): SlatePlugin {
   return {
-    ...createBasePlugin<T>({ ...pluginDefintion, pluginType: 'data' }),
+    ...createBasePlugin<T>({ ...pluginDefinition, pluginType: 'data' }),
   };
 }
 

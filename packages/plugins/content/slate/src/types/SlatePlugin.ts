@@ -1,10 +1,10 @@
+import { Editor } from 'slate';
 import {
-  RenderMarkProps,
+  Plugin,
   RenderBlockProps,
   RenderInlineProps,
-  Plugin
+  RenderMarkProps
 } from 'slate-react';
-import { Editor } from 'slate';
 import { NextType } from './next';
 import {
   PluginButtonProps,
@@ -21,10 +21,10 @@ export default interface SlatePlugin extends Plugin {
   DEFAULT_NODE?: string;
 
   /**
-   * @member pluginDefintion is only used in createInitialSlateState to simplify creating initial slate state
+   * @member pluginDefinition is only used in createInitialSlateState to simplify creating initial slate state
    */
   // tslint:disable-next-line:no-any
-  pluginDefintion?: SlatePluginDefinition<any>;
+  pluginDefinition?: SlatePluginDefinition<any>;
 
   /**
    * @member serialize a plugin's state to html

@@ -36,17 +36,17 @@ const transformChildren = (defNodes: SlateDefNode[]) =>
         slatePluginOrList
       ).find(
         plugin =>
-          plugin.pluginDefintion.pluginType === 'component' ||
-          plugin.pluginDefintion
+          plugin.pluginDefinition.pluginType === 'component' ||
+          plugin.pluginDefinition
       );
       if (
         firstComponentPlugin &&
-        firstComponentPlugin.pluginDefintion &&
-        firstComponentPlugin.pluginDefintion.pluginType === 'component'
+        firstComponentPlugin.pluginDefinition &&
+        firstComponentPlugin.pluginDefinition.pluginType === 'component'
       ) {
         return {
-          object: firstComponentPlugin.pluginDefintion.object,
-          type: firstComponentPlugin.pluginDefintion.type,
+          object: firstComponentPlugin.pluginDefinition.object,
+          type: firstComponentPlugin.pluginDefinition.type,
           data: defPluginNode.data,
           nodes: defPluginNode.children
             ? transformChildren(defPluginNode.children)

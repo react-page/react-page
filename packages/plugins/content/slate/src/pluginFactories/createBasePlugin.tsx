@@ -1,15 +1,14 @@
-import React from 'react';
-
-import SlatePlugin from '../types/SlatePlugin';
-import simpleToggleHotKeyHandler from './utils/simpleToggleHotKeyHandler';
-import {
-  SlatePluginDefinition,
-  PluginButtonProps
-} from '../types/slatePluginDefinitions';
 import { lazyLoad } from '@react-page/core';
+import React from 'react';
+import SlatePlugin from '../types/SlatePlugin';
+import {
+  PluginButtonProps,
+  SlatePluginDefinition
+} from '../types/slatePluginDefinitions';
+import simpleToggleHotKeyHandler from './utils/simpleToggleHotKeyHandler';
 
 function createBasePlugin<T extends {}>(
-  pluginDefintion: SlatePluginDefinition<T>
+  pluginDefinition: SlatePluginDefinition<T>
 ): SlatePlugin {
   const PluginButton = lazyLoad(
     () =>
@@ -20,18 +19,18 @@ function createBasePlugin<T extends {}>(
       >
   );
   const Button = (props: PluginButtonProps) => (
-    <PluginButton {...props} config={pluginDefintion} />
+    <PluginButton {...props} config={pluginDefinition} />
   );
 
   return {
-    pluginDefintion,
+    pluginDefinition,
     onKeyDown:
-      pluginDefintion.onKeyDown || pluginDefintion.hotKey
-        ? simpleToggleHotKeyHandler<T>(pluginDefintion)
+      pluginDefinition.onKeyDown || pluginDefinition.hotKey
+        ? simpleToggleHotKeyHandler<T>(pluginDefinition)
         : (e, editor, next) => next(),
 
-    hoverButtons: pluginDefintion.addHoverButton ? [Button] : [],
-    toolbarButtons: pluginDefintion.addToolbarButton ? [Button] : [],
+    hoverButtons: pluginDefinition.addHoverButton ? [Button] : [],
+    toolbarButtons: pluginDefinition.addToolbarButton ? [Button] : [],
   };
 }
 

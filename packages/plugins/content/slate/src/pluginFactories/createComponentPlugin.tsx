@@ -1,38 +1,38 @@
-import {
-  RenderMarkProps,
-  RenderInlineProps,
-  RenderBlockProps
-} from 'slate-react';
-import { Data, Editor } from 'slate';
 import React from 'react';
+import { Data, Editor } from 'slate';
+import {
+  RenderBlockProps,
+  RenderInlineProps,
+  RenderMarkProps
+} from 'slate-react';
 import { NextType } from '../types/next';
 import SlatePlugin from '../types/SlatePlugin';
-import createSlateBasePlugin from './createBasePlugin';
 import {
-  SlateNodeObjectType,
+  MapLike,
   SlateComponentPluginDefinition,
-  MapLike
+  SlateNodeObjectType
 } from '../types/slatePluginDefinitions';
+import createSlateBasePlugin from './createBasePlugin';
 
 function createComponentPluginWithDefinition<T extends {}>(
-  pluginDefintion: SlateComponentPluginDefinition<T>
+  pluginDefinition: SlateComponentPluginDefinition<T>
 ): SlatePlugin {
   return {
-    ...createSlateBasePlugin({ ...pluginDefintion, pluginType: 'component' }),
+    ...createSlateBasePlugin({ ...pluginDefinition, pluginType: 'component' }),
 
-    deserialize: pluginDefintion.deserialize
+    deserialize: pluginDefinition.deserialize
       ? // tslint:disable-next-line:no-any
         (el: HTMLElement, next: (childnodes: any) => any) => {
           const tagName = el.tagName.toLowerCase();
-          if (tagName !== pluginDefintion.deserialize.tagName) {
+          if (tagName !== pluginDefinition.deserialize.tagName) {
             return;
           }
           return {
-            object: pluginDefintion.object,
-            type: pluginDefintion.type,
+            object: pluginDefinition.object,
+            type: pluginDefinition.type,
             nodes: next(el.childNodes),
-            data: pluginDefintion.deserialize.getData
-              ? Data.create(pluginDefintion.deserialize.getData(el))
+            data: pluginDefinition.deserialize.getData
+              ? Data.create(pluginDefinition.deserialize.getData(el))
               : undefined,
           };
         }
@@ -43,26 +43,26 @@ function createComponentPluginWithDefinition<T extends {}>(
       // tslint:disable-next-line:no-any
       children: any[]
     ) => {
-      if (node.object !== pluginDefintion.object) {
+      if (node.object !== pluginDefinition.object) {
         return;
       }
-      if (node.type !== pluginDefintion.type) {
+      if (node.type !== pluginDefinition.type) {
         return;
       }
-      const { Component } = pluginDefintion;
+      const { Component } = pluginDefinition;
       return <Component data={node.data} children={children} />;
     },
 
     renderMark: (props: RenderMarkProps, editor: Editor, next: NextType) => {
       const { attributes, children, mark } = props;
-      if (mark.type !== pluginDefintion.type) {
+      if (mark.type !== pluginDefinition.type) {
         return next();
       }
-      if (mark.object !== pluginDefintion.object) {
+      if (mark.object !== pluginDefinition.object) {
         return next();
       }
 
-      const { Component } = pluginDefintion;
+      const { Component } = pluginDefinition;
       return (
         <Component
           data={mark.data as MapLike<T>}
@@ -75,14 +75,14 @@ function createComponentPluginWithDefinition<T extends {}>(
     renderBlock: (props: RenderBlockProps, editor: Editor, next: NextType) => {
       const { children, node } = props;
 
-      if (node.type !== pluginDefintion.type) {
+      if (node.type !== pluginDefinition.type) {
         return next();
       }
-      if (node.object !== pluginDefintion.object) {
+      if (node.object !== pluginDefinition.object) {
         return next();
       }
 
-      const { Component } = pluginDefintion;
+      const { Component } = pluginDefinition;
       return <Component data={node.data as MapLike<T>} children={children} />;
     },
     renderInline: (
@@ -91,14 +91,14 @@ function createComponentPluginWithDefinition<T extends {}>(
       next: NextType
     ) => {
       const { children, node } = props;
-      if (node.type !== pluginDefintion.type) {
+      if (node.type !== pluginDefinition.type) {
         return next();
       }
-      if (node.object !== pluginDefintion.object) {
+      if (node.object !== pluginDefinition.object) {
         return next();
       }
 
-      const { Component } = pluginDefintion;
+      const { Component } = pluginDefinition;
       return <Component data={node.data as MapLike<T>} children={children} />;
     },
   };
