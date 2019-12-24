@@ -15,10 +15,11 @@ $ npm i -g create-react-app
 $ create-react-app .
 ```
 
-and install the editor using npm:
+and install the editor using npm or yarn:
 
 ```
-$ npm i --save @react-page
+$ yarn add @react-page/react-page
+$ npm i --save @react-page/react-page
 ```
 
 Next, open the file _src/components/App.js_ and include the React Page:
