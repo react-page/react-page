@@ -26,12 +26,13 @@ const transformChildren = (defNodes: SlateDefNode[]) =>
   defNodes.map(defNode => {
     if ((defNode as SlatePluginNode).plugin) {
       const defPluginNode: SlatePluginNode = defNode as SlatePluginNode;
-      const slatePluginOrList =
-        typeof defPluginNode.plugin === 'function'
-          ? defPluginNode.plugin()
-          : defPluginNode.plugin;
+      // tslint:disable-next-line:no-any
+      const slatePluginOrList = (defPluginNode.plugin as any).toPlugin
+        ? // tslint:disable-next-line:no-any
+          (defPluginNode.plugin as any).toPlugin()
+        : defPluginNode.plugin;
 
-      // the result of plugin() might be an array, e.g. the list plugin is an array, because it defines ul, li AND indention-options on the same plugin
+      // the result of plugin.toPlugin might be an array, e.g. the list plugin is an array, because it defines ul, li AND indention-options on the same plugin
       const firstComponentPlugin = flattenDeep<SlatePlugin>(
         slatePluginOrList
       ).find(

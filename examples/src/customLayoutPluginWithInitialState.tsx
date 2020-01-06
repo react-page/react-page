@@ -27,7 +27,7 @@ export default () =>
               state: reducedSlate.createInitialSlateState(({ plugins }) => ({
                 children: [
                   {
-                    plugin: plugins.headings.h2,
+                    plugin: plugins.headings.h3,
                     children: ['Hello world'],
                   },
                   {

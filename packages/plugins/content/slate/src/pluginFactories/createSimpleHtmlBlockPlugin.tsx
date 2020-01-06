@@ -1,7 +1,6 @@
-import createComponentPlugin from './createComponentPlugin';
-
 import React from 'react';
 import { SlateComponentPluginDefinition } from '../types/slatePluginDefinitions';
+import createComponentPlugin from './createComponentPlugin';
 
 type Def<T extends {}> = Pick<
   SlateComponentPluginDefinition<HtmlBlockData<T>>,
@@ -42,12 +41,17 @@ function createSimpleHtmlBlockPlugin<T = {}>(def: Def<HtmlBlockData<T>>) {
     deserialize: {
       tagName: def.tagName,
     },
-    Component: ({ data, children, attributes }) => {
+    Component: ({ data, children, attributes, style, className }) => {
       const Tag = (def.tagName as unknown) as React.ComponentType<{
         style: object;
+        className?: string;
       }>;
       return (
-        <Tag {...attributes} style={{ textAlign: data.get('align') }}>
+        <Tag
+          {...attributes}
+          className={className}
+          style={{ textAlign: data.get('align'), ...style }}
+        >
           {children}
         </Tag>
       );

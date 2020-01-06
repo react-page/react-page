@@ -104,19 +104,17 @@ function createComponentPluginWithDefinition<T extends {}>(
   };
 }
 
-export type CustomizeFunction<T, CT> = (
-  def: SlateComponentPluginDefinition<T>
-) => SlateComponentPluginDefinition<T & CT>;
-
-function createComponentPlugin<T>(
-  definition: SlateComponentPluginDefinition<T>
-) {
-  return function<CT>(customize?: CustomizeFunction<T, CT>) {
-    if (customize) {
-      return createComponentPluginWithDefinition<T & CT>(customize(definition));
-    }
-    return createComponentPluginWithDefinition<T>(definition);
+function createComponentPlugin<T = {}>(def: SlateComponentPluginDefinition<T>) {
+  const customizablePlugin = function<CT>(
+    customize: (
+      t: SlateComponentPluginDefinition<T>
+    ) => SlateComponentPluginDefinition<T & CT> = d =>
+      (d as unknown) as SlateComponentPluginDefinition<T & CT>
+  ) {
+    return createComponentPlugin(customize(def));
   };
+  customizablePlugin.toPlugin = () => createComponentPluginWithDefinition(def);
+  return customizablePlugin;
 }
 
 export default createComponentPlugin;

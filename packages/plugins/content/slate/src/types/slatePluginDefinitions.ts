@@ -1,6 +1,6 @@
+import { JsonSchema } from '@react-page/create-plugin-materialui';
 import { Editor, Value } from 'slate';
 import { NextType } from '../types/next';
-import { JsonSchema } from '@react-page/create-plugin-materialui';
 import { Translations } from './translations';
 
 export interface PluginButtonProps {
@@ -83,6 +83,8 @@ export type SlateComponentPluginDefinition<
   };
   Component: React.ComponentType<{
     attributes?: object;
+    style?: object;
+    className?: string;
     data: MapLike<T>;
   }>;
 } & (ObjectProps | InlineProps | MarkProps);
