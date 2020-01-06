@@ -1,5 +1,6 @@
 import {
   ContentPluginConfig,
+  DndBackend,
   EditableType,
   LayoutPluginConfig,
   lazyLoad,
@@ -13,6 +14,7 @@ const EditableEditor = lazyLoad(() => import('./EditableEditor'));
 type Props = {
   plugins?: Plugins;
   defaultPlugin?: ContentPluginConfig | LayoutPluginConfig;
+  dndBackendd?: DndBackend;
   value?: EditableType;
   onChange?: (v: EditableType) => void;
   readOnly?: boolean;
@@ -23,6 +25,7 @@ const Editor: React.FC<Props> = ({
   readOnly,
   value,
   onChange,
+  dndBackendd,
 }) =>
   readOnly ? (
     <HTMLRenderer state={value} plugins={plugins} />
@@ -32,6 +35,7 @@ const Editor: React.FC<Props> = ({
       defaultPlugin={defaultPlugin}
       value={value}
       onChange={onChange}
+      dndBackend={dndBackendd}
     />
   );
 

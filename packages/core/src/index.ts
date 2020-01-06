@@ -20,6 +20,7 @@
  *
  */
 
+import { BackendFactory } from 'dnd-core-cjs';
 import forEach from 'ramda/src/forEach';
 import { NativeTypes } from 'react-dnd-html5-backend-cjs';
 import { Middleware, Store } from 'redux';
@@ -52,6 +53,7 @@ import createStore from './store';
 import { EditableType, NativeFactory } from './types/editable';
 import { RootState } from './types/state';
 
+export { BackendFactory as DndBackend };
 export { shouldPureComponentUpdate };
 export {
   Plugin,

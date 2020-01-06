@@ -1,8 +1,8 @@
 // something is wrong with lerna, typescript and this import: import { lazyLoad } from '@react-page/core';
 import loadable from '@loadable/component';
 import { colorToString } from './ColorPicker/colorToString';
-import darkTheme from './ThemeProvider/DarkTheme';
 
+import darkTheme from './ThemeProvider/DarkTheme';
 const Trash = loadable(() => import('./Trash/index'));
 const Toolbar = loadable(() => import('./Toolbar/index'));
 const DisplayModeToggle = loadable(() => import('./DisplayModeToggle/index'));
@@ -26,5 +26,5 @@ export {
   darkTheme,
   ImageUpload,
   ColorPicker,
-  colorToString
+  colorToString,
 };
