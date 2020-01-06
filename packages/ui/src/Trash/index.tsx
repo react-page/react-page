@@ -93,8 +93,10 @@ const types = ({ editor }: { editor: Editor }) => {
     ...Object.keys(editor.plugins.plugins.content),
   ].map(
     (p: string) =>
-      editor.plugins.plugins.content[p].name ||
-      editor.plugins.plugins.layout[p].name
+      (editor.plugins.plugins.content[p] &&
+        editor.plugins.plugins.content[p].name) ||
+      (editor.plugins.plugins.layout[p] &&
+        editor.plugins.plugins.layout[p].name)
   );
 
   if (editor.plugins.hasNativePlugin()) {
