@@ -7,7 +7,6 @@ export const defaultSlate = slate(def => ({
   ...def,
   plugins: {
     ...def.plugins,
-
     custom: {
       custom1: customSlatePlugin,
     },

@@ -59,15 +59,12 @@ export default ({
     const matchingPlugin = plugins.find(p => {
       return (
         p.pluginType === 'component' &&
-        p.deserialize &&
-        p.deserialize.tagName === nodeName.toLowerCase()
+        p.deserialize?.tagName === nodeName.toLowerCase()
       );
     });
 
     if (matchingPlugin && matchingPlugin.pluginType === 'component') {
-      const attrs = matchingPlugin.deserialize
-        ? matchingPlugin.deserialize.getData(el as HTMLElement)
-        : {};
+      const attrs = matchingPlugin?.deserialize?.getData?.(el as HTMLElement) ?? {};
       return jsx(
         matchingPlugin.object === 'mark' ? 'text' : 'element',
         attrs,

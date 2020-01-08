@@ -136,19 +136,28 @@ class Slate extends React.PureComponent<SlateProps, SlateState> {
 import React, { DependencyList, useCallback, useMemo } from 'react';
 import { Portal } from 'react-portal';
 import { createEditor, Editor, Range } from 'slate';
-import { Editable, ReactEditor, RenderElementProps, Slate, useSlate, withReact } from 'slate-react';
+import {
+  Editable,
+  ReactEditor,
+  RenderElementProps,
+  Slate,
+  useSlate,
+  withReact
+} from 'slate-react';
+import { SlatePlugin } from 'src/types/SlatePlugin';
 import { addPlugin } from '../hooks/useAddPlugin';
 import { getCurrentNodeWithPlugin } from '../hooks/useCurrentNodeWithPlugin';
 import { removePlugin } from '../hooks/useRemovePlugin';
 import { SlateProps } from '../types/component';
-import { PluginButtonProps, SlateComponentPluginDefinition, SlatePluginDefinition } from '../types/slatePluginDefinitions';
+import {
+  PluginButtonProps,
+  SlateComponentPluginDefinition
+} from '../types/slatePluginDefinitions';
 
 const PluginButton = lazyLoad(
   () =>
     (import('./PluginButton') as unknown) as Promise<
-      React.ComponentType<
-        PluginButtonProps & { config: SlatePluginDefinition<unknown> }
-      >
+      React.ComponentType<PluginButtonProps & { config: SlatePlugin }>
     >
 );
 
@@ -194,19 +203,20 @@ const ToolbarButtons = ({
 );
 
 const useComponentPlugins = (
-  { plugins }: { plugins: SlatePluginDefinition<unknown>[] },
+  { plugins }: { plugins: SlatePlugin[] },
   deps: DependencyList
 ) =>
   useMemo(
     () =>
       plugins.filter(
         plugin => plugin.pluginType === 'component'
-      ) as SlateComponentPluginDefinition<unknown>[],
+        // tslint:disable-next-line:no-any
+      ) as SlateComponentPluginDefinition<any>[],
     deps
   );
 // tslint:disable-next-line:no-any
 const useRenderElement = (
-  { plugins }: { plugins: SlatePluginDefinition<unknown>[] },
+  { plugins }: { plugins: SlatePlugin[] },
   deps: DependencyList
 ) => {
   const componentPlugins = useComponentPlugins({ plugins }, deps);
@@ -238,7 +248,7 @@ const useOnKeyDown = (
   {
     plugins,
   }: {
-    plugins: SlatePluginDefinition<unknown>[];
+    plugins: SlatePlugin[];
   },
   deps: DependencyList
 ) => {
@@ -270,10 +280,22 @@ const useOnKeyDown = (
     */
   }, deps);
 };
-const SlateControls = ({ plugins, focused, readOnly, remove }: SlateProps) => {
-  const editor = useMemo(() => withReact(createEditor()), []);
+
+const SlateEditable = ({
+  plugins,
+  editor,
+}: {
+  plugins: SlatePlugin[];
+  editor: Editor;
+}) => {
   const renderElement = useRenderElement({ plugins }, []);
   const onKeyDown = useOnKeyDown({ plugins }, []);
+
+  return <Editable renderElement={renderElement} onKeyDown={onKeyDown} />;
+};
+const SlateControls = (props: SlateProps) => {
+  const { plugins, focused, readOnly, remove, translations } = props;
+  const editor = useMemo(() => withReact(createEditor()), []);
 
   // TODO: wrap with useEffect
   const showHoverToolbar =
@@ -299,9 +321,9 @@ const SlateControls = ({ plugins, focused, readOnly, remove }: SlateProps) => {
             // ref={this.toolbar}
           >
             <HoverButtons
-              translations={this.props.translations}
+              translations={translations}
               editor={editor}
-              {...this.props}
+              {...props}
             />
           </div>
         </Portal>
@@ -314,7 +336,7 @@ const SlateControls = ({ plugins, focused, readOnly, remove }: SlateProps) => {
           console.log('onchange', e);
         }}
       >
-        <Editable renderElement={renderElement} onKeyDown={onKeyDown} />
+        <SlateEditable editor={editor} plugins={plugins} />
       </Slate>
 
       {!readOnly ? (
@@ -322,12 +344,12 @@ const SlateControls = ({ plugins, focused, readOnly, remove }: SlateProps) => {
           open={showBottomToolbar}
           dark={true}
           onDelete={remove}
-          {...this.props}
+          {...props}
         >
           <ToolbarButtons
-            {...this.props}
-            translations={this.props.translations}
-            editor={this.editor.current}
+            {...props}
+            translations={translations}
+            editor={editor.current}
           />
         </BottomToolbar>
       ) : null}
