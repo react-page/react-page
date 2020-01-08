@@ -1,12 +1,12 @@
 {
   "extends": "../../../tsconfig.settings.json",
   "compilerOptions": {
+    "downlevelIteration": true,
     "rootDir": "src",
     "outDir": "lib",
     "baseUrl": ".",
     "paths": {
-      "react": ["../../../../node_modules/@types/react/index"],
-      "slate": ["../../../../node_modules/@types/slate/index"]
+      "react": ["../../../../node_modules/@types/react/index"]
     }
   },
   "include": ["src"],

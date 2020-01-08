@@ -27,7 +27,7 @@ export const getCurrentNodeWithPlugin = <T>(
     match: match,
     mode: 'all', // FIXME: whats the best value?
   });
-  return matchingNode as unknown as Element;
+  return (matchingNode as unknown) as Element;
 };
 export default <T>(plugin: SlatePluginDefinition<T>) => {
   const editor = useSlate();

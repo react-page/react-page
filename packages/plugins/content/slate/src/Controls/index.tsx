@@ -1,4 +1,4 @@
-import { lazyLoad } from '@react-page/core/src';
+import { lazyLoad } from '@react-page/core';
 import { BottomToolbar } from '@react-page/ui';
 import isHotkey from 'is-hotkey';
 /*
@@ -136,23 +136,12 @@ class Slate extends React.PureComponent<SlateProps, SlateState> {
 import React, { DependencyList, useCallback, useMemo } from 'react';
 import { Portal } from 'react-portal';
 import { createEditor, Editor, Range } from 'slate';
-import {
-  Editable,
-  ReactEditor,
-  RenderElementProps,
-  Slate,
-  useSlate,
-  withReact
-} from 'slate-react';
+import { Editable, ReactEditor, RenderElementProps, Slate, useSlate, withReact } from 'slate-react';
 import { addPlugin } from '../hooks/useAddPlugin';
 import { getCurrentNodeWithPlugin } from '../hooks/useCurrentNodeWithPlugin';
 import { removePlugin } from '../hooks/useRemovePlugin';
 import { SlateProps } from '../types/component';
-import {
-  PluginButtonProps,
-  SlateComponentPluginDefinition,
-  SlatePluginDefinition
-} from '../types/slatePluginDefinitions';
+import { PluginButtonProps, SlateComponentPluginDefinition, SlatePluginDefinition } from '../types/slatePluginDefinitions';
 
 const PluginButton = lazyLoad(
   () =>

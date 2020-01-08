@@ -10,9 +10,7 @@ export default pluginFactories.createComponentPlugin<{
   object: 'mark',
   icon: <span>Color</span>,
   Component: props => {
-    return (
-      <span style={{ color: props.data.get('color') }}>{props.children}</span>
-    );
+    return <span style={{ color: props.color }}>{props.children}</span>;
   },
 
   schema: {

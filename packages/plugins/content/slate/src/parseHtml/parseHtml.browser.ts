@@ -1,1 +1,9 @@
-export default undefined; // this makes slate to fall back to browser dom parser
+export default (html: string) => {
+  if (typeof DOMParser === 'undefined') {
+    throw new Error(
+      'The native `DOMParser` global which the `Html` serializer uses by default is not present in this environment. You must supply the `options.parseHtml` function instead.'
+    );
+  }
+
+  return new DOMParser().parseFromString(html, 'text/html');
+};

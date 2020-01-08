@@ -65,7 +65,9 @@ export default ({
     });
 
     if (matchingPlugin && matchingPlugin.pluginType === 'component') {
-      const attrs = matchingPlugin.deserialize.getData(el as HTMLElement);
+      const attrs = matchingPlugin.deserialize
+        ? matchingPlugin.deserialize.getData(el as HTMLElement)
+        : {};
       return jsx(
         matchingPlugin.object === 'mark' ? 'text' : 'element',
         attrs,
