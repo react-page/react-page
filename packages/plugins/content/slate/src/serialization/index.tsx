@@ -2,7 +2,6 @@ import { PluginProps } from '@react-page/core/lib/service/plugin/classes';
 import { EditorState } from '@react-page/core/lib/types/editor';
 import { jsx } from 'slate-hyperscript';
 import { SlatePlugin } from 'src/types/SlatePlugin';
-import { SlatePluginDefinition } from 'src/types/slatePluginDefinitions';
 import parseHtml from '../parseHtml/parseHtml';
 import { SlateState } from '../types/state';
 
@@ -15,28 +14,6 @@ export type SerializationFunctions = Pick<
   'serialize' | 'unserialize'
 > &
   AdditionalSlateFunctions;
-
-// tslint:disable-next-line:no-any
-const makePluginDeserializer = (plugin: SlatePluginDefinition<any>) => {
-  if (plugin.pluginType === 'component') {
-    // tslint:disable-next-line:no-any
-    return (el: HTMLElement, next: (childnodes: any) => any) => {
-      const tagName = el.tagName.toLowerCase();
-      if (tagName !== plugin.deserialize.tagName) {
-        return;
-      }
-      return {
-        object: plugin.object,
-        type: plugin.type,
-        nodes: next(el.childNodes),
-        data: plugin.deserialize.getData
-          ? plugin.deserialize.getData(el)
-          : undefined,
-      };
-    };
-  }
-  return null;
-};
 
 const checkEmpty = potentialString =>
   !(
@@ -101,13 +78,9 @@ export default ({
 
   const htmlToSlate = (htmlString: string) => {
     const parsed = parseHtml(htmlString);
-    const rules = plugins
-      .filter(p => p.pluginType === 'component')
-      .map(p => ({
-        deserialize: makePluginDeserializer(p),
-      }));
-
-    return;
+    // tslint:disable-next-line:no-any
+    let fragment = (deserializeElement(parsed.body) as unknown) as any[];
+    return fragment;
   };
 
   const unserialize = ({
