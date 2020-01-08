@@ -7,6 +7,7 @@ export const removePlugin = <T>(
   editor: Editor,
   plugin: SlatePluginDefinition<T>
 ) => {
+  console.log('remove plgin', plugin);
   if (plugin.customRemove) {
     plugin.customRemove(editor);
   } else if (plugin.pluginType === 'component') {

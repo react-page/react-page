@@ -133,13 +133,14 @@ class Slate extends React.PureComponent<SlateProps, SlateState> {
   }
 }
 */
-import React, { DependencyList, useCallback, useMemo } from 'react';
+import React, { DependencyList, useCallback, useMemo, useState } from 'react';
 import { Portal } from 'react-portal';
-import { createEditor, Editor, Range } from 'slate';
+import { createEditor, Editor, Node, Range } from 'slate';
 import {
   Editable,
   ReactEditor,
   RenderElementProps,
+  RenderLeafProps,
   Slate,
   useSlate,
   withReact
@@ -202,43 +203,91 @@ const ToolbarButtons = ({
   </div>
 );
 
-const useComponentPlugins = (
+const useComponentNodePlugins = (
   { plugins }: { plugins: SlatePlugin[] },
   deps: DependencyList
 ) =>
   useMemo(
     () =>
       plugins.filter(
-        plugin => plugin.pluginType === 'component'
+        plugin => plugin.pluginType === 'component' && plugin.object !== 'mark'
+        // tslint:disable-next-line:no-any
+      ) as SlateComponentPluginDefinition<any>[],
+    deps
+  );
+
+const useComponentMarkPlugins = (
+  { plugins }: { plugins: SlatePlugin[] },
+  deps: DependencyList
+) =>
+  useMemo(
+    () =>
+      plugins.filter(
+        plugin => plugin.pluginType === 'component' && plugin.object === 'mark'
         // tslint:disable-next-line:no-any
       ) as SlateComponentPluginDefinition<any>[],
     deps
   );
 // tslint:disable-next-line:no-any
+
 const useRenderElement = (
   { plugins }: { plugins: SlatePlugin[] },
   deps: DependencyList
 ) => {
-  const componentPlugins = useComponentPlugins({ plugins }, deps);
+  const componentPlugins = useComponentNodePlugins({ plugins }, deps);
   return useCallback(
     ({
-      element: { type, children, ...elementProps },
+      element: { type, ...elementProps },
+      children,
       attributes,
     }: RenderElementProps) => {
       const matchingPlugin = componentPlugins.find(
         plugin => plugin.type === type
       );
+
       if (matchingPlugin) {
         const { Component } = matchingPlugin;
+
         return (
           <Component
+            {...elementProps}
             attributes={attributes}
             children={children}
-            {...elementProps}
           />
         );
       }
       return <p>default - implement me</p>;
+    },
+    deps
+  );
+};
+
+const useRenderLeave = (
+  { plugins }: { plugins: SlatePlugin[] },
+  deps: DependencyList
+) => {
+  const markPlugins = useComponentMarkPlugins({ plugins }, deps);
+
+  return useCallback(
+    ({
+      leaf: { text, ...leaveTypes },
+      attributes,
+      children,
+    }: RenderLeafProps) => {
+      return (
+        <span {...attributes}>
+          {Object.keys(leaveTypes).reduce((el, type) => {
+            const matchingPlugin = markPlugins.find(
+              plugin => plugin.type === type
+            );
+            if (matchingPlugin) {
+              const { Component } = matchingPlugin;
+              return <Component>{el}</Component>;
+            }
+            return el;
+          }, children)}
+        </span>
+      );
     },
     deps
   );
@@ -289,9 +338,16 @@ const SlateEditable = ({
   editor: Editor;
 }) => {
   const renderElement = useRenderElement({ plugins }, []);
+  const renderLeaf = useRenderLeave({ plugins }, []);
   const onKeyDown = useOnKeyDown({ plugins }, []);
 
-  return <Editable renderElement={renderElement} onKeyDown={onKeyDown} />;
+  return (
+    <Editable
+      renderElement={renderElement}
+      renderLeaf={renderLeaf}
+      onKeyDown={onKeyDown}
+    />
+  );
 };
 const SlateControls = (props: SlateProps) => {
   const { plugins, focused, readOnly, remove, translations } = props;
@@ -303,11 +359,24 @@ const SlateControls = (props: SlateProps) => {
     !ReactEditor.isFocused(editor) ||
     Range.isCollapsed(editor.selection) ||
     Editor.string(editor, editor.selection) === '';
-
+  const [value, setValue] = useState<Node[]>([
+    {
+      type: 'PARAGRAPH/PARAGRAPH',
+      children: [
+        {
+          text: 'fudi',
+        },
+        {
+          text: 'gaggi',
+          'EMPHASIZE/EM': true,
+        },
+      ],
+    },
+  ]);
   const showBottomToolbar = Boolean(focused);
 
   return (
-    <>
+    <Slate editor={editor} value={value} onChange={setValue}>
       {!readOnly && focused && (
         <Portal>
           <div
@@ -328,16 +397,8 @@ const SlateControls = (props: SlateProps) => {
           </div>
         </Portal>
       )}
-      <Slate
-        editor={editor}
-        value={null}
-        onChange={e => {
-          // tslint:disable-next-line:no-console
-          console.log('onchange', e);
-        }}
-      >
-        <SlateEditable editor={editor} plugins={plugins} />
-      </Slate>
+
+      <SlateEditable editor={editor} plugins={plugins} />
 
       {!readOnly ? (
         <BottomToolbar
@@ -353,7 +414,7 @@ const SlateControls = (props: SlateProps) => {
           />
         </BottomToolbar>
       ) : null}
-    </>
+    </Slate>
   );
 };
 

@@ -27,12 +27,20 @@ const ceateSlatePlugin = (def: Definition): SlatePlugin[] => {
         slateEditList.changes.decreaseItemDepth(editor);
       },
       isDisabled: editor => {
+        // console.warn('need to reimplement slate list isDisabled ');
+        return true;
+        /*
         const editorState = editor.value;
 
-        const previousItem = slateEditList.utils.getPreviousItem(editorState);
-        const currentItem = slateEditList.utils.getCurrentItem(editorState);
+        const previousItem = editorState
+          ? slateEditList.utils.getPreviousItem(editorState)
+          : null;
+        const currentItem = editorState
+          ? slateEditList.utils.getCurrentItem(editorState)
+          : null;
         const canIncrease = Boolean(previousItem && currentItem);
         return !canIncrease;
+        */
       },
     },
     {
@@ -47,13 +55,17 @@ const ceateSlatePlugin = (def: Definition): SlatePlugin[] => {
         slateEditList.changes.increaseItemDepth(editor);
       },
       isDisabled: editor => {
+        // console.warn('need to reimplement slate list isDisabled ');
+        return true;
+        /*
         const editorState = editor.value;
-
+      
         const currentItem = slateEditList.utils.getCurrentItem(editorState);
         const itemDepth = slateEditList.utils.getItemDepth(editorState);
 
         const canDecrease = Boolean(itemDepth > 1 && currentItem);
         return !canDecrease;
+        */
       },
     },
   ];

@@ -1,5 +1,5 @@
-import createComponentPlugin from './createComponentPlugin';
 import React from 'react';
+import createComponentPlugin from './createComponentPlugin';
 
 type MarkPluginDefinition = {
   type: string;
@@ -14,7 +14,7 @@ export default (markDef: MarkPluginDefinition) => {
     object: 'mark',
     hotKey: markDef.hotKey,
     icon: markDef.icon,
-    addToolbarButton: false,
+    addToolbarButton: true,
     addHoverButton: true,
     deserialize: {
       tagName: markDef.tagName,

@@ -36,6 +36,7 @@ function PluginButton<T>(props: Props<T>) {
       if (hasControls) {
         setShowControls(!showControls);
       } else {
+        console.log({ isActive });
         if (isActive) {
           remove();
         } else {
@@ -43,11 +44,12 @@ function PluginButton<T>(props: Props<T>) {
         }
       }
     },
-    [hasControls, showControls]
+    [isActive, hasControls, showControls]
   );
   const { Controls: PassedControls } = config;
   const Controls = PassedControls || UniformsControls;
   const isDisabled = usePluginIsDisabled(config);
+
   return (
     <>
       <ToolbarButton

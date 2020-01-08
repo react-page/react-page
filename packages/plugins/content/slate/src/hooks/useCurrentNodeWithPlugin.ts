@@ -12,11 +12,14 @@ export const getCurrentNodeWithPlugin = <T>(
 
   const match =
     plugin.pluginType === 'component'
-      ? elem => elem.type === plugin.type
+      ? plugin.object === 'mark'
+        ? elem => elem[plugin.type]
+        : elem => elem.type === plugin.type
       : plugin.pluginType === 'data'
       ? // search for data
         ({ type, children, ...data }) => {
           // tslint:disable-next-line:no-any
+
           const matches = plugin.dataMatches(data as any);
 
           return matches;
@@ -25,9 +28,10 @@ export const getCurrentNodeWithPlugin = <T>(
 
   const [matchingNode] = Editor.nodes(editor, {
     match: match,
-    mode: 'all', // FIXME: whats the best value?
+    mode: 'lowest', // FIXME: whats the best value?
   });
-  return (matchingNode as unknown) as Element;
+
+  return matchingNode?.[0] as Element;
 };
 export default <T>(plugin: SlatePluginDefinition<T>) => {
   const editor = useSlate();

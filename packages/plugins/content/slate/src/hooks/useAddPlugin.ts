@@ -14,10 +14,12 @@ export const addPlugin = <T>(
   if (text) {
     editor.insertText(text); // .moveFocusBackward(text.length);
   }
+  console.log('add', { plugin, node });
 
   const data =
     passedData || (plugin.getInitialData ? plugin.getInitialData() : null);
   const isActive = Boolean(node);
+
   if (isActive) {
     if (plugin.pluginType === 'component' && plugin.object === 'mark') {
       // readd mark
@@ -33,7 +35,7 @@ export const addPlugin = <T>(
       plugin.customAdd(editor);
     } else if (plugin.pluginType === 'component') {
       if (plugin.object === 'mark') {
-        editor.addMark(plugin.type, data);
+        editor.addMark(plugin.type, data || true);
       } else {
         if (plugin.object === 'block' && plugin.replaceOnRemove) {
           Transforms.setNodes(editor, { type: plugin.type, ...data });
