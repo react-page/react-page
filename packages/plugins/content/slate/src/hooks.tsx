@@ -20,35 +20,31 @@
  *
  */
 
-import { List } from 'immutable';
-import head from 'ramda/src/head';
-import map from 'ramda/src/map';
-import path from 'ramda/src/path';
-import reduce from 'ramda/src/reduce';
-import tail from 'ramda/src/tail';
-
-// FIXME #126
-import { Document, Value } from 'slate';
-
-import Plain from 'slate-plain-serializer';
-
 import { AbstractCell } from '@react-page/core/lib/types/editable';
+// FIXME #126
+// import Plain from 'slate-plain-serializer';
 
 export const merge = (states: Object[]): Object => {
-  const nodes = map(path(['editorState', 'document', 'nodes']), states);
+  /*const nodes = map(path(['editorState', 'document', 'nodes']), states);
   const mergedNodes = reduce(
     // tslint:disable-next-line:no-any
     (a: List<any>, b: List<any>) => a.concat(b),
     head(nodes),
     tail(nodes)
   );
-  const mergedDocument = Document.create({ nodes: mergedNodes });
-  const mergedEditorState = Value.create({ document: mergedDocument });
+  */
+  console.warn('implement me merge');
+  // const mergedDocument = Document.create({ nodes: mergedNodes });
+  // const mergedEditorState = Value.create({ document: mergedDocument });
 
-  return { editorState: mergedEditorState };
+  /// return { editorState: mergedEditorState };
+  return {};
 };
 
 export const split = (state: Object): Object[] => {
+  console.warn('implement me split');
+  return [];
+  /*
   const nodes = path(['editorState', 'document', 'nodes'], state);
   return nodes
     ? nodes.toArray().map(node => {
@@ -60,41 +56,8 @@ export const split = (state: Object): Object[] => {
         return { editorState: splittedEditorState };
       })
     : [];
+    */
 };
-
-// const position = (): {
-//   top: ?number,
-//   right: ?number,
-//   left: ?number,
-//   bottom: ?number
-// } => {
-//   if (window && window.getSelection) {
-//     const selection = window.getSelection()
-//     if (!selection.rangeCount) {
-//       return {
-//         top: null,
-//         right: null,
-//         left: null,
-//         bottom: null,
-//       }
-//     }
-//
-//     return selection.getRangeAt(0).getBoundingClientRect()
-//   }
-//
-//   if (window.document.selection) {
-//     return window.document.selection
-//       .createRange()
-//       .getBoundingClientRect()
-//   }
-//
-//   return {
-//     top: null,
-//     right: null,
-//     left: null,
-//     bottom: null,
-//   }
-// }
 
 // if editor state is empty, remove cell when backspace or delete was pressed.
 export const handleRemoveHotKey = (
@@ -104,10 +67,15 @@ export const handleRemoveHotKey = (
       state: { editorState },
     },
   }: AbstractCell<string>
-): Promise<void> =>
-  new Promise<void>((resolve: Function, reject: Function) =>
+): Promise<void> => {
+  console.warn('reimplement me for slate 0.50. handleRemoveHotKey');
+  return null;
+  /*
+  return new Promise<void>((resolve: Function, reject: Function) =>
     Plain.serialize(editorState).length < 1 ? resolve() : reject()
-  );
+  )
+  */
+};
 
 const windowSelectionWaitTime = 1;
 

@@ -33,9 +33,9 @@ function Controls<T>(props: SlatePluginControls<T>) {
   const onSubmit = useCallback(
     data => {
       if (props.shouldInsertWithText) {
-        props.addWithText(text, data);
+        props.add({ text, data });
       } else {
-        props.add(data);
+        props.add({ data });
       }
       props.close();
       props.editor.focus();

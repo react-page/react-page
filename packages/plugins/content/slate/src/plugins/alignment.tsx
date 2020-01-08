@@ -1,7 +1,6 @@
-import * as React from 'react';
-
-import createDataPlugin from '../pluginFactories/createDataPlugin';
 import { lazyLoad } from '@react-page/core';
+import * as React from 'react';
+import createDataPlugin from '../pluginFactories/createDataPlugin';
 
 const AlignLeftIcon = lazyLoad(() =>
   import('@material-ui/icons/FormatAlignLeft')
@@ -21,7 +20,7 @@ const left = createDataPlugin<{ align: 'left' }>({
   object: 'block',
   addToolbarButton: true,
   addHoverButton: false,
-  dataMatches: data => data.get('align') === 'left',
+  dataMatches: data => data.align === 'left',
   getInitialData: () => ({ align: 'left' }),
 });
 
@@ -30,7 +29,7 @@ const center = createDataPlugin<{ align: 'center' }>({
   object: 'block',
   addToolbarButton: true,
   addHoverButton: false,
-  dataMatches: data => data.get('align') === 'center',
+  dataMatches: data => data.align === 'center',
   getInitialData: () => ({ align: 'center' }),
 });
 
@@ -39,7 +38,7 @@ const right = createDataPlugin<{ align: 'right' }>({
   object: 'block',
   addToolbarButton: true,
   addHoverButton: false,
-  dataMatches: data => data.get('align') === 'right',
+  dataMatches: data => data.align === 'right',
   getInitialData: () => ({ align: 'right' }),
 });
 
@@ -48,7 +47,7 @@ const justify = createDataPlugin<{ align: 'justify' }>({
   object: 'block',
   addToolbarButton: true,
   addHoverButton: false,
-  dataMatches: data => data.get('align') === 'justify',
+  dataMatches: data => data.align === 'justify',
   getInitialData: () => ({ align: 'justify' }),
 });
 

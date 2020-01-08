@@ -41,7 +41,7 @@ function createSimpleHtmlBlockPlugin<T = {}>(def: Def<HtmlBlockData<T>>) {
     deserialize: {
       tagName: def.tagName,
     },
-    Component: ({ data, children, attributes, style, className }) => {
+    Component: ({ children, attributes, style, className, align }) => {
       const Tag = (def.tagName as unknown) as React.ComponentType<{
         style: object;
         className?: string;
@@ -50,7 +50,7 @@ function createSimpleHtmlBlockPlugin<T = {}>(def: Def<HtmlBlockData<T>>) {
         <Tag
           {...attributes}
           className={className}
-          style={{ textAlign: data.get('align'), ...style }}
+          style={{ textAlign: align, ...style }}
         >
           {children}
         </Tag>

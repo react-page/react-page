@@ -1,14 +1,7 @@
-import SlatePlugin from '../types/SlatePlugin';
-import { SlateDataPluginDefinition } from '../types/slatePluginDefinitions';
-import createBasePlugin from './createBasePlugin';
-
-function createDataPluginWithDefinition<T extends {}>(
-  pluginDefinition: SlateDataPluginDefinition<T>
-): SlatePlugin {
-  return {
-    ...createBasePlugin<T>({ ...pluginDefinition, pluginType: 'data' }),
-  };
-}
+import {
+  SlateDataPluginDefinition,
+  SlatePluginDefinition
+} from '../types/slatePluginDefinitions';
 
 function createDataPlugin<T = {}>(def: SlateDataPluginDefinition<T>) {
   const customizablePlugin = function<CT>(
@@ -19,7 +12,10 @@ function createDataPlugin<T = {}>(def: SlateDataPluginDefinition<T>) {
   ) {
     return createDataPlugin(customize(def));
   };
-  customizablePlugin.toPlugin = () => createDataPluginWithDefinition(def);
+  customizablePlugin.toPlugin = (): SlatePluginDefinition<T> => ({
+    pluginType: 'data',
+    ...def,
+  });
   return customizablePlugin;
 }
 

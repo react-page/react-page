@@ -26,7 +26,6 @@ import { pathOr } from 'ramda/src/pathOr';
 import * as React from 'react';
 import { AnyAction } from 'redux';
 import { ActionTypes } from 'redux-undo';
-import { Value } from 'slate';
 import Component from './Component';
 import { defaultTranslations } from './default/settings';
 import * as hooks from './hooks';
@@ -84,7 +83,8 @@ const defaultConfig: DefaultSlateDefinition = {
 
 type CreateInitialSlateState<TPlugins> = (
   custom?: CreateInitialStateCustomizer<TPlugins>
-) => { editorState: Value };
+) => // tslint:disable-next-line:no-any
+{ editorState: any };
 export type SlatePlugin<TPlugins> = ContentPluginConfig<SlateState> & {
   createInitialSlateState: CreateInitialSlateState<TPlugins>;
 };

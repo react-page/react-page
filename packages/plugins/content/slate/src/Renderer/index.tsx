@@ -21,13 +21,5 @@
  */
 
 import * as React from 'react';
-import { Editor } from 'slate-react';
 
-export default ({ plugins, state }) => (
-  <Editor
-    readOnly={true}
-    className="ory-plugins-content-slate-container"
-    value={state.editorState}
-    plugins={plugins}
-  />
-);
+export default ({ plugins, state }) => <p>not implemented</p>;

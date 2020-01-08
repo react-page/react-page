@@ -1,6 +1,7 @@
-import { Value, ValueJSON } from 'slate';
 export interface SlateState {
   importFromHtml?: string;
-  serialized?: ValueJSON;
-  editorState?: Value;
+  // tslint:disable-next-line:no-any
+  serialized?: any;
+  // tslint:disable-next-line:no-any
+  editorState?: any;
 }

@@ -1,11 +1,10 @@
 import { JsonSchema } from '@react-page/create-plugin-materialui';
-import { Editor, Value } from 'slate';
+import { Editor } from 'slate';
 import { NextType } from '../types/next';
 import { Translations } from './translations';
 
 export interface PluginButtonProps {
   editor: Editor;
-  editorState: Value;
   translations: Partial<Translations>;
 }
 
@@ -19,8 +18,8 @@ export type SlatePluginControls<T extends {}> = {
   removeLabel?: string;
   schema?: JsonSchema<T>;
   data: T;
-  add: (data?: T) => void;
-  addWithText: (text: string, data?: T) => void;
+  add: (p: { data?: T; text?: string }) => void;
+
   remove: () => void;
   shouldInsertWithText: boolean;
   getInitialData?: () => T;
@@ -48,7 +47,7 @@ export type SlateNodeObjectType = 'inline' | 'block' | 'mark';
 export type SlateDataPluginDefinition<
   T extends {}
 > = SlateNodeBasePluginDefinition<T> & {
-  dataMatches: (data: MapLike<T>) => boolean;
+  dataMatches: (data: T) => boolean;
 };
 
 export type SlateCustomPluginDefinition<
@@ -81,15 +80,17 @@ export type SlateComponentPluginDefinition<
     tagName: string;
     getData?: (el: HTMLElement) => T;
   };
-  Component: React.ComponentType<{
-    attributes?: object;
-    style?: object;
-    className?: string;
-    data: MapLike<T>;
-  }>;
+  Component: React.ComponentType<
+    {
+      attributes?: object;
+      style?: object;
+      className?: string;
+    } & T
+  >;
 } & (ObjectProps | InlineProps | MarkProps);
 
-export type SlatePluginDefinition<T extends {}> =
+// tslint:disable-next-line:no-any
+export type SlatePluginDefinition<T extends { [key: string]: any }> =
   | (SlateComponentPluginDefinition<T> & { pluginType: 'component' })
   | (SlateDataPluginDefinition<T> & { pluginType: 'data' })
   | (SlateCustomPluginDefinition<T> & { pluginType: 'custom' });

@@ -1,5 +1,5 @@
 import createSlateEditList from '@guestbell/slate-edit-list';
-import createBasePlugin from './createBasePlugin';
+import { SlatePlugin } from 'src/types/SlatePlugin';
 
 type Definition = {
   iconIncrease: JSX.Element;
@@ -8,14 +8,14 @@ type Definition = {
   listTypes: string[];
 };
 
-const ceateSlatePlugin = (def: Definition) => {
+const ceateSlatePlugin = (def: Definition): SlatePlugin[] => {
   const slateEditList = createSlateEditList({
     typeItem: def.listItemType,
     types: def.listTypes,
   });
 
   return [
-    createBasePlugin({
+    {
       pluginType: 'custom',
       addToolbarButton: true,
       addHoverButton: false,
@@ -34,8 +34,8 @@ const ceateSlatePlugin = (def: Definition) => {
         const canIncrease = Boolean(previousItem && currentItem);
         return !canIncrease;
       },
-    }),
-    createBasePlugin({
+    },
+    {
       pluginType: 'custom',
       addToolbarButton: true,
       addHoverButton: false,
@@ -55,7 +55,7 @@ const ceateSlatePlugin = (def: Definition) => {
         const canDecrease = Boolean(itemDepth > 1 && currentItem);
         return !canDecrease;
       },
-    }),
+    },
   ];
 };
 
@@ -65,7 +65,7 @@ function createListIndentionPlugin(def: Definition) {
   ) {
     return createListIndentionPlugin(customize(def));
   };
-  customizablePlugin.toPlugin = () => ceateSlatePlugin(def);
+  customizablePlugin.toPlugin = (): SlatePlugin[] => ceateSlatePlugin(def);
   return customizablePlugin;
 }
 

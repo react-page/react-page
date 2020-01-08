@@ -13,8 +13,8 @@ export default {
       tagName: 'p',
     },
 
-    Component: ({ children, data }) => {
-      return <p style={{ textAlign: data.get('align') }}>{children}</p>;
+    Component: ({ children, align }) => {
+      return <p style={{ textAlign: align }}>{children}</p>;
     },
   }),
 };

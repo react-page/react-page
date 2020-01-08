@@ -1,10 +1,9 @@
-import { Value } from 'slate';
 import {
   InitialSlateStateDef,
   SlateDefNode,
   SlatePluginNode
 } from '../types/initialSlateState';
-import SlatePlugin from '../types/SlatePlugin';
+import { SlatePlugin } from '../types/SlatePlugin';
 import flattenDeep from './flattenDeep';
 
 /**
@@ -35,19 +34,14 @@ const transformChildren = (defNodes: SlateDefNode[]) =>
       // the result of plugin.toPlugin might be an array, e.g. the list plugin is an array, because it defines ul, li AND indention-options on the same plugin
       const firstComponentPlugin = flattenDeep<SlatePlugin>(
         slatePluginOrList
-      ).find(
-        plugin =>
-          plugin.pluginDefinition.pluginType === 'component' ||
-          plugin.pluginDefinition
-      );
+      ).find(plugin => plugin.pluginType === 'component' || plugin);
       if (
         firstComponentPlugin &&
-        firstComponentPlugin.pluginDefinition &&
-        firstComponentPlugin.pluginDefinition.pluginType === 'component'
+        firstComponentPlugin.pluginType === 'component'
       ) {
         return {
-          object: firstComponentPlugin.pluginDefinition.object,
-          type: firstComponentPlugin.pluginDefinition.type,
+          object: firstComponentPlugin.object,
+          type: firstComponentPlugin.type,
           data: defPluginNode.data,
           nodes: defPluginNode.children
             ? transformChildren(defPluginNode.children)
@@ -65,9 +59,9 @@ const transformChildren = (defNodes: SlateDefNode[]) =>
   });
 
 export default (def: InitialSlateStateDef) => ({
-  editorState: Value.fromJSON({
+  editorState: {
     document: {
       nodes: transformChildren(def.children),
     },
-  }),
+  },
 });

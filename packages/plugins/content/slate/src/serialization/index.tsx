@@ -1,10 +1,9 @@
 import { PluginProps } from '@react-page/core/lib/service/plugin/classes';
 import { EditorState } from '@react-page/core/lib/types/editor';
-import { Value, ValueJSON } from 'slate';
-import Html from 'slate-html-serializer';
+import { jsx } from 'slate-hyperscript';
+import { SlatePlugin } from 'src/types/SlatePlugin';
+import { SlatePluginDefinition } from 'src/types/slatePluginDefinitions';
 import parseHtml from '../parseHtml/parseHtml';
-import DEFAULT_NODE from '../plugins/DEFAULT_NODE';
-import SlatePlugin from '../types/SlatePlugin';
 import { SlateState } from '../types/state';
 
 type AdditionalSlateFunctions = {
@@ -17,6 +16,36 @@ export type SerializationFunctions = Pick<
 > &
   AdditionalSlateFunctions;
 
+// tslint:disable-next-line:no-any
+const makePluginDeserializer = (plugin: SlatePluginDefinition<any>) => {
+  if (plugin.pluginType === 'component') {
+    // tslint:disable-next-line:no-any
+    return (el: HTMLElement, next: (childnodes: any) => any) => {
+      const tagName = el.tagName.toLowerCase();
+      if (tagName !== plugin.deserialize.tagName) {
+        return;
+      }
+      return {
+        object: plugin.object,
+        type: plugin.type,
+        nodes: next(el.childNodes),
+        data: plugin.deserialize.getData
+          ? plugin.deserialize.getData(el)
+          : undefined,
+      };
+    };
+  }
+  return null;
+};
+
+const checkEmpty = potentialString =>
+  !(
+    potentialString &&
+    typeof potentialString === 'string' &&
+    potentialString.length > 0 &&
+    !/^(\r\n|\r|\n)$/.test(potentialString)
+  );
+
 export default ({
   createInitialState,
   plugins,
@@ -25,22 +54,61 @@ export default ({
   createInitialState?: () => any;
   plugins: SlatePlugin[];
 }) => {
-  const rules = plugins
-    .filter(p => p.serialize && p.deserialize)
-    .map(p => ({
-      serialize: p.serialize,
-      deserialize: p.deserialize,
-    }));
+  const deserializeElement = (el: Node) => {
+    if (el.nodeType === 3) {
+      return el.textContent && el.textContent.replace('\n', '');
+    } else if (el.nodeType !== 1) {
+      return null;
+    } else if (el.nodeName === 'BR') {
+      return '\n';
+    }
 
-  const html = new Html({
-    rules: rules,
-    // tslint:disable-next-line:no-any
-    parseHtml,
-    defaultBlock: DEFAULT_NODE,
-  });
+    const { nodeName } = el;
+    let parent = el;
 
-  const htmlToSlate = (htmlString: string) => html.deserialize(htmlString);
-  const slateToHtml = (editorState: EditorState) => html.serialize(editorState);
+    // tslint:disable-next-line: no-any
+    let children: any[] = Array.from(parent.childNodes).map(deserializeElement);
+
+    if (el.nodeName === 'BODY') {
+      if (!checkEmpty(children[0])) {
+        children.slice(1);
+      }
+      if (checkEmpty(children[children.length - 1])) {
+        children.pop();
+      }
+      return jsx('fragment', {}, children);
+    }
+
+    const matchingPlugin = plugins.find(p => {
+      return (
+        p.pluginType === 'component' &&
+        p.deserialize &&
+        p.deserialize.tagName === nodeName.toLowerCase()
+      );
+    });
+
+    if (matchingPlugin && matchingPlugin.pluginType === 'component') {
+      const attrs = matchingPlugin.deserialize.getData(el as HTMLElement);
+      return jsx(
+        matchingPlugin.object === 'mark' ? 'text' : 'element',
+        attrs,
+        children
+      );
+    }
+
+    return children;
+  };
+
+  const htmlToSlate = (htmlString: string) => {
+    const parsed = parseHtml(htmlString);
+    const rules = plugins
+      .filter(p => p.pluginType === 'component')
+      .map(p => ({
+        deserialize: makePluginDeserializer(p),
+      }));
+
+    return;
+  };
 
   const unserialize = ({
     importFromHtml,
@@ -51,7 +119,7 @@ export default ({
   SlateState): SlateState => {
     if (serialized) {
       // tslint:disable-next-line:no-any
-      return { editorState: (Value.fromJSON as any)(serialized), ...rest };
+      return { editorState: serialized, ...rest };
     } else if (importFromHtml) {
       return { editorState: htmlToSlate(importFromHtml), ...rest };
     } else if (editorState) {
@@ -62,19 +130,15 @@ export default ({
   };
 
   // tslint:disable-next-line:no-any
-  const serialize = ({
-    editorState,
-    ...rest
-  }: SlateState): { serialized: ValueJSON } => ({
+  const serialize = ({ editorState, ...rest }: SlateState) => ({
     // tslint:disable-next-line:no-any
-    serialized: (editorState.toJSON as any)(editorState),
+    serialized: editorState,
     ...rest,
   });
 
   return {
     serialize,
     unserialize,
-    slateToHtml,
     htmlToSlate,
   };
 };

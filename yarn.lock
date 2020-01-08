@@ -2244,23 +2244,6 @@
     "@types/prop-types" "*"
     csstype "^2.2.0"
 
-"@types/slate-react@^0.22.0":
-  version "0.22.6"
-  resolved "https://registry.yarnpkg.com/@types/slate-react/-/slate-react-0.22.6.tgz#2137e077123c4b60ade2a0fb47520e1a99bef9a3"
-  integrity sha512-Ct1EBxzn8o3EUM51IcoIYY0bNFMtXSkA0TrXrSJ69ZMOIkaCb5hXfWRJY5Hd9XVpOKc23w1RM/ZcEec07X1iMg==
-  dependencies:
-    "@types/react" "*"
-    "@types/slate" "*"
-    immutable "^3.8.2"
-
-"@types/slate@*", "@types/slate@^0.47.0":
-  version "0.47.3"
-  resolved "https://registry.yarnpkg.com/@types/slate/-/slate-0.47.3.tgz#afdfb1042b6c07ab5f3b74aee217c6c8156f395f"
-  integrity sha512-CTMzA5UiTT8wGTL2kI892SrpDC0DVsxihYgDE08QS+vkEM+xFZiCRSv0+3jPCpxlI3SZm/V6yDTn63IfifKHYw==
-  dependencies:
-    "@types/react" "*"
-    immutable "^3.8.2"
-
 "@types/stack-utils@^1.0.1":
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/@types/stack-utils/-/stack-utils-1.0.1.tgz#0a851d3bd96498fa25c33ab7278ed3bd65f06c3e"
@@ -5815,11 +5798,6 @@ ignore@^4.0.3:
   version "4.0.6"
   resolved "https://registry.yarnpkg.com/ignore/-/ignore-4.0.6.tgz#750e3db5862087b4737ebac8207ffd1ef27b25fc"
   integrity sha512-cyFDKrqc/YdcWFniJhzI42+AzS+gNwmUzOSFcRCQYwySuBBBy/KjuxWLZ/FHEH6Moq1NizMOBWyTcv8O4OZIMg==
-
-immutable@^3.8.2:
-  version "3.8.2"
-  resolved "https://registry.yarnpkg.com/immutable/-/immutable-3.8.2.tgz#c2439951455bb39913daf281376f1530e104adf3"
-  integrity sha1-wkOZUUVbs5kT2vKBN28VMOEErfM=
 
 import-cwd@^2.0.0:
   version "2.1.0"

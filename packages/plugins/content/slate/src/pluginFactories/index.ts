@@ -1,4 +1,3 @@
-import createBasePlugin from './createBasePlugin';
 import createComponentPlugin from './createComponentPlugin';
 import createDataPlugin from './createDataPlugin';
 import createHeadingsPlugin from './createHeadingsPlugin';
@@ -9,7 +8,6 @@ import createMarkPlugin from './createMarkPlugin';
 import createSimpleHtmlBlockPlugin from './createSimpleHtmlBlockPlugin';
 
 export {
-  createBasePlugin,
   createComponentPlugin,
   createDataPlugin,
   createHeadingsPlugin,

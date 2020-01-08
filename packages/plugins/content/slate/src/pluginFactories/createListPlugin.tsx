@@ -1,4 +1,5 @@
 import createSlateEditList from '@guestbell/slate-edit-list';
+import { SlatePlugin } from 'src/types/SlatePlugin';
 import { SlateComponentPluginDefinition } from '../types/slatePluginDefinitions';
 import createListItemPlugin from './createListItemPlugin';
 import createSimpleHtmlBlockPlugin, {
@@ -46,12 +47,6 @@ function createSlatePlugins<T>(
       customRemove: editor => slateEditList.changes.unwrapList(editor),
     })(customizers.customizeList),
     createListItemPlugin<T>(def.listItem)(customizers.customizeListItem),
-    {
-      toPlugin: () => ({
-        onKeyDown: (e: React.KeyboardEvent, editor, next) =>
-          slateEditList.onKeyDown((e as unknown) as Event, editor, next),
-      }),
-    },
   ];
 }
 
@@ -87,7 +82,7 @@ function createListPlugin<T = {}>(def: ListDef) {
     const customizablePlugin = function(customizers: ListCustomizers<TIn>) {
       return inner(innerdef, mergeCustomizer(customizersIn, customizers));
     };
-    customizablePlugin.toPlugin = () =>
+    customizablePlugin.toPlugin = (): SlatePlugin[] =>
       createSlatePlugins<TIn>(innerdef, customizersIn).map(plugin =>
         plugin.toPlugin()
       );

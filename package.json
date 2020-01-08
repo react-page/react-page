@@ -15,8 +15,6 @@
     "@material-ui/styles": "^4.3.3",
     "@types/jest": "^23.3.10",
     "@types/react-dom": "^16.9.3",
-    "@types/slate": "^0.47.0",
-    "@types/slate-react": "^0.22.0",
     "babel-core": "7.0.0-bridge.0",
     "babel-eslint": "10.0.3",
     "babel-jest": "^24.9.0",

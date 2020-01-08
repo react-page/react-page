@@ -1,36 +1,16 @@
-/*
- * This file is part of ORY Editor.
- *
- * ORY Editor is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * ORY Editor is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public License
- * along with ORY Editor.  If not, see <http://www.gnu.org/licenses/>.
- *
- * @license LGPL-3.0
- * @copyright 2016-2018 Aeneas Rekkas
- * @author Aeneas Rekkas <aeneas+oss@aeneas.io>
- *
- */
-
+import { lazyLoad } from '@react-page/core/src';
 import { BottomToolbar } from '@react-page/ui';
+import isHotkey from 'is-hotkey';
+/*
 import isHotkey from 'is-hotkey';
 import debounce from 'lodash.debounce';
 import * as React from 'react';
 import { Portal } from 'react-portal';
-import { Editor as CoreEditor, Value } from 'slate';
-import { Editor, getEventTransfer } from 'slate-react';
-import { SlateProps } from '../types/component';
+
+import { Slate, Editable, withReact } from 'slate-react'
+
 import { NextType } from '../types/next';
 import SlatePlugin from '../types/SlatePlugin';
-import { PluginButtonProps } from '../types/slatePluginDefinitions';
 
 interface Cancelable {
   cancel(): void;
@@ -40,52 +20,6 @@ interface Cancelable {
 export interface SlateState {
   editorState?: Value;
 }
-
-const HoverButtons = ({
-  editorState,
-  editor,
-  plugins,
-  translations,
-}: PluginButtonProps & SlateProps) => (
-  <div>
-    {plugins &&
-      plugins.map(
-        (plugin: SlatePlugin, i: number) =>
-          plugin.hoverButtons &&
-          plugin.hoverButtons.map((Button, j: number) => (
-            <Button
-              translations={translations}
-              key={`${i}-${j}`}
-              editorState={editorState}
-              editor={editor}
-            />
-          ))
-      )}
-  </div>
-);
-
-const ToolbarButtons = ({
-  plugins,
-  editorState,
-  editor,
-  translations,
-}: PluginButtonProps & SlateProps) => (
-  <div>
-    {plugins &&
-      plugins.map(
-        (plugin: SlatePlugin, i: number) =>
-          plugin.toolbarButtons &&
-          plugin.toolbarButtons.map((Button, j: number) => (
-            <Button
-              translations={translations}
-              key={`${i}-${j}`}
-              editorState={editorState}
-              editor={editor}
-            />
-          ))
-      )}
-  </div>
-);
 
 class Slate extends React.PureComponent<SlateProps, SlateState> {
   private toolbar: React.RefObject<HTMLDivElement>;
@@ -158,6 +92,7 @@ class Slate extends React.PureComponent<SlateProps, SlateState> {
     }
   }
 
+  /*
   onPaste = (e: React.ClipboardEvent, editor: CoreEditor, next: NextType) => {
     const transfer = getEventTransfer(e);
     if (transfer.type !== 'html') {
@@ -171,7 +106,8 @@ class Slate extends React.PureComponent<SlateProps, SlateState> {
 
     return editor.insertFragment(document);
   }
-
+  */
+/*
   onKeyDown = (
     e: React.KeyboardEvent,
     editor: CoreEditor,
@@ -191,70 +127,223 @@ class Slate extends React.PureComponent<SlateProps, SlateState> {
 
     return next();
   }
-
+  
   render() {
-    const { focused, readOnly, plugins, remove } = this.props;
-
-    const editorState = this.getState();
-    const showHoverToolbar =
-      editorState.selection.isExpanded && editorState.selection.isFocused;
-    const showBottomToolbar = Boolean(focused);
-
-    return (
-      <>
-        {!readOnly && focused && (
-          <Portal>
-            <div
-              className={
-                'ory-plugins-content-slate-inline-toolbar ' +
-                (showHoverToolbar
-                  ? ''
-                  : 'ory-plugins-content-slate-inline-toolbar--hidden')
-              }
-              style={{ padding: 0 }}
-              ref={this.toolbar}
-            >
-              <HoverButtons
-                translations={this.props.translations}
-                editorState={editorState}
-                editor={this.editor.current}
-                {...this.props}
-              />
-            </div>
-          </Portal>
-        )}
-        <Editor
-          ref={(this.editor as unknown) as React.RefObject<Editor>}
-          onChange={this.onStateChange}
-          onKeyDown={this.onKeyDown}
-          readOnly={Boolean(readOnly)}
-          className="ory-plugins-content-slate-container"
-          // onBlur={this.onBlur}
-          // onFocus={this.onFocus}
-          value={editorState}
-          plugins={plugins}
-          onPaste={this.onPaste}
-          placeholder={this.props.translations.placeholder}
-        />
-
-        {!readOnly ? (
-          <BottomToolbar
-            open={showBottomToolbar}
-            dark={true}
-            onDelete={remove}
-            {...this.props}
-          >
-            <ToolbarButtons
-              {...this.props}
-              translations={this.props.translations}
-              editor={this.editor.current}
-              editorState={editorState}
-            />
-          </BottomToolbar>
-        ) : null}
-      </>
-    );
+    
   }
 }
+*/
+import React, { DependencyList, useCallback, useMemo } from 'react';
+import { Portal } from 'react-portal';
+import { createEditor, Editor, Range } from 'slate';
+import {
+  Editable,
+  ReactEditor,
+  RenderElementProps,
+  Slate,
+  useSlate,
+  withReact
+} from 'slate-react';
+import { addPlugin } from '../hooks/useAddPlugin';
+import { getCurrentNodeWithPlugin } from '../hooks/useCurrentNodeWithPlugin';
+import { removePlugin } from '../hooks/useRemovePlugin';
+import { SlateProps } from '../types/component';
+import {
+  PluginButtonProps,
+  SlateComponentPluginDefinition,
+  SlatePluginDefinition
+} from '../types/slatePluginDefinitions';
 
-export default Slate;
+const PluginButton = lazyLoad(
+  () =>
+    (import('./PluginButton') as unknown) as Promise<
+      React.ComponentType<
+        PluginButtonProps & { config: SlatePluginDefinition<unknown> }
+      >
+    >
+);
+
+const HoverButtons = ({
+  editor,
+  plugins,
+  translations,
+}: PluginButtonProps & SlateProps) => (
+  <div>
+    {plugins &&
+      plugins.map((plugin, i: number) =>
+        plugin.addHoverButton ? (
+          <PluginButton
+            translations={translations}
+            key={i}
+            config={plugin}
+            editor={editor}
+          />
+        ) : null
+      )}
+  </div>
+);
+
+const ToolbarButtons = ({
+  plugins,
+
+  editor,
+  translations,
+}: PluginButtonProps & SlateProps) => (
+  <div>
+    {plugins &&
+      plugins.map((plugin, i: number) =>
+        plugin.addToolbarButton ? (
+          <PluginButton
+            translations={translations}
+            key={i}
+            config={plugin}
+            editor={editor}
+          />
+        ) : null
+      )}
+  </div>
+);
+
+const useComponentPlugins = (
+  { plugins }: { plugins: SlatePluginDefinition<unknown>[] },
+  deps: DependencyList
+) =>
+  useMemo(
+    () =>
+      plugins.filter(
+        plugin => plugin.pluginType === 'component'
+      ) as SlateComponentPluginDefinition<unknown>[],
+    deps
+  );
+// tslint:disable-next-line:no-any
+const useRenderElement = (
+  { plugins }: { plugins: SlatePluginDefinition<unknown>[] },
+  deps: DependencyList
+) => {
+  const componentPlugins = useComponentPlugins({ plugins }, deps);
+  return useCallback(
+    ({
+      element: { type, children, ...elementProps },
+      attributes,
+    }: RenderElementProps) => {
+      const matchingPlugin = componentPlugins.find(
+        plugin => plugin.type === type
+      );
+      if (matchingPlugin) {
+        const { Component } = matchingPlugin;
+        return (
+          <Component
+            attributes={attributes}
+            children={children}
+            {...elementProps}
+          />
+        );
+      }
+      return <p>default - implement me</p>;
+    },
+    deps
+  );
+};
+
+const useOnKeyDown = (
+  {
+    plugins,
+  }: {
+    plugins: SlatePluginDefinition<unknown>[];
+  },
+  deps: DependencyList
+) => {
+  const editor = useSlate();
+
+  return React.useCallback(event => {
+    plugins
+      .filter(plugin => plugin.hotKey)
+      .forEach(plugin => {
+        if (isHotkey(plugin.hotKey, (event as unknown) as KeyboardEvent)) {
+          event.preventDefault();
+          const node = getCurrentNodeWithPlugin(editor, plugin);
+          if (node) {
+            removePlugin(editor, plugin);
+          } else {
+            addPlugin(editor, plugin);
+          }
+        }
+      });
+
+    /*
+    if (isHotkey('shift+enter', (event as unknown) as KeyboardEvent)) {
+      event.preventDefault();
+      editor.exec({
+        type: 'insert_text',
+        text: '\n',
+      });
+    }
+    */
+  }, deps);
+};
+const SlateControls = ({ plugins, focused, readOnly, remove }: SlateProps) => {
+  const editor = useMemo(() => withReact(createEditor()), []);
+  const renderElement = useRenderElement({ plugins }, []);
+  const onKeyDown = useOnKeyDown({ plugins }, []);
+
+  // TODO: wrap with useEffect
+  const showHoverToolbar =
+    !editor.selection ||
+    !ReactEditor.isFocused(editor) ||
+    Range.isCollapsed(editor.selection) ||
+    Editor.string(editor, editor.selection) === '';
+
+  const showBottomToolbar = Boolean(focused);
+
+  return (
+    <>
+      {!readOnly && focused && (
+        <Portal>
+          <div
+            className={
+              'ory-plugins-content-slate-inline-toolbar ' +
+              (showHoverToolbar
+                ? ''
+                : 'ory-plugins-content-slate-inline-toolbar--hidden')
+            }
+            style={{ padding: 0 }}
+            // ref={this.toolbar}
+          >
+            <HoverButtons
+              translations={this.props.translations}
+              editor={editor}
+              {...this.props}
+            />
+          </div>
+        </Portal>
+      )}
+      <Slate
+        editor={editor}
+        value={null}
+        onChange={e => {
+          // tslint:disable-next-line:no-console
+          console.log('onchange', e);
+        }}
+      >
+        <Editable renderElement={renderElement} onKeyDown={onKeyDown} />
+      </Slate>
+
+      {!readOnly ? (
+        <BottomToolbar
+          open={showBottomToolbar}
+          dark={true}
+          onDelete={remove}
+          {...this.props}
+        >
+          <ToolbarButtons
+            {...this.props}
+            translations={this.props.translations}
+            editor={this.editor.current}
+          />
+        </BottomToolbar>
+      ) : null}
+    </>
+  );
+};
+
+export default SlateControls;
