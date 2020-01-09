@@ -5,7 +5,7 @@ import { Translations } from './translations';
 
 export interface PluginButtonProps {
   editor: Editor;
-  translations: Partial<Translations>;
+  translations?: Partial<Translations>;
 }
 
 export type SlatePluginControls<T extends {}> = {

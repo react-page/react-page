@@ -28,7 +28,6 @@ import { AnyAction } from 'redux';
 import { ActionTypes } from 'redux-undo';
 import Component from './Component';
 import { defaultTranslations } from './default/settings';
-import * as hooks from './hooks';
 import v002 from './migrations/v002';
 import v003 from './migrations/v003';
 import * as pluginFactories from './pluginFactories/index';
@@ -43,7 +42,6 @@ import { SlatePluginCollection } from './types/SlatePlugin';
 import { SlateState } from './types/state';
 import makeSlatePluginsFromDef from './utils/makeSlatePluginsFromDef';
 import transformInitialSlateState from './utils/transformInitialSlateState';
-
 const slatePlugins = defaultPlugins;
 export { defaultPlugins, slatePlugins, pluginFactories };
 const Subject = lazyLoad(() => import('@material-ui/icons/Subject'));
@@ -173,9 +171,9 @@ function plugin<TPlugins extends SlatePluginCollection = DefaultPlugins>(
       return state;
     },
 
-    handleRemoveHotKey: hooks.handleRemoveHotKey,
-    handleFocusPreviousHotKey: hooks.handleFocusPreviousHotKey,
-    handleFocusNextHotKey: hooks.handleFocusNextHotKey,
+    handleRemoveHotKey: () => Promise.reject(),
+    handleFocusPreviousHotKey: () => Promise.reject(),
+    handleFocusNextHotKey: () => Promise.reject(),
     createInitialState: createInitialState,
     createInitialSlateState: createInitialState,
     serialize: serializeFunctions.serialize,

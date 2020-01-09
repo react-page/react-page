@@ -1,6 +1,7 @@
 import { lazyLoad } from '@react-page/core';
 import { BottomToolbar } from '@react-page/ui';
 import isHotkey from 'is-hotkey';
+import isObject from 'lodash/isObject';
 /*
 import isHotkey from 'is-hotkey';
 import debounce from 'lodash.debounce';
@@ -133,12 +134,18 @@ class Slate extends React.PureComponent<SlateProps, SlateState> {
   }
 }
 */
-import React, { DependencyList, useCallback, useMemo, useState } from 'react';
+import React, {
+  DependencyList,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState
+} from 'react';
 import { Portal } from 'react-portal';
-import { createEditor, Editor, Node, Range } from 'slate';
+import { createEditor, Editor, Node } from 'slate';
 import {
   Editable,
-  ReactEditor,
   RenderElementProps,
   RenderLeafProps,
   Slate,
@@ -181,6 +188,53 @@ const HoverButtons = ({
       )}
   </div>
 );
+
+const HoverButtonsContainer = (props: SlateProps) => {
+  const showHoverToolbar = useTextIsSelected();
+  const toolbarRef = useRef<HTMLDivElement>();
+  const editor = useSlate();
+  useEffect(
+    () => {
+      const toolbar = toolbarRef.current;
+
+      if (!showHoverToolbar) {
+        return;
+      }
+
+      let s = window.getSelection();
+      let oRange = s.getRangeAt(0); // get the text range
+      let oRect = oRange.getBoundingClientRect();
+      if (oRect) {
+        const { left, top, width } = oRect;
+
+        toolbar.style.opacity = '1';
+        toolbar.style.top = `${top + window.scrollY - toolbar.offsetHeight}px`;
+        toolbar.style.left = `${left +
+          window.scrollX -
+          toolbar.offsetWidth / 2 +
+          width / 2}px`;
+      }
+    },
+    [editor, showHoverToolbar]
+  );
+
+  return (
+    <Portal>
+      <div
+        className={
+          'ory-plugins-content-slate-inline-toolbar ' +
+          (showHoverToolbar
+            ? ''
+            : 'ory-plugins-content-slate-inline-toolbar--hidden')
+        }
+        style={{ padding: 0 }}
+        ref={toolbarRef}
+      >
+        <HoverButtons editor={editor} {...props} />
+      </div>
+    </Portal>
+  );
+};
 
 const ToolbarButtons = ({
   plugins,
@@ -282,7 +336,9 @@ const useRenderLeave = (
             );
             if (matchingPlugin) {
               const { Component } = matchingPlugin;
-              return <Component>{el}</Component>;
+              const value = leaveTypes[type]; // usually boolean
+              const props = isObject(value) ? value : {};
+              return <Component {...props}>{el}</Component>;
             }
             return el;
           }, children)}
@@ -330,13 +386,7 @@ const useOnKeyDown = (
   }, deps);
 };
 
-const SlateEditable = ({
-  plugins,
-  editor,
-}: {
-  plugins: SlatePlugin[];
-  editor: Editor;
-}) => {
+const SlateEditable = React.memo(({ plugins }: { plugins: SlatePlugin[] }) => {
   const renderElement = useRenderElement({ plugins }, []);
   const renderLeaf = useRenderLeave({ plugins }, []);
   const onKeyDown = useOnKeyDown({ plugins }, []);
@@ -348,17 +398,38 @@ const SlateEditable = ({
       onKeyDown={onKeyDown}
     />
   );
+});
+
+const useTextIsSelected = () => {
+  const editor = useSlate();
+
+  return (
+    Boolean(editor.selection) && Editor.string(editor, editor.selection) !== ''
+  );
+};
+const withInline = (plugins: SlatePlugin[]) => (editor: Editor) => {
+  const { isInline } = editor;
+  editor.isInline = element => {
+    return plugins.some(
+      plugin =>
+        plugin.pluginType === 'component' &&
+        plugin.object === 'inline' &&
+        plugin.type === element.type
+    )
+      ? true
+      : isInline(element);
+  };
+  return editor;
 };
 const SlateControls = (props: SlateProps) => {
   const { plugins, focused, readOnly, remove, translations } = props;
-  const editor = useMemo(() => withReact(createEditor()), []);
+  const editor = useMemo(
+    () => withReact(withInline(plugins)(createEditor())),
+    []
+  );
 
   // TODO: wrap with useEffect
-  const showHoverToolbar =
-    !editor.selection ||
-    !ReactEditor.isFocused(editor) ||
-    Range.isCollapsed(editor.selection) ||
-    Editor.string(editor, editor.selection) === '';
+
   const [value, setValue] = useState<Node[]>([
     {
       type: 'PARAGRAPH/PARAGRAPH',
@@ -377,28 +448,9 @@ const SlateControls = (props: SlateProps) => {
 
   return (
     <Slate editor={editor} value={value} onChange={setValue}>
-      {!readOnly && focused && (
-        <Portal>
-          <div
-            className={
-              'ory-plugins-content-slate-inline-toolbar ' +
-              (showHoverToolbar
-                ? ''
-                : 'ory-plugins-content-slate-inline-toolbar--hidden')
-            }
-            style={{ padding: 0 }}
-            // ref={this.toolbar}
-          >
-            <HoverButtons
-              translations={translations}
-              editor={editor}
-              {...props}
-            />
-          </div>
-        </Portal>
-      )}
+      {!readOnly && focused && <HoverButtonsContainer {...props} />}
 
-      <SlateEditable editor={editor} plugins={plugins} />
+      <SlateEditable plugins={plugins} />
 
       {!readOnly ? (
         <BottomToolbar

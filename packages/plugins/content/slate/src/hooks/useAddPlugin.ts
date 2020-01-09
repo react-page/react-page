@@ -14,7 +14,6 @@ export const addPlugin = <T>(
   if (text) {
     editor.insertText(text); // .moveFocusBackward(text.length);
   }
-  console.log('add', { plugin, node });
 
   const data =
     passedData || (plugin.getInitialData ? plugin.getInitialData() : null);

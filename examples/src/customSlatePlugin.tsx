@@ -10,6 +10,7 @@ export default pluginFactories.createComponentPlugin<{
   object: 'mark',
   icon: <span>Color</span>,
   Component: props => {
+    console.log(props);
     return <span style={{ color: props.color }}>{props.children}</span>;
   },
 

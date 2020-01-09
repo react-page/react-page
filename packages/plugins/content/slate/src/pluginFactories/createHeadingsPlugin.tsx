@@ -1,9 +1,8 @@
 import DEFAULT_NODE from '../plugins/DEFAULT_NODE';
-
+import { SlateComponentPluginDefinition } from '../types/slatePluginDefinitions';
 import createSimpleHtmlBlockPlugin, {
   HtmlBlockData
 } from './createSimpleHtmlBlockPlugin';
-import { SlateComponentPluginDefinition } from '../types/slatePluginDefinitions';
 
 export type HeadingsDef<T> = {
   level: 1 | 2 | 3 | 4 | 5 | 6;

@@ -7,19 +7,24 @@ export const removePlugin = <T>(
   editor: Editor,
   plugin: SlatePluginDefinition<T>
 ) => {
-  console.log('remove plgin', plugin);
   if (plugin.customRemove) {
     plugin.customRemove(editor);
   } else if (plugin.pluginType === 'component') {
     if (plugin.object === 'mark') {
       editor.removeMark(plugin.type);
     } else if (plugin.object === 'inline') {
-      Transforms.setNodes(editor, { type: null });
+      Transforms.unwrapNodes(editor, {
+        match: elem => elem.type === plugin.type,
+      });
+      // Transforms.setNodes(editor, { type: null });
     } else if (plugin.object === 'block') {
       if (plugin.replaceOnRemove) {
         Transforms.setNodes(editor, { type: plugin.replaceOnRemove });
       } else {
-        Transforms.setNodes(editor, { type: null });
+        Transforms.unwrapNodes(editor, {
+          match: elem => elem.type === plugin.type,
+          split: true,
+        });
       }
     }
   } else {

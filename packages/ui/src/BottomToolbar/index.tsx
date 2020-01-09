@@ -153,4 +153,4 @@ const BottomToolbar: React.SFC<BottomToolbarProps> = ({
   );
 };
 
-export default BottomToolbar;
+export default React.memo(BottomToolbar);

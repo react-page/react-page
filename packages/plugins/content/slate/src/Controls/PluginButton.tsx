@@ -1,4 +1,6 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
+import { Range, Transforms } from 'slate';
+import { useSlate } from 'slate-react';
 import useAddPlugin from '../hooks/useAddPlugin';
 import useCurrentNodeDataWithPlugin from '../hooks/useCurrentNodeDataWithPlugin';
 import useCurrentSelection from '../hooks/useCurrentSelection';
@@ -25,6 +27,7 @@ function PluginButton<T>(props: Props<T>) {
 
   const data = useCurrentNodeDataWithPlugin(config);
   const selection = useCurrentSelection();
+  const [storedSelection, setStoredSelection] = useState<Range>();
   const close = useCallback(() => setShowControls(false), []);
   const isActive = usePluginIsActive(config);
   const add = useAddPlugin(config);
@@ -36,7 +39,6 @@ function PluginButton<T>(props: Props<T>) {
       if (hasControls) {
         setShowControls(!showControls);
       } else {
-        console.log({ isActive });
         if (isActive) {
           remove();
         } else {
@@ -46,9 +48,21 @@ function PluginButton<T>(props: Props<T>) {
     },
     [isActive, hasControls, showControls]
   );
+  useEffect(
+    () => {
+      if (showControls) {
+        setStoredSelection(selection);
+      } else {
+        setStoredSelection(null);
+      }
+    },
+    [showControls]
+  );
   const { Controls: PassedControls } = config;
   const Controls = PassedControls || UniformsControls;
   const isDisabled = usePluginIsDisabled(config);
+
+  const editor = useSlate();
 
   return (
     <>
@@ -67,11 +81,16 @@ function PluginButton<T>(props: Props<T>) {
           schema={config.schema}
           close={close}
           open={showControls}
-          add={add}
+          add={p => {
+            if (storedSelection) {
+              Transforms.select(editor, storedSelection);
+            }
+            add(p);
+          }}
           remove={remove}
           isActive={isActive}
           shouldInsertWithText={
-            config.pluginType === 'component' && !selection && !isActive
+            config.pluginType === 'component' && !storedSelection && !isActive
           }
           data={data}
           {...props}

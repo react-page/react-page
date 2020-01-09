@@ -20,25 +20,23 @@
  *
  */
 
-import { Component } from 'react';
-import { connect } from '../../reduxConnect';
-import { createStructuredSelector } from 'reselect';
-import pathOr from 'ramda/src/pathOr';
 import Mousetrap from 'mousetrap';
-
-import { undo, redo } from '../../actions/undo';
-import { removeCell, focusCell, blurAllCells } from '../../actions/cell';
+import pathOr from 'ramda/src/pathOr';
+import { Component } from 'react';
+import { createStructuredSelector } from 'reselect';
+import { blurAllCells, focusCell, removeCell } from '../../actions/cell';
+import { redo, undo } from '../../actions/undo';
+import { connect } from '../../reduxConnect';
 import { isEditMode } from '../../selector/display';
-import { focus } from '../../selector/focus';
 import {
-  node,
   editable,
   editables,
+  node,
   searchNodeEverywhere
 } from '../../selector/editable';
-
+import { focus } from '../../selector/focus';
+import { ComponetizedCell, EditableType } from '../../types/editable';
 import { RootState } from '../../types/state';
-import { EditableType, ComponetizedCell } from '../../types/editable';
 
 type Props = {
   children: React.ReactChildren;
@@ -206,8 +204,7 @@ const mapStateToProps = createStructuredSelector({
   searchNodeEverywhere: (state: RootState) => (id: string) =>
     searchNodeEverywhere(state, id),
   // tslint:disable-next-line:no-any
-  editable: (state: any, props: any) => (id?: string) =>
-    editable(state, id ? { id } : props),
+  editable: (state: any, props: any) => editable(state, { id: props.id }),
   editables,
 });
 
