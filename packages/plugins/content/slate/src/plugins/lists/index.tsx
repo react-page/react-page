@@ -1,10 +1,8 @@
-import createListsPlugin from '../../pluginFactories/createListPlugin';
 import { lazyLoad } from '@react-page/core';
 import React from 'react';
-import DEFAULT_NODE from '../DEFAULT_NODE';
-
-import createIndentionPlugin from '../../pluginFactories/createListIndentionPlugin';
 import { createListItemPlugin } from '../../pluginFactories';
+import createIndentionPlugin from '../../pluginFactories/createListIndentionPlugin';
+import createListsPlugin from '../../pluginFactories/createListPlugin';
 
 const ListIcon = lazyLoad(() =>
   import('@material-ui/icons/FormatListBulleted')
@@ -26,10 +24,10 @@ const DecreaseIndentIcon = lazyLoad(() =>
 
 const ol = createListsPlugin({
   type: OL,
+  allListTypes: [UL, OL],
   icon: <OrderedListIcon />,
   tagName: 'ol',
   listItem: {
-    defaultNode: DEFAULT_NODE,
     tagName: 'li',
     type: LI,
   },
@@ -37,10 +35,10 @@ const ol = createListsPlugin({
 
 const ul = createListsPlugin({
   type: UL,
+  allListTypes: [UL, OL],
   icon: <ListIcon />,
   tagName: 'ul',
   listItem: {
-    defaultNode: DEFAULT_NODE,
     tagName: 'li',
     type: LI,
   },
@@ -48,7 +46,6 @@ const ul = createListsPlugin({
 
 // only used for easier access on createInitialSlateState
 const li = createListItemPlugin({
-  defaultNode: DEFAULT_NODE,
   tagName: 'li',
   type: LI,
 });

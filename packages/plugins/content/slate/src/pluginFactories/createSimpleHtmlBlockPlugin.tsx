@@ -14,7 +14,7 @@ type Def<T extends {}> = Pick<
   | 'getInitialData'
   | 'schema'
 > & {
-  replaceOnRemove?: string;
+  replaceWithDefaultOnRemove?: boolean;
   tagName: string;
   noButton?: boolean;
 };
@@ -30,7 +30,7 @@ function createSimpleHtmlBlockPlugin<T = {}>(def: Def<HtmlBlockData<T>>) {
     type: def.type,
     object: 'block',
     hotKey: def.hotKey,
-    replaceOnRemove: def.replaceOnRemove,
+    replaceWithDefaultOnRemove: def.replaceWithDefaultOnRemove,
     icon: def.icon,
     onKeyDown: def.onKeyDown,
     addToolbarButton: !def.noButton,

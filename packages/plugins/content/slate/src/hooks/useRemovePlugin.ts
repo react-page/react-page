@@ -18,8 +18,10 @@ export const removePlugin = <T>(
       });
       // Transforms.setNodes(editor, { type: null });
     } else if (plugin.object === 'block') {
-      if (plugin.replaceOnRemove) {
-        Transforms.setNodes(editor, { type: plugin.replaceOnRemove });
+      if (plugin.replaceWithDefaultOnRemove) {
+        Transforms.setNodes(editor, {
+          type: null,
+        });
       } else {
         Transforms.unwrapNodes(editor, {
           match: elem => elem.type === plugin.type,

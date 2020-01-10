@@ -6,6 +6,7 @@ import { Translations } from './translations';
 
 export type SlateProps = ContentPluginProps<SlateState> & {
   plugins: SlatePluginDefinition<unknown>[];
+  defaultPluginType: string;
 
   translations?: Translations;
 } & {

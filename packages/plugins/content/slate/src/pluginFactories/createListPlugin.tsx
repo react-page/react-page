@@ -1,4 +1,4 @@
-import createSlateEditList from '@guestbell/slate-edit-list';
+import { Editor, Transforms } from 'slate';
 import { SlatePlugin } from 'src/types/SlatePlugin';
 import { SlateComponentPluginDefinition } from '../types/slatePluginDefinitions';
 import createListItemPlugin from './createListItemPlugin';
@@ -8,6 +8,7 @@ import createSimpleHtmlBlockPlugin, {
 
 type ListDef = {
   type: string;
+  allListTypes: string[];
   icon?: JSX.Element;
   hotKey?: string;
   tagName: string;
@@ -15,7 +16,6 @@ type ListDef = {
   listItem: {
     type: string;
     tagName: string;
-    defaultNode: string;
   };
 };
 
@@ -28,14 +28,18 @@ type ListCustomizers<T> = {
   customizeListItem?: CustomizeFunction<T>;
 };
 
+const anyListIsActive = (editor: Editor, def: ListDef) => {
+  const [matchingNode] = Editor.nodes(editor, {
+    match: elem => def.allListTypes.includes(elem.type),
+    mode: 'lowest', // FIXME: whats the best value?
+  });
+  return Boolean(matchingNode);
+};
+
 function createSlatePlugins<T>(
   def: ListDef,
   customizers: ListCustomizers<T> = {}
 ) {
-  const slateEditList = createSlateEditList({
-    typeItem: def.listItem.type,
-    types: [def.type],
-  });
   return [
     createSimpleHtmlBlockPlugin<T>({
       type: def.type,
@@ -43,8 +47,31 @@ function createSlatePlugins<T>(
       noButton: def.noButton,
       tagName: def.tagName,
 
-      customAdd: editor => slateEditList.changes.wrapInList(editor, def.type),
-      customRemove: editor => slateEditList.changes.unwrapList(editor),
+      customAdd: editor => {
+        console.log(def);
+        const listIsActive = anyListIsActive(editor, def);
+        console.log({ listIsActive });
+
+        Transforms.wrapNodes(editor, {
+          type: def.type,
+          children: [],
+        });
+        Transforms.wrapNodes(editor, {
+          type: def.listItem.type,
+          children: [],
+        });
+      },
+      customRemove: editor => {
+        Transforms.unwrapNodes(editor, {
+          match: elem => elem.type === def.listItem.type,
+        });
+        Transforms.unwrapNodes(editor, {
+          match: elem => elem.type === def.type,
+          split: true,
+        });
+        const listIsActive = anyListIsActive(editor, def);
+        console.log({ listIsActive });
+      },
     })(customizers.customizeList),
     createListItemPlugin<T>(def.listItem)(customizers.customizeListItem),
   ];

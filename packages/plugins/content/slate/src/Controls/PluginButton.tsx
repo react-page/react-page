@@ -83,6 +83,7 @@ function PluginButton<T>(props: Props<T>) {
           open={showControls}
           add={p => {
             if (storedSelection) {
+              // restore selection before adding
               Transforms.select(editor, storedSelection);
             }
             add(p);

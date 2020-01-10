@@ -134,33 +134,16 @@ class Slate extends React.PureComponent<SlateProps, SlateState> {
   }
 }
 */
-import React, {
-  DependencyList,
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState
-} from 'react';
+import React, { DependencyList, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Portal } from 'react-portal';
 import { createEditor, Editor, Node } from 'slate';
-import {
-  Editable,
-  RenderElementProps,
-  RenderLeafProps,
-  Slate,
-  useSlate,
-  withReact
-} from 'slate-react';
+import { Editable, RenderElementProps, RenderLeafProps, Slate, useSlate, withReact } from 'slate-react';
 import { SlatePlugin } from 'src/types/SlatePlugin';
 import { addPlugin } from '../hooks/useAddPlugin';
 import { getCurrentNodeWithPlugin } from '../hooks/useCurrentNodeWithPlugin';
 import { removePlugin } from '../hooks/useRemovePlugin';
 import { SlateProps } from '../types/component';
-import {
-  PluginButtonProps,
-  SlateComponentPluginDefinition
-} from '../types/slatePluginDefinitions';
+import { PluginButtonProps, SlateComponentPluginDefinition } from '../types/slatePluginDefinitions';
 
 const PluginButton = lazyLoad(
   () =>
@@ -285,7 +268,7 @@ const useComponentMarkPlugins = (
 // tslint:disable-next-line:no-any
 
 const useRenderElement = (
-  { plugins }: { plugins: SlatePlugin[] },
+  { plugins, defaultPluginType }: { plugins: SlatePlugin[], defaultPluginType: string },
   deps: DependencyList
 ) => {
   const componentPlugins = useComponentNodePlugins({ plugins }, deps);
@@ -297,6 +280,8 @@ const useRenderElement = (
     }: RenderElementProps) => {
       const matchingPlugin = componentPlugins.find(
         plugin => plugin.type === type
+      ) ?? componentPlugins.find(
+        plugin => plugin.type === defaultPluginType
       );
 
       if (matchingPlugin) {
@@ -310,7 +295,7 @@ const useRenderElement = (
           />
         );
       }
-      return <p>default - implement me</p>;
+    return <p>unknown component {type}</p>;
     },
     deps
   );
@@ -386,8 +371,8 @@ const useOnKeyDown = (
   }, deps);
 };
 
-const SlateEditable = React.memo(({ plugins }: { plugins: SlatePlugin[] }) => {
-  const renderElement = useRenderElement({ plugins }, []);
+const SlateEditable = React.memo(({ plugins, defaultPluginType }: { plugins: SlatePlugin[], defaultPluginType: string }) => {
+  const renderElement = useRenderElement({ plugins, defaultPluginType }, []);
   const renderLeaf = useRenderLeave({ plugins }, []);
   const onKeyDown = useOnKeyDown({ plugins }, []);
 
@@ -450,7 +435,7 @@ const SlateControls = (props: SlateProps) => {
     <Slate editor={editor} value={value} onChange={setValue}>
       {!readOnly && focused && <HoverButtonsContainer {...props} />}
 
-      <SlateEditable plugins={plugins} />
+      <SlateEditable plugins={plugins} defaultPluginType={props.defaultPluginType}/>
 
       {!readOnly ? (
         <BottomToolbar

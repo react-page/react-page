@@ -51,6 +51,8 @@ const migrations = [v002, v003];
 type SlateDefinition<TPlugins extends SlatePluginCollection> = {
   icon: JSX.Element;
   plugins: TPlugins;
+  // tslint:disable-next-line:no-any
+  defaultPluginType: string;
   Renderer: React.ComponentType<SlateRendererProps>;
   Controls: React.ComponentType<SlateControlsProps>;
   name: string;
@@ -69,6 +71,7 @@ export type CreateInitialStateCustomizer<TPlugins> = (
 const defaultConfig: DefaultSlateDefinition = {
   icon: <Subject />,
   plugins: defaultPlugins,
+  defaultPluginType: 'PARAGRAPH/PARAGRAPH',
   Renderer,
   Controls,
   name: 'ory/editor/core/content/slate',
@@ -136,6 +139,7 @@ function plugin<TPlugins extends SlatePluginCollection = DefaultPlugins>(
         plugins={plugins}
         translations={settings.translations}
         serializeFunctions={serializeFunctions}
+        defaultPluginType={settings.defaultPluginType}
         {...props}
       />
     ),

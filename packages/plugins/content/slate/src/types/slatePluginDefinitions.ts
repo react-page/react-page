@@ -60,7 +60,7 @@ export type MapLike<T extends {}> = {
 
 type ObjectProps = {
   object: 'block';
-  replaceOnRemove?: string;
+  replaceWithDefaultOnRemove?: boolean;
 };
 
 type InlineProps = {

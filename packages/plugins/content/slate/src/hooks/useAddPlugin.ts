@@ -36,7 +36,7 @@ export const addPlugin = <T>(
       if (plugin.object === 'mark') {
         editor.addMark(plugin.type, data || true);
       } else {
-        if (plugin.object === 'block' && plugin.replaceOnRemove) {
+        if (plugin.object === 'block' && plugin.replaceWithDefaultOnRemove) {
           Transforms.setNodes(editor, { type: plugin.type, ...data });
         } else {
           Transforms.wrapNodes(editor, {

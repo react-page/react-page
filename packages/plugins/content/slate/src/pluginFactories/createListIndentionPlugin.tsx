@@ -1,4 +1,3 @@
-import createSlateEditList from '@guestbell/slate-edit-list';
 import { SlatePlugin } from 'src/types/SlatePlugin';
 
 type Definition = {
@@ -9,11 +8,6 @@ type Definition = {
 };
 
 const ceateSlatePlugin = (def: Definition): SlatePlugin[] => {
-  const slateEditList = createSlateEditList({
-    typeItem: def.listItemType,
-    types: def.listTypes,
-  });
-
   return [
     {
       pluginType: 'custom',
@@ -21,10 +15,10 @@ const ceateSlatePlugin = (def: Definition): SlatePlugin[] => {
       addHoverButton: false,
       icon: def.iconIncrease,
       customAdd: editor => {
-        slateEditList.changes.increaseItemDepth(editor);
+        // slateEditList.changes.increaseItemDepth(editor);
       },
       customRemove: editor => {
-        slateEditList.changes.decreaseItemDepth(editor);
+        // slateEditList.changes.decreaseItemDepth(editor);
       },
       isDisabled: editor => {
         // console.warn('need to reimplement slate list isDisabled ');
@@ -49,10 +43,10 @@ const ceateSlatePlugin = (def: Definition): SlatePlugin[] => {
       addHoverButton: false,
       icon: def.iconDecrease,
       customAdd: editor => {
-        slateEditList.changes.decreaseItemDepth(editor);
+        // slateEditList.changes.decreaseItemDepth(editor);
       },
       customRemove: editor => {
-        slateEditList.changes.increaseItemDepth(editor);
+        // slateEditList.changes.increaseItemDepth(editor);
       },
       isDisabled: editor => {
         // console.warn('need to reimplement slate list isDisabled ');

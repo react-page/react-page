@@ -15,7 +15,7 @@ function createHeadingsPlugin<T = {}>(def: HeadingsDef<T>) {
   return createSimpleHtmlBlockPlugin<T>({
     type: def.type,
     hotKey: 'mod+' + def.level,
-    replaceOnRemove: DEFAULT_NODE,
+    replaceWithDefaultOnRemove: true,
     icon: def.icon,
     tagName: 'h' + def.level,
   });
