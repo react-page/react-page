@@ -1,10 +1,16 @@
 import { SlatePlugin } from 'src/types/SlatePlugin';
+import {
+  decreaseListIndention,
+  getActiveListType,
+  getPreviousListItem,
+  increaseListIndention
+} from './utils/listUtils';
 
 type Definition = {
   iconIncrease: JSX.Element;
   iconDecrease: JSX.Element;
   listItemType: string;
-  listTypes: string[];
+  allListTypes: string[];
 };
 
 const ceateSlatePlugin = (def: Definition): SlatePlugin[] => {
@@ -15,14 +21,22 @@ const ceateSlatePlugin = (def: Definition): SlatePlugin[] => {
       addHoverButton: false,
       icon: def.iconIncrease,
       customAdd: editor => {
-        // slateEditList.changes.increaseItemDepth(editor);
+        increaseListIndention(editor, {
+          allListTypes: def.allListTypes,
+          listItemType: def.listItemType,
+        });
       },
       customRemove: editor => {
-        // slateEditList.changes.decreaseItemDepth(editor);
+        decreaseListIndention(editor, {
+          allListTypes: def.allListTypes,
+          listItemType: def.listItemType,
+        });
       },
       isDisabled: editor => {
+        const previous = getPreviousListItem(editor, def.listItemType);
+        return !previous;
         // console.warn('need to reimplement slate list isDisabled ');
-        return true;
+
         /*
         const editorState = editor.value;
 
@@ -43,23 +57,19 @@ const ceateSlatePlugin = (def: Definition): SlatePlugin[] => {
       addHoverButton: false,
       icon: def.iconDecrease,
       customAdd: editor => {
-        // slateEditList.changes.decreaseItemDepth(editor);
+        decreaseListIndention(editor, {
+          allListTypes: def.allListTypes,
+          listItemType: def.listItemType,
+        });
       },
       customRemove: editor => {
-        // slateEditList.changes.increaseItemDepth(editor);
+        increaseListIndention(editor, {
+          allListTypes: def.allListTypes,
+          listItemType: def.listItemType,
+        });
       },
       isDisabled: editor => {
-        // console.warn('need to reimplement slate list isDisabled ');
-        return true;
-        /*
-        const editorState = editor.value;
-      
-        const currentItem = slateEditList.utils.getCurrentItem(editorState);
-        const itemDepth = slateEditList.utils.getItemDepth(editorState);
-
-        const canDecrease = Boolean(itemDepth > 1 && currentItem);
-        return !canDecrease;
-        */
+        return !Boolean(getActiveListType(editor, def.allListTypes));
       },
     },
   ];

@@ -134,16 +134,33 @@ class Slate extends React.PureComponent<SlateProps, SlateState> {
   }
 }
 */
-import React, { DependencyList, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import React, {
+  DependencyList,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState
+} from 'react';
 import { Portal } from 'react-portal';
 import { createEditor, Editor, Node } from 'slate';
-import { Editable, RenderElementProps, RenderLeafProps, Slate, useSlate, withReact } from 'slate-react';
+import {
+  Editable,
+  RenderElementProps,
+  RenderLeafProps,
+  Slate,
+  useSlate,
+  withReact
+} from 'slate-react';
 import { SlatePlugin } from 'src/types/SlatePlugin';
 import { addPlugin } from '../hooks/useAddPlugin';
 import { getCurrentNodeWithPlugin } from '../hooks/useCurrentNodeWithPlugin';
 import { removePlugin } from '../hooks/useRemovePlugin';
 import { SlateProps } from '../types/component';
-import { PluginButtonProps, SlateComponentPluginDefinition } from '../types/slatePluginDefinitions';
+import {
+  PluginButtonProps,
+  SlateComponentPluginDefinition
+} from '../types/slatePluginDefinitions';
 
 const PluginButton = lazyLoad(
   () =>
@@ -176,30 +193,27 @@ const HoverButtonsContainer = (props: SlateProps) => {
   const showHoverToolbar = useTextIsSelected();
   const toolbarRef = useRef<HTMLDivElement>();
   const editor = useSlate();
-  useEffect(
-    () => {
-      const toolbar = toolbarRef.current;
+  useEffect(() => {
+    const toolbar = toolbarRef.current;
 
-      if (!showHoverToolbar) {
-        return;
-      }
+    if (!showHoverToolbar) {
+      return;
+    }
 
-      let s = window.getSelection();
-      let oRange = s.getRangeAt(0); // get the text range
-      let oRect = oRange.getBoundingClientRect();
-      if (oRect) {
-        const { left, top, width } = oRect;
+    let s = window.getSelection();
+    let oRange = s.getRangeAt(0); // get the text range
+    let oRect = oRange.getBoundingClientRect();
+    if (oRect) {
+      const { left, top, width } = oRect;
 
-        toolbar.style.opacity = '1';
-        toolbar.style.top = `${top + window.scrollY - toolbar.offsetHeight}px`;
-        toolbar.style.left = `${left +
-          window.scrollX -
-          toolbar.offsetWidth / 2 +
-          width / 2}px`;
-      }
-    },
-    [editor, showHoverToolbar]
-  );
+      toolbar.style.opacity = '1';
+      toolbar.style.top = `${top + window.scrollY - toolbar.offsetHeight}px`;
+      toolbar.style.left = `${left +
+        window.scrollX -
+        toolbar.offsetWidth / 2 +
+        width / 2}px`;
+    }
+  }, [editor, showHoverToolbar]);
 
   return (
     <Portal>
@@ -268,7 +282,10 @@ const useComponentMarkPlugins = (
 // tslint:disable-next-line:no-any
 
 const useRenderElement = (
-  { plugins, defaultPluginType }: { plugins: SlatePlugin[], defaultPluginType: string },
+  {
+    plugins,
+    defaultPluginType,
+  }: { plugins: SlatePlugin[]; defaultPluginType: string },
   deps: DependencyList
 ) => {
   const componentPlugins = useComponentNodePlugins({ plugins }, deps);
@@ -278,11 +295,9 @@ const useRenderElement = (
       children,
       attributes,
     }: RenderElementProps) => {
-      const matchingPlugin = componentPlugins.find(
-        plugin => plugin.type === type
-      ) ?? componentPlugins.find(
-        plugin => plugin.type === defaultPluginType
-      );
+      const matchingPlugin =
+        componentPlugins.find(plugin => plugin.type === type) ??
+        componentPlugins.find(plugin => plugin.type === defaultPluginType);
 
       if (matchingPlugin) {
         const { Component } = matchingPlugin;
@@ -295,7 +310,7 @@ const useRenderElement = (
           />
         );
       }
-    return <p>unknown component {type}</p>;
+      return <p>unknown component {type}</p>;
     },
     deps
   );
@@ -371,19 +386,27 @@ const useOnKeyDown = (
   }, deps);
 };
 
-const SlateEditable = React.memo(({ plugins, defaultPluginType }: { plugins: SlatePlugin[], defaultPluginType: string }) => {
-  const renderElement = useRenderElement({ plugins, defaultPluginType }, []);
-  const renderLeaf = useRenderLeave({ plugins }, []);
-  const onKeyDown = useOnKeyDown({ plugins }, []);
+const SlateEditable = React.memo(
+  ({
+    plugins,
+    defaultPluginType,
+  }: {
+    plugins: SlatePlugin[];
+    defaultPluginType: string;
+  }) => {
+    const renderElement = useRenderElement({ plugins, defaultPluginType }, []);
+    const renderLeaf = useRenderLeave({ plugins }, []);
+    const onKeyDown = useOnKeyDown({ plugins }, []);
 
-  return (
-    <Editable
-      renderElement={renderElement}
-      renderLeaf={renderLeaf}
-      onKeyDown={onKeyDown}
-    />
-  );
-});
+    return (
+      <Editable
+        renderElement={renderElement}
+        renderLeaf={renderLeaf}
+        onKeyDown={onKeyDown}
+      />
+    );
+  }
+);
 
 const useTextIsSelected = () => {
   const editor = useSlate();
@@ -417,14 +440,31 @@ const SlateControls = (props: SlateProps) => {
 
   const [value, setValue] = useState<Node[]>([
     {
-      type: 'PARAGRAPH/PARAGRAPH',
+      type: 'LISTS/ORDERED-LIST',
       children: [
         {
-          text: 'fudi',
+          type: 'LISTS/LIST-ITEM',
+          children: [
+            {
+              text: 'one',
+            },
+          ],
         },
         {
-          text: 'gaggi',
-          'EMPHASIZE/EM': true,
+          type: 'LISTS/LIST-ITEM',
+          children: [
+            {
+              text: 'two',
+            },
+          ],
+        },
+        {
+          type: 'LISTS/LIST-ITEM',
+          children: [
+            {
+              text: 'three',
+            },
+          ],
         },
       ],
     },
@@ -435,7 +475,10 @@ const SlateControls = (props: SlateProps) => {
     <Slate editor={editor} value={value} onChange={setValue}>
       {!readOnly && focused && <HoverButtonsContainer {...props} />}
 
-      <SlateEditable plugins={plugins} defaultPluginType={props.defaultPluginType}/>
+      <SlateEditable
+        plugins={plugins}
+        defaultPluginType={props.defaultPluginType}
+      />
 
       {!readOnly ? (
         <BottomToolbar

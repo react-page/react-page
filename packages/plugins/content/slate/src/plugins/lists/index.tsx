@@ -54,7 +54,7 @@ const indention = createIndentionPlugin({
   iconIncrease: <IncreaseIndentIcon />,
   iconDecrease: <DecreaseIndentIcon />,
   listItemType: LI,
-  listTypes: [UL, OL],
+  allListTypes: [UL, OL],
 });
 
 export default {

@@ -1,18 +1,20 @@
-import { Editor, Transforms } from 'slate';
 import { SlatePlugin } from 'src/types/SlatePlugin';
 import { SlateComponentPluginDefinition } from '../types/slatePluginDefinitions';
 import createListItemPlugin from './createListItemPlugin';
 import createSimpleHtmlBlockPlugin, {
   HtmlBlockData
 } from './createSimpleHtmlBlockPlugin';
-
+import {
+  decreaseListIndention,
+  increaseListIndention
+} from './utils/listUtils';
 type ListDef = {
   type: string;
-  allListTypes: string[];
   icon?: JSX.Element;
   hotKey?: string;
   tagName: string;
   noButton?: boolean; // for Li, this is automatically
+  allListTypes: string[];
   listItem: {
     type: string;
     tagName: string;
@@ -28,14 +30,6 @@ type ListCustomizers<T> = {
   customizeListItem?: CustomizeFunction<T>;
 };
 
-const anyListIsActive = (editor: Editor, def: ListDef) => {
-  const [matchingNode] = Editor.nodes(editor, {
-    match: elem => def.allListTypes.includes(elem.type),
-    mode: 'lowest', // FIXME: whats the best value?
-  });
-  return Boolean(matchingNode);
-};
-
 function createSlatePlugins<T>(
   def: ListDef,
   customizers: ListCustomizers<T> = {}
@@ -48,29 +42,20 @@ function createSlatePlugins<T>(
       tagName: def.tagName,
 
       customAdd: editor => {
-        console.log(def);
-        const listIsActive = anyListIsActive(editor, def);
-        console.log({ listIsActive });
-
-        Transforms.wrapNodes(editor, {
-          type: def.type,
-          children: [],
-        });
-        Transforms.wrapNodes(editor, {
-          type: def.listItem.type,
-          children: [],
-        });
+        increaseListIndention(
+          editor,
+          {
+            allListTypes: def.allListTypes,
+            listItemType: def.listItem.type,
+          },
+          def.type
+        );
       },
       customRemove: editor => {
-        Transforms.unwrapNodes(editor, {
-          match: elem => elem.type === def.listItem.type,
-        });
-        Transforms.unwrapNodes(editor, {
-          match: elem => elem.type === def.type,
-          split: true,
-        });
-        const listIsActive = anyListIsActive(editor, def);
-        console.log({ listIsActive });
+        decreaseListIndention(editor,  {
+          allListTypes: def.allListTypes,
+          listItemType: def.listItem.type,
+        }, def.type);
       },
     })(customizers.customizeList),
     createListItemPlugin<T>(def.listItem)(customizers.customizeListItem),

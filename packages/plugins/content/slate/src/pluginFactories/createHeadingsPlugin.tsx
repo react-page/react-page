@@ -1,4 +1,3 @@
-import DEFAULT_NODE from '../plugins/DEFAULT_NODE';
 import { SlateComponentPluginDefinition } from '../types/slatePluginDefinitions';
 import createSimpleHtmlBlockPlugin, {
   HtmlBlockData
