@@ -52,10 +52,14 @@ function createSlatePlugins<T>(
         );
       },
       customRemove: editor => {
-        decreaseListIndention(editor,  {
-          allListTypes: def.allListTypes,
-          listItemType: def.listItem.type,
-        }, def.type);
+        decreaseListIndention(
+          editor,
+          {
+            allListTypes: def.allListTypes,
+            listItemType: def.listItem.type,
+          },
+          def.type
+        );
       },
     })(customizers.customizeList),
     createListItemPlugin<T>(def.listItem)(customizers.customizeListItem),

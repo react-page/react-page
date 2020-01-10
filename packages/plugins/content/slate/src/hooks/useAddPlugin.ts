@@ -1,11 +1,11 @@
 import { useCallback } from 'react';
-import { Editor, Transforms } from 'slate';
+import { ReactEditor, Transforms } from 'slate';
 import { useSlate } from 'slate-react';
 import { SlatePluginDefinition } from 'src/types/slatePluginDefinitions';
 import { getCurrentNodeWithPlugin } from './useCurrentNodeWithPlugin';
 
 export const addPlugin = <T>(
-  editor: Editor,
+  editor: ReactEditor,
   plugin: SlatePluginDefinition<T>,
   props?: { data?: T; text?: string }
 ) => {

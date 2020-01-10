@@ -1,4 +1,13 @@
-import { Editor, Element, Node, Path, Transforms } from 'slate';
+import {
+  Editor,
+  Element,
+  Node,
+  NodeEntry,
+  Path,
+  Text,
+  Transforms
+} from 'slate';
+import { ReactEditor } from 'slate-react';
 
 type ListBaseDef = {
   allListTypes: string[];
@@ -71,24 +80,219 @@ export const increaseListIndention = (
   }
 };
 
-export const decreaseListIndention = (
+const makeAllChildrenListItems = (
   editor: Editor,
+  parent: NodeEntry<Node>,
+  def: ListBaseDef
+) => {
+  const [...children] = Node.children(parent[0], []);
+  console.log({ parent, children });
+  children
+    .filter(
+      child => ![def.listItemType, ...def.allListTypes].includes(child[0].type)
+    )
+    .forEach(child => {
+      Transforms.setNodes(
+        editor,
+        {
+          type: def.listItemType,
+        },
+        {
+          at: [...parent[1], ...child[1]],
+        }
+      );
+    });
+};
+
+const sanitizeListItem = (editor: Editor, child: Path, def: ListBaseDef) => {
+  const item = Editor.node(editor, child);
+  // if it contains a
+  console.log(item, Node.isNode(item[0]));
+  if (!Text.isText(item[0])) {
+    const [...children] = Node.children(item[0], []);
+    console.log(children);
+  }
+};
+
+const sanitizeList = (editor: Editor, listBasePath: Path, def: ListBaseDef) => {
+  const [listBase] = Editor.node(editor, listBasePath);
+  console.log('sanitizelist', listBase);
+
+  const [...children] = Node.children(listBase, []);
+
+  children.forEach(child =>
+    sanitizeListItem(editor, [...listBasePath, ...child[1]], def)
+  );
+
+  //
+};
+
+const getLastLiAfterCurrent = (editor: Editor, path: Path) => {
+  const parent = Editor.parent(editor, path);
+  const lastOtherSibling = Node.last(parent[0], []);
+
+  const lastSibling = Editor.last(editor, parent[1]);
+  console.log({ lastSibling, lastOtherSibling, path, parent });
+  return Path.isAfter(lastSibling[1], path) ? lastSibling : null;
+};
+export const decreaseListIndention = (
+  editor: ReactEditor,
   def: ListBaseDef,
   listType?: string
 ) => {
   const decreasedListType = getActiveListType(editor, def.allListTypes);
-
+  /*
   Transforms.unwrapNodes(editor, {
     match: elem => elem.type === decreasedListType,
-    split: false,
+    split: true,
     mode: 'lowest',
   });
-
+  */
   const [currentLi] = Editor.nodes(editor, {
     match: elem => elem.type === def.listItemType,
     mode: 'lowest',
   });
+  const currentList = Path.parent(currentLi[1]);
+  const parentListItem = Path.parent(currentList);
+  const parentList = Path.parent(parentListItem);
 
+  let next;
+  do {
+    next = Editor.next(editor, {
+      at: currentLi[1],
+    });
+    if (next) {
+      Transforms.moveNodes(editor, {
+        at: next[1],
+        to: Path.next(parentListItem),
+      });
+    }
+  } while (next);
+  // is there only one left?
+  const current = Editor.node(editor, currentList);
+  const willBeEmpty = (!current || current[0].children?.length <= 1) ?? true;
+  Transforms.moveNodes(editor, {
+    at: currentLi[1],
+    to: Path.next(parentListItem),
+    voids: false,
+  });
+  // is it now empty?
+  if (willBeEmpty) {
+    // unwrap it
+    Transforms.unwrapNodes(editor, {
+      at: Path.previous(currentList),
+    });
+
+    /*Transforms.removeNodes(editor, {
+      at: currentList,
+    });
+    */
+  }
+
+  return;
+
+  // let lastSibling = Editor.last(editor, currentList);
+  // const fromItemToEnd = Editor.range(editor, lastSibling[1]);
+  let lastSibling;
+
+  lastSibling = getLastLiAfterCurrent(editor, currentLi[1]);
+  console.log({
+    lastSibling,
+  });
+
+  if (lastSibling) {
+    Transforms.moveNodes(editor, {
+      at: lastSibling[1],
+      to: parentListItem,
+    });
+  }
+  lastSibling = getLastLiAfterCurrent(editor, currentLi[1]);
+  console.log({
+    lastSibling,
+  });
+
+  if (lastSibling) {
+    Transforms.moveNodes(editor, {
+      at: lastSibling[1],
+
+      to: parentListItem,
+    });
+  }
+  lastSibling = getLastLiAfterCurrent(editor, currentLi[1]);
+  console.log({
+    lastSibling,
+  });
+
+  if (lastSibling) {
+    Transforms.moveNodes(editor, {
+      at: lastSibling[1],
+
+      to: parentListItem,
+    });
+  }
+  return;
+  do {
+    lastSibling = getLastLiAfterCurrent(editor, currentLi[1]);
+    console.log(currentLi, lastSibling);
+
+    if (lastSibling) {
+      Transforms.moveNodes(editor, {
+        at: lastSibling[1],
+        mode: 'lowest',
+        match: elem => elem.type === def.listItemType,
+
+        to: parentListItem,
+      });
+    }
+  } while (lastSibling);
+
+  return;
+
+  Transforms.unwrapNodes(editor, {
+    match: elem => elem.type === def.listItemType,
+    split: true,
+    mode: 'highest',
+  });
+  // sanitizeList(editor, parentList, def);
+
+  return;
+
+  const isLast = !Editor.next(editor, {
+    at: currentLi[1],
+  });
+  const istFirst = !Editor.previous(editor, {
+    at: currentLi[1],
+  });
+  // if its last, simply move it to the next list
+
+  if (isLast) {
+    Transforms.moveNodes(editor, {
+      to: Path.next(parentList),
+    });
+  } else {
+    Transforms.unwrapNodes(editor, {
+      match: elem => elem.type === decreasedListType,
+      split: true,
+      mode: 'lowest',
+    });
+    makeAllChildrenListItems(editor, Editor.node(editor, parentListItem), def);
+    Transforms.unwrapNodes(editor, {
+      at: parentListItem,
+      split: true,
+    });
+    return;
+    // swap it with the  parent List item's content
+    Transforms.moveNodes(editor, {
+      to: parentListItem,
+    });
+    makeAllChildrenListItems(
+      editor,
+      Editor.node(editor, parentListItem),
+      def.listItemType
+    );
+  }
+
+  return;
   const parentLiPath = Path.parent(currentLi[1]);
 
   const parentLi = Editor.node(editor, parentLiPath);

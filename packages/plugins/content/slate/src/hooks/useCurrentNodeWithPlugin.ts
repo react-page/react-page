@@ -1,9 +1,9 @@
 import { Editor, Element } from 'slate';
-import { useSlate } from 'slate-react';
+import { ReactEditor, useSlate } from 'slate-react';
 import { SlatePluginDefinition } from 'src/types/slatePluginDefinitions';
 
 export const getCurrentNodeWithPlugin = <T>(
-  editor,
+  editor: ReactEditor,
   plugin: SlatePluginDefinition<T>
 ): Element => {
   if (plugin.pluginType === 'custom') {

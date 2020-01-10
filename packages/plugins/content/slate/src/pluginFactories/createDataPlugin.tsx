@@ -1,5 +1,5 @@
-import { SlateDataPluginDefinition } from '../types/slatePluginDefinitions';
 import { SlatePlugin } from '../types/SlatePlugin';
+import { SlateDataPluginDefinition } from '../types/slatePluginDefinitions';
 
 function createDataPlugin<T = {}>(def: SlateDataPluginDefinition<T>) {
   const customizablePlugin = function<CT>(

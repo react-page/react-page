@@ -46,7 +46,6 @@ export const handleRemoveHotKey = (
     },
   }: AbstractCell<string>
 ): Promise<void> => {
-  console.warn('reimplement me for slate 0.50. handleRemoveHotKey');
   return Promise.reject();
   /*
   return new Promise<void>((resolve: Function, reject: Function) =>

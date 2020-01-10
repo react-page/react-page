@@ -1,10 +1,10 @@
 import { JsonSchema } from '@react-page/create-plugin-materialui';
-import { Editor } from 'slate';
+import { ReactEditor } from 'slate-react';
 import { NextType } from '../types/next';
 import { Translations } from './translations';
 
 export interface PluginButtonProps {
-  editor: Editor;
+  editor: ReactEditor;
   translations?: Partial<Translations>;
 }
 
@@ -27,15 +27,19 @@ export type SlatePluginControls<T extends {}> = {
 
 export type SlateBasePluginDefinition<T extends {}> = {
   hotKey?: string;
-  onKeyDown?: (e: React.KeyboardEvent, editor: Editor, next: NextType) => void;
+  onKeyDown?: (
+    e: React.KeyboardEvent,
+    editor: ReactEditor,
+    next: NextType
+  ) => void;
   schema?: JsonSchema<T>;
   Controls?: React.ComponentType<SlatePluginControls<T>>;
   icon?: JSX.Element;
   addHoverButton: boolean;
   addToolbarButton: boolean;
-  customAdd?: (editor: Editor) => void;
-  customRemove?: (editor: Editor) => void;
-  isDisabled?: (editor: Editor) => boolean;
+  customAdd?: (editor: ReactEditor) => void;
+  customRemove?: (editor: ReactEditor) => void;
+  isDisabled?: (editor: ReactEditor) => boolean;
   getInitialData?: () => T;
 };
 
