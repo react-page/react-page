@@ -4,7 +4,6 @@ import { NextType } from '../types/next';
 import { Translations } from './translations';
 
 export interface PluginButtonProps {
-  editor: ReactEditor;
   translations?: Partial<Translations>;
 }
 

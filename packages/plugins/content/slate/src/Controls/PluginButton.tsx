@@ -15,23 +15,22 @@ import {
 import ToolbarButton from './ToolbarButton';
 
 type Props<T extends {}> = {
-  config: SlatePluginDefinition<T>;
-  isActive: boolean;
+  plugin: SlatePluginDefinition<T>;
 } & PluginButtonProps;
 
 function PluginButton<T>(props: Props<T>) {
-  const { config } = props;
-  const hasControls = Boolean(config.Controls) || Boolean(config.schema);
+  const { plugin } = props;
+  const hasControls = Boolean(plugin.Controls) || Boolean(plugin.schema);
 
   const [showControls, setShowControls] = useState(false);
 
-  const data = useCurrentNodeDataWithPlugin(config);
+  const data = useCurrentNodeDataWithPlugin(plugin);
   const selection = useCurrentSelection();
   const [storedSelection, setStoredSelection] = useState<Range>();
   const close = useCallback(() => setShowControls(false), []);
-  const isActive = usePluginIsActive(config);
-  const add = useAddPlugin(config);
-  const remove = useRemovePlugin(config);
+  const isActive = usePluginIsActive(plugin);
+  const add = useAddPlugin(plugin);
+  const remove = useRemovePlugin(plugin);
   const onClick = React.useCallback(
     (e: React.MouseEvent<HTMLElement>) => {
       e.preventDefault();
@@ -48,19 +47,16 @@ function PluginButton<T>(props: Props<T>) {
     },
     [isActive, hasControls, showControls]
   );
-  useEffect(
-    () => {
-      if (showControls) {
-        setStoredSelection(selection);
-      } else {
-        setStoredSelection(null);
-      }
-    },
-    [showControls]
-  );
-  const { Controls: PassedControls } = config;
+  useEffect(() => {
+    if (showControls) {
+      setStoredSelection(selection);
+    } else {
+      setStoredSelection(null);
+    }
+  }, [showControls]);
+  const { Controls: PassedControls } = plugin;
   const Controls = PassedControls || UniformsControls;
-  const isDisabled = usePluginIsDisabled(config);
+  const isDisabled = usePluginIsDisabled(plugin);
 
   const editor = useSlate();
 
@@ -71,14 +67,14 @@ function PluginButton<T>(props: Props<T>) {
         disabled={isDisabled}
         isActive={isActive}
         icon={
-          config.icon ||
-          (config.pluginType === 'component' && config.deserialize.tagName)
+          plugin.icon ||
+          (plugin.pluginType === 'component' && plugin.deserialize.tagName)
         }
       />
 
       {hasControls ? (
         <Controls
-          schema={config.schema}
+          schema={plugin.schema}
           close={close}
           open={showControls}
           add={p => {
@@ -91,7 +87,7 @@ function PluginButton<T>(props: Props<T>) {
           remove={remove}
           isActive={isActive}
           shouldInsertWithText={
-            config.pluginType === 'component' && !storedSelection && !isActive
+            plugin.pluginType === 'component' && !storedSelection && !isActive
           }
           data={data}
           {...props}

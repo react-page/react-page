@@ -4,15 +4,7 @@ import { SlateState } from 'src/types/state';
 import { SlatePlugin } from '../types/SlatePlugin';
 import parseHtml from './parseHtml';
 
-const checkEmpty = potentialString =>
-  !(
-    potentialString &&
-    typeof potentialString === 'string' &&
-    potentialString.length > 0 &&
-    !/^(\r\n|\r|\n)$/.test(potentialString)
-  );
-
-export default ({ plugins }: { plugins: SlatePlugin[] }) => {
+const HtmlToSlate = ({ plugins }: { plugins: SlatePlugin[] }) => {
   const deserializeElement = (el: Node) => {
     if (el.nodeType === 3) {
       return el.textContent && el.textContent.replace('\n', '');
@@ -71,3 +63,5 @@ export default ({ plugins }: { plugins: SlatePlugin[] }) => {
     };
   };
 };
+
+export default HtmlToSlate;
