@@ -3,32 +3,6 @@ import { BottomToolbar } from '@react-page/ui';
 import isHotkey from 'is-hotkey';
 import debounce from 'lodash.debounce';
 import isObject from 'lodash.isobject';
-/*
-  onKeyDown = (
-    e: React.KeyboardEvent,
-    editor: CoreEditor,
-    next: NextType
-  ): boolean => {
-    // we need to prevent slate from handling undo and redo
-    if (isHotkey(['mod+z', 'mod+y'], e.nativeEvent)) {
-      this.setState({ editorState: undefined });
-      return true;
-    }
-
-    if (isHotkey('shift+enter', e.nativeEvent)) {
-      e.preventDefault();
-      editor.insertText('\n');
-      return true;
-    }
-
-    return next();
-  }
-  
-  render() {
-    
-  }
-}
-*/
 import React, {
   DependencyList,
   useCallback,
@@ -260,7 +234,7 @@ const useOnKeyDown = (
     plugins
       .filter(plugin => plugin.hotKey)
       .forEach(plugin => {
-        if (isHotkey(plugin.hotKey, (event as unknown) as KeyboardEvent)) {
+        if (isHotkey(plugin.hotKey, event)) {
           event.preventDefault();
           const node = getCurrentNodeWithPlugin(editor, plugin);
           if (node) {
@@ -271,15 +245,17 @@ const useOnKeyDown = (
         }
       });
 
-    /*
-    if (isHotkey('shift+enter', (event as unknown) as KeyboardEvent)) {
+    // we need to prevent slate from handling undo and redo
+    if (isHotkey(['mod+z', 'mod+y'], event)) {
       event.preventDefault();
-      editor.exec({
-        type: 'insert_text',
-        text: '\n',
-      });
+      return true;
     }
-    */
+
+    if (isHotkey('shift+enter', event)) {
+      event.preventDefault();
+      editor.insertText('\n');
+      return true;
+    }
   }, deps);
 };
 
@@ -307,10 +283,18 @@ const SlateEditable = React.memo(
 
 const useTextIsSelected = () => {
   const editor = useSlate();
-
-  return (
-    Boolean(editor.selection) && Editor.string(editor, editor.selection) !== ''
-  );
+  try {
+    console.log(
+      Boolean(editor.selection) && Editor.string(editor, editor.selection)
+    );
+    return (
+      Boolean(editor.selection) &&
+      Editor.string(editor, editor.selection) !== ''
+    );
+  } catch (e) {
+    // can in some cases throw currently
+    return false;
+  }
 };
 const withInline = (plugins: SlatePlugin[]) => (editor: Editor) => {
   const { isInline } = editor;

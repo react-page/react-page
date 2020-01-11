@@ -14,7 +14,7 @@ export default (markDef: MarkPluginDefinition) => {
     object: 'mark',
     hotKey: markDef.hotKey,
     icon: markDef.icon,
-    addToolbarButton: true,
+    addToolbarButton: false,
     addHoverButton: true,
     deserialize: {
       tagName: markDef.tagName,
