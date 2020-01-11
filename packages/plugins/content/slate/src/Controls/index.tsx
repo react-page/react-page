@@ -1,113 +1,8 @@
 import { lazyLoad } from '@react-page/core';
 import { BottomToolbar } from '@react-page/ui';
 import isHotkey from 'is-hotkey';
-import isObject from 'lodash/isObject';
-/*
-import isHotkey from 'is-hotkey';
 import debounce from 'lodash.debounce';
-import * as React from 'react';
-import { Portal } from 'react-portal';
-
-import { Slate, Editable, withReact } from 'slate-react'
-
-import { NextType } from '../types/next';
-import SlatePlugin from '../types/SlatePlugin';
-
-interface Cancelable {
-  cancel(): void;
-  flush(): void;
-}
-
-export interface SlateState {
-  editorState?: Value;
-}
-
-class Slate extends React.PureComponent<SlateProps, SlateState> {
-  private toolbar: React.RefObject<HTMLDivElement>;
-  private editor: React.RefObject<CoreEditor>;
-  private flushStateDebounced: (() => void) & Cancelable;
-
-  constructor(props: SlateProps) {
-    super(props);
-    this.state = {};
-    this.editor = React.createRef();
-    this.toolbar = React.createRef();
-    this.flushStateDebounced = debounce(this.flushState, 1000, {
-      leading: true,
-      trailing: true,
-      maxWait: 10000,
-    });
-  }
-
-  componentDidMount = () => {
-    this.updateToolbar();
-  }
-
-  flushState = () => {
-    if (this.state.editorState) {
-      this.props.onChange({ editorState: this.state.editorState });
-    }
-  }
-
-  getState() {
-    return this.state.editorState !== undefined
-      ? this.state.editorState
-      : this.props.state.editorState;
-  }
-
-  onStateChange = ({ value }: { value: Value }) => {
-    this.setState(
-      {
-        editorState: value,
-      },
-      () => {
-        this.updateToolbar();
-      }
-    );
-    this.flushStateDebounced();
-  }
-
-  updateToolbar = () => {
-    const editorState = this.getState();
-    const toolbar = this.toolbar.current;
-
-    if (
-      !toolbar ||
-      editorState.selection.isBlurred ||
-      editorState.selection.isCollapsed
-    ) {
-      return;
-    }
-    let s = window.getSelection();
-    let oRange = s.getRangeAt(0); // get the text range
-    let oRect = oRange.getBoundingClientRect();
-    if (oRect) {
-      const { left, top, width } = oRect;
-
-      toolbar.style.opacity = '1';
-      toolbar.style.top = `${top + window.scrollY - toolbar.offsetHeight}px`;
-      toolbar.style.left = `${left +
-        window.scrollX -
-        toolbar.offsetWidth / 2 +
-        width / 2}px`;
-    }
-  }
-
-  /*
-  onPaste = (e: React.ClipboardEvent, editor: CoreEditor, next: NextType) => {
-    const transfer = getEventTransfer(e);
-    if (transfer.type !== 'html') {
-      return next();
-    }
-
-    const { document } = this.props.serializeFunctions.htmlToSlate(
-      // tslint:disable-next-line:no-any
-      (transfer as any).html
-    );
-
-    return editor.insertFragment(document);
-  }
-  */
+import isObject from 'lodash.isobject';
 /*
   onKeyDown = (
     e: React.KeyboardEvent,
@@ -143,9 +38,10 @@ import React, {
   useState
 } from 'react';
 import { Portal } from 'react-portal';
-import { createEditor, Editor, Node } from 'slate';
+import { createEditor, Editor, Node, Transforms } from 'slate';
 import {
   Editable,
+  ReactEditor,
   RenderElementProps,
   RenderLeafProps,
   Slate,
@@ -156,6 +52,7 @@ import { SlatePlugin } from 'src/types/SlatePlugin';
 import { addPlugin } from '../hooks/useAddPlugin';
 import { getCurrentNodeWithPlugin } from '../hooks/useCurrentNodeWithPlugin';
 import { removePlugin } from '../hooks/useRemovePlugin';
+import HtmlToSlate from '../HtmlToSlate';
 import { SlateProps } from '../types/component';
 import {
   PluginButtonProps,
@@ -429,53 +326,54 @@ const withInline = (plugins: SlatePlugin[]) => (editor: Editor) => {
   };
   return editor;
 };
+
+const withPaste = (plugins: SlatePlugin[]) => (editor: ReactEditor) => {
+  const { insertData } = editor;
+  const htmlToSlate = HtmlToSlate({ plugins });
+  editor.insertData = data => {
+    const html = data.getData('text/html');
+
+    if (html) {
+      const { slate } = htmlToSlate(html);
+
+      Transforms.insertFragment(editor, slate);
+      return;
+    }
+
+    insertData(data);
+  };
+  return editor;
+};
+
 const SlateControls = (props: SlateProps) => {
   const { plugins, focused, readOnly, remove, translations } = props;
   const editor = useMemo(
-    () => withReact(withInline(plugins)(createEditor())),
+    () => withPaste(plugins)(withReact(withInline(plugins)(createEditor()))),
     []
   );
 
-  // TODO: wrap with useEffect
+  const onChangeDebounced = useMemo(() => debounce(props.onChange, 600), [
+    props.onChange,
+  ]);
+  const [value, setValue] = useState<Node[]>(props.state?.slate);
+  useEffect(() => {
+    setValue(props.state?.slate);
+  }, [props.state?.slate]);
 
-  const [value, setValue] = useState<Node[]>(props.state);
-  /*
-  [
-    {
-      type: 'LISTS/ORDERED-LIST',
-      children: [
-        {
-          type: 'LISTS/LIST-ITEM',
-          children: [
-            {
-              text: 'eeeis ',
-            },
-          ],
-        },
-        {
-          type: 'LISTS/LIST-ITEM',
-          children: [
-            {
-              text: 'zwoooi',
-            },
-          ],
-        },
-        {
-          type: 'LISTS/LIST-ITEM',
-          children: [
-            {
-              text: 'drüüüü',
-            },
-          ],
-        },
-      ],
+  const onChange = useCallback(
+    v => {
+      setValue(v);
+      onChangeDebounced({
+        slate: v,
+      });
     },
-  ]
-  */
+    [onChangeDebounced]
+  );
+
   const showBottomToolbar = Boolean(focused);
 
   return (
-    <Slate editor={editor} value={value} onChange={setValue}>
+    <Slate editor={editor} value={value} onChange={onChange}>
       {!readOnly && focused && <HoverButtonsContainer {...props} />}
 
       <SlateEditable
@@ -501,4 +399,4 @@ const SlateControls = (props: SlateProps) => {
   );
 };
 
-export default SlateControls;
+export default React.memo(SlateControls);

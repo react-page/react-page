@@ -57,4 +57,6 @@ const transformChildren = (defNodes: SlateDefNode[]): Node[] =>
     }
   });
 
-export default (def: InitialSlateStateDef) => transformChildren(def.children);
+export default (def: InitialSlateStateDef) => ({
+  slate: transformChildren(def.children),
+});

@@ -1,4 +1,4 @@
-import { equals } from 'ramda';
+import equals from 'ramda/src/equals';
 import * as React from 'react';
 import Editor from '../../';
 import { ReduxProvider } from '../../reduxConnect';

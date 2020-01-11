@@ -1,3 +1,5 @@
 import { Node } from 'slate';
 
-export type SlateState = Node[];
+export type SlateState = {
+  slate: Node[];
+};

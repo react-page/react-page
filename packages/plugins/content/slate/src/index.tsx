@@ -22,19 +22,18 @@
 
 import { lazyLoad } from '@react-page/core';
 import { ContentPluginConfig } from '@react-page/core/lib/service/plugin/classes';
-import { pathOr } from 'ramda/src/pathOr';
 import * as React from 'react';
 import { AnyAction } from 'redux';
 import { ActionTypes } from 'redux-undo';
 import Component from './Component';
 import { defaultTranslations } from './default/settings';
+import HtmlToSlate from './HtmlToSlate';
 import v002 from './migrations/v002';
 import v003 from './migrations/v003';
 import v004 from './migrations/v004';
 import * as pluginFactories from './pluginFactories/index';
 import * as defaultPlugins from './plugins/index';
 import Renderer from './Renderer';
-import serialization from './serialization';
 import { SlateProps } from './types/component';
 import { SlateControlsProps } from './types/controls';
 import { InitialSlateStateDef } from './types/initialSlateState';
@@ -44,7 +43,7 @@ import { SlateState } from './types/state';
 import makeSlatePluginsFromDef from './utils/makeSlatePluginsFromDef';
 import transformInitialSlateState from './utils/transformInitialSlateState';
 const slatePlugins = defaultPlugins;
-export { defaultPlugins, slatePlugins, pluginFactories };
+export { defaultPlugins, slatePlugins, pluginFactories, HtmlToSlate };
 const Subject = lazyLoad(() => import('@material-ui/icons/Subject'));
 const Controls = lazyLoad(() => import('./Controls/'));
 
@@ -91,6 +90,7 @@ type CreateInitialSlateState<TPlugins> = (
 SlateState;
 export type SlatePlugin<TPlugins> = ContentPluginConfig<SlateState> & {
   createInitialSlateState: CreateInitialSlateState<TPlugins>;
+  htmlToSlate: (html: string) => SlateState;
 };
 export type SlateCustomizeFunction<TPlugins extends SlatePluginCollection> = (
   def: DefaultSlateDefinition
@@ -129,10 +129,7 @@ function plugin<TPlugins extends SlatePluginCollection = DefaultPlugins>(
   // NEW: to make it easier to manage and group plugins,
   // they now need to be an object of object with group and keys, see type SlatePluginCollection
   const plugins = makeSlatePluginsFromDef(settings.plugins);
-  const serializeFunctions = serialization({
-    createInitialState,
-    plugins,
-  });
+  const htmlToSlate = HtmlToSlate({ plugins });
 
   return {
     Component: (props: SlateProps) => (
@@ -141,7 +138,6 @@ function plugin<TPlugins extends SlatePluginCollection = DefaultPlugins>(
         Controls={settings.Controls}
         plugins={plugins}
         translations={settings.translations}
-        serializeFunctions={serializeFunctions}
         defaultPluginType={settings.defaultPluginType}
         {...props}
       />
@@ -157,10 +153,11 @@ function plugin<TPlugins extends SlatePluginCollection = DefaultPlugins>(
 
     // tslint:disable-next-line:no-any
     reducer: (state: any, action: AnyAction) => {
+      console.log('!!!!!!!!', state, action);
       if (
         (action.type === ActionTypes.UNDO ||
           action.type === ActionTypes.REDO) &&
-        pathOr(false, ['content', 'state', 'editorState'], state)
+        (state?.content?.state?.slate ?? false)
       ) {
         return {
           ...state,
@@ -168,9 +165,6 @@ function plugin<TPlugins extends SlatePluginCollection = DefaultPlugins>(
             ...state.content,
             state: {
               ...state.content.state,
-              editorState: state.content.state.editorState.merge({
-                isNative: false,
-              }),
             },
           },
         };
@@ -183,8 +177,7 @@ function plugin<TPlugins extends SlatePluginCollection = DefaultPlugins>(
     handleFocusNextHotKey: () => Promise.reject(),
     createInitialState: createInitialState,
     createInitialSlateState: createInitialState,
-    serialize: value => value, // is bare object
-    unserialize: value => value,
+    htmlToSlate: htmlToSlate,
 
     // TODO this is disabled because of #207
     // merge = hooks.merge

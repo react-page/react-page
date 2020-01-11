@@ -25,7 +25,6 @@
     "@material-ui/styles": "*"
   },
   "dependencies": {
-    "@guestbell/slate-edit-list": "0.3.0",
     "@react-page/core": "0.0.0",
     "@react-page/ui": "0.0.0",
     "@react-page/create-plugin-materialui": "0.0.0",
@@ -33,12 +32,13 @@
     "uniforms-bridge-json-schema": "~2.5.0",
     "uniforms-material": "~2.5.0",
     "deep-rename-keys": "^0.2.1",
-    "immutable": "3.8.2",
     "is-hotkey": "0.1.4",
     "jsdom": "^15.1.1",
-    "lodash.debounce": "4.0.8",
-    "lodash.throttle": "4.1.1",
-    "ramda": "^0.24.1",
+    "lodash.debounce": "^4.0.8",
+    "lodash.throttle": "^4.1.1",
+    "lodash.isempty": "^4.4.0",
+    "lodash.isobject": "^3.0.2",
+    "lodash.flatten": "^4.4.0",
     "react-portal": "4.1.5",
     "redux-undo": "1.0.0-beta9-7",
     "slate": "^0.57.0",
@@ -54,7 +54,7 @@
     "@types/lodash.debounce": "4.0.4"
   },
   "browser": {
-    "./lib/parseHtml/parseHtml.js": "./lib/parseHtml/parseHtml.browser.js",
-    "./lib-es/parseHtml/parseHtml.js": "./lib-es/parseHtml/parseHtml.browser.js"
+    "./lib/HtmlToSlate/parseHtml.js": "./lib/HtmlToSlate/parseHtml.browser.js",
+    "./lib-es/HtmlToSlate/parseHtml.js": "./lib-es/HtmlToSlate/parseHtml.browser.js"
   }
 }
