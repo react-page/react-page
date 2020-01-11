@@ -48,7 +48,7 @@ const migration = new Migration({
             },
           }
         : state;
-
+    console.log(newState);
     return newState;
   },
 });

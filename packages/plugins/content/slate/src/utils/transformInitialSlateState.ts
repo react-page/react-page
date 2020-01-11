@@ -1,3 +1,4 @@
+import { Node } from 'slate';
 import {
   InitialSlateStateDef,
   SlateDefNode,
@@ -21,7 +22,7 @@ import flattenDeep from './flattenDeep';
  *
  */
 
-const transformChildren = (defNodes: SlateDefNode[]) =>
+const transformChildren = (defNodes: SlateDefNode[]): Node[] =>
   defNodes.map(defNode => {
     if ((defNode as SlatePluginNode).plugin) {
       const defPluginNode: SlatePluginNode = defNode as SlatePluginNode;
@@ -40,10 +41,9 @@ const transformChildren = (defNodes: SlateDefNode[]) =>
         firstComponentPlugin.pluginType === 'component'
       ) {
         return {
-          object: firstComponentPlugin.object,
           type: firstComponentPlugin.type,
-          data: defPluginNode.data,
-          nodes: defPluginNode.children
+          ...(defPluginNode.data ?? {}),
+          children: defPluginNode.children
             ? transformChildren(defPluginNode.children)
             : [],
         };
@@ -52,16 +52,9 @@ const transformChildren = (defNodes: SlateDefNode[]) =>
       }
     } else if (typeof defNode === 'string') {
       return {
-        object: 'text',
         text: defNode as string,
       };
     }
   });
 
-export default (def: InitialSlateStateDef) => ({
-  editorState: {
-    document: {
-      nodes: transformChildren(def.children),
-    },
-  },
-});
+export default (def: InitialSlateStateDef) => transformChildren(def.children);

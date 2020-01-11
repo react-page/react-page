@@ -301,7 +301,7 @@ const useRenderElement = (
 
       if (matchingPlugin) {
         const { Component } = matchingPlugin;
-
+        Component.displayName = 'SlatePlugin(' + matchingPlugin.type + ')';
         return (
           <Component
             {...elementProps}
@@ -438,7 +438,9 @@ const SlateControls = (props: SlateProps) => {
 
   // TODO: wrap with useEffect
 
-  const [value, setValue] = useState<Node[]>([
+  const [value, setValue] = useState<Node[]>(props.state);
+  /*
+  [
     {
       type: 'LISTS/ORDERED-LIST',
       children: [
@@ -446,7 +448,7 @@ const SlateControls = (props: SlateProps) => {
           type: 'LISTS/LIST-ITEM',
           children: [
             {
-              text: 'one',
+              text: 'eeeis ',
             },
           ],
         },
@@ -454,7 +456,7 @@ const SlateControls = (props: SlateProps) => {
           type: 'LISTS/LIST-ITEM',
           children: [
             {
-              text: 'two',
+              text: 'zwoooi',
             },
           ],
         },
@@ -462,13 +464,14 @@ const SlateControls = (props: SlateProps) => {
           type: 'LISTS/LIST-ITEM',
           children: [
             {
-              text: 'three',
+              text: 'drüüüü',
             },
           ],
         },
       ],
     },
-  ]);
+  ]
+  */
   const showBottomToolbar = Boolean(focused);
 
   return (

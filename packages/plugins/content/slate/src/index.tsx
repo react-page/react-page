@@ -30,6 +30,7 @@ import Component from './Component';
 import { defaultTranslations } from './default/settings';
 import v002 from './migrations/v002';
 import v003 from './migrations/v003';
+import v004 from './migrations/v004';
 import * as pluginFactories from './pluginFactories/index';
 import * as defaultPlugins from './plugins/index';
 import Renderer from './Renderer';
@@ -47,7 +48,7 @@ export { defaultPlugins, slatePlugins, pluginFactories };
 const Subject = lazyLoad(() => import('@material-ui/icons/Subject'));
 const Controls = lazyLoad(() => import('./Controls/'));
 
-const migrations = [v002, v003];
+const migrations = [v002, v003, v004];
 type SlateDefinition<TPlugins extends SlatePluginCollection> = {
   icon: JSX.Element;
   plugins: TPlugins;
@@ -64,9 +65,11 @@ type SlateDefinition<TPlugins extends SlatePluginCollection> = {
 };
 type DefaultPlugins = typeof defaultPlugins;
 type DefaultSlateDefinition = SlateDefinition<DefaultPlugins>;
-export type CreateInitialStateCustomizer<TPlugins> = (
-  { plugins }: { plugins: TPlugins }
-) => InitialSlateStateDef;
+export type CreateInitialStateCustomizer<TPlugins> = ({
+  plugins,
+}: {
+  plugins: TPlugins;
+}) => InitialSlateStateDef;
 
 const defaultConfig: DefaultSlateDefinition = {
   icon: <Subject />,
@@ -75,7 +78,7 @@ const defaultConfig: DefaultSlateDefinition = {
   Renderer,
   Controls,
   name: 'ory/editor/core/content/slate',
-  version: '0.0.3',
+  version: '0.0.4',
   translations: defaultTranslations,
   migrations,
 
@@ -85,7 +88,7 @@ const defaultConfig: DefaultSlateDefinition = {
 type CreateInitialSlateState<TPlugins> = (
   custom?: CreateInitialStateCustomizer<TPlugins>
 ) => // tslint:disable-next-line:no-any
-{ editorState: any };
+SlateState;
 export type SlatePlugin<TPlugins> = ContentPluginConfig<SlateState> & {
   createInitialSlateState: CreateInitialSlateState<TPlugins>;
 };
@@ -180,8 +183,8 @@ function plugin<TPlugins extends SlatePluginCollection = DefaultPlugins>(
     handleFocusNextHotKey: () => Promise.reject(),
     createInitialState: createInitialState,
     createInitialSlateState: createInitialState,
-    serialize: serializeFunctions.serialize,
-    unserialize: serializeFunctions.unserialize,
+    serialize: value => value, // is bare object
+    unserialize: value => value,
 
     // TODO this is disabled because of #207
     // merge = hooks.merge

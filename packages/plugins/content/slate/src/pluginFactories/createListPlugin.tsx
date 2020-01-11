@@ -1,13 +1,8 @@
 import { SlatePlugin } from 'src/types/SlatePlugin';
 import { SlateComponentPluginDefinition } from '../types/slatePluginDefinitions';
 import createListItemPlugin from './createListItemPlugin';
-import createSimpleHtmlBlockPlugin, {
-  HtmlBlockData
-} from './createSimpleHtmlBlockPlugin';
-import {
-  decreaseListIndention,
-  increaseListIndention
-} from './utils/listUtils';
+import createSimpleHtmlBlockPlugin, { HtmlBlockData } from './createSimpleHtmlBlockPlugin';
+import { decreaseListIndention, increaseListIndention } from './utils/listUtils';
 type ListDef = {
   type: string;
   icon?: JSX.Element;
@@ -58,7 +53,6 @@ function createSlatePlugins<T>(
             allListTypes: def.allListTypes,
             listItemType: def.listItem.type,
           },
-          def.type
         );
       },
     })(customizers.customizeList),
