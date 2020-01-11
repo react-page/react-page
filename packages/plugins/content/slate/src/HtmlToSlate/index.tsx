@@ -31,12 +31,6 @@ export default ({ plugins }: { plugins: SlatePlugin[] }) => {
     );
 
     if (el.nodeName === 'BODY') {
-      if (!checkEmpty(children[0])) {
-        children.slice(1);
-      }
-      if (checkEmpty(children[children.length - 1])) {
-        children.pop();
-      }
       return jsx('fragment', {}, children);
     }
 
@@ -68,8 +62,10 @@ export default ({ plugins }: { plugins: SlatePlugin[] }) => {
 
   return (htmlString: string): SlateState => {
     const parsed = parseHtml(htmlString);
+
     // tslint:disable-next-line:no-any
     let fragment = (deserializeElement(parsed.body) as unknown) as any[];
+
     return {
       slate: fragment,
     };

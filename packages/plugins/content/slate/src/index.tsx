@@ -178,6 +178,12 @@ function plugin<TPlugins extends SlatePluginCollection = DefaultPlugins>(
     createInitialState: createInitialState,
     createInitialSlateState: createInitialState,
     htmlToSlate: htmlToSlate,
+    unserialize: ({ slate, importFromHtml, ...rest }) => {
+      if (importFromHtml) {
+        return htmlToSlate(importFromHtml);
+      }
+      return { slate };
+    },
 
     // TODO this is disabled because of #207
     // merge = hooks.merge

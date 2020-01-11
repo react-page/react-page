@@ -39,11 +39,16 @@ export const addPlugin = <T>(
         if (plugin.object === 'block' && plugin.replaceWithDefaultOnRemove) {
           Transforms.setNodes(editor, { type: plugin.type, ...data });
         } else {
-          Transforms.wrapNodes(editor, {
-            type: plugin.type,
-            children: [],
-            ...data,
-          });
+          Transforms.wrapNodes(
+            editor,
+            {
+              type: plugin.type,
+
+              children: [],
+              ...data,
+            },
+            { split: true }
+          );
         }
       }
     } else if (plugin.pluginType === 'data') {

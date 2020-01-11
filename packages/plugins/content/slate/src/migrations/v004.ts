@@ -62,11 +62,13 @@ const migration = new Migration({
       return {};
     }
 
-    const result = state.serialized?.document?.nodes?.map(migrateNode) ?? [];
-
-    return {
-      slate: result,
-    };
+    const slate = state.serialized?.document?.nodes?.map(migrateNode) ?? [];
+    // tslint:disable-next-line:no-any
+    const result: any = { slate };
+    if (state.importFromHtml) {
+      result.importFromHtml = state.importFromHtml;
+    }
+    return result;
   },
 });
 

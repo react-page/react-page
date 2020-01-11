@@ -20,7 +20,6 @@ if (
 // tslint:disable-next-line:no-any
 const KeepStateEditor = ({ value, ...props }: any) => {
   const [state, setState] = React.useState(value);
-  console.log('editor state', state);
 
   // here you would normally persist the state somewhere (e.g a database)
   // <Editor /> is stateful, so you don't nesseary have to keep the value updated
