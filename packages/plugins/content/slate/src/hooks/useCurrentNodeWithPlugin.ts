@@ -25,12 +25,17 @@ export const getCurrentNodeWithPlugin = <T>(
         }
       : null;
 
-  const [matchingNode] = Editor.nodes(editor, {
-    match: match,
-    mode: 'lowest', // FIXME: whats the best value?
-  });
+  try {
+    const [matchingNode] = Editor.nodes(editor, {
+      match: match,
+      mode: 'lowest', // FIXME: whats the best value?
+    });
 
-  return matchingNode?.[0] as Element;
+    return matchingNode?.[0] as Element;
+  } catch (e) {
+    // seems to crash sometimes on redu
+    return null;
+  }
 };
 export default <T>(plugin: SlatePluginDefinition<T>) => {
   const editor = useSlate();

@@ -6,7 +6,9 @@ import React, {
   DependencyList,
   useCallback,
   useEffect,
+  useLayoutEffect,
   useMemo,
+  useRef,
   useState
 } from 'react';
 import { createEditor, Node } from 'slate';
@@ -26,6 +28,40 @@ import withPaste from '../slateEnhancer/withPaste';
 import { SlateProps } from '../types/component';
 import { SlatePlugin } from '../types/SlatePlugin';
 import { SlateComponentPluginDefinition } from '../types/slatePluginDefinitions';
+function useWhyDidYouUpdate(name: string, props: any) {
+  // Get a mutable ref object where we can store props ...
+  // ... for comparison next time this hook runs.
+  // tslint:disable-next-line:no-any
+  const previousProps = useRef<any>();
+
+  useEffect(() => {
+    if (previousProps.current) {
+      // Get all keys from previous and current props
+      const allKeys = Object.keys({ ...previousProps.current, ...props });
+      // Use this object to keep track of changed props
+      const changesObj = {};
+      // Iterate through keys
+      allKeys.forEach(key => {
+        // If previous is different from current
+        if (previousProps.current[key] !== props[key]) {
+          // Add to changesObj
+          changesObj[key] = {
+            from: previousProps.current[key],
+            to: props[key],
+          };
+        }
+      });
+
+      // If changesObj not empty then output to console
+      if (Object.keys(changesObj).length) {
+        console.log('[why-did-you-update]', name, changesObj);
+      }
+    }
+
+    // Finally update previousProps with current props for next hook call
+    previousProps.current = props;
+  });
+}
 
 const HoverButtons = lazyLoad(() => import('./HoverButtons'));
 const Toolbar = lazyLoad(() => import('./Toolbar'));
@@ -177,7 +213,7 @@ const SlateEditable = React.memo(
     const renderElement = useRenderElement({ plugins, defaultPluginType }, []);
     const renderLeaf = useRenderLeave({ plugins }, []);
     const onKeyDown = readOnly ? undefined : useOnKeyDown({ plugins }, []);
-
+    console.log('slate editable updates');
     return (
       <Editable
         readOnly={readOnly}
@@ -195,17 +231,20 @@ const SlateControls = (props: SlateProps) => {
     () => withPaste(plugins)(withReact(withInline(plugins)(createEditor()))),
     []
   );
-
+  useWhyDidYouUpdate('SlateControls' + props.id, props);
   const onChangeDebounced = useMemo(() => debounce(props.onChange, 600), [
     props.onChange,
   ]);
   const [value, setValue] = useState<Node[]>(props.state?.slate);
-  useEffect(() => {
+  console.log('slate wrapper updtes', value);
+  useLayoutEffect(() => {
+    console.log('got new value', props.state.slate);
     setValue(props.state?.slate);
   }, [props.state?.slate]);
 
   const onChange = useCallback(
     v => {
+      console.log('onChange', v);
       setValue(v);
       onChangeDebounced({
         slate: v,

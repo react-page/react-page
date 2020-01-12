@@ -22,19 +22,17 @@
 
 import * as React from 'react';
 import { findDOMNode } from 'react-dom';
-import { connect } from '../../../reduxConnect';
 import { bindActionCreators, Dispatch } from 'redux';
 import { createStructuredSelector } from 'reselect';
-
-import Row from '../../Row';
 import {
   updateCellLayout,
   UpdateCellLayoutAction
 } from '../../../actions/cell';
+import { connect } from '../../../reduxConnect';
 import { isEditMode, isPreviewMode } from '../../../selector/display';
-
-import { ComponetizedCell } from '../../../types/editable';
 import { LayoutPluginProps } from '../../../service/plugin/classes';
+import { ComponetizedCell } from '../../../types/editable';
+import Row from '../../Row';
 import scollIntoViewWithOffset from '../utils/scollIntoViewWithOffset';
 
 // TODO clean me up #157
@@ -102,6 +100,9 @@ class Layout extends React.PureComponent<ComponetizedCell> {
     this.ref = ref;
   }
 
+  onChange = state => {
+    this.props.updateCellLayout(state);
+  }
   render() {
     const {
       id,
@@ -148,7 +149,7 @@ class Layout extends React.PureComponent<ComponetizedCell> {
           text={text}
           version={version}
           readOnly={!this.props.isEditMode}
-          onChange={this.props.updateCellLayout}
+          onChange={this.onChange}
           remove={removeCell}
         >
           {rows.map((r: string) => (
@@ -179,7 +180,4 @@ const mapDispatchToProps = (
     dispatch as any
   );
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Layout);
+export default connect(mapStateToProps, mapDispatchToProps)(Layout);

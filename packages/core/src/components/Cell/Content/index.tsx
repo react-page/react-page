@@ -21,24 +21,22 @@
  */
 
 import * as React from 'react';
-import { connect } from '../../../reduxConnect';
 import { bindActionCreators, Dispatch } from 'redux';
 import { createStructuredSelector } from 'reselect';
-
 import {
   updateCellContent,
   UpdateCellContentAction
 } from '../../../actions/cell';
+import { connect } from '../../../reduxConnect';
 import {
   isEditMode,
+  isInsertMode,
   isLayoutMode,
   isPreviewMode,
-  isInsertMode,
   isResizeMode
 } from '../../../selector/display';
-
-import { ComponetizedCell } from '../../../types/editable';
 import { ContentPluginProps } from '../../../service/plugin/classes';
+import { ComponetizedCell } from '../../../types/editable';
 import scollIntoViewWithOffset from '../utils/scollIntoViewWithOffset';
 
 // TODO clean me up #157
@@ -108,6 +106,16 @@ class Content extends React.PureComponent<ComponetizedCell> {
     this.ref = ref;
   }
 
+  onChange = state => {
+    this.props.updateCellContent(state);
+  }
+  remove = () => {
+    this.props.removeCell();
+  }
+  focus = args => {
+    this.props.focusCell(args);
+  }
+
   render() {
     const {
       editable,
@@ -125,20 +133,19 @@ class Content extends React.PureComponent<ComponetizedCell> {
         focused,
       },
     } = this.props;
-    const { focusCell, blurCell } = this.props;
+    const { blurCell } = this.props;
 
     let focusProps;
     if (!this.props.isPreviewMode) {
       focusProps = {
         onMouseDown: () => {
           if (!focused) {
-            focusCell({ source: 'onMouseDown' });
+            this.focus({ source: 'onMouseDown' });
           }
           return true;
         },
       };
     }
-
     return (
       <div
         {...focusProps}
@@ -156,15 +163,15 @@ class Content extends React.PureComponent<ComponetizedCell> {
           text={text}
           version={version}
           readOnly={!this.props.isEditMode}
-          onChange={this.props.updateCellContent}
-          focus={focusCell}
+          onChange={this.onChange}
+          focus={this.focus}
           blur={blurCell}
           isInsertMode={this.props.isInsertMode}
           isResizeMode={this.props.isResizeMode}
           isPreviewMode={this.props.isPreviewMode}
           isEditMode={this.props.isEditMode}
           isLayoutMode={this.props.isLayoutMode}
-          remove={this.props.removeCell}
+          remove={this.remove}
         />
       </div>
     );
@@ -191,7 +198,4 @@ const mapDispatchToProps = (
     dispatch as any
   );
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Content);
+export default connect(mapStateToProps, mapDispatchToProps)(Content);
