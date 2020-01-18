@@ -12,27 +12,10 @@ import * as React from 'react';
 import DraftSwitch from '../DraftSwitch';
 import DuplicateButton from '../DuplicateButton';
 import ThemeProvider, { darkTheme } from '../ThemeProvider';
-
+import { BottomToolbarProps } from './types';
 const darkBlack = 'rgba(0, 0, 0, 0.87)';
 const bright = 'rgba(255,255,255, 0.98)';
 const brightBorder = 'rgba(0, 0, 0, 0.12)';
-export interface BottomToolbarProps {
-  open?: boolean;
-
-  children?: Object;
-  className?: string;
-  dark: boolean;
-  title?: string;
-  anchor?: 'top' | 'bottom' | 'left' | 'right';
-  onDelete?: () => void;
-  // tslint:disable-next-line:no-any
-  icon?: any;
-  // FIXME: seems like we use more and more information about the current cell. we should refactor this
-  id: string;
-  editable: string;
-  // tslint:disable-next-line:no-any
-  theme: any;
-}
 
 const SIZES = [1, 0.8, 0.6, 1.2];
 let lastSize = SIZES[0]; // poor mans redux
@@ -42,7 +25,6 @@ const BottomToolbar: React.SFC<BottomToolbarProps> = ({
   className,
   dark = false,
   theme,
-
   anchor = 'bottom',
   onDelete = null,
   title,

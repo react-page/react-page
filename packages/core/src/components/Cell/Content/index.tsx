@@ -158,7 +158,7 @@ class Content extends React.PureComponent<ComponetizedCell> {
           editable={editable}
           id={id}
           state={state}
-          focused={this.props.isEditMode && focused}
+          focused={Boolean(this.props.isEditMode && focused)}
           name={name}
           text={text}
           version={version}

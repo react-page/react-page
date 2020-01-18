@@ -39,7 +39,8 @@ import { ComponetizedCell, EditableType } from '../../types/editable';
 import { RootState } from '../../types/state';
 
 type Props = {
-  children: React.ReactChildren;
+  // tslint:disable-next-line:no-any
+  children: any;
   id: string;
   focus: string;
   isEditMode: boolean;
@@ -216,7 +217,4 @@ const mapDispatchToProps = {
   blurAllCells,
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Decorator);
+export default connect(mapStateToProps, mapDispatchToProps)(Decorator);

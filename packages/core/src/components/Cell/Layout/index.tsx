@@ -68,7 +68,7 @@ class Layout extends React.PureComponent<ComponetizedCell> {
       editable,
       id,
       state,
-      focused: this.props.isEditMode && focused,
+      focused: Boolean(this.props.isEditMode && focused),
       readOnly: !this.props.isEditMode,
       onChange: updateCellContent,
       name,

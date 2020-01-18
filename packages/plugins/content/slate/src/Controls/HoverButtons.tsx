@@ -5,7 +5,10 @@ import useTextIsSelected from '../hooks/useTextIsSelected';
 import { SlateProps } from '../types/component';
 import PluginButton from './PluginButton';
 
-const HoverButtons = ({ plugins, translations }: SlateProps) => {
+const HoverButtons = ({
+  plugins,
+  translations,
+}: Pick<SlateProps, 'plugins' | 'translations'>) => {
   const showHoverToolbar = useTextIsSelected();
   const toolbarRef = useRef<HTMLDivElement>();
   const editor = useSlate();

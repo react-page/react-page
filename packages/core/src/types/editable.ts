@@ -94,7 +94,8 @@ export type ComponetizedCell = {
   ancestors: Array<string>;
   config: Config;
 
-  children?: React.ReactChildren;
+  // tslint:disable-next-line:no-any
+  children?: any;
 
   node: AbstractCell<string>;
 

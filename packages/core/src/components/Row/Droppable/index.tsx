@@ -29,7 +29,8 @@ import { ComponetizedRow } from '../../../types/editable';
 import { connect as monitorConnect, target } from './dnd';
 
 export type Props = ComponetizedRow & {
-  children: React.ReactChildren;
+  // tslint:disable-next-line:no-any
+  children: any;
   isLayoutMode: boolean;
   isInsertMode: boolean;
   isOverCurrent: boolean;

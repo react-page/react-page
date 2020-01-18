@@ -97,4 +97,4 @@ function PluginButton<T>(props: Props<T>) {
   );
 }
 
-export default PluginButton;
+export default React.memo(PluginButton);
