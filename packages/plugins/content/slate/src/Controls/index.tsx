@@ -52,15 +52,17 @@ const SlateControls = (props: SlateProps) => {
       Transforms.select(editor, state.selection);
     }
     setValue(state?.slate);
-  }, [props.state?.slate]);
+  }, [state?.slate, state?.selection]);
 
   const onChange = useCallback(
     v => {
-      setValue(v);
-      onChangeDebounced({
-        slate: v,
-        selection: editor.selection,
-      });
+      if (editor.selection) {
+        setValue(v);
+        onChangeDebounced({
+          slate: v,
+          selection: editor.selection,
+        });
+      }
     },
     [onChangeDebounced]
   );
