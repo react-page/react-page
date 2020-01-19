@@ -1,8 +1,15 @@
+import { Transforms } from 'slate';
 import { SlatePlugin } from 'src/types/SlatePlugin';
 import { SlateComponentPluginDefinition } from '../types/slatePluginDefinitions';
 import createListItemPlugin from './createListItemPlugin';
-import createSimpleHtmlBlockPlugin, { HtmlBlockData } from './createSimpleHtmlBlockPlugin';
-import { decreaseListIndention, increaseListIndention } from './utils/listUtils';
+import createSimpleHtmlBlockPlugin, {
+  HtmlBlockData
+} from './createSimpleHtmlBlockPlugin';
+import {
+  decreaseListIndention,
+  getActiveList,
+  increaseListIndention
+} from './utils/listUtils';
 type ListDef = {
   type: string;
   icon?: JSX.Element;
@@ -37,23 +44,35 @@ function createSlatePlugins<T>(
       tagName: def.tagName,
 
       customAdd: editor => {
-        increaseListIndention(
-          editor,
-          {
-            allListTypes: def.allListTypes,
-            listItemType: def.listItem.type,
-          },
-          def.type
-        );
+        const currentList = getActiveList(editor, def.allListTypes);
+
+        if (!currentList) {
+          increaseListIndention(
+            editor,
+            {
+              allListTypes: def.allListTypes,
+              listItemType: def.listItem.type,
+            },
+            def.type
+          );
+        } else {
+          // change type
+          Transforms.setNodes(
+            editor,
+            {
+              type: def.type,
+            },
+            {
+              at: currentList[1],
+            }
+          );
+        }
       },
       customRemove: editor => {
-        decreaseListIndention(
-          editor,
-          {
-            allListTypes: def.allListTypes,
-            listItemType: def.listItem.type,
-          },
-        );
+        decreaseListIndention(editor, {
+          allListTypes: def.allListTypes,
+          listItemType: def.listItem.type,
+        });
       },
     })(customizers.customizeList),
     createListItemPlugin<T>(def.listItem)(customizers.customizeListItem),

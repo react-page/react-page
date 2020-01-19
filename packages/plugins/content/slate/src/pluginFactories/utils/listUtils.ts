@@ -1,4 +1,4 @@
-import { Editor, Element, Path, Text, Transforms } from 'slate';
+import { Editor, Path, Text, Transforms } from 'slate';
 import { ReactEditor } from 'slate-react';
 
 type ListBaseDef = {
@@ -6,12 +6,16 @@ type ListBaseDef = {
   listItemType: string;
 };
 
-export const getActiveListType = (editor: Editor, allListTypes: string[]) => {
+export const getActiveList = (editor: Editor, allListTypes: string[]) => {
   const [matchingNode] = Editor.nodes(editor, {
     match: elem => allListTypes.includes(elem.type),
     mode: 'lowest', // FIXME: whats the best value?
   });
-  return (matchingNode?.[0] as Element)?.type;
+  return matchingNode;
+};
+
+export const getActiveListType = (editor: Editor, allListTypes: string[]) => {
+  return getActiveList(editor, allListTypes)?.[0]?.type;
 };
 
 export const getPreviousListItem = (editor: Editor, listItemType: string) => {
@@ -86,15 +90,13 @@ const moveToParent = (
     at: nodePath,
     to: targetPath,
   });
-  if (!parentIsList) {
-    // is target node li with only text children?
-    const targetNode = Editor.node(editor, targetPath);
-    const onlyTextChildren = targetNode?.[0].children?.every(child =>
-      Text.isText(child)
-    );
 
+  if (!parentIsList) {
+    const targetNode = Editor.node(editor, targetPath);
+    const onlyTextChildren = targetNode?.[0].children?.every(
+      child => Text.isText(child) || Editor.isInline(editor, child)
+    );
     if (onlyTextChildren) {
-      // set it to default node
       Transforms.setNodes(
         editor,
         {
@@ -105,7 +107,6 @@ const moveToParent = (
         }
       );
     } else {
-      // unwrap instead
       Transforms.unwrapNodes(editor, {
         at: targetPath,
       });
@@ -120,10 +121,13 @@ export const decreaseListIndention = (
     match: elem => elem.type === def.listItemType,
     mode: 'lowest',
   });
-  const currentParent = Path.parent(currentLi[1]);
+  const currentLiPath = currentLi[1];
+  const currentParent = Path.parent(currentLiPath);
   const parentListItemPath = Path.parent(currentParent);
   const parentListItem = Editor.node(editor, parentListItemPath);
   const parentIsList = parentListItem?.[0].type === def.listItemType;
+
+  const isFirstInItsList = currentLiPath[currentLiPath.length - 1] === 0;
 
   const targetPath = parentIsList
     ? Path.next(parentListItemPath)
@@ -132,22 +136,32 @@ export const decreaseListIndention = (
   let next;
   do {
     next = Editor.next(editor, {
-      at: currentLi[1],
+      at: currentLiPath,
     });
+
     if (next) {
       moveToParent(editor, next[1], targetPath, parentIsList);
     }
   } while (next);
-  // is there only one left?
-  const current = Editor.node(editor, currentParent);
-  const willBeEmpty = (!current || current[0].children?.length <= 1) ?? true;
 
-  moveToParent(editor, currentLi[1], targetPath, parentIsList);
-  // is it now empty?
-  if (willBeEmpty) {
-    // unwrap it
-    Transforms.unwrapNodes(editor, {
-      at: Path.previous(currentParent),
+  moveToParent(editor, currentLiPath, targetPath, parentIsList);
+
+  if (isFirstInItsList) {
+    // the list will be empty now, remove it
+
+    Transforms.removeNodes(editor, {
+      at: currentParent,
     });
+    if (parentIsList) {
+      const previousParagraphPath = [...Path.previous(targetPath), 0];
+      const previousParagraph = Editor.node(editor, previousParagraphPath);
+
+      if (!previousParagraph?.[0].type) {
+        Transforms.unwrapNodes(editor, {
+          at: previousParagraphPath,
+          split: true,
+        });
+      }
+    }
   }
 };
