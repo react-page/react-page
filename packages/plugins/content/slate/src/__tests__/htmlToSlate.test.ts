@@ -89,10 +89,8 @@ describe('HtmlToSlate', () => {
             children: [
               { text: 'a' },
               {
-                href: 'foo',
-
+                data: { href: 'foo', openInNewWindow: false },
                 children: [{ text: 'asdf' }],
-                openInNewWindow: false,
                 type: 'LINK/LINK',
               },
               { text: 'b' },
@@ -116,7 +114,9 @@ describe('HtmlToSlate', () => {
               },
             ],
 
-            align: 'center',
+            data: {
+              align: 'center',
+            },
           },
         ],
       },
@@ -134,7 +134,9 @@ describe('HtmlToSlate', () => {
               },
             ],
 
-            align: 'center',
+            data: {
+              align: 'center',
+            },
           },
         ],
       },
@@ -147,7 +149,9 @@ describe('HtmlToSlate', () => {
           {
             type: 'PARAGRAPH/PARAGRAPH',
             children: [{ text: 'ab' }],
-            align: 'center',
+            data: {
+              align: 'center',
+            },
           },
         ],
       },

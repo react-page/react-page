@@ -41,9 +41,10 @@ const HtmlToSlate = ({ plugins }: { plugins: SlatePlugin[] }) => {
 
         return children.map(child => jsx('text', attrs, child));
       } else {
+        const data = matchingPlugin?.deserialize?.getData?.(el as HTMLElement);
         const attrs = {
           type: matchingPlugin.type,
-          ...(matchingPlugin?.deserialize?.getData?.(el as HTMLElement) ?? {}),
+          ...(data ? { data } : {}), // don't add data if its empty
         };
         return jsx('element', attrs, children);
       }
