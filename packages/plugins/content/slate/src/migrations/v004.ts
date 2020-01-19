@@ -42,8 +42,8 @@ const migrateTextNode = (oldNode: OldTextNode): Text => {
 
 const migrateElementNode = (node: OldElementNode): Element => {
   return {
-    type: node.type,
     ...(node.data ?? {}),
+    type: node.type,
     children: node.nodes?.map(migrateNode) ?? [],
   };
 };

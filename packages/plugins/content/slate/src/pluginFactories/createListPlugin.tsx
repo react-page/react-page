@@ -25,16 +25,16 @@ type ListDef = {
 
 type ListItemDef<T> = SlateComponentPluginDefinition<HtmlBlockData<T>>;
 
-type CustomizeFunction<T> = <CT>(def: ListItemDef<T>) => ListItemDef<CT>;
+type CustomizeFunction<T, CT> = (def: ListItemDef<T>) => ListItemDef<CT & T>;
 
-type ListCustomizers<T> = {
-  customizeList?: CustomizeFunction<T>;
-  customizeListItem?: CustomizeFunction<T>;
+type ListCustomizers<T, CT> = {
+  customizeList?: CustomizeFunction<T, CT>;
+  customizeListItem?: CustomizeFunction<T, CT>;
 };
 
-function createSlatePlugins<T>(
+function createSlatePlugins<T, CT>(
   def: ListDef,
-  customizers: ListCustomizers<T> = {}
+  customizers: ListCustomizers<T, CT> = {}
 ) {
   return [
     createSimpleHtmlBlockPlugin<T>({
@@ -79,46 +79,40 @@ function createSlatePlugins<T>(
   ];
 }
 
-function mergeCustomizer<TIn, TMiddle>(
-  c1: ListCustomizers<TIn>,
-  c2: ListCustomizers<TMiddle>
-): ListCustomizers<TIn> {
+// tslint:disable-next-line:no-any
+function mergeCustomizer(c1: any, c2: any): any {
   return {
-    customizeList<CT>(def: ListItemDef<TIn>) {
-      const def2 = c1.customizeList
-        ? c1.customizeList<TMiddle>(def)
-        : ((def as unknown) as ListItemDef<TMiddle>);
-      return c2.customizeList
-        ? c2.customizeList<CT>(def2)
-        : ((def2 as unknown) as ListItemDef<CT>);
+    // tslint:disable-next-line:no-any
+    customizeList(def: any) {
+      const def2 = c1?.customizeList ? c1.customizeList(def) : def;
+      return c2?.customizeList ? c2.customizeList(def2) : def2;
     },
-    customizeListItem<CT>(def: ListItemDef<TIn>) {
-      const def2 = c1.customizeList
-        ? c1.customizeListItem<TMiddle>(def)
-        : ((def as unknown) as ListItemDef<TMiddle>);
-      return c2.customizeList
-        ? c2.customizeListItem<CT>(def2)
-        : ((def2 as unknown) as ListItemDef<CT>);
+    // tslint:disable-next-line:no-any
+    customizeListItem(def: any) {
+      const def2 = c1?.customizeList ? c1.customizeListItem(def) : def;
+      return c2?.customizeList ? c2.customizeListItem(def2) : def2;
     },
   };
 }
 
 function createListPlugin<T = {}>(def: ListDef) {
-  const inner = function<TIn>(
+  const inner = function<TIn, TOut>(
     innerdef: ListDef,
-    customizersIn?: ListCustomizers<TIn>
+    customizersIn?: ListCustomizers<TIn, TOut>
   ) {
-    const customizablePlugin = function(customizers: ListCustomizers<TIn>) {
+    const customizablePlugin = function<CT>(
+      customizers: ListCustomizers<TOut, CT>
+    ) {
       return inner(innerdef, mergeCustomizer(customizersIn, customizers));
     };
     customizablePlugin.toPlugin = (): SlatePlugin[] =>
-      createSlatePlugins<TIn>(innerdef, customizersIn).map(plugin =>
+      createSlatePlugins<TIn, TOut>(innerdef, customizersIn).map(plugin =>
         plugin.toPlugin()
       );
     return customizablePlugin;
   };
 
-  return inner<T>(def);
+  return inner<T, T>(def);
 }
 
 export default createListPlugin;
