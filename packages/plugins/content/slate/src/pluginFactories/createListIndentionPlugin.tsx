@@ -1,4 +1,4 @@
-import { SlatePlugin } from 'src/types/SlatePlugin';
+import { SlatePlugin } from '../types/SlatePlugin';
 import {
   decreaseListIndention,
   getActiveListType,
@@ -35,20 +35,6 @@ const ceateSlatePlugin = (def: Definition): SlatePlugin[] => {
       isDisabled: editor => {
         const previous = getPreviousListItem(editor, def.listItemType);
         return !previous;
-        // console.warn('need to reimplement slate list isDisabled ');
-
-        /*
-        const editorState = editor.value;
-
-        const previousItem = editorState
-          ? slateEditList.utils.getPreviousItem(editorState)
-          : null;
-        const currentItem = editorState
-          ? slateEditList.utils.getCurrentItem(editorState)
-          : null;
-        const canIncrease = Boolean(previousItem && currentItem);
-        return !canIncrease;
-        */
       },
     },
     {

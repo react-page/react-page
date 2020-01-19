@@ -1,5 +1,5 @@
 import { Transforms } from 'slate';
-import { SlatePlugin } from 'src/types/SlatePlugin';
+import { SlatePlugin } from '../types/SlatePlugin';
 import { SlateComponentPluginDefinition } from '../types/slatePluginDefinitions';
 import createListItemPlugin from './createListItemPlugin';
 import createSimpleHtmlBlockPlugin, {

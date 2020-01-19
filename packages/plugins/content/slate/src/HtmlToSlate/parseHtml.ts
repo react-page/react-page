@@ -1,3 +1,6 @@
-const parseHtml = require('jsdom').fragment;
+const { JSDOM } = require('jsdom');
 
-export default parseHtml;
+const DOMParser = new JSDOM().window.DOMParser;
+export default (html: string) => {
+  return new DOMParser().parseFromString(html, 'text/html');
+};

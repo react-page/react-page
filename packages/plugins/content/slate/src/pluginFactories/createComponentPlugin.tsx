@@ -1,4 +1,4 @@
-import { SlatePlugin } from 'src/types/SlatePlugin';
+import { SlatePlugin } from '../types/SlatePlugin';
 import { SlateComponentPluginDefinition } from '../types/slatePluginDefinitions';
 
 function createComponentPlugin<T = {}>(def: SlateComponentPluginDefinition<T>) {

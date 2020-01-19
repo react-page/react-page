@@ -1,4 +1,5 @@
 import React from 'react';
+import { getAlignmentFromElement } from '../plugins/paragraphs';
 import { SlateComponentPluginDefinition } from '../types/slatePluginDefinitions';
 import createComponentPlugin from './createComponentPlugin';
 
@@ -16,6 +17,9 @@ type Def<T extends {}> = Pick<
 > & {
   replaceWithDefaultOnRemove?: boolean;
   tagName: string;
+  getData?: SlateComponentPluginDefinition<
+    HtmlBlockData<T>
+  >['deserialize']['getData'];
   noButton?: boolean;
 };
 
@@ -40,6 +44,8 @@ function createSimpleHtmlBlockPlugin<T = {}>(def: Def<HtmlBlockData<T>>) {
     addHoverButton: false,
     deserialize: {
       tagName: def.tagName,
+      // tslint:disable-next-line:no-any
+      getData: def.getData || (getAlignmentFromElement as any),
     },
     Component: ({ children, attributes, style, className, align }) => {
       const Tag = (def.tagName as unknown) as React.ComponentType<{

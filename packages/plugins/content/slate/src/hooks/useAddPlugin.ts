@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 import { Transforms } from 'slate';
 import { ReactEditor, useSlate } from 'slate-react';
-import { SlatePluginDefinition } from 'src/types/slatePluginDefinitions';
+import { SlatePluginDefinition } from '../types/slatePluginDefinitions';
 import { getCurrentNodeWithPlugin } from './useCurrentNodeWithPlugin';
 
 export const addPlugin = <T>(

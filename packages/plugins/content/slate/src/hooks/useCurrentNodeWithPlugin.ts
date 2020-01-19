@@ -1,6 +1,6 @@
 import { Editor, Element } from 'slate';
 import { ReactEditor, useSlate } from 'slate-react';
-import { SlatePluginDefinition } from 'src/types/slatePluginDefinitions';
+import { SlatePluginDefinition } from '../types/slatePluginDefinitions';
 
 export const getCurrentNodeWithPlugin = <T>(
   editor: ReactEditor,

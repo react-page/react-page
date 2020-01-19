@@ -1,6 +1,6 @@
 import { lazyLoad } from '@react-page/core';
 import debounce from 'lodash.debounce';
-import React, { useCallback, useLayoutEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { createEditor, Node, Transforms } from 'slate';
 import { Editable, Slate, withReact } from 'slate-react';
 import withInline from '../slateEnhancer/withInline';
@@ -46,7 +46,7 @@ const SlateControls = (props: SlateProps) => {
   ]);
   const [value, setValue] = useState<Node[]>(state?.slate);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (state.selection) {
       // update seleciton, if changed from outside (e.g. through undo)
       Transforms.select(editor, state.selection);

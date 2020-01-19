@@ -4,6 +4,7 @@
     "outDir": "lib",
     "baseUrl": ".",
     "moduleResolution": "node",
+    "downlevelIteration": true,
     "target": "es5",
     "module": "commonjs",
     "allowJs": true,

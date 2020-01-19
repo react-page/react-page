@@ -1,4 +1,4 @@
-import { SlatePluginDefinition } from 'src/types/slatePluginDefinitions';
+import { SlatePluginDefinition } from '../types/slatePluginDefinitions';
 import useCurrentNodeWithPlugin from './useCurrentNodeWithPlugin';
 
 export default <T>(plugin: SlatePluginDefinition<T>) => {
