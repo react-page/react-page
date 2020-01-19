@@ -131,7 +131,6 @@ function plugin<TPlugins extends SlatePluginCollection = DefaultPlugins>(
 
     // tslint:disable-next-line:no-any
     reducer: (state: any, action: AnyAction) => {
-      console.log('reducer', state, action);
       if (
         (action.type === ActionTypes.UNDO ||
           action.type === ActionTypes.REDO) &&
