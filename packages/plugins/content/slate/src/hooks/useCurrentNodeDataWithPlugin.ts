@@ -6,7 +6,7 @@ export default <T>(plugin: SlatePluginDefinition<T>): T => {
   const editor = useSlate();
   const currentNode = getCurrentNodeWithPlugin(editor, plugin);
   if (currentNode) {
-    const { children, type, ...data } = currentNode;
+    const { data } = currentNode;
     return data as T;
   } else if (plugin.getInitialData) {
     return plugin.getInitialData();

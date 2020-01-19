@@ -26,7 +26,7 @@ export const addPlugin = <T>(
       editor.addMark(plugin.type, data);
     } else {
       // just udpate the data
-      Transforms.setNodes(editor, data);
+      Transforms.setNodes(editor, { data });
     }
   } else {
     // add new
@@ -37,7 +37,7 @@ export const addPlugin = <T>(
         editor.addMark(plugin.type, data || true);
       } else {
         if (plugin.object === 'block' && plugin.replaceWithDefaultOnRemove) {
-          Transforms.setNodes(editor, { type: plugin.type, ...data });
+          Transforms.setNodes(editor, { type: plugin.type, data });
         } else {
           Transforms.wrapNodes(
             editor,
@@ -45,14 +45,14 @@ export const addPlugin = <T>(
               type: plugin.type,
 
               children: [],
-              ...data,
+              data,
             },
             { split: true }
           );
         }
       }
     } else if (plugin.pluginType === 'data') {
-      Transforms.setNodes(editor, data);
+      Transforms.setNodes(editor, { data });
     }
   }
 };

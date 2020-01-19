@@ -17,7 +17,7 @@ export const getCurrentNodeWithPlugin = <T>(
         : elem => elem.type === plugin.type
       : plugin.pluginType === 'data'
       ? // search for data
-        ({ type, children, ...data }) => {
+        ({ data }) => {
           // tslint:disable-next-line:no-any
           const matches = plugin.dataMatches(data as any);
 

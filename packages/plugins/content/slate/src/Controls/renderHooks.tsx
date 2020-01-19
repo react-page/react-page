@@ -17,7 +17,7 @@ export const useRenderElement = (
   const componentPlugins = useComponentNodePlugins({ plugins }, deps);
   return useCallback(
     ({
-      element: { type, ...elementProps },
+      element: { type, data = {} },
       children,
       attributes,
     }: RenderElementProps) => {
@@ -29,11 +29,7 @@ export const useRenderElement = (
         const { Component } = matchingPlugin;
         Component.displayName = 'SlatePlugin(' + matchingPlugin.type + ')';
         return (
-          <Component
-            {...elementProps}
-            attributes={attributes}
-            children={children}
-          />
+          <Component {...data} attributes={attributes} children={children} />
         );
       }
       return <p>unknown component {type}</p>;
