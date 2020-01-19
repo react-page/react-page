@@ -3,7 +3,7 @@ import EditorUI from '@react-page/ui';
 import React, { useEffect, useRef } from 'react';
 import StickyWrapper from './StickyWrapper';
 
-export default ({ plugins, defaultPlugin, value, onChange }) => {
+export default ({ plugins, defaultPlugin, value, onChange, dndBackend }) => {
   const editorRef = useRef({
     editor: new Editor({ defaultPlugin, plugins }),
     editorState: null,
@@ -26,8 +26,17 @@ export default ({ plugins, defaultPlugin, value, onChange }) => {
     <StickyWrapper>
       {stickyNess => (
         <>
-          <Editable id={editorState.id} editor={editor} onChange={onChange} />
-          <EditorUI editor={editor} stickyNess={stickyNess} />
+          <Editable
+            id={editorState.id}
+            editor={editor}
+            onChange={onChange}
+            dndBackend={dndBackend}
+          />
+          <EditorUI
+            editor={editor}
+            stickyNess={stickyNess}
+            dndBackend={dndBackend}
+          />
         </>
       )}
     </StickyWrapper>

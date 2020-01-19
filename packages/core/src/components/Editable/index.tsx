@@ -1,6 +1,6 @@
 import equals from 'ramda/src/equals';
 import * as React from 'react';
-import Editor from '../../';
+import Editor, { DndBackend } from '../../';
 import { ReduxProvider } from '../../reduxConnect';
 import { editable } from '../../selector/editable';
 import { EditorState } from '../../types/editor';
@@ -13,6 +13,7 @@ export type PropTypes = {
   id: string;
   editor: Editor;
   onChange?: Function;
+  dndBackend?: DndBackend;
 };
 class Editable extends React.PureComponent<PropTypes> {
   unsubscribe: Function;
@@ -70,11 +71,12 @@ class Editable extends React.PureComponent<PropTypes> {
     const {
       id,
       editor: { store, defaultPlugin },
+      dndBackend,
     } = this.props;
 
     return (
       <ReduxProvider store={store}>
-        <DragDropProvider>
+        <DragDropProvider dndBackend={dndBackend}>
           <HotKeyDecorator id={id}>
             <BlurGate>
               <Inner id={id} defaultPlugin={defaultPlugin} />

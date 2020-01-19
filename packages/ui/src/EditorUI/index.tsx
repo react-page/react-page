@@ -1,4 +1,4 @@
-import { Editor } from '@react-page/core';
+import { DndBackend, Editor } from '@react-page/core';
 import React from 'react';
 import DisplayModeToggle, { StickyNess } from '../DisplayModeToggle/index';
 import Provider from '../Provider';
@@ -12,12 +12,14 @@ export default ({
     shouldStickToBottom: false,
     rightOffset: 0,
   },
+  dndBackend,
 }: {
   // tslint:disable-next-line:no-any
   editor: Editor;
   stickyNess?: StickyNess;
+  dndBackend?: DndBackend;
 }) => (
-  <Provider editor={editor}>
+  <Provider editor={editor} dndBackend={dndBackend}>
     <Trash />
     <DisplayModeToggle stickyNess={stickyNess} />
     <Toolbar />
