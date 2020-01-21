@@ -1,28 +1,5 @@
-/*
- * This file is part of ORY Editor.
- *
- * ORY Editor is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * ORY Editor is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public License
- * along with ORY Editor.  If not, see <http://www.gnu.org/licenses/>.
- *
- * @license LGPL-3.0
- * @copyright 2016-2018 Aeneas Rekkas
- * @author Aeneas Rekkas <aeneas+oss@aeneas.io>
- *
- */
-
-import Mousetrap from 'mousetrap';
-import pathOr from 'ramda/src/pathOr';
-import { Component } from 'react';
+import isHotkey from 'is-hotkey';
+import React, { useCallback, useEffect, useMemo } from 'react';
 import { createStructuredSelector } from 'reselect';
 import { blurAllCells, focusCell, removeCell } from '../../actions/cell';
 import { redo, undo } from '../../actions/undo';
@@ -35,7 +12,11 @@ import {
   searchNodeEverywhere
 } from '../../selector/editable';
 import { focus } from '../../selector/focus';
-import { ComponetizedCell, EditableType } from '../../types/editable';
+import {
+  AbstractCell,
+  ComponetizedCell,
+  EditableType
+} from '../../types/editable';
 import { RootState } from '../../types/state';
 
 type Props = {
@@ -58,13 +39,6 @@ type Props = {
   ): { editable: EditableType; node: ComponetizedCell };
 };
 
-const hotKeyHandler = (n: Object, key: string) =>
-  pathOr(
-    pathOr(() => Promise.resolve(), ['content', 'plugin', key], n),
-    ['layout', 'plugin', key],
-    n
-  );
-
 const nextLeaf = (order: Array<{ id: string }> = [], current: string) => {
   let last;
 
@@ -80,122 +54,143 @@ const nextLeaf = (order: Array<{ id: string }> = [], current: string) => {
 const previousLeaf = (order: Array<{ id: string }>, current: string) =>
   nextLeaf([...order].reverse(), current);
 
-const falser = (err: Error) => {
-  if (err) {
-    // tslint:disable-next-line:no-console
-    console.log(err);
+type Handler = (
+  event: Event,
+  foundNode?: AbstractCell<string>
+) => Promise<void> | void;
+
+type PluginHandlerName =
+  | 'handleRemoveHotKey'
+  | 'handleFocusNextHotKey'
+  | 'handleFocusPreviousHotKey';
+
+const delegateToPlugin = async (
+  event: Event,
+  n: AbstractCell<string>,
+  handlerName: PluginHandlerName
+) => {
+  const plugin = n?.layout?.plugin ?? n?.content?.plugin;
+  if (plugin?.[handlerName]) {
+    await plugin[handlerName](event, n);
   }
 };
 
-if (Mousetrap && Mousetrap.prototype) {
-  Mousetrap.prototype.stopCallback = () => false;
-}
+const Decorator = (props: Props) => {
+  const delegateToFoundPlugin = useCallback(
+    async (
+      event: Event,
+      nodeId: string,
+      handlerName: PluginHandlerName,
+      defaultHandler: Handler
+    ) => {
+      const cellNode = props.searchNodeEverywhere(nodeId)?.node?.node;
 
-let wasInitialized = false;
-
-class Decorator extends Component {
-  props: Props;
-
-  handlers = {
-    undo: () => {
-      const { id } = this.props;
-      this.props.undo(id);
+      try {
+        if (cellNode) {
+          await delegateToPlugin(event, cellNode, handlerName);
+        }
+        // if the plugin handler resolve or there is no, they do not handle it, so do the default
+        await defaultHandler(event, cellNode);
+      } catch (e) {
+        if (e) {
+          // tslint:disable-next-line:no-console
+          console.error(e);
+        }
+      }
     },
-    redo: () => {
-      const { id } = this.props;
-      this.props.redo(id);
-    },
+    []
+  );
 
-    // remove cells
-    remove: (e: Event) => {
-      if (!this.props.isEditMode) {
-        return;
-      }
+  const handlers = useMemo(
+    () => [
+      {
+        hotkeys: ['ctrl+z', 'command+z'],
+        handler: () => {
+          props.undo(props.id);
+        },
+      },
 
-      const maybeNode = this.props.searchNodeEverywhere(this.props.focus);
-      if (!maybeNode) {
-        return;
-      }
-      const { node: n } = maybeNode;
-      hotKeyHandler(n, 'handleRemoveHotKey')(e, n)
-        .then(() => this.props.removeCell(this.props.focus))
-        .catch(falser);
-    },
+      {
+        hotkeys: ['ctrl+shift+z', 'ctrl+y', 'command+shift+z', 'command+y'],
+        handler: () => {
+          props.redo(props.id);
+        },
+      },
 
-    // focus next cell
-    focusNext: (e: Event) => {
-      if (!this.props.isEditMode) {
-        return;
-      }
-
-      const maybeNode = this.props.searchNodeEverywhere(this.props.focus);
-      if (!maybeNode) {
-        return;
-      }
-      const { node: n } = maybeNode;
-      hotKeyHandler(n, 'handleFocusNextHotKey')(e, n)
-        .then(() => {
-          const found = nextLeaf(
-            this.props.editable.cellOrder,
-            this.props.focus
+      {
+        hotkeys: ['alt+del', 'alt+backspace'],
+        handler: event => {
+          delegateToFoundPlugin(event, props.focus, 'handleRemoveHotKey', () =>
+            props.removeCell(props.focus)
           );
-          if (found) {
-            this.props.blurAllCells();
-            this.props.focusCell(found.id);
-          }
-        })
-        .catch(falser);
-    },
-
-    // focus previous cell
-    focusPrev: (e: Event) => {
-      if (!this.props.isEditMode) {
-        return;
-      }
-
-      const maybeNode = this.props.searchNodeEverywhere(this.props.focus);
-      if (!maybeNode) {
-        return;
-      }
-      const { node: n } = maybeNode;
-      hotKeyHandler(n, 'handleFocusPreviousHotKey')(e, n)
-        .then(() => {
-          const found = previousLeaf(
-            this.props.editable.cellOrder,
-            this.props.focus
+        },
+      },
+      {
+        hotkeys: ['alt+down', 'alt+right'],
+        handler: event => {
+          delegateToFoundPlugin(
+            event,
+            props.focus,
+            'handleFocusNextHotKey',
+            () => {
+              const found = nextLeaf(props.editable.cellOrder, props.focus);
+              if (found) {
+                props.blurAllCells();
+                props.focusCell(found.id);
+              }
+            }
           );
-          if (found) {
-            this.props.blurAllCells();
-            this.props.focusCell(found.id);
-          }
-        })
-        .catch(falser);
-    },
-  };
-  componentDidMount() {
-    if (!wasInitialized) {
-      if (!Mousetrap) {
-        return;
-      }
+        },
+      },
+      {
+        hotkeys: ['alt+up', 'alt+left'],
+        handler: event => {
+          delegateToFoundPlugin(
+            event,
+            props.focus,
+            'handleFocusPreviousHotKey',
+            () => {
+              const found = previousLeaf(props.editable.cellOrder, props.focus);
 
-      Mousetrap.bind(['ctrl+z', 'command+z'], this.handlers.undo);
-      Mousetrap.bind(
-        ['ctrl+shift+z', 'ctrl+y', 'command+shift+z', 'command+y'],
-        this.handlers.redo
-      );
-      Mousetrap.bind(['del', 'backspace'], this.handlers.remove);
-      Mousetrap.bind(['down', 'right'], this.handlers.focusNext);
-      Mousetrap.bind(['up', 'left'], this.handlers.focusPrev);
-      wasInitialized = true;
+              if (found) {
+                props.blurAllCells();
+                props.focusCell(found.id);
+              }
+            }
+          );
+        },
+      },
+    ],
+    [props.id, props.focus, props.editable]
+  );
+
+  useEffect(() => {
+    // in editmode we only allow hotkeys if a cell is focused.
+    // this is because if we have multiple editors on the same page, we don't want to interfer with others
+    // and also to make it more explicit
+    // The BlurGate currently guarantees that only one editor ever has a focused cell, so we already know on which one we can apply hotkeys
+    // If the editor is in another mode, all hot keys are allowed (which is useful for undo/redo, e.g. when resizing)
+    // because the BlurGate also guarantees that only one editor will be in another mode then editMode
+    // This is not totally clean, but it works very well.
+    if (props.isEditMode && !props.focus) {
+      return;
     }
-  }
+    const keyHandler = event => {
+      const matchingHandler = handlers.find(handler =>
+        handler.hotkeys.some(hotkey => isHotkey(hotkey, event))
+      );
+      matchingHandler?.handler(event);
+    };
+    document.addEventListener('keydown', keyHandler);
+    return () => {
+      document.removeEventListener('keydown', keyHandler);
+    };
+  }, [handlers, props.focus, props.isEditMode]);
 
-  render() {
-    const { children } = this.props;
-    return children;
-  }
-}
+  return <>{props.children}</>;
+};
 
+/** FIXME: we should start using hooks for redux. this would drastically simplify this whole thing */
 const mapStateToProps = createStructuredSelector({
   isEditMode,
   focus,

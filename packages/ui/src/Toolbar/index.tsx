@@ -31,12 +31,12 @@ import {
   LayoutPlugin,
   Plugin,
   sanitizeInitialChildren,
-  Selectors
+  Selectors,
+  useEditor
 } from '@react-page/core';
 import * as React from 'react';
 import { Portal } from 'react-portal';
 import { createStructuredSelector } from 'reselect';
-import { useEditor } from './../Provider/index';
 import Item from './Item/index';
 
 export interface Translations {
@@ -246,4 +246,4 @@ const Toolbar: React.SFC = () => {
   return <Decorated editor={editor} />;
 };
 
-export default Toolbar;
+export default React.memo(Toolbar);

@@ -1,27 +1,5 @@
-/*
- * This file is part of ORY Editor.
- *
- * ORY Editor is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * ORY Editor is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public License
- * along with ORY Editor.  If not, see <http://www.gnu.org/licenses/>.
- *
- * @license LGPL-3.0
- * @copyright 2016-2018 Aeneas Rekkas
- * @author Aeneas Rekkas <aeneas+oss@aeneas.io>
- *
- */
-
+import { DragSourceConnector, DragSourceMonitor } from 'react-dnd';
 import { ComponetizedCell } from '../../../../types/editable';
-import { DropTargetMonitor, DropTargetConnector } from 'dnd-core';
 
 export const source = {
   beginDrag(props: ComponetizedCell) {
@@ -40,7 +18,7 @@ export const source = {
 
   endDrag(
     { cancelCellDrag, id }: ComponetizedCell,
-    monitor: DropTargetMonitor
+    monitor: DragSourceMonitor
   ) {
     if (monitor.didDrop()) {
       // If the item drop occurred deeper down the tree, don't do anything
@@ -53,8 +31,8 @@ export const source = {
 };
 
 export const collect = (
-  connect: DropTargetConnector,
-  monitor: DropTargetMonitor
+  connect: DragSourceConnector,
+  monitor: DragSourceMonitor
 ) => ({
   connectDragSource: connect.dragSource(),
   isDragging: monitor.isDragging(),
