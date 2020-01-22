@@ -27,30 +27,25 @@ function Controls<T>(props: SlatePluginControls<T>) {
 
   const onCancel = () => {
     props.close();
-    // props.editor.focus();
   };
 
   const onSubmit = useCallback(
     data => {
+      props.close();
       if (props.shouldInsertWithText) {
         props.add({ text, data });
       } else {
         props.add({ data });
       }
-      props.close();
-      // props.editor.focus();
     },
     [props.shouldInsertWithText, text]
   );
 
-  const submitForm = useCallback(
-    () => {
-      if (formRef.current) {
-        formRef.current.submit();
-      }
-    },
-    [formRef.current]
-  );
+  const submitForm = useCallback(() => {
+    if (formRef.current) {
+      formRef.current.submit();
+    }
+  }, [formRef.current]);
 
   const onRemove = () => {
     props.remove();

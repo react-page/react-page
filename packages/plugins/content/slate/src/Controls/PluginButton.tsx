@@ -1,9 +1,8 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import { Range, Transforms } from 'slate';
 import { useSlate } from 'slate-react';
 import useAddPlugin from '../hooks/useAddPlugin';
 import { getCurrentNodeDataWithPlugin } from '../hooks/useCurrentNodeDataWithPlugin';
-import useCurrentSelection from '../hooks/useCurrentSelection';
 import usePluginIsActive from '../hooks/usePluginIsActive';
 import usePluginIsDisabled from '../hooks/usePluginIsDisabled';
 import useRemovePlugin from '../hooks/useRemovePlugin';
@@ -23,12 +22,12 @@ function PluginButton<T>(props: Props<T>) {
   const hasControls = Boolean(plugin.Controls) || Boolean(plugin.schema);
 
   const [showControls, setShowControls] = useState(false);
-
-  const selection = useCurrentSelection();
-  const [storedProps, setStoredProps] = useState<{
+  const selectionRef = useRef<{
     selection: Range;
+    isActive: boolean;
     data: T;
   }>();
+
   const close = useCallback(() => setShowControls(false), []);
   const isActive = usePluginIsActive(plugin);
   const add = useAddPlugin(plugin);
@@ -36,14 +35,14 @@ function PluginButton<T>(props: Props<T>) {
   const onClick = React.useCallback(
     (e: React.MouseEvent<HTMLElement>) => {
       e.preventDefault();
-
       if (hasControls) {
         if (!showControls) {
           // store props
-          setStoredProps({
-            selection,
+          selectionRef.current = {
+            selection: editor.selection,
+            isActive,
             data: getCurrentNodeDataWithPlugin(editor, plugin),
-          });
+          };
         }
         setShowControls(!showControls);
       } else {
@@ -54,7 +53,7 @@ function PluginButton<T>(props: Props<T>) {
         }
       }
     },
-    [isActive, hasControls, showControls, selection]
+    [isActive, hasControls, showControls]
   );
 
   const { Controls: PassedControls } = plugin;
@@ -75,27 +74,32 @@ function PluginButton<T>(props: Props<T>) {
         }
       />
 
-      {hasControls && showControls ? (
+      {hasControls ? (
         <Controls
           schema={plugin.schema}
           close={close}
           open={showControls}
           add={p => {
-            console.log('add', { selection: storedProps?.selection });
-            if (storedProps?.selection) {
+            if (selectionRef?.current?.selection) {
               // restore selection before adding
-              Transforms.select(editor, storedProps.selection);
+              Transforms.select(editor, selectionRef?.current.selection);
             }
             add(p);
           }}
-          remove={remove}
-          isActive={isActive}
+          remove={() => {
+            if (selectionRef?.current?.selection) {
+              // restore selection before adding
+              Transforms.select(editor, selectionRef?.current.selection);
+            }
+            remove();
+          }}
+          isActive={selectionRef?.current?.isActive}
           shouldInsertWithText={
             plugin.pluginType === 'component' &&
-            !storedProps?.selection &&
-            !isActive
+            !selectionRef?.current?.selection &&
+            !selectionRef?.current?.isActive
           }
-          data={storedProps?.data}
+          data={selectionRef?.current?.data}
           {...props}
         />
       ) : null}

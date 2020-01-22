@@ -1,4 +1,3 @@
-
 // tslint:disable:max-line-length
 import { EditableType } from '@react-page/core';
 
