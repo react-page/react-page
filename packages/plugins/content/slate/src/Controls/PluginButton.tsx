@@ -1,8 +1,8 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { Range, Transforms } from 'slate';
 import { useSlate } from 'slate-react';
 import useAddPlugin from '../hooks/useAddPlugin';
-import useCurrentNodeDataWithPlugin from '../hooks/useCurrentNodeDataWithPlugin';
+import { getCurrentNodeDataWithPlugin } from '../hooks/useCurrentNodeDataWithPlugin';
 import useCurrentSelection from '../hooks/useCurrentSelection';
 import usePluginIsActive from '../hooks/usePluginIsActive';
 import usePluginIsDisabled from '../hooks/usePluginIsDisabled';
@@ -24,9 +24,11 @@ function PluginButton<T>(props: Props<T>) {
 
   const [showControls, setShowControls] = useState(false);
 
-  const data = useCurrentNodeDataWithPlugin(plugin);
   const selection = useCurrentSelection();
-  const [storedSelection, setStoredSelection] = useState<Range>();
+  const [storedProps, setStoredProps] = useState<{
+    selection: Range;
+    data: T;
+  }>();
   const close = useCallback(() => setShowControls(false), []);
   const isActive = usePluginIsActive(plugin);
   const add = useAddPlugin(plugin);
@@ -36,6 +38,13 @@ function PluginButton<T>(props: Props<T>) {
       e.preventDefault();
 
       if (hasControls) {
+        if (!showControls) {
+          // store props
+          setStoredProps({
+            selection,
+            data: getCurrentNodeDataWithPlugin(editor, plugin),
+          });
+        }
         setShowControls(!showControls);
       } else {
         if (isActive) {
@@ -45,15 +54,9 @@ function PluginButton<T>(props: Props<T>) {
         }
       }
     },
-    [isActive, hasControls, showControls]
+    [isActive, hasControls, showControls, selection]
   );
-  useEffect(() => {
-    if (showControls) {
-      setStoredSelection(selection);
-    } else {
-      setStoredSelection(null);
-    }
-  }, [showControls]);
+
   const { Controls: PassedControls } = plugin;
   const Controls = PassedControls || UniformsControls;
   const isDisabled = usePluginIsDisabled(plugin);
@@ -72,24 +75,27 @@ function PluginButton<T>(props: Props<T>) {
         }
       />
 
-      {hasControls ? (
+      {hasControls && showControls ? (
         <Controls
           schema={plugin.schema}
           close={close}
           open={showControls}
           add={p => {
-            if (storedSelection) {
+            console.log('add', { selection: storedProps?.selection });
+            if (storedProps?.selection) {
               // restore selection before adding
-              Transforms.select(editor, storedSelection);
+              Transforms.select(editor, storedProps.selection);
             }
             add(p);
           }}
           remove={remove}
           isActive={isActive}
           shouldInsertWithText={
-            plugin.pluginType === 'component' && !storedSelection && !isActive
+            plugin.pluginType === 'component' &&
+            !storedProps?.selection &&
+            !isActive
           }
-          data={data}
+          data={storedProps?.data}
           {...props}
         />
       ) : null}
