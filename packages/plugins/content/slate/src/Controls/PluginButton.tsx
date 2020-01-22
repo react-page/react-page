@@ -22,7 +22,7 @@ function PluginButton<T>(props: Props<T>) {
   const hasControls = Boolean(plugin.Controls) || Boolean(plugin.schema);
 
   const [showControls, setShowControls] = useState(false);
-  const selectionRef = useRef<{
+  const storedPropsRef = useRef<{
     selection: Range;
     isActive: boolean;
     data: T;
@@ -38,7 +38,7 @@ function PluginButton<T>(props: Props<T>) {
       if (hasControls) {
         if (!showControls) {
           // store props
-          selectionRef.current = {
+          storedPropsRef.current = {
             selection: editor.selection,
             isActive,
             data: getCurrentNodeDataWithPlugin(editor, plugin),
@@ -61,7 +61,11 @@ function PluginButton<T>(props: Props<T>) {
   const isDisabled = usePluginIsDisabled(plugin);
 
   const editor = useSlate();
-
+  const shouldInsertWithText =
+    plugin.pluginType === 'component' &&
+    (!storedPropsRef?.current?.selection ||
+      Range.isCollapsed(storedPropsRef?.current?.selection)) &&
+    !storedPropsRef?.current?.isActive;
   return (
     <>
       <ToolbarButton
@@ -80,26 +84,22 @@ function PluginButton<T>(props: Props<T>) {
           close={close}
           open={showControls}
           add={p => {
-            if (selectionRef?.current?.selection) {
+            if (storedPropsRef?.current?.selection) {
               // restore selection before adding
-              Transforms.select(editor, selectionRef?.current.selection);
+              Transforms.select(editor, storedPropsRef?.current.selection);
             }
             add(p);
           }}
           remove={() => {
-            if (selectionRef?.current?.selection) {
-              // restore selection before adding
-              Transforms.select(editor, selectionRef?.current.selection);
+            if (storedPropsRef?.current?.selection) {
+              // restore selection before removing
+              Transforms.select(editor, storedPropsRef?.current.selection);
             }
             remove();
           }}
-          isActive={selectionRef?.current?.isActive}
-          shouldInsertWithText={
-            plugin.pluginType === 'component' &&
-            !selectionRef?.current?.selection &&
-            !selectionRef?.current?.isActive
-          }
-          data={selectionRef?.current?.data}
+          isActive={storedPropsRef?.current?.isActive}
+          shouldInsertWithText={shouldInsertWithText}
+          data={storedPropsRef?.current?.data}
           {...props}
         />
       ) : null}

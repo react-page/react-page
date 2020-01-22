@@ -13,7 +13,14 @@ export const addPlugin = <T>(
   const { data: passedData, text } = props || {};
   const node = getCurrentNodeWithPlugin(editor, plugin);
   if (text) {
-    editor.insertText(text); // .moveFocusBackward(text.length);
+    editor.insertText(text);
+    Transforms.select(editor, {
+      anchor: editor.selection.anchor,
+      focus: {
+        ...editor.selection.focus,
+        offset: editor.selection.focus.offset - text.length,
+      },
+    });
   }
 
   const data =
