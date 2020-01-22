@@ -1,4 +1,4 @@
-import { Migration } from '@react-page/core/lib/service/plugin/classes';
+import { Migration } from '@react-page/core';
 import rename from 'deep-rename-keys';
 const migration = new Migration({
   toVersion: '0.0.2',

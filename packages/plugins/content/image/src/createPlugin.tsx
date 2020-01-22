@@ -19,16 +19,12 @@
  * @author Aeneas Rekkas <aeneas+oss@aeneas.io>
  *
  */
+import { ContentPluginConfig, ContentPluginProps } from '@react-page/core';
 import * as React from 'react';
 import Component from './Component/index';
-
-import {
-  ContentPluginProps,
-  ContentPluginConfig
-} from '@react-page/core/lib/service/plugin/classes';
-import { ImageState } from './types/state';
-import { ImageSettings } from './types/settings';
 import { defaultSettings } from './default/settings';
+import { ImageSettings } from './types/settings';
+import { ImageState } from './types/state';
 
 const createPlugin = (
   settings?: ImageSettings

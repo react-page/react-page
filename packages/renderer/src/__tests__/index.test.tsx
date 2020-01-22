@@ -22,10 +22,10 @@
 
 import {
   ContentPluginProps,
-  LayoutPluginProps
-} from '@react-page/core/lib/service/plugin/classes';
-import { EditableType } from '@react-page/core/lib/types/editable';
-import { Plugins } from '@react-page/core/src/service/plugin/classes';
+  EditableType,
+  LayoutPluginProps,
+  Plugins
+} from '@react-page/core';
 import slate from '@react-page/plugins-slate';
 import { mount, render } from 'enzyme';
 import * as React from 'react';

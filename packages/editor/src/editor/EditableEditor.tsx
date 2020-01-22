@@ -24,8 +24,8 @@ export default ({ plugins, defaultPlugin, value, onChange, dndBackend }) => {
       <StickyWrapper>
         {stickyNess => (
           <>
-            <Editable id={editorState.id} editor={editor} onChange={onChange} />
-            <EditorUI editor={editor} stickyNess={stickyNess} />
+            <Editable id={editorState.id} onChange={onChange} />
+            <EditorUI stickyNess={stickyNess} />
           </>
         )}
       </StickyWrapper>

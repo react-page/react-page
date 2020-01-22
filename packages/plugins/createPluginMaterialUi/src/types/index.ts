@@ -1,12 +1,11 @@
-import { JsonSchema } from './jsonSchema';
-
 import {
-  ContentPluginProps,
   ContentPluginConfig,
+  ContentPluginProps,
   LayoutPluginConfig,
   LayoutPluginProps,
   PluginProps
-} from '@react-page/core/lib/service/plugin/classes';
+} from '@react-page/core';
+import { JsonSchema } from './jsonSchema';
 
 export type ControlsType<T> = React.ComponentType<ControlProps<T>>;
 

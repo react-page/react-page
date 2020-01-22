@@ -9,6 +9,7 @@ import sanitizeInitialChildren from './helper/sanitizeInitialChildren';
 import { shouldPureComponentUpdate } from './helper/shouldComponentUpdate';
 import Provider, { useEditor } from './Provider';
 import { reducer } from './reducer';
+import { editable as editableReducer } from './reducer/editable';
 import { connect, ReduxContext, ReduxProvider } from './reduxConnect';
 import { Selectors } from './selector';
 import i18n from './service/i18n';
@@ -20,25 +21,39 @@ import {
   LayoutPlugin,
   LayoutPluginConfig,
   LayoutPluginProps,
+  Migration,
   Plugin,
+  PluginProps,
   Plugins
 } from './service/plugin/classes';
-import { EditableType, NativeFactory } from './types/editable';
+import {
+  Cell,
+  Content,
+  EditableType,
+  Layout,
+  NativeFactory,
+  Row
+} from './types/editable';
 import { RootState } from './types/state';
-
 export { BackendFactory as DndBackend, DropTarget, DragSource };
 export {
+  Migration,
   shouldPureComponentUpdate,
   createEmptyState,
   EditorProps,
   Plugin,
   Plugins,
+  NativeFactory,
+  Cell,
+  Content,
   EditableType,
+  Layout,
+  Row,
+  PluginProps,
   ContentPluginConfig,
   ContentPluginProps,
   LayoutPluginConfig,
   LayoutPluginProps,
-  NativeFactory,
   Actions,
   Selectors,
   RootState,
@@ -50,6 +65,7 @@ export {
   LayoutPlugin,
   Editor,
   reducer,
+  editableReducer,
   ReduxProvider,
   connect,
   ReduxContext

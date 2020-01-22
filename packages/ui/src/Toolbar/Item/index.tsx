@@ -19,15 +19,15 @@
  * @author Aeneas Rekkas <aeneas+oss@aeneas.io>
  *
  */
-import * as React from 'react';
 import Avatar from '@material-ui/core/Avatar';
-import draggable from '../Draggable/index';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
-import { Plugin } from '@react-page/core/lib/service/plugin/classes';
 import DragHandle from '@material-ui/icons/DragHandle';
+import { Plugin } from '@react-page/core';
 import Tooltip from 'rc-tooltip';
+import * as React from 'react';
 import { Translations } from '../';
+import draggable from '../Draggable/index';
 
 export interface ItemProps {
   plugin: Plugin;

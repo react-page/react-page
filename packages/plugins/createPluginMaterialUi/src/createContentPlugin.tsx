@@ -1,10 +1,9 @@
-import * as React from 'react';
-
-import { lazyLoad } from '@react-page/core';
 import {
+  ContentPluginConfig,
   ContentPluginProps,
-  ContentPluginConfig
-} from '@react-page/core/lib/service/plugin/classes';
+  lazyLoad
+} from '@react-page/core';
+import * as React from 'react';
 import { ContentPluginDefinition, ControlsType } from './types';
 
 type CustomizeFunction<T, CT> = (

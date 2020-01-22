@@ -20,16 +20,18 @@
  *
  */
 
+import {
+  ContentPluginConfig,
+  ContentPluginProps,
+  lazyLoad
+} from '@react-page/core';
 import * as React from 'react';
 import Spacer from './Component/index';
-
-import { ContentPluginProps } from '@react-page/core/lib/service/plugin/classes';
-import { ContentPluginConfig } from '@react-page/core/lib/service/plugin/classes';
-import { SpacerSettings } from './types/settings';
-import { SpacerProps } from './types/component';
-import { SpacerState } from './types/state';
 import { defaultSettings } from './default/settings';
-import { lazyLoad } from '@react-page/core';
+import { SpacerProps } from './types/component';
+import { SpacerSettings } from './types/settings';
+import { SpacerState } from './types/state';
+
 const AspectRatio = lazyLoad(() => import('@material-ui/icons/AspectRatio'));
 const createPlugin: (
   settings: SpacerSettings
@@ -39,7 +41,6 @@ const createPlugin: (
     <Spacer {...props} {...mergedSettings} />
   );
   return {
-    
     Component: WrappedComponent,
     name: 'ory/editor/core/content/spacer',
     version: '0.0.1',
