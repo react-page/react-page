@@ -1,8 +1,8 @@
 import equals from 'ramda/src/equals';
 import React, { useEffect, useRef } from 'react';
-import { AbstractCell, AbstractEditable, Row } from 'src/types/editable';
 import { useEditor } from '../../Provider';
 import { editable } from '../../selector/editable';
+import { AbstractCell, AbstractEditable, Row } from '../../types/editable';
 import { EditorState } from '../../types/editor';
 import HotKeyDecorator from '../HotKey/Decorator';
 import Inner from './Inner';
