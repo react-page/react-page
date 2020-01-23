@@ -6,10 +6,11 @@ export default (plugins: SlatePluginCollection) => {
     const group = plugins[groupKey];
     const groupPlugins = Object.keys(group).reduce((innerAcc, key) => {
       const pluginOrFactory = plugins[groupKey][key];
-      const result =
-        typeof pluginOrFactory === 'function'
-          ? pluginOrFactory()
-          : pluginOrFactory;
+      // tslint:disable-next-line:no-any
+      const result = (pluginOrFactory as any).toPlugin
+        ? // tslint:disable-next-line:no-any
+          (pluginOrFactory as any).toPlugin()
+        : pluginOrFactory;
 
       return [...innerAcc, ...flattenDeep(result)];
     }, []);

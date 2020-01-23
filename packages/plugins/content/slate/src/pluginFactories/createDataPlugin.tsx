@@ -10,18 +10,17 @@ function createDataPluginWithDefinition<T extends {}>(
   };
 }
 
-type CustomizeFunction<T extends {}> = (
-  def: SlateDataPluginDefinition<T>
-) => SlateDataPluginDefinition<T>;
-
-function createDataPlugin<T extends {}>(
-  definition: SlateDataPluginDefinition<T>
-) {
-  return (customize?: CustomizeFunction<T>): SlatePlugin => {
-    return createDataPluginWithDefinition<T>(
-      customize ? customize(definition) : definition
-    );
+function createDataPlugin<T = {}>(def: SlateDataPluginDefinition<T>) {
+  const customizablePlugin = function<CT>(
+    customize: (
+      t: SlateDataPluginDefinition<T>
+    ) => SlateDataPluginDefinition<T & CT> = d =>
+      (d as unknown) as SlateDataPluginDefinition<T & CT>
+  ) {
+    return createDataPlugin(customize(def));
   };
+  customizablePlugin.toPlugin = () => createDataPluginWithDefinition(def);
+  return customizablePlugin;
 }
 
 export default createDataPlugin;

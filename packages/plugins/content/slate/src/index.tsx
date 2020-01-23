@@ -20,63 +20,53 @@
  *
  */
 
+import { lazyLoad } from '@react-page/core';
+import { ContentPluginConfig } from '@react-page/core/lib/service/plugin/classes';
+import { pathOr } from 'ramda/src/pathOr';
 import * as React from 'react';
-
+import { AnyAction } from 'redux';
+import { ActionTypes } from 'redux-undo';
+import { Value } from 'slate';
 import Component from './Component';
-import Renderer from './Renderer';
-
-import { SlatePluginCollection } from './types/SlatePlugin';
+import { defaultTranslations } from './default/settings';
 import * as hooks from './hooks';
-
 import v002 from './migrations/v002';
 import v003 from './migrations/v003';
-
-import { ContentPluginConfig } from '@react-page/core/lib/service/plugin/classes';
-import { SlateState } from './types/state';
-
-import { pathOr } from 'ramda/src/pathOr';
-import { ActionTypes } from 'redux-undo';
-import { AnyAction } from 'redux';
-import { defaultTranslations } from './default/settings';
-
-import * as defaultPlugins from './plugins/index';
 import * as pluginFactories from './pluginFactories/index';
+import * as defaultPlugins from './plugins/index';
+import Renderer from './Renderer';
 import serialization from './serialization';
 import { SlateProps } from './types/component';
-import { lazyLoad } from '@react-page/core';
-
-import { SlateRendererProps } from './types/renderer';
 import { SlateControlsProps } from './types/controls';
-import makeSlatePluginsFromDef from './utils/makeSlatePluginsFromDef';
 import { InitialSlateStateDef } from './types/initialSlateState';
+import { SlateRendererProps } from './types/renderer';
+import { SlatePluginCollection } from './types/SlatePlugin';
+import { SlateState } from './types/state';
+import makeSlatePluginsFromDef from './utils/makeSlatePluginsFromDef';
 import transformInitialSlateState from './utils/transformInitialSlateState';
-import { Value } from 'slate';
 
 const slatePlugins = defaultPlugins;
 export { defaultPlugins, slatePlugins, pluginFactories };
-
 const Subject = lazyLoad(() => import('@material-ui/icons/Subject'));
 const Controls = lazyLoad(() => import('./Controls/'));
 
 const migrations = [v002, v003];
-type SlateDefinition = {
+type SlateDefinition<TPlugins extends SlatePluginCollection> = {
   icon: JSX.Element;
-  plugins: SlatePluginCollection;
+  plugins: TPlugins;
   Renderer: React.ComponentType<SlateRendererProps>;
   Controls: React.ComponentType<SlateControlsProps>;
   name: string;
   version: string;
   translations: typeof defaultTranslations;
   migrations: typeof migrations;
-  createInitialSlateState: CreateInitialStateCustomizer;
   allowInlineNeighbours: boolean;
   hideInMenu?: boolean;
 };
-type DefaultSlateDefinition = SlateDefinition & {
-  plugins: typeof defaultPlugins;
-};
-export type CreateInitialStateCustomizer = (
-  { plugins }: { plugins: SlatePluginCollection }
+type DefaultPlugins = typeof defaultPlugins;
+type DefaultSlateDefinition = SlateDefinition<DefaultPlugins>;
+export type CreateInitialStateCustomizer<TPlugins> = (
+  { plugins }: { plugins: TPlugins }
 ) => InitialSlateStateDef;
 
 const defaultConfig: DefaultSlateDefinition = {
@@ -89,32 +79,44 @@ const defaultConfig: DefaultSlateDefinition = {
   translations: defaultTranslations,
   migrations,
 
-  createInitialSlateState: ({ plugins }) => ({
-    children: [
-      {
-        plugin: plugins.paragraphs.paragraph,
-        children: [''],
-      },
-    ],
-  }),
   allowInlineNeighbours: true,
 };
 
-type CreateInitialSlateState = (
-  custom?: CreateInitialStateCustomizer
+type CreateInitialSlateState<TPlugins> = (
+  custom?: CreateInitialStateCustomizer<TPlugins>
 ) => { editorState: Value };
-export type SlatePlugin = ContentPluginConfig<SlateState> & {
-  createInitialSlateState: CreateInitialSlateState;
+export type SlatePlugin<TPlugins> = ContentPluginConfig<SlateState> & {
+  createInitialSlateState: CreateInitialSlateState<TPlugins>;
 };
-export type SlateCustomizeFunction = (
+export type SlateCustomizeFunction<TPlugins extends SlatePluginCollection> = (
   def: DefaultSlateDefinition
-) => SlateDefinition;
-export default (customize?: SlateCustomizeFunction): SlatePlugin => {
-  const settings = customize ? customize(defaultConfig) : defaultConfig;
+) => SlateDefinition<TPlugins>;
+
+function plugin<TPlugins extends SlatePluginCollection = DefaultPlugins>(
+  customize?: SlateCustomizeFunction<TPlugins>
+): SlatePlugin<TPlugins> {
+  const settings = (customize
+    ? customize(defaultConfig)
+    : defaultConfig) as SlateDefinition<TPlugins>;
+
   const createInitialState = (
-    customizeInitialSlateState?: CreateInitialStateCustomizer
+    customizeInitialSlateState?: CreateInitialStateCustomizer<TPlugins>
   ) => {
-    const func = customizeInitialSlateState || settings.createInitialSlateState;
+    const defaultInitialState = ({
+      plugins: cplugins,
+    }: {
+      plugins: TPlugins;
+    }) => ({
+      children: [
+        {
+          plugin: cplugins.paragraphs.paragraph,
+          children: [''],
+        },
+      ],
+    });
+    const func = customizeInitialSlateState
+      ? customizeInitialSlateState
+      : defaultInitialState;
 
     return transformInitialSlateState(func({ plugins: settings.plugins }));
   };
@@ -185,4 +187,6 @@ export default (customize?: SlateCustomizeFunction): SlatePlugin => {
 
     migrations: settings.migrations,
   };
-};
+}
+
+export default plugin;

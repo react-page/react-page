@@ -8,11 +8,7 @@ type Definition = {
   listTypes: string[];
 };
 
-type Customize = (d: Definition) => Definition;
-
-export default (defaultDefinition: Definition) => (customize?: Customize) => {
-  const def = customize ? customize(defaultDefinition) : defaultDefinition;
-
+const ceateSlatePlugin = (def: Definition) => {
   const slateEditList = createSlateEditList({
     typeItem: def.listItemType,
     types: def.listTypes,
@@ -62,3 +58,15 @@ export default (defaultDefinition: Definition) => (customize?: Customize) => {
     }),
   ];
 };
+
+function createListIndentionPlugin(def: Definition) {
+  const customizablePlugin = function(
+    customize: (def2: Definition) => Definition
+  ) {
+    return createListIndentionPlugin(customize(def));
+  };
+  customizablePlugin.toPlugin = () => ceateSlatePlugin(def);
+  return customizablePlugin;
+}
+
+export default createListIndentionPlugin;

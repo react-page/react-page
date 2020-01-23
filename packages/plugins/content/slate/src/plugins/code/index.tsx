@@ -1,5 +1,5 @@
-import React from 'react';
 import { lazyLoad } from '@react-page/core';
+import React from 'react';
 import createComponentPlugin from '../../pluginFactories/createComponentPlugin';
 
 const Icon = lazyLoad(() => import('@material-ui/icons/Code'));
