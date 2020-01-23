@@ -37,7 +37,8 @@ type Props = ComponetizedCell & {
   isInsertMode: boolean;
   isLayoutMode: boolean;
   node: { hover: string; inline: string };
-  children: React.ReactChildren;
+  // tslint:disable-next-line:no-any
+  children: any;
   className: string;
   dropTypes: Array<string>;
   connectDropTarget<T>(e: T): T;

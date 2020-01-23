@@ -20,14 +20,16 @@
  *
  */
 
+import {
+  ContentPluginProps,
+  LayoutPluginProps
+} from '@react-page/core/lib/service/plugin/classes';
+import { EditableType } from '@react-page/core/lib/types/editable';
+import { Plugins } from '@react-page/core/src/service/plugin/classes';
+import slate from '@react-page/plugins-slate';
 import { mount, render } from 'enzyme';
 import * as React from 'react';
 import { HTMLRenderer } from '../index';
-import slate from '@react-page/plugins-slate';
-import { LayoutPluginProps } from '@react-page/core/lib/service/plugin/classes';
-import { Plugins } from '@react-page/core/src/service/plugin/classes';
-import { ContentPluginProps } from '@react-page/core/lib/service/plugin/classes';
-import { EditableType } from '@react-page/core/lib/types/editable';
 
 const Layout = ({ children, state: { className } }) => (
   <div className={`${className}`}>{children}</div>
@@ -179,7 +181,7 @@ describe('HTMLRenderer', () => {
         it('should pass', () => {
           expect(wrapper.html()).toEqual(
             // tslint:disable-next-line:max-line-length
-            '<div class="ory-cell ory-cell-sm-12 ory-cell-xs-12"><div class="ory-cell-inner ory-cell-leaf"><div data-slate-editor="true" data-key="0" class="ory-plugins-content-slate-container" autocorrect="on" spellcheck="true" style="outline:none;white-space:pre-wrap;word-wrap:break-word" data-gramm="false"><p style="text-align:center"><span data-slate-object="text" data-key="2"><span data-slate-leaf="true" data-offset-key="2:0"><span data-slate-string="true">Asdfg</span></span></span></p></div></div></div>'
+            '<div class="ory-cell ory-cell-sm-12 ory-cell-xs-12"><div class="ory-cell-inner ory-cell-leaf"><div data-gramm="false" data-slate-editor="true" data-slate-node="value" style="outline:none;white-space:pre-wrap;word-wrap:break-word"><p style="text-align:center"><span data-slate-node="text"><span data-slate-leaf="true"><span data-slate-string="true">Asdfg</span></span></span></p></div></div></div>'
           );
         });
       });

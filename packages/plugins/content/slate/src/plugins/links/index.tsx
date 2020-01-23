@@ -1,7 +1,6 @@
-import createComponentPlugin from '../../pluginFactories/createComponentPlugin';
-
-import React from 'react';
 import { lazyLoad } from '@react-page/core';
+import React from 'react';
+import createComponentPlugin from '../../pluginFactories/createComponentPlugin';
 
 const LinkIcon = lazyLoad(() => import('@material-ui/icons/Link'));
 
@@ -36,12 +35,9 @@ export default {
         openInNewWindow: el.getAttribute('target') === '_blank',
       }),
     },
-    Component: ({ children, data }) => {
+    Component: ({ children, openInNewWindow, href }) => {
       return (
-        <a
-          target={data.get('openInNewWindow') ? '_blank' : undefined}
-          href={data.get('href')}
-        >
+        <a target={openInNewWindow ? '_blank' : undefined} href={href}>
           {children}
         </a>
       );

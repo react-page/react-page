@@ -1,4 +1,5 @@
 import React from 'react';
+import { getAlignmentFromElement } from '../plugins/paragraphs';
 import { SlateComponentPluginDefinition } from '../types/slatePluginDefinitions';
 import createComponentPlugin from './createComponentPlugin';
 
@@ -14,8 +15,11 @@ type Def<T extends {}> = Pick<
   | 'getInitialData'
   | 'schema'
 > & {
-  replaceOnRemove?: string;
+  replaceWithDefaultOnRemove?: boolean;
   tagName: string;
+  getData?: SlateComponentPluginDefinition<
+    HtmlBlockData<T>
+  >['deserialize']['getData'];
   noButton?: boolean;
 };
 
@@ -30,7 +34,7 @@ function createSimpleHtmlBlockPlugin<T = {}>(def: Def<HtmlBlockData<T>>) {
     type: def.type,
     object: 'block',
     hotKey: def.hotKey,
-    replaceOnRemove: def.replaceOnRemove,
+    replaceWithDefaultOnRemove: def.replaceWithDefaultOnRemove,
     icon: def.icon,
     onKeyDown: def.onKeyDown,
     addToolbarButton: !def.noButton,
@@ -40,8 +44,10 @@ function createSimpleHtmlBlockPlugin<T = {}>(def: Def<HtmlBlockData<T>>) {
     addHoverButton: false,
     deserialize: {
       tagName: def.tagName,
+      // tslint:disable-next-line:no-any
+      getData: def.getData || (getAlignmentFromElement as any),
     },
-    Component: ({ data, children, attributes, style, className }) => {
+    Component: ({ children, attributes, style, className, align }) => {
       const Tag = (def.tagName as unknown) as React.ComponentType<{
         style: object;
         className?: string;
@@ -50,7 +56,7 @@ function createSimpleHtmlBlockPlugin<T = {}>(def: Def<HtmlBlockData<T>>) {
         <Tag
           {...attributes}
           className={className}
-          style={{ textAlign: data.get('align'), ...style }}
+          style={{ textAlign: align, ...style }}
         >
           {children}
         </Tag>

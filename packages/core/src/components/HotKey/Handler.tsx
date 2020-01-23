@@ -20,18 +20,16 @@
  *
  */
 
+import pathOr from 'ramda/src/pathOr';
 import * as React from 'react';
 import { HotKeys } from 'react-hotkeys';
-import { connect } from '../../reduxConnect';
-import pathOr from 'ramda/src/pathOr';
 import { createStructuredSelector } from 'reselect';
-
-import { undo, redo } from '../../actions/undo';
-import { removeCell, focusCell, blurAllCells } from '../../actions/cell';
+import { blurAllCells, focusCell, removeCell } from '../../actions/cell';
+import { redo, undo } from '../../actions/undo';
+import { connect } from '../../reduxConnect';
 import { isEditMode } from '../../selector/display';
+import { editable, node } from '../../selector/editable';
 import { focus } from '../../selector/focus';
-import { node, editable } from '../../selector/editable';
-
 import { EditableType } from '../../types/editable';
 
 const hotKeyHandler = (n: Object, key: string) =>
@@ -57,7 +55,8 @@ const previousLeaf = (order: Array<{ id: string }>, current: string) =>
   nextLeaf([...order].reverse(), current);
 
 type Props = {
-  children: React.ReactChildren;
+  // tslint:disable-next-line:no-any
+  children: any;
   id: string;
   focus: string;
   isEditMode: boolean;
@@ -165,7 +164,4 @@ const mapDispatchToProps = {
   blurAllCells,
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Decorator);
+export default connect(mapStateToProps, mapDispatchToProps)(Decorator);

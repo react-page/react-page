@@ -147,7 +147,4 @@ const mapDispatchToProps = (
     dispatch as any
   );
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Cell);
+export default connect(mapStateToProps, mapDispatchToProps)(Cell);

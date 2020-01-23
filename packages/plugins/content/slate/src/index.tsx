@@ -1,41 +1,17 @@
-/*
- * This file is part of ORY Editor.
- *
- * ORY Editor is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * ORY Editor is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public License
- * along with ORY Editor.  If not, see <http://www.gnu.org/licenses/>.
- *
- * @license LGPL-3.0
- * @copyright 2016-2018 Aeneas Rekkas
- * @author Aeneas Rekkas <aeneas+oss@aeneas.io>
- *
- */
-
 import { lazyLoad } from '@react-page/core';
 import { ContentPluginConfig } from '@react-page/core/lib/service/plugin/classes';
-import { pathOr } from 'ramda/src/pathOr';
 import * as React from 'react';
 import { AnyAction } from 'redux';
 import { ActionTypes } from 'redux-undo';
-import { Value } from 'slate';
 import Component from './Component';
 import { defaultTranslations } from './default/settings';
-import * as hooks from './hooks';
+import HtmlToSlate from './HtmlToSlate';
 import v002 from './migrations/v002';
 import v003 from './migrations/v003';
+import v004 from './migrations/v004';
 import * as pluginFactories from './pluginFactories/index';
 import * as defaultPlugins from './plugins/index';
 import Renderer from './Renderer';
-import serialization from './serialization';
 import { SlateProps } from './types/component';
 import { SlateControlsProps } from './types/controls';
 import { InitialSlateStateDef } from './types/initialSlateState';
@@ -44,16 +20,17 @@ import { SlatePluginCollection } from './types/SlatePlugin';
 import { SlateState } from './types/state';
 import makeSlatePluginsFromDef from './utils/makeSlatePluginsFromDef';
 import transformInitialSlateState from './utils/transformInitialSlateState';
-
 const slatePlugins = defaultPlugins;
-export { defaultPlugins, slatePlugins, pluginFactories };
+export { defaultPlugins, slatePlugins, pluginFactories, HtmlToSlate };
 const Subject = lazyLoad(() => import('@material-ui/icons/Subject'));
 const Controls = lazyLoad(() => import('./Controls/'));
 
-const migrations = [v002, v003];
+const migrations = [v002, v003, v004];
 type SlateDefinition<TPlugins extends SlatePluginCollection> = {
   icon: JSX.Element;
   plugins: TPlugins;
+  // tslint:disable-next-line:no-any
+  defaultPluginType: string;
   Renderer: React.ComponentType<SlateRendererProps>;
   Controls: React.ComponentType<SlateControlsProps>;
   name: string;
@@ -65,17 +42,20 @@ type SlateDefinition<TPlugins extends SlatePluginCollection> = {
 };
 type DefaultPlugins = typeof defaultPlugins;
 type DefaultSlateDefinition = SlateDefinition<DefaultPlugins>;
-export type CreateInitialStateCustomizer<TPlugins> = (
-  { plugins }: { plugins: TPlugins }
-) => InitialSlateStateDef;
+export type CreateInitialStateCustomizer<TPlugins> = ({
+  plugins,
+}: {
+  plugins: TPlugins;
+}) => InitialSlateStateDef;
 
 const defaultConfig: DefaultSlateDefinition = {
   icon: <Subject />,
   plugins: defaultPlugins,
+  defaultPluginType: 'PARAGRAPH/PARAGRAPH',
   Renderer,
   Controls,
   name: 'ory/editor/core/content/slate',
-  version: '0.0.3',
+  version: '0.0.4',
   translations: defaultTranslations,
   migrations,
 
@@ -84,9 +64,11 @@ const defaultConfig: DefaultSlateDefinition = {
 
 type CreateInitialSlateState<TPlugins> = (
   custom?: CreateInitialStateCustomizer<TPlugins>
-) => { editorState: Value };
+) => // tslint:disable-next-line:no-any
+SlateState;
 export type SlatePlugin<TPlugins> = ContentPluginConfig<SlateState> & {
   createInitialSlateState: CreateInitialSlateState<TPlugins>;
+  htmlToSlate: (html: string) => SlateState;
 };
 export type SlateCustomizeFunction<TPlugins extends SlatePluginCollection> = (
   def: DefaultSlateDefinition
@@ -125,10 +107,7 @@ function plugin<TPlugins extends SlatePluginCollection = DefaultPlugins>(
   // NEW: to make it easier to manage and group plugins,
   // they now need to be an object of object with group and keys, see type SlatePluginCollection
   const plugins = makeSlatePluginsFromDef(settings.plugins);
-  const serializeFunctions = serialization({
-    createInitialState,
-    plugins,
-  });
+  const htmlToSlate = HtmlToSlate({ plugins });
 
   return {
     Component: (props: SlateProps) => (
@@ -137,7 +116,7 @@ function plugin<TPlugins extends SlatePluginCollection = DefaultPlugins>(
         Controls={settings.Controls}
         plugins={plugins}
         translations={settings.translations}
-        serializeFunctions={serializeFunctions}
+        defaultPluginType={settings.defaultPluginType}
         {...props}
       />
     ),
@@ -155,7 +134,7 @@ function plugin<TPlugins extends SlatePluginCollection = DefaultPlugins>(
       if (
         (action.type === ActionTypes.UNDO ||
           action.type === ActionTypes.REDO) &&
-        pathOr(false, ['content', 'state', 'editorState'], state)
+        (state?.content?.state?.slate ?? false)
       ) {
         return {
           ...state,
@@ -163,9 +142,6 @@ function plugin<TPlugins extends SlatePluginCollection = DefaultPlugins>(
             ...state.content,
             state: {
               ...state.content.state,
-              editorState: state.content.state.editorState.merge({
-                isNative: false,
-              }),
             },
           },
         };
@@ -173,13 +149,19 @@ function plugin<TPlugins extends SlatePluginCollection = DefaultPlugins>(
       return state;
     },
 
-    handleRemoveHotKey: hooks.handleRemoveHotKey,
-    handleFocusPreviousHotKey: hooks.handleFocusPreviousHotKey,
-    handleFocusNextHotKey: hooks.handleFocusNextHotKey,
+    handleRemoveHotKey: () => Promise.reject(),
+    handleFocusPreviousHotKey: () => Promise.reject(),
+    handleFocusNextHotKey: () => Promise.reject(),
     createInitialState: createInitialState,
     createInitialSlateState: createInitialState,
-    serialize: serializeFunctions.serialize,
-    unserialize: serializeFunctions.unserialize,
+    htmlToSlate: htmlToSlate,
+    serialize: ({ slate }) => ({ slate }),
+    unserialize: ({ slate, importFromHtml, ...rest }) => {
+      if (importFromHtml) {
+        return htmlToSlate(importFromHtml);
+      }
+      return { slate };
+    },
 
     // TODO this is disabled because of #207
     // merge = hooks.merge

@@ -1,61 +1,63 @@
-import createSlateEditList from '@guestbell/slate-edit-list';
-import createBasePlugin from './createBasePlugin';
+import { SlatePlugin } from '../types/SlatePlugin';
+import {
+  decreaseListIndention,
+  getActiveListType,
+  getPreviousListItem,
+  increaseListIndention
+} from './utils/listUtils';
 
 type Definition = {
   iconIncrease: JSX.Element;
   iconDecrease: JSX.Element;
   listItemType: string;
-  listTypes: string[];
+  allListTypes: string[];
 };
 
-const ceateSlatePlugin = (def: Definition) => {
-  const slateEditList = createSlateEditList({
-    typeItem: def.listItemType,
-    types: def.listTypes,
-  });
-
+const ceateSlatePlugin = (def: Definition): SlatePlugin[] => {
   return [
-    createBasePlugin({
+    {
       pluginType: 'custom',
       addToolbarButton: true,
       addHoverButton: false,
       icon: def.iconIncrease,
       customAdd: editor => {
-        slateEditList.changes.increaseItemDepth(editor);
+        increaseListIndention(editor, {
+          allListTypes: def.allListTypes,
+          listItemType: def.listItemType,
+        });
       },
       customRemove: editor => {
-        slateEditList.changes.decreaseItemDepth(editor);
+        decreaseListIndention(editor, {
+          allListTypes: def.allListTypes,
+          listItemType: def.listItemType,
+        });
       },
       isDisabled: editor => {
-        const editorState = editor.value;
-
-        const previousItem = slateEditList.utils.getPreviousItem(editorState);
-        const currentItem = slateEditList.utils.getCurrentItem(editorState);
-        const canIncrease = Boolean(previousItem && currentItem);
-        return !canIncrease;
+        const previous = getPreviousListItem(editor, def.listItemType);
+        return !previous;
       },
-    }),
-    createBasePlugin({
+    },
+    {
       pluginType: 'custom',
       addToolbarButton: true,
       addHoverButton: false,
       icon: def.iconDecrease,
       customAdd: editor => {
-        slateEditList.changes.decreaseItemDepth(editor);
+        decreaseListIndention(editor, {
+          allListTypes: def.allListTypes,
+          listItemType: def.listItemType,
+        });
       },
       customRemove: editor => {
-        slateEditList.changes.increaseItemDepth(editor);
+        increaseListIndention(editor, {
+          allListTypes: def.allListTypes,
+          listItemType: def.listItemType,
+        });
       },
       isDisabled: editor => {
-        const editorState = editor.value;
-
-        const currentItem = slateEditList.utils.getCurrentItem(editorState);
-        const itemDepth = slateEditList.utils.getItemDepth(editorState);
-
-        const canDecrease = Boolean(itemDepth > 1 && currentItem);
-        return !canDecrease;
+        return !Boolean(getActiveListType(editor, def.allListTypes));
       },
-    }),
+    },
   ];
 };
 
@@ -65,7 +67,7 @@ function createListIndentionPlugin(def: Definition) {
   ) {
     return createListIndentionPlugin(customize(def));
   };
-  customizablePlugin.toPlugin = () => ceateSlatePlugin(def);
+  customizablePlugin.toPlugin = (): SlatePlugin[] => ceateSlatePlugin(def);
   return customizablePlugin;
 }
 

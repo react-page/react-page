@@ -1,5 +1,5 @@
-import createComponentPlugin from './createComponentPlugin';
 import React from 'react';
+import createComponentPlugin from './createComponentPlugin';
 
 type MarkPluginDefinition = {
   type: string;

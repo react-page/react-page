@@ -1,6 +1,6 @@
-import { Value, ValueJSON } from 'slate';
-export interface SlateState {
-  importFromHtml?: string;
-  serialized?: ValueJSON;
-  editorState?: Value;
-}
+import { Node, Range } from 'slate';
+
+export type SlateState = {
+  slate: Node[];
+  selection?: Range;
+};

@@ -27,18 +27,18 @@ function Controls<T>(props: SlatePluginControls<T>) {
 
   const onCancel = () => {
     props.close();
-    props.editor.focus();
+    // props.editor.focus();
   };
 
   const onSubmit = useCallback(
     data => {
       if (props.shouldInsertWithText) {
-        props.addWithText(text, data);
+        props.add({ text, data });
       } else {
-        props.add(data);
+        props.add({ data });
       }
       props.close();
-      props.editor.focus();
+      // props.editor.focus();
     },
     [props.shouldInsertWithText, text]
   );

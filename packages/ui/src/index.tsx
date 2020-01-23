@@ -1,5 +1,6 @@
 // something is wrong with lerna, typescript and this import: import { lazyLoad } from '@react-page/core';
 import loadable from '@loadable/component';
+import { BottomToolbarProps } from './BottomToolbar/types';
 import { colorToString } from './ColorPicker/colorToString';
 
 import darkTheme from './ThemeProvider/DarkTheme';
@@ -16,6 +17,7 @@ const Provider = loadable(() => import('./Provider'));
 
 export default EditorUI;
 export {
+  BottomToolbarProps,
   EditorUI,
   Provider,
   Trash,
