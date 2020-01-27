@@ -14,20 +14,18 @@ import * as React from 'react';
 const gridClass = (size: number = 12): string =>
   `ory-cell-sm-${size} ory-cell-xs-12`;
 
-const HTMLRow: React.SFC<Partial<Row>> = ({
-  cells = [],
-  className,
-  hasInlineChildren,
-}) => (
-  <div
-    className={classNames('ory-row', className, {
-      'ory-row-has-floating-children': hasInlineChildren,
-    })}
-  >
-    {cells.map(c => (
-      <HTMLCell key={c.id} {...c} />
-    ))}
-  </div>
+const HTMLRow: React.SFC<Partial<Row>> = React.memo(
+  ({ cells = [], className, hasInlineChildren }) => (
+    <div
+      className={classNames('ory-row', className, {
+        'ory-row-has-floating-children': hasInlineChildren,
+      })}
+    >
+      {cells.map(c => (
+        <HTMLCell key={c.id} {...c} />
+      ))}
+    </div>
+  )
 );
 
 // eslint-disable-next-line no-empty-function
@@ -35,7 +33,7 @@ const noop = () => {
   return;
 };
 
-const HTMLCell: React.SFC<Cell> = props => {
+const HTMLCell: React.SFC<Cell> = React.memo(props => {
   const {
     rows = [],
     layout = {} as Layout,
@@ -120,7 +118,7 @@ const HTMLCell: React.SFC<Cell> = props => {
       <div className="ory-cell-inner" />
     </div>
   );
-};
+});
 
 export interface HTMLRendererProps {
   state: EditableType;
