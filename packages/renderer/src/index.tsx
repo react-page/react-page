@@ -127,14 +127,13 @@ export interface HTMLRendererProps {
   plugins?: Plugins;
 }
 
-export const HTMLRenderer: React.SFC<HTMLRendererProps> = ({
-  state,
-  plugins,
-}) => {
-  const service = new PluginService(plugins);
-  const props = editableReducer(service.unserialize(state), {
-    type: 'renderer/noop',
-  });
+export const HTMLRenderer: React.SFC<HTMLRendererProps> = React.memo(
+  ({ state, plugins }) => {
+    const service = new PluginService(plugins);
+    const props = editableReducer(service.unserialize(state), {
+      type: 'renderer/noop',
+    });
 
-  return <HTMLRow {...props} />;
-};
+    return <HTMLRow {...props} />;
+  }
+);
