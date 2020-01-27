@@ -20,16 +20,17 @@
  *
  */
 
-import {
-  ContentPluginProps,
-  EditableType,
-  LayoutPluginProps,
-  Plugins
-} from '@react-page/core';
+import { ContentPluginProps, EditableType, LayoutPluginProps, Plugins } from '@react-page/core';
 import slate from '@react-page/plugins-slate';
 import { mount, render } from 'enzyme';
 import * as React from 'react';
 import { HTMLRenderer } from '../index';
+
+jest.mock('react', () => {
+  const r = jest.requireActual('react');
+
+  return { ...r, memo: (x) => x };
+});
 
 const Layout = ({ children, state: { className } }) => (
   <div className={`${className}`}>{children}</div>
