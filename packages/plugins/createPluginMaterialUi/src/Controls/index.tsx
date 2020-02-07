@@ -1,6 +1,13 @@
 import { BottomToolbar } from '@react-page/ui';
 import debounce from 'lodash.debounce';
-import React, { Fragment, useCallback, useState } from 'react';
+import React, {
+  Fragment,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState
+} from 'react';
+import JSONSchemaBridge from 'uniforms-bridge-json-schema';
 import {
   AutoFields as AutoFieldsOrg,
   AutoForm as AutoFormOrg
@@ -17,6 +24,16 @@ const AutoFields: any = AutoFieldsOrg;
 const defaultControlsLayout: ControlsLayout = {
   columnCount: 2,
 };
+
+const getDefaultValue = function(bridge: JSONSchemaBridge) {
+  return bridge.getSubfields(null).reduce(
+    (acc, fieldName) => ({
+      ...acc,
+      [fieldName]: bridge.getInitialValue(fieldName),
+    }),
+    {}
+  );
+};
 function Controls<T>(props: ControlProps<T>) {
   const saveDebounced = useCallback(
     debounce((m: T) => props.onChange(m), 1000),
@@ -25,10 +42,10 @@ function Controls<T>(props: ControlProps<T>) {
 
   const [preview, setPreview] = useState();
 
-  const onSubmit = (model: T) => {
+  const onSubmit = useCallback((model: T) => {
     setPreview(model);
     saveDebounced(model);
-  };
+  }, []);
 
   const {
     focused,
@@ -38,9 +55,17 @@ function Controls<T>(props: ControlProps<T>) {
     Renderer,
     remove,
   } = props;
+  const bridge = useMemo(() => makeUniformsSchema<T>(schema), [schema]);
+  useEffect(() => {
+    onSubmit({
+      ...getDefaultValue(bridge),
+      ...(preview ?? state ?? {}),
+    });
+  }, [bridge]);
+
   return (
     <>
-      <Renderer {...props} state={preview || state} />
+      <Renderer {...props} state={preview ?? state} />
 
       <BottomToolbar
         open={focused}
@@ -53,7 +78,7 @@ function Controls<T>(props: ControlProps<T>) {
           <AutoForm
             model={preview || state}
             autosave={true}
-            schema={makeUniformsSchema<T>(schema)}
+            schema={bridge}
             onSubmit={onSubmit}
           >
             <div

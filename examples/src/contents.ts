@@ -42,7 +42,7 @@ const contents: EditableType[] = [
                                 leaves: [
                                   {
                                     object: 'leaf',
-                                    text: 'The ORY Editor',
+                                    text: 'ReactPage',
                                     marks: [],
                                   },
                                 ],
@@ -124,7 +124,7 @@ const contents: EditableType[] = [
                                   {
                                     object: 'leaf',
                                     text:
-                                      ' tools! The ORY Editor is a smart, extensible and modern editor ("WYSIWYG") for the web written in React.',
+                                      ' tools! ReactPage is a smart, extensible and modern editor ("WYSIWYG") for the web written in React.',
                                     marks: [],
                                   },
                                 ],
@@ -145,7 +145,7 @@ const contents: EditableType[] = [
                                   {
                                     object: 'leaf',
                                     text:
-                                      'The ORY Editor was written because we urgently needed a robust and modern content editing solution for our open education platform ',
+                                      'ReactPage was written because we urgently needed a robust and modern content editing solution for our open education platform ',
                                     marks: [],
                                   },
                                 ],
@@ -274,7 +274,7 @@ const contents: EditableType[] = [
                                   {
                                     object: 'leaf',
                                     text:
-                                      ' based on the ORY Editor. Create stunning websites, write your own designs and plugins, and be done with databases, application servers, and security updates.',
+                                      ' based on ReactPage. Create stunning websites, write your own designs and plugins, and be done with databases, application servers, and security updates.',
                                     marks: [],
                                   },
                                 ],
@@ -758,7 +758,7 @@ const contents: EditableType[] = [
                                   {
                                     object: 'leaf',
                                     text:
-                                      'With these principles in mind, we went out and implemented the ORY Editor, which you are looking at right now.',
+                                      'With these principles in mind, we went out and implemented ReactPage, which you are looking at right now.',
                                     marks: [],
                                   },
                                 ],
@@ -997,7 +997,7 @@ const contents: EditableType[] = [
                                   {
                                     object: 'leaf',
                                     text:
-                                      'Today\'s content is more than a monolithic blob of text. The ORY Editor allows you to define your own layout blocks, and create content that looks good on all devices.',
+                                      'Today\'s content is more than a monolithic blob of text. ReactPage allows you to define your own layout blocks, and create content that looks good on all devices.',
                                     marks: [],
                                   },
                                 ],
@@ -1061,7 +1061,7 @@ const contents: EditableType[] = [
                                   {
                                     object: 'leaf',
                                     text:
-                                      'Most web editors work on top of the DOM. This is dangerous (XSS), hard to maintain and difficult to parse. The ORY Editor uses JSON only - everywhere! It\'s sane, tested, clean and minimal.',
+                                      'Most web editors work on top of the DOM. This is dangerous (XSS), hard to maintain and difficult to parse. ReactPage uses JSON only - everywhere! It\'s sane, tested, clean and minimal.',
                                     marks: [],
                                   },
                                 ],

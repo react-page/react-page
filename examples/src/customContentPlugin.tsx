@@ -2,15 +2,16 @@ import { createContentPlugin } from '@react-page/create-plugin-materialui';
 import React from 'react';
 
 export default createContentPlugin<{
+  title: string;
   firstName: string;
   lastName: string;
   age: number;
 }>({
   // tslint:disable-next-line:no-any
-  Renderer: ({ state }: any) => (
+  Renderer: ({ state }) => (
     <div>
-      <p>I am a custom plugin</p>
-      <p>this is my configuration:</p>
+      <h3>{state.title}</h3>
+
       <p>Firstname: {state.firstName}</p>
       <p>Lastname: {state.lastName}</p>
       <p>Age: {state.age}</p>
@@ -22,6 +23,10 @@ export default createContentPlugin<{
   version: '0.0.1',
   schema: {
     properties: {
+      title: {
+        type: 'string',
+        default: 'I am a custom plugin, this is my configuration',
+      },
       firstName: { type: 'string' },
       lastName: { type: 'string' },
       age: {

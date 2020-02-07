@@ -22,6 +22,7 @@
   -->
 
 <html>
+
 <head>
   <meta charset="utf-8">
   <meta name="description" content="">
@@ -29,58 +30,64 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
   <link href="%PUBLIC_URL%/styles.css" rel="stylesheet" type="text/css">
-  <title>Ory.am Editor</title></head>
+  <title>ReactPager</title>
+</head>
+
 <body style="padding: 0 0 100px 0; margin: 0;">
 
-<nav>
-  <ul>
-    <li style="position: absolute; left: 10px;">ORY Editor Tech Demo</li>
-    <li><a href="https://github.com/ory/editor">GitHub</a></li>
-    <li><a href="https://ory.gitbooks.io/editor/content/">Guide</a></li>
-    <li><a href="https://github.com/ory/editor/blob/master/docs/api/core.md">API Docs</a></li>
-    <li><a href="https://www.ory.am/sites?utm_source=github&utm_medium=header&utm_campaign=editor_demo">Static Site Generator</a></li>
-    <li><a href="https://www.ory.am">ORY</a></li>
-  </ul>
-</nav>
+  <nav>
+    <ul>
+      <li style="position: absolute; left: 10px;">ReactPage Tech Demo</li>
+      <li><a href="https://github.com/react-page/react-page">GitHub</a></li>
+      <li><a href="https://ory.gitbooks.io/editor/content/">Guide</a></li>
+      <li><a href="https://github.com/ory/editor/blob/master/docs/api/core.md">API Docs</a></li>
+      <li><a href="https://www.ory.am/sites?utm_source=github&utm_medium=header&utm_campaign=editor_demo">Static Site
+          Generator</a></li>
+      <li><a href="https://www.ory.am">ORY</a></li>
+    </ul>
+  </nav>
 
-<div class="container">
-  <div class="editable editable-area" data-id="1"></div>
-</div>
-<h1 style="text-align: center; margin: 1em 0 1em 0;">Another editable</h1>
-<div class="container">
-  <div class="editable editable-area" data-id="2"></div>
-</div>
-<h1 style="text-align: center; margin: 1em 0 1em 0;">An empty editable</h1>
-<div class="container">
-  <div class="editable editable-area" data-id="10"></div>
-</div>
-<h1 style="text-align: center; margin: 1em 0 1em 0;">Static HTML render output</h1>
-<div class="container">
-  <div id="editable-static" class="editable-area" data-id="1"></div>
-</div>
-<div id="controls"></div>
+  <div class="container">
+    <div class="editable editable-area" data-id="1"></div>
+  </div>
+  <h1 style="text-align: center; margin: 1em 0 1em 0;">Another editable</h1>
+  <div class="container">
+    <div class="editable editable-area" data-id="2"></div>
+  </div>
+  <h1 style="text-align: center; margin: 1em 0 1em 0;">An empty editable</h1>
+  <div class="container">
+    <div class="editable editable-area" data-id="10"></div>
+  </div>
+  <h1 style="text-align: center; margin: 1em 0 1em 0;">Static HTML render output</h1>
+  <div class="container">
+    <div id="editable-static" class="editable-area" data-id="1"></div>
+  </div>
+  <div id="controls"></div>
 
-<!-- analytics tracking -->
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  <!-- analytics tracking -->
+  <script>
+    (function (i, s, o, g, r, a, m) {
+      i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+        (i[r].q = i[r].q || []).push(arguments)
+      }, i[r].l = 1 * new Date(); a = s.createElement(o),
+        m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
 
-  ga('create', 'UA-71865250-2', 'auto');
-  ga('send', 'pageview');
+    ga('create', 'UA-71865250-2', 'auto');
+    ga('send', 'pageview');
 
-  [].forEach.call(document.querySelectorAll('a'), function(anchor) {
-    anchor.addEventListener('mousedown', function (event) {
-      ga('send', 'event', {
-        eventCategory: 'anchor',
-        eventAction: event.target.textContent.toLowerCase(),
-        eventLabel: event.target.href,
-        transport: 'beacon'
+    [].forEach.call(document.querySelectorAll('a'), function (anchor) {
+      anchor.addEventListener('mousedown', function (event) {
+        ga('send', 'event', {
+          eventCategory: 'anchor',
+          eventAction: event.target.textContent.toLowerCase(),
+          eventLabel: event.target.href,
+          transport: 'beacon'
+        });
       });
     });
-  });
-</script>
+  </script>
 
 </body>
+
 </html>
