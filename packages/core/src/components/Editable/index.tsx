@@ -1,4 +1,4 @@
-import equals from 'ramda/src/equals';
+import equals from 'fast-deep-equal';
 import React, { useEffect, useRef } from 'react';
 import { useEditor } from '../../Provider';
 import { editable } from '../../selector/editable';
@@ -23,17 +23,15 @@ const Editable: React.FC<Props> = ({ id, onChange }) => {
         id: id,
       });
       // prevent uneeded updates
-      const isEqual = equals(state, previousStateRef.current);
 
+      const isEqual = equals(state, previousStateRef.current);
       if (!state || isEqual) {
         return;
       }
       previousStateRef.current = state;
 
       const serialized = editor.plugins.serialize(state);
-
       const serializedEqual = equals(previousSerializedRef.current, serialized);
-
       if (serializedEqual) {
         return;
       }

@@ -1,5 +1,4 @@
 import throttle from 'lodash.throttle';
-import pathOr from 'ramda/src/pathOr';
 import * as React from 'react';
 import { DropTargetConnector, DropTargetMonitor } from 'react-dnd';
 import {
@@ -60,11 +59,8 @@ export const target = {
       }
 
       last = { hover: hover.id, drag: drag.id };
-      const allowInlineNeighbours = pathOr(
-        false,
-        ['node', 'content', 'plugin', 'allowInlineNeighbours'],
-        hover
-      );
+      const allowInlineNeighbours =
+        hover?.node?.content?.plugin?.allowInlineNeighbours ?? false;
       computeAndDispatchHover(
         hover,
         drag,
@@ -108,11 +104,9 @@ export const target = {
     }
 
     last = { hover: hover.id, drag: drag.id };
-    const allowInlineNeighbours = pathOr(
-      false,
-      ['node', 'content', 'plugin', 'allowInlineNeighbours'],
-      hover
-    );
+
+    const allowInlineNeighbours =
+      hover?.node?.content?.plugin?.allowInlineNeighbours ?? false;
     computeAndDispatchInsert(
       hover,
       drag,

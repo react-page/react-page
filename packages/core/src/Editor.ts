@@ -1,4 +1,3 @@
-import forEach from 'ramda/src/forEach';
 import { NativeTypes } from 'react-dnd-html5-backend';
 import { Middleware, Store } from 'redux';
 import { v4 } from 'uuid';
@@ -92,14 +91,14 @@ class Editor<T extends RootState = RootState> {
   }
 
   public refreshEditables = () => {
-    forEach((editable: EditableType) => {
+    this.store.getState().reactPage.editables.present?.forEach(editable => {
       if (!isProduction) {
         // tslint:disable-next-line:no-console
         console.log(this.plugins.serialize(editable));
       }
       // tslint:disable-next-line:no-any
-      this.trigger.editable.update(this.plugins.serialize(editable) as any);
-    }, this.store.getState().reactPage.editables.present);
+      this.trigger.editable.update(this.plugins.serialize(editable));
+    });
   }
 
   /**

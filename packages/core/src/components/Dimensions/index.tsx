@@ -62,7 +62,7 @@ const Dimensions = ({
     }
 
     // This cann not be used here because it doesn't listen to state changes.
-    // shouldComponentUpdate = shouldPureComponentUpdate
+  
 
     public componentWillUnmount() {
       this.getWindow().removeEventListener('resize', this.onResize);

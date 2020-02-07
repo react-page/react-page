@@ -1,26 +1,3 @@
-/*
- * This file is part of ORY Editor.
- *
- * ORY Editor is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * ORY Editor is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public License
- * along with ORY Editor.  If not, see <http://www.gnu.org/licenses/>.
- *
- * @license LGPL-3.0
- * @copyright 2016-2018 Aeneas Rekkas
- * @author Aeneas Rekkas <aeneas+oss@aeneas.io>
- *
- */
-
-import pathOr from 'ramda/src/pathOr';
 import { AnyAction } from 'redux';
 import {
   CELL_BLUR,
@@ -43,7 +20,6 @@ import { Cell, createCell, createRow, Row } from '../../types/editable';
 import { CellHoverAction } from './../../actions/cell/drag';
 import { isHoveringThis } from './helper/hover';
 import { computeRow } from './helper/inline';
-import { mergeDecorator } from './helper/merge';
 import {
   flatten,
   optimizeCell,
@@ -61,13 +37,8 @@ export const cell = (s: Cell, a: AnyAction): Cell =>
   optimizeCell(
     ((state: Cell, action: AnyAction): Cell => {
       const reduce = () => {
-        const content = pathOr(
-          identity,
-          ['content', 'plugin', 'reducer'],
-          state
-        );
-        const layout = pathOr(identity, ['layout', 'plugin', 'reducer'], state);
-
+        const content = state?.content?.plugin?.reducer ?? identity;
+        const layout = state?.layout?.plugin?.reducer ?? identity;
         return content(
           layout(
             {
@@ -97,7 +68,8 @@ export const cell = (s: Cell, a: AnyAction): Cell =>
               content: {
                 ...(state.content || {}),
                 state: {
-                  ...pathOr({}, ['content', 'state'], reduced),
+                  ...(reduced?.content?.state ?? {}),
+
                   ...action.state,
                 },
               },
@@ -114,7 +86,7 @@ export const cell = (s: Cell, a: AnyAction): Cell =>
               layout: {
                 ...(state.layout || {}),
                 state: {
-                  ...pathOr({}, ['layout', 'state'], reduced),
+                  ...(reduced?.layout?.state ?? {}),
                   ...action.state,
                 },
               },
@@ -361,56 +333,55 @@ export const row = (s: Row, a: AnyAction): Row =>
 export const rows = (s: Row[] = [], a: AnyAction): Row[] =>
   optimizeRows(
     // tslint:disable-next-line:no-any
-    mergeDecorator(a as any)(
-      ((state: Row[], action: AnyAction): Row[] => {
-        const reduce = () => state.map(inner(row, action));
-        switch (action.type) {
-          case CELL_INSERT_ABOVE:
-            return state
-              .map((r: Row) =>
-                isHoveringThis(r, action as CellHoverAction)
-                  ? [
-                      {
-                        ...createRow(),
-                        cells: [
-                          { ...action.item, id: action.ids.item, inline: null },
-                        ],
-                        id: action.ids.others[0],
-                      },
-                      {
-                        ...r,
-                        id: action.ids.others[1],
-                      },
-                    ]
-                  : [r]
-              )
-              .reduce(flatten, [])
-              .map(inner(row, action));
-          case CELL_INSERT_BELOW:
-            return state
-              .map((r: Row) =>
-                isHoveringThis(r, action as CellHoverAction)
-                  ? [
-                      {
-                        ...r,
-                        id: action.ids.others[0],
-                      },
-                      {
-                        ...createRow(),
-                        cells: [
-                          { ...action.item, id: action.ids.item, inline: null },
-                        ],
-                        id: action.ids.others[1],
-                      },
-                    ]
-                  : [r]
-              )
-              .reduce(flatten, [])
-              .map(inner(row, action));
 
-          default:
-            return reduce();
-        }
-      })(s, a)
-    )
+    ((state: Row[], action: AnyAction): Row[] => {
+      const reduce = () => state.map(inner(row, action));
+      switch (action.type) {
+        case CELL_INSERT_ABOVE:
+          return state
+            .map((r: Row) =>
+              isHoveringThis(r, action as CellHoverAction)
+                ? [
+                    {
+                      ...createRow(),
+                      cells: [
+                        { ...action.item, id: action.ids.item, inline: null },
+                      ],
+                      id: action.ids.others[0],
+                    },
+                    {
+                      ...r,
+                      id: action.ids.others[1],
+                    },
+                  ]
+                : [r]
+            )
+            .reduce(flatten, [])
+            .map(inner(row, action));
+        case CELL_INSERT_BELOW:
+          return state
+            .map((r: Row) =>
+              isHoveringThis(r, action as CellHoverAction)
+                ? [
+                    {
+                      ...r,
+                      id: action.ids.others[0],
+                    },
+                    {
+                      ...createRow(),
+                      cells: [
+                        { ...action.item, id: action.ids.item, inline: null },
+                      ],
+                      id: action.ids.others[1],
+                    },
+                  ]
+                : [r]
+            )
+            .reduce(flatten, [])
+            .map(inner(row, action));
+
+        default:
+          return reduce();
+      }
+    })(s, a)
   );
