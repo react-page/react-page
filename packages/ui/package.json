@@ -19,8 +19,7 @@
   },
   "peerDependencies": {
     "react": "^16.8.6",
-    "react-dom": "^16.8.6",
-    "react-redux": "*"
+    "react-dom": "^16.8.6"
   },
   "dependencies": {
     "@loadable/component": "^5.10.2",
