@@ -1,12 +1,12 @@
-# React Page (formerly known as ORY editor)
+# ReactPage (formerly known as ORY editor)
 
 [![Build Status](https://travis-ci.org/react-page/react-page.svg)](https://travis-ci.org/react-page/react-page)
 [![Coverage Status](https://coveralls.io/repos/github/ory-am/editor/badge.svg?branch=master)](https://coveralls.io/github/ory/editor?branch=master)
 [![Docs Guide](https://img.shields.io/badge/docs-guide-blue.svg)](https://ory.gitbooks.io/editor/content/)
 
-React Page is a smart, extensible and modern editor ("WYSIWYG") for the web written in React. If you are fed up with the limitations of `contenteditable`, you are in the right place.
+ReactPage is a smart, extensible and modern editor ("WYSIWYG") for the web written in React. If you are fed up with the limitations of `contenteditable`, you are in the right place.
 
-<img width="60%" alt="React Page Demo" src="docs/images/quick-example.gif">
+<img width="60%" alt="ReactPage Demo" src="docs/images/quick-example.gif">
 
 ### Bundle Size
 
