@@ -1,4 +1,4 @@
-import { ContentPluginProps } from '@react-page/core/lib/service/plugin/classes';
+import { ContentPluginProps } from '@react-page/core';
 import { SlatePluginDefinition } from './slatePluginDefinitions';
 import { SlateState } from './state';
 import { Translations } from './translations';

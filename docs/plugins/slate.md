@@ -16,6 +16,7 @@ By default we provide the following plugins:
 If you only want to include some plugins, you can specify them:
 
 ```jsx
+import Editor from '@react-page/editor';
 import slate from '@react-page/plugins-slate';
 
 
@@ -38,21 +39,15 @@ const plugins: Plugins = {
 
 };
 
-const editor = new Editor({
-  plugins: plugins,
-  // pass the content states
-  editables: [
-    ...content,
-    // creates an empty state, basically like the line above
-    createEmptyState(),
-  ],
-});
+ <Editor plugins={plugins} onChange={save} />
+
 ```
 
 or if you want to add an additional plugin, you can use all default plugins like this:
 
 ```jsx
 import slate from '@react-page/plugins-slate';
+
 
 
 const slatePlugin = slate(def => ({
@@ -255,9 +250,8 @@ const infobox = createLayoutPlugin({
 
 // dont forget to add this custom plugin to your plugins:
 
-
-const editor = new Editor({
-  plugins: {
+ <Editor
+  plugins={{
     content: [
       defaultSlate,
       infoboxSlate,
@@ -267,9 +261,7 @@ const editor = new Editor({
       infobox,
       ...
     ]
-  }
-  // ...
-})
-
+ }}
+ onChange={save} />
 
 ```

@@ -2,8 +2,8 @@
 import loadable from '@loadable/component';
 import { BottomToolbarProps } from './BottomToolbar/types';
 import { colorToString } from './ColorPicker/colorToString';
-
 import darkTheme from './ThemeProvider/DarkTheme';
+
 const Trash = loadable(() => import('./Trash/index'));
 const Toolbar = loadable(() => import('./Toolbar/index'));
 const DisplayModeToggle = loadable(() => import('./DisplayModeToggle/index'));
@@ -13,13 +13,11 @@ const EditorUI = loadable(() => import('./EditorUI/index'));
 const ThemeProvider = loadable(() => import('./ThemeProvider/index'));
 const ImageUpload = loadable(() => import('./ImageUpload/index'));
 const ColorPicker = loadable(() => import('./ColorPicker/index'));
-const Provider = loadable(() => import('./Provider'));
 
 export default EditorUI;
 export {
   BottomToolbarProps,
   EditorUI,
-  Provider,
   Trash,
   Toolbar,
   DisplayModeToggle,
@@ -28,5 +26,5 @@ export {
   darkTheme,
   ImageUpload,
   ColorPicker,
-  colorToString,
+  colorToString
 };

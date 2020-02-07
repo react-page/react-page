@@ -1,11 +1,10 @@
-import * as React from 'react';
-
-import { lazyLoad } from '@react-page/core';
 import {
   LayoutPluginConfig,
-  LayoutPluginProps
-} from '@react-page/core/lib/service/plugin/classes';
-import { LayoutPluginDefinition, ControlsType } from './types';
+  LayoutPluginProps,
+  lazyLoad
+} from '@react-page/core';
+import * as React from 'react';
+import { ControlsType, LayoutPluginDefinition } from './types';
 
 type CustomizeFunction<T, CT> = (
   def: LayoutPluginDefinition<T>

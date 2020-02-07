@@ -1,39 +1,17 @@
-/*
- * This file is part of ORY Editor.
- *
- * ORY Editor is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * ORY Editor is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public License
- * along with ORY Editor.  If not, see <http://www.gnu.org/licenses/>.
- *
- * @license LGPL-3.0
- * @copyright 2016-2018 Aeneas Rekkas
- * @author Aeneas Rekkas <aeneas+oss@aeneas.io>
- *
- */
-import * as React from 'react';
 import throttle from 'lodash.throttle';
 import pathOr from 'ramda/src/pathOr';
+import * as React from 'react';
+import { DropTargetConnector, DropTargetMonitor } from 'react-dnd';
+import {
+  createNativeCellReplacement,
+  isNativeHTMLElementDrag
+} from '../../../../helper/nativeDragHelpers';
+import { delay } from '../../../../helper/throttle';
 import {
   computeAndDispatchHover,
   computeAndDispatchInsert
 } from '../../../../service/hover/input';
-import { delay } from '../../../../helper/throttle';
 import logger from '../../../../service/logger';
-import {
-  isNativeHTMLElementDrag,
-  createNativeCellReplacement
-} from '../../../../helper/nativeDragHelpers';
-import { DropTargetMonitor, DropTargetConnector } from 'dnd-core';
-
 import { ComponetizedCell } from '../../../../types/editable';
 
 let last: { hover: string; drag: string } = { hover: '', drag: '' };

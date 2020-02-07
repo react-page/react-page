@@ -13,7 +13,7 @@ export const getCurrentNodeWithPlugin = <T>(
   const match =
     plugin.pluginType === 'component'
       ? plugin.object === 'mark'
-        ? elem => elem[plugin.type]
+        ? elem => Boolean(elem[plugin.type])
         : elem => elem.type === plugin.type
       : plugin.pluginType === 'data'
       ? // search for data

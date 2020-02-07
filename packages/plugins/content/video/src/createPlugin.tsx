@@ -20,15 +20,13 @@
  *
  */
 
+import { ContentPluginConfig, ContentPluginProps } from '@react-page/core';
 import * as React from 'react';
 import Spacer from './Component/index';
-
-import { ContentPluginProps } from '@react-page/core/lib/service/plugin/classes';
-import { ContentPluginConfig } from '@react-page/core/lib/service/plugin/classes';
-import { VideoSettings } from './types/settings';
-import { VideoProps } from './types/component';
-import { VideoState } from './types/state';
 import { defaultSettings } from './default/settings';
+import { VideoProps } from './types/component';
+import { VideoSettings } from './types/settings';
+import { VideoState } from './types/state';
 
 const createPlugin: (
   settings: VideoSettings

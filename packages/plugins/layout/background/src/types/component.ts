@@ -1,5 +1,6 @@
-import { LayoutPluginProps } from '@react-page/core/lib/service/plugin/classes';
-import { BackgroundState } from './state';
+import { LayoutPluginProps } from '@react-page/core';
 import { BackgroundSettings } from './settings';
+import { BackgroundState } from './state';
 
-export type BackgroundProps = LayoutPluginProps<BackgroundState> & BackgroundSettings;
+export type BackgroundProps = LayoutPluginProps<BackgroundState> &
+  BackgroundSettings;

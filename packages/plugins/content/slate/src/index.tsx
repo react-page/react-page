@@ -1,5 +1,4 @@
-import { lazyLoad } from '@react-page/core';
-import { ContentPluginConfig } from '@react-page/core/lib/service/plugin/classes';
+import { ContentPluginConfig, lazyLoad } from '@react-page/core';
 import * as React from 'react';
 import { AnyAction } from 'redux';
 import { ActionTypes } from 'redux-undo';

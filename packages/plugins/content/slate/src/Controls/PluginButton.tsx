@@ -1,9 +1,8 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import { Range, Transforms } from 'slate';
 import { useSlate } from 'slate-react';
 import useAddPlugin from '../hooks/useAddPlugin';
-import useCurrentNodeDataWithPlugin from '../hooks/useCurrentNodeDataWithPlugin';
-import useCurrentSelection from '../hooks/useCurrentSelection';
+import { getCurrentNodeDataWithPlugin } from '../hooks/useCurrentNodeDataWithPlugin';
 import usePluginIsActive from '../hooks/usePluginIsActive';
 import usePluginIsDisabled from '../hooks/usePluginIsDisabled';
 import useRemovePlugin from '../hooks/useRemovePlugin';
@@ -23,10 +22,12 @@ function PluginButton<T>(props: Props<T>) {
   const hasControls = Boolean(plugin.Controls) || Boolean(plugin.schema);
 
   const [showControls, setShowControls] = useState(false);
+  const storedPropsRef = useRef<{
+    selection: Range;
+    isActive: boolean;
+    data: T;
+  }>();
 
-  const data = useCurrentNodeDataWithPlugin(plugin);
-  const selection = useCurrentSelection();
-  const [storedSelection, setStoredSelection] = useState<Range>();
   const close = useCallback(() => setShowControls(false), []);
   const isActive = usePluginIsActive(plugin);
   const add = useAddPlugin(plugin);
@@ -34,8 +35,15 @@ function PluginButton<T>(props: Props<T>) {
   const onClick = React.useCallback(
     (e: React.MouseEvent<HTMLElement>) => {
       e.preventDefault();
-
       if (hasControls) {
+        if (!showControls) {
+          // store props
+          storedPropsRef.current = {
+            selection: editor.selection,
+            isActive,
+            data: getCurrentNodeDataWithPlugin(editor, plugin),
+          };
+        }
         setShowControls(!showControls);
       } else {
         if (isActive) {
@@ -47,19 +55,17 @@ function PluginButton<T>(props: Props<T>) {
     },
     [isActive, hasControls, showControls]
   );
-  useEffect(() => {
-    if (showControls) {
-      setStoredSelection(selection);
-    } else {
-      setStoredSelection(null);
-    }
-  }, [showControls]);
+
   const { Controls: PassedControls } = plugin;
   const Controls = PassedControls || UniformsControls;
   const isDisabled = usePluginIsDisabled(plugin);
 
   const editor = useSlate();
-
+  const shouldInsertWithText =
+    plugin.pluginType === 'component' &&
+    (!storedPropsRef?.current?.selection ||
+      Range.isCollapsed(storedPropsRef?.current?.selection)) &&
+    !storedPropsRef?.current?.isActive;
   return (
     <>
       <ToolbarButton
@@ -78,18 +84,22 @@ function PluginButton<T>(props: Props<T>) {
           close={close}
           open={showControls}
           add={p => {
-            if (storedSelection) {
+            if (storedPropsRef?.current?.selection) {
               // restore selection before adding
-              Transforms.select(editor, storedSelection);
+              Transforms.select(editor, storedPropsRef?.current.selection);
             }
             add(p);
           }}
-          remove={remove}
-          isActive={isActive}
-          shouldInsertWithText={
-            plugin.pluginType === 'component' && !storedSelection && !isActive
-          }
-          data={data}
+          remove={() => {
+            if (storedPropsRef?.current?.selection) {
+              // restore selection before removing
+              Transforms.select(editor, storedPropsRef?.current.selection);
+            }
+            remove();
+          }}
+          isActive={storedPropsRef?.current?.isActive}
+          shouldInsertWithText={shouldInsertWithText}
+          data={storedPropsRef?.current?.data}
           {...props}
         />
       ) : null}

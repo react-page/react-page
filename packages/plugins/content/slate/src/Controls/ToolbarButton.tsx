@@ -24,4 +24,4 @@ const ToolbarButton: React.SFC<{
   </IconButton>
 );
 
-export default ToolbarButton;
+export default React.memo(ToolbarButton);

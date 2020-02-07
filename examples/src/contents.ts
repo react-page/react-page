@@ -1,26 +1,5 @@
-/*
- * This file is part of ORY Editor.
- *
- * ORY Editor is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * ORY Editor is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public License
- * along with ORY Editor.  If not, see <http://www.gnu.org/licenses/>.
- *
- * @license LGPL-3.0
- * @copyright 2016-2018 Aeneas Rekkas
- * @author Aeneas Rekkas <aeneas+oss@aeneas.io>
- *
- */
 // tslint:disable:max-line-length
-import { EditableType } from '@react-page/core/lib/types/editable';
+import { EditableType } from '@react-page/core';
 
 const contents: EditableType[] = [
   {
@@ -505,21 +484,13 @@ const contents: EditableType[] = [
                                 data: {},
                                 nodes: [
                                   {
-                                    object: 'block',
-                                    type: 'PARAGRAPH/PARAGRAPH',
-                                    isVoid: false,
-                                    data: {},
-                                    nodes: [
+                                    object: 'text',
+                                    leaves: [
                                       {
-                                        object: 'text',
-                                        leaves: [
-                                          {
-                                            object: 'leaf',
-                                            text:
-                                              'The produced markup was horrific, a lot of sanitation had to take place and XSS is always a threat.\r',
-                                            marks: [],
-                                          },
-                                        ],
+                                        object: 'leaf',
+                                        text:
+                                          'The produced markup was horrific, a lot of sanitation had to take place and XSS is always a threat.\r',
+                                        marks: [],
                                       },
                                     ],
                                   },
@@ -532,21 +503,13 @@ const contents: EditableType[] = [
                                 data: {},
                                 nodes: [
                                   {
-                                    object: 'block',
-                                    type: 'PARAGRAPH/PARAGRAPH',
-                                    isVoid: false,
-                                    data: {},
-                                    nodes: [
+                                    object: 'text',
+                                    leaves: [
                                       {
-                                        object: 'text',
-                                        leaves: [
-                                          {
-                                            object: 'leaf',
-                                            text:
-                                              'The author must learn special mark up, like markdown, before being able to produce content. These text-based solutions are usually unable to specify a layout and complex data structures like tables are annoying to edit.\r',
-                                            marks: [],
-                                          },
-                                        ],
+                                        object: 'leaf',
+                                        text:
+                                          'The author must learn special mark up, like markdown, before being able to produce content. These text-based solutions are usually unable to specify a layout and complex data structures like tables are annoying to edit.\r',
+                                        marks: [],
                                       },
                                     ],
                                   },
@@ -559,21 +522,13 @@ const contents: EditableType[] = [
                                 data: {},
                                 nodes: [
                                   {
-                                    object: 'block',
-                                    type: 'PARAGRAPH/PARAGRAPH',
-                                    isVoid: false,
-                                    data: {},
-                                    nodes: [
+                                    object: 'text',
+                                    leaves: [
                                       {
-                                        object: 'text',
-                                        leaves: [
-                                          {
-                                            object: 'leaf',
-                                            text:
-                                              'Promising libraries potentially solving the above where abandoned by their maintainers, because it started as a special use case, or a free-time project.\r',
-                                            marks: [],
-                                          },
-                                        ],
+                                        object: 'leaf',
+                                        text:
+                                          'Promising libraries potentially solving the above where abandoned by their maintainers, because it started as a special use case, or a free-time project.\r',
+                                        marks: [],
                                       },
                                     ],
                                   },
@@ -701,21 +656,13 @@ const contents: EditableType[] = [
                                 data: {},
                                 nodes: [
                                   {
-                                    object: 'block',
-                                    type: 'PARAGRAPH/PARAGRAPH',
-                                    isVoid: false,
-                                    data: {},
-                                    nodes: [
+                                    object: 'text',
+                                    leaves: [
                                       {
-                                        object: 'text',
-                                        leaves: [
-                                          {
-                                            object: 'leaf',
-                                            text:
-                                              'The state is a normalized JSON object, no HTML involved.\r',
-                                            marks: [],
-                                          },
-                                        ],
+                                        object: 'leaf',
+                                        text:
+                                          'The state is a normalized JSON object, no HTML involved.\r',
+                                        marks: [],
                                       },
                                     ],
                                   },
@@ -728,21 +675,13 @@ const contents: EditableType[] = [
                                 data: {},
                                 nodes: [
                                   {
-                                    object: 'block',
-                                    type: 'PARAGRAPH/PARAGRAPH',
-                                    isVoid: false,
-                                    data: {},
-                                    nodes: [
+                                    object: 'text',
+                                    leaves: [
                                       {
-                                        object: 'text',
-                                        leaves: [
-                                          {
-                                            object: 'leaf',
-                                            text:
-                                              'It is a visual editor that does not require programming experience or special training.\r',
-                                            marks: [],
-                                          },
-                                        ],
+                                        object: 'leaf',
+                                        text:
+                                          'It is a visual editor that does not require programming experience or special training.\r',
+                                        marks: [],
                                       },
                                     ],
                                   },
@@ -755,21 +694,13 @@ const contents: EditableType[] = [
                                 data: {},
                                 nodes: [
                                   {
-                                    object: 'block',
-                                    type: 'PARAGRAPH/PARAGRAPH',
-                                    isVoid: false,
-                                    data: {},
-                                    nodes: [
+                                    object: 'text',
+                                    leaves: [
                                       {
-                                        object: 'text',
-                                        leaves: [
-                                          {
-                                            object: 'leaf',
-                                            text:
-                                              'It is built by a company, reducing the likelihood of abandonment.\r',
-                                            marks: [],
-                                          },
-                                        ],
+                                        object: 'leaf',
+                                        text:
+                                          'It is built by a company, reducing the likelihood of abandonment.\r',
+                                        marks: [],
                                       },
                                     ],
                                   },
@@ -782,21 +713,13 @@ const contents: EditableType[] = [
                                 data: {},
                                 nodes: [
                                   {
-                                    object: 'block',
-                                    type: 'PARAGRAPH/PARAGRAPH',
-                                    isVoid: false,
-                                    data: {},
-                                    nodes: [
+                                    object: 'text',
+                                    leaves: [
                                       {
-                                        object: 'text',
-                                        leaves: [
-                                          {
-                                            object: 'leaf',
-                                            text:
-                                              'Based on reusable React Components, it gives developers, authors and designers new ways of working together and creating better and richer experiences more easily.\r',
-                                            marks: [],
-                                          },
-                                        ],
+                                        object: 'leaf',
+                                        text:
+                                          'Based on reusable React Components, it gives developers, authors and designers new ways of working together and creating better and richer experiences more easily.\r',
+                                        marks: [],
                                       },
                                     ],
                                   },
@@ -809,21 +732,13 @@ const contents: EditableType[] = [
                                 data: {},
                                 nodes: [
                                   {
-                                    object: 'block',
-                                    type: 'PARAGRAPH/PARAGRAPH',
-                                    isVoid: false,
-                                    data: {},
-                                    nodes: [
+                                    object: 'text',
+                                    leaves: [
                                       {
-                                        object: 'text',
-                                        leaves: [
-                                          {
-                                            object: 'leaf',
-                                            text:
-                                              'It works on mobile and touch devices.\r',
-                                            marks: [],
-                                          },
-                                        ],
+                                        object: 'leaf',
+                                        text:
+                                          'It works on mobile and touch devices.\r',
+                                        marks: [],
                                       },
                                     ],
                                   },
@@ -1391,45 +1306,37 @@ const contents: EditableType[] = [
                                 data: {},
                                 nodes: [
                                   {
-                                    object: 'block',
-                                    type: 'PARAGRAPH/PARAGRAPH',
-                                    isVoid: false,
-                                    data: {},
-                                    nodes: [
+                                    object: 'text',
+                                    leaves: [
                                       {
-                                        object: 'text',
-                                        leaves: [
+                                        object: 'leaf',
+                                        text: 'global un-/redo with ',
+                                        marks: [],
+                                      },
+                                      {
+                                        object: 'leaf',
+                                        text: 'ctrl+z',
+                                        marks: [
                                           {
-                                            object: 'leaf',
-                                            text: 'global un-/redo with ',
-                                            marks: [],
+                                            object: 'mark',
+                                            type: 'EMPHASIZE/EM',
+                                            data: {},
                                           },
+                                        ],
+                                      },
+                                      {
+                                        object: 'leaf',
+                                        text: ' / ',
+                                        marks: [],
+                                      },
+                                      {
+                                        object: 'leaf',
+                                        text: 'ctrl+y',
+                                        marks: [
                                           {
-                                            object: 'leaf',
-                                            text: 'ctrl+z',
-                                            marks: [
-                                              {
-                                                object: 'mark',
-                                                type: 'EMPHASIZE/EM',
-                                                data: {},
-                                              },
-                                            ],
-                                          },
-                                          {
-                                            object: 'leaf',
-                                            text: ' / ',
-                                            marks: [],
-                                          },
-                                          {
-                                            object: 'leaf',
-                                            text: 'ctrl+y',
-                                            marks: [
-                                              {
-                                                object: 'mark',
-                                                type: 'EMPHASIZE/EM',
-                                                data: {},
-                                              },
-                                            ],
+                                            object: 'mark',
+                                            type: 'EMPHASIZE/EM',
+                                            data: {},
                                           },
                                         ],
                                       },
@@ -1444,68 +1351,59 @@ const contents: EditableType[] = [
                                 data: {},
                                 nodes: [
                                   {
-                                    object: 'block',
-                                    type: 'PARAGRAPH/PARAGRAPH',
-                                    isVoid: false,
-                                    data: {},
-                                    nodes: [
+                                    object: 'text',
+                                    leaves: [
                                       {
-                                        object: 'text',
-                                        leaves: [
+                                        object: 'leaf',
+                                        text: 'editing shortcuts, for example ',
+                                        marks: [],
+                                      },
+                                      {
+                                        object: 'leaf',
+                                        text: 'ctrl+b',
+                                        marks: [
                                           {
-                                            object: 'leaf',
-                                            text:
-                                              'editing shortcuts, for example ',
-                                            marks: [],
+                                            object: 'mark',
+                                            type: 'EMPHASIZE/STRONG',
+                                            data: {},
                                           },
+                                        ],
+                                      },
+                                      {
+                                        object: 'leaf',
+                                        text: ',',
+                                        marks: [],
+                                      },
+                                      {
+                                        object: 'leaf',
+                                        text: ' ',
+                                        marks: [
                                           {
-                                            object: 'leaf',
-                                            text: 'ctrl+b',
-                                            marks: [
-                                              {
-                                                object: 'mark',
-                                                type: 'EMPHASIZE/STRONG',
-                                                data: {},
-                                              },
-                                            ],
+                                            object: 'mark',
+                                            type: 'EMPHASIZE/STRONG',
+                                            data: {},
                                           },
+                                        ],
+                                      },
+                                      {
+                                        object: 'leaf',
+                                        text: 'ctrl+i, ',
+                                        marks: [
                                           {
-                                            object: 'leaf',
-                                            text: ',',
-                                            marks: [],
+                                            object: 'mark',
+                                            type: 'EMPHASIZE/EM',
+                                            data: {},
                                           },
+                                        ],
+                                      },
+                                      {
+                                        object: 'leaf',
+                                        text: 'ctrl+u',
+                                        marks: [
                                           {
-                                            object: 'leaf',
-                                            text: ' ',
-                                            marks: [
-                                              {
-                                                object: 'mark',
-                                                type: 'EMPHASIZE/STRONG',
-                                                data: {},
-                                              },
-                                            ],
-                                          },
-                                          {
-                                            object: 'leaf',
-                                            text: 'ctrl+i, ',
-                                            marks: [
-                                              {
-                                                object: 'mark',
-                                                type: 'EMPHASIZE/EM',
-                                                data: {},
-                                              },
-                                            ],
-                                          },
-                                          {
-                                            object: 'leaf',
-                                            text: 'ctrl+u',
-                                            marks: [
-                                              {
-                                                object: 'mark',
-                                                type: 'EMPHASIZE/U',
-                                                data: {},
-                                              },
-                                            ],
+                                            object: 'mark',
+                                            type: 'EMPHASIZE/U',
+                                            data: {},
                                           },
                                         ],
                                       },
@@ -1520,20 +1418,12 @@ const contents: EditableType[] = [
                                 data: {},
                                 nodes: [
                                   {
-                                    object: 'block',
-                                    type: 'PARAGRAPH/PARAGRAPH',
-                                    isVoid: false,
-                                    data: {},
-                                    nodes: [
+                                    object: 'text',
+                                    leaves: [
                                       {
-                                        object: 'text',
-                                        leaves: [
-                                          {
-                                            object: 'leaf',
-                                            text: 'collaborative editing',
-                                            marks: [],
-                                          },
-                                        ],
+                                        object: 'leaf',
+                                        text: 'collaborative editing',
+                                        marks: [],
                                       },
                                     ],
                                   },
@@ -1546,20 +1436,12 @@ const contents: EditableType[] = [
                                 data: {},
                                 nodes: [
                                   {
-                                    object: 'block',
-                                    type: 'PARAGRAPH/PARAGRAPH',
-                                    isVoid: false,
-                                    data: {},
-                                    nodes: [
+                                    object: 'text',
+                                    leaves: [
                                       {
-                                        object: 'text',
-                                        leaves: [
-                                          {
-                                            object: 'leaf',
-                                            text: '... and more things to come',
-                                            marks: [],
-                                          },
-                                        ],
+                                        object: 'leaf',
+                                        text: '... and more things to come',
+                                        marks: [],
                                       },
                                     ],
                                   },

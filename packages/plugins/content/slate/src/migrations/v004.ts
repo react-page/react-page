@@ -1,4 +1,4 @@
-import { Migration } from '@react-page/core/lib/service/plugin/classes';
+import { Migration } from '@react-page/core';
 import isEmpty from 'lodash.isempty';
 import { Element, Node, Text } from 'slate';
 // this is for slate 0.50.0

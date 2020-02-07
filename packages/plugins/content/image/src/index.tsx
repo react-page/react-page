@@ -20,14 +20,11 @@
  *
  */
 
+import { ContentPluginConfig, lazyLoad } from '@react-page/core';
 import createPlugin from './createPlugin';
-
-import { lazyLoad } from '@react-page/core';
-
 import ImageHtmlRenderer from './Renderer/ImageHtmlRenderer';
-import { ContentPluginConfig } from '@react-page/core/lib/service/plugin/classes';
-import { ImageState } from './types/state';
 import { ImageSettings } from './types/settings';
+import { ImageState } from './types/state';
 
 const ImageDefaultControls = lazyLoad(() =>
   import('./Controls/ImageDefaultControls')

@@ -1,34 +1,17 @@
-/*
- * This file is part of ORY Editor.
- *
- * ORY Editor is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * ORY Editor is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public License
- * along with ORY Editor.  If not, see <http://www.gnu.org/licenses/>.
- *
- * @license LGPL-3.0
- * @copyright 2016-2018 Aeneas Rekkas
- * @author Aeneas Rekkas <aeneas+oss@aeneas.io>
- *
- */
-
 import Fab from '@material-ui/core/Fab';
 import Delete from '@material-ui/icons/Delete';
-import { Actions, connect, Editor, Selectors } from '@react-page/core';
+import {
+  Actions,
+  connect,
+  DropTarget,
+  Editor,
+  Selectors,
+  useEditor
+} from '@react-page/core';
 import classNames from 'classnames';
 import throttle from 'lodash.throttle';
 import * as React from 'react';
-import { DropTarget as dropTarget } from 'react-dnd-cjs';
 import { createStructuredSelector } from 'reselect';
-import { useEditor } from '../Provider';
 
 export interface RawProps {
   editor: Editor;
@@ -116,7 +99,7 @@ const mapStateToProps = createStructuredSelector(Selectors.Display);
 const Decorated: any = connect(
   mapStateToProps,
   mapDispatchToProps
-)(dropTarget<TargetProps>(types, target, connectMonitor)(Raw));
+)(DropTarget<TargetProps>(types, target, connectMonitor)(Raw));
 
 const Trash: React.SFC = () => {
   const editor = useEditor();

@@ -20,17 +20,13 @@
  *
  */
 
+import { ContentPluginConfig, ContentPluginProps } from '@react-page/core';
 import * as React from 'react';
-
-import {
-  ContentPluginProps,
-  ContentPluginConfig
-} from '@react-page/core/lib/service/plugin/classes';
 import Html5Video from './Component';
-import { Html5VideoSettings } from './types/settings';
-import { Html5VideoProps } from './types/component';
-import { Html5VideoState } from './types/state';
 import { defaultSettings } from './default/settings';
+import { Html5VideoProps } from './types/component';
+import { Html5VideoSettings } from './types/settings';
+import { Html5VideoState } from './types/state';
 
 export type Props = ContentPluginProps;
 
