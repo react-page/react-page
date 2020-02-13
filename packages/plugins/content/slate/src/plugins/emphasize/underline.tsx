@@ -11,5 +11,6 @@ export default createMarkPlugin({
   type: 'EMPHASIZE/U',
   tagName: 'u',
   icon: <UnderlinedIcon />,
+  label: 'Underline',
   hotKey: 'mod+u',
 });

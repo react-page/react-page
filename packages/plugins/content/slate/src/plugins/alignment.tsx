@@ -17,6 +17,7 @@ const AlignJustifyIcon = lazyLoad(() =>
 
 const left = createDataPlugin<{ align: 'left' }>({
   icon: <AlignLeftIcon />,
+  label: 'Align Left',
   object: 'block',
   addToolbarButton: true,
   addHoverButton: false,
@@ -26,6 +27,7 @@ const left = createDataPlugin<{ align: 'left' }>({
 
 const center = createDataPlugin<{ align: 'center' }>({
   icon: <AlignCenterIcon />,
+  label: 'Align Center',
   object: 'block',
   addToolbarButton: true,
   addHoverButton: false,
@@ -35,6 +37,7 @@ const center = createDataPlugin<{ align: 'center' }>({
 
 const right = createDataPlugin<{ align: 'right' }>({
   icon: <AlignRightIcon />,
+  label: 'Align Right',
   object: 'block',
   addToolbarButton: true,
   addHoverButton: false,
@@ -44,6 +47,7 @@ const right = createDataPlugin<{ align: 'right' }>({
 
 const justify = createDataPlugin<{ align: 'justify' }>({
   icon: <AlignJustifyIcon />,
+  label: 'Align Justify',
   object: 'block',
   addToolbarButton: true,
   addHoverButton: false,

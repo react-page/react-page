@@ -6,6 +6,7 @@ type MarkPluginDefinition = {
   tagName: keyof JSX.IntrinsicElements;
   icon?: JSX.Element;
   hotKey?: string;
+  label?: string;
 };
 
 export default (markDef: MarkPluginDefinition) => {
@@ -14,6 +15,7 @@ export default (markDef: MarkPluginDefinition) => {
     object: 'mark',
     hotKey: markDef.hotKey,
     icon: markDef.icon,
+    label: markDef.label,
     addToolbarButton: false,
     addHoverButton: true,
     deserialize: {

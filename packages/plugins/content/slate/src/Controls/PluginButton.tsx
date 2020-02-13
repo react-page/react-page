@@ -76,6 +76,7 @@ function PluginButton<T>(props: Props<T>) {
           plugin.icon ||
           (plugin.pluginType === 'component' && plugin.deserialize.tagName)
         }
+        toolTip={plugin.label}
       />
 
       {hasControls ? (

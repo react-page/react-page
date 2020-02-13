@@ -8,6 +8,7 @@ export default {
   blockQuote: createSimpleHtmlBlockPlugin({
     type: 'BLOCKQUOTE/BLOCKQUOTE',
     icon: <BlockquoteIcon />,
+    label: 'Quote',
     tagName: 'blockquote',
   }),
 };
