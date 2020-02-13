@@ -15,6 +15,7 @@ export default {
     align: Align;
   }>({
     type: 'PARAGRAPH/PARAGRAPH',
+    label: 'Paragraph',
     object: 'block',
     addToolbarButton: false,
     addHoverButton: false,

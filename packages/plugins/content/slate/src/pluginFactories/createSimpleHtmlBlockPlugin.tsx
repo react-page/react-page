@@ -7,6 +7,7 @@ type Def<T extends {}> = Pick<
   SlateComponentPluginDefinition<HtmlBlockData<T>>,
   | 'type'
   | 'icon'
+  | 'label'
   | 'customAdd'
   | 'customRemove'
   | 'isDisabled'
@@ -36,6 +37,7 @@ function createSimpleHtmlBlockPlugin<T = {}>(def: Def<HtmlBlockData<T>>) {
     hotKey: def.hotKey,
     replaceWithDefaultOnRemove: def.replaceWithDefaultOnRemove,
     icon: def.icon,
+    label: def.label,
     onKeyDown: def.onKeyDown,
     addToolbarButton: !def.noButton,
     customAdd: def.customAdd,

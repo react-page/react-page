@@ -16,6 +16,7 @@ function createHeadingsPlugin<T = {}>(def: HeadingsDef<T>) {
     hotKey: 'mod+' + def.level,
     replaceWithDefaultOnRemove: true,
     icon: def.icon,
+    label: `Heading ${def.level}`,
     tagName: 'h' + def.level,
   });
 }

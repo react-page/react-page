@@ -14,6 +14,7 @@ export default {
     type: 'LINK/LINK',
     object: 'inline',
     icon: <LinkIcon />,
+    label: 'Link',
     addHoverButton: true,
     addToolbarButton: true,
     schema: {

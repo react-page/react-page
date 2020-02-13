@@ -9,6 +9,7 @@ export default pluginFactories.createComponentPlugin<{
   type: 'SetColor',
   object: 'mark',
   icon: <span>Color</span>,
+  label: 'Set Color',
   Component: props => {
     return <span style={{ color: props.color }}>{props.children}</span>;
   },

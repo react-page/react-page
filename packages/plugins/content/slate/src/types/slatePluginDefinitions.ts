@@ -34,6 +34,7 @@ export type SlateBasePluginDefinition<T extends {}> = {
   schema?: JsonSchema<T>;
   Controls?: React.ComponentType<SlatePluginControls<T>>;
   icon?: JSX.Element;
+  label?: string;
   addHoverButton: boolean;
   addToolbarButton: boolean;
   customAdd?: (editor: ReactEditor) => void;

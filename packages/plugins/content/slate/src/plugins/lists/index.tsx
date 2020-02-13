@@ -26,6 +26,7 @@ const ol = createListsPlugin({
   type: OL,
   allListTypes: [UL, OL],
   icon: <OrderedListIcon />,
+  label: 'Ordered List',
   tagName: 'ol',
   listItem: {
     tagName: 'li',
@@ -37,6 +38,7 @@ const ul = createListsPlugin({
   type: UL,
   allListTypes: [UL, OL],
   icon: <ListIcon />,
+  label: 'Unordered List',
   tagName: 'ul',
   listItem: {
     tagName: 'li',
@@ -55,6 +57,8 @@ const indention = createIndentionPlugin({
   iconDecrease: <DecreaseIndentIcon />,
   listItemType: LI,
   allListTypes: [UL, OL],
+  labelIncrease: 'Increase Indentation',
+  labelDecrease: 'Decrease Indentation',
 });
 
 export default {

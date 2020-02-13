@@ -8,6 +8,7 @@ const block = createComponentPlugin({
   type: 'CODE/CODE',
   object: 'block',
   icon: <Icon />,
+  label: 'Code Block',
   addToolbarButton: true,
   addHoverButton: false,
   deserialize: {
@@ -33,6 +34,7 @@ const mark = createComponentPlugin({
   type: 'CODE/CODE',
   object: 'mark',
   icon: <Icon />,
+  label: 'Code',
   addHoverButton: true,
   addToolbarButton: false,
   deserialize: {

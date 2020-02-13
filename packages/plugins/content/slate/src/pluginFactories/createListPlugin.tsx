@@ -13,6 +13,7 @@ import {
 type ListDef = {
   type: string;
   icon?: JSX.Element;
+  label?: string;
   hotKey?: string;
   tagName: string;
   noButton?: boolean; // for Li, this is automatically
@@ -40,6 +41,7 @@ function createSlatePlugins<T, CT>(
     createSimpleHtmlBlockPlugin<T>({
       type: def.type,
       icon: def.icon,
+      label: def.label,
       noButton: def.noButton,
       tagName: def.tagName,
 

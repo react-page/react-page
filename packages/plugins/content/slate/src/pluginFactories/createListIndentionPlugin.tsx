@@ -11,6 +11,8 @@ type Definition = {
   iconDecrease: JSX.Element;
   listItemType: string;
   allListTypes: string[];
+  labelIncrease?: string;
+  labelDecrease?: string;
 };
 
 const ceateSlatePlugin = (def: Definition): SlatePlugin[] => {
@@ -20,6 +22,7 @@ const ceateSlatePlugin = (def: Definition): SlatePlugin[] => {
       addToolbarButton: true,
       addHoverButton: false,
       icon: def.iconIncrease,
+      label: def.labelIncrease,
       customAdd: editor => {
         increaseListIndention(editor, {
           allListTypes: def.allListTypes,
@@ -42,6 +45,7 @@ const ceateSlatePlugin = (def: Definition): SlatePlugin[] => {
       addToolbarButton: true,
       addHoverButton: false,
       icon: def.iconDecrease,
+      label: def.labelDecrease,
       customAdd: editor => {
         decreaseListIndention(editor, {
           allListTypes: def.allListTypes,

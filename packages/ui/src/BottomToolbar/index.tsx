@@ -3,7 +3,8 @@ import {
   Divider,
   Grid,
   IconButton,
-  Typography
+  Typography,
+  Tooltip
 } from '@material-ui/core';
 import Drawer from '@material-ui/core/Drawer';
 import Delete from '@material-ui/icons/Delete';
@@ -104,13 +105,15 @@ const BottomToolbar: React.SFC<BottomToolbarProps> = ({
               </Grid>
               <Grid item={true}>
                 {' '}
-                <IconButton
-                  onClick={toggleSize}
-                  aria-label="toggle Size"
-                  color="primary"
-                >
-                  <FormatSize />
-                </IconButton>
+                <Tooltip title="Toggle Size">
+                  <IconButton
+                    onClick={toggleSize}
+                    aria-label="toggle Size"
+                    color="primary"
+                  >
+                    <FormatSize />
+                  </IconButton>
+                </Tooltip>
               </Grid>
 
               <Grid item={true} style={{ marginLeft: 'auto' }}>
@@ -118,13 +121,15 @@ const BottomToolbar: React.SFC<BottomToolbarProps> = ({
                 <DuplicateButton id={id} editable={editable} />
 
                 {onDelete ? (
-                  <IconButton
-                    onClick={onDelete}
-                    aria-label="delete"
-                    color="secondary"
-                  >
-                    <Delete />
-                  </IconButton>
+                  <Tooltip title="Remove Plugin">
+                    <IconButton
+                      onClick={onDelete}
+                      aria-label="delete"
+                      color="secondary"
+                    >
+                      <Delete />
+                    </IconButton>
+                  </Tooltip>
                 ) : null}
               </Grid>
             </Grid>

@@ -9,5 +9,6 @@ export default createMarkPlugin({
   type: 'EMPHASIZE/EM',
   tagName: 'em',
   icon: <ItalicIcon />,
+  label: 'Italic',
   hotKey: 'mod+i',
 });
