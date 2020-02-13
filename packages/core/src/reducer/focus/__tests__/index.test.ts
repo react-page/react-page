@@ -20,13 +20,12 @@
  *
  */
 
-import * as unexpected from 'unexpected';
 import { combineReducers, createStore } from 'redux';
-import identity from 'ramda/src/identity';
-
+import * as unexpected from 'unexpected';
 import { blurCell, focusCell } from '../../../actions/cell/index';
-import { focus } from '../index';
 import { RootState } from '../../../types/state';
+import { focus } from '../index';
+const identity = <T>(arg: T) => arg;
 
 const expect = unexpected.clone();
 

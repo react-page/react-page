@@ -20,20 +20,19 @@
  *
  */
 
-import * as unexpected from 'unexpected';
 import { combineReducers, createStore } from 'redux';
-import identity from 'ramda/src/identity';
-import {
-  createEditable,
-  createCell,
-  createRow,
-  createContentCell
-} from '../../editable/__tests__/index.test';
-
+import * as unexpected from 'unexpected';
 import { updateEditable } from '../../../actions/editables';
-import { editables } from '../index';
 import { RootState } from '../../../types/state';
+import {
+  createCell,
+  createContentCell,
+  createEditable,
+  createRow
+} from '../../editable/__tests__/index.test';
+import { editables } from '../index';
 
+const identity = <T>(arg: T) => arg;
 const expect = unexpected.clone();
 
 const someState = createEditable('editable', [
