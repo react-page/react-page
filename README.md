@@ -32,7 +32,7 @@ We also provide docummentations for all of the public api methods, the docs are 
 
 ## Attributions
 
-Formely known as ORY Editor
+Formerly known as ORY Editor
 
 Original Library created by [@aeneasr](https://github.com/aeneasr) [@ory](https://github.com/ory)
 
