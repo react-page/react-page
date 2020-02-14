@@ -15,23 +15,20 @@ type Props = {
 };
 const Editable: React.FC<Props> = ({ id, onChange }) => {
   const editor = useEditor();
-  const previousStateRef = useRef<EditorState>();
   const previousSerializedRef = useRef<Serialized>();
   useEffect(() => {
     const handleChanges = () => {
       const state: EditorState = editable(editor.store.getState(), {
         id: id,
       });
-      // prevent uneeded updates
 
-      const isEqual = equals(state, previousStateRef.current);
-      if (!state || isEqual) {
+      if (!state) {
         return;
       }
-      previousStateRef.current = state;
-
+      // prevent uneeded updates
       const serialized = editor.plugins.serialize(state);
       const serializedEqual = equals(previousSerializedRef.current, serialized);
+
       if (serializedEqual) {
         return;
       }
