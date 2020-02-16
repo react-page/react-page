@@ -6,7 +6,6 @@ import { AbstractCell, AbstractEditable, Row } from '../../types/editable';
 import { EditorState } from '../../types/editor';
 import HotKeyDecorator from '../HotKey/Decorator';
 import Inner from './Inner';
-
 type Serialized = AbstractEditable<AbstractCell<Row>>;
 
 type Props = {
