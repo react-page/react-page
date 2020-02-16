@@ -6,7 +6,6 @@ import Editor, { createEmptyState, EditorProps } from './Editor';
 import { InitialChildrenDef } from './helper/createInitialChildren';
 import lazyLoad from './helper/lazyLoad';
 import sanitizeInitialChildren from './helper/sanitizeInitialChildren';
-import { shouldPureComponentUpdate } from './helper/shouldComponentUpdate';
 import Provider, { useEditor } from './Provider';
 import { reducer } from './reducer';
 import { editable as editableReducer } from './reducer/editable';
@@ -38,7 +37,6 @@ import { RootState } from './types/state';
 export { BackendFactory as DndBackend, DropTarget, DragSource };
 export {
   Migration,
-  shouldPureComponentUpdate,
   createEmptyState,
   EditorProps,
   Plugin,

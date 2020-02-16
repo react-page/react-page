@@ -1,9 +1,4 @@
-import {
-  Actions,
-  connect,
-  DragSource,
-  shouldPureComponentUpdate
-} from '@react-page/core';
+import { Actions, connect, DragSource } from '@react-page/core';
 import classNames from 'classnames';
 import * as React from 'react';
 import { collect, source } from './helper/index';
@@ -20,9 +15,7 @@ export interface DraggableProps {
   layoutMode(): void;
 }
 
-class Draggable extends React.Component<DraggableProps> {
-  shouldComponentUpdate = shouldPureComponentUpdate;
-
+class Draggable extends React.PureComponent<DraggableProps> {
   componentDidMount() {
     const img = new Image();
     img.onload = () => this.props.connectDragPreview(img);
