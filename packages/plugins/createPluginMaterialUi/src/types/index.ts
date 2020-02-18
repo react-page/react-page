@@ -13,7 +13,7 @@ export type ControlsLayout = {
   columnCount: number;
 };
 type CommonProps<T extends {}> = {
-  schema: Omit<JsonSchema<T>, 'type'>;
+  schema?: Omit<JsonSchema<T>, 'type'>;
   controlsLayout?: ControlsLayout;
 };
 
