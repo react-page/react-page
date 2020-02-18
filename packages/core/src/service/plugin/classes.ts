@@ -20,11 +20,11 @@
  *
  */
 
-import semver from 'semver';
 import { AnyAction } from 'redux';
-import { Omit } from '../../types/omit';
-import { NativeFactory, AbstractCell } from '../../types/editable';
+import semver from 'semver';
 import { InitialChildrenDef } from '../../helper/createInitialChildren';
+import { AbstractCell, NativeFactory } from '../../types/editable';
+import { Omit } from '../../types/omit';
 
 export type Plugins = {
   layout?: LayoutPluginConfig[];
@@ -121,7 +121,6 @@ export type ContentPluginProps<
 export type LayoutPluginExtraProps<T = any> = {
   // tslint:disable-next-line:no-any
   createInitialChildren?: () => InitialChildrenDef;
-  plugins?: Pick<Plugins, 'content' | 'layout'>;
 
   Component?: PluginComponentType<LayoutPluginProps<T>>;
 };
@@ -495,22 +494,9 @@ export class LayoutPlugin<StateT = any> extends Plugin<
   StateT,
   LayoutPluginExtraProps
 > {
-  // child plugins. They are only relevant for childrens on renderings
-  plugins?: Pick<PluginsInternal, 'layout' | 'content'>;
   constructor(config: LayoutPluginConfig<StateT>) {
     super(config);
     const { createInitialState, createInitialChildren } = config;
-    // child plugins
-    this.plugins = config.plugins
-      ? {
-          content: config.plugins.content
-            ? config.plugins.content.map(p => new ContentPlugin(p))
-            : null,
-          layout: config.plugins.layout
-            ? config.plugins.layout.map(p => new LayoutPlugin(p))
-            : null,
-        }
-      : null;
 
     this.createInitialState = createInitialState
       ? createInitialState.bind(this)
