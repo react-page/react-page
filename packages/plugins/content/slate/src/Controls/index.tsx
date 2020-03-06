@@ -17,14 +17,16 @@ const SlateEditable = React.memo(
     plugins: SlatePlugin[];
     defaultPluginType: string;
     readOnly: boolean;
+    placeholder: string;
   }) => {
-    const { plugins, defaultPluginType, readOnly } = props;
+    const { plugins, defaultPluginType, readOnly, placeholder } = props;
     const renderElement = useRenderElement({ plugins, defaultPluginType }, []);
     const renderLeaf = useRenderLeave({ plugins }, []);
     const onKeyDown = readOnly ? undefined : useOnKeyDown({ plugins }, []);
 
     return (
       <Editable
+        placeholder={placeholder}
         readOnly={readOnly}
         renderElement={renderElement}
         renderLeaf={renderLeaf}
@@ -79,6 +81,7 @@ const SlateControls = (props: SlateProps) => {
       )}
 
       <SlateEditable
+        placeholder={props.translations.placeholder}
         readOnly={readOnly}
         plugins={plugins}
         defaultPluginType={props.defaultPluginType}
