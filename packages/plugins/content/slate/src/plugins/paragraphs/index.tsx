@@ -28,4 +28,22 @@ export default {
       return <p style={{ textAlign: align }}>{children}</p>;
     },
   }),
+  // currently only for deserialize
+  pre: createComponentPlugin<{
+    align: Align;
+  }>({
+    type: 'PARAGRAPH/PRE',
+    label: 'Pre',
+    object: 'block',
+    addToolbarButton: false,
+    addHoverButton: false,
+    deserialize: {
+      tagName: 'pre',
+      getData: getAlignmentFromElement,
+    },
+
+    Component: ({ children, align }) => {
+      return <pre style={{ textAlign: align }}>{children}</pre>;
+    },
+  }),
 };

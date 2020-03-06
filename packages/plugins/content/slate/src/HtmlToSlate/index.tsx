@@ -7,7 +7,7 @@ import parseHtml from './parseHtml';
 const HtmlToSlate = ({ plugins }: { plugins: SlatePlugin[] }) => {
   const deserializeElement = (el: Node) => {
     if (el.nodeType === 3) {
-      return el.textContent && el.textContent.replace('\n', '');
+      return el.textContent;
     } else if (el.nodeType !== 1) {
       return null;
     } else if (el.nodeName === 'BR') {

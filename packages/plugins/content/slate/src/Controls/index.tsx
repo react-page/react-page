@@ -37,9 +37,21 @@ const SlateEditable = React.memo(
 );
 
 const SlateControls = (props: SlateProps) => {
-  const { state, plugins, focused, readOnly, remove, id } = props;
+  const {
+    state,
+    plugins,
+    focused,
+    readOnly,
+    remove,
+    id,
+    defaultPluginType,
+  } = props;
   const editor = useMemo(
-    () => withPaste(plugins)(withReact(withInline(plugins)(createEditor()))),
+    () =>
+      withPaste(
+        plugins,
+        defaultPluginType
+      )(withReact(withInline(plugins)(createEditor()))),
     []
   );
   // useWhyDidYouUpdate('SlateControls' + id, props);
