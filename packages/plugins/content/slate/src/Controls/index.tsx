@@ -26,7 +26,7 @@ const SlateEditable = React.memo(
 
     return (
       <Editable
-        placeholder={placeholder}
+        placeholder={readOnly ? undefined : placeholder}
         readOnly={readOnly}
         renderElement={renderElement}
         renderLeaf={renderLeaf}
