@@ -2,6 +2,7 @@ import slate from '@react-page/plugins-slate';
 import '@react-page/plugins-slate/lib/index.css';
 import React from 'react';
 import customSlatePlugin from './customSlatePlugin';
+import katexSlatePlugin from './katexSlatePlugin';
 
 export const defaultSlate = slate(def => ({
   ...def,
@@ -9,6 +10,7 @@ export const defaultSlate = slate(def => ({
     ...def.plugins,
     custom: {
       custom1: customSlatePlugin,
+      katex: katexSlatePlugin
     },
   },
 }));
