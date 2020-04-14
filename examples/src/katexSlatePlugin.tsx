@@ -3,9 +3,7 @@ import { pluginFactories } from "@react-page/plugins-slate";
 import { BlockMath  } from 'react-katex'
 import 'katex/dist/katex.min.css'
 
-export default pluginFactories.createComponentPlugin<{
-    color: string;
-  }>({
+export default pluginFactories.createComponentPlugin({
   Component: props => {
     return(  
         <div data-slate-void="true">    
