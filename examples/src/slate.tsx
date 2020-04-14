@@ -10,7 +10,7 @@ export const defaultSlate = slate(def => ({
     ...def.plugins,
     custom: {
       custom1: customSlatePlugin,
-      katex: katexSlatePlugin
+      katex: katexSlatePlugin,
     },
   },
 }));

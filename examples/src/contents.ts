@@ -20,172 +20,90 @@ const contents: EditableType[] = [
                 content: {
                   plugin: {
                     name: 'ory/editor/core/content/slate',
-                    version: '0.0.2',
+                    version: '0.0.4',
                   },
                   state: {
-                    serialized: {
-                      object: 'value',
-                      document: {
-                        object: 'document',
-                        data: {},
-                        nodes: [
+                    slate: [
+                      {
+                        data: {
+                          align: 'center',
+                        },
+                        type: 'HEADINGS/HEADING-ONE',
+                        children: [
                           {
-                            object: 'block',
-                            type: 'HEADINGS/HEADING-ONE',
-                            isVoid: false,
-                            data: {
-                              align: 'center',
-                            },
-                            nodes: [
-                              {
-                                object: 'text',
-                                leaves: [
-                                  {
-                                    object: 'leaf',
-                                    text: 'ReactPage',
-                                    marks: [],
-                                  },
-                                ],
-                              },
-                            ],
-                          },
-                          {
-                            object: 'block',
-                            type: 'PARAGRAPH/PARAGRAPH',
-                            isVoid: false,
-                            data: {
-                              align: 'left',
-                            },
-                            nodes: [
-                              {
-                                object: 'text',
-                                leaves: [
-                                  {
-                                    object: 'leaf',
-                                    text: '',
-                                    marks: [],
-                                  },
-                                ],
-                              },
-                              {
-                                object: 'inline',
-                                type: 'LINK/LINK',
-                                isVoid: false,
-                                data: {
-                                  href: 'https://www.ory.sh/',
-                                },
-                                nodes: [
-                                  {
-                                    object: 'text',
-                                    leaves: [
-                                      {
-                                        object: 'leaf',
-                                        text: 'ORY',
-                                        marks: [],
-                                      },
-                                    ],
-                                  },
-                                ],
-                              },
-                              {
-                                object: 'text',
-                                leaves: [
-                                  {
-                                    object: 'leaf',
-                                    text:
-                                      ' is a company building and maintaining developer tools for a safer, more accessible web. You might also like our other ',
-                                    marks: [],
-                                  },
-                                ],
-                              },
-                              {
-                                object: 'inline',
-                                type: 'LINK/LINK',
-                                isVoid: false,
-                                data: {
-                                  href: 'https://github.com/ory',
-                                },
-                                nodes: [
-                                  {
-                                    object: 'text',
-                                    leaves: [
-                                      {
-                                        object: 'leaf',
-                                        text: 'Open Source',
-                                        marks: [],
-                                      },
-                                    ],
-                                  },
-                                ],
-                              },
-                              {
-                                object: 'text',
-                                leaves: [
-                                  {
-                                    object: 'leaf',
-                                    text:
-                                      ' tools! ReactPage is a smart, extensible and modern editor ("WYSIWYG") for the web written in React.',
-                                    marks: [],
-                                  },
-                                ],
-                              },
-                            ],
-                          },
-                          {
-                            object: 'block',
-                            type: 'PARAGRAPH/PARAGRAPH',
-                            isVoid: false,
-                            data: {
-                              align: 'left',
-                            },
-                            nodes: [
-                              {
-                                object: 'text',
-                                leaves: [
-                                  {
-                                    object: 'leaf',
-                                    text:
-                                      'ReactPage was written because we urgently needed a robust and modern content editing solution for our open education platform ',
-                                    marks: [],
-                                  },
-                                ],
-                              },
-                              {
-                                object: 'inline',
-                                type: 'LINK/LINK',
-                                isVoid: false,
-                                data: {
-                                  href: 'https://en.serlo.org/serlo',
-                                },
-                                nodes: [
-                                  {
-                                    object: 'text',
-                                    leaves: [
-                                      {
-                                        object: 'leaf',
-                                        text: 'serlo.org',
-                                        marks: [],
-                                      },
-                                    ],
-                                  },
-                                ],
-                              },
-                              {
-                                object: 'text',
-                                leaves: [
-                                  {
-                                    object: 'leaf',
-                                    text:
-                                      '. Serlo is the largest open education platform in Germany, works like the Wikipedia and is used by millions every year.',
-                                    marks: [],
-                                  },
-                                ],
-                              },
-                            ],
+                            text: 'ReactPage',
                           },
                         ],
                       },
-                    },
+                      {
+                        data: {
+                          align: 'left',
+                        },
+                        type: 'PARAGRAPH/PARAGRAPH',
+                        children: [
+                          {
+                            text: '',
+                          },
+                          {
+                            data: {
+                              href: 'https://www.ory.sh/',
+                            },
+                            type: 'LINK/LINK',
+                            children: [
+                              {
+                                text: 'ORY',
+                              },
+                            ],
+                          },
+                          {
+                            text:
+                              ' is a company building and maintaining developer tools for a safer, more accessible web. You might also like our other ',
+                          },
+                          {
+                            data: {
+                              href: 'https://github.com/ory',
+                            },
+                            type: 'LINK/LINK',
+                            children: [
+                              {
+                                text: 'Open Source',
+                              },
+                            ],
+                          },
+                          {
+                            text:
+                              ' tools! ReactPage is a smart, extensible and modern editor ("WYSIWYG") for the web written in React.',
+                          },
+                        ],
+                      },
+                      {
+                        data: {
+                          align: 'left',
+                        },
+                        type: 'PARAGRAPH/PARAGRAPH',
+                        children: [
+                          {
+                            text:
+                              'ReactPage was written because we urgently needed a robust and modern content editing solution for our open education platform ',
+                          },
+                          {
+                            data: {
+                              href: 'https://en.serlo.org/serlo',
+                            },
+                            type: 'LINK/LINK',
+                            children: [
+                              {
+                                text: 'serlo.org',
+                              },
+                            ],
+                          },
+                          {
+                            text:
+                              '. Serlo is the largest open education platform in Germany, works like the Wikipedia and is used by millions every year.',
+                          },
+                        ],
+                      },
+                    ],
                   },
                 },
               },
@@ -201,158 +119,81 @@ const contents: EditableType[] = [
                 content: {
                   plugin: {
                     name: 'ory/editor/core/content/slate',
-                    version: '0.0.2',
+                    version: '0.0.4',
                   },
                   state: {
-                    serialized: {
-                      object: 'value',
-                      document: {
-                        object: 'document',
-                        data: {},
-                        nodes: [
+                    slate: [
+                      {
+                        data: {
+                          align: 'left',
+                        },
+                        type: 'HEADINGS/HEADING-THREE',
+                        children: [
                           {
-                            object: 'block',
-                            type: 'HEADINGS/HEADING-THREE',
-                            isVoid: false,
-                            data: {
-                              align: 'left',
-                            },
-                            nodes: [
-                              {
-                                object: 'text',
-                                leaves: [
-                                  {
-                                    object: 'leaf',
-                                    text: 'ORY Sites',
-                                    marks: [],
-                                  },
-                                ],
-                              },
-                            ],
-                          },
-                          {
-                            object: 'block',
-                            type: 'PARAGRAPH/PARAGRAPH',
-                            isVoid: false,
-                            data: {},
-                            nodes: [
-                              {
-                                object: 'text',
-                                leaves: [
-                                  {
-                                    object: 'leaf',
-                                    text: 'ORY Sites is an ',
-                                    marks: [],
-                                  },
-                                  {
-                                    object: 'leaf',
-                                    text: 'next-gen',
-                                    marks: [
-                                      {
-                                        object: 'mark',
-                                        type: 'EMPHASIZE/STRONG',
-                                        data: {},
-                                      },
-                                    ],
-                                  },
-                                  {
-                                    object: 'leaf',
-                                    text: ' ',
-                                    marks: [],
-                                  },
-                                  {
-                                    object: 'leaf',
-                                    text: 'open source static site generator',
-                                    marks: [
-                                      {
-                                        object: 'mark',
-                                        type: 'EMPHASIZE/STRONG',
-                                        data: {},
-                                      },
-                                    ],
-                                  },
-                                  {
-                                    object: 'leaf',
-                                    text:
-                                      ' based on ReactPage. Create stunning websites, write your own designs and plugins, and be done with databases, application servers, and security updates.',
-                                    marks: [],
-                                  },
-                                ],
-                              },
-                            ],
-                          },
-                          {
-                            object: 'block',
-                            type: 'HEADINGS/HEADING-FIVE',
-                            isVoid: false,
-                            data: {
-                              align: 'center',
-                            },
-                            nodes: [
-                              {
-                                object: 'text',
-                                leaves: [
-                                  {
-                                    object: 'leaf',
-                                    text: '',
-                                    marks: [],
-                                  },
-                                ],
-                              },
-                              {
-                                object: 'inline',
-                                type: 'LINK/LINK',
-                                isVoid: false,
-                                data: {
-                                  href:
-                                    'https://www.ory.sh/sites?utm_source=github&utm_medium=link&utm_campaign=editor_demo',
-                                },
-                                nodes: [
-                                  {
-                                    object: 'text',
-                                    leaves: [
-                                      {
-                                        object: 'leaf',
-                                        text: 'Learn more about ORY Sites!',
-                                        marks: [],
-                                      },
-                                    ],
-                                  },
-                                ],
-                              },
-                              {
-                                object: 'text',
-                                leaves: [
-                                  {
-                                    object: 'leaf',
-                                    text: '',
-                                    marks: [],
-                                  },
-                                ],
-                              },
-                            ],
-                          },
-                          {
-                            object: 'block',
-                            type: 'PARAGRAPH/PARAGRAPH',
-                            isVoid: false,
-                            data: {},
-                            nodes: [
-                              {
-                                object: 'text',
-                                leaves: [
-                                  {
-                                    object: 'leaf',
-                                    text: '',
-                                    marks: [],
-                                  },
-                                ],
-                              },
-                            ],
+                            text: 'ORY Sites',
                           },
                         ],
                       },
-                    },
+                      {
+                        data: {},
+                        type: 'PARAGRAPH/PARAGRAPH',
+                        children: [
+                          {
+                            text: 'ORY Sites is an ',
+                          },
+                          {
+                            text: 'next-gen',
+                            'EMPHASIZE/STRONG': true,
+                          },
+                          {
+                            text: ' ',
+                          },
+                          {
+                            text: 'open source static site generator',
+                            'EMPHASIZE/STRONG': true,
+                          },
+                          {
+                            text:
+                              ' based on ReactPage. Create stunning websites, write your own designs and plugins, and be done with databases, application servers, and security updates.',
+                          },
+                        ],
+                      },
+                      {
+                        data: {
+                          align: 'center',
+                        },
+                        type: 'HEADINGS/HEADING-FIVE',
+                        children: [
+                          {
+                            text: '',
+                          },
+                          {
+                            data: {
+                              href:
+                                'https://www.ory.sh/sites?utm_source=github&utm_medium=link&utm_campaign=editor_demo',
+                            },
+                            type: 'LINK/LINK',
+                            children: [
+                              {
+                                text: 'Learn more about ORY Sites!',
+                              },
+                            ],
+                          },
+                          {
+                            text: '',
+                          },
+                        ],
+                      },
+                      {
+                        data: {},
+                        type: 'PARAGRAPH/PARAGRAPH',
+                        children: [
+                          {
+                            text: '',
+                          },
+                        ],
+                      },
+                    ],
                   },
                 },
               },
@@ -382,38 +223,22 @@ const contents: EditableType[] = [
                 content: {
                   plugin: {
                     name: 'ory/editor/core/content/slate',
-                    version: '0.0.2',
+                    version: '0.0.4',
                   },
                   state: {
-                    serialized: {
-                      object: 'value',
-                      document: {
-                        object: 'document',
-                        data: {},
-                        nodes: [
+                    slate: [
+                      {
+                        data: {
+                          align: 'center',
+                        },
+                        type: 'HEADINGS/HEADING-TWO',
+                        children: [
                           {
-                            object: 'block',
-                            type: 'HEADINGS/HEADING-TWO',
-                            isVoid: false,
-                            data: {
-                              align: 'center',
-                            },
-                            nodes: [
-                              {
-                                object: 'text',
-                                leaves: [
-                                  {
-                                    object: 'leaf',
-                                    text: 'What\'s the problem?',
-                                    marks: [],
-                                  },
-                                ],
-                              },
-                            ],
+                            text: 'What\'s the problem?',
                           },
                         ],
                       },
-                    },
+                    ],
                   },
                 },
               },
@@ -443,102 +268,57 @@ const contents: EditableType[] = [
                 content: {
                   plugin: {
                     name: 'ory/editor/core/content/slate',
-                    version: '0.0.2',
+                    version: '0.0.4',
                   },
                   state: {
-                    serialized: {
-                      object: 'value',
-                      document: {
-                        object: 'document',
+                    slate: [
+                      {
                         data: {},
-                        nodes: [
+                        type: 'PARAGRAPH/PARAGRAPH',
+                        children: [
                           {
-                            object: 'block',
-                            type: 'PARAGRAPH/PARAGRAPH',
-                            isVoid: false,
+                            text:
+                              'We had to realize that existing open source content editing solutions had one of the three flaws:\r',
+                          },
+                        ],
+                      },
+                      {
+                        data: {},
+                        type: 'LISTS/UNORDERED-LIST',
+                        children: [
+                          {
                             data: {},
-                            nodes: [
+                            type: 'LISTS/LIST-ITEM',
+                            children: [
                               {
-                                object: 'text',
-                                leaves: [
-                                  {
-                                    object: 'leaf',
-                                    text:
-                                      'We had to realize that existing open source content editing solutions had one of the three flaws:\r',
-                                    marks: [],
-                                  },
-                                ],
+                                text:
+                                  'The produced markup was horrific, a lot of sanitation had to take place and XSS is always a threat.\r',
                               },
                             ],
                           },
                           {
-                            object: 'block',
-                            type: 'LISTS/UNORDERED-LIST',
-                            isVoid: false,
                             data: {},
-                            nodes: [
+                            type: 'LISTS/LIST-ITEM',
+                            children: [
                               {
-                                object: 'block',
-                                type: 'LISTS/LIST-ITEM',
-                                isVoid: false,
-                                data: {},
-                                nodes: [
-                                  {
-                                    object: 'text',
-                                    leaves: [
-                                      {
-                                        object: 'leaf',
-                                        text:
-                                          'The produced markup was horrific, a lot of sanitation had to take place and XSS is always a threat.\r',
-                                        marks: [],
-                                      },
-                                    ],
-                                  },
-                                ],
+                                text:
+                                  'The author must learn special mark up, like markdown, before being able to produce content. These text-based solutions are usually unable to specify a layout and complex data structures like tables are annoying to edit.\r',
                               },
+                            ],
+                          },
+                          {
+                            data: {},
+                            type: 'LISTS/LIST-ITEM',
+                            children: [
                               {
-                                object: 'block',
-                                type: 'LISTS/LIST-ITEM',
-                                isVoid: false,
-                                data: {},
-                                nodes: [
-                                  {
-                                    object: 'text',
-                                    leaves: [
-                                      {
-                                        object: 'leaf',
-                                        text:
-                                          'The author must learn special mark up, like markdown, before being able to produce content. These text-based solutions are usually unable to specify a layout and complex data structures like tables are annoying to edit.\r',
-                                        marks: [],
-                                      },
-                                    ],
-                                  },
-                                ],
-                              },
-                              {
-                                object: 'block',
-                                type: 'LISTS/LIST-ITEM',
-                                isVoid: false,
-                                data: {},
-                                nodes: [
-                                  {
-                                    object: 'text',
-                                    leaves: [
-                                      {
-                                        object: 'leaf',
-                                        text:
-                                          'Promising libraries potentially solving the above where abandoned by their maintainers, because it started as a special use case, or a free-time project.\r',
-                                        marks: [],
-                                      },
-                                    ],
-                                  },
-                                ],
+                                text:
+                                  'Promising libraries potentially solving the above where abandoned by their maintainers, because it started as a special use case, or a free-time project.\r',
                               },
                             ],
                           },
                         ],
                       },
-                    },
+                    ],
                   },
                 },
               },
@@ -554,38 +334,22 @@ const contents: EditableType[] = [
                 content: {
                   plugin: {
                     name: 'ory/editor/core/content/slate',
-                    version: '0.0.2',
+                    version: '0.0.4',
                   },
                   state: {
-                    serialized: {
-                      object: 'value',
-                      document: {
-                        object: 'document',
-                        data: {},
-                        nodes: [
+                    slate: [
+                      {
+                        data: {
+                          align: 'center',
+                        },
+                        type: 'HEADINGS/HEADING-TWO',
+                        children: [
                           {
-                            object: 'block',
-                            type: 'HEADINGS/HEADING-TWO',
-                            isVoid: false,
-                            data: {
-                              align: 'center',
-                            },
-                            nodes: [
-                              {
-                                object: 'text',
-                                leaves: [
-                                  {
-                                    object: 'leaf',
-                                    text: 'So what\'s different?',
-                                    marks: [],
-                                  },
-                                ],
-                              },
-                            ],
+                            text: 'So what\'s different?',
                           },
                         ],
                       },
-                    },
+                    ],
                   },
                 },
               },
@@ -615,159 +379,86 @@ const contents: EditableType[] = [
                 content: {
                   plugin: {
                     name: 'ory/editor/core/content/slate',
-                    version: '0.0.2',
+                    version: '0.0.4',
                   },
                   state: {
-                    serialized: {
-                      object: 'value',
-                      document: {
-                        object: 'document',
+                    slate: [
+                      {
                         data: {},
-                        nodes: [
+                        type: 'PARAGRAPH/PARAGRAPH',
+                        children: [
                           {
-                            object: 'block',
-                            type: 'PARAGRAPH/PARAGRAPH',
-                            isVoid: false,
+                            text:
+                              'We concluded that a solution must meet the following principles:\r',
+                          },
+                        ],
+                      },
+                      {
+                        data: {},
+                        type: 'LISTS/UNORDERED-LIST',
+                        children: [
+                          {
                             data: {},
-                            nodes: [
+                            type: 'LISTS/LIST-ITEM',
+                            children: [
                               {
-                                object: 'text',
-                                leaves: [
-                                  {
-                                    object: 'leaf',
-                                    text:
-                                      'We concluded that a solution must meet the following principles:\r',
-                                    marks: [],
-                                  },
-                                ],
+                                text:
+                                  'The state is a normalized JSON object, no HTML involved.\r',
                               },
                             ],
                           },
                           {
-                            object: 'block',
-                            type: 'LISTS/UNORDERED-LIST',
-                            isVoid: false,
                             data: {},
-                            nodes: [
+                            type: 'LISTS/LIST-ITEM',
+                            children: [
                               {
-                                object: 'block',
-                                type: 'LISTS/LIST-ITEM',
-                                isVoid: false,
-                                data: {},
-                                nodes: [
-                                  {
-                                    object: 'text',
-                                    leaves: [
-                                      {
-                                        object: 'leaf',
-                                        text:
-                                          'The state is a normalized JSON object, no HTML involved.\r',
-                                        marks: [],
-                                      },
-                                    ],
-                                  },
-                                ],
-                              },
-                              {
-                                object: 'block',
-                                type: 'LISTS/LIST-ITEM',
-                                isVoid: false,
-                                data: {},
-                                nodes: [
-                                  {
-                                    object: 'text',
-                                    leaves: [
-                                      {
-                                        object: 'leaf',
-                                        text:
-                                          'It is a visual editor that does not require programming experience or special training.\r',
-                                        marks: [],
-                                      },
-                                    ],
-                                  },
-                                ],
-                              },
-                              {
-                                object: 'block',
-                                type: 'LISTS/LIST-ITEM',
-                                isVoid: false,
-                                data: {},
-                                nodes: [
-                                  {
-                                    object: 'text',
-                                    leaves: [
-                                      {
-                                        object: 'leaf',
-                                        text:
-                                          'It is built by a company, reducing the likelihood of abandonment.\r',
-                                        marks: [],
-                                      },
-                                    ],
-                                  },
-                                ],
-                              },
-                              {
-                                object: 'block',
-                                type: 'LISTS/LIST-ITEM',
-                                isVoid: false,
-                                data: {},
-                                nodes: [
-                                  {
-                                    object: 'text',
-                                    leaves: [
-                                      {
-                                        object: 'leaf',
-                                        text:
-                                          'Based on reusable React Components, it gives developers, authors and designers new ways of working together and creating better and richer experiences more easily.\r',
-                                        marks: [],
-                                      },
-                                    ],
-                                  },
-                                ],
-                              },
-                              {
-                                object: 'block',
-                                type: 'LISTS/LIST-ITEM',
-                                isVoid: false,
-                                data: {},
-                                nodes: [
-                                  {
-                                    object: 'text',
-                                    leaves: [
-                                      {
-                                        object: 'leaf',
-                                        text:
-                                          'It works on mobile and touch devices.\r',
-                                        marks: [],
-                                      },
-                                    ],
-                                  },
-                                ],
+                                text:
+                                  'It is a visual editor that does not require programming experience or special training.\r',
                               },
                             ],
                           },
                           {
-                            object: 'block',
-                            type: 'PARAGRAPH/PARAGRAPH',
-                            isVoid: false,
                             data: {},
-                            nodes: [
+                            type: 'LISTS/LIST-ITEM',
+                            children: [
                               {
-                                object: 'text',
-                                leaves: [
-                                  {
-                                    object: 'leaf',
-                                    text:
-                                      'With these principles in mind, we went out and implemented ReactPage, which you are looking at right now.',
-                                    marks: [],
-                                  },
-                                ],
+                                text:
+                                  'It is built by a company, reducing the likelihood of abandonment.\r',
+                              },
+                            ],
+                          },
+                          {
+                            data: {},
+                            type: 'LISTS/LIST-ITEM',
+                            children: [
+                              {
+                                text:
+                                  'Based on reusable React Components, it gives developers, authors and designers new ways of working together and creating better and richer experiences more easily.\r',
+                              },
+                            ],
+                          },
+                          {
+                            data: {},
+                            type: 'LISTS/LIST-ITEM',
+                            children: [
+                              {
+                                text: 'It works on mobile and touch devices.\r',
                               },
                             ],
                           },
                         ],
                       },
-                    },
+                      {
+                        data: {},
+                        type: 'PARAGRAPH/PARAGRAPH',
+                        children: [
+                          {
+                            text:
+                              'With these principles in mind, we went out and implemented ReactPage, which you are looking at right now.',
+                          },
+                        ],
+                      },
+                    ],
                   },
                 },
               },
@@ -802,38 +493,22 @@ const contents: EditableType[] = [
                 content: {
                   plugin: {
                     name: 'ory/editor/core/content/slate',
-                    version: '0.0.2',
+                    version: '0.0.4',
                   },
                   state: {
-                    serialized: {
-                      object: 'value',
-                      document: {
-                        object: 'document',
-                        data: {},
-                        nodes: [
+                    slate: [
+                      {
+                        data: {
+                          align: 'center',
+                        },
+                        type: 'HEADINGS/HEADING-TWO',
+                        children: [
                           {
-                            object: 'block',
-                            type: 'HEADINGS/HEADING-TWO',
-                            isVoid: false,
-                            data: {
-                              align: 'center',
-                            },
-                            nodes: [
-                              {
-                                object: 'text',
-                                leaves: [
-                                  {
-                                    object: 'leaf',
-                                    text: 'Feature Spotlight',
-                                    marks: [],
-                                  },
-                                ],
-                              },
-                            ],
+                            text: 'Feature Spotlight',
                           },
                         ],
                       },
-                    },
+                    ],
                   },
                 },
               },
@@ -866,55 +541,30 @@ const contents: EditableType[] = [
                 content: {
                   plugin: {
                     name: 'ory/editor/core/content/slate',
-                    version: '0.0.2',
+                    version: '0.0.4',
                   },
                   state: {
-                    serialized: {
-                      object: 'value',
-                      document: {
-                        object: 'document',
+                    slate: [
+                      {
                         data: {},
-                        nodes: [
+                        type: 'HEADINGS/HEADING-THREE',
+                        children: [
                           {
-                            object: 'block',
-                            type: 'HEADINGS/HEADING-THREE',
-                            isVoid: false,
-                            data: {},
-                            nodes: [
-                              {
-                                object: 'text',
-                                leaves: [
-                                  {
-                                    object: 'leaf',
-                                    text: 'Rich Inline Editing',
-                                    marks: [],
-                                  },
-                                ],
-                              },
-                            ],
-                          },
-                          {
-                            object: 'block',
-                            type: 'PARAGRAPH/PARAGRAPH',
-                            isVoid: false,
-                            data: {},
-                            nodes: [
-                              {
-                                object: 'text',
-                                leaves: [
-                                  {
-                                    object: 'leaf',
-                                    text:
-                                      'Presentation and modification happen in the same canvas, at the same time. Now you always know what your content looks like on desktop, tablet and mobile, in real-time!',
-                                    marks: [],
-                                  },
-                                ],
-                              },
-                            ],
+                            text: 'Rich Inline Editing',
                           },
                         ],
                       },
-                    },
+                      {
+                        data: {},
+                        type: 'PARAGRAPH/PARAGRAPH',
+                        children: [
+                          {
+                            text:
+                              'Presentation and modification happen in the same canvas, at the same time. Now you always know what your content looks like on desktop, tablet and mobile, in real-time!',
+                          },
+                        ],
+                      },
+                    ],
                   },
                 },
               },
@@ -958,55 +608,30 @@ const contents: EditableType[] = [
                 content: {
                   plugin: {
                     name: 'ory/editor/core/content/slate',
-                    version: '0.0.2',
+                    version: '0.0.4',
                   },
                   state: {
-                    serialized: {
-                      object: 'value',
-                      document: {
-                        object: 'document',
+                    slate: [
+                      {
                         data: {},
-                        nodes: [
+                        type: 'HEADINGS/HEADING-THREE',
+                        children: [
                           {
-                            object: 'block',
-                            type: 'HEADINGS/HEADING-THREE',
-                            isVoid: false,
-                            data: {},
-                            nodes: [
-                              {
-                                object: 'text',
-                                leaves: [
-                                  {
-                                    object: 'leaf',
-                                    text: 'Responsive Layouts',
-                                    marks: [],
-                                  },
-                                ],
-                              },
-                            ],
-                          },
-                          {
-                            object: 'block',
-                            type: 'PARAGRAPH/PARAGRAPH',
-                            isVoid: false,
-                            data: {},
-                            nodes: [
-                              {
-                                object: 'text',
-                                leaves: [
-                                  {
-                                    object: 'leaf',
-                                    text:
-                                      'Today\'s content is more than a monolithic blob of text. ReactPage allows you to define your own layout blocks, and create content that looks good on all devices.',
-                                    marks: [],
-                                  },
-                                ],
-                              },
-                            ],
+                            text: 'Responsive Layouts',
                           },
                         ],
                       },
-                    },
+                      {
+                        data: {},
+                        type: 'PARAGRAPH/PARAGRAPH',
+                        children: [
+                          {
+                            text:
+                              'Today\'s content is more than a monolithic blob of text. ReactPage allows you to define your own layout blocks, and create content that looks good on all devices.',
+                          },
+                        ],
+                      },
+                    ],
                   },
                 },
               },
@@ -1022,55 +647,30 @@ const contents: EditableType[] = [
                 content: {
                   plugin: {
                     name: 'ory/editor/core/content/slate',
-                    version: '0.0.2',
+                    version: '0.0.4',
                   },
                   state: {
-                    serialized: {
-                      object: 'value',
-                      document: {
-                        object: 'document',
+                    slate: [
+                      {
                         data: {},
-                        nodes: [
+                        type: 'HEADINGS/HEADING-THREE',
+                        children: [
                           {
-                            object: 'block',
-                            type: 'HEADINGS/HEADING-THREE',
-                            isVoid: false,
-                            data: {},
-                            nodes: [
-                              {
-                                object: 'text',
-                                leaves: [
-                                  {
-                                    object: 'leaf',
-                                    text: 'Sane mark-up',
-                                    marks: [],
-                                  },
-                                ],
-                              },
-                            ],
-                          },
-                          {
-                            object: 'block',
-                            type: 'PARAGRAPH/PARAGRAPH',
-                            isVoid: false,
-                            data: {},
-                            nodes: [
-                              {
-                                object: 'text',
-                                leaves: [
-                                  {
-                                    object: 'leaf',
-                                    text:
-                                      'Most web editors work on top of the DOM. This is dangerous (XSS), hard to maintain and difficult to parse. ReactPage uses JSON only - everywhere! It\'s sane, tested, clean and minimal.',
-                                    marks: [],
-                                  },
-                                ],
-                              },
-                            ],
+                            text: 'Sane mark-up',
                           },
                         ],
                       },
-                    },
+                      {
+                        data: {},
+                        type: 'PARAGRAPH/PARAGRAPH',
+                        children: [
+                          {
+                            text:
+                              'Most web editors work on top of the DOM. This is dangerous (XSS), hard to maintain and difficult to parse. ReactPage uses JSON only - everywhere! It\'s sane, tested, clean and minimal.',
+                          },
+                        ],
+                      },
+                    ],
                   },
                 },
               },
@@ -1091,7 +691,7 @@ const contents: EditableType[] = [
             ],
           },
           {
-            id: 'dad71b07-5d3e-4aaf-9c8a-0e06a346de99',
+            id: '6f226a6b-e4e8-405a-a0f8-6f370dc05763',
             cells: [
               {
                 id: '6c11a0d6-6857-4917-9692-eae056fd9500',
@@ -1131,80 +731,238 @@ const contents: EditableType[] = [
                         content: {
                           plugin: {
                             name: 'ory/editor/core/content/slate',
-                            version: '0.0.2',
+                            version: '0.0.4',
                           },
                           state: {
-                            serialized: {
-                              object: 'value',
-                              document: {
-                                object: 'document',
+                            slate: [
+                              {
                                 data: {},
-                                nodes: [
+                                type: 'HEADINGS/HEADING-THREE',
+                                children: [
                                   {
-                                    object: 'block',
-                                    type: 'HEADINGS/HEADING-THREE',
-                                    isVoid: false,
-                                    data: {},
-                                    nodes: [
-                                      {
-                                        object: 'text',
-                                        leaves: [
-                                          {
-                                            object: 'leaf',
-                                            text: 'React Plugin API',
-                                            marks: [],
-                                          },
-                                        ],
-                                      },
-                                    ],
-                                  },
-                                  {
-                                    object: 'block',
-                                    type: 'PARAGRAPH/PARAGRAPH',
-                                    isVoid: false,
-                                    data: {},
-                                    nodes: [
-                                      {
-                                        object: 'text',
-                                        leaves: [
-                                          {
-                                            object: 'leaf',
-                                            text:
-                                              'You don\'t like our rich text solution, require custom layout components, need a twitter feed, want to contribute or even sell plugins? No problem with our easy-to-use React Plugin API!',
-                                            marks: [],
-                                          },
-                                        ],
-                                      },
-                                    ],
-                                  },
-                                  {
-                                    object: 'block',
-                                    type: 'PARAGRAPH/PARAGRAPH',
-                                    isVoid: false,
-                                    data: {},
-                                    nodes: [
-                                      {
-                                        object: 'text',
-                                        leaves: [
-                                          {
-                                            object: 'leaf',
-                                            text:
-                                              'In fact, this section is rendered on top of an exemplary layout plugin!',
-                                            marks: [],
-                                          },
-                                        ],
-                                      },
-                                    ],
+                                    text: 'React Plugin API',
                                   },
                                 ],
                               },
-                            },
+                              {
+                                data: {},
+                                type: 'PARAGRAPH/PARAGRAPH',
+                                children: [
+                                  {
+                                    text:
+                                      'You don\'t like our rich text solution, require custom layout components, need a twitter feed, want to contribute or even sell plugins? No problem with our easy-to-use React Plugin API!',
+                                  },
+                                ],
+                              },
+                              {
+                                data: {},
+                                type: 'PARAGRAPH/PARAGRAPH',
+                                children: [
+                                  {
+                                    text:
+                                      'In fact, this section is rendered on top of an exemplary layout plugin!',
+                                  },
+                                ],
+                              },
+                            ],
                           },
                         },
                       },
                     ],
                   },
                 ],
+              },
+            ],
+          },
+          {
+            id: 'f35a9eea-602d-448f-a1ec-c1b2357b28d5',
+            cells: [
+              {
+                id: '4e04678e-e51a-4883-8732-b8218f55fd24',
+                inline: null,
+                size: 12,
+                content: {
+                  plugin: {
+                    name: 'ory/editor/core/content/slate',
+                    version: '0.0.4',
+                  },
+                  state: {
+                    slate: [
+                      {
+                        type: 'HEADINGS/HEADING-THREE',
+                        children: [
+                          {
+                            text: 'Extend beyond text!',
+                          },
+                        ],
+                      },
+                      {
+                        children: [
+                          {
+                            text:
+                              'The built in rich text editor is extendable as well! ',
+                          },
+                        ],
+                      },
+                      {
+                        children: [
+                          {
+                            text: 'You like ',
+                          },
+                          {
+                            text: 'colors? ',
+                            SetColor: {
+                              color: 'blue',
+                            },
+                          },
+                          {
+                            text: 'write a color ',
+                            SetColor: {
+                              color: 'green',
+                            },
+                          },
+                          {
+                            text: 'plugin.',
+                            SetColor: {
+                              color: 'red',
+                            },
+                          },
+                        ],
+                      },
+                      {
+                        children: [
+                          {
+                            text: 'You are into math? How about a ',
+                          },
+                          {
+                            type: 'LINK/LINK',
+                            children: [
+                              {
+                                text: 'katex',
+                              },
+                            ],
+                            data: {
+                              href:
+                                'https://github.com/talyssonoc/react-katex/',
+                              openInNewWindow: true,
+                            },
+                          },
+                          {
+                            text: ' plugin?',
+                          },
+                        ],
+                      },
+                      {
+                        children: [
+                          {
+                            text: '',
+                          },
+                          {
+                            type: 'Katex',
+                            children: [
+                              {
+                                text: 'f(x) = ax^2 + bx +c ',
+                              },
+                            ],
+                            data: null,
+                          },
+                          {
+                            text: '',
+                          },
+                          {
+                            type: 'LINK/LINK',
+                            data: {
+                              href:
+                                'https://github.com/talyssonoc/react-katex/',
+                              openInNewWindow: false,
+                            },
+                            children: [
+                              {
+                                text: '',
+                              },
+                            ],
+                          },
+                          {
+                            text: '',
+                          },
+                        ],
+                        data: {
+                          align: 'center',
+                        },
+                      },
+                      {
+                        children: [
+                          {
+                            text: 'or even more complex formulas:',
+                          },
+                          {
+                            type: 'LINK/LINK',
+                            data: {
+                              href:
+                                'https://github.com/talyssonoc/react-katex/',
+                              openInNewWindow: false,
+                            },
+                            children: [
+                              {
+                                text: '',
+                              },
+                            ],
+                          },
+                          {
+                            text: '',
+                          },
+                        ],
+                        data: {
+                          align: 'center',
+                        },
+                      },
+                      {
+                        children: [
+                          {
+                            text: '',
+                          },
+                          {
+                            type: 'Katex',
+                            children: [
+                              {
+                                text:
+                                  'f(x) = \\int_{-\\infty}^\\infty\\hat f(\\xi)\\,e^{2 \\pi i \\xi x}\\,d\\xi ',
+                              },
+                            ],
+                            data: null,
+                          },
+                          {
+                            text: '',
+                          },
+                        ],
+                        data: {
+                          align: 'center',
+                        },
+                      },
+                      {
+                        children: [
+                          {
+                            text: '',
+                          },
+                        ],
+                        data: {
+                          align: 'center',
+                        },
+                      },
+                      {
+                        children: [
+                          {
+                            text:
+                              'These plugins are not shipped, but the example project shows you how you can create these plugins.',
+                          },
+                        ],
+                        data: {
+                          align: 'left',
+                        },
+                      },
+                    ],
+                  },
+                },
               },
             ],
           },
@@ -1218,38 +976,22 @@ const contents: EditableType[] = [
                 content: {
                   plugin: {
                     name: 'ory/editor/core/content/slate',
-                    version: '0.0.2',
+                    version: '0.0.4',
                   },
                   state: {
-                    serialized: {
-                      object: 'value',
-                      document: {
-                        object: 'document',
-                        data: {},
-                        nodes: [
+                    slate: [
+                      {
+                        data: {
+                          align: 'center',
+                        },
+                        type: 'HEADINGS/HEADING-TWO',
+                        children: [
                           {
-                            object: 'block',
-                            type: 'HEADINGS/HEADING-TWO',
-                            isVoid: false,
-                            data: {
-                              align: 'center',
-                            },
-                            nodes: [
-                              {
-                                object: 'text',
-                                leaves: [
-                                  {
-                                    object: 'leaf',
-                                    text: 'That\'s all?',
-                                    marks: [],
-                                  },
-                                ],
-                              },
-                            ],
+                            text: 'That\'s all?',
                           },
                         ],
                       },
-                    },
+                    ],
                   },
                 },
               },
@@ -1265,193 +1007,93 @@ const contents: EditableType[] = [
                 content: {
                   plugin: {
                     name: 'ory/editor/core/content/slate',
-                    version: '0.0.2',
+                    version: '0.0.4',
                   },
                   state: {
-                    serialized: {
-                      object: 'value',
-                      document: {
-                        object: 'document',
+                    slate: [
+                      {
                         data: {},
-                        nodes: [
+                        type: 'PARAGRAPH/PARAGRAPH',
+                        children: [
                           {
-                            object: 'block',
-                            type: 'PARAGRAPH/PARAGRAPH',
-                            isVoid: false,
+                            text:
+                              'No, of course not! We are very proud of these ones as well:',
+                          },
+                        ],
+                      },
+                      {
+                        data: {},
+                        type: 'LISTS/UNORDERED-LIST',
+                        children: [
+                          {
                             data: {},
-                            nodes: [
+                            type: 'LISTS/LIST-ITEM',
+                            children: [
                               {
-                                object: 'text',
-                                leaves: [
-                                  {
-                                    object: 'leaf',
-                                    text:
-                                      'No, of course not! We are very proud of these ones as well:',
-                                    marks: [],
-                                  },
-                                ],
+                                text: 'global un-/redo with ',
+                              },
+                              {
+                                text: 'ctrl+z',
+                                'EMPHASIZE/EM': true,
+                              },
+                              {
+                                text: ' / ',
+                              },
+                              {
+                                text: 'ctrl+y',
+                                'EMPHASIZE/EM': true,
                               },
                             ],
                           },
                           {
-                            object: 'block',
-                            type: 'LISTS/UNORDERED-LIST',
-                            isVoid: false,
                             data: {},
-                            nodes: [
+                            type: 'LISTS/LIST-ITEM',
+                            children: [
                               {
-                                object: 'block',
-                                type: 'LISTS/LIST-ITEM',
-                                isVoid: false,
-                                data: {},
-                                nodes: [
-                                  {
-                                    object: 'text',
-                                    leaves: [
-                                      {
-                                        object: 'leaf',
-                                        text: 'global un-/redo with ',
-                                        marks: [],
-                                      },
-                                      {
-                                        object: 'leaf',
-                                        text: 'ctrl+z',
-                                        marks: [
-                                          {
-                                            object: 'mark',
-                                            type: 'EMPHASIZE/EM',
-                                            data: {},
-                                          },
-                                        ],
-                                      },
-                                      {
-                                        object: 'leaf',
-                                        text: ' / ',
-                                        marks: [],
-                                      },
-                                      {
-                                        object: 'leaf',
-                                        text: 'ctrl+y',
-                                        marks: [
-                                          {
-                                            object: 'mark',
-                                            type: 'EMPHASIZE/EM',
-                                            data: {},
-                                          },
-                                        ],
-                                      },
-                                    ],
-                                  },
-                                ],
+                                text: 'editing shortcuts, for example ',
                               },
                               {
-                                object: 'block',
-                                type: 'LISTS/LIST-ITEM',
-                                isVoid: false,
-                                data: {},
-                                nodes: [
-                                  {
-                                    object: 'text',
-                                    leaves: [
-                                      {
-                                        object: 'leaf',
-                                        text: 'editing shortcuts, for example ',
-                                        marks: [],
-                                      },
-                                      {
-                                        object: 'leaf',
-                                        text: 'ctrl+b',
-                                        marks: [
-                                          {
-                                            object: 'mark',
-                                            type: 'EMPHASIZE/STRONG',
-                                            data: {},
-                                          },
-                                        ],
-                                      },
-                                      {
-                                        object: 'leaf',
-                                        text: ',',
-                                        marks: [],
-                                      },
-                                      {
-                                        object: 'leaf',
-                                        text: ' ',
-                                        marks: [
-                                          {
-                                            object: 'mark',
-                                            type: 'EMPHASIZE/STRONG',
-                                            data: {},
-                                          },
-                                        ],
-                                      },
-                                      {
-                                        object: 'leaf',
-                                        text: 'ctrl+i, ',
-                                        marks: [
-                                          {
-                                            object: 'mark',
-                                            type: 'EMPHASIZE/EM',
-                                            data: {},
-                                          },
-                                        ],
-                                      },
-                                      {
-                                        object: 'leaf',
-                                        text: 'ctrl+u',
-                                        marks: [
-                                          {
-                                            object: 'mark',
-                                            type: 'EMPHASIZE/U',
-                                            data: {},
-                                          },
-                                        ],
-                                      },
-                                    ],
-                                  },
-                                ],
+                                text: 'ctrl+b',
+                                'EMPHASIZE/STRONG': true,
                               },
                               {
-                                object: 'block',
-                                type: 'LISTS/LIST-ITEM',
-                                isVoid: false,
-                                data: {},
-                                nodes: [
-                                  {
-                                    object: 'text',
-                                    leaves: [
-                                      {
-                                        object: 'leaf',
-                                        text: 'collaborative editing',
-                                        marks: [],
-                                      },
-                                    ],
-                                  },
-                                ],
+                                text: ',',
                               },
                               {
-                                object: 'block',
-                                type: 'LISTS/LIST-ITEM',
-                                isVoid: false,
-                                data: {},
-                                nodes: [
-                                  {
-                                    object: 'text',
-                                    leaves: [
-                                      {
-                                        object: 'leaf',
-                                        text: '... and more things to come',
-                                        marks: [],
-                                      },
-                                    ],
-                                  },
-                                ],
+                                text: ' ',
+                                'EMPHASIZE/STRONG': true,
+                              },
+                              {
+                                text: 'ctrl+i, ',
+                                'EMPHASIZE/EM': true,
+                              },
+                              {
+                                text: 'ctrl+u',
+                                'EMPHASIZE/U': true,
+                              },
+                            ],
+                          },
+                          {
+                            data: {},
+                            type: 'LISTS/LIST-ITEM',
+                            children: [
+                              {
+                                text: 'collaborative editing',
+                              },
+                            ],
+                          },
+                          {
+                            data: {},
+                            type: 'LISTS/LIST-ITEM',
+                            children: [
+                              {
+                                text: '... and more things to come',
                               },
                             ],
                           },
                         ],
                       },
-                    },
+                    ],
                   },
                 },
               },
