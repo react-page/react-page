@@ -12,6 +12,7 @@ export const addPlugin = <T>(
 ) => {
   const { data: passedData, text } = props || {};
   const node = getCurrentNodeWithPlugin(editor, plugin);
+
   if (text) {
     editor.insertText(text);
     Transforms.select(editor, {
@@ -57,9 +58,11 @@ export const addPlugin = <T>(
           plugin.addExtraSpace &&
           editor.selection
         ) {
+          const focus = { ...editor.selection.focus };
           Transforms.insertText(editor, ' ', {
             at: editor.selection.focus,
           });
+          Transforms.select(editor, focus);
         }
       }
     }
