@@ -25,6 +25,7 @@ export default pluginFactories.createComponentPlugin({
                   border: '1px solid',
                   padding: 12,
                   display: 'inline-block',
+                  zIndex: 10,
                 }
               : {}
           }

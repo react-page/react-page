@@ -14,12 +14,17 @@ export const addPlugin = <T>(
   const node = getCurrentNodeWithPlugin(editor, plugin);
 
   if (text) {
-    editor.insertText(text);
+    const withExtraSpace =
+      plugin.pluginType === 'component' &&
+      plugin.object === 'inline' &&
+      plugin.addExtraSpace;
+    const textToInsert = withExtraSpace ? text + ' ' : text;
+    editor.insertText(textToInsert);
     Transforms.select(editor, {
       anchor: editor.selection.anchor,
       focus: {
         ...editor.selection.focus,
-        offset: editor.selection.focus.offset - text.length,
+        offset: editor.selection.focus.offset - textToInsert.length,
       },
     });
   }
@@ -56,6 +61,7 @@ export const addPlugin = <T>(
         if (
           plugin.object === 'inline' &&
           plugin.addExtraSpace &&
+          !text &&
           editor.selection
         ) {
           const focus = { ...editor.selection.focus };
