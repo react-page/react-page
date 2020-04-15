@@ -52,7 +52,11 @@ export const addPlugin = <T>(
           { split: true }
         );
         // workaround for inline problems in slate
-        if (plugin.object === 'inline' && plugin.addExtraSpace) {
+        if (
+          plugin.object === 'inline' &&
+          plugin.addExtraSpace &&
+          editor.selection
+        ) {
           Transforms.insertText(editor, ' ', {
             at: editor.selection.focus,
           });
