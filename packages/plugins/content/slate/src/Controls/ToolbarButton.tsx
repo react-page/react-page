@@ -1,9 +1,9 @@
-import { lazyLoad } from "@react-page/core";
-import * as React from "react";
-import { ConditionalWrapper } from "./ConditionalWrapper";
+import { lazyLoad } from '@react-page/core';
+import * as React from 'react';
+import { ConditionalWrapper } from './ConditionalWrapper';
 
-const IconButton = lazyLoad(() => import("@material-ui/core/IconButton"));
-const Tooltip = lazyLoad(() => import("@material-ui/core/Tooltip"));
+const IconButton = lazyLoad(() => import('@material-ui/core/IconButton'));
+const Tooltip = lazyLoad(() => import('@material-ui/core/Tooltip'));
 
 const ToolbarButton: React.SFC<{
   icon: JSX.Element | string;
@@ -11,19 +11,19 @@ const ToolbarButton: React.SFC<{
   disabled?: boolean;
   onClick: React.MouseEventHandler;
   toolTip?: string;
-}> = ({ icon, isActive, onClick, disabled = false, toolTip = "" }) => (
+}> = ({ icon, isActive, onClick, disabled = false, toolTip = '' }) => (
   <ConditionalWrapper
     condition={!disabled}
-    wrapper={(children) => <Tooltip title={toolTip}>{children}</Tooltip>}
+    wrapper={children => <Tooltip title={toolTip}>{children}</Tooltip>}
   >
     <IconButton
       onMouseDown={onClick}
       style={
         isActive
-          ? { color: "rgb(0, 188, 212)" }
+          ? { color: 'rgb(0, 188, 212)' }
           : disabled
-          ? { color: "gray" }
-          : { color: "white" }
+          ? { color: 'gray' }
+          : { color: 'white' }
       }
       disabled={disabled}
     >
