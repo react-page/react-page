@@ -1,4 +1,4 @@
-import { Editor, Element, NodeEntry } from 'slate';
+import { Editor, NodeEntry } from 'slate';
 import { ReactEditor, useSlate } from 'slate-react';
 import { SlatePluginDefinition } from '../types/slatePluginDefinitions';
 

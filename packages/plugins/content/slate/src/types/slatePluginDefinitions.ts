@@ -2,6 +2,7 @@ import { JsonSchema } from '@react-page/create-plugin-materialui';
 import { ReactEditor } from 'slate-react';
 import { NextType } from '../types/next';
 import { Translations } from './translations';
+import { Node } from 'slate';
 
 export interface PluginButtonProps {
   translations?: Partial<Translations>;
@@ -69,6 +70,7 @@ type ObjectProps = {
 
 type InlineProps = {
   object: 'inline';
+  addExtraSpace?: boolean;
 };
 
 type MarkProps = {
@@ -89,6 +91,10 @@ export type SlateComponentPluginDefinition<
       attributes?: object;
       style?: object;
       className?: string;
+      childNodes: Node[];
+      getTextContents: () => string[];
+      useFocused: () => boolean;
+      useSelected: () => boolean;
     } & T
   >;
 } & (ObjectProps | InlineProps | MarkProps);

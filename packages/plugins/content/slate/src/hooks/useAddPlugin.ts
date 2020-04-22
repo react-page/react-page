@@ -13,12 +13,17 @@ export const addPlugin = <T>(
   const { data: passedData, text } = props || {};
   const currentNodeEntry = getCurrentNodeWithPlugin(editor, plugin);
   if (text) {
-    editor.insertText(text);
+    const withExtraSpace =
+      plugin.pluginType === 'component' &&
+      plugin.object === 'inline' &&
+      plugin.addExtraSpace;
+    const textToInsert = withExtraSpace ? text + ' ' : text;
+    editor.insertText(textToInsert);
     Transforms.select(editor, {
       anchor: editor.selection.anchor,
       focus: {
         ...editor.selection.focus,
-        offset: editor.selection.focus.offset - text.length,
+        offset: editor.selection.focus.offset - textToInsert.length,
       },
     });
   }
@@ -51,6 +56,19 @@ export const addPlugin = <T>(
           },
           { split: true }
         );
+        // workaround for inline problems in slate
+        if (
+          plugin.object === 'inline' &&
+          plugin.addExtraSpace &&
+          !text &&
+          editor.selection
+        ) {
+          const focus = { ...editor.selection.focus };
+          Transforms.insertText(editor, ' ', {
+            at: editor.selection.focus,
+          });
+          Transforms.select(editor, focus);
+        }
       }
     }
   } else if (plugin.pluginType === 'data') {

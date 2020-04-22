@@ -27,15 +27,21 @@ function PluginButton<T>(props: Props<T>) {
     isActive: boolean;
     data: T;
   }>();
+  const shouldInsertWithText =
+    plugin.pluginType === 'component' &&
+    (!storedPropsRef?.current?.selection ||
+      Range.isCollapsed(storedPropsRef?.current?.selection)) &&
+    !storedPropsRef?.current?.isActive;
 
   const close = useCallback(() => setShowControls(false), []);
   const isActive = usePluginIsActive(plugin);
   const add = useAddPlugin(plugin);
   const remove = useRemovePlugin(plugin);
+  const editor = useSlate();
   const onClick = React.useCallback(
     (e: React.MouseEvent<HTMLElement>) => {
       e.preventDefault();
-      if (hasControls) {
+      if (hasControls || shouldInsertWithText) {
         if (!showControls) {
           // store props
           storedPropsRef.current = {
@@ -53,19 +59,13 @@ function PluginButton<T>(props: Props<T>) {
         }
       }
     },
-    [isActive, hasControls, showControls]
+    [isActive, hasControls, showControls, shouldInsertWithText]
   );
 
   const { Controls: PassedControls } = plugin;
   const Controls = PassedControls || UniformsControls;
   const isDisabled = usePluginIsDisabled(plugin);
 
-  const editor = useSlate();
-  const shouldInsertWithText =
-    plugin.pluginType === 'component' &&
-    (!storedPropsRef?.current?.selection ||
-      Range.isCollapsed(storedPropsRef?.current?.selection)) &&
-    !storedPropsRef?.current?.isActive;
   return (
     <>
       <ToolbarButton
@@ -79,7 +79,7 @@ function PluginButton<T>(props: Props<T>) {
         toolTip={plugin.label}
       />
 
-      {hasControls ? (
+      {hasControls || shouldInsertWithText ? (
         <Controls
           schema={plugin.schema}
           close={close}
