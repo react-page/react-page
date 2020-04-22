@@ -6,9 +6,10 @@ export const getCurrentNodeDataWithPlugin = <T>(
   editor: ReactEditor,
   plugin: SlatePluginDefinition<T>
 ): T => {
-  const currentNode = getCurrentNodeWithPlugin(editor, plugin);
+  const currentNodeEntry = getCurrentNodeWithPlugin(editor, plugin);
 
-  if (currentNode) {
+  if (currentNodeEntry) {
+    const currentNode = currentNodeEntry[0];
     if (plugin.pluginType === 'component' && plugin.object === 'mark') {
       return currentNode[plugin.type] as T;
     }
