@@ -9,6 +9,12 @@ const withPaste = (plugins: SlatePlugin[], defaultPluginType: string) => (
   const { insertData } = editor;
   const htmlToSlate = HtmlToSlate({ plugins });
   editor.insertData = data => {
+    const slateData = data.getData('application/x-slate-fragment');
+    if (slateData) {
+      insertData(data);
+      return;
+    }
+
     const html = data.getData('text/html');
     if (html) {
       const { slate } = htmlToSlate(html);
