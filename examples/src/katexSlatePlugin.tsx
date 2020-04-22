@@ -10,28 +10,33 @@ export default pluginFactories.createComponentPlugin({
     const selected = props.useSelected();
 
     const showSource = focused && selected;
-
+    const math = props
+      .getTextContents()
+      .join('\n')
+      .trim();
     return (
       <span style={!showSource ? { position: 'relative' } : {}}>
-        <span
-          contentEditable={false}
-          style={
-            showSource
-              ? {
-                  position: 'absolute',
-                  transform: 'translateY(-100%)',
-                  transition: '0.2s',
-                  backgroundColor: 'white',
-                  border: '1px solid',
-                  padding: 12,
-                  display: 'inline-block',
-                  zIndex: 10,
-                }
-              : {}
-          }
-        >
-          <InlineMath math={props.getTextContents().join('\n')} />
-        </span>
+        {math ? (
+          <span
+            contentEditable={false}
+            style={
+              showSource
+                ? {
+                    position: 'absolute',
+                    transform: 'translateY(-100%)',
+                    transition: '0.2s',
+                    backgroundColor: 'white',
+                    border: '1px solid',
+                    padding: 12,
+                    display: 'inline-block',
+                    zIndex: 10,
+                  }
+                : {}
+            }
+          >
+            <InlineMath math={math} />
+          </span>
+        ) : null}
         <span
           style={
             showSource

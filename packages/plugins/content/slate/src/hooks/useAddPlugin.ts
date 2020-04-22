@@ -11,8 +11,7 @@ export const addPlugin = <T>(
   props?: { data?: T; text?: string }
 ) => {
   const { data: passedData, text } = props || {};
-  const node = getCurrentNodeWithPlugin(editor, plugin);
-
+  const currentNodeEntry = getCurrentNodeWithPlugin(editor, plugin);
   if (text) {
     const withExtraSpace =
       plugin.pluginType === 'component' &&
@@ -31,10 +30,10 @@ export const addPlugin = <T>(
 
   const data =
     passedData || (plugin.getInitialData ? plugin.getInitialData() : null);
-  const isActive = Boolean(node);
+  const isActive = Boolean(currentNodeEntry);
 
   if (isActive) {
-    // remove first and readd
+    Transforms.select(editor, currentNodeEntry[1]);
     removePlugin(editor, plugin);
   }
   // add new

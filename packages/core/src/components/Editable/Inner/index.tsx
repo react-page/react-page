@@ -23,7 +23,7 @@ import throttle from 'lodash.throttle';
 import * as React from 'react';
 import { createStructuredSelector } from 'reselect';
 import { createFallbackCell } from '../../../actions/cell';
-import scollIntoViewWithOffset from '../../../components/Cell/utils/scollIntoViewWithOffset';
+import scrollIntoViewWithOffset from '../../../components/Cell/utils/scrollIntoViewWithOffset';
 import { connect } from '../../../reduxConnect';
 import { RootState } from '../../../selector';
 import { purifiedEditable } from '../../../selector/editable';
@@ -82,7 +82,7 @@ class Inner extends React.PureComponent<EditableComponentState> {
       if (this.firstElementInViewport) {
         let { el, topOffset } = this.firstElementInViewport;
         setTimeout(() => {
-          scollIntoViewWithOffset(el, topOffset, 'auto');
+          scrollIntoViewWithOffset(el, topOffset, 'auto');
         }, 0);
       }
     }

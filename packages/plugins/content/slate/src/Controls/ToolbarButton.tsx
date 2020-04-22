@@ -1,5 +1,6 @@
 import { lazyLoad } from '@react-page/core';
 import * as React from 'react';
+import { ConditionalWrapper } from './ConditionalWrapper';
 
 const IconButton = lazyLoad(() => import('@material-ui/core/IconButton'));
 const Tooltip = lazyLoad(() => import('@material-ui/core/Tooltip'));
@@ -11,7 +12,10 @@ const ToolbarButton: React.SFC<{
   onClick: React.MouseEventHandler;
   toolTip?: string;
 }> = ({ icon, isActive, onClick, disabled = false, toolTip = '' }) => (
-  <Tooltip title={toolTip}>
+  <ConditionalWrapper
+    condition={!disabled}
+    wrapper={children => <Tooltip title={toolTip}>{children}</Tooltip>}
+  >
     <IconButton
       onMouseDown={onClick}
       style={
@@ -25,7 +29,7 @@ const ToolbarButton: React.SFC<{
     >
       {icon}
     </IconButton>
-  </Tooltip>
+  </ConditionalWrapper>
 );
 
 export default React.memo(ToolbarButton);

@@ -1,11 +1,11 @@
-import { Editor, Element } from 'slate';
+import { Editor, NodeEntry } from 'slate';
 import { ReactEditor, useSlate } from 'slate-react';
 import { SlatePluginDefinition } from '../types/slatePluginDefinitions';
 
 export const getCurrentNodeWithPlugin = <T>(
   editor: ReactEditor,
   plugin: SlatePluginDefinition<T>
-): Element => {
+): NodeEntry => {
   if (plugin.pluginType === 'custom') {
     return null;
   }
@@ -31,7 +31,7 @@ export const getCurrentNodeWithPlugin = <T>(
       mode: 'lowest', // FIXME: whats the best value?
     });
 
-    return matchingNode?.[0] as Element;
+    return matchingNode;
   } catch (e) {
     // seems to crash sometimes on redu
     return null;
