@@ -33,7 +33,7 @@ import { isEditMode, isPreviewMode } from '../../../selector/display';
 import { LayoutPluginProps } from '../../../service/plugin/classes';
 import { ComponetizedCell } from '../../../types/editable';
 import Row from '../../Row';
-import scollIntoViewWithOffset from '../utils/scollIntoViewWithOffset';
+import scrollIntoViewWithOffset from '../utils/scrollIntoViewWithOffset';
 
 // TODO clean me up #157
 class Layout extends React.PureComponent<ComponetizedCell> {
@@ -89,7 +89,7 @@ class Layout extends React.PureComponent<ComponetizedCell> {
       // This could probably be solved in an easier way by listening to window.document?
       handleFocus(pass, focusSource, this.ref);
       if (this.ref) {
-        scollIntoViewWithOffset(this.ref, 100);
+        scrollIntoViewWithOffset(this.ref, 100);
       }
     } else if (was && !is) {
       handleBlur(pass);
