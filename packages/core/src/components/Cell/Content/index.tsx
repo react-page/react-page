@@ -37,7 +37,7 @@ import {
 } from '../../../selector/display';
 import { ContentPluginProps } from '../../../service/plugin/classes';
 import { ComponetizedCell } from '../../../types/editable';
-import scollIntoViewWithOffset from '../utils/scollIntoViewWithOffset';
+import scrollIntoViewWithOffset from '../utils/scrollIntoViewWithOffset';
 
 // TODO clean me up #157
 class Content extends React.PureComponent<ComponetizedCell> {
@@ -95,7 +95,7 @@ class Content extends React.PureComponent<ComponetizedCell> {
       handleFocus(pass, focusSource, this.ref);
       // scroll to the plugin
       if (this.ref) {
-        scollIntoViewWithOffset(this.ref, 100);
+        scrollIntoViewWithOffset(this.ref, 100);
       }
     } else if (was && !is) {
       handleBlur(pass);
