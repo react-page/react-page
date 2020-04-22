@@ -1,13 +1,14 @@
 import '@react-page/core/lib/index.css'; // we also want to load the stylesheets
 import Editor from '@react-page/editor';
 import '@react-page/ui/lib/index.css';
-import React from 'react';
+import React, { useEffect } from 'react';
 import ReactDOM from 'react-dom';
 // The content state
 import contents from './contents';
 import customLayoutPluginWithInitialState from './customLayoutPluginWithInitialState';
 import { plugins } from './plugins';
 import './styles.css';
+import { Button } from '@material-ui/core';
 
 if (
   process.env.NODE_ENV !== 'production' &&
@@ -20,13 +21,20 @@ if (
 // tslint:disable-next-line:no-any
 const KeepStateEditor = ({ value, ...props }: any) => {
   const [state, setState] = React.useState(value);
-  // console.log(state);
 
   // here you would normally persist the state somewhere (e.g a database)
   // <Editor /> is stateful, so you don't nesseary have to keep the value updated
   // if you do, you have to guarantee that the value is referencially equal to what has been passed by `onChange`
   // or the editor will blur its fields (and other problems)
-  return <Editor {...props} value={state} onChange={setState} />;
+
+  return (
+    <>
+      <Editor {...props} value={state} onChange={setState} />
+      <Button variant="outlined" onClick={() => setState(value)}>
+        Reset this editor
+      </Button>
+    </>
+  );
 };
 // Render the editables - the areas that are editable
 const elements = document.querySelectorAll<HTMLDivElement>('.editable');
@@ -37,6 +45,7 @@ elements.forEach((element, index) => {
       defaultPlugin={customLayoutPluginWithInitialState()}
       value={contents[index]}
     />,
+
     element
   );
 });

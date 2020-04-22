@@ -64,6 +64,9 @@ const SlateControls = (props: SlateProps) => {
     if (state.selection) {
       // update seleciton, if changed from outside (e.g. through undo)
       Transforms.select(editor, state.selection);
+    } else {
+      // deselect, otherwise slate might throw an eerror if cursor is now on a non existing dom node
+      Transforms.deselect(editor);
     }
     setValue(state?.slate);
   }, [state?.slate, state?.selection]);

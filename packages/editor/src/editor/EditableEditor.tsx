@@ -1,30 +1,45 @@
 import { createEmptyState, Editable, Editor, Provider } from '@react-page/core';
 import EditorUI from '@react-page/ui';
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useCallback } from 'react';
 import StickyWrapper from './StickyWrapper';
+import equals from 'fast-deep-equal';
 
 export default ({ plugins, defaultPlugin, value, onChange, dndBackend }) => {
-  const editorRef = useRef({
-    editor: new Editor({ defaultPlugin, plugins }),
-    editorState: null,
-  });
+  const theValue = value ?? createEmptyState();
+  // tslint:disable-next-line: no-any
+  const lastValueRef = useRef<any>();
 
-  editorRef.current.editorState = value || createEmptyState();
-  // updating plugins is not yet supported, so we have an editor ref  that stays the same during lifetime of the editor
+  const editorRef = useRef(new Editor({ defaultPlugin, plugins }));
+
+  const onChangeCallback = useCallback(
+    newValue => {
+      lastValueRef.current = newValue;
+
+      onChange(newValue);
+    },
+    [onChange]
+  );
+
+  const equal = equals(theValue, lastValueRef?.current);
+
   useEffect(() => {
-    editorRef.current.editor.trigger.editable.update(
-      editorRef.current.editorState
-    );
-  }, [editorRef.current.editorState !== value]);
+    if (!equal) {
+      lastValueRef.current = theValue;
+      editorRef.current.trigger.editable.update(theValue);
+    }
+  }, [equal]);
 
-  const { editor, editorState } = editorRef.current;
+  const editor = editorRef.current;
 
   return (
     <Provider editor={editor} dndBackend={dndBackend}>
       <StickyWrapper>
         {stickyNess => (
           <>
-            <Editable id={editorState.id} onChange={onChange} />
+            <Editable
+              id={lastValueRef.current?.id}
+              onChange={onChangeCallback}
+            />
             <EditorUI stickyNess={stickyNess} />
           </>
         )}
