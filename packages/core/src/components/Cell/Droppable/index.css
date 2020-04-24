@@ -24,6 +24,15 @@
   position: relative;
 }
 
+.ory-cell-droppable-is-over-current:after {
+  /* extend dropable area a bit, so that its easier to add as last eleent */
+  content: "";
+  height: 100px;
+  width: 100%;
+  position: absolute;
+  bottom: -100px;
+}
+
 .ory-cell-droppable-is-over-current:before {
   content: " ";
   display: block;
