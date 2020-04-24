@@ -1,7 +1,7 @@
 import '@react-page/core/lib/index.css'; // we also want to load the stylesheets
 import Editor from '@react-page/editor';
 import '@react-page/ui/lib/index.css';
-import React, { useEffect } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
 // The content state
 import contents from './contents';
