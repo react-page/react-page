@@ -27,8 +27,10 @@ function PluginButton<T>(props: Props<T>) {
     isActive: boolean;
     data: T;
   }>();
+
   const shouldInsertWithText =
     plugin.pluginType === 'component' &&
+    plugin.object === 'inline' &&
     (!storedPropsRef?.current?.selection ||
       Range.isCollapsed(storedPropsRef?.current?.selection)) &&
     !storedPropsRef?.current?.isActive;
