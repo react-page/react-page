@@ -9,6 +9,7 @@ import customLayoutPluginWithInitialState from './customLayoutPluginWithInitialS
 import { plugins } from './plugins';
 import './styles.css';
 import { Button } from '@material-ui/core';
+import { defaultSlate } from './slate';
 
 if (
   process.env.NODE_ENV !== 'production' &&
@@ -42,7 +43,11 @@ elements.forEach((element, index) => {
   ReactDOM.render(
     <KeepStateEditor
       plugins={plugins}
-      defaultPlugin={customLayoutPluginWithInitialState()}
+      defaultPlugin={
+        element.dataset.id === '10'
+          ? customLayoutPluginWithInitialState()
+          : defaultSlate
+      }
       value={contents[index]}
     />,
 

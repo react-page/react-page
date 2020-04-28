@@ -5,7 +5,7 @@ import StickyWrapper from './StickyWrapper';
 import equals from 'fast-deep-equal';
 
 export default ({ plugins, defaultPlugin, value, onChange, dndBackend }) => {
-  const theValue = value ?? createEmptyState();
+  const theValue = value || createEmptyState();
   // tslint:disable-next-line: no-any
   const lastValueRef = useRef<any>();
 
