@@ -90,7 +90,7 @@ const insert = (type: string) => (
       dispatch(editMode());
     }
     setTimeout(() => {
-      dispatch(focusCell(insertAction.ids.item)());
+      dispatch(focusCell(insertAction.ids.item, true)());
     }, 300);
   };
 };

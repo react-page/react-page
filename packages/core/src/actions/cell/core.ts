@@ -172,16 +172,18 @@ export interface FocusCellAction extends Action {
   ts: Date;
   id: string;
   source: string;
+  scrollToCell?: boolean;
 }
 /**
  * Dispatch to focus a cell.
  */
-export const focusCell = (id: string) => ({
+export const focusCell = (id: string, scrollToCell = false) => ({
   source,
 }: { source?: string } = {}): FocusCellAction => ({
   type: CELL_FOCUS,
   ts: new Date(),
   id,
+  scrollToCell,
   source,
 });
 

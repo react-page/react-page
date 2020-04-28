@@ -20,7 +20,7 @@
  *
  */
 
-import deepEqual from 'deep-equal';
+import deepEqual from 'fast-deep-equal';
 
 import { ComponetizedCell, ComponetizedRow } from '../../types/editable';
 import {

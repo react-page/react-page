@@ -97,9 +97,19 @@ export const cell = (s: Cell, a: AnyAction): Cell =>
         case CELL_FOCUS:
           if (action.id === state.id) {
             // If this cell is being focused, set the data
-            return { ...reduce(), focused: true, focusSource: action.source };
+            return {
+              ...reduce(),
+              focused: true,
+              scrollToCell: action.scrollToCell,
+              focusSource: action.source,
+            };
           }
-          return { ...reduce(), focused: false, focusSource: null };
+          return {
+            ...reduce(),
+            focused: false,
+            scrollToCell: false,
+            focusSource: null,
+          };
 
         case CELL_BLUR:
           if (action.id === state.id) {

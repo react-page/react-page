@@ -21,7 +21,7 @@
  */
 
 import * as unexpected from 'unexpected';
-import equal from 'deep-equal';
+import equal from 'fast-deep-equal';
 
 import { optimizeCell, optimizeRow } from '../optimize';
 
