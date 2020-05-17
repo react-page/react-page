@@ -8,6 +8,7 @@ import { ReduxProvider } from '../reduxConnect';
 interface ProviderProps {
   editor: Editor;
   dndBackend?: BackendFactory;
+  blurGateDisabled?: boolean;
 }
 
 const EditorContext = React.createContext<Editor>(null);
@@ -18,11 +19,12 @@ const Provider: React.FC<ProviderProps> = ({
   editor,
   children = [],
   dndBackend = HTML5Backend,
+  blurGateDisabled = false,
 }) => (
   <DndProvider backend={dndBackend}>
     <ReduxProvider store={editor.store}>
       <EditorContext.Provider value={editor}>
-        <BlurGate>{children}</BlurGate>
+        <BlurGate disabled={blurGateDisabled}>{children}</BlurGate>
       </EditorContext.Provider>
     </ReduxProvider>
   </DndProvider>

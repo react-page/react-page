@@ -1,13 +1,13 @@
-import React, { useEffect } from 'react';
-import { blurAllCells } from '../actions/cell';
-import { editMode } from '../actions/display';
-import { connect } from '../reduxConnect';
+import React, { useEffect } from "react";
+import { blurAllCells } from "../actions/cell";
+import { editMode } from "../actions/display";
+import { connect } from "../reduxConnect";
 
 // this might break in future, but its better than nothing
 // tslint:disable-next-line:no-any
 function findReactElement(node: any) {
   for (var key in node) {
-    if (key.startsWith('__reactInternalInstance$')) {
+    if (key.startsWith("__reactInternalInstance$")) {
       return node[key];
     }
   }
@@ -30,9 +30,12 @@ const isInSameTree = (parent, child) => {
   return false;
 };
 
-const useBlurAll = (blurAllCellsDispatch, setEditMode) => {
+const useBlurAll = (blurAllCellsDispatch, setEditMode, disabled: boolean) => {
   const ref = React.useRef<HTMLDivElement>();
   useEffect(() => {
+    if (disabled) {
+      return null;
+    }
     if (!ref.current) {
       return null;
     }
@@ -40,28 +43,32 @@ const useBlurAll = (blurAllCellsDispatch, setEditMode) => {
       return null;
     }
 
-    const onMouseDown = e => {
+    const onMouseDown = (e) => {
       if (!isInSameTree(ref.current, e.target)) {
         blurAllCellsDispatch();
         // always set us in edit mode when blurred
         setEditMode();
       }
     };
-    document.body.addEventListener('mousedown', onMouseDown);
+    document.body.addEventListener("mousedown", onMouseDown);
     return () => {
-      document.body.removeEventListener('mousedown', onMouseDown);
+      document.body.removeEventListener("mousedown", onMouseDown);
     };
-  }, [ref.current]);
+  }, [ref.current, disabled]);
   return ref;
 };
 
 const mapDispatchToProps = { blurAllCells, editMode };
 
-const BlurGate = connect(
+export interface BlurGateProps {
+  disabled?: boolean;
+}
+
+const BlurGate: React.FC<BlurGateProps> = connect(
   null,
   mapDispatchToProps
-)(props => {
-  const ref = useBlurAll(props.blurAllCells, props.editMode);
+)((props) => {
+  const ref = useBlurAll(props.blurAllCells, props.editMode, props.disabled);
   return <div ref={ref}>{props.children}</div>;
 });
 
