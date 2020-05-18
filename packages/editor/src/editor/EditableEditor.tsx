@@ -4,7 +4,15 @@ import React, { useEffect, useRef, useCallback } from 'react';
 import StickyWrapper from './StickyWrapper';
 import equals from 'fast-deep-equal';
 
-export default ({ plugins, defaultPlugin, value, onChange, dndBackend }) => {
+export default ({
+  plugins,
+  defaultPlugin,
+  value,
+  onChange,
+  dndBackend,
+  defaultDisplayMode,
+  blurGateDisabled,
+}) => {
   const theValue = value || createEmptyState();
   // tslint:disable-next-line: no-any
   const lastValueRef = useRef<any>();
@@ -32,7 +40,12 @@ export default ({ plugins, defaultPlugin, value, onChange, dndBackend }) => {
   const editor = editorRef.current;
 
   return (
-    <Provider editor={editor} dndBackend={dndBackend}>
+    <Provider
+      editor={editor}
+      dndBackend={dndBackend}
+      blurGateDisabled={blurGateDisabled}
+      blurGateDefaultMode={defaultDisplayMode}
+    >
       <StickyWrapper>
         {stickyNess => (
           <>
