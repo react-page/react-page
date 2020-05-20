@@ -54,6 +54,19 @@ const setDisplayMode = (
 });
 
 /**
+ * Dispatch to switch to arbitrary mode.
+ */
+export const setMode = (
+  mode: DisplayModes,
+  remember: boolean = false
+): SetDisplayModeAction => ({
+  type: SET_DISPLAY_MODE,
+  ts: new Date(),
+  mode,
+  remember,
+});
+
+/**
  * Dispatch to switch to insert display mode.
  */
 export const insertMode = setDisplayMode(DISPLAY_MODE_INSERT);

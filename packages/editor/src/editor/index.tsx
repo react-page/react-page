@@ -8,16 +8,19 @@ import {
 } from '@react-page/core';
 import { HTMLRenderer } from '@react-page/renderer';
 import React from 'react';
+import { DisplayModes } from '@react-page/core/src/actions/display';
 
 const EditableEditor = lazyLoad(() => import('./EditableEditor'));
 
 type Props = {
   plugins?: Plugins;
   defaultPlugin?: ContentPluginConfig | LayoutPluginConfig;
-  dndBackendd?: DndBackend;
+  dndBackend?: DndBackend;
   value?: EditableType;
   onChange?: (v: EditableType) => void;
   readOnly?: boolean;
+  defaultDisplayMode?: DisplayModes;
+  blurGateDisabled?: boolean;
 };
 const Editor: React.FC<Props> = ({
   plugins,
@@ -25,7 +28,9 @@ const Editor: React.FC<Props> = ({
   readOnly,
   value,
   onChange,
-  dndBackendd,
+  dndBackend,
+  blurGateDisabled,
+  defaultDisplayMode,
 }) =>
   readOnly ? (
     <HTMLRenderer state={value} plugins={plugins} />
@@ -35,7 +40,9 @@ const Editor: React.FC<Props> = ({
       defaultPlugin={defaultPlugin}
       value={value}
       onChange={onChange}
-      dndBackend={dndBackendd}
+      dndBackend={dndBackend}
+      blurGateDisabled={blurGateDisabled}
+      defaultDisplayMode={defaultDisplayMode}
     />
   );
 
