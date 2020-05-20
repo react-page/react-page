@@ -10,9 +10,9 @@ ReactPage is a smart, extensible and modern editor ("WYSIWYG") for the web writt
 
 ## Documentation
 
-The documentation is available at [docs](/documentation)
+The documentation is available at [docs](https://react-page.github.io/react-page/)
 
-The best place to start is [Quick Start](./documentation/quick-start.md).
+The best place to start is [Quick Start](https://react-page.github.io/react-page/#/quick-start).
 
 ## Attributions
 
