@@ -33,7 +33,10 @@ import {
   LayoutPlugin,
   LayoutPluginConfig
 } from '../../../service/plugin/classes';
-import { EditableComponentState } from '../../../types/editable';
+import {
+  EditableComponentState,
+  SimplifiedModesProps
+} from '../../../types/editable';
 import Cell from '../../Cell';
 import dimensions from '../../Dimensions';
 function isElementInViewport(el: HTMLDivElement) {
@@ -50,7 +53,8 @@ function isElementInViewport(el: HTMLDivElement) {
         document.documentElement.clientWidth) /*or $(window).width() */
   );
 }
-class Inner extends React.PureComponent<EditableComponentState> {
+export type EditableInnerProps = EditableComponentState & SimplifiedModesProps;
+class Inner extends React.PureComponent<EditableInnerProps> {
   ref = React.createRef<HTMLDivElement>();
   firstElementInViewport = null;
 
@@ -76,7 +80,7 @@ class Inner extends React.PureComponent<EditableComponentState> {
     window.addEventListener('scroll', this.onScroll);
   }
 
-  componentDidUpdate(oldProps: EditableComponentState) {
+  componentDidUpdate(oldProps: EditableInnerProps) {
     this.createFallbackCell();
     if (oldProps.displayMode !== this.props.displayMode) {
       if (this.firstElementInViewport) {
@@ -113,7 +117,7 @@ class Inner extends React.PureComponent<EditableComponentState> {
   }
 
   render() {
-    const { id, containerWidth, containerHeight, node } = this.props;
+    const { id, containerWidth, containerHeight, node, ...rest } = this.props;
 
     if (!node) {
       return null;
@@ -130,6 +134,7 @@ class Inner extends React.PureComponent<EditableComponentState> {
             ancestors={[]}
             key={c}
             id={c}
+            {...rest}
           />
         ))}
       </div>
@@ -151,8 +156,5 @@ const mapStateToProps = createStructuredSelector({
 const mapDispatchToProps = { createFallbackCell };
 
 export default dimensions()(
-  connect(
-    mapStateToProps,
-    mapDispatchToProps
-  )(Inner)
+  connect(mapStateToProps, mapDispatchToProps)(Inner)
 );

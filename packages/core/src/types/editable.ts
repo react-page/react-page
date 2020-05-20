@@ -247,3 +247,9 @@ export type NewIds = {
   cell: string;
   others: [string, string, string];
 };
+
+export type SimplifiedModesProps = {
+  allowResizeInEditMode?: boolean;
+  editModeResizeHandle?: JSX.Element;
+  allowMoveInEditMode?: boolean;
+};

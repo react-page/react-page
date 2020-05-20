@@ -1,10 +1,32 @@
-import { createEmptyState, Editable, Editor, Provider } from '@react-page/core';
+import {
+  createEmptyState,
+  Editable,
+  Editor,
+  Provider,
+  Plugins,
+  ContentPluginConfig,
+  LayoutPluginConfig,
+  DndBackend,
+  EditableType
+} from '@react-page/core';
 import EditorUI from '@react-page/ui';
 import React, { useEffect, useRef, useCallback } from 'react';
 import StickyWrapper from './StickyWrapper';
 import equals from 'fast-deep-equal';
+import { SimplifiedModesProps } from '@react-page/core/src/types/editable';
+import { DisplayModes } from '@react-page/core/src/actions/display';
 
-export default ({
+export type EditableEditorProps = {
+  plugins?: Plugins;
+  defaultPlugin?: ContentPluginConfig | LayoutPluginConfig;
+  dndBackend?: DndBackend;
+  value?: EditableType;
+  onChange?: (v: EditableType) => void;
+  defaultDisplayMode?: DisplayModes;
+  blurGateDisabled?: boolean;
+} & SimplifiedModesProps;
+
+const EditableEditor: React.FC<EditableEditorProps> = ({
   plugins,
   defaultPlugin,
   value,
@@ -12,6 +34,7 @@ export default ({
   dndBackend,
   defaultDisplayMode,
   blurGateDisabled,
+  ...rest
 }) => {
   const theValue = value || createEmptyState();
   // tslint:disable-next-line: no-any
@@ -52,6 +75,7 @@ export default ({
             <Editable
               id={lastValueRef.current?.id}
               onChange={onChangeCallback}
+              {...rest}
             />
             <EditorUI stickyNess={stickyNess} />
           </>
@@ -60,3 +84,5 @@ export default ({
     </Provider>
   );
 };
+
+export default EditableEditor;

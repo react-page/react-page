@@ -45,7 +45,7 @@ import {
   NodeProps,
   purifiedNode
 } from '../../selector/editable';
-import { ComponetizedCell } from '../../types/editable';
+import { ComponetizedCell, SimplifiedModesProps } from '../../types/editable';
 import {
   BlurAllCellsAction,
   FocusCellAction,
@@ -69,7 +69,7 @@ const stopClick = (_isEditMode: boolean) => (
   e: React.MouseEvent<HTMLDivElement>
 ) => (_isEditMode ? e.stopPropagation() : null);
 
-type CellProps = ComponetizedCell;
+type CellProps = ComponetizedCell & SimplifiedModesProps;
 
 class Cell extends React.PureComponent<CellProps> {
   render() {
@@ -83,7 +83,6 @@ class Cell extends React.PureComponent<CellProps> {
     if (isDraft && this.props.isPreviewMode) {
       return null;
     }
-
     return (
       <div
         className={classNames('ory-cell', gridClass(this.props), {
@@ -97,7 +96,9 @@ class Cell extends React.PureComponent<CellProps> {
         })}
         onClick={stopClick(this.props.isEditMode)}
       >
-        {resizable && this.props.isResizeMode && rowWidth ? (
+        {resizable &&
+        (this.props.isResizeMode || this.props.allowResizeInEditMode) &&
+        rowWidth ? (
           <Resizable
             {...this.props}
             id={id}

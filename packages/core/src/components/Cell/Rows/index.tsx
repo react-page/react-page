@@ -24,15 +24,21 @@ import * as React from 'react';
 
 import Row from '../../../components/Row';
 
-import { ComponetizedCell } from '../../../types/editable';
+import {
+  ComponetizedCell,
+  SimplifiedModesProps
+} from '../../../types/editable';
 
-class Rows extends React.PureComponent<Partial<ComponetizedCell>> {
+class Rows extends React.PureComponent<
+  Partial<ComponetizedCell & SimplifiedModesProps>
+> {
   render() {
     const {
       node: { rows = [] },
       editable,
       id,
       ancestors = [],
+      ...rest
     } = this.props;
 
     return (
@@ -43,6 +49,7 @@ class Rows extends React.PureComponent<Partial<ComponetizedCell>> {
             ancestors={[...ancestors, id]}
             id={r}
             key={r}
+            {...rest}
           />
         ))}
       </div>

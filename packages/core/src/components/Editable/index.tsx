@@ -2,17 +2,22 @@ import equals from 'fast-deep-equal';
 import React, { useEffect, useRef } from 'react';
 import { useEditor } from '../../Provider';
 import { editable } from '../../selector/editable';
-import { AbstractCell, AbstractEditable, Row } from '../../types/editable';
+import {
+  AbstractCell,
+  AbstractEditable,
+  Row,
+  SimplifiedModesProps
+} from '../../types/editable';
 import { EditorState } from '../../types/editor';
 import HotKeyDecorator from '../HotKey/Decorator';
 import Inner from './Inner';
 type Serialized = AbstractEditable<AbstractCell<Row>>;
 
-type Props = {
+export type EditableProps = {
   id: string;
   onChange: (value: Serialized) => void;
-};
-const Editable: React.FC<Props> = ({ id, onChange }) => {
+} & SimplifiedModesProps;
+const Editable: React.FC<EditableProps> = ({ id, onChange, ...rest }) => {
   const editor = useEditor();
   const previousSerializedRef = useRef<Serialized>();
   useEffect(() => {
@@ -42,7 +47,7 @@ const Editable: React.FC<Props> = ({ id, onChange }) => {
 
   return (
     <HotKeyDecorator id={id}>
-      <Inner id={id} defaultPlugin={editor.defaultPlugin} />
+      <Inner id={id} defaultPlugin={editor.defaultPlugin} {...rest} />
     </HotKeyDecorator>
   );
 };

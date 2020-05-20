@@ -36,10 +36,10 @@ import {
 import { editableConfig, purifiedNode, node } from '../../selector/editable';
 import { blurAllCells } from '../../actions/cell';
 
-import { ComponetizedRow } from '../../types/editable';
+import { ComponetizedRow, SimplifiedModesProps } from '../../types/editable';
 import { RootState } from '../../types/state';
 
-class Row extends React.PureComponent<ComponetizedRow> {
+class Row extends React.PureComponent<ComponetizedRow & SimplifiedModesProps> {
   // tslint:disable-next-line:no-any
   Droppable: any;
   constructor(props: ComponetizedRow) {
@@ -77,9 +77,4 @@ const mapDispatchToProps = {
   blurAllCells,
 };
 
-export default dimensions()(
-  connect(
-    mapStateToProps,
-    mapDispatchToProps
-  )(Row)
-);
+export default dimensions()(connect(mapStateToProps, mapDispatchToProps)(Row));

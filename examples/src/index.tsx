@@ -8,8 +8,9 @@ import contents from './contents';
 import customLayoutPluginWithInitialState from './customLayoutPluginWithInitialState';
 import { plugins } from './plugins';
 import './styles.css';
-import { Button } from '@material-ui/core';
+import { Button, FormGroup, FormControlLabel, Switch } from '@material-ui/core';
 import { defaultSlate } from './slate';
+import { EditorProps } from '@react-page/editor';
 
 if (
   process.env.NODE_ENV !== 'production' &&
@@ -19,8 +20,7 @@ if (
   whyDidYouUpdate(React);
 }
 
-// tslint:disable-next-line:no-any
-const KeepStateEditor = ({ value, ...props }: any) => {
+const KeepStateEditor: React.FC<EditorProps> = ({ value, ...props }) => {
   const [state, setState] = React.useState(value);
 
   // here you would normally persist the state somewhere (e.g a database)
@@ -28,9 +28,49 @@ const KeepStateEditor = ({ value, ...props }: any) => {
   // if you do, you have to guarantee that the value is referencially equal to what has been passed by `onChange`
   // or the editor will blur its fields (and other problems)
 
+  const [allowMove, setAllowMove] = React.useState(true);
+  const onAllowMoveChanged = React.useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>, checked: boolean) =>
+      setAllowMove(checked),
+    []
+  );
+  const [allowResize, setAllowResize] = React.useState(true);
+  const onAllowResizeChanged = React.useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>, checked: boolean) =>
+      setAllowResize(checked),
+    []
+  );
   return (
     <>
-      <Editor {...props} value={state} onChange={setState} />
+      <FormGroup row={true}>
+        <FormControlLabel
+          control={
+            <Switch
+              checked={allowMove}
+              onChange={onAllowMoveChanged}
+              color="primary"
+            />
+          }
+          label="Allow move in edit mode"
+        />
+        <FormControlLabel
+          control={
+            <Switch
+              checked={allowResize}
+              onChange={onAllowResizeChanged}
+              color="primary"
+            />
+          }
+          label="Allow resize in edit mode"
+        />
+      </FormGroup>
+      <Editor
+        {...props}
+        allowMoveInEditMode={allowMove}
+        allowResizeInEditMode={allowResize}
+        value={state}
+        onChange={setState}
+      />
       <Button variant="outlined" onClick={() => setState(value)}>
         Reset this editor
       </Button>

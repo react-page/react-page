@@ -31,14 +31,18 @@ import {
 import { connect } from '../../../reduxConnect';
 import { isEditMode, isPreviewMode } from '../../../selector/display';
 import { LayoutPluginProps } from '../../../service/plugin/classes';
-import { ComponetizedCell } from '../../../types/editable';
+import {
+  ComponetizedCell,
+  SimplifiedModesProps
+} from '../../../types/editable';
 import Row from '../../Row';
 import scrollIntoViewWithOffset from '../utils/scrollIntoViewWithOffset';
 
+export type LayoutProps = ComponetizedCell & SimplifiedModesProps;
 // TODO clean me up #157
-class Layout extends React.PureComponent<ComponetizedCell> {
+class Layout extends React.PureComponent<LayoutProps> {
   ref: HTMLDivElement;
-  UNSAFE_componentWillReceiveProps(nextProps: ComponetizedCell) {
+  UNSAFE_componentWillReceiveProps(nextProps: LayoutProps) {
     const {
       node: { focused: was },
     } = this.props;
@@ -109,7 +113,10 @@ class Layout extends React.PureComponent<ComponetizedCell> {
       node: { rows = [], layout, focused },
       editable,
       ancestors = [],
-    }: ComponetizedCell = this.props;
+      allowMoveInEditMode,
+      allowResizeInEditMode,
+      editModeResizeHandle,
+    } = this.props;
     const { plugin, state } = layout;
     const { Component, version, name, text } = plugin;
     const { focusCell, blurCell, removeCell } = this.props;
@@ -158,6 +165,9 @@ class Layout extends React.PureComponent<ComponetizedCell> {
               ancestors={[...ancestors, id]}
               key={r}
               id={r}
+              allowMoveInEditMode={allowMoveInEditMode}
+              allowResizeInEditMode={allowResizeInEditMode}
+              editModeResizeHandle={editModeResizeHandle}
             />
           ))}
         </Component>

@@ -4,7 +4,10 @@ import { DropTarget as dropTarget } from 'react-dnd';
 import { dragActions } from '../../../actions/cell/drag';
 import { insertActions } from '../../../actions/cell/insert';
 import { connect } from '../../../reduxConnect';
-import { ComponetizedCell } from '../../../types/editable';
+import {
+  ComponetizedCell,
+  SimplifiedModesProps
+} from '../../../types/editable';
 import { connect as monitorConnect, target } from './helper/dnd';
 
 type Props = ComponetizedCell & {
@@ -20,7 +23,7 @@ type Props = ComponetizedCell & {
   className: string;
   dropTypes: Array<string>;
   connectDropTarget<T>(e: T): T;
-};
+} & SimplifiedModesProps;
 
 class Droppable extends React.PureComponent<Props> {
   render() {
@@ -32,9 +35,10 @@ class Droppable extends React.PureComponent<Props> {
       isLeaf,
       node: { hover },
       children,
+      allowMoveInEditMode,
     } = this.props;
 
-    if (!(isLayoutMode || isInsertMode)) {
+    if (!(isLayoutMode || isInsertMode) && !allowMoveInEditMode) {
       return (
         <div className={classNames(className, 'ory-cell-droppable-container')}>
           {children}

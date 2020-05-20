@@ -6,8 +6,7 @@ export const ReduxProvider = ({ store, ...props }) => (
   <Provider store={store} context={ReduxContext} {...props} />
 );
 
-// tslint:disable-next-line:no-any
-export const connect: any = (
+export const connect = (
   // tslint:disable-next-line:no-any
   mapStateToProps?: any,
   mapDispatchToProps?: Function | Object,
