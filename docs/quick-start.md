@@ -25,7 +25,7 @@ $ npm i --save @react-page/react-page
 Next, open the file _src/components/App.js_ and include the React Page:
 
 ```jsx
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 
 // The editor core
 import Editor from "@react-page/editor";
@@ -50,7 +50,7 @@ const App = () => {
   // save the state somewhere
   const saveToDatabase = useCallback(() => {
     return fetch("/my/save/url", { method: "POST", body: editorvalue });
-  }, []);
+  }, [editorvalue]);
   return (
     <div>
       <Editor plugins={plugins} value={editorValue} onChange={setEditorValue} />
