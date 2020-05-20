@@ -48,6 +48,7 @@
     "unexpected": "^10.38.0"
   },
   "scripts": {
+    "start:docs": "docsify serve ./docs",
     "coveralls": "cat ./coverage/lcov.info | coveralls",
     "bootstrap": "lerna bootstrap",
     "build": "cross-env NODE_ENV=production lerna run build --stream",
@@ -94,5 +95,8 @@
       "/node_modules/",
       "/lib/"
     ]
+  },
+  "dependencies": {
+    "docsify": "^4.11.3"
   }
 }
