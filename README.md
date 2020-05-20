@@ -6,29 +6,13 @@
 
 ReactPage is a smart, extensible and modern editor ("WYSIWYG") for the web written in React. If you are fed up with the limitations of `contenteditable`, you are in the right place.
 
-<img width="60%" alt="ReactPage Demo" src="docs/images/quick-example.gif">
-
-### Bundle Size
-
-We try to keep the initial bundle size low so that you can use this library also to render the content statically without edit functionality.
-
-We achieve that by lazy-loading using `import()` functions. Most modern bundlers like webpack (e.g. in nextjs) support this kind of lazy loading. So the default editor-ui (based on material-ui) is only loaded if the editor is in editMode.
-
-You can additionally use `@react-page/renderer` to have a minimal renderer.
+<img width="60%" alt="ReactPage Demo" src="documentation/images/quick-example.gif">
 
 ## Documentation
 
-The docs can be found inside the docs folder of this project.
+The documentation is available at [docs](/documentation)
 
-You can follow the [Quick Start](./docs/quick-start.md) to get the basic editor running on your project.
-
-A list of some packages and tools that we provide can be found [here](./docs/packages.md), check this file to see what you can accomplish with this editor.
-
-Finally you can check the rest of the docs [here](./docs/SUMMARY.md)
-
-We also provide docummentations for all of the public api methods, the docs are available [here](./docs/api)
-
-(currently outdated, sorry! )
+The best place to start is [Quick Start](./documentation/quick-start.md).
 
 ## Attributions
 
