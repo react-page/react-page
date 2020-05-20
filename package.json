@@ -45,7 +45,8 @@
     "tslint": "^5.20.0",
     "tslint-react": "^3.6.0",
     "typescript": "^3.7.3",
-    "unexpected": "^10.38.0"
+    "unexpected": "^10.38.0",
+    "docsify": "^4.11.3"
   },
   "scripts": {
     "start:docs": "docsify serve ./docs",
@@ -95,8 +96,5 @@
       "/node_modules/",
       "/lib/"
     ]
-  },
-  "dependencies": {
-    "docsify": "^4.11.3"
   }
 }

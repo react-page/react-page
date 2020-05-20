@@ -46,13 +46,13 @@ const useBlurAll = (
   const ref = React.useRef<HTMLDivElement>();
   useEffect(() => {
     if (disabled) {
-      return null;
+      return;
     }
     if (!ref.current) {
-      return null;
+      return;
     }
     if (!document && !document.body) {
-      return null;
+      return;
     }
 
     const onMouseDown = (e: MouseEvent) => {
