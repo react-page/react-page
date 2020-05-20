@@ -21,7 +21,7 @@
  */
 
 .ory-cell-droppable {
-  position: relative;
+  /*position: relative;*/
 }
 
 .ory-cell-droppable-is-over-current:after {

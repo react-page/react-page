@@ -37,7 +37,46 @@
   z-index: 3;
   cursor: move;
   border: 1px solid rgba(0, 0, 0, 0);
-  transition: all ease .4s;
+  transition: all ease 0.4s;
+}
+
+.ory-cell-focused .ory-cell-draggable-overlay-handle {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 2rem;
+  height: 2rem;
+  cursor: move;
+  background: var(--minBlack);
+  content: "-";
+}
+
+.ory-cell-focused .ory-cell-draggable-overlay-handle-icon::before {
+  top: -300%;
+}
+.ory-cell-focused .ory-cell-draggable-overlay-handle-icon {
+  width: 70%;
+  top: 50%;
+}
+.ory-cell-focused .ory-cell-draggable-overlay-handle-icon::after {
+  top: 400%;
+}
+
+.ory-cell-focused .ory-cell-draggable-overlay-handle-icon::before,
+.ory-cell-focused .ory-cell-draggable-overlay-handle-icon::after {
+  width: 100%;
+}
+
+.ory-cell-focused .ory-cell-draggable-overlay-handle-icon,
+.ory-cell-focused .ory-cell-draggable-overlay-handle-icon::before,
+.ory-cell-focused .ory-cell-draggable-overlay-handle-icon::after {
+  height: 2px;
+  position: absolute;
+  content: "";
+  transform: translate(-50%, -50%);
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
 }
 
 .ory-cell-draggable-overlay:hover {
@@ -49,14 +88,14 @@
 .ory-cell-draggable-overlay-description {
   text-align: center;
   display: block;
-  color: rgba(0, 0, 0, .97);
+  color: rgba(0, 0, 0, 0.97);
   max-width: 100%;
 }
 
 .ory-cell-draggable-overlay-description span {
   opacity: 0;
   text-align: center;
-  color: rgba(0, 0, 0, .97);
+  color: rgba(0, 0, 0, 0.97);
   max-width: 90%;
   display: inline-block;
   padding: 8px 22px;
@@ -66,11 +105,11 @@
   font-size: 75%;
   letter-spacing: 0.15em;
   background: rgba(255, 255, 255, 0);
-  transition: all ease .4s;
+  transition: all ease 0.4s;
 }
 
 .ory-cell-draggable-overlay:hover .ory-cell-draggable-overlay-description span {
-  background: rgba(255, 255, 255, .95);
+  background: rgba(255, 255, 255, 0.95);
   opacity: 1;
 }
 
@@ -88,4 +127,3 @@
   opacity: 0.4;
   outline: none;
 }
-

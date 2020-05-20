@@ -29,9 +29,14 @@ import Layout from '../Layout';
 import Content from '../Content';
 import Empty from '../Empty';
 
-import { ComponetizedCell } from '../../../types/editable';
+import {
+  ComponetizedCell,
+  SimplifiedModesProps
+} from '../../../types/editable';
 
-class Inner extends React.PureComponent<ComponetizedCell> {
+export type CellInnerProps = ComponetizedCell & SimplifiedModesProps;
+
+class Inner extends React.PureComponent<CellInnerProps> {
   render() {
     const {
       node: {

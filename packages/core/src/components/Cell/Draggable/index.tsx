@@ -4,7 +4,10 @@ import { DragSource as dragSource } from 'react-dnd';
 import { dragActions } from '../../../actions/cell/drag';
 import { insertActions } from '../../../actions/cell/insert';
 import { connect } from '../../../reduxConnect';
-import { ComponetizedCell } from '../../../types/editable';
+import {
+  ComponetizedCell,
+  SimplifiedModesProps
+} from '../../../types/editable';
 import { collect, source } from './helper/dnd';
 
 const icon =
@@ -26,7 +29,13 @@ type Props = ComponetizedCell & {
   dragType: string;
   connectDragSource<T>(e: T): T;
   connectDragPreview(image: HTMLImageElement): void;
-};
+} & SimplifiedModesProps;
+
+const defaultSmallHandle = (
+  <div className="ory-cell-draggable-overlay-handle">
+    <div className="ory-cell-draggable-overlay-handle-icon" />
+  </div>
+);
 
 class Draggable extends React.PureComponent<Props> {
   props: Props;
@@ -45,9 +54,10 @@ class Draggable extends React.PureComponent<Props> {
       node: { inline },
       children,
       name,
+      allowMoveInEditMode,
     } = this.props;
 
-    if (!isLayoutMode) {
+    if (!isLayoutMode && !this.props.allowMoveInEditMode) {
       return (
         <div className="ory-cell-draggable-container">
           {/* these divs are here to prevent page jumping, they are a placeholder for draggable / draggable-overlay */}
@@ -57,14 +67,36 @@ class Draggable extends React.PureComponent<Props> {
       );
     }
 
+    if (this.props.allowMoveInEditMode) {
+      const handle = connectDragSource(
+        this.props.editModeResizeHandle || defaultSmallHandle
+      );
+      return (
+        <div
+          className={classNames({
+            'ory-cell-draggable-in-edit': allowMoveInEditMode,
+            'ory-cell-draggable': isLayoutMode && !allowMoveInEditMode,
+            'ory-cell-draggable-is-dragging': isDragging,
+          })}
+        >
+          {handle}
+          <div>{children}</div>
+        </div>
+      );
+    }
+
     return connectDragSource(
       <div
-        className={classNames('ory-cell-draggable', {
+        className={classNames({
+          'ory-cell-draggable-in-edit': allowMoveInEditMode,
+          'ory-cell-draggable': isLayoutMode && !allowMoveInEditMode,
           'ory-cell-draggable-is-dragging': isDragging,
         })}
       >
         <div
-          className={classNames('ory-cell-draggable-overlay', {
+          className={classNames({
+            'ory-cell-draggable-in-edit-overlay': allowMoveInEditMode,
+            'ory-cell-draggable-overlay': isLayoutMode && !allowMoveInEditMode,
             [`ory-cell-draggable-inline-${inline}`]: inline,
             'ory-cell-draggable-leaf': isLeaf,
           })}

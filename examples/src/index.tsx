@@ -10,6 +10,7 @@ import { plugins } from './plugins';
 import './styles.css';
 import { Button } from '@material-ui/core';
 import { defaultSlate } from './slate';
+import { EditorProps } from '@react-page/editor';
 
 if (
   process.env.NODE_ENV !== 'production' &&
@@ -19,8 +20,9 @@ if (
   whyDidYouUpdate(React);
 }
 
-// tslint:disable-next-line:no-any
-const KeepStateEditor = ({ value, ...props }: any) => {
+const customHandle = <div className="text" />;
+
+const KeepStateEditor: React.FC<EditorProps> = ({ value, ...props }) => {
   const [state, setState] = React.useState(value);
 
   // here you would normally persist the state somewhere (e.g a database)
@@ -49,6 +51,9 @@ elements.forEach((element, index) => {
           : defaultSlate
       }
       value={contents[index]}
+      allowMoveInEditMode={true}
+      allowResizeInEditMode={true}
+      editModeResizeHandle={customHandle}
     />,
 
     element

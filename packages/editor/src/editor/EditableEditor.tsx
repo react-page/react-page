@@ -1,10 +1,36 @@
-import { createEmptyState, Editable, Editor, Provider } from '@react-page/core';
+import {
+  createEmptyState,
+  Editable,
+  Editor,
+  Provider,
+  Plugins,
+  ContentPluginConfig,
+  LayoutPluginConfig,
+  DndBackend,
+  EditableType
+} from '@react-page/core';
 import EditorUI from '@react-page/ui';
 import React, { useEffect, useRef, useCallback } from 'react';
 import StickyWrapper from './StickyWrapper';
 import equals from 'fast-deep-equal';
+import { SimplifiedModesProps } from '@react-page/core/src/types/editable';
 
-export default ({ plugins, defaultPlugin, value, onChange, dndBackend }) => {
+export type EditableEditorProps = {
+  plugins?: Plugins;
+  defaultPlugin?: ContentPluginConfig | LayoutPluginConfig;
+  dndBackend?: DndBackend;
+  value?: EditableType;
+  onChange?: (v: EditableType) => void;
+} & SimplifiedModesProps;
+
+const EditableEditor: React.FC<EditableEditorProps> = ({
+  plugins,
+  defaultPlugin,
+  value,
+  onChange,
+  dndBackend,
+  ...rest
+}) => {
   const theValue = value || createEmptyState();
   // tslint:disable-next-line: no-any
   const lastValueRef = useRef<any>();
@@ -39,6 +65,7 @@ export default ({ plugins, defaultPlugin, value, onChange, dndBackend }) => {
             <Editable
               id={lastValueRef.current?.id}
               onChange={onChangeCallback}
+              {...rest}
             />
             <EditorUI stickyNess={stickyNess} />
           </>
@@ -47,3 +74,5 @@ export default ({ plugins, defaultPlugin, value, onChange, dndBackend }) => {
     </Provider>
   );
 };
+
+export default EditableEditor;

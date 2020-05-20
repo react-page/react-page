@@ -8,24 +8,26 @@ import {
 } from '@react-page/core';
 import { HTMLRenderer } from '@react-page/renderer';
 import React from 'react';
+import { SimplifiedModesProps } from '@react-page/core/src/types/editable';
 
 const EditableEditor = lazyLoad(() => import('./EditableEditor'));
 
-type Props = {
+export type EditorProps = {
   plugins?: Plugins;
   defaultPlugin?: ContentPluginConfig | LayoutPluginConfig;
   dndBackendd?: DndBackend;
   value?: EditableType;
   onChange?: (v: EditableType) => void;
   readOnly?: boolean;
-};
-const Editor: React.FC<Props> = ({
+} & SimplifiedModesProps;
+const Editor: React.FC<EditorProps> = ({
   plugins,
   defaultPlugin,
   readOnly,
   value,
   onChange,
   dndBackendd,
+  ...rest
 }) =>
   readOnly ? (
     <HTMLRenderer state={value} plugins={plugins} />
@@ -36,6 +38,7 @@ const Editor: React.FC<Props> = ({
       value={value}
       onChange={onChange}
       dndBackend={dndBackendd}
+      {...rest}
     />
   );
 

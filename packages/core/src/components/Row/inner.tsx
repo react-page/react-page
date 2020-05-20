@@ -24,7 +24,7 @@ import * as React from 'react';
 import classNames from 'classnames';
 
 import Cell from '../Cell';
-import { ComponetizedRow } from '../../types/editable';
+import { ComponetizedRow, SimplifiedModesProps } from '../../types/editable';
 
 const Inner = ({
   editable,
@@ -33,7 +33,10 @@ const Inner = ({
   containerHeight,
   blurAllCells,
   containerWidth,
-}: ComponetizedRow) => (
+  allowMoveInEditMode,
+  allowResizeInEditMode,
+  editModeResizeHandle,
+}: ComponetizedRow & SimplifiedModesProps) => (
   <div
     className={classNames('ory-row', {
       'ory-row-is-hovering-this': Boolean(hover),
@@ -50,6 +53,9 @@ const Inner = ({
         editable={editable}
         key={c}
         id={c}
+        allowMoveInEditMode={allowMoveInEditMode}
+        allowResizeInEditMode={allowResizeInEditMode}
+        editModeResizeHandle={editModeResizeHandle}
       />
     ))}
   </div>

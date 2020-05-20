@@ -1,4 +1,4 @@
 import { EditableType } from '@react-page/core';
-import editor from './editor';
-export { EditableType };
+import editor, { EditorProps } from './editor';
+export { EditableType, EditorProps };
 export default editor;
