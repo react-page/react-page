@@ -67,7 +67,7 @@ class Draggable extends React.PureComponent<Props> {
       );
     }
 
-    if (this.props.allowMoveInEditMode) {
+    if (this.props.allowMoveInEditMode && !this.props.isLayoutMode) {
       const handle = connectDragSource(
         this.props.editModeResizeHandle || defaultSmallHandle
       );
@@ -88,15 +88,13 @@ class Draggable extends React.PureComponent<Props> {
     return connectDragSource(
       <div
         className={classNames({
-          'ory-cell-draggable-in-edit': allowMoveInEditMode,
-          'ory-cell-draggable': isLayoutMode && !allowMoveInEditMode,
+          'ory-cell-draggable': isLayoutMode,
           'ory-cell-draggable-is-dragging': isDragging,
         })}
       >
         <div
           className={classNames({
-            'ory-cell-draggable-in-edit-overlay': allowMoveInEditMode,
-            'ory-cell-draggable-overlay': isLayoutMode && !allowMoveInEditMode,
+            'ory-cell-draggable-overlay': isLayoutMode,
             [`ory-cell-draggable-inline-${inline}`]: inline,
             'ory-cell-draggable-leaf': isLeaf,
           })}
