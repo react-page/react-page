@@ -129,6 +129,14 @@ export const insertCellRightInline = insert(CELL_INSERT_INLINE_RIGHT);
 const newIds = ({ id, ...item }: Partial<Cell>) => {
   return {
     ...item,
+    content: item.content && {
+      plugin: item.content.plugin,
+      state: JSON.parse(JSON.stringify(item.content.state)),
+    },
+    layout: item.layout && {
+      plugin: item.layout.plugin,
+      state: JSON.parse(JSON.stringify(item.layout.state)),
+    },
     id: v4(),
     rows: item.rows
       ? item.rows.map(row => ({

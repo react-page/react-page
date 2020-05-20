@@ -14,6 +14,7 @@ import React, { useEffect, useRef, useCallback } from 'react';
 import StickyWrapper from './StickyWrapper';
 import equals from 'fast-deep-equal';
 import { SimplifiedModesProps } from '@react-page/core/src/types/editable';
+import { DisplayModes } from '@react-page/core/src/actions/display';
 
 export type EditableEditorProps = {
   plugins?: Plugins;
@@ -21,6 +22,8 @@ export type EditableEditorProps = {
   dndBackend?: DndBackend;
   value?: EditableType;
   onChange?: (v: EditableType) => void;
+  defaultDisplayMode?: DisplayModes;
+  blurGateDisabled?: boolean;
 } & SimplifiedModesProps;
 
 const EditableEditor: React.FC<EditableEditorProps> = ({
@@ -29,6 +32,8 @@ const EditableEditor: React.FC<EditableEditorProps> = ({
   value,
   onChange,
   dndBackend,
+  defaultDisplayMode,
+  blurGateDisabled,
   ...rest
 }) => {
   const theValue = value || createEmptyState();
@@ -58,7 +63,12 @@ const EditableEditor: React.FC<EditableEditorProps> = ({
   const editor = editorRef.current;
 
   return (
-    <Provider editor={editor} dndBackend={dndBackend}>
+    <Provider
+      editor={editor}
+      dndBackend={dndBackend}
+      blurGateDisabled={blurGateDisabled}
+      blurGateDefaultMode={defaultDisplayMode}
+    >
       <StickyWrapper>
         {stickyNess => (
           <>

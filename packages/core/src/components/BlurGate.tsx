@@ -1,7 +1,13 @@
 import React, { useEffect } from 'react';
 import { blurAllCells } from '../actions/cell';
-import { editMode } from '../actions/display';
+import {
+  setMode as setModeInternal,
+  DisplayModes,
+  DISPLAY_MODE_EDIT
+} from '../actions/display';
 import { connect } from '../reduxConnect';
+import { createStructuredSelector } from 'reselect';
+import { isInsertMode } from '../selector/display';
 
 // this might break in future, but its better than nothing
 // tslint:disable-next-line:no-any
@@ -30,9 +36,18 @@ const isInSameTree = (parent, child) => {
   return false;
 };
 
-const useBlurAll = (blurAllCellsDispatch, setEditMode) => {
+const useBlurAll = (
+  blurAllCellsDispatch,
+  setMode: (mode: DisplayModes) => void,
+  isInInsertMode: boolean,
+  defaultMode: DisplayModes = DISPLAY_MODE_EDIT,
+  disabled: boolean
+) => {
   const ref = React.useRef<HTMLDivElement>();
   useEffect(() => {
+    if (disabled) {
+      return null;
+    }
     if (!ref.current) {
       return null;
     }
@@ -40,28 +55,42 @@ const useBlurAll = (blurAllCellsDispatch, setEditMode) => {
       return null;
     }
 
-    const onMouseDown = e => {
+    const onMouseDown = (e: MouseEvent) => {
       if (!isInSameTree(ref.current, e.target)) {
         blurAllCellsDispatch();
-        // always set us in edit mode when blurred
-        setEditMode();
+        // set us in default mode if current mode is "insert"
+        if (isInInsertMode) {
+          setMode(defaultMode);
+        }
       }
     };
     document.body.addEventListener('mousedown', onMouseDown);
     return () => {
       document.body.removeEventListener('mousedown', onMouseDown);
     };
-  }, [ref.current]);
+  }, [ref.current, disabled, isInInsertMode]);
   return ref;
 };
 
-const mapDispatchToProps = { blurAllCells, editMode };
+const mapStateToProps = createStructuredSelector({ isInsertMode });
+const mapDispatchToProps = { blurAllCells, setMode: setModeInternal };
 
-const BlurGate = connect(
-  null,
+export interface BlurGateProps {
+  disabled?: boolean;
+  defaultMode?: DisplayModes;
+}
+
+const BlurGate: React.FC<BlurGateProps> = connect(
+  mapStateToProps,
   mapDispatchToProps
 )(props => {
-  const ref = useBlurAll(props.blurAllCells, props.editMode);
+  const ref = useBlurAll(
+    props.blurAllCells,
+    props.setMode,
+    props.defaultMode,
+    props.isInsertMode,
+    props.disabled
+  );
   return <div ref={ref}>{props.children}</div>;
 });
 

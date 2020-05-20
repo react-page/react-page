@@ -9,24 +9,31 @@ import {
 import { HTMLRenderer } from '@react-page/renderer';
 import React from 'react';
 import { SimplifiedModesProps } from '@react-page/core/src/types/editable';
+import { DisplayModes } from '@react-page/core/src/actions/display';
 
 const EditableEditor = lazyLoad(() => import('./EditableEditor'));
 
 export type EditorProps = {
   plugins?: Plugins;
   defaultPlugin?: ContentPluginConfig | LayoutPluginConfig;
-  dndBackendd?: DndBackend;
+  dndBackend?: DndBackend;
   value?: EditableType;
   onChange?: (v: EditableType) => void;
   readOnly?: boolean;
+  defaultDisplayMode?: DisplayModes;
+  blurGateDisabled?: boolean;
 } & SimplifiedModesProps;
+
 const Editor: React.FC<EditorProps> = ({
+
   plugins,
   defaultPlugin,
   readOnly,
   value,
   onChange,
-  dndBackendd,
+  dndBackend,
+  blurGateDisabled,
+  defaultDisplayMode,
   ...rest
 }) =>
   readOnly ? (
@@ -37,7 +44,9 @@ const Editor: React.FC<EditorProps> = ({
       defaultPlugin={defaultPlugin}
       value={value}
       onChange={onChange}
-      dndBackend={dndBackendd}
+      dndBackend={dndBackend}
+      blurGateDisabled={blurGateDisabled}
+      defaultDisplayMode={defaultDisplayMode}
       {...rest}
     />
   );
