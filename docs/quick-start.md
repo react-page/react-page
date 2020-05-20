@@ -20,7 +20,7 @@ $ npm i --save @react-page/react-page
 To get off the ground as soon as possible, simply create a component like so:
 
 ```jsx
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 
 // The editor core
 import Editor from "@react-page/editor";
