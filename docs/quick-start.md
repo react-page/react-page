@@ -41,7 +41,7 @@ const plugins = {
 };
 
 const App = () => {
-  const [editorValue, setEditorValue] = useState(initialState);
+  const [editorValue, setEditorValue] = useState();
   return (
     <Editor plugins={plugins} value={editorValue} onChange={setEditorValue} />
   );
