@@ -44,10 +44,10 @@ class Layout extends React.PureComponent<LayoutProps> {
   ref: HTMLDivElement;
   UNSAFE_componentWillReceiveProps(nextProps: LayoutProps) {
     const {
-      node: { focused: was },
+      node: { focused: was, scrollToCell: scrollToCellWas },
     } = this.props;
     const {
-      node: { focused: is, focusSource },
+      node: { focused: is, scrollToCell: scrollToCellIs, focusSource },
     } = nextProps;
     const {
       editable,
@@ -88,13 +88,15 @@ class Layout extends React.PureComponent<LayoutProps> {
 
     // Basically we check if the focus state changed and if yes, we execute the callback handler from the plugin, that
     // can set some side effects.
+    if (!scrollToCellWas && scrollToCellIs) {
+      if (this.ref) {
+        scrollIntoViewWithOffset(this.ref, 100);
+      }
+    }
     if (!was && is) {
       // We need this because otherwise we lose hotkey focus on elements like spoilers.
       // This could probably be solved in an easier way by listening to window.document?
       handleFocus(pass, focusSource, this.ref);
-      if (this.ref) {
-        scrollIntoViewWithOffset(this.ref, 100);
-      }
     } else if (was && !is) {
       handleBlur(pass);
     }

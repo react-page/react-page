@@ -14,6 +14,7 @@ import DraftSwitch from '../DraftSwitch';
 import DuplicateButton from '../DuplicateButton';
 import ThemeProvider, { darkTheme } from '../ThemeProvider';
 import { BottomToolbarProps } from './types';
+import SelectParentButton from '../SelectParentButton';
 const darkBlack = 'rgba(0, 0, 0, 0.87)';
 const bright = 'rgba(255,255,255, 0.98)';
 const brightBorder = 'rgba(0, 0, 0, 0.12)';
@@ -119,7 +120,7 @@ const BottomToolbar: React.SFC<BottomToolbarProps> = ({
               <Grid item={true} style={{ marginLeft: 'auto' }}>
                 <DraftSwitch id={id} editable={editable} />
                 <DuplicateButton id={id} editable={editable} />
-
+                <SelectParentButton id={id} editable={editable} />
                 {onDelete ? (
                   <Tooltip title="Remove Plugin">
                     <IconButton

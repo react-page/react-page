@@ -38,7 +38,13 @@ const defaultSmallHandle = (
 );
 
 class Draggable extends React.PureComponent<Props> {
-  props: Props;
+  constructor(props: Props) {
+    super(props);
+    this.preventBlurWhenClickingOnHandle = this.preventBlurWhenClickingOnHandle.bind(
+      this
+    );
+  }
+
   componentDidMount() {
     const img = new Image();
     img.onload = () => this.props.connectDragPreview(img);
@@ -51,7 +57,7 @@ class Draggable extends React.PureComponent<Props> {
       connectDragSource,
       isDragging,
       isLayoutMode,
-      node: { inline },
+      node: { inline, focused },
       children,
       name,
       allowMoveInEditMode,
@@ -68,9 +74,11 @@ class Draggable extends React.PureComponent<Props> {
     }
 
     if (this.props.allowMoveInEditMode && !this.props.isLayoutMode) {
-      const handle = connectDragSource(
-        this.props.editModeResizeHandle || defaultSmallHandle
-      );
+      const handle = focused
+        ? connectDragSource(
+            this.props.editModeResizeHandle || defaultSmallHandle
+          )
+        : null;
       return (
         <div
           className={classNames({
@@ -78,6 +86,7 @@ class Draggable extends React.PureComponent<Props> {
             'ory-cell-draggable': isLayoutMode && !allowMoveInEditMode,
             'ory-cell-draggable-is-dragging': isDragging,
           })}
+          onMouseDown={this.preventBlurWhenClickingOnHandle}
         >
           {handle}
           <div>{children}</div>
@@ -106,6 +115,10 @@ class Draggable extends React.PureComponent<Props> {
         <div>{children}</div>
       </div>
     );
+  }
+
+  private preventBlurWhenClickingOnHandle(e: React.MouseEvent) {
+    e.stopPropagation();
   }
 }
 
