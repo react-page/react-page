@@ -74,16 +74,17 @@ class Draggable extends React.PureComponent<Props> {
     }
 
     if (this.props.allowMoveInEditMode && !this.props.isLayoutMode) {
-      const handle = connectDragSource(
-        this.props.editModeResizeHandle || defaultSmallHandle
-      );
+      const handle = focused
+        ? connectDragSource(
+            this.props.editModeResizeHandle || defaultSmallHandle
+          )
+        : null;
       return (
         <div
           className={classNames({
             'ory-cell-draggable-in-edit': allowMoveInEditMode,
             'ory-cell-draggable': isLayoutMode && !allowMoveInEditMode,
             'ory-cell-draggable-is-dragging': isDragging,
-            'ory-cell-draggable--focused': focused,
           })}
           onMouseDown={this.preventBlurWhenClickingOnHandle}
         >

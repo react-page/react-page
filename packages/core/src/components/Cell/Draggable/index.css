@@ -40,7 +40,7 @@
   transition: all ease 0.4s;
 }
 
-.ory-cell-draggable--focused > .ory-cell-draggable-overlay-handle {
+.ory-cell-draggable-overlay-handle {
   position: absolute;
   top: 0;
   right: 0;
@@ -52,42 +52,32 @@
   z-index: 500;
 }
 
-.ory-cell-draggable--focused
-  > .ory-cell-draggable-overlay-handle
+.ory-cell-draggable-overlay-handle
   .ory-cell-draggable-overlay-handle-icon::before {
   top: -300%;
 }
 
-.ory-cell-draggable--focused
-  > .ory-cell-draggable-overlay-handle
-  .ory-cell-draggable-overlay-handle-icon {
+.ory-cell-draggable-overlay-handle .ory-cell-draggable-overlay-handle-icon {
   width: 70%;
   top: 50%;
 }
 
-.ory-cell-draggable--focused
-  > .ory-cell-draggable-overlay-handle
+.ory-cell-draggable-overlay-handle
   .ory-cell-draggable-overlay-handle-icon::after {
   top: 400%;
 }
 
-.ory-cell-draggable--focused
-  > .ory-cell-draggable-overlay-handle
+.ory-cell-draggable-overlay-handle
   .ory-cell-draggable-overlay-handle-icon::before,
-.ory-cell-draggable--focused
-  > .ory-cell-draggable-overlay-handle
+.ory-cell-draggable-overlay-handle
   .ory-cell-draggable-overlay-handle-icon::after {
   width: 100%;
 }
 
-.ory-cell-draggable--focused
-  > .ory-cell-draggable-overlay-handle
-  .ory-cell-draggable-overlay-handle-icon,
-.ory-cell-draggable--focused
-  > .ory-cell-draggable-overlay-handle
+.ory-cell-draggable-overlay-handle .ory-cell-draggable-overlay-handle-icon,
+.ory-cell-draggable-overlay-handle
   .ory-cell-draggable-overlay-handle-icon::before,
-.ory-cell-draggable--focused
-  > .ory-cell-draggable-overlay-handle
+.ory-cell-draggable-overlay-handle
   .ory-cell-draggable-overlay-handle-icon::after {
   height: 2px;
   position: absolute;
