@@ -34,7 +34,7 @@ import {
   Plugin,
   PluginConfig,
   Plugins,
-  PluginsInternal
+  PluginsInternal,
 } from './classes';
 import defaultPlugin from './default';
 import { contentMissing, layoutMissing } from './missing';
@@ -111,22 +111,22 @@ export default class PluginService {
       const cell: any = { node: insert, rawNode: () => insert };
       return cell;
     }
-  }
+  };
 
   setLayoutPlugins = (plugins: LayoutPluginConfig[] = []) => {
     this.plugins.layout = [];
     plugins.forEach(plugin => this.addLayoutPlugin(plugin));
-  }
+  };
 
   addLayoutPlugin = (config: LayoutPluginConfig) => {
     this.plugins.layout.push(new LayoutPlugin(config));
-  }
+  };
 
   removeLayoutPlugin = (name: string) => {
     this.plugins.layout = this.plugins.layout.filter(
       plugin => plugin.name !== name
     );
-  }
+  };
 
   setContentPlugins = (plugins: ContentPluginConfig[] = []) => {
     this.plugins.content = [];
@@ -135,17 +135,17 @@ export default class PluginService {
     [defaultPlugin, ...plugins].forEach(plugin =>
       this.addContentPlugin(plugin)
     );
-  }
+  };
 
   addContentPlugin = (config: ContentPluginConfig) => {
     this.plugins.content.push(new ContentPlugin(config));
-  }
+  };
 
   removeContentPlugin = (name: string) => {
     this.plugins.content = this.plugins.content.filter(
       plugin => plugin.name !== name
     );
-  }
+  };
 
   /**
    * Finds a layout plugin based on its name and version.
@@ -165,7 +165,7 @@ export default class PluginService {
       plugin: plugin || new LayoutPlugin(layoutMissing({ name, version })),
       pluginWrongVersion,
     };
-  }
+  };
 
   /**
    * Finds a content plugin based on its name and version.
@@ -183,7 +183,7 @@ export default class PluginService {
       plugin: plugin || new ContentPlugin(contentMissing({ name, version })),
       pluginWrongVersion,
     };
-  }
+  };
 
   /**
    * Returns a list of all known plugin names.
@@ -191,7 +191,7 @@ export default class PluginService {
   getRegisteredNames = (): Array<string> => [
     ...this.plugins.content.map(({ name }: Plugin) => name),
     ...this.plugins.layout.map(({ name }: Plugin) => name),
-  ]
+  ];
 
   migratePluginState = (
     // tslint:disable-next-line:no-any
@@ -221,7 +221,7 @@ export default class PluginService {
       state = migration.migrate(state);
     }
     return state;
-  }
+  };
 
   getNewPluginState = (
     found: { plugin: Plugin; pluginWrongVersion?: Plugin },
@@ -262,10 +262,13 @@ export default class PluginService {
         };
       }
     }
-  }
+  };
 
   // tslint:disable-next-line:no-any
   unserialize = (state: any): Object => {
+    if (!state) {
+      return;
+    }
     const {
       rows = [],
       cells = [],
@@ -316,7 +319,7 @@ export default class PluginService {
     }
 
     return generateMissingIds(newState);
-  }
+  };
 
   // tslint:disable-next-line:no-any
   serialize = (state: any): EditableType => {
@@ -356,5 +359,5 @@ export default class PluginService {
     }
 
     return newState;
-  }
+  };
 }

@@ -4,7 +4,7 @@ import {
   EditableType,
   LayoutPluginConfig,
   lazyLoad,
-  Plugins
+  Plugins,
 } from '@react-page/core';
 import { HTMLRenderer } from '@react-page/renderer';
 import React from 'react';
@@ -17,7 +17,7 @@ export type EditorProps = {
   plugins?: Plugins;
   defaultPlugin?: ContentPluginConfig | LayoutPluginConfig;
   dndBackend?: DndBackend;
-  value?: EditableType;
+  value?: EditableType | null;
   onChange?: (v: EditableType) => void;
   readOnly?: boolean;
   defaultDisplayMode?: DisplayModes;
@@ -25,7 +25,6 @@ export type EditorProps = {
 } & SimplifiedModesProps;
 
 const Editor: React.FC<EditorProps> = ({
-
   plugins,
   defaultPlugin,
   readOnly,
