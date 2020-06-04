@@ -27,12 +27,22 @@ export default ({ children }) => {
     };
     document.addEventListener('scroll', calc);
     window.addEventListener('resize', calc);
+    let observer: IntersectionObserver = null;
+
+    // tslint:disable-next-line: no-any
+    if ((global as any).IntersectionObserver) {
+      observer = new IntersectionObserver(calc);
+      if (ref.current) {
+        observer.observe(ref.current);
+      }
+    }
     // do it once
     calc();
 
     return () => {
       document.removeEventListener('scroll', calc);
       window.removeEventListener('resize', calc);
+      observer?.disconnect();
     };
   }, [ref, stickyElRef]);
 

@@ -40,6 +40,13 @@ const KeepStateEditor: React.FC<EditorProps> = ({ value, ...props }) => {
       setAllowResize(checked),
     []
   );
+
+  const [hide, sethide] = React.useState(false);
+  const onSethideChanged = React.useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>, checked: boolean) =>
+      sethide(checked),
+    []
+  );
   return (
     <>
       <FormGroup row={true}>
@@ -63,17 +70,33 @@ const KeepStateEditor: React.FC<EditorProps> = ({ value, ...props }) => {
           }
           label="Allow resize in edit mode"
         />
+        <FormControlLabel
+          control={
+            <Switch
+              checked={hide}
+              onChange={onSethideChanged}
+              color="primary"
+            />
+          }
+          label="hide"
+        />
       </FormGroup>
-      <Editor
-        {...props}
-        allowMoveInEditMode={allowMove}
-        allowResizeInEditMode={allowResize}
-        value={state}
-        onChange={setState}
-      />
-      <Button variant="outlined" onClick={() => setState(value)}>
-        Reset this editor
-      </Button>
+      <div
+        style={{
+          display: hide ? 'none' : 'block',
+        }}
+      >
+        <Editor
+          {...props}
+          allowMoveInEditMode={allowMove}
+          allowResizeInEditMode={allowResize}
+          value={state}
+          onChange={setState}
+        />
+        <Button variant="outlined" onClick={() => setState(value)}>
+          Reset this editor
+        </Button>
+      </div>
     </>
   );
 };
