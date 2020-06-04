@@ -1,8 +1,6 @@
 import { NativeTypes } from 'react-dnd-html5-backend';
-import * as unexpected from 'unexpected';
+import expect from 'unexpected';
 import { isNativeHTMLElementDrag } from '../index';
-
-const expect = unexpected.clone();
 
 const monitor = result => ({ getItemType: () => result });
 

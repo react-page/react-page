@@ -2,12 +2,12 @@
 
 ### Table of Contents
 
--   [Component][1]
+-   [PureComponent][1]
 
-## Component
+## PureComponent
 
-[packages/plugins/content/spacer/lib/Component/index.js:75-109][2]
+[packages/plugins/content/spacer/lib/Component/index.js:56-90][2]
 
-[1]: #component
+[1]: #purecomponent
 
-[2]: https://github.com/PeterKottas/editor/blob/306e1ece52f6e4853e83bb83b6e37a9411533bdf/packages/plugins/content/spacer/lib/Component/index.js#L75-L109 "Source code on GitHub"
+[2]: https://github.com/react-page/react-page/blob/4505290256d46fccecc0d3eba7cdb3b442b45a31/packages/plugins/content/spacer/lib/Component/index.js#L56-L90 "Source code on GitHub"

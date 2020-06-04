@@ -21,21 +21,15 @@
  */
 
 import * as React from 'react';
-import * as unexpected from 'unexpected';
+import expect from 'unexpected';
 
 import PluginService from '../index';
-import {
-  Migration,
-  LayoutPluginConfig,
-  ContentPluginConfig
-} from '../classes';
+import { Migration, LayoutPluginConfig, ContentPluginConfig } from '../classes';
 
 const FOO = 'foo';
 const OLDEST_VERSION = '0.0.1';
 const OLDER_VERSION = '0.0.2';
 const MATCHING_VERSION = '0.0.3';
-
-const expect = unexpected.clone();
 
 const content = [
   {
@@ -215,13 +209,12 @@ describe('PluginService', () => {
     const p = new PluginService({
       content,
       layout,
-      native: () =>
-        ({
-          Component: () => <div />,
-          name: 'ory/editor/core/content/default-native',
-          version: '0.0.1',
-          createInitialState: () => ({}),
-        }),
+      native: () => ({
+        Component: () => <div />,
+        name: 'ory/editor/core/content/default-native',
+        version: '0.0.1',
+        createInitialState: () => ({}),
+      }),
     });
     expect(p.hasNativePlugin(), 'to be truthy');
     expect(p.createNativePlugin(), 'to be defined');

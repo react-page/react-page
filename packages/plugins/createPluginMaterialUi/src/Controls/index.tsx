@@ -5,12 +5,12 @@ import React, {
   useCallback,
   useEffect,
   useMemo,
-  useState
+  useState,
 } from 'react';
 import JSONSchemaBridge from 'uniforms-bridge-json-schema';
 import {
   AutoFields as AutoFieldsOrg,
-  AutoForm as AutoFormOrg
+  AutoForm as AutoFormOrg,
 } from 'uniforms-material';
 import { ControlProps, ControlsLayout } from '../types';
 import makeUniformsSchema from '../utils/makeUniformsSchema';
@@ -40,7 +40,7 @@ function Controls<T>(props: ControlProps<T>) {
     [props.onChange]
   );
 
-  const [preview, setPreview] = useState();
+  const [preview, setPreview] = useState<T>();
 
   const onSubmit = useCallback((model: T) => {
     setPreview(model);
@@ -58,7 +58,7 @@ function Controls<T>(props: ControlProps<T>) {
   const bridge = useMemo(() => makeUniformsSchema<T>(schema), [schema]);
   useEffect(() => {
     onSubmit({
-      ...getDefaultValue(bridge),
+      ...(getDefaultValue(bridge) as T),
       ...(preview ?? state ?? {}),
     });
   }, [bridge]);

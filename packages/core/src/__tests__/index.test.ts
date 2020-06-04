@@ -20,11 +20,10 @@
  *
  */
 
-import * as unexpected from 'unexpected';
+import expect from 'unexpected';
 
 import Editor from '../index';
 
-const expect = unexpected.clone();
 const editor = new Editor();
 
 describe('Editor', () => {

@@ -20,11 +20,11 @@
  *
  */
 
-import * as unexpected from 'unexpected';
+import expect from 'unexpected';
 
 import { purifiedNode, searchNodeEverywhere } from '../index';
 
-const expect = unexpected.clone();
+
 
 const state = {
   reactPage: {

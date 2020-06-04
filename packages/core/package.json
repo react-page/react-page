@@ -16,7 +16,7 @@
     "build:css:watch": "npm-run-all build:css -- -w",
     "docs": "documentation build ./lib/**/*.js --format md --github -o ../../docs/api/core.md",
     "prebuild": "npm-run-all clean",
-    "clean": "rimraf \"lib\" && rimraf \"lib-es\""
+    "clean": "rimraf \"lib\" && rimraf \"lib-es\" && rm -f *.tsbuildinfo"
   },
   "peerDependencies": {
     "react": "^16.8.6",

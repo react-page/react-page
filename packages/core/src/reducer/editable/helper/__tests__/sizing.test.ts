@@ -20,17 +20,15 @@
  *
  */
 
-import * as unexpected from 'unexpected';
+import expect from 'unexpected';
 
 import {
   sumSizes,
   computeBounds,
   resizeCells,
-  computeResizeable
+  computeResizeable,
 } from '../sizing';
 import { Cell } from '../../../../types/editable';
-
-const expect = unexpected.clone();
 
 describe('computeResizeable', () => {
   [
@@ -79,7 +77,11 @@ describe('resizeCells', () => {
         { id: '2', size: 4 } as Cell,
         { id: '3', size: 4 } as Cell,
       ],
-      e: [{ id: '1', size: 4 }, { id: '2', size: 6 }, { id: '3', size: 2 }],
+      e: [
+        { id: '1', size: 4 },
+        { id: '2', size: 6 },
+        { id: '3', size: 2 },
+      ],
     },
   ].forEach((c, k) => {
     it(`should pass test case ${k}`, () => {

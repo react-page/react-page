@@ -20,14 +20,12 @@
  *
  */
 
-import * as unexpected from 'unexpected';
+import expect from 'unexpected';
 import HoverService, {
   classes as _c,
   defaultCallbacks,
-  computeLevel
+  computeLevel,
 } from '../index';
-
-const expect = unexpected.clone();
 
 const cases = [
   {

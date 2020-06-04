@@ -21,13 +21,11 @@
  */
 
 import { combineReducers, createStore } from 'redux';
-import * as unexpected from 'unexpected';
+import expect from 'unexpected';
 import { blurCell, focusCell } from '../../../actions/cell/index';
 import { RootState } from '../../../types/state';
 import { focus } from '../index';
 const identity = <T>(arg: T) => arg;
-
-const expect = unexpected.clone();
 
 describe('editor/reducer/focus', () => {
   [

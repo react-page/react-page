@@ -20,11 +20,9 @@
  *
  */
 
-import * as unexpected from 'unexpected';
+import expect from 'unexpected';
 
 import { cellOrder } from '../order';
-
-const expect = unexpected.clone();
 
 describe('computeResizeable', () => {
   [

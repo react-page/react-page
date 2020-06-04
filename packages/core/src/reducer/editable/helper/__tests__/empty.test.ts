@@ -20,11 +20,9 @@
  *
  */
 
-import * as unexpected from 'unexpected';
+import expect from 'unexpected';
 
 import { isEmpty, emptyFilter } from '../empty';
-
-const expect = unexpected.clone();
 
 describe('isEmpty', () => {
   [
@@ -90,7 +88,9 @@ describe('isEmpty', () => {
                     cells: [
                       {
                         rows: [
-                          { cells: [{ content: { plugin: { name: 'asdf' } } }] },
+                          {
+                            cells: [{ content: { plugin: { name: 'asdf' } } }],
+                          },
                         ],
                       },
                     ],

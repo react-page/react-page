@@ -20,12 +20,10 @@
  *
  */
 
-import * as unexpected from 'unexpected';
+import expect from 'unexpected';
 import equal from 'fast-deep-equal';
 
 import { optimizeCell, optimizeRow } from '../optimize';
-
-const expect = unexpected.clone();
 
 describe('optimizeRow', () => {
   [

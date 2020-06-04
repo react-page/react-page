@@ -20,11 +20,9 @@
  *
  */
 
-import * as unexpected from 'unexpected';
+import expect from 'unexpected';
 
 import { computeDropLevels } from '../level';
-
-const expect = unexpected.clone();
 
 describe('computeDropLevels', () => {
   [

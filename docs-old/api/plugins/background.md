@@ -6,22 +6,27 @@
 -   [Component][2]
 -   [Component][3]
 -   [Component][4]
+-   [Component][5]
 
 ## Component
 
-[packages/plugins/layout/background/lib/components/Color.js:25-47][5]
+[packages/plugins/layout/background/lib/Component/index.js:35-90][6]
 
 ## Component
 
-[packages/plugins/layout/background/lib/components/Image.js:32-71][6]
+[packages/plugins/layout/background/lib/Controls/BackgroundDefaultControls.js:52-151][7]
 
 ## Component
 
-[packages/plugins/layout/background/lib/components/LinearGradient.js:44-189][7]
+[packages/plugins/layout/background/lib/Controls/sub/Color.js:25-47][8]
 
 ## Component
 
-[packages/plugins/layout/background/lib/index.js:79-293][8]
+[packages/plugins/layout/background/lib/Controls/sub/Image.js:32-71][9]
+
+## Component
+
+[packages/plugins/layout/background/lib/Controls/sub/LinearGradient.js:44-192][10]
 
 [1]: #component
 
@@ -31,10 +36,14 @@
 
 [4]: #component-3
 
-[5]: https://github.com/PeterKottas/editor/blob/306e1ece52f6e4853e83bb83b6e37a9411533bdf/packages/plugins/layout/background/lib/components/Color.js#L25-L47 "Source code on GitHub"
+[5]: #component-4
 
-[6]: https://github.com/PeterKottas/editor/blob/306e1ece52f6e4853e83bb83b6e37a9411533bdf/packages/plugins/layout/background/lib/components/Image.js#L32-L71 "Source code on GitHub"
+[6]: https://github.com/react-page/react-page/blob/4505290256d46fccecc0d3eba7cdb3b442b45a31/packages/plugins/layout/background/lib/Component/index.js#L35-L90 "Source code on GitHub"
 
-[7]: https://github.com/PeterKottas/editor/blob/306e1ece52f6e4853e83bb83b6e37a9411533bdf/packages/plugins/layout/background/lib/components/LinearGradient.js#L44-L189 "Source code on GitHub"
+[7]: https://github.com/react-page/react-page/blob/4505290256d46fccecc0d3eba7cdb3b442b45a31/packages/plugins/layout/background/lib/Controls/BackgroundDefaultControls.js#L52-L151 "Source code on GitHub"
 
-[8]: https://github.com/PeterKottas/editor/blob/306e1ece52f6e4853e83bb83b6e37a9411533bdf/packages/plugins/layout/background/lib/index.js#L79-L293 "Source code on GitHub"
+[8]: https://github.com/react-page/react-page/blob/4505290256d46fccecc0d3eba7cdb3b442b45a31/packages/plugins/layout/background/lib/Controls/sub/Color.js#L25-L47 "Source code on GitHub"
+
+[9]: https://github.com/react-page/react-page/blob/4505290256d46fccecc0d3eba7cdb3b442b45a31/packages/plugins/layout/background/lib/Controls/sub/Image.js#L32-L71 "Source code on GitHub"
+
+[10]: https://github.com/react-page/react-page/blob/4505290256d46fccecc0d3eba7cdb3b442b45a31/packages/plugins/layout/background/lib/Controls/sub/LinearGradient.js#L44-L192 "Source code on GitHub"

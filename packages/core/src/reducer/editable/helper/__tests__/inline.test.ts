@@ -20,11 +20,9 @@
  *
  */
 
-import * as unexpected from 'unexpected';
+import expect from 'unexpected';
 
 import { computeRow } from '../inline';
-
-const expect = unexpected.clone();
 
 describe('computeRow', () => {
   [

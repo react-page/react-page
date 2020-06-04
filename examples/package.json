@@ -19,7 +19,7 @@
     "@react-page/plugins-video": "0.0.0",
     "@react-page/ui": "0.0.0",
     "@react-page/editor": "0.0.0",
-    "react-scripts": "3.2.0",
+    "react-scripts": "3.4.0",
     "source-map-explorer": "^2.0.1",
     "react-katex": "^2.0.2",
     "uuid": "^3.0.1"
@@ -29,8 +29,8 @@
     "@types/uuid": "^3.4.4"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "SKIP_PREFLIGHT_CHECK=true react-scripts start",
+    "build": "SKIP_PREFLIGHT_CHECK=true react-scripts build",
     "analyze": "source-map-explorer 'build/static/js/*.js'"
   },
   "browserslist": [

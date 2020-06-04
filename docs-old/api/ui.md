@@ -8,40 +8,35 @@
 -   [Component][4]
 -   [Component][5]
 -   [Component][6]
--   [Component][7]
--   [Component][8]
+-   [PureComponent][7]
 
 ## Component
 
-[packages/ui/lib/ColorPicker/index.js:42-86][9]
+[packages/ui/lib/ColorPicker/index.js:43-87][8]
 
 ## Component
 
-[packages/ui/lib/ImageUpload/index.js:35-154][10]
+[packages/ui/lib/ImageUpload/index.js:36-155][9]
 
 ## Component
 
-[packages/ui/lib/Provider/index.js:51-66][11]
+[packages/ui/lib/ThemeProvider/index.js:59-69][10]
 
 ## Component
 
-[packages/ui/lib/ThemeProvider/index.js:59-69][12]
+[packages/ui/lib/Toolbar/index.js:76-164][11]
 
 ## Component
 
-[packages/ui/lib/Toolbar/Draggable/index.js:56-77][13]
+[packages/ui/lib/Toolbar/Item/index.js:54-88][12]
 
 ## Component
 
-[packages/ui/lib/Toolbar/index.js:69-140][14]
+[packages/ui/lib/Trash/index.js:77-91][13]
 
-## Component
+## PureComponent
 
-[packages/ui/lib/Toolbar/Item/index.js:54-86][15]
-
-## Component
-
-[packages/ui/lib/Trash/index.js:93-107][16]
+[packages/ui/lib/Toolbar/Draggable/index.js:31-50][14]
 
 [1]: #component
 
@@ -55,22 +50,18 @@
 
 [6]: #component-5
 
-[7]: #component-6
+[7]: #purecomponent
 
-[8]: #component-7
+[8]: https://github.com/react-page/react-page/blob/4505290256d46fccecc0d3eba7cdb3b442b45a31/packages/ui/lib/ColorPicker/index.js#L43-L87 "Source code on GitHub"
 
-[9]: https://github.com/PeterKottas/editor/blob/306e1ece52f6e4853e83bb83b6e37a9411533bdf/packages/ui/lib/ColorPicker/index.js#L42-L86 "Source code on GitHub"
+[9]: https://github.com/react-page/react-page/blob/4505290256d46fccecc0d3eba7cdb3b442b45a31/packages/ui/lib/ImageUpload/index.js#L36-L155 "Source code on GitHub"
 
-[10]: https://github.com/PeterKottas/editor/blob/306e1ece52f6e4853e83bb83b6e37a9411533bdf/packages/ui/lib/ImageUpload/index.js#L35-L154 "Source code on GitHub"
+[10]: https://github.com/react-page/react-page/blob/4505290256d46fccecc0d3eba7cdb3b442b45a31/packages/ui/lib/ThemeProvider/index.js#L59-L69 "Source code on GitHub"
 
-[11]: https://github.com/PeterKottas/editor/blob/306e1ece52f6e4853e83bb83b6e37a9411533bdf/packages/ui/lib/Provider/index.js#L51-L66 "Source code on GitHub"
+[11]: https://github.com/react-page/react-page/blob/4505290256d46fccecc0d3eba7cdb3b442b45a31/packages/ui/lib/Toolbar/index.js#L76-L164 "Source code on GitHub"
 
-[12]: https://github.com/PeterKottas/editor/blob/306e1ece52f6e4853e83bb83b6e37a9411533bdf/packages/ui/lib/ThemeProvider/index.js#L59-L69 "Source code on GitHub"
+[12]: https://github.com/react-page/react-page/blob/4505290256d46fccecc0d3eba7cdb3b442b45a31/packages/ui/lib/Toolbar/Item/index.js#L54-L88 "Source code on GitHub"
 
-[13]: https://github.com/PeterKottas/editor/blob/306e1ece52f6e4853e83bb83b6e37a9411533bdf/packages/ui/lib/Toolbar/Draggable/index.js#L56-L77 "Source code on GitHub"
+[13]: https://github.com/react-page/react-page/blob/4505290256d46fccecc0d3eba7cdb3b442b45a31/packages/ui/lib/Trash/index.js#L77-L91 "Source code on GitHub"
 
-[14]: https://github.com/PeterKottas/editor/blob/306e1ece52f6e4853e83bb83b6e37a9411533bdf/packages/ui/lib/Toolbar/index.js#L69-L140 "Source code on GitHub"
-
-[15]: https://github.com/PeterKottas/editor/blob/306e1ece52f6e4853e83bb83b6e37a9411533bdf/packages/ui/lib/Toolbar/Item/index.js#L54-L86 "Source code on GitHub"
-
-[16]: https://github.com/PeterKottas/editor/blob/306e1ece52f6e4853e83bb83b6e37a9411533bdf/packages/ui/lib/Trash/index.js#L93-L107 "Source code on GitHub"
+[14]: https://github.com/react-page/react-page/blob/4505290256d46fccecc0d3eba7cdb3b442b45a31/packages/ui/lib/Toolbar/Draggable/index.js#L31-L50 "Source code on GitHub"

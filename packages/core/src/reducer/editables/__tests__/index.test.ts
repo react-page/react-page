@@ -21,22 +21,23 @@
  */
 
 import { combineReducers, createStore } from 'redux';
-import * as unexpected from 'unexpected';
+import expect from 'unexpected';
 import { updateEditable } from '../../../actions/editables';
 import { RootState } from '../../../types/state';
 import {
   createCell,
   createContentCell,
   createEditable,
-  createRow
+  createRow,
 } from '../../editable/__tests__/index.test';
 import { editables } from '../index';
 
 const identity = <T>(arg: T) => arg;
-const expect = unexpected.clone();
 
 const someState = createEditable('editable', [
-  createCell('0', [createRow('00', [createContentCell('000000', 'foo', null)])]),
+  createCell('0', [
+    createRow('00', [createContentCell('000000', 'foo', null)]),
+  ]),
 ]).editable;
 
 describe('editor/reducer/editables', () => {

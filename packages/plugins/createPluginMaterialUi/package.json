@@ -14,7 +14,7 @@
     "build:lib:watch": "npm run build:lib -- --watch",
     "docs": "documentation build ./lib/**/*.js --format md --github -o ../../../docs/api/plugins/image.md",
     "prebuild": "yarn clean",
-    "clean": "rimraf \"lib\" && rimraf \"lib-es\""
+    "clean": "rimraf \"lib\" && rimraf \"lib-es\" && rm -f *.tsbuildinfo"
   },
   "peerDependencies": {
     "@material-ui/core": "*",

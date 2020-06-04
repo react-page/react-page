@@ -6,8 +6,8 @@
 
 ## Component
 
-[packages/plugins/content/image/lib/Component/Form/index.js:67-119][2]
+[packages/plugins/content/image/lib/Component/index.js:56-98][2]
 
 [1]: #component
 
-[2]: https://github.com/PeterKottas/editor/blob/306e1ece52f6e4853e83bb83b6e37a9411533bdf/packages/plugins/content/image/lib/Component/Form/index.js#L67-L119 "Source code on GitHub"
+[2]: https://github.com/react-page/react-page/blob/4505290256d46fccecc0d3eba7cdb3b442b45a31/packages/plugins/content/image/lib/Component/index.js#L56-L98 "Source code on GitHub"
