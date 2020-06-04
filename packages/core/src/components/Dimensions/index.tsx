@@ -21,15 +21,12 @@
  */
 
 import classNames from 'classnames';
-import onElementResize from 'element-resize-event';
 import * as React from 'react';
 
-const defaultGetWidth = (element: HTMLElement) => element.clientWidth;
-const defaultGetHeight = (element: HTMLElement) => element.clientHeight;
+const getWidth = (element: HTMLElement) => element.clientWidth;
+const getHeight = (element: HTMLElement) => element.clientHeight;
 
 const Dimensions = ({
-  getHeight = defaultGetHeight,
-  getWidth = defaultGetWidth,
   className = null,
   elementResize = false,
 } = {}) => ComposedComponent => {
@@ -41,6 +38,7 @@ const Dimensions = ({
   class Decorator extends React.Component<DecoratorProps, DecoratorState> {
     containerRef: HTMLDivElement;
     rqf: number;
+    observer?: IntersectionObserver;
     constructor(props: DecoratorProps) {
       super(props);
       this.state = {};
@@ -49,22 +47,23 @@ const Dimensions = ({
       if (!this.containerRef) {
         throw new Error('Cannot find container div');
       }
-
-      this.updateDimensions();
-      if (elementResize) {
-        // Experimental: `element-resize-event` fires when an element resizes.
-        // It attaches its own window resize listener and also uses
-        // requestAnimationFrame, so we can just call `this.updateDimensions`.
-        onElementResize(this.containerRef, this.updateDimensions);
-      } else {
-        this.getWindow().addEventListener('resize', this.onResize, false);
+      // tslint:disable-next-line: no-any
+      if ((global as any).IntersectionObserver) {
+        this.observer = new IntersectionObserver(this.onResize);
       }
+      this.observer.observe(this.containerRef);
+      this.updateDimensions();
+
+      this.getWindow().addEventListener('resize', this.onResize, false);
     }
 
     // This cann not be used here because it doesn't listen to state changes.
 
     public componentWillUnmount() {
       this.getWindow().removeEventListener('resize', this.onResize);
+      if (this.observer) {
+        this.observer.disconnect();
+      }
     }
 
     public updateDimensions = () => {
@@ -72,6 +71,7 @@ const Dimensions = ({
       if (!container) {
         return;
       }
+
       const containerWidth = getWidth(container);
       const containerHeight = getHeight(container);
 
@@ -81,7 +81,7 @@ const Dimensions = ({
       ) {
         this.setState({ containerWidth, containerHeight });
       }
-    }
+    };
 
     public onResize = () => {
       if (this.rqf) {
@@ -92,7 +92,7 @@ const Dimensions = ({
         this.rqf = null;
         this.updateDimensions();
       });
-    }
+    };
 
     // If the component is mounted in a different window to the javascript
     // context, as with https://github.com/JakeGinnivan/react-popout
@@ -108,7 +108,7 @@ const Dimensions = ({
     onContainerRef = ref => {
       this.containerRef = ref;
       this.updateDimensions();
-    }
+    };
 
     render() {
       return (
