@@ -24,8 +24,6 @@ import expect from 'unexpected';
 
 import { purifiedNode, searchNodeEverywhere } from '../index';
 
-
-
 const state = {
   reactPage: {
     editables: {
