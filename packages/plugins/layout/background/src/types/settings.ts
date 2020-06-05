@@ -11,7 +11,7 @@ export type BackgroundSettings = {
   Controls: React.ComponentType<BackgroundControlsProps>;
   defaultPlugin: ContentPluginConfig;
   enabledModes?: ModeEnum;
-  // tslint:disable-next-line:no-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   getInitialChildren?: () => InitialChildrenDef;
   defaultBackgroundColor?: RGBColor;
   defaultGradientColor?: RGBColor;

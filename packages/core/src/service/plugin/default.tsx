@@ -47,10 +47,10 @@ const Default: React.SFC<ContentPluginProps<{ value: string }>> = ({
     />
   );
 
-const _defaultContentPlugin: ContentPluginConfig<{}> = {
+const _defaultContentPlugin: ContentPluginConfig<unknown> = {
   Component: Default,
   name: 'ory/editor/core/default',
-  
+
   version: '0.0.1',
   createInitialState: () => ({
     value:

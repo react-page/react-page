@@ -45,7 +45,7 @@ export interface SetDisplayModeAction extends Action {
 }
 const setDisplayMode = (
   mode: DisplayModes,
-  remember: boolean = false
+  remember = false
 ) => (): SetDisplayModeAction => ({
   type: SET_DISPLAY_MODE,
   ts: new Date(),
@@ -58,7 +58,7 @@ const setDisplayMode = (
  */
 export const setMode = (
   mode: DisplayModes,
-  remember: boolean = false
+  remember = false
 ): SetDisplayModeAction => ({
   type: SET_DISPLAY_MODE,
   ts: new Date(),

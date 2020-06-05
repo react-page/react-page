@@ -23,7 +23,7 @@
 import {
   ContentPluginConfig,
   ContentPluginProps,
-  lazyLoad
+  lazyLoad,
 } from '@react-page/core';
 import * as React from 'react';
 import Spacer from './Component/index';
@@ -35,9 +35,9 @@ import { SpacerState } from './types/state';
 const AspectRatio = lazyLoad(() => import('@material-ui/icons/AspectRatio'));
 const createPlugin: (
   settings: SpacerSettings
-) => ContentPluginConfig<SpacerState> = settings => {
+) => ContentPluginConfig<SpacerState> = (settings) => {
   const mergedSettings = { ...defaultSettings, ...settings };
-  const WrappedComponent: React.SFC<SpacerProps> = props => (
+  const WrappedComponent: React.SFC<SpacerProps> = (props) => (
     <Spacer {...props} {...mergedSettings} />
   );
   return {
@@ -60,7 +60,7 @@ const createPlugin: (
     // We need this because otherwise we lose hotkey focus on elements like spoilers.
     // This could probably be solved in an easier way by listening to window.document?
     //
-    // tslint:disable-next-line:no-any
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     handleFocus: (props: any, source: any, ref: HTMLElement) => {
       if (!ref) {
         return;

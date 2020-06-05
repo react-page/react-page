@@ -10,9 +10,9 @@ const Remove = lazyLoad(() => import('@material-ui/icons/Remove'));
 
 const createPlugin: (
   settings: DividerSettings
-) => ContentPluginConfig<DividerState> = settings => {
+) => ContentPluginConfig<DividerState> = (settings) => {
   const mergedSettings = { ...defaultSettings, ...settings };
-  const WrappedComponent: React.SFC<DividerProps> = props => (
+  const WrappedComponent: React.SFC<DividerProps> = (props) => (
     <Divider {...props} {...mergedSettings} />
   );
   return {

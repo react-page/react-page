@@ -6,7 +6,7 @@ import {
   AbstractCell,
   AbstractEditable,
   Row,
-  SimplifiedModesProps
+  SimplifiedModesProps,
 } from '../../types/editable';
 import { EditorState } from '../../types/editor';
 import HotKeyDecorator from '../HotKey/Decorator';

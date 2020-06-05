@@ -28,16 +28,16 @@ import { isProduction } from './const';
 
 declare global {
   interface Window {
-    __REDUX_DEVTOOLS_EXTENSION_COMPOSE__: (settings: {}) => void;
+    __REDUX_DEVTOOLS_EXTENSION_COMPOSE__: (settings: unknown) => void;
   }
 }
 
 /**
  * Returns a new redux store.
  */
-// tslint:disable-next-line:no-any
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export default (initialState: any, middleware: [] = []): Store<RootState> => {
-  // tslint:disable-next-line:no-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const v: any =
     !isProduction &&
     typeof window === 'object' &&

@@ -15,5 +15,5 @@ export {
   createListItemPlugin,
   createListPlugin,
   createMarkPlugin,
-  createSimpleHtmlBlockPlugin
+  createSimpleHtmlBlockPlugin,
 };

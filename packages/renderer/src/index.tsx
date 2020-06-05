@@ -6,13 +6,12 @@ import {
   Layout,
   Plugins,
   PluginService,
-  Row
+  Row,
 } from '@react-page/core';
 import classNames from 'classnames';
 import * as React from 'react';
 
-const gridClass = (size: number = 12): string =>
-  `ory-cell-sm-${size} ory-cell-xs-12`;
+const gridClass = (size = 12): string => `ory-cell-sm-${size} ory-cell-xs-12`;
 
 const HTMLRow: React.SFC<Partial<Row>> = React.memo(
   ({ cells = [], className, hasInlineChildren }) => (
@@ -21,7 +20,7 @@ const HTMLRow: React.SFC<Partial<Row>> = React.memo(
         'ory-row-has-floating-children': hasInlineChildren,
       })}
     >
-      {cells.map(c => (
+      {cells.map((c) => (
         <HTMLCell key={c.id} {...c} />
       ))}
     </div>
@@ -33,7 +32,7 @@ const noop = () => {
   return;
 };
 
-const HTMLCell: React.SFC<Cell> = React.memo(props => {
+const HTMLCell: React.SFC<Cell> = React.memo((props) => {
   const {
     rows = [],
     layout = {} as Layout,

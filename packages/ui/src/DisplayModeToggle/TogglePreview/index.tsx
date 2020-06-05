@@ -41,7 +41,7 @@ interface OwnProps {
 
 export type InnerProps = InnerReduxProps & InnerActionProps & OwnProps;
 
-const Inner: React.SFC<InnerProps> = props => (
+const Inner: React.SFC<InnerProps> = (props) => (
   <Button
     icon={<Devices />}
     description={props.label}
@@ -55,7 +55,4 @@ const mapStateToProps = createStructuredSelector({
 });
 const mapDispatchToProps = { previewMode: Actions.Display.previewMode };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Inner);
+export default connect(mapStateToProps, mapDispatchToProps)(Inner);

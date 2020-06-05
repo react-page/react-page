@@ -6,7 +6,7 @@ import { BottomToolbar, ImageUpload } from '@react-page/ui';
 import * as React from 'react';
 import { ImageControlsProps } from '../types/controls';
 
-const ImageDefaultControls: React.SFC<ImageControlsProps> = props => {
+const ImageDefaultControls: React.SFC<ImageControlsProps> = (props) => {
   const {
     Renderer,
     handleImageLoaded,

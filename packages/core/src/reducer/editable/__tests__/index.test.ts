@@ -40,7 +40,7 @@ const walker = ({ cells = [], rows = [], hover = null, ...other }) => {
   };
 };
 
-const _cells = state => decorate(state).map(walker);
+const _cells = (state) => decorate(state).map(walker);
 
 const simulateDispatch = (currentState, action) => {
   const reducer = combineReducers({ editable: rawEditableReducer });
@@ -61,13 +61,13 @@ const runCase = (currentState, action, expectedState) => {
   });
 };
 
-// tslint:disable-next-line:no-any
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const createEditable = (
   id: string,
-  // tslint:disable-next-line:no-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   cells?: any[] | { hover: any }[]
 ) => {
-  // tslint:disable-next-line:no-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const editable: any = {};
 
   if (id) {
@@ -83,12 +83,12 @@ export const createEditable = (
 
 export const createCell = (
   id: string,
-  // tslint:disable-next-line:no-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   rows: any[],
-  // tslint:disable-next-line:no-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   additional?: any
 ) => {
-  // tslint:disable-next-line:no-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const cell: any = {};
 
   if (id) {
@@ -109,13 +109,13 @@ export const createLayoutCell = (
   id: string,
   name: string,
   state: { foo: number; bar?: number },
-  // tslint:disable-next-line:no-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   rows: any[],
-  // tslint:disable-next-line:no-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   additional?: any
 ) => {
   const cell = createCell(id, null, additional);
-  // tslint:disable-next-line:no-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const layout: any = {};
 
   if (name) {
@@ -150,7 +150,7 @@ export const createContentCell = (
   }
 ) => {
   const cell = createCell(id, null, additional);
-  // tslint:disable-next-line:no-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const content: any = {};
 
   if (name) {
@@ -168,9 +168,9 @@ export const createContentCell = (
   };
 };
 
-// tslint:disable-next-line:no-any
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const createRow = (id: string, cells: any[], additional: any = {}) => {
-  // tslint:disable-next-line:no-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const row: any = {};
 
   if (id) {

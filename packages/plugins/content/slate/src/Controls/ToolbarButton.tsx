@@ -14,7 +14,7 @@ const ToolbarButton: React.SFC<{
 }> = ({ icon, isActive, onClick, disabled = false, toolTip = '' }) => (
   <ConditionalWrapper
     condition={!disabled}
-    wrapper={children => <Tooltip title={toolTip}>{children}</Tooltip>}
+    wrapper={(children) => <Tooltip title={toolTip}>{children}</Tooltip>}
   >
     <IconButton
       onMouseDown={onClick}

@@ -40,7 +40,7 @@ interface OwnProps {
 
 export type InnerProps = InnerReduxProps & InnerActionProps & OwnProps;
 
-const Inner: React.SFC<InnerProps> = props => (
+const Inner: React.SFC<InnerProps> = (props) => (
   <Button
     icon={<Create />}
     description={props.label}
@@ -54,7 +54,4 @@ const mapStateToProps = createStructuredSelector({
 });
 const mapDispatchToProps = { editMode: Actions.Display.editMode };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Inner);
+export default connect(mapStateToProps, mapDispatchToProps)(Inner);

@@ -29,7 +29,7 @@ const MAX_CELLS_PER_ROW = 12;
  */
 export const sumSizes = (cells: Array<Cell> = []): number =>
   cells.reduce(
-    // tslint:disable-next-line:no-any
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     ({ size: p = 99, inline: a }: any, { size: c = 99, inline: b }: any) => ({
       size: (a ? 0 : 1) * p + (b ? 0 : 1) * c,
     }),

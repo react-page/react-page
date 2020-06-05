@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-types */
 import Ajv from 'ajv';
 import { JsonSchema } from '../types/jsonSchema';
 import { JSONSchemaBridge } from 'uniforms-bridge-json-schema';
@@ -5,7 +6,7 @@ const ajv = new Ajv({ allErrors: true, useDefaults: true });
 
 function createValidator<T extends object>(schema: JsonSchema<T>) {
   const validator = ajv.compile(schema);
-  // tslint:disable-next-line:no-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return (model: any) => {
     validator(model);
     if (validator.errors && validator.errors.length) {

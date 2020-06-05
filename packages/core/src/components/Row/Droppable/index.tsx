@@ -7,7 +7,7 @@ import { ComponetizedRow } from '../../../types/editable';
 import { connect as monitorConnect, target } from './dnd';
 
 export type Props = ComponetizedRow & {
-  // tslint:disable-next-line:no-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   children: any;
   isLayoutMode: boolean;
   isInsertMode: boolean;

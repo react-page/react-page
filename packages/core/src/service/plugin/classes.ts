@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-types */
 /*
  * This file is part of ORY Editor.
  *
@@ -49,13 +50,13 @@ export type OmitInPluginConfig =
   | 'focused'
   | 'remove';
 
-// tslint:disable-next-line:no-any
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type PluginConfig<T = any, ExtraProps = {}> = Omit<
   PluginProps<T, ExtraProps>,
   OmitInPluginConfig
 >;
 
-// tslint:disable-next-line:no-any
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type ContentPluginConfig<T = any> = Omit<
   ContentPluginProps<T>,
   | OmitInPluginConfig
@@ -66,19 +67,19 @@ export type ContentPluginConfig<T = any> = Omit<
   | 'isInsertMode'
 >;
 
-// tslint:disable-next-line:no-any
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type LayoutPluginConfig<T = any> = Omit<
   LayoutPluginProps<T>,
   OmitInPluginConfig
 >;
 
-// tslint:disable-next-line:no-any
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type NativePluginConfig<T = any> = Omit<
   NativePluginProps<T>,
   OmitInPluginConfig
 >;
 
-// tslint:disable-next-line:no-any
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type ContentPluginExtraProps<T = any> = {
   /**
    * @member if the cell is currently in edit mode.
@@ -113,28 +114,28 @@ export type ContentPluginExtraProps<T = any> = {
 };
 
 export type ContentPluginProps<
-  // tslint:disable-next-line:no-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   T = any
 > = ContentPluginExtraProps & PluginProps<T, ContentPluginExtraProps<T>>;
 
-// tslint:disable-next-line:no-any
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type LayoutPluginExtraProps<T = any> = {
-  // tslint:disable-next-line:no-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   createInitialChildren?: () => InitialChildrenDef;
 
   Component?: PluginComponentType<LayoutPluginProps<T>>;
 };
 
 export type LayoutPluginProps<
-  // tslint:disable-next-line:no-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   T = any
 > = LayoutPluginExtraProps & PluginProps<T, LayoutPluginExtraProps<T>>;
 
-// tslint:disable-next-line:no-any
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type PluginComponentType<T = any> = React.ComponentType<T>;
 
 export type PluginProps<
-  // tslint:disable-next-line:no-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   StateT = any,
   ExtraPropsT = {}
 > = {
@@ -177,9 +178,9 @@ export type PluginProps<
 
   text?: string;
 
-  // tslint:disable-next-line:no-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   serialize?: (state: StateT) => any;
-  // tslint:disable-next-line:no-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   unserialize?: (raw: any) => StateT;
   description?: string;
   handleRemoveHotKey?: (e: Event, props: AbstractCell<string>) => Promise<void>;
@@ -200,7 +201,7 @@ export type PluginProps<
   reducer?: (state: StateT, action: AnyAction) => StateT;
   migrations?: Migration[];
 
-  // tslint:disable-next-line:no-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   createInitialState?: (...args: any[]) => StateT;
 
   focus?: (props: { source: string }) => void;
@@ -220,7 +221,7 @@ export type PluginProps<
 export interface MigrationConfig {
   toVersion: string;
   fromVersionRange: string;
-  // tslint:disable-next-line:no-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   migrate: (state: any) => any;
 }
 
@@ -250,16 +251,16 @@ export class Migration {
     this.migrate = migrate;
     this.fromVersionRange = fromVersionRange;
   }
-  // tslint:disable-next-line:no-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   migrate = (state: any): any => state;
 }
 
 /**
  * @class the abstract class for content and layout plugins. It will be instantiated once and used for every cell that is equipped with it.
  */
-// tslint:disable-next-line:no-any
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class Plugin<T = any, ExtraProps = {}> {
-  // tslint:disable-next-line:no-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   config: PluginConfig<T, ExtraProps>;
 
   /**
@@ -285,14 +286,14 @@ export class Plugin<T = any, ExtraProps = {}> {
   /**
    * @member the icon that will be shown in the toolbar.
    */
-  // tslint:disable-next-line:no-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   IconComponent: any;
   // IconComponent: Element<*> | Component<*, *, *>
 
   /**
    * @member the plugin's react component.
    */
-  // tslint:disable-next-line:no-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   Component: any;
   // Component: Element<*> | Component<*, *, *> | (props: any) => Element<*>
 
@@ -301,7 +302,7 @@ export class Plugin<T = any, ExtraProps = {}> {
    */
   text: string;
   hideInMenu?: boolean;
-  // tslint:disable-next-line:no-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   constructor(config: PluginConfig<T, ExtraProps>) {
     const {
       name,
@@ -380,7 +381,7 @@ export class Plugin<T = any, ExtraProps = {}> {
    * @returns a promise
    */
   handleRemoveHotKey = (e: Event, props: ContentPluginProps): Promise<void> =>
-    Promise.reject()
+    Promise.reject();
 
   /**
    * Will be called when the user presses the right or down key. When returning a resolving promise,
@@ -393,7 +394,7 @@ export class Plugin<T = any, ExtraProps = {}> {
   handleFocusNextHotKey = (
     e: Event,
     props: ContentPluginProps
-  ): Promise<void> => Promise.resolve()
+  ): Promise<void> => Promise.resolve();
 
   /**
    * Will be called when the user presses the left or up key. When returning a resolving promise,
@@ -406,7 +407,7 @@ export class Plugin<T = any, ExtraProps = {}> {
   handleFocusPreviousHotKey = (
     e: Event,
     props: ContentPluginProps
-  ): Promise<void> => Promise.resolve()
+  ): Promise<void> => Promise.resolve();
 
   /**
    * This function will be called when one of the plugin's cell is blurred.
@@ -417,7 +418,7 @@ export class Plugin<T = any, ExtraProps = {}> {
     props: ContentPluginProps,
     focusSource: string,
     ref: HTMLElement
-  ): void => null
+  ): void => null;
 
   /**
    * This function will be called when one of the plugin's cell is focused.
@@ -432,14 +433,14 @@ export class Plugin<T = any, ExtraProps = {}> {
    * @param state
    * @param action
    */
-  // tslint:disable-next-line:no-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   reducer = (state: any, action: any) => state;
 }
 
 /**
  * @class this is the base class for content plugins.
  */
-// tslint:disable-next-line:no-any
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class ContentPlugin<StateT = any> extends Plugin<
   StateT,
   ContentPluginExtraProps
@@ -453,7 +454,7 @@ export class ContentPlugin<StateT = any> extends Plugin<
    * @member if true allows that isInlineable elements may be placed "in" this plugin.
    */
   allowInlineNeighbours: boolean;
-  // tslint:disable-next-line:no-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   constructor(config: ContentPluginConfig<StateT>) {
     super(config);
     const {
@@ -482,14 +483,14 @@ export class ContentPlugin<StateT = any> extends Plugin<
    * @param state
    * @param action
    */
-  // tslint:disable-next-line:no-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   reducer = (state: any, action: any) => state;
 }
 
 /**
  * @class this is the base class for layout plugins.
  */
-// tslint:disable-next-line:no-any
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class LayoutPlugin<StateT = any> extends Plugin<
   StateT,
   LayoutPluginExtraProps
@@ -518,14 +519,14 @@ export class LayoutPlugin<StateT = any> extends Plugin<
    *
    * @returns the initial state.
    */
-  // tslint:disable-next-line:no-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   createInitialChildren = (): InitialChildrenDef => [];
 }
 
-// tslint:disable-next-line:no-any
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type NativePluginProps<StateT = any> = PluginProps<StateT> & {
   type?: string;
-  // tslint:disable-next-line:no-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   createInitialChildren?: () => InitialChildrenDef;
   allowInlineNeighbours?: boolean;
   isInlineable?: boolean;
@@ -546,7 +547,7 @@ export class NativePlugin<StateT> extends Plugin<StateT> {
    * @member if true allows that isInlineable elements may be placed "in" this plugin.
    */
   allowInlineNeighbours: boolean;
-  // tslint:disable-next-line:no-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   constructor(config: NativePluginConfig<StateT>) {
     super(config);
     const {
@@ -580,6 +581,6 @@ export class NativePlugin<StateT> extends Plugin<StateT> {
    *
    * @returns the initial state.
    */
-  // tslint:disable-next-line:no-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   createInitialState = (...args: any[]): Object => ({});
 }

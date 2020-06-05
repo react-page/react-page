@@ -73,13 +73,13 @@ describe('editor/reducer/editables', () => {
     describe(`test case ${k}`, () => {
       it('should update an existing editable', () => {
         const reducer = combineReducers<RootState>({
-          // tslint:disable-next-line:no-any
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           reactPage: combineReducers({ editables }) as any,
         });
-        // tslint:disable-next-line:no-any
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const store = createStore<RootState, any, any, any>(
           reducer,
-          // tslint:disable-next-line:no-any
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           { reactPage: { editables: c.i as any } as any },
           identity
         );

@@ -26,14 +26,14 @@ import { bindActionCreators, Dispatch } from 'redux';
 import { createStructuredSelector } from 'reselect';
 import {
   updateCellLayout,
-  UpdateCellLayoutAction
+  UpdateCellLayoutAction,
 } from '../../../actions/cell';
 import { connect } from '../../../reduxConnect';
 import { isEditMode, isPreviewMode } from '../../../selector/display';
 import { LayoutPluginProps } from '../../../service/plugin/classes';
 import {
   ComponetizedCell,
-  SimplifiedModesProps
+  SimplifiedModesProps,
 } from '../../../types/editable';
 import Row from '../../Row';
 import scrollIntoViewWithOffset from '../utils/scrollIntoViewWithOffset';
@@ -104,11 +104,11 @@ class Layout extends React.PureComponent<LayoutProps> {
 
   onRef = (ref: HTMLDivElement) => {
     this.ref = ref;
-  }
+  };
 
-  onChange = state => {
+  onChange = (state) => {
     this.props.updateCellLayout(state);
-  }
+  };
   render() {
     const {
       id,
@@ -131,6 +131,7 @@ class Layout extends React.PureComponent<LayoutProps> {
           if (
             !focused &&
             (e.target as HTMLDivElement).closest('.ory-cell-inner') ===
+              // eslint-disable-next-line react/no-find-dom-node
               findDOMNode(this.ref)
           ) {
             focusCell({ source: 'onMouseDown' });
@@ -188,7 +189,7 @@ const mapDispatchToProps = (
     {
       updateCellLayout: updateCellLayout(id),
     },
-    // tslint:disable-next-line:no-any
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     dispatch as any
   );
 

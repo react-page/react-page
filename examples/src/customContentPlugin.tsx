@@ -7,11 +7,10 @@ export default createContentPlugin<{
   lastName: string;
   age: number;
 }>({
-  // tslint:disable-next-line:no-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   Renderer: ({ state }) => (
     <div>
       <h3>{state.title}</h3>
-
       <p>Firstname: {state.firstName}</p>
       <p>Lastname: {state.lastName}</p>
       <p>Age: {state.age}</p>

@@ -41,11 +41,11 @@ class BackgroundDefaultControls extends React.Component<
         lighten = this.props.defaultLighten,
       },
     } = this.props;
-    let darkenFinal =
+    const darkenFinal =
       this.props.darkenPreview !== undefined
         ? this.props.darkenPreview
         : darken;
-    let lightenFinal =
+    const lightenFinal =
       this.props.lightenPreview !== undefined
         ? this.props.lightenPreview
         : lighten;
@@ -199,7 +199,7 @@ class BackgroundDefaultControls extends React.Component<
         label={label}
       />
     );
-  }
+  };
 
   renderUI = () => {
     switch (this.state.mode) {
@@ -261,7 +261,7 @@ class BackgroundDefaultControls extends React.Component<
           </React.Fragment>
         );
     }
-  }
+  };
 
   ensureModeOn = (mode: ModeEnum) => () => {
     const {
@@ -270,10 +270,10 @@ class BackgroundDefaultControls extends React.Component<
     if ((modeFlag & mode) === 0) {
       this.props.handleChangeModeSwitch(mode, modeFlag)();
     }
-  }
+  };
 
   handleChangeMode = (e: React.ChangeEvent, mode: number) =>
-    this.setState({ mode })
+    this.setState({ mode });
 }
 
 export default BackgroundDefaultControls;

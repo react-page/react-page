@@ -5,7 +5,7 @@ import { lazyLoad } from '@react-page/core';
 
 const ImageIcon = lazyLoad(() => import('@material-ui/icons/Landscape'));
 
-const ImageHtmlRenderer: React.SFC<ImageRendererProps> = props => {
+const ImageHtmlRenderer: React.SFC<ImageRendererProps> = (props) => {
   const { isEditMode, state, imagePreview } = props;
   const src = imagePreview ? imagePreview.dataUrl : state.src;
   const Image = <img className="ory-plugins-content-image" alt="" src={src} />;

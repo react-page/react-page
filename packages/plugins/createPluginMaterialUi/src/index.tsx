@@ -7,5 +7,5 @@ export {
   createLayoutPlugin,
   makeUniformsSchema,
   JsonSchema,
-  JsonSchemaProperty
+  JsonSchemaProperty,
 };

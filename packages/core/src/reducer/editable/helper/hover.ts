@@ -33,7 +33,7 @@ export const isHoveringThis = (
   const children = state.rows || state.cells || [];
   if (level > 0) {
     return Boolean(
-      children.find(child =>
+      children.find((child) =>
         isHoveringThis(child, { ...action, level: level - 1 })
       )
     );

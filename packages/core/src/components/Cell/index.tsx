@@ -28,7 +28,7 @@ import {
   blurAllCells,
   focusCell,
   resizeCell,
-  ResizeCellAction
+  ResizeCellAction,
 } from '../../actions/cell';
 import { connect } from '../../reduxConnect';
 import { RootState } from '../../selector';
@@ -37,29 +37,29 @@ import {
   isInsertMode,
   isLayoutMode,
   isPreviewMode,
-  isResizeMode
+  isResizeMode,
 } from '../../selector/display';
 import {
   editableConfig,
   node,
   NodeProps,
-  purifiedNode
+  purifiedNode,
 } from '../../selector/editable';
 import { ComponetizedCell, SimplifiedModesProps } from '../../types/editable';
 import {
   BlurAllCellsAction,
   FocusCellAction,
   removeCell,
-  RemoveCellAction
+  RemoveCellAction,
 } from './../../actions/cell/core';
 import Inner from './Inner';
 import Resizable from './Resizable';
 
 const gridClass = ({ node: { size }, ...rest }: ComponetizedCell): string => {
   if (rest.isPreviewMode || rest.isEditMode) {
-    return `ory-cell-${
-      rest.isPreviewMode || rest.isEditMode ? 'sm' : 'xs'
-    }-${size || 12} ory-cell-xs-12`;
+    return `ory-cell-${rest.isPreviewMode || rest.isEditMode ? 'sm' : 'xs'}-${
+      size || 12
+    } ory-cell-xs-12`;
   }
 
   return `ory-cell-xs-${size || 12}`;
@@ -144,7 +144,7 @@ const mapDispatchToProps = (
       blurAllCells,
       removeCell: () => removeCell(id),
     },
-    // tslint:disable-next-line:no-any
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     dispatch as any
   );
 

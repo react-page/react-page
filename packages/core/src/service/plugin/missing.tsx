@@ -25,10 +25,10 @@ import {
   ContentPluginConfig,
   ContentPluginProps,
   LayoutPluginConfig,
-  LayoutPluginProps
+  LayoutPluginProps,
 } from './classes';
 
-const ContentMissingComponent = (props: ContentPluginProps<{}>) => (
+const ContentMissingComponent = (props: ContentPluginProps<unknown>) => (
   <div
     style={{
       backgroundColor: 'red',
@@ -57,8 +57,8 @@ export const contentMissing = ({
 const LayoutMissingComponent: React.SFC = ({
   children,
   ...props
-}: // tslint:disable-next-line:no-any
-LayoutPluginProps<{}> & { children: any }) => (
+}: // eslint-disable-next-line @typescript-eslint/no-explicit-any
+LayoutPluginProps<unknown> & { children: any }) => (
   <div>
     <div
       style={{

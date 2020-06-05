@@ -23,7 +23,7 @@
 import { CELL_FOCUS, CELL_BLUR, CELL_BLUR_ALL } from '../../actions/cell';
 
 export const focus = (
-  state: string = '',
+  state = '',
   action: {
     type: string;
     id: string;

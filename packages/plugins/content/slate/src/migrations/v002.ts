@@ -3,7 +3,7 @@ import rename from 'deep-rename-keys';
 const migration = new Migration({
   toVersion: '0.0.2',
   fromVersionRange: '^0.0.1',
-  migrate: state => {
+  migrate: (state) => {
     // wrap with document
     state = {
       ...state,
@@ -12,7 +12,7 @@ const migration = new Migration({
         : {}),
     };
     // rename keys
-    state = rename(state, key => {
+    state = rename(state, (key) => {
       switch (key) {
         case 'kind':
           return 'object';

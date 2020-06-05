@@ -31,7 +31,7 @@ export default {
     },
     deserialize: {
       tagName: 'a',
-      getData: el => ({
+      getData: (el) => ({
         href: el.getAttribute('href') || '',
         openInNewWindow: el.getAttribute('target') === '_blank',
       }),

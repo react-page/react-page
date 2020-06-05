@@ -34,7 +34,7 @@ export class Logger {
   /**
    * Logs a warning. Warnings are things that are exceptional, but easily to recover from.
    */
-  // tslint:disable-next-line:no-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   warn(...args: any[]) {
     console.warn('Warning:', ...args);
   }
@@ -42,7 +42,7 @@ export class Logger {
   /**
    * Logs a debug message. Debug messages are things that help developers debugging things.
    */
-  // tslint:disable-next-line:no-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   debug(...args: any[]) {
     console.log('Debug:', ...args);
   }
@@ -50,7 +50,7 @@ export class Logger {
   /**
    * Logs an info. Infos are things that might be interesting for someone who needs to take a closer look.
    */
-  // tslint:disable-next-line:no-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   info(...args: any[]) {
     console.log('Info:', ...args);
   }
@@ -58,7 +58,7 @@ export class Logger {
   /**
    * Logs an error. Error are things that are exceptional, but can be recovered from.
    */
-  // tslint:disable-next-line:no-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   error(...args: any[]) {
     console.error('Error:', ...args);
     console.error('Trace:', trace());
@@ -67,7 +67,7 @@ export class Logger {
   /**
    * Logs a fatal error. Fatal errors are things that are exceptional and can not be recovered from.
    */
-  // tslint:disable-next-line:no-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   fatal(...args: any[]) {
     console.error('Fatal:', ...args);
     console.error('Trace:', trace());
@@ -77,7 +77,7 @@ export class Logger {
   /**
    * Logs a message.
    */
-  // tslint:disable-next-line:no-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   log(...args: any[]) {
     console.log('Fatal:', ...args);
     console.log('Trace:', trace());

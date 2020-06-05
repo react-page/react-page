@@ -1,2 +1,1 @@
-export interface SlateApi {
-}
+export interface SlateApi {}

@@ -159,10 +159,10 @@ describe('isEmpty', () => {
     },
   ].forEach((c, k) => {
     it(`should pass test case ${k}`, () => {
-      // tslint:disable-next-line:no-any
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       expect(isEmpty(c.in as any), 'to equal', c.empty);
       expect(
-        // tslint:disable-next-line:no-any
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         (c.in.rows || (c.in.cells as any)).filter(emptyFilter).length,
         'to equal',
         c.empty ? 0 : 1

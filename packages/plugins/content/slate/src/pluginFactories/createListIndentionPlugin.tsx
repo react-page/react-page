@@ -3,7 +3,7 @@ import {
   decreaseListIndention,
   getActiveListType,
   getPreviousListItem,
-  increaseListIndention
+  increaseListIndention,
 } from './utils/listUtils';
 
 type Definition = {
@@ -23,19 +23,19 @@ const ceateSlatePlugin = (def: Definition): SlatePlugin[] => {
       addHoverButton: false,
       icon: def.iconIncrease,
       label: def.labelIncrease,
-      customAdd: editor => {
+      customAdd: (editor) => {
         increaseListIndention(editor, {
           allListTypes: def.allListTypes,
           listItemType: def.listItemType,
         });
       },
-      customRemove: editor => {
+      customRemove: (editor) => {
         decreaseListIndention(editor, {
           allListTypes: def.allListTypes,
           listItemType: def.listItemType,
         });
       },
-      isDisabled: editor => {
+      isDisabled: (editor) => {
         const previous = getPreviousListItem(editor, def.listItemType);
         return !previous;
       },
@@ -46,27 +46,27 @@ const ceateSlatePlugin = (def: Definition): SlatePlugin[] => {
       addHoverButton: false,
       icon: def.iconDecrease,
       label: def.labelDecrease,
-      customAdd: editor => {
+      customAdd: (editor) => {
         decreaseListIndention(editor, {
           allListTypes: def.allListTypes,
           listItemType: def.listItemType,
         });
       },
-      customRemove: editor => {
+      customRemove: (editor) => {
         increaseListIndention(editor, {
           allListTypes: def.allListTypes,
           listItemType: def.listItemType,
         });
       },
-      isDisabled: editor => {
-        return !Boolean(getActiveListType(editor, def.allListTypes));
+      isDisabled: (editor) => {
+        return !getActiveListType(editor, def.allListTypes);
       },
     },
   ];
 };
 
 function createListIndentionPlugin(def: Definition) {
-  const customizablePlugin = function(
+  const customizablePlugin = function (
     customize: (def2: Definition) => Definition
   ) {
     return createListIndentionPlugin(customize(def));

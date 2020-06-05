@@ -3,7 +3,7 @@ import { BackgroundSettings } from '../types/settings';
 import {
   IMAGE_MODE_FLAG,
   COLOR_MODE_FLAG,
-  GRADIENT_MODE_FLAG
+  GRADIENT_MODE_FLAG,
 } from './../const/mode';
 import { defaultTranslations as defaultImageUploadTranslations } from '@react-page/ui/lib/ImageUpload/defaultTranslations';
 

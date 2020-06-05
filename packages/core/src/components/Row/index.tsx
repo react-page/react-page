@@ -31,7 +31,7 @@ import {
   isLayoutMode,
   isEditMode,
   isResizeMode,
-  isInsertMode
+  isInsertMode,
 } from '../../selector/display';
 import { editableConfig, purifiedNode, node } from '../../selector/editable';
 import { blurAllCells } from '../../actions/cell';
@@ -40,7 +40,7 @@ import { ComponetizedRow, SimplifiedModesProps } from '../../types/editable';
 import { RootState } from '../../types/state';
 
 class Row extends React.PureComponent<ComponetizedRow & SimplifiedModesProps> {
-  // tslint:disable-next-line:no-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   Droppable: any;
   constructor(props: ComponetizedRow) {
     super(props);

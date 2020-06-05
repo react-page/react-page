@@ -7,14 +7,14 @@ import { makeUniformsSchema } from '@react-page/create-plugin-materialui';
 import React, { useCallback, useRef, useState } from 'react';
 import {
   AutoFields as AutoFieldsOrg,
-  AutoForm as AutoFormOrg
+  AutoForm as AutoFormOrg,
 } from 'uniforms-material';
 import { SlatePluginControls } from '../../types/slatePluginDefinitions';
 
 // see https://github.com/vazco/uniforms/issues/617
-// tslint:disable-next-line:no-any
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const AutoForm: any = AutoFormOrg;
-// tslint:disable-next-line:no-any
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const AutoFields: any = AutoFieldsOrg;
 
 function Controls<T>(props: SlatePluginControls<T>) {
@@ -24,7 +24,7 @@ function Controls<T>(props: SlatePluginControls<T>) {
 
   const hasSchema = Boolean(props.schema);
 
-  // tslint:disable-next-line:no-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const formRef = useRef<any>();
 
   const [text, setText] = useState(null);
@@ -34,7 +34,7 @@ function Controls<T>(props: SlatePluginControls<T>) {
   };
 
   const saveAndCloseWithData = useCallback(
-    data => {
+    (data) => {
       props.close();
       if (props.shouldInsertWithText) {
         props.add({ text, data });
@@ -75,7 +75,7 @@ function Controls<T>(props: SlatePluginControls<T>) {
             <TextField
               autoFocus={true}
               placeholder={'Text'}
-              onChange={e => setText(e.target.value)}
+              onChange={(e) => setText(e.target.value)}
               value={text}
             />
           </div>

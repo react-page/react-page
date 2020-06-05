@@ -23,11 +23,11 @@
 import { UPDATE_SETTING } from '../../actions/setting';
 
 export const settings = (
-  state: Object = {},
+  state = {},
   action: {
     type: string;
     key: string;
-    // tslint:disable-next-line:no-any
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     value: any;
   }
 ) => {

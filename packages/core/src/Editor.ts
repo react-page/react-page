@@ -8,7 +8,7 @@ import PluginService from './service/plugin';
 import {
   ContentPluginConfig,
   LayoutPluginConfig,
-  Plugins
+  Plugins,
 } from './service/plugin/classes';
 import pluginDefault from './service/plugin/default';
 import createStore from './store';
@@ -41,12 +41,12 @@ const update = (editor: Editor) => (editable: EditableType) => {
         ...nativeTypes(editor),
       ],
     },
-    // tslint:disable-next-line:no-any
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } as any);
 };
 
 export interface EditorProps<T extends RootState = RootState> {
-  // tslint:disable-next-line:no-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   plugins?: Plugins;
   middleware?: [];
   editables?: EditableType[];
@@ -82,24 +82,24 @@ class Editor<T extends RootState = RootState> {
     this.trigger = actions(this.store.dispatch);
     this.query = selectors(this.store);
     this.defaultPlugin = defaultPlugin;
-    // tslint:disable-next-line:no-any
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     this.trigger.editable.add = update(this) as any;
-    // tslint:disable-next-line:no-any
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     this.trigger.editable.update = update(this) as any;
 
     editables.forEach(this.trigger.editable.add);
   }
 
   public refreshEditables = () => {
-    this.store.getState().reactPage.editables.present?.forEach(editable => {
+    this.store.getState().reactPage.editables.present?.forEach((editable) => {
       if (!isProduction) {
         // tslint:disable-next-line:no-console
         console.log(this.plugins.serialize(editable));
       }
-      // tslint:disable-next-line:no-any
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       this.trigger.editable.update(this.plugins.serialize(editable));
     });
-  }
+  };
 
   /**
    * @deprecated in order to reduce the api surface, we will remove this method in the future
@@ -110,7 +110,7 @@ class Editor<T extends RootState = RootState> {
     );
     this.plugins.setLayoutPlugins(plugins);
     this.refreshEditables();
-  }
+  };
   /**
    * @deprecated in order to reduce the api surface, we will remove this method in the future
    */
@@ -120,7 +120,7 @@ class Editor<T extends RootState = RootState> {
     );
     this.plugins.addLayoutPlugin(config);
     this.refreshEditables();
-  }
+  };
   /**
    * @deprecated in order to reduce the api surface, we will remove this method in the future
    */
@@ -130,7 +130,7 @@ class Editor<T extends RootState = RootState> {
     );
     this.plugins.removeLayoutPlugin(name);
     this.refreshEditables();
-  }
+  };
   /**
    * @deprecated in order to reduce the api surface, we will remove this method in the future
    */
@@ -140,7 +140,7 @@ class Editor<T extends RootState = RootState> {
     );
     this.plugins.setContentPlugins(plugins);
     this.refreshEditables();
-  }
+  };
 
   /**
    * @deprecated in order to reduce the api surface, we will remove this method in the future
@@ -151,7 +151,7 @@ class Editor<T extends RootState = RootState> {
     );
     this.plugins.addContentPlugin(config);
     this.refreshEditables();
-  }
+  };
 
   /**
    * @deprecated in order to reduce the api surface, we will remove this method in the future
@@ -162,7 +162,7 @@ class Editor<T extends RootState = RootState> {
     );
     this.plugins.removeContentPlugin(name);
     this.refreshEditables();
-  }
+  };
 }
 
 export const createEmptyState: () => EditableType = () =>

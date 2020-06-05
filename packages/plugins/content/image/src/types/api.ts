@@ -1,6 +1,6 @@
 import {
   ImageLoaded,
-  ImageUploaded
+  ImageUploaded,
 } from '@react-page/ui/lib/ImageUpload/types';
 
 export interface ImageApi {

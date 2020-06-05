@@ -25,7 +25,7 @@ import {
   DISPLAY_MODE_LAYOUT,
   DISPLAY_MODE_PREVIEW,
   DISPLAY_MODE_INSERT,
-  DISPLAY_MODE_RESIZING
+  DISPLAY_MODE_RESIZING,
 } from '../../actions/display';
 
 import { RootState } from '../../types/state';

@@ -15,7 +15,7 @@ const getStyles = (props: BackgroundRendererProps) => {
   } = props;
   let styles: React.CSSProperties = {};
   if (modeFlag & ModeEnum.GRADIENT_MODE_FLAG) {
-    const usedGradients = gradients.filter(g => g.colors && g.colors.length);
+    const usedGradients = gradients.filter((g) => g.colors && g.colors.length);
     const usedGradientsString = usedGradients
       .map((g, i) => {
         const firstColor = g.colors[0].color;
@@ -90,7 +90,7 @@ const getStyles = (props: BackgroundRendererProps) => {
   return styles;
 };
 
-const BackgroundHtmlRenderer: React.SFC<BackgroundRendererProps> = props => {
+const BackgroundHtmlRenderer: React.SFC<BackgroundRendererProps> = (props) => {
   const {
     children,
     state: {
@@ -99,9 +99,9 @@ const BackgroundHtmlRenderer: React.SFC<BackgroundRendererProps> = props => {
       hasPadding = props.defaultHasPadding,
     },
   } = props;
-  let darkenFinal =
+  const darkenFinal =
     props.darkenPreview !== undefined ? props.darkenPreview : darken;
-  let lightenFinal =
+  const lightenFinal =
     props.lightenPreview !== undefined ? props.lightenPreview : lighten;
   const containerStyles = getStyles(props);
   return (

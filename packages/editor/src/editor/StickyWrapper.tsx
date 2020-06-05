@@ -29,7 +29,7 @@ export default ({ children }) => {
     window.addEventListener('resize', calc);
     let observer: IntersectionObserver = null;
 
-    // tslint:disable-next-line: no-any
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     if ((global as any).IntersectionObserver) {
       observer = new IntersectionObserver(calc);
       if (ref.current) {

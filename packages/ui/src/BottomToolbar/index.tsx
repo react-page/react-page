@@ -4,7 +4,7 @@ import {
   Grid,
   IconButton,
   Typography,
-  Tooltip
+  Tooltip,
 } from '@material-ui/core';
 import Drawer from '@material-ui/core/Drawer';
 import Delete from '@material-ui/icons/Delete';

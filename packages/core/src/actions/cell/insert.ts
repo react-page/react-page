@@ -45,7 +45,7 @@ export interface InsertAction extends Action {
 const insert = (type: string) => (
   item: Partial<Cell>,
   { id: hover, inline, hasInlineNeighbour }: Partial<Cell>,
-  level: number = 0,
+  level = 0,
   ids: NewIds = null
 ) => {
   let l = level;
@@ -81,7 +81,7 @@ const insert = (type: string) => (
     ids: ids ? ids : generateIds(),
   };
 
-  return dispatch => {
+  return (dispatch) => {
     dispatch(insertAction);
     // FIXME: checking if an item is new or just moved around is a bit awkward
     const isNew = !item.id || (item.rows && !item.levels);
@@ -139,7 +139,7 @@ const newIds = ({ id, ...item }: Partial<Cell>) => {
     },
     id: v4(),
     rows: item.rows
-      ? item.rows.map(row => ({
+      ? item.rows.map((row) => ({
           ...row,
           id: v4(),
           cells: row.cells ? row.cells.map(newIds) : undefined,
@@ -147,7 +147,7 @@ const newIds = ({ id, ...item }: Partial<Cell>) => {
       : undefined,
   };
 };
-export const duplicateCell = item => dispatch =>
+export const duplicateCell = (item) => (dispatch) =>
   dispatch(insertCellBelow(newIds(item), item));
 
 export const insertActions = {

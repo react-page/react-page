@@ -26,12 +26,12 @@ const computeOrder = ({
   content: { plugin: { name = '' } = {} } = {},
   id,
 }: {
-  // tslint:disable-next-line:no-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   rows: Array<any>;
-  // tslint:disable-next-line:no-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   cells: Array<any>;
   id: string;
-  // tslint:disable-next-line:no-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   content?: { plugin?: any };
 }) =>
   [
@@ -43,12 +43,12 @@ const computeOrder = ({
     ],
     ...(rows || []).map(computeOrder),
     ...(cells || []).map(computeOrder),
-    // tslint:disable-next-line:no-any
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ].reduce((p: Array<any>, n: Array<any>) => [...p, ...n], []);
 
-// tslint:disable-next-line:no-any
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const cellOrder = (os: Array<any>) =>
   os
     .map(computeOrder)
-    // tslint:disable-next-line:no-any
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     .reduce((p: Array<any>, n: Array<any>) => [...p, ...n], []);

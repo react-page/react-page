@@ -62,7 +62,7 @@ describe('optimizeRow', () => {
     },
   ].forEach((c, k) => {
     it(`should pass test case ${k}`, () => {
-      // tslint:disable-next-line:no-any
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       expect(optimizeRow(c.in as any), 'to equal', c.out);
     });
   });
@@ -92,7 +92,7 @@ describe('optimizeCell', () => {
     },
   ].forEach((c, k) => {
     it(`should pass test case ${k}`, () => {
-      // tslint:disable-next-line:no-any
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       expect(equal(c.out, optimizeCell(c.in as any)), 'to be truthy');
     });
   });

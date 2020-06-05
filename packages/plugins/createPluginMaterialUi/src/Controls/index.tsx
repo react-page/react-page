@@ -16,16 +16,16 @@ import { ControlProps, ControlsLayout } from '../types';
 import makeUniformsSchema from '../utils/makeUniformsSchema';
 
 // see https://github.com/vazco/uniforms/issues/617
-// tslint:disable-next-line:no-any
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const AutoForm: any = AutoFormOrg;
-// tslint:disable-next-line:no-any
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const AutoFields: any = AutoFieldsOrg;
 
 const defaultControlsLayout: ControlsLayout = {
   columnCount: 2,
 };
 
-const getDefaultValue = function(bridge: JSONSchemaBridge) {
+const getDefaultValue = function (bridge: JSONSchemaBridge) {
   return bridge.getSubfields(null).reduce(
     (acc, fieldName) => ({
       ...acc,

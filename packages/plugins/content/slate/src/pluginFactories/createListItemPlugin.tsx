@@ -5,7 +5,7 @@ type ListItemDef = {
   tagName: string;
 };
 
-export default function<T>(def: ListItemDef) {
+export default function <T>(def: ListItemDef) {
   return createSimpleHtmlBlockPlugin<T>({
     noButton: true,
     tagName: def.tagName,

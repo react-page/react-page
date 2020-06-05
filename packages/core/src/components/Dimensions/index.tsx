@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-types */
 /*
  * This file is part of ORY Editor.
  *
@@ -26,10 +27,9 @@ import * as React from 'react';
 const getWidth = (element: HTMLElement) => element.clientWidth;
 const getHeight = (element: HTMLElement) => element.clientHeight;
 
-const Dimensions = ({
-  className = null,
-  elementResize = false,
-} = {}) => ComposedComponent => {
+const Dimensions = ({ className = null, elementResize = false } = {}) => (
+  ComposedComponent
+) => {
   type DecoratorProps = {};
   type DecoratorState = {
     containerWidth?: number;
@@ -47,7 +47,7 @@ const Dimensions = ({
       if (!this.containerRef) {
         throw new Error('Cannot find container div');
       }
-      // tslint:disable-next-line: no-any
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       if ((global as any).IntersectionObserver) {
         this.observer = new IntersectionObserver(this.onResize);
       }
@@ -105,7 +105,7 @@ const Dimensions = ({
         : window;
     }
 
-    onContainerRef = ref => {
+    onContainerRef = (ref) => {
       this.containerRef = ref;
       this.updateDimensions();
     };
@@ -126,7 +126,7 @@ const Dimensions = ({
     }
   }
 
-  return props => <Decorator {...props} />;
+  return (props) => <Decorator {...props} />;
 };
 
 export default Dimensions;

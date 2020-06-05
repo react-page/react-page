@@ -41,7 +41,7 @@ interface OwnProps {
 
 export type InnerProps = InnerReduxProps & InnerActionProps & OwnProps;
 
-const Inner: React.SFC<InnerProps> = props => (
+const Inner: React.SFC<InnerProps> = (props) => (
   <Button
     icon={<Resize />}
     description={props.label}
@@ -55,7 +55,4 @@ const mapStateToProps = createStructuredSelector({
 });
 const mapDispatchToProps = { resizeMode: Actions.Display.resizeMode };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Inner);
+export default connect(mapStateToProps, mapDispatchToProps)(Inner);

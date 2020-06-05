@@ -25,7 +25,7 @@ import { bindActionCreators, Dispatch } from 'redux';
 import { createStructuredSelector } from 'reselect';
 import {
   updateCellContent,
-  UpdateCellContentAction
+  UpdateCellContentAction,
 } from '../../../actions/cell';
 import { connect } from '../../../reduxConnect';
 import {
@@ -33,7 +33,7 @@ import {
   isInsertMode,
   isLayoutMode,
   isPreviewMode,
-  isResizeMode
+  isResizeMode,
 } from '../../../selector/display';
 import { ContentPluginProps } from '../../../service/plugin/classes';
 import { ComponetizedCell } from '../../../types/editable';
@@ -68,7 +68,7 @@ class Content extends React.PureComponent<ComponetizedCell> {
     } = nextProps;
 
     // FIXME this is really shitty because it will break when the state changes before the blur comes through, see #157
-    // tslint:disable-next-line:no-any
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const pass: ContentPluginProps = {
       editable,
       id,
@@ -105,17 +105,17 @@ class Content extends React.PureComponent<ComponetizedCell> {
 
   onRef = (ref: HTMLDivElement) => {
     this.ref = ref;
-  }
+  };
 
-  onChange = state => {
+  onChange = (state) => {
     this.props.updateCellContent(state);
-  }
+  };
   remove = () => {
     this.props.removeCell();
-  }
-  focus = args => {
+  };
+  focus = (args) => {
     this.props.focusCell(args);
-  }
+  };
 
   render() {
     const {
@@ -195,7 +195,7 @@ const mapDispatchToProps = (
     {
       updateCellContent: updateCellContent(id),
     },
-    // tslint:disable-next-line:no-any
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     dispatch as any
   );
 

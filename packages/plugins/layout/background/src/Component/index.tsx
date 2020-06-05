@@ -31,20 +31,20 @@ class BackgroundComponent
   handleChangeDarken = () => {
     this.props.onChange({ darken: this.state.darkenPreview });
     this.setState({ darkenPreview: undefined });
-  }
+  };
 
   handleChangeDarkenPreview = (value: number) => {
     this.setState({ darkenPreview: value });
-  }
+  };
 
   handleChangeLighten = () => {
     this.props.onChange({ lighten: this.state.lightenPreview });
     this.setState({ lightenPreview: undefined });
-  }
+  };
 
   handleChangeLightenPreview = (value: number) => {
     this.setState({ lightenPreview: value });
-  }
+  };
 
   handleChangeHasPadding = () => {
     this.props.onChange({
@@ -53,20 +53,20 @@ class BackgroundComponent
           ? !this.props.defaultHasPadding
           : !this.props.state.hasPadding,
     });
-  }
+  };
 
   handleChangeBackgroundColorPreview = (e: RGBColor) =>
-    this.setState({ backgroundColorPreview: e })
+    this.setState({ backgroundColorPreview: e });
 
   handleChangeGradientDegPreview = (
     gradientDegPreview: number,
     gradientDegPreviewIndex?: number
-  ) => this.setState({ gradientDegPreview, gradientDegPreviewIndex })
+  ) => this.setState({ gradientDegPreview, gradientDegPreviewIndex });
 
   handleChangeGradientOpacityPreview = (
     gradientOpacityPreview: number,
     gradientOpacityPreviewIndex?: number
-  ) => this.setState({ gradientOpacityPreview, gradientOpacityPreviewIndex })
+  ) => this.setState({ gradientOpacityPreview, gradientOpacityPreviewIndex });
 
   handleChangeGradientColorPreview = (
     gradientColorPreview: RGBColor,
@@ -77,17 +77,17 @@ class BackgroundComponent
       gradientColorPreview,
       gradientColorPreviewIndex,
       gradientColorPreviewColorIndex,
-    })
+    });
 
   handleImageLoaded = (imagePreview: ImageLoaded) =>
-    this.setState({ imagePreview })
+    this.setState({ imagePreview });
 
   handleImageUploaded = () => this.setState({ imagePreview: undefined });
 
   handleChangeModeSwitch = (mode: ModeEnum, modeFlag: ModeEnum) => () => {
     modeFlag ^= mode;
     this.props.onChange({ modeFlag });
-  }
+  };
 
   render() {
     const { Controls, Renderer, readOnly } = this.props;

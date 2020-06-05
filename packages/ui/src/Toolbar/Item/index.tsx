@@ -31,7 +31,7 @@ import draggable from '../Draggable/index';
 
 export interface ItemProps {
   plugin: Plugin;
-  // tslint:disable-next-line:no-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   insert: any;
   translations: Translations;
 }
@@ -47,14 +47,13 @@ class Item extends React.Component<ItemProps, ItemState> {
       tooltipVisible: false,
     };
   }
-
   onMouseEnter = () => {
     this.setState({ tooltipVisible: true });
-  }
+  };
 
   onMouseLeave = () => {
     this.setState({ tooltipVisible: false });
-  }
+  };
 
   render() {
     const { plugin, insert } = this.props;

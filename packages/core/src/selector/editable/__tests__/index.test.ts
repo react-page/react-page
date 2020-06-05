@@ -508,7 +508,7 @@ const state = {
 describe('selectors/editable/node', () => {
   it('should find the right node (cell)', () => {
     expect(
-      // tslint:disable-next-line:no-any
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       purifiedNode(state as any, {
         id: 'dd419480-aa37-40cd-af97-ba8c3e8ae2df',
         editable: '1',
@@ -535,10 +535,10 @@ describe('selectors/editable/node', () => {
 
   it('should find the right node (row)', () => {
     expect(
-      // tslint:disable-next-line:no-any
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       purifiedNode(state as any, {
         id: 'f394a468-a64a-479c-8318-4ef2f14433a3',
-        // tslint:disable-next-line:no-any
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         editable: '2' as any,
       }),
       'to equal',
@@ -556,14 +556,14 @@ describe('selectors/editable/node', () => {
 
   it('should find the right node, everywhere', () => {
     expect(
-      // tslint:disable-next-line:no-any
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       searchNodeEverywhere(state as any, '3a261db7-5351-437c-899b-27ebfaa31fe6')
         .node.id,
       'to equal',
       '3a261db7-5351-437c-899b-27ebfaa31fe6'
     );
     expect(
-      // tslint:disable-next-line:no-any
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       searchNodeEverywhere(state as any, '8781492f-91e6-46ca-b2a6-b34f2e54fac6')
         .node.id,
       'to equal',

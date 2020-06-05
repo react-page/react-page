@@ -3,12 +3,12 @@ import * as React from 'react';
 import { DropTargetConnector, DropTargetMonitor } from 'react-dnd';
 import {
   createNativeCellReplacement,
-  isNativeHTMLElementDrag
+  isNativeHTMLElementDrag,
 } from '../../../helper/nativeDragHelpers';
 import { delay } from '../../../helper/throttle';
 import {
   computeAndDispatchHover,
-  computeAndDispatchInsert
+  computeAndDispatchInsert,
 } from '../../../service/hover/input';
 import logger from '../../../service/logger';
 import { ComponetizedCell, ComponetizedRow } from '../../../types/editable';
@@ -32,7 +32,7 @@ export const target = {
       monitor: DropTargetMonitor,
       component: React.ReactInstance
     ) => {
-      // tslint:disable-next-line:no-any
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       let drag: any = monitor.getItem();
       if (!drag) {
         // item undefined, happens when throttle triggers after drop
@@ -65,7 +65,7 @@ export const target = {
       }
 
       computeAndDispatchHover(
-        // tslint:disable-next-line:no-any
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         hover as any,
         drag,
         monitor,
@@ -82,7 +82,7 @@ export const target = {
     return item.id !== id || ancestors.indexOf(item.id) === -1;
   },
 
-  // tslint:disable-next-line:no-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   drop(hover: ComponetizedRow, monitor: DropTargetMonitor, component: any) {
     let drag: ComponetizedCell = monitor.getItem();
 
@@ -104,7 +104,7 @@ export const target = {
     }
 
     computeAndDispatchInsert(
-      // tslint:disable-next-line:no-any
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       hover as any,
       drag,
       monitor,

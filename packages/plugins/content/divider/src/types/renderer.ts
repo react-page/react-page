@@ -1,6 +1,6 @@
 import { DividerProps } from './component';
 
-export interface DividerRendererExtraProps {
-}
+export interface DividerRendererExtraProps {}
 
-export type DividerRendererProps = DividerProps & Partial<DividerRendererExtraProps>;
+export type DividerRendererProps = DividerProps &
+  Partial<DividerRendererExtraProps>;

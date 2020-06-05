@@ -12,14 +12,14 @@ export interface ColorComponentProps {
 class ColorComponent extends Component<BackgroundProps & ColorComponentProps> {
   handleChangePickerBackgroundColor = (e: RGBColor) =>
     this.props.onChangeBackgroundColorPreview &&
-    this.props.onChangeBackgroundColorPreview(e)
+    this.props.onChangeBackgroundColorPreview(e);
 
   handleChangePickerBackgroundColorComplete = (e: RGBColor) => {
     if (this.props.onChangeBackgroundColorPreview) {
       this.props.onChangeBackgroundColorPreview(undefined);
     }
     this.props.onChange({ backgroundColor: e });
-  }
+  };
 
   render() {
     const {

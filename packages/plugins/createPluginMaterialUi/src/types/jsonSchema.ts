@@ -1,7 +1,8 @@
+/* eslint-disable @typescript-eslint/ban-types */
 type CommonPropertyProps = {
   title?: string;
   uniforms?: object;
-  // tslint:disable-next-line:no-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [key: string]: any;
 };
 type BooleanType = {

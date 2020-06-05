@@ -4,12 +4,12 @@ import {
   RenderElementProps,
   RenderLeafProps,
   useSelected,
-  useFocused
+  useFocused,
 } from 'slate-react';
 import { SlatePlugin } from '../types/SlatePlugin';
 import {
   useComponentMarkPlugins,
-  useComponentNodePlugins
+  useComponentNodePlugins,
 } from './pluginHooks';
 import { getTextContents } from '../utils/getTextContent';
 
@@ -29,8 +29,8 @@ export const useRenderElement = (
       attributes,
     }: RenderElementProps) => {
       const matchingPlugin =
-        componentPlugins.find(plugin => plugin.type === type) ??
-        componentPlugins.find(plugin => plugin.type === defaultPluginType);
+        componentPlugins.find((plugin) => plugin.type === type) ??
+        componentPlugins.find((plugin) => plugin.type === defaultPluginType);
 
       if (matchingPlugin) {
         const { Component } = matchingPlugin;
@@ -70,7 +70,7 @@ export const useRenderLeave = (
         <span {...attributes}>
           {Object.keys(leaveTypes).reduce((el, type) => {
             const matchingPlugin = markPlugins.find(
-              plugin => plugin.type === type
+              (plugin) => plugin.type === type
             );
             if (matchingPlugin) {
               const { Component } = matchingPlugin;

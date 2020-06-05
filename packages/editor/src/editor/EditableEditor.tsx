@@ -7,7 +7,7 @@ import {
   ContentPluginConfig,
   LayoutPluginConfig,
   DndBackend,
-  EditableType
+  EditableType,
 } from '@react-page/core';
 import EditorUI from '@react-page/ui';
 import React, { useEffect, useRef, useCallback } from 'react';
@@ -37,13 +37,13 @@ const EditableEditor: React.FC<EditableEditorProps> = ({
   ...rest
 }) => {
   const theValue = value || createEmptyState();
-  // tslint:disable-next-line: no-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const lastValueRef = useRef<any>();
 
   const editorRef = useRef(new Editor({ defaultPlugin, plugins }));
 
   const onChangeCallback = useCallback(
-    newValue => {
+    (newValue) => {
       lastValueRef.current = newValue;
 
       onChange(newValue);
@@ -70,7 +70,7 @@ const EditableEditor: React.FC<EditableEditorProps> = ({
       blurGateDefaultMode={defaultDisplayMode}
     >
       <StickyWrapper>
-        {stickyNess => (
+        {(stickyNess) => (
           <>
             <Editable
               id={lastValueRef.current?.id}

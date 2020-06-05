@@ -30,9 +30,9 @@ export const isEmpty = ({
 }: {
   cells: Array<Cell>;
   rows: Array<Row>;
-  // tslint:disable-next-line:no-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   layout?: { plugin?: any };
-  // tslint:disable-next-line:no-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   content?: { plugin?: any };
 }): boolean =>
   !(cells || []).filter(emptyFilter).length &&
@@ -40,5 +40,5 @@ export const isEmpty = ({
   !content &&
   !(layout && (rows || []).filter(emptyFilter).length);
 
-// tslint:disable-next-line:no-any
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const emptyFilter = (state: any): boolean => !isEmpty(state);

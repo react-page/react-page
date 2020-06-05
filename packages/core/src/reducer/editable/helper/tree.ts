@@ -24,13 +24,13 @@ import {
   computeSizes,
   computeInlines,
   computeBounds,
-  computeResizeable
+  computeResizeable,
 } from './sizing';
 import {
   optimizeCell,
   optimizeRow,
   optimizeRows,
-  optimizeCells
+  optimizeCells,
 } from './optimize';
 import { computeDropLevels } from './level';
 import { Cell, Row } from '../../../types/editable';

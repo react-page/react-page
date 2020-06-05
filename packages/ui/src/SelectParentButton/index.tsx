@@ -7,7 +7,7 @@ import { Dispatch, bindActionCreators } from 'redux';
 import {
   ComponetizedCell,
   Cell,
-  Row
+  Row,
 } from '@react-page/core/lib/types/editable';
 import { focusCell as focusCellInternal } from '@react-page/core/lib/actions/cell';
 import { NodeProps, editable } from '@react-page/core/lib/selector/editable';
@@ -29,7 +29,7 @@ type SelectParentButtonProps = SelectParentButtonCustomProps &
   ReduxProps &
   ActionCreatorsTypes;
 
-const SelectParentButton: React.FC<SelectParentButtonProps> = props => {
+const SelectParentButton: React.FC<SelectParentButtonProps> = (props) => {
   const { parentId, focusCell } = props;
   const onClick = React.useCallback(() => focusCell(parentId), [parentId]);
   return parentId ? (
@@ -56,8 +56,8 @@ const parentInner = (
   }
 
   let found: WithAncestors = undefined;
-  // tslint:disable-next-line:no-any
-  [...rows, ...cells].find(n => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  [...rows, ...cells].find((n) => {
     const f = parentInner(n, props);
     if (f) {
       found = f;
@@ -73,17 +73,17 @@ const parentInner = (
 const parentIdSelector = (
   state: RootState,
   props: NodeProps
-  // tslint:disable-next-line:no-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
 ): string => {
   const tree = editable(state, { id: props.editable });
   if (!tree) {
     throw new Error(`Could not find editable: ${props.editable}`);
   }
 
-  // tslint:disable-next-line: no-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const parent = parentInner(tree as any, props);
   const ancestor = (parent?.ancestors || []).find(
-    a => (a as Cell).content || (a as Cell).layout
+    (a) => (a as Cell).content || (a as Cell).layout
   );
   return ancestor?.id;
 };
@@ -97,7 +97,7 @@ const mapDispatchToProps = (dispatch: Dispatch, props: ComponetizedCell) => {
     {
       focusCell: (id: string) => focusCellInternal(id, true)(),
     },
-    // tslint:disable-next-line:no-any
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     dispatch as any
   );
 };

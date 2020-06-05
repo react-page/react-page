@@ -195,8 +195,8 @@ describe('computeDropLevels', () => {
     },
   ].forEach((c, k) => {
     it(`should pass test case ${k}`, () => {
-      // tslint:disable-next-line:no-any
-      const out = c.in.cells.map(_c => computeDropLevels(_c as any));
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const out = c.in.cells.map((_c) => computeDropLevels(_c as any));
       expect(out, 'to equal', c.e.cells);
     });
   });

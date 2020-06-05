@@ -23,7 +23,7 @@ import {
   Migration,
   Plugin,
   PluginProps,
-  Plugins
+  Plugins,
 } from './service/plugin/classes';
 import {
   Cell,
@@ -31,7 +31,7 @@ import {
   EditableType,
   Layout,
   NativeFactory,
-  Row
+  Row,
 } from './types/editable';
 import { RootState } from './types/state';
 export { BackendFactory as DndBackend, DropTarget, DragSource };
@@ -66,7 +66,7 @@ export {
   editableReducer,
   ReduxProvider,
   connect,
-  ReduxContext
+  ReduxContext,
 };
 // newer api
 export { Provider, Editable, useEditor, lazyLoad };

@@ -3,16 +3,16 @@ import { blurAllCells } from '../actions/cell';
 import {
   setMode as setModeInternal,
   DisplayModes,
-  DISPLAY_MODE_EDIT
+  DISPLAY_MODE_EDIT,
 } from '../actions/display';
 import { connect } from '../reduxConnect';
 import { createStructuredSelector } from 'reselect';
 import { isInsertMode } from '../selector/display';
 
 // this might break in future, but its better than nothing
-// tslint:disable-next-line:no-any
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function findReactElement(node: any) {
-  for (var key in node) {
+  for (const key in node) {
     if (key.startsWith('__reactInternalInstance$')) {
       return node[key];
     }
@@ -83,7 +83,7 @@ export interface BlurGateProps {
 const BlurGate: React.FC<BlurGateProps> = connect(
   mapStateToProps,
   mapDispatchToProps
-)(props => {
+)((props) => {
   const ref = useBlurAll(
     props.blurAllCells,
     props.setMode,

@@ -8,7 +8,7 @@ const instances = {};
 export interface DraggableProps {
   isDragging: boolean;
   className: string;
-  // tslint:disable-next-line:no-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   insert: any;
   connectDragSource<T>(element: T): T;
   connectDragPreview<T>(element: T): T;
@@ -43,7 +43,7 @@ const { clearHover } = Actions.Cell;
 
 const mapDispatchToProps = { insertMode, editMode, layoutMode, clearHover };
 
-export default (dragType: string = 'CELL') => {
+export default (dragType = 'CELL') => {
   if (!instances[dragType]) {
     instances[dragType] = connect(
       mapStateToProps,

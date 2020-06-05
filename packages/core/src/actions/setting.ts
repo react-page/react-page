@@ -26,13 +26,13 @@ export const UPDATE_SETTING = 'UPDATE_SETTING';
 
 export interface UpdateSettingAction extends Action {
   key: string;
-  // tslint:disable-next-line:no-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   value: any;
 }
 
 export const updateSetting = (
   key: string,
-  // tslint:disable-next-line:no-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   value: any
 ): UpdateSettingAction => ({
   type: UPDATE_SETTING,

@@ -26,5 +26,5 @@ export {
   darkTheme,
   ImageUpload,
   ColorPicker,
-  colorToString
+  colorToString,
 };
