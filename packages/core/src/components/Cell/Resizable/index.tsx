@@ -38,7 +38,7 @@ export interface ResizableState {
 }
 
 class Resizable extends React.PureComponent<ResizableProps, ResizableState> {
-  // tslint:disable-next-line:no-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onChangeSizeThrottled: any;
   constructor(props: ResizableProps) {
     super(props);
@@ -59,7 +59,7 @@ class Resizable extends React.PureComponent<ResizableProps, ResizableState> {
     }
     const newSize = widthToSize(this.state, this.props, size);
     this.props.onChange(newSize);
-  }
+  };
 
   onResize = (event: Event, { size }: { size: { width: number } }) => {
     if (isNaN(size.width)) {
@@ -67,7 +67,7 @@ class Resizable extends React.PureComponent<ResizableProps, ResizableState> {
     }
     this.setState({ width: size.width });
     this.onChangeSizeThrottled(size);
-  }
+  };
 
   onResizeStop = (event: Event, { size }: { size: { width: number } }) => {
     if (isNaN(size.width)) {
@@ -76,7 +76,7 @@ class Resizable extends React.PureComponent<ResizableProps, ResizableState> {
     this.onChangeSize(size);
     const newSize = widthToSize(this.state, this.props, size);
     this.setState({ width: newSize * this.state.stepWidth });
-  }
+  };
   render() {
     const {
       node: { bounds, inline },
@@ -109,7 +109,4 @@ const mapStateToProps = createStructuredSelector({});
 
 const mapDispatchToProps = { resizeMode, editMode };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Resizable);
+export default connect(mapStateToProps, mapDispatchToProps)(Resizable);

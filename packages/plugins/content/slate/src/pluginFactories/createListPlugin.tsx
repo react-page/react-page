@@ -3,12 +3,12 @@ import { SlatePlugin } from '../types/SlatePlugin';
 import { SlateComponentPluginDefinition } from '../types/slatePluginDefinitions';
 import createListItemPlugin from './createListItemPlugin';
 import createSimpleHtmlBlockPlugin, {
-  HtmlBlockData
+  HtmlBlockData,
 } from './createSimpleHtmlBlockPlugin';
 import {
   decreaseListIndention,
   getActiveList,
-  increaseListIndention
+  increaseListIndention,
 } from './utils/listUtils';
 type ListDef = {
   type: string;
@@ -45,7 +45,7 @@ function createSlatePlugins<T, CT>(
       noButton: def.noButton,
       tagName: def.tagName,
 
-      customAdd: editor => {
+      customAdd: (editor) => {
         const currentList = getActiveList(editor, def.allListTypes);
 
         if (!currentList) {
@@ -70,7 +70,7 @@ function createSlatePlugins<T, CT>(
           );
         }
       },
-      customRemove: editor => {
+      customRemove: (editor) => {
         decreaseListIndention(editor, {
           allListTypes: def.allListTypes,
           listItemType: def.listItem.type,
@@ -81,34 +81,34 @@ function createSlatePlugins<T, CT>(
   ];
 }
 
-// tslint:disable-next-line:no-any
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function mergeCustomizer(c1: any, c2: any): any {
   return {
-    // tslint:disable-next-line:no-any
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     customizeList(def: any) {
       const def2 = c1?.customizeList ? c1.customizeList(def) : def;
       return c2?.customizeList ? c2.customizeList(def2) : def2;
     },
-    // tslint:disable-next-line:no-any
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     customizeListItem(def: any) {
       const def2 = c1?.customizeList ? c1.customizeListItem(def) : def;
       return c2?.customizeList ? c2.customizeListItem(def2) : def2;
     },
   };
 }
-
+// eslint-disable-next-line @typescript-eslint/ban-types
 function createListPlugin<T = {}>(def: ListDef) {
-  const inner = function<TIn, TOut>(
+  const inner = function <TIn, TOut>(
     innerdef: ListDef,
     customizersIn?: ListCustomizers<TIn, TOut>
   ) {
-    const customizablePlugin = function<CT>(
+    const customizablePlugin = function <CT>(
       customizers: ListCustomizers<TOut, CT>
     ) {
       return inner(innerdef, mergeCustomizer(customizersIn, customizers));
     };
     customizablePlugin.toPlugin = (): SlatePlugin[] =>
-      createSlatePlugins<TIn, TOut>(innerdef, customizersIn).map(plugin =>
+      createSlatePlugins<TIn, TOut>(innerdef, customizersIn).map((plugin) =>
         plugin.toPlugin()
       );
     return customizablePlugin;

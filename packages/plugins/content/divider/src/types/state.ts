@@ -1,3 +1,1 @@
-export interface DividerState {
-  
-}
+export interface DividerState {}

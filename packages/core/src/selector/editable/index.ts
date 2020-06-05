@@ -26,11 +26,11 @@ import {
   Cell,
   Config,
   EditableType,
-  Row
+  Row,
 } from '../../types/editable';
 import { RootState } from '../../types/state';
 
-// tslint:disable-next-line:no-any
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const nodeInner = <T extends { id: string; rows?: Row[]; cells?: Cell[] }>(
   current: Cell & Row,
   props: { id: string }
@@ -41,8 +41,8 @@ const nodeInner = <T extends { id: string; rows?: Row[]; cells?: Cell[] }>(
   }
 
   let found: Cell | Row = undefined;
-  // tslint:disable-next-line:no-any
-  [...rows, ...cells].find(n => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  [...rows, ...cells].find((n) => {
     const f = nodeInner(n, props);
     if (f) {
       found = f;
@@ -95,7 +95,7 @@ export type NodeProps = { id: string; editable: string };
 export const node = (
   state: RootState,
   props: NodeProps
-  // tslint:disable-next-line:no-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
 ): Cell | Row => {
   const tree = editable(state, { id: props.editable });
   if (!tree) {
@@ -134,14 +134,14 @@ export const purifiedNode = (
   if ((found as Row).cells) {
     (found as Row).cells = (found as Row).cells.map(
       (c: Cell): string => c.id
-      // tslint:disable-next-line:no-any
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     ) as any;
   }
 
   if ((found as Cell).rows) {
     (found as Cell).rows = (found as Cell).rows.map(
       (r: Row): string => r.id
-      // tslint:disable-next-line:no-any
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     ) as any;
   }
 

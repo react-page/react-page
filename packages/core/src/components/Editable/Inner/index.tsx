@@ -31,11 +31,11 @@ import {
   ContentPlugin,
   ContentPluginConfig,
   LayoutPlugin,
-  LayoutPluginConfig
+  LayoutPluginConfig,
 } from '../../../service/plugin/classes';
 import {
   EditableComponentState,
-  SimplifiedModesProps
+  SimplifiedModesProps,
 } from '../../../types/editable';
 import Cell from '../../Cell';
 import dimensions from '../../Dimensions';
@@ -84,7 +84,7 @@ class Inner extends React.PureComponent<EditableInnerProps> {
     this.createFallbackCell();
     if (oldProps.displayMode !== this.props.displayMode) {
       if (this.firstElementInViewport) {
-        let { el, topOffset } = this.firstElementInViewport;
+        const { el, topOffset } = this.firstElementInViewport;
         setTimeout(() => {
           scrollIntoViewWithOffset(el, topOffset, 'auto');
         }, 0);
@@ -114,7 +114,7 @@ class Inner extends React.PureComponent<EditableInnerProps> {
         );
       }
     }
-  }
+  };
 
   render() {
     const { id, containerWidth, containerHeight, node, ...rest } = this.props;

@@ -15,10 +15,10 @@ const HtmlToSlate = ({ plugins }: { plugins: SlatePlugin[] }) => {
     }
 
     const { nodeName } = el;
-    let parent = el;
+    const parent = el;
 
-    // tslint:disable-next-line: no-any
-    let children: any[] = flatten(
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const children: any[] = flatten(
       Array.from(parent.childNodes).map(deserializeElement)
     );
 
@@ -26,7 +26,7 @@ const HtmlToSlate = ({ plugins }: { plugins: SlatePlugin[] }) => {
       return jsx('fragment', {}, children);
     }
 
-    const matchingPlugin = plugins.find(p => {
+    const matchingPlugin = plugins.find((p) => {
       return (
         p.pluginType === 'component' &&
         p.deserialize?.tagName === nodeName.toLowerCase()
@@ -39,7 +39,7 @@ const HtmlToSlate = ({ plugins }: { plugins: SlatePlugin[] }) => {
             matchingPlugin?.deserialize?.getData?.(el as HTMLElement) ?? true,
         };
 
-        return children.map(child => jsx('text', attrs, child));
+        return children.map((child) => jsx('text', attrs, child));
       } else {
         const data = matchingPlugin?.deserialize?.getData?.(el as HTMLElement);
         const attrs = {
@@ -56,8 +56,8 @@ const HtmlToSlate = ({ plugins }: { plugins: SlatePlugin[] }) => {
   return (htmlString: string): SlateState => {
     const parsed = parseHtml(htmlString);
 
-    // tslint:disable-next-line:no-any
-    let fragment = (deserializeElement(parsed.body) as unknown) as any[];
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const fragment = (deserializeElement(parsed.body) as unknown) as any[];
 
     return {
       slate: fragment,

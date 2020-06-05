@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-types */
 /*
  * This file is part of ORY Editor.
  *
@@ -28,7 +29,7 @@ import {
   focusCell,
   focusNextCell,
   focusPreviousCell,
-  blurAllCells
+  blurAllCells,
 } from './cell/core';
 
 import {
@@ -40,7 +41,7 @@ import {
   cellHoverInlineRight,
   dragCell,
   clearHover,
-  cancelCellDrag
+  cancelCellDrag,
 } from './cell/drag';
 
 import {
@@ -49,7 +50,7 @@ import {
   insertCellRightOf,
   insertCellLeftOf,
   insertCellLeftInline,
-  insertCellRightInline
+  insertCellRightInline,
 } from './cell/insert';
 
 import { undo, redo } from './undo';
@@ -61,7 +62,7 @@ import {
   editMode,
   previewMode,
   layoutMode,
-  resizeMode
+  resizeMode,
 } from './display';
 import { cellActions } from './cell';
 import { updateSetting } from './setting';
@@ -84,7 +85,7 @@ export const Actions = {
   Setting,
 };
 
-export const actions = dispatch => ({
+export const actions = (dispatch) => ({
   cell: {
     updateContent: (id: string, state: {}) =>
       dispatch(updateCellContent(id)(state)),
@@ -144,7 +145,7 @@ export const actions = dispatch => ({
   redo: bindActionCreators({ redo }, dispatch).redo,
 });
 
-// tslint:disable-next-line:no-any
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 type ReturnType<T> = T extends (...args: any[]) => infer R ? R : any;
 
 export type ActionsTypes = ReturnType<typeof actions>;

@@ -6,7 +6,7 @@ import {
   DropTarget,
   Editor,
   Selectors,
-  useEditor
+  useEditor,
 } from '@react-page/core';
 import classNames from 'classnames';
 import throttle from 'lodash.throttle';
@@ -23,7 +23,7 @@ export interface RawProps {
 type TargetProps = { removeCell(id: string): void } & RawProps;
 const target = {
   hover: throttle(
-    // tslint:disable-next-line:no-any
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (props: any, monitor: any) => {
       const item = monitor.getItem();
       if (monitor.isOver({ shallow: true })) {
@@ -34,7 +34,7 @@ const target = {
     { trailing: false }
   ),
 
-  // tslint:disable-next-line:no-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   drop(props: TargetProps, monitor: any) {
     const item = monitor.getItem();
     if (monitor.didDrop() || !monitor.isOver({ shallow: true })) {
@@ -46,7 +46,7 @@ const target = {
   },
 };
 
-// tslint:disable-next-line:no-any
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const connectMonitor = (_connect: any, monitor: any) => ({
   connectDropTarget: _connect.dropTarget(),
   isOverCurrent: monitor.isOver({ shallow: true }),
@@ -95,7 +95,7 @@ const mapDispatchToProps = {
 
 const mapStateToProps = createStructuredSelector(Selectors.Display);
 
-// tslint:disable-next-line:no-any
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const Decorated: any = connect(
   mapStateToProps,
   mapDispatchToProps

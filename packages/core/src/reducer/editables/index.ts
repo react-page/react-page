@@ -27,7 +27,7 @@ import {
   CELL_REMOVE,
   CELL_RESIZE,
   CELL_UPDATE_CONTENT,
-  CELL_UPDATE_LAYOUT
+  CELL_UPDATE_LAYOUT,
 } from '../../actions/cell/core';
 import {
   CELL_INSERT_ABOVE,
@@ -35,7 +35,7 @@ import {
   CELL_INSERT_INLINE_LEFT,
   CELL_INSERT_INLINE_RIGHT,
   CELL_INSERT_LEFT_OF,
-  CELL_INSERT_RIGHT_OF
+  CELL_INSERT_RIGHT_OF,
 } from '../../actions/cell/insert';
 import { UPDATE_EDITABLE } from '../../actions/editables';
 import { isProduction } from '../../const';
@@ -48,7 +48,7 @@ if (!isProduction) {
 
 const inner = undoable(
   (
-    // tslint:disable-next-line:no-any
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     state: any = [],
     action: {
       type: string;
@@ -58,7 +58,7 @@ const inner = undoable(
   ): EditableType[] => {
     switch (action.type) {
       default:
-        // tslint:disable-next-line:no-any
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         return state.map((e: EditableType) => editable(e, action)) as any;
     }
   },
@@ -94,8 +94,8 @@ export const editables = (
     case UPDATE_EDITABLE:
       return inner(
         {
-          past: past.map(e => [
-            // tslint:disable-next-line:no-any
+          past: past.map((e) => [
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             ...(e as any).filter(
               ({ id }: EditableType): boolean => id !== action.editable.id
             ),
@@ -112,7 +112,7 @@ export const editables = (
               // we need to run the rawreducer once or the history initial state will be inconsistent.
               // resolves https://github.com/ory/editor/pull/117#issuecomment-242942796
               editable(action.editable, action),
-              // tslint:disable-next-line:no-any
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
             ] as any,
             undefined
           ),

@@ -46,7 +46,7 @@ export const computeAndDispatchInsert = (
   drag: ComponetizedCell,
   monitor: DropTargetMonitor,
   component: React.ReactInstance,
-  matrixName: string = '10x10'
+  matrixName = '10x10'
 ) =>
   computeCurrentDropPosition(
     {
@@ -57,9 +57,9 @@ export const computeAndDispatchInsert = (
       rightOf,
       inlineLeft,
       inlineRight,
-      // tslint:disable-next-line:no-any
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } as any,
-    // tslint:disable-next-line:no-any
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     hover as any,
     drag,
     monitor,
@@ -81,7 +81,7 @@ export const computeAndDispatchHover = (
   drag: ComponetizedCell,
   monitor: DropTargetMonitor,
   component: React.ReactInstance,
-  matrixName: string = '10x10'
+  matrixName = '10x10'
 ) =>
   computeCurrentDropPosition(
     {
@@ -93,7 +93,7 @@ export const computeAndDispatchHover = (
       inlineLeft,
       inlineRight,
     },
-    // tslint:disable-next-line:no-any
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     hover as any,
     drag,
     monitor,

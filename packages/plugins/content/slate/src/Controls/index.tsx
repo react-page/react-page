@@ -72,7 +72,7 @@ const SlateControls = (props: SlateProps) => {
   }, [state?.slate, state?.selection]);
 
   const onChange = useCallback(
-    v => {
+    (v) => {
       if (editor.selection) {
         setValue(v);
         onChangeDebounced({

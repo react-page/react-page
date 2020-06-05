@@ -49,11 +49,11 @@ class ImageUpload extends React.Component<ImageUploadProps, ImageUploadState> {
 
   hasExtension = (fileName: string) => {
     const patternPart = this.props.allowedExtensions
-      ? this.props.allowedExtensions.map(a => a.toLowerCase()).join('|')
+      ? this.props.allowedExtensions.map((a) => a.toLowerCase()).join('|')
       : '';
     const pattern = '(' + patternPart.replace(/\./g, '\\.') + ')$';
     return new RegExp(pattern, 'i').test(fileName.toLowerCase());
-  }
+  };
 
   handleError = (errorCode: number) => {
     let errorText = '';
@@ -79,9 +79,9 @@ class ImageUpload extends React.Component<ImageUploadProps, ImageUploadState> {
       this.setState({ isUploading: false })
     );
     setTimeout(() => this.setState({ hasError: false, errorText: '' }), 5000);
-  }
+  };
 
-  handleFileSelected: React.ChangeEventHandler<HTMLInputElement> = e => {
+  handleFileSelected: React.ChangeEventHandler<HTMLInputElement> = (e) => {
     if (!e.target.files || !e.target.files[0]) {
       this.handleError(NO_FILE_ERROR_CODE);
       return;
@@ -96,31 +96,31 @@ class ImageUpload extends React.Component<ImageUploadProps, ImageUploadState> {
       return;
     }
     if (this.props.imageLoaded) {
-      this.readFile(file).then(data => this.props.imageLoaded(data));
+      this.readFile(file).then((data) => this.props.imageLoaded(data));
     }
     if (this.props.imageUpload) {
       this.setState({ isUploading: true });
       this.props
         .imageUpload(file, this.handleReportProgress)
-        .then(resp => {
+        .then((resp) => {
           this.setState({ progress: undefined, isUploading: false });
           this.props.imageUploaded && this.props.imageUploaded(resp);
         })
-        .catch(error => {
+        .catch((error) => {
           this.setState({ isUploading: false });
           this.props.imageUploadError && this.props.imageUploadError(error);
         });
     }
-  }
+  };
 
   readFile(file: File): Promise<ImageLoaded> {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
 
       // Read the image via FileReader API and save image result in state.
-      reader.onload = function(e: ProgressEvent) {
+      reader.onload = function (e: ProgressEvent) {
         // Add the file name to the data URL
-        // tslint:disable-next-line:no-any
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         let dataUrl: string = (e.target as any).result;
         dataUrl = dataUrl.replace(';base64', `;name=${file.name};base64`);
         resolve({ file, dataUrl });
@@ -131,7 +131,7 @@ class ImageUpload extends React.Component<ImageUploadProps, ImageUploadState> {
   }
 
   handleFileUploadClick: React.MouseEventHandler<HTMLElement> = () =>
-    this.fileInput.click()
+    this.fileInput.click();
 
   handleReportProgress = (progress: number) => this.setState({ progress });
 
@@ -153,7 +153,7 @@ class ImageUpload extends React.Component<ImageUploadProps, ImageUploadState> {
         {this.props.icon}
       </React.Fragment>
     );
-  }
+  };
 
   render() {
     return (
@@ -170,7 +170,7 @@ class ImageUpload extends React.Component<ImageUploadProps, ImageUploadState> {
         {!this.state.isUploading && (
           <input
             style={{ display: 'none' }}
-            ref={fileInput => (this.fileInput = fileInput)}
+            ref={(fileInput) => (this.fileInput = fileInput)}
             type="file"
             onChange={this.handleFileSelected}
           />

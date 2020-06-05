@@ -10,7 +10,9 @@ export interface Html5VideoDefaultControlsProps {}
   event: React.ChangeEvent<HTMLInputElement>
 ) => event.target && onChange({ url: event.target.value });*/
 
-const Html5VideoDefaultControls: React.SFC<Html5VideoControlsProps> = props => {
+const Html5VideoDefaultControls: React.SFC<Html5VideoControlsProps> = (
+  props
+) => {
   const {
     state: { url } = defaultHtml5VideoState,
     commitUrl,
@@ -29,7 +31,7 @@ const Html5VideoDefaultControls: React.SFC<Html5VideoControlsProps> = props => {
       <TextField
         placeholder={props.translations.urlPlaceholder}
         label={props.translations.urlLabel}
-        onChange={e => changeUrlPreview(e.target.value)}
+        onChange={(e) => changeUrlPreview(e.target.value)}
         onBlur={commitUrl}
         value={url}
         style={{ width: '512px' }}

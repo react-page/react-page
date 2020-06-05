@@ -26,7 +26,7 @@ import Row from '../../../components/Row';
 
 import {
   ComponetizedCell,
-  SimplifiedModesProps
+  SimplifiedModesProps,
 } from '../../../types/editable';
 
 class Rows extends React.PureComponent<

@@ -1,6 +1,6 @@
 import { SlateComponentPluginDefinition } from '../types/slatePluginDefinitions';
 import createSimpleHtmlBlockPlugin, {
-  HtmlBlockData
+  HtmlBlockData,
 } from './createSimpleHtmlBlockPlugin';
 
 export type HeadingsDef<T> = {
@@ -9,7 +9,7 @@ export type HeadingsDef<T> = {
   SlateComponentPluginDefinition<HtmlBlockData<T>>,
   'type' | 'getInitialData' | 'icon'
 >;
-
+// eslint-disable-next-line @typescript-eslint/ban-types
 function createHeadingsPlugin<T = {}>(def: HeadingsDef<T>) {
   return createSimpleHtmlBlockPlugin<T>({
     type: def.type,

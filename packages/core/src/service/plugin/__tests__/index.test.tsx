@@ -40,17 +40,17 @@ const content = [
       new Migration({
         toVersion: OLDEST_VERSION,
         fromVersionRange: '0.0.0 - 0.0.0',
-        migrate: state => ({ ...state, old: 1 }),
+        migrate: (state) => ({ ...state, old: 1 }),
       }),
       new Migration({
         toVersion: OLDER_VERSION,
         fromVersionRange: '0.0.1 - 0.0.1',
-        migrate: state => ({ ...state, modified: 2 }),
+        migrate: (state) => ({ ...state, modified: 2 }),
       }),
       new Migration({
         toVersion: MATCHING_VERSION,
         fromVersionRange: '0.0.2 - 0.0.2',
-        migrate: state => ({ ...state, modified: 1 }),
+        migrate: (state) => ({ ...state, modified: 1 }),
       }),
     ],
   },
@@ -65,17 +65,17 @@ const migrationEdgeCaseContent = [
       new Migration({
         toVersion: OLDEST_VERSION,
         fromVersionRange: '0.0.2 - 0.0.2',
-        migrate: state => ({ ...state, old: 1 }),
+        migrate: (state) => ({ ...state, old: 1 }),
       }),
       new Migration({
         toVersion: OLDER_VERSION,
         fromVersionRange: '0.0.0 - 0.0.0',
-        migrate: state => ({ ...state, modified: 2 }),
+        migrate: (state) => ({ ...state, modified: 2 }),
       }),
       new Migration({
         toVersion: MATCHING_VERSION,
         fromVersionRange: '0.0.1 - 0.0.1',
-        migrate: state => ({ ...state, modified: 1 }),
+        migrate: (state) => ({ ...state, modified: 1 }),
       }),
     ],
   },
@@ -93,7 +93,7 @@ const migrationEdgeCasePlugins = new PluginService({
 });
 
 describe('PluginService', () => {
-  content.forEach(p => {
+  content.forEach((p) => {
     it(`should find plugin ${p.name} ${p.version}`, () => {
       expect(
         plugins.findContentPlugin(p.name, p.version).plugin.name,
@@ -136,7 +136,7 @@ describe('PluginService', () => {
     expect(newState.old, 'to equal', 1);
   });
 
-  layout.forEach(p => {
+  layout.forEach((p) => {
     it(`should find plugin ${p.name} ${p.version}`, () => {
       expect(
         plugins.findLayoutPlugin(p.name, p.version).plugin.name,

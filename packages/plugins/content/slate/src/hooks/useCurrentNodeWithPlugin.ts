@@ -13,12 +13,12 @@ export const getCurrentNodeWithPlugin = <T>(
   const match =
     plugin.pluginType === 'component'
       ? plugin.object === 'mark'
-        ? elem => Boolean(elem[plugin.type])
-        : elem => elem.type === plugin.type
+        ? (elem) => Boolean(elem[plugin.type])
+        : (elem) => elem.type === plugin.type
       : plugin.pluginType === 'data'
       ? // search for data
         ({ data }) => {
-          // tslint:disable-next-line:no-any
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           const matches = plugin.dataMatches(data as any);
 
           return matches;

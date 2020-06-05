@@ -1,3 +1,1 @@
-export interface DividerApi {
-  
-}
+export interface DividerApi {}

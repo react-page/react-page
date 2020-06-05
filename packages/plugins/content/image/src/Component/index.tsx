@@ -23,7 +23,7 @@
 import * as React from 'react';
 import {
   ImageLoaded,
-  ImageUploaded
+  ImageUploaded,
 } from '@react-page/ui/lib/ImageUpload/types';
 import { ImageProps } from '../types/component';
 import { ImageState } from './../types/state';
@@ -41,7 +41,7 @@ class Form extends React.Component<ImageProps, StateType> {
   handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const target = e.target;
     if (target instanceof HTMLInputElement) {
-      let change: Partial<ImageState> = {};
+      const change: Partial<ImageState> = {};
 
       if (target.name === 'target') {
         if (target.checked) {
@@ -59,15 +59,15 @@ class Form extends React.Component<ImageProps, StateType> {
       this.props.onChange(change);
       return;
     }
-  }
+  };
 
   handleImageLoaded = (image: ImageLoaded) =>
-    this.setState({ imagePreview: image })
+    this.setState({ imagePreview: image });
 
   handleImageUploaded = (resp: ImageUploaded) => {
     this.setState({ imagePreview: undefined });
     this.props.onChange({ src: resp.url });
-  }
+  };
 
   render() {
     const { Controls, Renderer, readOnly } = this.props;

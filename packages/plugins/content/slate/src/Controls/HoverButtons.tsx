@@ -19,18 +19,17 @@ const HoverButtons = ({
       return;
     }
 
-    let s = window.getSelection();
-    let oRange = s.getRangeAt(0); // get the text range
-    let oRect = oRange.getBoundingClientRect();
+    const s = window.getSelection();
+    const oRange = s.getRangeAt(0); // get the text range
+    const oRect = oRange.getBoundingClientRect();
     if (oRect) {
       const { left, top, width } = oRect;
 
       toolbar.style.opacity = '1';
       toolbar.style.top = `${top + window.scrollY - toolbar.offsetHeight}px`;
-      toolbar.style.left = `${left +
-        window.scrollX -
-        toolbar.offsetWidth / 2 +
-        width / 2}px`;
+      toolbar.style.left = `${
+        left + window.scrollX - toolbar.offsetWidth / 2 + width / 2
+      }px`;
     }
   }, [editor, showHoverToolbar]);
 

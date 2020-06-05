@@ -6,7 +6,7 @@ import { ImageUpload } from '@react-page/ui';
 import Typography from '@material-ui/core/Typography';
 import {
   ImageLoaded,
-  ImageUploaded
+  ImageUploaded,
 } from '@react-page/ui/lib/ImageUpload/types';
 import { BackgroundProps } from '../../types/component';
 
@@ -22,7 +22,7 @@ class ImageComponent extends React.Component<
   handleChangeBackground = (e: React.ChangeEvent<HTMLInputElement>) => {
     this.props.ensureModeOn();
     this.props.onChange({ background: e.target.value });
-  }
+  };
 
   handleChangeIsParallax = (e: React.ChangeEvent<HTMLInputElement>) => {
     this.props.ensureModeOn();
@@ -32,17 +32,17 @@ class ImageComponent extends React.Component<
           ? false
           : !this.props.state.isParallax,
     });
-  }
+  };
 
   handleImageLoaded = (image: ImageLoaded) => {
     this.props.ensureModeOn();
     this.props.onImageLoaded(image);
-  }
+  };
 
   handleImageUploaded = (resp: ImageUploaded) => {
     this.props.onImageUploaded();
     this.props.onChange({ background: resp.url });
-  }
+  };
 
   render() {
     const {

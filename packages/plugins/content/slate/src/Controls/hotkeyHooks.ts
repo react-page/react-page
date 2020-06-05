@@ -16,10 +16,10 @@ export const useOnKeyDown = (
 ) => {
   const editor = useSlate();
 
-  return React.useCallback(event => {
+  return React.useCallback((event) => {
     plugins
-      .filter(plugin => plugin.hotKey)
-      .forEach(plugin => {
+      .filter((plugin) => plugin.hotKey)
+      .forEach((plugin) => {
         if (isHotkey(plugin.hotKey, event)) {
           event.preventDefault();
           const node = getCurrentNodeWithPlugin(editor, plugin);

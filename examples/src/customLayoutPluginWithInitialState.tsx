@@ -2,12 +2,12 @@ import { createLayoutPlugin } from '@react-page/create-plugin-materialui';
 import React from 'react';
 import { defaultSlate, reducedSlate } from './slate';
 
-// tslint:disable-next-line:no-any
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export default () =>
   createLayoutPlugin<{
     backgroundColor: string;
   }>({
-    // tslint:disable-next-line:no-any
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     Renderer: ({ children, state }: any) => (
       <div
         style={{

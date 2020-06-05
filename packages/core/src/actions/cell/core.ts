@@ -82,7 +82,7 @@ export const updateCellContent = (id: string) => (
  */
 export const updateCellIsDraft = (
   id: string,
-  isDraft: boolean = false
+  isDraft = false
 ): UpdateCellIsDraftAction => ({
   type: CELL_UPDATE_IS_DRAFT,
   ts: new Date(),
@@ -159,9 +159,7 @@ export interface ResizeCellAction extends Action {
  * @param {number} size The cell's new size.
  * @return {Function}
  */
-export const resizeCell = (id: string) => (
-  size: number = 1
-): ResizeCellAction => ({
+export const resizeCell = (id: string) => (size = 1): ResizeCellAction => ({
   type: CELL_RESIZE,
   ts: new Date(),
   id,
@@ -245,14 +243,14 @@ export interface CreateFallbackCellAction extends Action {
   ids: {
     cell: string;
   };
-  // tslint:disable-next-line:no-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   fallback: any;
 }
 /**
  * Creates a fallback cell, usually done when an editable is empty.
  */
 export const createFallbackCell = (
-  // tslint:disable-next-line:no-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   fallback: any,
   editable: string
 ): CreateFallbackCellAction => ({

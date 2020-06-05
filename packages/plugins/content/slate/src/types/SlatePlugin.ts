@@ -1,12 +1,12 @@
 import { SlatePluginDefinition } from './slatePluginDefinitions';
 
-// tslint:disable-next-line:no-any
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type SlatePlugin = SlatePluginDefinition<any>;
 
 export type SlatePluginOrListOfPlugins = SlatePlugin | SlatePlugin[];
 
 export type SlatePluginOrFactory =
-  // tslint:disable-next-line:no-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   | {
       toPlugin: () => SlatePluginOrListOfPlugins;
     }

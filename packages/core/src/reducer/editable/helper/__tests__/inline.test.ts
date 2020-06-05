@@ -44,7 +44,7 @@ describe('computeRow', () => {
     },
   ].forEach((c, k) => {
     it(`should pass test case ${k}`, () => {
-      // tslint:disable-next-line:no-any
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       expect(computeRow(c as any).hasInlineChildren, 'to equal', c.e);
     });
   });

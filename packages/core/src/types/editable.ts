@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /*
  * This file is part of ORY Editor.
  *
@@ -27,7 +28,7 @@ import {
   ContentPluginConfig,
   LayoutPlugin,
   LayoutPluginConfig,
-  NativePluginConfig
+  NativePluginConfig,
 } from '../service/plugin/classes';
 
 export type Config = {
@@ -35,13 +36,13 @@ export type Config = {
   plugins: PluginService;
 };
 
-// tslint:disable-next-line:no-any
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export interface Content<StateT = any> {
   plugin: ContentPluginConfig;
   state?: StateT;
 }
 
-// tslint:disable-next-line:no-any
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export interface Layout<StateT = any> {
   plugin: LayoutPluginConfig;
   state?: StateT;
@@ -95,7 +96,7 @@ export type ComponetizedCell = {
   ancestors: Array<string>;
   config: Config;
 
-  // tslint:disable-next-line:no-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   children?: any;
 
   node: AbstractCell<string>;
@@ -111,8 +112,8 @@ export type ComponetizedCell = {
   rowHeight: number;
   rowWidth: number;
 
-  updateDimensions: Function;
-  onResize: Function;
+  updateDimensions: () => void;
+  onResize: () => void;
   styles: React.CSSProperties;
   rawNode(): Cell;
 
@@ -125,8 +126,8 @@ export type ComponetizedCell = {
   blurCell(id: string): void;
 
   blurAllCells(): void;
-  updateCellContent(state: Object): void;
-  updateCellLayout(state: Object): void;
+  updateCellContent(state: any): void;
+  updateCellLayout(state: any): void;
   cancelCellDrag(): void;
 
   dragCell(drag: string): void;
@@ -143,7 +144,7 @@ export type ComponetizedCell = {
   insertCellRightInline(type: string): void;
   insertCellRightOf(type: string): void;
 
-  onChange(state: Object): void;
+  onChange(state: any): void;
 };
 
 export type Levels = {
@@ -234,11 +235,11 @@ export type Editables = {
 };
 
 export type NativeFactory = (
-  // tslint:disable-next-line:no-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   hover?: any,
-  // tslint:disable-next-line:no-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   monitor?: any,
-  // tslint:disable-next-line:no-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   component?: any
 ) => NativePluginConfig;
 

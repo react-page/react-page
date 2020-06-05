@@ -1,19 +1,17 @@
 import React from 'react';
 import { pluginFactories } from '@react-page/plugins-slate';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import { InlineMath } from 'react-katex';
 import 'katex/dist/katex.min.css';
 
 export default pluginFactories.createComponentPlugin({
-  Component: props => {
+  Component: (props) => {
     const focused = props.useFocused();
     const selected = props.useSelected();
 
     const showSource = focused && selected;
-    const math = props
-      .getTextContents()
-      .join('\n')
-      .trim();
+    const math = props.getTextContents().join('\n').trim();
     return (
       <span style={!showSource ? { position: 'relative' } : {}}>
         {math ? (

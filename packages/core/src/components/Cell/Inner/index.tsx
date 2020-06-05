@@ -31,7 +31,7 @@ import Empty from '../Empty';
 
 import {
   ComponetizedCell,
-  SimplifiedModesProps
+  SimplifiedModesProps,
 } from '../../../types/editable';
 
 export type CellInnerProps = ComponetizedCell & SimplifiedModesProps;

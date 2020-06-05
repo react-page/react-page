@@ -1,5 +1,5 @@
 import createInitialChildren, {
-  InitialChildrenDef
+  InitialChildrenDef,
 } from '../createInitialChildren';
 
 export default (childrenOrRowDef: InitialChildrenDef) => {

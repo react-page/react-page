@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-types */
 import React from 'react';
 import { connect as reduxConnect, Provider } from 'react-redux';
 export const ReduxContext = React.createContext(null);
@@ -7,12 +8,12 @@ export const ReduxProvider = ({ store, ...props }) => (
 );
 
 export const connect = (
-  // tslint:disable-next-line:no-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   mapStateToProps?: any,
   mapDispatchToProps?: Function | Object,
-  // tslint:disable-next-line:no-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   mergeProps?: any,
-  options: Object = {}
+  options = {}
 ) =>
   reduxConnect(mapStateToProps, mapDispatchToProps, mergeProps, {
     ...options,

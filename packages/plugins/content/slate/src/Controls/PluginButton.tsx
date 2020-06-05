@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-types */
 import React, { useCallback, useRef, useState } from 'react';
 import { Range, Transforms } from 'slate';
 import { useSlate } from 'slate-react';
@@ -9,7 +10,7 @@ import useRemovePlugin from '../hooks/useRemovePlugin';
 import UniformsControls from '../pluginFactories/components/UniformsControls';
 import {
   PluginButtonProps,
-  SlatePluginDefinition
+  SlatePluginDefinition,
 } from '../types/slatePluginDefinitions';
 import ToolbarButton from './ToolbarButton';
 
@@ -86,7 +87,7 @@ function PluginButton<T>(props: Props<T>) {
           schema={plugin.schema}
           close={close}
           open={showControls}
-          add={p => {
+          add={(p) => {
             if (storedPropsRef?.current?.selection) {
               // restore selection before adding
               Transforms.select(editor, storedPropsRef?.current.selection);

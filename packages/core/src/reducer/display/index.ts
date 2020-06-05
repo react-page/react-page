@@ -23,7 +23,7 @@
 import {
   DEFAULT_DISPLAY_MODE,
   SET_DISPLAY_MODE,
-  SET_PREVIOUS_DISPLAY_MODE
+  SET_PREVIOUS_DISPLAY_MODE,
 } from '../../actions/display';
 import { Display, DisplayAction } from '../../types/display';
 

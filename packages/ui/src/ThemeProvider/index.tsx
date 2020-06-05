@@ -24,7 +24,7 @@ import * as React from 'react';
 import { createMuiTheme, Theme } from '@material-ui/core/styles';
 import {
   ThemeProvider as MaterialUiThemeProvider,
-  StylesProvider
+  StylesProvider,
 } from '@material-ui/styles';
 import { createGenerateClassName } from '@material-ui/styles';
 import darkTheme from './DarkTheme/index';

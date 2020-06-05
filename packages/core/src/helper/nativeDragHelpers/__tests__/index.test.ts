@@ -2,7 +2,7 @@ import { NativeTypes } from 'react-dnd-html5-backend';
 import expect from 'unexpected';
 import { isNativeHTMLElementDrag } from '../index';
 
-const monitor = result => ({ getItemType: () => result });
+const monitor = (result) => ({ getItemType: () => result });
 
 describe('isNativeHTMLElementDrag', () => {
   it('should detect file elements', () =>

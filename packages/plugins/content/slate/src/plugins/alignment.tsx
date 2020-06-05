@@ -21,7 +21,7 @@ const left = createDataPlugin<{ align: 'left' }>({
   object: 'block',
   addToolbarButton: true,
   addHoverButton: false,
-  dataMatches: data => data.align === 'left',
+  dataMatches: (data) => data.align === 'left',
   getInitialData: () => ({ align: 'left' }),
 });
 
@@ -31,7 +31,7 @@ const center = createDataPlugin<{ align: 'center' }>({
   object: 'block',
   addToolbarButton: true,
   addHoverButton: false,
-  dataMatches: data => data.align === 'center',
+  dataMatches: (data) => data.align === 'center',
   getInitialData: () => ({ align: 'center' }),
 });
 
@@ -41,7 +41,7 @@ const right = createDataPlugin<{ align: 'right' }>({
   object: 'block',
   addToolbarButton: true,
   addHoverButton: false,
-  dataMatches: data => data.align === 'right',
+  dataMatches: (data) => data.align === 'right',
   getInitialData: () => ({ align: 'right' }),
 });
 
@@ -51,7 +51,7 @@ const justify = createDataPlugin<{ align: 'justify' }>({
   object: 'block',
   addToolbarButton: true,
   addHoverButton: false,
-  dataMatches: data => data.align === 'justify',
+  dataMatches: (data) => data.align === 'justify',
   getInitialData: () => ({ align: 'justify' }),
 });
 

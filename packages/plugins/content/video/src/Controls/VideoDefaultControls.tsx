@@ -26,7 +26,7 @@ import * as React from 'react';
 import { defaultVideoState } from '../default/state';
 import { VideoControlsProps } from '../types/controls';
 
-const Form: React.SFC<VideoControlsProps> = props => {
+const Form: React.SFC<VideoControlsProps> = (props) => {
   const {
     focused,
     changeSrcPreview,
@@ -48,7 +48,7 @@ const Form: React.SFC<VideoControlsProps> = props => {
         label={props.translations.label}
         style={{ width: '512px' }}
         value={src}
-        onChange={e => changeSrcPreview(e.target.value)}
+        onChange={(e) => changeSrcPreview(e.target.value)}
         onBlur={commitSrc}
       />
     </BottomToolbar>

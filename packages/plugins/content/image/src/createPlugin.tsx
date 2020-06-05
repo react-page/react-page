@@ -54,7 +54,7 @@ const createPlugin = (
     // We need this because otherwise we lose hotkey focus on elements like spoilers.
     // This could probably be solved in an easier way by listening to window.document?
 
-    // tslint:disable-next-line:no-any
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     handleFocus: (props: any, source: any, ref: HTMLElement) => {
       if (!ref) {
         return;

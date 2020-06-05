@@ -32,7 +32,7 @@ import {
   Plugin,
   sanitizeInitialChildren,
   Selectors,
-  useEditor
+  useEditor,
 } from '@react-page/core';
 import * as React from 'react';
 import { Portal } from 'react-portal';
@@ -97,11 +97,11 @@ class Raw extends React.Component<Props, RawState> {
     }
   }
 
-  onRef = component => {
+  onRef = (component) => {
     this.input = component;
-  }
+  };
 
-  onSearch: React.ChangeEventHandler<HTMLInputElement> = e => {
+  onSearch: React.ChangeEventHandler<HTMLInputElement> = (e) => {
     const target = e.target;
     if (target instanceof HTMLInputElement) {
       this.setState({
@@ -109,7 +109,7 @@ class Raw extends React.Component<Props, RawState> {
         searchText: target.value,
       });
     }
-  }
+  };
 
   searchFilter(plugin: Plugin) {
     return (
@@ -178,7 +178,7 @@ class Raw extends React.Component<Props, RawState> {
                 </ListSubheader>
               }
             >
-              {content.map((plugin: ContentPlugin, k: Number) => {
+              {content.map((plugin: ContentPlugin, k: number) => {
                 const initialState = plugin.createInitialState();
 
                 return (
@@ -205,7 +205,7 @@ class Raw extends React.Component<Props, RawState> {
                 </ListSubheader>
               }
             >
-              {layout.map((plugin: LayoutPlugin, k: Number) => {
+              {layout.map((plugin: LayoutPlugin, k: number) => {
                 const initialState = plugin.createInitialState();
 
                 const children = sanitizeInitialChildren(

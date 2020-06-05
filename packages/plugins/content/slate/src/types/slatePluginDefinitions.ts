@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-types */
 import { JsonSchema } from '@react-page/create-plugin-materialui';
 import { ReactEditor } from 'slate-react';
 import { NextType } from '../types/next';
@@ -99,7 +100,7 @@ export type SlateComponentPluginDefinition<
   >;
 } & (ObjectProps | InlineProps | MarkProps);
 
-// tslint:disable-next-line:no-any
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type SlatePluginDefinition<T extends { [key: string]: any }> =
   | (SlateComponentPluginDefinition<T> & { pluginType: 'component' })
   | (SlateDataPluginDefinition<T> & { pluginType: 'data' })

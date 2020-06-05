@@ -14,7 +14,7 @@ export const removePlugin = <T>(
       editor.removeMark(plugin.type);
     } else if (plugin.object === 'inline') {
       Transforms.unwrapNodes(editor, {
-        match: elem => elem.type === plugin.type,
+        match: (elem) => elem.type === plugin.type,
       });
       // Transforms.setNodes(editor, { type: null });
     } else if (plugin.object === 'block') {
@@ -24,7 +24,7 @@ export const removePlugin = <T>(
         });
       } else {
         Transforms.unwrapNodes(editor, {
-          match: elem => elem.type === plugin.type,
+          match: (elem) => elem.type === plugin.type,
           split: true,
         });
       }

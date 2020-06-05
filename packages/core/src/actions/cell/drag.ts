@@ -56,7 +56,7 @@ export interface CellHoverAction extends Action {
 export const cellHover = (
   { id: drag }: Partial<Cell>,
   { id: hover }: Partial<Cell>,
-  level: number = 0,
+  level = 0,
   position: PositionEnum
 ): CellHoverAction => ({
   type: CELL_DRAG_HOVER,

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-types */
 import isHotkey from 'is-hotkey';
 import React, { useCallback, useEffect, useMemo } from 'react';
 import { createStructuredSelector } from 'reselect';
@@ -9,18 +10,18 @@ import {
   editable,
   editables,
   node,
-  searchNodeEverywhere
+  searchNodeEverywhere,
 } from '../../selector/editable';
 import { focus } from '../../selector/focus';
 import {
   AbstractCell,
   ComponetizedCell,
-  EditableType
+  EditableType,
 } from '../../types/editable';
 import { RootState } from '../../types/state';
 
 type Props = {
-  // tslint:disable-next-line:no-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   children: any;
   id: string;
   focus: string;
@@ -119,7 +120,7 @@ const Decorator = (props: Props) => {
 
       {
         hotkeys: ['alt+del', 'alt+backspace'],
-        handler: event => {
+        handler: (event) => {
           delegateToFoundPlugin(event, props.focus, 'handleRemoveHotKey', () =>
             props.removeCell(props.focus)
           );
@@ -127,7 +128,7 @@ const Decorator = (props: Props) => {
       },
       {
         hotkeys: ['alt+down', 'alt+right'],
-        handler: event => {
+        handler: (event) => {
           delegateToFoundPlugin(
             event,
             props.focus,
@@ -144,7 +145,7 @@ const Decorator = (props: Props) => {
       },
       {
         hotkeys: ['alt+up', 'alt+left'],
-        handler: event => {
+        handler: (event) => {
           delegateToFoundPlugin(
             event,
             props.focus,
@@ -175,9 +176,9 @@ const Decorator = (props: Props) => {
     if (props.isEditMode && !props.focus) {
       return;
     }
-    const keyHandler = event => {
-      const matchingHandler = handlers.find(handler =>
-        handler.hotkeys.some(hotkey => isHotkey(hotkey, event))
+    const keyHandler = (event) => {
+      const matchingHandler = handlers.find((handler) =>
+        handler.hotkeys.some((hotkey) => isHotkey(hotkey, event))
       );
       matchingHandler?.handler(event);
     };
@@ -194,12 +195,12 @@ const Decorator = (props: Props) => {
 const mapStateToProps = createStructuredSelector({
   isEditMode,
   focus,
-  // tslint:disable-next-line:no-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   node: (state: any) => (id: string, _editable: string) =>
     node(state, { id, editable: _editable }),
   searchNodeEverywhere: (state: RootState) => (id: string) =>
     searchNodeEverywhere(state, id),
-  // tslint:disable-next-line:no-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   editable: (state: any, props: any) => editable(state, { id: props.id }),
   editables,
 });

@@ -22,5 +22,6 @@
 
 import { RootState } from '../types/state';
 
-export const getSetting = (key: string) => ({ reactPage: { settings } }: RootState) =>
-  settings[key];
+export const getSetting = (key: string) => ({
+  reactPage: { settings },
+}: RootState) => settings[key];

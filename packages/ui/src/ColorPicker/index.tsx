@@ -24,13 +24,13 @@ class ColorPicker extends React.Component<ColorPickerProps> {
       this.props.onDialogOpen();
     }
     this.setState({ isColorPickerVisible: !this.state.isColorPickerVisible });
-  }
+  };
 
-  onChange: ColorChangeHandler = e =>
-    this.props.onChange && this.props.onChange(e.rgb)
+  onChange: ColorChangeHandler = (e) =>
+    this.props.onChange && this.props.onChange(e.rgb);
 
-  handleChangeComplete: ColorChangeHandler = e =>
-    this.props.onChangeComplete && this.props.onChangeComplete(e.rgb)
+  handleChangeComplete: ColorChangeHandler = (e) =>
+    this.props.onChangeComplete && this.props.onChangeComplete(e.rgb);
 
   render() {
     return (
@@ -47,7 +47,7 @@ class ColorPicker extends React.Component<ColorPickerProps> {
               borderColor: colorToString(this.props.color),
               borderStyle: 'solid',
               borderWidth: '2px',
-              // tslint:disable-next-line:no-any
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
             } as any
           }
         >

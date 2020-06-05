@@ -23,7 +23,10 @@
 import * as React from 'react';
 import { ComponetizedCell } from '../../../types/editable';
 
-const Empty: React.SFC<ComponetizedCell> = ({ id = 'no id given', ...props }) => (
+const Empty: React.SFC<ComponetizedCell> = ({
+  id = 'no id given',
+  ...props
+}) => (
   <div className="ory-cell-empty">
     <strong>An error occurred!</strong>
     <small>

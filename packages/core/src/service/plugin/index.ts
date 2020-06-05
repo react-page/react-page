@@ -39,9 +39,8 @@ import {
 import defaultPlugin from './default';
 import { contentMissing, layoutMissing } from './missing';
 
-const find = (name: string, version: string = '*') => (
-  plugin: PluginConfig
-): boolean => plugin.name === name && satisfies(plugin.version, version);
+const find = (name: string, version = '*') => (plugin: PluginConfig): boolean =>
+  plugin.name === name && satisfies(plugin.version, version);
 
 /**
  * Iterate through an editable content tree and generate ids where missing.
@@ -70,10 +69,10 @@ export default class PluginService {
   constructor({ content = [], layout = [], native }: Plugins = {} as Plugins) {
     this.plugins = {
       content: [defaultPlugin, ...content].map(
-        // tslint:disable-next-line:no-any
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         (config: any) => new ContentPlugin(config)
       ),
-      // tslint:disable-next-line:no-any
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       layout: layout.map((config: any) => new LayoutPlugin(config)),
       native: native,
     };
@@ -84,30 +83,30 @@ export default class PluginService {
   getNativePlugin = () => this.plugins.native;
 
   createNativePlugin = (
-    // tslint:disable-next-line:no-any
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     hover?: any,
-    // tslint:disable-next-line:no-any
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     monitor?: any,
-    // tslint:disable-next-line:no-any
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     component?: any
   ): ComponetizedCell => {
     const native = this.plugins.native;
 
     if (!native) {
       const insert = new NativePlugin({} as NativePluginProps);
-      // tslint:disable-next-line:no-any
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const cell: any = { node: insert, rawNode: () => insert };
       return cell;
     } else {
       const plugin = new NativePlugin(native(hover, monitor, component));
       const initialState = plugin.createInitialState();
-      // tslint:disable-next-line:no-any
-      let insert: any = { content: { plugin, state: initialState } };
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const insert: any = { content: { plugin, state: initialState } };
       /*if (plugin === 'layout') {
         insert = { layout: { plugin, state: initialState } };
       }*/
 
-      // tslint:disable-next-line:no-any
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const cell: any = { node: insert, rawNode: () => insert };
       return cell;
     }
@@ -115,7 +114,7 @@ export default class PluginService {
 
   setLayoutPlugins = (plugins: LayoutPluginConfig[] = []) => {
     this.plugins.layout = [];
-    plugins.forEach(plugin => this.addLayoutPlugin(plugin));
+    plugins.forEach((plugin) => this.addLayoutPlugin(plugin));
   };
 
   addLayoutPlugin = (config: LayoutPluginConfig) => {
@@ -124,7 +123,7 @@ export default class PluginService {
 
   removeLayoutPlugin = (name: string) => {
     this.plugins.layout = this.plugins.layout.filter(
-      plugin => plugin.name !== name
+      (plugin) => plugin.name !== name
     );
   };
 
@@ -132,7 +131,7 @@ export default class PluginService {
     this.plugins.content = [];
 
     // semicolon is required to avoid syntax error
-    [defaultPlugin, ...plugins].forEach(plugin =>
+    [defaultPlugin, ...plugins].forEach((plugin) =>
       this.addContentPlugin(plugin)
     );
   };
@@ -143,7 +142,7 @@ export default class PluginService {
 
   removeContentPlugin = (name: string) => {
     this.plugins.content = this.plugins.content.filter(
-      plugin => plugin.name !== name
+      (plugin) => plugin.name !== name
     );
   };
 
@@ -194,23 +193,24 @@ export default class PluginService {
   ];
 
   migratePluginState = (
-    // tslint:disable-next-line:no-any
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     state: any,
     plugin: Plugin,
     dataVersion: string
-    // tslint:disable-next-line:no-any
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ): any => {
     if (!plugin || !dataVersion || semver.valid(dataVersion) === null) {
       return state;
     }
     let currentDataVersion = dataVersion;
     let migrations = plugin.migrations ? plugin.migrations : [];
+    // eslint-disable-next-line no-constant-condition
     while (true) {
-      const migration = migrations.find(m =>
+      const migration = migrations.find((m) =>
         semver.satisfies(currentDataVersion, m.fromVersionRange)
       );
       migrations = migrations.filter(
-        m => !semver.satisfies(currentDataVersion, m.fromVersionRange)
+        (m) => !semver.satisfies(currentDataVersion, m.fromVersionRange)
       );
       if (!migration) {
         // We assume all migrations necessary for the current version of plugin to work are provided
@@ -225,12 +225,12 @@ export default class PluginService {
 
   getNewPluginState = (
     found: { plugin: Plugin; pluginWrongVersion?: Plugin },
-    // tslint:disable-next-line:no-any
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     state: any,
     version: string
   ): {
     plugin: Plugin;
-    // tslint:disable-next-line:no-any
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     state: any;
   } => {
     if (
@@ -264,8 +264,8 @@ export default class PluginService {
     }
   };
 
-  // tslint:disable-next-line:no-any
-  unserialize = (state: any): Object => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  unserialize = (state: any): any => {
     if (!state) {
       return;
     }
@@ -321,7 +321,7 @@ export default class PluginService {
     return generateMissingIds(newState);
   };
 
-  // tslint:disable-next-line:no-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   serialize = (state: any): EditableType => {
     const {
       rows = [],
@@ -334,7 +334,7 @@ export default class PluginService {
       id,
     } = state;
 
-    // tslint:disable-next-line:no-any
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const newState: any = { id, inline, size, isDraft };
     if (content && content.plugin) {
       newState.content = {

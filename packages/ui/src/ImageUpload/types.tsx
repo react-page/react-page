@@ -1,5 +1,5 @@
 export type ImageLoaded = {
-  file: Object;
+  file: File;
   dataUrl: string;
 };
 

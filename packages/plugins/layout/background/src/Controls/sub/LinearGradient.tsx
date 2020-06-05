@@ -40,7 +40,7 @@ class LinearGradientComponent extends React.Component<
         opacity: 1,
       }),
     });
-  }
+  };
 
   handleChangeDeg = (index: number, value: number) => () => {
     this.props.onChangeGradientDegPreview &&
@@ -51,7 +51,7 @@ class LinearGradientComponent extends React.Component<
         : []
       ).map((g, i) => (i === index ? { ...g, deg: value } : g)),
     });
-  }
+  };
 
   handleChangeDegPreview = (index: number) => (
     e: React.ChangeEvent,
@@ -59,7 +59,7 @@ class LinearGradientComponent extends React.Component<
   ) => {
     this.props.onChangeGradientDegPreview &&
       this.props.onChangeGradientDegPreview(value, index);
-  }
+  };
 
   handleChangeOpacity = (index: number, value: number) => () => {
     this.props.onChangeGradientOpacityPreview &&
@@ -70,7 +70,7 @@ class LinearGradientComponent extends React.Component<
         : []
       ).map((g, i) => (i === index ? { ...g, opacity: value } : g)),
     });
-  }
+  };
 
   handleChangeOpacityPreview = (index: number) => (
     e: React.ChangeEvent,
@@ -78,7 +78,7 @@ class LinearGradientComponent extends React.Component<
   ) => {
     this.props.onChangeGradientOpacityPreview &&
       this.props.onChangeGradientOpacityPreview(value, index);
-  }
+  };
 
   handleChangeGradientColor = (index: number, cpIndex: number) => (
     e: RGBColor
@@ -99,14 +99,14 @@ class LinearGradientComponent extends React.Component<
             : g
         ),
     });
-  }
+  };
 
   handleChangeGradientColorPreview = (index: number, cpIndex: number) => (
     e: RGBColor
   ) => {
     this.props.onChangeGradientColorPreview &&
       this.props.onChangeGradientColorPreview(e, index, cpIndex);
-  }
+  };
 
   addColor = (index: number) => () => {
     this.props.ensureModeOn();
@@ -128,7 +128,7 @@ class LinearGradientComponent extends React.Component<
           : g
       ),
     });
-  }
+  };
 
   removeColor = (index: number, cpIndex: number) => () => {
     this.props.onChange({
@@ -145,7 +145,7 @@ class LinearGradientComponent extends React.Component<
             : g
         ),
     });
-  }
+  };
 
   removeGradient = (index: number) => () => {
     this.props.onChange({
@@ -153,7 +153,7 @@ class LinearGradientComponent extends React.Component<
         .concat(this.props.state.gradients ? this.props.state.gradients : [])
         .filter((item, i) => i !== index),
     });
-  }
+  };
 
   render() {
     const {

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-types */
 import { AnyAction } from 'redux';
 import {
   CELL_BLUR,
@@ -14,7 +15,7 @@ import {
   CELL_RESIZE,
   CELL_UPDATE_CONTENT,
   CELL_UPDATE_IS_DRAFT,
-  CELL_UPDATE_LAYOUT
+  CELL_UPDATE_LAYOUT,
 } from '../../actions/cell';
 import { Cell, createCell, createRow, Row } from '../../types/editable';
 import { CellHoverAction } from './../../actions/cell/drag';
@@ -25,7 +26,7 @@ import {
   optimizeCell,
   optimizeCells,
   optimizeRow,
-  optimizeRows
+  optimizeRows,
 } from './helper/optimize';
 import { resizeCells } from './helper/sizing';
 
@@ -194,7 +195,7 @@ export const cells = (s: Cell[] = [], a: AnyAction): Cell[] =>
     ((state: Cell[], action: AnyAction): Cell[] => {
       switch (action.type) {
         case CELL_RESIZE:
-          // tslint:disable-next-line:no-any
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           return resizeCells(state.map(inner(cell, action)), action as any);
 
         case CELL_INSERT_BELOW:
@@ -342,7 +343,7 @@ export const row = (s: Row, a: AnyAction): Row =>
 
 export const rows = (s: Row[] = [], a: AnyAction): Row[] =>
   optimizeRows(
-    // tslint:disable-next-line:no-any
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
 
     ((state: Row[], action: AnyAction): Row[] => {
       const reduce = () => state.map(inner(row, action));

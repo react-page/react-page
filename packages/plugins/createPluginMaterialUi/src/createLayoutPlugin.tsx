@@ -1,7 +1,7 @@
 import {
   LayoutPluginConfig,
   LayoutPluginProps,
-  lazyLoad
+  lazyLoad,
 } from '@react-page/core';
 import * as React from 'react';
 import { ControlsType, LayoutPluginDefinition } from './types';
@@ -9,7 +9,7 @@ import { ControlsType, LayoutPluginDefinition } from './types';
 type CustomizeFunction<T, CT> = (
   def: LayoutPluginDefinition<T>
 ) => LayoutPluginDefinition<T & CT>;
-
+// eslint-disable-next-line @typescript-eslint/ban-types
 function createPluginWithDef<T extends {}>({
   schema,
   controlsLayout,
@@ -42,7 +42,7 @@ function createPluginWithDef<T extends {}>({
 }
 
 function createContentPlugin<T>(definition: LayoutPluginDefinition<T>) {
-  return function<CT>(customize?: CustomizeFunction<T, CT>) {
+  return function <CT>(customize?: CustomizeFunction<T, CT>) {
     if (customize) {
       return createPluginWithDef<T & CT>(customize(definition));
     }

@@ -32,7 +32,7 @@ const ImageDefaultControls = lazyLoad(() =>
 
 const imagePlugin: (
   settings?: Partial<ImageSettings>
-) => ContentPluginConfig<ImageState> = settings =>
+) => ContentPluginConfig<ImageState> = (settings) =>
   createPlugin({
     Renderer: ImageHtmlRenderer,
     Controls: ImageDefaultControls,

@@ -15,5 +15,5 @@ export {
   link,
   lists,
   paragraphs,
-  alignment
+  alignment,
 };

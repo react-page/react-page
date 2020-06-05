@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-types */
 /*
  * This file is part of ORY Editor.
  *
@@ -28,7 +29,7 @@ import {
   Matrix,
   Vector,
   MatrixIndex,
-  Callbacks
+  Callbacks,
 } from '../../types/hover';
 import logger from '../logger';
 
@@ -194,7 +195,7 @@ export const computeHover = (
     matrix: Matrix;
   },
   m: string
-  // tslint:disable-next-line:no-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
 ): any => {
   const scale = getRoomScale({ room, matrix });
   const hoverCell = getMouseHoverCell({ mouse, scale });
@@ -324,7 +325,7 @@ export const computeHorizontal = (
     level: number;
     hover: ComponetizedRow;
   },
-  inv: boolean = false
+  inv = false
 ) => {
   const {
     node: { cells = [] },
@@ -365,7 +366,7 @@ export const computeVertical = (
     position: MatrixIndex;
     scale: Vector;
   },
-  inv: boolean = false
+  inv = false
 ) => {
   const {
     node: { cells = [] },
@@ -404,7 +405,7 @@ export const defaultCallbacks: CallbackList = {
     item: ComponetizedCell,
     hover: ComponetizedCell,
     { leftOf, above }: Callbacks,
-    // tslint:disable-next-line:no-any
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     ctx: any
   ) => {
     const mouse = relativeMousePosition(ctx);
@@ -421,7 +422,7 @@ export const defaultCallbacks: CallbackList = {
     item: ComponetizedCell,
     hover: ComponetizedCell,
     { rightOf, above }: Callbacks,
-    // tslint:disable-next-line:no-any
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     ctx: any
   ) => {
     const mouse = relativeMousePosition(ctx);
@@ -438,7 +439,7 @@ export const defaultCallbacks: CallbackList = {
     item: ComponetizedCell,
     hover: ComponetizedCell,
     { rightOf, below }: Callbacks,
-    // tslint:disable-next-line:no-any
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     ctx: any
   ) => {
     const mouse = relativeMousePosition(ctx);
@@ -454,7 +455,7 @@ export const defaultCallbacks: CallbackList = {
     item: ComponetizedCell,
     hover: ComponetizedCell,
     { leftOf, below }: Callbacks,
-    // tslint:disable-next-line:no-any
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     ctx: any
   ) => {
     const mouse = relativeMousePosition(ctx);
@@ -540,7 +541,7 @@ export const defaultCallbacks: CallbackList = {
           ...ctx,
           hover: hover,
           level: hover.node.levels.above,
-          // tslint:disable-next-line:no-any
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } as any,
         true
       )
@@ -558,7 +559,7 @@ export const defaultCallbacks: CallbackList = {
         ...ctx,
         hover,
         level: hover.node.levels.below,
-        // tslint:disable-next-line:no-any
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } as any)
     ),
 
@@ -576,7 +577,7 @@ export const defaultCallbacks: CallbackList = {
           ...ctx,
           hover,
           level: hover.node.levels.left,
-          // tslint:disable-next-line:no-any
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } as any,
         true
       )
@@ -594,7 +595,7 @@ export const defaultCallbacks: CallbackList = {
         ...ctx,
         hover,
         level: hover.node.levels.right,
-        // tslint:disable-next-line:no-any
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } as any)
     ),
 

@@ -6,7 +6,7 @@ import { insertActions } from '../../../actions/cell/insert';
 import { connect } from '../../../reduxConnect';
 import {
   ComponetizedCell,
-  SimplifiedModesProps
+  SimplifiedModesProps,
 } from '../../../types/editable';
 import { collect, source } from './helper/dnd';
 
@@ -22,7 +22,7 @@ type Props = ComponetizedCell & {
   isInsertMode: boolean;
   isLayoutMode: boolean;
   node: { hover: string; inline: string };
-  // tslint:disable-next-line:no-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   children: any;
   className: string;
   name: string;

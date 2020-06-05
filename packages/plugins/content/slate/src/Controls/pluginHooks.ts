@@ -9,8 +9,9 @@ export const useComponentNodePlugins = (
   useMemo(
     () =>
       plugins.filter(
-        plugin => plugin.pluginType === 'component' && plugin.object !== 'mark'
-        // tslint:disable-next-line:no-any
+        (plugin) =>
+          plugin.pluginType === 'component' && plugin.object !== 'mark'
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
       ) as SlateComponentPluginDefinition<any>[],
     deps
   );
@@ -22,8 +23,9 @@ export const useComponentMarkPlugins = (
   useMemo(
     () =>
       plugins.filter(
-        plugin => plugin.pluginType === 'component' && plugin.object === 'mark'
-        // tslint:disable-next-line:no-any
+        (plugin) =>
+          plugin.pluginType === 'component' && plugin.object === 'mark'
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
       ) as SlateComponentPluginDefinition<any>[],
     deps
   );

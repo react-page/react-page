@@ -28,7 +28,7 @@ const migrations = [v002, v003, v004];
 type SlateDefinition<TPlugins extends SlatePluginCollection> = {
   icon: JSX.Element;
   plugins: TPlugins;
-  // tslint:disable-next-line:no-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   defaultPluginType: string;
   Renderer: React.ComponentType<SlateRendererProps>;
   Controls: React.ComponentType<SlateControlsProps>;
@@ -63,7 +63,7 @@ const defaultConfig: DefaultSlateDefinition = {
 
 type CreateInitialSlateState<TPlugins> = (
   custom?: CreateInitialStateCustomizer<TPlugins>
-) => // tslint:disable-next-line:no-any
+) => // eslint-disable-next-line @typescript-eslint/no-explicit-any
 SlateState;
 export type SlatePlugin<TPlugins> = ContentPluginConfig<SlateState> & {
   createInitialSlateState: CreateInitialSlateState<TPlugins>;
@@ -128,7 +128,7 @@ function plugin<TPlugins extends SlatePluginCollection = DefaultPlugins>(
     hideInMenu: settings.hideInMenu,
     allowInlineNeighbours: settings.allowInlineNeighbours,
 
-    // tslint:disable-next-line:no-any
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     reducer: (state: any, action: AnyAction) => {
       if (
         (action.type === ActionTypes.UNDO ||

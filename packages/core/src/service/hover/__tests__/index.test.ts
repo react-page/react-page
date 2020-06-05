@@ -51,7 +51,7 @@ const cases = [
       hover: undefined,
       ancestors: undefined,
     },
-    actions: done => ({
+    actions: (done) => ({
       rightOf: (item, hover, level) => {
         expect(level, 'to be', 9);
         expect(item.id, 'to be', 'foo');
@@ -67,7 +67,7 @@ const cases = [
       hover: undefined,
       ancestors: undefined,
     },
-    actions: done => ({
+    actions: (done) => ({
       rightOf: (item, hover, level) => {
         expect(level, 'to be', 5);
         done();
@@ -82,7 +82,7 @@ const cases = [
       hover: undefined,
       ancestors: undefined,
     },
-    actions: done => ({
+    actions: (done) => ({
       rightOf: (item, hover, level) => {
         expect(level, 'to be', 2);
         done();
@@ -97,7 +97,7 @@ const cases = [
       hover: undefined,
       ancestors: undefined,
     },
-    actions: done => ({
+    actions: (done) => ({
       rightOf: (item, hover, level) => {
         expect(level, 'to be', 0);
         done();
@@ -112,7 +112,7 @@ const cases = [
       hover: undefined,
       ancestors: undefined,
     },
-    actions: done => ({
+    actions: (done) => ({
       rightOf: (item, hover, level) => {
         expect(level, 'to be', 0);
         done();
@@ -130,8 +130,8 @@ describe('HoverService', () => {
     );
   });
 
-  cases.forEach(c => {
-    it(`should pass test case ${c.d}`, done => {
+  cases.forEach((c) => {
+    it(`should pass test case ${c.d}`, (done) => {
       const h = new HoverService({
         callbacks: defaultCallbacks,
       });
@@ -139,12 +139,12 @@ describe('HoverService', () => {
       h.hover(
         {
           id: 'foo',
-          // tslint:disable-next-line:no-any
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           node: { id: 'foo', levels: {} as any } as any,
           rawNode: () => ({ id: 'foo' }),
-          // tslint:disable-next-line:no-any
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } as any,
-        // tslint:disable-next-line:no-any
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         (c as any).hover || {
           node: {
             levels: {
@@ -156,13 +156,13 @@ describe('HoverService', () => {
           },
           rawNode: () => ({ id: 'foo' }),
         },
-        // tslint:disable-next-line:no-any
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         c.actions(done) as any,
         {
           room: c.in.room,
           mouse: c.in.mouse,
           ancestors: c.in.ancestors,
-          // tslint:disable-next-line:no-any
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } as any
       );
     });
@@ -187,7 +187,7 @@ describe('computeLevel', () => {
       i: { size: 20, position: 10, levels: 10 },
       e: 5,
     },
-  ].forEach(c => {
+  ].forEach((c) => {
     it('should compute the right levels when not enough space is available', () => {
       expect(computeLevel(c.i), 'to equal', c.e);
     });
@@ -245,7 +245,7 @@ describe('computeLevel', () => {
       i: { size: 121, position: 119, levels: 10 },
       e: 10,
     },
-  ].forEach(c => {
+  ].forEach((c) => {
     it('should compute the right levels when in a large cell', () => {
       expect(computeLevel(c.i), 'to equal', c.e);
     });

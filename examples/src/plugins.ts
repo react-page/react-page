@@ -47,10 +47,9 @@ import customLayoutPlugin from './customLayoutPlugin';
 import customLayoutPluginWithInitialState from './customLayoutPluginWithInitialState';
 import { defaultSlate, reducedSlate } from './slate';
 
-const fakeImageUploadService: (url: string) => ImageUploadType = defaultUrl => (
-  file,
-  reportProgress
-) => {
+const fakeImageUploadService: (url: string) => ImageUploadType = (
+  defaultUrl
+) => (file, reportProgress) => {
   return new Promise((resolve, reject) => {
     let counter = 0;
     const interval = setInterval(() => {

@@ -1,8 +1,9 @@
+/* eslint-disable @typescript-eslint/ban-types */
 import {
   ContentPlugin,
   ContentPluginConfig,
   LayoutPlugin,
-  LayoutPluginConfig
+  LayoutPluginConfig,
 } from '../../service/plugin/classes';
 import { v4 } from 'uuid';
 
@@ -16,7 +17,7 @@ type CellDef = {
     state?: object;
   };
   size?: number;
-  // tslint:disable-next-line:no-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [key: string]: any;
 };
 export type RowDef = CellDef[];
@@ -36,7 +37,7 @@ export type ChildrenDef = {
         state?: object;
       };
       size?: number;
-      // tslint:disable-next-line:no-any
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       [key: string]: any;
     }[];
   }[];
@@ -57,7 +58,7 @@ const withDefaultState = (
 
 export default (rows: RowDef[]): ChildrenDef => ({
   id: v4(),
-  rows: rows.map(row => ({
+  rows: rows.map((row) => ({
     id: v4(),
     cells: row.map(({ layout, content, ...rest }) => {
       return {

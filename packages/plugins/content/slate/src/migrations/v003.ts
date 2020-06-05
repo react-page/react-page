@@ -1,6 +1,6 @@
 import { Migration } from '@react-page/core';
 
-// tslint:disable-next-line:no-any
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const removeLeaves = (nodes: Array<any>) => {
   if (!nodes) {
     return [];
@@ -10,7 +10,7 @@ const removeLeaves = (nodes: Array<any>) => {
       // we don't need the node itself, as we exepct it to be a text node
       return [
         ...acc,
-        ...node.leaves.map(leave => ({
+        ...node.leaves.map((leave) => ({
           ...leave,
           object: 'text',
         })),
@@ -31,7 +31,7 @@ const removeLeaves = (nodes: Array<any>) => {
 const migration = new Migration({
   toVersion: '0.0.3',
   fromVersionRange: '^0.0.2',
-  migrate: state => {
+  migrate: (state) => {
     if (!state) {
       return {};
     }

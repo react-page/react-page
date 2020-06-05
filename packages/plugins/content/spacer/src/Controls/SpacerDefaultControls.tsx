@@ -8,7 +8,7 @@ import { defaultSpacerState } from './../default/state';
 
 const faintBlack = 'rgba(0, 0, 0, 0.12)';
 
-const SpacerDefaultControls: React.SFC<SpacerControlsProps> = props => {
+const SpacerDefaultControls: React.SFC<SpacerControlsProps> = (props) => {
   const {
     isPreviewMode,
     isEditMode,
@@ -47,7 +47,7 @@ const SpacerDefaultControls: React.SFC<SpacerControlsProps> = props => {
                 label={props.translations.elementHeightLabel}
                 style={{ width: '512px' }}
                 value={height}
-                onChange={e =>
+                onChange={(e) =>
                   changeHeightPreview(parseInt(e.target.value, 10))
                 }
                 onBlur={() => commitHeight()}

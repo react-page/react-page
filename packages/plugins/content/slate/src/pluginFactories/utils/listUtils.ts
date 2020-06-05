@@ -8,7 +8,7 @@ type ListBaseDef = {
 
 export const getActiveList = (editor: Editor, allListTypes: string[]) => {
   const [matchingNode] = Editor.nodes(editor, {
-    match: elem => allListTypes.includes(elem.type),
+    match: (elem) => allListTypes.includes(elem.type),
     mode: 'lowest', // FIXME: whats the best value?
   });
   return matchingNode;
@@ -20,7 +20,7 @@ export const getActiveListType = (editor: Editor, allListTypes: string[]) => {
 
 export const getPreviousListItem = (editor: Editor, listItemType: string) => {
   const [currentLi] = Editor.nodes(editor, {
-    match: elem => elem.type === listItemType,
+    match: (elem) => elem.type === listItemType,
     mode: 'lowest',
   });
 
@@ -94,7 +94,7 @@ const moveToParent = (
   if (!parentIsList) {
     const targetNode = Editor.node(editor, targetPath);
     const onlyTextChildren = targetNode?.[0].children?.every(
-      child => Text.isText(child) || Editor.isInline(editor, child)
+      (child) => Text.isText(child) || Editor.isInline(editor, child)
     );
     if (onlyTextChildren) {
       Transforms.setNodes(
@@ -118,7 +118,7 @@ export const decreaseListIndention = (
   def: ListBaseDef
 ) => {
   const [currentLi] = Editor.nodes(editor, {
-    match: elem => elem.type === def.listItemType,
+    match: (elem) => elem.type === def.listItemType,
     mode: 'lowest',
   });
   const currentLiPath = currentLi[1];
