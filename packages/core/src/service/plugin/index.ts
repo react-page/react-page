@@ -245,15 +245,16 @@ export default class PluginService {
       const transformState = (s) => {
         if (shouldMigrate) {
           const migratedState = this.migratePluginState(
-            state,
+            s,
             found.pluginWrongVersion,
             version
           );
           return plugin.unserialize(migratedState);
         }
-        return plugin.unserialize(state);
+        return plugin.unserialize(s);
       };
-      return {
+
+      const result = {
         plugin: plugin,
         state: transformState(state),
         stateI18n: stateI18n
@@ -266,6 +267,7 @@ export default class PluginService {
             )
           : undefined,
       };
+      return result;
     };
     if (
       !found.pluginWrongVersion ||
