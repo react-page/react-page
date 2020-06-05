@@ -31,7 +31,7 @@ import {
   ResizeCellAction,
 } from '../../actions/cell';
 import { connect } from '../../reduxConnect';
-import { RootState } from '../../selector';
+import { RootState, Selectors } from '../../selector';
 import {
   isEditMode,
   isInsertMode,
@@ -69,7 +69,7 @@ const stopClick = (_isEditMode: boolean) => (
   e: React.MouseEvent<HTMLDivElement>
 ) => (_isEditMode ? e.stopPropagation() : null);
 
-type CellProps = ComponetizedCell & SimplifiedModesProps;
+type CellProps = ComponetizedCell & SimplifiedModesProps & { lang: string };
 
 class Cell extends React.PureComponent<CellProps> {
   render() {
@@ -78,9 +78,18 @@ class Cell extends React.PureComponent<CellProps> {
       rowWidth,
       rowHeight,
       updateDimensions,
-      node: { inline, resizable, hasInlineNeighbour, focused, isDraft },
+      lang,
+      node: {
+        inline,
+        resizable,
+        hasInlineNeighbour,
+        focused,
+        isDraft,
+        isDraftI18n,
+      },
     } = this.props;
-    if (isDraft && this.props.isPreviewMode) {
+    const isDraftInLang = isDraftI18n?.[lang] ?? isDraft;
+    if (isDraftInLang && this.props.isPreviewMode) {
       return null;
     }
     return (
@@ -89,7 +98,7 @@ class Cell extends React.PureComponent<CellProps> {
           'ory-cell-has-inline-neighbour': hasInlineNeighbour,
           [`ory-cell-inline-${inline || ''}`]: inline,
           'ory-cell-focused': focused,
-          'ory-cell-is-draft': isDraft,
+          'ory-cell-is-draft': isDraftInLang,
           'ory-cell-resizing-overlay': this.props.isResizeMode,
           'ory-cell-bring-to-front':
             !this.props.isResizeMode && !this.props.isLayoutMode && inline, // inline must not be active for resize/layout
@@ -128,6 +137,7 @@ const mapStateToProps = createStructuredSelector({
   isLayoutMode,
   config: editableConfig,
   node: purifiedNode,
+  lang: Selectors.Setting.getLang,
   rawNode: (state: RootState, props: NodeProps) => () => node(state, props),
 });
 

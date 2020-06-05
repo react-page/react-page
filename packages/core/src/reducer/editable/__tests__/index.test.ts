@@ -108,11 +108,12 @@ export const createCell = (
 export const createLayoutCell = (
   id: string,
   name: string,
-  state: { foo: number; bar?: number },
+  state: { foo?: number; bar?: number },
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   rows: any[],
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  additional?: any
+  additional?: any,
+  stateI18n?: { [lang: string]: State }
 ) => {
   const cell = createCell(id, null, additional);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -127,6 +128,10 @@ export const createLayoutCell = (
     layout.state = state;
   }
 
+  if (stateI18n) {
+    layout.stateI18n = stateI18n;
+  }
+
   if (rows) {
     cell.rows = rows;
   }
@@ -137,17 +142,19 @@ export const createLayoutCell = (
   };
 };
 
+type State = { foo?: number; bar?: number };
 export const createContentCell = (
   id: string,
   name: string,
-  state?: { foo: number; bar?: number },
+  state?: State,
   additional?: {
     hover?: string | boolean;
     size?: number;
     inline?: string;
     focusSource?: string;
     focused?: boolean;
-  }
+  },
+  stateI18n?: { [lang: string]: State }
 ) => {
   const cell = createCell(id, null, additional);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -160,6 +167,9 @@ export const createContentCell = (
 
   if (state) {
     content.state = state;
+  }
+  if (stateI18n) {
+    content.stateI18n = stateI18n;
   }
 
   return {
@@ -273,12 +283,54 @@ test('cell update content', () => {
 
   const expectedState = createEditable(
     'editable',
-    _cells([createContentCell('0', 'foo', { bar: 1, foo: 1 })])
+    _cells([createContentCell('0', 'foo', { bar: 1 })])
   );
 
   runCase(currentState, action, expectedState);
 });
 
+test('cell update content with language', () => {
+  const currentState = createEditable('editable', [
+    createContentCell('0', 'foo', { foo: 1 }),
+  ]);
+
+  const action = actions.updateCellContent('0')({ bar: 1 }, 'de');
+
+  const expectedState = createEditable(
+    'editable',
+    _cells([
+      createContentCell('0', 'foo', { foo: 1 }, undefined, {
+        de: { bar: 1 },
+      }),
+    ])
+  );
+
+  runCase(currentState, action, expectedState);
+});
+
+test('cell update content with language when there is already another translation', () => {
+  const currentState = createEditable('editable', [
+    createContentCell('0', 'foo', { foo: 1 }, undefined, {
+      en: {
+        bar: 2,
+      },
+    }),
+  ]);
+
+  const action = actions.updateCellContent('0')({ bar: 1 }, 'de');
+
+  const expectedState = createEditable(
+    'editable',
+    _cells([
+      createContentCell('0', 'foo', { foo: 1 }, undefined, {
+        de: { bar: 1 },
+        en: { bar: 2 },
+      }),
+    ])
+  );
+
+  runCase(currentState, action, expectedState);
+});
 test('cell update layout', () => {
   const currentState = createEditable('editable', [
     createLayoutCell('0', 'foo', { foo: 1 }, [
@@ -291,7 +343,7 @@ test('cell update layout', () => {
   const expectedState = createEditable(
     'editable',
     _cells([
-      createLayoutCell('0', 'foo', { foo: 1, bar: 1 }, [
+      createLayoutCell('0', 'foo', { bar: 1 }, [
         createRow('2', [createContentCell('1', 'bar')]),
       ]),
     ])

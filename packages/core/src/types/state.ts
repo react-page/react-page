@@ -6,7 +6,9 @@ export type RootState = {
     editables: Editables;
     display: Display;
     focus: string;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    settings: { [key: string]: any };
+
+    settings: {
+      lang?: string;
+    };
   };
 };

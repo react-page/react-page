@@ -154,12 +154,14 @@ function plugin<TPlugins extends SlatePluginCollection = DefaultPlugins>(
     createInitialState: createInitialState,
     createInitialSlateState: createInitialState,
     htmlToSlate: htmlToSlate,
-    serialize: ({ slate }) => ({ slate }),
-    unserialize: ({ slate, importFromHtml, ...rest }) => {
-      if (importFromHtml) {
-        return htmlToSlate(importFromHtml);
+    serialize: (s) => (s ? { slate: s.slate } : null),
+    unserialize: (s) => {
+      if (s?.importFromHtml) {
+        return htmlToSlate(s.importFromHtml);
       }
-      return { slate };
+      return {
+        slate: s?.slate,
+      };
     },
 
     // TODO this is disabled because of #207
