@@ -1,25 +1,3 @@
-/*
- * This file is part of ORY Editor.
- *
- * ORY Editor is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * ORY Editor is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public License
- * along with ORY Editor.  If not, see <http://www.gnu.org/licenses/>.
- *
- * @license LGPL-3.0
- * @copyright 2016-2018 Aeneas Rekkas
- * @author Aeneas Rekkas <aeneas+oss@aeneas.io>
- *
- */
-
 import * as React from 'react';
 import { bindActionCreators, Dispatch } from 'redux';
 import { createStructuredSelector } from 'reselect';
@@ -36,23 +14,46 @@ import {
   isResizeMode,
 } from '../../../selector/display';
 import { ContentPluginProps } from '../../../service/plugin/classes';
-import { ComponetizedCell } from '../../../types/editable';
+import { ComponetizedCell, I18nField } from '../../../types/editable';
 import scrollIntoViewWithOffset from '../utils/scrollIntoViewWithOffset';
 
+export const getI18nState = ({
+  stateI18n,
+  state,
+  lang,
+}: {
+  stateI18n: I18nField<unknown>;
+  state: unknown;
+  lang?: string;
+}) => {
+  if (!stateI18n || !lang) {
+    return state;
+  }
+  return (
+    stateI18n?.[lang] ??
+    // find first non-empty
+    stateI18n?.[Object.keys(stateI18n).find((l) => stateI18n[l])] ??
+    state
+  );
+};
 // TODO clean me up #157
-class Content extends React.PureComponent<ComponetizedCell> {
+class Content extends React.PureComponent<ComponetizedCell & { lang: string }> {
   private ref: HTMLDivElement;
 
-  UNSAFE_componentWillReceiveProps(nextProps: ComponetizedCell) {
+  UNSAFE_componentWillReceiveProps(
+    nextProps: ComponetizedCell & { lang: string }
+  ) {
     const {
       node: { focused: was, scrollToCell: scrollToCellWas },
     } = this.props;
     const {
+      lang,
       node: { focused: is, scrollToCell: scrollToCellIs, focusSource },
     } = nextProps;
     const {
       editable,
       id,
+
       node: {
         content: {
           plugin: {
@@ -62,6 +63,7 @@ class Content extends React.PureComponent<ComponetizedCell> {
             version = 'N/A',
           } = {},
           state = {},
+          stateI18n = {},
         } = {},
         focused,
       },
@@ -72,11 +74,12 @@ class Content extends React.PureComponent<ComponetizedCell> {
     const pass: ContentPluginProps = {
       editable,
       id,
-      state,
+      state: getI18nState({ lang, state, stateI18n }),
       focused: this.props.isEditMode && focused,
       readOnly: !isEditMode,
-      onChange: this.props.updateCellContent,
+      onChange: this.onChange,
       name,
+      lang,
       version,
       isEditMode: nextProps.isEditMode,
       isResizeMode: nextProps.isResizeMode,
@@ -108,7 +111,7 @@ class Content extends React.PureComponent<ComponetizedCell> {
   };
 
   onChange = (state) => {
-    this.props.updateCellContent(state);
+    this.props.updateCellContent(state, this.props.lang);
   };
   remove = () => {
     this.props.removeCell();
@@ -119,6 +122,7 @@ class Content extends React.PureComponent<ComponetizedCell> {
 
   render() {
     const {
+      lang,
       editable,
       id,
       node: {
@@ -130,6 +134,7 @@ class Content extends React.PureComponent<ComponetizedCell> {
             text = 'unnamed plugin',
           } = {},
           state = {},
+          stateI18n = null,
         } = {},
         focused,
       },
@@ -147,6 +152,8 @@ class Content extends React.PureComponent<ComponetizedCell> {
         },
       };
     }
+    // has in translation? if not, fall back to first nonEmpty or fallback to non i18n
+
     return (
       <div
         {...focusProps}
@@ -158,7 +165,8 @@ class Content extends React.PureComponent<ComponetizedCell> {
         <Component
           editable={editable}
           id={id}
-          state={state}
+          lang={lang}
+          state={getI18nState({ lang, state, stateI18n })}
           focused={Boolean(this.props.isEditMode && focused)}
           name={name}
           text={text}

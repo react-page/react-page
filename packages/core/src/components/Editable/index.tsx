@@ -16,12 +16,34 @@ type Serialized = AbstractEditable<AbstractCell<Row>>;
 export type EditableProps = {
   id: string;
   onChange: (value: Serialized) => void;
+  lang?: string;
+  onChangeLang?: (lang: string) => void;
 } & SimplifiedModesProps;
-const Editable: React.FC<EditableProps> = ({ id, onChange, ...rest }) => {
+const Editable: React.FC<EditableProps> = ({
+  id,
+  onChange,
+  onChangeLang,
+  lang,
+  ...rest
+}) => {
   const editor = useEditor();
+  // update lang when changed from outside
+  useEffect(() => {
+    editor.setLang(lang);
+  }, [lang]);
+
   const previousSerializedRef = useRef<Serialized>();
   useEffect(() => {
+    let oldLang = lang;
     const handleChanges = () => {
+      // notify outsiders to new language, when chagned in ui
+      const newLang = editor.store.getState().reactPage.settings.lang;
+      if (newLang !== oldLang || newLang !== lang) {
+        oldLang = newLang;
+        onChangeLang?.(newLang);
+      }
+      // check also if lang has changed internally, to call callback when controled from outside
+
       const state: EditorState = editable(editor.store.getState(), {
         id: id,
       });

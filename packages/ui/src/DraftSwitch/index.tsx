@@ -5,23 +5,24 @@ import { Actions, connect, Selectors } from '@react-page/core';
 import React from 'react';
 import { createStructuredSelector } from 'reselect';
 
-const DraftSwitch = ({ id, node, setDraft }) => {
+const DraftSwitch = ({ id, node, setDraft, lang }) => {
+  const isDraft = node?.isDraftI18n?.[lang] ?? node?.isDraft; // fallback to legacy
   return node ? (
-    <Tooltip title={node.isDraft ? 'Content is draft' : 'Content is visible'}>
+    <Tooltip title={isDraft ? 'Content is draft' : 'Content is visible'}>
       <FormControlLabel
         style={{ marginRight: 5 }}
         labelPlacement="start"
         control={
           <Switch
             color="primary"
-            checked={!node.isDraft}
+            checked={!isDraft}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              setDraft(id, !e.target.checked)
+              setDraft(id, !e.target.checked, lang)
             }
           />
         }
         label={
-          node.isDraft ? (
+          isDraft ? (
             <NonVisibleIcon style={{ marginTop: 5 }} />
           ) : (
             <VisibleIcon style={{ marginTop: 5 }} />
@@ -34,6 +35,7 @@ const DraftSwitch = ({ id, node, setDraft }) => {
 
 const mapStateToProps = createStructuredSelector({
   node: Selectors.Editable.node,
+  lang: Selectors.Setting.getLang,
 });
 
 const mapDispatchToProps = {

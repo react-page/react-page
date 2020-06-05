@@ -160,9 +160,11 @@ export type PluginProps<
   focused: boolean;
 
   /**
-   * @member the plugin's state.
+   * @member the plugin's state. (already translated)
    */
   state: StateT;
+
+  lang?: string;
 
   /**
    * @member the plugin's version
