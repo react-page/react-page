@@ -8,7 +8,13 @@ import contents from './contents';
 import customLayoutPluginWithInitialState from './customLayoutPluginWithInitialState';
 import { plugins } from './plugins';
 import './styles.css';
-import { Button, FormGroup, FormControlLabel, Switch } from '@material-ui/core';
+import {
+  Button,
+  FormGroup,
+  FormControlLabel,
+  Switch,
+  Select,
+} from '@material-ui/core';
 import { defaultSlate } from './slate';
 import { EditorProps } from '@react-page/editor';
 
@@ -20,6 +26,16 @@ if (
   whyDidYouUpdate(React);
 }
 
+const LANGUAGES = [
+  {
+    lang: 'en',
+    label: 'English',
+  },
+  {
+    lang: 'de',
+    label: 'Deutsch',
+  },
+];
 const KeepStateEditor: React.FC<EditorProps> = ({ value, ...props }) => {
   const [state, setState] = React.useState(value);
 
@@ -42,9 +58,18 @@ const KeepStateEditor: React.FC<EditorProps> = ({ value, ...props }) => {
   );
 
   const [hide, sethide] = React.useState(false);
+
   const onSethideChanged = React.useCallback(
     (e: React.ChangeEvent<HTMLInputElement>, checked: boolean) =>
       sethide(checked),
+    []
+  );
+
+  const [lang, setLang] = React.useState('en');
+
+  const onSetLang = React.useCallback(
+    (e: React.ChangeEvent<{ name?: string; value: unknown }>) =>
+      setLang(e.target.value as string),
     []
   );
   return (
@@ -80,6 +105,19 @@ const KeepStateEditor: React.FC<EditorProps> = ({ value, ...props }) => {
           }
           label="hide"
         />
+        <FormControlLabel
+          style={{ marginLeft: 20 }}
+          control={
+            <Select value={lang} onChange={onSetLang}>
+              {LANGUAGES.map((l) => (
+                <option value={l.lang} key={l.lang}>
+                  {l.label}
+                </option>
+              ))}
+            </Select>
+          }
+          label="Language"
+        />
       </FormGroup>
       <div
         style={{
@@ -92,6 +130,9 @@ const KeepStateEditor: React.FC<EditorProps> = ({ value, ...props }) => {
           allowResizeInEditMode={allowResize}
           value={state}
           onChange={setState}
+          onChangeLang={setLang}
+          lang={lang}
+          languages={LANGUAGES}
         />
         <Button variant="outlined" onClick={() => setState(value)}>
           Reset this editor

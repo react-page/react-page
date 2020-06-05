@@ -13,15 +13,15 @@ import * as React from 'react';
 
 const gridClass = (size = 12): string => `ory-cell-sm-${size} ory-cell-xs-12`;
 
-const HTMLRow: React.SFC<Partial<Row>> = React.memo(
-  ({ cells = [], className, hasInlineChildren }) => (
+const HTMLRow: React.SFC<Partial<Row & { lang: string }>> = React.memo(
+  ({ cells = [], className, hasInlineChildren, lang }) => (
     <div
       className={classNames('ory-row', className, {
         'ory-row-has-floating-children': hasInlineChildren,
       })}
     >
       {cells.map((c) => (
-        <HTMLCell key={c.id} {...c} />
+        <HTMLCell key={c.id} {...c} lang={lang} />
       ))}
     </div>
   )
@@ -32,7 +32,7 @@ const noop = () => {
   return;
 };
 
-const HTMLCell: React.SFC<Cell> = React.memo((props) => {
+const HTMLCell: React.SFC<Cell & { lang: string }> = React.memo((props) => {
   const {
     rows = [],
     layout = {} as Layout,
@@ -42,13 +42,15 @@ const HTMLCell: React.SFC<Cell> = React.memo((props) => {
     size,
     id,
     isDraft,
+    isDraftI18n,
+    lang,
   } = props;
   const cn = classNames('ory-cell', gridClass(size), {
     'ory-cell-has-inline-neighbour': hasInlineNeighbour,
     [`ory-cell-inline-${inline || ''}`]: inline,
   });
 
-  if (isDraft) {
+  if (isDraftI18n?.[lang] ?? isDraft) {
     return null;
   }
   if (layout.plugin) {
@@ -106,7 +108,7 @@ const HTMLCell: React.SFC<Cell> = React.memo((props) => {
     return (
       <div className={cn}>
         {rows.map((r: Row) => (
-          <HTMLRow key={r.id} {...r} className="ory-cell-inner" />
+          <HTMLRow key={r.id} {...r} lang={lang} className="ory-cell-inner" />
         ))}
       </div>
     );
@@ -122,15 +124,16 @@ const HTMLCell: React.SFC<Cell> = React.memo((props) => {
 export interface HTMLRendererProps {
   state: EditableType;
   plugins?: Plugins;
+  lang?: string;
 }
 
 export const HTMLRenderer: React.SFC<HTMLRendererProps> = React.memo(
-  ({ state, plugins }) => {
+  ({ state, plugins, lang = null }) => {
     const service = new PluginService(plugins);
     const props = editableReducer(service.unserialize(state), {
       type: 'renderer/noop',
     });
 
-    return <HTMLRow {...props} />;
+    return <HTMLRow lang={lang} {...props} />;
   }
 );

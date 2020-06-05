@@ -277,9 +277,10 @@ export default class PluginService {
       inline,
       size,
       isDraft,
+      isDraftI18n,
       id,
     } = state;
-    const newState: EditorState = { id, inline, size, isDraft };
+    const newState: EditorState = { id, inline, size, isDraft, isDraftI18n };
 
     const {
       plugin: { name: contentName = null, version: contentVersion = '*' } = {},
@@ -330,12 +331,13 @@ export default class PluginService {
       layout,
       inline,
       isDraft,
+      isDraftI18n,
       size,
       id,
     } = state;
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const newState: any = { id, inline, size, isDraft };
+    const newState: any = { id, inline, size, isDraft, isDraftI18n };
     if (content && content.plugin) {
       newState.content = {
         plugin: { name: content.plugin.name, version: content.plugin.version },

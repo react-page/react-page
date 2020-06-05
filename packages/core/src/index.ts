@@ -2,7 +2,7 @@ import { BackendFactory } from 'dnd-core';
 import { DragSource, DropTarget } from 'react-dnd';
 import { Actions } from './actions';
 import Editable from './components/Editable';
-import Editor, { createEmptyState, EditorProps } from './Editor';
+import Editor, { createEmptyState, CoreEditorProps, Languages } from './Editor';
 import { InitialChildrenDef } from './helper/createInitialChildren';
 import lazyLoad from './helper/lazyLoad';
 import sanitizeInitialChildren from './helper/sanitizeInitialChildren';
@@ -38,7 +38,7 @@ export { BackendFactory as DndBackend, DropTarget, DragSource };
 export {
   Migration,
   createEmptyState,
-  EditorProps,
+  CoreEditorProps,
   Plugin,
   Plugins,
   NativeFactory,
@@ -67,6 +67,7 @@ export {
   ReduxProvider,
   connect,
   ReduxContext,
+  Languages,
 };
 // newer api
 export { Provider, Editable, useEditor, lazyLoad };

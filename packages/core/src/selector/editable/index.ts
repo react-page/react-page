@@ -127,6 +127,7 @@ export const purifiedNode = (
   props: { id: string; editable: string }
 ): Row | Cell => {
   const found = node(state, props);
+
   if (!found) {
     return null;
   }
