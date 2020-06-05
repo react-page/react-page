@@ -11,6 +11,28 @@ import {
 import classNames from 'classnames';
 import * as React from 'react';
 
+const getI18nState = ({
+  stateI18n,
+  state,
+  lang,
+}: {
+  stateI18n: {
+    [lang: string]: unknown;
+  };
+  state: unknown;
+  lang?: string;
+}) => {
+  if (!stateI18n || !lang) {
+    return state;
+  }
+  return (
+    stateI18n?.[lang] ??
+    // find first non-empty
+    stateI18n?.[Object.keys(stateI18n).find((l) => stateI18n[l])] ??
+    state
+  );
+};
+
 const gridClass = (size = 12): string => `ory-cell-sm-${size} ory-cell-xs-12`;
 
 const HTMLRow: React.SFC<Partial<Row & { lang: string }>> = React.memo(
@@ -56,6 +78,7 @@ const HTMLCell: React.SFC<Cell & { lang: string }> = React.memo((props) => {
   if (layout.plugin) {
     const {
       state,
+      stateI18n,
       plugin: { Component, name, version },
     } = layout;
 
@@ -64,7 +87,8 @@ const HTMLCell: React.SFC<Cell & { lang: string }> = React.memo((props) => {
         <div className="ory-cell-inner">
           <Component
             readOnly={true}
-            state={state}
+            lang={lang}
+            state={getI18nState({ state, stateI18n, lang })}
             onChange={noop}
             id={id}
             name={name}
@@ -81,6 +105,7 @@ const HTMLCell: React.SFC<Cell & { lang: string }> = React.memo((props) => {
   } else if (content.plugin) {
     const {
       state,
+      stateI18n,
       plugin: { Component, name, version },
     } = content;
 
@@ -90,7 +115,8 @@ const HTMLCell: React.SFC<Cell & { lang: string }> = React.memo((props) => {
           <Component
             isPreviewMode={true}
             readOnly={true}
-            state={state}
+            lang={lang}
+            state={getI18nState({ state, stateI18n, lang })}
             onChange={noop}
             id={id}
             name={name}
