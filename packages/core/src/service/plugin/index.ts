@@ -225,41 +225,59 @@ export default class PluginService {
 
   getNewPluginState = (
     found: { plugin: Plugin; pluginWrongVersion?: Plugin },
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    state: any,
+
+    state: unknown,
+    stateI18n: {
+      [lang: string]: unknown;
+    },
     version: string
   ): {
     plugin: Plugin;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    state: any;
+    state: unknown;
+    stateI18n: {
+      [lang: string]: unknown;
+    };
   } => {
+    const getResult = (plugin, shouldMigrate = false) => {
+      // Attempt to migrate
+
+      const transformState = (s) => {
+        if (shouldMigrate) {
+          const migratedState = this.migratePluginState(
+            state,
+            found.pluginWrongVersion,
+            version
+          );
+          return plugin.unserialize(migratedState);
+        }
+        return plugin.unserialize(state);
+      };
+      return {
+        plugin: plugin,
+        state: transformState(state),
+        stateI18n: stateI18n
+          ? Object.keys(stateI18n).reduce(
+              (acc, lang) => ({
+                ...acc,
+                [lang]: transformState(stateI18n[lang]),
+              }),
+              {}
+            )
+          : undefined,
+      };
+    };
     if (
       !found.pluginWrongVersion ||
       semver.lt(found.pluginWrongVersion.version, version)
     ) {
       // Standard case
-      return {
-        plugin: found.plugin,
-        state: found.plugin.unserialize(state),
-      };
+      return getResult(found.plugin);
     } else {
-      // Attempt to migrate
-      const migratedState = this.migratePluginState(
-        state,
-        found.pluginWrongVersion,
-        version
-      );
-      if (found.pluginWrongVersion && migratedState) {
-        return {
-          plugin: found.pluginWrongVersion,
-          state: found.pluginWrongVersion.unserialize(migratedState),
-        };
+      if (found.pluginWrongVersion) {
+        return getResult(found.pluginWrongVersion, true);
       } else {
-        // Unable to migrate, fallback to missing plugin
-        return {
-          plugin: found.plugin,
-          state: found.plugin.unserialize(state),
-        };
+        return getResult(found.plugin);
       }
     }
   };
@@ -284,18 +302,17 @@ export default class PluginService {
 
     const {
       plugin: { name: contentName = null, version: contentVersion = '*' } = {},
-      state: contentState = {},
     } = content || {};
     const {
       plugin: { name: layoutName = null, version: layoutVersion = '*' } = {},
-      state: layoutState = {},
     } = layout || {};
 
     if (contentName) {
       const found = this.findContentPlugin(contentName, contentVersion);
       const newContentState = this.getNewPluginState(
         found,
-        contentState,
+        content.state,
+        content.stateI18n,
         contentVersion
       );
       newState.content = newContentState;
@@ -305,7 +322,8 @@ export default class PluginService {
       const found = this.findLayoutPlugin(layoutName, layoutVersion);
       const newLayoutState = this.getNewPluginState(
         found,
-        layoutState,
+        layout.state,
+        layout.stateI18n,
         layoutVersion
       );
       newState.layout = newLayoutState;
@@ -342,6 +360,15 @@ export default class PluginService {
       newState.content = {
         plugin: { name: content.plugin.name, version: content.plugin.version },
         state: content.plugin.serialize(content.state),
+        stateI18n: content.stateI18n
+          ? Object.keys(content.stateI18n).reduce(
+              (acc, lang) => ({
+                ...acc,
+                [lang]: content.plugin.serialize(content.stateI18n[lang]),
+              }),
+              {}
+            )
+          : undefined,
       };
     }
 
@@ -349,6 +376,15 @@ export default class PluginService {
       newState.layout = {
         plugin: { name: layout.plugin.name, version: layout.plugin.version },
         state: layout.plugin.serialize(layout.state),
+        stateI18n: layout.stateI18n
+          ? Object.keys(layout.stateI18n).reduce(
+              (acc, lang) => ({
+                ...acc,
+                [lang]: layout.plugin.serialize(layout.stateI18n[lang]),
+              }),
+              {}
+            )
+          : undefined,
       };
     }
 
