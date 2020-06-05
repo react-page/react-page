@@ -37,10 +37,11 @@ const Editor: React.FC<EditorProps> = ({
   dndBackend,
   blurGateDisabled,
   defaultDisplayMode,
+  lang,
   ...rest
 }) =>
   readOnly ? (
-    <HTMLRenderer state={value} plugins={plugins} />
+    <HTMLRenderer state={value} plugins={plugins} lang={lang} />
   ) : (
     <EditableEditor
       plugins={plugins}
@@ -50,6 +51,7 @@ const Editor: React.FC<EditorProps> = ({
       dndBackend={dndBackend}
       blurGateDisabled={blurGateDisabled}
       defaultDisplayMode={defaultDisplayMode}
+      lang={lang}
       {...rest}
     />
   );
