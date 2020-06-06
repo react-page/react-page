@@ -96,7 +96,12 @@ const HTMLCell: React.SFC<Cell & { lang: string }> = React.memo((props) => {
             version={version}
           >
             {rows.map((r: Row) => (
-              <HTMLRow key={r.id} {...r} className="ory-cell-inner" />
+              <HTMLRow
+                key={r.id}
+                {...r}
+                lang={lang}
+                className="ory-cell-inner"
+              />
             ))}
           </Component>
         </div>
