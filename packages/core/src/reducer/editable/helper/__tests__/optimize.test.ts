@@ -39,25 +39,29 @@ describe('optimizeRow', () => {
       in: {
         cells: [
           {
-            rows: [{ cells: [{ plugin: 'foo' }] }],
+            rows: [{ cells: [{ plugin: 'foo', size: 12 }] }],
           },
         ],
       },
       out: {
-        cells: [{ plugin: 'foo' }],
+        cells: [{ plugin: 'foo', size: 12 }],
       },
     },
     {
       in: {
         cells: [
           {
-            rows: [{ cells: [{ plugin: 'foo' }] }],
+            size: 4,
+            rows: [{ cells: [{ plugin: 'bar' }] }],
           },
-          { plugin: 'foo' },
+          { plugin: 'foo', size: 8 },
         ],
       },
       out: {
-        cells: [{ plugin: 'foo' }, { plugin: 'foo' }],
+        cells: [
+          { plugin: 'bar', size: 4 },
+          { plugin: 'foo', size: 8 },
+        ],
       },
     },
   ].forEach((c, k) => {

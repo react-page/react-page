@@ -57,14 +57,14 @@ export const optimizeRow = ({ cells, ...other }: Row): Row => ({
   ...other,
   cells: (cells || [])
     .map((c: Cell) => {
-      const { rows = [] } = c;
+      const { rows = [], size } = c;
       if (rows.length !== 1 || c.layout) {
         return [c];
       }
 
       const { cells: rowCells = [] }: Row = rows[0];
       if (rowCells.length === 1) {
-        return rowCells;
+        return rowCells.map((r) => ({ size, ...r }));
       }
 
       return [c];
