@@ -22,6 +22,7 @@ export type EditorProps = {
   readOnly?: boolean;
   defaultDisplayMode?: DisplayModes;
   blurGateDisabled?: boolean;
+  middleware?: [];
 } & SimplifiedModesProps;
 
 const Editor: React.FC<EditorProps> = ({
@@ -33,6 +34,7 @@ const Editor: React.FC<EditorProps> = ({
   dndBackend,
   blurGateDisabled,
   defaultDisplayMode,
+  middleware,
   ...rest
 }) =>
   readOnly ? (
@@ -46,6 +48,7 @@ const Editor: React.FC<EditorProps> = ({
       dndBackend={dndBackend}
       blurGateDisabled={blurGateDisabled}
       defaultDisplayMode={defaultDisplayMode}
+      middleware={middleware}
       {...rest}
     />
   );

@@ -24,6 +24,7 @@ export type EditableEditorProps = {
   onChange?: (v: EditableType) => void;
   defaultDisplayMode?: DisplayModes;
   blurGateDisabled?: boolean;
+  middleware?: [];
 } & SimplifiedModesProps;
 
 const EditableEditor: React.FC<EditableEditorProps> = ({
@@ -34,13 +35,14 @@ const EditableEditor: React.FC<EditableEditorProps> = ({
   dndBackend,
   defaultDisplayMode,
   blurGateDisabled,
+  middleware,
   ...rest
 }) => {
   const theValue = value || createEmptyState();
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const lastValueRef = useRef<any>();
 
-  const editorRef = useRef(new Editor({ defaultPlugin, plugins }));
+  const editorRef = useRef(new Editor({ defaultPlugin, plugins, middleware }));
 
   const onChangeCallback = useCallback(
     (newValue) => {
