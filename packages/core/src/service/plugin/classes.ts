@@ -124,6 +124,8 @@ export type LayoutPluginExtraProps<T = any> = {
   createInitialChildren?: () => InitialChildrenDef;
 
   Component?: PluginComponentType<LayoutPluginProps<T>>;
+
+  allowNeighbours?: boolean;
 };
 
 export type LayoutPluginProps<
@@ -495,9 +497,18 @@ export class LayoutPlugin<StateT = any> extends Plugin<
   StateT,
   LayoutPluginExtraProps
 > {
+  /**
+   * @member if true allows to drop near content
+   */
+  allowNeighbours: boolean;
+
   constructor(config: LayoutPluginConfig<StateT>) {
     super(config);
-    const { createInitialState, createInitialChildren } = config;
+    const {
+      createInitialState,
+      createInitialChildren,
+      allowNeighbours = true,
+    } = config;
 
     this.createInitialState = createInitialState
       ? createInitialState.bind(this)
@@ -505,6 +516,7 @@ export class LayoutPlugin<StateT = any> extends Plugin<
     this.createInitialChildren = createInitialChildren
       ? createInitialChildren.bind(this)
       : this.createInitialChildren;
+    this.allowNeighbours = allowNeighbours;
   }
 
   /**
