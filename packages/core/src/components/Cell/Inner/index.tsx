@@ -61,8 +61,6 @@ class Inner extends React.PureComponent<CellInnerProps> {
     } = this.props;
 
     if (rows.length && LayoutComponent) {
-      console.log(isDroppable);
-      console.log(layoutTitle);
       return isDroppable ? (
         <Droppable {...this.props} dropTypes={whitelist}>
           <Draggable
