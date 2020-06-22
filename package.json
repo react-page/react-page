@@ -1,5 +1,7 @@
 {
   "private": true,
+  "name": "@react-page",
+  "version": "0.21.2",
   "author": "ORY GmbH",
   "license": "GNU Lesser General Public License v3.0",
   "devDependencies": {
