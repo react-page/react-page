@@ -46,6 +46,7 @@ class Inner extends React.PureComponent<CellInnerProps> {
             Component: LayoutComponent = undefined,
             name: layoutType = undefined,
             text: layoutTitle = undefined,
+            allowNeighbours: isDroppable = true,
           } = {},
         } = {},
         content: {
@@ -60,7 +61,7 @@ class Inner extends React.PureComponent<CellInnerProps> {
     } = this.props;
 
     if (rows.length && LayoutComponent) {
-      return (
+      return isDroppable ? (
         <Droppable {...this.props} dropTypes={whitelist}>
           <Draggable
             {...this.props}
@@ -70,6 +71,8 @@ class Inner extends React.PureComponent<CellInnerProps> {
             <Layout {...this.props} />
           </Draggable>
         </Droppable>
+      ) : (
+        <Layout {...this.props} />
       );
     } else if (rows.length) {
       return (
