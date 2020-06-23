@@ -1,0 +1,3 @@
+[submodule "packages/core"]
+	path = packages/core
+	url = https://github.com/hb90dev/react-page-core.git
