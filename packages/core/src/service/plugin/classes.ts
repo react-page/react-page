@@ -503,7 +503,11 @@ export class LayoutPlugin<StateT = any> extends Plugin<
   allowNeighbours: boolean;
   constructor(config: LayoutPluginConfig<StateT>) {
     super(config);
-    const { createInitialState, createInitialChildren, allowNeighbours = true } = config;
+    const {
+      createInitialState,
+      createInitialChildren,
+      allowNeighbours = true
+    } = config;
 
     this.createInitialState = createInitialState
       ? createInitialState.bind(this)
