@@ -66,7 +66,14 @@ export default class PluginService {
   /**
    * Instantiate a new PluginService instance. You can provide your own set of content and layout plugins here.
    */
-  constructor({ content = [], layout = [], native }: Plugins = {} as Plugins) {
+  constructor(
+    {
+      content = [],
+      layout = [],
+      native,
+      missingPlugin,
+    }: Plugins = {} as Plugins
+  ) {
     this.plugins = {
       content: [defaultPlugin, ...content].map(
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -75,6 +82,7 @@ export default class PluginService {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       layout: layout.map((config: any) => new LayoutPlugin(config)),
       native: native,
+      missingPlugin,
     };
   }
 
@@ -161,7 +169,15 @@ export default class PluginService {
       pluginWrongVersion = this.plugins.layout.find(find(name, '*'));
     }
     return {
-      plugin: plugin || new LayoutPlugin(layoutMissing({ name, version })),
+      plugin:
+        plugin ||
+        new LayoutPlugin(
+          layoutMissing({
+            name,
+            version,
+            Component: this.plugins.missingPlugin,
+          })
+        ),
       pluginWrongVersion,
     };
   };
@@ -179,7 +195,15 @@ export default class PluginService {
       pluginWrongVersion = this.plugins.content.find(find(name, '*'));
     }
     return {
-      plugin: plugin || new ContentPlugin(contentMissing({ name, version })),
+      plugin:
+        plugin ||
+        new ContentPlugin(
+          contentMissing({
+            name,
+            version,
+            Component: this.plugins.missingPlugin,
+          })
+        ),
       pluginWrongVersion,
     };
   };
