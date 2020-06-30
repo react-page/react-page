@@ -47,8 +47,12 @@ const ContentMissingComponent = (props: ContentPluginProps<unknown>) => (
 export const contentMissing = ({
   name,
   version,
-}: Pick<ContentPluginConfig, 'name' | 'version'>): ContentPluginConfig => ({
-  Component: ContentMissingComponent,
+  Component,
+}: Pick<
+  ContentPluginConfig,
+  'name' | 'version' | 'Component'
+>): ContentPluginConfig => ({
+  Component: Component || ContentMissingComponent,
 
   name,
   version,
@@ -80,8 +84,12 @@ LayoutPluginProps<unknown> & { children: any }) => (
 export const layoutMissing = ({
   name,
   version,
-}: Pick<LayoutPluginConfig, 'name' | 'version'>): LayoutPluginConfig => ({
-  Component: LayoutMissingComponent,
+  Component,
+}: Pick<
+  LayoutPluginConfig,
+  'name' | 'version' | 'Component'
+>): LayoutPluginConfig => ({
+  Component: Component || LayoutMissingComponent,
 
   name,
   version,

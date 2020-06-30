@@ -31,12 +31,14 @@ export type Plugins = {
   layout?: LayoutPluginConfig[];
   content?: ContentPluginConfig[];
   native?: NativeFactory;
+  missingPlugin?: PluginComponentType;
 };
 
 export type PluginsInternal = {
   layout?: LayoutPlugin[];
   content?: ContentPlugin[];
   native?: NativeFactory;
+  missingPlugin?: PluginComponentType;
 };
 
 export type OmitInPluginConfig =
@@ -506,7 +508,7 @@ export class LayoutPlugin<StateT = any> extends Plugin<
     const {
       createInitialState,
       createInitialChildren,
-      allowNeighbours = true
+      allowNeighbours = true,
     } = config;
 
     this.createInitialState = createInitialState
