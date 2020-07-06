@@ -43,7 +43,11 @@ const plugins = {
 const App = () => {
   const [editorValue, setEditorValue] = useState();
   return (
-    <Editor plugins={plugins} value={editorValue} onChange={setEditorValue} />
+    <Editor 
+      plugins={plugins} 
+      defaultPlugin={slate()}
+      value={editorValue} 
+      onChange={setEditorValue} />
   );
 };
 
@@ -60,7 +64,7 @@ Simply provide a `readOnly={true}` prop to your editor from previous example. We
 
 ## Advanced
 
-The editor package from `import Editor from "@react-page/editor";` includes some pre-made UI. It can be great for quick start, but very often, you'll find yourself in a situation where you will need to modify this UI. If that's the case, follow this approach instead.
+The editor package from `import Editor from "@react-page/editor";` includes some pre-made UI. If you need to modify this UI, follow this approach instead:
 
 ```jsx
 import React, { useState } from "react";
