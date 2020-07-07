@@ -5,7 +5,8 @@ export const getTextContents = (nodes: Node[]): string[] => {
     if (node.text) {
       return [...acc, node.text];
     } else if (node.children) {
-      return [...acc, ...getTextContents(node.children)];
+      // see https://github.com/ianstormtaylor/slate/issues/3769
+      return [...acc, ...getTextContents(node.children as Node[])];
     } else {
       return acc;
     }

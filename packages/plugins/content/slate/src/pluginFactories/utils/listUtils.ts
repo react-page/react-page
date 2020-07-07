@@ -8,7 +8,7 @@ type ListBaseDef = {
 
 export const getActiveList = (editor: Editor, allListTypes: string[]) => {
   const [matchingNode] = Editor.nodes(editor, {
-    match: (elem) => allListTypes.includes(elem.type),
+    match: (elem) => allListTypes.includes(elem.type as string),
     mode: 'lowest', // FIXME: whats the best value?
   });
   return matchingNode;
@@ -93,7 +93,8 @@ const moveToParent = (
 
   if (!parentIsList) {
     const targetNode = Editor.node(editor, targetPath);
-    const onlyTextChildren = targetNode?.[0].children?.every(
+    // see https://github.com/ianstormtaylor/slate/issues/3769
+    const onlyTextChildren = (targetNode?.[0].children as Node[])?.every(
       (child) => Text.isText(child) || Editor.isInline(editor, child)
     );
     if (onlyTextChildren) {
