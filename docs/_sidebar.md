@@ -11,3 +11,4 @@
 
 - FAQ
   - [SSR](server-side-rendering.md)
+  - [IE11](ie11.md)
