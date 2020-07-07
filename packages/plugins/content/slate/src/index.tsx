@@ -159,9 +159,12 @@ function plugin<TPlugins extends SlatePluginCollection = DefaultPlugins>(
       if (s?.importFromHtml) {
         return htmlToSlate(s.importFromHtml);
       }
-      return {
-        slate: s?.slate ?? [],
-      };
+      if (s?.slate) {
+        return {
+          slate: s.slate,
+        };
+      }
+      return createInitialState();
     },
 
     // TODO this is disabled because of #207
