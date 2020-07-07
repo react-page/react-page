@@ -160,7 +160,7 @@ function plugin<TPlugins extends SlatePluginCollection = DefaultPlugins>(
         return htmlToSlate(s.importFromHtml);
       }
       return {
-        slate: s?.slate ?? [],
+        slate: s?.slate ?? createInitialState(),
       };
     },
 
