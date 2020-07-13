@@ -43,7 +43,8 @@ function Controls<T>(props: ControlProps<T>) {
   const [preview, setPreview] = useState<T>();
   useEffect(() => {
     setPreview(props.state);
-  }, [props.lang]);
+  }, [props.lang, props.state]);
+
   const onSubmit = useCallback((model: T) => {
     setPreview(model);
     saveDebounced(model);
