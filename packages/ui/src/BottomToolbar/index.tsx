@@ -3,19 +3,15 @@ import {
   Divider,
   Grid,
   IconButton,
-  Typography,
   Tooltip,
+  Typography,
 } from '@material-ui/core';
 import Drawer from '@material-ui/core/Drawer';
-import Delete from '@material-ui/icons/Delete';
 import FormatSize from '@material-ui/icons/FormatSize';
 import * as React from 'react';
-import DraftSwitch from '../DraftSwitch';
-import DuplicateButton from '../DuplicateButton';
 import ThemeProvider, { darkTheme } from '../ThemeProvider';
+import Tools from './Tools';
 import { BottomToolbarProps } from './types';
-import SelectParentButton from '../SelectParentButton';
-import SelectLang from '../SelectLang';
 const darkBlack = 'rgba(0, 0, 0, 0.87)';
 const bright = 'rgba(255,255,255, 0.98)';
 const brightBorder = 'rgba(0, 0, 0, 0.12)';
@@ -106,7 +102,6 @@ const BottomToolbar: React.SFC<BottomToolbarProps> = ({
                 <Typography variant="subtitle1">{title}</Typography>
               </Grid>
               <Grid item={true}>
-                {' '}
                 <Tooltip title="Toggle Size">
                   <IconButton
                     onClick={toggleSize}
@@ -119,21 +114,7 @@ const BottomToolbar: React.SFC<BottomToolbarProps> = ({
               </Grid>
 
               <Grid item={true} style={{ marginLeft: 'auto' }}>
-                <SelectLang />
-                <DraftSwitch id={id} editable={editable} />
-                <DuplicateButton id={id} editable={editable} />
-                <SelectParentButton id={id} editable={editable} />
-                {onDelete ? (
-                  <Tooltip title="Remove Plugin">
-                    <IconButton
-                      onClick={onDelete}
-                      aria-label="delete"
-                      color="secondary"
-                    >
-                      <Delete />
-                    </IconButton>
-                  </Tooltip>
-                ) : null}
+                <Tools id={id} editable={editable} onDelete={onDelete} />
               </Grid>
             </Grid>
           </>

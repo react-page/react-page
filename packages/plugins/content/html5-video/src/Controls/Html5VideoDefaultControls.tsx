@@ -21,6 +21,7 @@ const Html5VideoDefaultControls: React.SFC<Html5VideoControlsProps> = (
 
     remove,
   } = props;
+
   return (
     <BottomToolbar
       open={focused}

@@ -62,7 +62,7 @@ export const cell = (s: Cell, a: AnyAction): Cell =>
               return {
                 ...reduced,
                 isDraftI18n: {
-                  ...reduced.isDraft,
+                  ...reduced.isDraftI18n,
                   [action.lang]: action.isDraft,
                 },
               };

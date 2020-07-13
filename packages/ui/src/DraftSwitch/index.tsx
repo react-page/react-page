@@ -5,10 +5,13 @@ import { Actions, connect, Selectors } from '@react-page/core';
 import React from 'react';
 import { createStructuredSelector } from 'reselect';
 
-const DraftSwitch = ({ id, node, setDraft, lang }) => {
-  const isDraft = node?.isDraftI18n?.[lang] ?? node?.isDraft; // fallback to legacy
+const DraftSwitch = ({ id, node, setDraft, currentLang, lang }) => {
+  const theLang = lang ?? currentLang;
+  const hasI18n = Boolean(node.isDraftI18n);
+  const isDraft = node?.isDraftI18n?.[theLang] ?? node?.isDraft; // fallback to legacy
+  const title = isDraft ? 'Content is hidden' : 'Content is visible';
   return node ? (
-    <Tooltip title={isDraft ? 'Content is draft' : 'Content is visible'}>
+    <Tooltip title={title + (hasI18n ? ' in ' + theLang : '')}>
       <FormControlLabel
         style={{ marginRight: 5 }}
         labelPlacement="start"
@@ -16,9 +19,9 @@ const DraftSwitch = ({ id, node, setDraft, lang }) => {
           <Switch
             color="primary"
             checked={!isDraft}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              setDraft(id, !e.target.checked, lang)
-            }
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+              setDraft(id, !e.target.checked, theLang);
+            }}
           />
         }
         label={
@@ -35,7 +38,7 @@ const DraftSwitch = ({ id, node, setDraft, lang }) => {
 
 const mapStateToProps = createStructuredSelector({
   node: Selectors.Editable.node,
-  lang: Selectors.Setting.getLang,
+  currentLang: Selectors.Setting.getLang,
 });
 
 const mapDispatchToProps = {
