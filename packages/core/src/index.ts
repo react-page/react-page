@@ -34,8 +34,10 @@ import {
   Row,
 } from './types/editable';
 import { RootState } from './types/state';
+import { setAllSizesAndOptimize } from './reducer/editable/helper/setAllSizesAndOptimize';
 export { BackendFactory as DndBackend, DropTarget, DragSource };
 export {
+  setAllSizesAndOptimize,
   Migration,
   createEmptyState,
   CoreEditorProps,
@@ -63,7 +65,7 @@ export {
   LayoutPlugin,
   Editor,
   reducer,
-  editableReducer,
+  editableReducer, // deprecated
   ReduxProvider,
   connect,
   ReduxContext,

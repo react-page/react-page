@@ -50,6 +50,7 @@ export type AbstractCell<T> = {
   resizable?: boolean;
   bounds?: { left: number; right: number };
   hasInlineNeighbour?: string;
+
   levels?: Levels;
 };
 
@@ -66,6 +67,7 @@ export const createCell = (): Cell => ({
   resizable: false,
   bounds: { left: 0, right: 0 },
   hasInlineNeighbour: null,
+
   levels: {
     above: 0,
     below: 0,
@@ -142,7 +144,7 @@ export type Row = {
   id: string;
   hover?: string;
   cells?: Cell[];
-  hasInlineChildren?: boolean;
+
   levels?: Levels;
   className?: string;
 };
@@ -152,6 +154,7 @@ export type RowComponetized = {
   hover?: string;
   cells: Array<string>;
   hasInlineChildren: boolean;
+
   inline: boolean;
 };
 
@@ -159,7 +162,6 @@ export const createRow = (): Row => ({
   id: '',
   hover: null,
   cells: [],
-  hasInlineChildren: false,
 });
 
 export type ComponetizedRow = {

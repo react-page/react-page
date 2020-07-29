@@ -6,6 +6,7 @@ import {
   Plugins,
   PluginService,
   Row,
+  setAllSizesAndOptimize,
 } from '@react-page/core';
 import classNames from 'classnames';
 import * as React from 'react';
@@ -34,11 +35,14 @@ const getI18nState = ({
 
 const gridClass = (size = 12): string => `ory-cell-sm-${size} ory-cell-xs-12`;
 
+const rowHasInlineChildren = ({ cells }) =>
+  Boolean(cells.length === 2 && Boolean(cells[0].inline));
+
 const HTMLRow: React.SFC<Partial<Row & { lang: string }>> = React.memo(
-  ({ cells = [], className, hasInlineChildren, lang }) => (
+  ({ cells = [], className, lang }) => (
     <div
       className={classNames('ory-row', className, {
-        'ory-row-has-floating-children': hasInlineChildren,
+        'ory-row-has-floating-children': rowHasInlineChildren({ cells }),
       })}
     >
       {cells.map((c) => (
@@ -160,8 +164,10 @@ export interface HTMLRendererProps {
 export const HTMLRenderer: React.SFC<HTMLRendererProps> = React.memo(
   ({ state, plugins, lang = null }) => {
     const service = new PluginService(plugins);
-    const props = service.unserialize(state);
+    const { cells, ...props } = service.unserialize(state);
 
-    return <HTMLRow lang={lang} {...props} />;
+    return (
+      <HTMLRow lang={lang} cells={setAllSizesAndOptimize(cells)} {...props} />
+    );
   }
 );

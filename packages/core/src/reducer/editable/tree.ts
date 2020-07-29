@@ -20,7 +20,7 @@ import {
 import { Cell, createCell, createRow, Row } from '../../types/editable';
 import { CellHoverAction } from './../../actions/cell/drag';
 import { isHoveringThis } from './helper/hover';
-import { computeRow } from './helper/inline';
+
 import {
   flatten,
   optimizeCell,
@@ -311,59 +311,57 @@ export const cells = (s: Cell[] = [], a: AnyAction): Cell[] =>
   );
 
 export const row = (s: Row, a: AnyAction): Row =>
-  computeRow(
-    optimizeRow(
-      ((state: Row, action: AnyAction): Row => {
-        const reduce = () => ({
-          ...state,
-          hover: null,
-          cells: cells(state.cells, action),
-        });
+  optimizeRow(
+    ((state: Row, action: AnyAction): Row => {
+      const reduce = () => ({
+        ...state,
+        hover: null,
+        cells: cells(state.cells, action),
+      });
 
-        switch (action.type) {
-          case CELL_INSERT_LEFT_OF:
-            if (!isHoveringThis(state, action as CellHoverAction)) {
-              return reduce();
-            }
-            return {
-              ...state,
-              hover: null,
-              cells: cells(
-                [
-                  { ...action.item, id: action.ids.item, inline: null },
-                  ...state.cells,
-                ],
-                { ...action, hover: null }
-              ),
-            };
-
-          case CELL_INSERT_RIGHT_OF:
-            if (!isHoveringThis(state, action as CellHoverAction)) {
-              return reduce();
-            }
-            return {
-              ...state,
-              hover: null,
-              cells: cells(
-                [
-                  ...state.cells,
-                  { ...action.item, id: action.ids.item, inline: null },
-                ],
-                { ...action, hover: null }
-              ),
-            };
-
-          case CELL_DRAG_HOVER:
-            if (isHoveringThis(state, action as CellHoverAction)) {
-              return { ...reduce(), hover: action.position };
-            }
+      switch (action.type) {
+        case CELL_INSERT_LEFT_OF:
+          if (!isHoveringThis(state, action as CellHoverAction)) {
             return reduce();
+          }
+          return {
+            ...state,
+            hover: null,
+            cells: cells(
+              [
+                { ...action.item, id: action.ids.item, inline: null },
+                ...state.cells,
+              ],
+              { ...action, hover: null }
+            ),
+          };
 
-          default:
+        case CELL_INSERT_RIGHT_OF:
+          if (!isHoveringThis(state, action as CellHoverAction)) {
             return reduce();
-        }
-      })(s, a)
-    )
+          }
+          return {
+            ...state,
+            hover: null,
+            cells: cells(
+              [
+                ...state.cells,
+                { ...action.item, id: action.ids.item, inline: null },
+              ],
+              { ...action, hover: null }
+            ),
+          };
+
+        case CELL_DRAG_HOVER:
+          if (isHoveringThis(state, action as CellHoverAction)) {
+            return { ...reduce(), hover: action.position };
+          }
+          return reduce();
+
+        default:
+          return reduce();
+      }
+    })(s, a)
   );
 
 export const rows = (s: Row[] = [], a: AnyAction): Row[] =>
