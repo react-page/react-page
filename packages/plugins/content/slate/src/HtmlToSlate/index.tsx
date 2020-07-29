@@ -39,6 +39,7 @@ const HtmlToSlate = ({ plugins }: { plugins: SlatePlugin[] }) => {
       if (!elHtml.style) {
         // xmldom has no style attribute
         // we monkey patch it in for easier style parsing
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         (elHtml as any).style = new CSSStyleDeclaration();
         elHtml.style.cssText = elHtml.getAttribute('style');
       }
@@ -65,9 +66,9 @@ const HtmlToSlate = ({ plugins }: { plugins: SlatePlugin[] }) => {
   return (htmlString: string): SlateState => {
     const parsed = parseHtml(htmlString);
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const fragment = (deserializeElement(
       parsed.documentElement
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     ) as unknown) as any[];
 
     return {
