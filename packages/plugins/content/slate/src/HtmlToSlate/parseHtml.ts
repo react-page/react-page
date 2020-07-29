@@ -1,6 +1,5 @@
-const { JSDOM } = require('jsdom');
+import { DOMParser } from 'xmldom';
 
-const DOMParser = new JSDOM().window.DOMParser;
 export default (html: string) => {
   return new DOMParser().parseFromString(html, 'text/html');
 };

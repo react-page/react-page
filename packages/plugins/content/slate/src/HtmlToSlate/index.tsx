@@ -6,11 +6,13 @@ import parseHtml from './parseHtml';
 
 const HtmlToSlate = ({ plugins }: { plugins: SlatePlugin[] }) => {
   const deserializeElement = (el: Node) => {
+    const nodename = el.nodeName.toUpperCase();
+
     if (el.nodeType === 3) {
       return el.textContent;
     } else if (el.nodeType !== 1) {
       return null;
-    } else if (el.nodeName === 'BR') {
+    } else if (nodename === 'BR') {
       return '\n';
     }
 
@@ -22,7 +24,7 @@ const HtmlToSlate = ({ plugins }: { plugins: SlatePlugin[] }) => {
       Array.from(parent.childNodes).map(deserializeElement)
     );
 
-    if (el.nodeName === 'BODY') {
+    if (nodename === 'BODY') {
       return jsx('fragment', {}, children);
     }
 
@@ -33,15 +35,23 @@ const HtmlToSlate = ({ plugins }: { plugins: SlatePlugin[] }) => {
       );
     });
     if (matchingPlugin && matchingPlugin.pluginType === 'component') {
+      const elHtml = el as HTMLElement;
+      if (!elHtml.style) {
+        // @ts-ignore
+        // xmldom has no style attribute
+        // we monkey patch it in for easier style parsing
+        elHtml.style = new CSSStyleDeclaration();
+        elHtml.style.cssText = elHtml.getAttribute('style');
+      }
       if (matchingPlugin.object === 'mark') {
         const attrs = {
           [matchingPlugin.type]:
-            matchingPlugin?.deserialize?.getData?.(el as HTMLElement) ?? true,
+            matchingPlugin?.deserialize?.getData?.(elHtml) ?? true,
         };
 
         return children.map((child) => jsx('text', attrs, child));
       } else {
-        const data = matchingPlugin?.deserialize?.getData?.(el as HTMLElement);
+        const data = matchingPlugin?.deserialize?.getData?.(elHtml);
         const attrs = {
           type: matchingPlugin.type,
           ...(data ? { data } : {}), // don't add data if its empty
@@ -57,10 +67,12 @@ const HtmlToSlate = ({ plugins }: { plugins: SlatePlugin[] }) => {
     const parsed = parseHtml(htmlString);
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const fragment = (deserializeElement(parsed.body) as unknown) as any[];
+    const fragment = (deserializeElement(
+      parsed.documentElement
+    ) as unknown) as any[];
 
     return {
-      slate: fragment,
+      slate: Array.isArray(fragment) ? fragment : [fragment],
     };
   };
 };
