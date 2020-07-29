@@ -1,7 +1,6 @@
 import {
   Cell,
   Content,
-  editableReducer,
   EditableType,
   Layout,
   Plugins,
@@ -161,9 +160,7 @@ export interface HTMLRendererProps {
 export const HTMLRenderer: React.SFC<HTMLRendererProps> = React.memo(
   ({ state, plugins, lang = null }) => {
     const service = new PluginService(plugins);
-    const props = editableReducer(service.unserialize(state), {
-      type: 'renderer/noop',
-    });
+    const props = service.unserialize(state);
 
     return <HTMLRow lang={lang} {...props} />;
   }
