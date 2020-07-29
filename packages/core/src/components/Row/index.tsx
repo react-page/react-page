@@ -39,10 +39,12 @@ import { blurAllCells } from '../../actions/cell';
 import { ComponetizedRow, SimplifiedModesProps } from '../../types/editable';
 import { RootState } from '../../types/state';
 
-class Row extends React.PureComponent<ComponetizedRow & SimplifiedModesProps> {
+class Row extends React.PureComponent<
+  ComponetizedRow & SimplifiedModesProps & { rawNode: () => Row }
+> {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   Droppable: any;
-  constructor(props: ComponetizedRow) {
+  constructor(props) {
     super(props);
     const {
       config: { whitelist },

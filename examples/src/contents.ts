@@ -234,7 +234,7 @@ const contents: EditableType[] = [
                         type: 'HEADINGS/HEADING-TWO',
                         children: [
                           {
-                            text: 'What\'s the problem?',
+                            text: "What's the problem?",
                           },
                         ],
                       },
@@ -345,7 +345,7 @@ const contents: EditableType[] = [
                         type: 'HEADINGS/HEADING-TWO',
                         children: [
                           {
-                            text: 'So what\'s different?',
+                            text: "So what's different?",
                           },
                         ],
                       },
@@ -627,7 +627,7 @@ const contents: EditableType[] = [
                         children: [
                           {
                             text:
-                              'Today\'s content is more than a monolithic blob of text. ReactPage allows you to define your own layout blocks, and create content that looks good on all devices.',
+                              "Today's content is more than a monolithic blob of text. ReactPage allows you to define your own layout blocks, and create content that looks good on all devices.",
                           },
                         ],
                       },
@@ -666,7 +666,7 @@ const contents: EditableType[] = [
                         children: [
                           {
                             text:
-                              'Most web editors work on top of the DOM. This is dangerous (XSS), hard to maintain and difficult to parse. ReactPage uses JSON only - everywhere! It\'s sane, tested, clean and minimal.',
+                              "Most web editors work on top of the DOM. This is dangerous (XSS), hard to maintain and difficult to parse. ReactPage uses JSON only - everywhere! It's sane, tested, clean and minimal.",
                           },
                         ],
                       },
@@ -750,7 +750,7 @@ const contents: EditableType[] = [
                                 children: [
                                   {
                                     text:
-                                      'You don\'t like our rich text solution, require custom layout components, need a twitter feed, want to contribute or even sell plugins? No problem with our easy-to-use React Plugin API!',
+                                      "You don't like our rich text solution, require custom layout components, need a twitter feed, want to contribute or even sell plugins? No problem with our easy-to-use React Plugin API!",
                                   },
                                 ],
                               },
@@ -987,7 +987,7 @@ const contents: EditableType[] = [
                         type: 'HEADINGS/HEADING-TWO',
                         children: [
                           {
-                            text: 'That\'s all?',
+                            text: "That's all?",
                           },
                         ],
                       },
