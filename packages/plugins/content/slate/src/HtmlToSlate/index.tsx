@@ -64,7 +64,7 @@ const HtmlToSlate = ({ plugins }: { plugins: SlatePlugin[] }) => {
   };
 
   return (htmlString: string): SlateState => {
-    const parsed = parseHtml('<bod>' + htmlString + '</body>');
+    const parsed = parseHtml('<body>' + htmlString + '</body>');
 
     const fragment = (deserializeElement(
       parsed.documentElement
