@@ -14,9 +14,13 @@ import pluginDefault from './service/plugin/default';
 import createStore from './store';
 import { EditableType } from './types/editable';
 import { RootState } from './types/state';
+import { setLang } from './actions/setting';
 
-const initialState = () => ({
+const initialState = ({ lang }) => ({
   reactPage: {
+    settings: {
+      lang,
+    },
     editables: {
       past: [],
       present: [],
@@ -45,7 +49,11 @@ const update = (editor: Editor) => (editable: EditableType) => {
   } as any);
 };
 
-export interface EditorProps<T extends RootState = RootState> {
+export type Languages = Array<{
+  lang: string;
+  label: string;
+}>;
+export interface CoreEditorProps<T extends RootState = RootState> {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   plugins?: Plugins;
   middleware?: [];
@@ -53,6 +61,8 @@ export interface EditorProps<T extends RootState = RootState> {
   defaultPlugin?: ContentPluginConfig | LayoutPluginConfig;
 
   store?: Store<T>;
+  languages?: Languages;
+  lang?: string;
 }
 
 /**
@@ -67,16 +77,20 @@ class Editor<T extends RootState = RootState> {
 
   trigger: ActionsTypes;
   query = {};
+  languages?: Languages;
 
   constructor({
     plugins,
     middleware = [],
     editables = [],
     defaultPlugin = pluginDefault,
-
     store,
-  }: EditorProps<T> = {}) {
-    this.store = store || createStore(initialState(), middleware);
+    languages = [],
+    lang,
+  }: CoreEditorProps<T> = {}) {
+    this.store =
+      store ||
+      createStore(initialState({ lang: lang || languages[0] }), middleware);
     this.plugins = new PluginService(plugins);
     this.middleware = middleware;
     this.trigger = actions(this.store.dispatch);
@@ -87,7 +101,16 @@ class Editor<T extends RootState = RootState> {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     this.trigger.editable.update = update(this) as any;
 
+    this.languages = languages;
+    if (languages?.length > 0) {
+      console.warn('setting languages is an experimental feature');
+    }
+
     editables.forEach(this.trigger.editable.add);
+  }
+
+  public setLang(lang: string) {
+    this.store.dispatch(setLang(lang));
   }
 
   public refreshEditables = () => {

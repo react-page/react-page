@@ -65,7 +65,7 @@ import {
   resizeMode,
 } from './display';
 import { cellActions } from './cell';
-import { updateSetting } from './setting';
+import { setLang } from './setting';
 const Display = {
   insertMode,
   editMode,
@@ -75,7 +75,7 @@ const Display = {
 };
 
 const Setting = {
-  updateSetting,
+  setLang,
 };
 const Cell = cellActions;
 
@@ -87,10 +87,10 @@ export const Actions = {
 
 export const actions = (dispatch) => ({
   cell: {
-    updateContent: (id: string, state: {}) =>
-      dispatch(updateCellContent(id)(state)),
-    updateLayout: (id: string, state: {}) =>
-      dispatch(updateCellLayout(id)(state)),
+    updateContent: (id: string, state: {}, lang) =>
+      dispatch(updateCellContent(id)(state, lang)),
+    updateLayout: (id: string, state: {}, lang) =>
+      dispatch(updateCellLayout(id)(state, lang)),
 
     remove: bindActionCreators({ removeCell }, dispatch).removeCell,
     resize: (id: string, size: number) => dispatch(resizeCell(id)(size)),
