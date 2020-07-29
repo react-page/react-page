@@ -168,6 +168,21 @@ describe('HtmlToSlate', () => {
         ],
       },
     },
+    {
+      html: '<h1>Hello World</h1><p>Lorem ipsum</p>',
+      expected: {
+        slate: [
+          {
+            type: 'HEADINGS/HEADING-ONE',
+            children: [{ text: 'Hello World' }],
+          },
+          {
+            type: 'PARAGRAPH/PARAGRAPH',
+            children: [{ text: 'Lorem ipsum' }],
+          },
+        ],
+      },
+    },
   ].forEach((c, k) => {
     describe(`test case ${k}`, () => {
       it(`should make slate state from html: ${c.html}`, () => {
