@@ -8,9 +8,11 @@ import {
   LayoutPluginConfig,
   DndBackend,
   EditableType,
+  Languages,
 } from '@react-page/core';
 import EditorUI from '@react-page/ui';
 import React, { useEffect, useRef, useCallback } from 'react';
+
 import StickyWrapper from './StickyWrapper';
 import equals from 'fast-deep-equal';
 import { SimplifiedModesProps } from '@react-page/core/src/types/editable';
@@ -24,6 +26,9 @@ export type EditableEditorProps = {
   onChange?: (v: EditableType) => void;
   defaultDisplayMode?: DisplayModes;
   blurGateDisabled?: boolean;
+  languages?: Languages;
+  lang?: string;
+  onChangeLang?: (l: string) => void;
 } & SimplifiedModesProps;
 
 const EditableEditor: React.FC<EditableEditorProps> = ({
@@ -34,13 +39,18 @@ const EditableEditor: React.FC<EditableEditorProps> = ({
   dndBackend,
   defaultDisplayMode,
   blurGateDisabled,
+  lang,
+  languages,
+  onChangeLang,
   ...rest
 }) => {
   const theValue = value || createEmptyState();
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const lastValueRef = useRef<any>();
 
-  const editorRef = useRef(new Editor({ defaultPlugin, plugins }));
+  const editorRef = useRef(
+    new Editor({ defaultPlugin, plugins, languages, lang })
+  );
 
   const onChangeCallback = useCallback(
     (newValue) => {
@@ -59,7 +69,6 @@ const EditableEditor: React.FC<EditableEditorProps> = ({
       editorRef.current.trigger.editable.update(theValue);
     }
   }, [equal]);
-
   const editor = editorRef.current;
 
   return (
@@ -73,6 +82,8 @@ const EditableEditor: React.FC<EditableEditorProps> = ({
         {(stickyNess) => (
           <>
             <Editable
+              lang={lang}
+              onChangeLang={onChangeLang}
               id={lastValueRef.current?.id}
               onChange={onChangeCallback}
               {...rest}

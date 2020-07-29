@@ -42,12 +42,14 @@ export interface UpdateCellContentAction extends Action {
   ts: Date;
   id: string;
   state: EditorState;
+  lang?: string;
 }
 
 export interface UpdateCellIsDraftAction extends Action {
   ts: Date;
   id: string;
   isDraft: boolean;
+  lang?: string;
 }
 /**
  * An action creator for updating a cell's content data.
@@ -61,12 +63,14 @@ export interface UpdateCellIsDraftAction extends Action {
  * @return {Action}
  */
 export const updateCellContent = (id: string) => (
-  state: EditorState = {}
+  state: EditorState = {},
+  lang?: string
 ): UpdateCellContentAction => ({
   type: CELL_UPDATE_CONTENT,
   ts: new Date(),
   id,
   state,
+  lang,
 });
 
 /**
@@ -82,18 +86,21 @@ export const updateCellContent = (id: string) => (
  */
 export const updateCellIsDraft = (
   id: string,
-  isDraft = false
+  isDraft = false,
+  lang: string = null
 ): UpdateCellIsDraftAction => ({
   type: CELL_UPDATE_IS_DRAFT,
   ts: new Date(),
   id,
   isDraft,
+  lang,
 });
 
 export interface UpdateCellLayoutAction extends Action {
   ts: Date;
   id: string;
   state: EditorState;
+  lang?: string;
 }
 /**
  * An action creator for updating a cell's layout data.
@@ -107,12 +114,14 @@ export interface UpdateCellLayoutAction extends Action {
  * @return {Action}
  */
 export const updateCellLayout = (id: string) => (
-  state: EditorState = {}
+  state: EditorState = {},
+  lang?: string
 ): UpdateCellLayoutAction => ({
   type: CELL_UPDATE_LAYOUT,
   ts: new Date(),
   id,
   state,
+  lang,
 });
 
 export interface RemoveCellAction extends Action {

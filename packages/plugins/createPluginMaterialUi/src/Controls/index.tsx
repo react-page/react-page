@@ -41,6 +41,9 @@ function Controls<T>(props: ControlProps<T>) {
   );
 
   const [preview, setPreview] = useState<T>();
+  useEffect(() => {
+    setPreview(props.state);
+  }, [props.lang, props.state]);
 
   const onSubmit = useCallback((model: T) => {
     setPreview(model);
@@ -62,7 +65,6 @@ function Controls<T>(props: ControlProps<T>) {
       ...(preview ?? state ?? {}),
     });
   }, [bridge]);
-
   return (
     <>
       <Renderer {...props} state={preview ?? state} />

@@ -57,7 +57,21 @@ export const cell = (s: Cell, a: AnyAction): Cell =>
         case CELL_UPDATE_IS_DRAFT:
           if (action.id === state.id) {
             // If this cell is being focused, set the data
-            return { ...reduce(), isDraft: action.isDraft };
+            const reduced = reduce();
+            if (action.lang) {
+              return {
+                ...reduced,
+                isDraftI18n: {
+                  ...reduced.isDraftI18n,
+                  [action.lang]: action.isDraft,
+                },
+              };
+            } else {
+              return {
+                ...reduced,
+                isDraft: action.isDraft,
+              };
+            }
           }
           return { ...reduce(), focused: false, focusSource: null };
         case CELL_UPDATE_CONTENT:
@@ -67,12 +81,17 @@ export const cell = (s: Cell, a: AnyAction): Cell =>
             return {
               ...reduced,
               content: {
-                ...(state.content || {}),
-                state: {
-                  ...(reduced?.content?.state ?? {}),
-
-                  ...action.state,
-                },
+                ...(state.content ?? {}),
+                ...(action.lang
+                  ? {
+                      stateI18n: {
+                        ...(reduced.content.stateI18n ?? {}),
+                        [action.lang]: action.state,
+                      },
+                    }
+                  : {
+                      state: action.state,
+                    }),
               },
             };
           }
@@ -85,11 +104,17 @@ export const cell = (s: Cell, a: AnyAction): Cell =>
             return {
               ...reduced,
               layout: {
-                ...(state.layout || {}),
-                state: {
-                  ...(reduced?.layout?.state ?? {}),
-                  ...action.state,
-                },
+                ...(state.layout ?? {}),
+                ...(action.lang
+                  ? {
+                      stateI18n: {
+                        ...(reduced.layout.stateI18n ?? {}),
+                        [action.lang]: action.state,
+                      },
+                    }
+                  : {
+                      state: action.state,
+                    }),
               },
             };
           }
