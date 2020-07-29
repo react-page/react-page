@@ -33,7 +33,7 @@
     "uniforms-material": "~2.5.0",
     "deep-rename-keys": "^0.2.1",
     "is-hotkey": "^0.1.6",
-    "jsdom": "^15.1.1",
+    "jsdom": "^16.3.0",
     "lodash.debounce": "^4.0.8",
     "lodash.throttle": "^4.1.1",
     "lodash.isempty": "^4.4.0",
