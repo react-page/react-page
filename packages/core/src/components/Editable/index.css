@@ -23,6 +23,7 @@
 .ory-editable {
   position: relative;
   box-sizing: border-box;
+  min-height: 400px;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: -webkit-box;
@@ -39,5 +40,5 @@
   -webkit-flex-wrap: wrap;
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
-  align-items:stretch;
+  align-items: stretch;
 }
