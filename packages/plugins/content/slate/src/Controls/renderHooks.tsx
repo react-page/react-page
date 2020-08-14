@@ -34,7 +34,8 @@ export const useRenderElement = (
 
       if (matchingPlugin) {
         const { Component, getStyle } = matchingPlugin;
-        const style = getStyle ? getStyle(data) : {};
+
+        const style = getStyle ? getStyle(data || {}) : {};
         const baseProps = {
           children,
           style,
