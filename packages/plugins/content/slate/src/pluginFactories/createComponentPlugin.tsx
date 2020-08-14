@@ -3,11 +3,11 @@ import { SlatePlugin } from '../types/SlatePlugin';
 import { SlateComponentPluginDefinition } from '../types/slatePluginDefinitions';
 
 function createComponentPlugin<T = {}>(def: SlateComponentPluginDefinition<T>) {
-  const customizablePlugin = function <CT>(
+  const customizablePlugin = function <CT = T>(
     customize: (
       t: SlateComponentPluginDefinition<T>
-    ) => SlateComponentPluginDefinition<T & CT> = (d) =>
-      (d as unknown) as SlateComponentPluginDefinition<T & CT>
+    ) => SlateComponentPluginDefinition<CT> = (d) =>
+      (d as unknown) as SlateComponentPluginDefinition<CT>
   ) {
     return createComponentPlugin(customize(def));
   };

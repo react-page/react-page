@@ -1,4 +1,3 @@
-import React from 'react';
 import createComponentPlugin from '../../pluginFactories/createComponentPlugin';
 
 type Align = 'left' | 'right' | 'center' | 'justify';
@@ -23,10 +22,9 @@ export default {
       tagName: 'p',
       getData: getAlignmentFromElement,
     },
+    getStyle: ({ align }) => ({ textAlign: align }),
 
-    Component: ({ children, align }) => {
-      return <p style={{ textAlign: align }}>{children}</p>;
-    },
+    Component: 'p',
   }),
   // currently only for deserialize
   pre: createComponentPlugin<{
@@ -41,9 +39,8 @@ export default {
       tagName: 'pre',
       getData: getAlignmentFromElement,
     },
+    getStyle: ({ align }) => ({ textAlign: align }),
 
-    Component: ({ children, align }) => {
-      return <pre style={{ textAlign: align }}>{children}</pre>;
-    },
+    Component: 'pre',
   }),
 };

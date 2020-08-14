@@ -15,12 +15,12 @@ type ListDef = {
   icon?: JSX.Element;
   label?: string;
   hotKey?: string;
-  tagName: string;
+  tagName: keyof JSX.IntrinsicElements;
   noButton?: boolean; // for Li, this is automatically
   allListTypes: string[];
   listItem: {
     type: string;
-    tagName: string;
+    tagName: keyof JSX.IntrinsicElements;
   };
 };
 

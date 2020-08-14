@@ -17,7 +17,7 @@ function createHeadingsPlugin<T = {}>(def: HeadingsDef<T>) {
     replaceWithDefaultOnRemove: true,
     icon: def.icon,
     label: `Heading ${def.level}`,
-    tagName: 'h' + def.level,
+    tagName: ('h' + def.level) as keyof JSX.IntrinsicElements,
   });
 }
 

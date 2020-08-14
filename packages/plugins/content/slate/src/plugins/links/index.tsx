@@ -36,9 +36,13 @@ export default {
         openInNewWindow: el.getAttribute('target') === '_blank',
       }),
     },
-    Component: ({ children, openInNewWindow, href }) => {
+    Component: ({ children, openInNewWindow, href, attributes }) => {
       return (
-        <a target={openInNewWindow ? '_blank' : undefined} href={href}>
+        <a
+          {...attributes}
+          target={openInNewWindow ? '_blank' : undefined}
+          href={href}
+        >
           {children}
         </a>
       );

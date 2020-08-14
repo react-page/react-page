@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-types */
-import React from 'react';
+
 import { getAlignmentFromElement } from '../plugins/paragraphs';
 import { SlateComponentPluginDefinition } from '../types/slatePluginDefinitions';
 import createComponentPlugin from './createComponentPlugin';
@@ -18,7 +18,7 @@ type Def<T extends {}> = Pick<
   | 'schema'
 > & {
   replaceWithDefaultOnRemove?: boolean;
-  tagName: string;
+  tagName: keyof JSX.IntrinsicElements;
   getData?: SlateComponentPluginDefinition<
     HtmlBlockData<T>
   >['deserialize']['getData'];
@@ -50,21 +50,9 @@ function createSimpleHtmlBlockPlugin<T = {}>(def: Def<HtmlBlockData<T>>) {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       getData: def.getData || (getAlignmentFromElement as any),
     },
-    Component: ({ children, attributes, style, className, align }) => {
-      const Tag = (def.tagName as unknown) as React.ComponentType<{
-        style: object;
-        className?: string;
-      }>;
-      return (
-        <Tag
-          {...attributes}
-          className={className}
-          style={{ textAlign: align, ...style }}
-        >
-          {children}
-        </Tag>
-      );
-    },
+    getStyle: ({ align }) => ({ textAlign: align }),
+
+    Component: def.tagName,
   });
 }
 

@@ -2,7 +2,7 @@ import createSimpleHtmlBlockPlugin from './createSimpleHtmlBlockPlugin';
 
 type ListItemDef = {
   type: string;
-  tagName: string;
+  tagName: keyof JSX.IntrinsicElements;
 };
 
 export default function <T>(def: ListItemDef) {

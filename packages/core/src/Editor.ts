@@ -102,9 +102,6 @@ class Editor<T extends RootState = RootState> {
     this.trigger.editable.update = update(this) as any;
 
     this.languages = languages;
-    if (languages?.length > 0) {
-      console.warn('setting languages is an experimental feature');
-    }
 
     editables.forEach(this.trigger.editable.add);
   }
