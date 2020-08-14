@@ -60,9 +60,9 @@ isobject@^4.0.0:
   integrity sha512-S/2fF5wH8SJA/kmwr6HYhK/RI/OkhD84k8ntalo0iJjZikgq1XFvR5M8NPT1x5F7fBwCG3qHfnzeP/Vh/ZxCUA==
 
 lodash@^4.17.4:
-  version "4.17.15"
-  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.15.tgz#b447f6670a0455bbfeedd11392eff330ea097548"
-  integrity sha512-8xOcRHvCjnocdS5cpwXQXVzmmh5e5+saE2QGoeQmbKmRS6J3VQppPOIt0MnmE+4xlZoumy0GPG0D0MVIQbNA1A==
+  version "4.17.20"
+  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.20.tgz#b44a9b6297bcb698f1c51a3545a2b3b368d59c52"
+  integrity sha512-PlhdFcillOINfeV7Ni6oF1TAEayyZBoZ8bcshTHqOYJYlrqzRK5hagpagky5o4HfCzzd1TRkXPMFq6cKk9rGmA==
 
 scroll-into-view-if-needed@^2.2.20:
   version "2.2.22"
@@ -71,10 +71,10 @@ scroll-into-view-if-needed@^2.2.20:
   dependencies:
     compute-scroll-into-view "^1.0.12"
 
-slate-react@^0.57.2:
-  version "0.57.2"
-  resolved "https://registry.yarnpkg.com/slate-react/-/slate-react-0.57.2.tgz#0045258aaf0007a05f96aa09988b9a6152fdb76d"
-  integrity sha512-fg91E7XISMnFfoHB8vPbbaKoTDpaTfE+iwnG9i6EzbIfwNysz8XvLDpRW3XExm1ZtAfhEKB3Um8nPMtGaugVRg==
+slate-react@^0.58.4:
+  version "0.58.4"
+  resolved "https://registry.yarnpkg.com/slate-react/-/slate-react-0.58.4.tgz#ecde34dd322af8413c2f23f0f0a577fed2422f46"
+  integrity sha512-3JXWHVPmYrR/EMcH1qtmwXZtYxxCtuokQg+r/4wD1Ab9J3zRmW4UGLoaRP9/uQrZOAOvr8mMh4IgmrxV2dQskw==
   dependencies:
     "@types/is-hotkey" "^0.1.1"
     "@types/lodash" "^4.14.149"
@@ -84,10 +84,10 @@ slate-react@^0.57.2:
     lodash "^4.17.4"
     scroll-into-view-if-needed "^2.2.20"
 
-slate@^0.57.2:
-  version "0.57.2"
-  resolved "https://registry.yarnpkg.com/slate/-/slate-0.57.2.tgz#f45fb7a4b767c7a7a3b93365c3a446049d947f3e"
-  integrity sha512-qxx9iwNmN3fn13hPbwh1p65aNLCgpHMMK/XXLX7rBVv+GT2UFys9tU8OK6FyUF/lU2uEJ++sScDu8cHjzwLefw==
+slate@^0.58.4:
+  version "0.58.4"
+  resolved "https://registry.yarnpkg.com/slate/-/slate-0.58.4.tgz#4259387e632b45b00cf88bcecf5570d7d16ddd8b"
+  integrity sha512-XxKwNJgCMf7S2sDT8CVJy0zYm95MiYorJo9Hah05zKjItrw0VVeCc2BGKDZSlNGcaIfM3xcfFUN7XE+c8ehAbA==
   dependencies:
     "@types/esrever" "^0.2.0"
     esrever "^0.2.0"

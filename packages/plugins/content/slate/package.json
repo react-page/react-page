@@ -43,8 +43,8 @@
     "lodash.clonedeep": "^4.5.0",
     "react-portal": "4.1.5",
     "redux-undo": "^1.0.0",
-    "slate": "^0.58.3",
-    "slate-react": "^0.58.3",
+    "slate": "^0.58.4",
+    "slate-react": "^0.58.4",
     "slate-hyperscript": "^0.58.3"
   },
   "publishConfig": {

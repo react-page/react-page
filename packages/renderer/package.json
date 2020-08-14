@@ -24,8 +24,8 @@
     "@react-page/core": "0.0.0"
   },
   "devDependencies": {
-    "slate": "^0.57.2",
-    "slate-react": "^0.57.2",
+    "slate": "^0.58.4",
+    "slate-react": "^0.58.4",
     "@react-page/plugins-slate": "0.0.0"
   },
   "publishConfig": {
