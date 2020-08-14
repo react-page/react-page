@@ -77,6 +77,7 @@ type InlineProps = {
 type MarkProps = {
   object: 'mark';
 };
+type NoInfer<T> = [T][T extends any ? 0 : never];
 
 export type SlateComponentPluginDefinition<
   T extends {}
@@ -90,15 +91,17 @@ export type SlateComponentPluginDefinition<
   Component:
     | keyof JSX.IntrinsicElements
     | React.ComponentType<
-        {
-          attributes?: object;
-          style?: React.CSSProperties;
-          className?: string;
-          childNodes: Node[];
-          getTextContents: () => string[];
-          useFocused: () => boolean;
-          useSelected: () => boolean;
-        } & T
+        NoInfer<
+          {
+            attributes?: object;
+            style?: React.CSSProperties;
+            className?: string;
+            childNodes: Node[];
+            getTextContents: () => string[];
+            useFocused: () => boolean;
+            useSelected: () => boolean;
+          } & T
+        >
       >;
 } & (ObjectProps | InlineProps | MarkProps);
 
