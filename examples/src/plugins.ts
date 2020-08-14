@@ -45,7 +45,7 @@ import customContentPlugin from './customContentPlugin';
 import customContentPluginWithListField from './customContentPluginWithListField';
 import customLayoutPlugin from './customLayoutPlugin';
 import customLayoutPluginWithInitialState from './customLayoutPluginWithInitialState';
-import { defaultSlate, reducedSlate } from './slate';
+import { defaultSlate, customizedSlate } from './slate';
 
 const fakeImageUploadService: (url: string) => ImageUploadType = (
   defaultUrl
@@ -71,7 +71,7 @@ const fakeImageUploadService: (url: string) => ImageUploadType = (
 export const plugins: Plugins = {
   content: [
     defaultSlate,
-    reducedSlate,
+    customizedSlate,
     spacer,
     imagePlugin({ imageUpload: fakeImageUploadService('/images/react.png') }),
     video,

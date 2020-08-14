@@ -22,11 +22,13 @@
     "react-scripts": "3.4.0",
     "source-map-explorer": "^2.0.1",
     "react-katex": "^2.0.2",
-    "uuid": "^3.0.1"
+    "uuid": "^3.0.1",
+    "styled-components": "^5.1.1"
   },
   "devDependencies": {
     "why-did-you-update": "0.0.8",
-    "@types/uuid": "^3.4.4"
+    "@types/uuid": "^3.4.4",
+    "@types/styled-components": "^5.1.2"
   },
   "scripts": {
     "start": "SKIP_PREFLIGHT_CHECK=true react-scripts start",

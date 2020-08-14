@@ -1,6 +1,6 @@
 import { createLayoutPlugin } from '@react-page/create-plugin-materialui';
 import React from 'react';
-import { defaultSlate, reducedSlate } from './slate';
+import { defaultSlate, customizedSlate } from './slate';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export default () =>
@@ -23,8 +23,8 @@ export default () =>
         [
           {
             content: {
-              plugin: reducedSlate,
-              state: reducedSlate.createInitialSlateState(({ plugins }) => ({
+              plugin: customizedSlate,
+              state: customizedSlate.createInitialSlateState(({ plugins }) => ({
                 children: [
                   {
                     plugin: plugins.headings.h3,
@@ -87,8 +87,8 @@ export default () =>
         [
           {
             content: {
-              plugin: reducedSlate,
-              state: reducedSlate.createInitialSlateState(({ plugins }) => ({
+              plugin: customizedSlate,
+              state: customizedSlate.createInitialSlateState(({ plugins }) => ({
                 children: [
                   {
                     plugin: plugins.headings.h2,
@@ -97,9 +97,25 @@ export default () =>
                       align: 'center',
                     },
                   },
+
                   {
                     plugin: plugins.paragraphs.paragraph,
                     children: ['Another entry'],
+                    data: {
+                      align: 'center',
+                    },
+                  },
+                  {
+                    plugin: plugins.headings.h4,
+                    children: [
+                      'This is a custom slate component with additional html elements',
+                    ],
+                  },
+                  {
+                    plugin: plugins.paragraphs.paragraph,
+                    children: [
+                      'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. ',
+                    ],
                     data: {
                       align: 'center',
                     },

@@ -18,8 +18,7 @@ export const getCurrentNodeWithPlugin = <T>(
       : plugin.pluginType === 'data'
       ? // search for data
         ({ data }) => {
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          const matches = plugin.dataMatches(data as any);
+          const matches = plugin.dataMatches(data as T);
 
           return matches;
         }

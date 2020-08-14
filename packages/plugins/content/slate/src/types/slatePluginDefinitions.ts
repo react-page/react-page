@@ -82,22 +82,24 @@ export type SlateComponentPluginDefinition<
   T extends {}
 > = SlateNodeBasePluginDefinition<T> & {
   type: string;
-
+  getStyle?: (s: T) => React.CSSProperties;
   deserialize?: {
     tagName: string;
     getData?: (el: HTMLElement) => T;
   };
-  Component: React.ComponentType<
-    {
-      attributes?: object;
-      style?: object;
-      className?: string;
-      childNodes: Node[];
-      getTextContents: () => string[];
-      useFocused: () => boolean;
-      useSelected: () => boolean;
-    } & T
-  >;
+  Component:
+    | keyof JSX.IntrinsicElements
+    | React.ComponentType<
+        {
+          attributes?: object;
+          style?: React.CSSProperties;
+          className?: string;
+          childNodes: Node[];
+          getTextContents: () => string[];
+          useFocused: () => boolean;
+          useSelected: () => boolean;
+        } & T
+      >;
 } & (ObjectProps | InlineProps | MarkProps);
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
