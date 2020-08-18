@@ -78,6 +78,10 @@ export const cell = (s: Cell, a: AnyAction): Cell =>
           if (action.id === state.id) {
             // If this cell is being updated, set the data
             const reduced = reduce();
+            const emptyValue = action.state == null;
+            if (action.lang && emptyValue) {
+              delete reduced.content.stateI18n?.[action.lang];
+            }
             return {
               ...reduced,
               content: {
@@ -86,7 +90,7 @@ export const cell = (s: Cell, a: AnyAction): Cell =>
                   ? {
                       stateI18n: {
                         ...(reduced.content.stateI18n ?? {}),
-                        [action.lang]: action.state,
+                        ...(!emptyValue ? { [action.lang]: action.state } : {}),
                       },
                     }
                   : {
@@ -101,6 +105,10 @@ export const cell = (s: Cell, a: AnyAction): Cell =>
           if (action.id === state.id) {
             // If this cell is being updated, set the data
             const reduced = reduce();
+            const emptyValue = action.state == null;
+            if (action.lang && emptyValue) {
+              delete reduced.layout.stateI18n?.[action.lang];
+            }
             return {
               ...reduced,
               layout: {
@@ -109,7 +117,7 @@ export const cell = (s: Cell, a: AnyAction): Cell =>
                   ? {
                       stateI18n: {
                         ...(reduced.layout.stateI18n ?? {}),
-                        [action.lang]: action.state,
+                        ...(!emptyValue ? { [action.lang]: action.state } : {}),
                       },
                     }
                   : {
