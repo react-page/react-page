@@ -25,7 +25,7 @@ Original Library created by [@aeneasr](https://github.com/aeneasr) [@ory](https:
 
 ## In the wild
 
-- [GuestBell Hotel App](https://guest.guestbell.com/demo-hotel/app/property) - Main hotel landing page.
+- [GuestBell Hotel App](https://guest.guestbell.com/demo-hotel/app/property) - React page is used as CMS for hotel landing pages.
 
 ## Sponsored by
 
