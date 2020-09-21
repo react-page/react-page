@@ -23,7 +23,7 @@
     "react-dom": "^16.8.6"
   },
   "dependencies": {
-    "@loadable/component": "^5.10.2",
+    "@loadable/component": "5.10.3",
     "classnames": "^2.2.5",
     "lodash.throttle": "^4.1.1",
     "is-hotkey": "~0.1.6",
