@@ -45,7 +45,8 @@
     "redux-undo": "^1.0.0",
     "slate": "^0.59.0",
     "slate-react": "^0.59.0",
-    "slate-hyperscript": "^0.59.0"
+    "slate-hyperscript": "^0.59.0",
+    "@emotion/is-prop-valid": "^0.8.8"
   },
   "publishConfig": {
     "access": "public"

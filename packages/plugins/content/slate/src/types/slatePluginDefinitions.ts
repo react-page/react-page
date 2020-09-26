@@ -54,6 +54,10 @@ export type SlateDataPluginDefinition<
   T extends {}
 > = SlateNodeBasePluginDefinition<T> & {
   dataMatches: (data: T) => boolean;
+  /**
+   * if defined these properties will be removed from data when plugin gets disabled
+   */
+  properties?: Array<keyof T>;
 };
 
 export type SlateCustomPluginDefinition<

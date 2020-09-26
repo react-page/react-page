@@ -4,6 +4,7 @@ import { ReactEditor, useSlate } from 'slate-react';
 import { SlatePluginDefinition } from '../types/slatePluginDefinitions';
 import { getCurrentNodeWithPlugin } from './useCurrentNodeWithPlugin';
 import { removePlugin } from './useRemovePlugin';
+import getCurrentData from '../utils/getCurrentData';
 
 export const addPlugin = <T>(
   editor: ReactEditor,
@@ -72,7 +73,13 @@ export const addPlugin = <T>(
       }
     }
   } else if (plugin.pluginType === 'data') {
-    Transforms.setNodes(editor, { data });
+    const existingData = getCurrentData(editor);
+    Transforms.setNodes(editor, {
+      data: {
+        ...existingData,
+        ...data,
+      },
+    });
   }
 };
 
