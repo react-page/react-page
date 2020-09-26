@@ -12,7 +12,25 @@ import {
   useComponentNodePlugins,
 } from './pluginHooks';
 import { getTextContents } from '../utils/getTextContent';
+import propisValid from '@emotion/is-prop-valid';
 
+type Data = {
+  [key: string]: unknown;
+};
+const pickNativeProps = (data?: Data): Data => {
+  if (!isObject(data)) {
+    return {};
+  }
+  return Object.keys(data).reduce((acc, key) => {
+    if (propisValid(key)) {
+      return {
+        ...acc,
+        [key]: data[key],
+      };
+    }
+    return acc;
+  }, {});
+};
 export const useRenderElement = (
   {
     plugins,
@@ -35,15 +53,18 @@ export const useRenderElement = (
       if (matchingPlugin) {
         const { Component, getStyle } = matchingPlugin;
 
-        const style = getStyle ? getStyle(data || {}) : {};
+        const style = getStyle ? getStyle(data || {}) : undefined;
         const baseProps = {
           children,
           style,
         };
 
         if (typeof Component === 'string' || Component instanceof String) {
+          const nativePropsInData = pickNativeProps(data as Data);
           // simple component like "p"
-          return <Component {...attributes} {...baseProps} />;
+          return (
+            <Component {...attributes} {...baseProps} {...nativePropsInData} />
+          );
         }
 
         Component.displayName = 'SlatePlugin(' + matchingPlugin.type + ')';
@@ -56,11 +77,11 @@ export const useRenderElement = (
         };
         return (
           <Component
+            {...baseProps}
             {...data}
             // attributes have to be spread in manually because of ref problem
             attributes={attributes}
             {...additionalProps}
-            {...baseProps}
           />
         );
       }
@@ -92,12 +113,18 @@ export const useRenderLeave = (
               const { Component, getStyle } = matchingPlugin;
               const dataRaw = leaveTypes[type]; // usually boolean
               const data = isObject(dataRaw) ? dataRaw : {};
-              const style = getStyle ? getStyle(data) : {};
+
+              const style = getStyle ? getStyle(data) : undefined;
               if (
                 typeof Component === 'string' ||
                 Component instanceof String
               ) {
-                return <Component style={style}>{el}</Component>;
+                const nativePropsInData = pickNativeProps(data as Data);
+                return (
+                  <Component {...nativePropsInData} style={style}>
+                    {el}
+                  </Component>
+                );
               }
               return (
                 <Component
@@ -105,8 +132,8 @@ export const useRenderLeave = (
                   getTextContents={() => [text]}
                   useSelected={useSelected}
                   useFocused={useFocused}
-                  {...data}
                   style={style}
+                  {...data}
                 >
                   {el}
                 </Component>
