@@ -1,7 +1,7 @@
 language: node_js
 
 node_js:
-  - "12"
+  - '12'
 
 install:
   - yarn --frozen-lockfile
@@ -16,6 +16,4 @@ after_success:
 deploy:
   provider: script
   skip_cleanup: true
-  script: ./travis-deploy.sh
-  on:
-    tags: true
+  script: '//registry.npmjs.org/:_authToken=$NPM_TOKEN > ~/.npmrc && yarn run semantic-release'
