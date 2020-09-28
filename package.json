@@ -106,5 +106,6 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/react-page/react-page.git"
-  }
+  },
+  "release": {}
 }
