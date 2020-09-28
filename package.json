@@ -1,7 +1,8 @@
 {
   "private": true,
   "author": "ORY GmbH",
-  "license": "GNU Lesser General Public License v3.0",
+  "name": "react-page",
+  "license": "MIT",
   "devDependencies": {
     "@babel/cli": "7.2.0",
     "@babel/core": "7.2.0",
@@ -44,6 +45,7 @@
     "react-dom": "~16.9.0",
     "redux": "^3.6.0",
     "rimraf": "2.6.2",
+    "semantic-release": "^17.1.2",
     "ts-jest": "^26.1.0",
     "typescript": "~3.8.3",
     "unexpected": "^11.14.0"
@@ -71,7 +73,8 @@
     "postinstall": "npm-run-all clean bootstrap build:lib",
     "serve": "pushstate-server ./examples/build",
     "heroku-prebuild": "git init",
-    "heroku-postbuild": "npm-run-all build"
+    "heroku-postbuild": "npm-run-all build",
+    "semantic-release": "semantic-release"
   },
   "jest": {
     "setupFilesAfterEnv": [
@@ -98,5 +101,10 @@
       "/node_modules/",
       "/lib/"
     ]
+  },
+  "version": "0.0.0-development",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/react-page/react-page.git"
   }
 }
