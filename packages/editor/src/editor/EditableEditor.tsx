@@ -84,7 +84,7 @@ const EditableEditor: React.FC<EditableEditorProps> = ({
             <Editable
               lang={lang}
               onChangeLang={onChangeLang}
-              id={lastValueRef.current?.id}
+              id={theValue?.id}
               onChange={onChangeCallback}
               {...rest}
             />
