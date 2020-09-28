@@ -17,3 +17,5 @@ deploy:
   provider: script
   skip_cleanup: true
   script: '//registry.npmjs.org/:_authToken=$NPM_TOKEN > ~/.npmrc && yarn run semantic-release'
+  on:
+    all_branches: true # semantic release handles tht for us
