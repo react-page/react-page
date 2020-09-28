@@ -20,8 +20,8 @@
  *
  */
 
-@import "./typography.css";
-@import "./elements.css";
+@import './typography.css';
+@import './elements.css';
 
 body {
   background: #eee;
@@ -30,7 +30,7 @@ body {
   font-size: 18px;
   line-height: 28px;
 
-  font-family: "Open Sans", serif;
+  font-family: 'Open Sans', serif;
 }
 
 p {
@@ -97,7 +97,7 @@ a:hover {
 nav {
   color: #eee;
   background: #111;
-  font-family: "Open Sans", serif;
+  font-family: 'Open Sans', serif;
 }
 
 nav ul {
@@ -117,7 +117,7 @@ nav ul li a:visited {
   color: #eee;
   transition: all 200ms ease;
   text-decoration: none;
-  font-family: "Open Sans", serif;
+  font-family: 'Open Sans', serif;
 }
 
 nav ul li a:hover,

@@ -1,0 +1,36 @@
+{
+  "name": "react",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@material-ui/core": "^4.11.0",
+    "@material-ui/icons": "^4.9.1",
+    "@material-ui/styles": "^4.10.0",
+    "@react-dnd/invariant": "^2.0.0",
+    "@react-page/core": "^0.25.7",
+    "@react-page/editor": "^0.25.7",
+    "@react-page/plugins-background": "^0.25.7",
+    "@react-page/plugins-divider": "^0.25.7",
+    "@react-page/plugins-slate": "^0.25.7",
+    "@react-page/react-page": "^0.25.7",
+    "@react-page/ui": "^0.25.7",
+    "@types/react": "^16.9.49",
+    "ajv": "^6.12.5",
+    "domain": "^0.0.1",
+    "events": "^3.2.0",
+    "fast-deep-equal": "^3.1.3",
+    "lodash": "^4.17.20",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "redux": "^4.0.5"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  },
+  "devDependencies": {
+    "react-scripts": "latest"
+  }
+}
