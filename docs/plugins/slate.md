@@ -1,3 +1,14 @@
+#### [@react-page/plugins-slate](https://www.npmjs.com/package/@react-page/plugins-slate)
+
+The text editing allows you to create and modify rich-text and is optimized for use with the React Page. We strongly encourage using our text editing solution. You can check more config options about this plugin [here](plugins-slate.md).
+
+<p>
+  <figure align="center">
+    <img alt="Text editing plugin" src="./images/text-editing-plugin.gif"><br>
+    <figcaption>The text editing plugin based on <a href="http://slatejs.org">Slate</a></figcaption>
+  </figure>
+</p>
+
 ### Customize text editing
 
 By default we provide the following plugins:
@@ -15,7 +26,7 @@ By default we provide the following plugins:
 
 If you only want to include some plugins, you can specify them:
 
-```jsx
+```typescript
 import Editor from '@react-page/editor';
 import slate from '@react-page/plugins-slate';
 
@@ -45,7 +56,7 @@ const plugins: Plugins = {
 
 or if you want to add an additional plugin, you can use all default plugins like this:
 
-```jsx
+```typescript
 import slate from '@react-page/plugins-slate';
 
 
@@ -65,7 +76,7 @@ Notice: `yourCustomNamespace` and `myCustomPlugin` can be named arbitrary. Types
 
 You can customize slate plugins by providing a customize function. It will take the plugin's default config and you can return a new config. Most obvious usecase is to change the component that renders the plugin's content:
 
-```jsx
+```typescript
 // any custom component
 const RedH1 = ({ style, ...props }: Props) => (
   <h1 style={{ ...style, color: 'red' }} {...props} />
@@ -100,8 +111,8 @@ If you want to create your own slate plugins, we provide a bunch of factory func
 - `createDataPlugin`: this plugin toggles data on the current block or inline element, but does not render a component. E.g. the alignment-plugin uses this factory
   you can import these with:
 
-```jsx
-import { pluginFactories } from "@react-page/plugins-slate";
+```typescript
+import { pluginFactories } from '@react-page/plugins-slate';
 ```
 
 ### Slate-Plugins with custom data
@@ -114,7 +125,7 @@ Some plugins require custom data that the user has to provide. E.g. the `link` p
 
 For **typescript**-users: As you can see, all factories take a generic type Argument. E.g.
 
-```jsx
+```typescript
 type LinkData = {
   href: string;
   openInNewWindow?: boolean;
@@ -129,21 +140,21 @@ const yourLinkPlugin = createComponentPlugin<LinkData>({
 this ensures that whenver data is used, the type is correct. Very handy also for consumers of your plugin:
 
 ```jsx
-const linkWithMyOverrriddenComponent = yourLinkPlugin(def => ({
+const linkWithMyOverrriddenComponent = yourLinkPlugin((def) => ({
   ...def,
   Component: ({ data, children }) => (
     <SuperFancyLink
-      href={data.get("href") /* neat! autocompletion and type checking here! */}
+      href={data.get('href') /* neat! autocompletion and type checking here! */}
     >
       {children}
     </SuperFancyLink>
-  )
+  ),
 }));
 ```
 
 the consumer could even change the add more properties to the data type, altough its up to him/her to adjust the controls and serialization so that the new DataType is satisfied:
 
-```jsx
+```typescript
 const linkWithTracking = yourLinkPlugin<{campaignTrackingId: string}>(def => ({
   ...def,
   Component: ({data, children}) => (
@@ -185,7 +196,7 @@ const linkWithTracking = yourLinkPlugin<{campaignTrackingId: string}>(def => ({
 
 You might want to restrict slate in certain layout plugins. E.g. you have a info-box where you only want to allow: h3, bold, emphasize and underline:
 
-```
+```typescript
 // this is the default slate configuration with all plugins
 const defaultSlate = slate();
 
@@ -263,5 +274,4 @@ const infobox = createLayoutPlugin({
     ]
  }}
  onChange={save} />
-
 ```

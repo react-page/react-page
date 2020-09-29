@@ -1,5 +1,3 @@
-# Getting started
-
 ## Installation
 
 To install the editor, use:
