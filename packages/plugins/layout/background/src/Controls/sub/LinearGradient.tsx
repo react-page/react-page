@@ -3,8 +3,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Slider from '@material-ui/core/Slider';
 import Typography from '@material-ui/core/Typography';
 import DeleteIcon from '@material-ui/icons/Delete';
-import { ColorPicker } from '@react-page/ui';
-import { RGBColor } from '@react-page/ui/lib/ColorPicker/types';
+import { ColorPicker, RGBColor } from '@react-page/ui';
 import * as React from 'react';
 import { BackgroundProps } from '../../types/component';
 

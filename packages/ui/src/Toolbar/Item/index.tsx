@@ -1,98 +1,47 @@
-/*
- * This file is part of ORY Editor.
- *
- * ORY Editor is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * ORY Editor is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public License
- * along with ORY Editor.  If not, see <http://www.gnu.org/licenses/>.
- *
- * @license LGPL-3.0
- * @copyright 2016-2018 Aeneas Rekkas
- * @author Aeneas Rekkas <aeneas+oss@aeneas.io>
- *
- */
 import Avatar from '@material-ui/core/Avatar';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import DragHandle from '@material-ui/icons/DragHandle';
 import { Plugin } from '@react-page/core';
-import Tooltip from 'rc-tooltip';
+
 import * as React from 'react';
 import { Translations } from '../';
 import draggable from '../Draggable/index';
+import { Tooltip } from '@material-ui/core';
 
-export interface ItemProps {
+interface ItemProps {
   plugin: Plugin;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   insert: any;
   translations: Translations;
 }
 
-export interface ItemState {
-  tooltipVisible: boolean;
-}
-
-class Item extends React.Component<ItemProps, ItemState> {
-  constructor(props: ItemProps) {
-    super(props);
-    this.state = {
-      tooltipVisible: false,
-    };
+const Item: React.FC<ItemProps> = ({ plugin, insert, translations }) => {
+  if (!plugin.IconComponent && !plugin.text) {
+    // logger.warn('Plugin text or plugin icon missing', plugin)
+    return null;
   }
-  onMouseEnter = () => {
-    this.setState({ tooltipVisible: true });
-  };
+  const Draggable = draggable(plugin.name);
 
-  onMouseLeave = () => {
-    this.setState({ tooltipVisible: false });
-  };
-
-  render() {
-    const { plugin, insert } = this.props;
-    if (!plugin.IconComponent && !plugin.text) {
-      // logger.warn('Plugin text or plugin icon missing', plugin)
-      return null;
-    }
-
-    const Draggable = draggable(plugin.name);
-
-    // not using css modules here because they don't work with svg icons
-    return (
-      <ListItem className="ory-toolbar-item">
-        <Avatar
-          children={plugin.IconComponent || plugin.text[0]}
-          style={{
-            marginRight: 16,
-          }}
-        />
-        <ListItemText primary={plugin.text} secondary={plugin.description} />
-        <span
-          className="ory-toolbar-item-drag-handle-button"
-          onMouseEnter={this.onMouseEnter}
-          onMouseLeave={this.onMouseLeave}
-          onMouseDown={this.onMouseLeave}
-        >
-          <Draggable insert={insert}>
-            <Tooltip
-              visible={this.state.tooltipVisible}
-              placement="bottomLeft"
-              overlay={<span>{this.props.translations.dragMe}</span>}
-            >
-              <DragHandle className="ory-toolbar-item-drag-handle" />
-            </Tooltip>
-          </Draggable>
-        </span>
-      </ListItem>
-    );
-  }
-}
+  // not using css modules here because they don't work with svg icons
+  return (
+    <ListItem className="ory-toolbar-item">
+      <Avatar
+        children={plugin.IconComponent || plugin.text[0]}
+        style={{
+          marginRight: 16,
+        }}
+      />
+      <ListItemText primary={plugin.text} secondary={plugin.description} />
+      <span className="ory-toolbar-item-drag-handle-button">
+        <Draggable insert={insert}>
+          <Tooltip title={translations.dragMe}>
+            <DragHandle className="ory-toolbar-item-drag-handle" />
+          </Tooltip>
+        </Draggable>
+      </span>
+    </ListItem>
+  );
+};
 
 export default Item;

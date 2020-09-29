@@ -3,7 +3,12 @@ import loadable from '@loadable/component';
 import { BottomToolbarProps } from './BottomToolbar/types';
 import { colorToString } from './ColorPicker/colorToString';
 import darkTheme from './ThemeProvider/DarkTheme';
-
+import {
+  ImageUploadType,
+  ImageUploaded,
+  ImageLoaded,
+} from './ImageUpload/types';
+import { RGBColor } from './ColorPicker/types';
 const Trash = loadable(() => import('./Trash/index'));
 const Toolbar = loadable(() => import('./Toolbar/index'));
 const DisplayModeToggle = loadable(() => import('./DisplayModeToggle/index'));
@@ -25,6 +30,10 @@ export {
   ThemeProvider,
   darkTheme,
   ImageUpload,
+  ImageUploaded,
+  ImageLoaded,
+  ImageUploadType,
   ColorPicker,
   colorToString,
+  RGBColor,
 };

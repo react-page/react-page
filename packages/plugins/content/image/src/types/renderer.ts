@@ -1,5 +1,5 @@
 import { ImageProps } from './component';
-import { ImageLoaded } from '@react-page/ui/lib/ImageUpload/types';
+import { ImageLoaded } from '@react-page/ui';
 
 export interface ImageRendererExtraProps {
   imagePreview?: ImageLoaded;

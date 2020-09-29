@@ -1,6 +1,6 @@
 import { ModeEnum } from './ModeEnum';
-import { RGBColor } from '@react-page/ui/lib/ColorPicker/types';
-import { ImageLoaded } from '@react-page/ui/lib/ImageUpload/types';
+
+import { ImageLoaded, RGBColor } from '@react-page/ui';
 
 export interface BackgroundApi {
   handleChangeDarken: () => void;
