@@ -22,6 +22,6 @@ export type BackgroundSettings = {
   defaultLighten?: number;
   defaultHasPadding?: boolean;
   defaultIsParallax?: boolean;
-  imageUpload: ImageUploadType;
+  imageUpload?: ImageUploadType;
   translations?: Translations;
 };

@@ -30,6 +30,8 @@ Original Library created by [@aeneasr](https://github.com/aeneasr) [@ory](https:
 ## Sponsored by
 
 - [GuestBell](https://guestbell.com/) - Customer centric online POS for Hotels and short terms stays.
+- [Panter](https://www.panter.ch/) - Software engineering company for custom solutions. Located in Zürich Switzerland.
+- [Impact Hub Switzerland](https://www.impacthub.ch/) - Coworking spaces and community of creators creating a radically collaborative world.
 
 ## Community
 
