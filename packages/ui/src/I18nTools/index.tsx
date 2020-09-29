@@ -3,7 +3,7 @@ import Translate from '@material-ui/icons/Translate';
 import { useEditor } from '@react-page/core';
 import React, { useState } from 'react';
 import SelectLang from './SelectLang';
-import { ToolsProps } from 'src/BottomToolbar/types';
+import { ToolsProps } from '../BottomToolbar/types';
 import I18nDialog from './I18nDialog';
 
 const I18nTools: React.FC<ToolsProps> = ({ editable, id }) => {

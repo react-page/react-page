@@ -10,7 +10,7 @@ import {
 } from './ImageUpload/types';
 import { RGBColor } from './ColorPicker/types';
 const Trash = loadable(() => import('./Trash/index'));
-const Toolbar = loadable(() => import('./Toolbar/index'));
+const PluginDrawer = loadable(() => import('./PluginDrawer/index'));
 const DisplayModeToggle = loadable(() => import('./DisplayModeToggle/index'));
 const BottomToolbar = loadable(() => import('./BottomToolbar/index'));
 const EditorUI = loadable(() => import('./EditorUI/index'));
@@ -20,11 +20,12 @@ const ImageUpload = loadable(() => import('./ImageUpload/index'));
 const ColorPicker = loadable(() => import('./ColorPicker/index'));
 
 export default EditorUI;
+
 export {
   BottomToolbarProps,
   EditorUI,
   Trash,
-  Toolbar,
+  PluginDrawer,
   DisplayModeToggle,
   BottomToolbar,
   ThemeProvider,
@@ -37,3 +38,10 @@ export {
   colorToString,
   RGBColor,
 };
+
+const Toolbar = PluginDrawer;
+
+/**
+ * @deprecated, use PluginDrawer instead
+ */
+export { Toolbar };

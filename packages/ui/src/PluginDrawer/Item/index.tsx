@@ -5,7 +5,7 @@ import DragHandle from '@material-ui/icons/DragHandle';
 import { Plugin } from '@react-page/core';
 
 import * as React from 'react';
-import { Translations } from '../';
+import { Translations } from '..';
 import draggable from '../Draggable/index';
 import { Tooltip } from '@material-ui/core';
 
@@ -25,7 +25,7 @@ const Item: React.FC<ItemProps> = ({ plugin, insert, translations }) => {
 
   // not using css modules here because they don't work with svg icons
   return (
-    <ListItem className="ory-toolbar-item">
+    <ListItem className="ory-plugin-drawer-item">
       <Avatar
         children={plugin.IconComponent || plugin.text[0]}
         style={{
@@ -33,10 +33,10 @@ const Item: React.FC<ItemProps> = ({ plugin, insert, translations }) => {
         }}
       />
       <ListItemText primary={plugin.text} secondary={plugin.description} />
-      <span className="ory-toolbar-item-drag-handle-button">
+      <span className="ory-plugin-drawer-item-drag-handle-button">
         <Draggable insert={insert}>
           <Tooltip title={translations.dragMe}>
-            <DragHandle className="ory-toolbar-item-drag-handle" />
+            <DragHandle className="ory-plugin-drawer-item-drag-handle" />
           </Tooltip>
         </Draggable>
       </span>

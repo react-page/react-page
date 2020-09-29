@@ -1,7 +1,7 @@
 import React from 'react';
 import DisplayModeToggle, { StickyNess } from '../DisplayModeToggle/index';
 import ThemeProvider from '../ThemeProvider';
-import Toolbar from '../Toolbar/index';
+import PluginDrawer from '../PluginDrawer/index';
 import Trash from '../Trash/index';
 
 export default React.memo(
@@ -17,7 +17,7 @@ export default React.memo(
     <ThemeProvider>
       <Trash />
       <DisplayModeToggle stickyNess={stickyNess} />
-      <Toolbar />
+      <PluginDrawer />
     </ThemeProvider>
   )
 );
