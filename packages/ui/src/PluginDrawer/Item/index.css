@@ -1,0 +1,30 @@
+.ory-plugin-drawer-item-drag-handle-button,
+.ory-plugin-drawer-item-drag-handle-button svg {
+  cursor: move !important;
+}
+
+.ory-plugin-drawer-item-drag-handle {
+  background: var(--faintBlack);
+  border-radius: 0;
+  color: var(--darkWhite) !important;
+  fill: var(--darkWhite) !important;
+}
+
+.ory-plugin-drawer-item:hover .ory-plugin-drawer-item-drag-handle {
+  background: var(--faintBlack);
+  border-radius: 12px;
+  color: var(--lightBlack) !important;
+  fill: var(--lightBlack) !important;
+}
+
+.ory-plugin-drawer-item:hover .ory-plugin-drawer-item-drag-handle:hover {
+  background: var(--lightBlack);
+  color: var(--darkWhite) !important;
+  fill: var(--darkWhite) !important;
+}
+
+.ory-plugin-drawer-item:hover .ory-plugin-drawer-item-drag-handle:active {
+  background: var(--minBlack);
+  color: var(--darkWhite) !important;
+  fill: var(--darkWhite) !important;
+}
