@@ -8,6 +8,10 @@ ReactPage is a smart, extensible and modern editor ("WYSIWYG") for the web writt
 
 <img width="60%" alt="ReactPage Demo" src="images/quick-example.gif">
 
+## Philosophy
+
+The goal of react-page is to create a simple to use, simple to configure full page editor with react. In order to achieve these somewhat self contradicting goals, we offer a few different ways to use the editor in your project. The editor also comes with optional user interface (UI package). You can choose to use it or create your own. Let's explore [a few different approaches](quick-start) to setting up your editor.
+
 ## Attributions
 
 Formerly known as ORY Editor
