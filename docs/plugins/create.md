@@ -1,8 +1,14 @@
-## Create your own plugins
+#### [@react-page/create-plugin-materialui](https://www.npmjs.com/package/@react-page/create-plugin-materialui)
+
+Because it can be tedious to implement controls for a plugin, we started to develop a plugin that make this much easier.
+
+See [the readme of this library for more information](https://github.com/react-page/react-page/tree/master/packages/plugins/createPluginMaterialUi)
+
+### Create your own plugins
 
 A content plugin in its minimal form is described with this object:
 
-```
+```typescript
 {
   Component: YourComponent,
   name: 'some/unique/name',
@@ -24,45 +30,45 @@ Most built-in plugins use a bottom toolbar with a form as Controls. See for exam
 
 Plugins have two parts, one plugin definition and a ReactJS component. A minimal plugin definition looks as followed
 
-```jsx
-import React, { Component } from "react";
+```typescript
+import React, { Component } from 'react';
 
 // You are obviously not limited to material-ui, but we really enjoy
 // the material-ui svg icons!
-import StarIcon from "material-ui/svg-icons/toggle/star";
+import StarIcon from 'material-ui/svg-icons/toggle/star';
 
 // This is the ReactJS component which you can find below this snippet
-import InputTextField from "./Component";
+import InputTextField from './Component';
 
 export default {
   Component: InputTextField,
   IconComponent: <StarIcon />,
-  name: "example/content/input-text-field",
-  version: "0.0.1",
-  text: "Input Text Field"
+  name: 'example/content/input-text-field',
+  version: '0.0.1',
+  text: 'Input Text Field',
 };
 ```
 
 and a minimalistic plugin example could look like:
 
-```jsx
-import React from "react";
+```typescript
+import React from 'react';
 
 // A callback function for the input field
-const onInput = onChange => {
-  return e => {
+const onInput = (onChange) => {
+  return (e) => {
     // Dispatch the onChange action with the new value
     onChange({
-      value: e.target.value
+      value: e.target.value,
     });
   };
 };
 
-const InputTextField = props => {
+const InputTextField = (props) => {
   const {
     state: { value },
     readOnly,
-    onChange
+    onChange,
   } = props;
 
   // If readOnly is false, it means that we are in edit mode!
@@ -89,31 +95,31 @@ Make sure the `onChange` prop is never passed through to an HTML element (eg via
 
 A layout plugin will require an initial children, otherwise, it will automatically destroyed. A minimal layout plugin definition looks as follows
 
-```jsx
-import React from "react";
-import slate from "@react-page/plugins-slate";
+```typescript
+import React from 'react';
+import slate from '@react-page/plugins-slate';
 
 // You are obviously not limited to material-ui, but we really enjoy
 // the material-ui svg icons!
-import CropSquare from "material-ui/svg-icons/image/crop-square";
+import CropSquare from 'material-ui/svg-icons/image/crop-square';
 
 const BlackBorderPlugin = ({ children }) => (
-  <div style={{ border: "1px solid black", padding: "16px" }}>{children}</div>
+  <div style={{ border: '1px solid black', padding: '16px' }}>{children}</div>
 );
 
 export default {
   Component: BlackBorderPlugin,
   IconComponent: <CropSquare />,
-  name: "example/layout/black-border",
-  version: "0.0.1",
-  text: "Black border",
+  name: 'example/layout/black-border',
+  version: '0.0.1',
+  text: 'Black border',
   createInitialChildren: () => [
     [
       {
-        content: { plugin: slate() }
-      }
-    ]
-  ]
+        content: { plugin: slate() },
+      },
+    ],
+  ],
 };
 ```
 
@@ -127,15 +133,15 @@ The React Page is capable of handling native drag and drop events. Native events
 and images. Native drag support can be enabled by writing a `NativePlugin` and passing it during instantiation.
 In this example, we will use the default plugin, and take a look at how you can create your own later.
 
-```jsx
-import native from "@react-page/plugins-default-native";
+```typescript
+import native from '@react-page/plugins-default-native';
 
 const editor = new Editor({
   plugins: {
     layout: [],
     content: [],
-    native
-  }
+    native,
+  },
 });
 ```
 
@@ -148,36 +154,36 @@ coming from react-dnd and `component` is the React component of the cell or row 
 
 In sum, an exemplary plugin looks like this:
 
-```jsx
-import React from "react";
+```typescript
+import React from 'react';
 
 const Native = () => <div>native</div>;
 
 export default (hover, monitor, component) => ({
   Component: Native,
-  name: "my-native-plugin",
-  version: "0.0.1"
+  name: 'my-native-plugin',
+  version: '0.0.1',
 });
 ```
 
 Because this plugin is wrapped in a factory, we are able to modify its behaviour based on the properties we receive.
 One such example would be to add the item's data to the initial state for later use.
 
-```jsx
+```typescript
 export default (hover, monitor, component) => ({
   // ...
   createInitialState: () => ({
-    item: monitor.getItem()
-  })
+    item: monitor.getItem(),
+  }),
 });
 ```
 
 Per default, the editor assumes that dropping the native element creates a content cell. To change this behaviour, use
 the key `type`:
 
-```jsx
+```typescript
 export default (hover, monitor, component) => ({
   // ...
-  type: "layout"
+  type: 'layout',
 });
 ```

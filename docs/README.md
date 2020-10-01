@@ -23,4 +23,4 @@ Original Library created by [@aeneasr](https://github.com/aeneasr) [@ory](https:
 
 ## Community
 
-join us on slack: https://reactpage.slack.com
+[GitHub: react-page/discussions](https://github.com/react-page/react-page/discussions)

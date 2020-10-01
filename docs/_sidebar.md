@@ -1,13 +1,15 @@
 <!-- docs/_sidebar.md -->
 
 - [Home](/)
-- [Quick start](quick-start.md)
-- [Bundle size](bundle-size.md)
-- [Packages](packages.md)
+- [Getting started](quick-start.md)
 - [Plugins](plugins.md)
 
-  - [Create new plugin](plugins-create.md)
-  - [Slate plugin](plugins-slate.md)
+  - [Create custom plugin](plugins/create.md)
+  - [Slate](plugins/slate.md)
+
+- [Builtin Plugins](builtin_plugins.md)
+- [Packages](packages.md)
+- [Bundle size](bundle-size.md)
 
 - FAQ
   - [SSR](server-side-rendering.md)
