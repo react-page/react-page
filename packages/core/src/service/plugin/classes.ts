@@ -140,34 +140,44 @@ export type PluginProps<
   ExtraPropsT = {}
 > = {
   /**
-   * @member a unique identifier.
+   * a unique identifier.
    */
   id: string;
 
   /**
-   * @member the plugin's name
+   * the plugin's name
    */
   name: string;
 
   /**
-   * @member if the cell is currently in readOnly mode.
+   * The Human readable title of the plugin
+   */
+  text?: string;
+
+  /**
+   * The description appearing below text in the menu
+   */
+  description?: string;
+
+  /**
+   * if the cell is currently in readOnly mode.
    */
   readOnly: boolean;
 
   /**
-   * @member if true, the cell is currently focused.
+   * if true, the cell is currently focused.
    */
   focused: boolean;
 
   /**
-   * @member the plugin's state. (already translated)
+   * the plugin's state. (already translated)
    */
   state: StateT;
 
   lang?: string;
 
   /**
-   * @member the plugin's version
+   * the plugin's version
    */
   version: string;
 
@@ -176,15 +186,13 @@ export type PluginProps<
   >;
 
   IconComponent?: React.ReactNode;
-  hideInMenu?: boolean;
 
-  text?: string;
+  hideInMenu?: boolean;
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   serialize?: (state: StateT) => any;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   unserialize?: (raw: any) => StateT;
-  description?: string;
   handleRemoveHotKey?: (e: Event, props: AbstractCell<string>) => Promise<void>;
   handleFocusNextHotKey?: (
     e: Event,
@@ -212,10 +220,9 @@ export type PluginProps<
 
   editable?: string;
   remove?: () => void; // removes the plugin
+
   /**
    * Should be called with the new state if the plugin's state changes.
-   *
-   * @param state
    */
   onChange(state: Partial<StateT>): void;
 };
@@ -266,45 +273,42 @@ export class Plugin<T = any, ExtraProps = {}> {
   config: PluginConfig<T, ExtraProps>;
 
   /**
-   * @member a unique identifier of the plugin.
+   * a unique identifier of the plugin.
    */
   name: string;
 
   /**
-   * @member describes the plugin in a few words.
+   * describes the plugin in a few words.
    */
   description: string;
 
   /**
-   * @member migrations used to migrate plugin state from older version to new one
+   * migrations used to migrate plugin state from older version to new one
    */
   migrations: Migration[];
 
   /**
-   * @member the semantic version (www.semver.org) of this plugin.
+   * the semantic version (www.semver.org) of this plugin.
    */
   version: string;
 
   /**
-   * @member the icon that will be shown in the toolbar.
+   * the icon that will be shown in the toolbar.
    */
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  IconComponent: any;
+  IconComponent: any; // eslint-disable-line @typescript-eslint/no-explicit-any
   // IconComponent: Element<*> | Component<*, *, *>
 
   /**
-   * @member the plugin's react component.
+   * the plugin's react component.
    */
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  Component: any;
+  Component: any; // eslint-disable-line @typescript-eslint/no-explicit-any
   // Component: Element<*> | Component<*, *, *> | (props: any) => Element<*>
 
   /**
-   * @member the text that will be shown alongside the icon in the toolbar.
+   * the text that will be shown alongside the icon in the toolbar.
    */
   text: string;
   hideInMenu?: boolean;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   constructor(config: PluginConfig<T, ExtraProps>) {
     const {
       name,
