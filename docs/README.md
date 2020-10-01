@@ -20,3 +20,7 @@ Original Library created by [@aeneasr](https://github.com/aeneasr) [@ory](https:
 
 [![Follow twitter](https://img.shields.io/badge/follow-twitter-00cc99.svg)](https://twitter.com/_aeneasr)
 [![Follow GitHub](https://img.shields.io/badge/follow-github-00cc99.svg)](https://github.com/arekkas)
+
+## Community
+
+[GitHub: react-page/discussions](https://github.com/react-page/react-page/discussions)
