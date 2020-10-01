@@ -8,12 +8,6 @@
   - [Slate](plugins/slate.md)
 
 - [Builtin Plugins](builtin_plugins.md)
-
-  <!--- [Image](builtin_plugins/image.md)
-  - [Video](builtin_plugins/video.md)
-  - [Spacer](builtin_plugins/spacer.md)
-  - [Background](builtin_plugins/background.md)-->
-
 - [Packages](packages.md)
 - [Bundle size](bundle-size.md)
 
