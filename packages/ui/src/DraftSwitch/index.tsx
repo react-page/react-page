@@ -1,11 +1,16 @@
 import { FormControlLabel, Switch, Tooltip } from '@material-ui/core';
 import VisibleIcon from '@material-ui/icons/Visibility';
 import NonVisibleIcon from '@material-ui/icons/VisibilityOff';
-import { Actions, connect, Selectors } from '@react-page/core';
+import { useCell, useLang, useSetDraft } from '@react-page/core';
 import React from 'react';
-import { createStructuredSelector } from 'reselect';
 
-const DraftSwitch = ({ id, node, setDraft, currentLang, lang }) => {
+const DraftSwitch = ({ id, lang }: { id: string; lang?: string }) => {
+  const node = useCell(id);
+  const setDraft = useSetDraft();
+  const currentLang = useLang();
+  if (!node) {
+    return null;
+  }
   const theLang = lang ?? currentLang;
   const hasI18n = Boolean(node.isDraftI18n);
   const isDraft = node?.isDraftI18n?.[theLang] ?? node?.isDraft; // fallback to legacy
@@ -36,13 +41,4 @@ const DraftSwitch = ({ id, node, setDraft, currentLang, lang }) => {
   ) : null;
 };
 
-const mapStateToProps = createStructuredSelector({
-  node: Selectors.Editable.node,
-  currentLang: Selectors.Setting.getLang,
-});
-
-const mapDispatchToProps = {
-  setDraft: Actions.Cell.updateCellIsDraft,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(DraftSwitch);
+export default DraftSwitch;

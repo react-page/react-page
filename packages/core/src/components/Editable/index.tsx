@@ -1,6 +1,5 @@
 import equals from 'fast-deep-equal';
 import React, { useEffect, useRef } from 'react';
-import { useEditor } from '../../Provider';
 import { editable } from '../../selector/editable';
 import {
   AbstractCell,
@@ -9,8 +8,11 @@ import {
   SimplifiedModesProps,
 } from '../../types/editable';
 import { EditorState } from '../../types/editor';
+import { EditableContext, useEditor } from '../hooks';
 import HotKeyDecorator from '../HotKey/Decorator';
+import FallbackDropArea from './FallbackDropArea';
 import Inner from './Inner';
+
 type Serialized = AbstractEditable<AbstractCell<Row>>;
 
 export type EditableProps = {
@@ -68,9 +70,13 @@ const Editable: React.FC<EditableProps> = ({
   }, [editor, id, onChange]);
 
   return (
-    <HotKeyDecorator id={id}>
-      <Inner id={id} defaultPlugin={editor.defaultPlugin} {...rest} />
-    </HotKeyDecorator>
+    <EditableContext.Provider value={id}>
+      <HotKeyDecorator id={id}>
+        <FallbackDropArea>
+          <Inner id={id} defaultPlugin={editor.defaultPlugin} {...rest} />
+        </FallbackDropArea>
+      </HotKeyDecorator>
+    </EditableContext.Provider>
   );
 };
 

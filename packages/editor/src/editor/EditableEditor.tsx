@@ -9,14 +9,14 @@ import {
   DndBackend,
   EditableType,
   Languages,
+  SimplifiedModesProps,
+  DisplayModes,
 } from '@react-page/core';
 import EditorUI from '@react-page/ui';
 import React, { useEffect, useRef, useCallback } from 'react';
 
 import StickyWrapper from './StickyWrapper';
 import equals from 'fast-deep-equal';
-import { SimplifiedModesProps } from '@react-page/core/src/types/editable';
-import { DisplayModes } from '@react-page/core/src/actions/display';
 
 export type EditableEditorProps = {
   plugins?: Plugins;

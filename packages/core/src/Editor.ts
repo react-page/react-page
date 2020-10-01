@@ -15,6 +15,10 @@ import createStore from './store';
 import { EditableType } from './types/editable';
 import { RootState } from './types/state';
 import { setLang } from './actions/setting';
+import { findNodeInState } from './selector/editable';
+import { createContext } from 'react';
+
+export const EditorContext = createContext<Editor>(null);
 
 const initialState = ({ lang }) => ({
   reactPage: {
@@ -119,6 +123,10 @@ class Editor<T extends RootState = RootState> {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       this.trigger.editable.update(this.plugins.serialize(editable));
     });
+  };
+
+  public getNode = (editableId: string, nodeId: string) => {
+    return findNodeInState(this.store.getState(), editableId, nodeId);
   };
 
   /**

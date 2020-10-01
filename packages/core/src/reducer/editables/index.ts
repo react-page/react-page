@@ -36,6 +36,7 @@ import {
   CELL_INSERT_INLINE_RIGHT,
   CELL_INSERT_LEFT_OF,
   CELL_INSERT_RIGHT_OF,
+  CELL_INSERT_AT_END,
 } from '../../actions/cell/insert';
 import { UPDATE_EDITABLE } from '../../actions/editables';
 import { isProduction } from '../../const';
@@ -74,6 +75,7 @@ const inner = undoable(
       CELL_INSERT_RIGHT_OF,
       CELL_INSERT_INLINE_LEFT,
       CELL_INSERT_INLINE_RIGHT,
+      CELL_INSERT_AT_END,
     ]),
     // initTypes: [UPDATE_EDITABLE],
     neverSkipReducer: true,

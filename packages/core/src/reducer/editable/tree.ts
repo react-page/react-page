@@ -16,6 +16,7 @@ import {
   CELL_UPDATE_CONTENT,
   CELL_UPDATE_IS_DRAFT,
   CELL_UPDATE_LAYOUT,
+  CELL_INSERT_AT_END,
 } from '../../actions/cell';
 import { Cell, createCell, createRow, Row } from '../../types/editable';
 import { CellHoverAction } from './../../actions/cell/drag';
@@ -421,6 +422,15 @@ export const rows = (s: Row[] = [], a: AnyAction): Row[] =>
             )
             .reduce(flatten, [])
             .map(inner(row, action));
+        case CELL_INSERT_AT_END:
+          return [
+            ...state,
+            {
+              ...createRow(),
+              cells: [{ ...action.item, id: action.ids.item, inline: null }],
+              id: action.ids.others[1],
+            },
+          ];
 
         default:
           return reduce();

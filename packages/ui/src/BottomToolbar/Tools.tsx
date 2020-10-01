@@ -6,21 +6,26 @@ import DuplicateButton from '../DuplicateButton';
 import I18nTools from '../I18nTools';
 import SelectParentButton from '../SelectParentButton';
 import { ToolsProps } from './types';
+import { useRemoveCell } from '@react-page/core';
 
-const Tools: React.FC<ToolsProps> = ({ id, editable, onDelete }) => {
+const Tools: React.FC<ToolsProps> = ({ id }) => {
+  const removeCell = useRemoveCell();
   return (
     <div style={{ display: 'flex', alignItems: 'center' }}>
-      <I18nTools id={id} editable={editable} />
-      <DraftSwitch id={id} editable={editable} />
-      <DuplicateButton id={id} editable={editable} />
-      <SelectParentButton id={id} editable={editable} />
-      {onDelete ? (
-        <Tooltip title="Remove Plugin">
-          <IconButton onClick={onDelete} aria-label="delete" color="secondary">
-            <Delete />
-          </IconButton>
-        </Tooltip>
-      ) : null}
+      <I18nTools id={id} />
+      <DraftSwitch id={id} />
+      <DuplicateButton id={id} />
+      <SelectParentButton id={id} />
+
+      <Tooltip title="Remove Plugin">
+        <IconButton
+          onClick={() => removeCell(id)}
+          aria-label="delete"
+          color="secondary"
+        >
+          <Delete />
+        </IconButton>
+      </Tooltip>
     </div>
   );
 };

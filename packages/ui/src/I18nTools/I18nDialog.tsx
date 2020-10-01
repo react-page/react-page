@@ -1,29 +1,30 @@
 import { Button, DialogContent, Table } from '@material-ui/core';
-import { Actions, connect, Selectors, useEditor } from '@react-page/core';
+import Translate from '@material-ui/icons/Translate';
+import {
+  useCell,
+  useEditor,
+  useLang,
+  useSetLang,
+  useUpdateCellContent,
+  useUpdateCellLayout,
+} from '@react-page/core';
 import React from 'react';
-import { bindActionCreators } from 'redux';
-import { createStructuredSelector } from 'reselect';
 import DraftSwitch from '../DraftSwitch';
 import SelectLang from './SelectLang';
-import Translate from '@material-ui/icons/Translate';
 
-const I18nDialog = ({
-  id,
-  editable,
-  node,
-  currentLang,
-  updateCellContent,
-  updateCellLayout,
-  setLang,
-  onClose,
-}) => {
+const I18nDialog = ({ id, onClose }) => {
+  const currentLang = useLang();
   const editor = useEditor();
+  const node = useCell(id);
+  const setLang = useSetLang();
   const contentOrLayout = node.layout ?? node.content;
-  const reset = (lang) => {
+  const updateCellContent = useUpdateCellContent();
+  const updateCellLayout = useUpdateCellLayout();
+  const reset = (lang: string) => {
     if (node.layout) {
-      updateCellLayout(null, lang);
+      updateCellLayout(id, null, lang);
     } else {
-      updateCellContent(null, lang);
+      updateCellContent(id, null, lang);
     }
   };
   const defaultLangLabel = editor.languages?.[0]?.label;
@@ -53,7 +54,7 @@ const I18nDialog = ({
                 </th>
 
                 <td>
-                  <DraftSwitch id={id} editable={editable} lang={l.lang} />
+                  <DraftSwitch id={id} lang={l.lang} />
                 </td>
 
                 <td>{hasState ? '✔️' : ' '}</td>
@@ -78,20 +79,4 @@ const I18nDialog = ({
   );
 };
 
-const mapStateToProps = createStructuredSelector({
-  node: Selectors.Editable.node,
-  currentLang: Selectors.Setting.getLang,
-});
-
-const mapDispatchToProps = (dispatch, { id }: { id: string }) =>
-  bindActionCreators(
-    {
-      updateCellContent: Actions.Cell.updateCellContent(id),
-      updateCellLayout: Actions.Cell.updateCellLayout(id),
-      setLang: Actions.Setting.setLang,
-      setDraft: Actions.Cell.updateCellIsDraft,
-    },
-    dispatch
-  );
-
-export default connect(mapStateToProps, mapDispatchToProps)(I18nDialog);
+export default I18nDialog;

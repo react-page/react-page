@@ -3,10 +3,11 @@ import Translate from '@material-ui/icons/Translate';
 import { useEditor } from '@react-page/core';
 import React, { useState } from 'react';
 import SelectLang from './SelectLang';
-import { ToolsProps } from '../BottomToolbar/types';
 import I18nDialog from './I18nDialog';
 
-const I18nTools: React.FC<ToolsProps> = ({ editable, id }) => {
+const I18nTools: React.FC<{
+  id: string;
+}> = ({ id }) => {
   const editor = useEditor();
   const [showI18nDialog, setShowI18nDialog] = useState(false);
   const hasI18n = editor.languages?.length > 0;
@@ -18,7 +19,7 @@ const I18nTools: React.FC<ToolsProps> = ({ editable, id }) => {
   return (
     <>
       <Dialog open={showI18nDialog} onClose={onClose}>
-        <I18nDialog id={id} editable={editable} onClose={onClose} />
+        <I18nDialog id={id} onClose={onClose} />
       </Dialog>
 
       <div style={{ display: 'flex', alignItems: 'center' }}>

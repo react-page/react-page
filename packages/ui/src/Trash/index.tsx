@@ -1,17 +1,15 @@
 import Fab from '@material-ui/core/Fab';
 import Delete from '@material-ui/icons/Delete';
 import {
-  Actions,
-  connect,
   DropTarget,
   Editor,
-  Selectors,
   useEditor,
+  useIsLayoutMode,
+  useRemoveCell,
 } from '@react-page/core';
 import classNames from 'classnames';
 import throttle from 'lodash.throttle';
 import * as React from 'react';
-import { createStructuredSelector } from 'reselect';
 
 export interface RawProps {
   editor: Editor;
@@ -52,35 +50,23 @@ const connectMonitor = (_connect: any, monitor: any) => ({
   isOverCurrent: monitor.isOver({ shallow: true }),
 });
 
-class Raw extends React.Component<RawProps> {
-  render() {
-    const { connectDropTarget, isOverCurrent } = this.props;
-
-    return connectDropTarget(
-      <div
-        className={classNames('ory-controls-trash', {
-          'ory-controls-trash-active': this.props.isLayoutMode,
-        })}
-      >
-        <Fab color="secondary" disabled={!isOverCurrent}>
-          <Delete />
-        </Fab>
-      </div>
-    );
-  }
-}
+const Raw: React.FC<RawProps> = ({ isOverCurrent, connectDropTarget }) => {
+  const isLayoutMode = useIsLayoutMode();
+  return connectDropTarget(
+    <div
+      className={classNames('ory-controls-trash', {
+        'ory-controls-trash-active': isLayoutMode,
+      })}
+    >
+      <Fab color="secondary" disabled={!isOverCurrent}>
+        <Delete />
+      </Fab>
+    </div>
+  );
+};
 
 const types = ({ editor }: { editor: Editor }) => {
-  const plugins = [
-    ...Object.keys(editor.plugins.plugins.layout),
-    ...Object.keys(editor.plugins.plugins.content),
-  ].map(
-    (p: string) =>
-      (editor.plugins.plugins.content[p] &&
-        editor.plugins.plugins.content[p].name) ||
-      (editor.plugins.plugins.layout[p] &&
-        editor.plugins.plugins.layout[p].name)
-  );
+  const plugins = editor.plugins.getRegisteredNames();
 
   if (editor.plugins.hasNativePlugin()) {
     plugins.push(editor.plugins.getNativePlugin()().name);
@@ -89,22 +75,18 @@ const types = ({ editor }: { editor: Editor }) => {
   return plugins;
 };
 
-const mapDispatchToProps = {
-  removeCell: Actions.Cell.removeCell,
-};
-
-const mapStateToProps = createStructuredSelector(Selectors.Display);
-
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const Decorated: any = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(DropTarget<TargetProps>(types, target, connectMonitor)(Raw));
+const Decorated: any = DropTarget<TargetProps>(
+  types,
+  target,
+  connectMonitor
+)(Raw);
 
 const Trash: React.SFC = () => {
   const editor = useEditor();
+  const removeCell = useRemoveCell();
 
-  return <Decorated editor={editor} />;
+  return <Decorated editor={editor} removeCell={removeCell} />;
 };
 
 export default Trash;

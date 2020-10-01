@@ -6,11 +6,11 @@ import {
   lazyLoad,
   Plugins,
   Languages,
+  DisplayModes,
+  SimplifiedModesProps,
 } from '@react-page/core';
 import { HTMLRenderer } from '@react-page/renderer';
 import React from 'react';
-import { SimplifiedModesProps } from '@react-page/core/src/types/editable';
-import { DisplayModes } from '@react-page/core/src/actions/display';
 
 const EditableEditor = lazyLoad(() => import('./EditableEditor'));
 

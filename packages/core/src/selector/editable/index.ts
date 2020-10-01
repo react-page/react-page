@@ -1,25 +1,3 @@
-/*
- * This file is part of ORY Editor.
- *
- * ORY Editor is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * ORY Editor is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public License
- * along with ORY Editor.  If not, see <http://www.gnu.org/licenses/>.
- *
- * @license LGPL-3.0
- * @copyright 2016-2018 Aeneas Rekkas
- * @author Aeneas Rekkas <aeneas+oss@aeneas.io>
- *
- */
-
 import {
   AbstractCell,
   AbstractEditable,
@@ -31,19 +9,16 @@ import {
 import { RootState } from '../../types/state';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const nodeInner = <T extends { id: string; rows?: Row[]; cells?: Cell[] }>(
-  current: Cell & Row,
-  props: { id: string }
-): Cell | Row => {
+const findNode = (current: Cell & Row, nodeId: string): Cell | Row => {
   const { id, rows = [], cells = [] } = current;
-  if (id === props.id) {
+  if (id === nodeId) {
     return current;
   }
 
   let found: Cell | Row = undefined;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [...rows, ...cells].find((n) => {
-    const f = nodeInner(n, props);
+    const f = findNode(n, nodeId);
     if (f) {
       found = f;
     }
@@ -51,6 +26,18 @@ const nodeInner = <T extends { id: string; rows?: Row[]; cells?: Cell[] }>(
   });
 
   return found;
+};
+
+export const findNodeInState = (
+  state: RootState,
+  editableId: string,
+  nodeId: string
+) => {
+  const tree = editable(state, { id: editableId });
+  if (!tree) {
+    throw new Error(`Could not find editable: ${editableId}`);
+  }
+  return findNode(tree, nodeId);
 };
 
 export const editable = (
@@ -94,15 +81,12 @@ export type NodeProps = { id: string; editable: string };
 
 export const node = (
   state: RootState,
-  props: NodeProps
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-): Cell | Row => {
-  const tree = editable(state, { id: props.editable });
-  if (!tree) {
-    throw new Error(`Could not find editable: ${props.editable}`);
+  props: {
+    editable: string;
+    id: string;
   }
-
-  return { ...nodeInner(tree, props) };
+): Cell | Row => {
+  return { ...findNodeInState(state, props.editable, props.id) };
 };
 
 export const searchNodeEverywhere = (state: RootState, id: string) => {
@@ -147,4 +131,48 @@ export const purifiedNode = (
   }
 
   return found;
+};
+
+type WithAncestors = Cell & Row & { ancestors?: (Cell | Row)[] };
+
+const parentInner = (
+  current: WithAncestors,
+  props: { id: string }
+): WithAncestors => {
+  const { id, rows = [], cells = [] } = current;
+  if (id === props.id) {
+    return current;
+  }
+
+  let found: WithAncestors = undefined;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  [...rows, ...cells].find((n) => {
+    const f = parentInner(n, props);
+    if (f) {
+      found = f;
+    }
+    return Boolean(f);
+  });
+
+  return found
+    ? { ...found, ancestors: [...(found.ancestors || []), current] }
+    : found;
+};
+
+export const parentCellSelector = (
+  state: RootState,
+  props: { id: string; editable: string }
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+): Cell => {
+  const tree = editable(state, { id: props.editable });
+  if (!tree) {
+    throw new Error(`Could not find editable: ${props.editable}`);
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const parent = parentInner(tree as any, props);
+  const ancestor = (parent?.ancestors || []).find(
+    (a) => (a as Cell).content || (a as Cell).layout
+  );
+  return ancestor;
 };

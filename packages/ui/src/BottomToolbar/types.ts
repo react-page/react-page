@@ -15,8 +15,5 @@ export type BottomToolbarProps = {
 } & ToolsProps;
 
 export type ToolsProps = {
-  onDelete?: () => void;
-  // FIXME: seems like we use more and more information about the current cell. we should refactor this
   id: string;
-  editable: string;
 };
