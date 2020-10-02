@@ -1,4 +1,4 @@
-# ReactPage (formerly known as ORY editor)
+# ReactPage
 
 [![Build Status](https://travis-ci.org/react-page/react-page.svg)](https://travis-ci.org/react-page/react-page)
 [![Coverage Status](https://coveralls.io/repos/github/ory-am/editor/badge.svg?branch=master)](https://coveralls.io/github/ory/editor?branch=master)
