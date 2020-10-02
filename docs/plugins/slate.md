@@ -1,4 +1,4 @@
-#### [@react-page/plugins-slate](https://www.npmjs.com/package/@react-page/plugins-slate)
+[@react-page/plugins-slate](https://www.npmjs.com/package/@react-page/plugins-slate)
 
 The text editing allows you to create and modify rich-text and is optimized for use with the React Page. We strongly encourage using our text editing solution. You can check more config options about this plugin [here](plugins-slate.md).
 
