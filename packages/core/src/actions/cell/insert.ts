@@ -11,7 +11,8 @@ export const CELL_INSERT_LEFT_OF = 'CELL_INSERT_LEFT_OF';
 export const CELL_INSERT_RIGHT_OF = 'CELL_INSERT_RIGHT_OF';
 export const CELL_INSERT_INLINE_LEFT = 'CELL_INSERT_INLINE_LEFT';
 export const CELL_INSERT_INLINE_RIGHT = 'CELL_INSERT_INLINE_RIGHT';
-export const CELL_DUPLICATE = 'CELL_DUPLICATE';
+
+export const CELL_INSERT_AT_END = 'CELL_INSERT_AT_END';
 
 export interface InsertAction extends Action {
   ts: Date;
@@ -104,6 +105,8 @@ export const insertCellLeftInline = insert(CELL_INSERT_INLINE_LEFT);
  */
 export const insertCellRightInline = insert(CELL_INSERT_INLINE_RIGHT);
 
+export const insertCellAtTheEnd = insert(CELL_INSERT_AT_END);
+
 // set new ids recursivly
 const newIds = ({ id, ...item }: Partial<Cell>) => {
   return {
@@ -126,8 +129,7 @@ const newIds = ({ id, ...item }: Partial<Cell>) => {
       : undefined,
   };
 };
-export const duplicateCell = (item) => (dispatch) =>
-  dispatch(insertCellBelow(newIds(item), item));
+export const duplicateCell = (item) => insertCellBelow(newIds(item), item);
 
 export const insertActions = {
   insertCellRightInline,
@@ -137,5 +139,6 @@ export const insertActions = {
   insertCellAbove,
   insertCellBelow,
   duplicateCell,
+  insertCellAtTheEnd,
   insert,
 };

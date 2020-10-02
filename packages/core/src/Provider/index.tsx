@@ -1,21 +1,18 @@
 import { BackendFactory } from 'dnd-core';
 import * as React from 'react';
 import { DndProvider } from 'react-dnd';
-import HTML5Backend from 'react-dnd-html5-backend';
+import { HTML5Backend } from 'react-dnd-html5-backend';
 import BlurGate from '../components/BlurGate';
-import Editor from '../Editor';
+import Editor, { EditorContext } from '../Editor';
 import { ReduxProvider } from '../reduxConnect';
 import { DisplayModes } from '../actions/display';
+
 interface ProviderProps {
   editor: Editor;
   dndBackend?: BackendFactory;
   blurGateDisabled?: boolean;
   blurGateDefaultMode?: DisplayModes;
 }
-
-const EditorContext = React.createContext<Editor>(null);
-
-export const useEditor = () => React.useContext<Editor>(EditorContext);
 
 const Provider: React.FC<ProviderProps> = ({
   editor,

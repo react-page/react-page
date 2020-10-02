@@ -5,6 +5,7 @@ export const source = {
   beginDrag(props: ComponetizedCell) {
     // Begin dragging the cell
     props.dragCell(props.id);
+
     return {
       ...props,
       // we do not want to pass down the react children or we will risk circular dependencies.

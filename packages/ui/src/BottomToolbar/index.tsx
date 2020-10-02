@@ -25,11 +25,10 @@ const BottomToolbar: React.SFC<BottomToolbarProps> = ({
   dark = false,
   theme,
   anchor = 'bottom',
-  onDelete = null,
+
   title,
   icon = null,
   id,
-  editable,
 }) => {
   const [size, setSize] = React.useState(lastSize);
   const toggleSize = () => {
@@ -114,7 +113,7 @@ const BottomToolbar: React.SFC<BottomToolbarProps> = ({
               </Grid>
 
               <Grid item={true} style={{ marginLeft: 'auto' }}>
-                <Tools id={id} editable={editable} onDelete={onDelete} />
+                <Tools id={id} />
               </Grid>
             </Grid>
           </>

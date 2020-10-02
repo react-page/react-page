@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-types */
-
 import { bindActionCreators } from 'redux';
 import {
   updateCellContent,
@@ -67,14 +65,14 @@ export const Actions = {
 
 export const actions = (dispatch) => ({
   cell: {
-    updateContent: (id: string, state: {}, lang) =>
+    updateContent: (id: string, state: unknown, lang) =>
       dispatch(updateCellContent(id)(state, lang)),
-    updateLayout: (id: string, state: {}, lang) =>
+    updateLayout: (id: string, state: unknown, lang) =>
       dispatch(updateCellLayout(id)(state, lang)),
 
     remove: bindActionCreators({ removeCell }, dispatch).removeCell,
     resize: (id: string, size: number) => dispatch(resizeCell(id)(size)),
-    focus: (id: string, source: {}) => dispatch(focusCell(id)(source)),
+    focus: (id: string, source: unknown) => dispatch(focusCell(id)(source)),
     focusNext: (id: string) => dispatch(focusNextCell(id)()),
     focusPrevious: (id: string) => dispatch(focusPreviousCell(id)()),
     blurAll: bindActionCreators({ blurAllCells }, dispatch).blurAllCells,

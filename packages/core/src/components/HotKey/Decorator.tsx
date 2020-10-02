@@ -213,4 +213,7 @@ const mapDispatchToProps = {
   blurAllCells,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Decorator);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Decorator) as React.FC<{ id: string }>;
