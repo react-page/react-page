@@ -1,25 +1,3 @@
-/*!
- * This file is part of ORY Editor.
- *
- * ORY Editor is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * ORY Editor is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public License
- * along with ORY Editor.  If not, see <http://www.gnu.org/licenses/>.
- *
- * @license LGPL-3.0
- * @copyright 2016-2018 Aeneas Rekkas
- * @author Aeneas Rekkas <aeneas+oss@aeneas.io>
- *
- */
-
 /* based on: https://github.com/kristoferjoseph/flexboxgrid/blob/master/src/css/flexboxgrid.css */
 
 :root {
@@ -31,10 +9,10 @@
   --sm-min: 48;
   --md-min: 64;
   --lg-min: 75;
-  --screen-xs-min: var(--xs-min)em;
-  --screen-sm-min: var(--sm-min)em;
-  --screen-md-min: var(--md-min)em;
-  --screen-lg-min: var(--lg-min)em;
+  --screen-xs-min: var(--xs-min) em;
+  --screen-sm-min: var(--sm-min) em;
+  --screen-md-min: var(--md-min) em;
+  --screen-lg-min: var(--lg-min) em;
   --container-sm: calc(var(--sm-min) + var(--gutter-width));
   --container-md: calc(var(--md-min) + var(--gutter-width));
   --container-lg: calc(var(--lg-min) + var(--gutter-width));
@@ -295,7 +273,7 @@
     flex-grow: 1;
     flex-basis: 0;
     width: 100%;
-  min-width: 100%;
+    min-width: 100%;
   }
 
   .ory-cell-sm-1 {
@@ -311,7 +289,7 @@
   .ory-cell-sm-3 {
     flex-basis: 25%;
     width: 25%;
-  min-width: 25%;
+    min-width: 25%;
   }
 
   .ory-cell-sm-4 {
@@ -327,7 +305,7 @@
   .ory-cell-sm-6 {
     flex-basis: 50%;
     width: 50%;
-  min-width: 50%;
+    min-width: 50%;
   }
 
   .ory-cell-sm-7 {
@@ -343,7 +321,7 @@
   .ory-cell-sm-9 {
     flex-basis: 75%;
     width: 75%;
-  min-width: 75%;
+    min-width: 75%;
   }
 
   .ory-cell-sm-10 {
@@ -359,7 +337,7 @@
   .ory-cell-sm-12 {
     flex-basis: 100%;
     width: 100%;
-  min-width: 100%;
+    min-width: 100%;
   }
 
   .ory-cell-sm-offset-0 {
@@ -492,7 +470,7 @@
     flex-grow: 1;
     flex-basis: 0;
     width: 100%;
-  min-width: 100%;
+    min-width: 100%;
   }
 
   .ory-cell-md-1 {
@@ -508,7 +486,7 @@
   .ory-cell-md-3 {
     flex-basis: 25%;
     width: 25%;
-  min-width: 25%;
+    min-width: 25%;
   }
 
   .ory-cell-md-4 {
@@ -524,7 +502,7 @@
   .ory-cell-md-6 {
     flex-basis: 50%;
     width: 50%;
-  min-width: 50%;
+    min-width: 50%;
   }
 
   .ory-cell-md-7 {
@@ -540,7 +518,7 @@
   .ory-cell-md-9 {
     flex-basis: 75%;
     width: 75%;
-  min-width: 75%;
+    min-width: 75%;
   }
 
   .ory-cell-md-10 {
@@ -556,7 +534,7 @@
   .ory-cell-md-12 {
     flex-basis: 100%;
     width: 100%;
-  min-width: 100%;
+    min-width: 100%;
   }
 
   .ory-cell-md-offset-0 {
@@ -689,7 +667,7 @@
     flex-grow: 1;
     flex-basis: 0;
     width: 100%;
-  min-width: 100%;
+    min-width: 100%;
   }
 
   .ory-cell-lg-1 {
@@ -705,7 +683,7 @@
   .ory-cell-lg-3 {
     flex-basis: 25%;
     width: 25%;
-  min-width: 25%;
+    min-width: 25%;
   }
 
   .ory-cell-lg-4 {
@@ -721,7 +699,7 @@
   .ory-cell-lg-6 {
     flex-basis: 50%;
     width: 50%;
-  min-width: 50%;
+    min-width: 50%;
   }
 
   .ory-cell-lg-7 {
@@ -737,7 +715,7 @@
   .ory-cell-lg-9 {
     flex-basis: 75%;
     width: 75%;
-  min-width: 75%;
+    min-width: 75%;
   }
 
   .ory-cell-lg-10 {
@@ -753,7 +731,7 @@
   .ory-cell-lg-12 {
     flex-basis: 100%;
     width: 100%;
-  min-width: 100%;
+    min-width: 100%;
   }
 
   .ory-cell-lg-offset-0 {
