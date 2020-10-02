@@ -1,6 +1,6 @@
 #### [@react-page/plugins-video](https://www.npmjs.com/package/@react-page/plugins-video)
 
-The image plugin allows you to add images to your content by entering their URL. The image plugin does not support
+The video plugin allows you to embed videos in your content by entering their URL. The video plugin does not support
 uploads.
 
 <p>
