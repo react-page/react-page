@@ -9,6 +9,9 @@ install:
 script:
   - yarn run lint
   - yarn run test
+  - cd examples
+  - yarn build
+  - cd ..
 
 after_success:
   - yarn run coveralls
