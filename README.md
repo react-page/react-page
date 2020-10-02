@@ -1,4 +1,4 @@
-# ReactPage (formerly known as ORY editor)
+# ReactPage
 
 [![Build Status](https://travis-ci.org/react-page/react-page.svg)](https://travis-ci.org/react-page/react-page)
 [![Coverage Status](https://coveralls.io/repos/github/ory-am/editor/badge.svg?branch=master)](https://coveralls.io/github/ory/editor?branch=master)
@@ -8,7 +8,7 @@ ReactPage is a smart, extensible and modern editor ("WYSIWYG") for the web writt
 
 <img width="60%" alt="ReactPage Demo" src="docs/images/quick-example.gif">
 
-## install
+## Install
 
 `yarn add @react-page/editor`
 
