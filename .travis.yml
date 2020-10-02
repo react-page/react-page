@@ -1,7 +1,7 @@
 language: node_js
 
 node_js:
-  - "12"
+  - '12'
 
 install:
   - yarn --frozen-lockfile
@@ -23,6 +23,6 @@ deploy:
     skip_cleanup: true
     target_branch: main
     repo: react-page/react-page.github.io
-    github_token: $GITHUB_TOKEN # Set in the settings page of your repository, as a secure variable
+    github_token: $GH_TOKEN # Set in the settings page of your repository, as a secure variable
     on:
       branch: master
