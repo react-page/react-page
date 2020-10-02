@@ -9,6 +9,9 @@ install:
 script:
   - yarn run lint
   - yarn run test
+  - cd examples
+  - yarn build
+  - cd ..
 
 after_success:
   - yarn run coveralls
@@ -20,6 +23,7 @@ deploy:
     on:
       all_branches: true # semantic release handles tht for us
   - provider: pages
+    local_dir: examples/build
     skip_cleanup: true
     target_branch: main
     repo: react-page/react-page.github.io
