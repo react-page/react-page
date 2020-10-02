@@ -8,7 +8,7 @@ ReactPage is a smart, extensible and modern editor ("WYSIWYG") for the web writt
 
 <img width="60%" alt="ReactPage Demo" src="docs/images/quick-example.gif">
 
-## install
+## Install
 
 `yarn add @react-page/editor`
 
