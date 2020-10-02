@@ -1,7 +1,7 @@
 language: node_js
 
 node_js:
-  - '12'
+  - "12"
 
 install:
   - yarn --frozen-lockfile
@@ -14,8 +14,15 @@ after_success:
   - yarn run coveralls
 
 deploy:
-  provider: script
-  skip_cleanup: true
-  script: 'echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/.npmrc && yarn run semantic-release'
-  on:
-    all_branches: true # semantic release handles tht for us
+  - provider: script
+    skip_cleanup: true
+    script: 'echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/.npmrc && yarn run semantic-release'
+    on:
+      all_branches: true # semantic release handles tht for us
+  - provider: pages
+    skip_cleanup: true
+    target_branch: main
+    repo: react-page/react-page.github.io
+    github_token: $GITHUB_TOKEN # Set in the settings page of your repository, as a secure variable
+    on:
+      branch: master
