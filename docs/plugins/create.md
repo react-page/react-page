@@ -1,8 +1,8 @@
-#### [@react-page/create-plugin-materialui](https://www.npmjs.com/package/@react-page/create-plugin-materialui)
+[@react-page/create-plugin-materialui](https://www.npmjs.com/package/@react-page/create-plugin-materialui)
 
 Because it can be tedious to implement controls for a plugin, we started to develop a plugin that make this much easier.
 
-See [the readme of this library for more information](https://github.com/react-page/react-page/tree/master/packages/plugins/createPluginMaterialUi)
+[See the readme of this library for more information](https://github.com/react-page/react-page/tree/master/packages/plugins/createPluginMaterialUi)
 
 ### Create your own plugins
 
@@ -127,7 +127,7 @@ On that example, the initial children is a slate plugin.
 
 See [slate](./slate.md) for a more in-depth example
 
-## Handling native drag events
+### Handling native drag events
 
 The React Page is capable of handling native drag and drop events. Native events include dragging of links, text,
 and images. Native drag support can be enabled by writing a `NativePlugin` and passing it during instantiation.

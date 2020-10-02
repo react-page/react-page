@@ -4,11 +4,11 @@ SSR works good now, but there is a little caveat: slate uses a keygenerator whic
 
 With recent react you can do also this:
 
-```
+```typescript
 // useCustomSlateKeygen.js
 
-import { useRef } from "react";
-import { KeyUtils } from "slate";
+import { useRef } from 'react';
+import { KeyUtils } from 'slate';
 
 export default (uniqueId) => {
   const ref = useRef(null);
@@ -27,15 +27,13 @@ export default (uniqueId) => {
 
 and then you can use it right before HTMLRenderer:
 
-```
-import { HTMLRenderer } from "@react-page/renderer";
-import useCustomKeygen from "./useCustomKeygen";
+```typescript
+import { HTMLRenderer } from '@react-page/renderer';
+import useCustomKeygen from './useCustomKeygen';
 
 const Content = ({ style, className, contentUniqueId, content }) => {
   useCustomKeygen(contentUniqueId);
 
-  return (
-      <HTMLRenderer plugins={plugins} state={content} />
-  );
+  return <HTMLRenderer plugins={plugins} state={content} />;
 };
 ```
