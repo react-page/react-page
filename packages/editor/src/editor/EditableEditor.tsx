@@ -29,6 +29,7 @@ export type EditableEditorProps = {
   languages?: Languages;
   lang?: string;
   onChangeLang?: (l: string) => void;
+  hideEditorSidebar?: boolean;
 } & SimplifiedModesProps;
 
 const EditableEditor: React.FC<EditableEditorProps> = ({
@@ -42,6 +43,7 @@ const EditableEditor: React.FC<EditableEditorProps> = ({
   lang,
   languages,
   onChangeLang,
+  hideEditorSidebar,
   ...rest
 }) => {
   const theValue = value || createEmptyState();
@@ -88,7 +90,10 @@ const EditableEditor: React.FC<EditableEditorProps> = ({
               onChange={onChangeCallback}
               {...rest}
             />
-            <EditorUI stickyNess={stickyNess} />
+            <EditorUI
+              stickyNess={stickyNess}
+              hideEditorSidebar={hideEditorSidebar}
+            />
           </>
         )}
       </StickyWrapper>

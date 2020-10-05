@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`EditorUI renders correctly with default properties 1`] = `ShallowWrapper {}`;

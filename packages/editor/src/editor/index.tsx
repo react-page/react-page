@@ -26,6 +26,7 @@ export type EditorProps = {
   blurGateDisabled?: boolean;
   languages?: Languages;
   lang?: string;
+  hideEditorSidebar?: boolean;
 } & SimplifiedModesProps;
 
 const Editor: React.FC<EditorProps> = ({
