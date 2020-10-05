@@ -11,12 +11,14 @@ export default React.memo(
       shouldStickToBottom: false,
       rightOffset: 0,
     },
+    hideEditorSidebar = false,
   }: {
     stickyNess?: StickyNess;
+    hideEditorSidebar?: boolean;
   }) => (
     <ThemeProvider>
       <Trash />
-      <DisplayModeToggle stickyNess={stickyNess} />
+      {!hideEditorSidebar && <DisplayModeToggle stickyNess={stickyNess} />}
       <PluginDrawer />
     </ThemeProvider>
   )
