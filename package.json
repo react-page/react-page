@@ -49,7 +49,7 @@
     "redux": "^3.6.0",
     "rimraf": "2.6.2",
     "semantic-release": "^17.1.2",
-    "ts-jest": "^26.1.0",
+    "ts-jest": "^26.4.1",
     "typescript": "~4.0.3",
     "unexpected": "^11.14.0"
   },
