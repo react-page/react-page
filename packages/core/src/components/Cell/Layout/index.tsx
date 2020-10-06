@@ -71,7 +71,7 @@ class Layout extends React.PureComponent<LayoutProps> {
 
     // Basically we check if the focus state changed and if yes, we execute the callback handler from the plugin, that
     // can set some side effects.
-    if (!scrollToCellWas && scrollToCellIs) {
+    if (scrollToCellIs && scrollToCellWas !== scrollToCellIs) {
       if (this.ref) {
         scrollIntoViewWithOffset(this.ref, 100);
       }

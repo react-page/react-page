@@ -43,7 +43,7 @@ export type AbstractCell<T> = {
   hover?: string;
   inline?: string | null;
   focused?: boolean;
-  scrollToCell?: boolean;
+  scrollToCell?: Number;
   isDraft?: boolean;
   isDraftI18n?: I18nField<boolean>;
   focusSource?: string;
