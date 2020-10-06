@@ -8,9 +8,8 @@ export const source = {
   }) {
     props.layoutMode();
     return {
-      node: insert,
-      rawNode: () => insert,
-      ...props,
+      cell: insert,
+      type: 'cell',
     };
   },
 };

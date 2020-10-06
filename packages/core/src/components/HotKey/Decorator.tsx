@@ -1,44 +1,18 @@
 /* eslint-disable @typescript-eslint/ban-types */
 import isHotkey from 'is-hotkey';
 import React, { useCallback, useEffect, useMemo } from 'react';
-import { createStructuredSelector } from 'reselect';
-import { blurAllCells, focusCell, removeCell } from '../../actions/cell';
-import { redo, undo } from '../../actions/undo';
-import { connect } from '../../reduxConnect';
-import { isEditMode } from '../../selector/display';
+import { blurAllCells } from '../../actions/cell';
+import { Cell, isRow, Node } from '../../types/editable';
 import {
-  editable,
-  editables,
-  node,
-  searchNodeEverywhere,
-} from '../../selector/editable';
-import { focus } from '../../selector/focus';
-import {
-  AbstractCell,
-  ComponetizedCell,
-  EditableType,
-} from '../../types/editable';
-import { RootState } from '../../types/state';
-
-type Props = {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  children: any;
-  id: string;
-  focus: string;
-  isEditMode: boolean;
-  editable: EditableType;
-  undo(id: string): void;
-  redo(id: string): void;
-  removeCell(id: string): void;
-  focusCell(id: string): void;
-  blurAllCells(): void;
-  updateCellContent(): void;
-  updateCellLayout(): void;
-  node(cell: string, editable: string): Object;
-  searchNodeEverywhere(
-    id: string
-  ): { editable: EditableType; node: ComponetizedCell };
-};
+  useEditableNode,
+  useEditor,
+  useFocusCellById,
+  useIsEditMode,
+  useRedo,
+  useRemoveCellById,
+  useUndo,
+  useFocusedNodeId,
+} from '../hooks';
 
 const nextLeaf = (order: Array<{ id: string }> = [], current: string) => {
   let last;
@@ -55,10 +29,7 @@ const nextLeaf = (order: Array<{ id: string }> = [], current: string) => {
 const previousLeaf = (order: Array<{ id: string }>, current: string) =>
   nextLeaf([...order].reverse(), current);
 
-type Handler = (
-  event: Event,
-  foundNode?: AbstractCell<string>
-) => Promise<void> | void;
+type Handler = (event: Event, foundCell?: Cell) => Promise<void> | void;
 
 type PluginHandlerName =
   | 'handleRemoveHotKey'
@@ -67,16 +38,26 @@ type PluginHandlerName =
 
 const delegateToPlugin = async (
   event: Event,
-  n: AbstractCell<string>,
+  n: Node,
   handlerName: PluginHandlerName
 ) => {
+  if (isRow(n)) {
+    return;
+  }
   const plugin = n?.layout?.plugin ?? n?.content?.plugin;
   if (plugin?.[handlerName]) {
     await plugin[handlerName](event, n);
   }
 };
 
-const Decorator = (props: Props) => {
+const Decorator: React.FC = ({ children }) => {
+  const editor = useEditor();
+  const editableNode = useEditableNode();
+  const undo = useUndo();
+  const redo = useRedo();
+  const focusedNodeId = useFocusedNodeId();
+  const focusCell = useFocusCellById();
+  const removeCell = useRemoveCellById();
   const delegateToFoundPlugin = useCallback(
     async (
       event: Event,
@@ -84,7 +65,7 @@ const Decorator = (props: Props) => {
       handlerName: PluginHandlerName,
       defaultHandler: Handler
     ) => {
-      const cellNode = props.searchNodeEverywhere(nodeId)?.node?.node;
+      const cellNode = editor.getNode(editableNode?.id, nodeId);
 
       try {
         if (cellNode) {
@@ -99,7 +80,7 @@ const Decorator = (props: Props) => {
         }
       }
     },
-    []
+    [editableNode?.id, editor]
   );
 
   const handlers = useMemo(
@@ -107,22 +88,27 @@ const Decorator = (props: Props) => {
       {
         hotkeys: ['ctrl+z', 'command+z'],
         handler: () => {
-          props.undo(props.id);
+          undo();
         },
       },
 
       {
         hotkeys: ['ctrl+shift+z', 'ctrl+y', 'command+shift+z', 'command+y'],
         handler: () => {
-          props.redo(props.id);
+          redo();
         },
       },
 
       {
         hotkeys: ['alt+del', 'alt+backspace'],
         handler: (event) => {
-          delegateToFoundPlugin(event, props.focus, 'handleRemoveHotKey', () =>
-            props.removeCell(props.focus)
+          delegateToFoundPlugin(
+            event,
+            focusedNodeId,
+            'handleRemoveHotKey',
+            () => {
+              removeCell(focusedNodeId);
+            }
           );
         },
       },
@@ -131,13 +117,13 @@ const Decorator = (props: Props) => {
         handler: (event) => {
           delegateToFoundPlugin(
             event,
-            props.focus,
+            focusedNodeId,
             'handleFocusNextHotKey',
             () => {
-              const found = nextLeaf(props.editable.cellOrder, props.focus);
+              const found = nextLeaf(editableNode.cellOrder, focusedNodeId);
               if (found) {
-                props.blurAllCells();
-                props.focusCell(found.id);
+                blurAllCells();
+                focusCell(found.id, true);
               }
             }
           );
@@ -148,22 +134,24 @@ const Decorator = (props: Props) => {
         handler: (event) => {
           delegateToFoundPlugin(
             event,
-            props.focus,
+            focusedNodeId,
             'handleFocusPreviousHotKey',
             () => {
-              const found = previousLeaf(props.editable.cellOrder, props.focus);
+              const found = previousLeaf(editableNode.cellOrder, focusedNodeId);
 
               if (found) {
-                props.blurAllCells();
-                props.focusCell(found.id);
+                blurAllCells();
+                focusCell(found.id, true);
               }
             }
           );
         },
       },
     ],
-    [props.id, props.focus, props.editable]
+    [editableNode, focusedNodeId, blurAllCells, focusCell, removeCell]
   );
+
+  const isEditMode = useIsEditMode();
 
   useEffect(() => {
     // in editmode we only allow hotkeys if a cell is focused.
@@ -173,7 +161,7 @@ const Decorator = (props: Props) => {
     // If the editor is in another mode, all hot keys are allowed (which is useful for undo/redo, e.g. when resizing)
     // because the BlurGate also guarantees that only one editor will be in another mode then editMode
     // This is not totally clean, but it works very well.
-    if (props.isEditMode && !props.focus) {
+    if (isEditMode && !focus) {
       return;
     }
     const keyHandler = (event) => {
@@ -186,34 +174,9 @@ const Decorator = (props: Props) => {
     return () => {
       document.removeEventListener('keydown', keyHandler);
     };
-  }, [handlers, props.focus, props.isEditMode]);
+  }, [handlers, focus, isEditMode]);
 
-  return <>{props.children}</>;
+  return <>{children}</>;
 };
 
-/** FIXME: we should start using hooks for redux. this would drastically simplify this whole thing */
-const mapStateToProps = createStructuredSelector({
-  isEditMode,
-  focus,
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  node: (state: any) => (id: string, _editable: string) =>
-    node(state, { id, editable: _editable }),
-  searchNodeEverywhere: (state: RootState) => (id: string) =>
-    searchNodeEverywhere(state, id),
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  editable: (state: any, props: any) => editable(state, { id: props.id }),
-  editables,
-});
-
-const mapDispatchToProps = {
-  undo,
-  redo,
-  removeCell,
-  focusCell: (id: string) => focusCell(id)(),
-  blurAllCells,
-};
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Decorator) as React.FC<{ id: string }>;
+export default Decorator;

@@ -16,15 +16,11 @@ import i18n from './service/i18n';
 import PluginService from './service/plugin';
 
 import {
-  ContentPlugin,
   ContentPluginConfig,
-  ContentPluginProps,
-  LayoutPlugin,
   LayoutPluginConfig,
-  LayoutPluginProps,
   Migration,
-  Plugin,
   PluginProps,
+  PluginConfig,
   Plugins,
 } from './service/plugin/classes';
 export * from './components/hooks';
@@ -33,22 +29,24 @@ import {
   Content,
   EditableType,
   Layout,
-  NativeFactory,
   Row,
   SimplifiedModesProps,
+  isRow,
 } from './types/editable';
 import { RootState } from './types/state';
 import { setAllSizesAndOptimize } from './reducer/editable/helper/setAllSizesAndOptimize';
 import { DisplayModes } from './actions/display';
+import deepEquals from './utils/deepEquals';
 export { BackendFactory as DndBackend, DropTarget, DragSource };
 export {
+  deepEquals,
+  isRow,
   setAllSizesAndOptimize,
   Migration,
   createEmptyState,
   CoreEditorProps,
-  Plugin,
+  PluginConfig,
   Plugins,
-  NativeFactory,
   Cell,
   Content,
   EditableType,
@@ -56,9 +54,7 @@ export {
   Row,
   PluginProps,
   ContentPluginConfig,
-  ContentPluginProps,
   LayoutPluginConfig,
-  LayoutPluginProps,
   Actions,
   Selectors,
   RootState,
@@ -66,8 +62,6 @@ export {
   InitialChildrenDef,
   sanitizeInitialChildren,
   PluginService,
-  ContentPlugin,
-  LayoutPlugin,
   Editor,
   reducer,
   editableReducer, // deprecated

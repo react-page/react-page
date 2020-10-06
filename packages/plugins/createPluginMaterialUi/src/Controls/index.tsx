@@ -56,7 +56,6 @@ function Controls<T>(props: ControlProps<T>) {
     schema,
     controlsLayout = defaultControlsLayout,
     Renderer,
-    remove,
   } = props;
   const bridge = useMemo(() => makeUniformsSchema<T>(schema), [schema]);
   useEffect(() => {
@@ -71,9 +70,8 @@ function Controls<T>(props: ControlProps<T>) {
 
       <BottomToolbar
         open={focused}
-        title={props.text}
-        onDelete={remove}
-        icon={props.IconComponent}
+        title={props.pluginConfig.text}
+        icon={props.pluginConfig.IconComponent}
         {...props}
       >
         <div style={{ marginBottom: 24, maxHeight: '50vh', overflow: 'auto' }}>

@@ -1,11 +1,12 @@
 import { applyMiddleware, combineReducers, createStore } from 'redux';
 import thunk from 'redux-thunk';
 import * as actions from '../../../actions/cell/index';
+import { Cell } from '../../../types/editable';
 import { cellOrder } from '../helper/order';
 import { setAllSizesAndOptimize } from '../helper/setAllSizesAndOptimize';
 import { rawEditableReducer } from '../index';
 
-const walker = ({ cells = [], rows = [], hover = null, ...other }) => {
+const walker = ({ cells = [], rows = [], hoverPosition = null, ...other }) => {
   if (cells.length) {
     other.cells = cells.map(walker);
   }
@@ -14,7 +15,7 @@ const walker = ({ cells = [], rows = [], hover = null, ...other }) => {
   }
   return {
     ...other,
-    hover,
+    hoverPosition,
   };
 };
 
@@ -43,7 +44,7 @@ const runCase = (currentState, action, expectedState) => {
 export const createEditable = (
   id: string,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  cells?: any[] | { hover: any }[]
+  cells?: any[] | { hoverPosition: any }[]
 ) => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const editable: any = {};
@@ -65,7 +66,7 @@ export const createCell = (
   rows: any[],
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   additional?: any
-) => {
+): Cell => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const cell: any = {};
 
@@ -126,14 +127,12 @@ export const createContentCell = (
   name: string,
   state?: State,
   additional?: {
-    hover?: string | boolean;
+    hoverPosition?: string | boolean;
     size?: number;
     inline?: string;
-    focusSource?: string;
-    focused?: boolean;
   },
   stateI18n?: { [lang: string]: State }
-) => {
+): Cell => {
   const cell = createCell(id, null, additional);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const content: any = {};
@@ -359,7 +358,7 @@ test('last cell remove', () => {
 
 test('cell cancel drag', () => {
   const currentState = createEditable('editable', [
-    createContentCell('0', 'foo', null, { hover: true }),
+    createContentCell('0', 'foo', null, { hoverPosition: 'left' }),
   ]);
 
   const action = actions.cancelCellDrag();
@@ -445,7 +444,7 @@ test('cell hover real row', () => {
     _cells([
       createCell('0', [
         createRow('00', [createContentCell('000', 'foo')], {
-          hover: 'left-of',
+          hoverPosition: 'left-of',
         }),
         createRow('01', [createContentCell('010', 'bar')]),
       ]),
@@ -470,7 +469,7 @@ test('cell hover row', () => {
     _cells([
       createCell('0', [
         createRow('00', [createContentCell('000', 'foo')], {
-          hover: 'left-of',
+          hoverPosition: 'left-of',
         }),
         createRow('01', [createContentCell('010', 'bar')]),
       ]),
@@ -499,7 +498,7 @@ test('cell hover ancestor cell', () => {
           createRow('00', [createContentCell('000', 'foo')]),
           createRow('01', [createContentCell('010', 'bar')]),
         ],
-        { hover: 'right-of' }
+        { hoverPosition: 'right-of' }
       ),
     ])
   );
@@ -599,10 +598,7 @@ test('anti-recursion test: cell insert below of two level', () => {
             {}
           ),
         ],
-        {
-          focusSource: '',
-          focused: false,
-        }
+        {}
       ),
     ])
   );
@@ -897,10 +893,7 @@ test('cell insert inline cell left of', () => {
                 // FIXME: the row with id i00 has inline children!
               ]),
             ],
-            {
-              focusSource: '',
-              focused: false,
-            }
+            {}
           ),
           createContentCell('001', 'bar'),
         ]),
@@ -1058,10 +1051,7 @@ test('cell insert below inline row - 2 level', () => {
             createContentCell('id-item', 'myPlugin', null, { size: 6 }),
           ]),
         ],
-        {
-          focusSource: '',
-          focused: false,
-        }
+        {}
       ),
     ])
   );

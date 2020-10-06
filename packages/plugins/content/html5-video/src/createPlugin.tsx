@@ -1,4 +1,4 @@
-import { ContentPluginConfig, ContentPluginProps } from '@react-page/core';
+import { ContentPluginConfig } from '@react-page/core';
 import * as React from 'react';
 import Html5Video from './Component';
 import { defaultSettings } from './default/settings';
@@ -6,12 +6,8 @@ import { Html5VideoProps } from './types/component';
 import { Html5VideoSettings } from './types/settings';
 import { Html5VideoState } from './types/state';
 
-export type Props = ContentPluginProps;
-
-const rejectPromise: (e: Event, props: Props) => Promise<void> = (
-  e: Event,
-  props: Props
-) => Promise.reject();
+const rejectPromise: (e: Event) => Promise<void> = (e: Event) =>
+  Promise.reject();
 
 const createPlugin: (
   settings: Html5VideoSettings

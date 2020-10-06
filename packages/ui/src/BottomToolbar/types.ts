@@ -15,5 +15,5 @@ export type BottomToolbarProps = {
 } & ToolsProps;
 
 export type ToolsProps = {
-  id: string;
+  nodeId: string;
 };

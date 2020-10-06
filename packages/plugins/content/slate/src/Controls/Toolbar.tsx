@@ -4,22 +4,18 @@ import { SlateProps } from '../types/component';
 import PluginButton from './PluginButton';
 
 const Toolbar = (
-  props: Pick<
-    SlateProps,
-    'id' | 'editable' | 'translations' | 'plugins' | 'name'
-  > & {
+  props: Pick<SlateProps, 'nodeId' | 'translations' | 'plugins'> & {
     show: boolean;
     removeSlate: () => void;
   }
 ) => {
-  const { show, removeSlate, plugins, translations } = props;
+  const { show, removeSlate, plugins, translations, nodeId } = props;
   const bottomToolbarProps = {
     open: show,
     dark: true,
     onDelete: removeSlate,
-    editable: props.editable,
-    name: props.name,
-    id: props.id,
+
+    nodeId,
   };
   // useWhyDidYouUpdate('Toolbar' + props.id, props);
   return (

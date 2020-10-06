@@ -1,19 +1,18 @@
-import equals from 'fast-deep-equal';
 import React, { useEffect, useRef } from 'react';
 import { editable } from '../../selector/editable';
 import {
-  AbstractCell,
   AbstractEditable,
-  Row,
+  Cell,
   SimplifiedModesProps,
 } from '../../types/editable';
 import { EditorState } from '../../types/editor';
-import { EditableContext, useEditor } from '../hooks';
+import deepEquals from '../../utils/deepEquals';
+import { EditableContext, OptionsContext, useEditor } from '../hooks';
 import HotKeyDecorator from '../HotKey/Decorator';
 import FallbackDropArea from './FallbackDropArea';
 import Inner from './Inner';
 
-type Serialized = AbstractEditable<AbstractCell<Row>>;
+type Serialized = AbstractEditable<Cell>;
 
 export type EditableProps = {
   id: string;
@@ -26,13 +25,15 @@ const Editable: React.FC<EditableProps> = ({
   onChange,
   onChangeLang,
   lang,
-  ...rest
+
+  ...simplifiedModeProps
 }) => {
   const editor = useEditor();
+
   // update lang when changed from outside
   useEffect(() => {
     editor.setLang(lang);
-  }, [lang]);
+  }, [lang, editor]);
 
   const previousSerializedRef = useRef<Serialized>();
   useEffect(() => {
@@ -55,7 +56,10 @@ const Editable: React.FC<EditableProps> = ({
       }
       // prevent uneeded updates
       const serialized = editor.plugins.serialize(state);
-      const serializedEqual = equals(previousSerializedRef.current, serialized);
+      const serializedEqual = deepEquals(
+        previousSerializedRef.current,
+        serialized
+      );
 
       if (serializedEqual) {
         return;
@@ -70,13 +74,15 @@ const Editable: React.FC<EditableProps> = ({
   }, [editor, id, onChange]);
 
   return (
-    <EditableContext.Provider value={id}>
-      <HotKeyDecorator id={id}>
-        <FallbackDropArea>
-          <Inner id={id} defaultPlugin={editor.defaultPlugin} {...rest} />
-        </FallbackDropArea>
-      </HotKeyDecorator>
-    </EditableContext.Provider>
+    <OptionsContext.Provider value={simplifiedModeProps}>
+      <EditableContext.Provider value={id}>
+        <HotKeyDecorator>
+          <FallbackDropArea>
+            <Inner id={id} defaultPlugin={editor.defaultPlugin} />
+          </FallbackDropArea>
+        </HotKeyDecorator>
+      </EditableContext.Provider>
+    </OptionsContext.Provider>
   );
 };
 

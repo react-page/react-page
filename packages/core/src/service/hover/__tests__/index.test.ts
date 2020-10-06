@@ -1,11 +1,22 @@
 import expect from 'unexpected';
+import { Node } from '../../../types/editable';
+import { Callbacks, Room, Vector } from '../../../types/hover';
 import HoverService, {
   classes as _c,
   defaultCallbacks,
   computeLevel,
 } from '../index';
 
-const cases = [
+type Case = {
+  d: string;
+  in: {
+    room: Room;
+    mouse: Vector;
+    hover: Node;
+  };
+  actions: (done: () => void) => Partial<Callbacks>;
+};
+const cases: Case[] = [
   {
     d: 'basic left',
     in: {
@@ -27,7 +38,6 @@ const cases = [
       room: { width: 100, height: 100 },
       mouse: { x: 99, y: 50 },
       hover: undefined,
-      ancestors: undefined,
     },
     actions: (done) => ({
       rightOf: (item, hover, level) => {
@@ -43,7 +53,6 @@ const cases = [
       room: { width: 100, height: 100 },
       mouse: { x: 95, y: 50 },
       hover: undefined,
-      ancestors: undefined,
     },
     actions: (done) => ({
       rightOf: (item, hover, level) => {
@@ -58,7 +67,6 @@ const cases = [
       room: { width: 100, height: 100 },
       mouse: { x: 92, y: 50 },
       hover: undefined,
-      ancestors: undefined,
     },
     actions: (done) => ({
       rightOf: (item, hover, level) => {
@@ -73,7 +81,6 @@ const cases = [
       room: { width: 100, height: 100 },
       mouse: { x: 89, y: 50 },
       hover: undefined,
-      ancestors: undefined,
     },
     actions: (done) => ({
       rightOf: (item, hover, level) => {
@@ -88,7 +95,6 @@ const cases = [
       room: { width: 100, height: 100 },
       mouse: { x: 98, y: 95 },
       hover: undefined,
-      ancestors: undefined,
     },
     actions: (done) => ({
       rightOf: (item, hover, level) => {
@@ -117,31 +123,24 @@ describe('HoverService', () => {
       h.hover(
         {
           id: 'foo',
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          node: { id: 'foo', levels: {} as any } as any,
-          rawNode: () => ({ id: 'foo' }),
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        } as any,
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        (c as any).hover || {
-          node: {
-            levels: {
-              right: 10,
-              left: 10,
-              above: 10,
-              below: 10,
-            },
-          },
-          rawNode: () => ({ id: 'foo' }),
         },
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        c.actions(done) as any,
+
+        c.in.hover || {
+          id: 'some-id',
+          levels: {
+            right: 10,
+            left: 10,
+            above: 10,
+            below: 10,
+          },
+        },
+
+        c.actions(done) as Callbacks,
         {
           room: c.in.room,
           mouse: c.in.mouse,
-          ancestors: c.in.ancestors,
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        } as any
+          matrix: '10x10',
+        }
       );
     });
   });

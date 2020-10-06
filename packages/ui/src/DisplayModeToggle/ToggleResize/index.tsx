@@ -1,37 +1,23 @@
-import * as React from 'react';
 import Resize from '@material-ui/icons/SettingsOverscan';
-
-import { connect, Selectors, Actions } from '@react-page/core';
-import { createStructuredSelector } from 'reselect';
-
+import { useIsResizeMode, useSetResizeMode } from '@react-page/core';
+import * as React from 'react';
 import Button from '../Button/index';
 
-export interface InnerReduxProps {
-  isResizeMode: boolean;
-}
-
-export interface InnerActionProps {
-  resizeMode: React.MouseEventHandler<HTMLElement>;
-}
-
-interface OwnProps {
+type Props = {
   label: string;
-}
+};
 
-export type InnerProps = InnerReduxProps & InnerActionProps & OwnProps;
+const ToggleResize: React.FC<Props> = (props) => {
+  const isResizeMode = useIsResizeMode();
+  const setResizeMode = useSetResizeMode();
+  return (
+    <Button
+      icon={<Resize />}
+      description={props.label}
+      active={isResizeMode}
+      onClick={setResizeMode}
+    />
+  );
+};
 
-const Inner: React.SFC<InnerProps> = (props) => (
-  <Button
-    icon={<Resize />}
-    description={props.label}
-    active={props.isResizeMode}
-    onClick={props.resizeMode}
-  />
-);
-
-const mapStateToProps = createStructuredSelector({
-  isResizeMode: Selectors.Display.isResizeMode,
-});
-const mapDispatchToProps = { resizeMode: Actions.Display.resizeMode };
-
-export default connect(mapStateToProps, mapDispatchToProps)(Inner);
+export default React.memo(ToggleResize);

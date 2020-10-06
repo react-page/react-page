@@ -12,9 +12,9 @@ export const optimizeRows = (rows: Array<Row> = []): Array<Row> =>
   rows.filter(emptyFilter);
 
 export const optimizeCell = (cell: Cell): Cell => {
-  const { rows, ...other } = cell;
+  const { rows, ...rest } = cell;
   const optimized = {
-    ...other,
+    ...rest,
     rows: (rows || [])
       .map(
         (r: Row): Array<Row> => {

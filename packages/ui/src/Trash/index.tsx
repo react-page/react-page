@@ -5,7 +5,7 @@ import {
   Editor,
   useEditor,
   useIsLayoutMode,
-  useRemoveCell,
+  useRemoveCellById,
 } from '@react-page/core';
 import classNames from 'classnames';
 import throttle from 'lodash.throttle';
@@ -18,7 +18,7 @@ export interface RawProps {
   connectDropTarget: (node: JSX.Element) => JSX.Element;
 }
 
-type TargetProps = { removeCell(id: string): void } & RawProps;
+type TargetProps = { removeCellById(id: string): void } & RawProps;
 const target = {
   hover: throttle(
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -40,7 +40,7 @@ const target = {
       return;
     }
 
-    props.removeCell(item.id);
+    props.removeCellById(item.id);
   },
 };
 
@@ -68,10 +68,6 @@ const Raw: React.FC<RawProps> = ({ isOverCurrent, connectDropTarget }) => {
 const types = ({ editor }: { editor: Editor }) => {
   const plugins = editor.plugins.getRegisteredNames();
 
-  if (editor.plugins.hasNativePlugin()) {
-    plugins.push(editor.plugins.getNativePlugin()().name);
-  }
-
   return plugins;
 };
 
@@ -84,9 +80,9 @@ const Decorated: any = DropTarget<TargetProps>(
 
 const Trash: React.SFC = () => {
   const editor = useEditor();
-  const removeCell = useRemoveCell();
+  const removeCellById = useRemoveCellById();
 
-  return <Decorated editor={editor} removeCell={removeCell} />;
+  return <Decorated editor={editor} removeCellById={removeCellById} />;
 };
 
 export default Trash;

@@ -6,7 +6,6 @@
   "dependencies": {
     "@react-page/core": "0.0.0",
     "@react-page/plugins-background": "0.0.0",
-    "@react-page/plugins-default-native": "0.0.0",
     "@react-page/plugins-divider": "0.0.0",
     "@react-page/plugins-image": "0.0.0",
     "@react-page/plugins-slate": "0.0.0",

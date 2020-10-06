@@ -1,10 +1,15 @@
 import expect from 'unexpected';
+import { RootState } from '../..';
 
-import { purifiedNode, searchNodeEverywhere } from '../index';
+import { selectNode } from '../index';
 
-const state = {
+const state: RootState = {
   reactPage: {
+    focus: null,
+    settings: {},
     editables: {
+      past: [],
+      future: [],
       present: [
         {
           id: '1',
@@ -12,79 +17,79 @@ const state = {
             {
               levels: { left: 0, right: 0, above: 0, below: 0 },
               id: 'b045776a-c2a3-40ed-8f6b-b188cd6a7427',
-              hover: null,
+
               size: 12,
               bounds: { left: 0, right: 0 },
               resizable: false,
-              inline: null,
-              hasInlineNeighbour: null,
+
               rows: [
                 {
                   levels: { left: 1, right: 1, above: 1, below: 0 },
                   id: 'e514fa47-38c7-440e-8ac2-87494dee8d23',
-                  hover: null,
+                  hoverPosition: null,
                   cells: [
                     {
                       levels: { left: 2, right: 2, above: 2, below: 1 },
-                      props: {
-                        importFromHtml:
-                          '<h1>European? British? These ‘Brexit’ Voters Identify as English</h1>',
-                      },
+
                       id: 'c38fa00e-6b34-4c6d-af3f-2c1374edad11',
-                      plugin: {
-                        name: 'ory/editor/core/content/slate',
-                        version: '0.0.1',
+                      content: {
+                        plugin: {
+                          name: 'ory/editor/core/content/slate',
+                          version: '0.0.1',
+                        },
+                        state: {
+                          importFromHtml:
+                            '<h1>European? British? These ‘Brexit’ Voters Identify as English</h1>',
+                        },
                       },
-                      hover: null,
+
+                      hoverPosition: null,
                       size: 12,
                       bounds: { left: 0, right: 0 },
                       resizable: false,
-                      inline: null,
-                      hasInlineNeighbour: null,
                     },
                   ],
                 },
                 {
                   levels: { left: 1, right: 1, above: 0, below: 0 },
                   id: '40635812-d539-47d7-a77f-a8ad0ca140f3',
-                  hover: null,
+
                   cells: [
                     {
                       levels: { left: 2, right: 2, above: 1, below: 1 },
-                      props: {},
+
                       id: 'f6db2d53-f97c-4fb5-959b-5633ea524d18',
-                      plugin: {
-                        name: 'ory/editor/core/content/image',
-                        version: '0.0.1',
+                      content: {
+                        plugin: {
+                          name: 'ory/editor/core/content/image',
+                          version: '0.0.1',
+                        },
                       },
-                      hover: null,
+                      hoverPosition: null,
                       size: 12,
                       bounds: { left: 0, right: 0 },
                       resizable: false,
-                      inline: null,
-                      hasInlineNeighbour: null,
                     },
                   ],
                 },
                 {
                   levels: { left: 1, right: 1, above: 0, below: 0 },
                   id: '02896bd0-bbd5-4943-89c4-15089744143a',
-                  hover: null,
+
                   cells: [
                     {
                       levels: { left: 2, right: 0, above: 1, below: 1 },
                       id: 'a3e783dd-5fc3-4c8a-ac2d-546410eaa1e4',
-                      hover: null,
+
                       size: 6,
                       bounds: { left: 0, right: 11 },
                       resizable: true,
-                      inline: null,
-                      hasInlineNeighbour: null,
+
                       rows: [
                         {
                           levels: { left: 3, right: 1, above: 2, below: 0 },
                           id: 'd4f0d7c0-1329-4b17-886e-39c983a231ed',
-                          hover: null,
+
                           cells: [
                             {
                               levels: { left: 4, right: 2, above: 3, below: 1 },
@@ -94,19 +99,17 @@ const state = {
                                 name: 'ory/editor/core/content/spacer',
                                 version: '0.0.1',
                               },
-                              hover: null,
+
                               size: 12,
                               bounds: { left: 0, right: 0 },
                               resizable: false,
-                              inline: null,
-                              hasInlineNeighbour: null,
                             },
                           ],
                         },
                         {
                           levels: { left: 3, right: 1, above: 0, below: 2 },
                           id: '79810279-6059-407f-baa7-0cd96276c7f0',
-                          hover: null,
+
                           cells: [
                             {
                               levels: { left: 4, right: 2, above: 1, below: 3 },
@@ -120,12 +123,10 @@ const state = {
                                 name: 'ory/editor/core/content/slate',
                                 version: '0.0.1',
                               },
-                              hover: null,
+
                               size: 12,
                               bounds: { left: 0, right: 0 },
                               resizable: false,
-                              inline: null,
-                              hasInlineNeighbour: null,
                             },
                           ],
                         },
@@ -133,76 +134,80 @@ const state = {
                     },
                     {
                       levels: { left: 0, right: 2, above: 1, below: 1 },
-                      props: {
-                        src:
-                          'https://static01.nyt.com/images/2016/06/16/world/16England-web1/16England-web1-master768.jpg',
-                      },
+
                       id: '7ec840b7-1c54-46dd-acfe-ca2e973e1da4',
-                      plugin: {
-                        name: 'ory/editor/core/content/image',
-                        version: '0.0.1',
+                      content: {
+                        plugin: {
+                          name: 'ory/editor/core/content/image',
+                          version: '0.0.1',
+                        },
+                        state: {
+                          src:
+                            'https://static01.nyt.com/images/2016/06/16/world/16England-web1/16England-web1-master768.jpg',
+                        },
                       },
-                      hover: null,
+
                       size: 6,
                       bounds: { left: 11, right: 0 },
                       resizable: false,
-                      inline: null,
-                      hasInlineNeighbour: null,
                     },
                   ],
                 },
                 {
                   levels: { left: 1, right: 1, above: 0, below: 0 },
                   id: 'b298dede-8fd4-4ac2-b95c-138b9f09962a',
-                  hover: null,
+
                   cells: [
                     {
                       levels: { left: 2, right: 0, above: 1, below: 1 },
-                      props: {
-                        importFromHtml:
-                          // tslint:disable-next-line:max-line-length
-                          '<p>SOUTH BENFLEET, England — The topic of the local debate was Britain’s imminent vote on whether to leave the European Union, and the discussion in this English town on the southeastern coast turned to the influx of European citizens into Britain.</p>\n<p>“Why do they all want to come here?” demanded one woman, angrily making the case for Britain to leave the bloc at the debate in South Benfleet, organized by the local council. “They want our wages and our benefits! We’re too bloody soft!”</p>\n<p>Paddy Ashdown, a former leader of the Liberal Democrats and a supporter of remaining in the European Union in the vote next Thursday, shook his head and responded with a touch of bitterness: “Well, I’ve not seen much evidence of that here.”</p>',
-                      },
+
                       id: 'bc44aef2-013e-4553-9d18-52f21016d343',
-                      plugin: {
-                        name: 'ory/editor/core/content/slate',
-                        version: '0.0.1',
+                      content: {
+                        plugin: {
+                          name: 'ory/editor/core/content/slate',
+                          version: '0.0.1',
+                        },
+                        state: {
+                          importFromHtml:
+                            // tslint:disable-next-line:max-line-length
+                            '<p>SOUTH BENFLEET, England — The topic of the local debate was Britain’s imminent vote on whether to leave the European Union, and the discussion in this English town on the southeastern coast turned to the influx of European citizens into Britain.</p>\n<p>“Why do they all want to come here?” demanded one woman, angrily making the case for Britain to leave the bloc at the debate in South Benfleet, organized by the local council. “They want our wages and our benefits! We’re too bloody soft!”</p>\n<p>Paddy Ashdown, a former leader of the Liberal Democrats and a supporter of remaining in the European Union in the vote next Thursday, shook his head and responded with a touch of bitterness: “Well, I’ve not seen much evidence of that here.”</p>',
+                        },
                       },
-                      hover: null,
+
                       size: 6,
                       bounds: { left: 0, right: 11 },
                       resizable: true,
-                      inline: null,
-                      hasInlineNeighbour: null,
                     },
                     {
                       levels: { left: 0, right: 2, above: 1, below: 1 },
                       id: '60bcd9ce-8490-4288-a378-6cc236d7bb3e',
-                      hover: null,
+
                       size: 6,
                       bounds: { left: 11, right: 0 },
                       resizable: false,
-                      inline: null,
-                      hasInlineNeighbour: null,
+
                       rows: [
                         {
                           levels: { left: 1, right: 3, above: 2, below: 2 },
                           id: '115cef7f-c878-4de8-b4d7-7e48df2626c5',
-                          hover: null,
+
                           cells: [
                             {
                               levels: { left: 2, right: 0, above: 3, below: 3 },
                               inline: 'left',
-                              props: {
-                                src:
-                                  'https://static01.nyt.com/images/2016/06/16/world/16England-web2/16England-web2-master675.jpg',
-                              },
+
                               id: '152615ee-9248-42cb-8d79-e5c412c8d92d',
-                              plugin: {
-                                name: 'ory/editor/core/content/image',
-                                version: '0.0.1',
+                              content: {
+                                plugin: {
+                                  name: 'ory/editor/core/content/image',
+                                  version: '0.0.1',
+                                },
+                                state: {
+                                  src:
+                                    'https://static01.nyt.com/images/2016/06/16/world/16England-web2/16England-web2-master675.jpg',
+                                },
                               },
-                              hover: null,
+
                               size: 6,
                               bounds: { left: 0, right: 11 },
                               resizable: true,
@@ -219,11 +224,11 @@ const state = {
                                 name: 'ory/editor/core/content/slate',
                                 version: '0.0.1',
                               },
-                              hover: null,
+
                               size: 12,
                               bounds: { left: 0, right: 0 },
                               resizable: false,
-                              hasInlineNeighbour: true,
+                              hasInlineNeighbour: 'asdf',
                             },
                           ],
                         },
@@ -234,26 +239,27 @@ const state = {
                 {
                   levels: { left: 1, right: 1, above: 0, below: 1 },
                   id: 'ef595bbd-c97c-4471-9e2d-605908cebd79',
-                  hover: null,
+
                   cells: [
                     {
                       levels: { left: 2, right: 2, above: 1, below: 2 },
                       id: '092f35a7-ab76-4e17-80db-917a9685a818',
                       layout: {
-                        name: 'ory/editor/core/layout/spoiler',
-                        version: '0.0.1',
+                        plugin: {
+                          name: 'ory/editor/core/layout/spoiler',
+                          version: '0.0.1',
+                        },
                       },
-                      hover: null,
+
                       size: 12,
                       bounds: { left: 0, right: 0 },
                       resizable: false,
-                      inline: null,
-                      hasInlineNeighbour: null,
+
                       rows: [
                         {
                           levels: { left: 3, right: 3, above: 2, below: 3 },
                           id: '3a261db7-5351-437c-899b-27ebfaa31fe6',
-                          hover: null,
+
                           cells: [
                             {
                               levels: { left: 4, right: 0, above: 3, below: 4 },
@@ -267,12 +273,10 @@ const state = {
                                 name: 'ory/editor/core/content/slate',
                                 version: '0.0.1',
                               },
-                              hover: null,
+
                               size: 4,
                               bounds: { left: 0, right: 7 },
                               resizable: true,
-                              inline: null,
-                              hasInlineNeighbour: null,
                             },
                             {
                               levels: { left: 0, right: 0, above: 3, below: 4 },
@@ -286,12 +290,10 @@ const state = {
                                 name: 'ory/editor/core/content/slate',
                                 version: '0.0.1',
                               },
-                              hover: null,
+
                               size: 4,
                               bounds: { left: 7, right: 7 },
                               resizable: true,
-                              inline: null,
-                              hasInlineNeighbour: null,
                             },
                             {
                               levels: { left: 0, right: 4, above: 3, below: 4 },
@@ -305,12 +307,10 @@ const state = {
                                 name: 'ory/editor/core/content/slate',
                                 version: '0.0.1',
                               },
-                              hover: null,
+
                               size: 4,
                               bounds: { left: 7, right: 0 },
                               resizable: false,
-                              inline: null,
-                              hasInlineNeighbour: null,
                             },
                           ],
                         },
@@ -321,15 +321,6 @@ const state = {
               ],
             },
           ],
-          config: {
-            whitelist: [
-              'ory/editor/core/content/missing',
-              'ory/editor/core/content/image',
-              'ory/editor/core/content/spacer',
-              'ory/editor/core/content/slate',
-              'ory/editor/core/layout/spoiler',
-            ],
-          },
         },
         {
           id: '2',
@@ -337,31 +328,32 @@ const state = {
             {
               levels: { left: 0, right: 0, above: 0, below: 0 },
               id: '308536be-5e6d-4483-9a5d-7ab422b5fc15',
-              hover: null,
+
               size: 12,
               bounds: { left: 0, right: 0 },
               resizable: false,
-              inline: null,
-              hasInlineNeighbour: null,
+
               rows: [
                 {
                   levels: { left: 1, right: 1, above: 1, below: 0 },
                   id: 'f394a468-a64a-479c-8318-4ef2f14433a3',
-                  hover: null,
+
                   cells: [
                     {
                       levels: { left: 2, right: 0, above: 2, below: 1 },
                       inline: 'right',
-                      props: {
-                        src:
-                          'https://static01.nyt.com/images/2016/06/16/world/16England-web2/16England-web2-master675.jpg',
+                      content: {
+                        plugin: {
+                          name: 'ory/editor/core/content/image',
+                          version: '0.0.1',
+                        },
+                        state: {
+                          src:
+                            'https://static01.nyt.com/images/2016/06/16/world/16England-web2/16England-web2-master675.jpg',
+                        },
                       },
                       id: '0fb41038-7f05-41b8-b5e5-e7cb8e7be701',
-                      plugin: {
-                        name: 'ory/editor/core/content/image',
-                        version: '0.0.1',
-                      },
-                      hover: null,
+
                       size: 6,
                       bounds: { left: 11, right: 0 },
                       resizable: true,
@@ -378,44 +370,46 @@ const state = {
                         name: 'ory/editor/core/content/slate',
                         version: '0.0.1',
                       },
-                      hover: null,
+
                       size: 12,
                       bounds: { left: 0, right: 0 },
                       resizable: false,
-                      hasInlineNeighbour: true,
+                      hasInlineNeighbour: 'some-id',
                     },
                   ],
                 },
                 {
                   levels: { left: 1, right: 1, above: 0, below: 0 },
                   id: 'a5608665-732a-46a8-8d49-3e33247f8ca2',
-                  hover: null,
+
                   cells: [
                     {
                       levels: { left: 2, right: 2, above: 1, below: 1 },
-                      props: {
-                        importFromHtml:
-                          // tslint:disable-next-line:max-line-length
-                          'Duis autem vel eum<script type="text/javascript">alert("XSS");</script> iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.',
-                      },
+
                       id: '51877ffa-09e3-45fa-8e54-d462ac150a0e',
-                      plugin: {
-                        name: 'ory/editor/core/content/slate',
-                        version: '0.0.1',
+
+                      content: {
+                        plugin: {
+                          name: 'ory/editor/core/content/slate',
+                          version: '0.0.1',
+                        },
+                        state: {
+                          importFromHtml:
+                            // tslint:disable-next-line:max-line-length
+                            'Duis autem vel eum<script type="text/javascript">alert("XSS");</script> iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.',
+                        },
                       },
-                      hover: null,
+
                       size: 12,
                       bounds: { left: 0, right: 0 },
                       resizable: false,
-                      inline: null,
-                      hasInlineNeighbour: null,
                     },
                   ],
                 },
                 {
                   levels: { left: 1, right: 1, above: 0, below: 0 },
                   id: 'a61e8e9e-962a-433d-ae5b-cda93c834874',
-                  hover: null,
+
                   cells: [
                     {
                       levels: { left: 2, right: 2, above: 1, below: 1 },
@@ -429,19 +423,17 @@ const state = {
                         name: 'ory/editor/core/content/slate',
                         version: '0.0.1',
                       },
-                      hover: null,
+
                       size: 12,
                       bounds: { left: 0, right: 0 },
                       resizable: false,
-                      inline: null,
-                      hasInlineNeighbour: null,
                     },
                   ],
                 },
                 {
                   levels: { left: 1, right: 1, above: 0, below: 1 },
                   id: '8781492f-91e6-46ca-b2a6-b34f2e54fac6',
-                  hover: null,
+
                   cells: [
                     {
                       levels: { left: 2, right: 2, above: 1, below: 2 },
@@ -455,27 +447,16 @@ const state = {
                         name: 'ory/editor/core/content/slate',
                         version: '0.0.1',
                       },
-                      hover: null,
+
                       size: 12,
                       bounds: { left: 0, right: 0 },
                       resizable: false,
-                      inline: null,
-                      hasInlineNeighbour: null,
                     },
                   ],
                 },
               ],
             },
           ],
-          config: {
-            whitelist: [
-              'ory/editor/core/content/missing',
-              'ory/editor/core/content/image',
-              'ory/editor/core/content/spacer',
-              'ory/editor/core/content/slate',
-              'ory/editor/core/layout/spoiler',
-            ],
-          },
         },
       ],
     },
@@ -483,11 +464,10 @@ const state = {
   },
 };
 
-describe('selectors/editable/node', () => {
+describe('selectors/editable/selectNode', () => {
   it('should find the right node (cell)', () => {
     expect(
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      purifiedNode(state as any, {
+      selectNode(state, {
         id: 'dd419480-aa37-40cd-af97-ba8c3e8ae2df',
         editable: '1',
       }),
@@ -500,52 +480,31 @@ describe('selectors/editable/node', () => {
             'Residents of the Castle Point borough of Essex in England celebrated the queen’s 90th birthday this month. Castle Point is the most ethnically English part of the United Kingdom, with nearly 80 percent describing themselves as purely English, while 95 percent are white. <small>Credit Andrew Testa for The New York Times</small>',
         },
         id: 'dd419480-aa37-40cd-af97-ba8c3e8ae2df',
-        plugin: { name: 'ory/editor/core/content/slate', version: '0.0.1' },
-        hover: null,
+        plugin: {
+          name: 'ory/editor/core/content/slate',
+          version: '0.0.1',
+        },
+
         size: 12,
         bounds: { left: 0, right: 0 },
         resizable: false,
-        inline: null,
-        hasInlineNeighbour: null,
+        ancestors: [],
       }
     );
   });
 
   it('should find the right node (row)', () => {
     expect(
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      purifiedNode(state as any, {
+      selectNode(state, {
         id: 'f394a468-a64a-479c-8318-4ef2f14433a3',
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        editable: '2' as any,
+
+        editable: '2',
       }),
-      'to equal',
+      'to satisfy',
       {
         levels: { left: 1, right: 1, above: 1, below: 0 },
         id: 'f394a468-a64a-479c-8318-4ef2f14433a3',
-        hover: null,
-        cells: [
-          '0fb41038-7f05-41b8-b5e5-e7cb8e7be701',
-          '2f0622c1-7546-4c2b-a8af-e9603cd67d96',
-        ],
       }
-    );
-  });
-
-  it('should find the right node, everywhere', () => {
-    expect(
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      searchNodeEverywhere(state as any, '3a261db7-5351-437c-899b-27ebfaa31fe6')
-        .node.id,
-      'to equal',
-      '3a261db7-5351-437c-899b-27ebfaa31fe6'
-    );
-    expect(
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      searchNodeEverywhere(state as any, '8781492f-91e6-46ca-b2a6-b34f2e54fac6')
-        .node.id,
-      'to equal',
-      '8781492f-91e6-46ca-b2a6-b34f2e54fac6'
     );
   });
 });

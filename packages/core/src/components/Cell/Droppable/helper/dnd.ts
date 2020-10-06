@@ -1,127 +1,113 @@
 import throttle from 'lodash.throttle';
-import * as React from 'react';
-import { DropTargetConnector, DropTargetMonitor } from 'react-dnd';
-import {
-  createNativeCellReplacement,
-  isNativeHTMLElementDrag,
-} from '../../../../helper/nativeDragHelpers';
+import { DropTargetMonitor } from 'react-dnd';
 import { delay } from '../../../../helper/throttle';
 import {
   computeAndDispatchHover,
   computeAndDispatchInsert,
 } from '../../../../service/hover/input';
 import logger from '../../../../service/logger';
-import { ComponetizedCell } from '../../../../types/editable';
+import {
+  CellDrag,
+  CellWithAncestors,
+  isRow,
+  RowWithAncestors,
+} from '../../../../types/editable';
+import { Callbacks } from '../../../../types/hover';
 
-let last: { hover: string; drag: string } = { hover: '', drag: '' };
+let last: { hoverId: string; dragId: string } = { hoverId: '', dragId: '' };
 
-const clear = (hover: ComponetizedCell, drag: string) => {
-  if (hover.id === last.hover && drag === last.drag) {
-    return;
+const shouldClear = (hoverId: string, dragId: string) => {
+  if (hoverId === last.hoverId && dragId === last.dragId) {
+    return false;
   }
-  last = { hover: hover.id, drag };
-  hover.clearHover();
+  last = { hoverId, dragId };
+  return true;
 };
 
-export const target = {
-  hover: throttle(
-    (
-      hover: ComponetizedCell,
-      monitor: DropTargetMonitor,
-      component: React.ReactInstance
-    ) => {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      let drag: any = monitor.getItem();
-      if (!drag) {
-        // item undefined, happens when throttle triggers after drop
-        return;
-      }
-
-      if (isNativeHTMLElementDrag(monitor)) {
-        drag = createNativeCellReplacement();
-      }
-
-      if (drag.id === hover.id) {
-        // If hovering over itself, do nothing
-        clear(hover, drag.id);
-        return;
-      } else if (!monitor.isOver({ shallow: true })) {
-        // If hovering over ancestor cell, do nothing (we are going to propagate later in the tree anyways)
-        return;
-      } else if (hover.ancestors.indexOf(drag.id) > -1) {
-        // If hovering over a child of itself
-        clear(hover, drag.id);
-        return;
-      } else if (!hover.id) {
-        // If hovering over something that isn't a cell or hasn't an id, do nothing. Should be an edge case
-        logger.warn('Canceled cell drop, no id given.', hover, drag);
-        return;
-      }
-
-      last = { hover: hover.id, drag: drag.id };
-      const allowInlineNeighbours =
-        hover?.node?.content?.plugin?.allowInlineNeighbours ?? false;
-      computeAndDispatchHover(
-        hover,
-        drag,
-        monitor,
-        component,
-        `10x10${allowInlineNeighbours ? '' : '-no-inline'}`
-      );
-    },
-    delay,
-    { leading: false }
-  ),
-
-  canDrop: (
-    { id, ancestors }: ComponetizedCell,
-    monitor: DropTargetMonitor
+export const onHover = throttle(
+  (
+    target: CellWithAncestors | RowWithAncestors,
+    monitor: DropTargetMonitor,
+    element: HTMLElement,
+    actions: Callbacks
   ) => {
-    const item = monitor.getItem();
-    return item.id !== id && ancestors.indexOf(item.id) === -1;
-  },
-
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  drop(hover: ComponetizedCell, monitor: DropTargetMonitor, component: any) {
-    let drag: ComponetizedCell = monitor.getItem();
-
-    if (isNativeHTMLElementDrag(monitor)) {
-      const { plugins } = component.props.config;
-      drag = plugins.createNativePlugin(hover, monitor, component);
-    }
-
-    if (monitor.didDrop() || !monitor.isOver({ shallow: true })) {
-      // If the item drop occurred deeper down the tree, don't do anything
-      return;
-    } else if (drag.id === hover.id) {
-      // If the item being dropped on itself do nothing
-      hover.cancelCellDrag();
-      return;
-    } else if (hover.ancestors.indexOf(drag.id) > -1) {
-      // If hovering over a child of itself, don't propagate further
-      hover.cancelCellDrag();
+    const drag: CellDrag = monitor.getItem();
+    if (!drag) {
+      // item undefined, happens when throttle triggers after drop
       return;
     }
 
-    last = { hover: hover.id, drag: drag.id };
+    if (drag.cell.id === target.id) {
+      // If hovering over itself, do nothing
+      if (shouldClear(target.id, drag.cell.id)) {
+        actions.clear();
+      }
+      return;
+    } else if (!monitor.isOver({ shallow: true })) {
+      // If hovering over ancestor cell, do nothing (we are going to propagate later in the tree anyways)
+      return;
+    } else if (target.ancestors.some((a) => a.id === drag.cell.id)) {
+      if (shouldClear(target.id, drag.cell.id)) {
+        actions.clear();
+      }
+      return;
+    } else if (!target.id) {
+      // If hovering over something that isn't a cell or hasn't an id, do nothing. Should be an edge case
+      logger.warn('Canceled cell drop, no id given.', target, drag);
+      return;
+    }
 
+    last = { hoverId: target.id, dragId: drag.cell.id };
     const allowInlineNeighbours =
-      hover?.node?.content?.plugin?.allowInlineNeighbours ?? false;
-    computeAndDispatchInsert(
-      hover,
-      drag,
+      (!isRow(target) && target?.content?.plugin?.allowInlineNeighbours) ??
+      false;
+    computeAndDispatchHover(
+      target,
+      drag.cell,
       monitor,
-      component,
+      element,
+      actions,
       `10x10${allowInlineNeighbours ? '' : '-no-inline'}`
     );
   },
-};
+  delay,
+  { leading: false }
+);
 
-export const connect = (
-  connectInner: DropTargetConnector,
-  monitor: DropTargetMonitor
-) => ({
-  connectDropTarget: connectInner.dropTarget(),
-  isOver: monitor.isOver(),
-  isOverCurrent: monitor.isOver({ shallow: true }),
-});
+export const onDrop = (
+  targetCell: CellWithAncestors | RowWithAncestors,
+  monitor: DropTargetMonitor,
+  element: HTMLElement,
+  actions: Callbacks
+) => {
+  const drag: CellDrag = monitor.getItem();
+  //  console.log('on drop', targetCell, monitor);
+
+  if (monitor.didDrop() || !monitor.isOver({ shallow: true })) {
+    // If the item drop occurred deeper down the tree, don't do anything
+    return;
+  } else if (drag.cell.id === targetCell.id) {
+    // If the item being dropped on itself do nothing
+    actions.cancelCellDrag();
+    return;
+  } else if (targetCell.ancestors.some((a) => a.id === drag.cell.id)) {
+    // If hovering over a child of itself, don't propagate further
+    actions.cancelCellDrag();
+    return;
+  }
+
+  last = { hoverId: targetCell.id, dragId: drag.cell.id };
+
+  const allowInlineNeighbours =
+    (!isRow(targetCell) &&
+      targetCell?.content?.plugin?.allowInlineNeighbours) ??
+    false;
+  computeAndDispatchInsert(
+    targetCell,
+    drag.cell,
+    monitor,
+    element,
+    actions,
+    `10x10${allowInlineNeighbours ? '' : '-no-inline'}`
+  );
+};

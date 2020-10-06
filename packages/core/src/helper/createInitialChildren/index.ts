@@ -1,11 +1,9 @@
 /* eslint-disable @typescript-eslint/ban-types */
+import { v4 } from 'uuid';
 import {
-  ContentPlugin,
   ContentPluginConfig,
-  LayoutPlugin,
   LayoutPluginConfig,
 } from '../../service/plugin/classes';
-import { v4 } from 'uuid';
 
 type CellDef = {
   content?: {
@@ -29,11 +27,11 @@ export type ChildrenDef = {
     cells: {
       id: string;
       content?: {
-        plugin: ContentPlugin;
+        plugin: ContentPluginConfig;
         state?: object;
       };
       layout?: {
-        plugin: LayoutPlugin;
+        plugin: LayoutPluginConfig;
         state?: object;
       };
       size?: number;
@@ -46,13 +44,12 @@ export type ChildrenDef = {
 export type InitialChildrenDef = RowDef[] | ChildrenDef;
 
 const withDefaultState = (
-  layoutOrContent: CellDef['layout'] | CellDef['content'],
-  PluginClass
+  layoutOrContent: CellDef['layout'] | CellDef['content']
 ) => {
-  const plugin = new PluginClass(layoutOrContent.plugin);
+  const plugin = layoutOrContent.plugin;
   return {
     plugin,
-    state: layoutOrContent.state || plugin.createInitialState(),
+    state: layoutOrContent.state || plugin.createInitialState?.(),
   };
 };
 
@@ -63,8 +60,8 @@ export default (rows: RowDef[]): ChildrenDef => ({
     cells: row.map(({ layout, content, ...rest }) => {
       return {
         id: v4(),
-        layout: layout ? withDefaultState(layout, LayoutPlugin) : undefined,
-        content: content ? withDefaultState(content, ContentPlugin) : undefined,
+        layout: layout ? withDefaultState(layout) : undefined,
+        content: content ? withDefaultState(content) : undefined,
         ...rest,
       };
     }),

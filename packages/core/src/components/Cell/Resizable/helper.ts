@@ -1,5 +1,3 @@
-import { ComponetizedCell } from '../../../types/editable';
-
 export const computeStepWidth = ({
   rowWidth,
   steps,
@@ -9,8 +7,11 @@ export const computeStepWidth = ({
 }): number => Math.round(rowWidth / (steps || 12));
 
 export const widthToSize = (
-  { stepWidth, steps }: { stepWidth: number; steps: number },
-  { node: { inline } }: ComponetizedCell,
+  {
+    stepWidth,
+    steps,
+    inline,
+  }: { stepWidth: number; steps: number; inline: string },
   result: { width: number }
 ): number => {
   let size = Math.round(result.width / stepWidth);

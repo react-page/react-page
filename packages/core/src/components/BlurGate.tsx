@@ -1,13 +1,6 @@
 import React, { useEffect } from 'react';
-import { blurAllCells } from '../actions/cell';
-import {
-  setMode as setModeInternal,
-  DisplayModes,
-  DISPLAY_MODE_EDIT,
-} from '../actions/display';
-import { connect } from '../reduxConnect';
-import { createStructuredSelector } from 'reselect';
-import { isInsertMode } from '../selector/display';
+import { DisplayModes, DISPLAY_MODE_EDIT } from '../actions/display';
+import { useBlurAllCells, useIsInsertMode, useSetMode } from './hooks';
 
 // this might break in future, but its better than nothing
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -36,14 +29,17 @@ const isInSameTree = (parent, child) => {
   return false;
 };
 
-const useBlurAll = (
-  blurAllCellsDispatch,
-  setMode: (mode: DisplayModes) => void,
-  isInInsertMode: boolean,
-  defaultMode: DisplayModes = DISPLAY_MODE_EDIT,
-  disabled: boolean
-) => {
+const useBlurAll = ({
+  defaultMode = DISPLAY_MODE_EDIT,
+  disabled,
+}: {
+  defaultMode: DisplayModes;
+  disabled: boolean;
+}) => {
   const ref = React.useRef<HTMLDivElement>();
+  const blurAllCells = useBlurAllCells();
+  const setMode = useSetMode();
+  const isInsertMode = useIsInsertMode();
   useEffect(() => {
     if (disabled) {
       return;
@@ -57,9 +53,9 @@ const useBlurAll = (
 
     const onMouseDown = (e: MouseEvent) => {
       if (!isInSameTree(ref.current, e.target)) {
-        blurAllCellsDispatch();
+        blurAllCells();
         // set us in default mode if current mode is "insert"
-        if (isInInsertMode) {
+        if (isInsertMode) {
           setMode(defaultMode);
         }
       }
@@ -68,30 +64,23 @@ const useBlurAll = (
     return () => {
       document.body.removeEventListener('mousedown', onMouseDown);
     };
-  }, [ref.current, disabled, isInInsertMode]);
+  }, [ref.current, disabled, isInsertMode, setMode, blurAllCells]);
   return ref;
 };
-
-const mapStateToProps = createStructuredSelector({ isInsertMode });
-const mapDispatchToProps = { blurAllCells, setMode: setModeInternal };
 
 export interface BlurGateProps {
   disabled?: boolean;
   defaultMode?: DisplayModes;
 }
 
-const BlurGate: React.FC<BlurGateProps> = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)((props) => {
-  const ref = useBlurAll(
-    props.blurAllCells,
-    props.setMode,
-    props.defaultMode,
-    props.isInsertMode,
-    props.disabled
-  );
-  return <div ref={ref}>{props.children}</div>;
-});
+const BlurGate: React.FC<BlurGateProps> = ({
+  defaultMode,
+  disabled,
+  children,
+}) => {
+  const ref = useBlurAll({ defaultMode, disabled });
+
+  return <div ref={ref}>{children}</div>;
+};
 
 export default BlurGate;

@@ -1,38 +1,20 @@
 import * as React from 'react';
-import { ConnectDropTarget, DropTarget as dropTarget } from 'react-dnd';
-import { dragActions } from '../../../actions/cell/drag';
-import { insertActions } from '../../../actions/cell/insert';
-import { connect } from '../../../reduxConnect';
-import { ComponetizedRow } from '../../../types/editable';
-import { connect as monitorConnect, target } from './dnd';
+import { useCellDrop } from '../../Cell/Droppable';
+import { useIsInsertMode, useIsLayoutMode } from '../../hooks';
 
-export type Props = ComponetizedRow & {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  children: any;
-  isLayoutMode: boolean;
-  isInsertMode: boolean;
-  isOverCurrent: boolean;
-  connectDropTarget: ConnectDropTarget;
+const Droppable: React.FC<{ nodeId: string }> = ({ children, nodeId }) => {
+  const isLayoutMode = useIsLayoutMode();
+  const isInsertMode = useIsInsertMode();
+
+  const ref = useCellDrop(nodeId);
+  if (!(isLayoutMode || isInsertMode)) {
+    return <div className="ory-row-droppable-container">{children}</div>;
+  }
+  return (
+    <div ref={ref} className="ory-row-droppable">
+      {children}
+    </div>
+  );
 };
 
-export class Droppable extends React.Component<Props> {
-  render() {
-    if (!(this.props.isLayoutMode || this.props.isInsertMode)) {
-      return (
-        <div className="ory-row-droppable-container">{this.props.children}</div>
-      );
-    }
-
-    return this.props.connectDropTarget(
-      <div className="ory-row-droppable">{this.props.children}</div>
-    );
-  }
-}
-
-const mapDispatchToProps = { ...dragActions, ...insertActions };
-
-export default (dropTypes: string[] = ['CELL']) =>
-  connect(
-    null,
-    mapDispatchToProps
-  )(dropTarget(dropTypes, target, monitorConnect)(Droppable));
+export default Droppable;

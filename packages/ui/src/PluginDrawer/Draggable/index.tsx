@@ -43,7 +43,8 @@ const { clearHover } = Actions.Cell;
 
 const mapDispatchToProps = { insertMode, editMode, layoutMode, clearHover };
 
-export default (dragType = 'CELL') => {
+// FIXME: remove connect and use hooks
+export default (dragType) => {
   if (!instances[dragType]) {
     instances[dragType] = connect(
       mapStateToProps,

@@ -4,18 +4,15 @@ import ListItem from '@material-ui/core/ListItem';
 import ListSubheader from '@material-ui/core/ListSubheader';
 import TextField from '@material-ui/core/TextField';
 import {
-  connect,
-  ContentPlugin,
-  Editor,
-  LayoutPlugin,
-  Plugin,
+  ContentPluginConfig,
+  LayoutPluginConfig,
+  PluginConfig,
   sanitizeInitialChildren,
-  Selectors,
   useEditor,
+  useIsInsertMode,
 } from '@react-page/core';
 import * as React from 'react';
 import { Portal } from 'react-portal';
-import { createStructuredSelector } from 'reselect';
 import Item from './Item/index';
 
 export interface Translations {
@@ -37,192 +34,147 @@ const defaultTranslations: Translations = {
 };
 
 type Props = {
-  isInsertMode: boolean;
-  editor: Editor;
   translations?: Translations;
 };
 
-interface RawState {
-  isSearching: boolean;
-  searchText: string;
-}
+const Toolbar: React.FC<Props> = ({ translations = defaultTranslations }) => {
+  const editor = useEditor();
+  const plugins = editor.plugins;
 
-class Raw extends React.Component<Props, RawState> {
-  static defaultProps = {
-    translations: defaultTranslations,
-  };
+  const [searchText, setSearchText] = React.useState<string>('');
+  const searchFilter = React.useCallback(
+    (plugin: PluginConfig) => {
+      return (
+        plugin &&
+        plugin.name &&
+        !plugin.hideInMenu &&
+        (plugin.name.toLowerCase().startsWith(searchText?.toLowerCase()) ||
+          (plugin.description &&
+            plugin.description
+              .toLowerCase()
+              .startsWith(searchText?.toLowerCase())) ||
+          (plugin.text &&
+            plugin.text.toLowerCase().startsWith(searchText?.toLowerCase())))
+      );
+    },
+    [searchText]
+  );
 
-  input: HTMLInputElement;
-  constructor(props: Props) {
-    super(props);
-    this.state = {
-      isSearching: false,
-      searchText: '',
-    };
-
-    this.onSearch = this.onSearch.bind(this);
-    this.searchFilter = this.searchFilter.bind(this);
-  }
-
-  componentDidUpdate() {
-    const input = this.input;
-    if (input && this.props.isInsertMode && input instanceof HTMLElement) {
-      setTimeout(() => {
-        const e = input.querySelector('input');
+  const onSearch = React.useCallback(
+    (e: React.ChangeEvent) => {
+      const target = e.target;
+      if (target instanceof HTMLInputElement) {
+        setSearchText(target.value);
+      }
+    },
+    [setSearchText]
+  );
+  const isInsertMode = useIsInsertMode();
+  const inputRef = React.useRef<HTMLInputElement>();
+  React.useEffect(() => {
+    let handle;
+    if (inputRef.current && isInsertMode) {
+      handle = setTimeout(() => {
+        const e = inputRef.current.querySelector('input');
         if (e) {
           e.focus();
         }
       }, 100);
     }
-  }
 
-  onRef = (component) => {
-    this.input = component;
-  };
+    return () => {
+      clearTimeout(handle);
+    };
+  }, [inputRef.current, isInsertMode]);
 
-  onSearch: React.ChangeEventHandler<HTMLInputElement> = (e) => {
-    const target = e.target;
-    if (target instanceof HTMLInputElement) {
-      this.setState({
-        isSearching: target.value.length > 0,
-        searchText: target.value,
-      });
-    }
-  };
+  const content = plugins.plugins.content.filter(searchFilter);
+  const layout = plugins.plugins.layout.filter(searchFilter);
 
-  searchFilter(plugin: Plugin) {
-    return (
-      plugin &&
-      plugin.name &&
-      !plugin.hideInMenu &&
-      (plugin.name
-        .toLowerCase()
-        .startsWith(this.state.searchText.toLowerCase()) ||
-        (plugin.description &&
-          plugin.description
-            .toLowerCase()
-            .startsWith(this.state.searchText.toLowerCase())) ||
-        (plugin.text &&
-          plugin.text
-            .toLowerCase()
-            .startsWith(this.state.searchText.toLowerCase())))
-    );
-  }
-
-  render() {
-    const {
-      editor: { plugins },
-    } = this.props;
-    const content = plugins.plugins.content.filter(this.searchFilter);
-    const layout = plugins.plugins.layout.filter(this.searchFilter);
-
-    return (
-      <Portal>
-        <Drawer
-          variant="persistent"
-          className="ory-plugin-drawer"
-          open={this.props.isInsertMode}
-          PaperProps={{
-            style: {
-              width: 320,
-            },
-          }}
+  return (
+    <Portal>
+      <Drawer
+        variant="persistent"
+        className="ory-plugin-drawer"
+        open={isInsertMode}
+        PaperProps={{
+          style: {
+            width: 320,
+          },
+        }}
+      >
+        <List
+          subheader={<ListSubheader>{translations.insertPlugin}</ListSubheader>}
         >
+          <ListItem>
+            <TextField
+              inputRef={inputRef}
+              placeholder={translations.searchPlaceholder}
+              fullWidth={true}
+              onChange={onSearch}
+            />
+          </ListItem>
+          {layout.length + content.length === 0 && (
+            <ListSubheader>{translations.noPluginFoundContent}</ListSubheader>
+          )}
+        </List>
+        {content.length > 0 && (
           <List
             subheader={
-              <ListSubheader>
-                {this.props.translations.insertPlugin}
-              </ListSubheader>
+              <ListSubheader>{translations.contentPlugins}</ListSubheader>
             }
           >
-            <ListItem>
-              <TextField
-                inputRef={this.onRef}
-                placeholder={this.props.translations.searchPlaceholder}
-                fullWidth={true}
-                onChange={this.onSearch}
-              />
-            </ListItem>
-            {layout.length + content.length === 0 && (
-              <ListSubheader>
-                {this.props.translations.noPluginFoundContent}
-              </ListSubheader>
-            )}
+            {content.map((plugin: ContentPluginConfig, k: number) => {
+              const initialState = plugin.createInitialState?.() ?? {};
+
+              return (
+                <Item
+                  translations={translations}
+                  plugin={plugin}
+                  key={k.toString()}
+                  insert={{
+                    content: {
+                      plugin,
+                      state: initialState,
+                    },
+                  }}
+                />
+              );
+            })}
           </List>
-          {content.length > 0 && (
-            <List
-              subheader={
-                <ListSubheader>
-                  {this.props.translations.contentPlugins}
-                </ListSubheader>
-              }
-            >
-              {content.map((plugin: ContentPlugin, k: number) => {
-                const initialState = plugin.createInitialState();
+        )}
+        {layout.length > 0 && (
+          <List
+            subheader={
+              <ListSubheader>{translations.layoutPlugins}</ListSubheader>
+            }
+          >
+            {layout.map((plugin: LayoutPluginConfig, k: number) => {
+              const initialState = plugin.createInitialState?.() ?? {};
 
-                return (
-                  <Item
-                    translations={this.props.translations}
-                    plugin={plugin}
-                    key={k.toString()}
-                    insert={{
-                      content: {
-                        plugin,
-                        state: initialState,
-                      },
-                    }}
-                  />
-                );
-              })}
-            </List>
-          )}
-          {layout.length > 0 && (
-            <List
-              subheader={
-                <ListSubheader>
-                  {this.props.translations.layoutPlugins}
-                </ListSubheader>
-              }
-            >
-              {layout.map((plugin: LayoutPlugin, k: number) => {
-                const initialState = plugin.createInitialState();
+              const children = sanitizeInitialChildren(
+                plugin.createInitialChildren()
+              );
 
-                const children = sanitizeInitialChildren(
-                  plugin.createInitialChildren()
-                );
-
-                return (
-                  <Item
-                    translations={this.props.translations}
-                    plugin={plugin}
-                    key={k.toString()}
-                    insert={{
-                      ...children,
-                      layout: {
-                        plugin,
-                        state: initialState,
-                      },
-                    }}
-                  />
-                );
-              })}
-            </List>
-          )}
-        </Drawer>
-      </Portal>
-    );
-  }
-}
-
-const mapStateToProps = createStructuredSelector({
-  isInsertMode: Selectors.Display.isInsertMode,
-});
-
-const Decorated = connect(mapStateToProps)(Raw);
-
-const Toolbar: React.SFC = () => {
-  const editor = useEditor();
-  return <Decorated editor={editor} />;
+              return (
+                <Item
+                  translations={translations}
+                  plugin={plugin}
+                  key={k.toString()}
+                  insert={{
+                    ...children,
+                    layout: {
+                      plugin,
+                      state: initialState,
+                    },
+                  }}
+                />
+              );
+            })}
+          </List>
+        )}
+      </Drawer>
+    </Portal>
+  );
 };
 
 export default React.memo(Toolbar);

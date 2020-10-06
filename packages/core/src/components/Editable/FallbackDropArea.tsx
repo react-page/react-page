@@ -1,17 +1,18 @@
 import React from 'react';
 import { useDrop } from 'react-dnd';
+import { CellDrag } from '../../types/editable';
 
-import { useEditor, useInsertCellAtTheEnd } from '../hooks';
+import { useInsertCellAtTheEnd } from '../hooks';
 
 const FallbackDropArea: React.FC = ({ children }) => {
   const insertAtTheEnd = useInsertCellAtTheEnd();
-  const editor = useEditor();
+
   const [, dropRef] = useDrop({
-    accept: editor.plugins.getRegisteredNames(),
+    accept: 'cell',
     drop: (item, monitor) => {
       // fallback drop
       if (!monitor.didDrop()) {
-        insertAtTheEnd((item as any).node);
+        insertAtTheEnd((item as CellDrag).cell);
       }
     },
   });

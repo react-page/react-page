@@ -11,12 +11,12 @@ import {
   Languages,
   SimplifiedModesProps,
   DisplayModes,
+  deepEquals,
 } from '@react-page/core';
 import EditorUI from '@react-page/ui';
 import React, { useEffect, useRef, useCallback } from 'react';
 
 import StickyWrapper from './StickyWrapper';
-import equals from 'fast-deep-equal';
 
 export type EditableEditorProps = {
   plugins?: Plugins;
@@ -63,12 +63,12 @@ const EditableEditor: React.FC<EditableEditorProps> = ({
     [onChange]
   );
 
-  const equal = equals(theValue, lastValueRef?.current);
+  const equal = deepEquals(theValue, lastValueRef?.current);
 
   useEffect(() => {
     if (!equal) {
       lastValueRef.current = theValue;
-      editorRef.current.trigger.editable.update(theValue);
+      editorRef.current.update(theValue);
     }
   }, [equal]);
   const editor = editorRef.current;

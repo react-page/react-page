@@ -1,5 +1,5 @@
 import expect from 'unexpected';
-import equal from 'fast-deep-equal';
+import deepEquals from '../../../../utils/deepEquals';
 
 import { optimizeCell, optimizeRow } from '../optimize';
 
@@ -78,7 +78,10 @@ describe('optimizeCell', () => {
   ].forEach((c, k) => {
     it(`should pass test case ${k}`, () => {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      expect(equal(c.out, optimizeCell(c.in as any)), 'to be truthy');
+      expect(
+        deepEquals(c.out, optimizeCell(c.in as any) as any),
+        'to be truthy'
+      );
     });
   });
 });

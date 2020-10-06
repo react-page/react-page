@@ -43,7 +43,7 @@ const SlateControls = (props: SlateProps) => {
     focused,
     readOnly,
     remove,
-    id,
+    nodeId,
     defaultPluginType,
   } = props;
   const editor = useMemo(
@@ -106,10 +106,8 @@ const SlateControls = (props: SlateProps) => {
           plugins={plugins}
           show={showBottomToolbar}
           removeSlate={remove}
-          id={id}
-          name={props.name}
+          nodeId={nodeId}
           translations={props.translations}
-          editable={props.editable}
         />
       ) : null}
     </Slate>

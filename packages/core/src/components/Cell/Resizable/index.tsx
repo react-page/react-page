@@ -2,12 +2,8 @@ import classNames from 'classnames';
 import throttle from 'lodash/throttle';
 import * as React from 'react';
 import { Resizable as ReactResizeable } from 'react-resizable';
-import { createStructuredSelector } from 'reselect';
-import { editMode, resizeMode } from '../../../actions/display';
-import { connect } from '../../../reduxConnect';
-import { ComponetizedCell } from '../../../types/editable';
+import { Cell } from '../../../types/editable';
 import { computeStepWidth, widthToSize } from './helper';
-type ResizableProps = ComponetizedCell;
 
 export interface ResizableState {
   stepWidth: number;
@@ -15,13 +11,23 @@ export interface ResizableState {
   steps: number;
 }
 
+type ResizableProps = {
+  rowWidth: number;
+  steps: number;
+  node: Cell;
+  onChange: (size: number) => void;
+};
+
 class Resizable extends React.PureComponent<ResizableProps, ResizableState> {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onChangeSizeThrottled: any;
   constructor(props: ResizableProps) {
     super(props);
 
-    const sw = computeStepWidth(props);
+    const sw = computeStepWidth({
+      rowWidth: props.rowWidth,
+      steps: props.node.size,
+    });
 
     this.onChangeSizeThrottled = throttle(this.onChangeSize, 100);
     this.state = {
@@ -35,7 +41,14 @@ class Resizable extends React.PureComponent<ResizableProps, ResizableState> {
     if (isNaN(size.width)) {
       return;
     }
-    const newSize = widthToSize(this.state, this.props, size);
+    const newSize = widthToSize(
+      {
+        steps: this.state.steps,
+        stepWidth: this.state.stepWidth,
+        inline: this.props.node.inline,
+      },
+      size
+    );
     this.props.onChange(newSize);
   };
 
@@ -52,7 +65,14 @@ class Resizable extends React.PureComponent<ResizableProps, ResizableState> {
       return;
     }
     this.onChangeSize(size);
-    const newSize = widthToSize(this.state, this.props, size);
+    const newSize = widthToSize(
+      {
+        steps: this.state.steps,
+        stepWidth: this.state.stepWidth,
+        inline: this.props.node.inline,
+      },
+      size
+    );
     this.setState({ width: newSize * this.state.stepWidth });
   };
   render() {
@@ -83,8 +103,4 @@ class Resizable extends React.PureComponent<ResizableProps, ResizableState> {
   }
 }
 
-const mapStateToProps = createStructuredSelector({});
-
-const mapDispatchToProps = { resizeMode, editMode };
-
-export default connect(mapStateToProps, mapDispatchToProps)(Resizable);
+export default Resizable;

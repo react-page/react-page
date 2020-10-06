@@ -1,6 +1,6 @@
 import { Action } from 'redux';
 import { v4 } from 'uuid';
-import { Cell, NewIds } from '../../types/editable';
+import { Cell, CellWithAncestors, NewIds } from '../../types/editable';
 import { editMode } from '../display';
 import { generateIds } from '../helpers';
 import { focusCell } from './core';
@@ -14,22 +14,31 @@ export const CELL_INSERT_INLINE_RIGHT = 'CELL_INSERT_INLINE_RIGHT';
 
 export const CELL_INSERT_AT_END = 'CELL_INSERT_AT_END';
 
+type InsertType =
+  | typeof CELL_INSERT_ABOVE
+  | typeof CELL_INSERT_BELOW
+  | typeof CELL_INSERT_LEFT_OF
+  | typeof CELL_INSERT_RIGHT_OF
+  | typeof CELL_INSERT_INLINE_LEFT
+  | typeof CELL_INSERT_INLINE_RIGHT
+  | typeof CELL_INSERT_AT_END;
 export interface InsertAction extends Action {
   ts: Date;
   item: Partial<Cell>;
-  hover: string;
+  hoverId: string;
   level: number;
   ids: NewIds;
+  type: InsertType;
 }
 
-const insert = (type: string) => (
+const insert = <T extends InsertType>(type: T) => (
   item: Partial<Cell>,
-  { id: hover, inline, hasInlineNeighbour }: Partial<Cell>,
+  { id: hoverId, inline, hasInlineNeighbour }: Partial<Cell>,
   level = 0,
   ids: NewIds = null
 ) => {
   let l = level;
-
+  delete (item as CellWithAncestors).ancestors;
   switch (type) {
     case CELL_INSERT_ABOVE:
     case CELL_INSERT_BELOW: {
@@ -53,7 +62,7 @@ const insert = (type: string) => (
     type,
     ts: new Date(),
     item,
-    hover,
+    hoverId,
     level: l,
     // FIXME: item handling is a bit confusing,
     // we now give some of them a name like "cell" or "item",
@@ -70,7 +79,7 @@ const insert = (type: string) => (
       dispatch(editMode());
     }
     setTimeout(() => {
-      dispatch(focusCell(insertAction.ids.item, true)());
+      dispatch(focusCell(insertAction.ids.item, true));
     }, 300);
   };
 };
