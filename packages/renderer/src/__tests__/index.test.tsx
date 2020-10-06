@@ -1,9 +1,4 @@
-import {
-  ContentPluginProps,
-  EditableType,
-  LayoutPluginProps,
-  Plugins,
-} from '@react-page/core';
+import { EditableType, Plugins } from '@react-page/core';
 import slate from '@react-page/plugins-slate';
 import { mount, render } from 'enzyme';
 import * as React from 'react';
@@ -20,13 +15,13 @@ const Layout = ({ children, state: { className } }) => (
 );
 
 const plugins: Plugins = {
-  content: [(slate() as unknown) as ContentPluginProps],
+  content: [slate()],
   layout: [
-    ({
+    {
       name: 'layout',
       version: '0.0.1',
-      Component: Layout,
-    } as unknown) as LayoutPluginProps,
+      Component: Layout as any,
+    },
   ],
 };
 

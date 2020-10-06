@@ -1,37 +1,22 @@
-import * as React from 'react';
 import ViewQuilt from '@material-ui/icons/ViewQuilt';
+import { useIsLayoutMode, useSetLayoutMode } from '@react-page/core';
+import * as React from 'react';
 import Button from '../Button';
-
-import { connect, Selectors, Actions } from '@react-page/core';
-
-import { createStructuredSelector } from 'reselect';
-
-export interface InnerReduxProps {
-  isLayoutMode: boolean;
-}
-
-export interface InnerActionProps {
-  layoutMode: React.MouseEventHandler<HTMLElement>;
-}
-
-interface OwnProps {
+type Props = {
   label: string;
-}
+};
 
-export type InnerProps = InnerReduxProps & InnerActionProps & OwnProps;
+const ToggleLayout: React.FC<Props> = ({ label }) => {
+  const isLayoutMode = useIsLayoutMode();
+  const setLayoutMode = useSetLayoutMode();
+  return (
+    <Button
+      icon={<ViewQuilt />}
+      description={label}
+      active={isLayoutMode}
+      onClick={setLayoutMode}
+    />
+  );
+};
 
-const Inner: React.SFC<InnerProps> = (props) => (
-  <Button
-    icon={<ViewQuilt />}
-    description={props.label}
-    active={props.isLayoutMode}
-    onClick={props.layoutMode}
-  />
-);
-
-const mapStateToProps = createStructuredSelector({
-  isLayoutMode: Selectors.Display.isLayoutMode,
-});
-const mapDispatchToProps = { layoutMode: Actions.Display.layoutMode };
-
-export default connect(mapStateToProps, mapDispatchToProps)(Inner);
+export default React.memo(ToggleLayout);

@@ -1,9 +1,6 @@
-import { PluginsInternal } from './classes';
+import { Plugins } from './classes';
 
-export default (
-  pluginsToMergeIn: PluginsInternal,
-  plugins: PluginsInternal
-) => {
+export default (pluginsToMergeIn: Plugins, plugins: Plugins) => {
   if (pluginsToMergeIn.layout) {
     plugins.layout = [...pluginsToMergeIn.layout, ...plugins.layout];
   }

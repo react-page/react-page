@@ -1,24 +1,20 @@
+// TODO: get rid of this class
 import semver, { satisfies } from 'semver';
 import { v4 } from 'uuid';
-import { ComponetizedCell, EditableType } from '../../types/editable';
+import { EditableType } from '../../types/editable';
 import { EditorState } from '../../types/editor';
 import {
-  ContentPlugin,
   ContentPluginConfig,
-  LayoutPlugin,
   LayoutPluginConfig,
-  NativePlugin,
-  NativePluginProps,
-  Plugin,
   PluginConfig,
   Plugins,
-  PluginsInternal,
 } from './classes';
 import defaultPlugin from './default';
 import { contentMissing, layoutMissing } from './missing';
 
-const find = (name: string, version = '*') => (plugin: PluginConfig): boolean =>
-  plugin.name === name && satisfies(plugin.version, version);
+const find = (name: string, version = '*') => (
+  plugin: LayoutPluginConfig | ContentPluginConfig
+): boolean => plugin.name === name && satisfies(plugin.version, version);
 
 /**
  * Iterate through an editable content tree and generate ids where missing.
@@ -39,90 +35,18 @@ export const generateMissingIds = (props: EditorState): EditorState => {
  * PluginService is a registry of all content and layout plugins known to the editor.
  */
 export default class PluginService {
-  plugins: PluginsInternal;
+  plugins: Plugins;
 
   /**
    * Instantiate a new PluginService instance. You can provide your own set of content and layout plugins here.
    */
-  constructor({ content = [], layout = [], native }: Plugins = {} as Plugins) {
+  constructor({ content = [], layout = [] }: Plugins = {} as Plugins) {
     this.plugins = {
-      content: [defaultPlugin, ...content].map(
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        (config: any) => new ContentPlugin(config)
-      ),
+      content: [defaultPlugin, ...content],
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      layout: layout.map((config: any) => new LayoutPlugin(config)),
-      native: native,
+      layout: layout,
     };
   }
-
-  hasNativePlugin = () => Boolean(this.plugins.native);
-
-  getNativePlugin = () => this.plugins.native;
-
-  createNativePlugin = (
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    hover?: any,
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    monitor?: any,
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    component?: any
-  ): ComponetizedCell => {
-    const native = this.plugins.native;
-
-    if (!native) {
-      const insert = new NativePlugin({} as NativePluginProps);
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const cell: any = { node: insert, rawNode: () => insert };
-      return cell;
-    } else {
-      const plugin = new NativePlugin(native(hover, monitor, component));
-      const initialState = plugin.createInitialState();
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const insert: any = { content: { plugin, state: initialState } };
-      /*if (plugin === 'layout') {
-        insert = { layout: { plugin, state: initialState } };
-      }*/
-
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const cell: any = { node: insert, rawNode: () => insert };
-      return cell;
-    }
-  };
-
-  setLayoutPlugins = (plugins: LayoutPluginConfig[] = []) => {
-    this.plugins.layout = [];
-    plugins.forEach((plugin) => this.addLayoutPlugin(plugin));
-  };
-
-  addLayoutPlugin = (config: LayoutPluginConfig) => {
-    this.plugins.layout.push(new LayoutPlugin(config));
-  };
-
-  removeLayoutPlugin = (name: string) => {
-    this.plugins.layout = this.plugins.layout.filter(
-      (plugin) => plugin.name !== name
-    );
-  };
-
-  setContentPlugins = (plugins: ContentPluginConfig[] = []) => {
-    this.plugins.content = [];
-
-    // semicolon is required to avoid syntax error
-    [defaultPlugin, ...plugins].forEach((plugin) =>
-      this.addContentPlugin(plugin)
-    );
-  };
-
-  addContentPlugin = (config: ContentPluginConfig) => {
-    this.plugins.content.push(new ContentPlugin(config));
-  };
-
-  removeContentPlugin = (name: string) => {
-    this.plugins.content = this.plugins.content.filter(
-      (plugin) => plugin.name !== name
-    );
-  };
 
   /**
    * Finds a layout plugin based on its name and version.
@@ -130,16 +54,17 @@ export default class PluginService {
   findLayoutPlugin = (
     name: string,
     version: string
-  ): { plugin: LayoutPlugin; pluginWrongVersion?: LayoutPlugin } => {
-    const plugin = this.plugins.layout.find(
-      find(name, version)
-    ) as LayoutPlugin;
+  ): {
+    plugin: LayoutPluginConfig;
+    pluginWrongVersion?: LayoutPluginConfig;
+  } => {
+    const plugin = this.plugins.layout.find(find(name, version));
     let pluginWrongVersion = undefined;
     if (!plugin) {
       pluginWrongVersion = this.plugins.layout.find(find(name, '*'));
     }
     return {
-      plugin: plugin || new LayoutPlugin(layoutMissing({ name, version })),
+      plugin: plugin || layoutMissing({ name, version }),
       pluginWrongVersion,
     };
   };
@@ -150,14 +75,17 @@ export default class PluginService {
   findContentPlugin = (
     name: string,
     version: string
-  ): { plugin: ContentPlugin; pluginWrongVersion?: ContentPlugin } => {
+  ): {
+    plugin: ContentPluginConfig;
+    pluginWrongVersion?: ContentPluginConfig;
+  } => {
     const plugin = this.plugins.content.find(find(name, version));
     let pluginWrongVersion = undefined;
     if (!plugin) {
       pluginWrongVersion = this.plugins.content.find(find(name, '*'));
     }
     return {
-      plugin: plugin || new ContentPlugin(contentMissing({ name, version })),
+      plugin: plugin || contentMissing({ name, version }),
       pluginWrongVersion,
     };
   };
@@ -166,14 +94,14 @@ export default class PluginService {
    * Returns a list of all known plugin names.
    */
   getRegisteredNames = (): Array<string> => [
-    ...this.plugins.content.map(({ name }: Plugin) => name),
-    ...this.plugins.layout.map(({ name }: Plugin) => name),
+    ...this.plugins.content.map(({ name }) => name),
+    ...this.plugins.layout.map(({ name }) => name),
   ];
 
   migratePluginState = (
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     state: any,
-    plugin: Plugin,
+    plugin: PluginConfig,
     dataVersion: string
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ): any => {
@@ -202,7 +130,7 @@ export default class PluginService {
   };
 
   getNewPluginState = (
-    found: { plugin: Plugin; pluginWrongVersion?: Plugin },
+    found: { plugin: PluginConfig; pluginWrongVersion?: PluginConfig },
 
     state: unknown,
     stateI18n: {
@@ -210,16 +138,16 @@ export default class PluginService {
     },
     version: string
   ): {
-    plugin: Plugin;
+    plugin: PluginConfig;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     state: unknown;
     stateI18n: {
       [lang: string]: unknown;
     };
   } => {
-    const getResult = (plugin, shouldMigrate = false) => {
+    const getResult = (plugin: PluginConfig, shouldMigrate = false) => {
       // Attempt to migrate
-
+      const unserialize = plugin.unserialize ? plugin.unserialize : (s) => s;
       const transformState = (s) => {
         if (shouldMigrate) {
           const migratedState = this.migratePluginState(
@@ -227,9 +155,9 @@ export default class PluginService {
             found.pluginWrongVersion,
             version
           );
-          return plugin.unserialize(migratedState);
+          return unserialize(migratedState);
         }
-        return plugin.unserialize(s);
+        return unserialize(s);
       };
 
       const result = {
@@ -337,14 +265,18 @@ export default class PluginService {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const newState: any = { id, inline, size, isDraft, isDraftI18n };
     if (content && content.plugin) {
+      const serialize = content.plugin.serialize
+        ? content.plugin.serialize
+        : (s) => s;
+
       newState.content = {
         plugin: { name: content.plugin.name, version: content.plugin.version },
-        state: content.plugin.serialize(content.state),
+        state: serialize(content.state),
         stateI18n: content.stateI18n
           ? Object.keys(content.stateI18n).reduce(
               (acc, lang) => ({
                 ...acc,
-                [lang]: content.plugin.serialize(content.stateI18n[lang]),
+                [lang]: serialize(content.stateI18n[lang]),
               }),
               {}
             )
@@ -353,14 +285,17 @@ export default class PluginService {
     }
 
     if (layout && layout.plugin) {
+      const serialize = layout.plugin.serialize
+        ? layout.plugin.serialize
+        : (s) => s;
       newState.layout = {
         plugin: { name: layout.plugin.name, version: layout.plugin.version },
-        state: layout.plugin.serialize(layout.state),
+        state: serialize(layout.state),
         stateI18n: layout.stateI18n
           ? Object.keys(layout.stateI18n).reduce(
               (acc, lang) => ({
                 ...acc,
-                [lang]: layout.plugin.serialize(layout.stateI18n[lang]),
+                [lang]: serialize(layout.stateI18n[lang]),
               }),
               {}
             )

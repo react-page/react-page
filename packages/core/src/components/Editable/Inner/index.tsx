@@ -1,23 +1,20 @@
 import throttle from 'lodash.throttle';
+import { useMeasure } from 'react-use';
 import * as React from 'react';
-import { createStructuredSelector } from 'reselect';
+import { useCallback, useEffect } from 'react';
+
+import { useEditableNode } from '../../..';
 import { createFallbackCell } from '../../../actions/cell';
 import scrollIntoViewWithOffset from '../../../components/Cell/utils/scrollIntoViewWithOffset';
-import { connect } from '../../../reduxConnect';
-import { RootState } from '../../../selector';
-import { purifiedEditable } from '../../../selector/editable';
+
 import {
-  ContentPlugin,
   ContentPluginConfig,
-  LayoutPlugin,
   LayoutPluginConfig,
 } from '../../../service/plugin/classes';
-import {
-  EditableComponentState,
-  SimplifiedModesProps,
-} from '../../../types/editable';
 import Cell from '../../Cell';
-import dimensions from '../../Dimensions';
+import { useRef } from 'react';
+import { useDispatch } from '../../../reduxConnect';
+
 function isElementInViewport(el: HTMLDivElement) {
   const rect = el.getBoundingClientRect();
 
@@ -32,108 +29,79 @@ function isElementInViewport(el: HTMLDivElement) {
         document.documentElement.clientWidth) /*or $(window).width() */
   );
 }
-export type EditableInnerProps = EditableComponentState & SimplifiedModesProps;
-class Inner extends React.PureComponent<EditableInnerProps> {
-  ref = React.createRef<HTMLDivElement>();
-  firstElementInViewport = null;
+type Props = {
+  id: string;
+  defaultPlugin: ContentPluginConfig | LayoutPluginConfig;
+};
+const Inner: React.FC<Props> = ({ defaultPlugin }) => {
+  const node = useEditableNode();
+  const ref = useRef<HTMLDivElement>();
+  const [sizeRef, { width }] = useMeasure();
+  const cells = node?.cells ?? [];
 
-  onScroll = throttle(() => {
-    if (this.ref.current) {
-      const firstInViewport: HTMLDivElement = Array.prototype.find.call(
-        this.ref.current.getElementsByClassName('ory-cell'),
-        (cell: HTMLDivElement) => isElementInViewport(cell)
-      );
-      if (firstInViewport) {
-        this.firstElementInViewport = {
-          el: firstInViewport,
-          topOffset: firstInViewport.getBoundingClientRect().top,
-        };
-      } else {
-        this.firstElementInViewport = null;
-      }
-    }
-  }, 600);
-
-  componentDidMount() {
-    this.createFallbackCell();
-    window.addEventListener('scroll', this.onScroll);
-  }
-
-  componentDidUpdate(oldProps: EditableInnerProps) {
-    this.createFallbackCell();
-    if (oldProps.displayMode !== this.props.displayMode) {
-      if (this.firstElementInViewport) {
-        const { el, topOffset } = this.firstElementInViewport;
-        setTimeout(() => {
-          scrollIntoViewWithOffset(el, topOffset, 'auto');
-        }, 0);
-      }
-    }
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener('scroll', this.onScroll);
-  }
-  createFallbackCell = () => {
-    const { node, defaultPlugin, id } = this.props;
-
-    if (!node) {
-      return;
-    }
-
-    const { cells = [] } = node;
-    if (cells.length === 0) {
-      // FIXME: one more reason to unify layout and content plugins...
-      if ((defaultPlugin as LayoutPluginConfig).createInitialChildren) {
-        this.props.createFallbackCell(new LayoutPlugin(defaultPlugin), id);
-      } else {
-        this.props.createFallbackCell(
-          new ContentPlugin(defaultPlugin as ContentPluginConfig),
-          id
+  const firstElementInViewPortref = React.useRef<{
+    el: HTMLDivElement;
+    topOffset: number;
+  }>();
+  useEffect(() => {
+    const onScroll = throttle(() => {
+      if (ref.current) {
+        const firstInViewport: HTMLDivElement = Array.prototype.find.call(
+          ref.current.getElementsByClassName('ory-cell'),
+          (cell: HTMLDivElement) => isElementInViewport(cell)
         );
+        if (firstInViewport) {
+          firstElementInViewPortref.current = {
+            el: firstInViewport,
+            topOffset: firstInViewport.getBoundingClientRect().top,
+          };
+        } else {
+          firstElementInViewPortref.current = null;
+        }
       }
+    }, 600);
+
+    window.addEventListener('scroll', onScroll);
+
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+    };
+  });
+  const dispatch = useDispatch();
+  const createFallback = useCallback(
+    (plugin) => {
+      dispatch(createFallbackCell(plugin, node?.id));
+    },
+    [dispatch, node?.id]
+  );
+
+  const shouldCreateFallbackCell = node && cells.length === 0;
+  useEffect(() => {
+    if (shouldCreateFallbackCell) {
+      createFallback(defaultPlugin);
     }
-  };
+  }, [shouldCreateFallbackCell]);
 
-  render() {
-    const { id, containerWidth, containerHeight, node, ...rest } = this.props;
-
-    if (!node) {
-      return null;
+  useEffect(() => {
+    if (firstElementInViewPortref.current) {
+      const { el, topOffset } = firstElementInViewPortref.current;
+      setTimeout(() => {
+        scrollIntoViewWithOffset(el, topOffset, 'auto');
+      }, 0);
     }
-
-    const { cells = [] } = node;
-    return (
-      <div ref={this.ref} className="ory-editable">
-        {cells.map((c: string) => (
-          <Cell
-            rowWidth={containerWidth}
-            rowHeight={containerHeight}
-            editable={id}
-            ancestors={[]}
-            key={c}
-            id={c}
-            {...rest}
-          />
+  }, [firstElementInViewPortref.current]);
+  if (!node) {
+    return null;
+  }
+  return (
+    <div ref={sizeRef}>
+      <div ref={ref} className="ory-editable">
+        {cells.map((cell) => (
+          <Cell nodeId={cell.id} rowWidth={width} key={cell.id} />
         ))}
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
-export const displayMode = ({
-  reactPage: {
-    display: { mode },
-  },
-}: RootState): string => mode;
-
-const mapStateToProps = createStructuredSelector({
-  node: purifiedEditable,
-  displayMode,
-});
-
-const mapDispatchToProps = { createFallbackCell };
-
-export default dimensions()(
-  connect(mapStateToProps, mapDispatchToProps)(Inner)
-);
+export default Inner;

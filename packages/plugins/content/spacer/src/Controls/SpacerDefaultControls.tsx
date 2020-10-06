@@ -37,7 +37,7 @@ const SpacerDefaultControls: React.SFC<SpacerControlsProps> = (props) => {
           <div style={{ height, position: 'relative' }}>
             <BottomToolbar
               {...props}
-              icon={props.IconComponent}
+              icon={props.pluginConfig.IconComponent}
               open={props.focused}
               title={props.translations.pluginName}
               onDelete={remove}

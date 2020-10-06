@@ -1,12 +1,8 @@
 import * as React from 'react';
-import {
-  ContentPluginConfig,
-  ContentPluginProps,
-  LayoutPluginConfig,
-  LayoutPluginProps,
-} from './classes';
+import { PluginConfig } from './classes';
+import { PluginProps, LayoutPluginConfig, ContentPluginConfig } from '../..';
 
-const ContentMissingComponent = (props: ContentPluginProps<unknown>) => (
+const ContentMissingComponent = (props: PluginProps<unknown>) => (
   <div
     style={{
       backgroundColor: 'red',
@@ -25,9 +21,8 @@ const ContentMissingComponent = (props: ContentPluginProps<unknown>) => (
 export const contentMissing = ({
   name,
   version,
-}: Pick<ContentPluginConfig, 'name' | 'version'>): ContentPluginConfig => ({
+}: Pick<PluginConfig, 'name' | 'version'>): ContentPluginConfig => ({
   Component: ContentMissingComponent,
-
   name,
   version,
 });
@@ -36,7 +31,7 @@ const LayoutMissingComponent: React.SFC = ({
   children,
   ...props
 }: // eslint-disable-next-line @typescript-eslint/no-explicit-any
-LayoutPluginProps<unknown> & { children: any }) => (
+PluginProps<unknown> & { children: any }) => (
   <div>
     <div
       style={{
@@ -58,9 +53,8 @@ LayoutPluginProps<unknown> & { children: any }) => (
 export const layoutMissing = ({
   name,
   version,
-}: Pick<LayoutPluginConfig, 'name' | 'version'>): LayoutPluginConfig => ({
+}: Pick<PluginConfig, 'name' | 'version'>): LayoutPluginConfig => ({
   Component: LayoutMissingComponent,
-
   name,
   version,
 });

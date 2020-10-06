@@ -1,14 +1,15 @@
 import { CellHoverAction } from './../../../actions/cell/drag';
 import { EditorState } from '../../../types/editor';
+import { InsertAction } from '../../../actions/cell';
 
 /**
  * Check if this item is currently being hovered.
  */
 export const isHoveringThis = (
   state: EditorState = {},
-  action: CellHoverAction
+  action: CellHoverAction | InsertAction
 ): boolean => {
-  const { level = 0, hover = null } = action;
+  const { level = 0, hoverId = null } = action;
   const children = state.rows || state.cells || [];
   if (level > 0) {
     return Boolean(
@@ -18,5 +19,5 @@ export const isHoveringThis = (
     );
   }
 
-  return hover === state.id;
+  return hoverId === state.id;
 };

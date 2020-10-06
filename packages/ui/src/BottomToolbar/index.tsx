@@ -18,7 +18,7 @@ const brightBorder = 'rgba(0, 0, 0, 0.12)';
 
 const SIZES = [1, 0.8, 0.6, 1.2];
 let lastSize = SIZES[0]; // poor mans redux
-const BottomToolbar: React.SFC<BottomToolbarProps> = ({
+const BottomToolbar: React.FC<BottomToolbarProps> = ({
   open = false,
   children,
   className,
@@ -28,7 +28,7 @@ const BottomToolbar: React.SFC<BottomToolbarProps> = ({
 
   title,
   icon = null,
-  id,
+  nodeId,
 }) => {
   const [size, setSize] = React.useState(lastSize);
   const toggleSize = () => {
@@ -113,7 +113,7 @@ const BottomToolbar: React.SFC<BottomToolbarProps> = ({
               </Grid>
 
               <Grid item={true} style={{ marginLeft: 'auto' }}>
-                <Tools id={id} />
+                <Tools nodeId={nodeId} />
               </Grid>
             </Grid>
           </>

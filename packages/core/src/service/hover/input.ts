@@ -1,24 +1,22 @@
 import { DropTargetMonitor } from 'react-dnd';
-import { findDOMNode } from 'react-dom';
-import { ComponetizedCell } from '../../types/editable';
+
+import { Node } from '../../types/editable';
 import { Callbacks, Room, Vector } from '../../types/hover';
 import HoverService from '../hover';
 
 const hoverService = new HoverService();
 
-export const computeCurrentDropPosition = (
+const computeCurrentDropPosition = (
   actions: Callbacks,
-  hover: ComponetizedCell,
-  drag: ComponetizedCell,
+  hover: Node,
+  drag: Node,
   monitor: DropTargetMonitor,
-  component: React.ReactInstance,
+  element: HTMLElement,
   matrixName: string
 ) => {
   const mousePosition = monitor.getClientOffset();
-  /* eslint-disable react/no-find-dom-node */
-  const componentPosition = (findDOMNode(
-    component
-  ) as HTMLElement).getBoundingClientRect();
+
+  const componentPosition = element.getBoundingClientRect();
   const room: Room = {
     height: componentPosition.bottom - componentPosition.top,
     width: componentPosition.right - componentPosition.left,
@@ -33,70 +31,36 @@ export const computeCurrentDropPosition = (
 };
 
 export const computeAndDispatchInsert = (
-  {
-    insertCellAbove: above,
-    insertCellBelow: below,
-    insertCellLeftOf: leftOf,
-    insertCellRightOf: rightOf,
-    insertCellLeftInline: inlineLeft,
-    insertCellRightInline: inlineRight,
-    clearHover: clear,
-    ...hover
-  }: ComponetizedCell,
-  drag: ComponetizedCell,
+  hover: Node,
+  drag: Node,
   monitor: DropTargetMonitor,
-  component: React.ReactInstance,
+  element: HTMLElement,
+  actions: Callbacks,
   matrixName = '10x10'
-) =>
-  computeCurrentDropPosition(
-    {
-      clear,
-      above,
-      below,
-      leftOf,
-      rightOf,
-      inlineLeft,
-      inlineRight,
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } as any,
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    hover as any,
+) => {
+  return computeCurrentDropPosition(
+    actions,
+    hover,
     drag,
     monitor,
-    component,
+    element,
     matrixName
   );
+};
 
 export const computeAndDispatchHover = (
-  {
-    cellHoverAbove: above,
-    cellHoverBelow: below,
-    cellHoverLeftOf: leftOf,
-    cellHoverRightOf: rightOf,
-    cellHoverInlineLeft: inlineLeft,
-    cellHoverInlineRight: inlineRight,
-    clearHover: clear,
-    ...hover
-  }: ComponetizedCell,
-  drag: ComponetizedCell,
+  hover: Node,
+  drag: Node,
   monitor: DropTargetMonitor,
-  component: React.ReactInstance,
+  element: HTMLElement,
+  actions: Callbacks,
   matrixName = '10x10'
 ) =>
   computeCurrentDropPosition(
-    {
-      clear,
-      above,
-      below,
-      leftOf,
-      rightOf,
-      inlineLeft,
-      inlineRight,
-    },
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    hover as any,
+    actions,
+    hover,
     drag,
     monitor,
-    component,
+    element,
     matrixName
   );

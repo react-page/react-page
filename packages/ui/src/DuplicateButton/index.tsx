@@ -3,16 +3,12 @@ import Icon from '@material-ui/icons/FileCopy';
 import { useDuplicateCell, useNode } from '@react-page/core';
 import React from 'react';
 
-const DuplicateButton = ({ id }) => {
-  const duplicateCell = useDuplicateCell();
+const DuplicateButton: React.FC<{ nodeId: string }> = ({ nodeId }) => {
+  const duplicateCell = useDuplicateCell(nodeId);
 
   return (
     <Tooltip title="Duplicate Plugin">
-      <IconButton
-        onClick={() => duplicateCell(id)}
-        aria-label="delete"
-        color="default"
-      >
+      <IconButton onClick={duplicateCell} aria-label="delete" color="default">
         <Icon />
       </IconButton>
     </Tooltip>

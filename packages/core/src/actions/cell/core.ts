@@ -10,17 +10,16 @@ export const CELL_UPDATE_LAYOUT = 'CELL_UPDATE_LAYOUT';
 export const CELL_REMOVE = 'CELL_REMOVE';
 export const CELL_RESIZE = 'CELL_RESIZE';
 export const CELL_FOCUS = 'CELL_FOCUS';
-export const CELL_BLUR = 'CELL_BLUR';
-export const CELL_BLUR_ALL = 'CELL_BLUR_ALL';
-export const CELL_FOCUS_PREV = 'CELL_FOCUS_PREV';
-export const CELL_FOCUS_NEXT = 'CELL_FOCUS_NEXT';
-export const CELL_CREATE_FALLBACK = 'CELL_CREATE_FALLBACK';
+export const CELL_BLUR = 'CELL_BLUR' as const;
+export const CELL_BLUR_ALL = 'CELL_BLUR_ALL' as const;
+export const CELL_CREATE_FALLBACK = 'CELL_CREATE_FALLBACK' as const;
 
 export interface UpdateCellContentAction extends Action {
   ts: Date;
   id: string;
   state: EditorState;
   lang?: string;
+  type: typeof CELL_UPDATE_CONTENT;
 }
 
 export interface UpdateCellIsDraftAction extends Action {
@@ -28,6 +27,7 @@ export interface UpdateCellIsDraftAction extends Action {
   id: string;
   isDraft: boolean;
   lang?: string;
+  type: typeof CELL_UPDATE_IS_DRAFT;
 }
 /**
  * An action creator for updating a cell's content data.
@@ -79,6 +79,7 @@ export interface UpdateCellLayoutAction extends Action {
   id: string;
   state: EditorState;
   lang?: string;
+  type: typeof CELL_UPDATE_LAYOUT;
 }
 /**
  * An action creator for updating a cell's layout data.
@@ -106,6 +107,7 @@ export interface RemoveCellAction extends Action {
   ts: Date;
   id: string;
   ids: NewIds;
+  type: typeof CELL_REMOVE;
 }
 /**
  * An action creator for removing a cell.
@@ -133,6 +135,7 @@ export interface ResizeCellAction extends Action {
   ts: Date;
   id: string;
   size: number;
+  type: typeof CELL_RESIZE;
 }
 /**
  * An action creator for resizing a cell.
@@ -158,13 +161,16 @@ export interface FocusCellAction extends Action {
   id: string;
   source: string;
   scrollToCell?: boolean;
+  type: typeof CELL_FOCUS;
 }
 /**
  * Dispatch to focus a cell.
  */
-export const focusCell = (id: string, scrollToCell = false) => ({
-  source,
-}: { source?: string } = {}): FocusCellAction => ({
+export const focusCell = (
+  id: string,
+  scrollToCell = false,
+  source: string = undefined
+): FocusCellAction => ({
   type: CELL_FOCUS,
   ts: new Date(),
   id,
@@ -172,42 +178,15 @@ export const focusCell = (id: string, scrollToCell = false) => ({
   source,
 });
 
-export interface FocusNextCellAction extends Action {
-  ts: Date;
-  id: string;
-}
-/**
- * Dispatch to focus a cell.
- */
-export const focusNextCell = (id: string) => (): FocusNextCellAction => ({
-  type: CELL_FOCUS_NEXT,
-  ts: new Date(),
-  id,
-});
-
-export interface FocusPreviousCellAction extends Action {
-  ts: Date;
-  id: string;
-}
-/**
- * Dispatch to focus a cell.
- */
-export const focusPreviousCell = (
-  id: string
-) => (): FocusPreviousCellAction => ({
-  type: CELL_FOCUS_PREV,
-  ts: new Date(),
-  id,
-});
-
 export interface BlurCellAction extends Action {
   ts: Date;
   id: string;
+  type: typeof CELL_BLUR;
 }
 /**
  * Dispatch to blur a cell.
  */
-export const blurCell = (id: string) => (): BlurCellAction => ({
+export const blurCell = (id: string): BlurCellAction => ({
   type: CELL_BLUR,
   ts: new Date(),
   id,
@@ -215,6 +194,7 @@ export const blurCell = (id: string) => (): BlurCellAction => ({
 
 export interface BlurAllCellsAction extends Action {
   ts: Date;
+  type: typeof CELL_BLUR_ALL;
 }
 /**
  * Dispatch to blur all cells. For example when clicking on document body.
@@ -227,12 +207,22 @@ export const blurAllCells = (): BlurAllCellsAction => ({
 export interface CreateFallbackCellAction extends Action {
   ts: Date;
   editable: string;
+  type: typeof CELL_CREATE_FALLBACK;
   ids: {
     cell: string;
   };
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   fallback: any;
 }
+
+export type CellCoreAction =
+  | UpdateCellLayoutAction
+  | RemoveCellAction
+  | UpdateCellContentAction
+  | UpdateCellIsDraftAction
+  | CreateFallbackCellAction
+  | BlurAllCellsAction
+  | FocusCellAction;
 /**
  * Creates a fallback cell, usually done when an editable is empty.
  */
@@ -254,8 +244,7 @@ export const coreActions = {
   createFallbackCell,
   blurAllCells,
   blurCell,
-  focusPreviousCell,
-  focusNextCell,
+
   focusCell,
   resizeCell,
   removeCell,

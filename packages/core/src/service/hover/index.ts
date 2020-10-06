@@ -1,19 +1,33 @@
-/* eslint-disable @typescript-eslint/ban-types */
-
-import deepEqual from 'fast-deep-equal';
-
-import { ComponetizedCell, ComponetizedRow } from '../../types/editable';
+import { isRow, Node } from '../../types/editable';
 import {
-  Room,
-  Matrix,
-  Vector,
-  MatrixIndex,
   Callbacks,
+  Matrix,
+  MatrixIndex,
+  Room,
+  Vector,
 } from '../../types/hover';
+import deepEquals from '../../utils/deepEquals';
 import logger from '../logger';
 
+type Context = {
+  room: Room;
+  mouse: Vector;
+  position: MatrixIndex;
+  size: {
+    rows: number;
+    cells: number;
+  };
+  scale: Vector;
+};
 export type MatrixList = { [key: string]: Matrix };
-export type CallbackList = { [key: number]: Function };
+export type CallbackList = {
+  [key: number]: (
+    drag: Node,
+    hover: Node,
+    actions: Callbacks,
+    context: Context
+  ) => void;
+};
 
 /**
  * NO (None): No drop zone.
@@ -158,9 +172,9 @@ export const getMouseHoverCell = ({
  */
 const last = { '10x10': null, '10x10-no-inline': null };
 
-export const computeHover = (
-  drag: ComponetizedCell,
-  hover: ComponetizedCell,
+const computeHover = (
+  drag: Node,
+  hover: Node,
   actions: Callbacks,
   {
     room,
@@ -174,8 +188,7 @@ export const computeHover = (
     matrix: Matrix;
   },
   m: string
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-): any => {
+) => {
   const scale = getRoomScale({ room, matrix });
   const hoverCell = getMouseHoverCell({ mouse, scale });
   const rows = matrix.length;
@@ -219,7 +232,7 @@ export const computeHover = (
       scale,
     },
   };
-  if (deepEqual(all, last[m])) {
+  if (deepEquals(all, last[m])) {
     return;
   }
   last[m] = all;
@@ -302,24 +315,21 @@ export const computeHorizontal = (
     position: MatrixIndex;
     scale: Vector;
     level: number;
-    hover: ComponetizedRow;
+    hover: Node;
   },
   inv = false
 ) => {
-  const {
-    node: { cells = [] },
-  } = hover;
   const x = relativeMousePosition({ mouse, position, scale }).x;
   let at = computeLevel({ size: scale.x, position: x, levels: level });
 
-  if (cells.length) {
+  if (isRow(hover)) {
     // Is row, always opt for lowest level
     return level;
   }
 
   // If the hovered element is an inline element, level 0 would be directly besides it which doesn't work.
   // Set it to 1 instead.
-  if (hover.node.inline && at === 0) {
+  if (hover.inline && at === 0) {
     at = 1;
   }
 
@@ -331,7 +341,7 @@ export const computeHorizontal = (
  *
  * @returns number
  */
-export const computeVertical = (
+const computeVertical = (
   {
     level,
     mouse,
@@ -341,298 +351,217 @@ export const computeVertical = (
   }: {
     level: number;
     mouse: Vector;
-    hover: ComponetizedRow;
+    hover: Node;
     position: MatrixIndex;
     scale: Vector;
   },
   inv = false
 ) => {
-  const {
-    node: { cells = [] },
-  } = hover;
   const y = relativeMousePosition({ mouse, position, scale }).y;
   let at = computeLevel({ size: scale.y, position: y, levels: level });
 
-  if (cells.length) {
+  if (isRow(hover)) {
     // Is row, always opt for lowest level
     return level;
   }
 
   // If the hovered element is an inline element, level 0 would be directly besides it which doesn't work.
   // Set it to 1 instead.
-  if (hover.node.inline && at === 0) {
+  if (hover.inline && at === 0) {
     at = 1;
   }
 
   return inv ? level - at : at;
 };
 
-const getDropLevel = (hover: ComponetizedCell) => (hover.node.inline ? 1 : 0);
+const getDropLevel = (hover: Node) => (!isRow(hover) && hover.inline ? 1 : 0);
 
 /**
  * A list of callbacks.
  */
 export const defaultCallbacks: CallbackList = {
-  [c.NO]: (
-    item: ComponetizedCell,
-    hover: ComponetizedCell,
-    { clear }: Callbacks
-  ) => clear(item.id),
+  [c.NO]: (item: Node, hover: Node, { clear }: Callbacks) => clear(),
 
   /* corners */
   [c.C1]: (
-    item: ComponetizedCell,
-    hover: ComponetizedCell,
+    item: Node,
+    hover: Node,
     { leftOf, above }: Callbacks,
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    ctx: any
+
+    ctx: Context
   ) => {
     const mouse = relativeMousePosition(ctx);
     const level = getDropLevel(hover);
 
     if (mouse.x < mouse.y) {
-      return leftOf(item.rawNode(), hover.rawNode(), level);
+      return leftOf(item, hover, level);
     }
 
-    above(item.rawNode(), hover.rawNode(), level);
+    above(item, hover, level);
   },
 
   [c.C2]: (
-    item: ComponetizedCell,
-    hover: ComponetizedCell,
+    item: Node,
+    hover: Node,
     { rightOf, above }: Callbacks,
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    ctx: any
+
+    ctx: Context
   ) => {
     const mouse = relativeMousePosition(ctx);
     const level = getDropLevel(hover);
 
     if (mouse.x > mouse.y) {
-      return rightOf(item.rawNode(), hover.rawNode(), level);
+      return rightOf(item, hover, level);
     }
 
-    above(item.rawNode(), hover.rawNode(), level);
+    above(item, hover, level);
   },
 
   [c.C3]: (
-    item: ComponetizedCell,
-    hover: ComponetizedCell,
+    item: Node,
+    hover: Node,
     { rightOf, below }: Callbacks,
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    ctx: any
+
+    ctx: Context
   ) => {
     const mouse = relativeMousePosition(ctx);
     const level = getDropLevel(hover);
 
     if (mouse.x > mouse.y) {
-      return rightOf(item.rawNode(), hover.rawNode(), level);
+      return rightOf(item, hover, level);
     }
-    below(item.rawNode(), hover.rawNode(), level);
+    below(item, hover, level);
   },
 
   [c.C4]: (
-    item: ComponetizedCell,
-    hover: ComponetizedCell,
+    item: Node,
+    hover: Node,
     { leftOf, below }: Callbacks,
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    ctx: any
+
+    ctx: Context
   ) => {
     const mouse = relativeMousePosition(ctx);
     const level = getDropLevel(hover);
 
     if (mouse.x < mouse.y) {
-      return leftOf(item.rawNode(), hover.rawNode(), level);
+      return leftOf(item, hover, level);
     }
-    below(item.rawNode(), hover.rawNode(), level);
+    below(item, hover, level);
   },
 
   /* heres */
-  [c.AH]: (
-    item: ComponetizedCell,
-    hover: ComponetizedCell,
-    { above }: Callbacks
-  ) => {
+  [c.AH]: (item: Node, hover: Node, { above }: Callbacks) => {
     const level = getDropLevel(hover);
-    above(
-      item.rawNode(),
-      {
-        ...hover.rawNode(),
-      },
-      level
-    );
+    above(item, hover, level);
   },
-  [c.BH]: (
-    item: ComponetizedCell,
-    hover: ComponetizedCell,
-    { below }: Callbacks
-  ) => {
+  [c.BH]: (item: Node, hover: Node, { below }: Callbacks) => {
     const level = getDropLevel(hover);
-    below(
-      item.rawNode(),
-      {
-        ...hover.rawNode(),
-      },
-      level
-    );
+    below(item, hover, level);
   },
 
-  [c.LH]: (
-    item: ComponetizedCell,
-    hover: ComponetizedCell,
-    { leftOf }: Callbacks
-  ) => {
+  [c.LH]: (item: Node, hover: Node, { leftOf }: Callbacks) => {
     const level = getDropLevel(hover);
-    leftOf(
-      item.rawNode(),
-      {
-        ...hover.rawNode(),
-      },
-      level
-    );
+    leftOf(item, hover, level);
   },
-  [c.RH]: (
-    item: ComponetizedCell,
-    hover: ComponetizedCell,
-    { rightOf }: Callbacks
-  ) => {
+  [c.RH]: (item: Node, hover: Node, { rightOf }: Callbacks) => {
     const level = getDropLevel(hover);
-    rightOf(
-      item.rawNode(),
-      {
-        ...hover.rawNode(),
-      },
-      level
-    );
+    rightOf(item, hover, level);
   },
 
   /* ancestors */
-  [c.AA]: (
-    item: ComponetizedCell,
-    hover: ComponetizedCell,
-    { above }: Callbacks,
-    ctx: Object
-  ) =>
+  [c.AA]: (item: Node, hover: Node, { above }: Callbacks, ctx: Context) =>
     above(
-      item.rawNode(),
-      hover.rawNode(),
+      item,
+      hover,
       computeVertical(
         {
           ...ctx,
           hover: hover,
-          level: hover.node.levels.above,
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        } as any,
+          level: hover.levels.above,
+        },
         true
       )
     ),
-  [c.BA]: (
-    item: ComponetizedCell,
-    hover: ComponetizedCell,
-    { below }: Callbacks,
-    ctx: Object
-  ) =>
+  [c.BA]: (item: Node, hover: Node, { below }: Callbacks, ctx: Context) =>
     below(
-      item.rawNode(),
-      hover.rawNode(),
+      item,
+      hover,
       computeVertical({
         ...ctx,
         hover,
-        level: hover.node.levels.below,
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      } as any)
+        level: hover.levels.below,
+      })
     ),
 
-  [c.LA]: (
-    item: ComponetizedCell,
-    hover: ComponetizedCell,
-    { leftOf }: Callbacks,
-    ctx: Object
-  ) =>
+  [c.LA]: (item: Node, hover: Node, { leftOf }: Callbacks, ctx: Context) =>
     leftOf(
-      item.rawNode(),
-      hover.rawNode(),
+      item,
+      hover,
       computeHorizontal(
         {
           ...ctx,
           hover,
-          level: hover.node.levels.left,
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        } as any,
+          level: hover.levels.left,
+        },
         true
       )
     ),
-  [c.RA]: (
-    item: ComponetizedCell,
-    hover: ComponetizedCell,
-    { rightOf }: Callbacks,
-    ctx: Object
-  ) =>
+  [c.RA]: (item: Node, hover: Node, { rightOf }: Callbacks, ctx: Context) =>
     rightOf(
-      item.rawNode(),
-      hover.rawNode(),
+      item,
+      hover,
       computeHorizontal({
         ...ctx,
         hover,
-        level: hover.node.levels.right,
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      } as any)
+        level: hover.levels.right,
+      })
     ),
 
   /* inline */
-  [c.IL]: (
-    item: ComponetizedCell,
-    hover: ComponetizedCell,
-    { inlineLeft, leftOf }: Callbacks
-  ) => {
-    const {
-      node: { inline, hasInlineNeighbour },
-    } = hover;
-    const {
-      node: { content: { plugin: { isInlineable = false } = {} } = {} },
-    } = item;
+  [c.IL]: (item: Node, hover: Node, { inlineLeft, leftOf }: Callbacks) => {
+    if (isRow(item) || isRow(hover)) {
+      return;
+    }
+    const { inline, hasInlineNeighbour } = hover;
+    const { content: { plugin: { isInlineable = false } = {} } = {} } = item;
     if (inline || !isInlineable) {
-      return leftOf(item.rawNode(), hover.rawNode(), 2);
+      return leftOf(item, hover, 2);
     }
     if (hasInlineNeighbour && hasInlineNeighbour !== item.id) {
-      return leftOf(item.rawNode(), hover.rawNode(), 2);
+      return leftOf(item, hover, 2);
     }
     if (
       hasInlineNeighbour &&
       hasInlineNeighbour === item.id &&
-      item.node.inline === 'left'
+      item.inline === 'left'
     ) {
-      return leftOf(item.rawNode(), hover.rawNode(), 2);
+      return leftOf(item, hover, 2);
     }
 
-    inlineLeft(item.rawNode(), hover.rawNode());
+    inlineLeft(item, hover);
   },
 
-  [c.IR]: (
-    item: ComponetizedCell,
-    hover: ComponetizedCell,
-    { inlineRight, rightOf }: Callbacks
-  ) => {
-    const {
-      node: { inline, hasInlineNeighbour },
-    } = hover;
-    const {
-      node: { content: { plugin: { isInlineable = false } = {} } = {} },
-    } = item;
+  [c.IR]: (item: Node, hover: Node, { inlineRight, rightOf }: Callbacks) => {
+    if (isRow(item) || isRow(hover)) {
+      return;
+    }
+    const { inline, hasInlineNeighbour } = hover;
+    const { content: { plugin: { isInlineable = false } = {} } = {} } = item;
     if (inline || !isInlineable) {
-      return rightOf(item.rawNode(), hover.rawNode(), 2);
+      return rightOf(item, hover, 2);
     }
     if (hasInlineNeighbour && hasInlineNeighbour !== item.id) {
-      return rightOf(item.rawNode(), hover.rawNode(), 2);
+      return rightOf(item, hover, 2);
     }
     if (
       hasInlineNeighbour &&
       hasInlineNeighbour === item.id &&
-      item.node.inline === 'right'
+      item.inline === 'right'
     ) {
-      return rightOf(item.rawNode(), hover.rawNode(), 2);
+      return rightOf(item, hover, 2);
     }
 
-    inlineRight(item.rawNode(), hover.rawNode());
+    inlineRight(item, hover);
   },
 };
 
@@ -658,8 +587,8 @@ export default class HoverService {
   }
 
   hover(
-    drag: ComponetizedCell,
-    hover: ComponetizedCell,
+    drag: Node,
+    hover: Node,
     actions: Callbacks,
     {
       room,

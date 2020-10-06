@@ -1,36 +1,23 @@
-import * as React from 'react';
 import Create from '@material-ui/icons/Create';
+import { useIsEditMode, useSetEditMode } from '@react-page/core';
+import * as React from 'react';
 import Button from '../Button/index';
 
-import { connect, Actions, Selectors } from '@react-page/core';
-import { createStructuredSelector } from 'reselect';
-
-export interface InnerReduxProps {
-  isEditMode: boolean;
-}
-
-export interface InnerActionProps {
-  editMode: React.MouseEventHandler<HTMLElement>;
-}
-
-interface OwnProps {
+type Props = {
   label: string;
-}
+};
 
-export type InnerProps = InnerReduxProps & InnerActionProps & OwnProps;
+const ToggleEdit: React.FC<Props> = ({ label }) => {
+  const isEditMode = useIsEditMode();
+  const setEditMode = useSetEditMode();
+  return (
+    <Button
+      icon={<Create />}
+      description={label}
+      active={isEditMode}
+      onClick={setEditMode}
+    />
+  );
+};
 
-const Inner: React.SFC<InnerProps> = (props) => (
-  <Button
-    icon={<Create />}
-    description={props.label}
-    active={props.isEditMode}
-    onClick={props.editMode}
-  />
-);
-
-const mapStateToProps = createStructuredSelector({
-  isEditMode: Selectors.Display.isEditMode,
-});
-const mapDispatchToProps = { editMode: Actions.Display.editMode };
-
-export default connect(mapStateToProps, mapDispatchToProps)(Inner);
+export default React.memo(ToggleEdit);

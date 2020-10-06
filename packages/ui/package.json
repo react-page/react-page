@@ -30,8 +30,7 @@
     "classnames": "^2.2.5",
     "react-portal": "4.1.5",
     "lodash.throttle": "^4.1.1",
-    "react-color": "^2.14.1",
-    "reselect": "^3.0.0"
+    "react-color": "^2.14.1"
   },
   "devDependencies": {
     "@types/react-color": "^2.13.6",

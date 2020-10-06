@@ -1,6 +1,14 @@
 import React, { useState } from 'react';
 
-export default ({ children }) => {
+type StickyProps = {
+  rightOffset: number;
+  stickyElRef: React.RefObject<HTMLDivElement>;
+  shouldStickToTop: boolean;
+  shouldStickToBottom: boolean;
+};
+const StickyWrapper: React.FC<{
+  children: (s: StickyProps) => React.ReactNode;
+}> = ({ children }) => {
   const ref = React.createRef<HTMLDivElement>();
 
   const stickyElRef = React.createRef<HTMLDivElement>();
@@ -57,3 +65,5 @@ export default ({ children }) => {
     </div>
   );
 };
+
+export default StickyWrapper;

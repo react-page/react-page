@@ -53,7 +53,7 @@ class BackgroundDefaultControls extends React.Component<
       <BottomToolbar
         open={focused}
         title={this.props.translations.pluginName}
-        icon={this.props.IconComponent}
+        icon={this.props.pluginConfig.IconComponent}
         onDelete={remove}
         {...this.props}
       >

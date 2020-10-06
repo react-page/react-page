@@ -2,8 +2,7 @@ import { Plugins } from '@react-page/core';
 // The background plugin
 import background, { ModeEnum } from '@react-page/plugins-background';
 import '@react-page/plugins-background/lib/index.css';
-// The native handler plugin
-import native from '@react-page/plugins-default-native';
+
 // The divider plugin
 import divider from '@react-page/plugins-divider';
 // The html5-video plugin
@@ -71,8 +70,4 @@ export const plugins: Plugins = {
     customLayoutPlugin(),
     customLayoutPluginWithInitialState(),
   ],
-
-  // If you pass the native key the editor will be able to handle native drag and drop events (such as links, text, etc).
-  // The native plugin will then be responsible to properly display the data which was dropped onto the editor.
-  native,
 };

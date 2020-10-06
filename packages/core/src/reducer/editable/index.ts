@@ -25,7 +25,7 @@ export const rawEditableReducer = (
       if (action.editable === state.id) {
         if (action.fallback.createInitialChildren) {
           const children = sanitizeInitialChildren(
-            action.fallback.createInitialChildren()
+            action.fallback.createInitialChildren?.() ?? {}
           );
 
           const c: Cell = {
@@ -33,7 +33,7 @@ export const rawEditableReducer = (
             ...children,
             layout: {
               plugin: action.fallback,
-              state: action.fallback.createInitialState(),
+              state: action.fallback.createInitialState?.() ?? {},
             },
             id: action.ids.cell,
           };
@@ -43,7 +43,7 @@ export const rawEditableReducer = (
             ...createCell(),
             content: {
               plugin: action.fallback,
-              state: action.fallback.createInitialState(),
+              state: action.fallback.createInitialState?.() ?? {},
             },
             id: action.ids.cell,
           };

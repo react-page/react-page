@@ -1,9 +1,7 @@
 import {
   ContentPluginConfig,
-  ContentPluginProps,
-  LayoutPluginConfig,
-  LayoutPluginProps,
   PluginProps,
+  LayoutPluginConfig,
 } from '@react-page/core';
 import { JsonSchema } from './jsonSchema';
 
@@ -13,26 +11,15 @@ export type ControlsLayout = {
   columnCount: number;
 };
 // eslint-disable-next-line @typescript-eslint/ban-types
-type CommonProps<T extends {}> = {
+type CommonConfig<T extends {}> = {
   schema?: Omit<JsonSchema<T>, 'type'>;
   controlsLayout?: ControlsLayout;
-};
-
-type CommonContentPluginProps<T> = {
-  Renderer: React.ComponentType<ContentPluginProps<T>>;
-};
-type CommonLayoutPluginProps<T> = {
-  Renderer: React.ComponentType<LayoutPluginProps<T>>;
-};
-
-export type ControlProps<T> = CommonProps<T> & {
   Renderer: React.ComponentType<PluginProps<T>>;
-} & PluginProps<T>;
+};
 
-export type ContentPluginDefinition<T> = CommonProps<T> &
-  CommonContentPluginProps<T> &
+export type ControlProps<T> = PluginProps<T> & CommonConfig<T>;
+
+export type ContentPluginDefinition<T> = CommonConfig<T> &
   ContentPluginConfig<T>;
 
-export type LayoutPluginDefinition<T> = CommonProps<T> &
-  CommonLayoutPluginProps<T> &
-  LayoutPluginConfig<T>;
+export type LayoutPluginDefinition<T> = CommonConfig<T> & LayoutPluginConfig<T>;

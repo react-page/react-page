@@ -1,38 +1,20 @@
 import * as React from 'react';
-
+import { useCell } from '../../..';
 import Row from '../../../components/Row';
 
-import {
-  ComponetizedCell,
-  SimplifiedModesProps,
-} from '../../../types/editable';
+const Rows: React.FC<{
+  nodeId: string;
+}> = ({ nodeId }) => {
+  const cell = useCell(nodeId);
+  const { rows = [] } = cell;
 
-class Rows extends React.PureComponent<
-  Partial<ComponetizedCell & SimplifiedModesProps>
-> {
-  render() {
-    const {
-      node: { rows = [] },
-      editable,
-      id,
-      ancestors = [],
-      ...rest
-    } = this.props;
+  return (
+    <div className="ory-cell-inner ory-cell-rows">
+      {rows.map((r) => (
+        <Row nodeId={r.id} key={r.id} />
+      ))}
+    </div>
+  );
+};
 
-    return (
-      <div className="ory-cell-inner ory-cell-rows">
-        {rows.map((r: string) => (
-          <Row
-            editable={editable}
-            ancestors={[...ancestors, id]}
-            id={r}
-            key={r}
-            {...rest}
-          />
-        ))}
-      </div>
-    );
-  }
-}
-
-export default Rows;
+export default React.memo(Rows);

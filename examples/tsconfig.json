@@ -44,9 +44,6 @@
       "path": "../packages/plugins/content/image"
     },
     {
-      "path": "../packages/plugins/content/native"
-    },
-    {
       "path": "../packages/plugins/content/slate"
     },
     {

@@ -1,4 +1,5 @@
 import { Cell, Row, Levels } from '../../../types/editable';
+import deepEquals from '../../../utils/deepEquals';
 
 const computeRowLevels = (a: Row, b?: Levels): Row => {
   const { cells = [], ...props } = a;
@@ -46,4 +47,13 @@ const computeCellLevels = (a: Cell, b?: Levels): Cell => {
   };
 };
 
-export const computeDropLevels = (c: Cell): Cell => computeCellLevels(c);
+export const computeDropLevels = (c: Cell): Cell => {
+  const result = computeCellLevels(c);
+  // FIXME: this function is run on every action but is a noop in most casses
+  // however this will create new cells all the time, breaking memoization
+  // workaround is to do not return new instances if nothing's changed
+  if (deepEquals(result, c)) {
+    return c;
+  }
+  return result;
+};

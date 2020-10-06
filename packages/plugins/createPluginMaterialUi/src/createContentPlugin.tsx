@@ -1,8 +1,4 @@
-import {
-  ContentPluginConfig,
-  ContentPluginProps,
-  lazyLoad,
-} from '@react-page/core';
+import { ContentPluginConfig, PluginProps, lazyLoad } from '@react-page/core';
 import * as React from 'react';
 import { ContentPluginDefinition, ControlsType } from './types';
 
@@ -22,7 +18,7 @@ function createPluginWithDef<T extends {}>({
   );
 
   return {
-    Component: (props: ContentPluginProps<T>) => {
+    Component: (props: PluginProps<T>) => {
       return (
         <>
           {!props.readOnly ? (

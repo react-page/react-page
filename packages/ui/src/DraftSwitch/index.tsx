@@ -4,18 +4,18 @@ import NonVisibleIcon from '@material-ui/icons/VisibilityOff';
 import { useCell, useLang, useSetDraft } from '@react-page/core';
 import React from 'react';
 
-const DraftSwitch = ({ id, lang }: { id: string; lang?: string }) => {
-  const node = useCell(id);
-  const setDraft = useSetDraft();
+const DraftSwitch = ({ nodeId, lang }: { nodeId: string; lang?: string }) => {
+  const cell = useCell(nodeId);
+  const setDraft = useSetDraft(cell?.id);
   const currentLang = useLang();
-  if (!node) {
+  if (!cell) {
     return null;
   }
   const theLang = lang ?? currentLang;
-  const hasI18n = Boolean(node.isDraftI18n);
-  const isDraft = node?.isDraftI18n?.[theLang] ?? node?.isDraft; // fallback to legacy
+  const hasI18n = Boolean(cell.isDraftI18n);
+  const isDraft = cell?.isDraftI18n?.[theLang] ?? cell?.isDraft; // fallback to legacy
   const title = isDraft ? 'Content is hidden' : 'Content is visible';
-  return node ? (
+  return cell ? (
     <Tooltip title={title + (hasI18n ? ' in ' + theLang : '')}>
       <FormControlLabel
         style={{ marginRight: 5 }}
@@ -25,7 +25,7 @@ const DraftSwitch = ({ id, lang }: { id: string; lang?: string }) => {
             color="primary"
             checked={!isDraft}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-              setDraft(id, !e.target.checked, theLang);
+              setDraft(!e.target.checked, theLang);
             }}
           />
         }

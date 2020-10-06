@@ -1,4 +1,5 @@
 import { Cell } from '../../../types/editable';
+import deepEquals from '../../../utils/deepEquals';
 
 const MAX_CELLS_PER_ROW = 12;
 
@@ -43,32 +44,42 @@ export const computeResizeable = (cells: Array<Cell> = []): Array<Cell> =>
  * Computes sizes an inline element was found.
  */
 export const computeInlines = (cells: Array<Cell> = []): Array<Cell> => {
-  if (cells.length !== 2 || !cells[0].inline) {
-    return cells.map((c: Cell) => ({
-      ...c,
-      inline: null,
-      hasInlineNeighbour: null,
-    }));
-  }
+  const doit = () => {
+    if (cells.length !== 2 || !cells[0].inline) {
+      return cells.map((c: Cell) => ({
+        ...c,
+        inline: null,
+        hasInlineNeighbour: null,
+      }));
+    }
 
-  const inline = cells[0].inline;
-  return [
-    {
-      ...cells[0],
-      resizable: true,
-      size: cells[0].size || Math.round(MAX_CELLS_PER_ROW / 2),
-      bounds: {
-        left: inline === 'left' ? 0 : MAX_CELLS_PER_ROW - 1,
-        right: inline === 'right' ? 0 : MAX_CELLS_PER_ROW - 1,
+    const inline = cells[0].inline;
+    return [
+      {
+        ...cells[0],
+        resizable: true,
+        size: cells[0].size || Math.round(MAX_CELLS_PER_ROW / 2),
+        bounds: {
+          left: inline === 'left' ? 0 : MAX_CELLS_PER_ROW - 1,
+          right: inline === 'right' ? 0 : MAX_CELLS_PER_ROW - 1,
+        },
       },
-    },
-    {
-      ...cells[1],
-      bounds: { left: 0, right: 0 },
-      size: 12,
-      hasInlineNeighbour: cells[0].id,
-    },
-  ];
+      {
+        ...cells[1],
+        bounds: { left: 0, right: 0 },
+        size: 12,
+        hasInlineNeighbour: cells[0].id,
+      },
+    ];
+  };
+  const result = doit();
+  // FIXME: this function is run on every action but is a noop in most casses
+  // however this will create new cells all the time, breaking memoization
+  // workaround is to do not return new instances if nothing's changed
+  if (deepEquals(cells, result)) {
+    return cells;
+  }
+  return result;
 };
 
 /**

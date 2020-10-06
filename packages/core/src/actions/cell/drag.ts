@@ -2,9 +2,9 @@
  * @module src/editor/actions/cell/drag
  */
 
-import { Cell } from '../../types/editable';
 import { PositionEnum } from '../../const';
 import { Action } from 'redux';
+import { Cell } from '../../types/editable';
 
 export const CELL_DRAG_HOVER = 'CELL_DRAG_HOVER';
 export const CELL_DRAG = 'CELL_DRAG';
@@ -13,10 +13,11 @@ export const CLEAR_CLEAR_HOVER = 'CLEAR_CLEAR_HOVER';
 
 export interface CellHoverAction extends Action {
   ts: Date;
-  drag: string;
-  hover: string;
+  dragId: string;
+  hoverId: string;
   level: number;
   position: PositionEnum;
+  type: typeof CELL_DRAG_HOVER;
 }
 /**
  * Creates a redux action for when a cell hovers another item.
@@ -32,15 +33,15 @@ export interface CellHoverAction extends Action {
  * @return {Action}
  */
 export const cellHover = (
-  { id: drag }: Partial<Cell>,
-  { id: hover }: Partial<Cell>,
+  drag: Cell,
+  hover: Cell,
   level = 0,
   position: PositionEnum
 ): CellHoverAction => ({
   type: CELL_DRAG_HOVER,
   ts: new Date(),
-  drag,
-  hover,
+  dragId: drag.id,
+  hoverId: hover.id,
   level,
   position,
 });
@@ -57,11 +58,8 @@ export const cellHover = (
  * @param {number} level Set the level if the dragged cells should hover over an ancestor of hover.
  * @return {Action}
  */
-export const cellHoverLeftOf = (
-  drag: Partial<Cell>,
-  hover: Partial<Cell>,
-  level: number
-) => cellHover(drag, hover, level, PositionEnum.LEFT_OF);
+export const cellHoverLeftOf = (drag: Cell, hover: Cell, level: number) =>
+  cellHover(drag, hover, level, PositionEnum.LEFT_OF);
 
 /**
  * Creates a redux action for when a cell is hovering another cell on the right.
@@ -75,11 +73,8 @@ export const cellHoverLeftOf = (
  * @param {number} level Set the level if the dragged cells should hover over an ancestor of hover.
  * @return {Action}
  */
-export const cellHoverRightOf = (
-  drag: Partial<Cell>,
-  hover: Partial<Cell>,
-  level: number
-) => cellHover(drag, hover, level, PositionEnum.RIGHT_OF);
+export const cellHoverRightOf = (drag: Cell, hover: Cell, level: number) =>
+  cellHover(drag, hover, level, PositionEnum.RIGHT_OF);
 
 /**
  * Creates a redux action for when a cell is hovering another cell above.
@@ -191,6 +186,7 @@ export const cancelCellDrag = (): CancelCellDragAction => ({
   type: CELL_DRAG_CANCEL,
   ts: new Date(),
 });
+
 export const dragActions = {
   cancelCellDrag,
   clearHover,

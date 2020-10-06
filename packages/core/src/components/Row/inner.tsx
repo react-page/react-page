@@ -1,49 +1,35 @@
-import * as React from 'react';
 import classNames from 'classnames';
-
+import * as React from 'react';
+import { useMeasure } from 'react-use';
+import { Row } from '../../types/editable';
 import Cell from '../Cell';
-import { ComponetizedRow, SimplifiedModesProps } from '../../types/editable';
+import { useBlurAllCells, useRow } from '../hooks';
 
-const rowHasInlineChildren = ({ cells }) =>
+const rowHasInlineChildren = ({ cells }: Row) =>
   Boolean(cells.length === 2 && Boolean(cells[0].inline));
 
-const Inner = ({
-  editable,
-  ancestors,
-  node: { id, hover, cells = [] },
-  containerHeight,
-  blurAllCells,
-  containerWidth,
-  allowMoveInEditMode,
-  allowResizeInEditMode,
-  editModeResizeHandle,
-  rawNode,
-}: // eslint-disable-next-line @typescript-eslint/no-explicit-any
-ComponetizedRow & SimplifiedModesProps & { rawNode: any }) => {
+const Inner: React.FC<{ nodeId: string }> = ({ nodeId }) => {
+  const [ref, { width }] = useMeasure();
+  const node = useRow(nodeId);
+  const blurAllCells = useBlurAllCells();
+
   return (
     <div
+      ref={ref}
       className={classNames('ory-row', {
-        'ory-row-is-hovering-this': Boolean(hover),
-        [`ory-row-is-hovering-${hover || ''}`]: Boolean(hover),
-        'ory-row-has-floating-children': rowHasInlineChildren(rawNode()),
+        'ory-row-is-hovering-this': Boolean(node.hoverPosition),
+        [`ory-row-is-hovering-${node.hoverPosition || ''}`]: Boolean(
+          node.hoverPosition
+        ),
+        'ory-row-has-floating-children': rowHasInlineChildren(node),
       })}
       onClick={blurAllCells}
     >
-      {cells.map((c: string) => (
-        <Cell
-          rowWidth={containerWidth}
-          rowHeight={containerHeight}
-          ancestors={[...ancestors, id]}
-          editable={editable}
-          key={c}
-          id={c}
-          allowMoveInEditMode={allowMoveInEditMode}
-          allowResizeInEditMode={allowResizeInEditMode}
-          editModeResizeHandle={editModeResizeHandle}
-        />
+      {node.cells.map((c, index) => (
+        <Cell nodeId={c.id} rowWidth={width} key={c.id} />
       ))}
     </div>
   );
 };
 
-export default Inner;
+export default React.memo(Inner);

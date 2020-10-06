@@ -1,7 +1,6 @@
-import { NativeTypes } from 'react-dnd-html5-backend';
+// TODO: get rid of this class
 import { Middleware, Store } from 'redux';
 import { v4 } from 'uuid';
-import { actions, ActionsTypes } from './actions';
 import { isProduction } from './const';
 import { selectors } from './selector';
 import PluginService from './service/plugin';
@@ -17,6 +16,7 @@ import { RootState } from './types/state';
 import { setLang } from './actions/setting';
 import { findNodeInState } from './selector/editable';
 import { createContext } from 'react';
+import { updateEditable } from './actions/editables';
 
 export const EditorContext = createContext<Editor>(null);
 
@@ -32,26 +32,6 @@ const initialState = ({ lang }) => ({
     },
   },
 });
-
-const nativeTypes = (editor: Editor) =>
-  editor.plugins.hasNativePlugin()
-    ? [NativeTypes.URL, NativeTypes.FILE, NativeTypes.TEXT]
-    : [];
-
-const update = (editor: Editor) => (editable: EditableType) => {
-  const state = editor.plugins.unserialize(editable);
-  actions(editor.store.dispatch).editable.update({
-    ...state,
-    config: {
-      plugins: editor.plugins,
-      whitelist: [
-        ...editor.plugins.getRegisteredNames(),
-        ...nativeTypes(editor),
-      ],
-    },
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  } as any);
-};
 
 export type Languages = Array<{
   lang: string;
@@ -71,6 +51,7 @@ export interface CoreEditorProps<T extends RootState = RootState> {
 
 /**
  * Editor is the core interface for dealing with the editor.
+ * TODO: remove and focus on hook api
  */
 class Editor<T extends RootState = RootState> {
   store: Store<RootState>;
@@ -79,7 +60,6 @@ class Editor<T extends RootState = RootState> {
 
   defaultPlugin: ContentPluginConfig | LayoutPluginConfig;
 
-  trigger: ActionsTypes;
   query = {};
   languages?: Languages;
 
@@ -97,17 +77,17 @@ class Editor<T extends RootState = RootState> {
       createStore(initialState({ lang: lang || languages[0] }), middleware);
     this.plugins = new PluginService(plugins);
     this.middleware = middleware;
-    this.trigger = actions(this.store.dispatch);
     this.query = selectors(this.store);
     this.defaultPlugin = defaultPlugin;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    this.trigger.editable.add = update(this) as any;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    this.trigger.editable.update = update(this) as any;
 
     this.languages = languages;
 
-    editables.forEach(this.trigger.editable.add);
+    editables.forEach((editable) => this.update(editable));
+  }
+
+  update(editable: EditableType) {
+    const state = this.plugins.unserialize(editable) as EditableType;
+    this.store.dispatch(updateEditable(state));
   }
 
   public setLang(lang: string) {
@@ -124,11 +104,12 @@ class Editor<T extends RootState = RootState> {
         console.log(this.plugins.serialize(editable));
       }
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      this.trigger.editable.update(this.plugins.serialize(editable));
+      this.update(this.plugins.serialize(editable));
     });
   };
 
   public getNode = (editableId: string, nodeId: string) => {
+    // FIXME: this is inefficient
     return findNodeInState(this.store.getState(), editableId, nodeId);
   };
 }

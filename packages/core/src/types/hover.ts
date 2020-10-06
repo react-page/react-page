@@ -16,7 +16,9 @@ export type MatrixIndex = {
 };
 
 export type Callbacks = {
-  clear(id: string): void;
+  dragCell(id: string): void;
+  cancelCellDrag(): void;
+  clear(): void;
   above(drag: Cell, hover: Cell, level: number): void;
   below(drag: Cell, hover: Cell, level: number): void;
   leftOf(drag: Cell, hover: Cell, level: number): void;

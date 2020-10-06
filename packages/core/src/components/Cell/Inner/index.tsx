@@ -1,92 +1,51 @@
 import * as React from 'react';
 
-import Droppable from '../Droppable';
-import Draggable from '../Draggable';
-import Rows from '../Rows';
-import Layout from '../Layout';
+import { useCell } from '../../hooks';
 import Content from '../Content';
+import Draggable from '../Draggable';
+import Droppable from '../Droppable';
 import ErrorCell from '../ErrorCell';
+import Layout from '../Layout';
+import Rows from '../Rows';
 
-import {
-  ComponetizedCell,
-  SimplifiedModesProps,
-} from '../../../types/editable';
+const Inner: React.FC<{ nodeId: string }> = (props) => {
+  const node = useCell(props.nodeId);
+  const {
+    rows = [],
+    layout: { plugin: { Component: LayoutComponent = undefined } = {} } = {},
+    content: { plugin: { Component: ContentComponent = undefined } = {} } = {},
+  } = node;
 
-export type CellInnerProps = ComponetizedCell & SimplifiedModesProps;
-
-class Inner extends React.PureComponent<CellInnerProps, { error: Error }> {
-  state = {
-    error: null,
-  };
-  componentDidCatch(error: Error) {
-    this.setState({ error });
-  }
-
-  render() {
-    if (this.state.error) {
-      return <ErrorCell {...this.props} error={this.state.error} />;
-    }
-    const {
-      node: {
-        rows = [],
-        layout: {
-          plugin: {
-            Component: LayoutComponent = undefined,
-            name: layoutType = undefined,
-            text: layoutTitle = undefined,
-          } = {},
-        } = {},
-        content: {
-          plugin: {
-            Component: ContentComponent = undefined,
-            name: contentType = undefined,
-            text: contentTitle = undefined,
-          } = {},
-        } = {},
-      },
-      config: { whitelist = [] },
-    } = this.props;
-
-    if (rows.length && LayoutComponent) {
-      return (
-        <Droppable {...this.props} dropTypes={whitelist}>
-          <Draggable
-            {...this.props}
-            dragType={layoutType}
-            name={layoutTitle || layoutType}
-          >
-            <Layout {...this.props} />
-          </Draggable>
-        </Droppable>
-      );
-    } else if (rows.length) {
-      return (
-        <Droppable {...this.props} dropTypes={whitelist}>
-          <Rows {...this.props} />
-        </Droppable>
-      );
-    } else if (ContentComponent) {
-      return (
-        <Droppable {...this.props} isLeaf={true} dropTypes={whitelist}>
-          <Draggable
-            {...this.props}
-            isLeaf={true}
-            dragType={contentType}
-            name={contentTitle || contentType}
-          >
-            <Content {...this.props} />
-          </Draggable>
-        </Droppable>
-      );
-    }
-
+  if (rows.length && LayoutComponent) {
     return (
-      <ErrorCell
-        {...this.props}
-        error={new Error('The content plugin could not be found.')}
-      />
+      <Droppable {...props}>
+        <Draggable {...props}>
+          <Layout {...props} />
+        </Draggable>
+      </Droppable>
+    );
+  } else if (rows.length) {
+    return (
+      <Droppable {...props}>
+        <Rows {...props} />
+      </Droppable>
+    );
+  } else if (ContentComponent) {
+    return (
+      <Droppable {...props} isLeaf={true}>
+        <Draggable {...props} isLeaf={true}>
+          <Content {...props} />
+        </Draggable>
+      </Droppable>
     );
   }
-}
 
-export default Inner;
+  return (
+    <ErrorCell
+      node={node}
+      error={new Error('The content plugin could not be found.')}
+    />
+  );
+};
+
+export default React.memo(Inner);

@@ -1,74 +1,72 @@
 import classNames from 'classnames';
 import * as React from 'react';
-import { DropTarget as dropTarget } from 'react-dnd';
-import { dragActions } from '../../../actions/cell/drag';
-import { insertActions } from '../../../actions/cell/insert';
-import { connect } from '../../../reduxConnect';
+import { useDrop } from 'react-dnd';
+import { CellDrag } from '../../../types/editable';
 import {
-  ComponetizedCell,
-  SimplifiedModesProps,
-} from '../../../types/editable';
-import { connect as monitorConnect, target } from './helper/dnd';
+  useDropActions,
+  useHoverActions,
+  useIsInsertMode,
+  useIsLayoutMode,
+  useNode,
+  useOptions,
+} from '../../hooks';
+import { onDrop, onHover } from './helper/dnd';
 
-type Props = ComponetizedCell & {
-  isLeaf: boolean;
-  isOver: boolean;
-  isOverCurrent: boolean;
-  isDragging: boolean;
-  isInsertMode: boolean;
-  isLayoutMode: boolean;
-  node: { hover: string; inline: string };
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  children: any;
-  className: string;
-  dropTypes: Array<string>;
-  connectDropTarget<T>(e: T): T;
-} & SimplifiedModesProps;
-
-class Droppable extends React.PureComponent<Props> {
-  render() {
-    const {
-      connectDropTarget,
-      isLayoutMode,
-      isInsertMode,
-      className,
-      isLeaf,
-      node: { hover },
-      children,
-      allowMoveInEditMode,
-    } = this.props;
-
-    if (!(isLayoutMode || isInsertMode) && !allowMoveInEditMode) {
+export const useCellDrop = (nodeId: string) => {
+  const ref = React.useRef<HTMLDivElement>(null);
+  const node = useNode(nodeId);
+  const hoverActions = useHoverActions();
+  const dropActions = useDropActions();
+  const [, dropRef] = useDrop<CellDrag, void, void>({
+    accept: 'cell',
+    canDrop: (item) => {
       return (
-        <div className={classNames(className, 'ory-cell-droppable-container')}>
-          {children}
-        </div>
+        item.cell.id !== node.id &&
+        !node.ancestors.some((a) => a.id === item.cell.id)
       );
-    }
-
-    return connectDropTarget(
-      <div
-        className={classNames(className, 'ory-cell-droppable', {
-          'ory-cell-droppable-is-over-current': hover,
-          [`ory-cell-droppable-is-over-${hover}`]: hover,
-          'ory-cell-droppable-leaf': isLeaf,
-        })}
-      >
-        {children}
-      </div>
+    },
+    hover(item, monitor) {
+      onHover(node, monitor, ref.current, hoverActions);
+    },
+    drop: (item, monitor) => {
+      onDrop(node, monitor, ref.current, dropActions);
+    },
+  });
+  // see https://github.com/react-dnd/react-dnd/issues/1955
+  const attach = React.useCallback(
+    (domElement: HTMLDivElement) => {
+      dropRef(domElement);
+      ref.current = domElement;
+      // use dom element here for measuring
+    },
+    [dropRef]
+  );
+  return attach;
+};
+const Droppable: React.FC<{ nodeId: string; isLeaf?: boolean }> = (props) => {
+  const isLayoutMode = useIsLayoutMode();
+  const isInsertMode = useIsInsertMode();
+  const attach = useCellDrop(props.nodeId);
+  const node = useNode(props.nodeId);
+  const options = useOptions();
+  if (!(isLayoutMode || isInsertMode) && !options.allowMoveInEditMode) {
+    return (
+      <div className={'ory-cell-droppable-container'}>{props.children}</div>
     );
   }
-}
 
-const mapDispatchToProps = { ...dragActions, ...insertActions };
+  return (
+    <div
+      ref={attach}
+      className={classNames('ory-cell-droppable', {
+        'ory-cell-droppable-is-over-current': node.hoverPosition,
+        [`ory-cell-droppable-is-over-${node.hoverPosition}`]: node.hoverPosition,
+        'ory-cell-droppable-leaf': props.isLeaf,
+      })}
+    >
+      {props.children}
+    </div>
+  );
+};
 
-export default connect(
-  null,
-  mapDispatchToProps
-)(
-  dropTarget<Props>(
-    ({ dropTypes }: { dropTypes: Array<string> }) => dropTypes,
-    target,
-    monitorConnect
-  )(Droppable)
-);
+export default Droppable;

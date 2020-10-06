@@ -1,8 +1,4 @@
-import {
-  LayoutPluginConfig,
-  LayoutPluginProps,
-  lazyLoad,
-} from '@react-page/core';
+import { LayoutPluginConfig, lazyLoad, PluginProps } from '@react-page/core';
 import * as React from 'react';
 import { ControlsType, LayoutPluginDefinition } from './types';
 
@@ -21,7 +17,7 @@ function createPluginWithDef<T extends {}>({
   );
 
   return {
-    Component: (props: LayoutPluginProps<T>) => {
+    Component: (props: PluginProps<T>) => {
       return (
         <>
           {!props.readOnly ? (

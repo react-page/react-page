@@ -6,8 +6,8 @@ import SelectLang from './SelectLang';
 import I18nDialog from './I18nDialog';
 
 const I18nTools: React.FC<{
-  id: string;
-}> = ({ id }) => {
+  nodeId: string;
+}> = ({ nodeId }) => {
   const editor = useEditor();
   const [showI18nDialog, setShowI18nDialog] = useState(false);
   const hasI18n = editor.languages?.length > 0;
@@ -19,7 +19,7 @@ const I18nTools: React.FC<{
   return (
     <>
       <Dialog open={showI18nDialog} onClose={onClose}>
-        <I18nDialog id={id} onClose={onClose} />
+        <I18nDialog nodeId={nodeId} onClose={onClose} />
       </Dialog>
 
       <div style={{ display: 'flex', alignItems: 'center' }}>

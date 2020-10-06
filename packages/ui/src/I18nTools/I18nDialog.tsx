@@ -1,9 +1,9 @@
 import { Button, DialogContent, Table } from '@material-ui/core';
 import Translate from '@material-ui/icons/Translate';
 import {
-  useCell,
   useEditor,
   useLang,
+  useCell,
   useSetLang,
   useUpdateCellContent,
   useUpdateCellLayout,
@@ -12,19 +12,26 @@ import React from 'react';
 import DraftSwitch from '../DraftSwitch';
 import SelectLang from './SelectLang';
 
-const I18nDialog = ({ id, onClose }) => {
+const I18nDialog = ({
+  nodeId,
+  onClose,
+}: {
+  nodeId: string;
+  onClose: () => void;
+}) => {
+  const cell = useCell(nodeId);
   const currentLang = useLang();
   const editor = useEditor();
-  const node = useCell(id);
+
   const setLang = useSetLang();
-  const contentOrLayout = node.layout ?? node.content;
-  const updateCellContent = useUpdateCellContent();
-  const updateCellLayout = useUpdateCellLayout();
+  const contentOrLayout = cell.layout ?? cell.content;
+  const updateCellContent = useUpdateCellContent(nodeId);
+  const updateCellLayout = useUpdateCellLayout(nodeId);
   const reset = (lang: string) => {
-    if (node.layout) {
-      updateCellLayout(id, null, lang);
+    if (cell.layout) {
+      updateCellLayout(null, lang);
     } else {
-      updateCellContent(id, null, lang);
+      updateCellContent(null, lang);
     }
   };
   const defaultLangLabel = editor.languages?.[0]?.label;
@@ -54,7 +61,7 @@ const I18nDialog = ({ id, onClose }) => {
                 </th>
 
                 <td>
-                  <DraftSwitch id={id} lang={l.lang} />
+                  <DraftSwitch nodeId={nodeId} lang={l.lang} />
                 </td>
 
                 <td>{hasState ? '✔️' : ' '}</td>

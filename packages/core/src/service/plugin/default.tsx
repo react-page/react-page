@@ -1,6 +1,7 @@
 import * as React from 'react';
-import { ContentPluginProps, ContentPluginConfig } from './classes';
+import { ContentPluginConfig } from './classes';
 import { EditorState } from '../../types/editor';
+import { PluginProps } from '../..';
 
 const handleChange = (onChange: (state: EditorState) => void) => (
   e: React.ChangeEvent
@@ -10,7 +11,8 @@ const handleChange = (onChange: (state: EditorState) => void) => (
   }
 };
 
-const Default: React.SFC<ContentPluginProps<{ value: string }>> = ({
+type Data = { value: string };
+const Default: React.SFC<PluginProps<Data>> = ({
   readOnly,
   state: { value },
   onChange,
@@ -25,7 +27,7 @@ const Default: React.SFC<ContentPluginProps<{ value: string }>> = ({
     />
   );
 
-const _defaultContentPlugin: ContentPluginConfig<unknown> = {
+const _defaultContentPlugin: ContentPluginConfig<Data> = {
   Component: Default,
   name: 'ory/editor/core/default',
 

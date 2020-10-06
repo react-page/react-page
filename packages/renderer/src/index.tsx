@@ -38,19 +38,19 @@ const gridClass = (size = 12): string => `ory-cell-sm-${size} ory-cell-xs-12`;
 const rowHasInlineChildren = ({ cells }) =>
   Boolean(cells.length === 2 && Boolean(cells[0].inline));
 
-const HTMLRow: React.SFC<Partial<Row & { lang: string }>> = React.memo(
-  ({ cells = [], className, lang }) => (
-    <div
-      className={classNames('ory-row', className, {
-        'ory-row-has-floating-children': rowHasInlineChildren({ cells }),
-      })}
-    >
-      {cells.map((c) => (
-        <HTMLCell key={c.id} {...c} lang={lang} />
-      ))}
-    </div>
-  )
-);
+const HTMLRow: React.FC<Partial<
+  Row & { lang: string; className?: string }
+>> = React.memo(({ cells = [], className, lang }) => (
+  <div
+    className={classNames('ory-row', className, {
+      'ory-row-has-floating-children': rowHasInlineChildren({ cells }),
+    })}
+  >
+    {cells.map((c, index) => (
+      <HTMLCell key={c.id} {...c} lang={lang} />
+    ))}
+  </div>
+));
 
 // eslint-disable-next-line no-empty-function
 const noop = () => {
@@ -66,6 +66,7 @@ const HTMLCell: React.SFC<Cell & { lang: string }> = React.memo((props) => {
     inline,
     size,
     id,
+
     isDraft,
     isDraftI18n,
     lang,
@@ -82,7 +83,7 @@ const HTMLCell: React.SFC<Cell & { lang: string }> = React.memo((props) => {
     const {
       state,
       stateI18n,
-      plugin: { Component, name, version },
+      plugin: { Component },
     } = layout;
 
     return (
@@ -91,14 +92,16 @@ const HTMLCell: React.SFC<Cell & { lang: string }> = React.memo((props) => {
           <Component
             readOnly={true}
             lang={lang}
+            nodeId={id}
             state={getI18nState({ state, stateI18n, lang })}
             onChange={noop}
-            id={id}
-            name={name}
+            cell={props}
+            pluginConfig={content.plugin}
             focused={false}
-            version={version}
+            isPreviewMode={false}
+            isEditMode={false}
           >
-            {rows.map((r: Row) => (
+            {rows.map((r: Row, index) => (
               <HTMLRow
                 key={r.id}
                 {...r}
@@ -114,26 +117,23 @@ const HTMLCell: React.SFC<Cell & { lang: string }> = React.memo((props) => {
     const {
       state,
       stateI18n,
-      plugin: { Component, name, version },
+      plugin: { Component },
     } = content;
 
     return (
       <div className={cn}>
         <div className="ory-cell-inner ory-cell-leaf">
           <Component
-            isPreviewMode={true}
             readOnly={true}
             lang={lang}
             state={getI18nState({ state, stateI18n, lang })}
             onChange={noop}
-            id={id}
-            name={name}
+            cell={props}
+            nodeId={id}
+            pluginConfig={content.plugin}
             focused={false}
-            version={version}
+            isPreviewMode={false}
             isEditMode={false}
-            isLayoutMode={false}
-            isResizeMode={false}
-            isInsertMode={false}
           />
         </div>
       </div>
