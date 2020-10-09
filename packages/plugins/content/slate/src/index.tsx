@@ -1,4 +1,4 @@
-import { ContentPluginConfig, lazyLoad } from '@react-page/core';
+import { ContentPlugin, lazyLoad } from '@react-page/core';
 import * as React from 'react';
 import { AnyAction } from 'redux';
 import { ActionTypes } from 'redux-undo';
@@ -65,7 +65,7 @@ type CreateInitialSlateState<TPlugins> = (
   custom?: CreateInitialStateCustomizer<TPlugins>
 ) => // eslint-disable-next-line @typescript-eslint/no-explicit-any
 SlateState;
-export type SlatePlugin<TPlugins> = ContentPluginConfig<SlateState> & {
+export type SlatePlugin<TPlugins> = ContentPlugin<SlateState> & {
   createInitialSlateState: CreateInitialSlateState<TPlugins>;
   htmlToSlate: (html: string) => SlateState;
 };

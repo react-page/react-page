@@ -3,17 +3,12 @@ import semver, { satisfies } from 'semver';
 import { v4 } from 'uuid';
 import { EditableType } from '../../types/editable';
 import { EditorState } from '../../types/editor';
-import {
-  ContentPluginConfig,
-  LayoutPluginConfig,
-  PluginConfig,
-  Plugins,
-} from './classes';
+import { ContentPlugin, LayoutPlugin, PluginBase, Plugins } from './classes';
 import defaultPlugin from './default';
 import { contentMissing, layoutMissing } from './missing';
 
 const find = (name: string, version = '*') => (
-  plugin: LayoutPluginConfig | ContentPluginConfig
+  plugin: LayoutPlugin | ContentPlugin
 ): boolean => plugin.name === name && satisfies(plugin.version, version);
 
 /**
@@ -55,8 +50,8 @@ export default class PluginService {
     name: string,
     version: string
   ): {
-    plugin: LayoutPluginConfig;
-    pluginWrongVersion?: LayoutPluginConfig;
+    plugin: LayoutPlugin;
+    pluginWrongVersion?: LayoutPlugin;
   } => {
     const plugin = this.plugins.layout.find(find(name, version));
     let pluginWrongVersion = undefined;
@@ -76,8 +71,8 @@ export default class PluginService {
     name: string,
     version: string
   ): {
-    plugin: ContentPluginConfig;
-    pluginWrongVersion?: ContentPluginConfig;
+    plugin: ContentPlugin;
+    pluginWrongVersion?: ContentPlugin;
   } => {
     const plugin = this.plugins.content.find(find(name, version));
     let pluginWrongVersion = undefined;
@@ -101,7 +96,7 @@ export default class PluginService {
   migratePluginState = (
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     state: any,
-    plugin: PluginConfig,
+    plugin: PluginBase,
     dataVersion: string
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ): any => {
@@ -130,7 +125,7 @@ export default class PluginService {
   };
 
   getNewPluginState = (
-    found: { plugin: PluginConfig; pluginWrongVersion?: PluginConfig },
+    found: { plugin: PluginBase; pluginWrongVersion?: PluginBase },
 
     state: unknown,
     stateI18n: {
@@ -138,14 +133,14 @@ export default class PluginService {
     },
     version: string
   ): {
-    plugin: PluginConfig;
+    plugin: PluginBase;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     state: unknown;
     stateI18n: {
       [lang: string]: unknown;
     };
   } => {
-    const getResult = (plugin: PluginConfig, shouldMigrate = false) => {
+    const getResult = (plugin: PluginBase, shouldMigrate = false) => {
       // Attempt to migrate
       const unserialize = plugin.unserialize ? plugin.unserialize : (s) => s;
       const transformState = (s) => {

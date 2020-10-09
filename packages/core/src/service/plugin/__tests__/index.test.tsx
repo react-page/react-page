@@ -2,7 +2,7 @@ import * as React from 'react';
 import expect from 'unexpected';
 
 import PluginService from '../index';
-import { Migration, LayoutPluginConfig, ContentPluginConfig } from '../classes';
+import { Migration, LayoutPlugin, ContentPlugin } from '../classes';
 
 const FOO = 'foo';
 const OLDEST_VERSION = '0.0.1';
@@ -32,7 +32,7 @@ const content = [
       }),
     ],
   },
-] as ContentPluginConfig[];
+] as ContentPlugin[];
 
 const migrationEdgeCaseContent = [
   {
@@ -57,11 +57,11 @@ const migrationEdgeCaseContent = [
       }),
     ],
   },
-] as ContentPluginConfig[];
+] as ContentPlugin[];
 
 const layout = [
   { name: 'bar', version: '0.0.2', Component: () => <div /> },
-] as LayoutPluginConfig[];
+] as LayoutPlugin[];
 
 const plugins = new PluginService({ content, layout });
 

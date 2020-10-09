@@ -1,17 +1,14 @@
 /* eslint-disable @typescript-eslint/ban-types */
 import { v4 } from 'uuid';
-import {
-  ContentPluginConfig,
-  LayoutPluginConfig,
-} from '../../service/plugin/classes';
+import { ContentPlugin, LayoutPlugin } from '../../service/plugin/classes';
 
 type CellDef = {
   content?: {
-    plugin: ContentPluginConfig;
+    plugin: ContentPlugin;
     state?: object;
   };
   layout?: {
-    plugin: LayoutPluginConfig;
+    plugin: LayoutPlugin;
     state?: object;
   };
   size?: number;
@@ -27,11 +24,11 @@ export type ChildrenDef = {
     cells: {
       id: string;
       content?: {
-        plugin: ContentPluginConfig;
+        plugin: ContentPlugin;
         state?: object;
       };
       layout?: {
-        plugin: LayoutPluginConfig;
+        plugin: LayoutPlugin;
         state?: object;
       };
       size?: number;

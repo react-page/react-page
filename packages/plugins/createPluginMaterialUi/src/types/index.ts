@@ -1,8 +1,4 @@
-import {
-  ContentPluginConfig,
-  PluginProps,
-  LayoutPluginConfig,
-} from '@react-page/core';
+import { ContentPlugin, PluginProps, LayoutPlugin } from '@react-page/core';
 import { JsonSchema } from './jsonSchema';
 
 export type ControlsType<T> = React.ComponentType<ControlProps<T>>;
@@ -19,7 +15,6 @@ type CommonConfig<T extends {}> = {
 
 export type ControlProps<T> = PluginProps<T> & CommonConfig<T>;
 
-export type ContentPluginDefinition<T> = CommonConfig<T> &
-  ContentPluginConfig<T>;
+export type ContentPluginDefinition<T> = CommonConfig<T> & ContentPlugin<T>;
 
-export type LayoutPluginDefinition<T> = CommonConfig<T> & LayoutPluginConfig<T>;
+export type LayoutPluginDefinition<T> = CommonConfig<T> & LayoutPlugin<T>;

@@ -1,4 +1,4 @@
-import { ContentPluginConfig } from '@react-page/core';
+import { ContentPlugin } from '@react-page/core';
 import * as React from 'react';
 import Html5Video from './Component';
 import { defaultSettings } from './default/settings';
@@ -11,7 +11,7 @@ const rejectPromise: (e: Event) => Promise<void> = (e: Event) =>
 
 const createPlugin: (
   settings: Html5VideoSettings
-) => ContentPluginConfig<Html5VideoState> = (settings) => {
+) => ContentPlugin<Html5VideoState> = (settings) => {
   const mergedSettings = { ...defaultSettings, ...settings };
   const WrappedComponent: React.SFC<Html5VideoProps> = (props) => (
     <Html5Video {...props} {...mergedSettings} />

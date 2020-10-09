@@ -1,4 +1,4 @@
-import { ContentPluginConfig, lazyLoad } from '@react-page/core';
+import { ContentPlugin, lazyLoad } from '@react-page/core';
 import * as React from 'react';
 import Divider from './Component';
 import { defaultSettings } from './default/settings';
@@ -10,7 +10,7 @@ const Remove = lazyLoad(() => import('@material-ui/icons/Remove'));
 
 const createPlugin: (
   settings: DividerSettings
-) => ContentPluginConfig<DividerState> = (settings) => {
+) => ContentPlugin<DividerState> = (settings) => {
   const mergedSettings = { ...defaultSettings, ...settings };
   const WrappedComponent: React.SFC<DividerProps> = (props) => (
     <Divider {...props} {...mergedSettings} />
