@@ -7,10 +7,7 @@ import { useEditableNode } from '../../..';
 import { createFallbackCell } from '../../../actions/cell';
 import scrollIntoViewWithOffset from '../../../components/Cell/utils/scrollIntoViewWithOffset';
 
-import {
-  ContentPluginConfig,
-  LayoutPluginConfig,
-} from '../../../service/plugin/classes';
+import { ContentPlugin, LayoutPlugin } from '../../../service/plugin/classes';
 import Cell from '../../Cell';
 import { useRef } from 'react';
 import { useDispatch } from '../../../reduxConnect';
@@ -31,7 +28,7 @@ function isElementInViewport(el: HTMLDivElement) {
 }
 type Props = {
   id: string;
-  defaultPlugin: ContentPluginConfig | LayoutPluginConfig;
+  defaultPlugin: ContentPlugin | LayoutPlugin;
 };
 const Inner: React.FC<Props> = ({ defaultPlugin }) => {
   const node = useEditableNode();

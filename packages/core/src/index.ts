@@ -16,11 +16,11 @@ import i18n from './service/i18n';
 import PluginService from './service/plugin';
 
 import {
-  ContentPluginConfig,
-  LayoutPluginConfig,
+  ContentPlugin,
+  LayoutPlugin,
   Migration,
   PluginProps,
-  PluginConfig,
+  PluginBase,
   Plugins,
 } from './service/plugin/classes';
 export * from './components/hooks';
@@ -45,7 +45,7 @@ export {
   Migration,
   createEmptyState,
   CoreEditorProps,
-  PluginConfig,
+  PluginBase,
   Plugins,
   Cell,
   Content,
@@ -53,8 +53,8 @@ export {
   Layout,
   Row,
   PluginProps,
-  ContentPluginConfig,
-  LayoutPluginConfig,
+  ContentPlugin,
+  LayoutPlugin,
   Actions,
   Selectors,
   RootState,

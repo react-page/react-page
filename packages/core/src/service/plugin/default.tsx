@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { ContentPluginConfig } from './classes';
+import { ContentPlugin } from './classes';
 import { EditorState } from '../../types/editor';
 import { PluginProps } from '../..';
 
@@ -27,7 +27,7 @@ const Default: React.SFC<PluginProps<Data>> = ({
     />
   );
 
-const _defaultContentPlugin: ContentPluginConfig<Data> = {
+const _defaultContentPlugin: ContentPlugin<Data> = {
   Component: Default,
   name: 'ory/editor/core/default',
 

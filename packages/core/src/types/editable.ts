@@ -1,21 +1,18 @@
-import {
-  ContentPluginConfig,
-  LayoutPluginConfig,
-} from '../service/plugin/classes';
+import { ContentPlugin, LayoutPlugin } from '../service/plugin/classes';
 
 export type I18nField<T> = {
   [lang: string]: T;
 };
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export interface Content<StateT = any> {
-  plugin: ContentPluginConfig;
+  plugin: ContentPlugin;
   state?: StateT;
   stateI18n?: I18nField<StateT>;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export interface Layout<StateT = any> {
-  plugin: LayoutPluginConfig;
+  plugin: LayoutPlugin;
   state?: StateT;
   stateI18n?: I18nField<StateT>;
 }

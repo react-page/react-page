@@ -1,6 +1,10 @@
 import * as React from 'react';
-import { PluginConfig } from './classes';
-import { PluginProps, LayoutPluginConfig, ContentPluginConfig } from '../..';
+import {
+  PluginBase,
+  PluginProps,
+  ContentPlugin,
+  LayoutPlugin,
+} from './classes';
 
 const ContentMissingComponent = (props: PluginProps<unknown>) => (
   <div
@@ -21,7 +25,7 @@ const ContentMissingComponent = (props: PluginProps<unknown>) => (
 export const contentMissing = ({
   name,
   version,
-}: Pick<PluginConfig, 'name' | 'version'>): ContentPluginConfig => ({
+}: Pick<PluginBase, 'name' | 'version'>): ContentPlugin => ({
   Component: ContentMissingComponent,
   name,
   version,
@@ -53,7 +57,7 @@ PluginProps<unknown> & { children: any }) => (
 export const layoutMissing = ({
   name,
   version,
-}: Pick<PluginConfig, 'name' | 'version'>): LayoutPluginConfig => ({
+}: Pick<PluginBase, 'name' | 'version'>): LayoutPlugin => ({
   Component: LayoutMissingComponent,
   name,
   version,

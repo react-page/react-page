@@ -4,11 +4,7 @@ import { v4 } from 'uuid';
 import { isProduction } from './const';
 import { selectors } from './selector';
 import PluginService from './service/plugin';
-import {
-  ContentPluginConfig,
-  LayoutPluginConfig,
-  Plugins,
-} from './service/plugin/classes';
+import { ContentPlugin, LayoutPlugin, Plugins } from './service/plugin/classes';
 import pluginDefault from './service/plugin/default';
 import createStore from './store';
 import { EditableType } from './types/editable';
@@ -42,7 +38,7 @@ export interface CoreEditorProps<T extends RootState = RootState> {
   plugins?: Plugins;
   middleware?: [];
   editables?: EditableType[];
-  defaultPlugin?: ContentPluginConfig | LayoutPluginConfig;
+  defaultPlugin?: ContentPlugin | LayoutPlugin;
 
   store?: Store<T>;
   languages?: Languages;
@@ -58,7 +54,7 @@ class Editor<T extends RootState = RootState> {
   plugins: PluginService;
   middleware: Middleware[];
 
-  defaultPlugin: ContentPluginConfig | LayoutPluginConfig;
+  defaultPlugin: ContentPlugin | LayoutPlugin;
 
   query = {};
   languages?: Languages;

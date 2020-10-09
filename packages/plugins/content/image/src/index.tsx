@@ -1,4 +1,4 @@
-import { ContentPluginConfig, lazyLoad } from '@react-page/core';
+import { ContentPlugin, lazyLoad } from '@react-page/core';
 import createPlugin from './createPlugin';
 import ImageHtmlRenderer from './Renderer/ImageHtmlRenderer';
 import { ImageSettings } from './types/settings';
@@ -10,7 +10,7 @@ const ImageDefaultControls = lazyLoad(() =>
 
 const imagePlugin: (
   settings?: Partial<ImageSettings>
-) => ContentPluginConfig<ImageState> = (settings) =>
+) => ContentPlugin<ImageState> = (settings) =>
   createPlugin({
     Renderer: ImageHtmlRenderer,
     Controls: ImageDefaultControls,

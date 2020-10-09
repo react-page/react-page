@@ -1,4 +1,4 @@
-import { LayoutPluginConfig, lazyLoad, PluginProps } from '@react-page/core';
+import { LayoutPlugin, lazyLoad, PluginProps } from '@react-page/core';
 import * as React from 'react';
 import { ControlsType, LayoutPluginDefinition } from './types';
 
@@ -11,7 +11,7 @@ function createPluginWithDef<T extends {}>({
   controlsLayout,
   Renderer,
   ...pluginSettings
-}: LayoutPluginDefinition<T>): LayoutPluginConfig<T> {
+}: LayoutPluginDefinition<T>): LayoutPlugin<T> {
   const Controls = lazyLoad(
     () => (import('./Controls') as unknown) as Promise<ControlsType<T>>
   );

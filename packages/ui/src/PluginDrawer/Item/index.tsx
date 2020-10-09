@@ -2,14 +2,14 @@ import Avatar from '@material-ui/core/Avatar';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 
-import { PluginConfig, useInsertCellAtTheEnd } from '@react-page/core';
+import { PluginBase, useInsertCellAtTheEnd } from '@react-page/core';
 
 import * as React from 'react';
 import { Translations } from '..';
 import draggable from '../Draggable/index';
 
 interface ItemProps {
-  plugin: PluginConfig;
+  plugin: PluginBase;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   insert: any;
   translations: Translations;

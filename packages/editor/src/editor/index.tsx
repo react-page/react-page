@@ -1,8 +1,8 @@
 import {
-  ContentPluginConfig,
+  ContentPlugin,
   DndBackend,
   EditableType,
-  LayoutPluginConfig,
+  LayoutPlugin,
   lazyLoad,
   Plugins,
   Languages,
@@ -16,7 +16,7 @@ const EditableEditor = lazyLoad(() => import('./EditableEditor'));
 
 export type EditorProps = {
   plugins?: Plugins;
-  defaultPlugin?: ContentPluginConfig | LayoutPluginConfig;
+  defaultPlugin?: ContentPlugin | LayoutPlugin;
   dndBackend?: DndBackend;
   value?: EditableType | null;
   onChange?: (v: EditableType) => void;

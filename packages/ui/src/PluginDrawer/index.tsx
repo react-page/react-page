@@ -4,9 +4,9 @@ import ListItem from '@material-ui/core/ListItem';
 import ListSubheader from '@material-ui/core/ListSubheader';
 import TextField from '@material-ui/core/TextField';
 import {
-  ContentPluginConfig,
-  LayoutPluginConfig,
-  PluginConfig,
+  ContentPlugin,
+  LayoutPlugin,
+  PluginBase,
   sanitizeInitialChildren,
   useEditor,
   useIsInsertMode,
@@ -43,7 +43,7 @@ const Toolbar: React.FC<Props> = ({ translations = defaultTranslations }) => {
 
   const [searchText, setSearchText] = React.useState<string>('');
   const searchFilter = React.useCallback(
-    (plugin: PluginConfig) => {
+    (plugin: PluginBase) => {
       return (
         plugin &&
         plugin.name &&
@@ -123,7 +123,7 @@ const Toolbar: React.FC<Props> = ({ translations = defaultTranslations }) => {
               <ListSubheader>{translations.contentPlugins}</ListSubheader>
             }
           >
-            {content.map((plugin: ContentPluginConfig, k: number) => {
+            {content.map((plugin: ContentPlugin, k: number) => {
               const initialState = plugin.createInitialState?.() ?? {};
 
               return (
@@ -148,7 +148,7 @@ const Toolbar: React.FC<Props> = ({ translations = defaultTranslations }) => {
               <ListSubheader>{translations.layoutPlugins}</ListSubheader>
             }
           >
-            {layout.map((plugin: LayoutPluginConfig, k: number) => {
+            {layout.map((plugin: LayoutPlugin, k: number) => {
               const initialState = plugin.createInitialState?.() ?? {};
 
               const children = sanitizeInitialChildren(

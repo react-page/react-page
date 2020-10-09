@@ -6,12 +6,12 @@ import { InitialChildrenDef } from '../../helper/createInitialChildren';
 import { Cell } from '../../types/editable';
 
 export type Plugins = {
-  layout?: LayoutPluginConfig[];
-  content?: ContentPluginConfig[];
+  layout?: LayoutPlugin[];
+  content?: ContentPlugin[];
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type PluginConfig<StateT = {}> = {
+export type PluginBase<StateT = {}> = {
   /**
    * the plugin's name
    */
@@ -54,7 +54,7 @@ export type PluginConfig<StateT = {}> = {
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type ContentPluginConfig<T = any> = PluginConfig<T> & {
+export type ContentPlugin<T = any> = PluginBase<T> & {
   allowInlineNeighbours?: boolean;
 
   isInlineable?: boolean;
@@ -63,7 +63,7 @@ export type ContentPluginConfig<T = any> = PluginConfig<T> & {
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type LayoutPluginConfig<T = any> = PluginConfig<T> & {
+export type LayoutPlugin<T = any> = PluginBase<T> & {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   createInitialChildren?: () => InitialChildrenDef;
   Component?: PluginComponentType<LayoutPluginProps<T>>;
@@ -113,15 +113,15 @@ export type PluginProps<
 
   isPreviewMode: boolean;
   isEditMode: boolean;
-  pluginConfig: PluginConfig<StateT>;
+  pluginConfig: PluginBase<StateT>;
 };
 
 export type ContentPluginProps<T = any> = PluginProps<T> & {
-  pluginConfig: ContentPluginConfig<T>;
+  pluginConfig: ContentPlugin<T>;
 };
 
 export type LayoutPluginProps<T = any> = PluginProps<T> & {
-  pluginConfig: LayoutPluginConfig<T>;
+  pluginConfig: LayoutPlugin<T>;
 };
 
 export interface MigrationConfig {
