@@ -1,6 +1,5 @@
-import { DragSource, DropTarget } from 'react-dnd';
-import { BackendFactory } from 'dnd-core';
-
+export type { BackendFactory as DndBackend } from 'dnd-core';
+export { DropTarget, DragSource } from 'react-dnd';
 import { Actions } from './actions';
 import Editable from './components/Editable';
 import Editor, { createEmptyState, CoreEditorProps, Languages } from './Editor';
@@ -14,7 +13,6 @@ import { connect, ReduxContext, ReduxProvider } from './reduxConnect';
 import { Selectors } from './selector';
 import i18n from './service/i18n';
 import PluginService from './service/plugin';
-
 import {
   ContentPlugin,
   LayoutPlugin,
@@ -37,7 +35,7 @@ import { RootState } from './types/state';
 import { setAllSizesAndOptimize } from './reducer/editable/helper/setAllSizesAndOptimize';
 import { DisplayModes } from './actions/display';
 import deepEquals from './utils/deepEquals';
-export { BackendFactory as DndBackend, DropTarget, DragSource };
+
 export {
   deepEquals,
   isRow,

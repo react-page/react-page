@@ -2,19 +2,19 @@
   "name": "@react-page/ui",
   "version": "0.0.0",
   "author": "ORY GmbH",
-  "license": "GNU Lesser General Public License v3.0",
+  "license": "MIT",
   "main": "./lib/index.js",
   "module": "./lib-es/index.js",
+  "sideEffects": false,
   "typings": "./lib/index.d.ts",
   "scripts": {
     "build": "npm-run-all --parallel build:lib build:css",
     "build:watch": "npm-run-all --parallel build:lib:watch build:css:watch",
     "build:lib": "tsc -p ./tsconfig.json && tsc -p ./tsconfig-es.json",
-    "build:lib:watch": "npm run build:lib -- --watch",
+    "build:lib:watch": "yarn build:lib -- --watch",
     "build:css": "postcss -c ../../postcss.config.js --dir lib/ src/index.css",
     "build:css:watch": "npm-run-all build:css -- -w",
     "docs": "documentation build ./lib/**/*.js --format md --github -o ../../docs/api/ui.md",
-    "prebuild": "npm-run-all clean",
     "clean": "rimraf \"lib\" && rimraf \"lib-es\" && rm -f *.tsbuildinfo"
   },
   "peerDependencies": {
@@ -27,7 +27,7 @@
     "@material-ui/icons": "^4.2.1",
     "@material-ui/styles": "^4.3.3",
     "@react-page/core": "0.0.0",
-    "classnames": "^2.2.5",
+    "classnames": "^2.2.6",
     "react-portal": "4.1.5",
     "lodash.throttle": "^4.1.1",
     "react-color": "^2.14.1"

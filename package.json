@@ -18,8 +18,8 @@
     "@semantic-release/exec": "semantic-release/exec",
     "@types/jest": "^25.2.3",
     "@types/react-dom": "^16.9.3",
-    "@typescript-eslint/eslint-plugin": "^3.1.0",
-    "@typescript-eslint/parser": "^3.1.0",
+    "@typescript-eslint/eslint-plugin": "^4.4.1",
+    "@typescript-eslint/parser": "^4.4.1",
     "babel-core": "7.0.0-bridge.0",
     "babel-eslint": "10.1.0",
     "chokidar-cli": "^1.2.0",
@@ -70,11 +70,9 @@
     "start:examples": "cross-env NODE_ENV=development lerna run start --stream",
     "test": "cross-env NODE_ENV=test jest --coverage",
     "test:watch": "cross-env NODE_ENV=test jest --watch",
+    "postinstall": "npm-run-all bootstrap",
     "watch:ts": "chokidar \"+(packages)/*/src/**/*.(ts|tsx)\" \"+(packages)/plugins/*/src/**/*.(ts|tsx)\" --initial",
-    "postinstall": "npm-run-all clean bootstrap build:lib",
     "serve": "pushstate-server ./examples/build",
-    "heroku-prebuild": "git init",
-    "heroku-postbuild": "npm-run-all build",
     "semantic-release": "semantic-release"
   },
   "jest": {
@@ -128,7 +126,7 @@
       [
         "@semantic-release/exec",
         {
-          "prepareCmd": "yarn replace-in-file ###VERSION### ${nextRelease.version} lib/index.js lib-es/index.js",
+          "prepareCmd": "yarn replace-in-file '###VERSION###' ${nextRelease.version} packages/**/lib*/*",
           "publishCmd": "yarn lerna publish --no-git-tag-version --no-git-reset --no-push --yes --dist-tag=${nextRelease.channel} --force-publish=* ${nextRelease.version}",
           "addChannel": "npm dist-tag add ${nextRelease.version}@${nextRelease.channel}"
         }

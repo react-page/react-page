@@ -164,8 +164,11 @@ export interface HTMLRendererProps {
 export const HTMLRenderer: React.SFC<HTMLRendererProps> = React.memo(
   ({ state, plugins, lang = null }) => {
     const service = new PluginService(plugins);
-    const { cells, ...props } = service.unserialize(state);
-
+    const unserialized = service.unserialize(state);
+    if (!unserialized) {
+      return null;
+    }
+    const { cells, ...props } = unserialized;
     return (
       <HTMLRow lang={lang} cells={setAllSizesAndOptimize(cells)} {...props} />
     );

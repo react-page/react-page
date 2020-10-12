@@ -7,11 +7,10 @@ install:
   - yarn --frozen-lockfile
 
 script:
+  - yarn build
   - yarn run lint
   - yarn run test
-  - cd examples
-  - yarn build
-  - cd ..
+
 
 after_success:
   - yarn run coveralls

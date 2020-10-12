@@ -1,5 +1,5 @@
 import { ContentPlugin, LayoutPlugin } from '../service/plugin/classes';
-
+import has from 'lodash.has';
 export type I18nField<T> = {
   [lang: string]: T;
 };
@@ -41,7 +41,7 @@ export type Cell = NodeBase & {
 };
 
 export const isRow = (node: Node): node is Row => {
-  return node.hasOwnProperty('cells');
+  return has(node, 'cells');
 };
 
 export type CellWithAncestors = Cell & {
