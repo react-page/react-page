@@ -1,5 +1,5 @@
 import '@react-page/core/lib/index.css'; // we also want to load the stylesheets
-import Editor from '@react-page/editor';
+import Editor, { VERSION } from '@react-page/editor';
 import '@react-page/ui/lib/index.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -143,6 +143,7 @@ const KeepStateEditor: React.FC<EditorProps> = ({ value, ...props }) => {
 };
 // Render the editables - the areas that are editable
 const elements = document.querySelectorAll<HTMLDivElement>('.editable');
+ReactDOM.render(<span>{VERSION}</span>, document.getElementById('version'));
 elements.forEach((element, index) => {
   ReactDOM.render(
     <KeepStateEditor
