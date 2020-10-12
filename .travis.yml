@@ -38,3 +38,11 @@ deploy:
     github_token: $GH_TOKEN # Set in the settings page of your repository, as a secure variable
     on:
       branch: next
+  - provider: pages
+    local_dir: examples/build
+    skip_cleanup: true
+    target_branch: main
+    repo: react-page/beta
+    github_token: $GH_TOKEN # Set in the settings page of your repository, as a secure variable
+    on:
+      branch: beta
