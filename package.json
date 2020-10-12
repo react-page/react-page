@@ -47,6 +47,7 @@
     "react": "~16.9.0",
     "react-dom": "~16.9.0",
     "redux": "^3.6.0",
+    "replace-in-file": "^6.1.0",
     "rimraf": "2.6.2",
     "semantic-release": "^17.1.2",
     "ts-jest": "^26.4.1",
@@ -129,6 +130,7 @@
       [
         "@semantic-release/exec",
         {
+          "prepareCmd": "yarn replace-in-file ###VERSION### ${nextRelease.version} lib/index.js lib-es/index.js",
           "publishCmd": "yarn lerna publish --no-git-tag-version --no-git-reset --no-push --yes --dist-tag=${nextRelease.channel} --force-publish=* ${nextRelease.version}",
           "addChannel": "npm dist-tag add ${nextRelease.version}@${nextRelease.channel}"
         }
