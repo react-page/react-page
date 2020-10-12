@@ -38,7 +38,6 @@ export const getI18nState = ({
 const Content: React.FC<{
   nodeId: string;
 }> = ({ nodeId }) => {
-  console.log('rereender content', nodeId);
   const node = useCell(nodeId);
   //useWhyDidYouUpdate('content', node);
 

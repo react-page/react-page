@@ -1,4 +1,4 @@
-import { DropTargetMonitor } from 'react-dnd';
+import type { DropTargetMonitor } from 'react-dnd';
 
 import { Node } from '../../types/editable';
 import { Callbacks, Room, Vector } from '../../types/hover';

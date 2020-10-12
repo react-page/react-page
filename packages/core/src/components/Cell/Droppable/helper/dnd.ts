@@ -1,5 +1,5 @@
 import throttle from 'lodash.throttle';
-import { DropTargetMonitor } from 'react-dnd';
+import type { DropTargetMonitor } from 'react-dnd';
 import { delay } from '../../../../helper/throttle';
 import {
   computeAndDispatchHover,

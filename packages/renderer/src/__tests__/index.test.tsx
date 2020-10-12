@@ -20,6 +20,8 @@ const plugins: Plugins = {
     {
       name: 'layout',
       version: '0.0.1',
+
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       Component: Layout as any,
     },
   ],

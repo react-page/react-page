@@ -2,7 +2,7 @@
   "name": "@react-page/react-page",
   "version": "0.0.0",
   "author": "ORY GmbH",
-  "license": "GNU Lesser General Public License v3.0",
+  "license": "MIT",
   "dependencies": {
     "@react-page/core": "0.0.0",
     "@react-page/plugins-background": "0.0.0",
