@@ -162,11 +162,16 @@ export const usePlugins = () => {
 
 export const usePlugin = (pluginId: string) => {
   const plugins = usePlugins();
-  return plugins.find((p) => p.id === pluginId);
+  return pluginId ? plugins.find((p) => p.id === pluginId) : null;
+};
+
+export const useCellHasPlugin = (nodeId: string) => {
+  const node = useCell(nodeId);
+  return Boolean(node.plugin);
 };
 export const useCellPlugin = (nodeId: string) => {
   const node = useCell(nodeId);
-  return node.plugin ? usePlugin(node.plugin?.id) : null;
+  return usePlugin(node.plugin?.id);
 };
 
 export const useCellDataI18nRaw = (nodeId: string) => {

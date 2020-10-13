@@ -3,7 +3,7 @@ export { DropTarget, DragSource } from 'react-dnd';
 import { Actions } from './actions';
 import Editable from './components/Editable';
 import Editor, { createEmptyState, CoreEditorProps, Languages } from './Editor';
-import { InitialChildrenDef } from './helper/createInitialChildren';
+
 import lazyLoad from './helper/lazyLoad';
 import Provider from './Provider';
 import { reducer } from './reducer';
@@ -46,7 +46,6 @@ export {
   Selectors,
   RootState,
   i18n,
-  InitialChildrenDef,
   Editor,
   reducer,
   ReduxProvider,

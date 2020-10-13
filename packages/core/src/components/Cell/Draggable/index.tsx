@@ -4,6 +4,7 @@ import { DragPreviewImage, useDrag } from 'react-dnd';
 import { CellDrag } from '../../../types/editable';
 import {
   useCell,
+  useCellHasPlugin,
   useCellPlugin,
   useHoverActions,
   useIsFocused,
@@ -33,6 +34,7 @@ const Draggable: React.FC<Props> = ({ isLeaf, children, nodeId }) => {
     []
   );
   const cell = useCell(nodeId);
+
   const plugin = useCellPlugin(nodeId);
   const actions = useHoverActions();
   const [{ isDragging }, dragRef, preview] = useDrag<
