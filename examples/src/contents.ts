@@ -1,7 +1,6 @@
 // tslint:disable:max-line-length
-import { EditableType } from '@react-page/core';
 
-const contents: EditableType[] = [
+const contents: any[] = [
   {
     id: '1',
     cells: [

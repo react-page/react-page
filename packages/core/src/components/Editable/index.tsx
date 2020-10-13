@@ -1,13 +1,10 @@
 import React, { useEffect, useRef } from 'react';
+import { serializePluginData } from '../../migrations/serializePluginData';
 import { editable } from '../../selector/editable';
-import {
-  AbstractEditable,
-  Cell,
-  SimplifiedModesProps,
-} from '../../types/editable';
-import { EditorState } from '../../types/editor';
+import { AbstractEditable, Cell } from '../../types/editable';
 import deepEquals from '../../utils/deepEquals';
-import { EditableContext, OptionsContext, useEditor } from '../hooks';
+import { EditableContext, useEditor, useOptions, useSetLang } from '../hooks';
+import useWhyDidYouUpdate from '../hooks/useWhyDidYouUpdate';
 import HotKeyDecorator from '../HotKey/Decorator';
 import FallbackDropArea from './FallbackDropArea';
 import Inner from './Inner';
@@ -19,21 +16,20 @@ export type EditableProps = {
   onChange: (value: Serialized) => void;
   lang?: string;
   onChangeLang?: (lang: string) => void;
-} & SimplifiedModesProps;
+};
 const Editable: React.FC<EditableProps> = ({
   id,
   onChange,
   onChangeLang,
   lang,
-
-  ...simplifiedModeProps
 }) => {
   const editor = useEditor();
-
+  const options = useOptions();
+  const setLang = useSetLang();
   // update lang when changed from outside
   useEffect(() => {
-    editor.setLang(lang);
-  }, [lang, editor]);
+    setLang(lang);
+  }, [lang, setLang]);
 
   const previousSerializedRef = useRef<Serialized>();
   useEffect(() => {
@@ -46,43 +42,43 @@ const Editable: React.FC<EditableProps> = ({
         onChangeLang?.(newLang);
       }
       // check also if lang has changed internally, to call callback when controled from outside
-
-      const state: EditorState = editable(editor.store.getState(), {
+      // console.time('calculate notifiy on change');
+      const state = editable(editor.store.getState(), {
         id: id,
       });
 
       if (!state) {
+        //   console.timeEnd('calculate notifiy on change');
         return;
       }
-      // prevent uneeded updates
-      const serialized = editor.plugins.serialize(state);
+      const serialized = serializePluginData(state, options.plugins);
       const serializedEqual = deepEquals(
         previousSerializedRef.current,
         serialized
       );
 
       if (serializedEqual) {
+        //  console.timeEnd('calculate notifiy on change');
         return;
       }
       previousSerializedRef.current = serialized;
-      onChange(serialized);
+      // console.timeEnd('calculate notifiy on change');
+      onChange(state);
     };
     const unsubscribe = editor.store.subscribe(handleChanges);
     return () => {
       unsubscribe();
     };
-  }, [editor, id, onChange]);
+  }, [editor, id, onChange, options.pluginsWillChange && options.plugins]);
 
   return (
-    <OptionsContext.Provider value={simplifiedModeProps}>
-      <EditableContext.Provider value={id}>
-        <HotKeyDecorator>
-          <FallbackDropArea>
-            <Inner id={id} defaultPlugin={editor.defaultPlugin} />
-          </FallbackDropArea>
-        </HotKeyDecorator>
-      </EditableContext.Provider>
-    </OptionsContext.Provider>
+    <EditableContext.Provider value={id}>
+      <HotKeyDecorator>
+        <FallbackDropArea>
+          <Inner id={id} />
+        </FallbackDropArea>
+      </HotKeyDecorator>
+    </EditableContext.Provider>
   );
 };
 

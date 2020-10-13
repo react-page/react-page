@@ -5,27 +5,27 @@ import { BackgroundState } from './types/state';
 import { BackgroundProps } from './types/component';
 import BackgroundComponent from './Component';
 import { defaultSettings } from './default/settings';
-import { LayoutPlugin, lazyLoad } from '@react-page/core';
+import { CellPlugin, lazyLoad } from '@react-page/core';
 
 const Icon = lazyLoad(() => import('@material-ui/icons/CropLandscape'));
 
 const createPlugin = (settings: BackgroundSettings) => {
   const mergedSettings = { ...defaultSettings, ...settings };
-  const plugin: LayoutPlugin<BackgroundState> = {
+  const plugin: CellPlugin<BackgroundState> = {
     Component: (props: BackgroundProps) => (
       <BackgroundComponent {...props} {...mergedSettings} />
     ),
 
-    name: 'ory/editor/core/layout/background',
+    id: 'ory/editor/core/layout/background',
     version: '0.0.1',
 
-    text: mergedSettings.translations.pluginName,
+    title: mergedSettings.translations.pluginName,
     description: mergedSettings.translations.pluginDescription,
     IconComponent: <Icon />,
 
     createInitialChildren:
       settings.getInitialChildren ||
-      (() => [[{ content: { plugin: settings.defaultPlugin } }]]),
+      (() => [[{ plugin: settings.defaultPlugin.id }]]),
 
     handleFocusNextHotKey: () => Promise.reject(),
     handleFocusPreviousHotKey: () => Promise.reject(),

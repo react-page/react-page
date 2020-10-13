@@ -54,7 +54,6 @@ const SlateControls = (props: SlateProps) => {
       )(withReact(withInline(plugins)(createEditor()))),
     []
   );
-  // useWhyDidYouUpdate('SlateControls' + id, props);
   const onChangeDebounced = useMemo(() => debounce(props.onChange, 200), [
     props.onChange,
   ]);

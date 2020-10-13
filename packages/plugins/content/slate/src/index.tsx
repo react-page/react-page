@@ -1,4 +1,4 @@
-import { ContentPlugin, lazyLoad } from '@react-page/core';
+import { CellPlugin, lazyLoad } from '@react-page/core';
 import * as React from 'react';
 import { AnyAction } from 'redux';
 import { ActionTypes } from 'redux-undo';
@@ -32,7 +32,7 @@ type SlateDefinition<TPlugins extends SlatePluginCollection> = {
   defaultPluginType: string;
   Renderer: React.ComponentType<SlateRendererProps>;
   Controls: React.ComponentType<SlateControlsProps>;
-  name: string;
+  id: string;
   version: string;
   translations: typeof defaultTranslations;
   migrations: typeof migrations;
@@ -53,7 +53,7 @@ const defaultConfig: DefaultSlateDefinition = {
   defaultPluginType: 'PARAGRAPH/PARAGRAPH',
   Renderer,
   Controls,
-  name: 'ory/editor/core/content/slate',
+  id: 'ory/editor/core/content/slate',
   version: '0.0.4',
   translations: defaultTranslations,
   migrations,
@@ -65,7 +65,7 @@ type CreateInitialSlateState<TPlugins> = (
   custom?: CreateInitialStateCustomizer<TPlugins>
 ) => // eslint-disable-next-line @typescript-eslint/no-explicit-any
 SlateState;
-export type SlatePlugin<TPlugins> = ContentPlugin<SlateState> & {
+export type SlatePlugin<TPlugins> = CellPlugin<SlateState> & {
   createInitialSlateState: CreateInitialSlateState<TPlugins>;
   htmlToSlate: (html: string) => SlateState;
 };
@@ -120,10 +120,10 @@ function plugin<TPlugins extends SlatePluginCollection = DefaultPlugins>(
       />
     ),
 
-    name: settings.name,
+    id: settings.id || (settings as any).name,
     version: settings.version,
     IconComponent: settings.icon,
-    text: settings.translations.pluginName,
+    title: settings.translations.pluginName,
     description: settings.translations.pluginDescription,
     hideInMenu: settings.hideInMenu,
     allowInlineNeighbours: settings.allowInlineNeighbours,

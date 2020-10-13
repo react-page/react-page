@@ -22,114 +22,108 @@ export default () =>
       return [
         [
           {
-            content: {
-              plugin: customizedSlate,
-              state: customizedSlate.createInitialSlateState(({ plugins }) => ({
-                children: [
-                  {
-                    plugin: plugins.headings.h3,
-                    children: ['Hello world'],
-                  },
-                  {
-                    plugin: plugins.paragraphs.paragraph,
-                    children: ['Title and paragraph'],
-                  },
-                ],
-              })),
-            },
+            plugin: customizedSlate,
+            data: customizedSlate.createInitialSlateState(({ plugins }) => ({
+              children: [
+                {
+                  plugin: plugins.headings.h3,
+                  children: ['Hello world'],
+                },
+                {
+                  plugin: plugins.paragraphs.paragraph,
+                  children: ['Title and paragraph'],
+                },
+              ],
+            })),
           },
           {
-            content: {
-              plugin: defaultSlate,
-              state: defaultSlate.createInitialSlateState(({ plugins }) => ({
-                children: [
-                  {
-                    plugin: plugins.headings.h1,
-                    children: ['A default list'],
-                  },
-                  {
-                    plugin: plugins.lists.ul,
-                    children: [
-                      {
-                        plugin: plugins.lists.li,
-                        children: [
-                          {
-                            plugin: plugins.paragraphs.paragraph,
-                            children: ['one'],
-                          },
-                        ],
-                      },
-                      {
-                        plugin: plugins.lists.li,
-                        children: [
-                          {
-                            plugin: plugins.paragraphs.paragraph,
-                            children: ['two'],
-                          },
-                        ],
-                      },
-                      {
-                        plugin: plugins.lists.li,
-                        children: [
-                          {
-                            plugin: plugins.paragraphs.paragraph,
-                            children: ['three'],
-                          },
-                        ],
-                      },
-                    ],
-                  },
-                ],
-              })),
-            },
+            plugin: defaultSlate,
+            data: defaultSlate.createInitialSlateState(({ plugins }) => ({
+              children: [
+                {
+                  plugin: plugins.headings.h1,
+                  children: ['A default list'],
+                },
+                {
+                  plugin: plugins.lists.ul,
+                  children: [
+                    {
+                      plugin: plugins.lists.li,
+                      children: [
+                        {
+                          plugin: plugins.paragraphs.paragraph,
+                          children: ['one'],
+                        },
+                      ],
+                    },
+                    {
+                      plugin: plugins.lists.li,
+                      children: [
+                        {
+                          plugin: plugins.paragraphs.paragraph,
+                          children: ['two'],
+                        },
+                      ],
+                    },
+                    {
+                      plugin: plugins.lists.li,
+                      children: [
+                        {
+                          plugin: plugins.paragraphs.paragraph,
+                          children: ['three'],
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            })),
           },
         ],
         [
           {
-            content: {
-              plugin: customizedSlate,
-              state: customizedSlate.createInitialSlateState(({ plugins }) => ({
-                children: [
-                  {
-                    plugin: plugins.headings.h2,
-                    children: ['Hello world'],
-                    data: {
-                      align: 'center',
-                    },
+            plugin: customizedSlate,
+            data: customizedSlate.createInitialSlateState(({ plugins }) => ({
+              children: [
+                {
+                  plugin: plugins.headings.h2,
+                  children: ['Hello world'],
+                  data: {
+                    align: 'center',
                   },
+                },
 
-                  {
-                    plugin: plugins.paragraphs.paragraph,
-                    children: ['Another entry'],
-                    data: {
-                      align: 'center',
-                    },
+                {
+                  plugin: plugins.paragraphs.paragraph,
+                  children: ['Another entry'],
+                  data: {
+                    align: 'center',
                   },
-                  {
-                    plugin: plugins.headings.h4,
-                    children: [
-                      'This is a custom slate component with additional html elements',
-                    ],
+                },
+                {
+                  plugin: plugins.headings.h4,
+                  children: [
+                    'This is a custom slate component with additional html elements',
+                  ],
+                },
+                {
+                  plugin: plugins.paragraphs.paragraph,
+                  children: [
+                    'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. ',
+                  ],
+                  data: {
+                    align: 'center',
                   },
-                  {
-                    plugin: plugins.paragraphs.paragraph,
-                    children: [
-                      'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. ',
-                    ],
-                    data: {
-                      align: 'center',
-                    },
-                  },
-                ],
-              })),
-            },
+                },
+              ],
+            })),
           },
         ],
       ];
     },
 
-    name: 'custom-layout-plugin-initial-state',
-    text: 'Custom layout plugin with initial text',
+    id: 'custom-layout-plugin-initial-state',
+    title: 'Custom layout plugin with initial text',
     description: 'Some custom layout plugin with initial text',
     version: '0.0.1',
     schema: {

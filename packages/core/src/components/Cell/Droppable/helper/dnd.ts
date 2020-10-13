@@ -1,18 +1,14 @@
 import throttle from 'lodash.throttle';
 import type { DropTargetMonitor } from 'react-dnd';
 import { delay } from '../../../../helper/throttle';
+import { HoverTarget } from '../../../../service/hover/computeHover';
 import {
   computeAndDispatchHover,
   computeAndDispatchInsert,
 } from '../../../../service/hover/input';
 import logger from '../../../../service/logger';
-import {
-  CellDrag,
-  CellWithAncestors,
-  isRow,
-  RowWithAncestors,
-} from '../../../../types/editable';
-import { Callbacks } from '../../../../types/hover';
+import { CellDrag, Options } from '../../../../types/editable';
+import { HoverInsertActions } from '../../../../types/hover';
 
 let last: { hoverId: string; dragId: string } = { hoverId: '', dragId: '' };
 
@@ -26,10 +22,11 @@ const shouldClear = (hoverId: string, dragId: string) => {
 
 export const onHover = throttle(
   (
-    target: CellWithAncestors | RowWithAncestors,
+    target: HoverTarget,
     monitor: DropTargetMonitor,
     element: HTMLElement,
-    actions: Callbacks
+    actions: HoverInsertActions,
+    options: Options
   ) => {
     const drag: CellDrag = monitor.getItem();
     if (!drag) {
@@ -46,7 +43,7 @@ export const onHover = throttle(
     } else if (!monitor.isOver({ shallow: true })) {
       // If hovering over ancestor cell, do nothing (we are going to propagate later in the tree anyways)
       return;
-    } else if (target.ancestors.some((a) => a.id === drag.cell.id)) {
+    } else if (target.ancestorIds.includes(drag.cell.id)) {
       if (shouldClear(target.id, drag.cell.id)) {
         actions.clear();
       }
@@ -59,14 +56,16 @@ export const onHover = throttle(
 
     last = { hoverId: target.id, dragId: drag.cell.id };
     const allowInlineNeighbours =
-      (!isRow(target) && target?.content?.plugin?.allowInlineNeighbours) ??
-      false;
+      options.plugins.find((p) => p.id === target.pluginId)
+        ?.allowInlineNeighbours ?? false;
+
     computeAndDispatchHover(
       target,
       drag.cell,
       monitor,
       element,
       actions,
+      options,
       `10x10${allowInlineNeighbours ? '' : '-no-inline'}`
     );
   },
@@ -75,39 +74,39 @@ export const onHover = throttle(
 );
 
 export const onDrop = (
-  targetCell: CellWithAncestors | RowWithAncestors,
+  target: HoverTarget,
   monitor: DropTargetMonitor,
   element: HTMLElement,
-  actions: Callbacks
+  actions: HoverInsertActions,
+  options: Options
 ) => {
   const drag: CellDrag = monitor.getItem();
-  //  console.log('on drop', targetCell, monitor);
 
   if (monitor.didDrop() || !monitor.isOver({ shallow: true })) {
     // If the item drop occurred deeper down the tree, don't do anything
     return;
-  } else if (drag.cell.id === targetCell.id) {
+  } else if (drag.cell.id === target.id) {
     // If the item being dropped on itself do nothing
     actions.cancelCellDrag();
     return;
-  } else if (targetCell.ancestors.some((a) => a.id === drag.cell.id)) {
+  } else if (target.ancestorIds.includes(drag.cell.id)) {
     // If hovering over a child of itself, don't propagate further
     actions.cancelCellDrag();
     return;
   }
 
-  last = { hoverId: targetCell.id, dragId: drag.cell.id };
+  last = { hoverId: target.id, dragId: drag.cell.id };
 
   const allowInlineNeighbours =
-    (!isRow(targetCell) &&
-      targetCell?.content?.plugin?.allowInlineNeighbours) ??
-    false;
+    options.plugins.find((p) => p.id === target.pluginId)
+      ?.allowInlineNeighbours ?? false;
   computeAndDispatchInsert(
-    targetCell,
+    target,
     drag.cell,
     monitor,
     element,
     actions,
+    options,
     `10x10${allowInlineNeighbours ? '' : '-no-inline'}`
   );
 };

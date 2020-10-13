@@ -5,8 +5,7 @@ import {
   EditableType,
   Node,
   isRow,
-  CellWithAncestors,
-  RowWithAncestors,
+  NodeWithAncestors,
 } from '../../types/editable';
 import { RootState } from '../../types/state';
 
@@ -15,30 +14,24 @@ const findNode = (
   nodes: Node[],
   nodeId: string,
   ancestors: Node[] = []
-): RowWithAncestors | CellWithAncestors => {
+): NodeWithAncestors => {
   for (const node of nodes) {
     if (node.id === nodeId) {
       return {
-        ...node,
+        node,
         ancestors,
       };
     }
     // else search children
     if (isRow(node) && node.cells) {
-      const found = findNode(node.cells, nodeId, [...ancestors, node]);
+      const found = findNode(node.cells, nodeId, [node, ...ancestors]);
       if (found) {
-        return {
-          ...found,
-          ancestors,
-        };
+        return found;
       }
     } else if (!isRow(node) && node.rows) {
-      const found = findNode(node.rows, nodeId, [...ancestors, node]);
+      const found = findNode(node.rows, nodeId, [node, ...ancestors]);
       if (found) {
-        return {
-          ...found,
-          ancestors,
-        };
+        return found;
       }
     }
   }
@@ -82,7 +75,7 @@ export const selectNode = (
     editable: string;
     id: string;
   }
-): CellWithAncestors | RowWithAncestors => {
+): NodeWithAncestors => {
   const found = findNodeInState(state, props.editable, props.id);
 
   return found;

@@ -1,22 +1,14 @@
-import {
-  computeSizes,
-  computeInlines,
-  computeBounds,
-  computeResizeable,
-} from './sizing';
+import { computeSizes, computeInlines, computeResizeable } from './sizing';
 import {
   optimizeCell,
   optimizeRow,
   optimizeRows,
   optimizeCells,
 } from './optimize';
-import { computeDropLevels } from './level';
 import { Cell, Row } from '../../../types/editable';
 
 export const setAllSizesAndOptimize = (cells: Array<Cell> = []): Array<Cell> =>
-  computeInlines(
-    computeResizeable(computeBounds(computeSizes(optimizeCells(cells))))
-  ).map(
+  computeInlines(computeResizeable(computeSizes(optimizeCells(cells)))).map(
     (cell: Cell): Cell => {
       if (cell.rows) {
         cell.rows = optimizeRows(cell.rows).map(
@@ -30,6 +22,6 @@ export const setAllSizesAndOptimize = (cells: Array<Cell> = []): Array<Cell> =>
         );
       }
 
-      return computeDropLevels(optimizeCell(cell));
+      return optimizeCell(cell);
     }
   );

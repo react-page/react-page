@@ -1,4 +1,4 @@
-import { ContentPlugin, InitialChildrenDef } from '@react-page/core';
+import { CellPlugin } from '@react-page/core';
 
 import { ImageUploadType, RGBColor } from '@react-page/ui';
 import { BackgroundControlsProps } from './controls';
@@ -9,10 +9,9 @@ import { Translations } from './translations';
 export type BackgroundSettings = {
   Renderer: React.ComponentType<BackgroundRendererProps>;
   Controls: React.ComponentType<BackgroundControlsProps>;
-  defaultPlugin: ContentPlugin;
+  defaultPlugin: CellPlugin;
   enabledModes?: ModeEnum;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  getInitialChildren?: () => InitialChildrenDef;
+  getInitialChildren?: CellPlugin['createInitialChildren'];
   defaultBackgroundColor?: RGBColor;
   defaultGradientColor?: RGBColor;
   defaultGradientSecondaryColor?: RGBColor;

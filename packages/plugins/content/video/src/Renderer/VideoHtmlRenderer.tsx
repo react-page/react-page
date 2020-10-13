@@ -9,11 +9,8 @@ import { VideoHtmlRendererProps } from '../types/renderer';
 // react player is big, better lazy load it.
 const ReactPlayer = lazyLoad(() => import('react-player'));
 
-const Display: React.SFC<VideoHtmlRendererProps> = ({
-  state: { src },
-  readOnly,
-}) =>
-  src ? (
+const Display: React.SFC<VideoHtmlRendererProps> = ({ data, readOnly }) =>
+  data?.src ? (
     <div style={{ position: 'relative', height: 0, paddingBottom: '65.25%' }}>
       {readOnly ? null : (
         <div
@@ -28,7 +25,7 @@ const Display: React.SFC<VideoHtmlRendererProps> = ({
         />
       )}
       <ReactPlayer
-        url={src}
+        url={data?.src}
         height="100%"
         width="100%"
         style={{

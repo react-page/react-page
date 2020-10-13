@@ -2,7 +2,8 @@ import * as React from 'react';
 import expect from 'unexpected';
 
 import PluginService from '../index';
-import { Migration, LayoutPlugin, ContentPlugin } from '../classes';
+import {CellPlugin} from '../classes';
+import { Migration } from '../../../migrations/Migration';
 
 const FOO = 'foo';
 const OLDEST_VERSION = '0.0.1';
@@ -32,7 +33,7 @@ const content = [
       }),
     ],
   },
-] as ContentPlugin[];
+] as CellPlugin[];
 
 const migrationEdgeCaseContent = [
   {
@@ -57,11 +58,11 @@ const migrationEdgeCaseContent = [
       }),
     ],
   },
-] as ContentPlugin[];
+] as CellPlugin[];
 
 const layout = [
   { name: 'bar', version: '0.0.2', Component: () => <div /> },
-] as LayoutPlugin[];
+] asCellPlugin[];
 
 const plugins = new PluginService({ content, layout });
 
@@ -74,7 +75,7 @@ describe('PluginService', () => {
   content.forEach((p) => {
     it(`should find plugin ${p.name} ${p.version}`, () => {
       expect(
-        plugins.findContentPlugin(p.name, p.version).plugin.name,
+        plugins.findCellPlugin(p.name, p.version).plugin.name,
         'to equal',
         p.name
       );
@@ -83,19 +84,19 @@ describe('PluginService', () => {
 
   it(`should find plugin different version ${FOO} ${OLDEST_VERSION}`, () => {
     expect(
-      plugins.findContentPlugin(FOO, OLDEST_VERSION).pluginWrongVersion.name,
+      plugins.findCellPlugin(FOO, OLDEST_VERSION).pluginWrongVersion.name,
       'to equal',
       FOO
     );
     expect(
-      plugins.findContentPlugin(FOO, OLDEST_VERSION).pluginWrongVersion.version,
+      plugins.findCellPlugin(FOO, OLDEST_VERSION).pluginWrongVersion.version,
       'to equal',
       MATCHING_VERSION
     );
   });
 
   it(`should apply migrations`, () => {
-    const plugin = plugins.findContentPlugin(FOO, OLDEST_VERSION)
+    const plugin = plugins.findCellPlugin(FOO, OLDEST_VERSION)
       .pluginWrongVersion;
     const newState = plugins.migratePluginState({}, plugin, OLDEST_VERSION);
     expect(newState.modified, 'to equal', 1);
@@ -103,7 +104,7 @@ describe('PluginService', () => {
   });
 
   it(`should apply migrations even in edge case`, () => {
-    const plugin = migrationEdgeCasePlugins.findContentPlugin(FOO, '0.0.0')
+    const plugin = migrationEdgeCasePlugins.findCellPlugin(FOO, '0.0.0')
       .pluginWrongVersion;
     const newState = migrationEdgeCasePlugins.migratePluginState(
       {},

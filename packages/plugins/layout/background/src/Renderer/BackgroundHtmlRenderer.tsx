@@ -5,13 +5,13 @@ import { BackgroundRendererProps } from '../types/renderer';
 
 const getStyles = (props: BackgroundRendererProps) => {
   const {
-    state: {
+    data: {
       background = '',
       modeFlag = props.defaultModeFlag,
       isParallax = true,
       backgroundColor = props.defaultBackgroundColor,
       gradients = [],
-    },
+    } = {},
   } = props;
   let styles: React.CSSProperties = {};
   if (modeFlag & ModeEnum.GRADIENT_MODE_FLAG) {

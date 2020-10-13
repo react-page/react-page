@@ -4,7 +4,7 @@ import * as actions from '../../../actions/cell/index';
 import { Cell } from '../../../types/editable';
 import { cellOrder } from '../helper/order';
 import { setAllSizesAndOptimize } from '../helper/setAllSizesAndOptimize';
-import { rawEditableReducer } from '../index';
+import { editable } from '../index';
 
 const walker = ({ cells = [], rows = [], hoverPosition = null, ...other }) => {
   if (cells.length) {
@@ -22,7 +22,7 @@ const walker = ({ cells = [], rows = [], hoverPosition = null, ...other }) => {
 const _cells = (state) => setAllSizesAndOptimize(state).map(walker);
 
 const simulateDispatch = (currentState, action) => {
-  const reducer = combineReducers({ editable: rawEditableReducer });
+  const reducer = combineReducers({ editable });
   const store = createStore(reducer, currentState, applyMiddleware(thunk));
   store.dispatch(action);
 
@@ -255,7 +255,7 @@ test('cell update content', () => {
     createContentCell('0', 'foo', { foo: 1 }),
   ]);
 
-  const action = actions.updateCellContent('0')({ bar: 1 });
+  const action = actions.updateCellData('0')({ bar: 1 });
 
   const expectedState = createEditable(
     'editable',
@@ -270,7 +270,7 @@ test('cell update content with language', () => {
     createContentCell('0', 'foo', { foo: 1 }),
   ]);
 
-  const action = actions.updateCellContent('0')({ bar: 1 }, 'de');
+  const action = actions.updateCellData('0')({ bar: 1 }, 'de');
 
   const expectedState = createEditable(
     'editable',
@@ -293,7 +293,7 @@ test('cell update content with language when there is already another translatio
     }),
   ]);
 
-  const action = actions.updateCellContent('0')({ bar: 1 }, 'de');
+  const action = actions.updateCellData('0')({ bar: 1 }, 'de');
 
   const expectedState = createEditable(
     'editable',

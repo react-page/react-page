@@ -17,7 +17,6 @@ const Toolbar = (
 
     nodeId,
   };
-  // useWhyDidYouUpdate('Toolbar' + props.id, props);
   return (
     <BottomToolbar {...bottomToolbarProps}>
       <div>

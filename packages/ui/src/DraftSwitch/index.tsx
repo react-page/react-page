@@ -1,12 +1,16 @@
 import { FormControlLabel, Switch, Tooltip } from '@material-ui/core';
 import VisibleIcon from '@material-ui/icons/Visibility';
 import NonVisibleIcon from '@material-ui/icons/VisibilityOff';
-import { useCell, useLang, useSetDraft } from '@react-page/core';
+import { useCell, useCellProps, useLang, useSetDraft } from '@react-page/core';
+import { useCellDrop } from '@react-page/core/lib/components/Cell/Droppable';
 import React from 'react';
 
 const DraftSwitch = ({ nodeId, lang }: { nodeId: string; lang?: string }) => {
-  const cell = useCell(nodeId);
-  const setDraft = useSetDraft(cell?.id);
+  const cell = useCellProps(nodeId, (c) => ({
+    isDraft: c.isDraft,
+    isDraftI18n: c.isDraftI18n,
+  }));
+  const setDraft = useSetDraft(nodeId);
   const currentLang = useLang();
   if (!cell) {
     return null;

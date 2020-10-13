@@ -1,4 +1,4 @@
-import { ContentPlugin, lazyLoad } from '@react-page/core';
+import { CellPlugin, lazyLoad } from '@react-page/core';
 import createPlugin from './createPlugin';
 import ImageHtmlRenderer from './Renderer/ImageHtmlRenderer';
 import { ImageSettings } from './types/settings';
@@ -10,7 +10,7 @@ const ImageDefaultControls = lazyLoad(() =>
 
 const imagePlugin: (
   settings?: Partial<ImageSettings>
-) => ContentPlugin<ImageState> = (settings) =>
+) => CellPlugin<ImageState> = (settings) =>
   createPlugin({
     Renderer: ImageHtmlRenderer,
     Controls: ImageDefaultControls,

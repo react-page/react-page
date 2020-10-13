@@ -26,9 +26,10 @@
     "styled-components": "^5.1.1"
   },
   "devDependencies": {
-    "why-did-you-update": "0.0.8",
     "@types/uuid": "^3.4.4",
-    "@types/styled-components": "^5.1.2"
+    "@types/styled-components": "^5.1.2",
+    "@welldone-software/why-did-you-render": "^5.0.0-rc.1",
+    "react-redux": "7.2.1"
   },
   "scripts": {
     "start": "SKIP_PREFLIGHT_CHECK=true react-scripts start",

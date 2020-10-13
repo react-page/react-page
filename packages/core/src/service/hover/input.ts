@@ -1,17 +1,16 @@
 import type { DropTargetMonitor } from 'react-dnd';
 
-import { Node } from '../../types/editable';
-import { Callbacks, Room, Vector } from '../../types/hover';
-import HoverService from '../hover';
-
-const hoverService = new HoverService();
+import { Node, Options } from '../../types/editable';
+import { HoverInsertActions, Room, Vector } from '../../types/hover';
+import { computeHover, HoverTarget } from './computeHover';
 
 const computeCurrentDropPosition = (
-  actions: Callbacks,
-  hover: Node,
+  actions: HoverInsertActions,
+  hover: HoverTarget,
   drag: Node,
   monitor: DropTargetMonitor,
   element: HTMLElement,
+  options: Options,
   matrixName: string
 ) => {
   const mousePosition = monitor.getClientOffset();
@@ -27,15 +26,21 @@ const computeCurrentDropPosition = (
     x: mousePosition.x - componentPosition.left,
   };
 
-  hoverService.hover(drag, hover, actions, { room, mouse, matrix: matrixName });
+  computeHover(drag, hover, actions, {
+    room,
+    mouse,
+    matrixName,
+    options,
+  });
 };
 
 export const computeAndDispatchInsert = (
-  hover: Node,
+  hover: HoverTarget,
   drag: Node,
   monitor: DropTargetMonitor,
   element: HTMLElement,
-  actions: Callbacks,
+  actions: HoverInsertActions,
+  options: Options,
   matrixName = '10x10'
 ) => {
   return computeCurrentDropPosition(
@@ -44,16 +49,18 @@ export const computeAndDispatchInsert = (
     drag,
     monitor,
     element,
+    options,
     matrixName
   );
 };
 
 export const computeAndDispatchHover = (
-  hover: Node,
+  hover: HoverTarget,
   drag: Node,
   monitor: DropTargetMonitor,
   element: HTMLElement,
-  actions: Callbacks,
+  actions: HoverInsertActions,
+  options: Options,
   matrixName = '10x10'
 ) =>
   computeCurrentDropPosition(
@@ -62,5 +69,6 @@ export const computeAndDispatchHover = (
     drag,
     monitor,
     element,
+    options,
     matrixName
   );

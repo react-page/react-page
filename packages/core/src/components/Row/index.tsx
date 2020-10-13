@@ -1,36 +1,44 @@
-import * as React from 'react';
-import Droppable from './Droppable';
-
 import classNames from 'classnames';
-
+import * as React from 'react';
 import { useMeasure } from 'react-use';
-import { Row } from '../../types/editable';
+import { isRow, Row } from '../../types/editable';
 import Cell from '../Cell';
-import { useBlurAllCells, useRow } from '../hooks';
-
-const rowHasInlineChildren = ({ cells }: Row) =>
-  Boolean(cells.length === 2 && Boolean(cells[0].inline));
+import {
+  useBlurAllCells,
+  useNodeChildrenIds,
+  useNodeHoverPosition,
+  useNodeProps,
+} from '../hooks';
+import Droppable from './Droppable';
 
 const Row: React.FC<{ nodeId: string }> = ({ nodeId }) => {
   const [ref, { width }] = useMeasure();
-  const node = useRow(nodeId);
   const blurAllCells = useBlurAllCells();
+
+  const hoverPosition = useNodeHoverPosition(nodeId);
+
+  const childrenIds = useNodeChildrenIds(nodeId);
+  const rowHasInlineChildren = useNodeProps(
+    nodeId,
+    (node) =>
+      isRow(node) && node.cells.length === 2 && Boolean(node.cells[0]?.inline)
+  );
 
   return (
     <Droppable nodeId={nodeId}>
       <div
         ref={ref}
         className={classNames('ory-row', {
-          'ory-row-is-hovering-this': Boolean(node.hoverPosition),
-          [`ory-row-is-hovering-${node.hoverPosition || ''}`]: Boolean(
-            node.hoverPosition
+          'ory-row-is-hovering-this': Boolean(hoverPosition),
+          [`ory-row-is-hovering-${hoverPosition || ''}`]: Boolean(
+            hoverPosition
           ),
-          'ory-row-has-floating-children': rowHasInlineChildren(node),
+          'ory-row-has-floating-children': rowHasInlineChildren,
         })}
         onClick={blurAllCells}
       >
-        {node.cells.map((c) => (
-          <Cell nodeId={c.id} rowWidth={width} key={c.id} />
+        {childrenIds.map((id) => (
+          <Cell nodeId={id} rowWidth={width} key={id} />
         ))}
       </div>
     </Droppable>

@@ -16,7 +16,7 @@ const SpacerDefaultControls: React.SFC<SpacerControlsProps> = (props) => {
     Renderer,
     changeHeightPreview,
     commitHeight,
-    state: { height } = defaultSpacerState,
+    data = defaultSpacerState,
   } = props;
   return (
     <div
@@ -31,10 +31,10 @@ const SpacerDefaultControls: React.SFC<SpacerControlsProps> = (props) => {
         <Resizable
           onResize={(e, data) => changeHeightPreview(data.size.height)}
           onResizeStop={(e, data) => commitHeight(data.size.height)}
-          height={height}
+          height={data?.height}
           width={0}
         >
-          <div style={{ height, position: 'relative' }}>
+          <div style={{ height: data?.height, position: 'relative' }}>
             <BottomToolbar
               {...props}
               icon={props.pluginConfig.IconComponent}
@@ -46,7 +46,7 @@ const SpacerDefaultControls: React.SFC<SpacerControlsProps> = (props) => {
                 placeholder="24"
                 label={props.translations.elementHeightLabel}
                 style={{ width: '512px' }}
-                value={height}
+                value={data?.height}
                 onChange={(e) =>
                   changeHeightPreview(parseInt(e.target.value, 10))
                 }

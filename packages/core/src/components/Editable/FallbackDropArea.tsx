@@ -7,12 +7,12 @@ import { useInsertCellAtTheEnd } from '../hooks';
 const FallbackDropArea: React.FC = ({ children }) => {
   const insertAtTheEnd = useInsertCellAtTheEnd();
 
-  const [, dropRef] = useDrop({
+  const [, dropRef] = useDrop<CellDrag, void, void>({
     accept: 'cell',
     drop: (item, monitor) => {
       // fallback drop
       if (!monitor.didDrop()) {
-        insertAtTheEnd((item as CellDrag).cell);
+        insertAtTheEnd(item.cell);
       }
     },
   });

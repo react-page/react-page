@@ -1,22 +1,21 @@
 import {
-  ContentPlugin,
   DndBackend,
   EditableType,
-  LayoutPlugin,
+  CellPlugin,
   lazyLoad,
   Plugins,
   Languages,
   DisplayModes,
   SimplifiedModesProps,
 } from '@react-page/core';
+import { Options } from '@react-page/core/lib/types/editable';
 import { HTMLRenderer } from '@react-page/renderer';
 import React from 'react';
 
 const EditableEditor = lazyLoad(() => import('./EditableEditor'));
 
 export type EditorProps = {
-  plugins?: Plugins;
-  defaultPlugin?: ContentPlugin | LayoutPlugin;
+  defaultPlugin?: CellPlugin;
   dndBackend?: DndBackend;
   value?: EditableType | null;
   onChange?: (v: EditableType) => void;
@@ -27,7 +26,7 @@ export type EditorProps = {
   languages?: Languages;
   lang?: string;
   hideEditorSidebar?: boolean;
-} & SimplifiedModesProps;
+} & Options;
 
 const Editor: React.FC<EditorProps> = ({
   plugins,
@@ -39,12 +38,14 @@ const Editor: React.FC<EditorProps> = ({
   blurGateDisabled,
   defaultDisplayMode,
   lang,
+  pluginsWillChange,
   ...rest
 }) =>
   readOnly ? (
     <HTMLRenderer state={value} plugins={plugins} lang={lang} />
   ) : (
     <EditableEditor
+      pluginsWillChange={pluginsWillChange}
       plugins={plugins}
       defaultPlugin={defaultPlugin}
       value={value}

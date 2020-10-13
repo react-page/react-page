@@ -1,23 +1,28 @@
-import { LayoutPlugin, lazyLoad, PluginProps } from '@react-page/core';
+import {
+  CellPlugin,
+  CellPluginComponentProps,
+  lazyLoad,
+} from '@react-page/core';
 import * as React from 'react';
-import { ControlsType, LayoutPluginDefinition } from './types';
+import { ControlsType, PluginWithSchemaDefinition } from './types';
 
 type CustomizeFunction<T, CT> = (
-  def: LayoutPluginDefinition<T>
-) => LayoutPluginDefinition<T & CT>;
+  def: PluginWithSchemaDefinition<T>
+) => PluginWithSchemaDefinition<T & CT>;
+
 // eslint-disable-next-line @typescript-eslint/ban-types
 function createPluginWithDef<T extends {}>({
   schema,
-  controlsLayout,
   Renderer,
+  controlsLayout,
   ...pluginSettings
-}: LayoutPluginDefinition<T>): LayoutPlugin<T> {
+}: PluginWithSchemaDefinition<T>): CellPlugin<T> {
   const Controls = lazyLoad(
     () => (import('./Controls') as unknown) as Promise<ControlsType<T>>
   );
 
   return {
-    Component: (props: PluginProps<T>) => {
+    Component: (props: CellPluginComponentProps<T>) => {
       return (
         <>
           {!props.readOnly ? (
@@ -37,7 +42,7 @@ function createPluginWithDef<T extends {}>({
   };
 }
 
-function createContentPlugin<T>(definition: LayoutPluginDefinition<T>) {
+function createContentPlugin<T>(definition: PluginWithSchemaDefinition<T>) {
   return function <CT>(customize?: CustomizeFunction<T, CT>) {
     if (customize) {
       return createPluginWithDef<T & CT>(customize(definition));

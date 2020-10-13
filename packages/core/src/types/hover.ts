@@ -15,7 +15,7 @@ export type MatrixIndex = {
   cell: number;
 };
 
-export type Callbacks = {
+export type HoverInsertActions = {
   dragCell(id: string): void;
   cancelCellDrag(): void;
   clear(): void;

@@ -1,4 +1,4 @@
-import { emptyFilter } from './empty';
+import { isEmpty } from './empty';
 import { Row, Cell } from '../../../types/editable';
 
 export const flatten = function <T>(c: Array<T>, n: Array<T>): Array<T> {
@@ -6,10 +6,10 @@ export const flatten = function <T>(c: Array<T>, n: Array<T>): Array<T> {
 };
 
 export const optimizeCells = (cells: Array<Cell> = []): Array<Cell> =>
-  cells.filter(emptyFilter);
+  cells.filter((c) => !isEmpty(c));
 
 export const optimizeRows = (rows: Array<Row> = []): Array<Row> =>
-  rows.filter(emptyFilter);
+  rows.filter((c) => !isEmpty(c));
 
 export const optimizeCell = (cell: Cell): Cell => {
   const { rows, ...rest } = cell;
@@ -23,8 +23,8 @@ export const optimizeCell = (cell: Cell): Cell => {
             return [r];
           }
 
-          const { rows: cellRows = [], layout }: Cell = cells[0];
-          if (cellRows.length > 0 && !layout) {
+          const { rows: cellRows = [], plugin }: Cell = cells[0];
+          if (cellRows.length > 0 && !plugin) {
             return cellRows;
           }
           return [r];
@@ -41,7 +41,7 @@ export const optimizeRow = ({ cells, ...other }: Row): Row => ({
   cells: (cells || [])
     .map((c: Cell) => {
       const { rows = [], size } = c;
-      if (rows.length !== 1 || c.layout) {
+      if (rows.length !== 1 || c.plugin) {
         return [c];
       }
 

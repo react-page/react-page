@@ -1,6 +1,6 @@
 import expect from 'unexpected';
 import { Node } from '../../../types/editable';
-import { Callbacks, Room, Vector } from '../../../types/hover';
+import { HoverInsertActions, Room, Vector } from '../../../types/hover';
 import HoverService, {
   classes as _c,
   defaultCallbacks,
@@ -14,7 +14,7 @@ type Case = {
     mouse: Vector;
     hover: Node;
   };
-  actions: (done: () => void) => Partial<Callbacks>;
+  actions: (done: () => void) => Partial<HoverInsertActions>;
 };
 const cases: Case[] = [
   {
@@ -135,7 +135,7 @@ describe('HoverService', () => {
           },
         },
 
-        c.actions(done) as Callbacks,
+        c.actions(done) as HoverInsertActions,
         {
           room: c.in.room,
           mouse: c.in.mouse,

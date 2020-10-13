@@ -1,20 +1,13 @@
 import * as React from 'react';
-import { ContentPlugin } from './classes';
-import { EditorState } from '../../types/editor';
-import { PluginProps } from '../..';
+import { CellPlugin } from './classes';
+import { CellPluginComponentProps } from '../..';
 
-const handleChange = (onChange: (state: EditorState) => void) => (
-  e: React.ChangeEvent
-) => {
-  if (e.target instanceof HTMLInputElement) {
-    onChange({ value: e.target.value });
-  }
+type Data = {
+  value: string;
 };
-
-type Data = { value: string };
-const Default: React.SFC<PluginProps<Data>> = ({
+const Default: React.SFC<CellPluginComponentProps<Data>> = ({
   readOnly,
-  state: { value },
+  data: { value },
   onChange,
 }) =>
   readOnly ? (
@@ -23,13 +16,17 @@ const Default: React.SFC<PluginProps<Data>> = ({
     <textarea
       style={{ width: '100%' }}
       value={value}
-      onChange={handleChange(onChange)}
+      onChange={(e: React.ChangeEvent) => {
+        if (e.target instanceof HTMLInputElement) {
+          onChange({ value: e.target.value });
+        }
+      }}
     />
   );
 
-const _defaultContentPlugin: ContentPlugin<Data> = {
+const _defaultContentPlugin: CellPlugin<Data> = {
   Component: Default,
-  name: 'ory/editor/core/default',
+  id: 'ory/editor/core/default',
 
   version: '0.0.1',
   createInitialState: () => ({

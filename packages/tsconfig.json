@@ -7,7 +7,7 @@
     { "path": "plugins/content/divider" },
     { "path": "plugins/content/html5-video" },
     { "path": "plugins/content/image" },
-    { "path": "plugins/content/native" },
+ 
     { "path": "plugins/content/slate" },
     { "path": "plugins/content/spacer" },
     { "path": "plugins/content/video" },
