@@ -14,7 +14,6 @@
     "@material-ui/core": "^4.3.3",
     "@material-ui/icons": "^4.2.1",
     "@material-ui/styles": "^4.3.3",
-    "@qiwi/semantic-release-gh-pages-plugin": "^5.0.1",
     "@semantic-release/changelog": "^5.0.1",
     "@semantic-release/exec": "semantic-release/exec",
     "@types/jest": "^25.2.3",
@@ -35,6 +34,7 @@
     "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-prettier": "^3.1.3",
     "eslint-plugin-react": "^7.20.0",
+    "gh-pages": "^3.1.0",
     "husky": "^0.14.3",
     "jest": "^26.0.1",
     "lerna": "^3.22.0",
@@ -61,6 +61,7 @@
     "bootstrap": "lerna bootstrap",
     "build": "cross-env NODE_ENV=production lerna run build --stream",
     "build:lib": "cross-env NODE_ENV=production lerna run build --ignore @react-page/examples --stream",
+    "build:examples": "yarn --cwd examples build",
     "build:watch": "cross-env NODE_ENV=development lerna run build:watch --parallel",
     "clean": "lerna run clean",
     "clean:lerna": "lerna clean --yes",
@@ -130,8 +131,8 @@
       [
         "@semantic-release/exec",
         {
-          "analyzeCommitsCmd": "yarn replace-in-file '###VERSION###' ${nextRelease.version} packages/*/lib*/*.js examples/build/**/*.js",
-          "publishCmd": "yarn lerna publish --no-git-tag-version --no-git-reset --no-push --yes --dist-tag=${nextRelease.channel} --force-publish=* ${nextRelease.version}",
+          "prepareCmd": "yarn replace-in-file '###VERSION###' ${nextRelease.version} packages/*/lib*/*.js examples/build/**/*.js",
+          "publishCmd": "yarn gh-pages -r https://github.com/react-page/${nextRelease.channel} -d examples/build -b main && yarn lerna publish --no-git-tag-version --no-git-reset --no-push --yes --dist-tag=${nextRelease.channel} --force-publish=* ${nextRelease.version}",
           "addChannel": "npm dist-tag add ${nextRelease.version}@${nextRelease.channel}"
         }
       ],
