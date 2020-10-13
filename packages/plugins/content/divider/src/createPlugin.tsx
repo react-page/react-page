@@ -17,10 +17,10 @@ const createPlugin: (
   );
   return {
     Component: WrappedComponent,
-    name: 'ory/editor/core/content/divider',
+    id: 'ory/editor/core/content/divider',
     version: '0.0.1',
     IconComponent: <Remove />,
-    text: mergedSettings.translations.pluginName,
+    title: mergedSettings.translations.pluginName,
     description: mergedSettings.translations.pluginDescription,
   };
 };

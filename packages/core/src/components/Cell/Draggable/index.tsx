@@ -118,7 +118,7 @@ const Draggable: React.FC<Props> = ({ isLeaf, children, nodeId }) => {
           })}
         >
           <div className="ory-cell-draggable-overlay-description">
-            <span>{plugin?.text}</span>
+            <span>{plugin?.title || plugin?.text}</span>
           </div>
         </div>
         <div>{children}</div>

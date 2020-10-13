@@ -1,16 +1,11 @@
 import throttle from 'lodash.throttle';
-import { useMeasure } from 'react-use';
 import * as React from 'react';
-import { useCallback, useEffect } from 'react';
-
+import { useEffect, useRef } from 'react';
+import { useMeasure } from 'react-use';
 import { useEditableNode } from '../../..';
-import { createFallbackCell } from '../../../actions/cell';
 import scrollIntoViewWithOffset from '../../../components/Cell/utils/scrollIntoViewWithOffset';
-
-import { ContentPlugin, LayoutPlugin } from '../../../service/plugin/classes';
 import Cell from '../../Cell';
-import { useRef } from 'react';
-import { useDispatch } from '../../../reduxConnect';
+import { useInsertCellAtTheEnd } from '../../hooks';
 
 function isElementInViewport(el: HTMLDivElement) {
   const rect = el.getBoundingClientRect();
@@ -28,9 +23,8 @@ function isElementInViewport(el: HTMLDivElement) {
 }
 type Props = {
   id: string;
-  defaultPlugin: ContentPlugin | LayoutPlugin;
 };
-const Inner: React.FC<Props> = ({ defaultPlugin }) => {
+const Inner: React.FC<Props> = () => {
   const node = useEditableNode();
   const ref = useRef<HTMLDivElement>();
   const [sizeRef, { width }] = useMeasure();
@@ -64,18 +58,13 @@ const Inner: React.FC<Props> = ({ defaultPlugin }) => {
       window.removeEventListener('scroll', onScroll);
     };
   });
-  const dispatch = useDispatch();
-  const createFallback = useCallback(
-    (plugin) => {
-      dispatch(createFallbackCell(plugin, node?.id));
-    },
-    [dispatch, node?.id]
-  );
+
+  const insertAtEnd = useInsertCellAtTheEnd();
 
   const shouldCreateFallbackCell = node && cells.length === 0;
   useEffect(() => {
     if (shouldCreateFallbackCell) {
-      createFallback(defaultPlugin);
+      insertAtEnd({});
     }
   }, [shouldCreateFallbackCell]);
 

@@ -5,13 +5,13 @@ import { BackgroundState } from './types/state';
 import { BackgroundProps } from './types/component';
 import BackgroundComponent from './Component';
 import { defaultSettings } from './default/settings';
-import { LayoutPlugin, lazyLoad } from '@react-page/core';
+import { PluginBase, lazyLoad } from '@react-page/core';
 
 const Icon = lazyLoad(() => import('@material-ui/icons/CropLandscape'));
 
 const createPlugin = (settings: BackgroundSettings) => {
   const mergedSettings = { ...defaultSettings, ...settings };
-  const plugin: LayoutPlugin<BackgroundState> = {
+  const plugin: PluginBase<BackgroundState> = {
     Component: (props: BackgroundProps) => (
       <BackgroundComponent {...props} {...mergedSettings} />
     ),

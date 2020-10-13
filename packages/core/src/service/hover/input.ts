@@ -1,13 +1,13 @@
 import type { DropTargetMonitor } from 'react-dnd';
 
 import { Node } from '../../types/editable';
-import { Callbacks, Room, Vector } from '../../types/hover';
+import { HoverInsertActions, Room, Vector } from '../../types/hover';
 import HoverService from '../hover';
 
 const hoverService = new HoverService();
 
 const computeCurrentDropPosition = (
-  actions: Callbacks,
+  actions: HoverInsertActions,
   hover: Node,
   drag: Node,
   monitor: DropTargetMonitor,
@@ -35,7 +35,7 @@ export const computeAndDispatchInsert = (
   drag: Node,
   monitor: DropTargetMonitor,
   element: HTMLElement,
-  actions: Callbacks,
+  actions: HoverInsertActions,
   matrixName = '10x10'
 ) => {
   return computeCurrentDropPosition(
@@ -53,7 +53,7 @@ export const computeAndDispatchHover = (
   drag: Node,
   monitor: DropTargetMonitor,
   element: HTMLElement,
-  actions: Callbacks,
+  actions: HoverInsertActions,
   matrixName = '10x10'
 ) =>
   computeCurrentDropPosition(

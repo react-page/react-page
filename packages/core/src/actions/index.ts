@@ -21,6 +21,9 @@ const Setting = {
 };
 const Cell = cellActions;
 
+/**
+ * @deprecated
+ */
 export const Actions = {
   Display,
   Cell,

@@ -1,4 +1,4 @@
-import { ContentPlugin } from '@react-page/core';
+import { PluginBase } from '@react-page/core';
 import * as React from 'react';
 import Spacer from './Component/index';
 import { defaultSettings } from './default/settings';

@@ -65,15 +65,9 @@ const Raw: React.FC<RawProps> = ({ isOverCurrent, connectDropTarget }) => {
   );
 };
 
-const types = ({ editor }: { editor: Editor }) => {
-  const plugins = editor.plugins.getRegisteredNames();
-
-  return plugins;
-};
-
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const Decorated: any = DropTarget<TargetProps>(
-  types,
+  ['cell'],
   target,
   connectMonitor
 )(Raw);

@@ -16,7 +16,8 @@ interface ItemProps {
 }
 
 const Item: React.FC<ItemProps> = ({ plugin, insert, translations }) => {
-  if (!plugin.IconComponent && !plugin.text) {
+  const title = plugin.title ?? plugin.text;
+  if (!plugin.IconComponent && !title) {
     return null;
   }
   const insertAtEnd = useInsertCellAtTheEnd();
@@ -30,7 +31,7 @@ const Item: React.FC<ItemProps> = ({ plugin, insert, translations }) => {
         onClick={() => insertAtEnd(insert)}
       >
         <Avatar
-          children={plugin.IconComponent || plugin.text[0]}
+          children={plugin.IconComponent || title[0]}
           style={{
             marginRight: 16,
           }}

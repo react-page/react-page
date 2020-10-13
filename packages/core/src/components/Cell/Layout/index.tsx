@@ -3,6 +3,7 @@ import * as React from 'react';
 import {
   useCell,
   useCellData,
+  useCellPlugin,
   useEditableId,
   useFocusCell,
   useIsEditMode,
@@ -21,15 +22,17 @@ const Layout: React.FC<{ nodeId: string }> = ({ nodeId }) => {
   const isPreviewMode = useIsPreviewMode();
   const isEditMode = useIsEditMode();
 
-  const updateCellLayout = useUpdateCellLayout(node.id);
-  const cellData = useCellData(node);
+  const updateCellLayout = useUpdateCellLayout(nodeId);
+  const cellData = useCellData(nodeId);
+  const plugin = useCellPlugin(nodeId);
 
-  const focus = useFocusCell(node.id);
-  const focused = useIsFocused(node.id);
+  const focus = useFocusCell(nodeId);
+  const focused = useIsFocused(nodeId);
 
   const ref = React.useRef<HTMLDivElement>();
-  const { Component } = node.layout.plugin;
-  const remove = useRemoveCell(node.id);
+  const { Component } = plugin;
+  const remove = useRemoveCell(nodeId);
+  const hasChildren = node.rows?.length > 0;
   const onMouseDown = React.useCallback(
     (e: React.MouseEvent<HTMLDivElement>) => {
       if (
@@ -42,14 +45,15 @@ const Layout: React.FC<{ nodeId: string }> = ({ nodeId }) => {
       }
       return true;
     },
-    [node]
+    [focus, focused]
   );
 
   return (
     <div
       onMouseDown={!isPreviewMode ? onMouseDown : undefined}
       tabIndex={-1}
-      className="ory-cell-inner"
+      style={{ outline: 'none' }}
+      className={'ory-cell-inner' + (hasChildren ? '' : ' ory-cell-leaf')}
       ref={ref}
     >
       <Component
@@ -58,7 +62,8 @@ const Layout: React.FC<{ nodeId: string }> = ({ nodeId }) => {
         nodeId={nodeId}
         lang={lang}
         state={cellData}
-        pluginConfig={node.layout.plugin}
+        data={cellData}
+        pluginConfig={plugin}
         focused={isEditMode && focused}
         readOnly={!isEditMode}
         onChange={updateCellLayout}
@@ -66,7 +71,7 @@ const Layout: React.FC<{ nodeId: string }> = ({ nodeId }) => {
         isPreviewMode={isPreviewMode}
         remove={remove}
       >
-        {node.rows.map((r) => (
+        {node.rows?.map((r) => (
           <Row nodeId={r.id} key={r.id} />
         ))}
       </Component>

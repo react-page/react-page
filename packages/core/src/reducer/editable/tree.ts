@@ -16,7 +16,7 @@ import {
   CELL_INSERT_AT_END,
   CellAction,
 } from '../../actions/cell';
-import { Cell, createCell, createRow, Row } from '../../types/editable';
+import { Cell, Row } from '../../types/editable';
 
 import { isHoveringThis } from './helper/hover';
 
@@ -135,20 +135,16 @@ const cell = (s: Cell, a: CellAction, depth: number): Cell =>
         case CELL_INSERT_ABOVE:
           if (isHoveringThis(state, action)) {
             return {
-              ...createCell(),
               id: action.ids.cell,
-              hoverPosition: null,
               rows: rows(
                 [
                   {
-                    ...createRow(),
                     id: action.ids.others[0],
                     cells: [
                       { ...action.item, id: action.ids.item, inline: null },
                     ],
                   },
                   {
-                    ...createRow(),
                     id: action.ids.others[1],
                     cells: [{ ...reduce(), id: action.ids.others[2] }],
                   },
@@ -163,18 +159,15 @@ const cell = (s: Cell, a: CellAction, depth: number): Cell =>
         case CELL_INSERT_BELOW:
           if (isHoveringThis(state, action)) {
             return {
-              ...createCell(),
               id: action.ids.cell,
-              hoverPosition: null,
+
               rows: rows(
                 [
                   {
-                    ...createRow(),
                     id: action.ids.others[0],
                     cells: [{ ...reduce(), id: action.ids.others[1] }],
                   },
                   {
-                    ...createRow(),
                     id: action.ids.others[2],
                     cells: [
                       { ...action.item, id: action.ids.item, inline: null },
@@ -247,11 +240,9 @@ export const cells = (s: Cell[] = [], a, depth = 0): Cell[] => {
               if (isHoveringThis(c, action)) {
                 return [
                   {
-                    ...createCell(),
                     id: action.ids.cell,
                     rows: [
                       {
-                        ...createRow(),
                         id: action.ids.others[0],
                         cells: [
                           {
@@ -362,7 +353,6 @@ const rows = (s: Row[] = [], a, depth: number): Row[] =>
               isHoveringThis(r, action)
                 ? [
                     {
-                      ...createRow(),
                       cells: [
                         { ...action.item, id: action.ids.item, inline: null },
                       ],
@@ -387,7 +377,6 @@ const rows = (s: Row[] = [], a, depth: number): Row[] =>
                       id: action.ids.others[0],
                     },
                     {
-                      ...createRow(),
                       cells: [
                         { ...action.item, id: action.ids.item, inline: null },
                       ],
@@ -408,7 +397,6 @@ const rows = (s: Row[] = [], a, depth: number): Row[] =>
                       id: action.ids.others[0],
                     },
                     {
-                      ...createRow(),
                       cells: [
                         { ...action.item, id: action.ids.item, inline: null },
                       ],

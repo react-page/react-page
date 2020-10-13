@@ -15,8 +15,8 @@ export default createContentPlugin<{
       }}
     />
   ),
-  name: 'twitter-timeline',
-  text: 'Twitter timeline',
+  id: 'twitter-timeline',
+  title: 'Twitter timeline',
   description: 'A twitter timeline',
   version: '0.0.1',
   schema: {

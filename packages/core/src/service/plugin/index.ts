@@ -1,15 +1,21 @@
 // TODO: get rid of this class
 import semver, { satisfies } from 'semver';
 import { v4 } from 'uuid';
+import { Migration } from '../..';
+
+import { migrate } from '../../migrations/migrate';
 import { EditableType } from '../../types/editable';
 import { EditorState } from '../../types/editor';
-import { ContentPlugin, LayoutPlugin, PluginBase, Plugins } from './classes';
+import { ContentPlugin, PluginBase, PluginBase, Plugins } from './classes';
 import defaultPlugin from './default';
+import { getPluginByIdAndVersion } from './getPluginByIdAndVersion';
 import { contentMissing, layoutMissing } from './missing';
 
-const find = (name: string, version = '*') => (
-  plugin: LayoutPlugin | ContentPlugin
-): boolean => plugin.name === name && satisfies(plugin.version, version);
+const find = (id: string, version = '*') => (
+  plugin: PluginBase | ContentPlugin
+): boolean =>
+  (plugin.name === id || plugin.id === id) &&
+  satisfies(plugin.version, version);
 
 /**
  * Iterate through an editable content tree and generate ids where missing.
@@ -43,23 +49,27 @@ export default class PluginService {
     };
   }
 
+  getPluginByIdAndVersion = (pluginId: string, version: string) => {
+    const plugins = [...this.plugins.layout, ...this.plugins.content];
+    return getPluginByIdAndVersion(plugins, pluginId, version);
+  };
+
   /**
    * Finds a layout plugin based on its name and version.
    */
   findLayoutPlugin = (
-    name: string,
+    pluginId: string,
     version: string
   ): {
-    plugin: LayoutPlugin;
-    pluginWrongVersion?: LayoutPlugin;
+    plugin: PluginBase;
+    pluginWrongVersion?: PluginBase;
   } => {
-    const plugin = this.plugins.layout.find(find(name, version));
-    let pluginWrongVersion = undefined;
-    if (!plugin) {
-      pluginWrongVersion = this.plugins.layout.find(find(name, '*'));
-    }
+    const { plugin, pluginWrongVersion } = this.getPluginByIdAndVersion(
+      pluginId,
+      version
+    );
     return {
-      plugin: plugin || layoutMissing({ name, version }),
+      plugin: plugin || layoutMissing({ pluginId, version }),
       pluginWrongVersion,
     };
   };
@@ -67,61 +77,30 @@ export default class PluginService {
   /**
    * Finds a content plugin based on its name and version.
    */
-  findContentPlugin = (
-    name: string,
+  findPluginBase = (
+    pluginId: string,
     version: string
   ): {
     plugin: ContentPlugin;
     pluginWrongVersion?: ContentPlugin;
   } => {
-    const plugin = this.plugins.content.find(find(name, version));
-    let pluginWrongVersion = undefined;
-    if (!plugin) {
-      pluginWrongVersion = this.plugins.content.find(find(name, '*'));
-    }
+    const { plugin, pluginWrongVersion } = this.getPluginByIdAndVersion(
+      pluginId,
+      version
+    );
     return {
-      plugin: plugin || contentMissing({ name, version }),
+      plugin: plugin || contentMissing({ pluginId, version }),
       pluginWrongVersion,
     };
   };
-
-  /**
-   * Returns a list of all known plugin names.
-   */
-  getRegisteredNames = (): Array<string> => [
-    ...this.plugins.content.map(({ name }) => name),
-    ...this.plugins.layout.map(({ name }) => name),
-  ];
 
   migratePluginState = (
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     state: any,
     plugin: PluginBase,
     dataVersion: string
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  ): any => {
-    if (!plugin || !dataVersion || semver.valid(dataVersion) === null) {
-      return state;
-    }
-    let currentDataVersion = dataVersion;
-    let migrations = plugin.migrations ? plugin.migrations : [];
-    // eslint-disable-next-line no-constant-condition
-    while (true) {
-      const migration = migrations.find((m) =>
-        semver.satisfies(currentDataVersion, m.fromVersionRange)
-      );
-      migrations = migrations.filter(
-        (m) => !semver.satisfies(currentDataVersion, m.fromVersionRange)
-      );
-      if (!migration) {
-        // We assume all migrations necessary for the current version of plugin to work are provided
-        // Therefore if we don't find any, that means we are done and state is up to date
-        break;
-      }
-      currentDataVersion = migration.toVersion;
-      state = migration.migrate(state);
-    }
-    return state;
+  ) => {
+    return migrate(state, plugin?.migrations ?? [], dataVersion);
   };
 
   getNewPluginState = (
@@ -186,21 +165,17 @@ export default class PluginService {
   };
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  unserialize = (state: any): any => {
+  unserialize = (state: EditableType, migrations: Migration[]): any => {
     if (!state) {
       return;
     }
     const {
-      rows = [],
       cells = [],
-      content = {},
-      layout = {},
-      inline,
-      size,
-      isDraft,
-      isDraftI18n,
+
       id,
+      version,
     } = state;
+
     const newState: EditorState = { id, inline, size, isDraft, isDraftI18n };
 
     const {

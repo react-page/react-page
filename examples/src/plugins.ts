@@ -18,7 +18,7 @@ import '@react-page/plugins-spacer/lib/index.css';
 import video from '@react-page/plugins-video';
 import '@react-page/plugins-video/lib/index.css';
 
-import customContentPlugin from './customContentPlugin';
+import customPluginBasefrom './customContentPlugin';
 import customContentPluginWithListField from './customContentPluginWithListField';
 import customLayoutPlugin from './customLayoutPlugin';
 import customLayoutPluginWithInitialState from './customLayoutPluginWithInitialState';

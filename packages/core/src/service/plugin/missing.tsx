@@ -1,10 +1,6 @@
 import * as React from 'react';
-import {
-  PluginBase,
-  PluginProps,
-  ContentPlugin,
-  LayoutPlugin,
-} from './classes';
+
+import { PluginBase, PluginProps, ContentPlugin, PluginBase } from './classes';
 
 const ContentMissingComponent = (props: PluginProps<unknown>) => (
   <div
@@ -23,11 +19,14 @@ const ContentMissingComponent = (props: PluginProps<unknown>) => (
 );
 
 export const contentMissing = ({
-  name,
+  pluginId,
   version,
-}: Pick<PluginBase, 'name' | 'version'>): ContentPlugin => ({
+}: {
+  pluginId: string;
+  version: string;
+}): PluginBase => ({
   Component: ContentMissingComponent,
-  name,
+  id: pluginId,
   version,
 });
 
@@ -55,10 +54,13 @@ PluginProps<unknown> & { children: any }) => (
 );
 
 export const layoutMissing = ({
-  name,
+  pluginId,
   version,
-}: Pick<PluginBase, 'name' | 'version'>): LayoutPlugin => ({
+}: {
+  pluginId: string;
+  version: string;
+}): PluginBase => ({
   Component: LayoutMissingComponent,
-  name,
+  id: pluginId,
   version,
 });

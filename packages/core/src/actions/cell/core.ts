@@ -12,7 +12,6 @@ export const CELL_RESIZE = 'CELL_RESIZE';
 export const CELL_FOCUS = 'CELL_FOCUS';
 export const CELL_BLUR = 'CELL_BLUR' as const;
 export const CELL_BLUR_ALL = 'CELL_BLUR_ALL' as const;
-export const CELL_CREATE_FALLBACK = 'CELL_CREATE_FALLBACK' as const;
 
 export interface UpdateCellContentAction extends Action {
   ts: Date;
@@ -204,44 +203,15 @@ export const blurAllCells = (): BlurAllCellsAction => ({
   ts: new Date(),
 });
 
-export interface CreateFallbackCellAction extends Action {
-  ts: Date;
-  editable: string;
-  type: typeof CELL_CREATE_FALLBACK;
-  ids: {
-    cell: string;
-  };
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  fallback: any;
-}
-
 export type CellCoreAction =
   | UpdateCellLayoutAction
   | RemoveCellAction
   | UpdateCellContentAction
   | UpdateCellIsDraftAction
-  | CreateFallbackCellAction
   | BlurAllCellsAction
   | FocusCellAction;
-/**
- * Creates a fallback cell, usually done when an editable is empty.
- */
-export const createFallbackCell = (
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  fallback: any,
-  editable: string
-): CreateFallbackCellAction => ({
-  type: CELL_CREATE_FALLBACK,
-  ts: new Date(),
-  editable,
-  ids: {
-    cell: uuid.v4(),
-  },
-  fallback,
-});
 
 export const coreActions = {
-  createFallbackCell,
   blurAllCells,
   blurCell,
 

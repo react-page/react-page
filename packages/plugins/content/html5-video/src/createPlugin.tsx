@@ -1,4 +1,4 @@
-import { ContentPlugin } from '@react-page/core';
+import { PluginBase } from '@react-page/core';
 import * as React from 'react';
 import Html5Video from './Component';
 import { defaultSettings } from './default/settings';

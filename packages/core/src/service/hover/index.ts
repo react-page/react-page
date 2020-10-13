@@ -1,6 +1,6 @@
-import { isRow, Node } from '../../types/editable';
+import { isRow, Cell } from '../../types/editable';
 import {
-  Callbacks,
+  HoverInsertActions,
   Matrix,
   MatrixIndex,
   Room,
@@ -22,9 +22,9 @@ type Context = {
 export type MatrixList = { [key: string]: Matrix };
 export type CallbackList = {
   [key: number]: (
-    drag: Node,
-    hover: Node,
-    actions: Callbacks,
+    drag: Cell,
+    hover: Cell,
+    actions: HoverInsertActions,
     context: Context
   ) => void;
 };
@@ -173,9 +173,9 @@ export const getMouseHoverCell = ({
 const last = { '10x10': null, '10x10-no-inline': null };
 
 const computeHover = (
-  drag: Node,
-  hover: Node,
-  actions: Callbacks,
+  drag: Cell,
+  hover: Cell,
+  actions: HoverInsertActions,
   {
     room,
     mouse,
@@ -315,7 +315,7 @@ export const computeHorizontal = (
     position: MatrixIndex;
     scale: Vector;
     level: number;
-    hover: Node;
+    hover: Cell;
   },
   inv = false
 ) => {
@@ -351,7 +351,7 @@ const computeVertical = (
   }: {
     level: number;
     mouse: Vector;
-    hover: Node;
+    hover: Cell;
     position: MatrixIndex;
     scale: Vector;
   },
@@ -374,19 +374,19 @@ const computeVertical = (
   return inv ? level - at : at;
 };
 
-const getDropLevel = (hover: Node) => (!isRow(hover) && hover.inline ? 1 : 0);
+const getDropLevel = (hover: Cell) => (!isRow(hover) && hover.inline ? 1 : 0);
 
 /**
  * A list of callbacks.
  */
 export const defaultCallbacks: CallbackList = {
-  [c.NO]: (item: Node, hover: Node, { clear }: Callbacks) => clear(),
+  [c.NO]: (item: Cell, hover: Cell, { clear }: HoverInsertActions) => clear(),
 
   /* corners */
   [c.C1]: (
-    item: Node,
-    hover: Node,
-    { leftOf, above }: Callbacks,
+    item: Cell,
+    hover: Cell,
+    { leftOf, above }: HoverInsertActions,
 
     ctx: Context
   ) => {
@@ -401,9 +401,9 @@ export const defaultCallbacks: CallbackList = {
   },
 
   [c.C2]: (
-    item: Node,
-    hover: Node,
-    { rightOf, above }: Callbacks,
+    item: Cell,
+    hover: Cell,
+    { rightOf, above }: HoverInsertActions,
 
     ctx: Context
   ) => {
@@ -418,9 +418,9 @@ export const defaultCallbacks: CallbackList = {
   },
 
   [c.C3]: (
-    item: Node,
-    hover: Node,
-    { rightOf, below }: Callbacks,
+    item: Cell,
+    hover: Cell,
+    { rightOf, below }: HoverInsertActions,
 
     ctx: Context
   ) => {
@@ -434,9 +434,9 @@ export const defaultCallbacks: CallbackList = {
   },
 
   [c.C4]: (
-    item: Node,
-    hover: Node,
-    { leftOf, below }: Callbacks,
+    item: Cell,
+    hover: Cell,
+    { leftOf, below }: HoverInsertActions,
 
     ctx: Context
   ) => {
@@ -450,26 +450,31 @@ export const defaultCallbacks: CallbackList = {
   },
 
   /* heres */
-  [c.AH]: (item: Node, hover: Node, { above }: Callbacks) => {
+  [c.AH]: (item: Cell, hover: Cell, { above }: HoverInsertActions) => {
     const level = getDropLevel(hover);
     above(item, hover, level);
   },
-  [c.BH]: (item: Node, hover: Node, { below }: Callbacks) => {
+  [c.BH]: (item: Cell, hover: Cell, { below }: HoverInsertActions) => {
     const level = getDropLevel(hover);
     below(item, hover, level);
   },
 
-  [c.LH]: (item: Node, hover: Node, { leftOf }: Callbacks) => {
+  [c.LH]: (item: Cell, hover: Cell, { leftOf }: HoverInsertActions) => {
     const level = getDropLevel(hover);
     leftOf(item, hover, level);
   },
-  [c.RH]: (item: Node, hover: Node, { rightOf }: Callbacks) => {
+  [c.RH]: (item: Cell, hover: Cell, { rightOf }: HoverInsertActions) => {
     const level = getDropLevel(hover);
     rightOf(item, hover, level);
   },
 
   /* ancestors */
-  [c.AA]: (item: Node, hover: Node, { above }: Callbacks, ctx: Context) =>
+  [c.AA]: (
+    item: Cell,
+    hover: Cell,
+    { above }: HoverInsertActions,
+    ctx: Context
+  ) =>
     above(
       item,
       hover,
@@ -482,7 +487,12 @@ export const defaultCallbacks: CallbackList = {
         true
       )
     ),
-  [c.BA]: (item: Node, hover: Node, { below }: Callbacks, ctx: Context) =>
+  [c.BA]: (
+    item: Cell,
+    hover: Cell,
+    { below }: HoverInsertActions,
+    ctx: Context
+  ) =>
     below(
       item,
       hover,
@@ -493,7 +503,12 @@ export const defaultCallbacks: CallbackList = {
       })
     ),
 
-  [c.LA]: (item: Node, hover: Node, { leftOf }: Callbacks, ctx: Context) =>
+  [c.LA]: (
+    item: Cell,
+    hover: Cell,
+    { leftOf }: HoverInsertActions,
+    ctx: Context
+  ) =>
     leftOf(
       item,
       hover,
@@ -506,7 +521,12 @@ export const defaultCallbacks: CallbackList = {
         true
       )
     ),
-  [c.RA]: (item: Node, hover: Node, { rightOf }: Callbacks, ctx: Context) =>
+  [c.RA]: (
+    item: Cell,
+    hover: Cell,
+    { rightOf }: HoverInsertActions,
+    ctx: Context
+  ) =>
     rightOf(
       item,
       hover,
@@ -518,7 +538,11 @@ export const defaultCallbacks: CallbackList = {
     ),
 
   /* inline */
-  [c.IL]: (item: Node, hover: Node, { inlineLeft, leftOf }: Callbacks) => {
+  [c.IL]: (
+    item: Cell,
+    hover: Cell,
+    { inlineLeft, leftOf }: HoverInsertActions
+  ) => {
     if (isRow(item) || isRow(hover)) {
       return;
     }
@@ -541,7 +565,11 @@ export const defaultCallbacks: CallbackList = {
     inlineLeft(item, hover);
   },
 
-  [c.IR]: (item: Node, hover: Node, { inlineRight, rightOf }: Callbacks) => {
+  [c.IR]: (
+    item: Cell,
+    hover: Cell,
+    { inlineRight, rightOf }: HoverInsertActions
+  ) => {
     if (isRow(item) || isRow(hover)) {
       return;
     }
@@ -587,9 +615,9 @@ export default class HoverService {
   }
 
   hover(
-    drag: Node,
-    hover: Node,
-    actions: Callbacks,
+    drag: Cell,
+    hover: Cell,
+    actions: HoverInsertActions,
     {
       room,
       mouse,

@@ -1,4 +1,4 @@
-import { ContentPlugin, LayoutPlugin } from '../service/plugin/classes';
+import { ContentPlugin, PluginBase } from '../service/plugin/classes';
 import has from 'lodash.has';
 export type I18nField<T> = {
   [lang: string]: T;
@@ -6,13 +6,11 @@ export type I18nField<T> = {
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export interface Content<StateT = any> {
   plugin: ContentPlugin;
-  state?: StateT;
-  stateI18n?: I18nField<StateT>;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export interface Layout<StateT = any> {
-  plugin: LayoutPlugin;
+  plugin: PluginBase;
   state?: StateT;
   stateI18n?: I18nField<StateT>;
 }
@@ -24,6 +22,13 @@ type NodeBase = {
 };
 export type Cell = NodeBase & {
   rows?: Row[];
+  plugin?: {
+    id: string;
+    version: string;
+  };
+
+  data?: unknown;
+  dataI18n?: I18nField<unknown>;
 
   content?: Content;
   layout?: Layout;
@@ -38,6 +43,20 @@ export type Cell = NodeBase & {
   resizable?: boolean;
   bounds?: { left: number; right: number };
   hasInlineNeighbour?: string;
+};
+
+/**
+ * simpler definition for Row, used to create a new row,
+ * can also be just an array of PartialCell
+ */
+export type PartialRow = Partial<Row> | PartialCell[];
+
+/**
+ * simpler definition for Cell, used to create a new row
+ */
+export type PartialCell = Omit<Partial<Cell>, 'rows' | 'plugin'> & {
+  rows?: PartialRow[];
+  plugin?: Cell['plugin'] | string;
 };
 
 export const isRow = (node: Node): node is Row => {
@@ -57,24 +76,7 @@ export type Row = NodeBase & {
 };
 
 export type Node = Row | Cell;
-export const createCell = (): Cell => ({
-  id: '',
-  rows: [],
-  size: 12,
-  hoverPosition: null,
-  inline: null,
 
-  resizable: false,
-  bounds: { left: 0, right: 0 },
-  hasInlineNeighbour: null,
-
-  levels: {
-    above: 0,
-    below: 0,
-    right: 0,
-    left: 0,
-  },
-});
 export type Levels = {
   left: number;
   right: number;
@@ -82,16 +84,11 @@ export type Levels = {
   below: number;
 };
 
-export const createRow = (): Row => ({
-  id: '',
-  hoverPosition: null,
-  cells: [],
-});
-
 export type AbstractEditable<T> = {
   id: string;
   cells: Array<T>;
   cellOrder?: Array<{ id: string; isLeaf: boolean }>;
+  version: string;
 };
 
 export type EditableType = AbstractEditable<Cell>;
@@ -120,3 +117,7 @@ export type CellDrag = {
   type: 'cell';
   cell: CellWithAncestors;
 };
+
+export type Options = {
+  plugins: PluginBase[];
+} & SimplifiedModesProps;

@@ -12,7 +12,7 @@ import {
   isRow,
   RowWithAncestors,
 } from '../../../../types/editable';
-import { Callbacks } from '../../../../types/hover';
+import { HoverInsertActions } from '../../../../types/hover';
 
 let last: { hoverId: string; dragId: string } = { hoverId: '', dragId: '' };
 
@@ -29,7 +29,7 @@ export const onHover = throttle(
     target: CellWithAncestors | RowWithAncestors,
     monitor: DropTargetMonitor,
     element: HTMLElement,
-    actions: Callbacks
+    actions: HoverInsertActions
   ) => {
     const drag: CellDrag = monitor.getItem();
     if (!drag) {
@@ -78,7 +78,7 @@ export const onDrop = (
   targetCell: CellWithAncestors | RowWithAncestors,
   monitor: DropTargetMonitor,
   element: HTMLElement,
-  actions: Callbacks
+  actions: HoverInsertActions
 ) => {
   const drag: CellDrag = monitor.getItem();
   //  console.log('on drop', targetCell, monitor);

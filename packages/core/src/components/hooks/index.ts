@@ -5,6 +5,7 @@ import {
   useEffect,
   useMemo,
 } from 'react';
+
 import {
   blurAllCells,
   cancelCellDrag,
@@ -59,15 +60,20 @@ import {
 } from '../../selector/display';
 import { editable, selectNode } from '../../selector/editable';
 import { focus } from '../../selector/focus';
-import { Cell, isRow, SimplifiedModesProps } from '../../types/editable';
-import { Callbacks } from '../../types/hover';
+import {
+  Cell,
+  isRow,
+  SimplifiedModesProps,
+  Options,
+} from '../../types/editable';
+import { HoverInsertActions } from '../../types/hover';
 import deepEquals from '../../utils/deepEquals';
-import { getI18nState } from '../Cell/Content';
 
 export const EditableContext = createContext<string>(null);
-export const OptionsContext = createContext<SimplifiedModesProps>({
+export const OptionsContext = createContext<Options>({
   allowMoveInEditMode: true,
   allowResizeInEditMode: true,
+  plugins: [],
 });
 
 export const useFocusedNodeId = () => {
@@ -137,27 +143,50 @@ export const useEditor = () => useContext<Editor>(EditorContext);
 
 export const useOptions = () => useContext(OptionsContext);
 
+export const useOptionsWithLang = () => {
+  const lang = useLang();
+  return {
+    ...useOptions(),
+    lang,
+  };
+};
+
 export const useCellContentOrLayout = (nodeId: string) => {
   // will be unified in the near future anyway
   const cell = useCell(nodeId);
   return cell.layout ?? cell.content;
 };
-export const useCellPlugin = (nodeId: string) => {
-  const layoutOrContent = useCellContentOrLayout(nodeId);
-  return layoutOrContent?.plugin;
+export const usePlugins = () => {
+  return useOptions().plugins;
 };
-export const useCellData = (cell: Cell, lang?: string) => {
+
+export const usePlugin = (pluginId: string) => {
+  const plugins = usePlugins();
+  return plugins.find((p) => p.id === pluginId);
+};
+export const useCellPlugin = (nodeId: string) => {
+  const node = useCell(nodeId);
+  return node.plugin ? usePlugin(node.plugin?.id) : null;
+};
+
+export const useCellDataI18nRaw = (nodeId: string) => {
+  return useCell(nodeId)?.dataI18n;
+};
+
+export const getCellData = (cell: Cell, lang: string) => {
+  const dataI18n = cell.dataI18n;
+  return (
+    dataI18n?.[lang] ??
+    // find first non-empty
+    dataI18n?.[Object.keys(dataI18n).find((l) => dataI18n[l])]
+  );
+};
+
+export const useCellData = (nodeId: string, lang?: string) => {
   const currentLang = useLang();
-  const contentOrLayout = cell.layout ?? cell.content;
-  if (!contentOrLayout) {
-    return null;
-  }
-  const { state, stateI18n } = contentOrLayout;
-  return getI18nState({
-    state,
-    stateI18n,
-    lang: lang ?? currentLang,
-  });
+  const cell = useCell(nodeId);
+  const theLang = lang ?? currentLang;
+  return getCellData(cell, theLang);
 };
 
 export const useIsEditMode = () => {
@@ -253,9 +282,11 @@ export const useDuplicateCellById = () => {
   const dispatch = useDispatch();
   const editor = useEditor();
   const editableId = useEditableId();
+  const options = useOptionsWithLang();
 
   return useCallback(
-    (id: string) => dispatch(duplicateCell(editor.getNode(editableId, id))),
+    (id: string) =>
+      dispatch(duplicateCell(options)(editor.getNode(editableId, id))),
     [dispatch, editableId]
   );
 };
@@ -306,10 +337,11 @@ export const useBlurAllCells = () => {
 
 export const useInsertCellAtTheEnd = () => {
   const dispatch = useDispatch();
-
+  const plugins = usePlugins();
+  const options = useOptionsWithLang();
   return useCallback(
-    (node: Partial<Cell>) => {
-      dispatch(insertCellAtTheEnd(node, {}));
+    (partialCell: Partial<Cell>) => {
+      dispatch(insertCellAtTheEnd(options)(partialCell, {}));
     },
     [dispatch]
   );
@@ -354,10 +386,11 @@ export const useHoverActions = () => {
   const dispatch = useDispatch();
 
   return useMemo(
-    (): Callbacks => ({
+    (): HoverInsertActions => ({
       dragCell: (id: string) => dispatch(dragCell(id)),
       clear: () => dispatch(clearHover()),
       cancelCellDrag: () => dispatch(cancelCellDrag()),
+
       above: (drag, hover, level) =>
         dispatch(cellHoverAbove(drag, hover, level)),
       below: (drag, hover, level) =>
@@ -376,22 +409,25 @@ export const useHoverActions = () => {
 export const useDropActions = () => {
   const dispatch = useDispatch();
 
+  const options = useOptionsWithLang();
+
   return useMemo(
-    (): Callbacks => ({
+    (): HoverInsertActions => ({
+      above: (drag, hover, level) =>
+        dispatch(insertCellAbove(options)(drag, hover, level)),
+      below: (drag, hover, level) =>
+        dispatch(insertCellBelow(options)(drag, hover, level)),
+      leftOf: (drag, hover, level) =>
+        dispatch(insertCellLeftOf(options)(drag, hover, level)),
+      rightOf: (drag, hover, level) =>
+        dispatch(insertCellRightOf(options)(drag, hover, level)),
+      inlineLeft: (drag, hover) =>
+        dispatch(insertCellLeftInline(options)(drag, hover)),
+      inlineRight: (drag, hover) =>
+        dispatch(insertCellRightInline(options)(drag, hover)),
       dragCell: (id: string) => dispatch(dragCell(id)),
       clear: () => dispatch(clearHover()),
       cancelCellDrag: () => dispatch(cancelCellDrag()),
-      above: (drag, hover, level) =>
-        dispatch(insertCellAbove(drag, hover, level)),
-      below: (drag, hover, level) =>
-        dispatch(insertCellBelow(drag, hover, level)),
-      leftOf: (drag, hover, level) =>
-        dispatch(insertCellLeftOf(drag, hover, level)),
-      rightOf: (drag, hover, level) =>
-        dispatch(insertCellRightOf(drag, hover, level)),
-      inlineLeft: (drag, hover) => dispatch(insertCellLeftInline(drag, hover)),
-      inlineRight: (drag, hover) =>
-        dispatch(insertCellRightInline(drag, hover)),
     }),
     [dispatch]
   );

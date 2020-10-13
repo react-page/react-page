@@ -5,7 +5,7 @@ import {
   Provider,
   Plugins,
   ContentPlugin,
-  LayoutPlugin,
+  PluginBase,
   DndBackend,
   EditableType,
   Languages,
@@ -20,7 +20,7 @@ import StickyWrapper from './StickyWrapper';
 
 export type EditableEditorProps = {
   plugins?: Plugins;
-  defaultPlugin?: ContentPlugin | LayoutPlugin;
+  defaultPlugin?: PluginBase | PluginBase;
   dndBackend?: DndBackend;
   value?: EditableType;
   onChange?: (v: EditableType) => void;

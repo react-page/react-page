@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { ContentPlugin } from './classes';
+import { PluginBase } from './classes';
 import { EditorState } from '../../types/editor';
 import { PluginProps } from '../..';
 

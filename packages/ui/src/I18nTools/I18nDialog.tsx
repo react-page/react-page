@@ -7,6 +7,8 @@ import {
   useSetLang,
   useUpdateCellContent,
   useUpdateCellLayout,
+  useCellData,
+  useCellDataI18nRaw,
 } from '@react-page/core';
 import React from 'react';
 import DraftSwitch from '../DraftSwitch';
@@ -24,7 +26,8 @@ const I18nDialog = ({
   const editor = useEditor();
 
   const setLang = useSetLang();
-  const contentOrLayout = cell.layout ?? cell.content;
+  const dataI18n = useCellDataI18nRaw(nodeId);
+
   const updateCellContent = useUpdateCellContent(nodeId);
   const updateCellLayout = useUpdateCellLayout(nodeId);
   const reset = (lang: string) => {
@@ -44,9 +47,9 @@ const I18nDialog = ({
       <Table>
         <tbody>
           {editor.languages.map((l, index) => {
-            const state = contentOrLayout.stateI18n?.[l.lang];
+            const data = dataI18n?.[l.lang];
             const isCurrent = currentLang === l.lang;
-            const hasState = Boolean(state);
+            const hasData = Boolean(data);
             return (
               <tr key={l.lang}>
                 <th
@@ -64,9 +67,9 @@ const I18nDialog = ({
                   <DraftSwitch nodeId={nodeId} lang={l.lang} />
                 </td>
 
-                <td>{hasState ? '✔️' : ' '}</td>
+                <td>{hasData ? '✔️' : ' '}</td>
                 <td>
-                  {hasState && index !== 0 ? (
+                  {hasData && index !== 0 ? (
                     <Button
                       onClick={() => {
                         reset(l.lang);

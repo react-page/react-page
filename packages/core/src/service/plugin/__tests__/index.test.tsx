@@ -2,7 +2,8 @@ import * as React from 'react';
 import expect from 'unexpected';
 
 import PluginService from '../index';
-import { Migration, LayoutPlugin, ContentPlugin } from '../classes';
+import {PluginBase, PluginBase} from '../classes';
+import { Migration } from '../../../migrations/Migration';
 
 const FOO = 'foo';
 const OLDEST_VERSION = '0.0.1';
@@ -61,7 +62,7 @@ const migrationEdgeCaseContent = [
 
 const layout = [
   { name: 'bar', version: '0.0.2', Component: () => <div /> },
-] as LayoutPlugin[];
+] asPluginBase[];
 
 const plugins = new PluginService({ content, layout });
 
