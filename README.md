@@ -28,6 +28,8 @@ or
 
 A demo can be found on [Demo](https://react-page.github.io/) which reflects the `stable` release channel on npm.
 
+the `beta` versions is also available as a demo: [Demo `next`](https://react-page.github.io/beta)
+
 the `next` versions is also available as a demo: [Demo `next`](https://react-page.github.io/next)
 
 ## Documentation
