@@ -135,14 +135,14 @@ export const cell = (s: Cell, a: AnyAction): Cell =>
             return {
               ...reduce(),
               focused: true,
-              scrollToCell: action.scrollToCell,
+              scrollToCell: action.scrollToCell ? new Date().getTime() : null,
               focusSource: action.source,
             };
           }
           return {
             ...reduce(),
-            focused: false,
-            scrollToCell: false,
+            focused: null,
+            scrollToCell: null,
             focusSource: null,
           };
 
@@ -154,7 +154,7 @@ export const cell = (s: Cell, a: AnyAction): Cell =>
           return reduce();
 
         case CELL_BLUR_ALL:
-          return { ...reduce(), focused: false };
+          return { ...reduce(), focused: false, scrollToCell: null };
 
         case CELL_DRAG_HOVER:
           if (isHoveringThis(state, action as CellHoverAction)) {
@@ -231,7 +231,7 @@ export const cells = (s: Cell[] = [], a: AnyAction): Cell[] =>
         case CELL_RESIZE:
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           return resizeCells(state.map(inner(cell, action)), action as any);
-
+        case CELL_INSERT_AT_END:
         case CELL_INSERT_BELOW:
         case CELL_INSERT_ABOVE:
           return state

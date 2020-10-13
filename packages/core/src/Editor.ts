@@ -114,6 +114,9 @@ class Editor<T extends RootState = RootState> {
     this.store.dispatch(setLang(lang));
   }
 
+  /**
+   * @deprecated in order to reduce api surface, this api gets removed in the future. Please file an issue with your use case if you still need it
+   */
   public refreshEditables = () => {
     this.store.getState().reactPage.editables.present?.forEach((editable) => {
       if (!isProduction) {
@@ -127,69 +130,6 @@ class Editor<T extends RootState = RootState> {
 
   public getNode = (editableId: string, nodeId: string) => {
     return findNodeInState(this.store.getState(), editableId, nodeId);
-  };
-
-  /**
-   * @deprecated in order to reduce the api surface, we will remove this method in the future
-   */
-  public setLayoutPlugins = (plugins: LayoutPluginConfig[] = []) => {
-    console.warn(
-      'in order to reduce the api surface, we will remove setLayoutPlugins in the future'
-    );
-    this.plugins.setLayoutPlugins(plugins);
-    this.refreshEditables();
-  };
-  /**
-   * @deprecated in order to reduce the api surface, we will remove this method in the future
-   */
-  public addLayoutPlugin = (config: LayoutPluginConfig) => {
-    console.warn(
-      'in order to reduce the api surface, we will remove addLayoutPlugin in the future'
-    );
-    this.plugins.addLayoutPlugin(config);
-    this.refreshEditables();
-  };
-  /**
-   * @deprecated in order to reduce the api surface, we will remove this method in the future
-   */
-  public removeLayoutPlugin = (name: string) => {
-    console.warn(
-      'in order to reduce the api surface, we will remove removeLayoutPlugin in the future'
-    );
-    this.plugins.removeLayoutPlugin(name);
-    this.refreshEditables();
-  };
-  /**
-   * @deprecated in order to reduce the api surface, we will remove this method in the future
-   */
-  public setContentPlugins = (plugins: ContentPluginConfig[] = []) => {
-    console.warn(
-      'in order to reduce the api surface, we will remove setContentPlugins in the future'
-    );
-    this.plugins.setContentPlugins(plugins);
-    this.refreshEditables();
-  };
-
-  /**
-   * @deprecated in order to reduce the api surface, we will remove this method in the future
-   */
-  public addContentPlugin = (config: ContentPluginConfig) => {
-    console.warn(
-      'in order to reduce the api surface, we will remove addContentPlugin in the future'
-    );
-    this.plugins.addContentPlugin(config);
-    this.refreshEditables();
-  };
-
-  /**
-   * @deprecated in order to reduce the api surface, we will remove this method in the future
-   */
-  public removeContentPlugin = (name: string) => {
-    console.warn(
-      'in order to reduce the api surface, we will remove removeContentPlugin in the future'
-    );
-    this.plugins.removeContentPlugin(name);
-    this.refreshEditables();
   };
 }
 

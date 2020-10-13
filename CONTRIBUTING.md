@@ -1,45 +1,88 @@
 # Contribution Guide
 
-We welcome and encourage community contributions to editor.
-
-Since the project is still unstable, there are specific priorities for development. Pull requests that do not address
-these priorities will not be accepted until the ORY Editor is production ready.
+We welcome and encourage community contributions to help improving ReactPage!
 
 Please familiarize yourself with the Contribution Guidelines and Project Roadmap before contributing.
 
-There are many ways to help editor besides contributing code:
+There are many ways to help ReactPage besides contributing code:
 
+ - Use it! 
  - Fix bugs or file issues
  - Improve the documentation
+ - Participate in [Discussions](https://github.com/react-page/react-page/discussions)
+ - Spread the word about ReactPage!
 
 ## Contributing Code
 
-Unless you are fixing a known bug, we **strongly** recommend discussing it with the core team via a GitHub issue before
-getting started to ensure your work is consistent with the ORY Editor's roadmap and architecture.
+We want to keep the barrier to contribute as low as possible, but we still recommend to follow some rules:
 
-All contributions are made via pull request. Note that **all patches from all contributors get reviewed**. After a pull
+- Feel free to open Pull Requests that fix open issues!
+- File an issue before opening a Pull Request about a new feature, so that discussion about the feature can take place. 
+- Try to keep your commits clean and rebase them before merging.
+-  All contributions are made via pull request. Note that **all patches from all contributors get reviewed**. After a pull
 request is made other contributors will offer feedback, and if the patch passes review a maintainer will accept it with
 a comment. When pull requests fail testing, authors are expected to update their pull requests to address the failures
 until the tests pass and the pull request merges successfully.
-
 At least one review from a maintainer is required for all patches (even patches from maintainers).
-
 Reviewers should leave a "LGTM" comment once they are satisfied with the patch. If the patch was submitted by a maintainer
 with write access, the pull request should be merged by the submitter after review.
+- Commit messages have to be [semantic and following this convention](https://github.com/angular/angular.js/blob/master/DEVELOPERS.md#-git-commit-guidelines):
+
+#### Features
+
+`feat(scope): describe the new feature`
+
+e.g. 
+
+`feat(ui): added button to duplicate content`
+
+(scope is optional).
+
+`feat:` will bump the minor version
+
+#### Bugfixes
+
+`fix(scope): the issue that was fixed`
+
+e.g.
+
+`fix(ie11): on ie11 an error is thrown`
+
+(scope again is optional)
+
+`fix:` will bump the patch version
+
+#### BREAKING CHANGES
+
+
+if your feature or fix contain a breaking change, its important to format the commit message as this:
+
+```
+feat(layout): its possible to customize rows
+
+BREAKING CHANGE: the classNames xxx-yyyyy have been replace with zzzzz
+
+```
+
+(mind the newline between the first line and third line)
+
+`BREAKING CHANGE:` will bump the major version (once we are at ^1.0.0)
+
+
 
 ## How to run, develop, and contribute
 
-Do you want to run, develop or contribute to React Page? For that you need [Node](https://nodejs.org) installed on
+Do you want to run, develop or contribute to ReactPage? For that you need [Node](https://nodejs.org) installed on
 your system. Use git to check out this repository as followed.
 
 ```bash
 $ git clone https://github.com/react-page/react-page.git
-$ cd editor
+$ cd react-page
 ```
 
 ### Install dependencies
 
-React Page is a [monorepo](https://github.com/babel/babel/blob/master/doc/design/monorepo.md) that you initialize with:
+ReactPage is a [monorepo](https://github.com/babel/babel/blob/master/doc/design/monorepo.md) that you initialize with:
 
 ```bash
 $ yarn

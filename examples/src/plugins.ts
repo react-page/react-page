@@ -24,7 +24,7 @@ import customContentPluginWithListField from './customContentPluginWithListField
 import customLayoutPlugin from './customLayoutPlugin';
 import customLayoutPluginWithInitialState from './customLayoutPluginWithInitialState';
 import { defaultSlate, customizedSlate } from './slate';
-
+import customContentPluginTwitter from './customContentPluginTwitter';
 const fakeImageUploadService: (url: string) => ImageUploadType = (
   defaultUrl
 ) => (file, reportProgress) => {
@@ -57,6 +57,7 @@ export const plugins: Plugins = {
     html5video,
     customContentPlugin(),
     customContentPluginWithListField(),
+    customContentPluginTwitter(),
   ],
   layout: [
     background({

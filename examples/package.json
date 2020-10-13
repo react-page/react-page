@@ -21,6 +21,7 @@
     "@react-page/editor": "0.0.0",
     "react-scripts": "3.4.0",
     "source-map-explorer": "^2.0.1",
+    "react-twitter-widgets": "^1.9.5",
     "react-katex": "^2.0.2",
     "uuid": "^3.0.1",
     "styled-components": "^5.1.1"
