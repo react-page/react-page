@@ -14,6 +14,7 @@
     "@material-ui/core": "^4.3.3",
     "@material-ui/icons": "^4.2.1",
     "@material-ui/styles": "^4.3.3",
+    "@qiwi/semantic-release-gh-pages-plugin": "^5.0.1",
     "@semantic-release/changelog": "^5.0.1",
     "@semantic-release/exec": "semantic-release/exec",
     "@types/jest": "^25.2.3",
@@ -126,9 +127,17 @@
       [
         "@semantic-release/exec",
         {
-          "prepareCmd": "yarn replace-in-file '###VERSION###' ${nextRelease.version} packages/**/lib*/*",
+          "prepareCmd": "yarn replace-in-file '###VERSION###' ${nextRelease.version} packages/*/lib*/*.js examples/build/**/*.js",
           "publishCmd": "yarn lerna publish --no-git-tag-version --no-git-reset --no-push --yes --dist-tag=${nextRelease.channel} --force-publish=* ${nextRelease.version}",
           "addChannel": "npm dist-tag add ${nextRelease.version}@${nextRelease.channel}"
+        }
+      ],
+      [
+        "@qiwi/semantic-release-gh-pages-plugin",
+        {
+          "src": "examples/build",
+          "repositoryUrl": "react-page/${nextRelease.channel}",
+          "branch": "main"
         }
       ],
       "@semantic-release/github"
