@@ -4,6 +4,7 @@ import { DragPreviewImage, useDrag } from 'react-dnd';
 import { CellDrag } from '../../../types/editable';
 import {
   useCell,
+  useCellPlugin,
   useHoverActions,
   useIsFocused,
   useIsLayoutMode,
@@ -32,6 +33,7 @@ const Draggable: React.FC<Props> = ({ isLeaf, children, nodeId }) => {
     []
   );
   const cell = useCell(nodeId);
+  const plugin = useCellPlugin(nodeId);
   const actions = useHoverActions();
   const [{ isDragging }, dragRef, preview] = useDrag<
     CellDrag,
@@ -116,7 +118,7 @@ const Draggable: React.FC<Props> = ({ isLeaf, children, nodeId }) => {
           })}
         >
           <div className="ory-cell-draggable-overlay-description">
-            <span>{name}</span>
+            <span>{plugin?.text}</span>
           </div>
         </div>
         <div>{children}</div>

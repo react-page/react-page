@@ -137,6 +137,15 @@ export const useEditor = () => useContext<Editor>(EditorContext);
 
 export const useOptions = () => useContext(OptionsContext);
 
+export const useCellContentOrLayout = (nodeId: string) => {
+  // will be unified in the near future anyway
+  const cell = useCell(nodeId);
+  return cell.layout ?? cell.content;
+};
+export const useCellPlugin = (nodeId: string) => {
+  const layoutOrContent = useCellContentOrLayout(nodeId);
+  return layoutOrContent?.plugin;
+};
 export const useCellData = (cell: Cell, lang?: string) => {
   const currentLang = useLang();
   const contentOrLayout = cell.layout ?? cell.content;
