@@ -126,20 +126,13 @@
     "plugins": [
       "@semantic-release/commit-analyzer",
       "@semantic-release/release-notes-generator",
+      "@semantic-release/changelog",
       [
         "@semantic-release/exec",
         {
-          "prepareCmd": "yarn replace-in-file '###VERSION###' ${nextRelease.version} packages/*/lib*/*.js examples/build/**/*.js",
+          "verifyCmd": "yarn replace-in-file '###VERSION###' ${nextRelease.version} packages/*/lib*/*.js examples/build/**/*.js",
           "publishCmd": "yarn lerna publish --no-git-tag-version --no-git-reset --no-push --yes --dist-tag=${nextRelease.channel} --force-publish=* ${nextRelease.version}",
           "addChannel": "npm dist-tag add ${nextRelease.version}@${nextRelease.channel}"
-        }
-      ],
-      [
-        "@qiwi/semantic-release-gh-pages-plugin",
-        {
-          "src": "examples/build",
-          "repositoryUrl": "react-page/${nextRelease.channel}",
-          "branch": "main"
         }
       ],
       "@semantic-release/github"
