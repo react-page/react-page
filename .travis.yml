@@ -7,7 +7,7 @@ install:
   - yarn --frozen-lockfile
 
 script:
-  - yarn build:lib
+  - yarn build
   - yarn run lint
   - yarn run test
 
