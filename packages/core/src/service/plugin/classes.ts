@@ -2,7 +2,6 @@
 
 import { AnyAction } from 'redux';
 
-import { InitialChildrenDef } from '../../helper/createInitialChildren';
 import { Migration } from '../../migrations/Migration';
 import { Cell, PartialRow, Row } from '../../types/editable';
 

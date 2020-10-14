@@ -25,7 +25,7 @@ const createPlugin = (settings: BackgroundSettings) => {
 
     createInitialChildren:
       settings.getInitialChildren ||
-      (() => [[{ content: { plugin: settings.defaultPlugin } }]]),
+      (() => [[{ plugin: settings.defaultPlugin.id }]]),
 
     handleFocusNextHotKey: () => Promise.reject(),
     handleFocusPreviousHotKey: () => Promise.reject(),

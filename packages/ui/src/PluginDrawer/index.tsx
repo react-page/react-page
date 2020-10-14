@@ -3,7 +3,7 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListSubheader from '@material-ui/core/ListSubheader';
 import TextField from '@material-ui/core/TextField';
-import { PluginBase, useEditor, useIsInsertMode } from '@react-page/core';
+import { PluginBase, useIsInsertMode, usePlugins } from '@react-page/core';
 import * as React from 'react';
 import { Portal } from 'react-portal';
 import Item from './Item/index';
@@ -30,14 +30,13 @@ type Props = {
   translations?: Translations;
 };
 
-const getPluginId = (plugin: PluginBase) => plugin.id || id;
+const getPluginId = (plugin: PluginBase) => plugin.id || plugin.name;
 
 const getPluginTitle = (plugin: PluginBase) =>
   (plugin.title || plugin.text) ?? '';
 
 const Toolbar: React.FC<Props> = ({ translations = defaultTranslations }) => {
-  const editor = useEditor();
-  const plugins = editor.plugins;
+  const plugins = usePlugins();
 
   const [searchText, setSearchText] = React.useState<string>('');
   const searchFilter = React.useCallback(

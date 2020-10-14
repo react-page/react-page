@@ -2,7 +2,7 @@ import * as React from 'react';
 import expect from 'unexpected';
 
 import PluginService from '../index';
-import {PluginBase, PluginBase} from '../classes';
+import {PluginBase} from '../classes';
 import { Migration } from '../../../migrations/Migration';
 
 const FOO = 'foo';
@@ -33,7 +33,7 @@ const content = [
       }),
     ],
   },
-] as ContentPlugin[];
+] as PluginBase[];
 
 const migrationEdgeCaseContent = [
   {
@@ -58,7 +58,7 @@ const migrationEdgeCaseContent = [
       }),
     ],
   },
-] as ContentPlugin[];
+] as PluginBase[];
 
 const layout = [
   { name: 'bar', version: '0.0.2', Component: () => <div /> },
@@ -75,7 +75,7 @@ describe('PluginService', () => {
   content.forEach((p) => {
     it(`should find plugin ${p.name} ${p.version}`, () => {
       expect(
-        plugins.findContentPlugin(p.name, p.version).plugin.name,
+        plugins.findPluginBase(p.name, p.version).plugin.name,
         'to equal',
         p.name
       );
@@ -84,19 +84,19 @@ describe('PluginService', () => {
 
   it(`should find plugin different version ${FOO} ${OLDEST_VERSION}`, () => {
     expect(
-      plugins.findContentPlugin(FOO, OLDEST_VERSION).pluginWrongVersion.name,
+      plugins.findPluginBase(FOO, OLDEST_VERSION).pluginWrongVersion.name,
       'to equal',
       FOO
     );
     expect(
-      plugins.findContentPlugin(FOO, OLDEST_VERSION).pluginWrongVersion.version,
+      plugins.findPluginBase(FOO, OLDEST_VERSION).pluginWrongVersion.version,
       'to equal',
       MATCHING_VERSION
     );
   });
 
   it(`should apply migrations`, () => {
-    const plugin = plugins.findContentPlugin(FOO, OLDEST_VERSION)
+    const plugin = plugins.findPluginBase(FOO, OLDEST_VERSION)
       .pluginWrongVersion;
     const newState = plugins.migratePluginState({}, plugin, OLDEST_VERSION);
     expect(newState.modified, 'to equal', 1);
@@ -104,7 +104,7 @@ describe('PluginService', () => {
   });
 
   it(`should apply migrations even in edge case`, () => {
-    const plugin = migrationEdgeCasePlugins.findContentPlugin(FOO, '0.0.0')
+    const plugin = migrationEdgeCasePlugins.findPluginBase(FOO, '0.0.0')
       .pluginWrongVersion;
     const newState = migrationEdgeCasePlugins.migratePluginState(
       {},

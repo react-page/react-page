@@ -12,7 +12,7 @@ import {
   useIsPreviewMode,
   useLang,
   useRemoveCell,
-  useUpdateCellLayout,
+  useUpdateCellData,
 } from '../../hooks';
 import Row from '../../Row';
 import Draggable from '../Draggable';
@@ -26,7 +26,7 @@ const Inner: React.FC<{ nodeId: string }> = ({ nodeId }) => {
   const isPreviewMode = useIsPreviewMode();
   const isEditMode = useIsEditMode();
 
-  const updateCellLayout = useUpdateCellLayout(nodeId);
+  const updateCellData = useUpdateCellData(nodeId);
   const cellData = useCellData(nodeId);
   const plugin = useCellPlugin(nodeId);
   const cellShouldHavePlugin = useCellHasPlugin(nodeId);
@@ -77,7 +77,7 @@ const Inner: React.FC<{ nodeId: string }> = ({ nodeId }) => {
             pluginConfig={plugin}
             focused={isEditMode && focused}
             readOnly={!isEditMode}
-            onChange={updateCellLayout}
+            onChange={updateCellData}
             isEditMode={isEditMode}
             isPreviewMode={isPreviewMode}
             remove={remove}

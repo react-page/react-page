@@ -1,11 +1,11 @@
-import { ContentPlugin, PluginProps } from '@react-page/core';
+import { PluginBase, PluginProps } from '@react-page/core';
 import * as React from 'react';
 import Component from './Component/index';
 import { defaultSettings } from './default/settings';
 import { ImageSettings } from './types/settings';
 import { ImageState } from './types/state';
 
-const createPlugin = (settings?: ImageSettings): ContentPlugin<ImageState> => {
+const createPlugin = (settings?: ImageSettings): PluginBase<ImageState> => {
   const mergedSettings = { ...defaultSettings, ...settings };
   return {
     Component: (props: PluginProps<ImageState>) => (

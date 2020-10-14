@@ -10,9 +10,8 @@ import {
   CELL_INSERT_RIGHT_OF,
   CELL_REMOVE,
   CELL_RESIZE,
-  CELL_UPDATE_CONTENT,
+  CELL_UPDATE_DATA,
   CELL_UPDATE_IS_DRAFT,
-  CELL_UPDATE_LAYOUT,
   CELL_INSERT_AT_END,
   CellAction,
 } from '../../actions/cell';
@@ -29,25 +28,14 @@ import {
 } from './helper/optimize';
 import { resizeCells } from './helper/sizing';
 
-const identity = (state: Cell) => state;
-
 const cell = (s: Cell, a: CellAction, depth: number): Cell =>
   optimizeCell(
     ((state: Cell, action): Cell => {
-      const reduce = () => {
-        const content = state?.content?.plugin?.reducer ?? identity;
-        const layout = state?.layout?.plugin?.reducer ?? identity;
-        return content(
-          layout(
-            {
-              ...state,
-              hoverPosition: null,
-              rows: rows(state.rows, action, depth + 1),
-            },
-            action
-          ),
-          action
-        );
+      const reduce = (): Cell => {
+        return {
+          ...state,
+          rows: rows(state.rows, action, depth + 1),
+        };
       };
 
       switch (action.type) {
@@ -70,55 +58,19 @@ const cell = (s: Cell, a: CellAction, depth: number): Cell =>
             }
           }
           return reduce();
-        case CELL_UPDATE_CONTENT:
+        case CELL_UPDATE_DATA:
           if (action.id === state.id) {
             // If this cell is being updated, set the data
             const reduced = reduce();
-            const emptyValue = action.state == null;
+            const emptyValue = action.data === null;
             if (action.lang && emptyValue) {
-              delete reduced.content.stateI18n?.[action.lang];
+              delete reduced.dataI18n?.[action.lang];
             }
             return {
               ...reduced,
-              content: {
-                ...(state.content ?? {}),
-                ...(action.lang
-                  ? {
-                      stateI18n: {
-                        ...(reduced.content.stateI18n ?? {}),
-                        ...(!emptyValue ? { [action.lang]: action.state } : {}),
-                      },
-                    }
-                  : {
-                      state: action.state,
-                    }),
-              },
-            };
-          }
-          return reduce();
-
-        case CELL_UPDATE_LAYOUT:
-          if (action.id === state.id) {
-            // If this cell is being updated, set the data
-            const reduced = reduce();
-            const emptyValue = action.state == null;
-            if (action.lang && emptyValue) {
-              delete reduced.layout.stateI18n?.[action.lang];
-            }
-            return {
-              ...reduced,
-              layout: {
-                ...(state.layout ?? {}),
-                ...(action.lang
-                  ? {
-                      stateI18n: {
-                        ...(reduced.layout.stateI18n ?? {}),
-                        ...(!emptyValue ? { [action.lang]: action.state } : {}),
-                      },
-                    }
-                  : {
-                      state: action.state,
-                    }),
+              dataI18n: {
+                ...(reduced.dataI18n ?? {}),
+                ...(!emptyValue ? { [action.lang]: action.data } : {}),
               },
             };
           }

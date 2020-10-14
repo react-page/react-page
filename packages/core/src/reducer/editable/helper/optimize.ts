@@ -23,8 +23,8 @@ export const optimizeCell = (cell: Cell): Cell => {
             return [r];
           }
 
-          const { rows: cellRows = [], layout }: Cell = cells[0];
-          if (cellRows.length > 0 && !layout) {
+          const { rows: cellRows = [], plugin }: Cell = cells[0];
+          if (cellRows.length > 0 && !plugin) {
             return cellRows;
           }
           return [r];
@@ -41,7 +41,7 @@ export const optimizeRow = ({ cells, ...other }: Row): Row => ({
   cells: (cells || [])
     .map((c: Cell) => {
       const { rows = [], size } = c;
-      if (rows.length !== 1 || c.layout) {
+      if (rows.length !== 1 || c.plugin) {
         return [c];
       }
 

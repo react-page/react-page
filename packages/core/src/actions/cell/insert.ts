@@ -1,9 +1,7 @@
 import { Action } from 'redux';
 import { v4 } from 'uuid';
-import { PluginBase } from '../..';
 import {
   Cell,
-  CellWithAncestors,
   NewIds,
   Options,
   PartialCell,
@@ -117,7 +115,6 @@ const insert = <T extends InsertType>(type: T) => (
   ids: NewIds = null
 ) => {
   let l = level;
-  delete (partialCell as CellWithAncestors).ancestors;
 
   const cell = createCell(partialCell, options);
   switch (type) {

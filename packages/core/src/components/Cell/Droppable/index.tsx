@@ -3,33 +3,37 @@ import * as React from 'react';
 import { useDrop } from 'react-dnd';
 import { CellDrag } from '../../../types/editable';
 import {
+  useCellPlugin,
   useDropActions,
   useHoverActions,
   useIsInsertMode,
   useIsLayoutMode,
   useNode,
+  useNodeWithAncestors,
   useOptions,
+  usePlugins,
 } from '../../hooks';
 import { onDrop, onHover } from './helper/dnd';
 
 export const useCellDrop = (nodeId: string) => {
   const ref = React.useRef<HTMLDivElement>(null);
-  const node = useNode(nodeId);
+  const nodeWithAncestor = useNodeWithAncestors(nodeId);
+  const options = useOptions();
   const hoverActions = useHoverActions();
   const dropActions = useDropActions();
   const [, dropRef] = useDrop<CellDrag, void, void>({
     accept: 'cell',
     canDrop: (item) => {
       return (
-        item.cell.id !== node.id &&
-        !node.ancestors.some((a) => a.id === item.cell.id)
+        item.cell.id !== nodeWithAncestor.node.id &&
+        !nodeWithAncestor.ancestors.some((a) => a.id === item.cell.id)
       );
     },
     hover(item, monitor) {
-      onHover(node, monitor, ref.current, hoverActions);
+      onHover(nodeWithAncestor, monitor, ref.current, hoverActions, options);
     },
     drop: (item, monitor) => {
-      onDrop(node, monitor, ref.current, dropActions);
+      onDrop(nodeWithAncestor, monitor, ref.current, dropActions, options);
     },
   });
   // see https://github.com/react-dnd/react-dnd/issues/1955

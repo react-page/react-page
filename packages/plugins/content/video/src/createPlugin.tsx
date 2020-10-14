@@ -6,7 +6,7 @@ import { VideoProps } from './types/component';
 import { VideoSettings } from './types/settings';
 import { VideoState } from './types/state';
 
-const createPlugin: (settings: VideoSettings) => ContentPlugin<VideoState> = (
+const createPlugin: (settings: VideoSettings) => PluginBase<VideoState> = (
   settings
 ) => {
   const mergedSettings = { ...defaultSettings, ...settings };

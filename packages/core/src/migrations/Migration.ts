@@ -1,3 +1,5 @@
+import semver from 'semver';
+
 interface MigrationConfig<TIn, TOut> {
   toVersion: string;
   fromVersionRange: string;

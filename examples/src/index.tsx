@@ -1,5 +1,5 @@
 import '@react-page/core/lib/index.css'; // we also want to load the stylesheets
-import Editor, { VERSION } from '@react-page/editor';
+import Editor, { VERSION, EditorProps } from '@react-page/editor';
 import '@react-page/ui/lib/index.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -16,7 +16,6 @@ import {
   Select,
 } from '@material-ui/core';
 import { defaultSlate } from './slate';
-import { EditorProps } from '@react-page/editor';
 
 if (
   process.env.NODE_ENV !== 'production' &&

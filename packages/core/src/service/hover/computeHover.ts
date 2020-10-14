@@ -1,4 +1,4 @@
-import { isRow, Cell } from '../../types/editable';
+import { isRow, Cell, Options } from '../../types/editable';
 import {
   HoverInsertActions,
   Matrix,
@@ -18,9 +18,10 @@ type Context = {
     cells: number;
   };
   scale: Vector;
+  options: Options;
 };
-export type MatrixList = { [key: string]: Matrix };
-export type CallbackList = {
+type MatrixList = { [key: string]: Matrix };
+type CallbackList = {
   [key: number]: (
     drag: Cell,
     hover: Cell,
@@ -58,7 +59,7 @@ export type CallbackList = {
  * IL (Inline left)
  * IR (Inline right)
  */
-export const classes: { [key: string]: number } = {
+const classes: { [key: string]: number } = {
   NO: 0,
 
   C1: 10,
@@ -89,7 +90,7 @@ const c = classes;
  *
  * @type {{6x6: *[], 10x10: *[], 10x10-no-inline: *[]}}
  */
-export const defaultMatrices: MatrixList = {
+const MATRIX_LIST: MatrixList = {
   '6x6': [
     [c.C1, c.AA, c.AA, c.AA, c.AA, c.C2],
     [c.LA, c.IL, c.AH, c.AH, c.IR, c.RA],
@@ -131,7 +132,7 @@ export const defaultMatrices: MatrixList = {
  * @param matrix
  * @returns {{x: number, y: number}}
  */
-export const getRoomScale = ({
+const getRoomScale = ({
   room,
   matrix,
 }: {
@@ -156,7 +157,7 @@ export const getRoomScale = ({
  * @param mouse
  * @param scale
  */
-export const getMouseHoverCell = ({
+const getMouseHoverCell = ({
   mouse,
   scale,
 }: {
@@ -172,23 +173,23 @@ export const getMouseHoverCell = ({
  */
 const last = { '10x10': null, '10x10-no-inline': null };
 
-const computeHover = (
+export const computeHover = (
   drag: Cell,
   hover: Cell,
   actions: HoverInsertActions,
   {
     room,
     mouse,
-    matrix,
-    callbacks,
+    matrixName = '10x10',
+    options,
   }: {
     room: Room;
     mouse: Vector;
-    callbacks: CallbackList;
-    matrix: Matrix;
-  },
-  m: string
+    matrixName: string;
+    options: Options;
+  }
 ) => {
+  const matrix = MATRIX_LIST[matrixName];
   const scale = getRoomScale({ room, matrix });
   const hoverCell = getMouseHoverCell({ mouse, scale });
   const rows = matrix.length;
@@ -207,7 +208,7 @@ const computeHover = (
   }
 
   const cell = matrix[hoverCell.row][hoverCell.cell];
-  if (!callbacks[cell]) {
+  if (!CALLBACK_LIST[cell]) {
     logger.error('Matrix callback not found.', {
       room,
       mouse,
@@ -232,16 +233,17 @@ const computeHover = (
       scale,
     },
   };
-  if (deepEquals(all, last[m])) {
+  if (deepEquals(all, last[matrixName])) {
     return;
   }
-  last[m] = all;
+  last[matrixName] = all;
 
-  return callbacks[cell](drag, hover, actions, {
+  return CALLBACK_LIST[cell](drag, hover, actions, {
     room,
     mouse,
     position: hoverCell,
     size: { rows, cells },
+    options,
     scale,
   });
 };
@@ -249,7 +251,7 @@ const computeHover = (
 /**
  * Return the mouse position relative to the cell.
  */
-export const relativeMousePosition = ({
+const relativeMousePosition = ({
   mouse,
   position,
   scale,
@@ -265,7 +267,7 @@ export const relativeMousePosition = ({
 /**
  * Computes the drop level based on the mouse position and the cell width.
  */
-export const computeLevel = ({
+const computeLevel = ({
   size,
   levels,
   position,
@@ -303,7 +305,7 @@ export const computeLevel = ({
  * @param inv returns the inverse drop level. Usually true for left and above drop level computation.
  * @returns number
  */
-export const computeHorizontal = (
+const computeHorizontal = (
   {
     mouse,
     position,
@@ -379,7 +381,7 @@ const getDropLevel = (hover: Cell) => (!isRow(hover) && hover.inline ? 1 : 0);
 /**
  * A list of callbacks.
  */
-export const defaultCallbacks: CallbackList = {
+const CALLBACK_LIST: CallbackList = {
   [c.NO]: (item: Cell, hover: Cell, { clear }: HoverInsertActions) => clear(),
 
   /* corners */
@@ -541,13 +543,15 @@ export const defaultCallbacks: CallbackList = {
   [c.IL]: (
     item: Cell,
     hover: Cell,
-    { inlineLeft, leftOf }: HoverInsertActions
+    { inlineLeft, leftOf }: HoverInsertActions,
+    { options }
   ) => {
     if (isRow(item) || isRow(hover)) {
       return;
     }
     const { inline, hasInlineNeighbour } = hover;
-    const { content: { plugin: { isInlineable = false } = {} } = {} } = item;
+    const plugin = options.plugins.find((p) => p.id === item.plugin?.id);
+    const isInlineable = plugin?.isInlineable ?? false;
     if (inline || !isInlineable) {
       return leftOf(item, hover, 2);
     }
@@ -568,13 +572,16 @@ export const defaultCallbacks: CallbackList = {
   [c.IR]: (
     item: Cell,
     hover: Cell,
-    { inlineRight, rightOf }: HoverInsertActions
+    { inlineRight, rightOf }: HoverInsertActions,
+    { options }
   ) => {
     if (isRow(item) || isRow(hover)) {
       return;
     }
     const { inline, hasInlineNeighbour } = hover;
-    const { content: { plugin: { isInlineable = false } = {} } = {} } = item;
+    const plugin = options.plugins.find((p) => p.id === item.plugin?.id);
+    const isInlineable = plugin?.isInlineable ?? false;
+
     if (inline || !isInlineable) {
       return rightOf(item, hover, 2);
     }
@@ -592,49 +599,3 @@ export const defaultCallbacks: CallbackList = {
     inlineRight(item, hover);
   },
 };
-
-export type HoverServiceProps = {
-  matrices?: MatrixList;
-  callbacks?: CallbackList;
-};
-
-/**
- * The HoverService uses callbacks and matrices to compute hover logic.
- *
- * @class HoverService
- */
-export default class HoverService {
-  callbacks: CallbackList = defaultCallbacks;
-  matrices: MatrixList = defaultMatrices;
-
-  constructor(
-    { matrices, callbacks }: HoverServiceProps = {} as HoverServiceProps
-  ) {
-    this.matrices = matrices || this.matrices;
-    this.callbacks = callbacks || this.callbacks;
-  }
-
-  hover(
-    drag: Cell,
-    hover: Cell,
-    actions: HoverInsertActions,
-    {
-      room,
-      mouse,
-      matrix: use = '10x10',
-    }: { room: Room; mouse: Vector; matrix: string }
-  ) {
-    return computeHover(
-      drag,
-      hover,
-      actions,
-      {
-        room,
-        mouse,
-        matrix: this.matrices[use],
-        callbacks: this.callbacks,
-      },
-      use
-    );
-  }
-}

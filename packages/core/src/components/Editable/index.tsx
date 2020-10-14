@@ -1,13 +1,14 @@
 import React, { useEffect, useRef } from 'react';
 import { editable } from '../../selector/editable';
-import {
-  AbstractEditable,
-  Cell,
-  SimplifiedModesProps,
-} from '../../types/editable';
-import { EditorState } from '../../types/editor';
+import { AbstractEditable, Cell } from '../../types/editable';
+
 import deepEquals from '../../utils/deepEquals';
-import { EditableContext, OptionsContext, useEditor } from '../hooks';
+import {
+  EditableContext,
+  OptionsContext,
+  useEditor,
+  useSetLang,
+} from '../hooks';
 import HotKeyDecorator from '../HotKey/Decorator';
 import FallbackDropArea from './FallbackDropArea';
 import Inner from './Inner';
@@ -19,23 +20,21 @@ export type EditableProps = {
   onChange: (value: Serialized) => void;
   lang?: string;
   onChangeLang?: (lang: string) => void;
-} & SimplifiedModesProps;
+};
 const Editable: React.FC<EditableProps> = ({
   id,
   onChange,
   onChangeLang,
   lang,
-
-  ...simplifiedModeProps
 }) => {
   const editor = useEditor();
-
+  const setLang = useSetLang();
   // update lang when changed from outside
   useEffect(() => {
-    editor.setLang(lang);
-  }, [lang, editor]);
+    setLang(lang);
+  }, [lang, setLang]);
 
-  const previousSerializedRef = useRef<Serialized>();
+  const previousStatedRef = useRef<Serialized>();
   useEffect(() => {
     let oldLang = lang;
     const handleChanges = () => {
@@ -47,7 +46,7 @@ const Editable: React.FC<EditableProps> = ({
       }
       // check also if lang has changed internally, to call callback when controled from outside
 
-      const state: EditorState = editable(editor.store.getState(), {
+      const state = editable(editor.store.getState(), {
         id: id,
       });
 
@@ -55,17 +54,14 @@ const Editable: React.FC<EditableProps> = ({
         return;
       }
       // prevent uneeded updates
-      const serialized = editor.plugins.serialize(state);
-      const serializedEqual = deepEquals(
-        previousSerializedRef.current,
-        serialized
-      );
 
-      if (serializedEqual) {
+      const equal = deepEquals(previousStatedRef.current, state);
+
+      if (equal) {
         return;
       }
-      previousSerializedRef.current = serialized;
-      onChange(serialized);
+      previousStatedRef.current = state;
+      onChange(state);
     };
     const unsubscribe = editor.store.subscribe(handleChanges);
     return () => {
@@ -74,15 +70,13 @@ const Editable: React.FC<EditableProps> = ({
   }, [editor, id, onChange]);
 
   return (
-    <OptionsContext.Provider value={simplifiedModeProps}>
-      <EditableContext.Provider value={id}>
-        <HotKeyDecorator>
-          <FallbackDropArea>
-            <Inner id={id} defaultPlugin={editor.defaultPlugin} />
-          </FallbackDropArea>
-        </HotKeyDecorator>
-      </EditableContext.Provider>
-    </OptionsContext.Provider>
+    <EditableContext.Provider value={id}>
+      <HotKeyDecorator>
+        <FallbackDropArea>
+          <Inner id={id} />
+        </FallbackDropArea>
+      </HotKeyDecorator>
+    </EditableContext.Provider>
   );
 };
 

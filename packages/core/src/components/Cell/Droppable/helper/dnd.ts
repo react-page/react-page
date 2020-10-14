@@ -7,10 +7,10 @@ import {
 } from '../../../../service/hover/input';
 import logger from '../../../../service/logger';
 import {
+  Cell,
   CellDrag,
-  CellWithAncestors,
-  isRow,
-  RowWithAncestors,
+  NodeWithAncestors,
+  Options,
 } from '../../../../types/editable';
 import { HoverInsertActions } from '../../../../types/hover';
 
@@ -26,10 +26,11 @@ const shouldClear = (hoverId: string, dragId: string) => {
 
 export const onHover = throttle(
   (
-    target: CellWithAncestors | RowWithAncestors,
+    target: NodeWithAncestors,
     monitor: DropTargetMonitor,
     element: HTMLElement,
-    actions: HoverInsertActions
+    actions: HoverInsertActions,
+    options: Options
   ) => {
     const drag: CellDrag = monitor.getItem();
     if (!drag) {
@@ -37,9 +38,9 @@ export const onHover = throttle(
       return;
     }
 
-    if (drag.cell.id === target.id) {
+    if (drag.cell.id === target.node.id) {
       // If hovering over itself, do nothing
-      if (shouldClear(target.id, drag.cell.id)) {
+      if (shouldClear(target.node.id, drag.cell.id)) {
         actions.clear();
       }
       return;
@@ -47,26 +48,28 @@ export const onHover = throttle(
       // If hovering over ancestor cell, do nothing (we are going to propagate later in the tree anyways)
       return;
     } else if (target.ancestors.some((a) => a.id === drag.cell.id)) {
-      if (shouldClear(target.id, drag.cell.id)) {
+      if (shouldClear(target.node.id, drag.cell.id)) {
         actions.clear();
       }
       return;
-    } else if (!target.id) {
+    } else if (!target.node.id) {
       // If hovering over something that isn't a cell or hasn't an id, do nothing. Should be an edge case
       logger.warn('Canceled cell drop, no id given.', target, drag);
       return;
     }
 
-    last = { hoverId: target.id, dragId: drag.cell.id };
+    last = { hoverId: target.node.id, dragId: drag.cell.id };
     const allowInlineNeighbours =
-      (!isRow(target) && target?.content?.plugin?.allowInlineNeighbours) ??
-      false;
+      options.plugins.find((p) => p.id === (target.node as Cell)?.plugin?.id)
+        ?.allowInlineNeighbours ?? false;
+
     computeAndDispatchHover(
-      target,
+      target.node,
       drag.cell,
       monitor,
       element,
       actions,
+      options,
       `10x10${allowInlineNeighbours ? '' : '-no-inline'}`
     );
   },
@@ -75,39 +78,40 @@ export const onHover = throttle(
 );
 
 export const onDrop = (
-  targetCell: CellWithAncestors | RowWithAncestors,
+  target: NodeWithAncestors,
   monitor: DropTargetMonitor,
   element: HTMLElement,
-  actions: HoverInsertActions
+  actions: HoverInsertActions,
+  options: Options
 ) => {
   const drag: CellDrag = monitor.getItem();
-  //  console.log('on drop', targetCell, monitor);
+  //  console.log('on drop', target, monitor);
 
   if (monitor.didDrop() || !monitor.isOver({ shallow: true })) {
     // If the item drop occurred deeper down the tree, don't do anything
     return;
-  } else if (drag.cell.id === targetCell.id) {
+  } else if (drag.cell.id === target.node.id) {
     // If the item being dropped on itself do nothing
     actions.cancelCellDrag();
     return;
-  } else if (targetCell.ancestors.some((a) => a.id === drag.cell.id)) {
+  } else if (target.ancestors.some((a) => a.id === drag.cell.id)) {
     // If hovering over a child of itself, don't propagate further
     actions.cancelCellDrag();
     return;
   }
 
-  last = { hoverId: targetCell.id, dragId: drag.cell.id };
+  last = { hoverId: target.node.id, dragId: drag.cell.id };
 
   const allowInlineNeighbours =
-    (!isRow(targetCell) &&
-      targetCell?.content?.plugin?.allowInlineNeighbours) ??
-    false;
+    options.plugins.find((p) => p.id === (target.node as Cell)?.plugin?.id)
+      ?.allowInlineNeighbours ?? false;
   computeAndDispatchInsert(
-    targetCell,
+    target.node,
     drag.cell,
     monitor,
     element,
     actions,
+    options,
     `10x10${allowInlineNeighbours ? '' : '-no-inline'}`
   );
 };

@@ -1,20 +1,24 @@
-import has from 'lodash.has';
 import { v4 } from 'uuid';
-import { Cell, ContentPlugin, EditableType, PluginBase, Row } from '../..';
+import { Cell, EditableType, Row } from '../..';
 import { Migration } from '../Migration';
 type I18nField<T> = {
   [lang: string]: T;
 };
+
+type PluginOld = {
+  name: string;
+  version: string;
+};
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type Content<StateT = any> = {
-  plugin: ContentPlugin;
+  plugin: PluginOld;
   state?: StateT;
   stateI18n?: I18nField<StateT>;
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type Layout<StateT = any> = {
-  plugin: PluginBase;
+  plugin: PluginOld;
   state?: StateT;
   stateI18n?: I18nField<StateT>;
 };

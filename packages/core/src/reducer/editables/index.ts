@@ -4,8 +4,7 @@ import { set } from 'redux-undo/lib/debug';
 import {
   CELL_REMOVE,
   CELL_RESIZE,
-  CELL_UPDATE_CONTENT,
-  CELL_UPDATE_LAYOUT,
+  CELL_UPDATE_DATA,
 } from '../../actions/cell/core';
 import {
   CELL_INSERT_ABOVE,
@@ -43,8 +42,7 @@ const inner = undoable(
   },
   {
     filter: includeAction([
-      CELL_UPDATE_CONTENT,
-      CELL_UPDATE_LAYOUT,
+      CELL_UPDATE_DATA,
       CELL_REMOVE,
       CELL_RESIZE,
       CELL_INSERT_ABOVE,

@@ -1,16 +1,14 @@
 import { AnyAction } from 'redux';
-import { EditorState } from '../../types/editor';
+
 import { cellOrder } from './helper/order';
 import { setAllSizesAndOptimize } from './helper/setAllSizesAndOptimize';
 import { cells } from './tree';
 
+// TODO: refactor me
 export const editable = (
-  state: EditorState = {
+  state = {
     id: null,
     cells: [],
-    config: {
-      whitelist: [],
-    },
   },
   action: AnyAction
 ) => {

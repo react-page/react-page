@@ -1,6 +1,6 @@
 import { IconButton, Dialog } from '@material-ui/core';
 import Translate from '@material-ui/icons/Translate';
-import { useEditor } from '@react-page/core';
+import { useOptions } from '@react-page/core';
 import React, { useState } from 'react';
 import SelectLang from './SelectLang';
 import I18nDialog from './I18nDialog';
@@ -8,9 +8,10 @@ import I18nDialog from './I18nDialog';
 const I18nTools: React.FC<{
   nodeId: string;
 }> = ({ nodeId }) => {
-  const editor = useEditor();
+  const options = useOptions();
+
   const [showI18nDialog, setShowI18nDialog] = useState(false);
-  const hasI18n = editor.languages?.length > 0;
+  const hasI18n = options.languages?.length > 0;
   const onClose = () => setShowI18nDialog(false);
   if (!hasI18n) {
     return null;
@@ -37,4 +38,4 @@ const I18nTools: React.FC<{
   );
 };
 
-export default I18nTools;
+export default React.memo(I18nTools);

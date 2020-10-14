@@ -1,9 +1,9 @@
 // TODO: get rid of this class
 import { Middleware, Store } from 'redux';
 import { v4 } from 'uuid';
-import { selectors } from './selector';
+
 import { PluginBase, Plugins } from './service/plugin/classes';
-import pluginDefault from './service/plugin/default';
+
 import createStore from './store';
 import { EditableType } from './types/editable';
 import { RootState } from './types/state';
@@ -50,38 +50,21 @@ export interface CoreEditorProps<T extends RootState = RootState> {
  */
 class Editor<T extends RootState = RootState> {
   store: Store<RootState>;
-  plugins: PluginBase[];
   middleware: Middleware[];
 
-  defaultPlugin: PluginBase;
-
-  query = {};
-  languages?: Languages;
-
   constructor({
-    plugins,
     middleware = [],
-    editables = [],
-    defaultPlugin = pluginDefault,
+
     store,
-    languages = [],
+
     lang,
   }: CoreEditorProps<T> = {}) {
-    this.store =
-      store ||
-      createStore(initialState({ lang: lang || languages[0] }), middleware);
-    this.plugins = plugins;
+    this.store = store || createStore(initialState({ lang: lang }), middleware);
     this.middleware = middleware;
-    this.query = selectors(this.store);
-    this.defaultPlugin = defaultPlugin;
-
-    this.languages = languages;
-
-    editables.forEach((editable) => this.update(editable));
   }
 
-  update(editable: EditableType) {
-    const data = migrateEditable(editable, this.plugins);
+  update(editable: EditableType, { plugins }: { plugins: PluginBase[] }) {
+    const data = migrateEditable(editable, plugins);
 
     this.store.dispatch(updateEditable(data));
   }
@@ -90,9 +73,12 @@ class Editor<T extends RootState = RootState> {
     this.store.dispatch(setLang(lang));
   }
 
-  public getNode = (editableId: string, nodeId: string) => {
-    // FIXME: this is inefficient
+  public getNodeWithAncestors = (editableId: string, nodeId: string) => {
     return findNodeInState(this.store.getState(), editableId, nodeId);
+  };
+
+  public getNode = (editableId: string, nodeId: string) => {
+    return findNodeInState(this.store.getState(), editableId, nodeId)?.node;
   };
 }
 

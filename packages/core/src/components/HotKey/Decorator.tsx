@@ -1,8 +1,9 @@
 /* eslint-disable @typescript-eslint/ban-types */
 import isHotkey from 'is-hotkey';
 import React, { useCallback, useEffect, useMemo } from 'react';
+
 import { blurAllCells } from '../../actions/cell';
-import { Cell, isRow, Node } from '../../types/editable';
+import { Cell } from '../../types/editable';
 import {
   useEditableNode,
   useEditor,
@@ -12,6 +13,7 @@ import {
   useRemoveCellById,
   useUndo,
   useFocusedNodeId,
+  usePlugins,
 } from '../hooks';
 
 const nextLeaf = (order: Array<{ id: string }> = [], current: string) => {
@@ -36,25 +38,12 @@ type PluginHandlerName =
   | 'handleFocusNextHotKey'
   | 'handleFocusPreviousHotKey';
 
-const delegateToPlugin = async (
-  event: Event,
-  n: Node,
-  handlerName: PluginHandlerName
-) => {
-  if (isRow(n)) {
-    return;
-  }
-  const plugin = n?.layout?.plugin ?? n?.content?.plugin;
-  if (plugin?.[handlerName]) {
-    await plugin[handlerName](event, n);
-  }
-};
-
 const Decorator: React.FC = ({ children }) => {
   const editor = useEditor();
   const editableNode = useEditableNode();
   const undo = useUndo();
   const redo = useRedo();
+  const plugins = usePlugins();
   const focusedNodeId = useFocusedNodeId();
   const focusCell = useFocusCellById();
   const removeCell = useRemoveCellById();
@@ -65,14 +54,15 @@ const Decorator: React.FC = ({ children }) => {
       handlerName: PluginHandlerName,
       defaultHandler: Handler
     ) => {
-      const cellNode = editor.getNode(editableNode?.id, nodeId);
+      const node = editor.getNode(editableNode?.id, nodeId);
+      const plugin = plugins.find((p) => p.id === (node as Cell)?.plugin?.id);
 
       try {
-        if (cellNode) {
-          await delegateToPlugin(event, cellNode, handlerName);
+        if (node) {
+          await plugin[handlerName](event, node);
         }
         // if the plugin handler resolve or there is no, they do not handle it, so do the default
-        await defaultHandler(event, cellNode);
+        await defaultHandler(event, node);
       } catch (e) {
         if (e) {
           // tslint:disable-next-line:no-console

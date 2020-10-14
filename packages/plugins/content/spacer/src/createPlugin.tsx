@@ -1,4 +1,4 @@
-import { ContentPlugin, lazyLoad } from '@react-page/core';
+import { PluginBase, lazyLoad } from '@react-page/core';
 import * as React from 'react';
 import Spacer from './Component/index';
 import { defaultSettings } from './default/settings';
@@ -7,7 +7,7 @@ import { SpacerSettings } from './types/settings';
 import { SpacerState } from './types/state';
 
 const AspectRatio = lazyLoad(() => import('@material-ui/icons/AspectRatio'));
-const createPlugin: (settings: SpacerSettings) => ContentPlugin<SpacerState> = (
+const createPlugin: (settings: SpacerSettings) => PluginBase<SpacerState> = (
   settings
 ) => {
   const mergedSettings = { ...defaultSettings, ...settings };

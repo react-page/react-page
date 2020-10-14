@@ -11,7 +11,7 @@ const rejectPromise: (e: Event) => Promise<void> = (e: Event) =>
 
 const createPlugin: (
   settings: Html5VideoSettings
-) => ContentPlugin<Html5VideoState> = (settings) => {
+) => PluginBase<Html5VideoState> = (settings) => {
   const mergedSettings = { ...defaultSettings, ...settings };
   const WrappedComponent: React.SFC<Html5VideoProps> = (props) => (
     <Html5Video {...props} {...mergedSettings} />

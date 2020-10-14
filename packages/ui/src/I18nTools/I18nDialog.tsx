@@ -1,16 +1,13 @@
 import { Button, DialogContent, Table } from '@material-ui/core';
 import Translate from '@material-ui/icons/Translate';
 import {
-  useEditor,
-  useLang,
-  useCell,
-  useSetLang,
-  useUpdateCellContent,
-  useUpdateCellLayout,
-  useCellData,
   useCellDataI18nRaw,
+  useLang,
+  useOptions,
+  useSetLang,
+  useUpdateCellData,
 } from '@react-page/core';
-import React from 'react';
+import React, { useCallback } from 'react';
 import DraftSwitch from '../DraftSwitch';
 import SelectLang from './SelectLang';
 
@@ -21,23 +18,20 @@ const I18nDialog = ({
   nodeId: string;
   onClose: () => void;
 }) => {
-  const cell = useCell(nodeId);
   const currentLang = useLang();
-  const editor = useEditor();
+  const options = useOptions();
 
   const setLang = useSetLang();
   const dataI18n = useCellDataI18nRaw(nodeId);
 
-  const updateCellContent = useUpdateCellContent(nodeId);
-  const updateCellLayout = useUpdateCellLayout(nodeId);
-  const reset = (lang: string) => {
-    if (cell.layout) {
-      updateCellLayout(null, lang);
-    } else {
-      updateCellContent(null, lang);
-    }
-  };
-  const defaultLangLabel = editor.languages?.[0]?.label;
+  const updateCellData = useUpdateCellData(nodeId);
+  const reset = useCallback(
+    (lang: string) => {
+      updateCellData(null, lang);
+    },
+    [updateCellData]
+  );
+  const defaultLangLabel = options.languages?.[0]?.label;
   return (
     <DialogContent>
       <div style={{ display: 'flex', alignItems: 'center' }}>
@@ -46,7 +40,7 @@ const I18nDialog = ({
       <hr />
       <Table>
         <tbody>
-          {editor.languages.map((l, index) => {
+          {options.languages.map((l, index) => {
             const data = dataI18n?.[l.lang];
             const isCurrent = currentLang === l.lang;
             const hasData = Boolean(data);

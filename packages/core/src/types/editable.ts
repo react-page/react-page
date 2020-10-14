@@ -1,19 +1,9 @@
-import { ContentPlugin, PluginBase } from '../service/plugin/classes';
+import { PluginBase } from '../service/plugin/classes';
 import has from 'lodash.has';
+import { Languages } from '../Editor';
 export type I18nField<T> = {
   [lang: string]: T;
 };
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export interface Content<StateT = any> {
-  plugin: ContentPlugin;
-}
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export interface Layout<StateT = any> {
-  plugin: PluginBase;
-  state?: StateT;
-  stateI18n?: I18nField<StateT>;
-}
 
 type NodeBase = {
   id: string;
@@ -27,11 +17,7 @@ export type Cell = NodeBase & {
     version: string;
   };
 
-  data?: unknown;
   dataI18n?: I18nField<unknown>;
-
-  content?: Content;
-  layout?: Layout;
 
   size?: number;
 
@@ -63,11 +49,8 @@ export const isRow = (node: Node): node is Row => {
   return has(node, 'cells');
 };
 
-export type CellWithAncestors = Cell & {
-  ancestors: Node[];
-};
-
-export type RowWithAncestors = Row & {
+export type NodeWithAncestors = {
+  node: Node;
   ancestors: Node[];
 };
 
@@ -115,9 +98,11 @@ export type SimplifiedModesProps = {
 
 export type CellDrag = {
   type: 'cell';
-  cell: CellWithAncestors;
+  cell: Cell;
 };
 
 export type Options = {
   plugins: PluginBase[];
+  languages: Languages;
+  pluginsWillChange: boolean;
 } & SimplifiedModesProps;

@@ -23,9 +23,8 @@ import {
   focusCell,
   removeCell,
   resizeCell,
-  updateCellContent,
+  updateCellData,
   updateCellIsDraft,
-  updateCellLayout,
 } from '../../actions/cell/core';
 import {
   duplicateCell,
@@ -46,6 +45,7 @@ import {
   DISPLAY_MODE_RESIZING,
   setMode,
 } from '../../actions/display';
+import { updateEditable } from '../../actions/editables';
 import { setLang } from '../../actions/setting';
 import { redo, undo } from '../../actions/undo';
 import Editor, { EditorContext } from '../../Editor';
@@ -60,12 +60,7 @@ import {
 } from '../../selector/display';
 import { editable, selectNode } from '../../selector/editable';
 import { focus } from '../../selector/focus';
-import {
-  Cell,
-  isRow,
-  SimplifiedModesProps,
-  Options,
-} from '../../types/editable';
+import { Cell, isRow, Options } from '../../types/editable';
 import { HoverInsertActions } from '../../types/hover';
 import deepEquals from '../../utils/deepEquals';
 
@@ -74,6 +69,8 @@ export const OptionsContext = createContext<Options>({
   allowMoveInEditMode: true,
   allowResizeInEditMode: true,
   plugins: [],
+  languages: [],
+  pluginsWillChange: false,
 });
 
 export const useFocusedNodeId = () => {
@@ -117,13 +114,22 @@ export const useNode = (nodeId: string) => {
 
   const node = useSelector(
     (state: RootState) =>
-      selectNode(state, { editable: editableId, id: nodeId }),
+      selectNode(state, { editable: editableId, id: nodeId })?.node,
     deepEquals
   );
-
   return node;
 };
 
+export const useNodeWithAncestors = (nodeId: string) => {
+  const editableId = useEditableId();
+
+  const node = useSelector(
+    (state: RootState) =>
+      selectNode(state, { editable: editableId, id: nodeId }),
+    deepEquals
+  );
+  return node;
+};
 export const useCell = (nodeId: string) => {
   const node = useNode(nodeId);
   if (!isRow(node)) {
@@ -151,11 +157,6 @@ export const useOptionsWithLang = () => {
   };
 };
 
-export const useCellContentOrLayout = (nodeId: string) => {
-  // will be unified in the near future anyway
-  const cell = useCell(nodeId);
-  return cell.layout ?? cell.content;
-};
 export const usePlugins = () => {
   return useOptions().plugins;
 };
@@ -251,24 +252,12 @@ export const useSetLang = () => {
   return useCallback((lang: string) => dispatch(setLang(lang)), [dispatch]);
 };
 
-export const useUpdateCellContent = (id: string) => {
+export const useUpdateCellData = (id: string) => {
   const dispatch = useDispatch();
   const currentLang = useLang();
   return useCallback(
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    (state: any, lang?: string) =>
-      dispatch(updateCellContent(id)(state, lang ?? currentLang)),
-    [dispatch, id, currentLang]
-  );
-};
-
-export const useUpdateCellLayout = (id: string) => {
-  const dispatch = useDispatch();
-  const currentLang = useLang();
-  return useCallback(
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    (state: any, lang?: string) =>
-      dispatch(updateCellLayout(id)(state, lang ?? currentLang)),
+    (state: unknown, lang?: string) =>
+      dispatch(updateCellData(id)(state, lang ?? currentLang)),
     [dispatch, id, currentLang]
   );
 };
