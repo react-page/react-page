@@ -14,8 +14,11 @@ import {
   cellHoverInlineLeft,
   cellHoverInlineRight,
   cellHoverLeftOf,
+  cellHoverNew,
   cellHoverRightOf,
   clearHover,
+  clearHoverAllNew,
+  clearHoverNew,
   dragCell,
 } from '../../actions/cell';
 import {
@@ -48,6 +51,7 @@ import {
 import { updateEditable } from '../../actions/editables';
 import { setLang } from '../../actions/setting';
 import { redo, undo } from '../../actions/undo';
+import { PositionEnum } from '../../const';
 import Editor, { EditorContext } from '../../Editor';
 import { useDispatch, useSelector } from '../../reduxConnect';
 import { RootState, Selectors } from '../../selector';
@@ -60,6 +64,7 @@ import {
 } from '../../selector/display';
 import { editable, selectNode } from '../../selector/editable';
 import { focus } from '../../selector/focus';
+import { hover } from '../../selector/hover';
 import { Cell, isRow, Options } from '../../types/editable';
 import { HoverInsertActions } from '../../types/hover';
 import deepEquals from '../../utils/deepEquals';
@@ -76,8 +81,19 @@ export const OptionsContext = createContext<Options>({
 export const useFocusedNodeId = () => {
   return useSelector((state: RootState) => focus(state)?.nodeId);
 };
+
+export const useIsDragging = () => {
+  return useSelector((state: RootState) => Boolean(hover(state)?.current));
+};
 export const useIsFocused = (id: string) => {
   return useSelector((state: RootState) => focus(state)?.nodeId === id);
+};
+
+export const useHoverPosition = (id: string) => {
+  return useSelector((state: RootState) => {
+    const current = hover(state)?.current;
+    return current?.nodeId === id ? current?.position : null;
+  });
 };
 
 export const useScrollToViewEffect = (
@@ -376,7 +392,31 @@ export const useSetPreviewMode = () => {
   const setMode = useSetMode();
   return useCallback(() => setMode(DISPLAY_MODE_PREVIEW), [setMode]);
 };
+export const useHoverNew = () => {
+  const dispatch = useDispatch();
+  return useCallback(
+    (id: string, position: PositionEnum, depth: number) => {
+      dispatch(cellHoverNew(id, position, depth));
+    },
+    [dispatch]
+  );
+};
 
+export const useClearHoverNew = () => {
+  const dispatch = useDispatch();
+  return useCallback(
+    (id: string) => {
+      dispatch(clearHoverNew(id));
+    },
+    [dispatch]
+  );
+};
+export const useClearHoverAllNew = () => {
+  const dispatch = useDispatch();
+  return useCallback(() => {
+    dispatch(clearHoverAllNew());
+  }, [dispatch]);
+};
 export const useHoverActions = () => {
   const dispatch = useDispatch();
 

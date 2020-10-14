@@ -34,6 +34,7 @@ const cell = (s: Cell, a: CellAction, depth: number): Cell =>
       const reduce = (): Cell => {
         return {
           ...state,
+          hoverPosition: null,
           rows: rows(state.rows, action, depth + 1),
         };
       };
@@ -76,6 +77,7 @@ const cell = (s: Cell, a: CellAction, depth: number): Cell =>
           }
           return reduce();
 
+        /*
         case CELL_DRAG_HOVER:
           if (isHoveringThis(state, action)) {
             // if this is the cell we're hovering, set the hover attribute
@@ -83,6 +85,7 @@ const cell = (s: Cell, a: CellAction, depth: number): Cell =>
           }
           // or remove it if not
           return reduce();
+          */
 
         case CELL_INSERT_ABOVE:
           if (isHoveringThis(state, action)) {
@@ -279,12 +282,13 @@ const row = (s: Row, a, depth: number): Row =>
               depth + 1
             ),
           };
-
+        /*
         case CELL_DRAG_HOVER:
           if (isHoveringThis(state, action)) {
             return { ...reduce(), hoverPosition: action.position };
           }
           return reduce();
+          */
 
         default:
           return reduce();

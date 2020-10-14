@@ -7,10 +7,31 @@ import { Action } from 'redux';
 import { Cell } from '../../types/editable';
 
 export const CELL_DRAG_HOVER = 'CELL_DRAG_HOVER';
+export const CELL_DRAG_HOVER_NEW = 'CELL_DRAG_HOVER_NEW';
 export const CELL_DRAG = 'CELL_DRAG';
 export const CELL_DRAG_CANCEL = 'CELL_DRAG_CANCEL';
-export const CLEAR_CLEAR_HOVER = 'CLEAR_CLEAR_HOVER';
+export const CLEAR_HOVER = 'CLEAR_HOVER';
+export const CLEAR_HOVER_NEW = 'CLEAR_HOVER_NEW';
+export const CLEAR_HOVER_ALL_NEW = 'CLEAR_HOVER_ALL_NEW';
 
+export interface CellHoverActionNew extends Action {
+  ts: Date;
+  nodeId: string;
+  position: PositionEnum;
+  type: typeof CELL_DRAG_HOVER_NEW;
+  depth: number;
+}
+
+export interface ClearHoverActionNew extends Action {
+  ts: Date;
+  nodeId: string;
+  type: typeof CLEAR_HOVER_NEW;
+}
+
+export interface ClearHoverAllActionNew extends Action {
+  ts: Date;
+  type: typeof CLEAR_HOVER_ALL_NEW;
+}
 export interface CellHoverAction extends Action {
   ts: Date;
   dragId: string;
@@ -37,14 +58,47 @@ export const cellHover = (
   hover: Cell,
   level = 0,
   position: PositionEnum
-): CellHoverAction => ({
-  type: CELL_DRAG_HOVER,
-  ts: new Date(),
-  dragId: drag.id,
-  hoverId: hover.id,
-  level,
-  position,
-});
+): CellHoverAction => {
+  console.log(level);
+  return {
+    type: CELL_DRAG_HOVER,
+    ts: new Date(),
+    dragId: drag.id,
+    hoverId: hover.id,
+    level,
+    position,
+  };
+};
+
+export const cellHoverNew = (
+  nodeId: string,
+  position: PositionEnum,
+  depth: number
+): CellHoverActionNew => {
+  return {
+    type: CELL_DRAG_HOVER_NEW,
+    ts: new Date(),
+    nodeId,
+    position,
+    depth,
+  };
+};
+
+export const clearHoverNew = (nodeId: string): ClearHoverActionNew => {
+  return {
+    type: CLEAR_HOVER_NEW,
+    nodeId,
+    ts: new Date(),
+  };
+};
+
+export const clearHoverAllNew = (): ClearHoverAllActionNew => {
+  return {
+    type: CLEAR_HOVER_ALL_NEW,
+
+    ts: new Date(),
+  };
+};
 
 /**
  * Creates a redux action for when a cell is hovering another cell on the left.
@@ -157,6 +211,7 @@ export const dragCell = (id: string): DragCellAction => ({
 
 export interface ClearHoverAction extends Action {
   ts: Date;
+  type: typeof CLEAR_HOVER;
 }
 /**
  * Creates a redux action to clear hover state of all cells.
@@ -164,7 +219,7 @@ export interface ClearHoverAction extends Action {
  * @return {Action}
  */
 export const clearHover = (): ClearHoverAction => ({
-  type: CLEAR_CLEAR_HOVER,
+  type: CLEAR_HOVER,
   ts: new Date(),
 });
 

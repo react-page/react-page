@@ -41,13 +41,11 @@ const Editable: React.FC<EditableProps> = ({
         onChangeLang?.(newLang);
       }
       // check also if lang has changed internally, to call callback when controled from outside
-      console.time('calculate notifiy on change');
       const state = editable(editor.store.getState(), {
         id: id,
       });
 
       if (!state) {
-        console.timeEnd('calculate notifiy on change');
         return;
       }
       const serialized = serializePluginData(state, options.plugins);
@@ -57,11 +55,10 @@ const Editable: React.FC<EditableProps> = ({
       );
 
       if (serializedEqual) {
-        console.timeEnd('calculate notifiy on change');
         return;
       }
       previousSerializedRef.current = serialized;
-      console.timeEnd('calculate notifiy on change');
+
       onChange(state);
     };
     const unsubscribe = editor.store.subscribe(handleChanges);
