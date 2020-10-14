@@ -30,8 +30,6 @@ type Props = {
   translations?: Translations;
 };
 
-const getPluginId = (plugin: PluginBase) => plugin.id || plugin.name;
-
 const getPluginTitle = (plugin: PluginBase) =>
   (plugin.title || plugin.text) ?? '';
 
@@ -41,7 +39,7 @@ const Toolbar: React.FC<Props> = ({ translations = defaultTranslations }) => {
   const [searchText, setSearchText] = React.useState<string>('');
   const searchFilter = React.useCallback(
     (plugin: PluginBase) => {
-      const id = getPluginId(plugin);
+      const id = plugin.id;
       const title = getPluginTitle(plugin);
       return (
         plugin &&

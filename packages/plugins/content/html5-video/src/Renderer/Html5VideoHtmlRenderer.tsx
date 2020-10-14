@@ -3,7 +3,7 @@ import { defaultHtml5VideoState } from '../default/state';
 import { Html5VideoRendererProps } from '../types/renderer';
 
 const Html5VideoHtmlRenderer: React.SFC<Html5VideoRendererProps> = ({
-  state: { url = '' } = defaultHtml5VideoState,
+  data = defaultHtml5VideoState,
 }) => {
   return (
     <div className="ory-content-plugin-html5-video">
@@ -13,9 +13,9 @@ const Html5VideoHtmlRenderer: React.SFC<Html5VideoRendererProps> = ({
         loop={true}
         muted={true}
         width="100%"
-        key={url}
+        key={data?.url}
       >
-        <source src={url} type={`video/${url.split('.').pop()}`} />
+        <source src={data?.url} type={`video/${data?.url?.split('.').pop()}`} />
       </video>
     </div>
   );

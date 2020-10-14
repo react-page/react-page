@@ -68,16 +68,17 @@ const HTMLCell: React.FC<
             state={data}
             data={data}
             onChange={noop}
-            cell={props}
+            cell={cell}
             pluginConfig={plugin}
             focused={false}
             isPreviewMode={false}
             isEditMode={false}
           >
-            {cell.rows.map((r: Row, index) => (
+            {cell.rows?.map((r: Row, index) => (
               <HTMLRow
                 key={r.id}
                 {...r}
+                plugins={plugins}
                 lang={lang}
                 className="ory-cell-inner"
               />
@@ -86,11 +87,17 @@ const HTMLCell: React.FC<
         </div>
       </div>
     );
-  } else if (cell.rows.length > 0) {
+  } else if (cell.rows?.length > 0) {
     return (
       <div className={cn}>
         {cell.rows.map((r: Row) => (
-          <HTMLRow key={r.id} {...r} lang={lang} className="ory-cell-inner" />
+          <HTMLRow
+            key={r.id}
+            {...r}
+            lang={lang}
+            className="ory-cell-inner"
+            plugins={plugins}
+          />
         ))}
       </div>
     );
@@ -112,6 +119,7 @@ export interface HTMLRendererProps {
 export const HTMLRenderer: React.SFC<HTMLRendererProps> = React.memo(
   ({ state, plugins, lang = null }) => {
     const data = migrateEditable(state, plugins);
+    return null;
     if (!data) {
       return null;
     }

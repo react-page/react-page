@@ -12,10 +12,10 @@ const createPlugin = (settings?: ImageSettings): PluginBase<ImageState> => {
       <Component {...props} {...mergedSettings} />
     ),
 
-    name: 'ory/editor/core/content/image',
+    id: 'ory/editor/core/content/image',
     version: '0.0.1',
     IconComponent: mergedSettings.IconComponent,
-    text: mergedSettings.translations.pluginName,
+    title: mergedSettings.translations.pluginName,
     isInlineable: true,
     description: mergedSettings.translations.pluginDescription,
 

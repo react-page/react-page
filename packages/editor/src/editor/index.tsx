@@ -15,7 +15,7 @@ import React from 'react';
 const EditableEditor = lazyLoad(() => import('./EditableEditor'));
 
 export type EditorProps = {
-  defaultPlugin?: PluginBase | PluginBase;
+  defaultPlugin?: PluginBase;
   dndBackend?: DndBackend;
   value?: EditableType | null;
   onChange?: (v: EditableType) => void;

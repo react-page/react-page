@@ -76,6 +76,7 @@ const Inner: React.FC<Props> = () => {
       }, 0);
     }
   }, [firstElementInViewPortref.current]);
+
   if (!node) {
     return null;
   }

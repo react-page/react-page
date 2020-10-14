@@ -67,24 +67,31 @@ type AbstractEditable<T> = {
 type OldEditableType = AbstractEditable<CellOld>;
 
 export default new Migration<OldEditableType, EditableType>({
-  fromVersionRange: '*',
+  fromVersionRange: '0.0.0',
   toVersion: '1.0.0',
 
-  migrate({ cells, ...rest }) {
-    const migrateRow = ({ cells, ...rest }: RowOld): Row => {
+  migrate({ cells, ...editableRest }) {
+    const migrateRow = ({ cells, ...rowRest }: RowOld): Row => {
       return {
-        ...rest,
+        ...rowRest,
         cells: cells?.map(migrateCell) ?? [],
       };
     };
 
-    const migrateCell = ({ content, layout, rows, ...rest }: CellOld): Cell => {
+    const migrateCell = ({
+      content,
+      layout,
+      rows,
+      ...cellRest
+    }: CellOld): Cell => {
       const contentOrLayout = layout ?? content;
+      const dataI18n = contentOrLayout?.stateI18n ?? {
+        default: contentOrLayout?.state ?? {},
+      };
 
       return {
-        dataI18n: contentOrLayout.stateI18n ?? {
-          default: contentOrLayout.state,
-        },
+        ...cellRest,
+        dataI18n,
         rows: rows ? rows.map(migrateRow) : [],
         plugin: contentOrLayout
           ? {
@@ -92,13 +99,13 @@ export default new Migration<OldEditableType, EditableType>({
               version: contentOrLayout.plugin.version,
             }
           : null,
-        ...rest,
-        id: rest.id ? rest.id : v4(),
+        id: cellRest.id ? cellRest.id : v4(),
       };
     };
+
     return {
+      ...editableRest,
       cells: cells?.map(migrateCell) ?? [],
-      ...rest,
       version: '*', // will be overridden later
     };
   },

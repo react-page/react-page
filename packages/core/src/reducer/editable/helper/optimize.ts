@@ -1,4 +1,4 @@
-import { emptyFilter } from './empty';
+import { isEmpty } from './empty';
 import { Row, Cell } from '../../../types/editable';
 
 export const flatten = function <T>(c: Array<T>, n: Array<T>): Array<T> {
@@ -6,10 +6,10 @@ export const flatten = function <T>(c: Array<T>, n: Array<T>): Array<T> {
 };
 
 export const optimizeCells = (cells: Array<Cell> = []): Array<Cell> =>
-  cells.filter(emptyFilter);
+  cells.filter((c) => !isEmpty(c));
 
 export const optimizeRows = (rows: Array<Row> = []): Array<Row> =>
-  rows.filter(emptyFilter);
+  rows.filter((c) => !isEmpty(c));
 
 export const optimizeCell = (cell: Cell): Cell => {
   const { rows, ...rest } = cell;

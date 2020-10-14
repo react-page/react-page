@@ -8,11 +8,11 @@ import { Cell, PartialRow, Row } from '../../types/editable';
 export type Plugins = PluginBase[];
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type PluginBase<DataT = {}> = {
+export type PluginBase<DataT = any> = {
   /**
    * the plugins unique id. Only one plugin with the same id may be used
    */
-  id?: string;
+  id: string;
 
   /**
    * the plugins human readable title of the plugin

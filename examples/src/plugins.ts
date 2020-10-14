@@ -18,7 +18,7 @@ import '@react-page/plugins-spacer/lib/index.css';
 import video from '@react-page/plugins-video';
 import '@react-page/plugins-video/lib/index.css';
 
-import customPluginBasefrom './customContentPlugin';
+import customContentPlugin from './customContentPlugin';
 import customContentPluginWithListField from './customContentPluginWithListField';
 import customLayoutPlugin from './customLayoutPlugin';
 import customLayoutPluginWithInitialState from './customLayoutPluginWithInitialState';
@@ -45,29 +45,26 @@ const fakeImageUploadService: (url: string) => ImageUploadType = (
 
 // Define which plugins we want to use.
 
-export const plugins: Plugins = {
-  content: [
-    defaultSlate,
-    customizedSlate,
-    spacer,
-    imagePlugin({ imageUpload: fakeImageUploadService('/images/react.png') }),
-    video,
-    divider,
-    html5video,
-    customContentPlugin(),
-    customContentPluginWithListField(),
-    customContentPluginTwitter(),
-  ],
-  layout: [
-    background({
-      defaultPlugin: defaultSlate,
-      imageUpload: fakeImageUploadService('/images/sea-bg.jpg'),
-      enabledModes:
-        ModeEnum.COLOR_MODE_FLAG |
-        ModeEnum.IMAGE_MODE_FLAG |
-        ModeEnum.GRADIENT_MODE_FLAG,
-    }),
-    customLayoutPlugin(),
-    customLayoutPluginWithInitialState(),
-  ],
-};
+export const plugins: Plugins = [
+  defaultSlate,
+  customizedSlate,
+  spacer,
+  imagePlugin({ imageUpload: fakeImageUploadService('/images/react.png') }),
+  video,
+  divider,
+  html5video,
+  customContentPlugin(),
+  customContentPluginWithListField(),
+  customContentPluginTwitter(),
+
+  background({
+    defaultPlugin: defaultSlate,
+    imageUpload: fakeImageUploadService('/images/sea-bg.jpg'),
+    enabledModes:
+      ModeEnum.COLOR_MODE_FLAG |
+      ModeEnum.IMAGE_MODE_FLAG |
+      ModeEnum.GRADIENT_MODE_FLAG,
+  }),
+  customLayoutPlugin(),
+  customLayoutPluginWithInitialState(),
+];

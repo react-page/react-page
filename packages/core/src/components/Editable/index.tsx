@@ -1,14 +1,9 @@
 import React, { useEffect, useRef } from 'react';
+import { serializePluginData } from '../../migrations/serializePluginData';
 import { editable } from '../../selector/editable';
 import { AbstractEditable, Cell } from '../../types/editable';
-
 import deepEquals from '../../utils/deepEquals';
-import {
-  EditableContext,
-  OptionsContext,
-  useEditor,
-  useSetLang,
-} from '../hooks';
+import { EditableContext, useEditor, useOptions, useSetLang } from '../hooks';
 import HotKeyDecorator from '../HotKey/Decorator';
 import FallbackDropArea from './FallbackDropArea';
 import Inner from './Inner';
@@ -28,13 +23,14 @@ const Editable: React.FC<EditableProps> = ({
   lang,
 }) => {
   const editor = useEditor();
+  const options = useOptions();
   const setLang = useSetLang();
   // update lang when changed from outside
   useEffect(() => {
     setLang(lang);
   }, [lang, setLang]);
 
-  const previousStatedRef = useRef<Serialized>();
+  const previousSerializedRef = useRef<Serialized>();
   useEffect(() => {
     let oldLang = lang;
     const handleChanges = () => {
@@ -45,29 +41,34 @@ const Editable: React.FC<EditableProps> = ({
         onChangeLang?.(newLang);
       }
       // check also if lang has changed internally, to call callback when controled from outside
-
+      console.time('calculate notifiy on change');
       const state = editable(editor.store.getState(), {
         id: id,
       });
 
       if (!state) {
+        console.timeEnd('calculate notifiy on change');
         return;
       }
-      // prevent uneeded updates
+      const serialized = serializePluginData(state, options.plugins);
+      const serializedEqual = deepEquals(
+        previousSerializedRef.current,
+        serialized
+      );
 
-      const equal = deepEquals(previousStatedRef.current, state);
-
-      if (equal) {
+      if (serializedEqual) {
+        console.timeEnd('calculate notifiy on change');
         return;
       }
-      previousStatedRef.current = state;
+      previousSerializedRef.current = serialized;
+      console.timeEnd('calculate notifiy on change');
       onChange(state);
     };
     const unsubscribe = editor.store.subscribe(handleChanges);
     return () => {
       unsubscribe();
     };
-  }, [editor, id, onChange]);
+  }, [editor, id, onChange, options.pluginsWillChange && options.plugins]);
 
   return (
     <EditableContext.Provider value={id}>

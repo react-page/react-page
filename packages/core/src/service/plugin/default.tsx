@@ -26,7 +26,7 @@ const Default: React.SFC<PluginProps<Data>> = ({
 
 const _defaultContentPlugin: PluginBase<Data> = {
   Component: Default,
-  name: 'ory/editor/core/default',
+  id: 'ory/editor/core/default',
 
   version: '0.0.1',
   createInitialState: () => ({

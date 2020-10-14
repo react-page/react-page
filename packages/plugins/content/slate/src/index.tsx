@@ -32,7 +32,7 @@ type SlateDefinition<TPlugins extends SlatePluginCollection> = {
   defaultPluginType: string;
   Renderer: React.ComponentType<SlateRendererProps>;
   Controls: React.ComponentType<SlateControlsProps>;
-  name: string;
+  id: string;
   version: string;
   translations: typeof defaultTranslations;
   migrations: typeof migrations;
@@ -53,7 +53,7 @@ const defaultConfig: DefaultSlateDefinition = {
   defaultPluginType: 'PARAGRAPH/PARAGRAPH',
   Renderer,
   Controls,
-  name: 'ory/editor/core/content/slate',
+  id: 'ory/editor/core/content/slate',
   version: '0.0.4',
   translations: defaultTranslations,
   migrations,
@@ -120,10 +120,10 @@ function plugin<TPlugins extends SlatePluginCollection = DefaultPlugins>(
       />
     ),
 
-    name: settings.name,
+    id: settings.id || (settings as any).name,
     version: settings.version,
     IconComponent: settings.icon,
-    text: settings.translations.pluginName,
+    title: settings.translations.pluginName,
     description: settings.translations.pluginDescription,
     hideInMenu: settings.hideInMenu,
     allowInlineNeighbours: settings.allowInlineNeighbours,
@@ -156,6 +156,7 @@ function plugin<TPlugins extends SlatePluginCollection = DefaultPlugins>(
     htmlToSlate: htmlToSlate,
     serialize: (s) => (s ? { slate: s.slate } : null),
     unserialize: (s) => {
+      console.log('unserialize ', s);
       if (s?.importFromHtml) {
         return htmlToSlate(s.importFromHtml);
       }

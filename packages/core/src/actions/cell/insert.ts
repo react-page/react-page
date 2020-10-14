@@ -64,7 +64,7 @@ export const createCell = (
   options: OptionsWithLang
 ): Cell => {
   const { plugins, lang } = options;
-  const fallbackPlugin = plugins[0];
+  const fallbackPlugin = options.defaultPlugin ?? plugins[0];
   const pluginId =
     partialCell.plugin &&
     (typeof partialCell.plugin == 'string'
@@ -76,14 +76,17 @@ export const createCell = (
   const partialRows =
     partialCell.rows?.length > 0
       ? partialCell.rows
-      : plugin?.createInitialChildren() ?? [];
+      : plugin?.createInitialChildren?.() ?? [];
 
   return {
-    id: v4(),
-    size: 12,
-    resizable: false,
-    hasInlineNeighbour: null,
-    ...partialCell,
+    id: partialCell.id ?? v4(),
+    isDraft: partialCell.isDraft ?? undefined,
+    isDraftI18n: partialCell.isDraftI18n ?? {},
+    inline: partialCell.inline,
+    hoverPosition: partialCell.hoverPosition,
+    size: partialCell.size || 12,
+    resizable: partialCell.resizable ?? false,
+    hasInlineNeighbour: partialCell.hasInlineNeighbour ?? null,
     plugin: plugin
       ? {
           id: plugin.id,
@@ -93,7 +96,7 @@ export const createCell = (
     rows: partialRows.map((r) => createRow(r, options)),
     bounds: { left: 0, right: 0, ...(partialCell.bounds ?? {}) },
     dataI18n: {
-      [lang]: plugin?.createInitialState?.(partialCell) ?? null,
+      [lang]: plugin?.createInitialState?.() ?? partialCell?.data ?? null,
       ...(partialCell.dataI18n ?? {}),
     },
     levels: {

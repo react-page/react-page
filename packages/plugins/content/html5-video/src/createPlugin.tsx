@@ -18,9 +18,9 @@ const createPlugin: (
   );
   return {
     Component: WrappedComponent,
-    name: 'ory/sites/plugin/content/html5-video',
+    id: 'ory/sites/plugin/content/html5-video',
     version: '0.0.1',
-    text: mergedSettings.translations.pluginName,
+    title: mergedSettings.translations.pluginName,
     description: mergedSettings.translations.pluginDescription,
     IconComponent: mergedSettings.IconComponent,
     handleFocusNextHotKey: rejectPromise,

@@ -16,10 +16,10 @@ const createPlugin: (settings: SpacerSettings) => PluginBase<SpacerState> = (
   );
   return {
     Component: WrappedComponent,
-    name: 'ory/editor/core/content/spacer',
+    id: 'ory/editor/core/content/spacer',
     version: '0.0.1',
     IconComponent: <AspectRatio />,
-    text: mergedSettings.translations.pluginName,
+    title: mergedSettings.translations.pluginName,
     description: mergedSettings.translations.pluginDescription,
 
     handleRemoveHotKey: (): Promise<void> => Promise.reject(),

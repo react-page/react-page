@@ -15,10 +15,10 @@ const createPlugin: (settings: VideoSettings) => PluginBase<VideoState> = (
   );
   return {
     Component: WrappedComponent,
-    name: 'ory/editor/core/content/video',
+    id: 'ory/editor/core/content/video',
     version: '0.0.1',
     IconComponent: mergedSettings.IconComponent,
-    text: mergedSettings.translations.pluginName,
+    title: mergedSettings.translations.pluginName,
     description: mergedSettings.translations.pluginDescription,
     isInlineable: true,
 

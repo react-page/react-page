@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import * as React from 'react';
-import { Cell } from '../../types/editable';
+import { Cell as CellT } from '../../types/editable';
 import {
   useCell,
   useIsEditMode,
@@ -40,7 +40,7 @@ const stopClick = (_isEditMode: boolean) => (
 
 const CellErrorGate = class extends React.Component<
   {
-    node: Cell;
+    node: CellT;
   },
   { error: Error }
 > {
@@ -87,6 +87,7 @@ const Cell: React.FC<Props> = ({ nodeId, rowWidth }) => {
 
   const isDraftInLang = isDraftI18n?.[lang] ?? isDraft;
   //useWhyDidYouUpdate('cell', { nodeId, rowWidth });
+
   if (isDraftInLang && isPreviewMode) {
     return null;
   }

@@ -30,6 +30,7 @@ export type EditableEditorProps = {
 
 const EditableEditor: React.FC<EditableEditorProps> = ({
   plugins,
+  defaultPlugin,
   pluginsWillChange,
   value,
   onChange,

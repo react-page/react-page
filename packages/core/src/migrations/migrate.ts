@@ -1,4 +1,3 @@
-// TODO: get rid of this class
 import { version } from 'react';
 import semver from 'semver';
 import { Cell, EditableType, PluginBase, Row } from '..';
@@ -12,28 +11,36 @@ export const migrate = <TOut>(
   allMigrations: Migration[],
   versionIn = '0.0.0'
 ): TOut => {
+  console.log('----------');
+  console.log('versionin ' + versionIn);
   let data = dataIn;
   if (semver.valid(versionIn) === null) {
     return data;
   }
   let currentDataVersion = versionIn;
   let migrations = allMigrations;
+  console.log('migrate', versionIn);
   // eslint-disable-next-line no-constant-condition
   while (true) {
     const migration = migrations.find((m) =>
       semver.satisfies(currentDataVersion, m.fromVersionRange)
     );
+
     migrations = migrations.filter(
       (m) => !semver.satisfies(currentDataVersion, m.fromVersionRange)
     );
     if (!migration) {
+      console.log('no migreation, break');
       // We assume all migrations necessary for the current version of plugin to work are provided
       // Therefore if we don't find any, that means we are done and state is up to date
       break;
     }
     currentDataVersion = migration.toVersion;
+    console.log('!! do migrate to ' + currentDataVersion);
     data = migration.migrate(data);
   }
+
+  console.log('----------');
 
   return data;
 };
@@ -47,31 +54,36 @@ const migratePluginData = (editable: EditableType, plugins: PluginBase[]) => {
   };
   const migrateCellData = (c: Cell): Cell => {
     const pluginDef = c.plugin;
-    const pluginFound = plugins.find((p) => p.id === pluginDef.id);
+    const pluginFound = pluginDef
+      ? plugins.find((p) => p.id === pluginDef.id)
+      : null;
 
-    const versionMismatch = pluginDef.version !== pluginFound.version;
+    const versionMismatch =
+      pluginDef && pluginFound && pluginDef.version !== pluginFound.version;
 
     const transformData = (dataIn: unknown) => {
       const data = versionMismatch
         ? migrate(dataIn, pluginFound.migrations, pluginDef.version)
         : dataIn;
 
-      return pluginFound.unserialize ? pluginFound.unserialize(data) : data;
+      return pluginFound?.unserialize ? pluginFound.unserialize(data) : data;
     };
     const dataI18n = Object.keys(c.dataI18n).reduce(
       (acc, lang) => ({
         ...acc,
-        [lang]: transformData(dataI18n[lang]),
+        [lang]: transformData(c.dataI18n?.[lang]),
       }),
       {}
     );
     return {
       ...c,
-      plugin: {
-        ...pluginDef,
-        version: pluginFound.version,
-      },
-      rows: c.rows.map(migrateRowData),
+      plugin: pluginFound
+        ? {
+            id: pluginFound.id,
+            version: pluginFound.version,
+          }
+        : null,
+      rows: c.rows?.map(migrateRowData) ?? [],
       dataI18n,
     };
   };
@@ -90,7 +102,6 @@ export const migrateEditable = (
   const newestVersion =
     EDITABLE_MIGRATIONS[EDITABLE_MIGRATIONS.length - 1].toVersion;
   const data = migrate<EditableType>(dataIn, EDITABLE_MIGRATIONS, versionIn);
-
   return {
     ...migratePluginData(data, plugins),
     version: newestVersion,

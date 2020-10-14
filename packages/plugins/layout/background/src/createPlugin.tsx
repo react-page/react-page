@@ -16,10 +16,10 @@ const createPlugin = (settings: BackgroundSettings) => {
       <BackgroundComponent {...props} {...mergedSettings} />
     ),
 
-    name: 'ory/editor/core/layout/background',
+    id: 'ory/editor/core/layout/background',
     version: '0.0.1',
 
-    text: mergedSettings.translations.pluginName,
+    title: mergedSettings.translations.pluginName,
     description: mergedSettings.translations.pluginDescription,
     IconComponent: <Icon />,
 

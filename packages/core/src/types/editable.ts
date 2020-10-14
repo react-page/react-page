@@ -43,6 +43,8 @@ export type PartialRow = Partial<Row> | PartialCell[];
 export type PartialCell = Omit<Partial<Cell>, 'rows' | 'plugin'> & {
   rows?: PartialRow[];
   plugin?: Cell['plugin'] | string;
+  /**set data in default lang */
+  data?: unknown;
 };
 
 export const isRow = (node: Node): node is Row => {
@@ -103,6 +105,7 @@ export type CellDrag = {
 
 export type Options = {
   plugins: PluginBase[];
-  languages: Languages;
-  pluginsWillChange: boolean;
+  defaultPlugin?: PluginBase;
+  languages?: Languages;
+  pluginsWillChange?: boolean;
 } & SimplifiedModesProps;

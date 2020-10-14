@@ -181,6 +181,7 @@ export const useCellDataI18nRaw = (nodeId: string) => {
 
 export const getCellData = (cell: Cell, lang: string) => {
   const dataI18n = cell.dataI18n;
+
   return (
     dataI18n?.[lang] ??
     // find first non-empty
@@ -192,7 +193,7 @@ export const useCellData = (nodeId: string, lang?: string) => {
   const currentLang = useLang();
   const cell = useCell(nodeId);
   const theLang = lang ?? currentLang;
-  return getCellData(cell, theLang);
+  return getCellData(cell, theLang) ?? {};
 };
 
 export const useIsEditMode = () => {
