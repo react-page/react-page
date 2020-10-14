@@ -15,13 +15,16 @@ const serializeCell = (c: Cell, plugins: PluginBase[]): Cell => {
   const transformData = (dataIn: unknown) => {
     return pluginFound?.serialize ? pluginFound.serialize(dataIn) : dataIn;
   };
-  const dataI18n = Object.keys(c.dataI18n).reduce(
-    (acc, lang) => ({
-      ...acc,
-      [lang]: transformData(c.dataI18n?.[lang]),
-    }),
-    {}
-  );
+  const dataI18n = c.dataI18n
+    ? Object.keys(c.dataI18n).reduce(
+        (acc, lang) => ({
+          ...acc,
+          [lang]: transformData(c.dataI18n?.[lang]),
+        }),
+        {}
+      )
+    : null;
+
   return {
     ...c,
     rows: c.rows?.map((r) => serializeRow(r, plugins)) ?? [],

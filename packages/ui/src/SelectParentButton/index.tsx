@@ -12,7 +12,7 @@ const SelectParentButton: React.FC<{
   nodeId: string;
 }> = ({ nodeId }) => {
   const { ancestors } = useNodeWithAncestors(nodeId);
-  const parentCell = [...ancestors].reverse().find((node) => !isRow(node));
+  const parentCell = ancestors.find((node) => !isRow(node));
 
   const focusParent = useFocusCell(nodeId);
 

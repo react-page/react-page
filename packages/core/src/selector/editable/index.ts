@@ -24,20 +24,14 @@ const findNode = (
     }
     // else search children
     if (isRow(node) && node.cells) {
-      const found = findNode(node.cells, nodeId, [...ancestors, node]);
+      const found = findNode(node.cells, nodeId, [node, ...ancestors]);
       if (found) {
-        return {
-          node: found.node,
-          ancestors,
-        };
+        return found;
       }
     } else if (!isRow(node) && node.rows) {
-      const found = findNode(node.rows, nodeId, [...ancestors, node]);
+      const found = findNode(node.rows, nodeId, [node, ...ancestors]);
       if (found) {
-        return {
-          node: found.node,
-          ancestors,
-        };
+        return found;
       }
     }
   }
