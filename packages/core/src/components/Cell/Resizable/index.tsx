@@ -20,7 +20,7 @@ type ResizableProps = {
   inline: string;
   onChange: (size: number) => void;
 };
-
+// TODO: refactor to stateless component
 class ResizableInner extends React.PureComponent<
   ResizableProps,
   ResizableState
@@ -129,4 +129,4 @@ const Resizable: React.FC<{
     />
   );
 };
-export default React.memo(Resizable);
+export default Resizable;

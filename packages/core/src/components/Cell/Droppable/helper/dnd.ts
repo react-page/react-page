@@ -29,7 +29,7 @@ export const onHover = throttle(
     options: Options
   ) => {
     const drag: CellDrag = monitor.getItem();
-    if (!drag) {
+    if (!drag || !target) {
       // item undefined, happens when throttle triggers after drop
       return;
     }
@@ -82,7 +82,7 @@ export const onDrop = (
 ) => {
   const drag: CellDrag = monitor.getItem();
 
-  if (monitor.didDrop() || !monitor.isOver({ shallow: true })) {
+  if (monitor.didDrop() || !monitor.isOver({ shallow: true }) || !target) {
     // If the item drop occurred deeper down the tree, don't do anything
     return;
   } else if (drag.cell.id === target.id) {

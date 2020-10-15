@@ -96,6 +96,7 @@ export const useScrollToViewEffect = (
 ) => {
   const scrollToCell = useSelector((state: RootState) => {
     const f = focus(state);
+
     if (!f || f.nodeId !== id) {
       return null;
     }

@@ -15,6 +15,7 @@ export interface DraggableProps {
   layoutMode(): void;
 }
 
+// TODO: refactor to stateless component
 class Draggable extends React.PureComponent<DraggableProps> {
   componentDidMount() {
     const img = new Image();
@@ -43,7 +44,7 @@ const { clearHover } = Actions.Cell;
 
 const mapDispatchToProps = { insertMode, editMode, layoutMode, clearHover };
 
-// FIXME: remove connect and use hooks
+// TODO: remove connect and use hooks
 export default (dragType) => {
   if (!instances[dragType]) {
     instances[dragType] = connect(

@@ -95,7 +95,7 @@ export const createCell = (
       : undefined,
     rows: partialRows.map((r) => createRow(r, options)),
     dataI18n: {
-      [lang]: plugin?.createInitialState?.() ?? partialCell?.data ?? null,
+      [lang]: partialCell?.data ?? plugin?.createInitialState?.() ?? null,
       ...(partialCell.dataI18n ?? {}),
     },
   };
@@ -146,7 +146,8 @@ const insert = <T extends InsertType>(type: T) => (
   return (dispatch) => {
     dispatch(insertAction);
     // FIXME: checking if an item is new or just moved around is a bit awkward
-    const isNew = !partialCell.id; //|| (partialCell.rows && !partialCell.levels); <-- FIXME
+
+    const isNew = !partialCell.id;
 
     if (isNew) {
       dispatch(editMode());

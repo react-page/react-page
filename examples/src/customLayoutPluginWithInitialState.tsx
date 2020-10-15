@@ -18,6 +18,9 @@ export default () =>
         {children}
       </div>
     ),
+    createInitialState: () => ({
+      backgroundColor: '#ffeeaa',
+    }),
     createInitialChildren: () => {
       return [
         [

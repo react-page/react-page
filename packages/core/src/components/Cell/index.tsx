@@ -9,10 +9,12 @@ import {
   useIsResizeMode,
   useLang,
   useOptions,
+  useScrollToViewEffect,
 } from '../hooks';
 import ErrorCell from './ErrorCell';
 import Inner from './Inner';
 import Resizable from './Resizable';
+import scrollIntoViewWithOffset from './utils/scrollIntoViewWithOffset';
 
 const gridClass = ({
   isPreviewMode,
@@ -97,13 +99,21 @@ const Cell: React.FC<Props> = ({ nodeId, rowWidth }) => {
   const { allowResizeInEditMode } = useOptions();
 
   const isDraftInLang = isDraftI18n?.[lang] ?? isDraft;
-
+  const ref = React.useRef<HTMLDivElement>();
+  useScrollToViewEffect(
+    nodeId,
+    () => {
+      if (ref.current) scrollIntoViewWithOffset(ref.current, 0);
+    },
+    [ref.current]
+  );
   if (isDraftInLang && isPreviewMode) {
     return null;
   }
 
   return (
     <div
+      ref={ref}
       className={classNames(
         'ory-cell',
         gridClass({
