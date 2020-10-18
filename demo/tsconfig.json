@@ -1,0 +1,65 @@
+{
+  "extends": "../packages/tsconfig.settings.json",
+  "compilerOptions": {
+    "target": "es5",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": false,
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve"
+  },
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx"
+  ],
+  "exclude": [
+    "node_modules"
+  ],
+  "references": [
+    {
+      "path": "../packages/core"
+    },
+    {
+      "path": "../packages/ui"
+    },
+    {
+      "path": "../packages/renderer"
+    },
+    {
+      "path": "../packages/plugins/content/divider"
+    },
+    {
+      "path": "../packages/plugins/content/html5-video"
+    },
+    {
+      "path": "../packages/plugins/content/image"
+    },
+    {
+      "path": "../packages/plugins/content/slate"
+    },
+    {
+      "path": "../packages/plugins/content/spacer"
+    },
+    {
+      "path": "../packages/plugins/content/video"
+    },
+    {
+      "path": "../packages/plugins/layout/background"
+    },
+    {
+      "path": "../packages/plugins/createPluginMaterialUi"
+    }
+  ]
+}

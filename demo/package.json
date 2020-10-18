@@ -1,0 +1,36 @@
+{
+  "name": "demo",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "@react-page/core": "0.0.0",
+    "@react-page/plugins-background": "0.0.0",
+    "@react-page/plugins-divider": "0.0.0",
+    "@react-page/plugins-html5-video": "0.0.0",
+    "@react-page/plugins-image": "0.0.0",
+    "@react-page/create-plugin-materialui": "0.0.0",
+    "@react-page/plugins-slate": "0.0.0",
+    "@react-page/plugins-spacer": "0.0.0",
+    "@react-page/plugins-video": "0.0.0",
+    "@react-page/ui": "0.0.0",
+    "@react-page/editor": "0.0.0",
+    "react-twitter-widgets": "^1.9.5",
+    "react-katex": "^2.0.2",
+    "uuid": "^3.0.1",
+    "styled-components": "^5.1.1",
+    "next": "9.5.5",
+    "react": "16.14.0",
+    "react-dom": "16.14.0"
+  },
+  "devDependencies": {
+    "@types/uuid": "^3.4.4",
+    "@types/styled-components": "^5.1.2",
+    "@welldone-software/why-did-you-render": "^5.0.0-rc.1",
+    "react-redux": "7.2.1"
+  }
+}

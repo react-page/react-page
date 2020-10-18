@@ -1,6 +1,6 @@
 import { EditableType } from '@react-page/core';
-import editor, { EditorProps } from './editor';
+import Editor, { EditorProps } from './editor';
 export { EditableType, EditorProps };
-export default editor;
+export default Editor;
 
 export const VERSION = '###VERSION###';

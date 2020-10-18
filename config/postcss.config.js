@@ -8,7 +8,7 @@ module.exports = (ctx) => ({
       features: {
         'custom-properties': {
           appendVariables: true,
-          variables: require('./config/postcss.colors.js'),
+          variables: require('./postcss.colors.js'),
         },
       },
     },

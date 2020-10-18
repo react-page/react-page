@@ -1,0 +1,105 @@
+@import './typography.css';
+@import './elements.css';
+
+body {
+  background: #eee;
+
+  color: #333333;
+  font-size: 18px;
+  line-height: 28px;
+
+  font-family: 'Open Sans', serif;
+}
+
+p {
+  margin: 0 0 28px;
+}
+
+pre {
+  overflow-x: auto;
+}
+
+a {
+  color: #c73036;
+  font-family: Georgia, serif;
+  text-decoration: underline;
+}
+
+a:hover {
+  color: #333333;
+  text-decoration: underline;
+}
+
+.container {
+  background-color: white;
+}
+
+.ory-cell-leaf {
+  padding: 20px;
+}
+
+.container {
+  background: white;
+  padding: 0 24px;
+}
+
+.container {
+  margin-right: auto;
+  margin-left: auto;
+  align-items: stretch;
+}
+
+@media (min-width: 768px) {
+  .container {
+    width: 750px;
+  }
+}
+
+@media (min-width: 992px) {
+  .container {
+    width: 970px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .container {
+    width: 1170px;
+  }
+}
+
+.editable,
+#editable-static {
+  padding: 5px;
+}
+
+nav {
+  color: #eee;
+  background: #111;
+  font-family: 'Open Sans', serif;
+}
+
+nav ul {
+  list-style-type: none;
+  margin: 0 0 20px 0;
+  padding: 10px 20px;
+  text-align: right;
+}
+
+nav ul li {
+  display: inline-block;
+  padding: 0 10px;
+}
+
+nav ul li a,
+nav ul li a:visited {
+  color: #eee;
+  transition: all 200ms ease;
+  text-decoration: none;
+  font-family: 'Open Sans', serif;
+}
+
+nav ul li a:hover,
+nav ul li a:active {
+  color: #aaa;
+  text-decoration: none;
+}
