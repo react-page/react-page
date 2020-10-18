@@ -72,13 +72,15 @@ const migratePluginData = (
 
       return pluginFound?.unserialize ? pluginFound.unserialize(data) : data;
     };
-    const dataI18n = Object.keys(c.dataI18n).reduce(
-      (acc, lang) => ({
-        ...acc,
-        [lang]: transformData(c.dataI18n?.[lang]),
-      }),
-      {}
-    );
+    const dataI18n = c.dataI18n
+      ? Object.keys(c.dataI18n).reduce(
+          (acc, lang) => ({
+            ...acc,
+            [lang]: transformData(c.dataI18n?.[lang]),
+          }),
+          {}
+        )
+      : {};
     return {
       ...c,
       plugin: pluginFound

@@ -9,7 +9,6 @@ import { Translations } from './translations';
 export type BackgroundSettings = {
   Renderer: React.ComponentType<BackgroundRendererProps>;
   Controls: React.ComponentType<BackgroundControlsProps>;
-  defaultPlugin: CellPlugin;
   enabledModes?: ModeEnum;
   getInitialChildren?: CellPlugin['createInitialChildren'];
   defaultBackgroundColor?: RGBColor;

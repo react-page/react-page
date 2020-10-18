@@ -20,6 +20,7 @@ export const CELL_INSERT_INLINE_LEFT = 'CELL_INSERT_INLINE_LEFT';
 export const CELL_INSERT_INLINE_RIGHT = 'CELL_INSERT_INLINE_RIGHT';
 
 export const CELL_INSERT_AT_END = 'CELL_INSERT_AT_END';
+export const CELL_INSERT_AS_NEW_ROW = 'CELL_INSERT_AS_NEW_ROW';
 
 type InsertType =
   | typeof CELL_INSERT_ABOVE
@@ -28,7 +29,8 @@ type InsertType =
   | typeof CELL_INSERT_RIGHT_OF
   | typeof CELL_INSERT_INLINE_LEFT
   | typeof CELL_INSERT_INLINE_RIGHT
-  | typeof CELL_INSERT_AT_END;
+  | typeof CELL_INSERT_AT_END
+  | typeof CELL_INSERT_AS_NEW_ROW;
 export interface InsertAction extends Action {
   ts: Date;
   item: Cell;
@@ -38,13 +40,13 @@ export interface InsertAction extends Action {
   type: InsertType;
 }
 
-type OptionsWithLang = {
+type PluginsAndLang = {
   lang: string;
-} & Options;
+} & Pick<Options, 'plugins'>;
 
 export const createRow = (
   partialRow: PartialRow,
-  options: OptionsWithLang
+  options: PluginsAndLang
 ): Row => {
   if (Array.isArray(partialRow)) {
     return {
@@ -61,10 +63,10 @@ export const createRow = (
 
 export const createCell = (
   partialCell: PartialCell,
-  options: OptionsWithLang
+  options: PluginsAndLang
 ): Cell => {
   const { plugins, lang } = options;
-  const fallbackPlugin = options.defaultPlugin ?? plugins[0];
+  const fallbackPlugin = plugins[0];
   const pluginId =
     partialCell.plugin &&
     (typeof partialCell.plugin == 'string'
@@ -95,15 +97,17 @@ export const createCell = (
       : undefined,
     rows: partialRows.map((r) => createRow(r, options)),
     dataI18n: {
-      [lang]: partialCell?.data ?? plugin?.createInitialState?.() ?? null,
+      [lang]:
+        partialCell?.data ??
+        plugin?.createInitialData?.(partialCell) ??
+        plugin?.createInitialState?.(partialCell) ??
+        null,
       ...(partialCell.dataI18n ?? {}),
     },
   };
 };
 
-const insert = <T extends InsertType>(type: T) => (
-  options: OptionsWithLang
-) => (
+const insert = <T extends InsertType>(type: T) => (options: PluginsAndLang) => (
   partialCell: PartialCell,
   { id: hoverId, inline, hasInlineNeighbour }: PartialCell,
   level = 0,
@@ -190,6 +194,8 @@ export const insertCellRightInline = insert(CELL_INSERT_INLINE_RIGHT);
 
 export const insertCellAtTheEnd = insert(CELL_INSERT_AT_END);
 
+export const insertCellNewAsNewRow = insert(CELL_INSERT_AS_NEW_ROW);
+
 // set new ids recursivly
 const newIds = ({ id, ...item }: Cell): Cell => {
   return {
@@ -205,7 +211,7 @@ const newIds = ({ id, ...item }: Cell): Cell => {
       : undefined,
   };
 };
-export const duplicateCell = (options: OptionsWithLang) => (item: Cell) =>
+export const duplicateCell = (options: PluginsAndLang) => (item: Cell) =>
   insertCellBelow(options)(newIds(item), item);
 
 export const insertActions = {

@@ -15,7 +15,6 @@ import React from 'react';
 const EditableEditor = lazyLoad(() => import('./EditableEditor'));
 
 export type EditorProps = {
-  defaultPlugin?: CellPlugin;
   dndBackend?: DndBackend;
   value?: EditableType | null;
   onChange?: (v: EditableType) => void;
@@ -30,7 +29,6 @@ export type EditorProps = {
 
 const Editor: React.FC<EditorProps> = ({
   plugins,
-  defaultPlugin,
   readOnly,
   value,
   onChange,
@@ -47,7 +45,6 @@ const Editor: React.FC<EditorProps> = ({
     <EditableEditor
       pluginsWillChange={pluginsWillChange}
       plugins={plugins}
-      defaultPlugin={defaultPlugin}
       value={value}
       onChange={onChange}
       dndBackend={dndBackend}

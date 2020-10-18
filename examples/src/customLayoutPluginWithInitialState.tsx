@@ -12,13 +12,14 @@ export default () =>
       <div
         style={{
           border: '1px solid black',
+          padding: 50,
           backgroundColor: state.backgroundColor,
         }}
       >
         {children}
       </div>
     ),
-    createInitialState: () => ({
+    createInitialData: () => ({
       backgroundColor: '#ffeeaa',
     }),
     createInitialChildren: () => {
@@ -26,7 +27,7 @@ export default () =>
         [
           {
             plugin: customizedSlate,
-            data: customizedSlate.createInitialSlateState(({ plugins }) => ({
+            data: customizedSlate.createData(({ plugins }) => ({
               children: [
                 {
                   plugin: plugins.headings.h3,
@@ -41,7 +42,7 @@ export default () =>
           },
           {
             plugin: defaultSlate,
-            data: defaultSlate.createInitialSlateState(({ plugins }) => ({
+            data: defaultSlate.createData(({ plugins }) => ({
               children: [
                 {
                   plugin: plugins.headings.h1,
@@ -86,7 +87,7 @@ export default () =>
         [
           {
             plugin: customizedSlate,
-            data: customizedSlate.createInitialSlateState(({ plugins }) => ({
+            data: customizedSlate.createData(({ plugins }) => ({
               children: [
                 {
                   plugin: plugins.headings.h2,

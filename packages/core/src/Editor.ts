@@ -37,7 +37,6 @@ export interface CoreEditorProps<T extends RootState = RootState> {
   plugins?: CellPlugin[];
   middleware?: [];
   editables?: EditableType[];
-  defaultPlugin?: CellPlugin;
 
   store?: Store<T>;
   languages?: Languages;
@@ -76,12 +75,12 @@ class Editor<T extends RootState = RootState> {
     this.store.dispatch(setLang(lang));
   }
 
-  public getNodeWithAncestors = (editableId: string, nodeId: string) => {
-    return findNodeInState(this.store.getState(), editableId, nodeId);
+  public getNodeWithAncestors = (nodeId: string) => {
+    return findNodeInState(this.store.getState(), nodeId);
   };
 
-  public getNode = (editableId: string, nodeId: string) => {
-    return findNodeInState(this.store.getState(), editableId, nodeId)?.node;
+  public getNode = (nodeId: string) => {
+    return findNodeInState(this.store.getState(), nodeId)?.node;
   };
 }
 

@@ -1,6 +1,6 @@
 export type Display = {
-  previous: string;
   mode: string;
+  referenceNodeId?: string;
 };
 
 export type DisplayAction = {
@@ -8,4 +8,5 @@ export type DisplayAction = {
   mode: string;
   fallback: string;
   remember: boolean;
+  referenceNodeId?: string;
 };

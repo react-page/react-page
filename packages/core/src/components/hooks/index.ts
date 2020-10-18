@@ -5,6 +5,7 @@ import {
   useEffect,
   useMemo,
 } from 'react';
+import { useDrop } from 'react-dnd';
 
 import {
   blurAllCells,
@@ -33,6 +34,7 @@ import {
   insertCellBelow,
   insertCellLeftInline,
   insertCellLeftOf,
+  insertCellNewAsNewRow,
   insertCellRightInline,
   insertCellRightOf,
 } from '../../actions/cell/insert';
@@ -43,6 +45,7 @@ import {
   DISPLAY_MODE_LAYOUT,
   DISPLAY_MODE_PREVIEW,
   DISPLAY_MODE_RESIZING,
+  setDisplayReferenceNodeId,
   setMode,
 } from '../../actions/display';
 import { setLang } from '../../actions/setting';
@@ -57,7 +60,7 @@ import {
   isPreviewMode,
   isResizeMode,
 } from '../../selector/display';
-import { editable, selectNode } from '../../selector/editable';
+import { editable, findNodeInState } from '../../selector/editable';
 import { focus } from '../../selector/focus';
 import {
   Node,
@@ -66,6 +69,7 @@ import {
   Options,
   Row,
   EditableType,
+  CellDrag,
 } from '../../types/editable';
 import { HoverInsertActions } from '../../types/hover';
 import deepEquals from '../../utils/deepEquals';
@@ -130,10 +134,8 @@ export const useNodeProps = <T>(
   nodeId: string,
   selector: NodeSelector<T>
 ): T => {
-  const editableId = useEditableId();
-
   const node = useSelector((state: RootState) => {
-    const result = selectNode(state, { editable: editableId, id: nodeId });
+    const result = findNodeInState(state, nodeId);
     if (!result) {
       return null;
     }
@@ -172,6 +174,12 @@ export const useCell = (nodeId: string) => {
   return useNodeProps(nodeId, (node) => (!isRow(node) ? node : null));
 };
 
+export const useParentCellId = (nodeId: string) => {
+  return useNodeProps(nodeId, (node, ancestors) =>
+    node && ancestors ? ancestors.find((node) => !isRow(node))?.id : null
+  );
+};
+
 export const useNodeDropLevels = (nodeId: string) => {
   return useNodeProps(nodeId, (node, ancestors) =>
     getDropLevels(node, ancestors)
@@ -185,6 +193,12 @@ export const useCellBounds = (nodeId: string) => {
     const cell = !isRow(node) ? node : null;
     if (!cell || myIndex < 0) {
       return null;
+    }
+    if (cell.inline) {
+      return {
+        left: 0,
+        right: 0,
+      };
     }
     return {
       left: myIndex > 0 ? parent.cells[myIndex - 1].size + cell.size - 1 : 0,
@@ -252,6 +266,12 @@ export const useCellData = (nodeId: string, lang?: string) => {
   const currentLang = useLang();
   const theLang = lang ?? currentLang;
   return useCellProps(nodeId, (c) => getCellData(c, theLang) ?? {});
+};
+
+export const useDisplayModeReferenceNodeId = () => {
+  return useSelector(
+    (state: RootState) => state.reactPage?.display?.referenceNodeId
+  );
 };
 
 export const useIsEditMode = () => {
@@ -334,13 +354,11 @@ export const useRemoveCell = (id: string) => {
 export const useDuplicateCellById = () => {
   const dispatch = useDispatch();
   const editor = useEditor();
-  const editableId = useEditableId();
   const options = useOptionsWithLang();
 
   return useCallback(
-    (id: string) =>
-      dispatch(duplicateCell(options)(editor.getNode(editableId, id))),
-    [dispatch, editableId]
+    (id: string) => dispatch(duplicateCell(options)(editor.getNode(id))),
+    [dispatch]
   );
 };
 
@@ -349,14 +367,32 @@ export const useDuplicateCell = (id: string) => {
   return useCallback(() => duplicateCellById(id), [duplicateCellById]);
 };
 
-export const useFocusCellById = () => {
+export const useSetDisplayReferenceNodeId = () => {
   const dispatch = useDispatch();
 
   return useCallback(
-    (id: string, scrollToCell?: boolean, source?: string) => {
-      dispatch(focusCell(id, scrollToCell, source));
+    (nodeId: string) => {
+      dispatch(setDisplayReferenceNodeId(nodeId));
     },
     [dispatch]
+  );
+};
+
+export const useFocusCellById = () => {
+  const dispatch = useDispatch();
+  const editor = useEditor();
+
+  return useCallback(
+    (id: string, scrollToCell?: boolean, source?: string) => {
+      const parentCellId = editor
+        .getNodeWithAncestors(id)
+        ?.ancestors?.find((node) => !isRow(node))?.id;
+      // FIXME: that is a bit hacky, we set the parentId so that insert mode "knows" where to insert when just clicking
+
+      dispatch(setDisplayReferenceNodeId(parentCellId));
+      dispatch(focusCell(id, scrollToCell, source));
+    },
+    [dispatch, editor]
   );
 };
 
@@ -388,14 +424,17 @@ export const useBlurAllCells = () => {
   }, [dispatch]);
 };
 
-export const useInsertCellAtTheEnd = () => {
+export const useInsertNew = () => {
   const dispatch = useDispatch();
   const options = useOptionsWithLang();
+  const editor = useEditor();
+
   return useCallback(
-    (partialCell: Partial<Cell>) => {
-      dispatch(insertCellAtTheEnd(options)(partialCell, {}));
+    (partialCell: Partial<Cell>, parentCellId?: string) => {
+      const action = parentCellId ? insertCellNewAsNewRow : insertCellAtTheEnd;
+      dispatch(action(options)(partialCell, { id: parentCellId }));
     },
-    [dispatch]
+    [dispatch, editor]
   );
 };
 
@@ -403,8 +442,8 @@ export const useSetMode = () => {
   const dispatch = useDispatch();
 
   return useCallback(
-    (mode: DisplayModes) => {
-      dispatch(setMode(mode));
+    (mode: DisplayModes, referenceNodeId?: string) => {
+      dispatch(setMode(mode, referenceNodeId));
     },
     [dispatch]
   );
@@ -483,4 +522,21 @@ export const useDropActions = () => {
     }),
     [dispatch]
   );
+};
+
+export const useTrashDrop = () => {
+  const removeCell = useRemoveCellById();
+  return useDrop<
+    CellDrag,
+    void,
+    {
+      isHovering: boolean;
+    }
+  >({
+    accept: 'cell',
+    collect: (monitor) => ({
+      isHovering: monitor.isOver({ shallow: true }),
+    }),
+    drop: (item, monitor) => removeCell(item.cell.id),
+  });
 };

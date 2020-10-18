@@ -1110,21 +1110,6 @@ const contents: any[] = [
           {
             cells: [
               {
-                content: {
-                  plugin: {
-                    name: 'ory/editor/core/content/slate',
-                    version: '0.0.2',
-                  },
-                  state: {},
-                },
-                id: '7d29c96e-53b8-4b3e-b0f1-758b405d6daf',
-              },
-            ],
-            id: 'd62fe894-5795-4f00-80c8-0a5c9cfe85b9',
-          },
-          {
-            cells: [
-              {
                 rows: [
                   {
                     cells: [

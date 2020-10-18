@@ -40,14 +40,17 @@ const findNode = (
 
 export const findNodeInState = (
   state: RootState,
-  editableId: string,
+
   nodeId: string
 ) => {
-  const tree = editable(state, { id: editableId });
-  if (!tree) {
-    throw new Error(`Could not find editable: ${editableId}`);
-  }
-  return findNode(tree.cells, nodeId);
+  // FIXME: we will deprecated having multiple editables soon
+  return findNode(
+    state.reactPage.editables?.present?.reduce(
+      (acc, editable) => [...acc, ...(editable.cells ?? [])],
+      []
+    ),
+    nodeId
+  );
 };
 
 export const editable = (
@@ -71,12 +74,9 @@ export type NodeProps = { id: string; editable: string };
 
 export const selectNode = (
   state: RootState,
-  props: {
-    editable: string;
-    id: string;
-  }
+  nodeId: string
 ): NodeWithAncestors => {
-  const found = findNodeInState(state, props.editable, props.id);
+  const found = findNodeInState(state, nodeId);
 
   return found;
 };
@@ -97,14 +97,4 @@ const findNearestAnsestorCell = (cells: Cell[], childId: string): Cell => {
       childId
     );
   }
-};
-
-export const parentCellSelector = (
-  state: RootState,
-  props: { id: string; editable: string }
-  // FIXME: make this more efficient
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-): Cell => {
-  const tree = editable(state, { id: props.editable });
-  return findNearestAnsestorCell(tree.cells, props.id);
 };

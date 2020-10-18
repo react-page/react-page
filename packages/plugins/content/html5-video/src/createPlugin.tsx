@@ -25,7 +25,7 @@ const createPlugin: (
     IconComponent: mergedSettings.IconComponent,
     handleFocusNextHotKey: rejectPromise,
     handleFocusPreviousHotKey: rejectPromise,
-    createInitialState: () => ({
+    createInitialData: () => ({
       url: '',
     }),
   };

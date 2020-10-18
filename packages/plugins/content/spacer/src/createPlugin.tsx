@@ -26,7 +26,7 @@ const createPlugin: (settings: SpacerSettings) => CellPlugin<SpacerState> = (
     handleFocusPreviousHotKey: (): Promise<void> => Promise.reject(),
     handleFocusNextHotKey: (): Promise<void> => Promise.reject(),
 
-    createInitialState: () => ({
+    createInitialData: () => ({
       height: 24,
     }),
   };

@@ -57,7 +57,7 @@ const Decorator: React.FC = ({ children }) => {
       handlerName: PluginHandlerName,
       defaultHandler: Handler
     ) => {
-      const node = editor.getNode(id, nodeId);
+      const node = editor.getNode(nodeId);
       const plugin = plugins.find((p) => p.id === (node as Cell)?.plugin?.id);
 
       try {
