@@ -67,8 +67,8 @@ type AbstractEditable<T> = {
 type OldEditableType = AbstractEditable<CellOld>;
 
 export default new Migration<OldEditableType, EditableType>({
-  fromVersionRange: '0.0.0',
-  toVersion: '1.0.0',
+  fromVersionRange: '0.0.0' as const,
+  toVersion: '1.0.0' as const,
 
   migrate({ cells, ...editableRest }, { lang }) {
     const migrateRow = ({ cells, ...rowRest }: RowOld): Row => {

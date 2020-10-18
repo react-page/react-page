@@ -19,6 +19,7 @@ import useWhyDidYouUpdate from '../../hooks/useWhyDidYouUpdate';
 import Row from '../../Row';
 import Draggable from '../Draggable';
 import Droppable from '../Droppable';
+import InsertNew from '../InsertNew';
 import PluginMissing from '../PluginMissing';
 
 const Inner: React.FC<{ nodeId: string }> = ({ nodeId }) => {
@@ -85,6 +86,7 @@ const Inner: React.FC<{ nodeId: string }> = ({ nodeId }) => {
             remove={remove}
           >
             {children}
+            <InsertNew parentCellId={nodeId} />
           </Component>
         </div>
       </Draggable>

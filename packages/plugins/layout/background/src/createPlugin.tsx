@@ -23,9 +23,7 @@ const createPlugin = (settings: BackgroundSettings) => {
     description: mergedSettings.translations.pluginDescription,
     IconComponent: <Icon />,
 
-    createInitialChildren:
-      settings.getInitialChildren ||
-      (() => [[{ plugin: settings.defaultPlugin.id }]]),
+    createInitialChildren: settings.getInitialChildren,
 
     handleFocusNextHotKey: () => Promise.reject(),
     handleFocusPreviousHotKey: () => Promise.reject(),

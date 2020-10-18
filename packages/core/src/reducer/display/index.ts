@@ -1,30 +1,26 @@
 import {
   DEFAULT_DISPLAY_MODE,
   SET_DISPLAY_MODE,
-  SET_PREVIOUS_DISPLAY_MODE,
+  SET_DISPLAY_REFERENCE_NODE_ID,
 } from '../../actions/display';
 import { Display, DisplayAction } from '../../types/display';
 
 export const display = (
   state: Display = {
-    previous: DEFAULT_DISPLAY_MODE,
     mode: DEFAULT_DISPLAY_MODE,
   },
   action: DisplayAction
 ) => {
   switch (action.type) {
-    case SET_PREVIOUS_DISPLAY_MODE:
+    case SET_DISPLAY_REFERENCE_NODE_ID:
       return {
         ...state,
-        mode: state.previous === state.mode ? action.fallback : state.previous,
+        referenceNodeId: action.referenceNodeId,
       };
     case SET_DISPLAY_MODE:
       return {
-        previous:
-          action.mode === state.mode && action.remember
-            ? state.previous
-            : action.mode,
         mode: action.mode,
+        referenceNodeId: action.referenceNodeId || state.referenceNodeId,
       };
     default:
       return state;

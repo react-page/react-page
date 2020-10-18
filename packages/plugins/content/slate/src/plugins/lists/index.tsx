@@ -46,7 +46,7 @@ const ul = createListsPlugin({
   },
 });
 
-// only used for easier access on createInitialSlateState
+// only used for easier access on createCata
 const li = createListItemPlugin({
   tagName: 'li',
   type: LI,

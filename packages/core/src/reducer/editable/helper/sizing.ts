@@ -39,20 +39,14 @@ export const computeInlines = (cells: Array<Cell> = []): Array<Cell> => {
       }));
     }
 
-    const inline = cells[0].inline;
     return [
       {
         ...cells[0],
         resizable: true,
         size: cells[0].size || Math.round(MAX_CELLS_PER_ROW / 2),
-        bounds: {
-          left: inline === 'left' ? 0 : MAX_CELLS_PER_ROW - 1,
-          right: inline === 'right' ? 0 : MAX_CELLS_PER_ROW - 1,
-        },
       },
       {
         ...cells[1],
-        bounds: { left: 0, right: 0 },
         size: 12,
         hasInlineNeighbour: cells[0].id,
       },

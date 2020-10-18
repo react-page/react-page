@@ -3,12 +3,12 @@
 import { AnyAction } from 'redux';
 
 import { Migration } from '../../migrations/Migration';
-import { Cell, PartialRow, Row } from '../../types/editable';
+import { Cell, PartialCell, PartialRow, Row } from '../../types/editable';
 
 export type Plugins = CellPlugin[];
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type CellPlugin<DataT = any> = {
+export type CellPlugin<DataT = any, DataSerializedT = DataT> = {
   /**
    * the plugins unique id. Only one plugin with the same id may be used
    */
@@ -51,9 +51,9 @@ export type CellPlugin<DataT = any> = {
   allowInlineNeighbours?: boolean;
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  serialize?: (data: DataT) => any;
+  serialize?: (data: DataT) => DataSerializedT;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  unserialize?: (raw: any) => DataT;
+  unserialize?: (raw: DataSerializedT) => DataT;
   handleRemoveHotKey?: (e: Event, node: Cell) => Promise<void>;
   handleFocusNextHotKey?: (e: Event, node: Cell) => Promise<void>;
   handleFocusPreviousHotKey?: (e: Event, node: Cell) => Promise<void>;
@@ -61,8 +61,15 @@ export type CellPlugin<DataT = any> = {
   reducer?: (data: DataT, action: AnyAction) => DataT;
   migrations?: Migration[];
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  createInitialState?: (...args: any[]) => DataT;
+  /**
+   * called when a cell with this plugin is added
+   */
+  createInitialData?: (cell: PartialCell) => DataT;
+
+  /**
+   * @deprecated, use createInitialData instead
+   */
+  createInitialState?: (cell: PartialCell) => DataT;
 
   createInitialChildren?: () => PartialRow[];
 };

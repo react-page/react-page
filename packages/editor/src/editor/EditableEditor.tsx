@@ -16,7 +16,6 @@ import React, { useCallback, useEffect, useRef } from 'react';
 import StickyWrapper from './StickyWrapper';
 
 export type EditableEditorProps = {
-  defaultPlugin?: CellPlugin;
   dndBackend?: DndBackend;
   value?: EditableType;
   onChange?: (v: EditableType) => void;
@@ -30,7 +29,6 @@ export type EditableEditorProps = {
 
 const EditableEditor: React.FC<EditableEditorProps> = ({
   plugins,
-  defaultPlugin,
   pluginsWillChange,
   value,
   onChange,

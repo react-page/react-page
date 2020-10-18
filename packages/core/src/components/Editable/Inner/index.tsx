@@ -5,7 +5,7 @@ import { useMeasure } from 'react-use';
 import { useEditableNode } from '../../..';
 import scrollIntoViewWithOffset from '../../../components/Cell/utils/scrollIntoViewWithOffset';
 import Cell from '../../Cell';
-import { useInsertCellAtTheEnd } from '../../hooks';
+import InsertNew from '../../Cell/InsertNew';
 
 function isElementInViewport(el: HTMLDivElement) {
   const rect = el.getBoundingClientRect();
@@ -21,13 +21,12 @@ function isElementInViewport(el: HTMLDivElement) {
         document.documentElement.clientWidth) /*or $(window).width() */
   );
 }
-type Props = {
-  id: string;
-};
-const Inner: React.FC<Props> = () => {
+
+const Inner: React.FC = () => {
   const { cellIds } = useEditableNode((editable) => ({
     cellIds: editable?.cells?.map((c) => c.id) ?? [],
   }));
+
   const ref = useRef<HTMLDivElement>();
   const [sizeRef, { width }] = useMeasure();
 
@@ -60,15 +59,6 @@ const Inner: React.FC<Props> = () => {
     };
   });
 
-  const insertAtEnd = useInsertCellAtTheEnd();
-
-  const shouldCreateFallbackCell = cellIds.length === 0;
-  useEffect(() => {
-    if (shouldCreateFallbackCell) {
-      insertAtEnd({});
-    }
-  }, [shouldCreateFallbackCell]);
-
   useEffect(() => {
     if (firstElementInViewPortref.current) {
       const { el, topOffset } = firstElementInViewPortref.current;
@@ -78,16 +68,17 @@ const Inner: React.FC<Props> = () => {
     }
   }, [firstElementInViewPortref.current]);
 
-  if (!cellIds) {
-    return null;
-  }
   return (
-    <div ref={sizeRef}>
+    <div
+      ref={sizeRef}
+      style={{ minHeight: 400, display: 'flex', flexDirection: 'column' }}
+    >
       <div ref={ref} className="ory-editable">
-        {cellIds.map((id) => (
-          <Cell nodeId={id} rowWidth={width} key={id} />
-        ))}
+        {cellIds.length > 0
+          ? cellIds.map((id) => <Cell nodeId={id} rowWidth={width} key={id} />)
+          : null}
       </div>
+      <InsertNew />
     </div>
   );
 };

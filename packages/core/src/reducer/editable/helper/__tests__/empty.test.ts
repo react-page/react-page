@@ -1,6 +1,6 @@
 import expect from 'unexpected';
 
-import { isEmpty, emptyFilter } from '../empty';
+import { isEmpty } from '../empty';
 
 describe('isEmpty', () => {
   [
@@ -67,7 +67,7 @@ describe('isEmpty', () => {
                       {
                         rows: [
                           {
-                            cells: [{ content: { plugin: { name: 'asdf' } } }],
+                            cells: [{ plugin: { id: 'asdf' } }],
                           },
                         ],
                       },
@@ -98,7 +98,7 @@ describe('isEmpty', () => {
               },
               { rows: [{ cells: [] }] },
               { rows: [{ cells: [{ rows: [{ cells: [{}] }] }] }] },
-              { content: { plugin: { name: 'asdf' } } },
+              { plugin: { id: 'asdf' } },
             ],
           },
           {
@@ -141,7 +141,7 @@ describe('isEmpty', () => {
       expect(isEmpty(c.in as any), 'to equal', c.empty);
       expect(
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        (c.in.rows || (c.in.cells as any)).filter(emptyFilter).length,
+        (c.in.rows || (c.in.cells as any)).filter((n) => !isEmpty(n)).length,
         'to equal',
         c.empty ? 0 : 1
       );

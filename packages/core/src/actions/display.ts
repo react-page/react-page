@@ -1,5 +1,6 @@
 import { Action } from 'redux';
 
+export const SET_DISPLAY_REFERENCE_NODE_ID = 'SET_DISPLAY_REFERENCE_NODE_ID';
 export const SET_DISPLAY_MODE = 'SET_DISPLAY_MODE';
 export const SET_PREVIOUS_DISPLAY_MODE = 'SET_PREVIOUS_DISPLAY_MODE';
 export const DISPLAY_MODE_PREVIEW = 'preview';
@@ -19,16 +20,22 @@ export const DEFAULT_DISPLAY_MODE = DISPLAY_MODE_EDIT;
 export interface SetDisplayModeAction extends Action {
   ts: Date;
   mode: DisplayModes;
-  remember: boolean;
+  referenceNodeId?: string;
 }
 const setDisplayMode = (
   mode: DisplayModes,
-  remember = false
+  referenceNodeId?: string
 ) => (): SetDisplayModeAction => ({
   type: SET_DISPLAY_MODE,
   ts: new Date(),
   mode,
-  remember,
+  referenceNodeId,
+});
+
+export const setDisplayReferenceNodeId = (referenceNodeId?: string) => ({
+  type: SET_DISPLAY_REFERENCE_NODE_ID,
+  ts: new Date(),
+  referenceNodeId,
 });
 
 /**
@@ -36,12 +43,12 @@ const setDisplayMode = (
  */
 export const setMode = (
   mode: DisplayModes,
-  remember = false
+  referenceNodeId?: string
 ): SetDisplayModeAction => ({
   type: SET_DISPLAY_MODE,
   ts: new Date(),
   mode,
-  remember,
+  referenceNodeId,
 });
 
 /**
@@ -68,14 +75,3 @@ export const layoutMode = setDisplayMode(DISPLAY_MODE_LAYOUT);
  * Dispatch to switch to resize display mode.
  */
 export const resizeMode = setDisplayMode(DISPLAY_MODE_RESIZING);
-
-export interface PreviousModeAction extends Action {
-  fallback: DisplayModes;
-}
-/**
- * Dispatch to switch to the last display mode, or the fallback if reverting is not possible.
- */
-export const previousMode = (fallback: DisplayModes): PreviousModeAction => ({
-  type: SET_PREVIOUS_DISPLAY_MODE,
-  fallback,
-});

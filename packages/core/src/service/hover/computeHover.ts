@@ -67,7 +67,7 @@ type CallbackList = {
  * IL (Inline left)
  * IR (Inline right)
  */
-const classes: { [key: string]: number } = {
+export const classes: { [key: string]: number } = {
   NO: 0,
 
   C1: 10,
@@ -275,7 +275,7 @@ const relativeMousePosition = ({
 /**
  * Computes the drop level based on the mouse position and the cell width.
  */
-const computeLevel = ({
+export const computeLevel = ({
   size,
   levels,
   position,
@@ -390,7 +390,7 @@ const getDropLevel = (hover: HoverTarget) =>
 /**
  * A list of callbacks.
  */
-const CALLBACK_LIST: CallbackList = {
+export const CALLBACK_LIST: CallbackList = {
   [c.NO]: (item: Cell, hover: HoverTarget, { clear }: HoverInsertActions) =>
     clear(),
 

@@ -4,9 +4,9 @@ import { editable } from '../../selector/editable';
 import { AbstractEditable, Cell } from '../../types/editable';
 import deepEquals from '../../utils/deepEquals';
 import { EditableContext, useEditor, useOptions, useSetLang } from '../hooks';
-import useWhyDidYouUpdate from '../hooks/useWhyDidYouUpdate';
 import HotKeyDecorator from '../HotKey/Decorator';
 import FallbackDropArea from './FallbackDropArea';
+
 import Inner from './Inner';
 
 type Serialized = AbstractEditable<Cell>;
@@ -75,7 +75,7 @@ const Editable: React.FC<EditableProps> = ({
     <EditableContext.Provider value={id}>
       <HotKeyDecorator>
         <FallbackDropArea>
-          <Inner id={id} />
+          <Inner />
         </FallbackDropArea>
       </HotKeyDecorator>
     </EditableContext.Provider>

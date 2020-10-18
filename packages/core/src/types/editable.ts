@@ -103,7 +103,6 @@ export type CellDrag = {
 
 export type Options = {
   plugins: CellPlugin[];
-  defaultPlugin?: CellPlugin;
   languages?: Languages;
   pluginsWillChange?: boolean;
 } & SimplifiedModesProps;

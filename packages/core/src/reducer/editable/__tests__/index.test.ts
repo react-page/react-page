@@ -1,187 +1,54 @@
 import { applyMiddleware, combineReducers, createStore } from 'redux';
 import thunk from 'redux-thunk';
-import * as actions from '../../../actions/cell/index';
-import { Cell } from '../../../types/editable';
-import { cellOrder } from '../helper/order';
-import { setAllSizesAndOptimize } from '../helper/setAllSizesAndOptimize';
+import { CellPlugin } from '../../..';
+//import * as actions from '../../../actions/cell/index';
+import { createEditable } from '../../../utils/createEditable';
+//import { cellOrder } from '../helper/order';
+//import { setAllSizesAndOptimize } from '../helper/setAllSizesAndOptimize';
 import { editable } from '../index';
-
-const walker = ({ cells = [], rows = [], hoverPosition = null, ...other }) => {
-  if (cells.length) {
-    other.cells = cells.map(walker);
-  }
-  if (rows.length) {
-    other.rows = rows.map(walker);
-  }
-  return {
-    ...other,
-    hoverPosition,
-  };
-};
-
-const _cells = (state) => setAllSizesAndOptimize(state).map(walker);
 
 const simulateDispatch = (currentState, action) => {
   const reducer = combineReducers({ editable });
   const store = createStore(reducer, currentState, applyMiddleware(thunk));
   store.dispatch(action);
 
-  return store.getState();
+  return store.getState().editable;
 };
 
-const runCase = (currentState, action, expectedState) => {
-  const actualState = simulateDispatch(currentState, action);
+//type State = { foo?: number; bar?: number };
 
-  expect(actualState).toEqual({
-    editable: {
-      ...expectedState.editable,
-      cellOrder: cellOrder(expectedState.editable.cells),
-    },
-  });
-};
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const createEditable = (
-  id: string,
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  cells?: any[] | { hoverPosition: any }[]
-) => {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const editable: any = {};
-
-  if (id) {
-    editable.id = id;
-  }
-
-  if (cells) {
-    editable.cells = cells;
-  }
-
-  return { editable };
-};
-
-export const createCell = (
-  id: string,
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  rows: any[],
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  additional?: any
-): Cell => {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const cell: any = {};
-
-  if (id) {
-    cell.id = id;
-  }
-
-  if (rows) {
-    cell.rows = rows;
-  }
-
-  return {
-    ...cell,
-    ...additional,
-  };
-};
-
-export const createLayoutCell = (
-  id: string,
-  name: string,
-  state: { foo?: number; bar?: number },
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  rows: any[],
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  additional?: any,
-  stateI18n?: { [lang: string]: State }
-) => {
-  const cell = createCell(id, null, additional);
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const layout: any = {};
-
-  if (name) {
-    layout.plugin = {};
-    layout.plugin.name = name;
-  }
-
-  if (state) {
-    layout.state = state;
-  }
-
-  if (stateI18n) {
-    layout.stateI18n = stateI18n;
-  }
-
-  if (rows) {
-    cell.rows = rows;
-  }
-
-  return {
-    ...cell,
-    layout,
-  };
-};
-
-type State = { foo?: number; bar?: number };
-export const createContentCell = (
-  id: string,
-  name: string,
-  state?: State,
-  additional?: {
-    hoverPosition?: string | boolean;
-    size?: number;
-    inline?: string;
+const plugins: CellPlugin[] = [
+  {
+    id: 'foo',
+    version: '1.0.0',
   },
-  stateI18n?: { [lang: string]: State }
-): Cell => {
-  const cell = createCell(id, null, additional);
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const content: any = {};
+];
 
-  if (name) {
-    content.plugin = {};
-    content.plugin.name = name;
-  }
-
-  if (state) {
-    content.state = state;
-  }
-  if (stateI18n) {
-    content.stateI18n = stateI18n;
-  }
-
-  return {
-    ...cell,
-    content,
-  };
-};
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const createRow = (id: string, cells: any[], additional: any = {}) => {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const row: any = {};
-
-  if (id) {
-    row.id = id;
-  }
-
-  if (cells) {
-    row.cells = cells;
-  }
-
-  return {
-    ...row,
-    ...additional,
-  };
+const options = {
+  plugins,
+  lang: 'en',
 };
 
 test('basic', () => {
-  const currentState = createEditable('editable', undefined);
+  const currentState = createEditable(
+    {
+      id: 'someId',
+    },
+    options
+  );
   const action = { type: 'foo' };
-  const expectedState = createEditable('editable', []);
+  const expectedState = createEditable(
+    {
+      id: 'someId',
+    },
+    options
+  );
 
-  runCase(currentState, action, expectedState);
+  const actualState = simulateDispatch(currentState, action);
+  expect(actualState).toEqual(expectedState);
 });
 
+/*
 test('cleanup does not remove layout nodes when having one child, nested', () => {
   const currentState = createEditable('editable', [
     createCell('0', [
@@ -1058,3 +925,4 @@ test('cell insert below inline row - 2 level', () => {
 
   runCase(currentState, action, expectedState);
 });
+*/

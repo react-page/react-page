@@ -139,15 +139,7 @@ const elements = document.querySelectorAll<HTMLDivElement>('.editable');
 ReactDOM.render(<span>{VERSION}</span>, document.getElementById('version'));
 elements.forEach((element, index) => {
   ReactDOM.render(
-    <KeepStateEditor
-      plugins={plugins}
-      defaultPlugin={
-        element.dataset.id === '10'
-          ? customLayoutPluginWithInitialState()
-          : defaultSlate
-      }
-      value={contents[index]}
-    />,
+    <KeepStateEditor plugins={plugins} value={contents[index]} />,
 
     element
   );

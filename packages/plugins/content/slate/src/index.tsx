@@ -41,7 +41,7 @@ type SlateDefinition<TPlugins extends SlatePluginCollection> = {
 };
 type DefaultPlugins = typeof defaultPlugins;
 type DefaultSlateDefinition = SlateDefinition<DefaultPlugins>;
-export type CreateInitialStateCustomizer<TPlugins> = ({
+export type CreateDataCustomizer<TPlugins> = ({
   plugins,
 }: {
   plugins: TPlugins;
@@ -61,13 +61,22 @@ const defaultConfig: DefaultSlateDefinition = {
   allowInlineNeighbours: true,
 };
 
-type CreateInitialSlateState<TPlugins> = (
-  custom?: CreateInitialStateCustomizer<TPlugins>
+type CreateSlateData<TPlugins> = (
+  custom?: CreateDataCustomizer<TPlugins>
 ) => // eslint-disable-next-line @typescript-eslint/no-explicit-any
 SlateState;
-export type SlatePlugin<TPlugins> = CellPlugin<SlateState> & {
-  createInitialSlateState: CreateInitialSlateState<TPlugins>;
-  htmlToSlate: (html: string) => SlateState;
+export type SlatePlugin<TPlugins> = CellPlugin<
+  SlateState,
+  Omit<SlateState, 'selection'> & {
+    importFromHtml?: string;
+  }
+> & {
+  createData: CreateSlateData<TPlugins>;
+  createDataFromHtml: (html: string) => SlateState;
+  /**
+   * @deprecated, use createData
+   */
+  createInitialSlateState: CreateSlateData<TPlugins>;
 };
 export type SlateCustomizeFunction<TPlugins extends SlatePluginCollection> = (
   def: DefaultSlateDefinition
@@ -80,27 +89,21 @@ function plugin<TPlugins extends SlatePluginCollection = DefaultPlugins>(
     ? customize(defaultConfig)
     : defaultConfig) as SlateDefinition<TPlugins>;
 
-  const createInitialState = (
-    customizeInitialSlateState?: CreateInitialStateCustomizer<TPlugins>
-  ) => {
-    const defaultInitialState = ({
-      plugins: cplugins,
-    }: {
-      plugins: TPlugins;
-    }) => ({
+  const createData = (customizer: CreateDataCustomizer<TPlugins>) => {
+    return transformInitialSlateState(
+      customizer({ plugins: settings.plugins })
+    );
+  };
+
+  const createInitialData = () =>
+    createData(({ plugins }) => ({
       children: [
         {
-          plugin: cplugins.paragraphs.paragraph,
+          plugin: plugins.paragraphs.paragraph,
           children: [''],
         },
       ],
-    });
-    const func = customizeInitialSlateState
-      ? customizeInitialSlateState
-      : defaultInitialState;
-
-    return transformInitialSlateState(func({ plugins: settings.plugins }));
-  };
+    }));
 
   // plugins should be flatten
   // NEW: to make it easier to manage and group plugins,
@@ -151,9 +154,13 @@ function plugin<TPlugins extends SlatePluginCollection = DefaultPlugins>(
     handleRemoveHotKey: () => Promise.reject(),
     handleFocusPreviousHotKey: () => Promise.reject(),
     handleFocusNextHotKey: () => Promise.reject(),
-    createInitialState: createInitialState,
-    createInitialSlateState: createInitialState,
-    htmlToSlate: htmlToSlate,
+
+    createInitialData,
+    createInitialState: createInitialData,
+    createInitialSlateState: createData,
+    createData: createData,
+    createDataFromHtml: htmlToSlate,
+    // remove selection
     serialize: (s) => (s ? { slate: s.slate } : null),
     unserialize: (s) => {
       if (s?.importFromHtml) {
@@ -164,7 +171,7 @@ function plugin<TPlugins extends SlatePluginCollection = DefaultPlugins>(
           slate: s.slate,
         };
       }
-      return createInitialState();
+      return createInitialData();
     },
 
     // TODO this is disabled because of #207

@@ -58,7 +58,6 @@ export const plugins: Plugins = [
   customContentPluginTwitter(),
 
   background({
-    defaultPlugin: defaultSlate,
     imageUpload: fakeImageUploadService('/images/sea-bg.jpg'),
     enabledModes:
       ModeEnum.COLOR_MODE_FLAG |

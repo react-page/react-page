@@ -25,7 +25,7 @@ const Provider: React.FC<ProviderProps> = ({
   blurGateDefaultMode,
   plugins,
   allowMoveInEditMode,
-  defaultPlugin,
+
   allowResizeInEditMode,
   editModeResizeHandle,
   languages,
@@ -43,7 +43,6 @@ const Provider: React.FC<ProviderProps> = ({
     };
   }, [
     pluginsWillChange && plugins,
-    pluginsWillChange && defaultPlugin,
     allowMoveInEditMode,
     allowResizeInEditMode,
     editModeResizeHandle,
