@@ -1,5 +1,5 @@
 import { AnyAction } from 'redux';
-import undoable, { includeAction } from 'redux-undo';
+import undoable from 'redux-undo';
 import { set } from 'redux-undo/lib/debug';
 import {
   CELL_REMOVE,
@@ -41,20 +41,30 @@ const inner = undoable(
     }
   },
   {
-    filter: includeAction([
-      CELL_UPDATE_DATA,
-      CELL_REMOVE,
-      CELL_RESIZE,
-      CELL_INSERT_ABOVE,
-      CELL_INSERT_BELOW,
-      CELL_INSERT_LEFT_OF,
-      CELL_INSERT_RIGHT_OF,
-      CELL_INSERT_INLINE_LEFT,
-      CELL_INSERT_INLINE_RIGHT,
-      CELL_INSERT_AT_END,
-    ]),
+    filter: function filterState(action, currentState, previousHistory) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      if ((action as any)?.notUndoable) {
+        return false;
+      }
+      const undoable =
+        [
+          CELL_UPDATE_DATA,
+          CELL_REMOVE,
+          CELL_RESIZE,
+          CELL_INSERT_ABOVE,
+          CELL_INSERT_BELOW,
+          CELL_INSERT_LEFT_OF,
+          CELL_INSERT_RIGHT_OF,
+          CELL_INSERT_INLINE_LEFT,
+          CELL_INSERT_INLINE_RIGHT,
+          CELL_INSERT_AT_END,
+        ].indexOf(action.type) >= 0;
+      return undoable;
+    },
+
     // initTypes: [UPDATE_EDITABLE],
     neverSkipReducer: true,
+    syncFilter: true,
   }
 );
 

@@ -1,4 +1,4 @@
-import { CellPlugin } from '@react-page/core/src';
+import { CellPlugin } from '@react-page/core';
 import slate from '@react-page/plugins-slate';
 import { render } from 'enzyme';
 import * as React from 'react';
@@ -16,7 +16,7 @@ const Layout: React.FC = ({ children }) => (
 
 const someLayoutPlugin: CellPlugin = {
   id: 'layout',
-  version: '0.0.1',
+  version: 1,
   Component: Layout,
 };
 
@@ -27,7 +27,7 @@ describe('HTMLRenderer', () => {
     [
       {
         id: '1',
-        version: '1.0.0',
+        version: 1,
         cells: [
           {
             id: '4c0f5ab5-f331-4d69-8850-7de0df917cc2',
@@ -35,27 +35,23 @@ describe('HTMLRenderer', () => {
 
             plugin: {
               id: 'ory/editor/core/content/slate',
-              version: '0.0.1',
+              version: 1,
             },
             dataI18n: {
               en: {
-                serialized: {
-                  nodes: [
-                    {
-                      kind: 'block',
-                      type: 'PARAGRAPH/PARAGRAPH',
-                      nodes: [
-                        {
-                          kind: 'text',
-                          text: 'Asdfg',
-                        },
-                      ],
-                      data: {
-                        align: 'center',
+                slate: [
+                  {
+                    type: 'PARAGRAPH/PARAGRAPH',
+                    children: [
+                      {
+                        text: 'Hello world, i am centered',
                       },
+                    ],
+                    data: {
+                      align: 'center',
                     },
-                  ],
-                },
+                  },
+                ],
               },
             },
           },
@@ -67,7 +63,7 @@ describe('HTMLRenderer', () => {
         it('should pass', () => {
           expect(wrapper.html()).toEqual(
             // tslint:disable-next-line:max-line-length
-            '<div class="ory-cell ory-cell-sm-12 ory-cell-xs-12"><div class="ory-cell-inner ory-cell-leaf"><div data-gramm="false" data-slate-editor="true" data-slate-node="value" style="outline:none;white-space:pre-wrap;word-wrap:break-word"><p data-slate-node="element" style="text-align:center"><span data-slate-node="text"><span data-slate-leaf="true"><span data-slate-string="true">Asdfg</span></span></span></p></div></div></div>'
+            '<div class="ory-cell ory-cell-sm-12 ory-cell-xs-12"><div class="ory-cell-inner ory-cell-leaf"><div data-gramm="false" data-slate-editor="true" data-slate-node="value" style="outline:none;white-space:pre-wrap;word-wrap:break-word"><p data-slate-node="element" style="text-align:center"><span data-slate-node="text"><span data-slate-leaf="true"><span data-slate-string="true">Hello world, i am centered</span></span></span></p></div></div></div>'
           );
         });
       });

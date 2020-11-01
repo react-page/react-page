@@ -18,7 +18,7 @@ const createPlugin: (settings: DividerSettings) => CellPlugin<DividerState> = (
   return {
     Component: WrappedComponent,
     id: 'ory/editor/core/content/divider',
-    version: '0.0.1',
+    version: 1,
     IconComponent: <Remove />,
     title: mergedSettings.translations.pluginName,
     description: mergedSettings.translations.pluginDescription,

@@ -39,7 +39,7 @@ export type CellPlugin<DataT = any, DataSerializedT = DataT> = {
   /**
    * the plugin's version
    */
-  version: string;
+  version: number;
 
   Component?: PluginComponentType<CellPluginComponentProps<DataT>>;
 
@@ -110,7 +110,7 @@ export type CellPluginComponentProps<
   /**
    * Should be called with the new data if the plugin's data changes.
    */
-  onChange(data: Partial<DataT>): void;
+  onChange(data: Partial<DataT>, options?: { notUndoable: boolean }): void;
 
   isPreviewMode: boolean;
   isEditMode: boolean;

@@ -1,10 +1,5 @@
 import React from 'react';
-import { useDrop } from 'react-dnd';
-import { CellDrag } from '../../types/editable';
-
 import {
-  useIsEditMode,
-  useIsInsertMode,
   useIsPreviewMode,
   useSetDisplayReferenceNodeId,
   useSetInsertMode,

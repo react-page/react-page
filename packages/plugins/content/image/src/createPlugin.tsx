@@ -13,15 +13,11 @@ const createPlugin = (settings?: ImageSettings): CellPlugin<ImageState> => {
     ),
 
     id: 'ory/editor/core/content/image',
-    version: '0.0.1',
+    version: 1,
     IconComponent: mergedSettings.IconComponent,
     title: mergedSettings.translations.pluginName,
     isInlineable: true,
     description: mergedSettings.translations.pluginDescription,
-
-    handleRemoveHotKey: (): Promise<void> => Promise.reject(),
-    handleFocusPreviousHotKey: (): Promise<void> => Promise.reject(),
-    handleFocusNextHotKey: (): Promise<void> => Promise.reject(),
   };
 };
 export default createPlugin;

@@ -1,6 +1,7 @@
 import { v4 } from 'uuid';
 import { createCell, PluginsAndLang } from '../actions/cell/insert';
-import { EditableType, PartialCell, PartialRow } from '../types/editable';
+import { CURRENT_EDITABLE_VERSION } from '../migrations/EDITABLE_MIGRATIONS';
+import { EditableType, PartialCell } from '../types/editable';
 
 type PartialEditable = {
   id?: string;
@@ -13,6 +14,6 @@ export const createEditable = (
   return {
     id: partial.id || v4(),
     cells: partial.cells?.map((c) => createCell(c, options)) ?? [],
-    version: '1.0.0',
+    version: CURRENT_EDITABLE_VERSION,
   };
 };

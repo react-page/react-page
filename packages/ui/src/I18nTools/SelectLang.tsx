@@ -1,5 +1,5 @@
 import { Select } from '@material-ui/core';
-import { useEditor, useLang, useOptions, useSetLang } from '@react-page/core';
+import { useLang, useOptions, useSetLang } from '@react-page/core';
 import React, { memo } from 'react';
 
 const SelectLang = () => {

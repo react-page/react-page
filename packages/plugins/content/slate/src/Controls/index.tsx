@@ -74,10 +74,18 @@ const SlateControls = (props: SlateProps) => {
     (v) => {
       if (editor.selection) {
         setValue(v);
-        onChangeDebounced({
-          slate: v,
-          selection: editor.selection,
-        });
+
+        onChangeDebounced(
+          {
+            slate: v,
+            selection: editor.selection,
+          },
+          {
+            // mark as not undoable when state is same
+            // that happens if only selection was changed
+            notUndoable: v === state.slate,
+          }
+        );
       }
     },
     [onChangeDebounced]

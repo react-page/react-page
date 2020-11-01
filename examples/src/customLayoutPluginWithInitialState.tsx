@@ -129,7 +129,7 @@ export default () =>
     id: 'custom-layout-plugin-initial-state',
     title: 'Custom layout plugin with initial text',
     description: 'Some custom layout plugin with initial text',
-    version: '0.0.1',
+    version: 1,
     schema: {
       required: ['backgroundColor'],
       properties: {

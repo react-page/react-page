@@ -3,10 +3,10 @@ import isHotkey from 'is-hotkey';
 import React, { useCallback, useEffect, useMemo } from 'react';
 
 import { blurAllCells } from '../../actions/cell';
-import { Cell } from '../../types/editable';
+import { Cell, isRow, Node } from '../../types/editable';
 import {
   useEditableNode,
-  useEditor,
+  useEditorStore,
   useFocusCellById,
   useIsEditMode,
   useRedo,
@@ -16,20 +16,46 @@ import {
   usePlugins,
 } from '../hooks';
 
-const nextLeaf = (order: Array<{ id: string }> = [], current: string) => {
-  let last;
-
-  return order.find((c: { id: string; isLeaf: boolean }) => {
-    if (last === current) {
-      return c.isLeaf;
+const getLeave = (node: Node, last: boolean) => {
+  if (!node) return null;
+  if (isRow(node)) {
+    return getLeave(
+      last ? node.cells[node.cells.length - 1] : node.cells[0],
+      last
+    );
+  } else {
+    if (node.rows?.length > 0) {
+      return getLeave(
+        last ? node.rows[node.rows.length - 1] : node.rows[0],
+        last
+      );
+    } else {
+      return node;
     }
-    last = c.id;
-    return false;
-  });
+  }
 };
-
-const previousLeaf = (order: Array<{ id: string }>, current: string) =>
-  nextLeaf([...order].reverse(), current);
+const getLeaveSibling = (
+  nodeId: string,
+  ancestors: Node[],
+  previous: boolean
+) => {
+  const [parent, ...restAncestors] = ancestors;
+  if (!parent) {
+    return null;
+  }
+  const allSiblings = isRow(parent) ? parent.cells : parent.rows;
+  if (!parent) {
+    return;
+  }
+  const myIndex = allSiblings.findIndex((c) => c.id === nodeId) ?? -1;
+  const siblint = allSiblings[myIndex + (previous ? -1 : 1)];
+  if (siblint) {
+    return getLeave(siblint, previous);
+  } else {
+    // go one deep
+    return getLeaveSibling(parent.id, restAncestors, previous);
+  }
+};
 
 type Handler = (event: Event, foundCell?: Cell) => Promise<void> | void;
 
@@ -39,10 +65,9 @@ type PluginHandlerName =
   | 'handleFocusPreviousHotKey';
 
 const Decorator: React.FC = ({ children }) => {
-  const editor = useEditor();
-  const { id, cellOrder } = useEditableNode((editable) => ({
+  const editor = useEditorStore();
+  const { id } = useEditableNode((editable) => ({
     id: editable?.id,
-    cellOrder: editable?.cellOrder ?? [],
   }));
   const undo = useUndo();
   const redo = useRedo();
@@ -61,9 +86,10 @@ const Decorator: React.FC = ({ children }) => {
       const plugin = plugins.find((p) => p.id === (node as Cell)?.plugin?.id);
 
       try {
-        if (node) {
+        if (node && plugin[handlerName]) {
           await plugin[handlerName](event, node);
         }
+
         // if the plugin handler resolve or there is no, they do not handle it, so do the default
         await defaultHandler(event, node);
       } catch (e) {
@@ -113,10 +139,16 @@ const Decorator: React.FC = ({ children }) => {
             focusedNodeId,
             'handleFocusNextHotKey',
             () => {
-              const found = nextLeaf(cellOrder, focusedNodeId);
-              if (found) {
+              console.log('next');
+              const { ancestors } = editor.getNodeWithAncestors(focusedNodeId);
+              const nextSibling = getLeaveSibling(
+                focusedNodeId,
+                ancestors,
+                false
+              );
+              if (nextSibling) {
                 blurAllCells();
-                focusCell(found.id, true);
+                focusCell(nextSibling.id, false);
               }
             }
           );
@@ -130,18 +162,23 @@ const Decorator: React.FC = ({ children }) => {
             focusedNodeId,
             'handleFocusPreviousHotKey',
             () => {
-              const found = previousLeaf(cellOrder, focusedNodeId);
+              const { ancestors } = editor.getNodeWithAncestors(focusedNodeId);
+              const previousSibling = getLeaveSibling(
+                focusedNodeId,
+                ancestors,
+                true
+              );
 
-              if (found) {
+              if (previousSibling) {
                 blurAllCells();
-                focusCell(found.id, true);
+                focusCell(previousSibling.id, true);
               }
             }
           );
         },
       },
     ],
-    [cellOrder, focusedNodeId, blurAllCells, focusCell, removeCell]
+    [focusedNodeId, blurAllCells, focusCell, removeCell]
   );
 
   const isEditMode = useIsEditMode();

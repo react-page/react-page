@@ -8,6 +8,7 @@ import {
   PartialRow,
   Row,
 } from '../../types/editable';
+import { removeUndefinedProps } from '../../utils/removeUndefinedProps';
 import { editMode } from '../display';
 import { generateIds } from '../helpers';
 import { focusCell } from './core';
@@ -54,11 +55,11 @@ export const createRow = (
       cells: partialRow.map((c) => createCell(c, options)),
     };
   }
-  return {
+  return removeUndefinedProps({
     id: v4(),
     ...partialRow,
     cells: partialRow.cells?.map((c) => createCell(c, options)),
-  };
+  });
 };
 
 export const createCell = (
@@ -66,36 +67,34 @@ export const createCell = (
   options: PluginsAndLang
 ): Cell => {
   const { plugins, lang } = options;
-  const fallbackPlugin = plugins[0];
   const pluginId =
     partialCell.plugin &&
     (typeof partialCell.plugin == 'string'
       ? partialCell.plugin
       : partialCell.plugin.id);
-  const plugin =
-    (pluginId && plugins.find((p) => p.id === pluginId)) ?? fallbackPlugin;
+  const plugin = pluginId && plugins.find((p) => p.id === pluginId);
 
   const partialRows =
     partialCell.rows?.length > 0
       ? partialCell.rows
       : plugin?.createInitialChildren?.() ?? [];
 
-  return {
+  return removeUndefinedProps({
     id: partialCell.id ?? v4(),
-    isDraft: partialCell.isDraft ?? undefined,
-    isDraftI18n: partialCell.isDraftI18n ?? {},
+    isDraft: partialCell.isDraft,
+    isDraftI18n: partialCell.isDraftI18n,
     inline: partialCell.inline,
     hoverPosition: partialCell.hoverPosition,
     size: partialCell.size || 12,
-    resizable: partialCell.resizable ?? false,
-    hasInlineNeighbour: partialCell.hasInlineNeighbour ?? null,
+
+    hasInlineNeighbour: partialCell.hasInlineNeighbour,
     plugin: plugin
       ? {
           id: plugin.id,
           version: plugin.version,
         }
       : undefined,
-    rows: partialRows.map((r) => createRow(r, options)),
+    rows: partialRows?.map((r) => createRow(r, options)),
     dataI18n: {
       [lang]:
         partialCell?.data ??
@@ -104,7 +103,7 @@ export const createCell = (
         null,
       ...(partialCell.dataI18n ?? {}),
     },
-  };
+  });
 };
 
 const insert = <T extends InsertType>(type: T) => (options: PluginsAndLang) => (

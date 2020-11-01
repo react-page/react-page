@@ -2,7 +2,11 @@ export type { BackendFactory as DndBackend } from 'dnd-core';
 export { DropTarget, DragSource } from 'react-dnd';
 import { Actions } from './actions';
 import Editable from './components/Editable';
-import Editor, { createEmptyState, CoreEditorProps, Languages } from './Editor';
+import EditorStore, {
+  createEmptyState,
+  CoreEditorProps,
+  Languages,
+} from './EditorStore';
 
 import lazyLoad from './helper/lazyLoad';
 import Provider from './Provider';
@@ -30,6 +34,7 @@ import { DisplayModes } from './actions/display';
 import deepEquals from './utils/deepEquals';
 import { Migration } from './migrations/Migration';
 
+const Editor = EditorStore;
 export {
   deepEquals,
   isRow,
@@ -50,7 +55,11 @@ export {
   Selectors,
   RootState,
   i18n,
+  /**
+   * @deprecated Editor was renamed to EditorStore
+   */
   Editor,
+  EditorStore,
   reducer,
   ReduxProvider,
   connect,

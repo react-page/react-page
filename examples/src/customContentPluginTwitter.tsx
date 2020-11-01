@@ -18,7 +18,7 @@ export default createContentPlugin<{
   id: 'twitter-timeline',
   title: 'Twitter timeline',
   description: 'A twitter timeline',
-  version: '0.0.1',
+  version: 1,
   schema: {
     properties: {
       screenName: {

@@ -1,7 +1,6 @@
 import * as React from 'react';
 
 import {
-  useCell,
   useCellData,
   useCellHasPlugin,
   useCellPlugin,
@@ -15,7 +14,6 @@ import {
   useRemoveCell,
   useUpdateCellData,
 } from '../../hooks';
-import useWhyDidYouUpdate from '../../hooks/useWhyDidYouUpdate';
 import Row from '../../Row';
 import Draggable from '../Draggable';
 import Droppable from '../Droppable';

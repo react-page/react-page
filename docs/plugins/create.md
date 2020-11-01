@@ -11,20 +11,20 @@ A content plugin in its minimal form is described with this object:
 ```typescript
 {
   Component: YourComponent,
-  name: 'some/unique/name',
-  version: '0.0.1',
+  id: 'some/unique/id',
+  version: 1,
   IconComponent: <YourIcon />,
-  text: "Name of the plugin",
+  title: "Human readable title of the plugin",
   description: "description of the plugin
 }
 ```
 
 `Component` receives the Component that renders the content of your plugin and its controls (if any). It will receive the following props:
 
-- `state` (object): the properties of the plugin. this is usually defined by the Controls of the plugin
+- `data` (object): the properties of the plugin. this is usually defined by the Controls of the plugin
 - `readOnly` (boolean): true means the editor just shows the content. If false, the editor is in edit mode and you should allow users to configure your Component. Usually you will render the plugins controls if readOnly is false
 - `focused` (boolean): whether the plugin is select in edit mode. You should reveal the controls if this property is true
-- `onChange`: (function): Call this function with a new `state` to update the `state` of the plugin. This is usally the responsiblity of the controls
+- `onChange`: (function): Call this function with a new `data` to update the `data` of the plugin. This is usally the responsiblity of the controls
 
 Most built-in plugins use a bottom toolbar with a form as Controls. See for example the image plugin which allows to define the image url and other properties.
 
@@ -43,9 +43,9 @@ import InputTextField from './Component';
 export default {
   Component: InputTextField,
   IconComponent: <StarIcon />,
-  name: 'example/content/input-text-field',
-  version: '0.0.1',
-  text: 'Input Text Field',
+  id: 'example/content/input-text-field',
+  version: 1,
+  title: 'Input Text Field',
 };
 ```
 
@@ -66,7 +66,7 @@ const onInput = (onChange) => {
 
 const InputTextField = (props) => {
   const {
-    state: { value },
+    data: { value },
     readOnly,
     onChange,
   } = props;
@@ -110,9 +110,9 @@ const BlackBorderPlugin = ({ children }) => (
 export default {
   Component: BlackBorderPlugin,
   IconComponent: <CropSquare />,
-  name: 'example/layout/black-border',
-  version: '0.0.1',
-  text: 'Black border',
+  id: 'example/layout/black-border',
+  version: 1,
+  title: 'Black border',
   createInitialChildren: () => [
     [
       {
@@ -126,64 +126,3 @@ export default {
 On that example, the initial children is a slate plugin.
 
 See [slate](./slate.md) for a more in-depth example
-
-### Handling native drag events
-
-The React Page is capable of handling native drag and drop events. Native events include dragging of links, text,
-and images. Native drag support can be enabled by writing a `NativePlugin` and passing it during instantiation.
-In this example, we will use the default plugin, and take a look at how you can create your own later.
-
-```typescript
-import native from '@react-page/plugins-default-native';
-
-const editor = new Editor({
-  plugins: {
-    layout: [],
-    content: [],
-    native,
-  },
-});
-```
-
-If native is undefined or null, native dragging wil be disabled. This is the default setting.
-
-Writing a native plugin is like writing a content or layout plugin. The only difference is that our native plugin must
-be wrapped in a factory that receives three arguments - `hover`, `monitor`, and `component`. Hover is the cell or row
-that is currently being hovered. Monitor is the [DropTargetMonitor](https://react-dnd.github.io/react-dnd/docs-drop-target-monitor.html)
-coming from react-dnd and `component` is the React component of the cell or row that is currently being hovered.
-
-In sum, an exemplary plugin looks like this:
-
-```typescript
-import React from 'react';
-
-const Native = () => <div>native</div>;
-
-export default (hover, monitor, component) => ({
-  Component: Native,
-  name: 'my-native-plugin',
-  version: '0.0.1',
-});
-```
-
-Because this plugin is wrapped in a factory, we are able to modify its behaviour based on the properties we receive.
-One such example would be to add the item's data to the initial state for later use.
-
-```typescript
-export default (hover, monitor, component) => ({
-  // ...
-  createInitialState: () => ({
-    item: monitor.getItem(),
-  }),
-});
-```
-
-Per default, the editor assumes that dropping the native element creates a content cell. To change this behaviour, use
-the key `type`:
-
-```typescript
-export default (hover, monitor, component) => ({
-  // ...
-  type: 'layout',
-});
-```

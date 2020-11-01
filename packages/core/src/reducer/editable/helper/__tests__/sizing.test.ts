@@ -1,24 +1,7 @@
 import expect from 'unexpected';
 
-import { sumSizes, resizeCells, computeResizeable } from '../sizing';
+import { sumSizes, resizeCells } from '../sizing';
 import { Cell } from '../../../../types/editable';
-
-describe('computeResizeable', () => {
-  [
-    {
-      cells: [{} as Cell],
-      e: [{ resizable: false }],
-    },
-    {
-      cells: [{} as Cell, {} as Cell, {} as Cell],
-      e: [{ resizable: true }, { resizable: true }, { resizable: false }],
-    },
-  ].forEach((c, k) => {
-    it(`should pass test case ${k}`, () => {
-      expect(computeResizeable(c.cells), 'to equal', c.e);
-    });
-  });
-});
 
 describe('sumSizes', () => {
   [

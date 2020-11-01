@@ -1,5 +1,4 @@
 import expect from 'unexpected';
-import { Node } from '../../../types/editable';
 import { HoverInsertActions, Room, Vector } from '../../../types/hover';
 import {
   computeHover,

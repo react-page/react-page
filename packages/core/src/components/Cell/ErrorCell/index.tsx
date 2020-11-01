@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { Node } from '../../../types/editable';
 import { useIsEditMode, useRemoveCell } from '../../hooks';
 
 const ErrorCell: React.FC<{ nodeId: string; error: Error }> = ({

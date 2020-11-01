@@ -42,7 +42,7 @@ export default () =>
     id: 'custom-layout-plugin',
     title: 'Custom layout plugin',
     description: 'Some custom layout plugin',
-    version: '0.0.1',
+    version: 1,
     schema: {
       required: ['backgroundColor'],
       properties: {

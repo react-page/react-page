@@ -1,6 +1,6 @@
 import { CellPlugin } from '../service/plugin/classes';
 import has from 'lodash.has';
-import { Languages } from '../Editor';
+import { Languages } from '../EditorStore';
 export type I18nField<T> = {
   [lang: string]: T;
 };
@@ -13,7 +13,7 @@ export type Cell = NodeBase & {
   rows?: Row[];
   plugin?: {
     id: string;
-    version: string;
+    version: number;
   };
 
   dataI18n?: I18nField<unknown>;
@@ -25,7 +25,6 @@ export type Cell = NodeBase & {
   isDraft?: boolean;
   isDraftI18n?: I18nField<boolean>;
 
-  resizable?: boolean;
   hasInlineNeighbour?: string;
 };
 
@@ -33,7 +32,11 @@ export type Cell = NodeBase & {
  * simpler definition for Row, used to create a new row,
  * can also be just an array of PartialCell
  */
-export type PartialRow = Partial<Row> | PartialCell[];
+export type PartialRow =
+  | PartialCell[]
+  | (Omit<Partial<Row>, 'cells'> & {
+      cells?: PartialCell[];
+    });
 
 /**
  * simpler definition for Cell, used to create a new row
@@ -70,8 +73,7 @@ export type Levels = {
 export type AbstractEditable<T> = {
   id: string;
   cells: Array<T>;
-  cellOrder?: Array<{ id: string; isLeaf: boolean }>;
-  version: string;
+  version: number;
 };
 
 export type EditableType = AbstractEditable<Cell>;

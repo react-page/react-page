@@ -1,4 +1,10 @@
-import { createStore, applyMiddleware, compose, Store } from 'redux';
+import {
+  createStore,
+  applyMiddleware,
+  compose,
+  Store,
+  Middleware,
+} from 'redux';
 import thunk from 'redux-thunk';
 import rootReducer from './reducer';
 import { RootState } from './types/state';
@@ -14,7 +20,10 @@ declare global {
  * Returns a new redux store.
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export default (initialState: any, middleware: [] = []): Store<RootState> => {
+export default (
+  initialState: any,
+  middleware: Middleware[] = []
+): Store<RootState> => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const v: any =
     !isProduction &&

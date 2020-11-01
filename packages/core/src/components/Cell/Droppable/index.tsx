@@ -10,11 +10,9 @@ import {
   useHoverActions,
   useIsInsertMode,
   useIsLayoutMode,
-  useNodeDropLevels,
   useNodeHoverPosition,
   useOptions,
 } from '../../hooks';
-import useWhyDidYouUpdate from '../../hooks/useWhyDidYouUpdate';
 import { onDrop, onHover } from './helper/dnd';
 
 export const useCellDrop = (nodeId: string) => {

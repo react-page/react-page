@@ -38,17 +38,21 @@ export interface UpdateCellDataAction extends Action {
   data: unknown;
   lang: string;
   type: typeof CELL_UPDATE_DATA;
+  notUndoable?: boolean;
 }
 
 export const updateCellData = (id: string) => (
   data: unknown,
-  lang: string
+  options: {
+    lang: string;
+    notUndoable?: boolean;
+  }
 ): UpdateCellDataAction => ({
   type: CELL_UPDATE_DATA,
   ts: new Date(),
   id,
   data,
-  lang,
+  ...options,
 });
 
 export interface RemoveCellAction extends Action {

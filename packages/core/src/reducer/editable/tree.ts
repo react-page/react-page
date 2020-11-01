@@ -15,10 +15,10 @@ import {
   CELL_UPDATE_IS_DRAFT,
   CELL_INSERT_AT_END,
   CellAction,
-  createCell,
   CELL_INSERT_AS_NEW_ROW,
 } from '../../actions/cell';
 import { Cell, Row } from '../../types/editable';
+import { removeUndefinedProps } from '../../utils/removeUndefinedProps';
 
 import { isHoveringThis } from './helper/hover';
 
@@ -35,11 +35,11 @@ const cell = (s: Cell, a: CellAction, depth: number): Cell =>
   optimizeCell(
     ((state: Cell, action): Cell => {
       const reduce = (): Cell => {
-        return {
+        return removeUndefinedProps({
           ...state,
-          hoverPosition: null,
+          hoverPosition: undefined,
           rows: rows(state.rows, action, depth + 1),
-        };
+        });
       };
 
       switch (action.type) {
@@ -50,7 +50,7 @@ const cell = (s: Cell, a: CellAction, depth: number): Cell =>
               return {
                 ...reduced,
                 isDraftI18n: {
-                  ...reduced.isDraftI18n,
+                  ...(reduced.isDraftI18n ?? {}),
                   [action.lang]: action.isDraft,
                 },
               };
@@ -266,7 +266,7 @@ const row = (s: Row, a, depth: number): Row =>
     ((state: Row, action): Row => {
       const reduce = () => ({
         ...state,
-        hoverPosition: null,
+        hoverPosition: undefined,
         cells: cells(state.cells, action, depth + 1),
       });
 
@@ -277,7 +277,7 @@ const row = (s: Row, a, depth: number): Row =>
           }
           return {
             ...state,
-            hoverPosition: null,
+            hoverPosition: undefined,
             cells: cells(
               [
                 { ...action.item, id: action.ids.item, inline: null },
@@ -294,7 +294,7 @@ const row = (s: Row, a, depth: number): Row =>
           }
           return {
             ...state,
-            hoverPosition: null,
+            hoverPosition: undefined,
             cells: cells(
               [
                 ...state.cells,

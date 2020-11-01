@@ -1,42 +1,50 @@
-import semver from 'semver';
 import { CellPlugin } from '../service/plugin/classes';
+import { MigrationVersion } from './migrate';
 
 export type MigrationContext = {
   plugins: CellPlugin[];
   lang: string;
 };
 interface MigrationConfig<TIn, TOut> {
-  toVersion: string;
-  fromVersionRange: string;
+  toVersion: MigrationVersion;
+  fromVersion?: MigrationVersion;
+
+  /**@deprecated use fromVersion instead */
+  fromVersionRange?: MigrationVersion;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   migrate: (state: TIn, context: MigrationContext) => TOut;
 }
+
+export const sanitizeVersion = (version: MigrationVersion) => {
+  // string versions are deprecated
+  if (typeof version === 'string') {
+    const [major, minor, patch] = version
+      .replace(/\^|\*/g, '')
+      .split('.')
+      .map(Number);
+
+    return major + minor * 0.01 + patch * 0.01 * 0.01;
+  } else return version;
+};
 
 /**
  * @class the class used to migrate plugin content between toVersion
  */
 export class Migration<TIn = any, TOut = TIn> {
-  fromVersionRange: string;
-  toVersion: string;
+  toVersion: number;
+  fromVersion: number;
   migrate: (state: TIn, context: MigrationContext) => TOut;
   constructor(config: MigrationConfig<TIn, TOut>) {
-    const { toVersion, migrate, fromVersionRange } = config;
+    const {
+      toVersion,
+      migrate,
+      fromVersion: fromVersionOrg,
+      fromVersionRange,
+    } = config;
+    const fromVersion = fromVersionOrg ?? fromVersionRange; // just for backwards compatibility
 
-    if (
-      !migrate ||
-      !toVersion ||
-      !fromVersionRange ||
-      semver.valid(toVersion) === null ||
-      semver.validRange(fromVersionRange) === null
-    ) {
-      throw new Error(
-        `A migration toVersion, fromVersionRange and migrate function must be defined, got ${JSON.stringify(
-          config
-        )}`
-      );
-    }
-    this.toVersion = toVersion;
+    this.toVersion = sanitizeVersion(toVersion);
     this.migrate = migrate;
-    this.fromVersionRange = fromVersionRange;
+    this.fromVersion = sanitizeVersion(fromVersion);
   }
 }

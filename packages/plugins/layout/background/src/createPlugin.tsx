@@ -17,16 +17,13 @@ const createPlugin = (settings: BackgroundSettings) => {
     ),
 
     id: 'ory/editor/core/layout/background',
-    version: '0.0.1',
+    version: 1,
 
     title: mergedSettings.translations.pluginName,
     description: mergedSettings.translations.pluginDescription,
     IconComponent: <Icon />,
 
     createInitialChildren: settings.getInitialChildren,
-
-    handleFocusNextHotKey: () => Promise.reject(),
-    handleFocusPreviousHotKey: () => Promise.reject(),
   };
   return plugin;
 };

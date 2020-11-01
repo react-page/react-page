@@ -1,44 +1,39 @@
-import { version } from 'react';
-import semver from 'semver';
 import { Cell, EditableType, Row } from '../types/editable';
+import { removeUndefinedProps } from '../utils/removeUndefinedProps';
 
 import EDITABLE_MIGRATIONS from './EDITABLE_MIGRATIONS';
-import { Migration, MigrationContext } from './Migration';
+import { Migration, MigrationContext, sanitizeVersion } from './Migration';
 
+export type MigrationVersion = number | string;
 export const migrate = <TOut>(
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   dataIn: any,
-  allMigrations: Migration[],
-  versionIn = '0.0.0',
+  migrations: Migration[],
+  versionIn: MigrationVersion = 0,
   context: MigrationContext
 ): TOut => {
   //console.log('----------');
   //console.log('versionin ' + versionIn);
   let data = dataIn;
-  if (semver.valid(versionIn) === null) {
-    return data;
-  }
-  let currentDataVersion = versionIn;
-  let migrations = allMigrations;
+
+  let currentDataVersion = sanitizeVersion(versionIn);
+
   //console.log('migrate', versionIn);
   // eslint-disable-next-line no-constant-condition
   while (true) {
-    const migration = migrations.find((m) =>
-      semver.satisfies(currentDataVersion, m.fromVersionRange)
+    const migrationToRun = migrations?.find(
+      (m) =>
+        m.fromVersion <= currentDataVersion && m.toVersion > currentDataVersion
     );
 
-    migrations = migrations.filter(
-      (m) => !semver.satisfies(currentDataVersion, m.fromVersionRange)
-    );
-    if (!migration) {
-      //console.log('no migreation, break');
+    if (!migrationToRun) {
       // We assume all migrations necessary for the current version of plugin to work are provided
       // Therefore if we don't find any, that means we are done and state is up to date
       break;
     }
-    currentDataVersion = migration.toVersion;
+    currentDataVersion = migrationToRun.toVersion;
     //console.log('!! do migrate to ' + currentDataVersion);
-    data = migration.migrate(data, context);
+    data = migrationToRun.migrate(data, context);
   }
 
   //console.log('----------');
@@ -80,18 +75,19 @@ const migratePluginData = (
           }),
           {}
         )
-      : {};
-    return {
+      : undefined;
+    const plugin = pluginFound
+      ? {
+          id: pluginFound.id,
+          version: pluginFound.version,
+        }
+      : c.plugin; // keep c.plugin in case of not found, that will show an error
+    return removeUndefinedProps({
       ...c,
-      plugin: pluginFound
-        ? {
-            id: pluginFound.id,
-            version: pluginFound.version,
-          }
-        : null,
-      rows: c.rows?.map(migrateRowData) ?? [],
+      plugin,
       dataI18n,
-    };
+      rows: c.rows?.map(migrateRowData),
+    });
   };
 
   return {
@@ -101,7 +97,7 @@ const migratePluginData = (
 };
 
 export const migrateEditable = (
-  dataIn: { version?: string } & unknown,
+  dataIn: { version?: number } & any,
   context: MigrationContext
 ) => {
   const versionIn = dataIn?.version;
@@ -113,8 +109,9 @@ export const migrateEditable = (
     versionIn,
     context
   );
-  return {
+  const migrated = {
     ...migratePluginData(data, context),
     version: newestVersion,
   };
+  return migrated;
 };

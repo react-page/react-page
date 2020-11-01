@@ -40,7 +40,6 @@
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0",
     "redux-undo": "^1.0.0",
-    "semver": "^7.3.2",
     "uuid": "^3.0.1"
   },
   "publishConfig": {

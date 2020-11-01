@@ -203,7 +203,7 @@ const defaultSlate = slate();
 // this will be our restricted slate
 const infoboxSlate = slate(def => ({
   ...def,
-  name: def.name + '/infobox', // give it some  name, it has to be unique
+  id: def.id + '/infobox', // give it some  name, it has to be unique
   hideInMenu: true, // We don't want to show it in the menu, we need it only for layout-plugins
   plugins: {
     headings: {
@@ -251,10 +251,10 @@ const infobox = createLayoutPlugin({
       ],
     ];
   },
-  name: 'infobox',
-  text: 'infobox',
+  id: 'infobox',
+  title: 'Infobox',
   description: 'Some infobox',
-  version: '0.0.1',
+  version: 1,
   schema: null
 })
 

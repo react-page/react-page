@@ -1,4 +1,4 @@
-import { computeSizes, computeInlines, computeResizeable } from './sizing';
+import { computeSizes, computeInlines } from './sizing';
 import {
   optimizeCell,
   optimizeRow,
@@ -8,7 +8,7 @@ import {
 import { Cell, Row } from '../../../types/editable';
 
 export const setAllSizesAndOptimize = (cells: Array<Cell> = []): Array<Cell> =>
-  computeInlines(computeResizeable(computeSizes(optimizeCells(cells)))).map(
+  computeInlines(computeSizes(optimizeCells(cells))).map(
     (cell: Cell): Cell => {
       if (cell.rows) {
         cell.rows = optimizeRows(cell.rows).map(

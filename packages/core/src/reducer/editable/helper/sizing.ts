@@ -16,33 +16,21 @@ export const sumSizes = (cells: Array<Cell> = []): number =>
   ).size;
 
 /**
- * Computes if a cell is resizable.
- */
-export const computeResizeable = (cells: Array<Cell> = []): Array<Cell> =>
-  cells.map(
-    (c: Cell, k: number): Cell => ({
-      ...c,
-      resizable: cells.length > 1 && k !== cells.length - 1,
-    })
-  );
-
-/**
  * Computes sizes an inline element was found.
  */
 export const computeInlines = (cells: Array<Cell> = []): Array<Cell> => {
   const doit = () => {
     if (cells.length !== 2 || !cells[0].inline) {
-      return cells.map((c: Cell) => ({
+      return cells.map(({ hasInlineNeighbour, ...c }: Cell) => ({
         ...c,
         inline: null,
-        hasInlineNeighbour: null,
       }));
     }
 
     return [
       {
         ...cells[0],
-        resizable: true,
+
         size: cells[0].size || Math.round(MAX_CELLS_PER_ROW / 2),
       },
       {

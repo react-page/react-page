@@ -33,7 +33,7 @@ type SlateDefinition<TPlugins extends SlatePluginCollection> = {
   Renderer: React.ComponentType<SlateRendererProps>;
   Controls: React.ComponentType<SlateControlsProps>;
   id: string;
-  version: string;
+  version: number;
   translations: typeof defaultTranslations;
   migrations: typeof migrations;
   allowInlineNeighbours: boolean;
@@ -54,7 +54,7 @@ const defaultConfig: DefaultSlateDefinition = {
   Renderer,
   Controls,
   id: 'ory/editor/core/content/slate',
-  version: '0.0.4',
+  version: 1,
   translations: defaultTranslations,
   migrations,
 
@@ -150,10 +150,10 @@ function plugin<TPlugins extends SlatePluginCollection = DefaultPlugins>(
       }
       return state;
     },
-
+    // disable default hotkeys
     handleRemoveHotKey: () => Promise.reject(),
     handleFocusPreviousHotKey: () => Promise.reject(),
-    handleFocusNextHotKey: () => Promise.reject(),
+    handleFocusNextHotKey: (e, node) => Promise.reject(),
 
     createInitialData,
     createInitialState: createInitialData,

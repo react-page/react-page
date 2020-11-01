@@ -40,7 +40,7 @@ export default createContentPlugin<State>({
   title: 'Custom content Plugin shop list',
 
   description: 'Some custom content plugin with a list field',
-  version: '0.0.1',
+  version: 1,
   controlsLayout: {
     columnCount: 1,
   },

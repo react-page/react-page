@@ -50,7 +50,7 @@ import {
 } from '../../actions/display';
 import { setLang } from '../../actions/setting';
 import { redo, undo } from '../../actions/undo';
-import Editor, { EditorContext } from '../../Editor';
+import EditorStore, { EditorContext } from '../../EditorStore';
 import { useDispatch, useSelector } from '../../reduxConnect';
 import { RootState, Selectors } from '../../selector';
 import {
@@ -74,7 +74,6 @@ import {
 import { HoverInsertActions } from '../../types/hover';
 import deepEquals from '../../utils/deepEquals';
 import { getDropLevels } from '../../utils/getDropLevels';
-import useWhyDidYouUpdate from './useWhyDidYouUpdate';
 
 export const EditableContext = createContext<string>(null);
 export const OptionsContext = createContext<Options>({
@@ -217,7 +216,7 @@ export const useNodeChildrenIds = (nodeId: string) => {
       : node.rows?.map((r) => r.id) ?? []
   );
 };
-export const useEditor = () => useContext<Editor>(EditorContext);
+export const useEditorStore = () => useContext<EditorStore>(EditorContext);
 
 export const useOptions = () => useContext(OptionsContext);
 
@@ -335,8 +334,20 @@ export const useUpdateCellData = (id: string) => {
   const dispatch = useDispatch();
   const currentLang = useLang();
   return useCallback(
-    (state: unknown, lang?: string) =>
-      dispatch(updateCellData(id)(state, lang ?? currentLang)),
+    (
+      state: unknown,
+      options: {
+        lang?: string;
+        notUndoable?: boolean;
+      } = {}
+    ) =>
+      dispatch(
+        updateCellData(id)(state, {
+          notUndoable: false,
+          lang: currentLang,
+          ...options,
+        })
+      ),
     [dispatch, id, currentLang]
   );
 };
@@ -353,7 +364,7 @@ export const useRemoveCell = (id: string) => {
 
 export const useDuplicateCellById = () => {
   const dispatch = useDispatch();
-  const editor = useEditor();
+  const editor = useEditorStore();
   const options = useOptionsWithLang();
 
   return useCallback(
@@ -380,7 +391,7 @@ export const useSetDisplayReferenceNodeId = () => {
 
 export const useFocusCellById = () => {
   const dispatch = useDispatch();
-  const editor = useEditor();
+  const editor = useEditorStore();
 
   return useCallback(
     (id: string, scrollToCell?: boolean, source?: string) => {
@@ -427,7 +438,7 @@ export const useBlurAllCells = () => {
 export const useInsertNew = () => {
   const dispatch = useDispatch();
   const options = useOptionsWithLang();
-  const editor = useEditor();
+  const editor = useEditorStore();
 
   return useCallback(
     (partialCell: Partial<Cell>, parentCellId?: string) => {

@@ -1,26 +1,13 @@
-import { applyMiddleware, combineReducers, createStore } from 'redux';
-import thunk from 'redux-thunk';
-import { CellPlugin } from '../../..';
-//import * as actions from '../../../actions/cell/index';
+import { CellPlugin, EditableType } from '../../..';
+import { removeCell, updateCellData } from '../../../actions/cell';
 import { createEditable } from '../../../utils/createEditable';
-//import { cellOrder } from '../helper/order';
-//import { setAllSizesAndOptimize } from '../helper/setAllSizesAndOptimize';
-import { editable } from '../index';
-
-const simulateDispatch = (currentState, action) => {
-  const reducer = combineReducers({ editable });
-  const store = createStore(reducer, currentState, applyMiddleware(thunk));
-  store.dispatch(action);
-
-  return store.getState().editable;
-};
-
+import { simulateDispatch } from '../testUtils';
 //type State = { foo?: number; bar?: number };
 
 const plugins: CellPlugin[] = [
   {
     id: 'foo',
-    version: '1.0.0',
+    version: 1,
   },
 ];
 
@@ -29,352 +16,156 @@ const options = {
   lang: 'en',
 };
 
-test('basic', () => {
-  const currentState = createEditable(
-    {
-      id: 'someId',
-    },
-    options
-  );
-  const action = { type: 'foo' };
-  const expectedState = createEditable(
-    {
-      id: 'someId',
-    },
-    options
-  );
+describe('initial reduce (without actions)', () => {
+  it('remove cells that have no rows and no plugin', () => {
+    const initialState = createEditable(
+      {
+        id: 'editableId',
+        cells: [
+          {
+            id: 'cell1',
+          },
+          {
+            id: 'cell2',
+            plugin: 'foo',
+          },
+        ],
+      },
+      options
+    );
+    const expectedState: EditableType = {
+      id: 'editableId',
+      version: 1,
+      cells: [
+        {
+          id: 'cell2',
+          size: 12,
+          plugin: {
+            id: 'foo',
+            version: 1,
+          },
+          dataI18n: {
+            en: null,
+          },
+          rows: [],
+        },
+      ],
+    };
 
-  const actualState = simulateDispatch(currentState, action);
-  expect(actualState).toEqual(expectedState);
+    const actualState = simulateDispatch(initialState);
+    expect(actualState).toEqual(expectedState);
+  });
+  it('remove cells that have rows, but they are mepty', () => {
+    const initialState = createEditable(
+      {
+        id: 'editableId',
+        cells: [
+          {
+            id: 'cell1',
+            plugin: 'foo',
+          },
+          {
+            id: 'cell2',
+            rows: [],
+          },
+          {
+            id: 'cell3',
+            rows: [
+              {
+                id: 'row1',
+                cells: [],
+              },
+            ],
+          },
+          {
+            id: 'cell4',
+            rows: [
+              {
+                id: 'row2',
+                cells: [
+                  {
+                    id: 'cell5',
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            id: 'cell5',
+            rows: [
+              {
+                id: 'row3',
+                cells: [
+                  {
+                    id: 'cell6',
+                    plugin: 'foo',
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+      options
+    );
+    const expectedState: EditableType = {
+      id: 'editableId',
+      version: 1,
+      cells: [
+        {
+          id: 'cell1',
+          size: 6,
+          plugin: {
+            id: 'foo',
+            version: 1,
+          },
+          dataI18n: {
+            en: null,
+          },
+          rows: [],
+        },
+        {
+          id: 'cell5',
+          size: 6,
+
+          dataI18n: {
+            en: null,
+          },
+          rows: [
+            {
+              id: 'row3',
+              cells: [
+                {
+                  id: 'cell6',
+                  dataI18n: {
+                    en: null,
+                  },
+                  plugin: {
+                    id: 'foo',
+                    version: 1,
+                  },
+                  size: 12,
+                  rows: [],
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    };
+
+    const actualState = simulateDispatch(initialState);
+
+    expect(actualState).toEqual(expectedState);
+  });
 });
 
 /*
-test('cleanup does not remove layout nodes when having one child, nested', () => {
-  const currentState = createEditable('editable', [
-    createCell('0', [
-      createRow('00', [
-        createCell('000', [
-          createRow('0000', [
-            createLayoutCell('layout', 'layout', null, [
-              createRow('00000', [createContentCell('000000', 'foo')]),
-            ]),
-          ]),
-        ]),
-      ]),
-    ]),
-  ]);
 
-  const action = { type: 'foo' };
-
-  const expectedState = createEditable(
-    'editable',
-    _cells([
-      createCell('0', [
-        createRow('00', [
-          createLayoutCell('layout', 'layout', null, [
-            createRow('00000', [createContentCell('000000', 'foo')]),
-          ]),
-        ]),
-      ]),
-    ])
-  );
-
-  runCase(currentState, action, expectedState);
-});
-
-test('cleanup does not remove layout nodes when having multiple cells in one row, nested', () => {
-  const currentState = createEditable('editable', [
-    createCell('0', [
-      createRow('00', [
-        createCell('000', [
-          createRow('0000', [
-            createLayoutCell('layout', 'layout', null, [
-              createRow('00000', [createContentCell('000000', 'foo', null)]),
-              createRow('00001', [createContentCell('000010', 'bar', null)]),
-            ]),
-          ]),
-        ]),
-      ]),
-    ]),
-  ]);
-
-  const action = { type: 'foo' };
-
-  const expectedState = createEditable(
-    'editable',
-    _cells([
-      createCell('0', [
-        createRow('00', [
-          createLayoutCell('layout', 'layout', null, [
-            createRow('00000', [createContentCell('000000', 'foo', null)]),
-            createRow('00001', [createContentCell('000010', 'bar', null)]),
-          ]),
-        ]),
-      ]),
-    ])
-  );
-
-  runCase(currentState, action, expectedState);
-});
-
-test('cell update content', () => {
-  const currentState = createEditable('editable', [
-    createContentCell('0', 'foo', { foo: 1 }),
-  ]);
-
-  const action = actions.updateCellData('0')({ bar: 1 });
-
-  const expectedState = createEditable(
-    'editable',
-    _cells([createContentCell('0', 'foo', { bar: 1 })])
-  );
-
-  runCase(currentState, action, expectedState);
-});
-
-test('cell update content with language', () => {
-  const currentState = createEditable('editable', [
-    createContentCell('0', 'foo', { foo: 1 }),
-  ]);
-
-  const action = actions.updateCellData('0')({ bar: 1 }, 'de');
-
-  const expectedState = createEditable(
-    'editable',
-    _cells([
-      createContentCell('0', 'foo', { foo: 1 }, undefined, {
-        de: { bar: 1 },
-      }),
-    ])
-  );
-
-  runCase(currentState, action, expectedState);
-});
-
-test('cell update content with language when there is already another translation', () => {
-  const currentState = createEditable('editable', [
-    createContentCell('0', 'foo', { foo: 1 }, undefined, {
-      en: {
-        bar: 2,
-      },
-    }),
-  ]);
-
-  const action = actions.updateCellData('0')({ bar: 1 }, 'de');
-
-  const expectedState = createEditable(
-    'editable',
-    _cells([
-      createContentCell('0', 'foo', { foo: 1 }, undefined, {
-        de: { bar: 1 },
-        en: { bar: 2 },
-      }),
-    ])
-  );
-
-  runCase(currentState, action, expectedState);
-});
-test('cell update layout', () => {
-  const currentState = createEditable('editable', [
-    createLayoutCell('0', 'foo', { foo: 1 }, [
-      createRow('2', [createContentCell('1', 'bar')]),
-    ]),
-  ]);
-
-  const action = actions.updateCellLayout('0')({ bar: 1 });
-
-  const expectedState = createEditable(
-    'editable',
-    _cells([
-      createLayoutCell('0', 'foo', { bar: 1 }, [
-        createRow('2', [createContentCell('1', 'bar')]),
-      ]),
-    ])
-  );
-
-  runCase(currentState, action, expectedState);
-});
-
-test('cell remove', () => {
-  const currentState = createEditable('editable', [
-    createContentCell('0', 'foo'),
-    createContentCell('1', 'bar'),
-  ]);
-
-  const action = actions.removeCell('0');
-
-  const expectedState = createEditable(
-    'editable',
-    _cells([createContentCell('1', 'bar')])
-  );
-
-  runCase(currentState, action, expectedState);
-});
-
-test('last cell remove', () => {
-  const currentState = createEditable('editable', [
-    createContentCell('0', 'foo'),
-  ]);
-
-  const action = actions.removeCell('0');
-
-  const actualState = simulateDispatch(currentState, action);
-
-  expect(actualState.editable.cells.length).toEqual(0);
-});
-
-test('cell cancel drag', () => {
-  const currentState = createEditable('editable', [
-    createContentCell('0', 'foo', null, { hoverPosition: 'left' }),
-  ]);
-
-  const action = actions.cancelCellDrag();
-
-  const expectedState = createEditable(
-    'editable',
-    _cells([createContentCell('0', 'foo')])
-  );
-
-  runCase(currentState, action, expectedState);
-});
-
-test('cell resize', () => {
-  const currentState = createEditable('editable', [
-    createCell('0', [
-      createRow('00', [
-        createContentCell('000', 'foo', null, { size: 6 }),
-        createContentCell('001', 'bar', null, { size: 6 }),
-      ]),
-    ]),
-  ]);
-
-  const action = actions.resizeCell('000')(4);
-
-  const expectedState = createEditable(
-    'editable',
-    _cells([
-      createCell('0', [
-        createRow('00', [
-          createContentCell('000', 'foo', null, { size: 4 }),
-          createContentCell('001', 'bar', null, { size: 8 }),
-        ]),
-      ]),
-    ])
-  );
-
-  runCase(currentState, action, expectedState);
-});
-
-test('cell resize inline cell (1)', () => {
-  const currentState = createEditable('editable', [
-    createCell('0', [
-      createRow('00', [
-        createContentCell('000', 'foo', null, { inline: 'left' }),
-        createContentCell('001', 'bar', null),
-      ]),
-    ]),
-  ]);
-
-  const action = actions.resizeCell('000')(4);
-
-  const expectedState = createEditable(
-    'editable',
-    _cells([
-      createCell('0', [
-        createRow(
-          '00',
-          [
-            createContentCell('000', 'foo', null, { inline: 'left', size: 4 }),
-            createContentCell('001', 'bar', null, { size: 12 }),
-          ],
-          {}
-        ),
-      ]),
-    ])
-  );
-
-  runCase(currentState, action, expectedState);
-});
-
-test('cell hover real row', () => {
-  const currentState = createEditable('editable', [
-    createCell('0', [
-      createRow('00', [createContentCell('000', 'foo')]),
-      createRow('01', [createContentCell('010', 'bar')]),
-    ]),
-  ]);
-
-  const action = actions.cellHoverLeftOf({ id: 'foo' }, { id: '00' }, 0);
-
-  const expectedState = createEditable(
-    'editable',
-    _cells([
-      createCell('0', [
-        createRow('00', [createContentCell('000', 'foo')], {
-          hoverPosition: 'left-of',
-        }),
-        createRow('01', [createContentCell('010', 'bar')]),
-      ]),
-    ])
-  );
-
-  runCase(currentState, action, expectedState);
-});
-
-test('cell hover row', () => {
-  const currentState = createEditable('editable', [
-    createCell('0', [
-      createRow('00', [createContentCell('000', 'foo')]),
-      createRow('01', [createContentCell('010', 'bar')]),
-    ]),
-  ]);
-
-  const action = actions.cellHoverLeftOf({ id: 'foo' }, { id: '000' }, 1);
-
-  const expectedState = createEditable(
-    'editable',
-    _cells([
-      createCell('0', [
-        createRow('00', [createContentCell('000', 'foo')], {
-          hoverPosition: 'left-of',
-        }),
-        createRow('01', [createContentCell('010', 'bar')]),
-      ]),
-    ])
-  );
-
-  runCase(currentState, action, expectedState);
-});
-
-test('cell hover ancestor cell', () => {
-  const currentState = createEditable('editable', [
-    createCell('0', [
-      createRow('00', [createContentCell('000', 'foo')]),
-      createRow('01', [createContentCell('010', 'bar')]),
-    ]),
-  ]);
-
-  const action = actions.cellHoverRightOf({ id: 'foo' }, { id: '000' }, 2);
-
-  const expectedState = createEditable(
-    'editable',
-    _cells([
-      createCell(
-        '0',
-        [
-          createRow('00', [createContentCell('000', 'foo')]),
-          createRow('01', [createContentCell('010', 'bar')]),
-        ],
-        { hoverPosition: 'right-of' }
-      ),
-    ])
-  );
-
-  runCase(currentState, action, expectedState);
-});
+TODO: readd this tests
 
 test('insert cell right of, clean up tree afterwards', () => {
-  const currentState = createEditable('editable', [
+  const initialState = createEditable('editable', [
     createCell('0', [
       createRow('00', [
         createCell('000', [
@@ -417,11 +208,11 @@ test('insert cell right of, clean up tree afterwards', () => {
     ])
   );
 
-  runCase(currentState, action, expectedState);
+  runCase(initialState, action, expectedState);
 });
 
 test('anti-recursion test: cell insert below of two level', () => {
-  const currentState = createEditable('editable', [
+  const initialState = createEditable('editable', [
     createCell('0', [
       createRow('00', [
         createCell('000', [
@@ -470,11 +261,11 @@ test('anti-recursion test: cell insert below of two level', () => {
     ])
   );
 
-  runCase(currentState, action, expectedState);
+  runCase(initialState, action, expectedState);
 });
 
 test('cell insert right of cell', () => {
-  const currentState = createEditable('editable', [
+  const initialState = createEditable('editable', [
     createCell('0', [
       createRow('00', [createContentCell('000', 'foo')]),
       createRow('01', [createContentCell('010', 'bar')]),
@@ -505,11 +296,11 @@ test('cell insert right of cell', () => {
     ])
   );
 
-  runCase(currentState, action, expectedState);
+  runCase(initialState, action, expectedState);
 });
 
 test('cell insert below of cell - one level deep (row)', () => {
-  const currentState = createEditable('editable', [
+  const initialState = createEditable('editable', [
     createCell('0', [
       createRow('00', [createContentCell('000', 'foo')]),
       createRow('01', [createContentCell('010', 'bar')]),
@@ -542,11 +333,11 @@ test('cell insert below of cell - one level deep (row)', () => {
     ])
   );
 
-  runCase(currentState, action, expectedState);
+  runCase(initialState, action, expectedState);
 });
 
 test('cell insert left of cell - one level deep (row)', () => {
-  const currentState = createEditable('editable', [
+  const initialState = createEditable('editable', [
     createCell('0', [
       createRow('00', [createContentCell('000', 'foo')]),
       createRow('01', [createContentCell('010', 'bar')]),
@@ -577,11 +368,11 @@ test('cell insert left of cell - one level deep (row)', () => {
     ])
   );
 
-  runCase(currentState, action, expectedState);
+  runCase(initialState, action, expectedState);
 });
 
 test('cell insert left of cell', () => {
-  const currentState = createEditable('editable', [
+  const initialState = createEditable('editable', [
     createCell('0', [
       createRow('00', [createContentCell('000', 'foo')]),
       createRow('01', [createContentCell('010', 'bar')]),
@@ -612,11 +403,11 @@ test('cell insert left of cell', () => {
     ])
   );
 
-  runCase(currentState, action, expectedState);
+  runCase(initialState, action, expectedState);
 });
 
 test('cell insert above cell', () => {
-  const currentState = createEditable('editable', [
+  const initialState = createEditable('editable', [
     createCell('0', [
       createRow('00', [createContentCell('000', 'foo')]),
       createRow('01', [createContentCell('010', 'bar')]),
@@ -649,11 +440,11 @@ test('cell insert above cell', () => {
     ])
   );
 
-  runCase(currentState, action, expectedState);
+  runCase(initialState, action, expectedState);
 });
 
 test('cell insert below cell', () => {
-  const currentState = createEditable('editable', [
+  const initialState = createEditable('editable', [
     createCell('0', [
       createRow('00', [createContentCell('000', 'foo')]),
       createRow('01', [createContentCell('010', 'bar')]),
@@ -686,11 +477,11 @@ test('cell insert below cell', () => {
     ])
   );
 
-  runCase(currentState, action, expectedState);
+  runCase(initialState, action, expectedState);
 });
 
 test('cell move below another cell', () => {
-  const currentState = createEditable('editable', [
+  const initialState = createEditable('editable', [
     createCell('0', [
       createRow('00', [createContentCell('000', 'foo')]),
       createRow('01', [createContentCell('010', 'bar')]),
@@ -718,11 +509,11 @@ test('cell move below another cell', () => {
     ])
   );
 
-  runCase(currentState, action, expectedState);
+  runCase(initialState, action, expectedState);
 });
 
 test('cell insert inline cell left of', () => {
-  const currentState = createEditable('editable', [
+  const initialState = createEditable('editable', [
     createCell('0', [
       createRow('00', [
         createContentCell('000', 'foo'),
@@ -768,11 +559,11 @@ test('cell insert inline cell left of', () => {
     ])
   );
 
-  runCase(currentState, action, expectedState);
+  runCase(initialState, action, expectedState);
 });
 
 test('move inline cell from left to right', () => {
-  const currentState = createEditable('editable', [
+  const initialState = createEditable('editable', [
     createCell('0', [
       createRow('00', [
         createContentCell('000', 'foo', null, { inline: 'left' }),
@@ -804,11 +595,11 @@ test('move inline cell from left to right', () => {
     ])
   );
 
-  runCase(currentState, action, expectedState);
+  runCase(initialState, action, expectedState);
 });
 
 test('cell insert cell left of inline row', () => {
-  const currentState = createEditable('editable', [
+  const initialState = createEditable('editable', [
     createCell('0', [
       createRow('00', [
         createContentCell('000', 'foo', null, { inline: 'left' }),
@@ -841,11 +632,11 @@ test('cell insert cell left of inline row', () => {
     ])
   );
 
-  runCase(currentState, action, expectedState);
+  runCase(initialState, action, expectedState);
 });
 
 test('cell insert below inline row', () => {
-  const currentState = createEditable('editable', [
+  const initialState = createEditable('editable', [
     createCell('0', [
       createRow('00', [
         createContentCell('000', 'foo', null, { inline: 'left' }),
@@ -880,11 +671,11 @@ test('cell insert below inline row', () => {
     ])
   );
 
-  runCase(currentState, action, expectedState);
+  runCase(initialState, action, expectedState);
 });
 
 test('cell insert below inline row - 2 level', () => {
-  const currentState = createEditable('editable', [
+  const initialState = createEditable('editable', [
     createCell('0', [
       createRow('00', [
         createContentCell('000', 'foo', null, { inline: 'left' }),
@@ -923,6 +714,6 @@ test('cell insert below inline row - 2 level', () => {
     ])
   );
 
-  runCase(currentState, action, expectedState);
+  runCase(initialState, action, expectedState);
 });
 */

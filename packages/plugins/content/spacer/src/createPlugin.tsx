@@ -17,14 +17,10 @@ const createPlugin: (settings: SpacerSettings) => CellPlugin<SpacerState> = (
   return {
     Component: WrappedComponent,
     id: 'ory/editor/core/content/spacer',
-    version: '0.0.1',
+    version: 1,
     IconComponent: <AspectRatio />,
     title: mergedSettings.translations.pluginName,
     description: mergedSettings.translations.pluginDescription,
-
-    handleRemoveHotKey: (): Promise<void> => Promise.reject(),
-    handleFocusPreviousHotKey: (): Promise<void> => Promise.reject(),
-    handleFocusNextHotKey: (): Promise<void> => Promise.reject(),
 
     createInitialData: () => ({
       height: 24,

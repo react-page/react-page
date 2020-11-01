@@ -3,7 +3,7 @@ import Editor, { VERSION, EditorProps } from '@react-page/editor';
 import '@react-page/core/lib/index.css'; // we also want to load the stylesheets
 
 import '@react-page/ui/lib/index.css';
-import React from 'react';
+import React, { useEffect } from 'react';
 import ReactDOM from 'react-dom';
 // The content state
 import contents from './contents';
@@ -18,6 +18,7 @@ import {
   Select,
 } from '@material-ui/core';
 import { defaultSlate } from './slate';
+import useWhyDidYouUpdate from './useWhyDidYouUpdate';
 
 const LANGUAGES = [
   {
@@ -31,7 +32,10 @@ const LANGUAGES = [
 ];
 const KeepStateEditor: React.FC<EditorProps> = ({ value, ...props }) => {
   const [state, setState] = React.useState(value);
-
+  useWhyDidYouUpdate('editable' + value?.id, state);
+  useEffect(() => {
+    console.log('state changed', state);
+  }, [state]);
   // here you would normally persist the state somewhere (e.g a database)
   // <Editor /> is stateful, so you don't nesseary have to keep the value updated
   // if you do, you have to guarantee that the value is referencially equal to what has been passed by `onChange`
@@ -138,11 +142,12 @@ const KeepStateEditor: React.FC<EditorProps> = ({ value, ...props }) => {
 const elements = document.querySelectorAll<HTMLDivElement>('.editable');
 ReactDOM.render(<span>{VERSION}</span>, document.getElementById('version'));
 elements.forEach((element, index) => {
-  ReactDOM.render(
-    <KeepStateEditor plugins={plugins} value={contents[index]} />,
+  if (index === 0)
+    ReactDOM.render(
+      <KeepStateEditor plugins={plugins} value={contents[index]} />,
 
-    element
-  );
+      element
+    );
 });
 
 // Render as beautified mark up (html)

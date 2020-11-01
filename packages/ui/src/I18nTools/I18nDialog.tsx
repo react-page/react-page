@@ -27,7 +27,9 @@ const I18nDialog = ({
   const updateCellData = useUpdateCellData(nodeId);
   const reset = useCallback(
     (lang: string) => {
-      updateCellData(null, lang);
+      updateCellData(null, {
+        lang,
+      });
     },
     [updateCellData]
   );

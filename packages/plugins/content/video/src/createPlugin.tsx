@@ -16,15 +16,11 @@ const createPlugin: (settings: VideoSettings) => CellPlugin<VideoState> = (
   return {
     Component: WrappedComponent,
     id: 'ory/editor/core/content/video',
-    version: '0.0.1',
+    version: 1,
     IconComponent: mergedSettings.IconComponent,
     title: mergedSettings.translations.pluginName,
     description: mergedSettings.translations.pluginDescription,
     isInlineable: true,
-
-    handleRemoveHotKey: (): Promise<void> => Promise.reject(),
-    handleFocusPreviousHotKey: (): Promise<void> => Promise.reject(),
-    handleFocusNextHotKey: (): Promise<void> => Promise.reject(),
   };
 };
 

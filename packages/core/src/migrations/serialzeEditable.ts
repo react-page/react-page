@@ -1,13 +1,19 @@
 import { CellPlugin } from '../service/plugin/classes';
 import { Cell, EditableType, Row } from '../types/editable';
 
-const serializeRow = (r: Row, plugins: CellPlugin[]): Row => {
+const serializeRow = (
+  { hoverPosition, ...r }: Row,
+  plugins: CellPlugin[]
+): Row => {
   return {
     ...r,
     cells: r.cells.map((c) => serializeCell(c, plugins)),
   };
 };
-const serializeCell = (c: Cell, plugins: CellPlugin[]): Cell => {
+const serializeCell = (
+  { hoverPosition, ...c }: Cell, // FIXME: remove hoverPosition from cell state
+  plugins: CellPlugin[]
+): Cell => {
   const pluginDef = c.plugin;
   const pluginFound = pluginDef
     ? plugins.find((p) => p.id === pluginDef.id)
@@ -28,12 +34,12 @@ const serializeCell = (c: Cell, plugins: CellPlugin[]): Cell => {
 
   return {
     ...c,
-    rows: c.rows?.map((r) => serializeRow(r, plugins)) ?? [],
+    rows: c.rows?.map((r) => serializeRow(r, plugins)),
     dataI18n,
   };
 };
 
-export const serializePluginData = (
+export const serialzeEditable = (
   { cells, ...rest }: EditableType,
   plugins: CellPlugin[]
 ) => {

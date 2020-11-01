@@ -1,5 +1,6 @@
 import classNames from 'classnames';
 import * as React from 'react';
+import { isRow } from '../..';
 import {
   useCellProps,
   useIsEditMode,
@@ -75,22 +76,24 @@ const Cell: React.FC<Props> = ({ nodeId, rowWidth }) => {
     resizable,
   } = useCellProps(
     nodeId,
-    ({
+    (
+      { inline, hasInlineNeighbour, isDraft, isDraftI18n, size },
+      ancestors
+    ) => ({
       inline,
       hasInlineNeighbour,
       isDraft,
       isDraftI18n,
       size,
-      resizable,
-    }) => ({
-      inline,
-      hasInlineNeighbour,
-      isDraft,
-      isDraftI18n,
-      size,
-      resizable,
+      // resizable is true if this node is not the only child and not the last child
+      resizable:
+        isRow(ancestors[0]) &&
+        ancestors[0].cells.length > 1 &&
+        ancestors[0].cells.findIndex((c) => c.id === nodeId) !==
+          ancestors[0].cells.length - 1,
     })
   );
+
   const lang = useLang();
   const isPreviewMode = useIsPreviewMode();
   const isResizeMode = useIsResizeMode();

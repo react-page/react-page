@@ -4,7 +4,6 @@ import { DragPreviewImage, useDrag } from 'react-dnd';
 import { CellDrag } from '../../../types/editable';
 import {
   useCell,
-  useCellHasPlugin,
   useCellPlugin,
   useHoverActions,
   useIsFocused,

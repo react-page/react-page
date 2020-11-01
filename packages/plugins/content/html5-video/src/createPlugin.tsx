@@ -19,12 +19,11 @@ const createPlugin: (
   return {
     Component: WrappedComponent,
     id: 'ory/sites/plugin/content/html5-video',
-    version: '0.0.1',
+    version: 1,
     title: mergedSettings.translations.pluginName,
     description: mergedSettings.translations.pluginDescription,
     IconComponent: mergedSettings.IconComponent,
-    handleFocusNextHotKey: rejectPromise,
-    handleFocusPreviousHotKey: rejectPromise,
+
     createInitialData: () => ({
       url: '',
     }),
