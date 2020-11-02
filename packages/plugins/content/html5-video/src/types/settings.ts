@@ -7,4 +7,5 @@ export interface Html5VideoSettings {
   Controls: React.ComponentType<Html5VideoControlsProps>;
   translations?: Translations;
   IconComponent?: React.ReactNode;
+  isInlineable?: boolean;
 }

@@ -21,13 +21,18 @@ describe('initial reduce (without actions)', () => {
     const initialState = createEditable(
       {
         id: 'editableId',
-        cells: [
+        rows: [
           {
-            id: 'cell1',
-          },
-          {
-            id: 'cell2',
-            plugin: 'foo',
+            id: 'row0',
+            cells: [
+              {
+                id: 'cell1',
+              },
+              {
+                id: 'cell2',
+                plugin: 'foo',
+              },
+            ],
           },
         ],
       },
@@ -36,18 +41,24 @@ describe('initial reduce (without actions)', () => {
     const expectedState: EditableType = {
       id: 'editableId',
       version: 1,
-      cells: [
+      rows: [
         {
-          id: 'cell2',
-          size: 12,
-          plugin: {
-            id: 'foo',
-            version: 1,
-          },
-          dataI18n: {
-            en: null,
-          },
-          rows: [],
+          id: 'row0',
+          cells: [
+            {
+              id: 'cell2',
+              size: 12,
+              inline: null,
+              plugin: {
+                id: 'foo',
+                version: 1,
+              },
+              dataI18n: {
+                en: null,
+              },
+              rows: [],
+            },
+          ],
         },
       ],
     };
@@ -55,50 +66,55 @@ describe('initial reduce (without actions)', () => {
     const actualState = simulateDispatch(initialState);
     expect(actualState).toEqual(expectedState);
   });
-  it('remove cells that have rows, but they are mepty', () => {
+  it('remove cells that have rows, but they are mepty and simplifies rows', () => {
     const initialState = createEditable(
       {
         id: 'editableId',
-        cells: [
+        rows: [
           {
-            id: 'cell1',
-            plugin: 'foo',
-          },
-          {
-            id: 'cell2',
-            rows: [],
-          },
-          {
-            id: 'cell3',
-            rows: [
+            id: 'row0',
+            cells: [
               {
-                id: 'row1',
-                cells: [],
+                id: 'cell1',
+                plugin: 'foo',
               },
-            ],
-          },
-          {
-            id: 'cell4',
-            rows: [
               {
-                id: 'row2',
-                cells: [
+                id: 'cell2',
+                rows: [],
+              },
+              {
+                id: 'cell3',
+                rows: [
                   {
-                    id: 'cell5',
+                    id: 'row1',
+                    cells: [],
                   },
                 ],
               },
-            ],
-          },
-          {
-            id: 'cell5',
-            rows: [
               {
-                id: 'row3',
-                cells: [
+                id: 'cell4',
+                rows: [
                   {
-                    id: 'cell6',
-                    plugin: 'foo',
+                    id: 'row2',
+                    cells: [
+                      {
+                        id: 'cell5',
+                      },
+                    ],
+                  },
+                ],
+              },
+              {
+                id: 'cell6',
+                rows: [
+                  {
+                    id: 'row3',
+                    cells: [
+                      {
+                        id: 'cell7',
+                        plugin: 'foo',
+                      },
+                    ],
                   },
                 ],
               },
@@ -111,43 +127,36 @@ describe('initial reduce (without actions)', () => {
     const expectedState: EditableType = {
       id: 'editableId',
       version: 1,
-      cells: [
+      rows: [
         {
-          id: 'cell1',
-          size: 6,
-          plugin: {
-            id: 'foo',
-            version: 1,
-          },
-          dataI18n: {
-            en: null,
-          },
-          rows: [],
-        },
-        {
-          id: 'cell5',
-          size: 6,
-
-          dataI18n: {
-            en: null,
-          },
-          rows: [
+          id: 'row0',
+          cells: [
             {
-              id: 'row3',
-              cells: [
-                {
-                  id: 'cell6',
-                  dataI18n: {
-                    en: null,
-                  },
-                  plugin: {
-                    id: 'foo',
-                    version: 1,
-                  },
-                  size: 12,
-                  rows: [],
-                },
-              ],
+              id: 'cell1',
+              size: 6,
+              inline: null,
+              plugin: {
+                id: 'foo',
+                version: 1,
+              },
+              dataI18n: {
+                en: null,
+              },
+              rows: [],
+            },
+
+            {
+              id: 'cell7',
+              dataI18n: {
+                en: null,
+              },
+              inline: null,
+              plugin: {
+                id: 'foo',
+                version: 1,
+              },
+              size: 6,
+              rows: [],
             },
           ],
         },

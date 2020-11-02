@@ -8,33 +8,38 @@ import { EditableType } from '../../..';
 const SAMPLE_STATE: EditableType = {
   version: 1,
   id: 'editableId',
-  cells: [
+  rows: [
     {
-      id: 'outer1',
-      rows: [
+      id: 'row0',
+      cells: [
         {
-          id: 'row1',
-          cells: [
+          id: 'outer1',
+          rows: [
             {
-              id: 'inner1',
-              plugin: {
-                id: 'someplugin',
-                version: 1,
-              },
-            },
-            {
-              id: 'inner2',
-              plugin: {
-                id: 'someplugin',
-                version: 1,
-              },
-            },
-            {
-              id: 'inner3',
-              plugin: {
-                id: 'someplugin',
-                version: 1,
-              },
+              id: 'row1',
+              cells: [
+                {
+                  id: 'inner1',
+                  plugin: {
+                    id: 'someplugin',
+                    version: 1,
+                  },
+                },
+                {
+                  id: 'inner2',
+                  plugin: {
+                    id: 'someplugin',
+                    version: 1,
+                  },
+                },
+                {
+                  id: 'inner3',
+                  plugin: {
+                    id: 'someplugin',
+                    version: 1,
+                  },
+                },
+              ],
             },
           ],
         },
@@ -59,10 +64,10 @@ describe('useNodeDropLevels', () => {
       }
     );
     expect(result.current).toEqual({
-      left: 2,
+      left: 3,
       right: 0,
-      above: 2,
-      below: 2,
+      above: 3,
+      below: 3,
     });
   });
   it('center nodes have drop level 0 on left and right', () => {
@@ -83,8 +88,8 @@ describe('useNodeDropLevels', () => {
     expect(result.current).toEqual({
       left: 0,
       right: 0,
-      above: 2,
-      below: 2,
+      above: 3,
+      below: 3,
     });
   });
   it('last node in a row have drop level >0 on the right', () => {
@@ -104,9 +109,9 @@ describe('useNodeDropLevels', () => {
     );
     expect(result.current).toEqual({
       left: 0,
-      right: 2,
-      above: 2,
-      below: 2,
+      right: 3,
+      above: 3,
+      below: 3,
     });
   });
 });

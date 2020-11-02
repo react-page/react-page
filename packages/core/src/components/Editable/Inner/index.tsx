@@ -6,6 +6,7 @@ import { useEditableNode } from '../../..';
 import scrollIntoViewWithOffset from '../../../components/Cell/utils/scrollIntoViewWithOffset';
 import Cell from '../../Cell';
 import InsertNew from '../../Cell/InsertNew';
+import Row from '../../Row';
 
 function isElementInViewport(el: HTMLDivElement) {
   const rect = el.getBoundingClientRect();
@@ -23,12 +24,11 @@ function isElementInViewport(el: HTMLDivElement) {
 }
 
 const Inner: React.FC = () => {
-  const { cellIds } = useEditableNode((editable) => ({
-    cellIds: editable?.cells?.map((c) => c.id) ?? [],
+  const { rowIds } = useEditableNode((editable) => ({
+    rowIds: editable?.rows?.map((c) => c.id) ?? [],
   }));
 
   const ref = useRef<HTMLDivElement>();
-  const [sizeRef, { width }] = useMeasure();
 
   const firstElementInViewPortref = React.useRef<{
     el: HTMLDivElement;
@@ -69,13 +69,10 @@ const Inner: React.FC = () => {
   }, [firstElementInViewPortref.current]);
 
   return (
-    <div
-      ref={sizeRef}
-      style={{ minHeight: 400, display: 'flex', flexDirection: 'column' }}
-    >
+    <div style={{ minHeight: 400, display: 'flex', flexDirection: 'column' }}>
       <div ref={ref} className="ory-editable">
-        {cellIds.length > 0
-          ? cellIds.map((id) => <Cell nodeId={id} rowWidth={width} key={id} />)
+        {rowIds.length > 0
+          ? rowIds.map((id) => <Row nodeId={id} key={id} />)
           : null}
       </div>
       <InsertNew />

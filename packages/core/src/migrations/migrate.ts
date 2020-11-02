@@ -92,7 +92,7 @@ const migratePluginData = (
 
   return {
     ...editable,
-    cells: editable.cells.map(migrateCellData),
+    rows: editable.rows.map(migrateRowData),
   };
 };
 

@@ -11,11 +11,11 @@ import logger from '../logger';
 
 export type HoverTarget = {
   id: string;
-  inline: string;
-  levels: Levels;
-  hasInlineNeighbour: string;
-  ancestorIds: string[];
-  pluginId: string;
+  inline?: string;
+  levels?: Levels;
+  hasInlineNeighbour?: string;
+  ancestorIds?: string[];
+  pluginId?: string;
 };
 type Context = {
   room: Room;

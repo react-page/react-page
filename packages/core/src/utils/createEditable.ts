@@ -1,11 +1,11 @@
 import { v4 } from 'uuid';
-import { createCell, PluginsAndLang } from '../actions/cell/insert';
+import { createRow, PluginsAndLang } from '../actions/cell/insert';
 import { CURRENT_EDITABLE_VERSION } from '../migrations/EDITABLE_MIGRATIONS';
-import { EditableType, PartialCell } from '../types/editable';
+import { EditableType, PartialRow } from '../types/editable';
 
 type PartialEditable = {
   id?: string;
-  cells?: PartialCell[];
+  rows?: PartialRow[];
 };
 export const createEditable = (
   partial: PartialEditable,
@@ -13,7 +13,7 @@ export const createEditable = (
 ): EditableType => {
   return {
     id: partial.id || v4(),
-    cells: partial.cells?.map((c) => createCell(c, options)) ?? [],
+    rows: partial.rows?.map((c) => createRow(c, options)) ?? [],
     version: CURRENT_EDITABLE_VERSION,
   };
 };

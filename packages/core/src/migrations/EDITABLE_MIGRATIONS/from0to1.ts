@@ -1,5 +1,6 @@
 import { v4 } from 'uuid';
 import { Cell, EditableType, Row } from '../..';
+import { createRow } from '../../actions/cell';
 import { removeUndefinedProps } from '../../utils/removeUndefinedProps';
 import { Migration, sanitizeVersion } from '../Migration';
 type I18nField<T> = {
@@ -59,13 +60,10 @@ type Levels = {
   below: number;
 };
 
-type AbstractEditable<T> = {
+export type OldEditableType = {
   id: string;
-  cells: Array<T>;
+  cells: CellOld[];
 };
-
-export type OldEditableType = AbstractEditable<CellOld>;
-
 export default new Migration<OldEditableType, EditableType>({
   fromVersion: 0 as const,
   toVersion: 1 as const,
@@ -105,10 +103,21 @@ export default new Migration<OldEditableType, EditableType>({
         id: cellRest.id ? cellRest.id : v4(),
       });
     };
+    const migratedCells = cells?.map(migrateCell) ?? [];
+    // check if is the only one cell with only rows, then we cann omit that
+    const rootRows =
+      migratedCells.length === 1 && !migratedCells[0].plugin
+        ? migratedCells[0].rows
+        : [
+            {
+              id: v4(),
+              cells: migratedCells,
+            },
+          ];
 
     return {
       id,
-      cells: cells?.map(migrateCell) ?? [],
+      rows: rootRows,
       version: 0, // will be overridden later
     };
   },

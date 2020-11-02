@@ -6,9 +6,6 @@ import { Html5VideoProps } from './types/component';
 import { Html5VideoSettings } from './types/settings';
 import { Html5VideoState } from './types/state';
 
-const rejectPromise: (e: Event) => Promise<void> = (e: Event) =>
-  Promise.reject();
-
 const createPlugin: (
   settings: Html5VideoSettings
 ) => CellPlugin<Html5VideoState> = (settings) => {
@@ -23,7 +20,7 @@ const createPlugin: (
     title: mergedSettings.translations.pluginName,
     description: mergedSettings.translations.pluginDescription,
     IconComponent: mergedSettings.IconComponent,
-
+    isInlineable: mergedSettings.isInlineable,
     createInitialData: () => ({
       url: '',
     }),

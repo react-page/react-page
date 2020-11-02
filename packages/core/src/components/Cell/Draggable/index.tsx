@@ -70,7 +70,12 @@ const Draggable: React.FC<Props> = ({ isLeaf, children, nodeId }) => {
 
   if (!isLayoutMode && !options.allowMoveInEditMode) {
     return (
-      <div className="ory-cell-draggable-container">
+      <div
+        className="ory-cell-draggable-container"
+        style={{
+          height: '100%',
+        }}
+      >
         {/* these divs are here to prevent page jumping, they are a placeholder for draggable / draggable-overlay */}
         <div className="ory-cell-draggable-overlay-placeholder" />
         {children}
@@ -83,6 +88,9 @@ const Draggable: React.FC<Props> = ({ isLeaf, children, nodeId }) => {
       <>
         <DragPreviewImage connect={preview} src={icon} />
         <div
+          style={{
+            height: '100%',
+          }}
           className={classNames({
             'ory-cell-draggable-in-edit': options.allowMoveInEditMode,
             'ory-cell-draggable': isLayoutMode && !options.allowMoveInEditMode,
@@ -105,6 +113,9 @@ const Draggable: React.FC<Props> = ({ isLeaf, children, nodeId }) => {
     <>
       <DragPreviewImage connect={preview} src={icon} />
       <div
+        style={{
+          height: '100%',
+        }}
         ref={dragRef}
         className={classNames({
           'ory-cell-draggable': isLayoutMode,

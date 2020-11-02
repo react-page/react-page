@@ -139,7 +139,6 @@ const Decorator: React.FC = ({ children }) => {
             focusedNodeId,
             'handleFocusNextHotKey',
             () => {
-              console.log('next');
               const { ancestors } = editor.getNodeWithAncestors(focusedNodeId);
               const nextSibling = getLeaveSibling(
                 focusedNodeId,

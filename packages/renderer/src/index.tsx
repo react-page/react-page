@@ -115,21 +115,26 @@ export interface HTMLRendererProps {
   lang?: string;
 }
 
-export const HTMLRenderer: React.SFC<HTMLRendererProps> = React.memo(
+export const HTMLRenderer: React.FC<HTMLRendererProps> = React.memo(
   ({ state, plugins, lang = 'default' }) => {
     const data = migrateEditable(state, { plugins, lang });
 
     if (!data) {
       return null;
     }
-    const { cells, ...props } = data;
+    const { rows, ...props } = data;
     return (
-      <HTMLRow
-        plugins={plugins}
-        lang={lang}
-        cells={setAllSizesAndOptimize(cells)}
-        {...props}
-      />
+      <>
+        {setAllSizesAndOptimize(rows).map((row) => (
+          <HTMLRow
+            key={row.id}
+            plugins={plugins}
+            lang={lang}
+            cells={row.cells}
+            {...props}
+          />
+        ))}
+      </>
     );
   }
 );

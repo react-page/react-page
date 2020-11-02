@@ -1,5 +1,6 @@
 import { Action } from 'redux';
 import { v4 } from 'uuid';
+import { HoverTarget } from '../../service/hover/computeHover';
 import {
   Cell,
   NewIds,
@@ -84,7 +85,6 @@ export const createCell = (
     isDraft: partialCell.isDraft,
     isDraftI18n: partialCell.isDraftI18n,
     inline: partialCell.inline,
-    hoverPosition: partialCell.hoverPosition,
     size: partialCell.size || 12,
 
     hasInlineNeighbour: partialCell.hasInlineNeighbour,
@@ -108,7 +108,7 @@ export const createCell = (
 
 const insert = <T extends InsertType>(type: T) => (options: PluginsAndLang) => (
   partialCell: PartialCell,
-  { id: hoverId, inline, hasInlineNeighbour }: PartialCell,
+  { id: hoverId, inline, hasInlineNeighbour, ancestorIds }: HoverTarget,
   level = 0,
   ids: NewIds = null
 ) => {
@@ -138,7 +138,8 @@ const insert = <T extends InsertType>(type: T) => (options: PluginsAndLang) => (
     type,
     ts: new Date(),
     item: cell,
-    hoverId,
+    hoverId:
+      level === 0 ? hoverId : ancestorIds[Math.max(level - 1)] ?? hoverId,
     level: l,
     // FIXME: item handling is a bit confusing,
     // we now give some of them a name like "cell" or "item",
@@ -211,7 +212,14 @@ const newIds = ({ id, ...item }: Cell): Cell => {
   };
 };
 export const duplicateCell = (options: PluginsAndLang) => (item: Cell) =>
-  insertCellBelow(options)(newIds(item), item);
+  insertCellBelow(options)(newIds(item), {
+    ancestorIds: [],
+    id: item.id,
+    hasInlineNeighbour: item.hasInlineNeighbour,
+    inline: item.inline,
+    levels: null,
+    pluginId: item.plugin.id,
+  });
 
 export const insertActions = {
   insertCellRightInline,

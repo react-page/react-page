@@ -9,6 +9,7 @@ const makeStore = (initialFocus: Focus) => {
   const reducer = combineReducers<RootState>({
     reactPage: combineReducers<RootState['reactPage']>({
       focus,
+      hover: (s) => s || null,
       display: (s) => s || null,
       settings: (s) => s || null,
       editables: (s) => s || null,
@@ -19,6 +20,7 @@ const makeStore = (initialFocus: Focus) => {
     reducer,
     {
       reactPage: {
+        hover: null,
         focus: initialFocus,
         display: {
           mode: 'asdf',
