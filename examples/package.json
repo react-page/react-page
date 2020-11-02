@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "peerDependencies": {
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6"
+    "react": "^16.8.6 || ^17.0.0",
+    "react-dom": "^16.8.6 || ^17.0.'"
   },
   "dependencies": {
     "@react-page/core": "0.0.0",
