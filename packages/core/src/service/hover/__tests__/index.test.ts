@@ -1,20 +1,19 @@
 import expect from 'unexpected';
-import { Node } from '../../../types/editable';
-import { Callbacks, Room, Vector } from '../../../types/hover';
-import HoverService, {
+import { HoverInsertActions, Room, Vector } from '../../../types/hover';
+import {
+  computeHover,
   classes as _c,
-  defaultCallbacks,
+  CALLBACK_LIST,
   computeLevel,
-} from '../index';
+} from '../computeHover';
 
 type Case = {
   d: string;
   in: {
     room: Room;
     mouse: Vector;
-    hover: Node;
   };
-  actions: (done: () => void) => Partial<Callbacks>;
+  actions: (done: () => void) => Partial<HoverInsertActions>;
 };
 const cases: Case[] = [
   {
@@ -22,7 +21,6 @@ const cases: Case[] = [
     in: {
       room: { width: 100, height: 100 },
       mouse: { x: 0, y: 50 },
-      hover: undefined,
     },
     actions: (done: () => void) => ({
       leftOf: (item, hover, level) => {
@@ -37,7 +35,6 @@ const cases: Case[] = [
     in: {
       room: { width: 100, height: 100 },
       mouse: { x: 99, y: 50 },
-      hover: undefined,
     },
     actions: (done) => ({
       rightOf: (item, hover, level) => {
@@ -52,7 +49,6 @@ const cases: Case[] = [
     in: {
       room: { width: 100, height: 100 },
       mouse: { x: 95, y: 50 },
-      hover: undefined,
     },
     actions: (done) => ({
       rightOf: (item, hover, level) => {
@@ -66,7 +62,6 @@ const cases: Case[] = [
     in: {
       room: { width: 100, height: 100 },
       mouse: { x: 92, y: 50 },
-      hover: undefined,
     },
     actions: (done) => ({
       rightOf: (item, hover, level) => {
@@ -80,7 +75,6 @@ const cases: Case[] = [
     in: {
       room: { width: 100, height: 100 },
       mouse: { x: 89, y: 50 },
-      hover: undefined,
     },
     actions: (done) => ({
       rightOf: (item, hover, level) => {
@@ -94,7 +88,6 @@ const cases: Case[] = [
     in: {
       room: { width: 100, height: 100 },
       mouse: { x: 98, y: 95 },
-      hover: undefined,
     },
     actions: (done) => ({
       rightOf: (item, hover, level) => {
@@ -105,27 +98,24 @@ const cases: Case[] = [
   },
 ];
 
-describe('HoverService', () => {
+describe('computeHover', () => {
   it('should have as many classes as callbacks', () => {
-    expect(
-      Object.keys(defaultCallbacks).length,
-      'to be',
-      Object.keys(_c).length
-    );
+    expect(Object.keys(CALLBACK_LIST).length, 'to be', Object.keys(_c).length);
   });
 
   cases.forEach((c) => {
     it(`should pass test case ${c.d}`, (done) => {
-      const h = new HoverService({
-        callbacks: defaultCallbacks,
-      });
-
-      h.hover(
+      computeHover(
         {
           id: 'foo',
         },
 
-        c.in.hover || {
+        {
+          ancestorIds: [],
+
+          inline: null,
+          hasInlineNeighbour: null,
+          pluginId: 'some-id',
           id: 'some-id',
           levels: {
             right: 10,
@@ -135,11 +125,14 @@ describe('HoverService', () => {
           },
         },
 
-        c.actions(done) as Callbacks,
+        c.actions(done) as HoverInsertActions,
         {
           room: c.in.room,
           mouse: c.in.mouse,
-          matrix: '10x10',
+          matrixName: '10x10',
+          options: {
+            plugins: [],
+          },
         }
       );
     });

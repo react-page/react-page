@@ -8,10 +8,10 @@ export interface HTML5VideoState {
 const HTML5Video: React.FC<Html5VideoProps> = (props: Html5VideoProps) => {
   const { Controls, readOnly, Renderer } = props;
 
-  const [url, setUrl] = useState(props.state.url);
+  const [url, setUrl] = useState(props.data?.url);
   useEffect(() => {
-    setUrl(props.state?.url);
-  }, [props.state?.url]);
+    setUrl(props.data?.url);
+  }, [props.data?.url]);
 
   return (
     <>

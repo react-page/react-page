@@ -1,4 +1,4 @@
-import { ContentPlugin } from '@react-page/core';
+import { CellPlugin } from '@react-page/core';
 import * as React from 'react';
 import Spacer from './Component/index';
 import { defaultSettings } from './default/settings';
@@ -6,7 +6,7 @@ import { VideoProps } from './types/component';
 import { VideoSettings } from './types/settings';
 import { VideoState } from './types/state';
 
-const createPlugin: (settings: VideoSettings) => ContentPlugin<VideoState> = (
+const createPlugin: (settings: VideoSettings) => CellPlugin<VideoState> = (
   settings
 ) => {
   const mergedSettings = { ...defaultSettings, ...settings };
@@ -15,16 +15,12 @@ const createPlugin: (settings: VideoSettings) => ContentPlugin<VideoState> = (
   );
   return {
     Component: WrappedComponent,
-    name: 'ory/editor/core/content/video',
-    version: '0.0.1',
+    id: 'ory/editor/core/content/video',
+    version: 1,
     IconComponent: mergedSettings.IconComponent,
-    text: mergedSettings.translations.pluginName,
+    title: mergedSettings.translations.pluginName,
     description: mergedSettings.translations.pluginDescription,
     isInlineable: true,
-
-    handleRemoveHotKey: (): Promise<void> => Promise.reject(),
-    handleFocusPreviousHotKey: (): Promise<void> => Promise.reject(),
-    handleFocusNextHotKey: (): Promise<void> => Promise.reject(),
   };
 };
 

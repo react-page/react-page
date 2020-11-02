@@ -1,8 +1,8 @@
 import classNames from 'classnames';
 import * as React from 'react';
-import { Cell } from '../../types/editable';
+import { isRow } from '../..';
 import {
-  useCell,
+  useCellProps,
   useIsEditMode,
   useIsFocused,
   useIsLayoutMode,
@@ -10,11 +10,12 @@ import {
   useIsResizeMode,
   useLang,
   useOptions,
-  useResizeCell,
+  useScrollToViewEffect,
 } from '../hooks';
 import ErrorCell from './ErrorCell';
 import Inner from './Inner';
 import Resizable from './Resizable';
+import scrollIntoViewWithOffset from './utils/scrollIntoViewWithOffset';
 
 const gridClass = ({
   isPreviewMode,
@@ -40,7 +41,7 @@ const stopClick = (_isEditMode: boolean) => (
 
 const CellErrorGate = class extends React.Component<
   {
-    node: Cell;
+    nodeId: string;
   },
   { error: Error }
 > {
@@ -53,7 +54,7 @@ const CellErrorGate = class extends React.Component<
 
   render() {
     if (this.state.error) {
-      return <ErrorCell node={this.props.node} error={this.state.error} />;
+      return <ErrorCell nodeId={this.props.nodeId} error={this.state.error} />;
     }
     return this.props.children;
   }
@@ -64,18 +65,35 @@ type Props = {
   rowWidth: number;
 };
 const Cell: React.FC<Props> = ({ nodeId, rowWidth }) => {
-  const node = useCell(nodeId);
   const focused = useIsFocused(nodeId);
-
+  //console.log('render cell', nodeId);
   const {
     inline,
-
     hasInlineNeighbour,
     isDraft,
     isDraftI18n,
     size,
     resizable,
-  } = node;
+  } = useCellProps(
+    nodeId,
+    (
+      { inline, hasInlineNeighbour, isDraft, isDraftI18n, size },
+      ancestors
+    ) => ({
+      inline,
+      hasInlineNeighbour,
+      isDraft,
+      isDraftI18n,
+      size,
+      // resizable is true if this node is not the only child and not the last child
+      resizable:
+        isRow(ancestors[0]) &&
+        ancestors[0].cells.length > 1 &&
+        ancestors[0].cells.findIndex((c) => c.id === nodeId) !==
+          ancestors[0].cells.length - 1,
+    })
+  );
+
   const lang = useLang();
   const isPreviewMode = useIsPreviewMode();
   const isResizeMode = useIsResizeMode();
@@ -83,16 +101,22 @@ const Cell: React.FC<Props> = ({ nodeId, rowWidth }) => {
   const isLayoutMode = useIsLayoutMode();
   const { allowResizeInEditMode } = useOptions();
 
-  const resizeCell = useResizeCell(nodeId);
-
   const isDraftInLang = isDraftI18n?.[lang] ?? isDraft;
-  //useWhyDidYouUpdate('cell', { nodeId, rowWidth });
+  const ref = React.useRef<HTMLDivElement>();
+  useScrollToViewEffect(
+    nodeId,
+    () => {
+      if (ref.current) scrollIntoViewWithOffset(ref.current, 0);
+    },
+    [ref.current]
+  );
   if (isDraftInLang && isPreviewMode) {
     return null;
   }
 
   return (
     <div
+      ref={ref}
       className={classNames(
         'ory-cell',
         gridClass({
@@ -111,14 +135,9 @@ const Cell: React.FC<Props> = ({ nodeId, rowWidth }) => {
       )}
       onClick={stopClick(isEditMode)}
     >
-      <CellErrorGate node={node}>
+      <CellErrorGate nodeId={nodeId}>
         {resizable && (isResizeMode || allowResizeInEditMode) && rowWidth ? (
-          <Resizable
-            rowWidth={rowWidth}
-            node={node}
-            steps={12}
-            onChange={resizeCell}
-          >
+          <Resizable rowWidth={rowWidth} nodeId={nodeId} steps={12}>
             <Inner nodeId={nodeId} />
           </Resizable>
         ) : (

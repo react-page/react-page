@@ -1,35 +1,48 @@
 import classNames from 'classnames';
 import * as React from 'react';
 import { useDrop } from 'react-dnd';
+import { HoverTarget } from '../../../service/hover/computeHover';
 import { CellDrag } from '../../../types/editable';
+import { getDropLevels } from '../../../utils/getDropLevels';
 import {
+  useCellProps,
   useDropActions,
   useHoverActions,
   useIsInsertMode,
   useIsLayoutMode,
-  useNode,
+  useNodeHoverPosition,
   useOptions,
 } from '../../hooks';
 import { onDrop, onHover } from './helper/dnd';
 
 export const useCellDrop = (nodeId: string) => {
   const ref = React.useRef<HTMLDivElement>(null);
-  const node = useNode(nodeId);
+
+  const hoverTarget: HoverTarget = useCellProps(nodeId, (node, ancestors) => ({
+    id: node.id,
+    ancestorIds: ancestors.map((a) => a.id),
+    hasInlineNeighbour: node.hasInlineNeighbour,
+    inline: node.inline,
+    levels: getDropLevels(node, ancestors),
+    pluginId: node.plugin?.id,
+  }));
+  const options = useOptions();
   const hoverActions = useHoverActions();
   const dropActions = useDropActions();
+
   const [, dropRef] = useDrop<CellDrag, void, void>({
     accept: 'cell',
     canDrop: (item) => {
       return (
-        item.cell.id !== node.id &&
-        !node.ancestors.some((a) => a.id === item.cell.id)
+        item.cell.id !== nodeId &&
+        !hoverTarget?.ancestorIds.includes(item.cell.id)
       );
     },
     hover(item, monitor) {
-      onHover(node, monitor, ref.current, hoverActions);
+      onHover(hoverTarget, monitor, ref.current, hoverActions, options);
     },
     drop: (item, monitor) => {
-      onDrop(node, monitor, ref.current, dropActions);
+      onDrop(hoverTarget, monitor, ref.current, dropActions, options);
     },
   });
   // see https://github.com/react-dnd/react-dnd/issues/1955
@@ -47,7 +60,7 @@ const Droppable: React.FC<{ nodeId: string; isLeaf?: boolean }> = (props) => {
   const isLayoutMode = useIsLayoutMode();
   const isInsertMode = useIsInsertMode();
   const attach = useCellDrop(props.nodeId);
-  const node = useNode(props.nodeId);
+  const hoverPosition = useNodeHoverPosition(props.nodeId);
   const options = useOptions();
   if (!(isLayoutMode || isInsertMode) && !options.allowMoveInEditMode) {
     return (
@@ -59,8 +72,8 @@ const Droppable: React.FC<{ nodeId: string; isLeaf?: boolean }> = (props) => {
     <div
       ref={attach}
       className={classNames('ory-cell-droppable', {
-        'ory-cell-droppable-is-over-current': node.hoverPosition,
-        [`ory-cell-droppable-is-over-${node.hoverPosition}`]: node.hoverPosition,
+        'ory-cell-droppable-is-over-current': hoverPosition,
+        [`ory-cell-droppable-is-over-${hoverPosition}`]: hoverPosition,
         'ory-cell-droppable-leaf': props.isLeaf,
       })}
     >

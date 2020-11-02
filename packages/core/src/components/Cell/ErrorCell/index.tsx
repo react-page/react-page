@@ -1,10 +1,12 @@
 import * as React from 'react';
-import { Node } from '../../../types/editable';
 import { useIsEditMode, useRemoveCell } from '../../hooks';
 
-const ErrorCell: React.FC<{ node: Node; error: Error }> = ({ node, error }) => {
+const ErrorCell: React.FC<{ nodeId: string; error: Error }> = ({
+  nodeId,
+  error,
+}) => {
   const isEditMode = useIsEditMode();
-  const removeCell = useRemoveCell(node.id);
+  const removeCell = useRemoveCell(nodeId);
   return (
     <div className="ory-cell-error">
       <strong>An error occurred!</strong>
@@ -13,7 +15,7 @@ const ErrorCell: React.FC<{ node: Node; error: Error }> = ({ node, error }) => {
           <dt>Cause:</dt>
           <dd>{error.message}</dd>
           <dt>Cell:</dt>
-          <dd>{node.id}</dd>
+          <dd>{nodeId}</dd>
         </dl>
       </small>
       {isEditMode ? <button onClick={() => removeCell()}>Remove</button> : null}

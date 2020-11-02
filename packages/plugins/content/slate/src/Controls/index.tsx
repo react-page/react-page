@@ -54,7 +54,6 @@ const SlateControls = (props: SlateProps) => {
       )(withReact(withInline(plugins)(createEditor()))),
     []
   );
-  // useWhyDidYouUpdate('SlateControls' + id, props);
   const onChangeDebounced = useMemo(() => debounce(props.onChange, 200), [
     props.onChange,
   ]);
@@ -75,10 +74,18 @@ const SlateControls = (props: SlateProps) => {
     (v) => {
       if (editor.selection) {
         setValue(v);
-        onChangeDebounced({
-          slate: v,
-          selection: editor.selection,
-        });
+
+        onChangeDebounced(
+          {
+            slate: v,
+            selection: editor.selection,
+          },
+          {
+            // mark as not undoable when state is same
+            // that happens if only selection was changed
+            notUndoable: v === state.slate,
+          }
+        );
       }
     },
     [onChangeDebounced]

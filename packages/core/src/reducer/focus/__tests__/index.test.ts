@@ -21,7 +21,6 @@ const makeStore = (initialFocus: Focus) => {
       reactPage: {
         focus: initialFocus,
         display: {
-          previous: 'asdf',
           mode: 'asdf',
         },
         editables: {

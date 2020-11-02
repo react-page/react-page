@@ -16,10 +16,10 @@ export default createContentPlugin<{
       <p>Age: {state.age}</p>
     </div>
   ),
-  name: 'custom-content-plugin',
-  text: 'Custom content plugin',
+  id: 'custom-content-plugin',
+  title: 'Custom content plugin',
   description: 'Some custom content plugin',
-  version: '0.0.1',
+  version: 1,
   schema: {
     properties: {
       title: {

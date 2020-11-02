@@ -16,6 +16,7 @@
     "@material-ui/styles": "^4.3.3",
     "@semantic-release/changelog": "^5.0.1",
     "@semantic-release/exec": "semantic-release/exec",
+    "@testing-library/react-hooks": "^3.4.2",
     "@types/jest": "^25.2.3",
     "@types/react-dom": "^16.9.3",
     "@typescript-eslint/eslint-plugin": "^4.4.1",
@@ -95,9 +96,6 @@
         "tsConfig": "./config/tsconfig.test.json"
       }
     },
-    "testMatch": [
-      "**/__tests__/*.+(ts|tsx)"
-    ],
     "modulePathIgnorePatterns": [
       "/lib/",
       "/lib-es/",

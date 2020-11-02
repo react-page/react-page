@@ -20,7 +20,7 @@ export const defaultSlate = slate((def) => ({
 // you can further customize slate to your needs
 export const customizedSlate = slate((def) => ({
   ...def,
-  name: def.name + '/reduced', // you have to give it some other name
+  name: def.id + '/reduced', // you have to give it some other name
   hideInMenu: true, // don't show in insert menu, we only use it as intial children
   plugins: {
     // here we do not use all plugins, but select them

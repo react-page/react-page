@@ -16,57 +16,25 @@ export const sumSizes = (cells: Array<Cell> = []): number =>
   ).size;
 
 /**
- * Updates each cell's size boundaries.
- */
-export const computeBounds = (cells: Array<Cell> = []): Array<Cell> =>
-  cells.map(
-    (c: Cell, k: number): Cell => ({
-      ...c,
-      bounds: {
-        left: k > 0 ? cells[k - 1].size + c.size - 1 : 0,
-        right: k === cells.length - 1 ? 0 : c.size - 1 + cells[k + 1].size,
-      },
-    })
-  );
-
-/**
- * Computes if a cell is resizable.
- */
-export const computeResizeable = (cells: Array<Cell> = []): Array<Cell> =>
-  cells.map(
-    (c: Cell, k: number): Cell => ({
-      ...c,
-      resizable: cells.length > 1 && k !== cells.length - 1,
-    })
-  );
-
-/**
  * Computes sizes an inline element was found.
  */
 export const computeInlines = (cells: Array<Cell> = []): Array<Cell> => {
   const doit = () => {
     if (cells.length !== 2 || !cells[0].inline) {
-      return cells.map((c: Cell) => ({
+      return cells.map(({ hasInlineNeighbour, ...c }: Cell) => ({
         ...c,
         inline: null,
-        hasInlineNeighbour: null,
       }));
     }
 
-    const inline = cells[0].inline;
     return [
       {
         ...cells[0],
-        resizable: true,
+
         size: cells[0].size || Math.round(MAX_CELLS_PER_ROW / 2),
-        bounds: {
-          left: inline === 'left' ? 0 : MAX_CELLS_PER_ROW - 1,
-          right: inline === 'right' ? 0 : MAX_CELLS_PER_ROW - 1,
-        },
       },
       {
         ...cells[1],
-        bounds: { left: 0, right: 0 },
         size: 12,
         hasInlineNeighbour: cells[0].id,
       },

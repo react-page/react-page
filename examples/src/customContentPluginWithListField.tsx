@@ -16,13 +16,13 @@ type State = {
   shops: Shop[];
 };
 export default createContentPlugin<State>({
-  Renderer: ({ state }) => (
+  Renderer: ({ data }) => (
     <div>
-      <h1>{state.title}</h1>
+      <h1>{data.title}</h1>
       <p>Shops:</p>
       <ul>
-        {state.shops &&
-          state.shops.map((shop, index) => (
+        {data.shops &&
+          data.shops.map((shop, index) => (
             <li key={index}>
               <h2>{shop.name}</h2>
               <p>Adresss:</p>
@@ -36,11 +36,11 @@ export default createContentPlugin<State>({
       </ul>
     </div>
   ),
-  name: 'custom-content-plugin-with-list',
-  text: 'Custom content Plugin shop list',
+  id: 'custom-content-plugin-with-list',
+  title: 'Custom content Plugin shop list',
 
   description: 'Some custom content plugin with a list field',
-  version: '0.0.1',
+  version: 1,
   controlsLayout: {
     columnCount: 1,
   },

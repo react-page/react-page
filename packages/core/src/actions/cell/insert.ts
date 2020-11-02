@@ -1,6 +1,14 @@
 import { Action } from 'redux';
 import { v4 } from 'uuid';
-import { Cell, CellWithAncestors, NewIds } from '../../types/editable';
+import {
+  Cell,
+  NewIds,
+  Options,
+  PartialCell,
+  PartialRow,
+  Row,
+} from '../../types/editable';
+import { removeUndefinedProps } from '../../utils/removeUndefinedProps';
 import { editMode } from '../display';
 import { generateIds } from '../helpers';
 import { focusCell } from './core';
@@ -13,6 +21,7 @@ export const CELL_INSERT_INLINE_LEFT = 'CELL_INSERT_INLINE_LEFT';
 export const CELL_INSERT_INLINE_RIGHT = 'CELL_INSERT_INLINE_RIGHT';
 
 export const CELL_INSERT_AT_END = 'CELL_INSERT_AT_END';
+export const CELL_INSERT_AS_NEW_ROW = 'CELL_INSERT_AS_NEW_ROW';
 
 type InsertType =
   | typeof CELL_INSERT_ABOVE
@@ -21,24 +30,91 @@ type InsertType =
   | typeof CELL_INSERT_RIGHT_OF
   | typeof CELL_INSERT_INLINE_LEFT
   | typeof CELL_INSERT_INLINE_RIGHT
-  | typeof CELL_INSERT_AT_END;
+  | typeof CELL_INSERT_AT_END
+  | typeof CELL_INSERT_AS_NEW_ROW;
 export interface InsertAction extends Action {
   ts: Date;
-  item: Partial<Cell>;
+  item: Cell;
   hoverId: string;
   level: number;
   ids: NewIds;
   type: InsertType;
 }
 
-const insert = <T extends InsertType>(type: T) => (
-  item: Partial<Cell>,
-  { id: hoverId, inline, hasInlineNeighbour }: Partial<Cell>,
+export type PluginsAndLang = {
+  lang: string;
+} & Pick<Options, 'plugins'>;
+
+export const createRow = (
+  partialRow: PartialRow,
+  options: PluginsAndLang
+): Row => {
+  if (Array.isArray(partialRow)) {
+    return {
+      id: v4(),
+      cells: partialRow.map((c) => createCell(c, options)),
+    };
+  }
+  return removeUndefinedProps({
+    id: v4(),
+    ...partialRow,
+    cells: partialRow.cells?.map((c) => createCell(c, options)),
+  });
+};
+
+export const createCell = (
+  partialCell: PartialCell,
+  options: PluginsAndLang
+): Cell => {
+  const { plugins, lang } = options;
+  const pluginId =
+    partialCell.plugin &&
+    (typeof partialCell.plugin == 'string'
+      ? partialCell.plugin
+      : partialCell.plugin.id);
+  const plugin = pluginId && plugins.find((p) => p.id === pluginId);
+
+  const partialRows =
+    partialCell.rows?.length > 0
+      ? partialCell.rows
+      : plugin?.createInitialChildren?.() ?? [];
+
+  return removeUndefinedProps({
+    id: partialCell.id ?? v4(),
+    isDraft: partialCell.isDraft,
+    isDraftI18n: partialCell.isDraftI18n,
+    inline: partialCell.inline,
+    hoverPosition: partialCell.hoverPosition,
+    size: partialCell.size || 12,
+
+    hasInlineNeighbour: partialCell.hasInlineNeighbour,
+    plugin: plugin
+      ? {
+          id: plugin.id,
+          version: plugin.version,
+        }
+      : undefined,
+    rows: partialRows?.map((r) => createRow(r, options)),
+    dataI18n: {
+      [lang]:
+        partialCell?.data ??
+        plugin?.createInitialData?.(partialCell) ??
+        plugin?.createInitialState?.(partialCell) ??
+        null,
+      ...(partialCell.dataI18n ?? {}),
+    },
+  });
+};
+
+const insert = <T extends InsertType>(type: T) => (options: PluginsAndLang) => (
+  partialCell: PartialCell,
+  { id: hoverId, inline, hasInlineNeighbour }: PartialCell,
   level = 0,
   ids: NewIds = null
 ) => {
   let l = level;
-  delete (item as CellWithAncestors).ancestors;
+
+  const cell = createCell(partialCell, options);
   switch (type) {
     case CELL_INSERT_ABOVE:
     case CELL_INSERT_BELOW: {
@@ -61,7 +137,7 @@ const insert = <T extends InsertType>(type: T) => (
   const insertAction = {
     type,
     ts: new Date(),
-    item,
+    item: cell,
     hoverId,
     level: l,
     // FIXME: item handling is a bit confusing,
@@ -73,7 +149,8 @@ const insert = <T extends InsertType>(type: T) => (
   return (dispatch) => {
     dispatch(insertAction);
     // FIXME: checking if an item is new or just moved around is a bit awkward
-    const isNew = !item.id || (item.rows && !item.levels);
+
+    const isNew = !partialCell.id;
 
     if (isNew) {
       dispatch(editMode());
@@ -116,18 +193,13 @@ export const insertCellRightInline = insert(CELL_INSERT_INLINE_RIGHT);
 
 export const insertCellAtTheEnd = insert(CELL_INSERT_AT_END);
 
+export const insertCellNewAsNewRow = insert(CELL_INSERT_AS_NEW_ROW);
+
 // set new ids recursivly
-const newIds = ({ id, ...item }: Partial<Cell>) => {
+const newIds = ({ id, ...item }: Cell): Cell => {
   return {
     ...item,
-    content: item.content && {
-      plugin: item.content.plugin,
-      state: JSON.parse(JSON.stringify(item.content.state)),
-    },
-    layout: item.layout && {
-      plugin: item.layout.plugin,
-      state: JSON.parse(JSON.stringify(item.layout.state)),
-    },
+    dataI18n: JSON.parse(JSON.stringify(item.dataI18n)),
     id: v4(),
     rows: item.rows
       ? item.rows.map((row) => ({
@@ -138,7 +210,8 @@ const newIds = ({ id, ...item }: Partial<Cell>) => {
       : undefined,
   };
 };
-export const duplicateCell = (item) => insertCellBelow(newIds(item), item);
+export const duplicateCell = (options: PluginsAndLang) => (item: Cell) =>
+  insertCellBelow(options)(newIds(item), item);
 
 export const insertActions = {
   insertCellRightInline,

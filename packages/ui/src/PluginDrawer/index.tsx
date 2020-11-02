@@ -3,14 +3,7 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListSubheader from '@material-ui/core/ListSubheader';
 import TextField from '@material-ui/core/TextField';
-import {
-  ContentPlugin,
-  LayoutPlugin,
-  PluginBase,
-  sanitizeInitialChildren,
-  useEditor,
-  useIsInsertMode,
-} from '@react-page/core';
+import { CellPlugin, useIsInsertMode, usePlugins } from '@react-page/core';
 import * as React from 'react';
 import { Portal } from 'react-portal';
 import Item from './Item/index';
@@ -37,24 +30,27 @@ type Props = {
   translations?: Translations;
 };
 
+const getPluginTitle = (plugin: CellPlugin) =>
+  (plugin.title || plugin.text) ?? '';
+
 const Toolbar: React.FC<Props> = ({ translations = defaultTranslations }) => {
-  const editor = useEditor();
-  const plugins = editor.plugins;
+  const plugins = usePlugins();
 
   const [searchText, setSearchText] = React.useState<string>('');
   const searchFilter = React.useCallback(
-    (plugin: PluginBase) => {
+    (plugin: CellPlugin) => {
+      const id = plugin.id;
+      const title = getPluginTitle(plugin);
       return (
         plugin &&
-        plugin.name &&
+        id &&
         !plugin.hideInMenu &&
-        (plugin.name.toLowerCase().startsWith(searchText?.toLowerCase()) ||
+        (id.toLowerCase().startsWith(searchText?.toLowerCase()) ||
           (plugin.description &&
             plugin.description
               .toLowerCase()
               .startsWith(searchText?.toLowerCase())) ||
-          (plugin.text &&
-            plugin.text.toLowerCase().startsWith(searchText?.toLowerCase())))
+          (title && title.toLowerCase().startsWith(searchText?.toLowerCase())))
       );
     },
     [searchText]
@@ -87,8 +83,7 @@ const Toolbar: React.FC<Props> = ({ translations = defaultTranslations }) => {
     };
   }, [inputRef.current, isInsertMode]);
 
-  const content = plugins.plugins.content.filter(searchFilter);
-  const layout = plugins.plugins.layout.filter(searchFilter);
+  const filteredPlugins = plugins.filter(searchFilter);
 
   return (
     <Portal>
@@ -113,59 +108,24 @@ const Toolbar: React.FC<Props> = ({ translations = defaultTranslations }) => {
               onChange={onSearch}
             />
           </ListItem>
-          {layout.length + content.length === 0 && (
+          {filteredPlugins.length === 0 && (
             <ListSubheader>{translations.noPluginFoundContent}</ListSubheader>
           )}
         </List>
-        {content.length > 0 && (
+        {filteredPlugins.length > 0 && (
           <List
             subheader={
               <ListSubheader>{translations.contentPlugins}</ListSubheader>
             }
           >
-            {content.map((plugin: ContentPlugin, k: number) => {
-              const initialState = plugin.createInitialState?.() ?? {};
-
+            {filteredPlugins.map((plugin: CellPlugin, k: number) => {
               return (
                 <Item
                   translations={translations}
                   plugin={plugin}
                   key={k.toString()}
                   insert={{
-                    content: {
-                      plugin,
-                      state: initialState,
-                    },
-                  }}
-                />
-              );
-            })}
-          </List>
-        )}
-        {layout.length > 0 && (
-          <List
-            subheader={
-              <ListSubheader>{translations.layoutPlugins}</ListSubheader>
-            }
-          >
-            {layout.map((plugin: LayoutPlugin, k: number) => {
-              const initialState = plugin.createInitialState?.() ?? {};
-
-              const children = sanitizeInitialChildren(
-                plugin.createInitialChildren()
-              );
-
-              return (
-                <Item
-                  translations={translations}
-                  plugin={plugin}
-                  key={k.toString()}
-                  insert={{
-                    ...children,
-                    layout: {
-                      plugin,
-                      state: initialState,
-                    },
+                    plugin: plugin.id,
                   }}
                 />
               );

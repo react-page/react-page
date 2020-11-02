@@ -1,26 +1,23 @@
 /* eslint-disable @typescript-eslint/ban-types */
 
 import { AnyAction } from 'redux';
-import semver from 'semver';
-import { InitialChildrenDef } from '../../helper/createInitialChildren';
-import { Cell } from '../../types/editable';
 
-export type Plugins = {
-  layout?: LayoutPlugin[];
-  content?: ContentPlugin[];
-};
+import { Migration } from '../../migrations/Migration';
+import { Cell, PartialCell, PartialRow, Row } from '../../types/editable';
+
+export type Plugins = CellPlugin[];
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type PluginBase<StateT = {}> = {
+export type CellPlugin<DataT = any, DataSerializedT = DataT> = {
   /**
-   * the plugin's name
+   * the plugins unique id. Only one plugin with the same id may be used
    */
-  name: string;
+  id: string;
 
   /**
-   * The Human readable title of the plugin
+   * the plugins human readable title of the plugin
    */
-  text?: string;
+  title?: string;
 
   /**
    * The description appearing below text in the menu
@@ -28,59 +25,62 @@ export type PluginBase<StateT = {}> = {
   description?: string;
 
   /**
+   * the plugin's name
+   * @deprecated please set id
+   */
+  name?: string;
+
+  /**
+   * The Human readable title of the plugin
+   * @deprecated please set title
+   */
+  text?: string;
+
+  /**
    * the plugin's version
    */
-  version: string;
+  version: number;
 
-  Component?: PluginComponentType<PluginProps<StateT>>;
+  Component?: PluginComponentType<CellPluginComponentProps<DataT>>;
 
   IconComponent?: React.ReactNode;
 
   hideInMenu?: boolean;
 
+  isInlineable?: boolean;
+  allowInlineNeighbours?: boolean;
+
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  serialize?: (state: StateT) => any;
+  serialize?: (data: DataT) => DataSerializedT;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  unserialize?: (raw: any) => StateT;
+  unserialize?: (raw: DataSerializedT) => DataT;
   handleRemoveHotKey?: (e: Event, node: Cell) => Promise<void>;
   handleFocusNextHotKey?: (e: Event, node: Cell) => Promise<void>;
   handleFocusPreviousHotKey?: (e: Event, node: Cell) => Promise<void>;
 
-  reducer?: (state: StateT, action: AnyAction) => StateT;
+  reducer?: (data: DataT, action: AnyAction) => DataT;
   migrations?: Migration[];
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  createInitialState?: (...args: any[]) => StateT;
-};
+  /**
+   * called when a cell with this plugin is added
+   */
+  createInitialData?: (cell: PartialCell) => DataT;
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type ContentPlugin<T = any> = PluginBase<T> & {
-  allowInlineNeighbours?: boolean;
+  /**
+   * @deprecated, use createInitialData instead
+   */
+  createInitialState?: (cell: PartialCell) => DataT;
 
-  isInlineable?: boolean;
-
-  Component?: PluginComponentType<ContentPluginProps<T>>;
-};
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type LayoutPlugin<T = any> = PluginBase<T> & {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  createInitialChildren?: () => InitialChildrenDef;
-  Component?: PluginComponentType<LayoutPluginProps<T>>;
+  createInitialChildren?: () => PartialRow[];
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type PluginComponentType<T = any> = React.ComponentType<T>;
 
-export type PluginProps<
+export type CellPluginComponentProps<
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  StateT = any
+  DataT = any
 > = {
-  /**
-   * cell
-   */
-  cell: Cell;
-
   /**
    * node id
    */
@@ -96,10 +96,11 @@ export type PluginProps<
    */
   focused: boolean;
 
+  data: DataT;
   /**
-   * the plugin's state. (already translated)
+   * @deprecated use data instead (its the same, just renamed)
    */
-  state: StateT;
+  state: DataT;
 
   lang?: string;
 
@@ -107,56 +108,11 @@ export type PluginProps<
   remove?: () => void; // removes the plugin
 
   /**
-   * Should be called with the new state if the plugin's state changes.
+   * Should be called with the new data if the plugin's data changes.
    */
-  onChange(state: Partial<StateT>): void;
+  onChange(data: Partial<DataT>, options?: { notUndoable: boolean }): void;
 
   isPreviewMode: boolean;
   isEditMode: boolean;
-  pluginConfig: PluginBase<StateT>;
+  pluginConfig: CellPlugin<DataT>;
 };
-
-export type ContentPluginProps<T = any> = PluginProps<T> & {
-  pluginConfig: ContentPlugin<T>;
-};
-
-export type LayoutPluginProps<T = any> = PluginProps<T> & {
-  pluginConfig: LayoutPlugin<T>;
-};
-
-export interface MigrationConfig {
-  toVersion: string;
-  fromVersionRange: string;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  migrate: (state: any) => any;
-}
-
-/**
- * @class the class used to migrate plugin content between toVersion
- */
-export class Migration {
-  fromVersionRange: string;
-  toVersion: string;
-  constructor(config: MigrationConfig) {
-    const { toVersion, migrate, fromVersionRange } = config;
-
-    if (
-      !migrate ||
-      !toVersion ||
-      !fromVersionRange ||
-      semver.valid(toVersion) === null ||
-      semver.validRange(fromVersionRange) === null
-    ) {
-      throw new Error(
-        `A migration toVersion, fromVersionRange and migrate function must be defined, got ${JSON.stringify(
-          config
-        )}`
-      );
-    }
-    this.toVersion = toVersion;
-    this.migrate = migrate;
-    this.fromVersionRange = fromVersionRange;
-  }
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  migrate = (state: any): any => state;
-}

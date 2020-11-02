@@ -17,14 +17,14 @@ class Spacer extends React.PureComponent<SpacerProps, SpacerState> {
 
   render() {
     const { Controls } = this.props;
+
     return (
       <Controls
         {...this.props}
-        state={{
-          ...this.props.state,
+        data={{
           height: this.state.height
             ? this.state.height
-            : this.props.state.height,
+            : this.props.data?.height,
         }}
         changeHeightPreview={this.changeHeightPreview}
         commitHeight={this.commitHeight}

@@ -1,26 +1,16 @@
 import { Action } from 'redux';
-import uuid from 'uuid';
+
 import { NewIds } from '../../types/editable';
-import { EditorState } from '../../types/editor';
+
 import { generateIds } from '../helpers';
 
-export const CELL_UPDATE_CONTENT = 'CELL_UPDATE_CONTENT';
 export const CELL_UPDATE_IS_DRAFT = 'CELL_UPDATE_IS_DRAFT';
-export const CELL_UPDATE_LAYOUT = 'CELL_UPDATE_LAYOUT';
+export const CELL_UPDATE_DATA = 'CELL_UPDATE_DATA';
 export const CELL_REMOVE = 'CELL_REMOVE';
 export const CELL_RESIZE = 'CELL_RESIZE';
 export const CELL_FOCUS = 'CELL_FOCUS';
 export const CELL_BLUR = 'CELL_BLUR' as const;
 export const CELL_BLUR_ALL = 'CELL_BLUR_ALL' as const;
-export const CELL_CREATE_FALLBACK = 'CELL_CREATE_FALLBACK' as const;
-
-export interface UpdateCellContentAction extends Action {
-  ts: Date;
-  id: string;
-  state: EditorState;
-  lang?: string;
-  type: typeof CELL_UPDATE_CONTENT;
-}
 
 export interface UpdateCellIsDraftAction extends Action {
   ts: Date;
@@ -29,39 +19,7 @@ export interface UpdateCellIsDraftAction extends Action {
   lang?: string;
   type: typeof CELL_UPDATE_IS_DRAFT;
 }
-/**
- * An action creator for updating a cell's content data.
- *
- * @example
- * // const store = redux.createStore()
- * // const cell = { id: '1', ... }
- * store.dispatch(updateCellContent(cell.id, { foo: 'bar' }))
- *
- * @param {string} id The id of the cell that should be updated
- * @return {Action}
- */
-export const updateCellContent = (id: string) => (
-  state: EditorState = {},
-  lang?: string
-): UpdateCellContentAction => ({
-  type: CELL_UPDATE_CONTENT,
-  ts: new Date(),
-  id,
-  state,
-  lang,
-});
 
-/**
- * An action creator for setting the cell's isDraft property
- *
- * @example
- * // const store = redux.createStore()
- * // const cell = { id: '1', ... }
- * store.dispatch(updateCellContent(cell.id, { foo: 'bar' }))
- *
- * @param {string} id The id of the cell that should be updated
- * @return {Action}
- */
 export const updateCellIsDraft = (
   id: string,
   isDraft = false,
@@ -74,33 +32,27 @@ export const updateCellIsDraft = (
   lang,
 });
 
-export interface UpdateCellLayoutAction extends Action {
+export interface UpdateCellDataAction extends Action {
   ts: Date;
   id: string;
-  state: EditorState;
-  lang?: string;
-  type: typeof CELL_UPDATE_LAYOUT;
+  data: unknown;
+  lang: string;
+  type: typeof CELL_UPDATE_DATA;
+  notUndoable?: boolean;
 }
-/**
- * An action creator for updating a cell's layout data.
- *
- * @example
- * // const store = redux.createStore()
- * // const cell = { id: '1', ... }
- * store.dispatch(updateCellLayout(cell.id, { foo: 'bar' }))
- *
- * @param {string} id The id of the cell that should be updated
- * @return {Action}
- */
-export const updateCellLayout = (id: string) => (
-  state: EditorState = {},
-  lang?: string
-): UpdateCellLayoutAction => ({
-  type: CELL_UPDATE_LAYOUT,
+
+export const updateCellData = (id: string) => (
+  data: unknown,
+  options: {
+    lang: string;
+    notUndoable?: boolean;
+  }
+): UpdateCellDataAction => ({
+  type: CELL_UPDATE_DATA,
   ts: new Date(),
   id,
-  state,
-  lang,
+  data,
+  ...options,
 });
 
 export interface RemoveCellAction extends Action {
@@ -109,18 +61,7 @@ export interface RemoveCellAction extends Action {
   ids: NewIds;
   type: typeof CELL_REMOVE;
 }
-/**
- * An action creator for removing a cell.
- *
- * @example
- * // const store = redux.createStore()
- * // const cell = { id: '1', ... }
- * store.dispatch(removeCell(cell.id, ['1', '2', '3', '4', ...]))
- *
- * @param {string} id The id of the cell that should be removed.
- * @param {string} ids An object of IDs for new cells that might be created.
- * @return {Action}
- */
+
 export const removeCell = (
   id: string,
   ids: NewIds = null
@@ -137,18 +78,7 @@ export interface ResizeCellAction extends Action {
   size: number;
   type: typeof CELL_RESIZE;
 }
-/**
- * An action creator for resizing a cell.
- *
- * @example
- * // const store = redux.createStore()
- * // const cell = { id: '1', ... }
- * store.dispatch(resizeCell(cell.id)(size))
- *
- * @param {string} id The id of the cell that should be removed.
- * @param {number} size The cell's new size.
- * @return {Function}
- */
+
 export const resizeCell = (id: string) => (size = 1): ResizeCellAction => ({
   type: CELL_RESIZE,
   ts: new Date(),
@@ -204,51 +134,20 @@ export const blurAllCells = (): BlurAllCellsAction => ({
   ts: new Date(),
 });
 
-export interface CreateFallbackCellAction extends Action {
-  ts: Date;
-  editable: string;
-  type: typeof CELL_CREATE_FALLBACK;
-  ids: {
-    cell: string;
-  };
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  fallback: any;
-}
-
 export type CellCoreAction =
-  | UpdateCellLayoutAction
   | RemoveCellAction
-  | UpdateCellContentAction
+  | UpdateCellDataAction
   | UpdateCellIsDraftAction
-  | CreateFallbackCellAction
   | BlurAllCellsAction
   | FocusCellAction;
-/**
- * Creates a fallback cell, usually done when an editable is empty.
- */
-export const createFallbackCell = (
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  fallback: any,
-  editable: string
-): CreateFallbackCellAction => ({
-  type: CELL_CREATE_FALLBACK,
-  ts: new Date(),
-  editable,
-  ids: {
-    cell: uuid.v4(),
-  },
-  fallback,
-});
 
 export const coreActions = {
-  createFallbackCell,
   blurAllCells,
   blurCell,
 
   focusCell,
   resizeCell,
   removeCell,
-  updateCellLayout,
-  updateCellContent,
+  updateCellData,
   updateCellIsDraft,
 };

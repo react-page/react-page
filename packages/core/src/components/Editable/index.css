@@ -1,7 +1,7 @@
 .ory-editable {
   position: relative;
   box-sizing: border-box;
-  min-height: 400px;
+  width: 100%;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: -webkit-box;
@@ -19,4 +19,34 @@
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
   align-items: stretch;
+}
+
+.ory-cell-insert-new {
+  cursor: cell;
+  flex: 1;
+  min-height: 100px;
+ 
+  transition: all ease 0.4s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid rgba(0, 0, 0, 0);
+  z-index: 1;
+  position: relative;
+}
+
+.ory-cell-insert-new:after {
+  content: "+";
+  font-size: 64px;
+  line-height: 64px;
+  background-color: var(--minBlack);
+  color: white;
+  width: 64px;
+  text-align: center;
+  border-radius: 50%;
+}
+
+.ory-cell-insert-new:hover {
+  background: var(--minBlack);
+  border: 1px solid var(--lightWhite);
 }

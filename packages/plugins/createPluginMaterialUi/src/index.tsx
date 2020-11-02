@@ -1,8 +1,13 @@
-import createContentPlugin from './createContentPlugin';
-import createLayoutPlugin from './createLayoutPlugin';
+import createPlugin from './createPlugin';
 import makeUniformsSchema from './utils/makeUniformsSchema';
 import { JsonSchema, JsonSchemaProperty } from './types/jsonSchema';
+
+// legacy
+const createContentPlugin = createPlugin;
+const createLayoutPlugin = createPlugin;
+
 export {
+  createPlugin,
   createContentPlugin,
   createLayoutPlugin,
   makeUniformsSchema,

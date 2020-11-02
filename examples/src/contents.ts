@@ -1,13 +1,12 @@
 // tslint:disable:max-line-length
-import { EditableType } from '@react-page/core';
 
-const contents: EditableType[] = [
+const contents: any[] = [
   {
     id: '1',
     cells: [
       {
         id: '5ac89ec4-7536-4120-a072-8eedad0a48ff',
-        inline: null,
+
         size: 12,
         rows: [
           {
@@ -15,7 +14,7 @@ const contents: EditableType[] = [
             cells: [
               {
                 id: '3fde7b92-fbfe-4b2d-85b3-bad431939df6',
-                inline: null,
+
                 size: 12,
                 content: {
                   plugin: {
@@ -114,7 +113,7 @@ const contents: EditableType[] = [
             cells: [
               {
                 id: '33c58cda-94b5-4c2e-9232-9aa27a4aff8d',
-                inline: null,
+
                 size: 6,
                 content: {
                   plugin: {
@@ -199,7 +198,7 @@ const contents: EditableType[] = [
               },
               {
                 id: 'd5e4efbe-66f0-4344-9df0-f0720b5d1f5d',
-                inline: null,
+
                 size: 6,
                 content: {
                   plugin: {
@@ -218,7 +217,7 @@ const contents: EditableType[] = [
             cells: [
               {
                 id: '640485f1-04d4-4579-81e0-5d8aa1dbfe24',
-                inline: null,
+
                 size: 12,
                 content: {
                   plugin: {
@@ -263,7 +262,7 @@ const contents: EditableType[] = [
               },
               {
                 id: '2fff5d50-f252-478b-b354-181300e21419',
-                inline: null,
+
                 size: 12,
                 content: {
                   plugin: {
@@ -329,7 +328,7 @@ const contents: EditableType[] = [
             cells: [
               {
                 id: 'ede254d9-f54f-47c1-85c3-e0e09e816264',
-                inline: null,
+
                 size: 12,
                 content: {
                   plugin: {
@@ -360,7 +359,7 @@ const contents: EditableType[] = [
             cells: [
               {
                 id: 'b2332df1-94c4-4136-867f-14c93e1efe48',
-                inline: null,
+
                 size: 4,
                 content: {
                   plugin: {
@@ -374,7 +373,7 @@ const contents: EditableType[] = [
               },
               {
                 id: '71d9437b-38ef-40f9-be8b-0a5517734922',
-                inline: null,
+
                 size: 8,
                 content: {
                   plugin: {
@@ -469,7 +468,7 @@ const contents: EditableType[] = [
             cells: [
               {
                 id: 'af4d6d7b-57ac-43f2-aff6-6b141dfcf98e',
-                inline: null,
+
                 size: 12,
                 content: {
                   plugin: {
@@ -488,7 +487,7 @@ const contents: EditableType[] = [
             cells: [
               {
                 id: 'f9a5c347-8e5f-464f-8af9-b130ec2dd3bb',
-                inline: null,
+
                 size: 12,
                 content: {
                   plugin: {
@@ -519,7 +518,7 @@ const contents: EditableType[] = [
             cells: [
               {
                 id: '9e726399-4a2c-4ea7-b0f3-7742d430a861',
-                inline: null,
+
                 size: 12,
                 content: {
                   plugin: {
@@ -536,7 +535,7 @@ const contents: EditableType[] = [
             cells: [
               {
                 id: '4825fda3-916f-44f9-ac02-3be553bcd871',
-                inline: null,
+
                 size: 8,
                 content: {
                   plugin: {
@@ -570,7 +569,7 @@ const contents: EditableType[] = [
               },
               {
                 id: '76d7587b-d978-4958-b54f-91ccb1e3d0a2',
-                inline: null,
+
                 size: 4,
                 content: {
                   plugin: {
@@ -589,7 +588,7 @@ const contents: EditableType[] = [
             cells: [
               {
                 id: '412e3261-1fb8-474f-965e-39cbc5a16d18',
-                inline: null,
+
                 size: 4,
                 content: {
                   plugin: {
@@ -603,7 +602,7 @@ const contents: EditableType[] = [
               },
               {
                 id: '02125c61-3120-49ef-9b50-70ae79409bea',
-                inline: null,
+
                 size: 8,
                 content: {
                   plugin: {
@@ -642,7 +641,7 @@ const contents: EditableType[] = [
             cells: [
               {
                 id: '78269a8f-7b29-4703-b107-b399eac3e365',
-                inline: null,
+
                 size: 8,
                 content: {
                   plugin: {
@@ -676,7 +675,7 @@ const contents: EditableType[] = [
               },
               {
                 id: 'e8c5696c-4769-483c-a962-2fd5f4727c0c',
-                inline: null,
+
                 size: 4,
                 content: {
                   plugin: {
@@ -695,7 +694,7 @@ const contents: EditableType[] = [
             cells: [
               {
                 id: '6c11a0d6-6857-4917-9692-eae056fd9500',
-                inline: null,
+
                 size: 12,
                 layout: {
                   plugin: {
@@ -712,7 +711,7 @@ const contents: EditableType[] = [
                     cells: [
                       {
                         id: 'fa87ac49-73b9-4202-9034-f752fa83273c',
-                        inline: null,
+
                         size: 4,
                         content: {
                           plugin: {
@@ -726,7 +725,7 @@ const contents: EditableType[] = [
                       },
                       {
                         id: '491d3370-e551-4b05-be4f-c926d52ee08b',
-                        inline: null,
+
                         size: 8,
                         content: {
                           plugin: {
@@ -779,7 +778,7 @@ const contents: EditableType[] = [
             cells: [
               {
                 id: '4e04678e-e51a-4883-8732-b8218f55fd24',
-                inline: null,
+
                 size: 12,
                 content: {
                   plugin: {
@@ -971,7 +970,7 @@ const contents: EditableType[] = [
             cells: [
               {
                 id: '246945c0-f677-4942-b067-ecfef5624911',
-                inline: null,
+
                 size: 12,
                 content: {
                   plugin: {
@@ -1002,7 +1001,7 @@ const contents: EditableType[] = [
             cells: [
               {
                 id: 'b368328c-86fd-4949-b0c8-7277da6c7d6d',
-                inline: null,
+
                 size: 12,
                 content: {
                   plugin: {
@@ -1108,21 +1107,6 @@ const contents: EditableType[] = [
     cells: [
       {
         rows: [
-          {
-            cells: [
-              {
-                content: {
-                  plugin: {
-                    name: 'ory/editor/core/content/slate',
-                    version: '0.0.2',
-                  },
-                  state: {},
-                },
-                id: '7d29c96e-53b8-4b3e-b0f1-758b405d6daf',
-              },
-            ],
-            id: 'd62fe894-5795-4f00-80c8-0a5c9cfe85b9',
-          },
           {
             cells: [
               {

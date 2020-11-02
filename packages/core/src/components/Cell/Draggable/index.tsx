@@ -33,6 +33,7 @@ const Draggable: React.FC<Props> = ({ isLeaf, children, nodeId }) => {
     []
   );
   const cell = useCell(nodeId);
+
   const plugin = useCellPlugin(nodeId);
   const actions = useHoverActions();
   const [{ isDragging }, dragRef, preview] = useDrag<
@@ -50,7 +51,7 @@ const Draggable: React.FC<Props> = ({ isLeaf, children, nodeId }) => {
       isDragging: monitor.isDragging(),
     }),
     begin(monitor) {
-      actions.dragCell(cell.id);
+      actions.dragCell(nodeId);
     },
     end(item, monitor) {
       if (monitor.didDrop()) {
@@ -118,7 +119,7 @@ const Draggable: React.FC<Props> = ({ isLeaf, children, nodeId }) => {
           })}
         >
           <div className="ory-cell-draggable-overlay-description">
-            <span>{plugin?.text}</span>
+            <span>{plugin?.title || plugin?.text}</span>
           </div>
         </div>
         <div>{children}</div>

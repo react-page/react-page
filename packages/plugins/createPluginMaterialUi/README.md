@@ -10,7 +10,7 @@ _It will only load the form-libraries, if the Editor is in edit mode (See sectio
 ## Example
 
 ```
-import { createContentPlugin } from '@react-page/create-plugin-materialui';
+import { createContentBase} from '@react-page/create-plugin-materialui';
 import React from 'react';
 
 const yourCustomPlugin = createContentPlugin({

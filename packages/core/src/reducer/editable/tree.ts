@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-types */
 
+import { v4 } from 'uuid';
 import {
   CELL_DRAG_HOVER,
   CELL_INSERT_ABOVE,
@@ -10,13 +11,14 @@ import {
   CELL_INSERT_RIGHT_OF,
   CELL_REMOVE,
   CELL_RESIZE,
-  CELL_UPDATE_CONTENT,
+  CELL_UPDATE_DATA,
   CELL_UPDATE_IS_DRAFT,
-  CELL_UPDATE_LAYOUT,
   CELL_INSERT_AT_END,
   CellAction,
+  CELL_INSERT_AS_NEW_ROW,
 } from '../../actions/cell';
-import { Cell, createCell, createRow, Row } from '../../types/editable';
+import { Cell, Row } from '../../types/editable';
+import { removeUndefinedProps } from '../../utils/removeUndefinedProps';
 
 import { isHoveringThis } from './helper/hover';
 
@@ -29,25 +31,15 @@ import {
 } from './helper/optimize';
 import { resizeCells } from './helper/sizing';
 
-const identity = (state: Cell) => state;
-
 const cell = (s: Cell, a: CellAction, depth: number): Cell =>
   optimizeCell(
     ((state: Cell, action): Cell => {
-      const reduce = () => {
-        const content = state?.content?.plugin?.reducer ?? identity;
-        const layout = state?.layout?.plugin?.reducer ?? identity;
-        return content(
-          layout(
-            {
-              ...state,
-              hoverPosition: null,
-              rows: rows(state.rows, action, depth + 1),
-            },
-            action
-          ),
-          action
-        );
+      const reduce = (): Cell => {
+        return removeUndefinedProps({
+          ...state,
+          hoverPosition: undefined,
+          rows: rows(state.rows, action, depth + 1),
+        });
       };
 
       switch (action.type) {
@@ -58,7 +50,7 @@ const cell = (s: Cell, a: CellAction, depth: number): Cell =>
               return {
                 ...reduced,
                 isDraftI18n: {
-                  ...reduced.isDraftI18n,
+                  ...(reduced.isDraftI18n ?? {}),
                   [action.lang]: action.isDraft,
                 },
               };
@@ -70,55 +62,19 @@ const cell = (s: Cell, a: CellAction, depth: number): Cell =>
             }
           }
           return reduce();
-        case CELL_UPDATE_CONTENT:
+        case CELL_UPDATE_DATA:
           if (action.id === state.id) {
             // If this cell is being updated, set the data
             const reduced = reduce();
-            const emptyValue = action.state == null;
+            const emptyValue = action.data === null;
             if (action.lang && emptyValue) {
-              delete reduced.content.stateI18n?.[action.lang];
+              delete reduced.dataI18n?.[action.lang];
             }
             return {
               ...reduced,
-              content: {
-                ...(state.content ?? {}),
-                ...(action.lang
-                  ? {
-                      stateI18n: {
-                        ...(reduced.content.stateI18n ?? {}),
-                        ...(!emptyValue ? { [action.lang]: action.state } : {}),
-                      },
-                    }
-                  : {
-                      state: action.state,
-                    }),
-              },
-            };
-          }
-          return reduce();
-
-        case CELL_UPDATE_LAYOUT:
-          if (action.id === state.id) {
-            // If this cell is being updated, set the data
-            const reduced = reduce();
-            const emptyValue = action.state == null;
-            if (action.lang && emptyValue) {
-              delete reduced.layout.stateI18n?.[action.lang];
-            }
-            return {
-              ...reduced,
-              layout: {
-                ...(state.layout ?? {}),
-                ...(action.lang
-                  ? {
-                      stateI18n: {
-                        ...(reduced.layout.stateI18n ?? {}),
-                        ...(!emptyValue ? { [action.lang]: action.state } : {}),
-                      },
-                    }
-                  : {
-                      state: action.state,
-                    }),
+              dataI18n: {
+                ...(reduced.dataI18n ?? {}),
+                ...(!emptyValue ? { [action.lang]: action.data } : {}),
               },
             };
           }
@@ -135,20 +91,16 @@ const cell = (s: Cell, a: CellAction, depth: number): Cell =>
         case CELL_INSERT_ABOVE:
           if (isHoveringThis(state, action)) {
             return {
-              ...createCell(),
               id: action.ids.cell,
-              hoverPosition: null,
               rows: rows(
                 [
                   {
-                    ...createRow(),
                     id: action.ids.others[0],
                     cells: [
                       { ...action.item, id: action.ids.item, inline: null },
                     ],
                   },
                   {
-                    ...createRow(),
                     id: action.ids.others[1],
                     cells: [{ ...reduce(), id: action.ids.others[2] }],
                   },
@@ -163,18 +115,15 @@ const cell = (s: Cell, a: CellAction, depth: number): Cell =>
         case CELL_INSERT_BELOW:
           if (isHoveringThis(state, action)) {
             return {
-              ...createCell(),
               id: action.ids.cell,
-              hoverPosition: null,
+
               rows: rows(
                 [
                   {
-                    ...createRow(),
                     id: action.ids.others[0],
                     cells: [{ ...reduce(), id: action.ids.others[1] }],
                   },
                   {
-                    ...createRow(),
                     id: action.ids.others[2],
                     cells: [
                       { ...action.item, id: action.ids.item, inline: null },
@@ -187,110 +136,129 @@ const cell = (s: Cell, a: CellAction, depth: number): Cell =>
             };
           }
           return reduce();
-
+        case CELL_INSERT_AS_NEW_ROW: {
+          if (action.hoverId === state.id) {
+            return {
+              ...state,
+              rows: [
+                ...(state.rows ?? []),
+                {
+                  id: action.ids.others[1],
+                  cells: [
+                    { ...action.item, id: action.ids.item, inline: null },
+                  ],
+                },
+              ],
+            };
+          }
+          return reduce();
+        }
         default:
           return reduce();
       }
     })(s, a)
   );
 
-export const cells = (s: Cell[] = [], a, depth = 0): Cell[] => {
-  return optimizeCells(
-    ((state: Cell[], action): Cell[] => {
-      switch (action.type) {
-        case CELL_RESIZE:
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          return resizeCells(
-            state.map((c) => cell(c, action, depth)),
-            action
-          );
-        case CELL_INSERT_AT_END:
-        case CELL_INSERT_BELOW:
-        case CELL_INSERT_ABOVE:
-          return state
-            .filter((c: Cell) => c.id !== action.item.id)
-            .map((c) => cell(c, action, depth));
+const createEmptyCell = (): Cell => ({
+  id: v4(),
+  rows: [
+    {
+      id: v4(),
+      cells: [],
+    },
+  ],
+});
+export const cells = (state: Cell[] = [], action, depth = 0): Cell[] => {
+  let newCells =
+    depth === 0 && state.length === 0 ? [createEmptyCell()] : state;
 
-        case CELL_INSERT_LEFT_OF:
-          return state
-            .filter((c: Cell) => c.id !== action.item.id)
-            .map((c: Cell) =>
-              isHoveringThis(c, action)
-                ? [
-                    { ...action.item, id: action.ids.item, inline: null },
-                    { ...c, id: action.ids.others[0] },
-                  ]
-                : [c]
-            )
-            .reduce(flatten, [])
-            .map((c) => cell(c, action, depth));
+  switch (action.type) {
+    case CELL_RESIZE:
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      newCells = resizeCells(newCells, action);
+      break;
+    case CELL_INSERT_AT_END:
+    case CELL_INSERT_AS_NEW_ROW:
+    case CELL_INSERT_BELOW:
+    case CELL_INSERT_ABOVE:
+      newCells = newCells.filter((c: Cell) => c.id !== action.item.id); // this removes the cell if it already exists
+      break;
 
-        case CELL_INSERT_RIGHT_OF:
-          return state
-            .filter((c: Cell) => c.id !== action.item.id)
-            .map((c: Cell) =>
-              isHoveringThis(c, action)
-                ? [
-                    { ...c, id: action.ids.others[0] },
-                    { ...action.item, id: action.ids.item, inline: null },
-                  ]
-                : [c]
-            )
-            .reduce(flatten, [])
-            .map((c) => cell(c, action, depth));
+    case CELL_INSERT_LEFT_OF:
+      newCells = newCells
+        .filter((c: Cell) => c.id !== action.item.id) // this removes the cell if it already exists
+        .map((c: Cell) =>
+          isHoveringThis(c, action)
+            ? [
+                { ...action.item, id: action.ids.item, inline: null },
+                { ...c, id: action.ids.others[0] },
+              ]
+            : [c]
+        )
+        .reduce(flatten, []);
+      break;
 
-        case CELL_INSERT_INLINE_RIGHT:
-        case CELL_INSERT_INLINE_LEFT:
-          return state
-            .filter((c: Cell) => c.id !== action.item.id)
-            .map((c: Cell) => {
-              if (isHoveringThis(c, action)) {
-                return [
+    case CELL_INSERT_RIGHT_OF:
+      newCells = newCells
+        .filter((c: Cell) => c.id !== action.item.id) // this removes the cell if it already exists
+        .map((c: Cell) =>
+          isHoveringThis(c, action)
+            ? [
+                { ...c, id: action.ids.others[0] },
+                { ...action.item, id: action.ids.item, inline: null },
+              ]
+            : [c]
+        )
+        .reduce(flatten, []);
+      break;
+
+    case CELL_INSERT_INLINE_RIGHT:
+    case CELL_INSERT_INLINE_LEFT:
+      newCells = newCells
+        .filter((c: Cell) => c.id !== action.item.id) // this removes the cell if it already exists
+        .map((c: Cell) => {
+          if (isHoveringThis(c, action)) {
+            return [
+              {
+                id: action.ids.cell,
+                rows: [
                   {
-                    ...createCell(),
-                    id: action.ids.cell,
-                    rows: [
+                    id: action.ids.others[0],
+                    cells: [
                       {
-                        ...createRow(),
-                        id: action.ids.others[0],
-                        cells: [
-                          {
-                            ...action.item,
-                            inline:
-                              action.type === CELL_INSERT_INLINE_RIGHT
-                                ? 'right'
-                                : 'left',
-                            id: action.ids.item,
-                            size: 0,
-                          },
-                          {
-                            ...c,
-                            id: action.ids.others[1],
-                            inline: null,
-                            hasInlineNeighbour: action.ids.item,
-                            size: 0,
-                          },
-                        ],
+                        ...action.item,
+                        inline:
+                          action.type === CELL_INSERT_INLINE_RIGHT
+                            ? 'right'
+                            : 'left',
+                        id: action.ids.item,
+                        size: 0,
+                      },
+                      {
+                        ...c,
+                        id: action.ids.others[1],
+                        inline: null,
+                        hasInlineNeighbour: action.ids.item,
+                        size: 0,
                       },
                     ],
                   },
-                ] as Cell[];
-              }
-              return [c];
-            })
-            .reduce(flatten, [])
-            .map((c) => cell(c, action, depth));
+                ],
+              },
+            ] as Cell[];
+          }
+          return [c];
+        })
+        .reduce(flatten, []);
+      break;
 
-        case CELL_REMOVE:
-          return state
-            .filter(({ id }: Cell) => id !== action.id)
-            .map((c) => cell(c, action, depth));
+    case CELL_REMOVE:
+      newCells = newCells.filter(({ id }: Cell) => id !== action.id);
+      break;
+  }
 
-        default:
-          return state.map((c) => cell(c, action, depth));
-      }
-    })(s, a)
-  );
+  const reducedCells = newCells.map((c) => cell(c, action, depth));
+  return optimizeCells(reducedCells);
 };
 
 const row = (s: Row, a, depth: number): Row =>
@@ -298,7 +266,7 @@ const row = (s: Row, a, depth: number): Row =>
     ((state: Row, action): Row => {
       const reduce = () => ({
         ...state,
-        hoverPosition: null,
+        hoverPosition: undefined,
         cells: cells(state.cells, action, depth + 1),
       });
 
@@ -309,7 +277,7 @@ const row = (s: Row, a, depth: number): Row =>
           }
           return {
             ...state,
-            hoverPosition: null,
+            hoverPosition: undefined,
             cells: cells(
               [
                 { ...action.item, id: action.ids.item, inline: null },
@@ -326,7 +294,7 @@ const row = (s: Row, a, depth: number): Row =>
           }
           return {
             ...state,
-            hoverPosition: null,
+            hoverPosition: undefined,
             cells: cells(
               [
                 ...state.cells,
@@ -362,7 +330,6 @@ const rows = (s: Row[] = [], a, depth: number): Row[] =>
               isHoveringThis(r, action)
                 ? [
                     {
-                      ...createRow(),
                       cells: [
                         { ...action.item, id: action.ids.item, inline: null },
                       ],
@@ -387,7 +354,6 @@ const rows = (s: Row[] = [], a, depth: number): Row[] =>
                       id: action.ids.others[0],
                     },
                     {
-                      ...createRow(),
                       cells: [
                         { ...action.item, id: action.ids.item, inline: null },
                       ],
@@ -399,26 +365,19 @@ const rows = (s: Row[] = [], a, depth: number): Row[] =>
             .reduce(flatten, [])
             .map((r) => row(r, action, depth));
         case CELL_INSERT_AT_END: {
-          return state
-            .map((r: Row, index) =>
-              index === state.length - 1 && depth === 1 // last row?
-                ? [
-                    {
-                      ...r,
-                      id: action.ids.others[0],
-                    },
-                    {
-                      ...createRow(),
-                      cells: [
-                        { ...action.item, id: action.ids.item, inline: null },
-                      ],
-                      id: action.ids.others[1],
-                    },
-                  ]
-                : [r]
-            )
-            .reduce(flatten, [])
-            .map((r) => row(r, action, depth));
+          const newRows =
+            depth !== 1
+              ? state
+              : [
+                  ...state,
+                  {
+                    cells: [
+                      { ...action.item, id: action.ids.item, inline: null },
+                    ],
+                    id: action.ids.others[1],
+                  },
+                ];
+          return newRows.map((r) => row(r, action, depth));
         }
 
         default:

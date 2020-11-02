@@ -1,17 +1,16 @@
 import * as React from 'react';
-import { useCell } from '../../..';
 import Row from '../../../components/Row';
+import { useNodeChildrenIds } from '../../hooks';
 
 const Rows: React.FC<{
   nodeId: string;
 }> = ({ nodeId }) => {
-  const cell = useCell(nodeId);
-  const { rows = [] } = cell;
+  const rowIds = useNodeChildrenIds(nodeId);
 
   return (
     <div className="ory-cell-inner ory-cell-rows">
-      {rows.map((r) => (
-        <Row nodeId={r.id} key={r.id} />
+      {rowIds.map((id) => (
+        <Row nodeId={id} key={id} />
       ))}
     </div>
   );

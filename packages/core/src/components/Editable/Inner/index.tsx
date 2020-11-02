@@ -1,16 +1,11 @@
 import throttle from 'lodash.throttle';
-import { useMeasure } from 'react-use';
 import * as React from 'react';
-import { useCallback, useEffect } from 'react';
-
+import { useEffect, useRef } from 'react';
+import { useMeasure } from 'react-use';
 import { useEditableNode } from '../../..';
-import { createFallbackCell } from '../../../actions/cell';
 import scrollIntoViewWithOffset from '../../../components/Cell/utils/scrollIntoViewWithOffset';
-
-import { ContentPlugin, LayoutPlugin } from '../../../service/plugin/classes';
 import Cell from '../../Cell';
-import { useRef } from 'react';
-import { useDispatch } from '../../../reduxConnect';
+import InsertNew from '../../Cell/InsertNew';
 
 function isElementInViewport(el: HTMLDivElement) {
   const rect = el.getBoundingClientRect();
@@ -26,15 +21,14 @@ function isElementInViewport(el: HTMLDivElement) {
         document.documentElement.clientWidth) /*or $(window).width() */
   );
 }
-type Props = {
-  id: string;
-  defaultPlugin: ContentPlugin | LayoutPlugin;
-};
-const Inner: React.FC<Props> = ({ defaultPlugin }) => {
-  const node = useEditableNode();
+
+const Inner: React.FC = () => {
+  const { cellIds } = useEditableNode((editable) => ({
+    cellIds: editable?.cells?.map((c) => c.id) ?? [],
+  }));
+
   const ref = useRef<HTMLDivElement>();
   const [sizeRef, { width }] = useMeasure();
-  const cells = node?.cells ?? [];
 
   const firstElementInViewPortref = React.useRef<{
     el: HTMLDivElement;
@@ -64,20 +58,6 @@ const Inner: React.FC<Props> = ({ defaultPlugin }) => {
       window.removeEventListener('scroll', onScroll);
     };
   });
-  const dispatch = useDispatch();
-  const createFallback = useCallback(
-    (plugin) => {
-      dispatch(createFallbackCell(plugin, node?.id));
-    },
-    [dispatch, node?.id]
-  );
-
-  const shouldCreateFallbackCell = node && cells.length === 0;
-  useEffect(() => {
-    if (shouldCreateFallbackCell) {
-      createFallback(defaultPlugin);
-    }
-  }, [shouldCreateFallbackCell]);
 
   useEffect(() => {
     if (firstElementInViewPortref.current) {
@@ -87,18 +67,20 @@ const Inner: React.FC<Props> = ({ defaultPlugin }) => {
       }, 0);
     }
   }, [firstElementInViewPortref.current]);
-  if (!node) {
-    return null;
-  }
+
   return (
-    <div ref={sizeRef}>
+    <div
+      ref={sizeRef}
+      style={{ minHeight: 400, display: 'flex', flexDirection: 'column' }}
+    >
       <div ref={ref} className="ory-editable">
-        {cells.map((cell) => (
-          <Cell nodeId={cell.id} rowWidth={width} key={cell.id} />
-        ))}
+        {cellIds.length > 0
+          ? cellIds.map((id) => <Cell nodeId={id} rowWidth={width} key={id} />)
+          : null}
       </div>
+      <InsertNew />
     </div>
   );
 };
 
-export default Inner;
+export default React.memo(Inner);

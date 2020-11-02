@@ -1,8 +1,9 @@
 import classNames from 'classnames';
+import pick from 'lodash.pick';
 import throttle from 'lodash/throttle';
 import * as React from 'react';
 import { Resizable as ReactResizeable } from 'react-resizable';
-import { Cell } from '../../../types/editable';
+import { useCellBounds, useCellProps, useResizeCell } from '../../hooks';
 import { computeStepWidth, widthToSize } from './helper';
 
 export interface ResizableState {
@@ -14,11 +15,16 @@ export interface ResizableState {
 type ResizableProps = {
   rowWidth: number;
   steps: number;
-  node: Cell;
+  bounds: { left: number; right: number };
+  size: number;
+  inline: string;
   onChange: (size: number) => void;
 };
-
-class Resizable extends React.PureComponent<ResizableProps, ResizableState> {
+// TODO: refactor to stateless component
+class ResizableInner extends React.PureComponent<
+  ResizableProps,
+  ResizableState
+> {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onChangeSizeThrottled: any;
   constructor(props: ResizableProps) {
@@ -26,13 +32,13 @@ class Resizable extends React.PureComponent<ResizableProps, ResizableState> {
 
     const sw = computeStepWidth({
       rowWidth: props.rowWidth,
-      steps: props.node.size,
+      steps: props.size,
     });
 
     this.onChangeSizeThrottled = throttle(this.onChangeSize, 100);
     this.state = {
       stepWidth: sw,
-      width: props.node.size * sw,
+      width: props.size * sw,
       steps: props.steps - 1 || 11,
     };
   }
@@ -45,7 +51,7 @@ class Resizable extends React.PureComponent<ResizableProps, ResizableState> {
       {
         steps: this.state.steps,
         stepWidth: this.state.stepWidth,
-        inline: this.props.node.inline,
+        inline: this.props.inline,
       },
       size
     );
@@ -69,17 +75,14 @@ class Resizable extends React.PureComponent<ResizableProps, ResizableState> {
       {
         steps: this.state.steps,
         stepWidth: this.state.stepWidth,
-        inline: this.props.node.inline,
+        inline: this.props.inline,
       },
       size
     );
     this.setState({ width: newSize * this.state.stepWidth });
   };
   render() {
-    const {
-      node: { bounds, inline },
-      children,
-    } = this.props;
+    const { bounds, inline, children } = this.props;
 
     return (
       <ReactResizeable
@@ -90,7 +93,9 @@ class Resizable extends React.PureComponent<ResizableProps, ResizableState> {
         onResizeStop={this.onResizeStop}
         minConstraints={inline ? null : [this.state.stepWidth, Infinity]}
         maxConstraints={
-          inline ? null : [bounds.right * this.state.stepWidth, Infinity]
+          inline || !bounds
+            ? null
+            : [bounds.right * this.state.stepWidth, Infinity]
         }
         draggableOpts={{ axis: 'none', offsetParent: document.body }}
         width={this.state.width}
@@ -103,4 +108,25 @@ class Resizable extends React.PureComponent<ResizableProps, ResizableState> {
   }
 }
 
+const Resizable: React.FC<{
+  nodeId: string;
+  rowWidth: number;
+  steps: number;
+}> = ({ nodeId, ...props }) => {
+  const resizeCell = useResizeCell(nodeId);
+  const { size, inline } = useCellProps(nodeId, (c) =>
+    pick(c, 'size', 'inline')
+  );
+  const bounds = useCellBounds(nodeId);
+
+  return (
+    <ResizableInner
+      size={size}
+      inline={inline}
+      {...props}
+      bounds={bounds}
+      onChange={resizeCell}
+    />
+  );
+};
 export default Resizable;

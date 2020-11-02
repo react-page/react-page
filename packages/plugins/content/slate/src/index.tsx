@@ -1,4 +1,4 @@
-import { ContentPlugin, lazyLoad } from '@react-page/core';
+import { CellPlugin, lazyLoad } from '@react-page/core';
 import * as React from 'react';
 import { AnyAction } from 'redux';
 import { ActionTypes } from 'redux-undo';
@@ -32,8 +32,8 @@ type SlateDefinition<TPlugins extends SlatePluginCollection> = {
   defaultPluginType: string;
   Renderer: React.ComponentType<SlateRendererProps>;
   Controls: React.ComponentType<SlateControlsProps>;
-  name: string;
-  version: string;
+  id: string;
+  version: number;
   translations: typeof defaultTranslations;
   migrations: typeof migrations;
   allowInlineNeighbours: boolean;
@@ -41,7 +41,7 @@ type SlateDefinition<TPlugins extends SlatePluginCollection> = {
 };
 type DefaultPlugins = typeof defaultPlugins;
 type DefaultSlateDefinition = SlateDefinition<DefaultPlugins>;
-export type CreateInitialStateCustomizer<TPlugins> = ({
+export type CreateDataCustomizer<TPlugins> = ({
   plugins,
 }: {
   plugins: TPlugins;
@@ -53,21 +53,30 @@ const defaultConfig: DefaultSlateDefinition = {
   defaultPluginType: 'PARAGRAPH/PARAGRAPH',
   Renderer,
   Controls,
-  name: 'ory/editor/core/content/slate',
-  version: '0.0.4',
+  id: 'ory/editor/core/content/slate',
+  version: 1,
   translations: defaultTranslations,
   migrations,
 
   allowInlineNeighbours: true,
 };
 
-type CreateInitialSlateState<TPlugins> = (
-  custom?: CreateInitialStateCustomizer<TPlugins>
+type CreateSlateData<TPlugins> = (
+  custom?: CreateDataCustomizer<TPlugins>
 ) => // eslint-disable-next-line @typescript-eslint/no-explicit-any
 SlateState;
-export type SlatePlugin<TPlugins> = ContentPlugin<SlateState> & {
-  createInitialSlateState: CreateInitialSlateState<TPlugins>;
-  htmlToSlate: (html: string) => SlateState;
+export type SlatePlugin<TPlugins> = CellPlugin<
+  SlateState,
+  Omit<SlateState, 'selection'> & {
+    importFromHtml?: string;
+  }
+> & {
+  createData: CreateSlateData<TPlugins>;
+  createDataFromHtml: (html: string) => SlateState;
+  /**
+   * @deprecated, use createData
+   */
+  createInitialSlateState: CreateSlateData<TPlugins>;
 };
 export type SlateCustomizeFunction<TPlugins extends SlatePluginCollection> = (
   def: DefaultSlateDefinition
@@ -80,27 +89,21 @@ function plugin<TPlugins extends SlatePluginCollection = DefaultPlugins>(
     ? customize(defaultConfig)
     : defaultConfig) as SlateDefinition<TPlugins>;
 
-  const createInitialState = (
-    customizeInitialSlateState?: CreateInitialStateCustomizer<TPlugins>
-  ) => {
-    const defaultInitialState = ({
-      plugins: cplugins,
-    }: {
-      plugins: TPlugins;
-    }) => ({
+  const createData = (customizer: CreateDataCustomizer<TPlugins>) => {
+    return transformInitialSlateState(
+      customizer({ plugins: settings.plugins })
+    );
+  };
+
+  const createInitialData = () =>
+    createData(({ plugins }) => ({
       children: [
         {
-          plugin: cplugins.paragraphs.paragraph,
+          plugin: plugins.paragraphs.paragraph,
           children: [''],
         },
       ],
-    });
-    const func = customizeInitialSlateState
-      ? customizeInitialSlateState
-      : defaultInitialState;
-
-    return transformInitialSlateState(func({ plugins: settings.plugins }));
-  };
+    }));
 
   // plugins should be flatten
   // NEW: to make it easier to manage and group plugins,
@@ -120,10 +123,10 @@ function plugin<TPlugins extends SlatePluginCollection = DefaultPlugins>(
       />
     ),
 
-    name: settings.name,
+    id: settings.id || (settings as any).name,
     version: settings.version,
     IconComponent: settings.icon,
-    text: settings.translations.pluginName,
+    title: settings.translations.pluginName,
     description: settings.translations.pluginDescription,
     hideInMenu: settings.hideInMenu,
     allowInlineNeighbours: settings.allowInlineNeighbours,
@@ -147,13 +150,17 @@ function plugin<TPlugins extends SlatePluginCollection = DefaultPlugins>(
       }
       return state;
     },
-
+    // disable default hotkeys
     handleRemoveHotKey: () => Promise.reject(),
     handleFocusPreviousHotKey: () => Promise.reject(),
-    handleFocusNextHotKey: () => Promise.reject(),
-    createInitialState: createInitialState,
-    createInitialSlateState: createInitialState,
-    htmlToSlate: htmlToSlate,
+    handleFocusNextHotKey: (e, node) => Promise.reject(),
+
+    createInitialData,
+    createInitialState: createInitialData,
+    createInitialSlateState: createData,
+    createData: createData,
+    createDataFromHtml: htmlToSlate,
+    // remove selection
     serialize: (s) => (s ? { slate: s.slate } : null),
     unserialize: (s) => {
       if (s?.importFromHtml) {
@@ -164,7 +171,7 @@ function plugin<TPlugins extends SlatePluginCollection = DefaultPlugins>(
           slate: s.slate,
         };
       }
-      return createInitialState();
+      return createInitialData();
     },
 
     // TODO this is disabled because of #207

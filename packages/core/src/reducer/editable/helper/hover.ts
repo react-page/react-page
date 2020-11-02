@@ -1,16 +1,16 @@
-import { CellHoverAction } from './../../../actions/cell/drag';
-import { EditorState } from '../../../types/editor';
-import { InsertAction } from '../../../actions/cell';
+import { CellHoverAction } from '../../../actions/cell/drag';
+import { InsertAction } from '../../../actions/cell/insert';
+import { Cell, Row, Node } from '../../../types/editable';
 
 /**
  * Check if this item is currently being hovered.
  */
 export const isHoveringThis = (
-  state: EditorState = {},
+  node: Node,
   action: CellHoverAction | InsertAction
 ): boolean => {
   const { level = 0, hoverId = null } = action;
-  const children = state.rows || state.cells || [];
+  const children: Node[] = (node as Cell).rows || (node as Row).cells || [];
   if (level > 0) {
     return Boolean(
       children.find((child) =>
@@ -19,5 +19,5 @@ export const isHoveringThis = (
     );
   }
 
-  return hoverId === state.id;
+  return hoverId === node.id;
 };

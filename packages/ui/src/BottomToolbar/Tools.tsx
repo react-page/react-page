@@ -1,16 +1,15 @@
 import { IconButton, Tooltip } from '@material-ui/core';
 import Delete from '@material-ui/icons/Delete';
+import { useRemoveCell } from '@react-page/core';
 import * as React from 'react';
 import DraftSwitch from '../DraftSwitch';
 import DuplicateButton from '../DuplicateButton';
 import I18nTools from '../I18nTools';
 import SelectParentButton from '../SelectParentButton';
 import { ToolsProps } from './types';
-import { useNode, useRemoveCell } from '@react-page/core';
 
 const Tools: React.FC<ToolsProps> = ({ nodeId }) => {
-  const node = useNode(nodeId);
-  const removeCell = useRemoveCell(node.id);
+  const removeCell = useRemoveCell(nodeId);
   return (
     <div style={{ display: 'flex', alignItems: 'center' }}>
       <I18nTools nodeId={nodeId} />

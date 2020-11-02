@@ -1,5 +1,6 @@
-import { PluginProps } from '@react-page/core';
+import { CellPluginComponentProps } from '@react-page/core';
 import { BackgroundSettings } from './settings';
 import { BackgroundState } from './state';
 
-export type BackgroundProps = PluginProps<BackgroundState> & BackgroundSettings;
+export type BackgroundProps = CellPluginComponentProps<BackgroundState> &
+  BackgroundSettings;
