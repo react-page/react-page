@@ -7,7 +7,7 @@ import React, { useEffect } from 'react';
 import ReactDOM from 'react-dom';
 // The content state
 import contents from './contents';
-import customLayoutPluginWithInitialState from './customLayoutPluginWithInitialState';
+//import customLayoutPluginWithInitialState from './customLayoutPluginWithInitialState';
 import { plugins } from './plugins';
 import './styles.css';
 import {
@@ -17,7 +17,7 @@ import {
   Switch,
   Select,
 } from '@material-ui/core';
-import { defaultSlate } from './slate';
+//import { defaultSlate } from './slate';
 import useWhyDidYouUpdate from './useWhyDidYouUpdate';
 
 const LANGUAGES = [
