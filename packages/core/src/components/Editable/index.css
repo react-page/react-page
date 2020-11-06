@@ -35,6 +35,7 @@
 .ory-cell-insert-new:after {
   content: "+";
   font-size: 64px;
+  font-family: monospace;
   line-height: 64px;
   background-color: var(--minBlack);
   color: white;
