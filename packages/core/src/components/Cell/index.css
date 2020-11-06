@@ -1,7 +1,6 @@
 @import './Draggable/index.css';
 @import './Droppable/index.css';
 @import './ErrorCell/index.css';
-@import './Resizable/index.css';
 
 .ory-cell-inline-left {
   float: left;

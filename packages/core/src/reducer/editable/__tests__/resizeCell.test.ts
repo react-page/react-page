@@ -20,16 +20,21 @@ describe('resizeCell', () => {
     const initialState = createEditable(
       {
         id: 'editableId',
-        cells: [
+        rows: [
           {
-            id: 'cell1',
-            plugin: 'foo',
-            size: 6,
-          },
-          {
-            id: 'cell2',
-            plugin: 'foo',
-            size: 6,
+            id: 'row0',
+            cells: [
+              {
+                id: 'cell1',
+                plugin: 'foo',
+                size: 6,
+              },
+              {
+                id: 'cell2',
+                plugin: 'foo',
+                size: 6,
+              },
+            ],
           },
         ],
       },
@@ -38,30 +43,37 @@ describe('resizeCell', () => {
     const expectedState: EditableType = {
       id: 'editableId',
       version: 1,
-      cells: [
+      rows: [
         {
-          id: 'cell1',
-          size: 3,
-          plugin: {
-            id: 'foo',
-            version: 1,
-          },
-          dataI18n: {
-            en: null,
-          },
-          rows: [],
-        },
-        {
-          id: 'cell2',
-          size: 9,
-          plugin: {
-            id: 'foo',
-            version: 1,
-          },
-          dataI18n: {
-            en: null,
-          },
-          rows: [],
+          id: 'row0',
+          cells: [
+            {
+              id: 'cell1',
+              size: 3,
+              plugin: {
+                id: 'foo',
+                version: 1,
+              },
+              inline: null,
+              dataI18n: {
+                en: null,
+              },
+              rows: [],
+            },
+            {
+              id: 'cell2',
+              size: 9,
+              inline: null,
+              plugin: {
+                id: 'foo',
+                version: 1,
+              },
+              dataI18n: {
+                en: null,
+              },
+              rows: [],
+            },
+          ],
         },
       ],
     };
@@ -74,17 +86,22 @@ describe('resizeCell', () => {
     const initialState = createEditable(
       {
         id: 'editableId',
-        cells: [
+        rows: [
           {
-            id: 'cell1',
-            plugin: 'foo',
-            inline: 'left',
-            size: 8,
-          },
-          {
-            id: 'cell2',
-            plugin: 'foo',
-            size: 12,
+            id: 'row0',
+            cells: [
+              {
+                id: 'cell1',
+                plugin: 'foo',
+                inline: 'left',
+                size: 8,
+              },
+              {
+                id: 'cell2',
+                plugin: 'foo',
+                size: 12,
+              },
+            ],
           },
         ],
       },
@@ -93,32 +110,37 @@ describe('resizeCell', () => {
     const expectedState: EditableType = {
       id: 'editableId',
       version: 1,
-      cells: [
+      rows: [
         {
-          id: 'cell1',
-          size: 3,
-          inline: 'left',
-          plugin: {
-            id: 'foo',
-            version: 1,
-          },
-          dataI18n: {
-            en: null,
-          },
-          rows: [],
-        },
-        {
-          id: 'cell2',
-          size: 12,
-          plugin: {
-            id: 'foo',
-            version: 1,
-          },
-          dataI18n: {
-            en: null,
-          },
-          hasInlineNeighbour: 'cell1',
-          rows: [],
+          id: 'row0',
+          cells: [
+            {
+              id: 'cell1',
+              size: 3,
+              inline: 'left',
+              plugin: {
+                id: 'foo',
+                version: 1,
+              },
+              dataI18n: {
+                en: null,
+              },
+              rows: [],
+            },
+            {
+              id: 'cell2',
+              size: 12,
+              plugin: {
+                id: 'foo',
+                version: 1,
+              },
+              dataI18n: {
+                en: null,
+              },
+              hasInlineNeighbour: 'cell1',
+              rows: [],
+            },
+          ],
         },
       ],
     };

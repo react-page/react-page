@@ -47,6 +47,6 @@ class EditorStore<T extends RootState = RootState> {
 }
 
 export const createEmptyState: () => EditableType = () =>
-  ({ id: v4(), cells: [] } as EditableType);
+  ({ id: v4(), rows: [] } as EditableType);
 
 export default EditorStore;

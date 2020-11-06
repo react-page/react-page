@@ -5,23 +5,24 @@ import {
   optimizeRows,
   optimizeCells,
 } from './optimize';
-import { Cell, Row } from '../../../types/editable';
+import { Row } from '../../../types/editable';
 
-export const setAllSizesAndOptimize = (cells: Array<Cell> = []): Array<Cell> =>
-  computeInlines(computeSizes(optimizeCells(cells))).map(
-    (cell: Cell): Cell => {
-      if (cell.rows) {
-        cell.rows = optimizeRows(cell.rows).map(
-          (r: Row): Row => {
-            const optimized = optimizeRow(r);
-            if (optimized.cells) {
-              optimized.cells = setAllSizesAndOptimize(optimized.cells);
-            }
-            return optimized;
-          }
+export const setAllSizesAndOptimize = (rows: Array<Row> = []): Array<Row> =>
+  optimizeRows(rows).map(
+    (r: Row): Row => {
+      const optimized = optimizeRow(r);
+      if (optimized.cells) {
+        optimized.cells = computeInlines(
+          computeSizes(
+            optimizeCells(
+              optimized.cells.map((cell) => ({
+                ...cell,
+                rows: cell.rows ? setAllSizesAndOptimize(cell.rows) : undefined,
+              }))
+            )
+          )
         );
       }
-
-      return optimizeCell(cell);
+      return optimized;
     }
   );

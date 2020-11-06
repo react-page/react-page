@@ -300,7 +300,7 @@ object-assign@^4.1.1:
   resolved "https://registry.yarnpkg.com/object-assign/-/object-assign-4.1.1.tgz#2109adc7965887cfc05cbbd442cac8bfbb360863"
   integrity sha1-IQmtx5ZYh8/AXLvUQsrIv7s2CGM=
 
-prop-types@15.x, prop-types@^15.6.0, prop-types@^15.7.2:
+prop-types@^15.6.0, prop-types@^15.7.2:
   version "15.7.2"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.7.2.tgz#52c41e75b8c87e72b9d9360e0206b99dcbffa6c5"
   integrity sha512-8QQikdH7//R2vurIJSutZ1smHYTcLpRWEOlHnzcWHmBYrOGUysKwSsrC89BCiFj3CbrfJ/nXFdJepOVrY1GCHQ==
@@ -326,10 +326,10 @@ react-dnd@^11.1.3:
     dnd-core "^11.1.3"
     hoist-non-react-statics "^3.3.0"
 
-react-draggable@^4.0.3:
-  version "4.1.0"
-  resolved "https://registry.yarnpkg.com/react-draggable/-/react-draggable-4.1.0.tgz#e1c5b774001e32f0bff397254e1e9d5448ac92a4"
-  integrity sha512-Or/qe70cfymshqoC8Lsp0ukTzijJObehb7Vfl7tb5JRxoV+b6PDkOGoqYaWBzZ59k9dH/bwraLGsnlW78/3vrA==
+react-draggable@4.4.3:
+  version "4.4.3"
+  resolved "https://registry.yarnpkg.com/react-draggable/-/react-draggable-4.4.3.tgz#0727f2cae5813e36b0e4962bf11b2f9ef2b406f3"
+  integrity sha512-jV4TE59MBuWm7gb6Ns3Q1mxX8Azffb7oTtDtBgFkxRvhDp38YAARmRplrj0+XGkhOJB5XziArX+4HUUABtyZ0w==
   dependencies:
     classnames "^2.2.5"
     prop-types "^15.6.0"
@@ -349,14 +349,6 @@ react-redux@^7.2.1:
     loose-envify "^1.4.0"
     prop-types "^15.7.2"
     react-is "^16.9.0"
-
-react-resizable@^1.10.1:
-  version "1.10.1"
-  resolved "https://registry.yarnpkg.com/react-resizable/-/react-resizable-1.10.1.tgz#f0c2cf1d83b3470b87676ce6d6b02bbe3f4d8cd4"
-  integrity sha512-Jd/bKOKx6+19NwC4/aMLRu/J9/krfxlDnElP41Oc+oLiUWs/zwV1S9yBfBZRnqAwQb6vQ/HRSk3bsSWGSgVbpw==
-  dependencies:
-    prop-types "15.x"
-    react-draggable "^4.0.3"
 
 react-universal-interface@^0.6.2:
   version "0.6.2"
@@ -427,11 +419,6 @@ screenfull@^5.0.0:
   version "5.0.2"
   resolved "https://registry.yarnpkg.com/screenfull/-/screenfull-5.0.2.tgz#b9acdcf1ec676a948674df5cd0ff66b902b0bed7"
   integrity sha512-cCF2b+L/mnEiORLN5xSAz6H3t18i2oHh9BA8+CQlAh5DRw2+NFAGQJOSYbcGw8B2k04g/lVvFcfZ83b3ysH5UQ==
-
-semver@^7.3.2:
-  version "7.3.2"
-  resolved "https://registry.yarnpkg.com/semver/-/semver-7.3.2.tgz#604962b052b81ed0786aae84389ffba70ffd3938"
-  integrity sha512-OrOb32TeeambH6UrhtShmF7CRDqhL6/5XpPNp2DuRH6+9QLw/orhp72j87v8Qa1ScDkvrrBNpZcDejAirJmfXQ==
 
 set-harmonic-interval@^1.0.1:
   version "1.0.1"

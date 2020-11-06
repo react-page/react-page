@@ -57,6 +57,7 @@ const Provider: React.FC<ProviderProps> = ({
     const store = new EditorStore({
       initialState: {
         reactPage: {
+          hover: null,
           focus: null,
           display: {
             mode: 'edit',

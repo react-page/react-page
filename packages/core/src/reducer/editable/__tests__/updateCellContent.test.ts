@@ -20,10 +20,15 @@ describe('updateCellData', () => {
     const initialState = createEditable(
       {
         id: 'editableId',
-        cells: [
+        rows: [
           {
-            id: 'cell1',
-            plugin: 'foo',
+            id: 'row0',
+            cells: [
+              {
+                id: 'cell1',
+                plugin: 'foo',
+              },
+            ],
           },
         ],
       },
@@ -32,21 +37,27 @@ describe('updateCellData', () => {
     const expectedState: EditableType = {
       id: 'editableId',
       version: 1,
-      cells: [
+      rows: [
         {
-          id: 'cell1',
-          size: 12,
-          plugin: {
-            id: 'foo',
-            version: 1,
-          },
-          dataI18n: {
-            en: {
-              foo: 'new',
-              bar: 'something',
+          id: 'row0',
+          cells: [
+            {
+              id: 'cell1',
+              size: 12,
+              inline: null,
+              plugin: {
+                id: 'foo',
+                version: 1,
+              },
+              dataI18n: {
+                en: {
+                  foo: 'new',
+                  bar: 'something',
+                },
+              },
+              rows: [],
             },
-          },
-          rows: [],
+          ],
         },
       ],
     };
@@ -70,16 +81,22 @@ describe('updateCellData', () => {
     const initialState = createEditable(
       {
         id: 'editableId',
-        cells: [
+        rows: [
           {
-            id: 'cell1',
-            plugin: 'foo',
-            dataI18n: {
-              en: {
-                foo: 'english',
-                bar: 'something',
+            id: 'row0',
+            cells: [
+              {
+                id: 'cell1',
+
+                plugin: 'foo',
+                dataI18n: {
+                  en: {
+                    foo: 'english',
+                    bar: 'something',
+                  },
+                },
               },
-            },
+            ],
           },
         ],
       },
@@ -88,25 +105,31 @@ describe('updateCellData', () => {
     const expectedState: EditableType = {
       id: 'editableId',
       version: 1,
-      cells: [
+      rows: [
         {
-          id: 'cell1',
-          size: 12,
-          plugin: {
-            id: 'foo',
-            version: 1,
-          },
-          dataI18n: {
-            en: {
-              foo: 'english',
-              bar: 'something',
+          id: 'row0',
+          cells: [
+            {
+              id: 'cell1',
+              size: 12,
+              plugin: {
+                id: 'foo',
+                version: 1,
+              },
+              inline: null,
+              dataI18n: {
+                en: {
+                  foo: 'english',
+                  bar: 'something',
+                },
+                de: {
+                  foo: 'deutsch',
+                  bar: 'etwas',
+                },
+              },
+              rows: [],
             },
-            de: {
-              foo: 'deutsch',
-              bar: 'etwas',
-            },
-          },
-          rows: [],
+          ],
         },
       ],
     };

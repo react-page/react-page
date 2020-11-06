@@ -1,6 +1,5 @@
 import flatten from 'lodash.flatten';
 import {
-  AbstractEditable,
   Cell,
   EditableType,
   Node,
@@ -46,7 +45,7 @@ export const findNodeInState = (
   // FIXME: we will deprecated having multiple editables soon
   return findNode(
     state.reactPage.editables?.present?.reduce(
-      (acc, editable) => [...acc, ...(editable.cells ?? [])],
+      (acc, editable) => [...acc, ...(editable.rows ?? [])],
       []
     ),
     nodeId
@@ -56,7 +55,7 @@ export const findNodeInState = (
 export const editable = (
   state: RootState,
   { id }: { id: string }
-): AbstractEditable<Cell> =>
+): EditableType =>
   state &&
   state.reactPage &&
   state.reactPage.editables &&

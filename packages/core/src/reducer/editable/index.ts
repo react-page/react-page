@@ -2,16 +2,16 @@ import { AnyAction } from 'redux';
 import { EditableType } from '../../types/editable';
 
 import { setAllSizesAndOptimize } from './helper/setAllSizesAndOptimize';
-import { cells } from './tree';
+import { rows } from './tree';
 
 // TODO: refactor me
 export const editable = (state: EditableType, action: AnyAction) => {
-  const newCells = state?.cells
-    ? setAllSizesAndOptimize(cells(state.cells, action))
+  const newRows = state?.rows
+    ? setAllSizesAndOptimize(rows(state.rows, action, 0))
     : [];
 
   return {
     ...state,
-    cells: newCells,
+    rows: newRows,
   };
 };

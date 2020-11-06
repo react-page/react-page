@@ -28,32 +28,37 @@ describe('HTMLRenderer', () => {
       {
         id: '1',
         version: 1,
-        cells: [
+        rows: [
           {
-            id: '4c0f5ab5-f331-4d69-8850-7de0df917cc2',
-            size: 12,
+            id: 'someid',
+            cells: [
+              {
+                id: '4c0f5ab5-f331-4d69-8850-7de0df917cc2',
+                size: 12,
 
-            plugin: {
-              id: 'ory/editor/core/content/slate',
-              version: 1,
-            },
-            dataI18n: {
-              en: {
-                slate: [
-                  {
-                    type: 'PARAGRAPH/PARAGRAPH',
-                    children: [
+                plugin: {
+                  id: 'ory/editor/core/content/slate',
+                  version: 1,
+                },
+                dataI18n: {
+                  en: {
+                    slate: [
                       {
-                        text: 'Hello world, i am centered',
+                        type: 'PARAGRAPH/PARAGRAPH',
+                        children: [
+                          {
+                            text: 'Hello world, i am centered',
+                          },
+                        ],
+                        data: {
+                          align: 'center',
+                        },
                       },
                     ],
-                    data: {
-                      align: 'center',
-                    },
                   },
-                ],
+                },
               },
-            },
+            ],
           },
         ],
       },

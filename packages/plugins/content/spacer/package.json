@@ -28,7 +28,7 @@
     "@react-page/core": "0.0.0",
     "@react-page/ui": "0.0.0",
     "classnames": "2.2.6",
-    "react-resizable": "^1.9.0"
+    "react-resizable": "^1.11.0"
   },
   "devDependencies": {},
   "publishConfig": {

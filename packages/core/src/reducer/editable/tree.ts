@@ -2,7 +2,6 @@
 
 import { v4 } from 'uuid';
 import {
-  CELL_DRAG_HOVER,
   CELL_INSERT_ABOVE,
   CELL_INSERT_BELOW,
   CELL_INSERT_INLINE_LEFT,
@@ -20,8 +19,6 @@ import {
 import { Cell, Row } from '../../types/editable';
 import { removeUndefinedProps } from '../../utils/removeUndefinedProps';
 
-import { isHoveringThis } from './helper/hover';
-
 import {
   flatten,
   optimizeCell,
@@ -37,7 +34,6 @@ const cell = (s: Cell, a: CellAction, depth: number): Cell =>
       const reduce = (): Cell => {
         return removeUndefinedProps({
           ...state,
-          hoverPosition: undefined,
           rows: rows(state.rows, action, depth + 1),
         });
       };
@@ -80,16 +76,8 @@ const cell = (s: Cell, a: CellAction, depth: number): Cell =>
           }
           return reduce();
 
-        case CELL_DRAG_HOVER:
-          if (isHoveringThis(state, action)) {
-            // if this is the cell we're hovering, set the hover attribute
-            return { ...reduce(), hoverPosition: action.position };
-          }
-          // or remove it if not
-          return reduce();
-
         case CELL_INSERT_ABOVE:
-          if (isHoveringThis(state, action)) {
+          if (action.hoverId === state.id) {
             return {
               id: action.ids.cell,
               rows: rows(
@@ -113,7 +101,7 @@ const cell = (s: Cell, a: CellAction, depth: number): Cell =>
           return reduce();
 
         case CELL_INSERT_BELOW:
-          if (isHoveringThis(state, action)) {
+          if (action.hoverId === state.id) {
             return {
               id: action.ids.cell,
 
@@ -188,7 +176,7 @@ export const cells = (state: Cell[] = [], action, depth = 0): Cell[] => {
       newCells = newCells
         .filter((c: Cell) => c.id !== action.item.id) // this removes the cell if it already exists
         .map((c: Cell) =>
-          isHoveringThis(c, action)
+          action.hoverId === c.id
             ? [
                 { ...action.item, id: action.ids.item, inline: null },
                 { ...c, id: action.ids.others[0] },
@@ -202,7 +190,7 @@ export const cells = (state: Cell[] = [], action, depth = 0): Cell[] => {
       newCells = newCells
         .filter((c: Cell) => c.id !== action.item.id) // this removes the cell if it already exists
         .map((c: Cell) =>
-          isHoveringThis(c, action)
+          action.hoverId === c.id
             ? [
                 { ...c, id: action.ids.others[0] },
                 { ...action.item, id: action.ids.item, inline: null },
@@ -217,7 +205,7 @@ export const cells = (state: Cell[] = [], action, depth = 0): Cell[] => {
       newCells = newCells
         .filter((c: Cell) => c.id !== action.item.id) // this removes the cell if it already exists
         .map((c: Cell) => {
-          if (isHoveringThis(c, action)) {
+          if (action.hoverId === c.id) {
             return [
               {
                 id: action.ids.cell,
@@ -266,18 +254,16 @@ const row = (s: Row, a, depth: number): Row =>
     ((state: Row, action): Row => {
       const reduce = () => ({
         ...state,
-        hoverPosition: undefined,
         cells: cells(state.cells, action, depth + 1),
       });
 
       switch (action.type) {
         case CELL_INSERT_LEFT_OF:
-          if (!isHoveringThis(state, action)) {
+          if (action.hoverId !== state.id) {
             return reduce();
           }
           return {
             ...state,
-            hoverPosition: undefined,
             cells: cells(
               [
                 { ...action.item, id: action.ids.item, inline: null },
@@ -289,12 +275,11 @@ const row = (s: Row, a, depth: number): Row =>
           };
 
         case CELL_INSERT_RIGHT_OF:
-          if (!isHoveringThis(state, action)) {
+          if (action.hoverId !== state.id) {
             return reduce();
           }
           return {
             ...state,
-            hoverPosition: undefined,
             cells: cells(
               [
                 ...state.cells,
@@ -305,11 +290,12 @@ const row = (s: Row, a, depth: number): Row =>
             ),
           };
 
-        case CELL_DRAG_HOVER:
-          if (isHoveringThis(state, action)) {
+        /*case CELL_DRAG_HOVER:
+          if (action.hoverId === state.id) {
             return { ...reduce(), hoverPosition: action.position };
           }
           return reduce();
+          */
 
         default:
           return reduce();
@@ -317,7 +303,7 @@ const row = (s: Row, a, depth: number): Row =>
     })(s, a)
   );
 
-const rows = (s: Row[] = [], a, depth: number): Row[] =>
+export const rows = (s: Row[] = [], a, depth = 0): Row[] =>
   optimizeRows(
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
 
@@ -327,7 +313,7 @@ const rows = (s: Row[] = [], a, depth: number): Row[] =>
         case CELL_INSERT_ABOVE:
           return state
             .map((r: Row) =>
-              isHoveringThis(r, action)
+              action.hoverId === r.id
                 ? [
                     {
                       cells: [
@@ -347,7 +333,7 @@ const rows = (s: Row[] = [], a, depth: number): Row[] =>
         case CELL_INSERT_BELOW:
           return state
             .map((r: Row) =>
-              isHoveringThis(r, action)
+              action.hoverId === r.id
                 ? [
                     {
                       ...r,
@@ -366,7 +352,7 @@ const rows = (s: Row[] = [], a, depth: number): Row[] =>
             .map((r) => row(r, action, depth));
         case CELL_INSERT_AT_END: {
           const newRows =
-            depth !== 1
+            depth !== 0
               ? state
               : [
                   ...state,

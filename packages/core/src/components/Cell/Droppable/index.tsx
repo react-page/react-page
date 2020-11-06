@@ -1,6 +1,8 @@
 import classNames from 'classnames';
 import * as React from 'react';
 import { useDrop } from 'react-dnd';
+import { useSelector } from '../../../reduxConnect';
+import { RootState } from '../../../selector';
 import { HoverTarget } from '../../../service/hover/computeHover';
 import { CellDrag } from '../../../types/editable';
 import { getDropLevels } from '../../../utils/getDropLevels';
@@ -29,8 +31,11 @@ export const useCellDrop = (nodeId: string) => {
   const options = useOptions();
   const hoverActions = useHoverActions();
   const dropActions = useDropActions();
+  const hoverPosition = useSelector(
+    (state: RootState) => state.reactPage.hover
+  );
 
-  const [, dropRef] = useDrop<CellDrag, void, void>({
+  const [{ isOver }, dropRef] = useDrop<CellDrag, void, { isOver: boolean }>({
     accept: 'cell',
     canDrop: (item) => {
       return (
@@ -38,6 +43,9 @@ export const useCellDrop = (nodeId: string) => {
         !hoverTarget?.ancestorIds.includes(item.cell.id)
       );
     },
+    collect: (monitor) => ({
+      isOver: monitor.isOver(),
+    }),
     hover(item, monitor) {
       onHover(hoverTarget, monitor, ref.current, hoverActions, options);
     },
@@ -45,6 +53,13 @@ export const useCellDrop = (nodeId: string) => {
       onDrop(hoverTarget, monitor, ref.current, dropActions, options);
     },
   });
+
+  React.useEffect(() => {
+    if (!isOver && hoverPosition?.nodeId === nodeId) {
+      hoverActions.clear();
+    }
+  }, [isOver, hoverPosition?.nodeId, hoverActions.clear]);
+
   // see https://github.com/react-dnd/react-dnd/issues/1955
   const attach = React.useCallback(
     (domElement: HTMLDivElement) => {
@@ -71,6 +86,9 @@ const Droppable: React.FC<{ nodeId: string; isLeaf?: boolean }> = (props) => {
   return (
     <div
       ref={attach}
+      style={{
+        height: '100%',
+      }}
       className={classNames('ory-cell-droppable', {
         'ory-cell-droppable-is-over-current': hoverPosition,
         [`ory-cell-droppable-is-over-${hoverPosition}`]: hoverPosition,

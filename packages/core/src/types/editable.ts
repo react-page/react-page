@@ -7,7 +7,6 @@ export type I18nField<T> = {
 
 type NodeBase = {
   id: string;
-  hoverPosition?: string;
 };
 export type Cell = NodeBase & {
   rows?: Row[];
@@ -70,13 +69,11 @@ export type Levels = {
   below: number;
 };
 
-export type AbstractEditable<T> = {
+export type EditableType = {
   id: string;
-  cells: Array<T>;
+  rows: Row[];
   version: number;
 };
-
-export type EditableType = AbstractEditable<Cell>;
 
 export type Editables = {
   past: EditableType[];

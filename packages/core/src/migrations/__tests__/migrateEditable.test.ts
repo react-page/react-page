@@ -40,26 +40,21 @@ describe('migrateEditable', () => {
     const expected: EditableType = {
       id: 'editableId',
       version: CURRENT_EDITABLE_VERSION,
-      cells: [
+      rows: [
         {
-          id: 'cell1',
-          rows: [
+          id: 'row1',
+          cells: [
             {
-              id: 'row1',
-              cells: [
-                {
-                  id: 'cell2',
-                  plugin: {
-                    id: 'fooplugin',
-                    version: 0.0001,
-                  },
-                  dataI18n: {
-                    en: {
-                      fooState: 'something',
-                    },
-                  },
+              id: 'cell2',
+              plugin: {
+                id: 'fooplugin',
+                version: 0.0001,
+              },
+              dataI18n: {
+                en: {
+                  fooState: 'something',
                 },
-              ],
+              },
             },
           ],
         },

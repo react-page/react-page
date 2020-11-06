@@ -9,6 +9,7 @@ export const defaultTranslations = {
   pluginDescription: 'Add webm, ogg and other HTML5 video',
   urlLabel: 'Video url',
   urlPlaceholder: 'https://example.com/video.webm',
+  isInlineable: true,
 };
 
 export const defaultSettings: Html5VideoSettings = {

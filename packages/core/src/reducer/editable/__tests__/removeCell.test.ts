@@ -19,16 +19,21 @@ describe('remove cell', () => {
     const initialState = createEditable(
       {
         id: 'editableId',
-        cells: [
+        rows: [
           {
-            id: 'cell1',
-            plugin: 'foo',
-            dataI18n: {
-              en: {
-                foo: 'english',
-                bar: 'something',
+            id: 'row0',
+            cells: [
+              {
+                id: 'cell1',
+                plugin: 'foo',
+                dataI18n: {
+                  en: {
+                    foo: 'english',
+                    bar: 'something',
+                  },
+                },
               },
-            },
+            ],
           },
         ],
       },
@@ -37,7 +42,7 @@ describe('remove cell', () => {
     const expectedState: EditableType = {
       id: 'editableId',
       version: 1,
-      cells: [],
+      rows: [],
     };
 
     const actualState = simulateDispatch(initialState, removeCell('cell1'));

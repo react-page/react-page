@@ -46,7 +46,8 @@ const Inner: React.FC<{ nodeId: string }> = ({ nodeId }) => {
         !focused &&
         (e.target as HTMLDivElement).closest('.ory-cell-inner') ===
           // eslint-disable-next-line react/no-find-dom-node
-          ref.current
+          ref.current &&
+        !(e.target as HTMLDivElement).classList.contains('resize-handle')
       ) {
         focus(false, 'onMouseDown');
       }

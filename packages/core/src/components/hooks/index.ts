@@ -135,6 +135,7 @@ export const useNodeProps = <T>(
 ): T => {
   const node = useSelector((state: RootState) => {
     const result = findNodeInState(state, nodeId);
+
     if (!result) {
       return null;
     }
@@ -162,7 +163,11 @@ export const useRowProps = <T>(nodeId: string, selector: RowSelector<T>): T => {
 };
 
 export const useNodeHoverPosition = (nodeId: string) => {
-  return useNodeProps(nodeId, (node) => node?.hoverPosition);
+  return useSelector((state: RootState) =>
+    state.reactPage.hover?.nodeId === nodeId
+      ? state.reactPage.hover.position
+      : null
+  );
 };
 
 export const useNodeAncestorIds = (nodeId: string) => {
@@ -317,14 +322,18 @@ export const useSetDraft = (id: string) => {
   );
 };
 
-export const useResizeCell = (id: string) => {
+export const useResizeCellById = () => {
   const dispatch = useDispatch();
-  return useCallback((size: number) => dispatch(resizeCell(id)(size)), [
-    dispatch,
-    id,
-  ]);
+  return useCallback(
+    (nodeId: string, size: number) => dispatch(resizeCell(nodeId)(size)),
+    [dispatch]
+  );
 };
 
+export const useResizeCell = (id: string) => {
+  const resizeById = useResizeCellById();
+  return useCallback((size: number) => resizeById(id, size), [resizeById, id]);
+};
 export const useSetLang = () => {
   const dispatch = useDispatch();
   return useCallback((lang: string) => dispatch(setLang(lang)), [dispatch]);
