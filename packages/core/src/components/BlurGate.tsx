@@ -6,7 +6,10 @@ import { useBlurAllCells, useIsInsertMode, useSetMode } from './hooks';
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function findReactElement(node: any) {
   for (const key in node) {
-    if (key.startsWith('__reactInternalInstance$')) {
+    if (
+      key.startsWith('__reactInternalInstance$') ||
+      key.startsWith('__reactFiber$') // react 17
+    ) {
       return node[key];
     }
   }
