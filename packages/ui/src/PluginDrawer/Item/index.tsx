@@ -6,6 +6,7 @@ import {
   CellPlugin,
   useInsertNew,
   useDisplayModeReferenceNodeId,
+  useLang,
 } from '@react-page/core';
 
 import * as React from 'react';
@@ -18,6 +19,28 @@ interface ItemProps {
   insert: any;
   translations: Translations;
 }
+
+const Preview: React.FC<{ plugin: CellPlugin }> = ({ plugin }) => {
+  const Component = plugin.Component;
+  const lang = useLang();
+  const data = plugin.createInitialData?.({}) ?? {};
+  return (
+    <div>
+      <Component
+        pluginConfig={plugin}
+        isPreviewMode
+        isEditMode={false}
+        onChange={() => null}
+        readOnly
+        focused={false}
+        state={data}
+        nodeId={null}
+        lang={lang}
+        data={data}
+      ></Component>
+    </div>
+  );
+};
 
 const Item: React.FC<ItemProps> = ({ plugin, insert, translations }) => {
   const title = plugin.title ?? plugin.text;
@@ -48,6 +71,7 @@ const Item: React.FC<ItemProps> = ({ plugin, insert, translations }) => {
           }}
         />
         <ListItemText primary={title} secondary={plugin.description} />
+        <Preview plugin={plugin} />
       </ListItem>
     </Draggable>
   );

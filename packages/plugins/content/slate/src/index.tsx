@@ -100,7 +100,7 @@ function plugin<TPlugins extends SlatePluginCollection = DefaultPlugins>(
       children: [
         {
           plugin: plugins.paragraphs.paragraph,
-          children: [''],
+          children: ['Edit text here'],
         },
       ],
     }));
