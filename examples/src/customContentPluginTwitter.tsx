@@ -15,6 +15,9 @@ export default createContentPlugin<{
       }}
     />
   ),
+  createInitialData: () => ({
+    screenName: 'AlYankovic',
+  }),
   id: 'twitter-timeline',
   title: 'Twitter timeline',
   description: 'A twitter timeline',

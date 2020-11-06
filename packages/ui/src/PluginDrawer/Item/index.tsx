@@ -1,3 +1,4 @@
+import { Paper } from '@material-ui/core';
 import Avatar from '@material-ui/core/Avatar';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -25,7 +26,19 @@ const Preview: React.FC<{ plugin: CellPlugin }> = ({ plugin }) => {
   const lang = useLang();
   const data = plugin.createInitialData?.({}) ?? {};
   return (
-    <div>
+    <Paper
+      elevation={2}
+      style={{
+        opacity: 0.9,
+        position: 'fixed',
+        right: '10vw',
+        maxWidth: '30vw',
+        top: '10vw',
+        backgroundColor: 'white',
+        padding: 20,
+        zIndex: 50,
+      }}
+    >
       <Component
         pluginConfig={plugin}
         isPreviewMode
@@ -38,7 +51,7 @@ const Preview: React.FC<{ plugin: CellPlugin }> = ({ plugin }) => {
         lang={lang}
         data={data}
       ></Component>
-    </div>
+    </Paper>
   );
 };
 
@@ -56,23 +69,28 @@ const Item: React.FC<ItemProps> = ({ plugin, insert, translations }) => {
   );
 
   const Draggable = draggable('cell');
-
+  const [hover, setHover] = React.useState(false);
   return (
     <Draggable insert={insert}>
-      <ListItem
-        title="Click to add or drag and drop it somwhere on your page!"
-        className="ory-plugin-drawer-item"
-        onClick={insertIt}
+      <div
+        onMouseOver={() => setHover(true)}
+        onMouseOut={() => setHover(false)}
       >
-        <Avatar
-          children={plugin.IconComponent || title[0]}
-          style={{
-            marginRight: 16,
-          }}
-        />
-        <ListItemText primary={title} secondary={plugin.description} />
-        <Preview plugin={plugin} />
-      </ListItem>
+        <ListItem
+          title="Click to add or drag and drop it somwhere on your page!"
+          className="ory-plugin-drawer-item"
+          onClick={insertIt}
+        >
+          <Avatar
+            children={plugin.IconComponent || title[0]}
+            style={{
+              marginRight: 16,
+            }}
+          />
+          <ListItemText primary={title} secondary={plugin.description} />
+          {hover ? <Preview plugin={plugin} /> : null}
+        </ListItem>
+      </div>
     </Draggable>
   );
 };
