@@ -19,6 +19,7 @@ import {
   CellPluginComponentProps,
   CellPlugin,
   Plugins,
+  Plugin,
 } from './service/plugin/classes';
 export * from './components/hooks';
 import {
@@ -43,6 +44,7 @@ export {
   createEmptyState,
   CoreEditorProps,
   Plugins,
+  Plugin,
   Cell,
   EditableType,
   Row,

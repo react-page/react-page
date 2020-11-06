@@ -5,7 +5,8 @@ import { AnyAction } from 'redux';
 import { Migration } from '../../migrations/Migration';
 import { Cell, PartialCell, PartialRow, Row } from '../../types/editable';
 
-export type Plugins = CellPlugin[];
+export type Plugin = CellPlugin;
+export type Plugins = Plugin[];
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type CellPlugin<DataT = any, DataSerializedT = DataT> = {
