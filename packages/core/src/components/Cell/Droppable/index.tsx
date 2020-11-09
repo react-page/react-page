@@ -7,6 +7,7 @@ import { HoverTarget } from '../../../service/hover/computeHover';
 import { CellDrag } from '../../../types/editable';
 import { getDropLevels } from '../../../utils/getDropLevels';
 import {
+  useCellPlugin,
   useCellProps,
   useDropActions,
   useHoverActions,
@@ -28,16 +29,22 @@ export const useCellDrop = (nodeId: string) => {
     levels: getDropLevels(node, ancestors),
     pluginId: node.plugin?.id,
   }));
+  const plugin = useCellPlugin(nodeId);
   const options = useOptions();
   const hoverActions = useHoverActions();
   const dropActions = useDropActions();
-  const hoverPosition = useSelector(
-    (state: RootState) => state.reactPage.hover
+  const isHoveringOverThis = useSelector(
+    (state: RootState) => state.reactPage.hover?.nodeId === nodeId
   );
 
   const [{ isOver }, dropRef] = useDrop<CellDrag, void, { isOver: boolean }>({
     accept: 'cell',
     canDrop: (item) => {
+      if (plugin?.allowNeighbour) {
+        if (!plugin.allowNeighbour(item.cell)) {
+          return false;
+        }
+      }
       return (
         item.cell.id !== nodeId &&
         !hoverTarget?.ancestorIds.includes(item.cell.id)
@@ -47,6 +54,11 @@ export const useCellDrop = (nodeId: string) => {
       isOver: monitor.isOver(),
     }),
     hover(item, monitor) {
+      if (plugin?.allowNeighbour) {
+        if (!plugin.allowNeighbour(item)) {
+          return false;
+        }
+      }
       onHover(hoverTarget, monitor, ref.current, hoverActions, options);
     },
     drop: (item, monitor) => {
@@ -55,10 +67,10 @@ export const useCellDrop = (nodeId: string) => {
   });
 
   React.useEffect(() => {
-    if (!isOver && hoverPosition?.nodeId === nodeId) {
+    if (!isOver && isHoveringOverThis) {
       hoverActions.clear();
     }
-  }, [isOver, hoverPosition?.nodeId, hoverActions.clear]);
+  }, [isOver, isHoveringOverThis, hoverActions.clear]);
 
   // see https://github.com/react-dnd/react-dnd/issues/1955
   const attach = React.useCallback(

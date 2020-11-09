@@ -3,7 +3,13 @@
 import { AnyAction } from 'redux';
 
 import { Migration } from '../../migrations/Migration';
-import { Cell, PartialCell, PartialRow, Row } from '../../types/editable';
+import {
+  Cell,
+  CellDrag,
+  PartialCell,
+  PartialRow,
+  Row,
+} from '../../types/editable';
 
 export type Plugin = CellPlugin;
 export type Plugins = Plugin[];
@@ -50,6 +56,12 @@ export type CellPlugin<DataT = any, DataSerializedT = DataT> = {
 
   isInlineable?: boolean;
   allowInlineNeighbours?: boolean;
+
+  /**
+   * wether to not allow to drop another cell plugin in the same row as this plugin
+   * is always true if not defined
+   */
+  allowNeighbour?: (item: Cell) => boolean;
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   serialize?: (data: DataT) => DataSerializedT;
