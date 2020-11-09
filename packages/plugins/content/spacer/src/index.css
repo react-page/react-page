@@ -1,1 +1,26 @@
-@import './Component/index.css';
+.react-page-plugins-content-spacer {
+    border: 1px dashed var(--minBlack);
+    border-bottom: none;
+    position: relative;
+  }
+  
+  .react-page-plugins-content-spacer-read-only {
+    border-color: transparent !important;
+  }
+  
+  .react-page-plugins-content-spacer > .react-resizable > .react-resizable-handle:before,
+  .react-page-plugins-content-spacer
+    > .react-resizable
+    > .react-resizable-handle:hover:before {
+    content: ' ';
+    position: absolute;
+    text-align: center;
+    width: 100%;
+    bottom: 0;
+    right: 0;
+    cursor: n-resize;
+    line-height: 12px;
+    font-size: 1.5em;
+    height: 24px;
+  }
+  

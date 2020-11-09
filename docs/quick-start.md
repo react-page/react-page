@@ -3,8 +3,8 @@
 To install the editor, use:
 
 ```bash
-$ yarn add @react-page/react-page
-$ npm i --save @react-page/react-page
+$ yarn add @react-page/editor
+$ npm i --save @react-page/editor
 ```
 
 ## Simple example

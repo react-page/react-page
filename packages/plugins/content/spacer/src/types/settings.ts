@@ -1,9 +1,9 @@
-import { SpacerControlsProps } from './controls';
-import { SpacerHtmlRendererProps } from './renderer';
+import { CellPluginComponentProps } from '@react-page/editor';
+import { SpacerState } from './state';
 import { Translations } from './translations';
 
 export interface SpacerSettings {
-  Renderer: React.ComponentType<SpacerHtmlRendererProps>;
-  Controls: React.ComponentType<SpacerControlsProps>;
+  Renderer: React.ComponentType<CellPluginComponentProps<SpacerState>>;
+
   translations?: Translations;
 }

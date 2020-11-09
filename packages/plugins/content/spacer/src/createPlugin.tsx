@@ -1,8 +1,7 @@
-import { CellPlugin, lazyLoad } from '@react-page/core';
+import { CellPlugin, lazyLoad } from '@react-page/editor';
 import * as React from 'react';
-import Spacer from './Component/index';
 import { defaultSettings } from './default/settings';
-import { SpacerProps } from './types/component';
+
 import { SpacerSettings } from './types/settings';
 import { SpacerState } from './types/state';
 
@@ -11,11 +10,22 @@ const createPlugin: (settings: SpacerSettings) => CellPlugin<SpacerState> = (
   settings
 ) => {
   const mergedSettings = { ...defaultSettings, ...settings };
-  const WrappedComponent: React.SFC<SpacerProps> = (props) => (
-    <Spacer {...props} {...mergedSettings} />
-  );
+
   return {
-    Component: WrappedComponent,
+    Renderer: mergedSettings.Renderer,
+    controls: {
+      type: 'autoform',
+      columnCount: 1,
+      schema: {
+        required: ['height'],
+        type: 'object',
+        properties: {
+          height: {
+            type: 'number',
+          },
+        },
+      },
+    },
     id: 'ory/editor/core/content/spacer',
     version: 1,
     IconComponent: <AspectRatio />,

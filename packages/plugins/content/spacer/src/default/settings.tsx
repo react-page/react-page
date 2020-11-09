@@ -8,7 +8,6 @@ export const defaultTranslations = {
 };
 
 export const defaultSettings: SpacerSettings = {
-  Controls: () => <> Controls for this plugin were not provided</>,
   Renderer: () => <>Renderer; for this plugin was not provided </>,
   translations: defaultTranslations,
 };

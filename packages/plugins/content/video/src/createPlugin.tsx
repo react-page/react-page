@@ -1,6 +1,5 @@
-import { CellPlugin } from '@react-page/core';
-import * as React from 'react';
-import Spacer from './Component/index';
+import { CellPlugin } from '@react-page/editor';
+
 import { defaultSettings } from './default/settings';
 import { VideoProps } from './types/component';
 import { VideoSettings } from './types/settings';
@@ -10,11 +9,26 @@ const createPlugin: (settings: VideoSettings) => CellPlugin<VideoState> = (
   settings
 ) => {
   const mergedSettings = { ...defaultSettings, ...settings };
-  const WrappedComponent: React.FC<VideoProps> = (props) => (
-    <Spacer {...props} {...mergedSettings} />
-  );
+
   return {
-    Component: WrappedComponent,
+    controls: {
+      type: 'autoform',
+
+      schema: {
+        required: ['src'],
+        type: 'object',
+        properties: {
+          src: {
+            type: 'string',
+            uniforms: {
+              placeholder: mergedSettings.translations.placeholder,
+              label: mergedSettings.translations.label,
+            },
+          },
+        },
+      },
+    },
+    Renderer: mergedSettings.Renderer,
     id: 'ory/editor/core/content/video',
     version: 1,
     IconComponent: mergedSettings.IconComponent,

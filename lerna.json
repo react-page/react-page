@@ -2,10 +2,6 @@
   "lerna": "3.6.0",
   "npmClient": "yarn",
   "packages": [
-    "packages/core",
-    "packages/renderer",
-    "packages/ui",
-    "packages/meta",
     "packages/editor",
     "packages/plugins/content/*",
     "packages/plugins/layout/*",

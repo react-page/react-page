@@ -1,4 +1,4 @@
-import { createContentPlugin } from '@react-page/create-plugin-materialui';
+import { CellPlugin } from '@react-page/editor';
 import React from 'react';
 
 type Address = {
@@ -15,24 +15,27 @@ type State = {
   title: string;
   shops: Shop[];
 };
-export default createContentPlugin<State>({
+
+const customContentPluginWithListField: CellPlugin<State> = {
   Renderer: ({ data }) => (
     <div>
       <h1>{data.title}</h1>
       <p>Shops:</p>
       <ul>
         {data.shops &&
-          data.shops.map((shop, index) => (
-            <li key={index}>
-              <h2>{shop.name}</h2>
-              <p>Adresss:</p>
-              <p>
-                {shop.address.street}
-                <br />
-                {shop.address.zipCode} {shop.address.city}
-              </p>
-            </li>
-          ))}
+          data.shops.map((shop, index) => {
+            return (
+              <li key={index}>
+                <h2>{shop.name}</h2>
+                <p>Adresss:</p>
+                <p>
+                  {shop.address.street}
+                  <br />
+                  {shop.address.zipCode} {shop.address.city}
+                </p>
+              </li>
+            );
+          })}
       </ul>
     </div>
   ),
@@ -41,42 +44,53 @@ export default createContentPlugin<State>({
 
   description: 'Some custom content plugin with a list field',
   version: 1,
-  controlsLayout: {
+
+  controls: {
+    type: 'autoform',
     columnCount: 1,
-  },
-  schema: {
-    properties: {
-      title: {
-        type: 'string',
-      },
-      shops: {
-        type: 'array',
-        items: {
-          type: 'object',
-          required: [],
-          properties: {
-            name: {
-              type: 'string',
+    schema: {
+      properties: {
+        title: {
+          type: 'string',
+        },
+        shops: {
+          type: 'array',
+          items: {
+            type: 'object',
+            default: {
+              name: 'My first shop',
+              address: {
+                city: 'Sin City',
+                street: 'Sample street',
+                zipCode: '1234',
+              },
             },
-            address: {
-              type: 'object',
-              required: [],
-              properties: {
-                street: {
-                  type: 'string',
-                },
-                zipCode: {
-                  type: 'string',
-                },
-                city: {
-                  type: 'string',
+            required: [],
+            properties: {
+              name: {
+                type: 'string',
+              },
+              address: {
+                type: 'object',
+                required: [],
+                properties: {
+                  street: {
+                    type: 'string',
+                  },
+                  zipCode: {
+                    type: 'string',
+                  },
+                  city: {
+                    type: 'string',
+                  },
                 },
               },
             },
           },
         },
       },
+      required: [],
     },
-    required: [],
   },
-});
+};
+export default customContentPluginWithListField;

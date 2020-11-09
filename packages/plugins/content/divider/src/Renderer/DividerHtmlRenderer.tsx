@@ -1,7 +1,6 @@
 import * as React from 'react';
-import { DividerRendererProps } from '../types/renderer';
 
-const DividerHtmlRenderer: React.SFC<DividerRendererProps> = () => {
+const DividerHtmlRenderer: React.FC = () => {
   return <hr className="react-page-plugins-content-divider" />;
 };
 

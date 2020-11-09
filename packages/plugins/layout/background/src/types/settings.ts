@@ -1,6 +1,5 @@
-import { CellPlugin } from '@react-page/core';
+import { CellPlugin, ImageUploadType, RGBColor } from '@react-page/editor';
 
-import { ImageUploadType, RGBColor } from '@react-page/ui';
 import { BackgroundControlsProps } from './controls';
 import { ModeEnum } from './ModeEnum';
 import { BackgroundRendererProps } from './renderer';

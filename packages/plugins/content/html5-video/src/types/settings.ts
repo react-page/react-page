@@ -1,10 +1,11 @@
-import { Html5VideoControlsProps } from './controls';
-import { Html5VideoRendererProps } from './renderer';
+import { CellPluginComponentProps } from '@react-page/editor';
+
+import { Html5VideoState } from './state';
 import { Translations } from './translations';
 
 export interface Html5VideoSettings {
-  Renderer: React.ComponentType<Html5VideoRendererProps>;
-  Controls: React.ComponentType<Html5VideoControlsProps>;
+  Renderer: React.ComponentType<CellPluginComponentProps<Html5VideoState>>;
+
   translations?: Translations;
   IconComponent?: React.ReactNode;
   isInlineable?: boolean;

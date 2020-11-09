@@ -25,15 +25,15 @@ export default (uniqueId) => {
 };
 ```
 
-and then you can use it right before HTMLRenderer:
+and then you can use it right before the Editor
 
 ```typescript
-import { HTMLRenderer } from '@react-page/renderer';
+import Editor from '@react-page/editor';
 import useCustomKeygen from './useCustomKeygen';
 
 const Content = ({ style, className, contentUniqueId, content }) => {
   useCustomKeygen(contentUniqueId);
 
-  return <HTMLRenderer plugins={plugins} state={content} />;
+  return <Editor readOnly plugins={plugins} state={content} />;
 };
 ```

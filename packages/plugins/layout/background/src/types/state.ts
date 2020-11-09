@@ -1,4 +1,4 @@
-import { RGBColor } from '@react-page/ui';
+import { RGBColor } from '@react-page/editor';
 import { Gradient } from './gradient';
 import { ModeEnum } from './ModeEnum';
 

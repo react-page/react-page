@@ -1,10 +1,11 @@
+import { CellPluginComponentProps } from '@react-page/editor';
 import * as React from 'react';
 import { defaultHtml5VideoState } from '../default/state';
-import { Html5VideoRendererProps } from '../types/renderer';
+import { Html5VideoState } from '../types/state';
 
-const Html5VideoHtmlRenderer: React.SFC<Html5VideoRendererProps> = ({
-  data = defaultHtml5VideoState,
-}) => {
+const Html5VideoHtmlRenderer: React.FC<CellPluginComponentProps<
+  Html5VideoState
+>> = ({ data = defaultHtml5VideoState }) => {
   return (
     <div className="react-page-content-plugin-html5-video">
       <video

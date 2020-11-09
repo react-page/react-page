@@ -1,4 +1,4 @@
-import { lazyLoad } from '@react-page/core';
+import { lazyLoad } from '@react-page/editor';
 import * as React from 'react';
 import createDataPlugin from '../pluginFactories/createDataPlugin';
 

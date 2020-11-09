@@ -1,9 +1,10 @@
 /* eslint-disable @typescript-eslint/ban-types */
-import { JsonSchema } from '@react-page/create-plugin-materialui';
+
 import { ReactEditor } from 'slate-react';
-import { NextType } from '../types/next';
+
 import { Translations } from './translations';
 import { Node } from 'slate';
+import { JsonSchema } from '@react-page/editor';
 
 export interface PluginButtonProps {
   translations?: Partial<Translations>;
@@ -28,11 +29,7 @@ export type SlatePluginControls<T extends {}> = {
 
 export type SlateBasePluginDefinition<T extends {}> = {
   hotKey?: string;
-  onKeyDown?: (
-    e: React.KeyboardEvent,
-    editor: ReactEditor,
-    next: NextType
-  ) => void;
+  onKeyDown?: (e: React.KeyboardEvent, editor: ReactEditor, next: any) => void;
   schema?: JsonSchema<T>;
   Controls?: React.ComponentType<SlatePluginControls<T>>;
   icon?: JSX.Element;

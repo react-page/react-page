@@ -1,1 +1,10 @@
-@import './Component/index.css';
+.react-page-plugins-content-image {
+    width: 100%;
+  }
+  
+  .react-page-plugins-content-image-placeholder {
+    position: relative;
+    width: 100%;
+    text-align: center;
+  }
+  
