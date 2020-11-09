@@ -19,8 +19,8 @@ const DisplayModeToggle = ({
   const theme = useTheme();
   const isLarge = useMediaQuery(theme.breakpoints.up('sm'));
   return (
-    <div className="ory-controls-mode-toggle-button">
-      <div className="ory-controls-mode-toggle-button-inner">
+    <div className="react-page-controls-mode-toggle-button">
+      <div className="react-page-controls-mode-toggle-button-inner">
         <Fab
           color={active ? 'secondary' : 'default'}
           size={isLarge ? 'large' : 'small'}
@@ -30,7 +30,7 @@ const DisplayModeToggle = ({
           {icon}
         </Fab>
       </div>
-      <div className="ory-controls-mode-toggle-button-description">
+      <div className="react-page-controls-mode-toggle-button-description">
         {description}
       </div>
     </div>

@@ -25,12 +25,12 @@ const gridClass = ({
   size: number;
 }): string => {
   if (isPreviewMode || isEditMode) {
-    return `ory-cell-${isPreviewMode || isEditMode ? 'sm' : 'xs'}-${
+    return `react-page-cell-${isPreviewMode || isEditMode ? 'sm' : 'xs'}-${
       size || 12
-    } ory-cell-xs-12`;
+    } react-page-cell-xs-12`;
   }
 
-  return `ory-cell-xs-${size || 12}`;
+  return `react-page-cell-xs-${size || 12}`;
 };
 
 const stopClick = (_isEditMode: boolean) => (
@@ -105,19 +105,20 @@ const Cell: React.FC<Props> = ({ nodeId, measureRef }) => {
     <div
       ref={ref}
       className={classNames(
-        'ory-cell',
+        'react-page-cell',
         gridClass({
           isEditMode,
           isPreviewMode,
           size,
         }),
         {
-          'ory-cell-has-inline-neighbour': hasInlineNeighbour,
-          [`ory-cell-inline-${inline || ''}`]: inline,
-          'ory-cell-focused': focused,
-          'ory-cell-is-draft': isDraftInLang,
-          'ory-cell-resizing-overlay': isResizeMode,
-          'ory-cell-bring-to-front': !isResizeMode && !isLayoutMode && inline, // inline must not be active for resize/layout
+          'react-page-cell-has-inline-neighbour': hasInlineNeighbour,
+          [`react-page-cell-inline-${inline || ''}`]: inline,
+          'react-page-cell-focused': focused,
+          'react-page-cell-is-draft': isDraftInLang,
+          'react-page-cell-resizing-overlay': isResizeMode,
+          'react-page-cell-bring-to-front':
+            !isResizeMode && !isLayoutMode && inline, // inline must not be active for resize/layout
         }
       )}
       onClick={stopClick(isEditMode)}

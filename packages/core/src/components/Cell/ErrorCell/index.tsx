@@ -8,7 +8,7 @@ const ErrorCell: React.FC<{ nodeId: string; error: Error }> = ({
   const isEditMode = useIsEditMode();
   const removeCell = useRemoveCell(nodeId);
   return (
-    <div className="ory-cell-error">
+    <div className="react-page-cell-error">
       <strong>An error occurred!</strong>
       <small>
         <dl>

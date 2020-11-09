@@ -38,7 +38,7 @@ const Inner: React.FC = () => {
     const onScroll = throttle(() => {
       if (ref.current) {
         const firstInViewport: HTMLDivElement = Array.prototype.find.call(
-          ref.current.getElementsByClassName('ory-cell'),
+          ref.current.getElementsByClassName('react-page-cell'),
           (cell: HTMLDivElement) => isElementInViewport(cell)
         );
         if (firstInViewport) {
@@ -70,7 +70,7 @@ const Inner: React.FC = () => {
 
   return (
     <div style={{ minHeight: 400, display: 'flex', flexDirection: 'column' }}>
-      <div ref={ref} className="ory-editable">
+      <div ref={ref} className="react-page-editable">
         {rowIds.length > 0
           ? rowIds.map((id) => <Row nodeId={id} key={id} />)
           : null}

@@ -1,4 +1,4 @@
-.ory-plugins-content-slate-inline-toolbar {
+.react-page-plugins-content-slate-inline-toolbar {
   position: absolute;
   z-index: 1;
   top: -10000px;
@@ -10,7 +10,7 @@
   transition: opacity 0.75s;
 }
 
-.ory-plugins-content-slate-inline-toolbar--hidden {
+.react-page-plugins-content-slate-inline-toolbar--hidden {
   opacity: 0 !important;
   pointer-events: none;
 }

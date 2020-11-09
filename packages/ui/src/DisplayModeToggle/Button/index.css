@@ -1,9 +1,9 @@
-.ory-controls-mode-toggle-button-inner {
+.react-page-controls-mode-toggle-button-inner {
   float: right;
   margin: 8px;
 }
 
-.ory-controls-mode-toggle-button-description {
+.react-page-controls-mode-toggle-button-description {
   font-family: Roboto, sans-serif;
   font-size: 16px;
   margin-top: 18px;
@@ -19,8 +19,8 @@
   overflow: hidden;
 }
 
-.ory-controls-mode-toggle-button:hover
-  .ory-controls-mode-toggle-button-description {
+.react-page-controls-mode-toggle-button:hover
+  .react-page-controls-mode-toggle-button-description {
   max-width: 999px;
   background: var(--darkBlack);
   color: var(--white);

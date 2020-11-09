@@ -79,7 +79,9 @@ const Droppable: React.FC<{ nodeId: string; isLeaf?: boolean }> = (props) => {
   const options = useOptions();
   if (!(isLayoutMode || isInsertMode) && !options.allowMoveInEditMode) {
     return (
-      <div className={'ory-cell-droppable-container'}>{props.children}</div>
+      <div className={'react-page-cell-droppable-container'}>
+        {props.children}
+      </div>
     );
   }
 
@@ -89,10 +91,10 @@ const Droppable: React.FC<{ nodeId: string; isLeaf?: boolean }> = (props) => {
       style={{
         height: '100%',
       }}
-      className={classNames('ory-cell-droppable', {
-        'ory-cell-droppable-is-over-current': hoverPosition,
-        [`ory-cell-droppable-is-over-${hoverPosition}`]: hoverPosition,
-        'ory-cell-droppable-leaf': props.isLeaf,
+      className={classNames('react-page-cell-droppable', {
+        'react-page-cell-droppable-is-over-current': hoverPosition,
+        [`react-page-cell-droppable-is-over-${hoverPosition}`]: hoverPosition,
+        'react-page-cell-droppable-leaf': props.isLeaf,
       })}
     >
       {props.children}

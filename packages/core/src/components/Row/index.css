@@ -1,8 +1,8 @@
-.ory-row-has-floating-children {
+.react-page-row-has-floating-children {
   display: block !important;
 }
 
-.ory-row-is-hovering-this:before {
+.react-page-row-is-hovering-this:before {
   content: ' ';
   position: absolute;
   background: black;
@@ -11,26 +11,26 @@
   z-index: 2;
 }
 
-.ory-row-is-hovering-above:before {
+.react-page-row-is-hovering-above:before {
   top: 0;
   height: 4px;
   width: 100%;
 }
 
-.ory-row-is-hovering-below:before {
+.react-page-row-is-hovering-below:before {
   bottom: 0;
   height: 4px;
   width: 100%;
 }
 
-.ory-row-is-hovering-left-of:before {
+.react-page-row-is-hovering-left-of:before {
   top: 0;
   left: 0;
   bottom: 0;
   width: 4px;
 }
 
-.ory-row-is-hovering-right-of:before {
+.react-page-row-is-hovering-right-of:before {
   top: 0;
   right: 0;
   bottom: 0;
@@ -38,7 +38,7 @@
 }
 
 
-@keyframes oryCellResizeableAnimate {
+@keyframes reactPageCellResizeableAnimate {
   0% {
     background-color: var(--minWhite);
     top: 45%;
@@ -58,7 +58,7 @@
 
 
 
-.ory-row .resize-handle {
+.react-page-row .resize-handle {
   position: absolute;
   z-index: 5;
   width: 4px;
@@ -73,7 +73,7 @@
 
 
 
-.ory-row .resize-handle:after {
+.react-page-row .resize-handle:after {
   content: ' ';
   background-color: var(--darkWhite);
   /* width: 30px; */
@@ -87,14 +87,14 @@
   transition: all 200ms linear;
   mix-blend-mode: normal;
 
-  animation-name: oryCellResizeableAnimate;
+  animation-name: reactPageCellResizeableAnimate;
   animation-iteration-count: 1;
   animation-timing-function: ease;
   animation-duration: 0.8s;
 }
 
-.ory-row .resize-handle:hover:after,
-.ory-row .resize-handle:active:after {
+.react-page-row .resize-handle:hover:after,
+.react-page-row .resize-handle:active:after {
   background-color: var(--fullWhite);
   top: 0;
   bottom: 0;

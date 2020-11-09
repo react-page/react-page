@@ -15,7 +15,7 @@ const InsertNew: React.FC<{ parentCellId?: string }> = ({ parentCellId }) => {
   if (isPreviewMode) return null;
   return (
     <div
-      className="ory-cell-insert-new"
+      className="react-page-cell-insert-new"
       onClick={() => {
         setReferenceNodeId(parentCellId);
         setInsertMode();

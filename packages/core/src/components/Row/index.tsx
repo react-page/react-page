@@ -41,12 +41,12 @@ const Row: React.FC<{ nodeId: string }> = ({ nodeId }) => {
     <Droppable nodeId={nodeId}>
       <div
         ref={ref}
-        className={classNames('ory-row', {
-          'ory-row-is-hovering-this': Boolean(hoverPosition),
-          [`ory-row-is-hovering-${hoverPosition || ''}`]: Boolean(
+        className={classNames('react-page-row', {
+          'react-page-row-is-hovering-this': Boolean(hoverPosition),
+          [`react-page-row-is-hovering-${hoverPosition || ''}`]: Boolean(
             hoverPosition
           ),
-          'ory-row-has-floating-children': Boolean(
+          'react-page-row-has-floating-children': Boolean(
             rowHasInlineChildrenPosition
           ),
         })}

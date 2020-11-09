@@ -38,7 +38,7 @@ const Item: React.FC<ItemProps> = ({ plugin, insert, translations }) => {
     <Draggable insert={insert}>
       <ListItem
         title="Click to add or drag and drop it somwhere on your page!"
-        className="ory-plugin-drawer-item"
+        className="react-page-plugin-drawer-item"
         onClick={insertIt}
       >
         <Avatar

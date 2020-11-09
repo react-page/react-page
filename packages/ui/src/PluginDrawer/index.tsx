@@ -89,7 +89,7 @@ const Toolbar: React.FC<Props> = ({ translations = defaultTranslations }) => {
     <Portal>
       <Drawer
         variant="persistent"
-        className="ory-plugin-drawer"
+        className="react-page-plugin-drawer"
         open={isInsertMode}
         PaperProps={{
           style: {

@@ -42,7 +42,7 @@ const Inner: React.SFC<{
   stickyNess?: StickyNess;
 }> = ({ stickyNess, translations = defaultTranslations }) => (
   <div
-    className="ory-controls-mode-toggle-control-group"
+    className="react-page-controls-mode-toggle-control-group"
     style={{
       position: 'fixed',
       zIndex: 10001,
@@ -65,29 +65,29 @@ const Inner: React.SFC<{
         display: 'flex',
       }}
     >
-      <div className="ory-controls-mode-toggle-control">
+      <div className="react-page-controls-mode-toggle-control">
         <ToggleEdit label={translations.edit} />
-        <div className="ory-controls-mode-toggle-clearfix" />
+        <div className="react-page-controls-mode-toggle-clearfix" />
       </div>
 
-      <div className="ory-controls-mode-toggle-control">
+      <div className="react-page-controls-mode-toggle-control">
         <ToggleInsert label={translations.insert} />
-        <div className="ory-controls-mode-toggle-clearfix" />
+        <div className="react-page-controls-mode-toggle-clearfix" />
       </div>
 
-      <div className="ory-controls-mode-toggle-control">
+      <div className="react-page-controls-mode-toggle-control">
         <ToggleLayout label={translations.layout} />
-        <div className="ory-controls-mode-toggle-clearfix" />
+        <div className="react-page-controls-mode-toggle-clearfix" />
       </div>
 
-      <div className="ory-controls-mode-toggle-control">
+      <div className="react-page-controls-mode-toggle-control">
         <ToggleResize label={translations.resize} />
-        <div className="ory-controls-mode-toggle-clearfix" />
+        <div className="react-page-controls-mode-toggle-clearfix" />
       </div>
 
-      <div className="ory-controls-mode-toggle-control">
+      <div className="react-page-controls-mode-toggle-control">
         <TogglePreview label={translations.preview} />
-        <div className="ory-controls-mode-toggle-clearfix" />
+        <div className="react-page-controls-mode-toggle-clearfix" />
       </div>
     </div>
   </div>

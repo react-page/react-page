@@ -2,37 +2,37 @@
 @import './Droppable/index.css';
 @import './ErrorCell/index.css';
 
-.ory-cell-inline-left {
+.react-page-cell-inline-left {
   float: left;
 }
 
-.ory-cell-inline-right {
+.react-page-cell-inline-right {
   float: right;
 }
 
-.ory-cell-has-inline-neighbour {
+.react-page-cell-has-inline-neighbour {
   float: none;
   width: 100%;
 }
-.ory-cell-is-draft {
+.react-page-cell-is-draft {
   opacity: 0.3;
   outline: 1px dashed black;
 }
 
-.ory-cell-focused {
+.react-page-cell-focused {
   box-shadow: 0 0 1000px rgba(0, 0, 0, 0.5);
   opacity: 1;
 }
 
-.ory-cell {
+.react-page-cell {
   position: relative;
 }
 
-.ory-cell-bring-to-front {
+.react-page-cell-bring-to-front {
   z-index: 1;
 }
 
-.ory-cell-resizing-overlay:after {
+.react-page-cell-resizing-overlay:after {
   content: ' ';
   z-index: 4;
   position: absolute;

@@ -1,15 +1,15 @@
-.ory-plugins-content-spacer {
+.react-page-plugins-content-spacer {
   border: 1px dashed var(--minBlack);
   border-bottom: none;
   position: relative;
 }
 
-.ory-plugins-content-spacer-read-only {
+.react-page-plugins-content-spacer-read-only {
   border-color: transparent !important;
 }
 
-.ory-plugins-content-spacer > .react-resizable > .react-resizable-handle:before,
-.ory-plugins-content-spacer
+.react-page-plugins-content-spacer > .react-resizable > .react-resizable-handle:before,
+.react-page-plugins-content-spacer
   > .react-resizable
   > .react-resizable-handle:hover:before {
   content: ' ';

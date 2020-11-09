@@ -47,4 +47,4 @@ class Video extends React.PureComponent<VideoProps, VideoState> {
 
 export default Video;
 
-// <div className="ory-content-plugin--video">
+// <div className="react-page-content-plugin--video">

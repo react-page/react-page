@@ -12,7 +12,7 @@ export { darkTheme };
 
 const generateClassName = createGenerateClassName({
   disableGlobal: true,
-  productionPrefix: 'ory',
+  productionPrefix: 'reactPage',
 });
 const theme = createMuiTheme(themeOptions);
 

@@ -21,8 +21,8 @@ const SpacerDefaultControls: React.SFC<SpacerControlsProps> = (props) => {
   return (
     <div
       style={{ border: 'solid 1px', borderColor: faintBlack }}
-      className={classNames('ory-plugins-content-spacer', {
-        'ory-plugins-content-spacer-read-only': isPreviewMode,
+      className={classNames('react-page-plugins-content-spacer', {
+        'react-page-plugins-content-spacer-read-only': isPreviewMode,
       })}
     >
       {!isEditMode ? (

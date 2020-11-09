@@ -1,14 +1,14 @@
-.ory-cell-error {
+.react-page-cell-error {
   background-color: red;
   padding: 8px;
   margin: 2px;
   overflow: hidden;
 }
 
-.ory-cell-error strong {
+.react-page-cell-error strong {
   margin: 0 auto;
 }
 
-.ory-cell-error code {
+.react-page-cell-error code {
   overflow: scroll;
 }

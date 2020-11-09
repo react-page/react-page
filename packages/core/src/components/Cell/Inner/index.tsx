@@ -44,7 +44,7 @@ const Inner: React.FC<{ nodeId: string }> = ({ nodeId }) => {
     (e: React.MouseEvent<HTMLDivElement>) => {
       if (
         !focused &&
-        (e.target as HTMLDivElement).closest('.ory-cell-inner') ===
+        (e.target as HTMLDivElement).closest('.react-page-cell-inner') ===
           // eslint-disable-next-line react/no-find-dom-node
           ref.current &&
         !(e.target as HTMLDivElement).classList.contains('resize-handle')
@@ -67,7 +67,10 @@ const Inner: React.FC<{ nodeId: string }> = ({ nodeId }) => {
           onMouseDown={!isPreviewMode ? onMouseDown : undefined}
           tabIndex={-1}
           style={{ outline: 'none' }}
-          className={'ory-cell-inner' + (hasChildren ? '' : ' ory-cell-leaf')}
+          className={
+            'react-page-cell-inner' +
+            (hasChildren ? '' : ' react-page-cell-leaf')
+          }
           ref={ref}
         >
           <Component

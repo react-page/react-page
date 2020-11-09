@@ -68,7 +68,7 @@ describe('HTMLRenderer', () => {
         it('should pass', () => {
           expect(wrapper.html()).toEqual(
             // tslint:disable-next-line:max-line-length
-            '<div class="ory-cell ory-cell-sm-12 ory-cell-xs-12"><div class="ory-cell-inner ory-cell-leaf"><div data-gramm="false" data-slate-editor="true" data-slate-node="value" style="outline:none;white-space:pre-wrap;word-wrap:break-word"><p data-slate-node="element" style="text-align:center"><span data-slate-node="text"><span data-slate-leaf="true"><span data-slate-string="true">Hello world, i am centered</span></span></span></p></div></div></div>'
+            '<div class="react-page-cell react-page-cell-sm-12 react-page-cell-xs-12"><div class="react-page-cell-inner react-page-cell-leaf"><div data-gramm="false" data-slate-editor="true" data-slate-node="value" style="outline:none;white-space:pre-wrap;word-wrap:break-word"><p data-slate-node="element" style="text-align:center"><span data-slate-node="text"><span data-slate-leaf="true"><span data-slate-string="true">Hello world, i am centered</span></span></span></p></div></div></div>'
           );
         });
       });

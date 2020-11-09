@@ -10,8 +10,8 @@ const Trash: React.FC = () => {
   return (
     <div
       ref={ref}
-      className={classNames('ory-controls-trash', {
-        'ory-controls-trash-active': isLayoutMode,
+      className={classNames('react-page-controls-trash', {
+        'react-page-controls-trash-active': isLayoutMode,
       })}
     >
       <Fab color="secondary" disabled={!isHovering}>

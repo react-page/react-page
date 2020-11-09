@@ -41,10 +41,10 @@ const HoverButtons = ({
     <Portal>
       <div
         className={
-          'ory-plugins-content-slate-inline-toolbar ' +
+          'react-page-plugins-content-slate-inline-toolbar ' +
           (showHoverToolbar
             ? ''
-            : 'ory-plugins-content-slate-inline-toolbar--hidden')
+            : 'react-page-plugins-content-slate-inline-toolbar--hidden')
         }
         style={{ padding: 0 }}
         ref={toolbarRef}

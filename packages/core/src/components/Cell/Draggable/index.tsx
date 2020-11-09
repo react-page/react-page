@@ -16,8 +16,8 @@ const icon =
   'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAhCAYAAACbffiEAAAA6UlEQVRYhe2ZQQ6CMBBFX0njHg7ESXTp1p3uvIBewc3Em3AfdelSFwRDCAm01JRO+pa0lP8zzc9kMCKyAa7AFqhIixdwB44WuACHuHq8KWm1vwtgF1lMCPaWkevUNE3Qr9R17XTu1P5uvUdV+IpbG2qMGBH5xBYRAjUVUWPEjj10SS3XRFry3kha/VBTETVGcmqtDTVGFqdWn7k9ku96f88QNRVRYySn1tpQY8QptXz7qinmnpt7rZTIqbU21BgJ2mv1+XfCDVFTETVGjIg8SG8KP+RZ0I7lU+dmgRNgaKfyZVw9znT/R85fOHJJE77U6UcAAAAASUVORK5CYII=';
 
 const DefaultSmallHandle = () => (
-  <div className="ory-cell-draggable-overlay-handle">
-    <div className="ory-cell-draggable-overlay-handle-icon" />
+  <div className="react-page-cell-draggable-overlay-handle">
+    <div className="react-page-cell-draggable-overlay-handle-icon" />
   </div>
 );
 
@@ -71,13 +71,13 @@ const Draggable: React.FC<Props> = ({ isLeaf, children, nodeId }) => {
   if (!isLayoutMode && !options.allowMoveInEditMode) {
     return (
       <div
-        className="ory-cell-draggable-container"
+        className="react-page-cell-draggable-container"
         style={{
           height: '100%',
         }}
       >
         {/* these divs are here to prevent page jumping, they are a placeholder for draggable / draggable-overlay */}
-        <div className="ory-cell-draggable-overlay-placeholder" />
+        <div className="react-page-cell-draggable-overlay-placeholder" />
         {children}
       </div>
     );
@@ -92,9 +92,10 @@ const Draggable: React.FC<Props> = ({ isLeaf, children, nodeId }) => {
             height: '100%',
           }}
           className={classNames({
-            'ory-cell-draggable-in-edit': options.allowMoveInEditMode,
-            'ory-cell-draggable': isLayoutMode && !options.allowMoveInEditMode,
-            'ory-cell-draggable-is-dragging': isDragging,
+            'react-page-cell-draggable-in-edit': options.allowMoveInEditMode,
+            'react-page-cell-draggable':
+              isLayoutMode && !options.allowMoveInEditMode,
+            'react-page-cell-draggable-is-dragging': isDragging,
           })}
           onMouseDown={preventBlurWhenClickingOnHandle}
         >
@@ -118,18 +119,18 @@ const Draggable: React.FC<Props> = ({ isLeaf, children, nodeId }) => {
         }}
         ref={dragRef}
         className={classNames({
-          'ory-cell-draggable': isLayoutMode,
-          'ory-cell-draggable-is-dragging': isDragging,
+          'react-page-cell-draggable': isLayoutMode,
+          'react-page-cell-draggable-is-dragging': isDragging,
         })}
       >
         <div
           className={classNames({
-            'ory-cell-draggable-overlay': isLayoutMode,
-            [`ory-cell-draggable-inline-${cell.inline}`]: cell.inline,
-            'ory-cell-draggable-leaf': isLeaf,
+            'react-page-cell-draggable-overlay': isLayoutMode,
+            [`react-page-cell-draggable-inline-${cell.inline}`]: cell.inline,
+            'react-page-cell-draggable-leaf': isLeaf,
           })}
         >
-          <div className="ory-cell-draggable-overlay-description">
+          <div className="react-page-cell-draggable-overlay-description">
             <span>{plugin?.title || plugin?.text}</span>
           </div>
         </div>

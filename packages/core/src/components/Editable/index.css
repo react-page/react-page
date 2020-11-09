@@ -1,4 +1,4 @@
-.ory-editable {
+.react-page-editable {
   position: relative;
   box-sizing: border-box;
   width: 100%;
@@ -18,7 +18,7 @@
   align-items: stretch;
 }
 
-.ory-cell-insert-new {
+.react-page-cell-insert-new {
   cursor: cell;
   flex: 1;
   min-height: 100px;
@@ -32,7 +32,7 @@
   position: relative;
 }
 
-.ory-cell-insert-new:after {
+.react-page-cell-insert-new:after {
   content: "+";
   font-size: 64px;
   font-family: monospace;
@@ -44,7 +44,7 @@
   border-radius: 50%;
 }
 
-.ory-cell-insert-new:hover {
+.react-page-cell-insert-new:hover {
   background: var(--minBlack);
   border: 1px solid var(--lightWhite);
 }

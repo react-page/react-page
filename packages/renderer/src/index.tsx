@@ -10,7 +10,8 @@ import { migrateEditable } from '@react-page/core/lib/migrations/migrate';
 import classNames from 'classnames';
 import * as React from 'react';
 
-const gridClass = (size = 12): string => `ory-cell-sm-${size} ory-cell-xs-12`;
+const gridClass = (size = 12): string =>
+  `react-page-cell-sm-${size} react-page-cell-xs-12`;
 
 const rowHasInlineChildren = ({ cells }) =>
   Boolean(cells.length === 2 && Boolean(cells[0].inline));
@@ -19,8 +20,8 @@ const HTMLRow: React.FC<Partial<
   Row & { lang: string; className?: string; plugins: CellPlugin[] }
 >> = React.memo(({ cells = [], className, lang, plugins }) => (
   <div
-    className={classNames('ory-row', className, {
-      'ory-row-has-floating-children': rowHasInlineChildren({ cells }),
+    className={classNames('react-page-row', className, {
+      'react-page-row-has-floating-children': rowHasInlineChildren({ cells }),
     })}
   >
     {cells.map((c, index) => (
@@ -39,9 +40,9 @@ const HTMLCell: React.FC<
 > = React.memo((props) => {
   const { lang, plugins, ...cell } = props;
   const { size, hasInlineNeighbour, inline, isDraftI18n, isDraft } = cell;
-  const cn = classNames('ory-cell', gridClass(size), {
-    'ory-cell-has-inline-neighbour': hasInlineNeighbour,
-    [`ory-cell-inline-${inline || ''}`]: inline,
+  const cn = classNames('react-page-cell', gridClass(size), {
+    'react-page-cell-has-inline-neighbour': hasInlineNeighbour,
+    [`react-page-cell-inline-${inline || ''}`]: inline,
   });
 
   if (isDraftI18n?.[lang] ?? isDraft) {
@@ -58,7 +59,8 @@ const HTMLCell: React.FC<
       <div className={cn}>
         <div
           className={
-            'ory-cell-inner' + (cell.rows?.length > 0 ? '' : ' ory-cell-leaf')
+            'react-page-cell-inner' +
+            (cell.rows?.length > 0 ? '' : ' react-page-cell-leaf')
           }
         >
           <Component
@@ -79,7 +81,7 @@ const HTMLCell: React.FC<
                 {...r}
                 plugins={plugins}
                 lang={lang}
-                className="ory-cell-inner"
+                className="react-page-cell-inner"
               />
             ))}
           </Component>
@@ -94,7 +96,7 @@ const HTMLCell: React.FC<
             key={r.id}
             {...r}
             lang={lang}
-            className="ory-cell-inner"
+            className="react-page-cell-inner"
             plugins={plugins}
           />
         ))}
@@ -104,7 +106,7 @@ const HTMLCell: React.FC<
 
   return (
     <div className={cn}>
-      <div className="ory-cell-inner" />
+      <div className="react-page-cell-inner" />
     </div>
   );
 });

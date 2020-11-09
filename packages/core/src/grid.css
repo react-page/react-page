@@ -22,14 +22,14 @@
 @custom-media --md-viewport only screen and (min-width: 64em);
 @custom-media --lg-viewport only screen and (min-width: 75em);
 
-.ory-editable {
+.react-page-editable {
   margin-right: auto;
   margin-left: auto;
   padding-right: var(--outer-margin, 2rem);
   padding-left: var(--outer-margin, 2rem);
 }
 
-.ory-row {
+.react-page-row {
   box-sizing: border-box;
   display: flex;
   flex: 0 1 auto;
@@ -40,32 +40,32 @@
   position: relative;
 }
 
-.ory-cell-xs,
-.ory-cell-xs-1,
-.ory-cell-xs-2,
-.ory-cell-xs-3,
-.ory-cell-xs-4,
-.ory-cell-xs-5,
-.ory-cell-xs-6,
-.ory-cell-xs-7,
-.ory-cell-xs-8,
-.ory-cell-xs-9,
-.ory-cell-xs-10,
-.ory-cell-xs-11,
-.ory-cell-xs-12,
-.ory-cell-xs-offset-0,
-.ory-cell-xs-offset-1,
-.ory-cell-xs-offset-2,
-.ory-cell-xs-offset-3,
-.ory-cell-xs-offset-4,
-.ory-cell-xs-offset-5,
-.ory-cell-xs-offset-6,
-.ory-cell-xs-offset-7,
-.ory-cell-xs-offset-8,
-.ory-cell-xs-offset-9,
-.ory-cell-xs-offset-10,
-.ory-cell-xs-offset-11,
-.ory-cell-xs-offset-12 {
+.react-page-cell-xs,
+.react-page-cell-xs-1,
+.react-page-cell-xs-2,
+.react-page-cell-xs-3,
+.react-page-cell-xs-4,
+.react-page-cell-xs-5,
+.react-page-cell-xs-6,
+.react-page-cell-xs-7,
+.react-page-cell-xs-8,
+.react-page-cell-xs-9,
+.react-page-cell-xs-10,
+.react-page-cell-xs-11,
+.react-page-cell-xs-12,
+.react-page-cell-xs-offset-0,
+.react-page-cell-xs-offset-1,
+.react-page-cell-xs-offset-2,
+.react-page-cell-xs-offset-3,
+.react-page-cell-xs-offset-4,
+.react-page-cell-xs-offset-5,
+.react-page-cell-xs-offset-6,
+.react-page-cell-xs-offset-7,
+.react-page-cell-xs-offset-8,
+.react-page-cell-xs-offset-9,
+.react-page-cell-xs-offset-10,
+.react-page-cell-xs-offset-11,
+.react-page-cell-xs-offset-12 {
   box-sizing: border-box;
   flex: 0 0 auto;
   padding-right: var(--half-gutter-width, 0.5rem);
@@ -73,122 +73,122 @@
   min-width: 0;
 }
 
-.ory-cell-xs {
+.react-page-cell-xs {
   flex-grow: 1;
   flex-basis: 0;
   width: 100%;
   min-width: 100%;
 }
 
-.ory-cell-xs-1 {
+.react-page-cell-xs-1 {
   flex-basis: 8.33333333%;
   width: 8.33333333%;
 }
 
-.ory-cell-xs-2 {
+.react-page-cell-xs-2 {
   flex-basis: 16.66666667%;
   width: 16.66666667%;
 }
 
-.ory-cell-xs-3 {
+.react-page-cell-xs-3 {
   flex-basis: 25%;
   width: 25%;
   min-width: 25%;
 }
 
-.ory-cell-xs-4 {
+.react-page-cell-xs-4 {
   flex-basis: 33.33333333%;
   width: 33.33333333%;
 }
 
-.ory-cell-xs-5 {
+.react-page-cell-xs-5 {
   flex-basis: 41.66666667%;
   width: 41.66666667%;
 }
 
-.ory-cell-xs-6 {
+.react-page-cell-xs-6 {
   flex-basis: 50%;
   width: 50%;
   min-width: 50%;
 }
 
-.ory-cell-xs-7 {
+.react-page-cell-xs-7 {
   flex-basis: 58.33333333%;
   width: 58.33333333%;
 }
 
-.ory-cell-xs-8 {
+.react-page-cell-xs-8 {
   flex-basis: 66.66666667%;
   width: 66.66666667%;
 }
 
-.ory-cell-xs-9 {
+.react-page-cell-xs-9 {
   flex-basis: 75%;
   width: 75%;
   min-width: 75%;
 }
 
-.ory-cell-xs-10 {
+.react-page-cell-xs-10 {
   flex-basis: 83.33333333%;
   width: 83.33333333%;
 }
 
-.ory-cell-xs-11 {
+.react-page-cell-xs-11 {
   flex-basis: 91.66666667%;
   width: 91.66666667%;
 }
 
-.ory-cell-xs-12 {
+.react-page-cell-xs-12 {
   flex-basis: 100%;
   width: 100%;
   min-width: 100%;
 }
 
-.ory-cell-xs-offset-0 {
+.react-page-cell-xs-offset-0 {
   margin-left: 0;
 }
 
-.ory-cell-xs-offset-1 {
+.react-page-cell-xs-offset-1 {
   margin-left: 8.33333333%;
 }
 
-.ory-cell-xs-offset-2 {
+.react-page-cell-xs-offset-2 {
   margin-left: 16.66666667%;
 }
 
-.ory-cell-xs-offset-3 {
+.react-page-cell-xs-offset-3 {
   margin-left: 25%;
 }
 
-.ory-cell-xs-offset-4 {
+.react-page-cell-xs-offset-4 {
   margin-left: 33.33333333%;
 }
 
-.ory-cell-xs-offset-5 {
+.react-page-cell-xs-offset-5 {
   margin-left: 41.66666667%;
 }
 
-.ory-cell-xs-offset-6 {
+.react-page-cell-xs-offset-6 {
   margin-left: 50%;
 }
 
-.ory-cell-xs-offset-7 {
+.react-page-cell-xs-offset-7 {
   margin-left: 58.33333333%;
 }
 
-.ory-cell-xs-offset-8 {
+.react-page-cell-xs-offset-8 {
   margin-left: 66.66666667%;
 }
 
-.ory-cell-xs-offset-9 {
+.react-page-cell-xs-offset-9 {
   margin-left: 75%;
 }
 
-.ory-cell-xs-offset-10 {
+.react-page-cell-xs-offset-10 {
   margin-left: 83.33333333%;
 }
 
-.ory-cell-xs-offset-11 {
+.react-page-cell-xs-offset-11 {
   margin-left: 91.66666667%;
 }
 
@@ -236,32 +236,32 @@
 }
 
 @media (--sm-viewport) {
-  .ory-cell-sm,
-  .ory-cell-sm-1,
-  .ory-cell-sm-2,
-  .ory-cell-sm-3,
-  .ory-cell-sm-4,
-  .ory-cell-sm-5,
-  .ory-cell-sm-6,
-  .ory-cell-sm-7,
-  .ory-cell-sm-8,
-  .ory-cell-sm-9,
-  .ory-cell-sm-10,
-  .ory-cell-sm-11,
-  .ory-cell-sm-12,
-  .ory-cell-sm-offset-0,
-  .ory-cell-sm-offset-1,
-  .ory-cell-sm-offset-2,
-  .ory-cell-sm-offset-3,
-  .ory-cell-sm-offset-4,
-  .ory-cell-sm-offset-5,
-  .ory-cell-sm-offset-6,
-  .ory-cell-sm-offset-7,
-  .ory-cell-sm-offset-8,
-  .ory-cell-sm-offset-9,
-  .ory-cell-sm-offset-10,
-  .ory-cell-sm-offset-11,
-  .ory-cell-sm-offset-12 {
+  .react-page-cell-sm,
+  .react-page-cell-sm-1,
+  .react-page-cell-sm-2,
+  .react-page-cell-sm-3,
+  .react-page-cell-sm-4,
+  .react-page-cell-sm-5,
+  .react-page-cell-sm-6,
+  .react-page-cell-sm-7,
+  .react-page-cell-sm-8,
+  .react-page-cell-sm-9,
+  .react-page-cell-sm-10,
+  .react-page-cell-sm-11,
+  .react-page-cell-sm-12,
+  .react-page-cell-sm-offset-0,
+  .react-page-cell-sm-offset-1,
+  .react-page-cell-sm-offset-2,
+  .react-page-cell-sm-offset-3,
+  .react-page-cell-sm-offset-4,
+  .react-page-cell-sm-offset-5,
+  .react-page-cell-sm-offset-6,
+  .react-page-cell-sm-offset-7,
+  .react-page-cell-sm-offset-8,
+  .react-page-cell-sm-offset-9,
+  .react-page-cell-sm-offset-10,
+  .react-page-cell-sm-offset-11,
+  .react-page-cell-sm-offset-12 {
     box-sizing: border-box;
     flex: 0 0 auto;
     padding-right: var(--half-gutter-width, 0.5rem);
@@ -269,122 +269,122 @@
     min-width: 0;
   }
 
-  .ory-cell-sm {
+  .react-page-cell-sm {
     flex-grow: 1;
     flex-basis: 0;
     width: 100%;
     min-width: 100%;
   }
 
-  .ory-cell-sm-1 {
+  .react-page-cell-sm-1 {
     flex-basis: 8.33333333%;
     width: 8.33333333%;
   }
 
-  .ory-cell-sm-2 {
+  .react-page-cell-sm-2 {
     flex-basis: 16.66666667%;
     width: 16.66666667%;
   }
 
-  .ory-cell-sm-3 {
+  .react-page-cell-sm-3 {
     flex-basis: 25%;
     width: 25%;
     min-width: 25%;
   }
 
-  .ory-cell-sm-4 {
+  .react-page-cell-sm-4 {
     flex-basis: 33.33333333%;
     width: 33.33333333%;
   }
 
-  .ory-cell-sm-5 {
+  .react-page-cell-sm-5 {
     flex-basis: 41.66666667%;
     width: 41.66666667%;
   }
 
-  .ory-cell-sm-6 {
+  .react-page-cell-sm-6 {
     flex-basis: 50%;
     width: 50%;
     min-width: 50%;
   }
 
-  .ory-cell-sm-7 {
+  .react-page-cell-sm-7 {
     flex-basis: 58.33333333%;
     width: 58.33333333%;
   }
 
-  .ory-cell-sm-8 {
+  .react-page-cell-sm-8 {
     flex-basis: 66.66666667%;
     width: 66.66666667%;
   }
 
-  .ory-cell-sm-9 {
+  .react-page-cell-sm-9 {
     flex-basis: 75%;
     width: 75%;
     min-width: 75%;
   }
 
-  .ory-cell-sm-10 {
+  .react-page-cell-sm-10 {
     flex-basis: 83.33333333%;
     width: 83.33333333%;
   }
 
-  .ory-cell-sm-11 {
+  .react-page-cell-sm-11 {
     flex-basis: 91.66666667%;
     width: 91.66666667%;
   }
 
-  .ory-cell-sm-12 {
+  .react-page-cell-sm-12 {
     flex-basis: 100%;
     width: 100%;
     min-width: 100%;
   }
 
-  .ory-cell-sm-offset-0 {
+  .react-page-cell-sm-offset-0 {
     margin-left: 0;
   }
 
-  .ory-cell-sm-offset-1 {
+  .react-page-cell-sm-offset-1 {
     margin-left: 8.33333333%;
   }
 
-  .ory-cell-sm-offset-2 {
+  .react-page-cell-sm-offset-2 {
     margin-left: 16.66666667%;
   }
 
-  .ory-cell-sm-offset-3 {
+  .react-page-cell-sm-offset-3 {
     margin-left: 25%;
   }
 
-  .ory-cell-sm-offset-4 {
+  .react-page-cell-sm-offset-4 {
     margin-left: 33.33333333%;
   }
 
-  .ory-cell-sm-offset-5 {
+  .react-page-cell-sm-offset-5 {
     margin-left: 41.66666667%;
   }
 
-  .ory-cell-sm-offset-6 {
+  .react-page-cell-sm-offset-6 {
     margin-left: 50%;
   }
 
-  .ory-cell-sm-offset-7 {
+  .react-page-cell-sm-offset-7 {
     margin-left: 58.33333333%;
   }
 
-  .ory-cell-sm-offset-8 {
+  .react-page-cell-sm-offset-8 {
     margin-left: 66.66666667%;
   }
 
-  .ory-cell-sm-offset-9 {
+  .react-page-cell-sm-offset-9 {
     margin-left: 75%;
   }
 
-  .ory-cell-sm-offset-10 {
+  .react-page-cell-sm-offset-10 {
     margin-left: 83.33333333%;
   }
 
-  .ory-cell-sm-offset-11 {
+  .react-page-cell-sm-offset-11 {
     margin-left: 91.66666667%;
   }
 
@@ -433,32 +433,32 @@
 }
 
 @media (--md-viewport) {
-  .ory-cell-md,
-  .ory-cell-md-1,
-  .ory-cell-md-2,
-  .ory-cell-md-3,
-  .ory-cell-md-4,
-  .ory-cell-md-5,
-  .ory-cell-md-6,
-  .ory-cell-md-7,
-  .ory-cell-md-8,
-  .ory-cell-md-9,
-  .ory-cell-md-10,
-  .ory-cell-md-11,
-  .ory-cell-md-12,
-  .ory-cell-md-offset-0,
-  .ory-cell-md-offset-1,
-  .ory-cell-md-offset-2,
-  .ory-cell-md-offset-3,
-  .ory-cell-md-offset-4,
-  .ory-cell-md-offset-5,
-  .ory-cell-md-offset-6,
-  .ory-cell-md-offset-7,
-  .ory-cell-md-offset-8,
-  .ory-cell-md-offset-9,
-  .ory-cell-md-offset-10,
-  .ory-cell-md-offset-11,
-  .ory-cell-md-offset-12 {
+  .react-page-cell-md,
+  .react-page-cell-md-1,
+  .react-page-cell-md-2,
+  .react-page-cell-md-3,
+  .react-page-cell-md-4,
+  .react-page-cell-md-5,
+  .react-page-cell-md-6,
+  .react-page-cell-md-7,
+  .react-page-cell-md-8,
+  .react-page-cell-md-9,
+  .react-page-cell-md-10,
+  .react-page-cell-md-11,
+  .react-page-cell-md-12,
+  .react-page-cell-md-offset-0,
+  .react-page-cell-md-offset-1,
+  .react-page-cell-md-offset-2,
+  .react-page-cell-md-offset-3,
+  .react-page-cell-md-offset-4,
+  .react-page-cell-md-offset-5,
+  .react-page-cell-md-offset-6,
+  .react-page-cell-md-offset-7,
+  .react-page-cell-md-offset-8,
+  .react-page-cell-md-offset-9,
+  .react-page-cell-md-offset-10,
+  .react-page-cell-md-offset-11,
+  .react-page-cell-md-offset-12 {
     box-sizing: border-box;
     flex: 0 0 auto;
     padding-right: var(--half-gutter-width, 0.5rem);
@@ -466,122 +466,122 @@
     min-width: 0;
   }
 
-  .ory-cell-md {
+  .react-page-cell-md {
     flex-grow: 1;
     flex-basis: 0;
     width: 100%;
     min-width: 100%;
   }
 
-  .ory-cell-md-1 {
+  .react-page-cell-md-1 {
     flex-basis: 8.33333333%;
     width: 8.33333333%;
   }
 
-  .ory-cell-md-2 {
+  .react-page-cell-md-2 {
     flex-basis: 16.66666667%;
     width: 16.66666667%;
   }
 
-  .ory-cell-md-3 {
+  .react-page-cell-md-3 {
     flex-basis: 25%;
     width: 25%;
     min-width: 25%;
   }
 
-  .ory-cell-md-4 {
+  .react-page-cell-md-4 {
     flex-basis: 33.33333333%;
     width: 33.33333333%;
   }
 
-  .ory-cell-md-5 {
+  .react-page-cell-md-5 {
     flex-basis: 41.66666667%;
     width: 41.66666667%;
   }
 
-  .ory-cell-md-6 {
+  .react-page-cell-md-6 {
     flex-basis: 50%;
     width: 50%;
     min-width: 50%;
   }
 
-  .ory-cell-md-7 {
+  .react-page-cell-md-7 {
     flex-basis: 58.33333333%;
     width: 58.33333333%;
   }
 
-  .ory-cell-md-8 {
+  .react-page-cell-md-8 {
     flex-basis: 66.66666667%;
     width: 66.66666667%;
   }
 
-  .ory-cell-md-9 {
+  .react-page-cell-md-9 {
     flex-basis: 75%;
     width: 75%;
     min-width: 75%;
   }
 
-  .ory-cell-md-10 {
+  .react-page-cell-md-10 {
     flex-basis: 83.33333333%;
     width: 83.33333333%;
   }
 
-  .ory-cell-md-11 {
+  .react-page-cell-md-11 {
     flex-basis: 91.66666667%;
     width: 91.66666667%;
   }
 
-  .ory-cell-md-12 {
+  .react-page-cell-md-12 {
     flex-basis: 100%;
     width: 100%;
     min-width: 100%;
   }
 
-  .ory-cell-md-offset-0 {
+  .react-page-cell-md-offset-0 {
     margin-left: 0;
   }
 
-  .ory-cell-md-offset-1 {
+  .react-page-cell-md-offset-1 {
     margin-left: 8.33333333%;
   }
 
-  .ory-cell-md-offset-2 {
+  .react-page-cell-md-offset-2 {
     margin-left: 16.66666667%;
   }
 
-  .ory-cell-md-offset-3 {
+  .react-page-cell-md-offset-3 {
     margin-left: 25%;
   }
 
-  .ory-cell-md-offset-4 {
+  .react-page-cell-md-offset-4 {
     margin-left: 33.33333333%;
   }
 
-  .ory-cell-md-offset-5 {
+  .react-page-cell-md-offset-5 {
     margin-left: 41.66666667%;
   }
 
-  .ory-cell-md-offset-6 {
+  .react-page-cell-md-offset-6 {
     margin-left: 50%;
   }
 
-  .ory-cell-md-offset-7 {
+  .react-page-cell-md-offset-7 {
     margin-left: 58.33333333%;
   }
 
-  .ory-cell-md-offset-8 {
+  .react-page-cell-md-offset-8 {
     margin-left: 66.66666667%;
   }
 
-  .ory-cell-md-offset-9 {
+  .react-page-cell-md-offset-9 {
     margin-left: 75%;
   }
 
-  .ory-cell-md-offset-10 {
+  .react-page-cell-md-offset-10 {
     margin-left: 83.33333333%;
   }
 
-  .ory-cell-md-offset-11 {
+  .react-page-cell-md-offset-11 {
     margin-left: 91.66666667%;
   }
 
@@ -630,32 +630,32 @@
 }
 
 @media (--lg-viewport) {
-  .ory-cell-lg,
-  .ory-cell-lg-1,
-  .ory-cell-lg-2,
-  .ory-cell-lg-3,
-  .ory-cell-lg-4,
-  .ory-cell-lg-5,
-  .ory-cell-lg-6,
-  .ory-cell-lg-7,
-  .ory-cell-lg-8,
-  .ory-cell-lg-9,
-  .ory-cell-lg-10,
-  .ory-cell-lg-11,
-  .ory-cell-lg-12,
-  .ory-cell-lg-offset-0,
-  .ory-cell-lg-offset-1,
-  .ory-cell-lg-offset-2,
-  .ory-cell-lg-offset-3,
-  .ory-cell-lg-offset-4,
-  .ory-cell-lg-offset-5,
-  .ory-cell-lg-offset-6,
-  .ory-cell-lg-offset-7,
-  .ory-cell-lg-offset-8,
-  .ory-cell-lg-offset-9,
-  .ory-cell-lg-offset-10,
-  .ory-cell-lg-offset-11,
-  .ory-cell-lg-offset-12 {
+  .react-page-cell-lg,
+  .react-page-cell-lg-1,
+  .react-page-cell-lg-2,
+  .react-page-cell-lg-3,
+  .react-page-cell-lg-4,
+  .react-page-cell-lg-5,
+  .react-page-cell-lg-6,
+  .react-page-cell-lg-7,
+  .react-page-cell-lg-8,
+  .react-page-cell-lg-9,
+  .react-page-cell-lg-10,
+  .react-page-cell-lg-11,
+  .react-page-cell-lg-12,
+  .react-page-cell-lg-offset-0,
+  .react-page-cell-lg-offset-1,
+  .react-page-cell-lg-offset-2,
+  .react-page-cell-lg-offset-3,
+  .react-page-cell-lg-offset-4,
+  .react-page-cell-lg-offset-5,
+  .react-page-cell-lg-offset-6,
+  .react-page-cell-lg-offset-7,
+  .react-page-cell-lg-offset-8,
+  .react-page-cell-lg-offset-9,
+  .react-page-cell-lg-offset-10,
+  .react-page-cell-lg-offset-11,
+  .react-page-cell-lg-offset-12 {
     box-sizing: border-box;
     flex: 0 0 auto;
     padding-right: var(--half-gutter-width, 0.5rem);
@@ -663,122 +663,122 @@
     min-width: 0;
   }
 
-  .ory-cell-lg {
+  .react-page-cell-lg {
     flex-grow: 1;
     flex-basis: 0;
     width: 100%;
     min-width: 100%;
   }
 
-  .ory-cell-lg-1 {
+  .react-page-cell-lg-1 {
     flex-basis: 8.33333333%;
     width: 8.33333333%;
   }
 
-  .ory-cell-lg-2 {
+  .react-page-cell-lg-2 {
     flex-basis: 16.66666667%;
     width: 16.66666667%;
   }
 
-  .ory-cell-lg-3 {
+  .react-page-cell-lg-3 {
     flex-basis: 25%;
     width: 25%;
     min-width: 25%;
   }
 
-  .ory-cell-lg-4 {
+  .react-page-cell-lg-4 {
     flex-basis: 33.33333333%;
     width: 33.33333333%;
   }
 
-  .ory-cell-lg-5 {
+  .react-page-cell-lg-5 {
     flex-basis: 41.66666667%;
     width: 41.66666667%;
   }
 
-  .ory-cell-lg-6 {
+  .react-page-cell-lg-6 {
     flex-basis: 50%;
     width: 50%;
     min-width: 50%;
   }
 
-  .ory-cell-lg-7 {
+  .react-page-cell-lg-7 {
     flex-basis: 58.33333333%;
     width: 58.33333333%;
   }
 
-  .ory-cell-lg-8 {
+  .react-page-cell-lg-8 {
     flex-basis: 66.66666667%;
     width: 66.66666667%;
   }
 
-  .ory-cell-lg-9 {
+  .react-page-cell-lg-9 {
     flex-basis: 75%;
     width: 75%;
     min-width: 75%;
   }
 
-  .ory-cell-lg-10 {
+  .react-page-cell-lg-10 {
     flex-basis: 83.33333333%;
     width: 83.33333333%;
   }
 
-  .ory-cell-lg-11 {
+  .react-page-cell-lg-11 {
     flex-basis: 91.66666667%;
     width: 91.66666667%;
   }
 
-  .ory-cell-lg-12 {
+  .react-page-cell-lg-12 {
     flex-basis: 100%;
     width: 100%;
     min-width: 100%;
   }
 
-  .ory-cell-lg-offset-0 {
+  .react-page-cell-lg-offset-0 {
     margin-left: 0;
   }
 
-  .ory-cell-lg-offset-1 {
+  .react-page-cell-lg-offset-1 {
     margin-left: 8.33333333%;
   }
 
-  .ory-cell-lg-offset-2 {
+  .react-page-cell-lg-offset-2 {
     margin-left: 16.66666667%;
   }
 
-  .ory-cell-lg-offset-3 {
+  .react-page-cell-lg-offset-3 {
     margin-left: 25%;
   }
 
-  .ory-cell-lg-offset-4 {
+  .react-page-cell-lg-offset-4 {
     margin-left: 33.33333333%;
   }
 
-  .ory-cell-lg-offset-5 {
+  .react-page-cell-lg-offset-5 {
     margin-left: 41.66666667%;
   }
 
-  .ory-cell-lg-offset-6 {
+  .react-page-cell-lg-offset-6 {
     margin-left: 50%;
   }
 
-  .ory-cell-lg-offset-7 {
+  .react-page-cell-lg-offset-7 {
     margin-left: 58.33333333%;
   }
 
-  .ory-cell-lg-offset-8 {
+  .react-page-cell-lg-offset-8 {
     margin-left: 66.66666667%;
   }
 
-  .ory-cell-lg-offset-9 {
+  .react-page-cell-lg-offset-9 {
     margin-left: 75%;
   }
 
-  .ory-cell-lg-offset-10 {
+  .react-page-cell-lg-offset-10 {
     margin-left: 83.33333333%;
   }
 
-  .ory-cell-lg-offset-11 {
+  .react-page-cell-lg-offset-11 {
     margin-left: 91.66666667%;
   }
 

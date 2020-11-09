@@ -6,7 +6,7 @@ const Html5VideoHtmlRenderer: React.SFC<Html5VideoRendererProps> = ({
   data = defaultHtml5VideoState,
 }) => {
   return (
-    <div className="ory-content-plugin-html5-video">
+    <div className="react-page-content-plugin-html5-video">
       <video
         autoPlay={true}
         controls={true}

@@ -8,10 +8,10 @@ const Droppable: React.FC<{ nodeId: string }> = ({ children, nodeId }) => {
 
   const ref = useCellDrop(nodeId);
   if (!(isLayoutMode || isInsertMode)) {
-    return <div className="ory-row-droppable-container">{children}</div>;
+    return <div className="react-page-row-droppable-container">{children}</div>;
   }
   return (
-    <div ref={ref} className="ory-row-droppable">
+    <div ref={ref} className="react-page-row-droppable">
       {children}
     </div>
   );

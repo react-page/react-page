@@ -9,7 +9,9 @@ const ImageHtmlRenderer: React.SFC<ImageRendererProps> = (props) => {
   const { data, imagePreview } = props;
 
   const src = imagePreview ? imagePreview.dataUrl : data?.src;
-  const Image = <img className="ory-plugins-content-image" alt="" src={src} />;
+  const Image = (
+    <img className="react-page-plugins-content-image" alt="" src={src} />
+  );
   return src ? (
     <div>
       {data?.href && !props.isEditMode ? (
@@ -22,7 +24,7 @@ const ImageHtmlRenderer: React.SFC<ImageRendererProps> = (props) => {
     </div>
   ) : (
     <div>
-      <div className="ory-plugins-content-image-placeholder">
+      <div className="react-page-plugins-content-image-placeholder">
         <ImageIcon style={iconStyle} />
       </div>
     </div>

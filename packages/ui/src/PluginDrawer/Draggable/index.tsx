@@ -29,8 +29,8 @@ class Draggable extends React.PureComponent<DraggableProps> {
     const { connectDragSource, isDragging, children, className } = this.props;
     const classes = classNames(
       className,
-      { 'ory-toolbar-draggable-is-dragged': isDragging },
-      'ory-toolbar-draggable'
+      { 'react-page-toolbar-draggable-is-dragged': isDragging },
+      'react-page-toolbar-draggable'
     );
 
     return connectDragSource(<div className={classes}>{children}</div>);

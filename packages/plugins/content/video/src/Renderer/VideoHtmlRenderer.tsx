@@ -36,7 +36,7 @@ const Display: React.SFC<VideoHtmlRendererProps> = ({ data, readOnly }) =>
       />
     </div>
   ) : (
-    <div className="ory-plugins-content-video-placeholder">
+    <div className="react-page-plugins-content-video-placeholder">
       <PlayArrow style={iconStyle} />
     </div>
   );
