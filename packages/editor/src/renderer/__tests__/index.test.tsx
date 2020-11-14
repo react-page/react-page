@@ -1,4 +1,3 @@
-import slate from '@react-page/plugins-slate';
 import { render } from 'enzyme';
 import * as React from 'react';
 import { CellPlugin, Plugins } from '../../core/types';
@@ -10,17 +9,13 @@ jest.mock('react', () => {
   return { ...r, memo: (x) => x };
 });
 
-const Renderer: React.FC = ({ children }) => (
-  <div className={`some-layout`}>{children}</div>
-);
-
-const someLayoutPlugin: CellPlugin = {
-  id: 'layout',
+const somePlugin: CellPlugin<{ text: string }> = {
+  id: 'somePlugin',
   version: 1,
-  Renderer: Renderer,
+  Renderer: (props) => <p>{props.data.text}</p>,
 };
 
-const plugins: Plugins = [slate(), someLayoutPlugin];
+const plugins: Plugins = [somePlugin];
 
 describe('HTMLRenderer', () => {
   describe('rendering html content from slate', () => {
@@ -37,24 +32,12 @@ describe('HTMLRenderer', () => {
                 size: 12,
 
                 plugin: {
-                  id: 'ory/editor/core/content/slate',
+                  id: 'somePlugin',
                   version: 1,
                 },
                 dataI18n: {
                   en: {
-                    slate: [
-                      {
-                        type: 'PARAGRAPH/PARAGRAPH',
-                        children: [
-                          {
-                            text: 'Hello world, i am centered',
-                          },
-                        ],
-                        data: {
-                          align: 'center',
-                        },
-                      },
-                    ],
+                    text: 'Hello world',
                   },
                 },
               },
@@ -68,7 +51,7 @@ describe('HTMLRenderer', () => {
         it('should pass', () => {
           expect(wrapper.html()).toEqual(
             // tslint:disable-next-line:max-line-length
-            '<div class="react-page-cell react-page-cell-sm-12 react-page-cell-xs-12"><div class="react-page-cell-inner react-page-cell-leaf"><div data-gramm="false" data-slate-editor="true" data-slate-node="value" style="outline:none;white-space:pre-wrap;word-wrap:break-word"><p data-slate-node="element" style="text-align:center"><span data-slate-node="text"><span data-slate-leaf="true"><span data-slate-string="true">Hello world, i am centered</span></span></span></p></div></div></div>'
+            '<div class="react-page-cell react-page-cell-sm-12 react-page-cell-xs-12"><div class="react-page-cell-inner react-page-cell-leaf"><p>Hello world</p></div></div>'
           );
         });
       });

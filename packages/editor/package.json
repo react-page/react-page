@@ -51,8 +51,7 @@
     "uuid": "^3.0.1"
   },
   "devDependencies": {
-    "@types/react-color": "^3.0.4",
-    "@react-page/plugins-slate": "0.0.0"
+    "@types/react-color": "^3.0.4"
   },
   "publishConfig": {
     "access": "public"
