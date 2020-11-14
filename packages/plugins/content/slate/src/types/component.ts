@@ -1,4 +1,4 @@
-import { CellPluginComponentProps } from '@react-page/core';
+import { CellPluginComponentProps } from '@react-page/editor';
 import { SlatePluginDefinition } from './slatePluginDefinitions';
 import { SlateState } from './state';
 import { Translations } from './translations';

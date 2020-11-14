@@ -25,8 +25,7 @@
     "@material-ui/styles": "*"
   },
   "dependencies": {
-    "@react-page/core": "0.0.0",
-    "@react-page/ui": "0.0.0",
+    "@react-page/editor": "0.0.0",
     "react-player": "^1.13.0"
   },
   "devDependencies": {},

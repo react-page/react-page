@@ -2,9 +2,9 @@ import * as React from 'react';
 import Switch from '@material-ui/core/Switch';
 import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import { ImageUpload } from '@react-page/ui';
+import { ImageUpload, ImageLoaded, ImageUploaded } from '@react-page/editor';
 import Typography from '@material-ui/core/Typography';
-import { ImageLoaded, ImageUploaded } from '@react-page/ui';
+
 import { BackgroundProps } from '../../types/component';
 
 export interface ImageComponentProps {
@@ -25,9 +25,9 @@ class ImageComponent extends React.Component<
     this.props.ensureModeOn();
     this.props.onChange({
       isParallax:
-        this.props.state.isParallax === undefined
+        this.props.data.isParallax === undefined
           ? false
-          : !this.props.state.isParallax,
+          : !this.props.data.isParallax,
     });
   };
 
@@ -43,7 +43,7 @@ class ImageComponent extends React.Component<
 
   render() {
     const {
-      state: { isParallax = true, background = '' },
+      data: { isParallax = true, background = '' },
     } = this.props;
     return (
       <div>

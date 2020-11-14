@@ -3,7 +3,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Slider from '@material-ui/core/Slider';
 import Typography from '@material-ui/core/Typography';
 import DeleteIcon from '@material-ui/icons/Delete';
-import { ColorPicker, RGBColor } from '@react-page/ui';
+import { ColorPicker, RGBColor } from '@react-page/editor';
 import * as React from 'react';
 import { BackgroundProps } from '../../types/component';
 
@@ -31,8 +31,8 @@ class LinearGradientComponent extends React.Component<
   addGradient = () => {
     this.props.ensureModeOn();
     this.props.onChange({
-      gradients: (this.props.state.gradients
-        ? this.props.state.gradients
+      gradients: (this.props.data.gradients
+        ? this.props.data.gradients
         : []
       ).concat({
         deg: 45,
@@ -45,8 +45,8 @@ class LinearGradientComponent extends React.Component<
     this.props.onChangeGradientDegPreview &&
       this.props.onChangeGradientDegPreview(undefined, undefined);
     this.props.onChange({
-      gradients: (this.props.state.gradients
-        ? this.props.state.gradients
+      gradients: (this.props.data.gradients
+        ? this.props.data.gradients
         : []
       ).map((g, i) => (i === index ? { ...g, deg: value } : g)),
     });
@@ -64,8 +64,8 @@ class LinearGradientComponent extends React.Component<
     this.props.onChangeGradientOpacityPreview &&
       this.props.onChangeGradientOpacityPreview(undefined, undefined);
     this.props.onChange({
-      gradients: (this.props.state.gradients
-        ? this.props.state.gradients
+      gradients: (this.props.data.gradients
+        ? this.props.data.gradients
         : []
       ).map((g, i) => (i === index ? { ...g, opacity: value } : g)),
     });
@@ -86,7 +86,7 @@ class LinearGradientComponent extends React.Component<
       this.props.onChangeGradientColorPreview(undefined, undefined, undefined);
     this.props.onChange({
       gradients: []
-        .concat(this.props.state.gradients ? this.props.state.gradients : [])
+        .concat(this.props.data.gradients ? this.props.data.gradients : [])
         .map((g, i) =>
           i === index
             ? {
@@ -110,8 +110,8 @@ class LinearGradientComponent extends React.Component<
   addColor = (index: number) => () => {
     this.props.ensureModeOn();
     this.props.onChange({
-      gradients: (this.props.state.gradients
-        ? this.props.state.gradients
+      gradients: (this.props.data.gradients
+        ? this.props.data.gradients
         : []
       ).map((g, i) =>
         i === index
@@ -132,7 +132,7 @@ class LinearGradientComponent extends React.Component<
   removeColor = (index: number, cpIndex: number) => () => {
     this.props.onChange({
       gradients: []
-        .concat(this.props.state.gradients ? this.props.state.gradients : [])
+        .concat(this.props.data.gradients ? this.props.data.gradients : [])
         .map((g, i) =>
           i === index
             ? {
@@ -149,7 +149,7 @@ class LinearGradientComponent extends React.Component<
   removeGradient = (index: number) => () => {
     this.props.onChange({
       gradients: []
-        .concat(this.props.state.gradients ? this.props.state.gradients : [])
+        .concat(this.props.data.gradients ? this.props.data.gradients : [])
         .filter((item, i) => i !== index),
     });
   };
@@ -163,7 +163,7 @@ class LinearGradientComponent extends React.Component<
       gradientColorPreview,
       gradientColorPreviewIndex,
       gradientColorPreviewColorIndex,
-      state: { gradients = [] },
+      data: { gradients = [] },
     } = this.props;
     return (
       <div>

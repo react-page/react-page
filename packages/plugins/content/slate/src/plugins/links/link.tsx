@@ -1,4 +1,4 @@
-import { lazyLoad } from '@react-page/core';
+import { lazyLoad } from '@react-page/editor';
 import React from 'react';
 import createComponentPlugin from '../../pluginFactories/createComponentPlugin';
 

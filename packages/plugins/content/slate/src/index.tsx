@@ -1,8 +1,9 @@
-import { CellPlugin, lazyLoad } from '@react-page/core';
+import { CellPlugin, lazyLoad } from '@react-page/editor';
 import * as React from 'react';
 import { AnyAction } from 'redux';
 import { ActionTypes } from 'redux-undo';
-import Component from './Component';
+import SlateEditor from './components/SlateEditor';
+import SlateProvider from './components/SlateProvider';
 import { defaultTranslations } from './default/settings';
 import HtmlToSlate from './HtmlToSlate';
 import v002 from './migrations/v002';
@@ -10,19 +11,16 @@ import v003 from './migrations/v003';
 import v004 from './migrations/v004';
 import * as pluginFactories from './pluginFactories/index';
 import * as defaultPlugins from './plugins/index';
-import Renderer from './Renderer';
-import { SlateProps } from './types/component';
-import { SlateControlsProps } from './types/controls';
 import { InitialSlateStateDef } from './types/initialSlateState';
-import { SlateRendererProps } from './types/renderer';
 import { SlatePluginCollection } from './types/SlatePlugin';
 import { SlateState } from './types/state';
 import makeSlatePluginsFromDef from './utils/makeSlatePluginsFromDef';
 import transformInitialSlateState from './utils/transformInitialSlateState';
+
 const slatePlugins = defaultPlugins;
 export { defaultPlugins, slatePlugins, pluginFactories, HtmlToSlate };
 const Subject = lazyLoad(() => import('@material-ui/icons/Subject'));
-const Controls = lazyLoad(() => import('./Controls/'));
+const Controls = lazyLoad(() => import('./components/Controls'));
 
 const migrations = [v002, v003, v004];
 type SlateDefinition<TPlugins extends SlatePluginCollection> = {
@@ -30,8 +28,7 @@ type SlateDefinition<TPlugins extends SlatePluginCollection> = {
   plugins: TPlugins;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   defaultPluginType: string;
-  Renderer: React.ComponentType<SlateRendererProps>;
-  Controls: React.ComponentType<SlateControlsProps>;
+
   id: string;
   version: number;
   translations: typeof defaultTranslations;
@@ -51,8 +48,7 @@ const defaultConfig: DefaultSlateDefinition = {
   icon: <Subject />,
   plugins: defaultPlugins,
   defaultPluginType: 'PARAGRAPH/PARAGRAPH',
-  Renderer,
-  Controls,
+
   id: 'ory/editor/core/content/slate',
   version: 1,
   translations: defaultTranslations,
@@ -63,8 +59,7 @@ const defaultConfig: DefaultSlateDefinition = {
 
 type CreateSlateData<TPlugins> = (
   custom?: CreateDataCustomizer<TPlugins>
-) => // eslint-disable-next-line @typescript-eslint/no-explicit-any
-SlateState;
+) => SlateState;
 export type SlatePlugin<TPlugins> = CellPlugin<
   SlateState,
   Omit<SlateState, 'selection'> & {
@@ -112,17 +107,35 @@ function plugin<TPlugins extends SlatePluginCollection = DefaultPlugins>(
   const htmlToSlate = HtmlToSlate({ plugins });
 
   return {
-    Component: (props: SlateProps) => (
-      <Component
-        Renderer={settings.Renderer}
-        Controls={settings.Controls}
+    Provider: (props) => (
+      <SlateProvider
+        {...props}
         plugins={plugins}
         translations={settings.translations}
         defaultPluginType={settings.defaultPluginType}
-        {...props}
       />
     ),
+    Renderer: (props) => (
+      <SlateEditor
+        {...props}
+        plugins={plugins}
+        translations={settings.translations}
+        defaultPluginType={settings.defaultPluginType}
+      />
+    ),
+    controls: {
+      type: 'custom',
+      dark: true,
+      Component: (props) => (
+        <Controls
+          {...props}
+          plugins={plugins}
+          translations={settings.translations}
+        />
+      ),
+    },
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     id: settings.id || (settings as any).name,
     version: settings.version,
     IconComponent: settings.icon,

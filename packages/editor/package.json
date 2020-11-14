@@ -8,23 +8,52 @@
   "sideEffects": false,
   "typings": "./lib/index.d.ts",
   "scripts": {
-    "build": "npm-run-all --parallel build:lib ",
-    "build:watch": "npm-run-all --parallel build:lib:watch",
+    "build": "npm-run-all --parallel build:lib build:css",
+    "build:watch": "npm-run-all --parallel build:lib:watch build:css:watch",
     "build:lib": "tsc -p ./tsconfig.json && tsc -p ./tsconfig-es.json",
     "build:lib:watch": "yarn build:lib -- --watch",
+    "build:css": "postcss -c ../../postcss.config.js --dir lib/ src/index.css",
+    "build:css:watch": "npm-run-all build:css -- -w",
     "docs": "documentation build ./lib/**/*.js --format md --github -o ../../docs/api/editor.md",
     "clean": "rimraf \"lib\" && rimraf \"lib-es\" && rm -f *.tsbuildinfo"
   },
   "peerDependencies": {
     "react": "^16.8.6 || ^17.0.0",
-    "react-dom": "^16.8.6"
+    "react-dom": "^16.8.6 || ^17.0.0"
   },
   "dependencies": {
-    "@react-page/core": "0.0.0",
-    "@react-page/ui": "0.0.0",
-    "@react-page/renderer": "0.0.0"
+    "uniforms-bridge-json-schema": "^3.0.0-rc.6",
+    "uniforms": "^3.0.0-rc.6",
+    "uniforms-material": "^3.0.0-rc.4",
+    "lodash.debounce": "^4.0.8",
+    "@loadable/component": "5.10.3",
+    "@material-ui/core": "^4.3.3",
+    "@material-ui/icons": "^4.2.1",
+    "@material-ui/styles": "^4.3.3",
+    "classnames": "^2.2.6",
+    "react-portal": "4.1.5",
+    "lodash.throttle": "^4.1.1",
+    "react-color": "^2.14.1",
+    "lodash.flatten": "^4.4.0",
+    "lodash.has": "^4.5.2",
+    "lodash.pick": "^4.4.0",
+    "is-hotkey": "~0.1.6",
+    "fast-deep-equal": "^3.1.3",
+    "react-dnd": "^11.1.3",
+    "react-dnd-html5-backend": "^11.1.3",
+    "react-redux": "^7.2.1",
+    "react-draggable": "4.4.3",
+    "@welldone-software/why-did-you-render": "^5.0.0-rc.1",
+    "react-use": "^15.3.4",
+    "redux": "^4.0.5",
+    "redux-thunk": "^2.3.0",
+    "redux-undo": "^1.0.0",
+    "uuid": "^3.0.1"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "@types/react-color": "^3.0.4",
+    "@react-page/plugins-slate": "0.0.0"
+  },
   "publishConfig": {
     "access": "public"
   }

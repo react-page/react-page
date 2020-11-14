@@ -22,8 +22,7 @@
     "react-dom": "^16.8.6"
   },
   "dependencies": {
-    "@react-page/core": "0.0.0",
-    "@react-page/ui": "0.0.0",
+    "@react-page/editor": "0.0.0",
     "lodash.debounce": "^4.0.8",
     "uniforms": "~2.5.0",
     "uniforms-bridge-json-schema": "~2.5.0",

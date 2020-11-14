@@ -1,4 +1,5 @@
-import { Plugins } from '@react-page/core';
+import { Plugins } from '@react-page/editor';
+
 // The background plugin
 import background, { ModeEnum } from '@react-page/plugins-background';
 import '@react-page/plugins-background/lib/index.css';
@@ -9,6 +10,7 @@ import divider from '@react-page/plugins-divider';
 import html5video from '@react-page/plugins-html5-video';
 import '@react-page/plugins-html5-video/lib/index.css';
 // The image plugin
+
 import { imagePlugin, ImageUploadType } from '@react-page/plugins-image';
 import '@react-page/plugins-image/lib/index.css';
 // The spacer plugin
@@ -24,6 +26,7 @@ import customLayoutPlugin from './customLayoutPlugin';
 import customLayoutPluginWithInitialState from './customLayoutPluginWithInitialState';
 import { defaultSlate, customizedSlate } from './slate';
 import customContentPluginTwitter from './customContentPluginTwitter';
+
 const fakeImageUploadService: (url: string) => ImageUploadType = (
   defaultUrl
 ) => (file, reportProgress) => {
@@ -53,9 +56,9 @@ export const plugins: Plugins = [
   video,
   divider,
   html5video,
-  customContentPlugin(),
-  customContentPluginWithListField(),
-  customContentPluginTwitter(),
+  customContentPlugin,
+  customContentPluginWithListField,
+  customContentPluginTwitter,
 
   background({
     imageUpload: fakeImageUploadService('/images/sea-bg.jpg'),
@@ -64,6 +67,6 @@ export const plugins: Plugins = [
       ModeEnum.IMAGE_MODE_FLAG |
       ModeEnum.GRADIENT_MODE_FLAG,
   }),
-  customLayoutPlugin(),
-  customLayoutPluginWithInitialState(),
+  customLayoutPlugin,
+  customLayoutPluginWithInitialState,
 ];

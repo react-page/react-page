@@ -1,4 +1,4 @@
-import { colorToString } from '@react-page/ui';
+import { colorToString } from '@react-page/editor';
 import * as React from 'react';
 import { ModeEnum } from '../types/ModeEnum';
 import { BackgroundRendererProps } from '../types/renderer';
@@ -93,7 +93,7 @@ const getStyles = (props: BackgroundRendererProps) => {
 const BackgroundHtmlRenderer: React.SFC<BackgroundRendererProps> = (props) => {
   const {
     children,
-    state: {
+    data: {
       darken = props.defaultDarken,
       lighten = props.defaultLighten,
       hasPadding = props.defaultHasPadding,

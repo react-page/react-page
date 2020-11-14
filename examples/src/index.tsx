@@ -1,11 +1,12 @@
 import './wdyr';
-import Editor, { VERSION, EditorProps } from '@react-page/editor';
-import '@react-page/core/lib/index.css'; // we also want to load the stylesheets
 
-import '@react-page/ui/lib/index.css';
+import Editor, { VERSION, EditorProps } from '@react-page/editor';
+import '@react-page/editor/lib/index.css'; // we also want to load the stylesheets
+
 import React, { useEffect } from 'react';
 import ReactDOM from 'react-dom';
 // The content state
+
 import contents from './contents';
 //import customLayoutPluginWithInitialState from './customLayoutPluginWithInitialState';
 import { plugins } from './plugins';
@@ -18,7 +19,7 @@ import {
   Select,
 } from '@material-ui/core';
 //import { defaultSlate } from './slate';
-import useWhyDidYouUpdate from './useWhyDidYouUpdate';
+//import useWhyDidYouUpdate from './useWhyDidYouUpdate';
 
 const LANGUAGES = [
   {
@@ -30,9 +31,11 @@ const LANGUAGES = [
     label: 'Deutsch',
   },
 ];
+
+const URL_PARAMS = new URLSearchParams(window.location.search);
 const KeepStateEditor: React.FC<EditorProps> = ({ value, ...props }) => {
   const [state, setState] = React.useState(value);
-  useWhyDidYouUpdate('editable' + value?.id, state);
+
   useEffect(() => {
     console.log('state changed', state);
   }, [state]);
@@ -130,6 +133,7 @@ const KeepStateEditor: React.FC<EditorProps> = ({ value, ...props }) => {
           onChangeLang={setLang}
           lang={lang}
           languages={LANGUAGES}
+          readOnly={Boolean(URL_PARAMS.get('readonly'))}
         />
         <Button variant="outlined" onClick={() => setState(value)}>
           Reset this editor
@@ -142,12 +146,11 @@ const KeepStateEditor: React.FC<EditorProps> = ({ value, ...props }) => {
 const elements = document.querySelectorAll<HTMLDivElement>('.editable');
 ReactDOM.render(<span>{VERSION}</span>, document.getElementById('version'));
 elements.forEach((element, index) => {
-  if (index === 0)
-    ReactDOM.render(
-      <KeepStateEditor plugins={plugins} value={contents[index]} />,
+  ReactDOM.render(
+    <KeepStateEditor plugins={plugins} value={contents[index]} />,
 
-      element
-    );
+    element
+  );
 });
 
 // Render as beautified mark up (html)

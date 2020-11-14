@@ -1,22 +1,18 @@
-import { CellPlugin, lazyLoad } from '@react-page/core';
+import { CellPlugin, lazyLoad } from '@react-page/editor';
 import * as React from 'react';
-import Divider from './Component';
 import { defaultSettings } from './default/settings';
-import { DividerProps } from './types/component';
+import DividerHtmlRenderer from './Renderer/DividerHtmlRenderer';
+
 import { DividerSettings } from './types/settings';
-import { DividerState } from './types/state';
 
 const Remove = lazyLoad(() => import('@material-ui/icons/Remove'));
 
-const createPlugin: (settings: DividerSettings) => CellPlugin<DividerState> = (
+const createPlugin: (settings: DividerSettings) => CellPlugin<void> = (
   settings
 ) => {
   const mergedSettings = { ...defaultSettings, ...settings };
-  const WrappedComponent: React.SFC<DividerProps> = (props) => (
-    <Divider {...props} {...mergedSettings} />
-  );
   return {
-    Component: WrappedComponent,
+    Renderer: settings.Renderer || DividerHtmlRenderer,
     id: 'ory/editor/core/content/divider',
     version: 1,
     IconComponent: <Remove />,

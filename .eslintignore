@@ -3,7 +3,6 @@ config/**
 coverage/**
 examples/build/**
 examples/src/contents.ts
-examples/src/templateData.ts
 **/lib/**
 **/lib-es/**
 node_modules

@@ -3,7 +3,7 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import DeleteIcon from '@material-ui/icons/Delete';
 import DoneIcon from '@material-ui/icons/Done';
-import { makeUniformsSchema } from '@react-page/create-plugin-materialui';
+import { makeUniformsSchema } from '@react-page/editor';
 import React, { useCallback, useRef, useState } from 'react';
 import {
   AutoFields as AutoFieldsOrg,

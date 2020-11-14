@@ -1,13 +1,11 @@
 {
   "files": [],
   "references": [
-    { "path": "core" },
-    { "path": "ui" },
-    { "path": "renderer" },
+    { "path": "editor" },
     { "path": "plugins/content/divider" },
     { "path": "plugins/content/html5-video" },
     { "path": "plugins/content/image" },
- 
+
     { "path": "plugins/content/slate" },
     { "path": "plugins/content/spacer" },
     { "path": "plugins/content/video" },

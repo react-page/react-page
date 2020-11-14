@@ -1,4 +1,4 @@
-import { CellPluginComponentProps } from '@react-page/core';
+import { CellPluginComponentProps } from '@react-page/editor';
 import { BackgroundSettings } from './settings';
 import { BackgroundState } from './state';
 

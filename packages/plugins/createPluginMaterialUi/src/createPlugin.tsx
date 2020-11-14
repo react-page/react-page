@@ -1,48 +1,33 @@
-import {
-  CellPlugin,
-  CellPluginComponentProps,
-  lazyLoad,
-} from '@react-page/core';
-import * as React from 'react';
-import { ControlsType, PluginWithSchemaDefinition } from './types';
+import { CellPlugin } from '@react-page/editor';
+import { PluginWithSchemaDefinition } from './types';
 
 type CustomizeFunction<T, CT> = (
   def: PluginWithSchemaDefinition<T>
 ) => PluginWithSchemaDefinition<T & CT>;
 
 // eslint-disable-next-line @typescript-eslint/ban-types
-function createPluginWithDef<T extends {}>({
+function createPluginWithDef<T>({
   schema,
   Renderer,
   controlsLayout,
   ...pluginSettings
 }: PluginWithSchemaDefinition<T>): CellPlugin<T> {
-  const Controls = lazyLoad(
-    () => (import('./Controls') as unknown) as Promise<ControlsType<T>>
+  console.warn(
+    '@react-page/create-plugin-materialui is deprecated, its functionality is now nativly supportd by react-page. Checkout the type `CellPlugin<T>` from `@react-page/editor`'
   );
 
   return {
-    Component: (props: CellPluginComponentProps<T>) => {
-      return (
-        <>
-          {!props.readOnly ? (
-            <Controls
-              controlsLayout={controlsLayout}
-              schema={schema}
-              Renderer={Renderer}
-              {...props}
-            />
-          ) : (
-            <Renderer {...props} />
-          )}
-        </>
-      );
+    Renderer,
+    controls: {
+      type: 'autoform',
+      columnCount: controlsLayout?.columnCount,
+      schema,
     },
     ...pluginSettings,
   };
 }
 
-function createContentPlugin<T>(definition: PluginWithSchemaDefinition<T>) {
+function createPlugin<T>(definition: PluginWithSchemaDefinition<T>) {
   return function <CT>(customize?: CustomizeFunction<T, CT>) {
     if (customize) {
       return createPluginWithDef<T & CT>(customize(definition));
@@ -51,4 +36,4 @@ function createContentPlugin<T>(definition: PluginWithSchemaDefinition<T>) {
   };
 }
 
-export default createContentPlugin;
+export default createPlugin;
