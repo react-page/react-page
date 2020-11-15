@@ -100,6 +100,9 @@ export const migrateEditable = (
   dataIn: { version?: number } & any,
   context: MigrationContext
 ) => {
+  if (!dataIn) {
+    return dataIn;
+  }
   const versionIn = dataIn?.version;
   const newestVersion =
     EDITABLE_MIGRATIONS[EDITABLE_MIGRATIONS.length - 1].toVersion;
