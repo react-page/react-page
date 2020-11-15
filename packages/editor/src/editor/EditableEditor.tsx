@@ -34,8 +34,8 @@ const EditableEditor: React.FC<EditableEditorProps> = ({
   languages,
   onChangeLang,
   hideEditorSidebar,
-  allowMoveInEditMode,
-  allowResizeInEditMode,
+  allowMoveInEditMode = true,
+  allowResizeInEditMode = true,
   editModeResizeHandle,
 }) => {
   const theValue = value || createEmptyState();
