@@ -1,21 +1,23 @@
 {
+  "extends": "../packages/tsconfig.settings.json",
   "compilerOptions": {
-    "target": "es5",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "rootDir": "src",
+    "outDir": "lib",
     "allowJs": true,
-    "skipLibCheck": true,
+    "allowSyntheticDefaultImports": true,
     "strict": false,
     "forceConsistentCasingInFileNames": true,
-    "noEmit": true,
-    "esModuleInterop": true,
     "module": "esnext",
-    "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "jsx": "preserve"
+    "noEmit": true,
+    "jsx": "preserve",
+    "declaration": false,
+    "declarationMap": false,
+    "composite": false
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
-  "exclude": ["node_modules"],
+  "include": ["src"],
+  "exclude": ["lib", "node_modules", "src/**/__tests__/**/*.*"],
   "references": [
     {
       "path": "../packages/editor"
@@ -41,6 +43,9 @@
     },
     {
       "path": "../packages/plugins/layout/background"
+    },
+    {
+      "path": "../packages/plugins/createPluginMaterialUi"
     }
   ]
 }
