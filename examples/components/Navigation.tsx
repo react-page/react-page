@@ -22,6 +22,11 @@ const Navigation: React.FC = () => {
           <ListItemText primary={'Home'} />
         </ListItem>
       </Link>
+      <Link passHref href="/empty">
+        <ListItem component="a">
+          <ListItemText primary={'Empty editor'} />
+        </ListItem>
+      </Link>
       <Divider />
       <List>
         <ListItem component="a" href={'https://react-page.github.io/'}>
