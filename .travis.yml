@@ -1,5 +1,11 @@
 language: node_js
-
+cache:
+  directories:
+    - $HOME/.cache/yarn
+    - node_modules
+    - examples/node_modules
+    - examples/.next/cache
+    
 node_js:
   - '12'
 
