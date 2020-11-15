@@ -1,0 +1,46 @@
+.react-page-plugins-content-divider {
+  background-color: #aaa;
+  width: 100%;
+  height: 2px;
+  border: none;
+}
+
+.editable-area code,
+.editable-area pre {
+  font-family: monospace;
+  border-radius: 0.3em;
+  padding: 0.4em;
+}
+
+.editable-area code {
+  display: inline;
+  margin: 0 0.5em;
+  white-space: pre;
+}
+
+.editable-area pre {
+  display: block;
+  margin: 1em;
+}
+
+.editable-area ul,
+.editable-area ol {
+  margin: 1em 0;
+  list-style-type: inside;
+}
+
+.editable-area li {
+  margin: 0.2em 0 0.2em 1em;
+}
+
+.editable-area li p {
+  margin: 0;
+}
+
+.editable-area ol {
+  list-style-type: decimal;
+}
+
+.editable-area ul {
+  list-style-type: disc;
+}

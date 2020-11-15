@@ -2,23 +2,21 @@ import { Plugins } from '@react-page/editor';
 
 // The background plugin
 import background, { ModeEnum } from '@react-page/plugins-background';
-import '@react-page/plugins-background/lib/index.css';
 
 // The divider plugin
 import divider from '@react-page/plugins-divider';
 // The html5-video plugin
 import html5video from '@react-page/plugins-html5-video';
-import '@react-page/plugins-html5-video/lib/index.css';
+
 // The image plugin
 
 import { imagePlugin, ImageUploadType } from '@react-page/plugins-image';
-import '@react-page/plugins-image/lib/index.css';
+
 // The spacer plugin
 import spacer from '@react-page/plugins-spacer';
-import '@react-page/plugins-spacer/lib/index.css';
+
 // The video plugin
 import video from '@react-page/plugins-video';
-import '@react-page/plugins-video/lib/index.css';
 
 import customContentPlugin from './customContentPlugin';
 import customContentPluginWithListField from './customContentPluginWithListField';

@@ -6,7 +6,7 @@ import type { Languages } from '../core/EditorStore';
 
 import type { EditableType, Options } from '../core/types';
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { HTMLRenderer } from '../renderer/HTMLRenderer';
 import lazyLoad from '../core/helper/lazyLoad';
 
@@ -36,11 +36,18 @@ const Editor: React.FC<EditorProps> = ({
   lang,
   pluginsWillChange,
   ...rest
-}) =>
-  readOnly ? (
+}) => {
+  // mount the component always in readonly, to avoid problems with SSR
+  const [renderReadOnly, setRenderReadOnly] = useState(true);
+  useEffect(() => {
+    setRenderReadOnly(readOnly);
+  }, [readOnly]);
+
+  return renderReadOnly ? (
     <HTMLRenderer state={value} plugins={plugins} lang={lang} />
   ) : (
     <EditableEditor
+      fallback={<HTMLRenderer state={value} plugins={plugins} lang={lang} />}
       pluginsWillChange={pluginsWillChange}
       plugins={plugins}
       value={value}
@@ -52,5 +59,6 @@ const Editor: React.FC<EditorProps> = ({
       {...rest}
     />
   );
+};
 
 export default React.memo(Editor);

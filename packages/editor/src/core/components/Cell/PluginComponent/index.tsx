@@ -28,7 +28,7 @@ const PluginComponent: React.FC<{ nodeId: string }> = ({
   const focused = useIsFocused(nodeId);
 
   const Component = plugin?.Renderer ?? PluginMissing;
-  const Provider = plugin.Provider ?? DefaultProvider;
+  const Provider = plugin?.Provider ?? DefaultProvider;
   const remove = useRemoveCell(nodeId);
 
   const componentProps: CellPluginComponentProps<unknown> = {
@@ -62,7 +62,7 @@ const PluginComponent: React.FC<{ nodeId: string }> = ({
         <BottomToolbar
           nodeId={nodeId}
           open={focused && isEditMode}
-          dark={plugin.controls?.dark}
+          dark={plugin?.controls?.dark}
         >
           <div
             style={{ marginBottom: 24, maxHeight: '50vh', overflow: 'auto' }}
