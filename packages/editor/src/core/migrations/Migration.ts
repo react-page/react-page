@@ -2,7 +2,7 @@ import { CellPlugin } from '../types/plugins';
 import { MigrationVersion } from './migrate';
 
 export type MigrationContext = {
-  plugins: CellPlugin[];
+  cellPlugins: CellPlugin[];
   lang: string;
 };
 interface MigrationConfig<TIn, TOut> {

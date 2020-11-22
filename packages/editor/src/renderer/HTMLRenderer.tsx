@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import * as React from 'react';
 import { migrateEditable } from '../core/migrations/migrate';
 import { setAllSizesAndOptimize } from '../core/reducer/editable/helper/setAllSizesAndOptimize';
-import { Cell, CellPlugin, EditableType, Row } from '../core/types';
+import { Cell, CellPlugin, Value, Row } from '../core/types';
 import { getCellData } from '../core/utils/getCellData';
 
 const gridClass = (size = 12): string =>
@@ -12,15 +12,15 @@ const rowHasInlineChildren = ({ cells }) =>
   Boolean(cells.length === 2 && Boolean(cells[0].inline));
 
 const HTMLRow: React.FC<Partial<
-  Row & { lang: string; className?: string; plugins: CellPlugin[] }
->> = React.memo(({ cells = [], className, lang, plugins }) => (
+  Row & { lang: string; className?: string; cellPlugins: CellPlugin[] }
+>> = React.memo(({ cells = [], className, lang, cellPlugins }) => (
   <div
     className={classNames('react-page-row', className, {
       'react-page-row-has-floating-children': rowHasInlineChildren({ cells }),
     })}
   >
     {cells.map((c, index) => (
-      <HTMLCell key={c.id} {...c} lang={lang} plugins={plugins} />
+      <HTMLCell key={c.id} {...c} lang={lang} cellPlugins={cellPlugins} />
     ))}
   </div>
 ));
@@ -33,9 +33,9 @@ const noop = () => {
 const DefaultProvider: React.FC = ({ children }) => <>{children}</>;
 
 const HTMLCell: React.FC<
-  Cell & { lang: string; plugins: CellPlugin[] }
+  Cell & { lang: string; cellPlugins: CellPlugin[] }
 > = React.memo((props) => {
-  const { lang, plugins, ...cell } = props;
+  const { lang, cellPlugins, ...cell } = props;
   const { size, hasInlineNeighbour, inline, isDraftI18n, isDraft } = cell;
   const cn = classNames('react-page-cell', gridClass(size), {
     'react-page-cell-has-inline-neighbour': hasInlineNeighbour,
@@ -47,7 +47,7 @@ const HTMLCell: React.FC<
   }
 
   const plugin = cell.plugin
-    ? plugins.find((p) => p.id === cell.plugin.id)
+    ? cellPlugins.find((p) => p.id === cell.plugin.id)
     : null;
   if (plugin) {
     const { Renderer } = plugin;
@@ -78,7 +78,7 @@ const HTMLCell: React.FC<
                 <HTMLRow
                   key={r.id}
                   {...r}
-                  plugins={plugins}
+                  cellPlugins={cellPlugins}
                   lang={lang}
                   className="react-page-cell-inner"
                 />
@@ -97,7 +97,7 @@ const HTMLCell: React.FC<
             {...r}
             lang={lang}
             className="react-page-cell-inner"
-            plugins={plugins}
+            cellPlugins={cellPlugins}
           />
         ))}
       </div>
@@ -112,14 +112,14 @@ const HTMLCell: React.FC<
 });
 
 export interface HTMLRendererProps {
-  state: EditableType;
-  plugins?: CellPlugin[];
+  state: Value;
+  cellPlugins?: CellPlugin[];
   lang?: string;
 }
 
 export const HTMLRenderer: React.FC<HTMLRendererProps> = React.memo(
-  ({ state, plugins, lang = 'default' }) => {
-    const data = migrateEditable(state, { plugins, lang });
+  ({ state, cellPlugins, lang = 'default' }) => {
+    const data = migrateEditable(state, { cellPlugins, lang });
 
     if (!data) {
       return null;
@@ -130,7 +130,7 @@ export const HTMLRenderer: React.FC<HTMLRendererProps> = React.memo(
         {setAllSizesAndOptimize(rows).map((row) => (
           <HTMLRow
             key={row.id}
-            plugins={plugins}
+            cellPlugins={cellPlugins}
             lang={lang}
             cells={row.cells}
             {...props}

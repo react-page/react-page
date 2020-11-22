@@ -1,9 +1,9 @@
-import { CellPlugin, EditableType } from '../../../types';
+import { CellPlugin, Value, Value } from '../../../types';
 import { resizeCell } from '../../../actions/cell';
 import { createEditable } from '../../../utils/createEditable';
 import { simulateDispatch } from '../testUtils';
 
-const plugins: CellPlugin[] = [
+const cellPlugins: CellPlugin[] = [
   {
     id: 'foo',
     version: 1,
@@ -12,7 +12,7 @@ const plugins: CellPlugin[] = [
 ];
 
 const options = {
-  plugins,
+  cellPlugins,
   lang: 'en',
 };
 
@@ -41,7 +41,7 @@ describe('resizeCell', () => {
       },
       options
     );
-    const expectedState: EditableType = {
+    const expectedState: Value = {
       id: 'editableId',
       version: 1,
       rows: [
@@ -108,7 +108,7 @@ describe('resizeCell', () => {
       },
       options
     );
-    const expectedState: EditableType = {
+    const expectedState: Value = {
       id: 'editableId',
       version: 1,
       rows: [

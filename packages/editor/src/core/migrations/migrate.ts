@@ -1,4 +1,4 @@
-import { Cell, EditableType, Row } from '../types/editable';
+import { Cell, Value, Row } from '../types/editable';
 import { removeUndefinedProps } from '../utils/removeUndefinedProps';
 
 import EDITABLE_MIGRATIONS from './EDITABLE_MIGRATIONS';
@@ -41,10 +41,7 @@ export const migrate = <TOut>(
   return data;
 };
 
-const migratePluginData = (
-  editable: EditableType,
-  context: MigrationContext
-) => {
+const migratePluginData = (editable: Value, context: MigrationContext) => {
   const migrateRowData = (r: Row): Row => {
     return {
       ...r,
@@ -54,7 +51,7 @@ const migratePluginData = (
   const migrateCellData = (c: Cell): Cell => {
     const pluginDef = c.plugin;
     const pluginFound = pluginDef
-      ? context.plugins.find((p) => p.id === pluginDef.id)
+      ? context.cellPlugins.find((p) => p.id === pluginDef.id)
       : null;
 
     const versionMismatch =
@@ -97,6 +94,7 @@ const migratePluginData = (
 };
 
 export const migrateEditable = (
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   dataIn: { version?: number } & any,
   context: MigrationContext
 ) => {
@@ -106,12 +104,7 @@ export const migrateEditable = (
   const versionIn = dataIn?.version;
   const newestVersion =
     EDITABLE_MIGRATIONS[EDITABLE_MIGRATIONS.length - 1].toVersion;
-  const data = migrate<EditableType>(
-    dataIn,
-    EDITABLE_MIGRATIONS,
-    versionIn,
-    context
-  );
+  const data = migrate<Value>(dataIn, EDITABLE_MIGRATIONS, versionIn, context);
   const migrated = {
     ...migratePluginData(data, context),
     version: newestVersion,

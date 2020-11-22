@@ -1,18 +1,16 @@
 import { Action } from 'redux';
-import { EditableType, NewIds } from '../types/editable';
+import { Value, NewIds } from '../types/editable';
 import { generateIds } from './helpers';
 
 export const UPDATE_EDITABLE = 'UPDATE_EDITABLE';
 
 export interface UpdateEditableAction extends Action {
   ts: Date;
-  editable: EditableType;
+  editable: Value;
   ids: NewIds;
 }
 
-export const updateEditable = (
-  editable: EditableType
-): UpdateEditableAction => ({
+export const updateEditable = (editable: Value): UpdateEditableAction => ({
   type: UPDATE_EDITABLE,
   ts: new Date(),
   editable,

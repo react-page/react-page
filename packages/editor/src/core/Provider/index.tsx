@@ -7,7 +7,7 @@ import EditorStore, { EditorContext } from '../EditorStore';
 import { ReduxProvider } from '../reduxConnect';
 import { DisplayModes } from '../actions/display';
 import { OptionsContext } from '../components/hooks';
-import { EditableType, Options } from '../types/editable';
+import { Value, Options } from '../types/editable';
 
 import { serialzeEditable } from '../migrations/serialzeEditable';
 import deepEquals from '../utils/deepEquals';
@@ -19,8 +19,8 @@ import { updateEditable } from '../actions/editables';
 type ProviderProps = {
   lang?: string;
   onChangeLang?: (lang: string) => void;
-  value: EditableType[];
-  onChange?: (editables: EditableType[]) => void;
+  value: Value[];
+  onChange?: (editables: Value[]) => void;
   dndBackend?: BackendFactory;
   blurGateDisabled?: boolean;
   blurGateDefaultMode?: DisplayModes;
@@ -43,7 +43,7 @@ const Provider: React.FC<ProviderProps> = ({
   dndBackend = HTML5Backend,
   blurGateDisabled = false,
   blurGateDefaultMode,
-  plugins,
+  cellPlugins,
   allowMoveInEditMode,
 
   allowResizeInEditMode,
@@ -69,7 +69,7 @@ const Provider: React.FC<ProviderProps> = ({
             past: [],
             present: value.map((e) =>
               migrateEditable(e, {
-                plugins,
+                cellPlugins,
                 lang,
               })
             ),
@@ -82,7 +82,7 @@ const Provider: React.FC<ProviderProps> = ({
     });
     return store;
   }, [passedStore, ...middleware]);
-  const lastValueRef = useRef<EditableType[]>(value);
+  const lastValueRef = useRef<Value[]>(value);
   useEffect(() => {
     let oldLang = lang;
     const handleChanges = () => {
@@ -104,7 +104,7 @@ const Provider: React.FC<ProviderProps> = ({
         return;
       }
       const serializedEditables = editables.map((editable) =>
-        serialzeEditable(editable, plugins)
+        serialzeEditable(editable, cellPlugins)
       );
       const serializedEqual = deepEquals(
         lastValueRef.current,
@@ -124,7 +124,7 @@ const Provider: React.FC<ProviderProps> = ({
     return () => {
       unsubscribe();
     };
-  }, [editorStore, onChange, pluginsWillChange && plugins]);
+  }, [editorStore, onChange, pluginsWillChange && cellPlugins]);
 
   useEffect(() => {
     const equal = deepEquals(value, lastValueRef.current);
@@ -134,13 +134,13 @@ const Provider: React.FC<ProviderProps> = ({
       lastValueRef.current = value;
       value.forEach((editable) => {
         const data = migrateEditable(editable, {
-          plugins,
+          cellPlugins,
           lang,
         });
         editorStore.store.dispatch(updateEditable(data));
       });
     }
-  }, [value, pluginsWillChange && plugins, lang]);
+  }, [value, pluginsWillChange && cellPlugins, lang]);
   useEffect(() => {
     // if changed from outside
     editorStore.setLang(lang);
@@ -156,7 +156,7 @@ const Provider: React.FC<ProviderProps> = ({
   // prevent options from recreating all the time
   const optionsMemoized: Options = useMemo(() => {
     return {
-      plugins,
+      cellPlugins,
       pluginsWillChange,
       allowMoveInEditMode,
       allowResizeInEditMode,
@@ -164,7 +164,7 @@ const Provider: React.FC<ProviderProps> = ({
       languages,
     };
   }, [
-    pluginsWillChange && plugins,
+    pluginsWillChange && cellPlugins,
     allowMoveInEditMode,
     allowResizeInEditMode,
     editModeResizeHandle,

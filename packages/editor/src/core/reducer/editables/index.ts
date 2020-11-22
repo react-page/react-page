@@ -17,7 +17,7 @@ import {
 } from '../../actions/cell/insert';
 import { UPDATE_EDITABLE } from '../../actions/editables';
 import { isProduction } from '../../const';
-import { Editables, EditableType } from '../../types/editable';
+import { Editables, Value } from '../../types/editable';
 import { editable } from '../editable';
 
 if (!isProduction) {
@@ -31,13 +31,13 @@ const inner = undoable(
     action: {
       type: string;
       id: string;
-      editable: EditableType;
+      editable: Value;
     }
-  ): EditableType[] => {
+  ): Value[] => {
     switch (action.type) {
       default:
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        return state.map((e: EditableType) => editable(e, action)) as any;
+        return state.map((e: Value) => editable(e, action)) as any;
     }
   },
   {
@@ -85,7 +85,7 @@ export const editables = (
           past: past.map((e) => [
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
             ...(e as any).filter(
-              ({ id }: EditableType): boolean => id !== action.editable.id
+              ({ id }: Value): boolean => id !== action.editable.id
             ),
             // we need to run the rawreducer once or the history initial state will be inconsistent.
             // resolves https://github.com/ory/editor/pull/117#issuecomment-242942796
@@ -95,7 +95,7 @@ export const editables = (
           present: inner(
             [
               ...present.filter(
-                ({ id }: EditableType): boolean => id !== action.editable.id
+                ({ id }: Value): boolean => id !== action.editable.id
               ),
               // we need to run the rawreducer once or the history initial state will be inconsistent.
               // resolves https://github.com/ory/editor/pull/117#issuecomment-242942796

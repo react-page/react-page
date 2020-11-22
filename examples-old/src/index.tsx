@@ -147,7 +147,7 @@ const elements = document.querySelectorAll<HTMLDivElement>('.editable');
 ReactDOM.render(<span>{VERSION}</span>, document.getElementById('version'));
 elements.forEach((element, index) => {
   ReactDOM.render(
-    <KeepStateEditor plugins={plugins} value={contents[index]} />,
+    <KeepStateEditor cellPlugins={plugins} value={contents[index]} />,
 
     element
   );
@@ -155,6 +155,6 @@ elements.forEach((element, index) => {
 
 // Render as beautified mark up (html)
 ReactDOM.render(
-  <Editor plugins={plugins} value={contents[0]} readOnly={true} />,
+  <Editor cellPlugins={plugins} value={contents[0]} readOnly={true} />,
   document.getElementById('editable-static')
 );

@@ -1,13 +1,13 @@
-import { applyMiddleware, combineReducers, createStore } from 'redux';
+import { Action, applyMiddleware, combineReducers, createStore } from 'redux';
 import thunk from 'redux-thunk';
-import { EditableType } from '../../types/editable';
+import { Value } from '../../types/editable';
 
 import { editable } from './index';
 
 export const simulateDispatch = (
-  initialState: EditableType,
-  action?: any
-): EditableType => {
+  initialState: Value,
+  action?: Action
+): Value => {
   const reducer = combineReducers({ editable });
   const store = createStore(
     reducer,

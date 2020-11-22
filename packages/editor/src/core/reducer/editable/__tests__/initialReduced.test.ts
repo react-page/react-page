@@ -1,9 +1,9 @@
-import { CellPlugin, EditableType } from '../../../types';
+import { CellPlugin, Value } from '../../../types';
 import { createEditable } from '../../../utils/createEditable';
 import { simulateDispatch } from '../testUtils';
 //type State = { foo?: number; bar?: number };
 
-const plugins: CellPlugin[] = [
+const cellPlugins: CellPlugin[] = [
   {
     id: 'foo',
     version: 1,
@@ -12,7 +12,7 @@ const plugins: CellPlugin[] = [
 ];
 
 const options = {
-  plugins,
+  cellPlugins,
   lang: 'en',
 };
 
@@ -38,7 +38,7 @@ describe('initial reduce (without actions)', () => {
       },
       options
     );
-    const expectedState: EditableType = {
+    const expectedState: Value = {
       id: 'editableId',
       version: 1,
       rows: [
@@ -124,7 +124,7 @@ describe('initial reduce (without actions)', () => {
       },
       options
     );
-    const expectedState: EditableType = {
+    const expectedState: Value = {
       id: 'editableId',
       version: 1,
       rows: [

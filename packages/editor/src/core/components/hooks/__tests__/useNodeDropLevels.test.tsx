@@ -3,9 +3,9 @@ import { renderHook } from '@testing-library/react-hooks';
 import { useNodeDropLevels } from '..';
 import Provider from '../../../Provider';
 import React from 'react';
-import { EditableType } from '../../../types';
+import { Value } from '../../../types';
 
-const SAMPLE_STATE: EditableType = {
+const SAMPLE_STATE: Value = {
   version: 1,
   id: 'editableId',
   rows: [
@@ -50,7 +50,7 @@ const SAMPLE_STATE: EditableType = {
 describe('useNodeDropLevels', () => {
   it('tells that cells that have siblings on the right have drop level 0 there', () => {
     const Wrapper = ({ children }) => (
-      <Provider plugins={[]} lang="en" value={[SAMPLE_STATE]}>
+      <Provider cellPlugins={[]} lang="en" value={[SAMPLE_STATE]}>
         {children}
       </Provider>
     );
@@ -72,7 +72,7 @@ describe('useNodeDropLevels', () => {
   });
   it('center nodes have drop level 0 on left and right', () => {
     const Wrapper = ({ children }) => (
-      <Provider plugins={[]} lang="en" value={[SAMPLE_STATE]}>
+      <Provider cellPlugins={[]} lang="en" value={[SAMPLE_STATE]}>
         {children}
       </Provider>
     );
@@ -94,7 +94,7 @@ describe('useNodeDropLevels', () => {
   });
   it('last node in a row have drop level >0 on the right', () => {
     const Wrapper = ({ children }) => (
-      <Provider plugins={[]} lang="en" value={[SAMPLE_STATE]}>
+      <Provider cellPlugins={[]} lang="en" value={[SAMPLE_STATE]}>
         {children}
       </Provider>
     );

@@ -6,9 +6,6 @@ import type { Migration } from '../migrations/Migration';
 import { Cell, PartialCell, PartialRow } from './editable';
 import { JsonSchema } from './jsonSchema';
 
-export type Plugin = CellPlugin;
-export type Plugins = Plugin[];
-
 export type CellPluginComponentProps<DataT> = {
   nodeId: string;
   data: DataT;

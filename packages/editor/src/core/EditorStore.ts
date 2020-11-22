@@ -3,7 +3,7 @@ import { Middleware, Store } from 'redux';
 import { v4 } from 'uuid';
 
 import createStore from './store';
-import { EditableType } from './types/editable';
+import { Value } from './types/editable';
 import { RootState } from './types/state';
 import { setLang } from './actions/setting';
 import { findNodeInState } from './selector/editable';
@@ -46,7 +46,7 @@ class EditorStore<T extends RootState = RootState> {
   };
 }
 
-export const createEmptyState: () => EditableType = () =>
-  ({ id: v4(), rows: [] } as EditableType);
+export const createEmptyState: () => Value = () =>
+  ({ id: v4(), rows: [] } as Value);
 
 export default EditorStore;

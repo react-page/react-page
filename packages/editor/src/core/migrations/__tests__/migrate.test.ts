@@ -27,7 +27,7 @@ describe('migrate', () => {
     it('updates dataIn with one migration that specifies higher version', () => {
       const result = migrate(dataIn, migrations, 0, {
         lang: 'en',
-        plugins: [],
+        cellPlugins: [],
       });
       expect(result).toEqual(expectedOut);
     });
@@ -42,7 +42,7 @@ describe('migrate', () => {
         1,
         {
           lang: 'en',
-          plugins: [],
+          cellPlugins: [],
         }
       );
       expect(result).toEqual({
@@ -101,7 +101,7 @@ describe('migrate', () => {
     it('updates dataIn with multiple migrations that specifies higher version', () => {
       const result = migrate(dataIn, migrations, 0, {
         lang: 'en',
-        plugins: [],
+        cellPlugins: [],
       });
       expect(result).toEqual(expectedOut);
     });
@@ -116,7 +116,7 @@ describe('migrate', () => {
         1,
         {
           lang: 'en',
-          plugins: [],
+          cellPlugins: [],
         }
       );
       expect(result).toEqual(expectedOut);
@@ -173,7 +173,7 @@ describe('migrate', () => {
     it('supports legacy string numbers', () => {
       const result = migrate(dataIn, migrations, '0.3.0', {
         lang: 'en',
-        plugins: [],
+        cellPlugins: [],
       });
 
       expect(result).toEqual(expectedOut);

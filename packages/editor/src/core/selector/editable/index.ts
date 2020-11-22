@@ -1,7 +1,7 @@
 import flatten from 'lodash.flatten';
 import {
   Cell,
-  EditableType,
+  Value,
   Node,
   isRow,
   NodeWithAncestors,
@@ -52,15 +52,12 @@ export const findNodeInState = (
   );
 };
 
-export const editable = (
-  state: RootState,
-  { id }: { id: string }
-): EditableType =>
+export const editable = (state: RootState, { id }: { id: string }): Value =>
   state &&
   state.reactPage &&
   state.reactPage.editables &&
   state.reactPage.editables.present.find(
-    ({ id: current }: EditableType = {} as EditableType) => current === id
+    ({ id: current }: Value = {} as Value) => current === id
   );
 
 export const editables = ({

@@ -5,15 +5,15 @@ import { DisplayModes } from '../core/actions/display';
 import Editable from '../core/components/Editable';
 import { createEmptyState, Languages } from '../core/EditorStore';
 import Provider from '../core/Provider';
-import { EditableType, Options } from '../core/types';
+import { Value, Options } from '../core/types';
 import EditorUI from '../ui/EditorUI';
 import StickyWrapper from './StickyWrapper';
 
 export type DndBackend = BackendFactory;
 export type EditableEditorProps = {
   dndBackend?: DndBackend;
-  value?: EditableType;
-  onChange?: (v: EditableType) => void;
+  value?: Value;
+  onChange?: (v: Value) => void;
   defaultDisplayMode?: DisplayModes;
   blurGateDisabled?: boolean;
   languages?: Languages;
@@ -23,7 +23,7 @@ export type EditableEditorProps = {
 } & Options;
 
 const EditableEditor: React.FC<EditableEditorProps> = ({
-  plugins,
+  cellPlugins,
   pluginsWillChange,
   value,
   onChange,
@@ -44,7 +44,7 @@ const EditableEditor: React.FC<EditableEditorProps> = ({
       lang={lang}
       onChangeLang={onChangeLang}
       value={[theValue]}
-      plugins={plugins}
+      cellPlugins={cellPlugins}
       allowMoveInEditMode={allowMoveInEditMode}
       allowResizeInEditMode={allowResizeInEditMode}
       editModeResizeHandle={editModeResizeHandle}

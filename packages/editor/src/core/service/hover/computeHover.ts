@@ -560,7 +560,7 @@ export const CALLBACK_LIST: CallbackList = {
       return;
     }
     const { inline, hasInlineNeighbour } = hover;
-    const plugin = options.plugins.find((p) => p.id === item.plugin?.id);
+    const plugin = options.cellPlugins.find((p) => p.id === item.plugin?.id);
     const isInlineable = plugin?.isInlineable ?? false;
     if (inline || !isInlineable) {
       return leftOf(item, hover, 2);
@@ -589,7 +589,7 @@ export const CALLBACK_LIST: CallbackList = {
       return;
     }
     const { inline, hasInlineNeighbour } = hover;
-    const plugin = options.plugins.find((p) => p.id === item.plugin?.id);
+    const plugin = options.cellPlugins.find((p) => p.id === item.plugin?.id);
     const isInlineable = plugin?.isInlineable ?? false;
 
     if (inline || !isInlineable) {

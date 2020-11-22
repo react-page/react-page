@@ -70,7 +70,7 @@ import {
   isRow,
   Options,
   Row,
-  EditableType,
+  Value,
   CellDrag,
 } from '../../types/editable';
 import { HoverInsertActions } from '../../types/hover';
@@ -82,7 +82,7 @@ export const EditableContext = createContext<string>(null);
 export const OptionsContext = createContext<Options>({
   allowMoveInEditMode: true,
   allowResizeInEditMode: true,
-  plugins: [],
+  cellPlugins: [],
   languages: [],
   pluginsWillChange: false,
 });
@@ -117,7 +117,7 @@ export const useScrollToViewEffect = (
 
 export const useEditableId = () => useContext(EditableContext);
 
-type EditableSelector<T> = (node: EditableType) => T;
+type EditableSelector<T> = (node: Value) => T;
 export const useEditableNode = <T>(selector: EditableSelector<T>) => {
   const editableId = useEditableId();
   return useSelector(
@@ -237,7 +237,7 @@ export const useOptionsWithLang = () => {
 };
 
 export const usePlugins = () => {
-  return useOptions().plugins;
+  return useOptions().cellPlugins;
 };
 
 export const usePlugin = (pluginId: string) => {

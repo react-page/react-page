@@ -1,6 +1,6 @@
 import { render } from 'enzyme';
 import * as React from 'react';
-import { CellPlugin, Plugins } from '../../core/types';
+import { CellPlugin } from '../../core/types';
 import { HTMLRenderer } from '../HTMLRenderer';
 
 jest.mock('react', () => {
@@ -15,7 +15,7 @@ const somePlugin: CellPlugin<{ text: string }> = {
   Renderer: (props) => <p>{props.data.text}</p>,
 };
 
-const plugins: Plugins = [somePlugin];
+const cellPlugins: CellPlugin[] = [somePlugin];
 
 describe('HTMLRenderer', () => {
   describe('rendering html content from slate', () => {
@@ -47,7 +47,9 @@ describe('HTMLRenderer', () => {
       },
     ].forEach((c, k) => {
       describe(`case ${k}`, () => {
-        const wrapper = render(<HTMLRenderer state={c} plugins={plugins} />);
+        const wrapper = render(
+          <HTMLRenderer state={c} cellPlugins={cellPlugins} />
+        );
         it('should pass', () => {
           expect(wrapper.html()).toEqual(
             // tslint:disable-next-line:max-line-length

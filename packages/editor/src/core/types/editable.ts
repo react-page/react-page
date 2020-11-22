@@ -69,16 +69,16 @@ export type Levels = {
   below: number;
 };
 
-export type EditableType = {
+export type Value = {
   id: string;
   rows: Row[];
   version: number;
 };
 
 export type Editables = {
-  past: EditableType[];
-  present: EditableType[];
-  future: EditableType[];
+  past: Value[];
+  present: Value[];
+  future: Value[];
 };
 
 export type NewIds = {
@@ -101,7 +101,7 @@ export type CellDrag = {
 };
 
 export type Options = {
-  plugins: CellPlugin[];
+  cellPlugins: CellPlugin[];
   languages?: Languages;
   pluginsWillChange?: boolean;
 } & SimplifiedModesProps;

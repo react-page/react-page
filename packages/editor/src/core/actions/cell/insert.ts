@@ -45,7 +45,7 @@ export interface InsertAction extends Action {
 
 export type PluginsAndLang = {
   lang: string;
-} & Pick<Options, 'plugins'>;
+} & Pick<Options, 'cellPlugins'>;
 
 export const createRow = (
   partialRow: PartialRow,
@@ -68,13 +68,13 @@ export const createCell = (
   partialCell: PartialCell,
   options: PluginsAndLang
 ): Cell => {
-  const { plugins, lang } = options;
+  const { cellPlugins, lang } = options;
   const pluginId =
     partialCell.plugin &&
     (typeof partialCell.plugin == 'string'
       ? partialCell.plugin
       : partialCell.plugin.id);
-  const plugin = pluginId && plugins.find((p) => p.id === pluginId);
+  const plugin = pluginId && cellPlugins.find((p) => p.id === pluginId);
 
   const partialRows =
     partialCell.rows?.length > 0

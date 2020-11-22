@@ -1,11 +1,11 @@
-import { EditableType } from '../../types';
+import { Value } from '../../types';
 import { CURRENT_EDITABLE_VERSION } from '../EDITABLE_MIGRATIONS';
-import { OldEditableType } from '../EDITABLE_MIGRATIONS/from0to1';
+import { Value_v0 } from '../EDITABLE_MIGRATIONS/from0to1';
 import { migrateEditable } from '../migrate';
 
 describe('migrateEditable', () => {
   it('migrates unversioned state to latest state (1)', () => {
-    const oldEditable: OldEditableType = {
+    const oldEditable: Value_v0 = {
       id: 'editableId',
       cells: [
         {
@@ -34,10 +34,10 @@ describe('migrateEditable', () => {
     };
     const newEditable = migrateEditable(oldEditable, {
       lang: 'en',
-      plugins: [],
+      cellPlugins: [],
     });
 
-    const expected: EditableType = {
+    const expected: Value = {
       id: 'editableId',
       version: CURRENT_EDITABLE_VERSION,
       rows: [

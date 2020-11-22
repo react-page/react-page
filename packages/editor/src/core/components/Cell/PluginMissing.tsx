@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { CellPluginComponentProps } from '../../types/plugins';
 
-const PluginMissing: React.FC<CellPluginComponentProps<any>> = ({
+const PluginMissing: React.FC<CellPluginComponentProps<unknown>> = ({
   children,
   ...props
 }: // eslint-disable-next-line @typescript-eslint/no-explicit-any

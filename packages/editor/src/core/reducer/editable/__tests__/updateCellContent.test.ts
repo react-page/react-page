@@ -1,9 +1,9 @@
-import { CellPlugin, EditableType } from '../../../types';
+import { CellPlugin, Value } from '../../../types';
 import { updateCellData } from '../../../actions/cell';
 import { createEditable } from '../../../utils/createEditable';
 import { simulateDispatch } from '../testUtils';
 
-const plugins: CellPlugin[] = [
+const cellPlugins: CellPlugin[] = [
   {
     id: 'foo',
     version: 1,
@@ -12,7 +12,7 @@ const plugins: CellPlugin[] = [
 ];
 
 const options = {
-  plugins,
+  cellPlugins,
   lang: 'en',
 };
 
@@ -35,7 +35,7 @@ describe('updateCellData', () => {
       },
       options
     );
-    const expectedState: EditableType = {
+    const expectedState: Value = {
       id: 'editableId',
       version: 1,
       rows: [
@@ -103,7 +103,7 @@ describe('updateCellData', () => {
       },
       options
     );
-    const expectedState: EditableType = {
+    const expectedState: Value = {
       id: 'editableId',
       version: 1,
       rows: [

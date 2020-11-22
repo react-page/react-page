@@ -1,7 +1,7 @@
-import Editor, { EditableType } from '@react-page/editor';
+import Editor, { Value } from '@react-page/editor';
 
 import React, { useState } from 'react';
-import { plugins } from '../plugins/plugins';
+import { cellPlugins } from '../plugins/cellPlugins';
 import contents from '../sampleContents';
 const LANGUAGES = [
   {
@@ -15,12 +15,12 @@ const LANGUAGES = [
 ];
 
 export default function Home() {
-  const [value, setValue] = useState<EditableType>(contents[0]);
+  const [value, setValue] = useState<Value>(contents[0]);
 
   return (
     <>
       <Editor
-        plugins={plugins}
+        cellPlugins={cellPlugins}
         value={value}
         onChange={setValue}
         languages={LANGUAGES}

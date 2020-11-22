@@ -29,6 +29,7 @@ export type SlatePluginControls<T extends {}> = {
 
 export type SlateBasePluginDefinition<T extends {}> = {
   hotKey?: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onKeyDown?: (e: React.KeyboardEvent, editor: ReactEditor, next: any) => void;
   schema?: JsonSchema<T>;
   Controls?: React.ComponentType<SlatePluginControls<T>>;

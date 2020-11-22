@@ -21,7 +21,7 @@ declare global {
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export default (
-  initialState: any,
+  initialState: Record<string, unknown>,
   middleware: Middleware[] = []
 ): Store<RootState> => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

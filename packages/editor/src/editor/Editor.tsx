@@ -4,7 +4,7 @@ import type { DisplayModes } from '../core/actions/display';
 
 import type { Languages } from '../core/EditorStore';
 
-import type { EditableType, Options } from '../core/types';
+import type { Value, Options } from '../core/types';
 
 import React, { useEffect, useState } from 'react';
 import { HTMLRenderer } from '../renderer/HTMLRenderer';
@@ -14,8 +14,8 @@ const EditableEditor = lazyLoad(() => import('./EditableEditor'));
 
 export type EditorProps = {
   dndBackend?: BackendFactory;
-  value?: EditableType | null;
-  onChange?: (v: EditableType) => void;
+  value?: Value | null;
+  onChange?: (v: Value) => void;
   onChangeLang?: (l: string) => void;
   readOnly?: boolean;
   defaultDisplayMode?: DisplayModes;
@@ -26,7 +26,7 @@ export type EditorProps = {
 } & Options;
 
 const Editor: React.FC<EditorProps> = ({
-  plugins,
+  cellPlugins,
   readOnly,
   value,
   onChange,
@@ -44,12 +44,14 @@ const Editor: React.FC<EditorProps> = ({
   }, [readOnly]);
 
   return renderReadOnly ? (
-    <HTMLRenderer state={value} plugins={plugins} lang={lang} />
+    <HTMLRenderer state={value} cellPlugins={cellPlugins} lang={lang} />
   ) : (
     <EditableEditor
-      fallback={<HTMLRenderer state={value} plugins={plugins} lang={lang} />}
+      fallback={
+        <HTMLRenderer state={value} cellPlugins={cellPlugins} lang={lang} />
+      }
       pluginsWillChange={pluginsWillChange}
-      plugins={plugins}
+      cellPlugins={cellPlugins}
       value={value}
       onChange={onChange}
       dndBackend={dndBackend}

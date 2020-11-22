@@ -1,16 +1,16 @@
 import { CellPlugin } from '../types/plugins';
-import { Cell, EditableType, Row } from '../types/editable';
+import { Cell, Value, Row } from '../types/editable';
 
-const serializeRow = (r: Row, plugins: CellPlugin[]): Row => {
+const serializeRow = (r: Row, cellPlugins: CellPlugin[]): Row => {
   return {
     ...r,
-    cells: r.cells.map((c) => serializeCell(c, plugins)),
+    cells: r.cells.map((c) => serializeCell(c, cellPlugins)),
   };
 };
-const serializeCell = (c: Cell, plugins: CellPlugin[]): Cell => {
+const serializeCell = (c: Cell, cellPlugins: CellPlugin[]): Cell => {
   const pluginDef = c.plugin;
   const pluginFound = pluginDef
-    ? plugins.find((p) => p.id === pluginDef.id)
+    ? cellPlugins.find((p) => p.id === pluginDef.id)
     : null;
 
   const transformData = (dataIn: unknown) => {
@@ -28,13 +28,13 @@ const serializeCell = (c: Cell, plugins: CellPlugin[]): Cell => {
 
   return {
     ...c,
-    rows: c.rows?.map((r) => serializeRow(r, plugins)),
+    rows: c.rows?.map((r) => serializeRow(r, cellPlugins)),
     dataI18n,
   };
 };
 
 export const serialzeEditable = (
-  { rows, ...rest }: EditableType,
+  { rows, ...rest }: Value,
   plugins: CellPlugin[]
 ) => {
   return {

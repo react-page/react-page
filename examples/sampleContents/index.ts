@@ -1,6 +1,8 @@
 // tslint:disable:max-line-length
 
-const contents: any[] = [
+import { Value_v0 } from '@react-page/editor';
+
+const contents: Value_v0[] = [
   {
     id: '1',
     cells: [

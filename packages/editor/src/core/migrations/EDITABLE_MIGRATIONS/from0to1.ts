@@ -1,5 +1,5 @@
 import { v4 } from 'uuid';
-import { Cell, EditableType, Row } from '../../types';
+import { Cell, Value, Row } from '../../types';
 
 import { removeUndefinedProps } from '../../utils/removeUndefinedProps';
 import { Migration, sanitizeVersion } from '../Migration';
@@ -60,11 +60,12 @@ type Levels = {
   below: number;
 };
 
-export type OldEditableType = {
+export type Value_v0 = {
   id: string;
   cells: CellOld[];
 };
-export default new Migration<OldEditableType, EditableType>({
+
+export default new Migration<Value_v0, Value>({
   fromVersion: 0 as const,
   toVersion: 1 as const,
   migrate({ cells, id }, { lang }) {
