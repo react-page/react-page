@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import Fab from '@material-ui/core/Fab';
 
 import { useTheme, useMediaQuery } from '@material-ui/core';

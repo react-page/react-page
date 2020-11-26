@@ -1,4 +1,4 @@
-import { CellPlugin, Value, Value } from '../../../types';
+import { CellPlugin, Value } from '../../../types';
 import { resizeCell } from '../../../actions/cell';
 import { createEditable } from '../../../utils/createEditable';
 import { simulateDispatch } from '../testUtils';

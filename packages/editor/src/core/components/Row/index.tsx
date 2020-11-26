@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import * as React from 'react';
+import React from 'react';
 import { useMeasure } from 'react-use';
 import { isRow, Node, Row } from '../../types/editable';
 import { useBlurAllCells, useNodeHoverPosition, useNodeProps } from '../hooks';

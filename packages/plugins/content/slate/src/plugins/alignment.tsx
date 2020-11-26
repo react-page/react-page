@@ -1,5 +1,5 @@
 import { lazyLoad } from '@react-page/editor';
-import * as React from 'react';
+import React from 'react';
 import createDataPlugin from '../pluginFactories/createDataPlugin';
 
 const AlignLeftIcon = lazyLoad(() =>

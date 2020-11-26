@@ -1,7 +1,7 @@
 import Button from '@material-ui/core/Button';
 import Popover from '@material-ui/core/Popover';
 import ColorizeIcon from '@material-ui/icons/Colorize';
-import * as React from 'react';
+import React from 'react';
 import { ChromePicker, ColorChangeHandler } from 'react-color';
 import { colorToString } from './colorToString';
 import { ColorPickerProps, ColorPickerState } from './types';

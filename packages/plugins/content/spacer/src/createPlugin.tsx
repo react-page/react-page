@@ -1,5 +1,5 @@
 import { CellPlugin, lazyLoad } from '@react-page/editor';
-import * as React from 'react';
+import React from 'react';
 import { defaultSettings } from './default/settings';
 
 import { SpacerSettings } from './types/settings';

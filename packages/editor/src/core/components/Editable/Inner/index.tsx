@@ -1,5 +1,5 @@
 import throttle from 'lodash.throttle';
-import * as React from 'react';
+import React from 'react';
 import { useEffect, useRef } from 'react';
 
 import scrollIntoViewWithOffset from '../../Cell/utils/scrollIntoViewWithOffset';

@@ -1,5 +1,5 @@
 import { colorToString } from '@react-page/editor';
-import * as React from 'react';
+import React from 'react';
 import { ModeEnum } from '../types/ModeEnum';
 import { BackgroundRendererProps } from '../types/renderer';
 

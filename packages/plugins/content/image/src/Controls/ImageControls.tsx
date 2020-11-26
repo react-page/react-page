@@ -3,7 +3,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import { ImageUpload } from '@react-page/editor';
-import * as React from 'react';
+import React from 'react';
 import { ImageControlType } from '../types/controls';
 
 const ImageControls: ImageControlType = (props) => {

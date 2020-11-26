@@ -1,5 +1,5 @@
 import ViewQuilt from '@material-ui/icons/ViewQuilt';
-import * as React from 'react';
+import React from 'react';
 import {
   useIsLayoutMode,
   useSetLayoutMode,

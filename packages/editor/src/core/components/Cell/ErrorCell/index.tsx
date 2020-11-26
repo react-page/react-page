@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { useIsEditMode, useRemoveCell } from '../../hooks';
 
 const ErrorCell: React.FC<{ nodeId: string; error: Error }> = ({

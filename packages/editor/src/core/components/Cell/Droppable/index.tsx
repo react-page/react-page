@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import * as React from 'react';
+import React, { useEffect, useCallback } from 'react';
 import { useDrop } from 'react-dnd';
 import { useSelector } from '../../../reduxConnect';
 import { RootState } from '../../../selector';
@@ -66,14 +66,14 @@ export const useCellDrop = (nodeId: string) => {
     },
   });
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (!isOver && isHoveringOverThis) {
       hoverActions.clear();
     }
   }, [isOver, isHoveringOverThis, hoverActions.clear]);
 
   // see https://github.com/react-dnd/react-dnd/issues/1955
-  const attach = React.useCallback(
+  const attach = useCallback(
     (domElement: HTMLDivElement) => {
       dropRef(domElement);
       ref.current = domElement;

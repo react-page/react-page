@@ -1,5 +1,5 @@
 import { lazyLoad } from '@react-page/editor';
-import * as React from 'react';
+import React from 'react';
 import { ConditionalWrapper } from './ConditionalWrapper';
 
 const IconButton = lazyLoad(() => import('@material-ui/core/IconButton'));

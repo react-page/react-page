@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { useCellDrop } from '../../Cell/Droppable';
 import { useIsInsertMode, useIsLayoutMode } from '../../hooks';
 

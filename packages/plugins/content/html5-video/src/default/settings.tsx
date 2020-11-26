@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { Html5VideoSettings } from '../types/settings';
 import { lazyLoad } from '@react-page/editor';
 

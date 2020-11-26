@@ -1,5 +1,5 @@
 import ContentAdd from '@material-ui/icons/Add';
-import * as React from 'react';
+import React from 'react';
 import {
   useIsInsertMode,
   useSetInsertMode,

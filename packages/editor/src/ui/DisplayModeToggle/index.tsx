@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import ToggleEdit from './ToggleEdit/index';
 import ToggleInsert from './ToggleInsert/index';
 import ToggleLayout from './ToggleLayout/index';

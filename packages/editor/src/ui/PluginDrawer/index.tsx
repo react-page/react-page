@@ -3,7 +3,7 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListSubheader from '@material-ui/core/ListSubheader';
 import TextField from '@material-ui/core/TextField';
-import * as React from 'react';
+import React from 'react';
 import { Portal } from 'react-portal';
 import { useIsInsertMode, usePlugins } from '../../core/components/hooks';
 import { CellPlugin } from '../../core/types';

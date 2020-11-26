@@ -1,6 +1,6 @@
 import { CellPluginComponentProps, lazyLoad } from '@react-page/editor';
 import classNames from 'classnames';
-import * as React from 'react';
+import React from 'react';
 import { SpacerState } from '../types/state';
 const faintBlack = 'rgba(0, 0, 0, 0.12)';
 

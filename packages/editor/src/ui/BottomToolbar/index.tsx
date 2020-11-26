@@ -9,7 +9,7 @@ import {
 } from '@material-ui/core';
 import Drawer from '@material-ui/core/Drawer';
 import FormatSize from '@material-ui/icons/FormatSize';
-import * as React from 'react';
+import React from 'react';
 import ThemeProvider, { darkTheme } from '../ThemeProvider';
 import Tools from './Tools';
 import { BottomToolbarProps } from './types';

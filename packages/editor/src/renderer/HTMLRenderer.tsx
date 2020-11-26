@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import * as React from 'react';
+import React from 'react';
 import { migrateEditable } from '../core/migrations/migrate';
 import { setAllSizesAndOptimize } from '../core/reducer/editable/helper/setAllSizesAndOptimize';
 import { Cell, CellPlugin, Value, Row } from '../core/types';

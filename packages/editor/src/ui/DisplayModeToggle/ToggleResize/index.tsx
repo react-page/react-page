@@ -1,5 +1,5 @@
 import Resize from '@material-ui/icons/SettingsOverscan';
-import * as React from 'react';
+import React from 'react';
 import {
   useIsResizeMode,
   useSetResizeMode,

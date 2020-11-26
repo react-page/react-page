@@ -4,7 +4,7 @@ import Slider from '@material-ui/core/Slider';
 import Typography from '@material-ui/core/Typography';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { ColorPicker, RGBColor } from '@react-page/editor';
-import * as React from 'react';
+import React from 'react';
 import { BackgroundProps } from '../../types/component';
 
 export interface LinearGradientComponentProps {

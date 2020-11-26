@@ -1,5 +1,5 @@
 import { render } from 'enzyme';
-import * as React from 'react';
+import React from 'react';
 import { CellPlugin } from '../../core/types';
 import { HTMLRenderer } from '../HTMLRenderer';
 

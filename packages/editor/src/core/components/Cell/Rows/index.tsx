@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import Row from '../../Row';
 import { useNodeChildrenIds } from '../../hooks';
 

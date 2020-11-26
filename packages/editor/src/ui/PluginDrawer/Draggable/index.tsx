@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import * as React from 'react';
+import React from 'react';
 import { DragSource } from 'react-dnd';
 import { Actions } from '../../../core/actions';
 

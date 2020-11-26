@@ -1,5 +1,5 @@
 import Devices from '@material-ui/icons/Devices';
-import * as React from 'react';
+import React from 'react';
 import {
   useIsPreviewMode,
   useSetPreviewMode,

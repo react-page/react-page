@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 
 import { BackgroundSettings } from './types/settings';
 import { BackgroundState } from './types/state';

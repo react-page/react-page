@@ -1,7 +1,7 @@
 import { IconButton, Tooltip } from '@material-ui/core';
 import Delete from '@material-ui/icons/Delete';
 
-import * as React from 'react';
+import React from 'react';
 import { useRemoveCell } from '../../core/components/hooks';
 import DraftSwitch from '../DraftSwitch';
 import DuplicateButton from '../DuplicateButton';
