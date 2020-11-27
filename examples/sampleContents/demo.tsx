@@ -1,4 +1,3 @@
-import twitterCode from '!!raw-loader!../plugins/customContentPluginTwitter.tsx';
 import { Value } from '@react-page/editor';
 export const demo: Value = {
   id: '2390df1a-7e62-433f-b315-8de2d699081f',
@@ -165,7 +164,8 @@ export const demo: Value = {
                   dataI18n: {
                     undefined: {
                       language: 'tsx',
-                      code: twitterCode,
+                      code: require('!!raw-loader!../plugins/customContentPluginTwitter.tsx')
+                        .default,
                     },
                   },
                   rows: [],
