@@ -143,7 +143,7 @@ function plugin<TPlugins extends SlatePluginCollection = DefaultPlugins>(
     description: settings.translations.pluginDescription,
     hideInMenu: settings.hideInMenu,
     allowInlineNeighbours: settings.allowInlineNeighbours,
-
+    allowClickInside: true,
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     reducer: (state: any, action: AnyAction) => {
       if (

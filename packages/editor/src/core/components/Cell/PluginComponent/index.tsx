@@ -14,9 +14,10 @@ import {
 import PluginMissing from '../PluginMissing';
 
 const DefaultProvider: React.FC = ({ children }) => <>{children}</>;
-const PluginComponent: React.FC<{ nodeId: string }> = ({
+const PluginComponent: React.FC<{ nodeId: string; hasChildren: boolean }> = ({
   nodeId,
   children,
+  hasChildren,
 }) => {
   const lang = useLang();
   const isPreviewMode = useIsPreviewMode();
@@ -54,11 +55,21 @@ const PluginComponent: React.FC<{ nodeId: string }> = ({
       <AutoformControls {...componentProps} {...plugin.controls} />
     );
   }
-
+  console.log(children);
   return (
     <Provider {...componentProps}>
       <>
-        <Component {...componentProps}>{children}</Component>
+        <div
+          style={{
+            height: '100%',
+            pointerEvents:
+              !isPreviewMode && !plugin.allowClickInside && !hasChildren
+                ? 'none'
+                : undefined,
+          }}
+        >
+          <Component {...componentProps}>{children}</Component>
+        </div>
         <BottomToolbar
           nodeId={nodeId}
           open={focused && isEditMode}

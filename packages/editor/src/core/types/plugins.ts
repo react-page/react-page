@@ -114,6 +114,12 @@ export type CellPlugin<DataT = unknown, DataSerializedT = DataT> = {
   allowInlineNeighbours?: boolean;
 
   /**
+   * allowClickInside defines whether it accepts clicks in edit mode.
+   * Its disabled by default because some components like iframes or so prevent us from selecting a cell
+   */
+  allowClickInside?: boolean;
+
+  /**
    * wether to not allow to drop another cell plugin in the same row as this plugin
    * is always true if not defined
    */
