@@ -1,6 +1,11 @@
 import { CellPlugin } from '@react-page/editor';
+import dynamic from 'next/dynamic';
 import React from 'react';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+// lazy load to keep initial bundle small
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const SyntaxHighlighter = dynamic<any>(() =>
+  import('react-syntax-highlighter').then((h) => h.Prism)
+);
 import { dark } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 
 const codeSnippet: CellPlugin<{
