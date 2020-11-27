@@ -1,3 +1,4 @@
+import { ValueWithLegacy } from '../..';
 import { Cell, Value, Row } from '../types/editable';
 import { removeUndefinedProps } from '../utils/removeUndefinedProps';
 
@@ -95,11 +96,11 @@ const migratePluginData = (editable: Value, context: MigrationContext) => {
 
 export const migrateEditable = (
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  dataIn: { version?: number } & any,
+  dataIn: { version?: number } & ValueWithLegacy,
   context: MigrationContext
-) => {
+): Value => {
   if (!dataIn) {
-    return dataIn;
+    return null;
   }
   const versionIn = dataIn?.version;
   const newestVersion =

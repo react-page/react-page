@@ -58,10 +58,17 @@ const Inner: React.FC<{ nodeId: string }> = ({ nodeId }) => {
           }
           ref={ref}
         >
-          <PluginComponent nodeId={nodeId}>
-            {children}
-            <InsertNew parentCellId={nodeId} />
-          </PluginComponent>
+          <div
+            style={{
+              height: '100%',
+              pointerEvents: !isPreviewMode ? 'none' : undefined,
+            }}
+          >
+            <PluginComponent nodeId={nodeId}>
+              {children}
+              <InsertNew parentCellId={nodeId} />
+            </PluginComponent>
+          </div>
         </div>
       </Draggable>
     </Droppable>

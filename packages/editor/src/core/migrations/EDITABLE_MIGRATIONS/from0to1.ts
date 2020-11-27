@@ -60,6 +60,10 @@ type Levels = {
   below: number;
 };
 
+/**
+ * @deprecated this Value_v0 will not be removed as it represents an old version.
+ * It will automatically be converted to Value
+ */
 export type Value_v0 = {
   id: string;
   cells: CellOld[];

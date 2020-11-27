@@ -23,9 +23,11 @@
     "@react-page/editor": "0.0.0",
     "styled-components": "^5.2.1",
     "react-katex": "^2.0.2",
-    "react-twitter-widgets": "^1.9.5"
+    "react-twitter-widgets": "^1.9.5",
+    "react-syntax-highlighter": "^15.3.1"
   },
   "devDependencies": {
+    "raw-loader": "4.0.1",
     "babel-plugin-styled-components": "^1.11.1"
   }
 }

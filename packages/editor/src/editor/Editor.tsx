@@ -4,7 +4,7 @@ import type { DisplayModes } from '../core/actions/display';
 
 import type { Languages } from '../core/EditorStore';
 
-import type { Value, Options } from '../core/types';
+import type { Value, Options, ValueWithLegacy } from '../core/types';
 
 import React, { useEffect, useState } from 'react';
 import { HTMLRenderer } from '../renderer/HTMLRenderer';
@@ -14,7 +14,7 @@ const EditableEditor = lazyLoad(() => import('./EditableEditor'));
 
 export type EditorProps = {
   dndBackend?: BackendFactory;
-  value?: Value | null;
+  value?: ValueWithLegacy | null;
   onChange?: (v: Value) => void;
   onChangeLang?: (l: string) => void;
   readOnly?: boolean;

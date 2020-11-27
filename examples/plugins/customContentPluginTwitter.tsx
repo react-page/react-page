@@ -4,6 +4,7 @@ import { Timeline } from 'react-twitter-widgets';
 
 const customContentPluginTwitter: CellPlugin<{
   screenName: string;
+  height: number;
 }> = {
   Renderer: ({ data }) => (
     <Timeline
@@ -12,7 +13,7 @@ const customContentPluginTwitter: CellPlugin<{
         screenName: data.screenName,
       }}
       options={{
-        height: '400',
+        height: data.height || 600,
       }}
     />
   ),
@@ -27,6 +28,10 @@ const customContentPluginTwitter: CellPlugin<{
         screenName: {
           type: 'string',
           default: 'AlYankovic',
+        },
+        height: {
+          type: 'number',
+          default: 600,
         },
       },
       required: ['screenName'],

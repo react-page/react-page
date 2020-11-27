@@ -1,8 +1,8 @@
-import Editor, { Value } from '@react-page/editor';
-import { demo } from '../sampleContents/demo';
-import React, { useState } from 'react';
-import { cellPlugins } from '../plugins/cellPlugins';
+import Editor, { Value, Value_v0 } from '@react-page/editor';
 
+import React, { useState } from 'react';
+import { cellPlugins } from '../../plugins/cellPlugins';
+import contents from '../../sampleContents/v0';
 const LANGUAGES = [
   {
     lang: 'en',
@@ -15,7 +15,7 @@ const LANGUAGES = [
 ];
 
 export default function Home() {
-  const [value, setValue] = useState<Value>(demo);
+  const [value, setValue] = useState<Value_v0 | Value>(contents[0]);
 
   return (
     <>

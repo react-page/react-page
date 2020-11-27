@@ -37,10 +37,11 @@ const HtmlToSlate = ({ plugins }: { plugins: SlatePlugin[] }) => {
     if (matchingPlugin && matchingPlugin.pluginType === 'component') {
       const elHtml = el as HTMLElement;
       if (!elHtml.style) {
-        // xmldom has no style attribute
+        // xmldom has no style attribute on server
         // we monkey patch it in for easier style parsing
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        (elHtml as any).style = new CSSStyleDeclaration();
+
+        (elHtml as any).style = new (require('cssstyle').CSSStyleDeclaration)();
         elHtml.style.cssText = elHtml.getAttribute('style');
       }
       if (matchingPlugin.object === 'mark') {

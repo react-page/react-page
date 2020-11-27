@@ -8,7 +8,10 @@ const SelectLang = () => {
   const setLang = useSetLang();
   if (options.languages?.length > 0) {
     return (
-      <Select value={lang} onChange={(e) => setLang(e.target.value as string)}>
+      <Select
+        value={lang || ''}
+        onChange={(e) => setLang(e.target.value as string)}
+      >
         {options.languages.map((l) => (
           <option key={l.lang} value={l.lang}>
             {l.label}

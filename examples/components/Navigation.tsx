@@ -29,6 +29,19 @@ const Navigation: React.FC = () => {
       </Link>
       <Divider />
       <List>
+        <Link passHref href="/old/demo">
+          <ListItem component="a">
+            <ListItemText primary={'Old demo (v0)'} />
+          </ListItem>
+        </Link>
+        <Link passHref href="/old/fromhtml">
+          <ListItem component="a">
+            <ListItemText primary={'Old import-from-html-Demo'} />
+          </ListItem>
+        </Link>
+      </List>
+      <Divider />
+      <List>
         <ListItem component="a" href={'https://react-page.github.io/'}>
           <ListItemText primary={'Latest version'} />
         </ListItem>

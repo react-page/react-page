@@ -276,7 +276,7 @@ export const useDebouncedCellData = (nodeId: string) => {
   const [data, setData] = useState(cellData);
   const dataRef = useRef(data);
   dataRef.current = data;
-  const cellDataRef = useRef(cellData);
+  const cellDataRef = useRef<Record<string, unknown>>(cellData);
 
   const updateCellData = useUpdateCellData(nodeId);
   const updateCellDataDebounced = useCallback(
@@ -287,13 +287,15 @@ export const useDebouncedCellData = (nodeId: string) => {
     [updateCellData]
   );
 
+  const changed = !deepEquals(cellData, cellDataRef.current);
+
   useEffect(() => {
-    const changed = !deepEquals(cellData, cellDataRef.current);
+    // changed from "outside"
     if (changed) {
       cellDataRef.current = cellData;
       setData(cellData);
     }
-  }, [cellData]);
+  }, [changed, cellData]);
 
   const onChange = useCallback(
     (partialData, options) => {

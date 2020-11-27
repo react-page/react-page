@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import React from 'react';
 import { migrateEditable } from '../core/migrations/migrate';
 import { setAllSizesAndOptimize } from '../core/reducer/editable/helper/setAllSizesAndOptimize';
-import { Cell, CellPlugin, Value, Row } from '../core/types';
+import { Cell, CellPlugin, Value, Row, ValueWithLegacy } from '../core/types';
 import { getCellData } from '../core/utils/getCellData';
 
 const gridClass = (size = 12): string =>
@@ -112,7 +112,7 @@ const HTMLCell: React.FC<
 });
 
 export interface HTMLRendererProps {
-  state: Value;
+  state: ValueWithLegacy;
   cellPlugins?: CellPlugin[];
   lang?: string;
 }

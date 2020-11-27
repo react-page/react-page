@@ -24,6 +24,7 @@ import customLayoutPlugin from './customLayoutPlugin';
 import customLayoutPluginWithInitialState from './customLayoutPluginWithInitialState';
 import { defaultSlate, customizedSlate } from './slate';
 import customContentPluginTwitter from './customContentPluginTwitter';
+import codeSnippet from './codeSnippet';
 
 const fakeImageUploadService: (url: string) => ImageUploadType = (
   defaultUrl
@@ -57,6 +58,7 @@ export const cellPlugins: CellPlugin[] = [
   customContentPlugin,
   customContentPluginWithListField,
   customContentPluginTwitter,
+  codeSnippet,
 
   background({
     imageUpload: fakeImageUploadService('/images/sea-bg.jpg'),
