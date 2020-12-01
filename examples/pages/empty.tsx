@@ -22,6 +22,7 @@ export default function Empty() {
       <Editor
         cellPlugins={cellPlugins}
         value={value}
+        lang={LANGUAGES[0].lang}
         onChange={setValue}
         languages={LANGUAGES}
       />

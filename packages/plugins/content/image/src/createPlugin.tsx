@@ -21,7 +21,7 @@ const createPlugin = (settings?: ImageSettings): CellPlugin<ImageState> => {
     Renderer: mergedSettings.Renderer,
     id: 'ory/editor/core/content/image',
     version: 1,
-    IconComponent: mergedSettings.IconComponent,
+    icon: mergedSettings.icon,
     title: mergedSettings.translations.pluginName,
     isInlineable: true,
     description: mergedSettings.translations.pluginDescription,

@@ -138,7 +138,7 @@ function plugin<TPlugins extends SlatePluginCollection = DefaultPlugins>(
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     id: settings.id || (settings as any).name,
     version: settings.version,
-    IconComponent: settings.icon,
+    icon: settings.icon,
     title: settings.translations.pluginName,
     description: settings.translations.pluginDescription,
     hideInMenu: settings.hideInMenu,

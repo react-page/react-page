@@ -7,7 +7,13 @@ import { Cell, PartialCell, PartialRow } from './editable';
 import { JsonSchema } from './jsonSchema';
 
 export type CellPluginComponentProps<DataT> = {
+  /**
+   * the cells nodeId
+   */
   nodeId: string;
+  /**
+   * the data to display for that cell
+   */
   data: DataT;
   /**
    * Should be called with the new data if the plugin's data changes.
@@ -15,7 +21,14 @@ export type CellPluginComponentProps<DataT> = {
   onChange: DataT extends Record<string, unknown>
     ? (data: Partial<DataT>, options?: { notUndoable: boolean }) => void
     : (data: unknown, options?: { notUndoable: boolean }) => void;
+
+  /**
+   * call this to remove the cell
+   */
   remove?: () => void; // removes the plugin
+  /**
+   * the configuration of the plugins
+   */
   pluginConfig: CellPlugin<DataT>;
 
   /**
@@ -28,9 +41,18 @@ export type CellPluginComponentProps<DataT> = {
    */
   focused: boolean;
 
+  /**
+   * the current language of your editor
+   */
   lang?: string;
 
+  /**
+   * whether the editor is in preview mode
+   */
   isPreviewMode: boolean;
+  /**
+   * whether the editor is in edit mode
+   */
   isEditMode: boolean;
 };
 
@@ -106,7 +128,7 @@ export type CellPlugin<DataT = unknown, DataSerializedT = DataT> = {
    */
   Provider?: React.ComponentType<CellPluginComponentProps<DataT>>;
 
-  IconComponent?: React.ReactNode;
+  icon?: React.ReactNode;
 
   hideInMenu?: boolean;
 

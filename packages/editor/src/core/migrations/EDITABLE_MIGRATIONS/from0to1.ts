@@ -1,5 +1,5 @@
-import { v4 } from 'uuid';
 import { Cell, Value, Row } from '../../types';
+import { createUuid } from '../../utils/createUuid';
 
 import { removeUndefinedProps } from '../../utils/removeUndefinedProps';
 import { Migration, sanitizeVersion } from '../Migration';
@@ -105,7 +105,7 @@ export default new Migration<Value_v0, Value>({
         rows: rows?.map(migrateRow),
         plugin,
         dataI18n,
-        id: cellRest.id ? cellRest.id : v4(),
+        id: cellRest.id ? cellRest.id : createUuid(),
       });
     };
     const migratedCells = cells?.map(migrateCell) ?? [];
@@ -115,7 +115,7 @@ export default new Migration<Value_v0, Value>({
         ? migratedCells[0].rows
         : [
             {
-              id: v4(),
+              id: createUuid(),
               cells: migratedCells,
             },
           ];

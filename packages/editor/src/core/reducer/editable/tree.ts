@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-types */
 
-import { v4 } from 'uuid';
 import {
   CELL_INSERT_ABOVE,
   CELL_INSERT_BELOW,
@@ -17,6 +16,7 @@ import {
   CELL_INSERT_AS_NEW_ROW,
 } from '../../actions/cell';
 import { Cell, Row } from '../../types/editable';
+import { createUuid } from '../../utils/createUuid';
 import { removeUndefinedProps } from '../../utils/removeUndefinedProps';
 
 import {
@@ -150,10 +150,10 @@ const cell = (s: Cell, a: CellAction, depth: number): Cell =>
   );
 
 const createEmptyCell = (): Cell => ({
-  id: v4(),
+  id: createUuid(),
   rows: [
     {
-      id: v4(),
+      id: createUuid(),
       cells: [],
     },
   ],

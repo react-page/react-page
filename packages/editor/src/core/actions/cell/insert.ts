@@ -1,5 +1,5 @@
 import { Action } from 'redux';
-import { v4 } from 'uuid';
+
 import { HoverTarget } from '../../service/hover/computeHover';
 import {
   Cell,
@@ -10,6 +10,7 @@ import {
   PartialRow,
   Row,
 } from '../../types/editable';
+import { createUuid } from '../../utils/createUuid';
 import { removeUndefinedProps } from '../../utils/removeUndefinedProps';
 import { editMode } from '../display';
 import { generateIds } from '../helpers';
@@ -53,12 +54,12 @@ export const createRow = (
 ): Row => {
   if (Array.isArray(partialRow)) {
     return {
-      id: v4(),
+      id: createUuid(),
       cells: partialRow.map((c) => createCell(c, options)),
     };
   }
   return removeUndefinedProps({
-    id: v4(),
+    id: createUuid(),
     ...partialRow,
     cells: partialRow.cells?.map((c) => createCell(c, options)),
   });
@@ -89,7 +90,7 @@ export const createCell = (
     ...(partialCell.dataI18n ?? {}),
   } as I18nField<Record<string, unknown>>;
   return removeUndefinedProps({
-    id: partialCell.id ?? v4(),
+    id: partialCell.id ?? createUuid(),
     isDraft: partialCell.isDraft,
     isDraftI18n: partialCell.isDraftI18n,
     inline: partialCell.inline,
@@ -202,11 +203,11 @@ const newIds = ({ id, ...item }: Cell): Cell => {
   return {
     ...item,
     dataI18n: JSON.parse(JSON.stringify(item.dataI18n)),
-    id: v4(),
+    id: createUuid(),
     rows: item.rows
       ? item.rows.map((row) => ({
           ...row,
-          id: v4(),
+          id: createUuid(),
           cells: row.cells ? row.cells.map(newIds) : undefined,
         }))
       : undefined,

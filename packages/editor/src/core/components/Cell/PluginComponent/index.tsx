@@ -55,7 +55,6 @@ const PluginComponent: React.FC<{ nodeId: string; hasChildren: boolean }> = ({
       <AutoformControls {...componentProps} {...plugin.controls} />
     );
   }
-  console.log(children);
   return (
     <Provider {...componentProps}>
       <>

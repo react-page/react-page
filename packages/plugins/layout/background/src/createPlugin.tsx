@@ -24,7 +24,7 @@ const createPlugin = (settings: BackgroundSettings) => {
 
     title: mergedSettings.translations.pluginName,
     description: mergedSettings.translations.pluginDescription,
-    IconComponent: <Icon />,
+    icon: <Icon />,
 
     createInitialChildren: settings.getInitialChildren,
   };

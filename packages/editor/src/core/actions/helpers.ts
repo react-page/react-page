@@ -1,10 +1,10 @@
-import { v4 } from 'uuid';
 import { NewIds } from '../types/editable';
+import { createUuid } from '../utils/createUuid';
 
 export const generateIds = (): NewIds => {
   return {
-    cell: v4(),
-    item: v4(),
-    others: [v4(), v4(), v4()],
+    cell: createUuid(),
+    item: createUuid(),
+    others: [createUuid(), createUuid(), createUuid()],
   };
 };

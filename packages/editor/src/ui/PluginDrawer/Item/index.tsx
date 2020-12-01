@@ -20,7 +20,7 @@ interface ItemProps {
 
 const Item: React.FC<ItemProps> = ({ plugin, insert, translations }) => {
   const title = plugin.title ?? plugin.text;
-  if (!plugin.IconComponent && !title) {
+  if (!plugin.icon && !title) {
     return null;
   }
 
@@ -41,7 +41,7 @@ const Item: React.FC<ItemProps> = ({ plugin, insert, translations }) => {
         onClick={insertIt}
       >
         <Avatar
-          children={plugin.IconComponent || title[0]}
+          children={plugin.icon || title[0]}
           style={{
             marginRight: 16,
           }}

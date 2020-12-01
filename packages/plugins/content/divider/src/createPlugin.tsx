@@ -15,7 +15,7 @@ const createPlugin: (settings: DividerSettings) => CellPlugin<void> = (
     Renderer: settings.Renderer || DividerHtmlRenderer,
     id: 'ory/editor/core/content/divider',
     version: 1,
-    IconComponent: <Remove />,
+    icon: <Remove />,
     title: mergedSettings.translations.pluginName,
     description: mergedSettings.translations.pluginDescription,
   };

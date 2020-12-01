@@ -1,6 +1,5 @@
 // TODO: get rid of this class
 import { Middleware, Store } from 'redux';
-import { v4 } from 'uuid';
 
 import createStore from './store';
 import { Value } from './types/editable';
@@ -8,6 +7,7 @@ import { RootState } from './types/state';
 import { setLang } from './actions/setting';
 import { findNodeInState } from './selector/editable';
 import { createContext } from 'react';
+import { createUuid } from './utils/createUuid';
 
 export const EditorContext = createContext<EditorStore>(null);
 
@@ -47,6 +47,6 @@ class EditorStore<T extends RootState = RootState> {
 }
 
 export const createEmptyState: () => Value = () =>
-  ({ id: v4(), rows: [] } as Value);
+  ({ id: createUuid(), rows: [] } as Value);
 
 export default EditorStore;

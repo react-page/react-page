@@ -34,7 +34,7 @@ const createPlugin: (
     version: 1,
     title: mergedSettings.translations.pluginName,
     description: mergedSettings.translations.pluginDescription,
-    IconComponent: mergedSettings.IconComponent,
+    icon: mergedSettings.icon,
     isInlineable: mergedSettings.isInlineable,
     createInitialData: () => ({
       url: '',

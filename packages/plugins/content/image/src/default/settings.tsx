@@ -19,5 +19,5 @@ export const defaultSettings: ImageSettings = {
   Controls: () => <> Controls for this plugin were not provided</>,
   Renderer: () => <>Renderer; for this plugin was not provided </>,
   translations: defaultTranslations,
-  IconComponent: <Panorama />,
+  icon: <Panorama />,
 };

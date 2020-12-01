@@ -624,6 +624,11 @@ set-harmonic-interval@^1.0.1:
   resolved "https://registry.yarnpkg.com/set-harmonic-interval/-/set-harmonic-interval-1.0.1.tgz#e1773705539cdfb80ce1c3d99e7f298bb3995249"
   integrity sha512-AhICkFV84tBP1aWqPwLZqFvAwqEoVA9kxNMniGEUvzOlm4vLmOFLiTT3UZ6bziJTy4bOVpzWGTfSCbmaayGx8g==
 
+short-unique-id@^3.2.0:
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/short-unique-id/-/short-unique-id-3.2.0.tgz#e7bc1c01908495a61b8613201a018c9a3db4a0e7"
+  integrity sha512-CAO0U4AOJs/3R8tFz+pt8WIscxQte0VZ6DXD0E413p/ujpa/KNdRGwVSmTiGNWOBvSiThVcG0wm8zaWHAZcCsA==
+
 source-map@0.5.6:
   version "0.5.6"
   resolved "https://registry.yarnpkg.com/source-map/-/source-map-0.5.6.tgz#75ce38f52bf0733c5a7f0c118d81334a2bb5f412"
@@ -741,8 +746,3 @@ uniforms@^3.0.0-rc.7:
     invariant "^2.0.0"
     lodash "^4.0.0"
     tslib "^1.10.0"
-
-uuid@^3.0.1:
-  version "3.4.0"
-  resolved "https://registry.yarnpkg.com/uuid/-/uuid-3.4.0.tgz#b23e4358afa8a202fe7a100af1f5f883f02007ee"
-  integrity sha512-HjSDRw6gZE5JMggctHBcjVak08+KEVhSIiDzFnT9S9aegmp85S/bReBVTb4QTFaRNptJ9kuYaNhnbNEOkbKb/A==

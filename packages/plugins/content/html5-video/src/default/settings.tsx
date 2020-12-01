@@ -15,5 +15,5 @@ export const defaultTranslations = {
 export const defaultSettings: Html5VideoSettings = {
   Renderer: () => <>Renderer; for this plugin was not provided </>,
   translations: defaultTranslations,
-  IconComponent: <PlayArrow />,
+  icon: <PlayArrow />,
 };

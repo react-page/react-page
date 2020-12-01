@@ -14,5 +14,5 @@ export const defaultTranslations = {
 export const defaultSettings: VideoSettings = {
   Renderer: () => <>Renderer; for this plugin was not provided </>,
   translations: defaultTranslations,
-  IconComponent: <PlayArrow />,
+  icon: <PlayArrow />,
 };

@@ -1,6 +1,14 @@
-[@react-page/plugins-slate](https://www.npmjs.com/package/@react-page/plugins-slate)
+We provide an advanced rich text editor as a `CellPlugin` based on [slate](http://slatejs.org).
 
-The text editing allows you to create and modify rich-text and is optimized for use with the React Page. We strongly encourage using our text editing solution. You can check more config options about this plugin [here](plugins-slate.md).
+It has to be installed separatly:
+
+
+```bash
+$ yarn add @react-page/plugins-slate
+# OR
+$ npm i --save @react-page/plugins-slate
+```
+
 
 <p>
   <figure align="center">
@@ -9,52 +17,94 @@ The text editing allows you to create and modify rich-text and is optimized for 
   </figure>
 </p>
 
-### Customize text editing
+## usage
+
+simply add it as a `cellPlugin` to the editor:
+
+[simple.tsx](examples/pages/examples/simple.tsx ':include :type=code typescript')
 
 By default we provide the following plugins:
 
+- `paragraph`: default paragraph
+- `headings`: place headings h1 - h6
+- `emphasize`: place em, strong and underline
 - `alignment`: allows to align left, right center and justify,
+- `lists`: place ordered and unordered lists
 - `blockquote`: place a blockquote
 - `code`: place code
-- `emphasize`: place em, strong and ul tags
-- `headings`: place headings h1 - h6
 - `link`: place links
-- `lists`: place ordered and unordered lists
-- `paragraph`: default paragraph
 
 [See the full list here](/packages/plugins/content/slate/plugins/index.tsx)
 
-If you only want to include some plugins, you can specify them:
+
+## Customization
+
+the slate plugin itself is highly customizable and has even itself its own plugin sytem! 
+Not only can you perfectly control how any paragraph, headline or other markup is rendereed, 
+you can also add custom plugins with their own control.
+
+A common example is to create internal links, where the pages are stored in a database. Instead of asking for the full url, 
+the user will see a select field of all pages. When the user makes a selection, ReactPage will only store the id of that page. 
+That way the links will still be valid when the page is moved or renamed.
+
+Another example: if you create a landing page for an ecomerce project, you can enable the webmasters
+that will edit this landing page to create links to products from your shop.
+
+To create a customized slate plugin, call it with a function that changes its default configuration:
+
 
 ```typescript
 import Editor from '@react-page/editor';
 import slate from '@react-page/plugins-slate';
 
 
-const slatePlugin = slate(def => ({
-  ...def,
+const myCustomSlatePlugin = slate(def => ({
+  ...def, // this is the default configuration
+  id: "my-custom-slate-plugin" // if you use multiple different slate plugins at the same time, give each another id
+  title: "custom slate plugin",
+  description: "it only provides title and text`
+  // only select some slate plugins  like headings and paragraphs and default bold/italic/underline
   plugins: {
     headings: def.plugins.headings,
     emphasize: def.plugins.emphasize,
     paragraphs: def.plugins.paragraphs /* make sure to always include that */
   }
-
+  // other overrides
 })
-
-const plugins: Plugins = {
-  content: [
-    slatePlugin,
-    // ...
-  ],
-  // ...
-
-};
-
- <Editor plugins={plugins} onChange={save} />
-
 ```
 
-or if you want to add an additional plugin, you can use all default plugins like this:
+### Customize built-in slate plugins
+
+You can customize slate plugins by providing a customize function. It will take the plugin's default config and you can return a new config. Most obvious usecase is to change the component that renders the plugin's content:
+
+```typescript
+// any custom component
+const RedH1 = ({ style, ...props }: Props) => (
+  <h1 style={{ ...style, color: 'red' }} {...props} />
+);
+
+const slatePlugin = slate(slateDef => ({
+  ...slateDef,
+  plugins: {
+    emphasize: slateDef.plugins.emphasize,
+    headings: {
+      // we can customize the h1 by providing a transform function
+      h1: slateDef.plugins.headings.h1(h1Def => ({
+      ...h1Def, // spread it, so that the new config contains all defaults
+      Component: ({data, children}) => (
+        <RedH1 style={{textAlign: data.get("align")}}>{children}</RedH1>
+      )
+    }))
+    }
+  }
+})
+```
+
+If you use typescript (and you should!), you will get nice typechecking in the customize function.
+
+### Adding a custom plugin
+
+If you want to add an additional plugin you can add it as well:
 
 ```typescript
 import slate from '@react-page/plugins-slate';
@@ -74,36 +124,10 @@ const slatePlugin = slate(def => ({
 
 Notice: `yourCustomNamespace` and `myCustomPlugin` can be named arbitrary. Typescript users will find the existing type definition on def.plugins usefull to see which plugins do exist.
 
-You can customize slate plugins by providing a customize function. It will take the plugin's default config and you can return a new config. Most obvious usecase is to change the component that renders the plugin's content:
 
-```typescript
-// any custom component
-const RedH1 = ({ style, ...props }: Props) => (
-  <h1 style={{ ...style, color: 'red' }} {...props} />
-);
+### Create your own custom plugin
 
-const slatePlugin = slate(slateDef => ({
-  ...slateDef,
-  plugins: {
-    emphasize: slateDef.plugins.emphasize,
-    headings: {
-      h1: slateDef.plugins.headings.h1(h1Def => ({
-      ...h1Def, // spread it, so that the new config contains all defaults
-      Component: ({data, children}) => (
-        <RedH1 style={{textAlign: data.get("align")}}>{children}</RedH1>
-      )
-    }))
-    }
-  }
-
-})
-```
-
-If you use typescript (and you should!), you will get nice typechecking in the customize function.
-
-### Create your own slate plugins
-
-If you want to create your own slate plugins, we provide a bunch of factory functions to help you with that:
+If you want to create your own slate plugin, we provide a bunch of factory functions to help you with that:
 
 - `createComponentPlugin`: allows to create a plugin which has a component (most built-in plugins use this factory).
 - `createSimpleHtmlBlockPlugin`: a more convenient variant of `createComponentPlugin`. It renders a simple component with a html-tag and has built-in serialization. used by plugins like `headings` or `blockquote`
@@ -113,7 +137,10 @@ If you want to create your own slate plugins, we provide a bunch of factory func
 
 ```typescript
 import { pluginFactories } from '@react-page/plugins-slate';
+
 ```
+
+
 
 ### Slate-Plugins with custom data
 
@@ -144,7 +171,7 @@ const linkWithMyOverrriddenComponent = yourLinkPlugin((def) => ({
   ...def,
   Component: ({ data, children }) => (
     <SuperFancyLink
-      href={data.get('href') /* neat! autocompletion and type checking here! */}
+      href={data.href /* neat! autocompletion and type checking here! */}
     >
       {children}
     </SuperFancyLink>
@@ -215,7 +242,11 @@ const infoboxSlate = slate(def => ({
 }));
 
 
-const infobox = createLayoutPlugin({
+const infobox: CellPlugin = {
+  id: 'infobox',
+  title: 'Infobox',
+  description: 'Some infobox',
+  version: 1,
   Renderer: ({ children, state }: any) => (
     <div
       style={{
@@ -231,32 +262,25 @@ const infobox = createLayoutPlugin({
     return [
       [
         {
-          content: {
-            plugin: infoboxSlate
-            state: infoboxSlate.createInitialSlateState(({ plugins }) => ({
-              children: [
-                {
-                  plugin: plugins.headings.h3,
-                  children: ['Hello world'],
-                },
-                {
-                  plugin: plugins.paragraphs.paragraph,
-                  children: ['Title and paragraph'],
-                },
-              ],
-            })),
-          },
+          plugin: infoboxSlate
+          data: infoboxSlate.createData(({ plugins }) => ({
+            children: [
+              {
+                plugin: plugins.headings.h3,
+                children: ['Hello world'],
+              },
+              {
+                plugin: plugins.paragraphs.paragraph,
+                children: ['Title and paragraph'],
+              },
+            ],
+          })),
         },
-
       ],
     ];
   },
-  id: 'infobox',
-  title: 'Infobox',
-  description: 'Some infobox',
-  version: 1,
-  schema: null
-})
+
+}
 
 
 // dont forget to add this custom plugin to your plugins:
@@ -275,3 +299,14 @@ const infobox = createLayoutPlugin({
  }}
  onChange={save} />
 ```
+
+
+### Examples
+
+#### Example: Simple color plugin
+
+[customSlatePlugin.tsx](examples/plugins/customSlatePlugin.tsx ':include :type=code typescript')
+
+#### Example: Katex plugin
+
+[katexSlatePlugin.tsx](examples/plugins/katexSlatePlugin.tsx ':include :type=code typescript')

@@ -48,7 +48,7 @@
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0",
     "redux-undo": "^1.0.0",
-    "uuid": "^3.0.1"
+    "short-unique-id": "^3.2.0"
   },
   "devDependencies": {
     "@types/react-color": "^3.0.4"

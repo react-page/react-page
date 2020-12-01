@@ -13,5 +13,5 @@ export type ImageSettings = {
   Renderer: CellPluginRenderer<ImageState>;
   Controls: ImageControlType;
   translations?: Translations;
-  IconComponent?: React.ReactNode;
+  icon?: React.ReactNode;
 };

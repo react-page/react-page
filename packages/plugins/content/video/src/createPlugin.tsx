@@ -31,7 +31,7 @@ const createPlugin: (settings: VideoSettings) => CellPlugin<VideoState> = (
     Renderer: mergedSettings.Renderer,
     id: 'ory/editor/core/content/video',
     version: 1,
-    IconComponent: mergedSettings.IconComponent,
+    icon: mergedSettings.icon,
     title: mergedSettings.translations.pluginName,
     description: mergedSettings.translations.pluginDescription,
     isInlineable: true,

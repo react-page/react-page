@@ -1,13 +1,13 @@
 import { Value } from '@react-page/editor';
 export const demo: Value = {
-  id: '2390df1a-7e62-433f-b315-8de2d699081f',
+  id: '2390df',
   version: 1,
   rows: [
     {
-      id: '4c7d90d8-6177-484b-9cec-25dcaf5e5fab',
+      id: '4c7d90',
       cells: [
         {
-          id: '95d67837-4e03-4048-8234-320d569e7e0c',
+          id: '95d678',
           size: 12,
           plugin: { id: 'ory/editor/core/content/slate', version: 1 },
           dataI18n: {
@@ -32,17 +32,17 @@ export const demo: Value = {
       ],
     },
     {
-      id: '31d7bd99-3a0e-4459-af87-68c5804be905',
+      id: '31d7bd',
       cells: [
         {
-          id: 'cf19f425-c27d-49ac-a300-86af93f3e66a',
+          id: 'cf19f4',
           size: 12,
           rows: [
             {
-              id: '200f9e78-44de-400f-a37a-c45a0eb67b61',
+              id: '200f9e',
               cells: [
                 {
-                  id: '000e18af-40ca-42da-87f0-4714b5c7c4fe',
+                  id: '000e18',
                   size: 12,
                   plugin: { id: 'ory/editor/core/content/slate', version: 1 },
                   dataI18n: {
@@ -83,10 +83,10 @@ export const demo: Value = {
               ],
             },
             {
-              id: 'e49ddacc-8e57-43d9-93f4-b67210ca71f8',
+              id: 'e49dda',
               cells: [
                 {
-                  id: '061e0ab1-3e90-4935-8e21-7d831690975d',
+                  id: '061e0a',
                   size: 12,
                   plugin: { id: 'ory/editor/core/content/slate', version: 1 },
                   dataI18n: {
@@ -112,10 +112,10 @@ export const demo: Value = {
       ],
     },
     {
-      id: '7c9d6d16-8ee6-41d9-a0a2-711e09f2eacf',
+      id: '7c9d6d',
       cells: [
         {
-          id: 'b9bcb0c1-e7fb-4368-a300-590871e5ffd6',
+          id: 'b9bcb0',
           size: 6,
           plugin: { id: 'twitter-timeline', version: 1 },
           dataI18n: { undefined: { screenName: 'AlYankovic' } },
@@ -123,14 +123,14 @@ export const demo: Value = {
           inline: null,
         },
         {
-          id: 'c90cf57b-8855-49d8-9580-29e72558200e',
+          id: 'c90cf5',
           size: 6,
           rows: [
             {
-              id: '49a8acbc-2670-4ebe-ae5e-876e4c924486',
+              id: '49a8ac',
               cells: [
                 {
-                  id: '54c1539a-aa91-47df-b9ab-c21055c0a6e5',
+                  id: '54c153',
                   size: 12,
                   plugin: { id: 'ory/editor/core/content/slate', version: 1 },
                   dataI18n: {
@@ -155,10 +155,10 @@ export const demo: Value = {
               ],
             },
             {
-              id: '7d393a9e-57c9-43f6-9fb4-6feec7d7edb9',
+              id: '7d393a',
               cells: [
                 {
-                  id: '0e0c7334-8b98-40be-bbdf-c6b92ad45092',
+                  id: '0e0c73',
                   size: 12,
                   plugin: { id: 'code-snippet', version: 1 },
                   dataI18n: {
