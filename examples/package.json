@@ -12,7 +12,7 @@
     "react-dom": "^16.8.6 || ^17.0.'"
   },
   "dependencies": {
-    "next": "10.0.1",
+    "next": "10.0.3",
     "@react-page/plugins-background": "0.0.0",
     "@react-page/plugins-divider": "0.0.0",
     "@react-page/plugins-html5-video": "0.0.0",

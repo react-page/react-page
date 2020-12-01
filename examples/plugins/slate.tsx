@@ -1,4 +1,7 @@
 import slate from '@react-page/plugins-slate';
+// import css as well. currently, we caannot do this here in the demo project and have moved that to _app.tsx
+// see https://github.com/vercel/next.js/issues/19717
+// import '@react-page/plugins-slate/lib/index.css';
 
 import React from 'react';
 import customSlatePlugin from './customSlatePlugin';
