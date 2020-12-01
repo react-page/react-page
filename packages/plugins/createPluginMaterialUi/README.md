@@ -1,3 +1,32 @@
+**This package is deprecated and no longer required**
+
+instead, you can declare a schema directly on any plugin:
+
+```
+import { CellPlugin } from '@react-page/editor';
+
+type Data = {
+  // something
+}
+const myPlugin: CellPlugin<Data> = {
+  Renderer: ({ data }) =>
+    <YourComponent data={data}/>
+  id: 'plugin-id',
+  title: 'Some plugin',
+  description: 'This is some plugin',
+  version: 1,
+  controls: {
+    type: 'autoform',
+    schema: {
+      properties: {
+        // your json schema
+      },
+      required: [],
+    },
+  },
+};
+```
+
 # createPluginMaterialUi
 
 With `@react-page/create-plugin-materialui` its easy to create new plugins with custom properties.
