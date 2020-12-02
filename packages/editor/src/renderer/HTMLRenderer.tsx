@@ -11,9 +11,9 @@ const gridClass = (size = 12): string =>
 const rowHasInlineChildren = ({ cells }) =>
   Boolean(cells.length === 2 && Boolean(cells[0].inline));
 
-const HTMLRow: React.FC<Partial<
-  Row & { lang: string; className?: string; cellPlugins: CellPlugin[] }
->> = React.memo(({ cells = [], className, lang, cellPlugins }) => (
+const HTMLRow: React.FC<
+  Partial<Row & { lang: string; className?: string; cellPlugins: CellPlugin[] }>
+> = React.memo(({ cells = [], className, lang, cellPlugins }) => (
   <div
     className={classNames('react-page-row', className, {
       'react-page-row-has-floating-children': rowHasInlineChildren({ cells }),

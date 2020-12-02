@@ -2,17 +2,17 @@ import { lazyLoad } from '@react-page/editor';
 import React from 'react';
 import createDataPlugin from '../pluginFactories/createDataPlugin';
 
-const AlignLeftIcon = lazyLoad(() =>
-  import('@material-ui/icons/FormatAlignLeft')
+const AlignLeftIcon = lazyLoad(
+  () => import('@material-ui/icons/FormatAlignLeft')
 );
-const AlignCenterIcon = lazyLoad(() =>
-  import('@material-ui/icons/FormatAlignCenter')
+const AlignCenterIcon = lazyLoad(
+  () => import('@material-ui/icons/FormatAlignCenter')
 );
-const AlignRightIcon = lazyLoad(() =>
-  import('@material-ui/icons/FormatAlignRight')
+const AlignRightIcon = lazyLoad(
+  () => import('@material-ui/icons/FormatAlignRight')
 );
-const AlignJustifyIcon = lazyLoad(() =>
-  import('@material-ui/icons/FormatAlignJustify')
+const AlignJustifyIcon = lazyLoad(
+  () => import('@material-ui/icons/FormatAlignJustify')
 );
 
 const left = createDataPlugin<{ align: 'left' }>({
