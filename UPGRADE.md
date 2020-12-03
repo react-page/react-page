@@ -3,9 +3,35 @@
 The intent of this document is to make migration of breaking changes as easy as possible.
 Please note that not all breaking changes might be included here.
 
-## 1.0.0
+Breaking changes will primarily published here: https://github.com/react-page/react-page/releases
 
-please refer to https://github.com/react-page/react-page/releases to see breaking changes
+## 1.0.0 (beta)
+
+1.0.0 is a major refactoring that changed and modernized a lot under the hood, but not much on the outside. It enables us to do further improvements much easier, has better performance and a reduced bundle size.
+
+It introduces some breaking changes that had to be done to make the api more clear and enable future improvements. The migration steps should be straight forward though.
+
+- be aware that it will migrate the data to a new format. This migration will happen the next time your users save new content. There is no down migration, so we advice to make a backup before upgrading and immediatly fill out an issue here when you notice any problem. We are happy to help.
+- '@react-page/core', '@react-page/ui', '@react-page/renderer' no longer exist, you can import everything from '@react-page/editor'.
+- `plugins` prop on `<Editor />` has been renamed to `cellPlugins` to make way for other plugin types in the future
+- `cellPlugins` take a an array of `CellPlugin`, layout plugins and content plugins have been unified
+- `lang` should currently be set to something like `en` or `de` or whatever the language is of your content. TODO: make this optional before stable 1.0.0
+- `defaultPlugin` is no longer required. The editor will no longer automatically add a cell when its empty. Instead it shows a Button to add a new cell there.
+- best refer to the new docs (wip): https://github.com/react-page/react-page/blob/beta/docs/editor.md (TODO: add proper link once merged)
+
+Migrating plugins
+
+If you have custom plugins, migrate them like this:
+
+- if using typescript (highly recommended), `import type { CellPlugin } from '@react-page/renderer'` and use that as the Plugins type. Its a generic type that receives one type Argument `Data` that represents the data object of the plugin (if any).
+- `name` of a plugin has been renamed to `id`
+- `text` has been renamed to `title`
+- `Component` no longer exists, instead you define the plugin controls and `Renderer` separatly.
+- `Renderer` is the Component that should be shown in the Cell. It receives a property `data` which has the type `Data`
+- `controls` allows to either define an schema-driven auto generated form or a custom Controls component. Best refer to the updated doc https://github.com/react-page/react-page/blob/beta/docs/custom-cell-plugins.md (TODO: add proper link once merged)
+- if you are using `@react-page/create-plugin-materialui`, you can remove that as it is no longer needed and instead use the `CellPlugin` type as mentioned above.
+
+(TODO): add more steps if any
 
 ## 0.7.x
 
