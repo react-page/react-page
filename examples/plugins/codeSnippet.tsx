@@ -6,7 +6,7 @@ import React from 'react';
 const SyntaxHighlighter = dynamic<any>(() =>
   import('react-syntax-highlighter').then((h) => h.Prism)
 );
-import { dark } from 'react-syntax-highlighter/dist/cjs/styles/prism';
+import { vscDarkPlus as style } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 
 const codeSnippet: CellPlugin<{
   code: string;
@@ -14,7 +14,7 @@ const codeSnippet: CellPlugin<{
 }> = {
   Renderer: ({ data }) =>
     data?.code ? (
-      <SyntaxHighlighter language={data.language} style={dark}>
+      <SyntaxHighlighter wrapLongLines language={data.language} style={style}>
         {data.code}
       </SyntaxHighlighter>
     ) : null,

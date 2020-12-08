@@ -2,14 +2,17 @@ import { CellPlugin } from '@react-page/editor';
 import React from 'react';
 import { Timeline } from 'react-twitter-widgets';
 
-const customContentPluginTwitter: CellPlugin<{
+type Data = {
   screenName: string;
   height: number;
-}> = {
+};
+// you can pass the shape of the data as the generic type argument
+const customContentPluginTwitter: CellPlugin<Data> = {
   Renderer: ({ data }) => (
     <Timeline
       dataSource={{
         sourceType: 'profile',
+        // data has already the right type!
         screenName: data.screenName,
       }}
       options={{
@@ -24,6 +27,8 @@ const customContentPluginTwitter: CellPlugin<{
   controls: {
     type: 'autoform',
     schema: {
+      // this JSONschema is type checked against the generic type argument
+      // the autocompletion of your IDE helps to create this schema
       properties: {
         screenName: {
           type: 'string',
