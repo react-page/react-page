@@ -33,7 +33,8 @@ const Editor: React.FC<EditorProps> = ({
   dndBackend,
   blurGateDisabled,
   defaultDisplayMode,
-  lang,
+  languages,
+  lang = languages?.[0].lang ?? 'default',
   pluginsWillChange,
   ...rest
 }) => {
@@ -58,6 +59,7 @@ const Editor: React.FC<EditorProps> = ({
       blurGateDisabled={blurGateDisabled}
       defaultDisplayMode={defaultDisplayMode}
       lang={lang}
+      languages={languages}
       {...rest}
     />
   );

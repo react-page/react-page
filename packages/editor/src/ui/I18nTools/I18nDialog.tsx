@@ -47,6 +47,7 @@ const I18nDialog = ({
             const data = dataI18n?.[l.lang];
             const isCurrent = currentLang === l.lang;
             const hasData = Boolean(data);
+
             return (
               <tr key={l.lang}>
                 <th

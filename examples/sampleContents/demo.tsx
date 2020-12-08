@@ -11,7 +11,7 @@ export const demo: Value = {
           size: 12,
           plugin: { id: 'ory/editor/core/content/slate', version: 1 },
           dataI18n: {
-            undefined: {
+            en: {
               slate: [
                 {
                   children: [{ text: 'Next Level Content Editing' }],
@@ -46,7 +46,7 @@ export const demo: Value = {
                   size: 12,
                   plugin: { id: 'ory/editor/core/content/slate', version: 1 },
                   dataI18n: {
-                    undefined: {
+                    en: {
                       slate: [
                         {
                           type: 'PARAGRAPH/PARAGRAPH',
@@ -90,7 +90,7 @@ export const demo: Value = {
                   size: 12,
                   plugin: { id: 'ory/editor/core/content/slate', version: 1 },
                   dataI18n: {
-                    undefined: {
+                    en: {
                       slate: [
                         {
                           type: 'HEADINGS/HEADING-TWO',
@@ -118,7 +118,7 @@ export const demo: Value = {
           id: 'b9bcb0',
           size: 6,
           plugin: { id: 'twitter-timeline', version: 1 },
-          dataI18n: { undefined: { screenName: 'AlYankovic' } },
+          dataI18n: { en: { screenName: 'AlYankovic' } },
           rows: [],
           inline: null,
         },
@@ -134,7 +134,7 @@ export const demo: Value = {
                   size: 12,
                   plugin: { id: 'ory/editor/core/content/slate', version: 1 },
                   dataI18n: {
-                    undefined: {
+                    en: {
                       slate: [
                         {
                           type: 'PARAGRAPH/PARAGRAPH',
@@ -162,7 +162,7 @@ export const demo: Value = {
                   size: 12,
                   plugin: { id: 'code-snippet', version: 1 },
                   dataI18n: {
-                    undefined: {
+                    en: {
                       language: 'tsx',
                       code: require('!!raw-loader!../plugins/customContentPluginTwitter.tsx')
                         .default,

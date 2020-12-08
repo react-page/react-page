@@ -262,6 +262,7 @@ export const useCellDataI18nRaw = (nodeId: string) => {
 export const useCellData = (nodeId: string, lang?: string) => {
   const currentLang = useLang();
   const theLang = lang ?? currentLang;
+
   return useCellProps(nodeId, (c) => getCellData(c, theLang) ?? {});
 };
 

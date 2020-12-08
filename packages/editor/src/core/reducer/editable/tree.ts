@@ -62,14 +62,16 @@ const cell = (s: Cell, a: CellAction, depth: number): Cell =>
           if (action.id === state.id) {
             // If this cell is being updated, set the data
             const reduced = reduce();
+            // copy because we mutate afterwards with delete
+            const newI18nData = { ...(reduced.dataI18n ?? {}) };
             const emptyValue = action.data === null;
             if (action.lang && emptyValue) {
-              delete reduced.dataI18n?.[action.lang];
+              delete newI18nData?.[action.lang];
             }
             return {
               ...reduced,
               dataI18n: {
-                ...(reduced.dataI18n ?? {}),
+                ...(newI18nData ?? {}),
                 ...(!emptyValue
                   ? { [action.lang]: action.data as { [key: string]: unknown } }
                   : {}),
