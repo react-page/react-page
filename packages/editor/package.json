@@ -22,9 +22,9 @@
     "react-dom": "^16.8.6 || ^17.0.0"
   },
   "dependencies": {
-    "uniforms-bridge-json-schema": "^3.0.0-rc.7",
-    "uniforms": "^3.0.0-rc.7",
-    "uniforms-material": "^3.0.0-rc.7",
+    "uniforms-bridge-json-schema": "^3.0.0-rc.8",
+    "uniforms": "^3.0.0-rc.8",
+    "uniforms-material": "^3.0.0-rc.8",
     "lodash.debounce": "^4.0.8",
     "@loadable/component": "^5.14.1",
     "@material-ui/core": "^4.3.3",
