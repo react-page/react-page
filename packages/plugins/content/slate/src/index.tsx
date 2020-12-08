@@ -10,7 +10,7 @@ import v002 from './migrations/v002';
 import v003 from './migrations/v003';
 import v004 from './migrations/v004';
 import * as pluginFactories from './pluginFactories/index';
-import * as defaultPlugins from './plugins/index';
+import defaultPlugins from './plugins/index';
 import { InitialSlateStateDef } from './types/initialSlateState';
 import { SlatePluginCollection } from './types/SlatePlugin';
 import { SlateState } from './types/state';
@@ -18,6 +18,7 @@ import makeSlatePluginsFromDef from './utils/makeSlatePluginsFromDef';
 import transformInitialSlateState from './utils/transformInitialSlateState';
 
 const slatePlugins = defaultPlugins;
+console.log(Object.keys(defaultPlugins));
 export { defaultPlugins, slatePlugins, pluginFactories, HtmlToSlate };
 const Subject = lazyLoad(() => import('@material-ui/icons/Subject'));
 const Controls = lazyLoad(() => import('./components/Controls'));
