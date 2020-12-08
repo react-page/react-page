@@ -1,5 +1,5 @@
 import HtmlToSlate from '../HtmlToSlate';
-import * as defaultPlugins from '../plugins';
+import defaultPlugins from '../plugins';
 import makeSlatePluginsFromDef from '../utils/makeSlatePluginsFromDef';
 
 const htmlToSlate = HtmlToSlate({
