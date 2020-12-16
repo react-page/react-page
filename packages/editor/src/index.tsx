@@ -1,3 +1,4 @@
+export * from 'uniforms-material';
 export * from './core/types';
 export * from './core/components/hooks';
 

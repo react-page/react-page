@@ -26,9 +26,6 @@
   },
   "dependencies": {
     "@react-page/editor": "0.0.0",
-    "uniforms": "~2.5.0",
-    "uniforms-bridge-json-schema": "~2.5.0",
-    "uniforms-material": "~2.5.0",
     "deep-rename-keys": "^0.2.1",
     "is-hotkey": "^0.1.6",
     "xmldom": "^0.3.0",
