@@ -6,7 +6,7 @@
 
 ReactPage is a smart, extensible and modern editor ("WYSIWYG") for the web written in React. If you are fed up with the limitations of `contenteditable`, you are in the right place.
 
-<img width="60%" alt="ReactPage Demo" src="images/quick-example.gif">
+<a href="..">Check out the demo here</a>
 
 ## Philosophy
 

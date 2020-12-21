@@ -2,13 +2,11 @@ We provide an advanced rich text editor as a `CellPlugin` based on [slate](http:
 
 It has to be installed separatly:
 
-
 ```bash
 $ yarn add @react-page/plugins-slate
 # OR
 $ npm i --save @react-page/plugins-slate
 ```
-
 
 <p>
   <figure align="center">
@@ -36,22 +34,20 @@ By default we provide the following plugins:
 
 [See the full list here](/packages/plugins/content/slate/plugins/index.tsx)
 
-
 ## Customization
 
-the slate plugin itself is highly customizable and has even itself its own plugin sytem! 
-Not only can you perfectly control how any paragraph, headline or other markup is rendereed, 
+the slate plugin itself is highly customizable and has even itself its own plugin sytem!
+Not only can you perfectly control how any paragraph, headline or other markup is rendereed,
 you can also add custom plugins with their own control.
 
-A common example is to create internal links, where the pages are stored in a database. Instead of asking for the full url, 
-the user will see a select field of all pages. When the user makes a selection, ReactPage will only store the id of that page. 
+A common example is to create internal links, where the pages are stored in a database. Instead of asking for the full url,
+the user will see a select field of all pages. When the user makes a selection, ReactPage will only store the id of that page.
 That way the links will still be valid when the page is moved or renamed.
 
 Another example: if you create a landing page for an ecomerce project, you can enable the webmasters
 that will edit this landing page to create links to products from your shop.
 
 To create a customized slate plugin, call it with a function that changes its default configuration:
-
 
 ```typescript
 import Editor from '@react-page/editor';
@@ -124,7 +120,6 @@ const slatePlugin = slate(def => ({
 
 Notice: `yourCustomNamespace` and `myCustomPlugin` can be named arbitrary. Typescript users will find the existing type definition on def.plugins usefull to see which plugins do exist.
 
-
 ### Create your own custom plugin
 
 If you want to create your own slate plugin, we provide a bunch of factory functions to help you with that:
@@ -137,10 +132,7 @@ If you want to create your own slate plugin, we provide a bunch of factory funct
 
 ```typescript
 import { pluginFactories } from '@react-page/plugins-slate';
-
 ```
-
-
 
 ### Slate-Plugins with custom data
 
@@ -299,7 +291,6 @@ const infobox: CellPlugin = {
  }}
  onChange={save} />
 ```
-
 
 ### Examples
 

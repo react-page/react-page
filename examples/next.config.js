@@ -4,4 +4,12 @@ module.exports = {
       ? '/'
       : '/' + process.env.RELEASE_CHANNEL
     : undefined,
+  async rewrites() {
+    return [
+      {
+        source: '/docs',
+        destination: '/docs/index.html',
+      },
+    ];
+  },
 };

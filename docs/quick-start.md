@@ -16,14 +16,13 @@ $ yarn add @react-page/plugins-slate
 $ npm i --save @react-page/plugins-slate
 ```
 
-
 ## Simple example
 
 To get off the ground as soon as possible, simply create a component like so:
 
 [simple.tsx](examples/pages/examples/simple.tsx ':include :type=code typescript')
 
-That's it, congratulations! 
+That's it, congratulations!
 
 [You should see something like this now (click for the demo)](//demo/simple)
 
@@ -35,10 +34,6 @@ Simply provide a `readOnly={true}` prop to your editor.
 
 We won't load any UI related code unless readOnly changes to `false`. In this case, the ui will be lazy loaded if your bundler supports that (e.g. webpack)
 
-
 [simple.tsx](examples/pages/examples/readonly.tsx ':include :type=code typescript')
 
 (see demo here)](//demo/readonly)
-
-
-
