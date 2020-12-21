@@ -1,7 +1,7 @@
 import { CellPlugin, lazyLoad } from '@react-page/editor';
 import React from 'react';
 import type { AnyAction } from 'redux';
-import type { ActionTypes } from 'redux-undo';
+import { ActionTypes } from 'redux-undo';
 import SlateEditor from './components/SlateEditor';
 import SlateProvider from './components/SlateProvider';
 import { defaultTranslations } from './default/settings';
