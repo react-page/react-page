@@ -10,6 +10,7 @@ import {
 import Drawer from '@material-ui/core/Drawer';
 import FormatSize from '@material-ui/icons/FormatSize';
 import React from 'react';
+import { useCellPlugin } from '../../core/components/hooks';
 import ThemeProvider, { darkTheme } from '../ThemeProvider';
 import Tools from './Tools';
 import { BottomToolbarProps } from './types';
@@ -27,10 +28,9 @@ const BottomToolbar: React.FC<BottomToolbarProps> = ({
   theme,
   anchor = 'bottom',
 
-  title,
-  icon = null,
   nodeId,
 }) => {
+  const { title, icon } = useCellPlugin(nodeId) ?? {};
   const [size, setSize] = React.useState(lastSize);
   const toggleSize = () => {
     const newSize = SIZES[(SIZES.indexOf(size) + 1) % SIZES.length];
