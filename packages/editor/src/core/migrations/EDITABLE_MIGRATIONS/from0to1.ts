@@ -1,4 +1,4 @@
-import { Cell, Value, Row } from '../../types';
+import type { Cell, Value, Row } from '../../types';
 import { createUuid } from '../../utils/createUuid';
 
 import { removeUndefinedProps } from '../../utils/removeUndefinedProps';

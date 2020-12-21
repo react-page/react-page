@@ -1,5 +1,5 @@
 import { isEmpty } from './empty';
-import { Row, Cell } from '../../../types/editable';
+import type { Row, Cell } from '../../../types/editable';
 import { removeUndefinedProps } from '../../../utils/removeUndefinedProps';
 
 export const flatten = function <T>(c: Array<T>, n: Array<T>): Array<T> {

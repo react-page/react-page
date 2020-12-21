@@ -1,4 +1,4 @@
-import { Value } from '@react-page/editor';
+import type { Value } from '@react-page/editor';
 export const demoSimpleReadOnly: Value = {
   id: '2390df',
   version: 1,

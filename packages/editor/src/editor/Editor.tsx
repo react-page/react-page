@@ -1,14 +1,10 @@
-import { BackendFactory } from 'dnd-core';
-
-import type { DisplayModes } from '../core/actions/display';
-
-import type { Languages } from '../core/EditorStore';
-
-import type { Value, Options, ValueWithLegacy } from '../core/types';
-
+import type { BackendFactory } from 'dnd-core';
 import React, { useEffect, useState } from 'react';
-import { HTMLRenderer } from '../renderer/HTMLRenderer';
+import type { DisplayModes } from '../core/actions/display';
+import type { Languages } from '../core/EditorStore';
 import lazyLoad from '../core/helper/lazyLoad';
+import type { Options, Value, ValueWithLegacy } from '../core/types';
+import { HTMLRenderer } from '../renderer/HTMLRenderer';
 
 const EditableEditor = lazyLoad(() => import('./EditableEditor'));
 

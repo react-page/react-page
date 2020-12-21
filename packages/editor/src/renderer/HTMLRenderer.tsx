@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import React from 'react';
 import { migrateEditable } from '../core/migrations/migrate';
 import { setAllSizesAndOptimize } from '../core/reducer/editable/helper/setAllSizesAndOptimize';
-import { Cell, CellPlugin, Value, Row, ValueWithLegacy } from '../core/types';
+import type { Cell, CellPlugin, Row, ValueWithLegacy } from '../core/types';
 import { getCellData } from '../core/utils/getCellData';
 
 const gridClass = (size = 12): string =>

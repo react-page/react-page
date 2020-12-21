@@ -1,5 +1,5 @@
-import { CellPlugin } from '../types/plugins';
-import { MigrationVersion } from './migrate';
+import type { CellPlugin } from '../types/plugins';
+import type { MigrationVersion } from './migrate';
 
 export type MigrationContext = {
   cellPlugins: CellPlugin[];

@@ -1,8 +1,8 @@
 import { CellPlugin, lazyLoad, ImageUploadType } from '@react-page/editor';
 import createPlugin from './createPlugin';
 import ImageHtmlRenderer from './Renderer/ImageHtmlRenderer';
-import { ImageSettings } from './types/settings';
-import { ImageState } from './types/state';
+import type { ImageSettings } from './types/settings';
+import type { ImageState } from './types/state';
 
 const ImageControls = lazyLoad(() => import('./Controls/ImageControls'));
 
