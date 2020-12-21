@@ -5,6 +5,7 @@ import image from '@react-page/plugins-image';
 // The rich text area plugin
 import slate from '@react-page/plugins-slate';
 import React from 'react';
+import PageLayout from '../../components/PageLayout';
 import { demoSimpleReadOnly } from '../../sampleContents/demoSimpleReadOnly';
 
 // Stylesheets for the rich text area plugin
@@ -20,8 +21,8 @@ const cellPlugins = [slate(), image];
 export default function ReadOnlyExample() {
   // you would usually load SAMPLE_CONTENT from some api / endpoint / database
   return (
-    <>
+    <PageLayout>
       <Editor value={demoSimpleReadOnly} cellPlugins={cellPlugins} readOnly />
-    </>
+    </PageLayout>
   );
 }

@@ -2,6 +2,7 @@ import Editor, { Value } from '@react-page/editor';
 import { demo } from '../sampleContents/demo';
 import React, { useState } from 'react';
 import { cellPlugins } from '../plugins/cellPlugins';
+import PageLayout from '../components/PageLayout';
 
 const LANGUAGES = [
   {
@@ -18,7 +19,7 @@ export default function Home() {
   const [value, setValue] = useState<Value>(demo);
 
   return (
-    <>
+    <PageLayout>
       <Editor
         cellPlugins={cellPlugins}
         value={value}
@@ -26,6 +27,6 @@ export default function Home() {
         onChange={setValue}
         languages={LANGUAGES}
       />
-    </>
+    </PageLayout>
   );
 }

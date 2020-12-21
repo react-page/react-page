@@ -1,4 +1,4 @@
-import { SlatePluginCollection } from '../types/SlatePlugin';
+import type { SlatePluginCollection } from '../types/SlatePlugin';
 import flattenDeep from './flattenDeep';
 
 export default (plugins: SlatePluginCollection) => {

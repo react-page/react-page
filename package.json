@@ -59,6 +59,7 @@
   },
   "scripts": {
     "docs": "docsify serve -p 3100 ./docs",
+    "analyze": "ANALYZE=true npm-run-all build",
     "coveralls": "cat ./coverage/lcov.info | coveralls",
     "bootstrap": "lerna bootstrap",
     "build": "cross-env NODE_ENV=production lerna run build --stream",

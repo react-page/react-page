@@ -13,14 +13,9 @@ import '@react-page/plugins-video/lib/index.css';
 import '@react-page/plugins-image/lib/index.css';
 import '@react-page/plugins-slate/lib/index.css';
 import 'katex/dist/katex.min.css';
-import PageLayout from '../components/PageLayout';
 
 function MyApp({ Component, pageProps }) {
-  return (
-    <PageLayout>
-      <Component {...pageProps} />
-    </PageLayout>
-  );
+  return <Component {...pageProps} />;
 }
 
 export default MyApp;

@@ -7,6 +7,7 @@ import Editor, { Value } from '@react-page/editor';
 import slate from '@react-page/plugins-slate';
 // image
 import image from '@react-page/plugins-image';
+import PageLayout from '../../components/PageLayout';
 // Stylesheets for the rich text area plugin
 // uncomment this
 //import '@react-page/plugins-slate/lib/index.css';
@@ -21,8 +22,8 @@ export default function SimpleExample() {
   const [value, setValue] = useState<Value>(null);
 
   return (
-    <>
+    <PageLayout>
       <Editor cellPlugins={cellPlugins} value={value} onChange={setValue} />
-    </>
+    </PageLayout>
   );
 }

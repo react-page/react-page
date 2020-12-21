@@ -1,12 +1,9 @@
 import { CellPlugin } from '@react-page/editor';
 import dynamic from 'next/dynamic';
 import React from 'react';
+
 // lazy load to keep initial bundle small
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const SyntaxHighlighter = dynamic<any>(() =>
-  import('react-syntax-highlighter').then((h) => h.Prism)
-);
-import { vscDarkPlus as style } from 'react-syntax-highlighter/dist/cjs/styles/prism';
+const CodeSnippet = dynamic(() => import('../components/CodeSnippet'));
 
 const codeSnippet: CellPlugin<{
   code: string;
@@ -14,9 +11,7 @@ const codeSnippet: CellPlugin<{
 }> = {
   Renderer: ({ data }) =>
     data?.code ? (
-      <SyntaxHighlighter wrapLongLines language={data.language} style={style}>
-        {data.code}
-      </SyntaxHighlighter>
+      <CodeSnippet language={data.language} code={data.code} />
     ) : null,
   id: 'code-snippet',
   title: 'Code snippet',

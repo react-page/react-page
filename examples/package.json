@@ -29,6 +29,7 @@
   "devDependencies": {
     "@types/react-syntax-highlighter": "^13.5.0",
     "babel-plugin-styled-components": "^1.11.1",
-    "raw-loader": "4.0.1"
+    "raw-loader": "4.0.1",
+    "@next/bundle-analyzer": "^10.0.3"
   }
 }

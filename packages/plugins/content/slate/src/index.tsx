@@ -1,7 +1,7 @@
 import { CellPlugin, lazyLoad } from '@react-page/editor';
 import React from 'react';
-import { AnyAction } from 'redux';
-import { ActionTypes } from 'redux-undo';
+import type { AnyAction } from 'redux';
+import type { ActionTypes } from 'redux-undo';
 import SlateEditor from './components/SlateEditor';
 import SlateProvider from './components/SlateProvider';
 import { defaultTranslations } from './default/settings';
@@ -11,9 +11,9 @@ import v003 from './migrations/v003';
 import v004 from './migrations/v004';
 import * as pluginFactories from './pluginFactories/index';
 import defaultPlugins from './plugins/index';
-import { InitialSlateStateDef } from './types/initialSlateState';
-import { SlatePluginCollection } from './types/SlatePlugin';
-import { SlateState } from './types/state';
+import type { InitialSlateStateDef } from './types/initialSlateState';
+import type { SlatePluginCollection } from './types/SlatePlugin';
+import type { SlateState } from './types/state';
 import makeSlatePluginsFromDef from './utils/makeSlatePluginsFromDef';
 import transformInitialSlateState from './utils/transformInitialSlateState';
 
