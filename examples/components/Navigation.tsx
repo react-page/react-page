@@ -17,10 +17,11 @@ const Navigation: React.FC = () => {
     <div>
       <div className={classes.toolbar} />
       <Divider />
-
-      <ListItem component="a" href="/docs">
-        <ListItemText primary={'Docs'} />
-      </ListItem>
+      <Link passHref href="/docs">
+        <ListItem component="a">
+          <ListItemText primary={'Docs'} />
+        </ListItem>
+      </Link>
 
       <Link passHref href="/">
         <ListItem component="a">
