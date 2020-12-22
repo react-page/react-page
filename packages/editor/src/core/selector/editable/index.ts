@@ -1,12 +1,5 @@
-import flatten from 'lodash.flatten';
-import {
-  Cell,
-  Value,
-  Node,
-  isRow,
-  NodeWithAncestors,
-} from '../../types/editable';
-import { RootState } from '../../types/state';
+import { Value, Node, NodeWithAncestors, isRow } from '../../types/editable';
+import type { RootState } from '../../types/state';
 
 /** */
 const findNode = (
@@ -38,18 +31,31 @@ const findNode = (
 };
 
 export const findNodeInState = (
-  state: RootState,
+  state: RootState & {
+    __nodeCache?: Record<string, NodeWithAncestors>;
+  },
 
   nodeId: string
 ) => {
+  // POOR mans node cache
+  // it gets removed every reduce, so we don't have to clear it manually
+  if (!state.__nodeCache) {
+    state.__nodeCache = {};
+  }
+  if (state.__nodeCache[nodeId]) {
+    return state.__nodeCache[nodeId];
+  }
   // FIXME: we will deprecated having multiple editables soon
-  return findNode(
+  const result = findNode(
     state.reactPage.editables?.present?.reduce(
       (acc, editable) => [...acc, ...(editable.rows ?? [])],
       []
     ),
     nodeId
   );
+  state.__nodeCache[nodeId] = result;
+
+  return result;
 };
 
 export const editable = (state: RootState, { id }: { id: string }): Value =>
@@ -75,22 +81,4 @@ export const selectNode = (
   const found = findNodeInState(state, nodeId);
 
   return found;
-};
-
-const findNearestAnsestorCell = (cells: Cell[], childId: string): Cell => {
-  const found = cells.find((c) =>
-    c.rows.some(
-      (row) =>
-        row.id === childId || row.cells.some((cell) => cell.id === childId)
-    )
-  );
-  if (found) {
-    return found;
-  } else {
-    // none of cells was an ancestor, go one level down
-    return findNearestAnsestorCell(
-      flatten(cells.map((c) => flatten(c.rows.map((c) => c.cells)))),
-      childId
-    );
-  }
 };
