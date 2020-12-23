@@ -33,7 +33,7 @@
       plugins: [
         function (hook, vm) {
           hook.beforeEach((markdown) => {
-            console.log(markdown)
+
             const result = markdown.replace(/]\(\/\/demo\//g, `](${"https://react-page.github.io/beta"/*"http://localhost:3000"*/}/examples/`)
             return result
           })
