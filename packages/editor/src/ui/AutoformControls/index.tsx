@@ -1,6 +1,7 @@
 import React, { Fragment, useEffect, useMemo } from 'react';
 import JSONSchemaBridge from 'uniforms-bridge-json-schema';
-import { AutoFields, AutoForm } from 'uniforms-material';
+import { lazyLoad } from '../..';
+
 import {
   AutoformControlsDef,
   CellPluginComponentProps,
@@ -8,6 +9,12 @@ import {
 } from '../../core/types';
 import makeUniformsSchema from './makeUniformsSchema';
 
+export const AutoForm = lazyLoad(() =>
+  import('uniforms-material').then((c) => c.AutoForm)
+);
+export const AutoFields = lazyLoad(() =>
+  import('uniforms-material').then((c) => c.AutoFields)
+);
 const getDefaultValue = function (
   bridge: JSONSchemaBridge
 ): { [key: string]: unknown } {

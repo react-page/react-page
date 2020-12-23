@@ -1,5 +1,5 @@
 import { CellPlugin } from './plugins';
-import has from 'lodash.has';
+
 import { Languages } from '../EditorStore';
 export type I18nField<T> = {
   [lang: string]: T;
@@ -48,7 +48,7 @@ export type PartialCell = Omit<Partial<Cell>, 'rows' | 'plugin'> & {
 };
 
 export const isRow = (node: Node): node is Row => {
-  return has(node, 'cells');
+  return Object.prototype.hasOwnProperty.call(node, 'cells');
 };
 
 export type NodeWithAncestors = {
