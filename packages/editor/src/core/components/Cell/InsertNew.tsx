@@ -16,7 +16,8 @@ const InsertNew: React.FC<{ parentCellId?: string }> = ({ parentCellId }) => {
   return (
     <div
       className="react-page-cell-insert-new"
-      onClick={() => {
+      style={{ pointerEvents: 'all', zIndex: 1 }}
+      onClick={(e) => {
         setReferenceNodeId(parentCellId);
         setInsertMode();
       }}

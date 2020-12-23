@@ -8,31 +8,13 @@ import { Migration } from './core/migrations/Migration';
 
 import Editor, { EditorProps } from './editor/Editor';
 import makeUniformsSchema from './ui/AutoformControls/makeUniformsSchema';
-import ColorPicker from './ui/ColorPicker';
-import { colorToString } from './ui/ColorPicker/colorToString';
+export * from './ui/ColorPicker';
 
-import ImageUpload from './ui/ImageUpload';
-import type {
-  ImageLoaded,
-  ImageUploaded,
-  ImageUploadType,
-} from './ui/ImageUpload/types';
-
-export { Migration };
+export * from './ui/ImageUpload';
 export { lazyLoad };
 export { EditorProps };
-
+export { Migration };
 export { makeUniformsSchema };
-
-export {
-  ImageLoaded,
-  RGBColor,
-  ColorPicker,
-  ImageUploadType,
-  ImageUploaded,
-  ImageUpload,
-  colorToString,
-};
 
 export default Editor;
 

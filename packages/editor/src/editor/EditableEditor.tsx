@@ -1,11 +1,11 @@
-import { BackendFactory } from 'dnd-core';
+import type { BackendFactory } from 'dnd-core';
 import React from 'react';
 
-import { DisplayModes } from '../core/actions/display';
+import type { DisplayModes } from '../core/actions/display';
 import Editable from '../core/components/Editable';
 import { createEmptyState, Languages } from '../core/EditorStore';
 import Provider from '../core/Provider';
-import { Value, Options } from '../core/types';
+import type { Value, Options } from '../core/types';
 import EditorUI from '../ui/EditorUI';
 import StickyWrapper from './StickyWrapper';
 

@@ -3,7 +3,7 @@
 import Ajv from 'ajv';
 
 import { JSONSchemaBridge } from 'uniforms-bridge-json-schema';
-import { JsonSchema } from '../../core/types';
+import type { JsonSchema } from '../../core/types';
 const ajv = new Ajv({ allErrors: true, useDefaults: true });
 
 function createValidator<T extends Record<string, unknown>>(
