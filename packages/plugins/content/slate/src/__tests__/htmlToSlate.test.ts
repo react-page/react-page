@@ -1,4 +1,4 @@
-import HtmlToSlate from '../HtmlToSlate';
+import { HtmlToSlate } from '../HtmlToSlate';
 import defaultPlugins from '../plugins';
 import makeSlatePluginsFromDef from '../utils/makeSlatePluginsFromDef';
 
@@ -185,8 +185,8 @@ describe('HtmlToSlate', () => {
     },
   ].forEach((c, k) => {
     describe(`test case ${k}`, () => {
-      it(`should make slate state from html: ${c.html}`, () => {
-        expect(htmlToSlate(c.html)).toEqual(c.expected);
+      it(`should make slate state from html: ${c.html}`, async () => {
+        expect(await htmlToSlate(c.html)).toEqual(c.expected);
       });
     });
   });

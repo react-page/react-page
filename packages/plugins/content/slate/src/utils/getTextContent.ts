@@ -1,4 +1,4 @@
-import { Node } from 'slate';
+import type { Node } from 'slate';
 
 export const getTextContents = (nodes: Node[]): string[] => {
   return nodes.reduce((acc, node) => {

@@ -41,11 +41,11 @@ const Editor: React.FC<EditorProps> = ({
   }, [readOnly]);
 
   return renderReadOnly ? (
-    <HTMLRenderer state={value} cellPlugins={cellPlugins} lang={lang} />
+    <HTMLRenderer value={value} cellPlugins={cellPlugins} lang={lang} />
   ) : (
     <EditableEditor
       fallback={
-        <HTMLRenderer state={value} cellPlugins={cellPlugins} lang={lang} />
+        <HTMLRenderer value={value} cellPlugins={cellPlugins} lang={lang} />
       }
       pluginsWillChange={pluginsWillChange}
       cellPlugins={cellPlugins}

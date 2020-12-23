@@ -22,6 +22,7 @@ const migration = new Migration({
           return key;
       }
     });
+
     return state;
   },
 });

@@ -1,12 +1,7 @@
 import isObject from 'lodash.isobject';
 import React, { DependencyList, useCallback } from 'react';
-import {
-  RenderElementProps,
-  RenderLeafProps,
-  useSelected,
-  useFocused,
-} from 'slate-react';
-import { SlatePlugin } from '../types/SlatePlugin';
+import type { RenderElementProps, RenderLeafProps } from 'slate-react';
+import type { SlatePlugin } from '../types/SlatePlugin';
 import {
   useComponentMarkPlugins,
   useComponentNodePlugins,
@@ -31,11 +26,20 @@ const pickNativeProps = (data?: Data): Data => {
     return acc;
   }, {});
 };
+type Injections = {
+  useSelected: () => boolean;
+  useFocused: () => boolean;
+};
 export const useRenderElement = (
   {
     plugins,
     defaultPluginType,
-  }: { plugins: SlatePlugin[]; defaultPluginType: string },
+    injections,
+  }: {
+    plugins: SlatePlugin[];
+    defaultPluginType: string;
+    injections: Injections;
+  },
   deps: DependencyList
 ) => {
   const componentPlugins = useComponentNodePlugins({ plugins }, deps);
@@ -72,8 +76,7 @@ export const useRenderElement = (
         const additionalProps = {
           childNodes,
           getTextContents: () => getTextContents(childNodes),
-          useSelected,
-          useFocused,
+          ...injections,
         };
         return (
           <Component
@@ -92,7 +95,7 @@ export const useRenderElement = (
 };
 
 export const useRenderLeave = (
-  { plugins }: { plugins: SlatePlugin[] },
+  { plugins, injections }: { plugins: SlatePlugin[]; injections: Injections },
   deps: DependencyList
 ) => {
   const markPlugins = useComponentMarkPlugins({ plugins }, deps);
@@ -130,8 +133,8 @@ export const useRenderLeave = (
                 <Component
                   childNodes={[{ text }]}
                   getTextContents={() => [text]}
-                  useSelected={useSelected}
-                  useFocused={useFocused}
+                  useSelected={injections.useSelected}
+                  useFocused={injections.useFocused}
                   style={style}
                   {...data}
                 >

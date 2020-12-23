@@ -13,7 +13,7 @@ import { serialzeEditable } from '../migrations/serialzeEditable';
 import deepEquals from '../utils/deepEquals';
 import { RootState } from '../selector';
 import { Middleware, Store } from 'redux';
-import { migrateEditable } from '../migrations/migrate';
+import { migrateValue } from '../migrations/migrate';
 import { updateEditable } from '../actions/editables';
 
 type ProviderProps = {
@@ -68,7 +68,7 @@ const Provider: React.FC<ProviderProps> = ({
           editables: {
             past: [],
             present: value.map((e) =>
-              migrateEditable(e, {
+              migrateValue(e, {
                 cellPlugins,
                 lang,
               })
@@ -133,7 +133,7 @@ const Provider: React.FC<ProviderProps> = ({
     if (!equal) {
       lastValueRef.current = value;
       value.forEach((editable) => {
-        const data = migrateEditable(editable, {
+        const data = migrateValue(editable, {
           cellPlugins,
           lang,
         });

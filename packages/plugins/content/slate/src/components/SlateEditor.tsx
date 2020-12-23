@@ -1,8 +1,9 @@
 import { lazyLoad } from '@react-page/editor';
 import React from 'react';
-import { Editable } from 'slate-react';
-import { SlateProps } from '../types/component';
-import { SlatePlugin } from '../types/SlatePlugin';
+import { Editable, useSelected, useFocused } from 'slate-react';
+
+import type { SlateProps } from '../types/component';
+import type { SlatePlugin } from '../types/SlatePlugin';
 import { useOnKeyDown } from './hotkeyHooks';
 import { useRenderElement, useRenderLeave } from './renderHooks';
 
@@ -16,8 +17,15 @@ const SlateEditable = React.memo(
     placeholder: string;
   }) => {
     const { plugins, defaultPluginType, readOnly, placeholder } = props;
-    const renderElement = useRenderElement({ plugins, defaultPluginType }, []);
-    const renderLeaf = useRenderLeave({ plugins }, []);
+    const injections = {
+      useSelected,
+      useFocused,
+    };
+    const renderElement = useRenderElement(
+      { plugins, defaultPluginType, injections },
+      []
+    );
+    const renderLeaf = useRenderLeave({ plugins, injections }, []);
     const onKeyDown = useOnKeyDown({ plugins }, []);
 
     return (

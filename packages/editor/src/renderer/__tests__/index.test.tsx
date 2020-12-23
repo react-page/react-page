@@ -48,7 +48,7 @@ describe('HTMLRenderer', () => {
     ].forEach((c, k) => {
       describe(`case ${k}`, () => {
         const wrapper = render(
-          <HTMLRenderer state={c} cellPlugins={cellPlugins} />
+          <HTMLRenderer value={c} cellPlugins={cellPlugins} />
         );
         it('should pass', () => {
           expect(wrapper.html()).toEqual(
