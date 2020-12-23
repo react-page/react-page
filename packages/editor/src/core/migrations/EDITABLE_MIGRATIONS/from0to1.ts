@@ -109,6 +109,7 @@ export default new Migration<Value_v0, Value>({
       });
     };
     const migratedCells = cells?.map(migrateCell) ?? [];
+
     // check if is the only one cell with only rows, then we cann omit that
     const rootRows =
       migratedCells.length === 1 && !migratedCells[0].plugin

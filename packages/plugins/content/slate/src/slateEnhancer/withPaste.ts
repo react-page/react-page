@@ -1,6 +1,6 @@
 import { Transforms } from 'slate';
 import { ReactEditor } from 'slate-react';
-import HtmlToSlate from '../HtmlToSlate';
+import { HtmlToSlate } from '../htmlToSlate';
 import { SlatePlugin } from '../types/SlatePlugin';
 
 const withPaste = (plugins: SlatePlugin[], defaultPluginType: string) => (
@@ -8,7 +8,7 @@ const withPaste = (plugins: SlatePlugin[], defaultPluginType: string) => (
 ) => {
   const { insertData } = editor;
   const htmlToSlate = HtmlToSlate({ plugins });
-  editor.insertData = (data) => {
+  editor.insertData = async (data) => {
     const slateData = data.getData('application/x-slate-fragment');
     if (slateData) {
       insertData(data);
@@ -17,7 +17,7 @@ const withPaste = (plugins: SlatePlugin[], defaultPluginType: string) => (
 
     const html = data.getData('text/html');
     if (html) {
-      const { slate } = htmlToSlate(html);
+      const { slate } = await htmlToSlate(html);
 
       Transforms.insertFragment(editor, slate);
       return;

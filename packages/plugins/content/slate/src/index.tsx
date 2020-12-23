@@ -5,7 +5,7 @@ import { ActionTypes } from 'redux-undo';
 import SlateEditor from './components/SlateEditor';
 import SlateProvider from './components/SlateProvider';
 import { defaultTranslations } from './default/settings';
-import HtmlToSlate from './HtmlToSlate';
+import { HtmlToSlate } from './htmlToSlate';
 import v002 from './migrations/v002';
 import v003 from './migrations/v003';
 import v004 from './migrations/v004';
@@ -63,12 +63,10 @@ type CreateSlateData<TPlugins> = (
 ) => SlateState;
 export type SlatePlugin<TPlugins> = CellPlugin<
   SlateState,
-  Omit<SlateState, 'selection'> & {
-    importFromHtml?: string;
-  }
+  Omit<SlateState, 'selection'>
 > & {
   createData: CreateSlateData<TPlugins>;
-  createDataFromHtml: (html: string) => SlateState;
+  createDataFromHtml: (html: string) => Promise<SlateState>;
   /**
    * @deprecated, use createData
    */
@@ -177,14 +175,22 @@ function plugin<TPlugins extends SlatePluginCollection = DefaultPlugins>(
     // remove selection
     serialize: (s) => (s ? { slate: s.slate } : null),
     unserialize: (s) => {
-      if (s?.importFromHtml) {
-        return htmlToSlate(s.importFromHtml);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      if ((s as any)?.importFromHtml) {
+        // this is no longer supported, but we do not delete it
+        return {
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          importFromHtml: (s as any).importFromHtml,
+          ...s,
+          ...createInitialData(),
+        };
       }
       if (s?.slate) {
         return {
           slate: s.slate,
         };
       }
+
       return createInitialData();
     },
 

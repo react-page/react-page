@@ -1,9 +1,9 @@
 import { Value } from '../../types';
 import { CURRENT_EDITABLE_VERSION } from '../EDITABLE_MIGRATIONS';
 import { Value_v0 } from '../EDITABLE_MIGRATIONS/from0to1';
-import { migrateEditable } from '../migrate';
+import { migrateValue } from '../migrate';
 
-describe('migrateEditable', () => {
+describe('migrateValue', () => {
   it('migrates unversioned state to latest state (1)', () => {
     const oldEditable: Value_v0 = {
       id: 'editableId',
@@ -32,7 +32,7 @@ describe('migrateEditable', () => {
         },
       ],
     };
-    const newEditable = migrateEditable(oldEditable, {
+    const newEditable = migrateValue(oldEditable, {
       lang: 'en',
       cellPlugins: [],
     });

@@ -10,7 +10,7 @@ import { createEditor, Node, Transforms } from 'slate';
 import { Slate, withReact } from 'slate-react';
 import withInline from '../slateEnhancer/withInline';
 import withPaste from '../slateEnhancer/withPaste';
-import { SlateProps } from '../types/component';
+import type { SlateProps } from '../types/component';
 
 const SlateProvider: React.FC<SlateProps> = (props) => {
   const { data, plugins, children, defaultPluginType } = props;

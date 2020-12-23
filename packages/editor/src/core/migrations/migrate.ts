@@ -74,6 +74,7 @@ const migratePluginData = (editable: Value, context: MigrationContext) => {
           {}
         )
       : undefined;
+
     const plugin = pluginFound
       ? {
           id: pluginFound.id,
@@ -94,7 +95,7 @@ const migratePluginData = (editable: Value, context: MigrationContext) => {
   };
 };
 
-export const migrateEditable = (
+export const migrateValue = (
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   dataIn: { version?: number } & ValueWithLegacy,
   context: MigrationContext
@@ -106,6 +107,7 @@ export const migrateEditable = (
   const newestVersion =
     EDITABLE_MIGRATIONS[EDITABLE_MIGRATIONS.length - 1].toVersion;
   const data = migrate<Value>(dataIn, EDITABLE_MIGRATIONS, versionIn, context);
+
   const migrated = {
     ...migratePluginData(data, context),
     version: newestVersion,

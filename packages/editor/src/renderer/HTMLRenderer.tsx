@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import React from 'react';
-import { migrateEditable } from '../core/migrations/migrate';
+import { migrateValue } from '../core/migrations/migrate';
 import { setAllSizesAndOptimize } from '../core/reducer/editable/helper/setAllSizesAndOptimize';
 import type { Cell, CellPlugin, Row, ValueWithLegacy } from '../core/types';
 import { getCellData } from '../core/utils/getCellData';
@@ -112,14 +112,14 @@ const HTMLCell: React.FC<
 });
 
 export interface HTMLRendererProps {
-  state: ValueWithLegacy;
+  value: ValueWithLegacy;
   cellPlugins?: CellPlugin[];
   lang?: string;
 }
 
 export const HTMLRenderer: React.FC<HTMLRendererProps> = React.memo(
-  ({ state, cellPlugins, lang = 'default' }) => {
-    const data = migrateEditable(state, { cellPlugins, lang });
+  ({ value, cellPlugins, lang = 'default' }) => {
+    const data = migrateValue(value, { cellPlugins, lang });
 
     if (!data) {
       return null;
