@@ -5,7 +5,10 @@ import ListSubheader from '@material-ui/core/ListSubheader';
 import TextField from '@material-ui/core/TextField';
 import React from 'react';
 import { Portal } from 'react-portal';
-import { useIsInsertMode, usePlugins } from '../../core/components/hooks';
+import {
+  useIsInsertMode,
+  useAllCellPlugins,
+} from '../../core/components/hooks';
 import { CellPlugin } from '../../core/types';
 import Item from './Item/index';
 
@@ -35,7 +38,7 @@ const getPluginTitle = (plugin: CellPlugin) =>
   (plugin.title || plugin.text) ?? '';
 
 const Toolbar: React.FC<Props> = ({ translations = defaultTranslations }) => {
-  const plugins = usePlugins();
+  const plugins = useAllCellPlugins();
 
   const [searchText, setSearchText] = React.useState<string>('');
   const searchFilter = React.useCallback(

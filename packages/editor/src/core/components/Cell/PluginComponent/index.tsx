@@ -3,7 +3,7 @@ import AutoformControls from '../../../../ui/AutoformControls';
 import BottomToolbar from '../../../../ui/BottomToolbar';
 import { CellPluginComponentProps } from '../../../types';
 import {
-  useCellPlugin,
+  usePluginOfCell,
   useDebouncedCellData,
   useIsEditMode,
   useIsFocused,
@@ -25,7 +25,7 @@ const PluginComponent: React.FC<{ nodeId: string; hasChildren: boolean }> = ({
 
   const [data, onChange] = useDebouncedCellData(nodeId);
 
-  const plugin = useCellPlugin(nodeId);
+  const plugin = usePluginOfCell(nodeId);
   const focused = useIsFocused(nodeId);
 
   const Component = plugin?.Renderer ?? PluginMissing;

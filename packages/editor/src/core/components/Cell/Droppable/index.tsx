@@ -7,7 +7,7 @@ import { HoverTarget } from '../../../service/hover/computeHover';
 import { CellDrag } from '../../../types/editable';
 import { getDropLevels } from '../../../utils/getDropLevels';
 import {
-  useCellPlugin,
+  usePluginOfCell,
   useCellProps,
   useDropActions,
   useHoverActions,
@@ -29,7 +29,7 @@ export const useCellDrop = (nodeId: string) => {
     levels: getDropLevels(node, ancestors),
     pluginId: node.plugin?.id,
   }));
-  const plugin = useCellPlugin(nodeId);
+  const plugin = usePluginOfCell(nodeId);
   const options = useOptions();
   const hoverActions = useHoverActions();
   const dropActions = useDropActions();
