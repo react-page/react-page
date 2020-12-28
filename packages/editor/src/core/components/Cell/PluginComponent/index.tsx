@@ -62,7 +62,7 @@ const PluginComponent: React.FC<{ nodeId: string; hasChildren: boolean }> = ({
           style={{
             height: '100%',
             pointerEvents:
-              !isPreviewMode && !plugin.allowClickInside && !hasChildren
+              !isPreviewMode && !plugin?.allowClickInside && !hasChildren
                 ? 'none'
                 : undefined,
           }}
