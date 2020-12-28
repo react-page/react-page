@@ -111,6 +111,7 @@ export type CellDrag = {
 export type Options = {
   /**
    * an array of cell plugins. These plugins can be added as cells and usually render a component and a control.
+   * @see CellPlugin
    */
   cellPlugins: CellPlugin[];
   /**

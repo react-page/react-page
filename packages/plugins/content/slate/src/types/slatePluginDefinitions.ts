@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/ban-types */
-
 import { ReactEditor } from 'slate-react';
 
 import { Translations } from './translations';
@@ -79,6 +78,7 @@ type InlineProps = {
 type MarkProps = {
   object: 'mark';
 };
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 type NoInfer<T> = [T][T extends any ? 0 : never];
 
 export type SlateComponentPluginDefinition<

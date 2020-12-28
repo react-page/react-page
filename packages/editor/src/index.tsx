@@ -11,7 +11,6 @@ import { migrateValue } from './core/migrations/migrate';
 export { AutoForm, AutoFields };
 
 export * from './ui/ColorPicker';
-
 export * from './ui/ImageUpload';
 export { lazyLoad };
 export { EditorProps };

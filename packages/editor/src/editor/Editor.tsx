@@ -9,15 +9,37 @@ import { HTMLRenderer } from '../renderer/HTMLRenderer';
 const EditableEditor = lazyLoad(() => import('./EditableEditor'));
 
 export type EditorProps = {
-  dndBackend?: BackendFactory;
+  /**
+   * the current value to display
+   */
   value?: ValueWithLegacy | null;
+  /**
+   * is called when the value has changed.
+   * Use this to save the new value
+   */
   onChange?: (v: Value) => void;
-  onChangeLang?: (l: string) => void;
+  /**
+   * set readOnly=true if you just want to display the content. This will only load the nesseary code.
+   */
   readOnly?: boolean;
+  /**
+   * all languages that your content can be translated to
+   */
+  languages?: Languages;
+
+  /**
+   * pass the current language of the content
+   */
+  lang?: string;
+
+  /**
+   * is called when the language has changed
+   */
+  onChangeLang?: (l: string) => void;
+
+  dndBackend?: BackendFactory;
   defaultDisplayMode?: DisplayModes;
   blurGateDisabled?: boolean;
-  languages?: Languages;
-  lang?: string;
   hideEditorSidebar?: boolean;
 } & Options;
 

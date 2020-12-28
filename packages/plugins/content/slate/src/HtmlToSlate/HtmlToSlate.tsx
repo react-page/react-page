@@ -40,7 +40,6 @@ const HtmlToSlate = ({ plugins }: { plugins: SlatePlugin[] }) => {
         // xmldom has no style attribute
         // we monkey patch it in for easier style parsing
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-
         (elHtml as any).style = new (require('cssstyle').CSSStyleDeclaration)();
         elHtml.style.cssText = elHtml.getAttribute('style');
       }

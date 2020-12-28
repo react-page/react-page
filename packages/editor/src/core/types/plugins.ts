@@ -56,23 +56,14 @@ export type CellPluginComponentProps<DataT> = {
   isEditMode: boolean;
 };
 
-export type AutoformControlsDef<DataT> = {
-  /**
-   * a JSONSchema. this will auto-generate a form for the plugin
-   */
-
-  schema?: DataT extends Record<string, unknown> ? JsonSchema<DataT> : unknown;
-  columnCount?: number;
-
-  type: 'autoform';
-};
-
 export type CellPluginCustomControlsComonent<DataT> = React.ComponentType<
   CellPluginComponentProps<DataT>
 >;
+/**
+ * controls where you can provide a custom component to render the controls.
+ */
 export type CustomControlsDef<DataT> = {
   Component: CellPluginCustomControlsComonent<DataT>;
-
   type: 'custom';
 };
 
@@ -81,6 +72,28 @@ export type CellPluginRenderer<DataT> = React.ComponentType<
     children?: React.ReactNode;
   }
 >;
+
+/**
+ * autoform control type automatically generates a form for you.
+ */
+export type AutoformControlsDef<DataT> = {
+  /**
+   * a JSONSchema. this will auto-generate a form for the plugin
+   */
+  schema?: DataT extends Record<string, unknown> ? JsonSchema<DataT> : unknown;
+  /**
+   * how many columns should be used for the form
+   */
+  columnCount?: number;
+  /**
+   * autoform type automatically generates a form for you.
+   */
+  type: 'autoform';
+};
+
+/**
+ * All available type of controls
+ */
 export type ControlsDef<DataT> = { dark?: boolean } & (
   | AutoformControlsDef<DataT>
   | CustomControlsDef<DataT>
@@ -119,8 +132,21 @@ export type CellPlugin<DataT = unknown, DataSerializedT = DataT> = {
    */
   version: number;
 
+  /**
+   * migrations to run to update the data from the initial version to the current version.
+   * You need to a add a migration if your data type changes. In this case, bump @see version
+   */
+  migrations?: Migration[];
+
+  /**
+   * controls define how the user can interact with this cell. @see ControlsDef
+   */
   controls?: ControlsDef<DataT>;
 
+  /**
+   * The Component to render both in readOnly and in edit mode. It will receive the current data to display among other props (@see CellPluginRenderer)
+   * Don't use any internal hooks that we provide in the Renderer, as these hooks don't work in readOnly mode.
+   */
   Renderer: CellPluginRenderer<DataT>;
 
   /**
@@ -128,6 +154,9 @@ export type CellPlugin<DataT = unknown, DataSerializedT = DataT> = {
    */
   Provider?: React.ComponentType<CellPluginComponentProps<DataT>>;
 
+  /**
+   * the icon to show for this plugin
+   */
   icon?: React.ReactNode;
 
   hideInMenu?: boolean;
@@ -147,16 +176,7 @@ export type CellPlugin<DataT = unknown, DataSerializedT = DataT> = {
    */
   allowNeighbour?: (item: Cell) => boolean;
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  serialize?: (data: DataT) => DataSerializedT;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  unserialize?: (raw: DataSerializedT) => DataT;
-  handleRemoveHotKey?: (e: Event, node: Cell) => Promise<void>;
-  handleFocusNextHotKey?: (e: Event, node: Cell) => Promise<void>;
-  handleFocusPreviousHotKey?: (e: Event, node: Cell) => Promise<void>;
-
   reducer?: (data: DataT, action: AnyAction) => DataT;
-  migrations?: Migration[];
 
   /**
    * called when a cell with this plugin is added
@@ -168,5 +188,14 @@ export type CellPlugin<DataT = unknown, DataSerializedT = DataT> = {
    */
   createInitialState?: (cell: PartialCell) => DataT;
 
+  /**
+   * if your cell has an internal layout (--> child rows), you can define initial rows to add, when a cell with this plugin is added
+   */
   createInitialChildren?: () => PartialRow[];
+
+  serialize?: (data: DataT) => DataSerializedT;
+  unserialize?: (raw: DataSerializedT) => DataT;
+  handleRemoveHotKey?: (e: Event, node: Cell) => Promise<void>;
+  handleFocusNextHotKey?: (e: Event, node: Cell) => Promise<void>;
+  handleFocusPreviousHotKey?: (e: Event, node: Cell) => Promise<void>;
 };
