@@ -83,100 +83,156 @@ export const demo: Value = {
               ],
             },
             {
-              id: 'sdLSg4',
+              id: '2WaR9W',
               cells: [
                 {
-                  id: 'GXeuwP',
-                  size: 6,
-                  plugin: { id: 'ory/editor/core/content/image', version: 1 },
-                  dataI18n: { en: null },
-                  rows: [],
-                  inline: null,
-                },
-                {
-                  id: 'ZUUHPU',
-                  size: 6,
-                  plugin: { id: 'ory/editor/core/content/slate', version: 1 },
+                  id: 'tLyVTz',
+                  size: 12,
+                  plugin: {
+                    id: 'ory/editor/core/layout/background',
+                    version: 1,
+                  },
                   dataI18n: {
                     en: {
-                      slate: [
+                      modeFlag: 5,
+                      backgroundColor: { r: 0, g: 0, b: 0, a: 1 },
+                      gradients: [
                         {
-                          type: 'HEADINGS/HEADING-TWO',
-                          children: [
-                            { text: 'Batteries included - Key features' },
-                          ],
-                        },
-                        {
-                          type: 'LISTS/UNORDERED-LIST',
-                          children: [
-                            {
-                              children: [
-                                { text: 'powerful and customizable ' },
-                                {
-                                  text: 'RichText Editor (',
-                                  'EMPHASIZE/STRONG': true,
-                                },
-                                { text: 'powered by ', 'EMPHASIZE/EM': true },
-                                {
-                                  type: 'LINK/LINK',
-                                  children: [
-                                    { text: '', 'EMPHASIZE/EM': true },
-                                  ],
-                                  data: {
-                                    href: 'https://github.com/vazco/uniforms',
-                                  },
-                                },
-                                { text: '', 'EMPHASIZE/EM': true },
-                                {
-                                  type: 'LINK/LINK',
-                                  children: [
-                                    { text: 'Slate', 'EMPHASIZE/EM': true },
-                                  ],
-                                  data: {
-                                    href:
-                                      'https://github.com/ianstormtaylor/slate/',
-                                  },
-                                },
-                                { text: ')' },
-                              ],
-                              type: 'LISTS/LIST-ITEM',
-                            },
-                            {
-                              children: [
-                                {
-                                  text: '12-column grid responsive grid layout',
-                                },
-                              ],
-                              type: 'LISTS/LIST-ITEM',
-                            },
-                            {
-                              children: [{ text: 'Drag & Drop cells' }],
-                              type: 'LISTS/LIST-ITEM',
-                            },
-                            {
-                              children: [
-                                {
-                                  text: 'Undo & Redo, copy and hotkey support',
-                                },
-                              ],
-                              type: 'LISTS/LIST-ITEM',
-                            },
-                            {
-                              children: [{ text: 'Multi-Language support' }],
-                              type: 'LISTS/LIST-ITEM',
-                            },
-                            {
-                              children: [
-                                { text: 'Add any custom Components you like' },
-                              ],
-                              type: 'LISTS/LIST-ITEM',
-                            },
+                          deg: 180,
+                          opacity: 0.75,
+                          colors: [
+                            { color: { r: 72, g: 39, b: 39, a: 1 } },
+                            { color: { r: 0, g: 0, b: 0, a: 0.83 } },
                           ],
                         },
                       ],
                     },
                   },
-                  rows: [],
+                  rows: [
+                    {
+                      id: 'lF37AJ',
+                      cells: [
+                        {
+                          id: '6oj6UO',
+                          size: 6,
+                          plugin: {
+                            id: 'ory/editor/core/content/image',
+                            version: 1,
+                          },
+                          dataI18n: { en: null },
+                          rows: [],
+                          inline: null,
+                        },
+                        {
+                          id: '1KvW1q',
+                          size: 6,
+                          plugin: {
+                            id: 'ory/editor/core/content/slate',
+                            version: 1,
+                          },
+                          dataI18n: {
+                            en: {
+                              slate: [
+                                {
+                                  type: 'HEADINGS/HEADING-TWO',
+                                  children: [
+                                    {
+                                      text: 'Batteries included - Key features',
+                                    },
+                                  ],
+                                },
+                                {
+                                  type: 'LISTS/UNORDERED-LIST',
+                                  children: [
+                                    {
+                                      children: [
+                                        {
+                                          text: 'powerful and customizable ',
+                                        },
+                                        {
+                                          text: 'RichText Editor (',
+                                          'EMPHASIZE/STRONG': true,
+                                        },
+                                        {
+                                          text: 'powered by ',
+                                          'EMPHASIZE/EM': true,
+                                        },
+                                        {
+                                          type: 'LINK/LINK',
+                                          children: [
+                                            { text: '', 'EMPHASIZE/EM': true },
+                                          ],
+                                          data: {
+                                            href:
+                                              'https://github.com/vazco/uniforms',
+                                          },
+                                        },
+                                        { text: '', 'EMPHASIZE/EM': true },
+                                        {
+                                          type: 'LINK/LINK',
+                                          children: [
+                                            {
+                                              text: 'Slate',
+                                              'EMPHASIZE/EM': true,
+                                            },
+                                          ],
+                                          data: {
+                                            href:
+                                              'https://github.com/ianstormtaylor/slate/',
+                                          },
+                                        },
+                                        { text: ')' },
+                                      ],
+                                      type: 'LISTS/LIST-ITEM',
+                                    },
+                                    {
+                                      children: [
+                                        {
+                                          text:
+                                            '12-column grid responsive grid layout',
+                                        },
+                                      ],
+                                      type: 'LISTS/LIST-ITEM',
+                                    },
+                                    {
+                                      children: [{ text: 'Drag & Drop cells' }],
+                                      type: 'LISTS/LIST-ITEM',
+                                    },
+                                    {
+                                      children: [
+                                        {
+                                          text:
+                                            'Undo & Redo, copy and hotkey support',
+                                        },
+                                      ],
+                                      type: 'LISTS/LIST-ITEM',
+                                    },
+                                    {
+                                      children: [
+                                        { text: 'Multi-Language support' },
+                                      ],
+                                      type: 'LISTS/LIST-ITEM',
+                                    },
+                                    {
+                                      children: [
+                                        {
+                                          text:
+                                            'Add any custom Components you like',
+                                        },
+                                      ],
+                                      type: 'LISTS/LIST-ITEM',
+                                    },
+                                  ],
+                                },
+                              ],
+                            },
+                          },
+                          rows: [],
+                          inline: null,
+                        },
+                      ],
+                    },
+                  ],
                   inline: null,
                 },
               ],
