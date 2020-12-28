@@ -1,10 +1,10 @@
-import Editor, { Value } from '@react-page/editor';
+import Editor, { Options, Value } from '@react-page/editor';
 import { demo } from '../sampleContents/demo';
 import React, { useState } from 'react';
 import { cellPlugins } from '../plugins/cellPlugins';
 import PageLayout from '../components/PageLayout';
 
-const LANGUAGES = [
+const LANGUAGES: Options['languages'] = [
   {
     lang: 'en',
     label: 'English',
