@@ -19,7 +19,7 @@ It introduces some breaking changes that had to be done to make the api more cle
 - `defaultPlugin` is no longer required. The editor will no longer automatically add a cell when its empty. Instead it shows a Button to add a new cell there.
 - best refer to the new docs (wip): https://github.com/react-page/react-page/blob/beta/docs/editor.md (TODO: add proper link once merged)
 
-Migrating plugins
+### Migrating custom plugins
 
 If you have custom plugins, migrate them like this:
 
@@ -32,6 +32,11 @@ If you have custom plugins, migrate them like this:
 - if you are using `@react-page/create-plugin-materialui`, you can remove that as it is no longer needed and instead use the `CellPlugin` type as mentioned above.
 
 (TODO): add more steps if any
+
+### Migrate custom slate plugins
+
+For custom slate plugins using custom Data, the api has slightly changed and has been unified with CellPlugins.
+It now takes also `controls` which has either `type: "autoform"` and `schema` as a JsonSchema or `type: "custom"` for custom controls.
 
 ## 0.7.x
 
