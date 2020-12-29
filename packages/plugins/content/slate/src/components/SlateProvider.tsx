@@ -1,3 +1,4 @@
+import { deepEquals } from '@react-page/editor';
 import debounce from 'lodash.debounce';
 import React, {
   useCallback,
@@ -35,7 +36,7 @@ const SlateProvider: React.FC<SlateProps> = (props) => {
         {
           // mark as not undoable when state is same
           // that happens if only selection was changed
-          notUndoable: valueRef.current === data.slate,
+          notUndoable: deepEquals(valueRef.current, data.slate),
         }
       );
     }, 200),

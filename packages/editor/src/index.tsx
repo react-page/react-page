@@ -8,6 +8,7 @@ import Editor, { EditorProps } from './editor/Editor';
 import makeUniformsSchema from './ui/AutoformControls/makeUniformsSchema';
 import { AutoForm, AutoFields } from './ui/AutoformControls';
 import { migrateValue } from './core/migrations/migrate';
+import deepEquals from './core/utils/deepEquals';
 export { AutoForm, AutoFields };
 
 export * from './ui/ColorPicker';
@@ -19,6 +20,7 @@ export { makeUniformsSchema };
 
 export { migrateValue };
 
+export { deepEquals };
 export default Editor;
 
 export const VERSION = '###VERSION###';
