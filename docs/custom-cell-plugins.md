@@ -10,7 +10,7 @@ You define it like this:
 import { CellPlugin } from '@react-page/editor';
 import React from 'react';
 
-// be sure to use a type, not an interface
+// use a type here, not an interface
 type Data = {
   title: string
 }
