@@ -2,7 +2,7 @@
 
 instead, you can declare a schema directly on any plugin:
 
-```
+```tsx
 import { CellPlugin } from '@react-page/editor';
 
 type Data = {
@@ -38,38 +38,38 @@ _It will only load the form-libraries, if the Editor is in edit mode (See sectio
 
 ## Example
 
-```
-import { createContentBase} from '@react-page/create-plugin-materialui';
+```tsx
+import { createContentBase } from '@react-page/create-plugin-materialui';
 import React from 'react';
 
 const yourCustomPlugin = createContentPlugin({
-    Renderer: ({ state }) => (
-      <div>
-        <p>I am a custom plugin</p>
-        <p>this is my configuration:</p>
-        <p>Firstname: {state.firstName}</p>
-        <p>Lastname: {state.lastName}</p>
-        <p>Age: {state.age}</p>
-      </div>
-    ),
-    name: 'custom-content-plugin',
-    text: 'Custom content plugin',
-    description: 'Some custom content plugin',
-    version: '0.0.1',
-    // see uniforms for more information on these schemas
-    schema: {
-      properties: {
-        firstName: { type: 'string' },
-        lastName: { type: 'string' },
-        age: {
-          description: 'Age in years',
-          type: 'integer',
-          minimum: 0,
-        },
+  Renderer: ({ state }) => (
+    <div>
+      <p>I am a custom plugin</p>
+      <p>this is my configuration:</p>
+      <p>Firstname: {state.firstName}</p>
+      <p>Lastname: {state.lastName}</p>
+      <p>Age: {state.age}</p>
+    </div>
+  ),
+  name: 'custom-content-plugin',
+  text: 'Custom content plugin',
+  description: 'Some custom content plugin',
+  version: '0.0.1',
+  // see uniforms for more information on these schemas
+  schema: {
+    properties: {
+      firstName: { type: 'string' },
+      lastName: { type: 'string' },
+      age: {
+        description: 'Age in years',
+        type: 'integer',
+        minimum: 0,
       },
-      required: ['firstName', 'lastName'],
     },
-  });
+    required: ['firstName', 'lastName'],
+  },
+});
 ```
 
 ## Custom form control fields
@@ -79,7 +79,7 @@ you can pass your components to the schema, see this section on uniforms: https:
 
 Make sure that you lazy-load your custom components:
 
-```
+```tsx
 import { lazyLoad } from "@react-page/core"
 
 const MyCustomImageUploadField = lazyLoad(() => import("./path/to/MyCustomImageUploadField));
@@ -104,6 +104,6 @@ If you don't lazy load your form components, you might increase your bundle size
 
 its also possible to create layout plugins:
 
-```
+```tsx
 import { createLayoutPlugin } from '@react-page/create-plugin-materialui';
 ```

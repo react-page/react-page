@@ -3,12 +3,21 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import DeleteIcon from '@material-ui/icons/Delete';
 import DoneIcon from '@material-ui/icons/Done';
-import { makeUniformsSchema, AutoForm, AutoFields } from '@react-page/editor';
+import {
+  makeUniformsSchema,
+  AutoForm,
+  AutoFields,
+  JsonSchema,
+} from '@react-page/editor';
 import React, { useCallback, useRef, useState } from 'react';
 
 import { SlatePluginControls } from '../../types/slatePluginDefinitions';
 
-function Controls<T>(props: SlatePluginControls<T>) {
+function Controls<T>(
+  props: SlatePluginControls<T> & {
+    schema: JsonSchema<T>;
+  }
+) {
   const uniformsSchema = props.schema
     ? makeUniformsSchema<T>(props.schema)
     : null;

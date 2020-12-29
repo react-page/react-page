@@ -1,3 +1,5 @@
+## Intro
+
 We provide an advanced rich text editor as a `CellPlugin` based on [slate](http://slatejs.org).
 
 It has to be installed separatly:
@@ -15,9 +17,9 @@ $ npm i --save @react-page/plugins-slate
   </figure>
 </p>
 
-## usage
+## Usage
 
-simply add it as a `cellPlugin` to the editor:
+simply add `@react-page/plugins-slate` as a `cellPlugin` to the editor:
 
 [simple.tsx](examples/pages/examples/simple.tsx ':include :type=code typescript')
 
@@ -49,7 +51,7 @@ that will edit this landing page to create links to products from your shop.
 
 To create a customized slate plugin, call it with a function that changes its default configuration:
 
-```typescript
+```tsx
 import Editor from '@react-page/editor';
 import slate from '@react-page/plugins-slate';
 
@@ -73,7 +75,7 @@ const myCustomSlatePlugin = slate(def => ({
 
 You can customize slate plugins by providing a customize function. It will take the plugin's default config and you can return a new config. Most obvious usecase is to change the component that renders the plugin's content:
 
-```typescript
+```tsx
 // any custom component
 const RedH1 = ({ style, ...props }: Props) => (
   <h1 style={{ ...style, color: 'red' }} {...props} />
@@ -87,8 +89,8 @@ const slatePlugin = slate(slateDef => ({
       // we can customize the h1 by providing a transform function
       h1: slateDef.plugins.headings.h1(h1Def => ({
       ...h1Def, // spread it, so that the new config contains all defaults
-      Component: ({data, children}) => (
-        <RedH1 style={{textAlign: data.get("align")}}>{children}</RedH1>
+      Component: ({style, children}) => (
+        <RedH1 style={style}>{children}</RedH1>
       )
     }))
     }
@@ -102,7 +104,7 @@ If you use typescript (and you should!), you will get nice typechecking in the c
 
 If you want to add an additional plugin you can add it as well:
 
-```typescript
+```tsx
 import slate from '@react-page/plugins-slate';
 
 
@@ -130,7 +132,7 @@ If you want to create your own slate plugin, we provide a bunch of factory funct
 - `createDataPlugin`: this plugin toggles data on the current block or inline element, but does not render a component. E.g. the alignment-plugin uses this factory
   you can import these with:
 
-```typescript
+```tsx
 import { pluginFactories } from '@react-page/plugins-slate';
 ```
 
@@ -138,13 +140,15 @@ import { pluginFactories } from '@react-page/plugins-slate';
 
 Some plugins require custom data that the user has to provide. E.g. the `link` plugin needs a `href: string`. Easiest way is to define a jsonSchema for your slate plugin. This will auto-generate a form that can update your plugin.
 
-[look at the `link` plugin as an example how to do that](/packages/plugins/content/slate/plugins/link/index.tsx)
+See the built in link plugin as an example:
 
-[See also this helper library for more information](/packages/plugins/createPluginMaterialUi/README.md)
+[simple.tsx](examples/slate-plugin-src/plugins/links/link.tsx ':include :type=code typescript')
 
-For **typescript**-users: As you can see, all factories take a generic type Argument. E.g.
+#### For **typescript**-users
 
-```typescript
+As you can see, all factories take a generic type Argument. E.g.
+
+```tsx
 type LinkData = {
   href: string;
   openInNewWindow?: boolean;
@@ -158,7 +162,7 @@ const yourLinkPlugin = createComponentPlugin<LinkData>({
 
 this ensures that whenver data is used, the type is correct. Very handy also for consumers of your plugin:
 
-```jsx
+```tsx
 const linkWithMyOverrriddenComponent = yourLinkPlugin((def) => ({
   ...def,
   Component: ({ data, children }) => (
@@ -173,49 +177,54 @@ const linkWithMyOverrriddenComponent = yourLinkPlugin((def) => ({
 
 the consumer could even change the add more properties to the data type, altough its up to him/her to adjust the controls and serialization so that the new DataType is satisfied:
 
-```typescript
-const linkWithTracking = yourLinkPlugin<{campaignTrackingId: string}>(def => ({
-  ...def,
-  Component: ({data, children}) => (
-    <LinkWithTracking href={data.get("href")} campaignTrackingId={data.get("campaignTrackingId")}>
-      {children}
-    </LinkWithTracking>
-  ),
-  schema: {
-    // this now needs to be compatible to your new data.
-    // its best to spread in the default schema (if `yourLinkPlugin` already defines one)
-    // and extend it.
-    // typescript will help you with that
-    ...def.schema,
-    required: [...def.schema.required,"campaignTrackingId"]
-    properties: {
-      ...def.schema.properties,
-      campaignTrackingId: {
-        title: "Campaign Tracking ID",
-        type: "string"
-      }
-    }
-  },
-  Controls: null /* if you use schema, set this null, otherwise typescript will complain
+```tsx
+const linkWithTracking = yourLinkPlugin<{ campaignTrackingId?: string }>(
+  (def) => ({
+    ...def,
+    Component: ({ href, campaignTrackingId, children }) => (
+      <LinkWithTracking href={href} campaignTrackingId={campaignTrackingId}>
+        {children}
+      </LinkWithTracking>
+    ),
+    controls:
+      def.controls.type === 'autoform'
+        ? {
+            ...def.controls,
+            schema: {
+              // this now needs to be compatible to your new data.
+              // its best to spread in the default schema (if `yourLinkPlugin` already defines one)
+              // and extend it.
+              // typescript will help you with that
+              ...def.controls.schema,
+              properties: {
+                ...def.schema.properties,
+                campaignTrackingId: {
+                  title: 'Campaign Tracking ID',
+                  type: 'string',
+                },
+              },
+            },
+          }
+        : null,
 
-  // deserialize needs to be update, because `campaignTrackingId` is not defined as optional above
-  deserialize: {
-    // we spread in all defaults, but update getData to also include `campaignTrackingId`
-    ...def.deserialize,
-    getData: el => ({
-      ...def.serialization.getData(el),
-      campaignTrackingId: "some-default-id"
-    })
-
-  }
-}))
+    // deserialize needs to be update, because `campaignTrackingId` is not defined as optional above
+    deserialize: {
+      // we spread in all defaults, but update getData to also include `campaignTrackingId`
+      ...def.deserialize,
+      getData: (el) => ({
+        ...def.serialization.getData(el),
+        campaignTrackingId: 'some-default-id',
+      }),
+    },
+  })
+);
 ```
 
 ### Prefilled layouts
 
 You might want to restrict slate in certain layout plugins. E.g. you have a info-box where you only want to allow: h3, bold, emphasize and underline:
 
-```typescript
+```tsx
 // this is the default slate configuration with all plugins
 const defaultSlate = slate();
 

@@ -20,7 +20,8 @@ type Props<T extends {}> = {
 
 function PluginButton<T>(props: Props<T>) {
   const { plugin } = props;
-  const hasControls = Boolean(plugin.Controls) || Boolean(plugin.schema);
+
+  const hasControls = Boolean(plugin.controls);
 
   const [showControls, setShowControls] = useState(false);
   const storedPropsRef = useRef<{
@@ -65,8 +66,11 @@ function PluginButton<T>(props: Props<T>) {
     [isActive, hasControls, showControls, shouldInsertWithText]
   );
 
-  const { Controls: PassedControls } = plugin;
-  const Controls = PassedControls || UniformsControls;
+  const { controls } = plugin;
+  const Controls =
+    controls.type === 'autoform'
+      ? (props) => <UniformsControls {...props} schema={controls.schema} />
+      : controls.Component;
   const isDisabled = usePluginIsDisabled(plugin);
 
   return (
@@ -84,7 +88,7 @@ function PluginButton<T>(props: Props<T>) {
 
       {hasControls || shouldInsertWithText ? (
         <Controls
-          schema={plugin.schema}
+          pluginConfig={plugin}
           close={close}
           open={showControls}
           add={(p) => {

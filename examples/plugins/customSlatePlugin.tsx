@@ -12,15 +12,17 @@ export default pluginFactories.createComponentPlugin<{
   label: 'Set Color',
   Component: 'span',
   getStyle: ({ color }) => ({ color }),
-
-  schema: {
-    type: 'object',
-    required: ['color'],
-    properties: {
-      color: {
-        default: 'blue',
-        type: 'string',
-        enum: ['red', 'blue', 'green', 'orange'],
+  controls: {
+    type: 'autoform',
+    schema: {
+      type: 'object',
+      required: ['color'],
+      properties: {
+        color: {
+          default: 'blue',
+          type: 'string',
+          enum: ['red', 'blue', 'green', 'orange'],
+        },
       },
     },
   },

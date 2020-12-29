@@ -1,9 +1,31 @@
+## Intro
 
-
-The `<Editor />` component is the only Component you have to use. 
+The `<Editor />` component is the only Component you have to use.
 It's used both for editing and displaying content (with `readOnly` set to true)
 
+```tsx
+import Editor from '@react-page/editor';
+// plugin imports
+import slate from '@react-page/plugins-slate';
+import '@react-page/plugins-slate/lib/index.css';
+import image from '@react-page/plugins-image';
+import '@react-page/plugins-image/lib/index.css';
 
+// Define which plugins we want to use.
+const cellPlugins = [slate(), image];
+
+const App = () => {
+  // ....
+
+  // for editing
+  <Editor cellPlugins={cellPlugins} value={value} onChange={setValue} />;
+
+  // for displaying saved content
+  <Editor cellPlugins={cellPlugins} value={value} readOnly />;
+
+  // ....
+};
+```
 
 ## Props
 
@@ -22,9 +44,9 @@ This is not required when `readOnly` is `true`
 if set to `true`, the content cannot be edited. You need to set this if you want to just isplay your content.
 Any code that is only used for editing won't be loaded if you using webpack or similar bundlers, so you don't have to worry about bundle size!
 
-If you set it to `false` during runtime, the editing ui will be loaded and display. 
+If you set it to `false` during runtime, the editing ui will be loaded and display.
 
-E.g. you can have editing capabilities directly on the public facing page, where you normaly just show the content. 
+E.g. you can have editing capabilities directly on the public facing page, where you normaly just show the content.
 Simply check whether the current user is a publisher, display a button that will set `readOnly` to false and provide an `onChange` function to save the content
 
 ### `cellPlugins: CellPlugin[]`
@@ -49,8 +71,7 @@ if the content to edit should be multi-language, you can pass a language id (e.g
 
 should be an array of `{lang: string, label: string}` and contain all languages that can be used:
 
-```
-
+```tsx
 const LANGUAGES = [
   {
     lang: 'en',
@@ -65,4 +86,4 @@ const LANGUAGES = [
 
 That way an editing user can select the language at any time. Any cell will allways show the default language content unless another version in that language has been made. This is per cell so users can avoid the "copy everything to another language" problem that many CMS have! Users can just translate what needs to be translated.
 
-Additionaly cells can be hidden *per language*.
+Additionaly cells can be hidden _per language_.

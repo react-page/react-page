@@ -11,12 +11,15 @@ const anchor = createDataPlugin<{ id: string }>({
   dataMatches: (data) => {
     return Boolean(data?.id);
   },
-  schema: {
-    type: 'object',
-    required: ['id'],
-    properties: {
-      id: {
-        type: 'string',
+  controls: {
+    type: 'autoform',
+    schema: {
+      type: 'object',
+      required: ['id'],
+      properties: {
+        id: {
+          type: 'string',
+        },
       },
     },
   },

@@ -4,7 +4,7 @@ import { getAlignmentFromElement } from '../plugins/paragraphs';
 import { SlateComponentPluginDefinition } from '../types/slatePluginDefinitions';
 import createComponentPlugin from './createComponentPlugin';
 
-type Def<T extends {}> = Pick<
+type Def<T extends Record<string, unknown>> = Pick<
   SlateComponentPluginDefinition<HtmlBlockData<T>>,
   | 'type'
   | 'icon'
@@ -15,7 +15,7 @@ type Def<T extends {}> = Pick<
   | 'hotKey'
   | 'onKeyDown'
   | 'getInitialData'
-  | 'schema'
+  | 'controls'
 > & {
   replaceWithDefaultOnRemove?: boolean;
   tagName: keyof JSX.IntrinsicElements;
@@ -43,7 +43,7 @@ function createSimpleHtmlBlockPlugin<T = {}>(def: Def<HtmlBlockData<T>>) {
     addToolbarButton: !def.noButton,
     customAdd: def.customAdd,
     customRemove: def.customRemove,
-    schema: def.schema,
+    controls: def.controls,
     addHoverButton: false,
     deserialize: {
       tagName: def.tagName,

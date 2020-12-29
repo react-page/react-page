@@ -5,6 +5,8 @@ import ListItemText from '@material-ui/core/ListItemText';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import Link from 'next/link';
 import React from 'react';
+import DescriptionIcon from '@material-ui/icons/Description';
+import { ListItemIcon } from '@material-ui/core';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -19,13 +21,18 @@ const Navigation: React.FC = () => {
       <Divider />
       <Link passHref href="/docs">
         <ListItem component="a">
+          <ListItemIcon>
+            <DescriptionIcon />
+          </ListItemIcon>
+
           <ListItemText primary={'Docs'} />
         </ListItem>
       </Link>
+      <Divider />
 
       <Link passHref href="/">
         <ListItem component="a">
-          <ListItemText primary={'Home'} />
+          <ListItemText primary={'Demo'} />
         </ListItem>
       </Link>
       <Link passHref href="/empty">

@@ -1,10 +1,12 @@
+## Intro
+
 cell plugins define what your users can add as _cells_ to a document.
 A cell plugin is defined by some unique id, a title and a `Renderer` which is the react component
 that gets displayed in that _cell_.
 
 You define it like this:
 
-```typescript
+```tsx
 import { CellPlugin } from '@react-page/editor';
 import React from 'react';
 
@@ -12,6 +14,7 @@ import React from 'react';
 type Data = {
   title: string
 }
+
 const myFirstcellPlugin: CellPlugin<Data> = {
   Renderer: ({ data }) => (
     <SomeCustomComponent title={data.title} />

@@ -10,6 +10,7 @@ export interface PluginButtonProps {
 }
 
 export type SlatePluginControls<T extends {}> = {
+  pluginConfig: SlateBasePluginDefinition<T>;
   open: boolean;
   close: () => void;
   isActive: boolean;
@@ -17,7 +18,6 @@ export type SlatePluginControls<T extends {}> = {
   cancelLabel?: string;
   submitLabel?: string;
   removeLabel?: string;
-  schema?: JsonSchema<T>;
   data: T;
   add: (p: { data?: T; text?: string }) => void;
 
@@ -26,18 +26,46 @@ export type SlatePluginControls<T extends {}> = {
   getInitialData?: () => T;
 } & PluginButtonProps;
 
+/**
+ * controls where you can provide a custom component to render the controls.
+ */
+export type CustomControlsDef<DataT> = {
+  Component: React.ComponentType<SlatePluginControls<DataT>>;
+  type: 'custom';
+};
+
+/**
+ * autoform control type automatically generates a form for you.
+ */
+export type AutoformControlsDef<DataT> = {
+  /**
+   * a JSONSchema. this will auto-generate a form for the plugin
+   */
+  schema?: DataT extends Record<string, unknown> ? JsonSchema<DataT> : unknown;
+
+  /**
+   * autoform type automatically generates a form for you.
+   */
+  type: 'autoform';
+};
+
+/**
+ * All available type of controls
+ */
+export type ControlsDef<DataT> =
+  | AutoformControlsDef<DataT>
+  | CustomControlsDef<DataT>;
+
 export type SlateBasePluginDefinition<T extends {}> = {
   /** define a hotkey to toggle this plugin **/
   hotKey?: string;
 
   /**
-   * the schema defines the controls of the plugin
+   * the controls of the plugin if it has data.
+   * You can use a schema based "autoform" type (recomended) or pass a custom component (using "custom" type)
    */
-  schema?: JsonSchema<T>;
-  /**
-   *
-   */
-  Controls?: React.ComponentType<SlatePluginControls<T>>;
+  controls?: ControlsDef<T>;
+
   /**
    * icon of this plugin in the toolbar
    */

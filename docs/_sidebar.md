@@ -1,6 +1,7 @@
 <!-- docs/_sidebar.md -->
 
-- [Home](/)
+- [README](/)
+- <a href="..">> Demo</a>
 - [Getting started](/quick-start.md)
 - [`<Editor />`](/editor.md)
 - [Rich text editing](/slate.md)
@@ -11,3 +12,4 @@
   - [SSR](/server-side-rendering.md)
   - [Bundle size](/bundle-size.md)
   - [IE11](/ie11.md)
+- [CONTRIBUTING](/CONTRIBUTING.md)

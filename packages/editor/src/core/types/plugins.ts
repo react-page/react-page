@@ -56,6 +56,12 @@ export type CellPluginComponentProps<DataT> = {
   isEditMode: boolean;
 };
 
+export type CellPluginRenderer<DataT> = React.ComponentType<
+  CellPluginComponentProps<DataT> & {
+    children?: React.ReactNode;
+  }
+>;
+
 export type CellPluginCustomControlsComonent<DataT> = React.ComponentType<
   CellPluginComponentProps<DataT>
 >;
@@ -66,12 +72,6 @@ export type CustomControlsDef<DataT> = {
   Component: CellPluginCustomControlsComonent<DataT>;
   type: 'custom';
 };
-
-export type CellPluginRenderer<DataT> = React.ComponentType<
-  CellPluginComponentProps<DataT> & {
-    children?: React.ReactNode;
-  }
->;
 
 /**
  * autoform control type automatically generates a form for you.
