@@ -3,7 +3,7 @@
 @import './elements.css';
 
 body {
-
+  margin: 0px;
 
   color: #333333;
   font-size: 18px;

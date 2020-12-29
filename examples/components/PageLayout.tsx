@@ -45,9 +45,14 @@ const useStyles = makeStyles((theme: Theme) =>
     drawerPaper: {
       width: drawerWidth,
     },
+    main: {
+      flexGrow: 1,
+      padding: theme.spacing(4),
+      backgroundColor: '#eee',
+    },
     content: {
       flexGrow: 1,
-      padding: theme.spacing(3),
+      padding: theme.spacing(4),
       backgroundColor: 'white',
       maxWidth: 1280,
       margin: 'auto',
@@ -114,9 +119,9 @@ const PageLayout: React.FC = ({ children }) => {
           </Drawer>
         </Hidden>
       </nav>
-      <main className={classes.content}>
+      <main className={classes.main}>
         <div className={classes.toolbar} />
-        {children}
+        <div className={classes.content}>{children}</div>
       </main>
     </div>
   );
