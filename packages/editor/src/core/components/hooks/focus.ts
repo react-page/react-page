@@ -1,13 +1,13 @@
 import { useEffect } from 'react';
 import { useSelector } from '../../reduxConnect';
-import { RootState } from '../../selector';
+
 import { focus } from '../../selector/focus';
 
 /**
  * @returns the current focused nodeId or null
  */
 export const useFocusedNodeId = () => {
-  return useSelector((state: RootState) => focus(state)?.nodeId);
+  return useSelector((state) => focus(state)?.nodeId);
 };
 
 /**
@@ -16,7 +16,7 @@ export const useFocusedNodeId = () => {
  * @returns true if the given node id is focused
  */
 export const useIsFocused = (id: string) => {
-  return useSelector((state: RootState) => focus(state)?.nodeId === id);
+  return useSelector((state) => focus(state)?.nodeId === id);
 };
 
 /**
@@ -30,7 +30,7 @@ export const useScrollToViewEffect = (
   effect: React.EffectCallback,
   deps: React.DependencyList
 ) => {
-  const scrollToCell = useSelector((state: RootState) => {
+  const scrollToCell = useSelector((state) => {
     const f = focus(state);
 
     if (!f || f.nodeId !== id) {

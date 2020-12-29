@@ -1,6 +1,6 @@
 import { createContext, useContext } from 'react';
 import { useSelector } from '../../reduxConnect';
-import { RootState } from '../../selector';
+
 import { editable } from '../../selector/editable';
 import { Value } from '../../types/editable';
 import deepEquals from '../../utils/deepEquals';
@@ -21,7 +21,7 @@ type EditableSelector<T> = (node: Value) => T;
 export const useEditableNode = <T>(selector: EditableSelector<T>) => {
   const editableId = useEditableId();
   return useSelector(
-    (state: RootState) =>
+    (state) =>
       selector(
         editable(state, {
           id: editableId,

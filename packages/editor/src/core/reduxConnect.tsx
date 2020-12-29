@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-types */
-import React from 'react';
+import React, { Dispatch } from 'react';
 import {
   connect as reduxConnect,
   Provider,
@@ -7,20 +7,29 @@ import {
   createDispatchHook,
   createSelectorHook,
 } from 'react-redux';
+import { AnyAction } from 'redux';
+import { ThunkAction } from 'redux-thunk';
+import { RootState } from './types';
 export const ReduxContext = React.createContext(null);
 
 export const ReduxProvider = ({ store, ...props }) => (
   <Provider store={store} context={ReduxContext} {...props} />
 );
 
-export const useStore = createStoreHook(ReduxContext);
-export const useDispatch = createDispatchHook(ReduxContext);
-export const useSelector = createSelectorHook(ReduxContext);
+export const useStore = createStoreHook<RootState>(ReduxContext);
+export const useDispatch = createDispatchHook(
+  ReduxContext
+) as () => Dispatch<any>;
+export const useSelector = createSelectorHook<RootState>(ReduxContext);
 
+/**
+ * @deprecated use `useSelector` hook
+ */
 export const connect = (
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   mapStateToProps?: any,
-  mapDispatchToProps?: Function | Object,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  mapDispatchToProps?: any,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   mergeProps?: any,
   options = {}

@@ -9,7 +9,7 @@ import {
   setMode,
 } from '../../actions/display';
 import { useDispatch, useSelector } from '../../reduxConnect';
-import { RootState } from '../../selector';
+
 import {
   isEditMode,
   isInsertMode,
@@ -59,9 +59,7 @@ export const useIsResizeMode = () => {
  *
  */
 export const useDisplayModeReferenceNodeId = () => {
-  return useSelector(
-    (state: RootState) => state.reactPage?.display?.referenceNodeId
-  );
+  return useSelector((state) => state.reactPage?.display?.referenceNodeId);
 };
 
 /**

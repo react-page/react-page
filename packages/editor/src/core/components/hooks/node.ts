@@ -2,7 +2,7 @@ import debounce from 'lodash.debounce';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { PositionEnum } from '../../const';
 import { useSelector } from '../../reduxConnect';
-import { RootState } from '../../selector';
+
 import { findNodeInState } from '../../selector/editable';
 import { Cell, isRow, Node, Row } from '../../types/editable';
 import deepEquals from '../../utils/deepEquals';
@@ -23,7 +23,7 @@ export const useNodeProps = <T>(
   nodeId: string,
   selector: NodeSelector<T>
 ): T => {
-  const node = useSelector((state: RootState) => {
+  const node = useSelector((state) => {
     const result = findNodeInState(state, nodeId);
 
     if (!result) {
@@ -82,7 +82,7 @@ export const useRowProps = <T>(nodeId: string, selector: RowSelector<T>): T => {
  * @returns the relative hover position over the given node, or null if this node is not hovered over
  */
 export const useNodeHoverPosition = (nodeId: string): PositionEnum => {
-  return useSelector((state: RootState) =>
+  return useSelector((state) =>
     state.reactPage.hover?.nodeId === nodeId
       ? state.reactPage.hover.position
       : null
