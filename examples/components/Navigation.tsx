@@ -35,6 +35,11 @@ const Navigation: React.FC = () => {
           <ListItemText primary={'Demo'} />
         </ListItem>
       </Link>
+      <Link passHref href="/readonly">
+        <ListItem component="a">
+          <ListItemText primary={'Read only'} />
+        </ListItem>
+      </Link>
       <Link passHref href="/empty">
         <ListItem component="a">
           <ListItemText primary={'Empty editor'} />
