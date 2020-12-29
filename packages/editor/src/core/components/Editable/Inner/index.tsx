@@ -69,7 +69,7 @@ const Inner: React.FC = () => {
   }, [firstElementInViewPortref.current]);
 
   return (
-    <div style={{ minHeight: 400, display: 'flex', flexDirection: 'column' }}>
+    <div style={{ minHeight: 480, display: 'flex', flexDirection: 'column' }}>
       <div ref={ref} className="react-page-editable">
         {rowIds.length > 0
           ? rowIds.map((id) => <Row nodeId={id} key={id} />)
