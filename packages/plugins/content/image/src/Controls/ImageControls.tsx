@@ -38,7 +38,7 @@ const ImageControls: ImageControlType = (props) => {
           }
           name="src"
           // style={{ flex: 1 }}
-          value={props.data.src}
+          value={props.data.src ?? ''}
           onChange={(e) =>
             props.onChange({
               src: e.target.value,
