@@ -15,7 +15,7 @@ import { SlatePluginControls } from '../../types/slatePluginDefinitions';
 
 function Controls<T>(
   props: SlatePluginControls<T> & {
-    schema: JsonSchema<T>;
+    schema?: JsonSchema<T>;
   }
 ) {
   const uniformsSchema = props.schema
