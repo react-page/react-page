@@ -67,10 +67,11 @@ function PluginButton<T>(props: Props<T>) {
   );
 
   const { controls } = plugin;
-  const Controls =
-    controls.type === 'autoform'
-      ? (props) => <UniformsControls {...props} schema={controls.schema} />
-      : controls.Component;
+  const Controls = controls
+    ? controls.type === 'autoform'
+      ? (props) => <UniformsControls {...props} schema={controls?.schema} />
+      : controls.Component
+    : UniformsControls;
   const isDisabled = usePluginIsDisabled(plugin);
 
   return (
