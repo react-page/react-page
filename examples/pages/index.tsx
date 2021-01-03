@@ -3,7 +3,7 @@ import { demo } from '../sampleContents/demo';
 import React, { useState } from 'react';
 import { cellPlugins } from '../plugins/cellPlugins';
 import PageLayout from '../components/PageLayout';
-
+import { Button } from '@material-ui/core';
 const LANGUAGES: Options['languages'] = [
   {
     lang: 'en',
@@ -17,7 +17,7 @@ const LANGUAGES: Options['languages'] = [
 
 export default function Home() {
   const [value, setValue] = useState<Value>(demo);
-
+  const reset = () => setValue(demo);
   return (
     <PageLayout>
       <Editor
@@ -27,6 +27,7 @@ export default function Home() {
         onChange={setValue}
         languages={LANGUAGES}
       />
+      <Button onClick={reset}>Reset</Button>
     </PageLayout>
   );
 }
