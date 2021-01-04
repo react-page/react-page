@@ -1,4 +1,4 @@
-import type { Editables } from './editable';
+import type { Editables, NodeWithAncestors } from './editable';
 import type { Display } from './display';
 import type { Focus } from '../reducer/focus';
 import type { Hover } from '../reducer/hover';
@@ -12,5 +12,6 @@ export type RootState = {
     settings: {
       lang?: string;
     };
+    __nodeCache: Record<string, NodeWithAncestors>;
   };
 };

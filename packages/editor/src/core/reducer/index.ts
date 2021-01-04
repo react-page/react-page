@@ -13,6 +13,7 @@ const reducer = combineReducers({
   focus,
   settings,
   hover,
+  __nodeCache: () => null, // always empty __nodeCache
 });
 
 export { reducer };

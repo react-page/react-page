@@ -30,20 +30,27 @@ const findNode = (
   return null;
 };
 
-export const findNodeInState = (
-  state: RootState & {
-    __nodeCache?: Record<string, NodeWithAncestors>;
-  },
-
-  nodeId: string
-) => {
+/*
+let sum = 0;
+let missum = 0;
+const end = (start, hit) => {
+  const now = performance.now();
+  const diff = now - start;
+  sum += diff;
+  if (!hit) missum++;
+  console.log('time', hit ? '!' : '?', missum, diff, sum);
+};
+*/
+export const findNodeInState = (state: RootState, nodeId: string) => {
+  // const now = performance.now();
   // POOR mans node cache
   // it gets removed every reduce, so we don't have to clear it manually
-  if (!state.__nodeCache) {
-    state.__nodeCache = {};
+  if (!state.reactPage.__nodeCache) {
+    state.reactPage.__nodeCache = {};
   }
-  if (state.__nodeCache[nodeId]) {
-    return state.__nodeCache[nodeId];
+  if (state.reactPage.__nodeCache[nodeId]) {
+    //end(now, true);
+    return state.reactPage.__nodeCache[nodeId];
   }
   // FIXME: we will deprecated having multiple editables soon
   const result = findNode(
@@ -53,8 +60,8 @@ export const findNodeInState = (
     ),
     nodeId
   );
-  state.__nodeCache[nodeId] = result;
-
+  state.reactPage.__nodeCache[nodeId] = result;
+  //end(now, false);
   return result;
 };
 
