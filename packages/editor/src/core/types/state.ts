@@ -12,6 +12,6 @@ export type RootState = {
     settings: {
       lang?: string;
     };
-    __nodeCache: Record<string, NodeWithAncestors>;
+    __nodeCache?: Record<string, NodeWithAncestors>;
   };
 };

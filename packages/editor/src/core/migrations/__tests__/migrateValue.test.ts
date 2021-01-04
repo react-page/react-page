@@ -1,7 +1,15 @@
 import { Value } from '../../types';
+import { createUuid } from '../../utils/createUuid';
 import { CURRENT_EDITABLE_VERSION } from '../EDITABLE_MIGRATIONS';
 import { Value_v0 } from '../EDITABLE_MIGRATIONS/from0to1';
 import { migrateValue } from '../migrate';
+
+jest.mock('../../utils/createUuid', () => {
+  let index = 1;
+  return {
+    createUuid: () => 'nodeId_' + index++,
+  };
+});
 
 describe('migrateValue', () => {
   it('migrates unversioned state to latest state (1)', () => {
@@ -42,10 +50,10 @@ describe('migrateValue', () => {
       version: CURRENT_EDITABLE_VERSION,
       rows: [
         {
-          id: 'row1',
+          id: 'nodeId_1',
           cells: [
             {
-              id: 'cell2',
+              id: 'nodeId_2',
               plugin: {
                 id: 'fooplugin',
                 version: 0.0001,
