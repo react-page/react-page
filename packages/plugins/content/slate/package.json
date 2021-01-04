@@ -19,10 +19,7 @@
   },
   "peerDependencies": {
     "react": "^16.8.6 || ^17.0.0",
-    "react-dom": "^16.8.6 || ^17.0.0",
-    "@material-ui/core": "*",
-    "@material-ui/icons": "*",
-    "@material-ui/styles": "*"
+    "react-dom": "^16.8.6 || ^17.0.0"
   },
   "dependencies": {
     "@react-page/editor": "0.0.0",
@@ -41,7 +38,9 @@
     "slate": "^0.59.0",
     "slate-react": "^0.59.0",
     "slate-hyperscript": "^0.59.0",
-    "@emotion/is-prop-valid": "^0.8.8"
+    "@emotion/is-prop-valid": "^0.8.8",
+    "@material-ui/core": "^4.11.2",
+    "@material-ui/icons": "^4.11.2"
   },
   "publishConfig": {
     "access": "public"
