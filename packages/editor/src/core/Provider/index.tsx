@@ -57,6 +57,7 @@ const Provider: React.FC<ProviderProps> = ({
     const store = new EditorStore({
       initialState: {
         reactPage: {
+          __nodeCache: {},
           hover: null,
           focus: null,
           display: {
