@@ -76,6 +76,7 @@ export default new Migration<Value_v0, Value>({
     const migrateRow = ({ cells, ...rowRest }: RowOld): Row => {
       return {
         ...rowRest,
+        id: createUuid(),
         cells: cells?.map(migrateCell) ?? [],
       };
     };
@@ -105,7 +106,7 @@ export default new Migration<Value_v0, Value>({
         rows: rows?.map(migrateRow),
         plugin,
         dataI18n,
-        id: cellRest.id ? cellRest.id : createUuid(),
+        id: createUuid(), // override old ids with new ones
       });
     };
     const migratedCells = cells?.map(migrateCell) ?? [];
