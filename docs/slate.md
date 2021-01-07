@@ -1,4 +1,4 @@
-## Intro
+## slate CellPlugin
 
 We provide an advanced rich text editor as a `CellPlugin` based on [slate](http://slatejs.org).
 
@@ -38,7 +38,7 @@ By default we provide the following plugins:
 
 ## Customization
 
-the slate plugin itself is highly customizable and has even itself its own plugin sytem!
+The **slate CellPlugin** itself is highly customizable and has even itself its own plugin sytem!
 Not only can you perfectly control how any paragraph, headline or other markup is rendereed,
 you can also add custom plugins with their own control.
 
@@ -49,7 +49,7 @@ That way the links will still be valid when the page is moved or renamed.
 Another example: if you create a landing page for an ecomerce project, you can enable the webmasters
 that will edit this landing page to create links to products from your shop.
 
-To create a customized slate plugin, call it with a function that changes its default configuration:
+To customize the **slate CellPlugin**, call it with a function that changes its default configuration:
 
 ```tsx
 import Editor from '@react-page/editor';
@@ -71,9 +71,13 @@ const myCustomSlatePlugin = slate(def => ({
 })
 ```
 
+Now you can pass `myCustomSlatePlugin` as a member of `cellPlugins` to the editor.
+
+Notice: the default export of `@react-page/plugins-slate` is a function that returns a `CellPlugin`. When called without any argument, it will use the default configuration. if you pass a callback function, it will use the configuration you return from that function. This callback function will receive the default configuration. This way you can return the default configuration and alter it as in the example above (using object spread).
+
 ### Customize built-in slate plugins
 
-You can customize slate plugins by providing a customize function. It will take the plugin's default config and you can return a new config. Most obvious usecase is to change the component that renders the plugin's content:
+You can customize the provided slate plugins (paragraphs, headings, alignment, etc.) by providing a customize function. It will take the plugin's default config and you can return a new config. Most obvious usecase is to change the component that renders the plugin's content:
 
 ```tsx
 // any custom component
