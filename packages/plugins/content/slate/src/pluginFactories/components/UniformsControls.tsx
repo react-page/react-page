@@ -66,7 +66,9 @@ function Controls<T>(
   return (
     <Dialog
       disableEnforceFocus={true}
-      PaperProps={{ style: { minWidth: 300 } }}
+      PaperProps={{
+        style: { minWidth: 300 },
+      }}
       open={props.open}
     >
       <DialogContent>

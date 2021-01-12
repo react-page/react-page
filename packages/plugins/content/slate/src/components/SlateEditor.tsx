@@ -1,9 +1,9 @@
 import { lazyLoad } from '@react-page/editor';
 import React from 'react';
-import { Editable, useSelected, useFocused } from 'slate-react';
-
+import { Editable, useFocused, useSelected } from 'slate-react';
 import type { SlateProps } from '../types/component';
 import type { SlatePlugin } from '../types/SlatePlugin';
+import { useDialogIsVisible } from './DialogVisibleProvider';
 import { useOnKeyDown } from './hotkeyHooks';
 import { useRenderElement, useRenderLeave } from './renderHooks';
 
@@ -27,11 +27,12 @@ const SlateEditable = React.memo(
     );
     const renderLeaf = useRenderLeave({ plugins, injections }, []);
     const onKeyDown = useOnKeyDown({ plugins }, []);
-
+    // this is required so that dialogs & controls don't mess with slate's selection
+    const dialogVisible = useDialogIsVisible();
     return (
       <Editable
         placeholder={readOnly ? undefined : placeholder}
-        readOnly={readOnly}
+        readOnly={dialogVisible || readOnly}
         renderElement={renderElement}
         renderLeaf={renderLeaf}
         onKeyDown={readOnly ? undefined : onKeyDown}

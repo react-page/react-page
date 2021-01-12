@@ -12,11 +12,13 @@ import { Slate, withReact } from 'slate-react';
 import withInline from '../slateEnhancer/withInline';
 import withPaste from '../slateEnhancer/withPaste';
 import type { SlateProps } from '../types/component';
+import DialogVisibleProvider from './DialogVisibleProvider';
 
 const SlateProvider: React.FC<SlateProps> = (props) => {
   const { data, plugins, children, defaultPluginType } = props;
   const [value, setValue] = useState<Node[]>(data?.slate);
   const valueRef = useRef(value);
+
   valueRef.current = value;
   const editor = useMemo(
     () =>
@@ -65,9 +67,11 @@ const SlateProvider: React.FC<SlateProps> = (props) => {
   );
 
   return (
-    <Slate editor={editor} value={value} onChange={onChange}>
-      {children}
-    </Slate>
+    <DialogVisibleProvider>
+      <Slate editor={editor} value={value} onChange={onChange}>
+        {children}
+      </Slate>
+    </DialogVisibleProvider>
   );
 };
 

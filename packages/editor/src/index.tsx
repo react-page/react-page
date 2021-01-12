@@ -1,3 +1,4 @@
+//import './wdyr';
 export * from './core/types';
 export * from './core/components/hooks';
 

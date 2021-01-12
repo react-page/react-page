@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-types */
-import React, { useCallback, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { Range, Transforms } from 'slate';
 import { useSlate } from 'slate-react';
 import useAddPlugin from '../hooks/useAddPlugin';
@@ -7,11 +7,14 @@ import { getCurrentNodeDataWithPlugin } from '../hooks/useCurrentNodeDataWithPlu
 import usePluginIsActive from '../hooks/usePluginIsActive';
 import usePluginIsDisabled from '../hooks/usePluginIsDisabled';
 import useRemovePlugin from '../hooks/useRemovePlugin';
+
 import UniformsControls from '../pluginFactories/components/UniformsControls';
 import {
   PluginButtonProps,
   SlatePluginDefinition,
 } from '../types/slatePluginDefinitions';
+import { useSetDialogIsVisible } from './DialogVisibleProvider';
+
 import ToolbarButton from './ToolbarButton';
 
 type Props<T extends {}> = {
@@ -42,6 +45,8 @@ function PluginButton<T>(props: Props<T>) {
   const add = useAddPlugin(plugin);
   const remove = useRemovePlugin(plugin);
   const editor = useSlate();
+  const setIsVisible = useSetDialogIsVisible();
+  useEffect(() => setIsVisible(showControls), [showControls]);
   const onClick = React.useCallback(
     (e: React.MouseEvent<HTMLElement>) => {
       e.preventDefault();
@@ -54,6 +59,7 @@ function PluginButton<T>(props: Props<T>) {
             data: getCurrentNodeDataWithPlugin(editor, plugin),
           };
         }
+
         setShowControls(!showControls);
       } else {
         if (isActive) {
