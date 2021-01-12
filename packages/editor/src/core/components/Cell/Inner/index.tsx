@@ -59,7 +59,7 @@ const Inner: React.FC<{ nodeId: string }> = ({ nodeId }) => {
         <div
           onMouseDown={!isPreviewMode ? onMouseDown : undefined}
           tabIndex={-1}
-          style={{ outline: 'none', height: '100%', ...cellStyle }}
+          style={{ outline: 'none', height: '100%', ...(cellStyle ?? {}) }}
           className={
             'react-page-cell-inner' +
             (hasChildren ? '' : ' react-page-cell-leaf')

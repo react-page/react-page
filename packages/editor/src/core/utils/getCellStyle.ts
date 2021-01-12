@@ -5,4 +5,4 @@ export const getCellStyle = (plugin: CellPlugin) =>
     ? typeof plugin?.cellStyle === 'function'
       ? plugin?.cellStyle()
       : plugin?.cellStyle
-    : {};
+    : undefined;
