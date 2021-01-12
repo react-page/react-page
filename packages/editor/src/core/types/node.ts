@@ -1,6 +1,8 @@
 import { CellPlugin } from './plugins';
 
 import { Languages } from '../EditorStore';
+import { ChildConstraints } from './constraints';
+
 export type I18nField<T> = {
   [lang: string]: T;
 };
@@ -105,6 +107,7 @@ export type CellDrag = {
   type: 'cell';
   cell: Cell;
 };
+
 /**
  * This are the options of the editor. Basically anything that isn't the value or a callback.
  */
@@ -118,6 +121,12 @@ export type Options = {
    * all languages that can be selected for the content
    */
   languages?: Languages;
+
+  /**
+   * defines constraints about the nodes that the editor can have
+   */
+  childConstraints?: ChildConstraints;
+
   /**
    * Experimental.
    * indicates whether the plugins might change while the Editor is mounted. Make sure that you only change the references to the plugins,

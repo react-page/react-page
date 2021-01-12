@@ -6,7 +6,7 @@ import scrollIntoViewWithOffset from '../../Cell/utils/scrollIntoViewWithOffset'
 
 import InsertNew from '../../Cell/InsertNew';
 import Row from '../../Row';
-import { useValueNode } from '../../hooks';
+import { useOptions, useValueNode } from '../../hooks';
 
 function isElementInViewport(el: HTMLDivElement) {
   const rect = el.getBoundingClientRect();
@@ -29,6 +29,7 @@ const Inner: React.FC = () => {
   }));
 
   const ref = useRef<HTMLDivElement>();
+  const options = useOptions();
 
   const firstElementInViewPortref = React.useRef<{
     el: HTMLDivElement;
@@ -68,6 +69,10 @@ const Inner: React.FC = () => {
     }
   }, [firstElementInViewPortref.current]);
 
+  const insertAllowed = options.childConstraints?.maxChildren
+    ? options.childConstraints?.maxChildren > rowIds.length
+    : true;
+
   return (
     <div style={{ minHeight: 480, display: 'flex', flexDirection: 'column' }}>
       <div ref={ref} className="react-page-editable">
@@ -75,7 +80,8 @@ const Inner: React.FC = () => {
           ? rowIds.map((id) => <Row nodeId={id} key={id} />)
           : null}
       </div>
-      <InsertNew />
+
+      {insertAllowed ? <InsertNew /> : null}
     </div>
   );
 };

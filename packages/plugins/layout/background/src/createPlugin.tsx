@@ -12,6 +12,7 @@ const createPlugin = (settings: BackgroundSettings) => {
   const mergedSettings = { ...defaultSettings, ...settings };
   const Controls = mergedSettings.Controls;
   const Renderer = mergedSettings.Renderer;
+
   const plugin: CellPlugin<BackgroundState> = {
     controls: {
       type: 'custom',
@@ -27,6 +28,7 @@ const createPlugin = (settings: BackgroundSettings) => {
     icon: <Icon />,
 
     createInitialChildren: settings.getInitialChildren,
+    cellStyle: mergedSettings.cellStyle,
   };
   return plugin;
 };

@@ -5,6 +5,7 @@ import { AnyAction } from 'redux';
 import type { Migration } from '../migrations/Migration';
 import { Cell, PartialCell, PartialRow } from './node';
 import { JsonSchema } from './jsonSchema';
+import { ChildConstraints } from './constraints';
 
 export type CellPluginComponentProps<DataT> = {
   /**
@@ -163,6 +164,18 @@ export type CellPlugin<DataT = unknown, DataSerializedT = DataT> = {
 
   isInlineable?: boolean;
   allowInlineNeighbours?: boolean;
+
+  /**
+   * additional style for the wrapping cell
+   */
+  cellStyle?: React.CSSProperties | (() => React.CSSProperties);
+
+  /**
+   * defines constraint about the children that can be added to this Cell.
+   * Only useful if you render children in your Component
+   *
+   */
+  childConstraints?: ChildConstraints;
 
   /**
    * allowClickInside defines whether it accepts clicks in edit mode.

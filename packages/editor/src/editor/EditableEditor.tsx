@@ -37,6 +37,7 @@ const EditableEditor: React.FC<EditableEditorProps> = ({
   allowMoveInEditMode = true,
   allowResizeInEditMode = true,
   editModeResizeHandle,
+  childConstraints,
 }) => {
   const theValue = value || createEmptyState();
   return (
@@ -54,6 +55,7 @@ const EditableEditor: React.FC<EditableEditorProps> = ({
       dndBackend={dndBackend}
       blurGateDisabled={blurGateDisabled}
       blurGateDefaultMode={defaultDisplayMode}
+      childConstraints={childConstraints}
     >
       <StickyWrapper>
         {(stickyNess) => (

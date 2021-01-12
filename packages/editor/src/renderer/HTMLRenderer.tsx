@@ -4,6 +4,7 @@ import { migrateValue } from '../core/migrations/migrate';
 import { setAllSizesAndOptimize } from '../core/reducer/value/helper/setAllSizesAndOptimize';
 import type { Cell, CellPlugin, Row, ValueWithLegacy } from '../core/types';
 import { getCellData } from '../core/utils/getCellData';
+import { getCellStyle } from '../core/utils/getCellStyle';
 
 const gridClass = (size = 12): string =>
   `react-page-cell-sm-${size} react-page-cell-xs-12`;
@@ -51,6 +52,7 @@ const HTMLCell: React.FC<
     : null;
   if (plugin) {
     const { Renderer } = plugin;
+    const cellStyle = getCellStyle(plugin);
     const Provider = plugin.Provider ?? DefaultProvider;
     const data = getCellData(cell, lang);
     const props = {
@@ -68,6 +70,7 @@ const HTMLCell: React.FC<
       <Provider {...props}>
         <div className={cn}>
           <div
+            style={cellStyle}
             className={
               'react-page-cell-inner' +
               (cell.rows?.length > 0 ? '' : ' react-page-cell-leaf')

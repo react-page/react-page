@@ -46,7 +46,7 @@ const Provider: React.FC<ProviderProps> = ({
   blurGateDefaultMode,
   cellPlugins,
   allowMoveInEditMode,
-
+  childConstraints,
   allowResizeInEditMode,
   editModeResizeHandle,
   languages,
@@ -148,6 +148,7 @@ const Provider: React.FC<ProviderProps> = ({
       allowResizeInEditMode,
       editModeResizeHandle,
       languages,
+      childConstraints,
     };
   }, [
     pluginsWillChange && cellPlugins,
@@ -155,6 +156,7 @@ const Provider: React.FC<ProviderProps> = ({
     allowResizeInEditMode,
     editModeResizeHandle,
     languages,
+    childConstraints,
   ]);
 
   return (

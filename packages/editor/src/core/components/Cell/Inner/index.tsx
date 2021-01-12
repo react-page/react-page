@@ -1,10 +1,13 @@
 import React from 'react';
+import { getCellStyle } from '../../../utils/getCellStyle';
 import {
   useCellHasPlugin,
+  useConfiguredCellPlugin,
   useFocusCell,
   useIsFocused,
   useIsPreviewMode,
   useNodeChildrenIds,
+  usePluginOfCell,
   useSetEditMode,
 } from '../../hooks';
 import Row from '../../Row';
@@ -16,6 +19,7 @@ import PluginComponent from '../PluginComponent';
 const Inner: React.FC<{ nodeId: string }> = ({ nodeId }) => {
   const isPreviewMode = useIsPreviewMode();
   const cellShouldHavePlugin = useCellHasPlugin(nodeId);
+  const plugin = usePluginOfCell(nodeId);
   const setEditMode = useSetEditMode();
   const focus = useFocusCell(nodeId);
   const focused = useIsFocused(nodeId);
@@ -40,7 +44,11 @@ const Inner: React.FC<{ nodeId: string }> = ({ nodeId }) => {
     },
     [focus, focused]
   );
+  const insertAllowed = plugin?.childConstraints?.maxChildren
+    ? plugin?.childConstraints?.maxChildren > childrenIds.length
+    : true;
 
+  const cellStyle = getCellStyle(plugin);
   const children = childrenIds.map((id) => <Row nodeId={id} key={id} />);
   if (!cellShouldHavePlugin) {
     return <Droppable nodeId={nodeId}>{children}</Droppable>;
@@ -51,7 +59,7 @@ const Inner: React.FC<{ nodeId: string }> = ({ nodeId }) => {
         <div
           onMouseDown={!isPreviewMode ? onMouseDown : undefined}
           tabIndex={-1}
-          style={{ outline: 'none', height: '100%' }}
+          style={{ outline: 'none', height: '100%', ...cellStyle }}
           className={
             'react-page-cell-inner' +
             (hasChildren ? '' : ' react-page-cell-leaf')
@@ -60,7 +68,7 @@ const Inner: React.FC<{ nodeId: string }> = ({ nodeId }) => {
         >
           <PluginComponent nodeId={nodeId} hasChildren={hasChildren}>
             {children}
-            <InsertNew parentCellId={nodeId} />
+            {insertAllowed ? <InsertNew parentCellId={nodeId} /> : null}
           </PluginComponent>
         </div>
       </Draggable>

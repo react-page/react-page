@@ -28,6 +28,10 @@
   position: relative;
 }
 
+.react-page-cell-leaf {
+  padding: 20px;
+}
+
 .react-page-cell-bring-to-front {
   z-index: 1;
 }
