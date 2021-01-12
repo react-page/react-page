@@ -11,7 +11,7 @@ const Bare = () => {
 
   return (
     <>
-      <Editor cellPlugins={cellPlugins} value={value} readOnly />
+      <Editor cellPlugins={cellPlugins} value={value} />
     </>
   );
 };

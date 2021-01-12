@@ -12,6 +12,7 @@ export { darkTheme };
 
 const generateClassName = createGenerateClassName({
   disableGlobal: true,
+  seed: 'reactPage',
   productionPrefix: 'reactPage',
 });
 const theme = createMuiTheme(themeOptions);

@@ -16,6 +16,15 @@ $ yarn add @react-page/plugins-slate
 $ npm i --save @react-page/plugins-slate
 ```
 
+Due to technical reasons, you additionaly need to have `@material-ui/core`, `@material-ui/styles` and `@material-ui/icons` installed,
+if you already haven't. Don't worry about incresed bundle size: we only load it if its really needed.
+
+```bash
+$ yarn add @material-ui/core @material-ui/styles @material-ui/icons
+# OR
+$ npm i --save @material-ui/core @material-ui/styles @material-ui/icons
+```
+
 ## Simple example
 
 To get off the ground as soon as possible, simply create a component like so:
