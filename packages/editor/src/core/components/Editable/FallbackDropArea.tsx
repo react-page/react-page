@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDrop } from 'react-dnd';
-import { CellDrag } from '../../types/editable';
+import type { CellDrag } from '../../types/node';
 
 import { useInsertNew } from '../hooks';
 

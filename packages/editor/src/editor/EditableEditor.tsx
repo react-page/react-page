@@ -43,12 +43,12 @@ const EditableEditor: React.FC<EditableEditorProps> = ({
     <Provider
       lang={lang}
       onChangeLang={onChangeLang}
-      value={[theValue]}
+      value={theValue}
       cellPlugins={cellPlugins}
       allowMoveInEditMode={allowMoveInEditMode}
       allowResizeInEditMode={allowResizeInEditMode}
       editModeResizeHandle={editModeResizeHandle}
-      onChange={(e) => onChange(e[0])}
+      onChange={onChange}
       pluginsWillChange={pluginsWillChange}
       languages={languages}
       dndBackend={dndBackend}
@@ -58,7 +58,7 @@ const EditableEditor: React.FC<EditableEditorProps> = ({
       <StickyWrapper>
         {(stickyNess) => (
           <>
-            <Editable id={theValue.id} />
+            <Editable />
             <EditorUI
               stickyNess={stickyNess}
               hideEditorSidebar={hideEditorSidebar}

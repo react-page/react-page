@@ -18,6 +18,7 @@ const LANGUAGES: Options['languages'] = [
 export default function Home() {
   const [value, setValue] = useState<Value>(demo);
   const reset = () => setValue(demo);
+
   return (
     <PageLayout>
       <Editor

@@ -1,6 +1,6 @@
 import type { DropTargetMonitor } from 'react-dnd';
 
-import { Node, Options } from '../../types/editable';
+import type { Node, Options } from '../../types/node';
 import { HoverInsertActions, Room, Vector } from '../../types/hover';
 import { computeHover, HoverTarget } from './computeHover';
 

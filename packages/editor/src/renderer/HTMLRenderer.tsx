@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import React from 'react';
 import { migrateValue } from '../core/migrations/migrate';
-import { setAllSizesAndOptimize } from '../core/reducer/editable/helper/setAllSizesAndOptimize';
+import { setAllSizesAndOptimize } from '../core/reducer/value/helper/setAllSizesAndOptimize';
 import type { Cell, CellPlugin, Row, ValueWithLegacy } from '../core/types';
 import { getCellData } from '../core/utils/getCellData';
 

@@ -7,20 +7,21 @@ import EditorStore, { EditorContext } from '../EditorStore';
 import { ReduxProvider } from '../reduxConnect';
 import { DisplayModes } from '../actions/display';
 import { OptionsContext } from '../components/hooks';
-import { Value, Options } from '../types/editable';
+import { Value, Options } from '../types/node';
 
-import { serialzeEditable } from '../migrations/serialzeEditable';
+import { serialzeValue } from '../migrations/serialzeValue';
 import deepEquals from '../utils/deepEquals';
-import { RootState } from '../selector';
+
 import { Middleware, Store } from 'redux';
 import { migrateValue } from '../migrations/migrate';
-import { updateEditable } from '../actions/editables';
+import { updateValue } from '../actions/value';
+import { RootState } from '../types';
 
 type ProviderProps = {
   lang?: string;
   onChangeLang?: (lang: string) => void;
-  value: Value[];
-  onChange?: (editables: Value[]) => void;
+  value: Value;
+  onChange?: (v: Value) => void;
   dndBackend?: BackendFactory;
   blurGateDisabled?: boolean;
   blurGateDefaultMode?: DisplayModes;
@@ -66,14 +67,12 @@ const Provider: React.FC<ProviderProps> = ({
           settings: {
             lang,
           },
-          editables: {
+          values: {
             past: [],
-            present: value.map((e) =>
-              migrateValue(e, {
-                cellPlugins,
-                lang,
-              })
-            ),
+            present: migrateValue(value, {
+              cellPlugins,
+              lang,
+            }),
             future: [],
           },
         },
@@ -83,7 +82,7 @@ const Provider: React.FC<ProviderProps> = ({
     });
     return store;
   }, [passedStore, ...middleware]);
-  const lastValueRef = useRef<Value[]>(value);
+  const lastValueRef = useRef<Value>(value);
   useEffect(() => {
     let oldLang = lang;
     const handleChanges = () => {
@@ -97,29 +96,24 @@ const Provider: React.FC<ProviderProps> = ({
         return;
       }
       //console.time('calculate notifiy on change');
-      const editables = editorStore.store.getState().reactPage.editables
+      const currentValue = editorStore.store.getState().reactPage.values
         .present;
 
-      if (!editables) {
+      if (!currentValue) {
         // console.timeEnd('calculate notifiy on change');
         return;
       }
-      const serializedEditables = editables.map((editable) =>
-        serialzeEditable(editable, cellPlugins)
-      );
-      const serializedEqual = deepEquals(
-        lastValueRef.current,
-        serializedEditables
-      );
+      const serializedValue = serialzeValue(currentValue, cellPlugins);
+      const serializedEqual = deepEquals(lastValueRef.current, serializedValue);
 
       if (serializedEqual) {
         //    console.timeEnd('calculate notifiy on change');
         return;
       }
 
-      lastValueRef.current = serializedEditables;
+      lastValueRef.current = serializedValue;
       //   console.timeEnd('calculate notifiy on change');
-      onChange(serializedEditables);
+      onChange(serializedValue);
     };
     const unsubscribe = editorStore.store.subscribe(handleChanges);
     return () => {
@@ -130,16 +124,14 @@ const Provider: React.FC<ProviderProps> = ({
   useEffect(() => {
     const equal = deepEquals(value, lastValueRef.current);
     // value changed from outside
-    // FIXME: simply this when we no longer allow having multiple editables
     if (!equal) {
       lastValueRef.current = value;
-      value.forEach((editable) => {
-        const data = migrateValue(editable, {
-          cellPlugins,
-          lang,
-        });
-        editorStore.store.dispatch(updateEditable(data));
+
+      const migratedValue = migrateValue(value, {
+        cellPlugins,
+        lang,
       });
+      editorStore.store.dispatch(updateValue(migratedValue));
     }
   }, [value, pluginsWillChange && cellPlugins, lang]);
   useEffect(() => {
@@ -147,13 +139,6 @@ const Provider: React.FC<ProviderProps> = ({
     editorStore.setLang(lang);
   }, [editorStore, lang]);
 
-  useEffect(() => {
-    if (value?.length > 1) {
-      console.warn(
-        'using more than one editable is deprecated. Use a @react-page/editor component for each editable value.'
-      );
-    }
-  }, [value?.length]);
   // prevent options from recreating all the time
   const optionsMemoized: Options = useMemo(() => {
     return {

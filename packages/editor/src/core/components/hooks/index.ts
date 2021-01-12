@@ -1,4 +1,4 @@
-export * from './editable';
+export * from './value';
 export * from './node';
 export * from './focus';
 export * from './options';

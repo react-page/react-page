@@ -1,21 +1,15 @@
 import React from 'react';
-import { EditableContext } from '../hooks';
 import HotKeyDecorator from '../HotKey/Decorator';
 import FallbackDropArea from './FallbackDropArea';
 import Inner from './Inner';
 
-export type EditableProps = {
-  id: string;
-};
-const Editable: React.FC<EditableProps> = ({ id }) => {
+const Editable: React.FC = () => {
   return (
-    <EditableContext.Provider value={id}>
-      <HotKeyDecorator>
-        <FallbackDropArea>
-          <Inner />
-        </FallbackDropArea>
-      </HotKeyDecorator>
-    </EditableContext.Provider>
+    <HotKeyDecorator>
+      <FallbackDropArea>
+        <Inner />
+      </FallbackDropArea>
+    </HotKeyDecorator>
   );
 };
 

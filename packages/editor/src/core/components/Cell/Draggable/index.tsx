@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import React from 'react';
 import { DragPreviewImage, useDrag } from 'react-dnd';
-import { CellDrag } from '../../../types/editable';
+import { CellDrag } from '../../../types/node';
 import {
   useCell,
   usePluginOfCell,

@@ -1,5 +1,5 @@
 import { HoverTarget } from '../service/hover/computeHover';
-import { Cell } from './editable';
+import { Cell } from './node';
 
 export type Room = {
   height: number;

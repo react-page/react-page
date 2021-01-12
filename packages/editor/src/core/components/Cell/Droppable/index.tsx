@@ -2,9 +2,10 @@ import classNames from 'classnames';
 import React, { useEffect, useCallback } from 'react';
 import { useDrop } from 'react-dnd';
 import { useSelector } from '../../../reduxConnect';
-import { RootState } from '../../../selector';
+
 import { HoverTarget } from '../../../service/hover/computeHover';
-import { CellDrag } from '../../../types/editable';
+import { RootState } from '../../../types';
+import { CellDrag } from '../../../types/node';
 import { getDropLevels } from '../../../utils/getDropLevels';
 import {
   usePluginOfCell,

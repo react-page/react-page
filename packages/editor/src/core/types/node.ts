@@ -81,9 +81,9 @@ export type Value = {
   version: number;
 };
 
-export type Editables = {
+export type ValueWithHistory = {
   past: Value[];
-  present: Value[];
+  present: Value;
   future: Value[];
 };
 

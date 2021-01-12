@@ -1,4 +1,4 @@
-import { isRow, Node } from '../types/editable';
+import { isRow, Node } from '../types/node';
 
 const getMyPositionInParent = (node: Node, parent: Node): [number, number] => {
   const siblings: Node[] = (isRow(parent) ? parent.cells : parent.rows) ?? [];

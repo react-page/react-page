@@ -50,7 +50,7 @@ const SAMPLE_STATE: Value = {
 describe('useNodeDropLevels', () => {
   it('tells that cells that have siblings on the right have drop level 0 there', () => {
     const Wrapper = ({ children }) => (
-      <Provider cellPlugins={[]} lang="en" value={[SAMPLE_STATE]}>
+      <Provider cellPlugins={[]} lang="en" value={SAMPLE_STATE}>
         {children}
       </Provider>
     );
@@ -72,7 +72,7 @@ describe('useNodeDropLevels', () => {
   });
   it('center nodes have drop level 0 on left and right', () => {
     const Wrapper = ({ children }) => (
-      <Provider cellPlugins={[]} lang="en" value={[SAMPLE_STATE]}>
+      <Provider cellPlugins={[]} lang="en" value={SAMPLE_STATE}>
         {children}
       </Provider>
     );
@@ -94,7 +94,7 @@ describe('useNodeDropLevels', () => {
   });
   it('last node in a row have drop level >0 on the right', () => {
     const Wrapper = ({ children }) => (
-      <Provider cellPlugins={[]} lang="en" value={[SAMPLE_STATE]}>
+      <Provider cellPlugins={[]} lang="en" value={SAMPLE_STATE}>
         {children}
       </Provider>
     );

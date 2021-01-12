@@ -1,4 +1,4 @@
-import { isRow, Cell, Options, Levels } from '../../types/editable';
+import { isRow, Cell, Options, Levels } from '../../types/node';
 import {
   HoverInsertActions,
   Matrix,

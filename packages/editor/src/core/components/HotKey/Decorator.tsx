@@ -3,9 +3,8 @@ import isHotkey from 'is-hotkey';
 import React, { useCallback, useEffect, useMemo } from 'react';
 
 import { blurAllCells } from '../../actions/cell';
-import { Cell, isRow, Node } from '../../types/editable';
+import { Cell, isRow, Node } from '../../types/node';
 import {
-  useEditableNode,
   useEditorStore,
   useFocusCellById,
   useIsEditMode,
@@ -66,9 +65,7 @@ type PluginHandlerName =
 
 const Decorator: React.FC = ({ children }) => {
   const editor = useEditorStore();
-  const { id } = useEditableNode((editable) => ({
-    id: editable?.id,
-  }));
+
   const undo = useUndo();
   const redo = useRedo();
   const plugins = useAllCellPlugins();
@@ -99,7 +96,7 @@ const Decorator: React.FC = ({ children }) => {
         }
       }
     },
-    [id, editor]
+    [editor]
   );
 
   const handlers = useMemo(

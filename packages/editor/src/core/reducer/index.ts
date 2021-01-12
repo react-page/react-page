@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 
-import { editables } from './editables';
+import { values } from './values';
 import { display } from './display';
 import { focus } from './focus';
 
@@ -8,7 +8,7 @@ import { hover } from './hover';
 import { settings } from './settings';
 
 const reducer = combineReducers({
-  editables,
+  values,
   display,
   focus,
   settings,

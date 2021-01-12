@@ -1,5 +1,5 @@
 import type { ValueWithLegacy } from '../..';
-import type { Cell, Value, Row } from '../types/editable';
+import type { Cell, Value, Row } from '../types/node';
 import { removeUndefinedProps } from '../utils/removeUndefinedProps';
 
 import EDITABLE_MIGRATIONS from './EDITABLE_MIGRATIONS';

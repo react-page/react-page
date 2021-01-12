@@ -16,7 +16,7 @@ import {
 import { setDisplayReferenceNodeId } from '../../actions/display';
 import { setLang } from '../../actions/setting';
 import { useDispatch } from '../../reduxConnect';
-import { Cell, CellDrag, isRow } from '../../types/editable';
+import { Cell, CellDrag, isRow } from '../../types/node';
 import { useEditorStore, useLang, useOptionsWithLang } from './options';
 import { useDrop } from 'react-dnd';
 /**

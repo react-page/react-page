@@ -12,7 +12,7 @@ const makeStore = (initialFocus: Focus) => {
       hover: (s) => s || null,
       display: (s) => s || null,
       settings: (s) => s || null,
-      editables: (s) => s || null,
+      values: (s) => s || null,
     }),
   });
 
@@ -26,10 +26,10 @@ const makeStore = (initialFocus: Focus) => {
         display: {
           mode: 'asdf',
         },
-        editables: {
+        values: {
           future: [],
           past: [],
-          present: [],
+          present: null,
         },
         settings: {
           lang: null,
