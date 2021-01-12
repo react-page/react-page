@@ -2,7 +2,7 @@ import { Value } from '../..';
 import { Value_v0 } from '../migrations/EDITABLE_MIGRATIONS/from0to1';
 
 export * from './display';
-export * from './editable';
+export * from './node';
 export * from './hover';
 export * from './jsonSchema';
 export * from './plugins';

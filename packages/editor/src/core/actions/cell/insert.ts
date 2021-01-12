@@ -9,7 +9,7 @@ import {
   PartialCell,
   PartialRow,
   Row,
-} from '../../types/editable';
+} from '../../types/node';
 import { createUuid } from '../../utils/createUuid';
 import { removeUndefinedProps } from '../../utils/removeUndefinedProps';
 import { editMode } from '../display';

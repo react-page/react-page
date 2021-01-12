@@ -1,6 +1,6 @@
 import { Action } from 'redux';
 
-import { NewIds } from '../../types/editable';
+import { NewIds } from '../../types/node';
 
 import { generateIds } from '../helpers';
 

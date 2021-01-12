@@ -4,7 +4,7 @@
 
 import { PositionEnum } from '../../const';
 import { Action } from 'redux';
-import { Cell } from '../../types/editable';
+import { Cell } from '../../types/node';
 import { HoverTarget } from '../../service/hover/computeHover';
 
 export const CELL_DRAG_HOVER = 'CELL_DRAG_HOVER';

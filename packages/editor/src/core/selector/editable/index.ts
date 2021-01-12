@@ -1,4 +1,4 @@
-import { Value, Node, NodeWithAncestors, isRow } from '../../types/editable';
+import { Value, Node, NodeWithAncestors, isRow } from '../../types/node';
 import type { RootState } from '../../types/state';
 
 /** */
@@ -52,32 +52,14 @@ export const findNodeInState = (state: RootState, nodeId: string) => {
     //end(now, true);
     return state.reactPage.__nodeCache[nodeId];
   }
-  // FIXME: we will deprecated having multiple editables soon
-  const result = findNode(
-    state.reactPage.editables?.present?.reduce(
-      (acc, editable) => [...acc, ...(editable.rows ?? [])],
-      []
-    ),
-    nodeId
-  );
+  const result = findNode(state.reactPage.values?.present?.rows, nodeId);
   state.reactPage.__nodeCache[nodeId] = result;
   //end(now, false);
   return result;
 };
 
-export const editable = (state: RootState, { id }: { id: string }): Value =>
-  state &&
-  state.reactPage &&
-  state.reactPage.editables &&
-  state.reactPage.editables.present.find(
-    ({ id: current }: Value = {} as Value) => current === id
-  );
-
-export const editables = ({
-  reactPage: {
-    editables: { present },
-  },
-}: RootState) => present;
+export const currentValue = (state: RootState): Value =>
+  state?.reactPage?.values?.present;
 
 export type NodeProps = { id: string; editable: string };
 

@@ -4,7 +4,7 @@ import { PositionEnum } from '../../const';
 import { useSelector } from '../../reduxConnect';
 
 import { findNodeInState } from '../../selector/editable';
-import { Cell, isRow, Node, Row } from '../../types/editable';
+import { Cell, isRow, Node, Row } from '../../types/node';
 import deepEquals from '../../utils/deepEquals';
 import { getCellData } from '../../utils/getCellData';
 import { getDropLevels } from '../../utils/getDropLevels';

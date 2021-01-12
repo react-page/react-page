@@ -22,11 +22,11 @@ export const useRedo = () => {
  * @returns whether user can undo
  */
 export const useCanUndo = () => {
-  return useSelector((s) => s.reactPage.editables.past.length > 0);
+  return useSelector((s) => s.reactPage.values.past.length > 0);
 };
 /**
  * @returns whether user can undo
  */
 export const useCanRedo = () => {
-  return useSelector((s) => s.reactPage.editables.future.length > 0);
+  return useSelector((s) => s.reactPage.values.future.length > 0);
 };

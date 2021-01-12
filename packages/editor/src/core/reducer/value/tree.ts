@@ -15,7 +15,7 @@ import {
   CellAction,
   CELL_INSERT_AS_NEW_ROW,
 } from '../../actions/cell';
-import { Cell, Row } from '../../types/editable';
+import { Cell, Row } from '../../types/node';
 import { createUuid } from '../../utils/createUuid';
 import { removeUndefinedProps } from '../../utils/removeUndefinedProps';
 

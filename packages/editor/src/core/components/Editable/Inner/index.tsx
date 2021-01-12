@@ -6,7 +6,7 @@ import scrollIntoViewWithOffset from '../../Cell/utils/scrollIntoViewWithOffset'
 
 import InsertNew from '../../Cell/InsertNew';
 import Row from '../../Row';
-import { useEditableNode } from '../../hooks';
+import { useValueNode } from '../../hooks';
 
 function isElementInViewport(el: HTMLDivElement) {
   const rect = el.getBoundingClientRect();
@@ -24,7 +24,7 @@ function isElementInViewport(el: HTMLDivElement) {
 }
 
 const Inner: React.FC = () => {
-  const { rowIds } = useEditableNode((editable) => ({
+  const { rowIds } = useValueNode((editable) => ({
     rowIds: editable?.rows?.map((c) => c.id) ?? [],
   }));
 

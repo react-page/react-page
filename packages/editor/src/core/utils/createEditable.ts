@@ -1,6 +1,6 @@
 import { createRow, PluginsAndLang } from '../actions/cell/insert';
 import { CURRENT_EDITABLE_VERSION } from '../migrations/EDITABLE_MIGRATIONS';
-import { Value, PartialRow } from '../types/editable';
+import { Value, PartialRow } from '../types/node';
 import { createUuid } from './createUuid';
 
 type PartialEditable = {

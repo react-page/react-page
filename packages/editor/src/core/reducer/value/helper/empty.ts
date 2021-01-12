@@ -1,4 +1,4 @@
-import { Node, isRow } from '../../../types/editable';
+import { Node, isRow } from '../../../types/node';
 
 export const isEmpty = (node: Node): boolean => {
   if (!node) {

@@ -1,5 +1,5 @@
 import { CellPlugin } from '../types/plugins';
-import { Cell, Value, Row } from '../types/editable';
+import { Cell, Value, Row } from '../types/node';
 
 const serializeRow = (r: Row, cellPlugins: CellPlugin[]): Row => {
   return {
@@ -33,7 +33,7 @@ const serializeCell = (c: Cell, cellPlugins: CellPlugin[]): Cell => {
   };
 };
 
-export const serialzeEditable = (
+export const serialzeValue = (
   { rows, ...rest }: Value,
   plugins: CellPlugin[]
 ) => {

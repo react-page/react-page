@@ -1,8 +1,9 @@
 import { createContext, useContext } from 'react';
 import EditorStore, { EditorContext } from '../../EditorStore';
 import { useSelector } from '../../reduxConnect';
-import { Selectors } from '../../selector';
-import { Options } from '../../types/editable';
+import { getLang } from '../../selector/setting';
+
+import { Options } from '../../types/node';
 
 /**
  * @returns the store object of the current editor. Contains the redux store.
@@ -57,5 +58,5 @@ export const useConfiguredCellPlugin = (pluginId: string) => {
  * @returns the current language
  */
 export const useLang = () => {
-  return useSelector(Selectors.Setting.getLang);
+  return useSelector(getLang);
 };

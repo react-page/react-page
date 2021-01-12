@@ -3,7 +3,7 @@
 import { AnyAction } from 'redux';
 
 import type { Migration } from '../migrations/Migration';
-import { Cell, PartialCell, PartialRow } from './editable';
+import { Cell, PartialCell, PartialRow } from './node';
 import { JsonSchema } from './jsonSchema';
 
 export type CellPluginComponentProps<DataT> = {

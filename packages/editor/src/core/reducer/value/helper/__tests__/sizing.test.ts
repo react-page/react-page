@@ -1,7 +1,7 @@
 import expect from 'unexpected';
 
 import { sumSizes, resizeCells } from '../sizing';
-import { Cell } from '../../../../types/editable';
+import { Cell } from '../../../../types/node';
 
 describe('sumSizes', () => {
   [

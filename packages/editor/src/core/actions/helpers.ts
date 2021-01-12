@@ -1,4 +1,4 @@
-import { NewIds } from '../types/editable';
+import { NewIds } from '../types/node';
 import { createUuid } from '../utils/createUuid';
 
 export const generateIds = (): NewIds => {
