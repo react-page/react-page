@@ -61,7 +61,9 @@ Original Library created by [@aeneasr](https://github.com/aeneasr) [@ory](https:
 
 ## In the wild
 
-- [GuestBell Hotel App](https://guest.guestbell.com/demo-hotel/app/property) - React page is used as CMS for hotel landing pages.
+- [GuestBell Hotel App](https://guest.guestbell.com/demo-hotel/app/property) - ReactPage is used as CMS for hotel landing pages.
+- [Veloplus Online Shop](https://www.veloplus.ch/) - ReactPage is used to create and display any content page (and the landing page as well)
+- [Bike2School](https://www.bike2school.ch/) - A project to promote going to school by bike. It uses ReactPage for content editing.
 
 ## Community
 
