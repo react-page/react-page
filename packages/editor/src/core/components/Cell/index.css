@@ -71,7 +71,8 @@
 
 }
 
-.react-page-cell:hover > div > div > div > .react-page-cell-description {
+.react-page-cell:hover > div > div > div > .react-page-cell-description,
+.react-page-cell.react-page-cell-focused > div > div > div > .react-page-cell-description {
   opacity: 1;
   pointer-events: all;
 }
