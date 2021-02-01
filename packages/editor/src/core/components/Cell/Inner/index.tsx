@@ -4,6 +4,7 @@ import {
   useCellHasPlugin,
   useConfiguredCellPlugin,
   useFocusCell,
+  useIsEditMode,
   useIsFocused,
   useIsPreviewMode,
   useNodeChildrenIds,
@@ -18,6 +19,7 @@ import PluginComponent from '../PluginComponent';
 
 const Inner: React.FC<{ nodeId: string }> = ({ nodeId }) => {
   const isPreviewMode = useIsPreviewMode();
+  const isEditMode = useIsEditMode();
   const cellShouldHavePlugin = useCellHasPlugin(nodeId);
   const plugin = usePluginOfCell(nodeId);
   const setEditMode = useSetEditMode();
@@ -31,6 +33,7 @@ const Inner: React.FC<{ nodeId: string }> = ({ nodeId }) => {
   const onMouseDown = React.useCallback(
     (e: React.MouseEvent<HTMLDivElement>) => {
       if (
+        isEditMode &&
         !focused &&
         (e.target as HTMLDivElement).closest('.react-page-cell-inner') ===
           // eslint-disable-next-line react/no-find-dom-node
@@ -42,7 +45,7 @@ const Inner: React.FC<{ nodeId: string }> = ({ nodeId }) => {
       }
       return true;
     },
-    [focus, focused]
+    [focus, focused, isEditMode]
   );
   const insertAllowed = plugin?.childConstraints?.maxChildren
     ? plugin?.childConstraints?.maxChildren > childrenIds.length
