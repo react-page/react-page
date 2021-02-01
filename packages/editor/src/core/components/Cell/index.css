@@ -29,12 +29,12 @@
 }
 
 .react-page-cell.react-page-cell-has-plugin:hover {
-  z-index: 5;
+  z-index: 2;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
   opacity: 1;
 }
 .react-page-cell.react-page-cell-focused {
-  z-index: 5;
+  z-index: 1;
   box-shadow: 0 0 50px rgba(0, 0, 0, 0.4);
   opacity: 1;
 }
@@ -43,7 +43,7 @@
 
 
 .react-page-cell-bring-to-front {
-  z-index: 1;
+  z-index: 3;
 }
 
 .react-page-cell-resizing-overlay:after {
