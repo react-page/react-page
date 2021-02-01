@@ -28,7 +28,9 @@
 .react-page-cell  > div > div > div >  .react-page-cell-inner {
   transition: box-shadow 0.3s;
 }
-
+.react-page-cell:hover {
+  z-index: 5;
+}
 .react-page-cell:hover  > div > div > div > .react-page-cell-leaf {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
   opacity: 1;
@@ -49,7 +51,7 @@
   transform: translateX(-50%) translateY(-100%);
   transition: opacity ease 0.4s;
   opacity: 0;
-  z-index: 5;
+
   color: rgba(0, 0, 0, 0.97);
 
   background: rgba(255, 255, 255, 0.95);
@@ -57,11 +59,11 @@
   color: rgba(0, 0, 0, 0.97);
 
   display: inline-block;
-  padding: 8px 22px;
+  padding: 8px 24px;
   margin: 0 auto;
   border-radius: 12px 12px 0 0;
   text-transform: uppercase;
-  font-size: 75%;
+  font-size: 14px;
   letter-spacing: 0.15em;
   cursor: move;
   box-shadow: 0 -5px 5px rgb(0 0 0 / 22%);
