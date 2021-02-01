@@ -1,0 +1,36 @@
+
+
+.react-page-cell-handle {
+    position: absolute;
+    top: 0px;
+    left: 50%;
+    transform: translateX(-50%) translateY(-100%);
+    transition: opacity ease 0.4s;
+    opacity: 0;
+  
+    color: rgba(0, 0, 0, 0.97);
+  
+    background: rgba(255, 255, 255, 0.95);
+    text-align: center;
+    color: rgba(0, 0, 0, 0.97);
+  
+    display: inline-block;
+    padding: 12px 24px;
+    margin: 0 auto;
+    border-radius: 12px 12px 0 0;
+    text-transform: uppercase;
+    font-size: 14px;
+    line-height: 1.4;;
+    letter-spacing: 0.15em;
+    cursor: move;
+    box-shadow: 0 -5px 5px rgb(0 0 0 / 22%);
+    pointer-events: none;
+  
+  }
+  
+  .react-page-cell:hover >.react-page-cell-handle,
+  .react-page-cell.react-page-cell-focused > .react-page-cell-handle {
+    opacity: 1;
+    pointer-events: all;
+  }
+  

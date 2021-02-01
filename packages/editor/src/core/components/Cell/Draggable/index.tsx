@@ -54,7 +54,6 @@ const Draggable: React.FC<Props> = ({ isLeaf, children, nodeId }) => {
         <div
           style={{
             height: '100%',
-            position: 'relative',
           }}
           className={classNames({
             'react-page-cell-draggable-in-edit': options.allowMoveInEditMode,

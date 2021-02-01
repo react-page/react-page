@@ -159,6 +159,19 @@ export const useNodeChildrenIds = (nodeId: string) => {
       : node.rows?.map((r) => r.id) ?? []
   );
 };
+
+/**
+ *
+ * @param nodeId a node id
+ * @returns true if node has children
+ */
+export const useNodeHasChildren = (nodeId: string) => {
+  return useNodeProps(nodeId, (node) =>
+    isRow(node)
+      ? node.cells?.length > 0 ?? false
+      : node.rows?.length > 0 ?? false
+  );
+};
 /**
  *
  * @param nodeId an id of a cell

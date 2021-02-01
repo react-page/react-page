@@ -1,6 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import {
+  useCellHasPlugin,
   useCellProps,
   useIsEditMode,
   useIsFocused,
@@ -8,11 +9,13 @@ import {
   useIsPreviewMode,
   useIsResizeMode,
   useLang,
+  useNodeHasChildren,
   useScrollToViewEffect,
 } from '../hooks';
 import ErrorCell from './ErrorCell';
 import Inner from './Inner';
 import scrollIntoViewWithOffset from './utils/scrollIntoViewWithOffset';
+import Handle from './Handle';
 
 const gridClass = ({
   isPreviewMode,
@@ -86,6 +89,8 @@ const Cell: React.FC<Props> = ({ nodeId, measureRef }) => {
   const isResizeMode = useIsResizeMode();
   const isEditMode = useIsEditMode();
   const isLayoutMode = useIsLayoutMode();
+  const hasChildren = useNodeHasChildren(nodeId);
+  const hasPlugin = useCellHasPlugin(nodeId);
 
   const isDraftInLang = isDraftI18n?.[lang] ?? isDraft;
   const ref = React.useRef<HTMLDivElement>();
@@ -105,6 +110,7 @@ const Cell: React.FC<Props> = ({ nodeId, measureRef }) => {
       ref={ref}
       className={classNames(
         'react-page-cell',
+
         gridClass({
           isEditMode,
           isPreviewMode,
@@ -112,6 +118,8 @@ const Cell: React.FC<Props> = ({ nodeId, measureRef }) => {
         }),
         {
           'react-page-cell-has-inline-neighbour': hasInlineNeighbour,
+          'react-page-cell-has-plugin': hasPlugin,
+          'react-page-cell-leaf': !hasChildren,
           [`react-page-cell-inline-${inline || ''}`]: inline,
           'react-page-cell-focused': focused,
           'react-page-cell-is-draft': isDraftInLang,
@@ -122,6 +130,7 @@ const Cell: React.FC<Props> = ({ nodeId, measureRef }) => {
       )}
       onClick={stopClick(isEditMode)}
     >
+      <Handle nodeId={nodeId} />
       <div
         ref={measureRef}
         style={{

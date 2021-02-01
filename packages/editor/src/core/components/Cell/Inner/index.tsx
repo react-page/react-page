@@ -12,13 +12,11 @@ import {
 } from '../../hooks';
 import Row from '../../Row';
 import Draggable from '../Draggable';
-import { useDragHandle } from '../Draggable/useDragHandle';
 import Droppable from '../Droppable';
 import InsertNew from '../InsertNew';
 import PluginComponent from '../PluginComponent';
 
 const Inner: React.FC<{ nodeId: string }> = ({ nodeId }) => {
-  const [isDragging, dragRef, previewElement] = useDragHandle(nodeId);
   const isPreviewMode = useIsPreviewMode();
   const isEditMode = useIsEditMode();
   const cellShouldHavePlugin = useCellHasPlugin(nodeId);
@@ -31,12 +29,6 @@ const Inner: React.FC<{ nodeId: string }> = ({ nodeId }) => {
 
   const hasChildren = childrenIds.length > 0;
 
-  const doFocus = React.useCallback(() => {
-    if (!focused && isEditMode) {
-      focus(false, 'onMouseDown');
-      setEditMode();
-    }
-  }, [focus, focused, isEditMode]);
   const onMouseDown = React.useCallback(
     (e: React.MouseEvent<HTMLDivElement>) => {
       if (
@@ -45,11 +37,14 @@ const Inner: React.FC<{ nodeId: string }> = ({ nodeId }) => {
           ref.current &&
         !(e.target as HTMLDivElement).classList.contains('resize-handle')
       ) {
-        doFocus();
+        if (!focused && isEditMode) {
+          focus(false, 'onMouseDown');
+          setEditMode();
+        }
       }
       return true;
     },
-    [doFocus]
+    [focus, focused, isEditMode, setEditMode]
   );
   const insertAllowed = plugin?.childConstraints?.maxChildren
     ? plugin?.childConstraints?.maxChildren > childrenIds.length
@@ -61,40 +56,30 @@ const Inner: React.FC<{ nodeId: string }> = ({ nodeId }) => {
     return <Droppable nodeId={nodeId}>{children}</Droppable>;
   }
   return (
-    <>
-      {previewElement}
-      <Droppable nodeId={nodeId} isLeaf={!hasChildren}>
-        <Draggable nodeId={nodeId} isLeaf={!hasChildren}>
-          <div
-            className="react-page-cell-description"
-            ref={dragRef}
-            onClick={doFocus}
-          >
-            {plugin?.title || plugin?.text}
-          </div>
-          <div
-            onMouseDown={!isPreviewMode ? onMouseDown : undefined}
-            tabIndex={-1}
-            style={{
-              outline: 'none',
-              boxSizing: 'border-box',
-              height: '100%',
-              ...(cellStyle ?? {}),
-            }}
-            className={
-              'react-page-cell-inner' +
-              (hasChildren ? '' : ' react-page-cell-leaf')
-            }
-            ref={ref}
-          >
-            <PluginComponent nodeId={nodeId} hasChildren={hasChildren}>
-              {children}
-              {insertAllowed ? <InsertNew parentCellId={nodeId} /> : null}
-            </PluginComponent>
-          </div>
-        </Draggable>
-      </Droppable>
-    </>
+    <Droppable nodeId={nodeId} isLeaf={!hasChildren}>
+      <Draggable nodeId={nodeId} isLeaf={!hasChildren}>
+        <div
+          onMouseDown={!isPreviewMode ? onMouseDown : undefined}
+          tabIndex={-1}
+          style={{
+            outline: 'none',
+            boxSizing: 'border-box',
+            height: '100%',
+            ...(cellStyle ?? {}),
+          }}
+          className={
+            'react-page-cell-inner' +
+            (hasChildren ? '' : ' react-page-cell-inner-leaf')
+          }
+          ref={ref}
+        >
+          <PluginComponent nodeId={nodeId} hasChildren={hasChildren}>
+            {children}
+            {insertAllowed ? <InsertNew parentCellId={nodeId} /> : null}
+          </PluginComponent>
+        </div>
+      </Draggable>
+    </Droppable>
   );
 };
 

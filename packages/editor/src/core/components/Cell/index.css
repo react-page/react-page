@@ -1,6 +1,7 @@
 @import './Draggable/index.css';
 @import './Droppable/index.css';
 @import './ErrorCell/index.css';
+@import './Handle/index.css';
 
 .react-page-cell-inline-left {
   float: left;
@@ -23,60 +24,21 @@
 
 .react-page-cell {
   position: relative;
+  transition: box-shadow 0.3s;
 
 }
-.react-page-cell  > div > div > div >  .react-page-cell-inner {
-  transition: box-shadow 0.3s;
-}
-.react-page-cell:hover {
+
+.react-page-cell.react-page-cell-has-plugin:hover {
   z-index: 5;
-}
-.react-page-cell:hover  > div > div > div > .react-page-cell-inner {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
   opacity: 1;
 }
-.react-page-cell.react-page-cell-focused  > div > div > div >  .react-page-cell-inner {
+.react-page-cell.react-page-cell-focused {
+  z-index: 5;
   box-shadow: 0 0 50px rgba(0, 0, 0, 0.4);
   opacity: 1;
 }
 
-
-
-
-
-.react-page-cell-description {
-  position: absolute;
-  top: 0px;
-  left: 50%;
-  transform: translateX(-50%) translateY(-100%);
-  transition: opacity ease 0.4s;
-  opacity: 0;
-
-  color: rgba(0, 0, 0, 0.97);
-
-  background: rgba(255, 255, 255, 0.95);
-  text-align: center;
-  color: rgba(0, 0, 0, 0.97);
-
-  display: inline-block;
-  padding: 12px 24px;
-  margin: 0 auto;
-  border-radius: 12px 12px 0 0;
-  text-transform: uppercase;
-  font-size: 14px;
-  line-height: 1.4;;
-  letter-spacing: 0.15em;
-  cursor: move;
-  box-shadow: 0 -5px 5px rgb(0 0 0 / 22%);
-  pointer-events: none;
-
-}
-
-.react-page-cell:hover > div > div > div > .react-page-cell-description,
-.react-page-cell.react-page-cell-focused > div > div > div > .react-page-cell-description {
-  opacity: 1;
-  pointer-events: all;
-}
 
 
 

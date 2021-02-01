@@ -73,7 +73,7 @@ const HTMLCell: React.FC<
             style={cellStyle}
             className={
               'react-page-cell-inner' +
-              (cell.rows?.length > 0 ? '' : ' react-page-cell-leaf')
+              (cell.rows?.length > 0 ? '' : ' react-page-cell-inner-leaf')
             }
           >
             <Renderer {...props}>
