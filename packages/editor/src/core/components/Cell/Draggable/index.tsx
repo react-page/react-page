@@ -1,20 +1,13 @@
 import classNames from 'classnames';
 import React from 'react';
-import { DragPreviewImage, useDrag } from 'react-dnd';
-import { CellDrag } from '../../../types/node';
 import {
   useCell,
-  usePluginOfCell,
-  useHoverActions,
-  useIsFocused,
-  useIsLayoutMode,
-  useOptions,
   useFocusCell,
+  useIsLayoutMode,
+  useIsResizeMode,
+  useOptions,
 } from '../../hooks';
-
-const icon =
-  // tslint:disable-next-line:max-line-length
-  'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAhCAYAAACbffiEAAAA6UlEQVRYhe2ZQQ6CMBBFX0njHg7ESXTp1p3uvIBewc3Em3AfdelSFwRDCAm01JRO+pa0lP8zzc9kMCKyAa7AFqhIixdwB44WuACHuHq8KWm1vwtgF1lMCPaWkevUNE3Qr9R17XTu1P5uvUdV+IpbG2qMGBH5xBYRAjUVUWPEjj10SS3XRFry3kha/VBTETVGcmqtDTVGFqdWn7k9ku96f88QNRVRYySn1tpQY8QptXz7qinmnpt7rZTIqbU21BgJ2mv1+XfCDVFTETVGjIg8SG8KP+RZ0I7lU+dmgRNgaKfyZVw9znT/R85fOHJJE77U6UcAAAAASUVORK5CYII=';
+import { useDragHandle } from './useDragHandle';
 
 const DefaultSmallHandle = ({ onClick }) => (
   <div className="react-page-cell-draggable-overlay-handle" onClick={onClick}>
@@ -29,40 +22,16 @@ type Props = {
 const Draggable: React.FC<Props> = ({ isLeaf, children, nodeId }) => {
   const cell = useCell(nodeId);
 
-  const plugin = usePluginOfCell(nodeId);
-  const actions = useHoverActions();
-  const [{ isDragging }, dragRef, preview] = useDrag<
-    CellDrag,
-    void,
-    {
-      isDragging: boolean;
-    }
-  >({
-    item: {
-      type: 'cell',
-      cell,
-    },
-    collect: (monitor) => ({
-      isDragging: monitor.isDragging(),
-    }),
-    begin(monitor) {
-      actions.dragCell(nodeId);
-    },
-    end(item, monitor) {
-      if (monitor.didDrop()) {
-        // If the item drop occurred deeper down the tree, don't do anything
-        return;
-      }
-      // If drag ended but drop did not occur, cancel dragging
-      actions.cancelCellDrag();
-    },
-  });
+  const [isDragging, dragRef, previewElement] = useDragHandle(nodeId);
 
   const focus = useFocusCell(nodeId);
 
   const isLayoutMode = useIsLayoutMode();
+  const isResizeMode = useIsResizeMode();
   const options = useOptions();
-
+  if (isResizeMode) {
+    return <>{children}</>;
+  }
   if (!isLayoutMode && !options.allowMoveInEditMode) {
     return (
       <div
@@ -81,7 +50,7 @@ const Draggable: React.FC<Props> = ({ isLeaf, children, nodeId }) => {
   if (options.allowMoveInEditMode && !isLayoutMode) {
     return (
       <>
-        <DragPreviewImage connect={preview} src={icon} />
+        {previewElement}
         <div
           style={{
             height: '100%',
@@ -108,7 +77,7 @@ const Draggable: React.FC<Props> = ({ isLeaf, children, nodeId }) => {
 
   return (
     <>
-      <DragPreviewImage connect={preview} src={icon} />
+      {previewElement}
       <div
         style={{
           height: '100%',
@@ -125,12 +94,8 @@ const Draggable: React.FC<Props> = ({ isLeaf, children, nodeId }) => {
             [`react-page-cell-draggable-inline-${cell.inline}`]: cell.inline,
             'react-page-cell-draggable-leaf': isLeaf,
           })}
-        >
-          <div className="react-page-cell-draggable-overlay-description">
-            <span>{plugin?.title || plugin?.text}</span>
-          </div>
-        </div>
-        <div>{children}</div>
+        ></div>
+        {children}
       </div>
     </>
   );
