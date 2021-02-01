@@ -38,8 +38,10 @@ const HTMLCell: React.FC<
 > = React.memo((props) => {
   const { lang, cellPlugins, ...cell } = props;
   const { size, hasInlineNeighbour, inline, isDraftI18n, isDraft } = cell;
+  const hasChildren = cell.rows?.length > 0;
   const cn = classNames('react-page-cell', gridClass(size), {
     'react-page-cell-has-inline-neighbour': hasInlineNeighbour,
+    'react-page-cell-leaf': !hasChildren,
     [`react-page-cell-inline-${inline || ''}`]: inline,
   });
 
