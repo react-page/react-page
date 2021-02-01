@@ -28,6 +28,20 @@
   z-index: 500;
 }
 
+.react-page-cell-draggable-overlay-handle {
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+
+.react-page-cell:hover > div > div > div > div > .react-page-cell-draggable-overlay-handle, 
+.react-page-cell.react-page-cell-focused > div > div > div > div > .react-page-cell-draggable-overlay-handle {
+ opacity: 1;
+}
+
+
+
+
 .react-page-cell-draggable-overlay-handle
   .react-page-cell-draggable-overlay-handle-icon::before {
   top: -300%;

@@ -122,7 +122,7 @@ const Cell: React.FC<Props> = ({ nodeId, measureRef }) => {
       )}
       onClick={stopClick(isEditMode)}
     >
-      <div ref={measureRef} style={{ height: '100%' }}>
+      <div ref={measureRef} style={{ height: '100%', boxSizing: 'border-box' }}>
         <CellErrorGate nodeId={nodeId}>
           <Inner nodeId={nodeId} />
         </CellErrorGate>

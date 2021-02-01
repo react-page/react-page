@@ -34,12 +34,12 @@
 
 .react-page-cell-insert-new:after {
   content: "+";
-  font-size: 64px;
+  font-size: 52px;
   font-family: monospace;
-  line-height: 64px;
+  line-height: 52px;
   background-color: var(--minBlack);
   color: white;
-  width: 64px;
+  width: 52px;
   text-align: center;
   border-radius: 50%;
 }

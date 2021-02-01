@@ -9,14 +9,15 @@ import {
   useIsFocused,
   useIsLayoutMode,
   useOptions,
+  useFocusCell,
 } from '../../hooks';
 
 const icon =
   // tslint:disable-next-line:max-line-length
   'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAhCAYAAACbffiEAAAA6UlEQVRYhe2ZQQ6CMBBFX0njHg7ESXTp1p3uvIBewc3Em3AfdelSFwRDCAm01JRO+pa0lP8zzc9kMCKyAa7AFqhIixdwB44WuACHuHq8KWm1vwtgF1lMCPaWkevUNE3Qr9R17XTu1P5uvUdV+IpbG2qMGBH5xBYRAjUVUWPEjj10SS3XRFry3kha/VBTETVGcmqtDTVGFqdWn7k9ku96f88QNRVRYySn1tpQY8QptXz7qinmnpt7rZTIqbU21BgJ2mv1+XfCDVFTETVGjIg8SG8KP+RZ0I7lU+dmgRNgaKfyZVw9znT/R85fOHJJE77U6UcAAAAASUVORK5CYII=';
 
-const DefaultSmallHandle = () => (
-  <div className="react-page-cell-draggable-overlay-handle">
+const DefaultSmallHandle = ({ onClick }) => (
+  <div className="react-page-cell-draggable-overlay-handle" onClick={onClick}>
     <div className="react-page-cell-draggable-overlay-handle-icon" />
   </div>
 );
@@ -57,7 +58,7 @@ const Draggable: React.FC<Props> = ({ isLeaf, children, nodeId }) => {
     },
   });
 
-  const focused = useIsFocused(nodeId);
+  const focus = useFocusCell(nodeId);
 
   const isLayoutMode = useIsLayoutMode();
   const options = useOptions();
@@ -93,11 +94,12 @@ const Draggable: React.FC<Props> = ({ isLeaf, children, nodeId }) => {
           })}
           onMouseDown={(e) => e.stopPropagation()}
         >
-          {focused ? (
-            <div ref={dragRef}>
-              {options.editModeResizeHandle ?? <DefaultSmallHandle />}
-            </div>
-          ) : null}
+          <div ref={dragRef}>
+            {options.editModeResizeHandle ?? (
+              <DefaultSmallHandle onClick={focus} />
+            )}
+          </div>
+
           {children}
         </div>
       </>

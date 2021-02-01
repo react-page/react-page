@@ -19,13 +19,23 @@
   outline: 1px dashed black;
 }
 
-.react-page-cell-focused {
-  box-shadow: 0 0 1000px rgba(0, 0, 0, 0.5);
-  opacity: 1;
-}
+
 
 .react-page-cell {
   position: relative;
+
+}
+.react-page-cell  > div > div > div >  .react-page-cell-inner {
+  transition: box-shadow 0.3s;
+}
+
+.react-page-cell  > div > div > div > .react-page-cell-leaf:hover {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+  opacity: 1;
+}
+.react-page-cell.react-page-cell-focused  > div > div > div >  .react-page-cell-inner {
+  box-shadow: 0 0 50px rgba(0, 0, 0, 0.4);
+  opacity: 1;
 }
 
 
