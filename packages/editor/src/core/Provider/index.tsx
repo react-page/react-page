@@ -156,7 +156,7 @@ const Provider: React.FC<ProviderProps> = ({
     allowResizeInEditMode,
     editModeResizeHandle,
     languages,
-    childConstraints,
+    JSON.stringify(childConstraints ?? {}), // its an object, we prevent unessesary rerenders by stringify it
   ]);
 
   return (
