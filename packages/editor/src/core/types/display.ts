@@ -1,5 +1,7 @@
+import { DisplayModes } from '../actions/display';
+
 export type Display = {
-  mode: string;
+  mode: DisplayModes;
   referenceNodeId?: string;
 };
 

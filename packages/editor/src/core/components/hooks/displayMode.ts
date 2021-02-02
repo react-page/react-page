@@ -53,6 +53,13 @@ export const useIsResizeMode = () => {
 };
 
 /**
+ * @returns the current display mode
+ */
+export const useDisplayMode = () => {
+  return useSelector((state) => state.reactPage.display.mode);
+};
+
+/**
  * experimental, used internaly for the add new button.
  * @returns a referenced nodeId for the current display mode.
  *

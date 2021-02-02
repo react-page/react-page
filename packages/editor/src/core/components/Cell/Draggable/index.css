@@ -1,101 +1,118 @@
-.react-page-cell-draggable {
-  cursor: move;
-  position: relative;
-  transition: opacity 200ms ease;
-}
+.react-page-editable {
+  &&-mode-edit,
+  &&-mode-resizing,
+  &&-mode-layout {
+    .react-page-cell-draggable {
+      cursor: move;
+      position: relative;
+      transition: opacity 200ms ease;
+    }
 
-.react-page-cell-draggable-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
+    .react-page-cell-draggable-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
 
-  cursor: move;
-  border: 1px solid rgba(0, 0, 0, 0);
-  transition: all ease 0.4s;
-}
+      cursor: move;
+      border: 1px solid rgba(0, 0, 0, 0);
+      transition: all ease 0.4s;
+    }
 
-.react-page-cell-draggable-overlay-handle {
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 2rem;
-  height: 2rem;
-  cursor: move;
-  background: var(--minBlack);
-  content: '';
-  z-index: 500;
-}
+    .react-page-cell-draggable-overlay-handle {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 2rem;
+      height: 2rem;
+      cursor: move;
+      background: var(--minBlack);
+      content: '';
+      z-index: 500;
+    }
 
-.react-page-cell-draggable-overlay-handle {
-  opacity: 0;
-  transition: opacity 0.3s;
-}
+    .react-page-cell-draggable-overlay-handle {
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
 
+    .react-page-cell:hover
+      > div
+      > div
+      > div
+      > div
+      > .react-page-cell-draggable-overlay-handle,
+    .react-page-cell.react-page-cell-focused
+      > div
+      > div
+      > div
+      > div
+      > .react-page-cell-draggable-overlay-handle {
+      opacity: 1;
+    }
 
-.react-page-cell:hover > div > div > div > div > .react-page-cell-draggable-overlay-handle, 
-.react-page-cell.react-page-cell-focused > div > div > div > div > .react-page-cell-draggable-overlay-handle {
- opacity: 1;
-}
+    .react-page-cell-draggable-overlay-handle
+      .react-page-cell-draggable-overlay-handle-icon::before {
+      top: -300%;
+    }
 
+    .react-page-cell-draggable-overlay-handle
+      .react-page-cell-draggable-overlay-handle-icon {
+      width: 70%;
+      top: 50%;
+    }
 
+    .react-page-cell-draggable-overlay-handle
+      .react-page-cell-draggable-overlay-handle-icon::after {
+      top: 400%;
+    }
 
+    .react-page-cell-draggable-overlay-handle
+      .react-page-cell-draggable-overlay-handle-icon::before,
+    .react-page-cell-draggable-overlay-handle
+      .react-page-cell-draggable-overlay-handle-icon::after {
+      width: 100%;
+    }
 
-.react-page-cell-draggable-overlay-handle
-  .react-page-cell-draggable-overlay-handle-icon::before {
-  top: -300%;
-}
+    .react-page-cell-draggable-overlay-handle
+      .react-page-cell-draggable-overlay-handle-icon,
+    .react-page-cell-draggable-overlay-handle
+      .react-page-cell-draggable-overlay-handle-icon::before,
+    .react-page-cell-draggable-overlay-handle
+      .react-page-cell-draggable-overlay-handle-icon::after {
+      height: 2px;
+      position: absolute;
+      content: '';
+      transform: translate(-50%, -50%);
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: white;
+    }
 
-.react-page-cell-draggable-overlay-handle .react-page-cell-draggable-overlay-handle-icon {
-  width: 70%;
-  top: 50%;
-}
+    .react-page-cell:hover
+      > div
+      > div
+      > div
+      > .react-page-cell-draggable-overlay {
+      background: var(--minBlack);
+      border: 1px solid var(--lightWhite);
+      background-blend-mode: screen;
+    }
 
-.react-page-cell-draggable-overlay-handle
-  .react-page-cell-draggable-overlay-handle-icon::after {
-  top: 400%;
-}
+    .react-page-cell-draggable-overlay.react-page-cell-draggable-leaf {
+      z-index: 3;
+    }
 
-.react-page-cell-draggable-overlay-handle
-  .react-page-cell-draggable-overlay-handle-icon::before,
-.react-page-cell-draggable-overlay-handle
-  .react-page-cell-draggable-overlay-handle-icon::after {
-  width: 100%;
-}
+    .react-page-cell-draggable-inline-left.react-page-cell-draggable-overlay,
+    .react-page-cell-draggable-inline-right.react-page-cell-draggable-overlay {
+      float: left;
+      z-index: 4;
+    }
 
-.react-page-cell-draggable-overlay-handle .react-page-cell-draggable-overlay-handle-icon,
-.react-page-cell-draggable-overlay-handle
-  .react-page-cell-draggable-overlay-handle-icon::before,
-.react-page-cell-draggable-overlay-handle
-  .react-page-cell-draggable-overlay-handle-icon::after {
-  height: 2px;
-  position: absolute;
-  content: '';
-  transform: translate(-50%, -50%);
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background: white;
-}
-
-.react-page-cell:hover > div > div > div > .react-page-cell-draggable-overlay{
-  background: var(--minBlack);
-  border: 1px solid var(--lightWhite);
-  background-blend-mode: screen;
-}
-
-
-.react-page-cell-draggable-overlay.react-page-cell-draggable-leaf {
-  z-index: 3;
-}
-
-.react-page-cell-draggable-inline-left.react-page-cell-draggable-overlay,
-.react-page-cell-draggable-inline-right.react-page-cell-draggable-overlay {
-  float: left;
-  z-index: 4;
-}
-
-.react-page-cell-draggable-is-dragging {
-  opacity: 0.4;
-  outline: none;
+    .react-page-cell-draggable-is-dragging {
+      opacity: 0.4;
+      outline: none;
+    }
+  }
 }

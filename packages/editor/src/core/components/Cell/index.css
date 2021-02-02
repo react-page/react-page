@@ -3,46 +3,49 @@
 @import './ErrorCell/index.css';
 @import './Handle/index.css';
 
-.react-page-cell-inline-left {
-  float: left;
-}
-
-.react-page-cell-inline-right {
-  float: right;
-}
-
-.react-page-cell-has-inline-neighbour {
-  float: none;
-  width: 100%;
-}
-.react-page-cell-is-draft {
-  opacity: 0.3;
-  outline: 1px dashed black;
-}
-
-
+/* general rules for read only and edit */
 
 .react-page-cell {
-  position: relative;
-  transition: box-shadow 0.3s;
+  &-inline-left {
+    float: left;
+  }
 
+  &-inline-right {
+    float: right;
+  }
+
+  &-has-inline-neighbour {
+    float: none;
+    width: 100%;
+  }
 }
 
-.react-page-cell.react-page-cell-has-plugin:hover {
-  z-index: 2;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
-  opacity: 1;
+/* edit */
+.react-page-editable {
+  &&-mode-edit,
+  &&-mode-resizing,
+  &&-mode-layout {
+    .react-page-cell {
+      position: relative;
+      transition: box-shadow 0.3s;
+
+      &-is-draft {
+        opacity: 0.3;
+        outline: 1px dashed black;
+      }
+      &-bring-to-front {
+        z-index: 3;
+      }
+      &.react-page-cell-has-plugin:hover {
+        z-index: 2;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+        opacity: 1;
+      }
+      &.react-page-cell-focused.react-page-cell-focused {
+        z-index: 1;
+        box-shadow: 0 0 50px rgba(0, 0, 0, 0.4);
+        opacity: 1;
+      }
+    }
+  }
 }
-.react-page-cell.react-page-cell-focused.react-page-cell-focused {
-  z-index: 1;
-  box-shadow: 0 0 50px rgba(0, 0, 0, 0.4);
-  opacity: 1;
-}
-
-
-
-
-.react-page-cell-bring-to-front {
-  z-index: 3;
-}
-
