@@ -24,7 +24,7 @@ const makeStore = (initialFocus: Focus) => {
         hover: null,
         focus: initialFocus,
         display: {
-          mode: 'asdf',
+          mode: 'edit',
         },
         values: {
           future: [],
