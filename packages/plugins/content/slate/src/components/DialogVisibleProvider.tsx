@@ -1,22 +1,22 @@
 import React, { Dispatch, SetStateAction, useContext, useState } from 'react';
 
-const DialogContext = React.createContext<{
-  visible?: boolean;
-  setVisible?: Dispatch<SetStateAction<boolean>>;
-}>({});
+const DialogContext = React.createContext<
+  [boolean, Dispatch<SetStateAction<boolean>>]
+>([false, () => null]);
 
 const DialogVisibleProvider = ({ children }) => {
-  const [visible, setVisible] = useState(false);
+  const visibleState = useState(false);
+
   return (
-    <DialogContext.Provider value={{ visible, setVisible }}>
+    <DialogContext.Provider value={visibleState}>
       {children}
     </DialogContext.Provider>
   );
 };
 export const useDialogIsVisible = () => {
-  return useContext(DialogContext)?.visible;
+  return useContext(DialogContext)?.[0];
 };
 export const useSetDialogIsVisible = () => {
-  return useContext(DialogContext)?.setVisible;
+  return useContext(DialogContext)?.[1];
 };
 export default DialogVisibleProvider;

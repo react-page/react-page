@@ -46,7 +46,7 @@ function PluginButton<T>(props: Props<T>) {
   const remove = useRemovePlugin(plugin);
   const editor = useSlate();
   const setIsVisible = useSetDialogIsVisible();
-  useEffect(() => setIsVisible(showControls), [showControls]);
+  useEffect(() => setIsVisible(showControls), [showControls, setIsVisible]);
   const onClick = React.useCallback(
     (e: React.MouseEvent<HTMLElement>) => {
       e.preventDefault();
