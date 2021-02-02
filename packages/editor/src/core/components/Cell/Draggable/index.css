@@ -10,7 +10,7 @@
   left: 0;
   bottom: 0;
   right: 0;
-  z-index: 3;
+
   cursor: move;
   border: 1px solid rgba(0, 0, 0, 0);
   transition: all ease 0.4s;

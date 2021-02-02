@@ -123,7 +123,6 @@ const Cell: React.FC<Props> = ({ nodeId, measureRef }) => {
           [`react-page-cell-inline-${inline || ''}`]: inline,
           'react-page-cell-focused': focused,
           'react-page-cell-is-draft': isDraftInLang,
-          'react-page-cell-resizing-overlay': isResizeMode,
           'react-page-cell-bring-to-front':
             !isResizeMode && !isLayoutMode && inline, // inline must not be active for resize/layout
         }

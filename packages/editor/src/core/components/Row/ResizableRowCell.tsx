@@ -3,6 +3,7 @@ import Draggable from 'react-draggable';
 import { useMeasure } from 'react-use';
 import Cell from '../Cell';
 import {
+  useIsEditMode,
   useIsPreviewMode,
   useIsResizeMode,
   useOptions,
@@ -30,12 +31,15 @@ const ResizableRowCell: React.FC<Props> = ({
   const stepWidth = Math.round(rowWidth / 12);
   const { allowResizeInEditMode } = useOptions();
   const isResizeMode = useIsResizeMode();
+  const isEditMode = useIsEditMode();
   const isPreviewMode = useIsPreviewMode();
   const resize = useResizeCell(nodeId);
   const [ref, { height: cellHeight }] = useMeasure();
 
   const showResizeHandle =
-    !isPreviewMode && !isLast && (isResizeMode || allowResizeInEditMode);
+    !isPreviewMode &&
+    !isLast &&
+    (isResizeMode || (allowResizeInEditMode && isEditMode));
 
   return (
     <>

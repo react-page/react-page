@@ -14,7 +14,9 @@ const Handle: React.FC<{ nodeId: string }> = ({ nodeId }) => {
       <div
         className="react-page-cell-handle"
         ref={dragRef}
-        onClick={() => focus(false)}
+        onClick={() => {
+          focus(false);
+        }}
       >
         {plugin?.title || plugin?.text}
       </div>

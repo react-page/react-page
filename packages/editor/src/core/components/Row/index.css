@@ -60,7 +60,7 @@
 
 .react-page-row .resize-handle {
   position: absolute;
-  z-index: 5;
+  z-index: 6;
   width: 4px;
   top: 0;
   bottom: 0;

@@ -2,7 +2,7 @@
 
 .react-page-plugins-content-slate-inline-toolbar {
     position: absolute;
-    z-index: 1;
+    z-index: 10;
     top: -10000px;
     left: -10000px;
     margin-top: -6px;

@@ -53,7 +53,7 @@ describe('HTMLRenderer', () => {
         it('should pass', () => {
           expect(wrapper.html()).toEqual(
             // tslint:disable-next-line:max-line-length
-            '<div class="react-page-cell react-page-cell-sm-12 react-page-cell-xs-12"><div class="react-page-cell-inner react-page-cell-inner-leaf"><p>Hello world</p></div></div>'
+            '<div class="react-page-cell react-page-cell-sm-12 react-page-cell-xs-12 react-page-cell-leaf"><div class="react-page-cell-inner react-page-cell-inner-leaf"><p>Hello world</p></div></div>'
           );
         });
       });

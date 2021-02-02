@@ -29,16 +29,24 @@ const Inner: React.FC<{ nodeId: string }> = ({ nodeId }) => {
 
   const hasChildren = childrenIds.length > 0;
 
-  const onMouseDown = React.useCallback(
+  const onClick = React.useCallback(
     (e: React.MouseEvent<HTMLDivElement>) => {
+      const target = e.target as HTMLDivElement;
+
+      // check whether the click was inside cell-inner, but not inside a nested cell
+      // also check whether it was not somehwere in a inner row (e.g. the resize handle)
       if (
-        (e.target as HTMLDivElement).closest('.react-page-cell-inner') ===
-          // eslint-disable-next-line react/no-find-dom-node
-          ref.current &&
-        !(e.target as HTMLDivElement).classList.contains('resize-handle')
+        target?.closest &&
+        target.closest('.react-page-cell-inner') === ref.current &&
+        target.closest('.react-page-cell') ===
+          ref.current.closest('.react-page-cell') &&
+        target.closest('.react-page-row') ===
+          ref.current.closest('.react-page-row')
+        // also prevent click on resize handle
+        //  && !target.classList.contains('resize-handle')
       ) {
         if (!focused && isEditMode) {
-          focus(false, 'onMouseDown');
+          focus(false, 'onClick');
           setEditMode();
         }
       }
@@ -59,7 +67,7 @@ const Inner: React.FC<{ nodeId: string }> = ({ nodeId }) => {
     <Droppable nodeId={nodeId} isLeaf={!hasChildren}>
       <Draggable nodeId={nodeId} isLeaf={!hasChildren}>
         <div
-          onMouseDown={!isPreviewMode ? onMouseDown : undefined}
+          onClick={!isPreviewMode ? onClick : undefined}
           tabIndex={-1}
           style={{
             outline: 'none',

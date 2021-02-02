@@ -33,7 +33,7 @@
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
   opacity: 1;
 }
-.react-page-cell.react-page-cell-focused {
+.react-page-cell.react-page-cell-focused.react-page-cell-focused {
   z-index: 1;
   box-shadow: 0 0 50px rgba(0, 0, 0, 0.4);
   opacity: 1;
@@ -45,15 +45,4 @@
 .react-page-cell-bring-to-front {
   z-index: 3;
 }
-
-.react-page-cell-resizing-overlay:after {
-  content: ' ';
-  z-index: 4;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-}
-
 
