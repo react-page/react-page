@@ -41,9 +41,9 @@ const Inner: React.FC<{ nodeId: string }> = ({ nodeId }) => {
         target.closest('.react-page-cell') ===
           ref.current.closest('.react-page-cell') &&
         target.closest('.react-page-row') ===
-          ref.current.closest('.react-page-row')
-        // also prevent click on resize handle
-        //  && !target.classList.contains('resize-handle')
+          ref.current.closest('.react-page-row') &&
+        // also prevent click on insert new
+        !target.classList.contains('react-page-cell-insert-new')
       ) {
         if (!focused && isEditMode) {
           focus(false, 'onClick');
