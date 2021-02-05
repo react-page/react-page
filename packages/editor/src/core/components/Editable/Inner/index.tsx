@@ -79,16 +79,14 @@ const Inner: React.FC = () => {
     : true;
 
   return (
-    <div style={{ minHeight: 480, display: 'flex', flexDirection: 'column' }}>
-      <div
-        ref={ref}
-        className={'react-page-editable react-page-editable-mode-' + mode}
-      >
-        {rowIds.length > 0
-          ? rowIds.map((id) => <Row nodeId={id} key={id} />)
-          : null}
-      </div>
-
+    <div
+      ref={ref}
+      style={{ minHeight: 480 }}
+      className={'react-page-editable react-page-editable-mode-' + mode}
+    >
+      {rowIds.length > 0
+        ? rowIds.map((id) => <Row nodeId={id} key={id} />)
+        : null}
       {insertAllowed ? <InsertNew /> : null}
     </div>
   );
