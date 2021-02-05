@@ -149,3 +149,18 @@ A component that wraps both your `Renderer` and the `BottomToolbar` that is show
 
 This is useful in cases where the controls of your plugin require some additional context that is shared with the `Renderer`.
 E.g. the default rich text editor plugin ("slate") uses a provider to highlight the currently active format (bold, headings, etc.)
+
+### `childConstraints` (experimental)
+
+Takes an object:
+
+```
+childConstraints: {
+  maxChildren: number,
+}
+```
+
+it will only show the (+) button to add new cells/rows when it has less than `maxChildren` rows in the current cell.
+
+It currently just controls whether the button is shown, but its still possible to add new cells by dragging.
+it will be revisited in the future and is therefore considered experimental.

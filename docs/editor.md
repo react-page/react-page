@@ -87,3 +87,18 @@ const LANGUAGES = [
 That way an editing user can select the language at any time. Any cell will allways show the default language content unless another version in that language has been made. This is per cell so users can avoid the "copy everything to another language" problem that many CMS have! Users can just translate what needs to be translated.
 
 Additionaly cells can be hidden _per language_.
+
+### `childConstraints` (experimental)
+
+Takes an object:
+
+```
+childConstraints: {
+  maxChildren: number,
+}
+```
+
+it will only show the (+) button to add new cells when it has less than `maxChildren` rows in the editor.
+
+It currently just controls whether the button is shown, but its still possible to add new cells by dragging.
+it will be revisited in the future and is therefore considered experimental.
