@@ -8,17 +8,17 @@ import {
   useDisplayModeReferenceNodeId,
   useInsertNew,
 } from '../../../core/components/hooks';
-import { CellPlugin } from '../../../core/types';
-import draggable from '../Draggable/index';
+import { CellPlugin, InsertNewCell } from '../../../core/types';
+import Draggable from '../Draggable/index';
 
-interface ItemProps {
+type ItemProps = {
   plugin: CellPlugin;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  insert: any;
+  insert: InsertNewCell;
   translations: Translations;
-}
+};
 
-const Item: React.FC<ItemProps> = ({ plugin, insert, translations }) => {
+const Item: React.FC<ItemProps> = ({ plugin, insert }) => {
   const title = plugin.title ?? plugin.text;
   if (!plugin.icon && !title) {
     return null;
@@ -30,8 +30,6 @@ const Item: React.FC<ItemProps> = ({ plugin, insert, translations }) => {
     () => insertNew(insert, referenceNodeId ?? null),
     [insertNew, referenceNodeId, insert]
   );
-
-  const Draggable = draggable('cell');
 
   return (
     <Draggable insert={insert}>

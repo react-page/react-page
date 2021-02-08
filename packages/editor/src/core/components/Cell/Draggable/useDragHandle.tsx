@@ -2,7 +2,7 @@ import { useDrag, DragPreviewImage } from 'react-dnd';
 import { CellDrag } from '../../../types';
 import { useCell, useHoverActions } from '../../hooks';
 import React from 'react';
-const icon =
+export const dragIcon =
   // tslint:disable-next-line:max-line-length
   'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAhCAYAAACbffiEAAAA6UlEQVRYhe2ZQQ6CMBBFX0njHg7ESXTp1p3uvIBewc3Em3AfdelSFwRDCAm01JRO+pa0lP8zzc9kMCKyAa7AFqhIixdwB44WuACHuHq8KWm1vwtgF1lMCPaWkevUNE3Qr9R17XTu1P5uvUdV+IpbG2qMGBH5xBYRAjUVUWPEjj10SS3XRFry3kha/VBTETVGcmqtDTVGFqdWn7k9ku96f88QNRVRYySn1tpQY8QptXz7qinmnpt7rZTIqbU21BgJ2mv1+XfCDVFTETVGjIg8SG8KP+RZ0I7lU+dmgRNgaKfyZVw9znT/R85fOHJJE77U6UcAAAAASUVORK5CYII=';
 
@@ -35,6 +35,6 @@ export const useDragHandle = (nodeId: string) => {
       actions.cancelCellDrag();
     },
   });
-  const previewElement = <DragPreviewImage connect={preview} src={icon} />;
+  const previewElement = <DragPreviewImage connect={preview} src={dragIcon} />;
   return [isDragging, dragRef, previewElement] as const;
 };

@@ -187,7 +187,7 @@ export type CellPlugin<DataT = unknown, DataSerializedT = DataT> = {
    * wether to not allow to drop another cell plugin in the same row as this plugin
    * is always true if not defined
    */
-  allowNeighbour?: (item: Cell) => boolean;
+  allowNeighbour?: (item: PartialCell) => boolean;
 
   reducer?: (data: DataT, action: AnyAction) => DataT;
 

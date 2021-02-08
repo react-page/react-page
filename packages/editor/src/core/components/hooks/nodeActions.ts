@@ -16,7 +16,7 @@ import {
 import { setDisplayReferenceNodeId } from '../../actions/display';
 import { setLang } from '../../actions/setting';
 import { useDispatch } from '../../reduxConnect';
-import { Cell, CellDrag, isRow } from '../../types/node';
+import { Cell, CellDrag, isRow, PartialCell } from '../../types/node';
 import { useEditorStore, useLang, useOptionsWithLang } from './options';
 import { useDrop } from 'react-dnd';
 /**
@@ -210,7 +210,7 @@ export const useInsertNew = () => {
   const editor = useEditorStore();
 
   return useCallback(
-    (partialCell: Partial<Cell>, parentCellId?: string) => {
+    (partialCell: PartialCell, parentCellId?: string) => {
       const action = parentCellId ? insertCellNewAsNewRow : insertCellAtTheEnd;
       dispatch(action(options)(partialCell, { id: parentCellId }));
     },

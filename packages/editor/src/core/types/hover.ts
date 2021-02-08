@@ -1,5 +1,5 @@
 import { HoverTarget } from '../service/hover/computeHover';
-import { Cell } from './node';
+import { Cell, PartialCell } from './node';
 
 export type Room = {
   height: number;
@@ -20,12 +20,12 @@ export type HoverInsertActions = {
   dragCell(id: string): void;
   cancelCellDrag(): void;
   clear(): void;
-  above(drag: Cell, hover: HoverTarget, level: number): void;
-  below(drag: Cell, hover: HoverTarget, level: number): void;
-  leftOf(drag: Cell, hover: HoverTarget, level: number): void;
-  rightOf(drag: Cell, hover: HoverTarget, level: number): void;
-  inlineLeft(drag: Cell, hover: HoverTarget): void;
-  inlineRight(drag: Cell, hover: HoverTarget): void;
+  above(drag: PartialCell, hover: HoverTarget, level: number): void;
+  below(drag: PartialCell, hover: HoverTarget, level: number): void;
+  leftOf(drag: PartialCell, hover: HoverTarget, level: number): void;
+  rightOf(drag: PartialCell, hover: HoverTarget, level: number): void;
+  inlineLeft(drag: PartialCell, hover: HoverTarget): void;
+  inlineRight(drag: PartialCell, hover: HoverTarget): void;
 };
 
 export type Matrix = Array<Array<number>>;

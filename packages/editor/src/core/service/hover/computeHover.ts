@@ -1,4 +1,4 @@
-import { isRow, Cell, Options, Levels } from '../../types/node';
+import { isRow, Options, Levels, PartialCell } from '../../types/node';
 import {
   HoverInsertActions,
   Matrix,
@@ -31,7 +31,7 @@ type Context = {
 type MatrixList = { [key: string]: Matrix };
 type CallbackList = {
   [key: number]: (
-    drag: Cell,
+    drag: PartialCell,
     hover: HoverTarget,
     actions: HoverInsertActions,
     context: Context
@@ -182,7 +182,7 @@ const getMouseHoverCell = ({
 const last = { '10x10': null, '10x10-no-inline': null };
 
 export const computeHover = (
-  drag: Cell,
+  drag: PartialCell,
   hover: HoverTarget,
   actions: HoverInsertActions,
   {
@@ -391,12 +391,15 @@ const getDropLevel = (hover: HoverTarget) =>
  * A list of callbacks.
  */
 export const CALLBACK_LIST: CallbackList = {
-  [c.NO]: (item: Cell, hover: HoverTarget, { clear }: HoverInsertActions) =>
-    clear(),
+  [c.NO]: (
+    item: PartialCell,
+    hover: HoverTarget,
+    { clear }: HoverInsertActions
+  ) => clear(),
 
   /* corners */
   [c.C1]: (
-    item: Cell,
+    item: PartialCell,
     hover: HoverTarget,
     { leftOf, above }: HoverInsertActions,
 
@@ -413,7 +416,7 @@ export const CALLBACK_LIST: CallbackList = {
   },
 
   [c.C2]: (
-    item: Cell,
+    item: PartialCell,
     hover: HoverTarget,
     { rightOf, above }: HoverInsertActions,
 
@@ -430,7 +433,7 @@ export const CALLBACK_LIST: CallbackList = {
   },
 
   [c.C3]: (
-    item: Cell,
+    item: PartialCell,
     hover: HoverTarget,
     { rightOf, below }: HoverInsertActions,
 
@@ -446,7 +449,7 @@ export const CALLBACK_LIST: CallbackList = {
   },
 
   [c.C4]: (
-    item: Cell,
+    item: PartialCell,
     hover: HoverTarget,
     { leftOf, below }: HoverInsertActions,
 
@@ -462,27 +465,43 @@ export const CALLBACK_LIST: CallbackList = {
   },
 
   /* heres */
-  [c.AH]: (item: Cell, hover: HoverTarget, { above }: HoverInsertActions) => {
+  [c.AH]: (
+    item: PartialCell,
+    hover: HoverTarget,
+    { above }: HoverInsertActions
+  ) => {
     const level = getDropLevel(hover);
     above(item, hover, level);
   },
-  [c.BH]: (item: Cell, hover: HoverTarget, { below }: HoverInsertActions) => {
+  [c.BH]: (
+    item: PartialCell,
+    hover: HoverTarget,
+    { below }: HoverInsertActions
+  ) => {
     const level = getDropLevel(hover);
     below(item, hover, level);
   },
 
-  [c.LH]: (item: Cell, hover: HoverTarget, { leftOf }: HoverInsertActions) => {
+  [c.LH]: (
+    item: PartialCell,
+    hover: HoverTarget,
+    { leftOf }: HoverInsertActions
+  ) => {
     const level = getDropLevel(hover);
     leftOf(item, hover, level);
   },
-  [c.RH]: (item: Cell, hover: HoverTarget, { rightOf }: HoverInsertActions) => {
+  [c.RH]: (
+    item: PartialCell,
+    hover: HoverTarget,
+    { rightOf }: HoverInsertActions
+  ) => {
     const level = getDropLevel(hover);
     rightOf(item, hover, level);
   },
 
   /* ancestors */
   [c.AA]: (
-    item: Cell,
+    item: PartialCell,
     hover: HoverTarget,
     { above }: HoverInsertActions,
     ctx: Context
@@ -500,7 +519,7 @@ export const CALLBACK_LIST: CallbackList = {
       )
     ),
   [c.BA]: (
-    item: Cell,
+    item: PartialCell,
     hover: HoverTarget,
     { below }: HoverInsertActions,
     ctx: Context
@@ -516,7 +535,7 @@ export const CALLBACK_LIST: CallbackList = {
     ),
 
   [c.LA]: (
-    item: Cell,
+    item: PartialCell,
     hover: HoverTarget,
     { leftOf }: HoverInsertActions,
     ctx: Context
@@ -534,7 +553,7 @@ export const CALLBACK_LIST: CallbackList = {
       )
     ),
   [c.RA]: (
-    item: Cell,
+    item: PartialCell,
     hover: HoverTarget,
     { rightOf }: HoverInsertActions,
     ctx: Context
@@ -551,7 +570,7 @@ export const CALLBACK_LIST: CallbackList = {
 
   /* inline */
   [c.IL]: (
-    item: Cell,
+    item: PartialCell,
     hover: HoverTarget,
     { inlineLeft, leftOf }: HoverInsertActions,
     { options }
@@ -560,7 +579,11 @@ export const CALLBACK_LIST: CallbackList = {
       return;
     }
     const { inline, hasInlineNeighbour } = hover;
-    const plugin = options.cellPlugins.find((p) => p.id === item.plugin?.id);
+    const plugin = options.cellPlugins.find(
+      (p) =>
+        p.id ===
+        (typeof item.plugin === 'string' ? item.plugin : item.plugin?.id)
+    );
     const isInlineable = plugin?.isInlineable ?? false;
     if (inline || !isInlineable) {
       return leftOf(item, hover, 2);
@@ -580,7 +603,7 @@ export const CALLBACK_LIST: CallbackList = {
   },
 
   [c.IR]: (
-    item: Cell,
+    item: PartialCell,
     hover: HoverTarget,
     { inlineRight, rightOf }: HoverInsertActions,
     { options }
@@ -589,7 +612,11 @@ export const CALLBACK_LIST: CallbackList = {
       return;
     }
     const { inline, hasInlineNeighbour } = hover;
-    const plugin = options.cellPlugins.find((p) => p.id === item.plugin?.id);
+    const plugin = options.cellPlugins.find(
+      (p) =>
+        p.id ===
+        (typeof item.plugin === 'string' ? item.plugin : item.plugin?.id)
+    );
     const isInlineable = plugin?.isInlineable ?? false;
 
     if (inline || !isInlineable) {

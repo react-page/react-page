@@ -4,7 +4,7 @@
 
 import { PositionEnum } from '../../const';
 import { Action } from 'redux';
-import { Cell } from '../../types/node';
+import { PartialCell } from '../../types/node';
 import { HoverTarget } from '../../service/hover/computeHover';
 
 export const CELL_DRAG_HOVER = 'CELL_DRAG_HOVER';
@@ -27,14 +27,14 @@ export interface CellHoverAction extends Action {
  * // const store = redux.createStore()
  * store.dispatch(cellHover(drag, hover, level, position))
  *
- * @param {Cell} drag The cell that is currently being dragged.
+ * @param {PartialCell} drag The cell that is currently being dragged.
  * @param {Cell} hover The cell that is being hovered by the dragged cell.
  * @param {number} level Set the level if the dragged cells should hover over an ancestor of hover.
  * @param {string} position Can be left, right, above, below.
  * @return {Action}
  */
 export const cellHover = (
-  drag: Cell,
+  drag: PartialCell,
   hover: HoverTarget,
   level = 0,
   position: PositionEnum
@@ -60,13 +60,13 @@ export const cellHover = (
  * // const store = redux.createStore()
  * store.dispatch(cellHoverLeftOf(drag, hover, level))
  *
- * @param {Cell} drag The cell that is currently being dragged.
+ * @param {PartialCell} drag The cell that is currently being dragged.
  * @param {Cell} hover The cell that is being hovered by the dragged cell.
  * @param {number} level Set the level if the dragged cells should hover over an ancestor of hover.
  * @return {Action}
  */
 export const cellHoverLeftOf = (
-  drag: Cell,
+  drag: PartialCell,
   hover: HoverTarget,
   level: number
 ) => cellHover(drag, hover, level, PositionEnum.LEFT_OF);
@@ -78,13 +78,13 @@ export const cellHoverLeftOf = (
  * // const store = redux.createStore()
  * store.dispatch(cellHoverRightOf(drag, hover, level))
  *
- * @param {Cell} drag The cell that is currently being dragged.
+ * @param {PartialCell} drag The cell that is currently being dragged.
  * @param {Cell} hover The cell that is being hovered by the dragged cell.
  * @param {number} level Set the level if the dragged cells should hover over an ancestor of hover.
  * @return {Action}
  */
 export const cellHoverRightOf = (
-  drag: Cell,
+  drag: PartialCell,
   hover: HoverTarget,
   level: number
 ) => cellHover(drag, hover, level, PositionEnum.RIGHT_OF);
@@ -96,13 +96,16 @@ export const cellHoverRightOf = (
  * // const store = redux.createStore()
  * store.dispatch(cellHoverAbove(drag, hover, level))
  *
- * @param {Cell} drag The cell that is currently being dragged.
+ * @param {PartialCell} drag The cell that is currently being dragged.
  * @param {Cell} hover The cell that is being hovered by the dragged cell.
  * @param {number} level Set the level if the dragged cells should hover over an ancestor of hover.
  * @return {Action}
  */
-export const cellHoverAbove = (drag: Cell, hover: HoverTarget, level: number) =>
-  cellHover(drag, hover, level, PositionEnum.ABOVE);
+export const cellHoverAbove = (
+  drag: PartialCell,
+  hover: HoverTarget,
+  level: number
+) => cellHover(drag, hover, level, PositionEnum.ABOVE);
 
 /**
  * Creates a redux action for when a cell is hovering another cell below.
@@ -111,13 +114,16 @@ export const cellHoverAbove = (drag: Cell, hover: HoverTarget, level: number) =>
  * // const store = redux.createStore()
  * store.dispatch(cellHoverBelow(drag, hover, level))
  *
- * @param {Cell} drag The cell that is currently being dragged.
+ * @param {PartialCell} drag The cell that is currently being dragged.
  * @param {Cell} hover The cell that is being hovered by the dragged cell.
  * @param {number} level Set the level if the dragged cells should hover over an ancestor of hover.
  * @return {Action}
  */
-export const cellHoverBelow = (drag: Cell, hover: HoverTarget, level: number) =>
-  cellHover(drag, hover, level, PositionEnum.BELOW);
+export const cellHoverBelow = (
+  drag: PartialCell,
+  hover: HoverTarget,
+  level: number
+) => cellHover(drag, hover, level, PositionEnum.BELOW);
 
 /**
  * Creates a redux action for when a cell is hovering another cell on the left, but inline (css floating).
@@ -126,11 +132,11 @@ export const cellHoverBelow = (drag: Cell, hover: HoverTarget, level: number) =>
  * // const store = redux.createStore()
  * store.dispatch(cellHoverInlineLeft(drag, hover))
  *
- * @param {Cell} drag The cell that is currently being dragged.
+ * @param {PartialCell} drag The cell that is currently being dragged.
  * @param {Cell} hover The cell that is being hovered by the dragged cell.
  * @return {Action}
  */
-export const cellHoverInlineLeft = (drag: Cell, hover: HoverTarget) =>
+export const cellHoverInlineLeft = (drag: PartialCell, hover: HoverTarget) =>
   cellHover(drag, hover, 0, PositionEnum.INLINE_LEFT);
 
 /**
@@ -140,11 +146,11 @@ export const cellHoverInlineLeft = (drag: Cell, hover: HoverTarget) =>
  * // const store = redux.createStore()
  * store.dispatch(cellHoverInlineRight(drag, hover))
  *
- * @param {Cell} drag The cell that is currently being dragged.
+ * @param {PartialCell} drag The cell that is currently being dragged.
  * @param {Cell} hover The cell that is being hovered by the dragged cell.
  * @return {Action}
  */
-export const cellHoverInlineRight = (drag: Cell, hover: HoverTarget) =>
+export const cellHoverInlineRight = (drag: PartialCell, hover: HoverTarget) =>
   cellHover(drag, hover, 0, PositionEnum.INLINE_RIGHT);
 
 export interface DragCellAction extends Action {

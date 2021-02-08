@@ -1,13 +1,13 @@
 import type { DropTargetMonitor } from 'react-dnd';
 
-import type { Node, Options } from '../../types/node';
+import type { Options, PartialCell } from '../../types/node';
 import { HoverInsertActions, Room, Vector } from '../../types/hover';
 import { computeHover, HoverTarget } from './computeHover';
 
 const computeCurrentDropPosition = (
   actions: HoverInsertActions,
   hover: HoverTarget,
-  drag: Node,
+  drag: PartialCell,
   monitor: DropTargetMonitor,
   element: HTMLElement,
   options: Options,
@@ -36,7 +36,7 @@ const computeCurrentDropPosition = (
 
 export const computeAndDispatchInsert = (
   hover: HoverTarget,
-  drag: Node,
+  drag: PartialCell,
   monitor: DropTargetMonitor,
   element: HTMLElement,
   actions: HoverInsertActions,
@@ -56,7 +56,7 @@ export const computeAndDispatchInsert = (
 
 export const computeAndDispatchHover = (
   hover: HoverTarget,
-  drag: Node,
+  drag: PartialCell,
   monitor: DropTargetMonitor,
   element: HTMLElement,
   actions: HoverInsertActions,

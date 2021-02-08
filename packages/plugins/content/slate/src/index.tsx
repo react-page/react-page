@@ -194,10 +194,6 @@ function plugin<TPlugins extends SlatePluginCollection = DefaultPlugins>(
       return createInitialData();
     },
 
-    // TODO this is disabled because of #207
-    // merge = hooks.merge
-    // split = hooks.split
-
     migrations: settings.migrations,
   };
 }

@@ -52,7 +52,7 @@ export type PartialCell = Omit<Partial<Cell>, 'rows' | 'plugin'> & {
   data?: Record<string, unknown>;
 };
 
-export const isRow = (node: Node): node is Row => {
+export const isRow = (node: Partial<Node>): node is Row => {
   return Object.prototype.hasOwnProperty.call(node, 'cells');
 };
 
@@ -73,6 +73,8 @@ export type Levels = {
   above: number;
   below: number;
 };
+
+export type InsertNewCell = PartialCell;
 
 /**
  * The value of the Editor. Don't worry too much about the internals as this might change in future versions.
@@ -105,7 +107,7 @@ export type SimplifiedModesProps = {
 
 export type CellDrag = {
   type: 'cell';
-  cell: Cell;
+  cell: PartialCell;
 };
 
 /**

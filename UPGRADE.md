@@ -15,9 +15,8 @@ It introduces some breaking changes that had to be done to make the api more cle
 - '@react-page/core', '@react-page/ui', '@react-page/renderer' no longer exist, you can import everything from '@react-page/editor'.
 - `plugins` prop on `<Editor />` has been renamed to `cellPlugins` to make way for other plugin types in the future
 - `cellPlugins` take a an array of `CellPlugin`, layout plugins and content plugins have been unified
-- `lang` should currently be set to something like `en` or `de` or whatever the language is of your content. TODO: make this optional before stable 1.0.0
 - `defaultPlugin` is no longer required. The editor will no longer automatically add a cell when its empty. Instead it shows a Button to add a new cell there.
-- best refer to the new docs (wip): https://github.com/react-page/react-page/blob/beta/docs/editor.md (TODO: add proper link once merged)
+- best refer to the new docs (wip): https://github.com/react-page/react-page/blob/docs/editor.md
 
 ### Migrating custom plugins
 
@@ -28,10 +27,8 @@ If you have custom plugins, migrate them like this:
 - `text` has been renamed to `title`
 - `Component` no longer exists, instead you define the plugin controls and `Renderer` separatly.
 - `Renderer` is the Component that should be shown in the Cell. It receives a property `data` which has the type `Data`
-- `controls` allows to either define an schema-driven auto generated form or a custom Controls component. Best refer to the updated doc https://github.com/react-page/react-page/blob/beta/docs/custom-cell-plugins.md (TODO: add proper link once merged)
+- `controls` allows to either define an schema-driven auto generated form or a custom Controls component. Best refer to the updated doc https://github.com/react-page/react-page/blob/docs/custom-cell-plugins.md
 - if you are using `@react-page/create-plugin-materialui`, you can remove that as it is no longer needed and instead use the `CellPlugin` type as mentioned above.
-
-(TODO): add more steps if any
 
 ### Migrate custom slate plugins
 
