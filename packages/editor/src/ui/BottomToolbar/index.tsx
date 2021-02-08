@@ -1,18 +1,8 @@
-import {
-  Avatar,
-  Divider,
-  Grid,
-  IconButton,
-  Portal,
-  Tooltip,
-  Typography,
-} from '@material-ui/core';
+import { Divider, Portal } from '@material-ui/core';
 import Drawer from '@material-ui/core/Drawer';
-import FormatSize from '@material-ui/icons/FormatSize';
 import React from 'react';
-import { usePluginOfCell } from '../../core/components/hooks';
 import ThemeProvider, { darkTheme } from '../ThemeProvider';
-import Tools from './Tools';
+import Content from './Content';
 import { BottomToolbarProps } from './types';
 const darkBlack = 'rgba(0, 0, 0, 0.87)';
 const bright = 'rgba(255,255,255, 0.98)';
@@ -30,14 +20,13 @@ const BottomToolbar: React.FC<BottomToolbarProps> = ({
 
   nodeId,
 }) => {
-  const { title, icon } = usePluginOfCell(nodeId) ?? {};
   const [size, setSize] = React.useState(lastSize);
-  const toggleSize = () => {
+  const toggleSize = React.useCallback(() => {
     const newSize = SIZES[(SIZES.indexOf(size) + 1) % SIZES.length];
     setSize(newSize);
     // poor man's redux
     lastSize = newSize;
-  };
+  }, [size, setSize]);
 
   return (
     <Portal>
@@ -89,38 +78,7 @@ const BottomToolbar: React.FC<BottomToolbarProps> = ({
               }}
             />
 
-            <>
-              <Grid container={true} direction="row" alignItems="center">
-                {icon || title ? (
-                  <Grid item={true}>
-                    <Avatar
-                      children={icon || (title ? title[0] : '')}
-                      style={{
-                        marginRight: 16,
-                      }}
-                    />
-                  </Grid>
-                ) : null}
-                <Grid item={true}>
-                  <Typography variant="subtitle1">{title}</Typography>
-                </Grid>
-                <Grid item={true}>
-                  <Tooltip title="Toggle Size">
-                    <IconButton
-                      onClick={toggleSize}
-                      aria-label="toggle Size"
-                      color="primary"
-                    >
-                      <FormatSize />
-                    </IconButton>
-                  </Tooltip>
-                </Grid>
-
-                <Grid item={true} style={{ marginLeft: 'auto' }}>
-                  <Tools nodeId={nodeId} />
-                </Grid>
-              </Grid>
-            </>
+            <Content nodeId={nodeId} toggleSize={toggleSize} />
           </div>
         </Drawer>
       </ThemeProvider>
