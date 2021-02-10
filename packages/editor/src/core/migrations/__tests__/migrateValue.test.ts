@@ -1,13 +1,13 @@
 import { Value } from '../../types';
-import { createUuid } from '../../utils/createUuid';
+import { createId } from '../../utils/createId';
 import { CURRENT_EDITABLE_VERSION } from '../EDITABLE_MIGRATIONS';
 import { Value_v0 } from '../EDITABLE_MIGRATIONS/from0to1';
 import { migrateValue } from '../migrate';
 
-jest.mock('../../utils/createUuid', () => {
+jest.mock('../../utils/createId', () => {
   let index = 1;
   return {
-    createUuid: () => 'nodeId_' + index++,
+    createId: () => 'nodeId_' + index++,
   };
 });
 

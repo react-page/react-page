@@ -1,7 +1,7 @@
 import { createRow, PluginsAndLang } from '../actions/cell/insert';
 import { CURRENT_EDITABLE_VERSION } from '../migrations/EDITABLE_MIGRATIONS';
 import { Value, PartialRow } from '../types/node';
-import { createUuid } from './createUuid';
+import { createId } from './createId';
 
 type PartialEditable = {
   id?: string;
@@ -12,7 +12,7 @@ export const createEditable = (
   options: PluginsAndLang
 ): Value => {
   return {
-    id: partial.id || createUuid(),
+    id: partial.id || createId(),
     rows: partial.rows?.map((c) => createRow(c, options)) ?? [],
     version: CURRENT_EDITABLE_VERSION,
   };

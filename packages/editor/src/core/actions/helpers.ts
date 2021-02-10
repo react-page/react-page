@@ -1,10 +1,10 @@
 import { NewIds } from '../types/node';
-import { createUuid } from '../utils/createUuid';
+import { createId } from '../utils/createId';
 
 export const generateIds = (): NewIds => {
   return {
-    cell: createUuid(),
-    item: createUuid(),
-    others: [createUuid(), createUuid(), createUuid()],
+    cell: createId(),
+    item: createId(),
+    others: [createId(), createId(), createId()],
   };
 };

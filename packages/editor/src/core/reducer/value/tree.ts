@@ -16,7 +16,7 @@ import {
   CELL_INSERT_AS_NEW_ROW,
 } from '../../actions/cell';
 import { Cell, Row } from '../../types/node';
-import { createUuid } from '../../utils/createUuid';
+import { createId } from '../../utils/createId';
 import { removeUndefinedProps } from '../../utils/removeUndefinedProps';
 
 import {
@@ -152,10 +152,10 @@ const cell = (s: Cell, a: CellAction, depth: number): Cell =>
   );
 
 const createEmptyCell = (): Cell => ({
-  id: createUuid(),
+  id: createId(),
   rows: [
     {
-      id: createUuid(),
+      id: createId(),
       cells: [],
     },
   ],

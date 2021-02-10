@@ -6,7 +6,7 @@ import { RootState } from './types/state';
 import { setLang } from './actions/setting';
 import { findNodeInState } from './selector/editable';
 import { createContext } from 'react';
-import { createUuid } from './utils/createUuid';
+import { createId } from './utils/createId';
 
 export const EditorContext = createContext<EditorStore>(null);
 
@@ -46,6 +46,6 @@ class EditorStore<T extends RootState = RootState> {
 }
 
 export const createEmptyState: () => Value = () =>
-  ({ id: createUuid(), rows: [] } as Value);
+  ({ id: createId(), rows: [] } as Value);
 
 export default EditorStore;

@@ -10,7 +10,7 @@ import {
   PartialRow,
   Row,
 } from '../../types/node';
-import { createUuid } from '../../utils/createUuid';
+import { createId } from '../../utils/createId';
 import { removeUndefinedProps } from '../../utils/removeUndefinedProps';
 import { editMode } from '../display';
 import { generateIds } from '../helpers';
@@ -54,12 +54,12 @@ export const createRow = (
 ): Row => {
   if (Array.isArray(partialRow)) {
     return {
-      id: createUuid(),
+      id: createId(),
       cells: partialRow.map((c) => createCell(c, options)),
     };
   }
   return removeUndefinedProps({
-    id: createUuid(),
+    id: createId(),
     ...partialRow,
     cells: partialRow.cells?.map((c) => createCell(c, options)),
   });
@@ -90,7 +90,7 @@ export const createCell = (
     ...(partialCell.dataI18n ?? {}),
   } as I18nField<Record<string, unknown>>;
   return removeUndefinedProps({
-    id: partialCell.id ?? createUuid(),
+    id: partialCell.id ?? createId(),
     isDraft: partialCell.isDraft,
     isDraftI18n: partialCell.isDraftI18n,
     inline: partialCell.inline,
@@ -203,11 +203,11 @@ const newIds = ({ id, ...item }: Cell): Cell => {
   return {
     ...item,
     dataI18n: JSON.parse(JSON.stringify(item.dataI18n)),
-    id: createUuid(),
+    id: createId(),
     rows: item.rows
       ? item.rows.map((row) => ({
           ...row,
-          id: createUuid(),
+          id: createId(),
           cells: row.cells ? row.cells.map(newIds) : undefined,
         }))
       : undefined,
