@@ -2,6 +2,7 @@
   "files": [],
   "references": [
     { "path": "editor" },
+
     { "path": "plugins/content/divider" },
     { "path": "plugins/content/html5-video" },
     { "path": "plugins/content/image" },
@@ -9,6 +10,7 @@
     { "path": "plugins/content/slate" },
     { "path": "plugins/content/spacer" },
     { "path": "plugins/content/video" },
-    { "path": "plugins/layout/background" }
+    { "path": "plugins/layout/background" },
+    { "path": "react-admin" }
   ]
 }
