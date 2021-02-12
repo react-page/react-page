@@ -17,12 +17,18 @@
   "peerDependencies": {
     "@material-ui/core": "*",
     "@material-ui/icons": "*",
+    "react-final-form": "*",
     "react": "^16.8.6 || ^17.0.0",
     "react-dom": "^16.8.6",
-    "react-admin": "^3.0.0"
+    "react-admin": "^3.0.0",
+    "uniforms": "*"
   },
   "dependencies": {
     "@react-page/editor": "0.0.0"
+  },
+  "devDependencies": {
+    "react-admin": "^3.12.2",
+    "uniforms": "^3.1.0"
   },
   "publishConfig": {
     "access": "public"

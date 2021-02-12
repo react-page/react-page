@@ -4,7 +4,6 @@
   "name": "react-page",
   "license": "MIT",
   "devDependencies": {
-    "react-admin": "^3.0.0",
     "@babel/cli": "7.2.0",
     "@babel/core": "7.2.0",
     "@babel/plugin-proposal-class-properties": "7.2.1",

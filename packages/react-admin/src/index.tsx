@@ -1,3 +1,3 @@
 import RaReactPageInput from './RaReactPageInput';
-
-export { RaReactPageInput };
+import RaSelectReferenceInputField from './RaSelectReferenceInputField';
+export { RaReactPageInput, RaSelectReferenceInputField };

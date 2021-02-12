@@ -9,6 +9,15 @@ module.exports = withBundleAnalyzer({
       __dirname,
       'node_modules/react-admin'
     );
+    config.resolve.alias['@material-ui'] = path.resolve(
+      __dirname,
+      'node_modules/@material-ui'
+    );
+    // and for uniforms
+    config.resolve.alias['uniforms'] = path.resolve(
+      __dirname,
+      '../packages/editor/node_modules/uniforms'
+    );
 
     // Important: return the modified config
     return config;

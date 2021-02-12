@@ -1,3 +1,4 @@
+import { Paper } from '@material-ui/core';
 import Editor, { EditorProps } from '@react-page/editor';
 import React from 'react';
 
@@ -7,14 +8,28 @@ const RaReactPageInput: React.FC<
   {
     label?: string;
     source: string;
+    style?: React.CSSProperties;
   } & EditorProps
-> = ({ label = 'Content', source, ...editorProps }) => {
+> = ({ label = 'Content', source, style, ...editorProps }) => {
   const {
     input: { value, onChange },
   } = useInput({ source });
   return (
     <Labeled label={label} source={source} fullWidth>
-      <Editor value={value} onChange={onChange} {...editorProps} />
+      <>
+        <Paper
+          elevation={5}
+          style={{
+            overflow: 'visible',
+            padding: 16,
+            marginRight: 64,
+
+            ...style,
+          }}
+        >
+          <Editor value={value} onChange={onChange} {...editorProps} />
+        </Paper>
+      </>
     </Labeled>
   );
 };

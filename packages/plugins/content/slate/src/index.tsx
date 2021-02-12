@@ -45,12 +45,13 @@ export type CreateDataCustomizer<TPlugins> = ({
   plugins: TPlugins;
 }) => InitialSlateStateDef;
 
+export const DEFAULT_SLATE_PLUGIN_ID = 'ory/editor/core/content/slate';
 const defaultConfig: DefaultSlateDefinition = {
   icon: <Subject />,
   plugins: defaultPlugins,
   defaultPluginType: 'PARAGRAPH/PARAGRAPH',
 
-  id: 'ory/editor/core/content/slate',
+  id: DEFAULT_SLATE_PLUGIN_ID,
   version: 1,
   translations: defaultTranslations,
   migrations,
