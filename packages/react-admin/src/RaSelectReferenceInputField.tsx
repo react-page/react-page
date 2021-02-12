@@ -5,6 +5,7 @@ import React from 'react';
 type InputProps = {
   allowEmpty?: boolean;
   className?: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   filterToQuery?: (filter: string) => any;
   label?: string | boolean;
   perPage?: number;

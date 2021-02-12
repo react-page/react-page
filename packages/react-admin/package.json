@@ -5,7 +5,7 @@
   "module": "./lib-es/index.js",
   "sideEffects": false,
   "typings": "./lib/index.d.ts",
-  "author": "Panger AG",
+  "author": "Panter AG",
   "license": "MIT",
   "scripts": {
     "build": "npm-run-all --parallel build:lib",

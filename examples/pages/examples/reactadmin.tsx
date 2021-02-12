@@ -214,7 +214,7 @@ const recommendedProducts: CellPlugin<{
     },
   },
 };
-const plugins = [
+const ourCellPlugins = [
   customSlate,
   recommendedProducts,
   ...cellPlugins.filter((p) => p.id !== DEFAULT_SLATE_PLUGIN_ID),
@@ -241,7 +241,7 @@ export const PostEdit = (props) => (
       <RaReactPageInput
         source="content"
         label="Content"
-        cellPlugins={plugins}
+        cellPlugins={ourCellPlugins}
       />
     </SimpleForm>
   </Edit>
