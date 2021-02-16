@@ -1,0 +1,50 @@
+.react-page-editable {
+  position: relative;
+  box-sizing: border-box;
+  width: 100%;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: -webkit-box;
+  display: flex;
+  -webkit-flex: 0 1 auto;
+  -ms-flex: 0 1 auto;
+  -webkit-box-flex: 0;
+  flex: 0 1 auto;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+
+  flex-direction: column;
+
+  align-items: stretch;
+
+  .react-page-cell-insert-new {
+    cursor: cell;
+    flex: 1;
+    min-height: 100px;
+
+    transition: all ease 0.4s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid rgba(0, 0, 0, 0);
+    z-index: 1;
+    position: relative;
+  }
+
+  .react-page-cell-insert-new:after {
+    content: '+';
+    font-size: 52px;
+    font-family: monospace;
+    line-height: 52px;
+    background-color: var(--minBlack);
+    color: white;
+    width: 52px;
+    text-align: center;
+    border-radius: 50%;
+  }
+
+  .react-page-cell-insert-new:hover {
+    background: var(--minBlack);
+    border: 1px solid var(--lightWhite);
+  }
+}

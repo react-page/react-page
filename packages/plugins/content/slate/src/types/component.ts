@@ -1,9 +1,9 @@
-import { ContentPluginProps } from '@react-page/core';
+import { CellPluginComponentProps } from '@react-page/editor';
 import { SlatePluginDefinition } from './slatePluginDefinitions';
 import { SlateState } from './state';
 import { Translations } from './translations';
 
-export type SlateProps = ContentPluginProps<SlateState> & {
+export type SlateProps = CellPluginComponentProps<SlateState> & {
   plugins: SlatePluginDefinition<unknown>[];
   defaultPluginType: string;
   translations?: Translations;

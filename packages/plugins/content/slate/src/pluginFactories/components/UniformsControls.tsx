@@ -3,21 +3,21 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import DeleteIcon from '@material-ui/icons/Delete';
 import DoneIcon from '@material-ui/icons/Done';
-import { makeUniformsSchema } from '@react-page/create-plugin-materialui';
-import React, { useCallback, useRef, useState } from 'react';
 import {
-  AutoFields as AutoFieldsOrg,
-  AutoForm as AutoFormOrg,
-} from 'uniforms-material';
+  makeUniformsSchema,
+  AutoForm,
+  AutoFields,
+  JsonSchema,
+} from '@react-page/editor';
+import React, { useCallback, useRef, useState } from 'react';
+
 import { SlatePluginControls } from '../../types/slatePluginDefinitions';
 
-// see https://github.com/vazco/uniforms/issues/617
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const AutoForm: any = AutoFormOrg;
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const AutoFields: any = AutoFieldsOrg;
-
-function Controls<T>(props: SlatePluginControls<T>) {
+function Controls<T>(
+  props: SlatePluginControls<T> & {
+    schema?: JsonSchema<T>;
+  }
+) {
   const uniformsSchema = props.schema
     ? makeUniformsSchema<T>(props.schema)
     : null;
@@ -66,7 +66,9 @@ function Controls<T>(props: SlatePluginControls<T>) {
   return (
     <Dialog
       disableEnforceFocus={true}
-      PaperProps={{ style: { minWidth: 300 } }}
+      PaperProps={{
+        style: { minWidth: 300 },
+      }}
       open={props.open}
     >
       <DialogContent>

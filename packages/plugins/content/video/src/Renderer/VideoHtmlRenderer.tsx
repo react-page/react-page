@@ -1,19 +1,16 @@
-import * as React from 'react';
+import React from 'react';
 import PlayArrow from '@material-ui/icons/PlayArrow';
 import { iconStyle } from '../common/styles';
 
-import { lazyLoad } from '@react-page/core';
+import { lazyLoad } from '@react-page/editor';
 
 import { VideoHtmlRendererProps } from '../types/renderer';
 
 // react player is big, better lazy load it.
 const ReactPlayer = lazyLoad(() => import('react-player'));
 
-const Display: React.SFC<VideoHtmlRendererProps> = ({
-  state: { src },
-  readOnly,
-}) =>
-  src ? (
+const Display: React.FC<VideoHtmlRendererProps> = ({ data, readOnly }) =>
+  data?.src ? (
     <div style={{ position: 'relative', height: 0, paddingBottom: '65.25%' }}>
       {readOnly ? null : (
         <div
@@ -28,7 +25,7 @@ const Display: React.SFC<VideoHtmlRendererProps> = ({
         />
       )}
       <ReactPlayer
-        url={src}
+        url={data?.src}
         height="100%"
         width="100%"
         style={{
@@ -39,7 +36,7 @@ const Display: React.SFC<VideoHtmlRendererProps> = ({
       />
     </div>
   ) : (
-    <div className="ory-plugins-content-video-placeholder">
+    <div className="react-page-plugins-content-video-placeholder">
       <PlayArrow style={iconStyle} />
     </div>
   );

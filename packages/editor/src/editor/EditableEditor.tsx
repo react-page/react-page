@@ -1,40 +1,30 @@
-import {
-  createEmptyState,
-  Editable,
-  Editor,
-  Provider,
-  Plugins,
-  ContentPluginConfig,
-  LayoutPluginConfig,
-  DndBackend,
-  EditableType,
-  Languages,
-  SimplifiedModesProps,
-  DisplayModes,
-} from '@react-page/core';
-import EditorUI from '@react-page/ui';
-import React, { useEffect, useRef, useCallback } from 'react';
+import type { BackendFactory } from 'dnd-core';
+import React from 'react';
 
+import type { DisplayModes } from '../core/actions/display';
+import Editable from '../core/components/Editable';
+import { createEmptyState, Languages } from '../core/EditorStore';
+import Provider from '../core/Provider';
+import type { Value, Options } from '../core/types';
+import EditorUI from '../ui/EditorUI';
 import StickyWrapper from './StickyWrapper';
-import equals from 'fast-deep-equal';
 
+export type DndBackend = BackendFactory;
 export type EditableEditorProps = {
-  plugins?: Plugins;
-  defaultPlugin?: ContentPluginConfig | LayoutPluginConfig;
   dndBackend?: DndBackend;
-  value?: EditableType;
-  onChange?: (v: EditableType) => void;
+  value?: Value;
+  onChange?: (v: Value) => void;
   defaultDisplayMode?: DisplayModes;
   blurGateDisabled?: boolean;
   languages?: Languages;
   lang?: string;
   onChangeLang?: (l: string) => void;
   hideEditorSidebar?: boolean;
-} & SimplifiedModesProps;
+} & Options;
 
 const EditableEditor: React.FC<EditableEditorProps> = ({
-  plugins,
-  defaultPlugin,
+  cellPlugins,
+  pluginsWillChange,
   value,
   onChange,
   dndBackend,
@@ -44,52 +34,33 @@ const EditableEditor: React.FC<EditableEditorProps> = ({
   languages,
   onChangeLang,
   hideEditorSidebar,
-  ...rest
+  allowMoveInEditMode = true,
+  allowResizeInEditMode = true,
+  editModeResizeHandle,
+  childConstraints,
 }) => {
   const theValue = value || createEmptyState();
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const lastValueRef = useRef<any>();
-
-  const editorRef = useRef(
-    new Editor({ defaultPlugin, plugins, languages, lang })
-  );
-
-  const onChangeCallback = useCallback(
-    (newValue) => {
-      lastValueRef.current = newValue;
-
-      onChange(newValue);
-    },
-    [onChange]
-  );
-
-  const equal = equals(theValue, lastValueRef?.current);
-
-  useEffect(() => {
-    if (!equal) {
-      lastValueRef.current = theValue;
-      editorRef.current.trigger.editable.update(theValue);
-    }
-  }, [equal]);
-  const editor = editorRef.current;
-
   return (
     <Provider
-      editor={editor}
+      lang={lang}
+      onChangeLang={onChangeLang}
+      value={theValue}
+      cellPlugins={cellPlugins}
+      allowMoveInEditMode={allowMoveInEditMode}
+      allowResizeInEditMode={allowResizeInEditMode}
+      editModeResizeHandle={editModeResizeHandle}
+      onChange={onChange}
+      pluginsWillChange={pluginsWillChange}
+      languages={languages}
       dndBackend={dndBackend}
       blurGateDisabled={blurGateDisabled}
       blurGateDefaultMode={defaultDisplayMode}
+      childConstraints={childConstraints}
     >
       <StickyWrapper>
         {(stickyNess) => (
           <>
-            <Editable
-              lang={lang}
-              onChangeLang={onChangeLang}
-              id={theValue?.id}
-              onChange={onChangeCallback}
-              {...rest}
-            />
+            <Editable />
             <EditorUI
               stickyNess={stickyNess}
               hideEditorSidebar={hideEditorSidebar}

@@ -1,5 +1,5 @@
 import createHeadingsPlugin from '../../pluginFactories/createHeadingsPlugin';
-import { lazyLoad } from '@react-page/core';
+import { lazyLoad } from '@react-page/editor';
 import React from 'react';
 const H1Icon = lazyLoad(() => import('@material-ui/icons/LooksOne'));
 const H2Icon = lazyLoad(() => import('@material-ui/icons/LooksTwo'));

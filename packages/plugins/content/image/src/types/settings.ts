@@ -1,12 +1,17 @@
-import { ImageUploadType } from '@react-page/ui';
-import { ImageRendererProps } from './renderer';
-import { ImageControlsProps } from './controls';
+import {
+  CellPluginRenderer,
+  CellPluginCustomControlsComonent,
+  ImageUploadType,
+} from '@react-page/editor';
+import { ImageControlType } from './controls';
+import { ImageState } from './state';
+
 import { Translations } from './translations';
 
 export type ImageSettings = {
   imageUpload?: ImageUploadType;
-  Renderer: React.ComponentType<ImageRendererProps>;
-  Controls: React.ComponentType<ImageControlsProps>;
+  Renderer: CellPluginRenderer<ImageState>;
+  Controls: ImageControlType;
   translations?: Translations;
-  IconComponent?: React.ReactNode;
+  icon?: React.ReactNode;
 };

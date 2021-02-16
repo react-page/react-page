@@ -1,4 +1,4 @@
-import { lazyLoad } from '@react-page/core';
+import { lazyLoad } from '@react-page/editor';
 import React from 'react';
 import createComponentPlugin from '../../pluginFactories/createComponentPlugin';
 
@@ -16,18 +16,22 @@ const link = createComponentPlugin<LinkData>({
   label: 'Link',
   addHoverButton: true,
   addToolbarButton: true,
-  schema: {
-    type: 'object',
-    required: ['href'],
-    properties: {
-      href: {
-        type: 'string',
-      },
-      openInNewWindow: {
-        type: 'boolean',
+  controls: {
+    type: 'autoform',
+    schema: {
+      type: 'object',
+      required: ['href'],
+      properties: {
+        href: {
+          type: 'string',
+        },
+        openInNewWindow: {
+          type: 'boolean',
+        },
       },
     },
   },
+
   deserialize: {
     tagName: 'a',
     getData: (el) => ({

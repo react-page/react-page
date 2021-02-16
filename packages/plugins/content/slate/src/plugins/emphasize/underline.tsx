@@ -1,10 +1,10 @@
 import React from 'react';
 
-import { lazyLoad } from '@react-page/core';
+import { lazyLoad } from '@react-page/editor';
 import createMarkPlugin from '../../pluginFactories/createMarkPlugin';
 
-const UnderlinedIcon = lazyLoad(() =>
-  import('@material-ui/icons/FormatUnderlined')
+const UnderlinedIcon = lazyLoad(
+  () => import('@material-ui/icons/FormatUnderlined')
 );
 
 export default createMarkPlugin({

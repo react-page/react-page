@@ -1,5 +1,11 @@
 language: node_js
-
+cache:
+  directories:
+    - $HOME/.cache/yarn
+    - node_modules
+    - examples/node_modules
+    - examples/.next/cache
+    
 node_js:
   - '12'
 
@@ -7,11 +13,10 @@ install:
   - yarn --frozen-lockfile
 
 script:
+  - yarn build:lib
   - yarn run lint
   - yarn run test
-  - cd examples
-  - yarn build
-  - cd ..
+
 
 after_success:
   - yarn run coveralls
@@ -22,27 +27,3 @@ deploy:
     script: 'echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/.npmrc && yarn run semantic-release'
     on:
       all_branches: true # semantic release handles tht for us
-  - provider: pages
-    local_dir: examples/build
-    skip_cleanup: true
-    target_branch: main
-    repo: react-page/react-page.github.io
-    github_token: $GH_TOKEN # Set in the settings page of your repository, as a secure variable
-    on:
-      branch: master
-  - provider: pages
-    local_dir: examples/build
-    skip_cleanup: true
-    target_branch: main
-    repo: react-page/next
-    github_token: $GH_TOKEN # Set in the settings page of your repository, as a secure variable
-    on:
-      branch: next
-  - provider: pages
-    local_dir: examples/build
-    skip_cleanup: true
-    target_branch: main
-    repo: react-page/beta
-    github_token: $GH_TOKEN # Set in the settings page of your repository, as a secure variable
-    on:
-      branch: beta

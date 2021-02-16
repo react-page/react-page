@@ -3,27 +3,46 @@
 To install the editor, use:
 
 ```bash
-$ yarn add @react-page/react-page
-$ npm i --save @react-page/react-page
+$ yarn add @react-page/editor
+# OR
+$ npm i --save @react-page/editor
+```
+
+usually you'll also want to have the default rich text editor:
+
+```bash
+$ yarn add @react-page/plugins-slate
+# OR
+$ npm i --save @react-page/plugins-slate
+```
+
+Due to technical reasons, you additionaly need to have `@material-ui/core`, `@material-ui/styles` and `@material-ui/icons` installed,
+if you already haven't. Don't worry about incresed bundle size: we only load it if its really needed.
+
+```bash
+$ yarn add @material-ui/core @material-ui/styles @material-ui/icons
+# OR
+$ npm i --save @material-ui/core @material-ui/styles @material-ui/icons
 ```
 
 ## Simple example
 
-[To get off the ground as soon as possible, simply create a component like so](https://github.com/react-page/react-page-examples/blob/master/src/SimpleExample.tsx):
+To get off the ground as soon as possible, simply create a component like so:
 
-[SimpleExample.tsx](https://raw.githubusercontent.com/react-page/react-page-examples/master/src/SimpleExample.tsx ':include :type=code typescript')
+[simple.tsx](examples/pages/examples/simple.tsx ':include :type=code typescript')
 
-That's it, congratulations! You should see something like this now:
+That's it, congratulations!
 
-![Example app](images/basic.png)
+[You should see something like this now (click for the demo)](//demo/simple)
 
 ## Readonly
 
-Simply provide a `readOnly={true}` prop to your editor from previous example.  
-We will lazy load the unnecessary UI if you use this approach (using code splitting).
+Readonly mode can be used for displaying the content to your users.
 
-This can greatly decrease the size of this lib. Make sure to use this option if you don't require the editing capabilities of the editor and care about your app size (which you should!)
+Simply provide a `readOnly={true}` prop to your editor.
 
-[SimpleReadonly.tsx](https://github.com/react-page/react-page-examples/blob/master/src/SimpleReadonly.tsx)
+We won't load any UI related code unless readOnly changes to `false`. In this case, the ui will be lazy loaded if your bundler supports that (e.g. webpack)
 
-[SimpleReadonly.tsx](https://raw.githubusercontent.com/react-page/react-page-examples/master/src/SimpleReadonly.tsx ':include :type=code typescript')
+[simple.tsx](examples/pages/examples/readonly.tsx ':include :type=code typescript')
+
+(see demo here)](//demo/readonly)

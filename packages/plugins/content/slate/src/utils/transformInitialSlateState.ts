@@ -1,10 +1,10 @@
-import { Node } from 'slate';
-import {
+import type { Node } from 'slate';
+import type {
   InitialSlateStateDef,
   SlateDefNode,
   SlatePluginNode,
 } from '../types/initialSlateState';
-import { SlatePlugin } from '../types/SlatePlugin';
+import type { SlatePlugin } from '../types/SlatePlugin';
 import flattenDeep from './flattenDeep';
 
 /**

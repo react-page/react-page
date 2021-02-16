@@ -7,13 +7,14 @@ import lists from './lists';
 import paragraphs from './paragraphs';
 import quotes from './quotes';
 
-export {
-  quotes,
-  code,
-  emphasize,
+export default {
+  paragraphs,
   headings,
   link,
   lists,
-  paragraphs,
+
+  quotes,
+  code,
+  emphasize,
   alignment,
 };

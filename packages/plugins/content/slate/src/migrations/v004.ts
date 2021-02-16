@@ -1,4 +1,4 @@
-import { Migration } from '@react-page/core';
+import { Migration } from '@react-page/editor';
 import isEmpty from 'lodash.isempty';
 import { Element, Node, Text } from 'slate';
 // this is for slate 0.50.0
@@ -65,6 +65,7 @@ const migration = new Migration({
     const slate = state.serialized?.document?.nodes?.map(migrateNode) ?? [];
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const result: any = { slate };
+
     if (state.importFromHtml) {
       result.importFromHtml = state.importFromHtml;
     }

@@ -1,4 +1,8 @@
+
+we provide some additional cell plugins that you can use right away:
+
 ### @react-page/plugins-image
+
 
 [@react-page/plugins-image](https://www.npmjs.com/package/@react-page/plugins-image)
 

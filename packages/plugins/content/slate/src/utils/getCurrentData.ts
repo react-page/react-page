@@ -9,7 +9,7 @@ const getCurrentData = (editor: ReactEditor) => {
     },
   });
   const existingData = existingNodeWithData
-    ? (existingNodeWithData[0]?.data as any)
+    ? (existingNodeWithData[0]?.data as { [key: string]: unknown })
     : {};
 
   return existingData;

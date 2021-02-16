@@ -1,6 +1,5 @@
-import { ContentPluginConfig, InitialChildrenDef } from '@react-page/core';
+import { CellPlugin, ImageUploadType, RGBColor } from '@react-page/editor';
 
-import { ImageUploadType, RGBColor } from '@react-page/ui';
 import { BackgroundControlsProps } from './controls';
 import { ModeEnum } from './ModeEnum';
 import { BackgroundRendererProps } from './renderer';
@@ -9,10 +8,8 @@ import { Translations } from './translations';
 export type BackgroundSettings = {
   Renderer: React.ComponentType<BackgroundRendererProps>;
   Controls: React.ComponentType<BackgroundControlsProps>;
-  defaultPlugin: ContentPluginConfig;
   enabledModes?: ModeEnum;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  getInitialChildren?: () => InitialChildrenDef;
+  getInitialChildren?: CellPlugin['createInitialChildren'];
   defaultBackgroundColor?: RGBColor;
   defaultGradientColor?: RGBColor;
   defaultGradientSecondaryColor?: RGBColor;
@@ -24,4 +21,5 @@ export type BackgroundSettings = {
   defaultIsParallax?: boolean;
   imageUpload?: ImageUploadType;
   translations?: Translations;
+  cellStyle?: CellPlugin['cellStyle'];
 };

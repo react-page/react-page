@@ -1,39 +1,26 @@
 {
-  "extends": "../packages/tsconfig.settings.json",
   "compilerOptions": {
-    "rootDir": "src",
-    "outDir": "lib",
+    "target": "es5",
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
-    "allowSyntheticDefaultImports": true,
+    "skipLibCheck": true,
     "strict": false,
     "forceConsistentCasingInFileNames": true,
+    "noEmit": true,
+    "esModuleInterop": true,
     "module": "esnext",
+    "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "noEmit": true,
-    "jsx": "preserve",
-    "declaration": false,
-    "declarationMap": false,
-    "composite": false
+    "jsx": "preserve"
   },
-  "include": [
-    "src"
-  ],
-  "exclude": [
-    "lib",
-    "node_modules",
-    "src/**/__tests__/**/*.*"
-  ],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "exclude": ["node_modules", "build", "public"],
   "references": [
     {
-      "path": "../packages/core"
+      "path": "../packages/editor"
     },
-    {
-      "path": "../packages/ui"
-    },
-    {
-      "path": "../packages/renderer"
-    },
+
     {
       "path": "../packages/plugins/content/divider"
     },
@@ -42,9 +29,6 @@
     },
     {
       "path": "../packages/plugins/content/image"
-    },
-    {
-      "path": "../packages/plugins/content/native"
     },
     {
       "path": "../packages/plugins/content/slate"
@@ -57,9 +41,6 @@
     },
     {
       "path": "../packages/plugins/layout/background"
-    },
-    {
-      "path": "../packages/plugins/createPluginMaterialUi"
     }
   ]
 }

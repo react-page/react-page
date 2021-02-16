@@ -36,6 +36,7 @@ module.exports = {
     },
   },
   rules: {
+    'import/first': 0,
     'prettier/prettier': 'error',
     'react/display-name': 0,
     'react/prop-types': 0,
@@ -44,6 +45,7 @@ module.exports = {
     '@typescript-eslint/no-var-requires': 0,
     '@typescript-eslint/no-empty-interface': 0,
     '@typescript-eslint/no-unused-vars': 0,
+    'react/jsx-no-target-blank': 0,
   },
   /* rules: {
     '@typescript-eslint/no-empty-function': 'error',

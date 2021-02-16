@@ -1,0 +1,14 @@
+.react-page-cell-error {
+  background-color: red;
+  padding: 8px;
+  margin: 2px;
+  overflow: hidden;
+}
+
+.react-page-cell-error strong {
+  margin: 0 auto;
+}
+
+.react-page-cell-error code {
+  overflow: scroll;
+}

@@ -1,9 +1,0 @@
-@import 'Button/index.css';
-
-.ory-controls-mode-toggle-clearfix {
-  clear: both;
-}
-
-.ory-controls-mode-toggle-control {
-  z-index: 1;
-}

@@ -1,5 +1,5 @@
 import { BackgroundProps } from './component';
-import { ImageLoaded, RGBColor } from '@react-page/ui';
+import { ImageLoaded, RGBColor } from '@react-page/editor';
 
 export interface BackgroundRendererExtraProps {
   backgroundColorPreview?: RGBColor;

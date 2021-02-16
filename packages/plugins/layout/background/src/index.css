@@ -1,4 +1,4 @@
-.ory-plugins-layout-background {
+.react-page-plugins-layout-background {
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -7,11 +7,11 @@
   position: relative;
 }
 
-.ory-plugins-layout-background > .ory-row {
+.react-page-plugins-layout-background > .react-page-row {
   position: relative;
 }
 
-.ory-plugins-layout-background__backstretch {
+.react-page-plugins-layout-background__backstretch {
   position: absolute;
   top: 0;
   left: 0;

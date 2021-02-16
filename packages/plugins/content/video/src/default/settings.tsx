@@ -1,6 +1,6 @@
-import * as React from 'react';
+import React from 'react';
 import { VideoSettings } from '../types/settings';
-import { lazyLoad } from '@react-page/core';
+import { lazyLoad } from '@react-page/editor';
 
 const PlayArrow = lazyLoad(() => import('@material-ui/icons/PlayArrow'));
 
@@ -12,8 +12,7 @@ export const defaultTranslations = {
 };
 
 export const defaultSettings: VideoSettings = {
-  Controls: () => <> Controls for this plugin were not provided</>,
   Renderer: () => <>Renderer; for this plugin was not provided </>,
   translations: defaultTranslations,
-  IconComponent: <PlayArrow />,
+  icon: <PlayArrow />,
 };

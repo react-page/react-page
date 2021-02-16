@@ -1,27 +1,40 @@
-import * as React from 'react';
-import { ImageRendererProps } from '../types/renderer';
+import React from 'react';
+
 import { iconStyle } from './../common/styles';
-import { lazyLoad } from '@react-page/core';
+import { CellPluginComponentProps, lazyLoad } from '@react-page/editor';
+import type { ImageState } from '../types/state';
 
 const ImageIcon = lazyLoad(() => import('@material-ui/icons/Landscape'));
 
-const ImageHtmlRenderer: React.SFC<ImageRendererProps> = (props) => {
-  const { isEditMode, state, imagePreview } = props;
-  const src = imagePreview ? imagePreview.dataUrl : state.src;
-  const Image = <img className="ory-plugins-content-image" alt="" src={src} />;
+const ImageHtmlRenderer: React.FC<CellPluginComponentProps<ImageState>> = (
+  props
+) => {
+  const { data } = props;
+
+  const src = data?.src;
+  const openInNewWindow = data?.openInNewWindow;
+  const image = (
+    <img className="react-page-plugins-content-image" alt="" src={src} />
+  );
+
   return src ? (
     <div>
-      {state.href && !isEditMode ? (
-        <a href={state.href} target={state.target} rel={state.rel}>
-          {Image}
+      {data?.href ? (
+        <a
+          onClick={props.isEditMode ? (e) => e.preventDefault() : undefined}
+          href={data?.href}
+          target={openInNewWindow ? '_blank' : undefined}
+          rel={openInNewWindow ? 'noreferrer noopener' : undefined}
+        >
+          {image}
         </a>
       ) : (
-        Image
+        image
       )}
     </div>
   ) : (
     <div>
-      <div className="ory-plugins-content-image-placeholder">
+      <div className="react-page-plugins-content-image-placeholder">
         <ImageIcon style={iconStyle} />
       </div>
     </div>

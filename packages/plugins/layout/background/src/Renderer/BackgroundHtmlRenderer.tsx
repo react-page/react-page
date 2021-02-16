@@ -1,17 +1,17 @@
-import { colorToString } from '@react-page/ui';
-import * as React from 'react';
+import { colorToString } from '@react-page/editor';
+import React from 'react';
 import { ModeEnum } from '../types/ModeEnum';
 import { BackgroundRendererProps } from '../types/renderer';
 
 const getStyles = (props: BackgroundRendererProps) => {
   const {
-    state: {
+    data: {
       background = '',
       modeFlag = props.defaultModeFlag,
       isParallax = true,
       backgroundColor = props.defaultBackgroundColor,
       gradients = [],
-    },
+    } = {},
   } = props;
   let styles: React.CSSProperties = {};
   if (modeFlag & ModeEnum.GRADIENT_MODE_FLAG) {
@@ -93,7 +93,7 @@ const getStyles = (props: BackgroundRendererProps) => {
 const BackgroundHtmlRenderer: React.SFC<BackgroundRendererProps> = (props) => {
   const {
     children,
-    state: {
+    data: {
       darken = props.defaultDarken,
       lighten = props.defaultLighten,
       hasPadding = props.defaultHasPadding,
@@ -106,11 +106,11 @@ const BackgroundHtmlRenderer: React.SFC<BackgroundRendererProps> = (props) => {
   const containerStyles = getStyles(props);
   return (
     <div
-      className="ory-plugins-layout-background"
+      className="react-page-plugins-layout-background"
       style={{ ...containerStyles, ...(hasPadding ? {} : { padding: 0 }) }}
     >
       <div
-        className="ory-plugins-layout-background__backstretch"
+        className="react-page-plugins-layout-background__backstretch"
         style={{
           // tslint:disable-next-line:max-line-length
           backgroundImage: `linear-gradient(rgba(0, 0, 0, ${darkenFinal}), rgba(0, 0, 0, ${darkenFinal})),linear-gradient(rgba(255, 255, 255, ${lightenFinal}), rgba(255, 255, 255, ${lightenFinal}))`,

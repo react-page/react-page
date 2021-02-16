@@ -1,0 +1,12 @@
+.react-page-controls-trash {
+  position: fixed;
+  bottom: -64px;
+  z-index: 500;
+  left: 50%;
+  transition: bottom 200ms ease;
+  padding: 8px;
+}
+
+.react-page-controls-trash.react-page-controls-trash-active {
+  bottom: 16px;
+}

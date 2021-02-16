@@ -1,0 +1,101 @@
+.react-page-row-has-floating-children {
+  display: block !important;
+}
+
+.react-page-row-is-hovering-this:before {
+  content: ' ';
+  position: absolute;
+  background: black;
+  display: block;
+  background: var(--darkBlack);
+  z-index: 2;
+}
+
+.react-page-row-is-hovering-above:before {
+  top: 0;
+  height: 4px;
+  width: 100%;
+}
+
+.react-page-row-is-hovering-below:before {
+  bottom: 0;
+  height: 4px;
+  width: 100%;
+}
+
+.react-page-row-is-hovering-left-of:before {
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 4px;
+}
+
+.react-page-row-is-hovering-right-of:before {
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 4px;
+}
+
+
+@keyframes reactPageCellResizeableAnimate {
+  0% {
+    background-color: var(--minWhite);
+    top: 45%;
+    bottom: 45%;
+  }
+  50% {
+    background-color: var(--faintWhite);
+    top: 0;
+    bottom: 0;
+  }
+  100% {
+    background-color: var(--darkWhite);
+    top: 45%;
+    bottom: 45%;
+  }
+}
+
+
+
+.react-page-row .resize-handle {
+  position: absolute;
+  z-index: 6;
+  width: 4px;
+  top: 0;
+  bottom: 0;
+  left: -4px;
+  cursor: e-resize;
+  background-color: var(--lightBlack);
+  mix-blend-mode: difference;
+
+} 
+
+
+
+.react-page-row .resize-handle:after {
+  content: ' ';
+  background-color: var(--darkWhite);
+  /* width: 30px; */
+  /* height: 30px; */
+  position: absolute;
+  /* z-index: 1000; */
+  top: 40%;
+  bottom: 40%;
+  left: 0;
+  right: 0;
+  transition: all 200ms linear;
+  mix-blend-mode: normal;
+
+  animation-name: reactPageCellResizeableAnimate;
+  animation-iteration-count: 1;
+  animation-timing-function: ease;
+  animation-duration: 0.8s;
+}
+
+.react-page-row .resize-handle:hover:after,
+.react-page-row .resize-handle:active:after {
+  background-color: var(--fullWhite);
+  top: 0;
+  bottom: 0;
+}

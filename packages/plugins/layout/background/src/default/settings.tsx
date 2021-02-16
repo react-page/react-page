@@ -1,11 +1,11 @@
-import * as React from 'react';
+import React from 'react';
 import { BackgroundSettings } from '../types/settings';
 import {
   IMAGE_MODE_FLAG,
   COLOR_MODE_FLAG,
   GRADIENT_MODE_FLAG,
 } from './../const/mode';
-import { defaultTranslations as defaultImageUploadTranslations } from '@react-page/ui/lib/ImageUpload/defaultTranslations';
+import { defaultTranslations as defaultImageUploadTranslations } from '@react-page/editor/lib/ui/ImageUpload/defaultTranslations';
 
 export const defaultTranslations = {
   ...defaultImageUploadTranslations,
@@ -39,4 +39,7 @@ export const defaultSettings: Partial<BackgroundSettings> = {
   enabledModes: IMAGE_MODE_FLAG | COLOR_MODE_FLAG | GRADIENT_MODE_FLAG,
   Controls: () => <> Controls for this plugin were not provided</>,
   Renderer: () => <>Renderer; for this plugin was not provided </>,
+  cellStyle: {
+    padding: 0,
+  },
 };
