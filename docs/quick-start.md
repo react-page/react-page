@@ -25,6 +25,12 @@ $ yarn add @material-ui/core @material-ui/styles @material-ui/icons
 $ npm i --save @material-ui/core @material-ui/styles @material-ui/icons
 ```
 
+Make sure to import the css file as well somewhere in your app:
+
+```
+import '@react-page/editor/lib/index.css';
+```
+
 ## Simple example
 
 To get off the ground as soon as possible, simply create a component like so:

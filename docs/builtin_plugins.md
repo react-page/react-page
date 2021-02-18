@@ -1,13 +1,12 @@
-
 we provide some additional cell plugins that you can use right away:
 
 ### @react-page/plugins-image
 
-
 [@react-page/plugins-image](https://www.npmjs.com/package/@react-page/plugins-image)
 
-The image plugin allows you to add images to your content by entering their URL. The image plugin does not support
-uploads.
+The image plugin allows you to add images to your content by entering their URL.
+You can implement an upload function that receives a `File` and returns a `Promise<{url: string}>`
+with the uploaded image url.
 
 <p>
   <figure align="center">
@@ -15,8 +14,6 @@ uploads.
     <figcaption>The image plugin</figcaption>
   </figure>
 </p>
-
-The image plugin is not configurable.
 
 [SimpleExample.tsx](https://raw.githubusercontent.com/react-page/react-page-examples/b8780b3fbbdc60f8337fea7cc0ec05b42da1a1f8/src/builtin-plugins/image.tsx ':include :type=code typescript')
 

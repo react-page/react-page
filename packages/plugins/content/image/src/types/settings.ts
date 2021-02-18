@@ -1,8 +1,4 @@
-import {
-  CellPluginRenderer,
-  CellPluginCustomControlsComonent,
-  ImageUploadType,
-} from '@react-page/editor';
+import { CellPluginRenderer, ImageUploadType } from '@react-page/editor';
 import { ImageControlType } from './controls';
 import { ImageState } from './state';
 
