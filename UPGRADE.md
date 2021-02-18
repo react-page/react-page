@@ -5,7 +5,7 @@ Please note that not all breaking changes might be included here.
 
 Breaking changes will primarily published here: https://github.com/react-page/react-page/releases
 
-## 1.0.0 (beta)
+## 1.0.0
 
 1.0.0 is a major refactoring that changed and modernized a lot under the hood, but not much on the outside. It enables us to do further improvements much easier, has better performance and a reduced bundle size.
 
@@ -16,7 +16,7 @@ It introduces some breaking changes that had to be done to make the api more cle
 - `plugins` prop on `<Editor />` has been renamed to `cellPlugins` to make way for other plugin types in the future
 - `cellPlugins` take a an array of `CellPlugin`, layout plugins and content plugins have been unified
 - `defaultPlugin` is no longer required. The editor will no longer automatically add a cell when its empty. Instead it shows a Button to add a new cell there.
-- best refer to the new docs (wip): https://github.com/react-page/react-page/blob/docs/editor.md
+- best refer to the new docs: https://github.com/react-page/react-page/blob/docs/editor.md
 
 ### Migrating custom plugins
 
