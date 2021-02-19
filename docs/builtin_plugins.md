@@ -8,15 +8,6 @@ The image plugin allows you to add images to your content by entering their URL.
 You can implement an upload function that receives a `File` and returns a `Promise<{url: string}>`
 with the uploaded image url.
 
-<p>
-  <figure align="center">
-    <img alt="Image plugin" src="./images/image-plugin.gif"><br>
-    <figcaption>The image plugin</figcaption>
-  </figure>
-</p>
-
-[SimpleExample.tsx](https://raw.githubusercontent.com/react-page/react-page-examples/b8780b3fbbdc60f8337fea7cc0ec05b42da1a1f8/src/builtin-plugins/image.tsx ':include :type=code typescript')
-
 ### @react-page/plugins-video
 
 [@react-page/plugins-video](https://www.npmjs.com/package/@react-page/plugins-video)
@@ -36,17 +27,6 @@ uploads.
 [@react-page/plugins-spacer](https://www.npmjs.com/package/@react-page/plugins-spacer)
 
 The spacer is a plugin which you can use to create an empty fixed height cell.
-
-<p>
-  <figure align="center">
-    <img alt="Spacer plugin" src="./images/spacer-plugin.gif"><br>
-    <figcaption>The spacer plugin</figcaption>
-  </figure>
-</p>
-
-The spacer plugin is not configurable.
-
-[spacer.tsx](https://raw.githubusercontent.com/react-page/react-page-examples/b8780b3fbbdc60f8337fea7cc0ec05b42da1a1f8/src/builtin-plugins/spacer.tsx ':include :type=code typescript')
 
 ### @react-page/plugins-background
 

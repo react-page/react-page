@@ -291,17 +291,11 @@ const infobox: CellPlugin = {
 // dont forget to add this custom plugin to your plugins:
 
  <Editor
-  plugins={{
-    content: [
+  cellPlugins={[
       defaultSlate,
       infoboxSlate,
-      // ...
-    ],
-    layout: [
       infobox,
-      ...
-    ]
- }}
+  ]}
  onChange={save} />
 ```
 
