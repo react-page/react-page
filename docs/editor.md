@@ -5,6 +5,8 @@ It's used both for editing and displaying content (with `readOnly` set to true)
 
 ```tsx
 import Editor from '@react-page/editor';
+import "@react-page/editor/lib/index.css";
+
 // plugin imports
 import slate from '@react-page/plugins-slate';
 import '@react-page/plugins-slate/lib/index.css';
