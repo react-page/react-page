@@ -14,12 +14,15 @@ const SpacerResizable: React.FC<CellPluginComponentProps<SpacerState>> = (
   const [height, setHeight] = useState(props.data?.height ?? 24);
   useEffect(() => setHeight(props.data?.height), [props.data?.height]);
   const { onChange } = props;
+
   return (
     <Resizable
-      onResize={(e, data) => setHeight(data?.height)}
-      onResizeStop={(e, data) =>
+      onResize={(e, { size }) => {
+        setHeight(size?.height ?? 0);
+      }}
+      onResizeStop={(e, { size }) =>
         onChange({
-          height: data.size.height,
+          height: size?.height,
         })
       }
       height={height}
