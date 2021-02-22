@@ -22,7 +22,7 @@ export const defaultTranslations = {
   addColor: 'Add color',
   addGradient: 'Add gradient',
   pluginName: 'Background',
-  pluginDescription: '',
+  pluginDescription: 'Add background color, image or gradient',
 };
 
 export const defaultSettings: Partial<BackgroundSettings> = {
