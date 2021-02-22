@@ -15,18 +15,16 @@ import Item from './Item/index';
 export interface Translations {
   noPluginFoundContent: string | JSX.Element;
   searchPlaceholder: string;
-  layoutPlugins: string | JSX.Element;
-  contentPlugins: string | JSX.Element;
+
   insertPlugin: string | JSX.Element;
   dragMe: string;
 }
 
 const defaultTranslations: Translations = {
   noPluginFoundContent: 'No plugins found',
-  searchPlaceholder: 'Search plugins',
-  layoutPlugins: 'Layout plugins',
-  contentPlugins: 'Content plugins',
-  insertPlugin: 'Add plugin to content',
+  searchPlaceholder: 'Search cell plugins',
+
+  insertPlugin: 'Add cells to content',
   dragMe: 'Drag me!',
 };
 
@@ -117,11 +115,7 @@ const Toolbar: React.FC<Props> = ({ translations = defaultTranslations }) => {
           )}
         </List>
         {filteredPlugins.length > 0 && (
-          <List
-            subheader={
-              <ListSubheader>{translations.contentPlugins}</ListSubheader>
-            }
-          >
+          <List>
             {filteredPlugins.map((plugin: CellPlugin, k: number) => {
               return (
                 <Item
