@@ -27,7 +27,7 @@
     "uniforms": "~2.5.0",
     "uniforms-bridge-json-schema": "~2.5.0",
     "uniforms-material": "~2.5.0",
-    "ajv": "^6.12.5"
+    "ajv": "^7.1.1"
   },
   "publishConfig": {
     "access": "public"

@@ -5,6 +5,7 @@ import Ajv from 'ajv';
 import { JSONSchemaBridge } from 'uniforms-bridge-json-schema';
 import type { JsonSchema } from '../../core/types';
 const ajv = new Ajv({ allErrors: true, useDefaults: true });
+ajv.addKeyword('uniforms');
 
 function createValidator<T extends Record<string, unknown>>(
   schema: JsonSchema<T>
