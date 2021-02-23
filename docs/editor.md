@@ -115,7 +115,7 @@ Some examples of the internal JSON representation for understanding:
 
 <p>
   <figure align="center">
-    <img alt="Text editing plugin" src="./docs-images/json-example-1.png"><br>
+    <img alt="Text editing plugin" src="../docs-images/json-example-1.png"><br>
   </figure>
 </p>
 
