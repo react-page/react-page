@@ -12,7 +12,7 @@ $ npm i --save @react-page/plugins-slate
 
 <p>
   <figure align="center">
-    <img alt="Text editing plugin" src="./images/text-editing-plugin.gif"><br>
+    <img alt="Text editing plugin" src="./docs-images/text-editing-plugin.gif"><br>
     <figcaption>The text editing plugin based on <a href="http://slatejs.org">Slate</a></figcaption>
   </figure>
 </p>
