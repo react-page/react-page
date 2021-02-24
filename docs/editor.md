@@ -34,11 +34,9 @@ const App = () => {
 
 ### `value: Value`
 
-This is the content that the editor will display. The data for this prop may come from any source, eg a file or database or API etc. It is a JSON representation of the entire content that should be rendered, including the external visible information, and internal information required to render the information - eg ids, versions, plugin info, etc.
+This is the content that the editor will display. The data for this prop may come from any source, eg a file or database or API etc. It is a JSON representation of the entire content that should be rendered. This information is "opaque", and is not meant to be edited directly under normal circumstances, so don't rely on its internal structure.
 
-This information is "opaque", and is not meant to be edited directly under normal circumstances, so don't rely on its internal structure.
-
-It does not contain any presentation aspects of the data, ie no CSS is stored.
+[More details](#internal-json-details)
 
 ### `onChange: (newValue: Value) => void`
 
@@ -60,7 +58,7 @@ An array of `CellPlugin`s that can be used in this editor.
 
 'react-page' comes with some inbuilt plugins and a superb extensible system to create new plugins for displaying anything.
 
-At the very least, the [`slate`](/slate.md) inbuilt plugin for rich text editing is needed.
+Usually, the [`slate`](/slate.md) inbuilt plugin is perfectly suited for rich text editing. However, it can be replaced by a different editor plugin.
 
 Refer to the following docs to see what is possible:
 
@@ -107,11 +105,23 @@ it will only show the (+) button to add new cells when it has less than `maxChil
 It currently just controls whether the button is shown, but its still possible to add new cells by dragging.
 it will be revisited in the future and is therefore considered experimental.
 
-## Additional info
+## Internal JSON details
+
+The entire page content is stored as an easy-to-parse JSON representation, consisting of the data (what the viewer sees) and the metadata (what is required to render the data eg ids, versions, plugin info, etc.)
+
+This information is "opaque", and is not meant to be edited directly under normal circumstances, so don't rely on its internal structure.
+
+It does not contain any presentation aspects of the data, ie no CSS is stored.
+
+The JSON data is portable and can be copied into a new document to create a "clone" of the current doc for versioning or templating etc.
+
+**Advantages**
+
+Classic Rich Text Editors produce raw HTML-markup with both content data and content appearance bundled together. Whereas JSON representation is clean, much smaller in size and unopiniated. In other words, the same JSON representation can be used to present the data in different ways depending on the component used to render.
 
 Some examples of the internal JSON representation for understanding:
 
-### Simple example
+### 1. Simple example
 
 <p>
   <figure align="center">
@@ -154,6 +164,84 @@ Some examples of the internal JSON representation for understanding:
                   ]
                 }
               ]
+            }
+          },
+          "rows": [
+            
+          ],
+          "inline": null
+        }
+      ]
+    }
+  ]
+}
+```
+
+### 2. Simple example with image
+
+<p>
+  <figure align="center">
+    <img alt="Text editing plugin" src="../docs-images/json-example-2.png"><br>
+  </figure>
+</p>
+
+```json
+{
+  "id": "obknih",
+  "version": 1,
+  "rows": [
+    {
+      "id": "b27eia",
+      "cells": [
+        {
+          "id": "e9htzt",
+          "size": 12,
+          "plugin": {
+            "id": "ory/editor/core/content/slate",
+            "version": 1
+          },
+          "dataI18n": {
+            "default": {
+              "slate": [
+                {
+                  "type": "HEADINGS/HEADING-TWO",
+                  "children": [
+                    {
+                      "text": "This is a heading"
+                    }
+                  ]
+                },
+                {
+                  "type": "PARAGRAPH/PARAGRAPH",
+                  "children": [
+                    {
+                      "text": "This is some paragraph text"
+                    }
+                  ]
+                }
+              ]
+            }
+          },
+          "rows": [
+            
+          ],
+          "inline": null
+        }
+      ]
+    },
+    {
+      "id": "5j8lyl",
+      "cells": [
+        {
+          "id": "k0t2gk",
+          "size": 12,
+          "plugin": {
+            "id": "ory/editor/core/content/image",
+            "version": 1
+          },
+          "dataI18n": {
+            "default": {
+              "src": "https://www.nasa.gov/sites/default/files/styles/full_width/public/thumbnails/image/mars2020-sample-tubes.jpg?itok=SiZDKmmG"
             }
           },
           "rows": [
