@@ -10,6 +10,7 @@ import {
   useIsPreviewMode,
   useLang,
   useRemoveCell,
+  useOptions,
 } from '../../hooks';
 import PluginMissing from '../PluginMissing';
 
@@ -31,6 +32,8 @@ const PluginComponent: React.FC<{ nodeId: string; hasChildren: boolean }> = ({
   const Component = plugin?.Renderer ?? PluginMissing;
   const Provider = plugin?.Provider ?? DefaultProvider;
   const remove = useRemoveCell(nodeId);
+
+  const Toolbar = useOptions().components?.BottomToolbar ?? BottomToolbar;
 
   const componentProps: CellPluginComponentProps<unknown> = {
     nodeId,
@@ -69,7 +72,7 @@ const PluginComponent: React.FC<{ nodeId: string; hasChildren: boolean }> = ({
         >
           <Component {...componentProps}>{children}</Component>
         </div>
-        <BottomToolbar
+        <Toolbar
           nodeId={nodeId}
           open={focused && isEditMode}
           dark={plugin?.controls?.dark}
@@ -79,7 +82,7 @@ const PluginComponent: React.FC<{ nodeId: string; hasChildren: boolean }> = ({
           >
             {controlsElement}
           </div>
-        </BottomToolbar>
+        </Toolbar>
       </>
     </Provider>
   );

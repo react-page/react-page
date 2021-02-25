@@ -51,6 +51,7 @@ const Provider: React.FC<ProviderProps> = ({
   editModeResizeHandle,
   languages,
   pluginsWillChange,
+  components,
   store: passedStore,
   middleware = [],
 }) => {
@@ -149,6 +150,7 @@ const Provider: React.FC<ProviderProps> = ({
       editModeResizeHandle,
       languages,
       childConstraints,
+      components,
     };
   }, [
     pluginsWillChange && cellPlugins,
@@ -156,7 +158,8 @@ const Provider: React.FC<ProviderProps> = ({
     allowResizeInEditMode,
     editModeResizeHandle,
     languages,
-    JSON.stringify(childConstraints ?? {}), // its an object, we prevent unessesary rerenders by stringify it
+    JSON.stringify(childConstraints ?? {}), // its an object, we prevent unnecessary rerenders by stringify it
+    components,
   ]);
 
   return (
