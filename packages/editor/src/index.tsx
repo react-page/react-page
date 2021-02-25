@@ -12,6 +12,9 @@ import { migrateValue } from './core/migrations/migrate';
 import deepEquals from './core/utils/deepEquals';
 export { AutoForm, AutoFields };
 
+import ThemeProvider, { darkTheme } from './ui/ThemeProvider';
+export { ThemeProvider, darkTheme };
+
 export * from './ui/ColorPicker';
 export * from './ui/ImageUpload';
 export { lazyLoad };
