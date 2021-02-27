@@ -57,6 +57,13 @@ export type CellPluginComponentProps<DataT> = {
   isEditMode: boolean;
 };
 
+export type CellPluginMissingProps = Omit<
+  CellPluginComponentProps<unknown>,
+  'pluginConfig'
+> & {
+  pluginId: string;
+};
+
 export type CellPluginRenderer<DataT> = React.ComponentType<
   CellPluginComponentProps<DataT> & {
     children?: React.ReactNode;

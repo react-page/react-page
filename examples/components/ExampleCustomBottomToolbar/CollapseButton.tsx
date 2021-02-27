@@ -13,8 +13,8 @@ const CollapseButton: React.FC<CollapseButtonProps> = ({
   setCollapsed,
 }) => {
   const toggleCollapsed = React.useCallback(() => {
-    setCollapsed((c) => !c);
-  }, [setCollapsed]);
+    setCollapsed(!collapsed);
+  }, [collapsed, setCollapsed]);
   return (
     <Tooltip title={collapsed ? 'Restore Panel' : 'Collapse Panel'}>
       <IconButton onClick={toggleCollapsed} aria-label="delete" color="default">

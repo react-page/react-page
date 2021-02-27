@@ -10,6 +10,7 @@ import {
   useLang,
   useRemoveCell,
   useOptions,
+  useCellProps,
 } from '../../hooks';
 import PluginMissing from '../PluginMissing';
 
@@ -20,15 +21,17 @@ const PluginComponent: React.FC<{ nodeId: string; hasChildren: boolean }> = ({
   hasChildren,
 }) => {
   const lang = useLang();
+  const CustomPluginMissing = useOptions()?.components?.CellPluginMissing;
   const isPreviewMode = useIsPreviewMode();
   const isEditMode = useIsEditMode();
 
   const [data, onChange] = useDebouncedCellData(nodeId);
-
+  const pluginId = useCellProps(nodeId, (c) => c.plugin?.id);
   const plugin = usePluginOfCell(nodeId);
   const focused = useIsFocused(nodeId);
 
-  const Component = plugin?.Renderer ?? PluginMissing;
+  const Renderer = plugin?.Renderer;
+  const Missing = CustomPluginMissing ?? PluginMissing;
   const Provider = plugin?.Provider ?? DefaultProvider;
   const remove = useRemoveCell(nodeId);
 
@@ -69,7 +72,11 @@ const PluginComponent: React.FC<{ nodeId: string; hasChildren: boolean }> = ({
                 : undefined,
           }}
         >
-          <Component {...componentProps}>{children}</Component>
+          {Renderer ? (
+            <Renderer {...componentProps}>{children}</Renderer>
+          ) : (
+            <Missing {...componentProps} pluginId={pluginId} />
+          )}
         </div>
         <Toolbar
           nodeId={nodeId}

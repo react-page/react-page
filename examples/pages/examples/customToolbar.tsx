@@ -1,5 +1,5 @@
 import React from 'react';
-import Editor, { Value } from '@react-page/editor';
+import Editor, { Options, Value } from '@react-page/editor';
 import slate from '@react-page/plugins-slate';
 import image from '@react-page/plugins-image';
 import { ExampleCustomBottomToolbar } from '../../components/ExampleCustomBottomToolbar';
@@ -7,11 +7,11 @@ import { ExampleCustomBottomToolbar } from '../../components/ExampleCustomBottom
 const cellPlugins = [slate(), image];
 
 // Custom bottom toolbar example with collapse/restore functionality.
-const CustomToolbar = () => {
+const customToolbarExample = () => {
   const [value] = React.useState<Value>(null);
 
   // make sure that you memoize custom components property to avoid unnesseary rerenders
-  const components = React.useMemo(
+  const components = React.useMemo<Options['components']>(
     () => ({ BottomToolbar: ExampleCustomBottomToolbar }),
     []
   );
@@ -23,4 +23,4 @@ const CustomToolbar = () => {
   );
 };
 
-export default CustomToolbar;
+export default customToolbarExample;
