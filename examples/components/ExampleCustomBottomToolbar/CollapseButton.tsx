@@ -5,20 +5,19 @@ import IconRestore from '@material-ui/icons/KeyboardArrowUp';
 
 interface CollapseButtonProps {
   collapsed: boolean;
-  toggleCollapsed(): void;
+  setCollapsed: (c: boolean) => void;
 }
 
 const CollapseButton: React.FC<CollapseButtonProps> = ({
   collapsed,
-  toggleCollapsed,
+  setCollapsed,
 }) => {
+  const toggleCollapsed = React.useCallback(() => {
+    setCollapsed((c) => !c);
+  }, [setCollapsed]);
   return (
     <Tooltip title={collapsed ? 'Restore Panel' : 'Collapse Panel'}>
-      <IconButton
-        onClick={() => toggleCollapsed()}
-        aria-label="delete"
-        color="default"
-      >
+      <IconButton onClick={toggleCollapsed} aria-label="delete" color="default">
         {collapsed ? <IconRestore /> : <IconCollapse />}
       </IconButton>
     </Tooltip>

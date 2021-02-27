@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect, useMemo } from 'react';
 import JSONSchemaBridge from 'uniforms-bridge-json-schema';
-import { lazyLoad } from '../..';
+import lazyLoad from '../../core/helper/lazyLoad';
 
 import {
   AutoformControlsDef,
@@ -28,7 +28,7 @@ const getDefaultValue = function (
 };
 
 type Props<T> = CellPluginComponentProps<T> & AutoformControlsDef<T>;
-function AutoformControls<T extends Record<string, unknown> | unknown>({
+export function AutoformControls<T extends Record<string, unknown> | unknown>({
   onChange,
   data,
   schema,
@@ -58,5 +58,3 @@ function AutoformControls<T extends Record<string, unknown> | unknown>({
     </AutoForm>
   );
 }
-
-export default AutoformControls;

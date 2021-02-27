@@ -1,6 +1,5 @@
 import React from 'react';
-import AutoformControls from '../../../../ui/AutoformControls';
-import BottomToolbar from '../../../../ui/BottomToolbar';
+import { BottomToolbar, AutoformControls } from '../../../../ui';
 import { CellPluginComponentProps } from '../../../types';
 import {
   usePluginOfCell,
@@ -48,13 +47,13 @@ const PluginComponent: React.FC<{ nodeId: string; hasChildren: boolean }> = ({
     remove,
   };
 
-  let controlsElement = null;
+  let pluginControls = null;
   if (plugin?.controls?.type === 'custom') {
     const { Component } = plugin.controls;
-    controlsElement = <Component {...componentProps} />;
+    pluginControls = <Component {...componentProps} />;
   }
   if (plugin?.controls?.type === 'autoform') {
-    controlsElement = (
+    pluginControls = (
       <AutoformControls {...componentProps} {...plugin.controls} />
     );
   }
@@ -76,13 +75,14 @@ const PluginComponent: React.FC<{ nodeId: string; hasChildren: boolean }> = ({
           nodeId={nodeId}
           open={focused && isEditMode}
           dark={plugin?.controls?.dark}
-        >
-          <div
-            style={{ marginBottom: 24, maxHeight: '50vh', overflow: 'auto' }}
-          >
-            {controlsElement}
-          </div>
-        </Toolbar>
+          pluginControls={
+            <div
+              style={{ marginBottom: 12, maxHeight: '50vh', overflow: 'auto' }}
+            >
+              {pluginControls}
+            </div>
+          }
+        />
       </>
     </Provider>
   );

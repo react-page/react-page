@@ -5,7 +5,7 @@ It's used both for editing and displaying content (with `readOnly` set to true)
 
 ```tsx
 import Editor from '@react-page/editor';
-import "@react-page/editor/lib/index.css";
+import '@react-page/editor/lib/index.css';
 
 // plugin imports
 import slate from '@react-page/plugins-slate';
@@ -104,3 +104,17 @@ it will only show the (+) button to add new cells when it has less than `maxChil
 
 It currently just controls whether the button is shown, but its still possible to add new cells by dragging.
 it will be revisited in the future and is therefore considered experimental.
+
+### Custom Editor UI: `components` (experimental)
+
+if you need more control of the Editor UI, you can override some internal Components.
+Use this always as a last resort as you might not get the full functionality of ReactPage.
+Please always file an Issue first about what you exactly want to get customized or change
+as there might be another, easier solution that will result in a new Feature for ReactPage.
+This way we can share innovations!
+
+Currently you can replace these Components:
+
+- BottomToolbar: The Component that renders the Toolbar on the bottom that reveals the plugin controls and some cell actions
+
+(please file also an issue or Pull Request if you want to add more components to replace)
