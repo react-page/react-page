@@ -159,7 +159,8 @@ const Provider: React.FC<ProviderProps> = ({
     editModeResizeHandle,
     languages,
     JSON.stringify(childConstraints ?? {}), // its an object, we prevent unnecessary rerenders by stringify it
-    components,
+    ...Object.keys(components ?? {}),
+    ...Object.values(components ?? {}), // minimize unnecessary rerenders by forcing shallow comparison of "components" object
   ]);
 
   return (
