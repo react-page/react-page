@@ -157,10 +157,10 @@ const insert = <T extends InsertType>(type: T) => (options: PluginsAndLang) => (
 
     if (isNew) {
       dispatch(editMode());
+      setTimeout(() => {
+        dispatch(focusCell(insertAction.ids.item, true));
+      }, 300);
     }
-    setTimeout(() => {
-      dispatch(focusCell(insertAction.ids.item, true));
-    }, 300);
   };
 };
 

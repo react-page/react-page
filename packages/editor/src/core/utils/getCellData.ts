@@ -6,6 +6,7 @@ export const getCellData = (cell: Cell, lang: string) => {
   return (
     dataI18n?.[lang] ??
     // find first non-empty
-    dataI18n?.[Object.keys(dataI18n).find((l) => dataI18n[l])]
+    dataI18n?.[Object.keys(dataI18n).find((l) => dataI18n[l])] ??
+    {}
   );
 };
