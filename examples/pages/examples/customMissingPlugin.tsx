@@ -23,7 +23,7 @@ const customMissingPlugin = () => {
 
   return (
     <>
-      <Editor cellPlugins={cellPlugins} value={value} />
+      <Editor cellPlugins={cellPlugins} value={value} components={components} />
     </>
   );
 };
