@@ -105,7 +105,6 @@ it will only show the (+) button to add new cells when it has less than `maxChil
 It currently just controls whether the button is shown, but its still possible to add new cells by dragging.
 it will be revisited in the future and is therefore considered experimental.
 
-
 ## Internal JSON details
 
 The entire page content is stored as an easy-to-parse JSON representation, consisting of the data (what the viewer sees) and the metadata (what is required to render the data eg ids, versions, plugin info, etc.)
@@ -167,9 +166,7 @@ Some examples of the internal JSON representation for understanding:
               ]
             }
           },
-          "rows": [
-            
-          ],
+          "rows": [],
           "inline": null
         }
       ]
@@ -223,9 +220,7 @@ Some examples of the internal JSON representation for understanding:
               ]
             }
           },
-          "rows": [
-            
-          ],
+          "rows": [],
           "inline": null
         }
       ]
@@ -245,16 +240,14 @@ Some examples of the internal JSON representation for understanding:
               "src": "https://www.nasa.gov/sites/default/files/styles/full_width/public/thumbnails/image/mars2020-sample-tubes.jpg?itok=SiZDKmmG"
             }
           },
-          "rows": [
-            
-          ],
+          "rows": [],
           "inline": null
         }
       ]
     }
   ]
 }
-
+```
 
 ### Custom Editor UI: `components` (experimental)
 
@@ -269,4 +262,3 @@ Currently you can replace these Components:
 - BottomToolbar: The Component that renders the Toolbar on the bottom that reveals the plugin controls and some cell actions
 
 (please file also an issue or Pull Request if you want to add more components to replace)
-
