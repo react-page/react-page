@@ -97,7 +97,7 @@ const BackgroundHtmlRenderer: React.SFC<BackgroundRendererProps> = (props) => {
       darken = props.defaultDarken,
       lighten = props.defaultLighten,
       hasPadding = props.defaultHasPadding,
-    },
+    } = {},
   } = props;
   const darkenFinal =
     props.darkenPreview !== undefined ? props.darkenPreview : darken;

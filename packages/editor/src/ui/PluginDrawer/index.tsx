@@ -12,7 +12,7 @@ import {
 import { CellPlugin } from '../../core/types';
 import Item from './Item/index';
 
-export interface Translations {
+export interface PluginDrawerTranslations {
   noPluginFoundContent: string | JSX.Element;
   searchPlaceholder: string;
 
@@ -20,7 +20,7 @@ export interface Translations {
   dragMe: string;
 }
 
-const defaultTranslations: Translations = {
+const defaultTranslations: PluginDrawerTranslations = {
   noPluginFoundContent: 'No plugins found',
   searchPlaceholder: 'Search cell plugins',
 
@@ -28,111 +28,114 @@ const defaultTranslations: Translations = {
   dragMe: 'Drag me!',
 };
 
-type Props = {
-  translations?: Translations;
+type PluginDrawerProps = {
+  translations?: PluginDrawerTranslations;
 };
 
 const getPluginTitle = (plugin: CellPlugin) =>
   (plugin.title || plugin.text) ?? '';
 
-const Toolbar: React.FC<Props> = ({ translations = defaultTranslations }) => {
-  const plugins = useAllCellPlugins();
+export const PluginDrawer: React.FC<PluginDrawerProps> = React.memo(
+  ({ translations = defaultTranslations }) => {
+    const plugins = useAllCellPlugins();
 
-  const [searchText, setSearchText] = React.useState<string>('');
-  const searchFilter = React.useCallback(
-    (plugin: CellPlugin) => {
-      const id = plugin.id;
-      const title = getPluginTitle(plugin);
-      return (
-        plugin &&
-        id &&
-        !plugin.hideInMenu &&
-        (id.toLowerCase().startsWith(searchText?.toLowerCase()) ||
-          (plugin.description &&
-            plugin.description
-              .toLowerCase()
-              .startsWith(searchText?.toLowerCase())) ||
-          (title && title.toLowerCase().startsWith(searchText?.toLowerCase())))
-      );
-    },
-    [searchText]
-  );
+    const [searchText, setSearchText] = React.useState<string>('');
+    const searchFilter = React.useCallback(
+      (plugin: CellPlugin) => {
+        const id = plugin.id;
+        const title = getPluginTitle(plugin);
+        return (
+          plugin &&
+          id &&
+          !plugin.hideInMenu &&
+          (id.toLowerCase().startsWith(searchText?.toLowerCase()) ||
+            (plugin.description &&
+              plugin.description
+                .toLowerCase()
+                .startsWith(searchText?.toLowerCase())) ||
+            (title &&
+              title.toLowerCase().startsWith(searchText?.toLowerCase())))
+        );
+      },
+      [searchText]
+    );
 
-  const onSearch = React.useCallback(
-    (e: React.ChangeEvent) => {
-      const target = e.target;
-      if (target instanceof HTMLInputElement) {
-        setSearchText(target.value);
-      }
-    },
-    [setSearchText]
-  );
-  const isInsertMode = useIsInsertMode();
-  const inputRef = React.useRef<HTMLInputElement>();
-  React.useEffect(() => {
-    let handle;
-    if (inputRef.current && isInsertMode) {
-      handle = setTimeout(() => {
-        const e = inputRef.current.querySelector('input');
-        if (e) {
-          e.focus();
+    const onSearch = React.useCallback(
+      (e: React.ChangeEvent) => {
+        const target = e.target;
+        if (target instanceof HTMLInputElement) {
+          setSearchText(target.value);
         }
-      }, 100);
-    }
+      },
+      [setSearchText]
+    );
+    const isInsertMode = useIsInsertMode();
+    const inputRef = React.useRef<HTMLInputElement>();
+    React.useEffect(() => {
+      let handle;
+      if (inputRef.current && isInsertMode) {
+        handle = setTimeout(() => {
+          const e = inputRef.current.querySelector('input');
+          if (e) {
+            e.focus();
+          }
+        }, 100);
+      }
 
-    return () => {
-      clearTimeout(handle);
-    };
-  }, [inputRef.current, isInsertMode]);
+      return () => {
+        clearTimeout(handle);
+      };
+    }, [inputRef.current, isInsertMode]);
 
-  const filteredPlugins = plugins.filter(searchFilter);
+    const filteredPlugins = plugins.filter(searchFilter);
 
-  return (
-    <Portal>
-      <Drawer
-        variant="persistent"
-        className="react-page-plugin-drawer"
-        open={isInsertMode}
-        PaperProps={{
-          style: {
-            width: 320,
-          },
-        }}
-      >
-        <List
-          subheader={<ListSubheader>{translations.insertPlugin}</ListSubheader>}
+    return (
+      <Portal>
+        <Drawer
+          variant="persistent"
+          className="react-page-plugin-drawer"
+          open={isInsertMode}
+          PaperProps={{
+            style: {
+              width: 320,
+            },
+          }}
         >
-          <ListItem>
-            <TextField
-              inputRef={inputRef}
-              placeholder={translations.searchPlaceholder}
-              fullWidth={true}
-              onChange={onSearch}
-            />
-          </ListItem>
-          {filteredPlugins.length === 0 && (
-            <ListSubheader>{translations.noPluginFoundContent}</ListSubheader>
-          )}
-        </List>
-        {filteredPlugins.length > 0 && (
-          <List>
-            {filteredPlugins.map((plugin: CellPlugin, k: number) => {
-              return (
-                <Item
-                  translations={translations}
-                  plugin={plugin}
-                  key={k.toString()}
-                  insert={{
-                    plugin: plugin.id,
-                  }}
-                />
-              );
-            })}
+          <List
+            subheader={
+              <ListSubheader>{translations.insertPlugin}</ListSubheader>
+            }
+          >
+            <ListItem>
+              <TextField
+                inputRef={inputRef}
+                placeholder={translations.searchPlaceholder}
+                fullWidth={true}
+                onChange={onSearch}
+              />
+            </ListItem>
+            {filteredPlugins.length === 0 && (
+              <ListSubheader>{translations.noPluginFoundContent}</ListSubheader>
+            )}
           </List>
-        )}
-      </Drawer>
-    </Portal>
-  );
-};
-
-export default React.memo(Toolbar);
+          {filteredPlugins.length > 0 && (
+            <List>
+              {filteredPlugins.map((plugin: CellPlugin, k: number) => {
+                return (
+                  <Item
+                    translations={translations}
+                    plugin={plugin}
+                    key={k.toString()}
+                    insert={{
+                      plugin: plugin.id,
+                    }}
+                  />
+                );
+              })}
+            </List>
+          )}
+        </Drawer>
+      </Portal>
+    );
+  }
+);

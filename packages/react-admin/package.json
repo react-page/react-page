@@ -28,7 +28,7 @@
   },
   "devDependencies": {
     "react-admin": "^3.12.2",
-    "uniforms": "^3.1.0"
+    "uniforms": "^3.2.0"
   },
   "publishConfig": {
     "access": "public"

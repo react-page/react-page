@@ -4,9 +4,9 @@ import VerticalAlignTopIcon from '@material-ui/icons/VerticalAlignTop';
 import React from 'react';
 import { useFocusCell, useParentCellId } from '../../core/components/hooks';
 
-const SelectParentButton: React.FC<{
+export const SelectParentButton: React.FC<{
   nodeId: string;
-}> = ({ nodeId }) => {
+}> = React.memo(({ nodeId }) => {
   const parentCellId = useParentCellId(nodeId);
 
   const focusParent = useFocusCell(parentCellId);
@@ -21,6 +21,4 @@ const SelectParentButton: React.FC<{
       <VerticalAlignTopIcon />
     </IconButton>
   ) : null;
-};
-
-export default SelectParentButton;
+});

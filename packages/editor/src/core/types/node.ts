@@ -2,6 +2,7 @@ import { CellPlugin } from './plugins';
 
 import { Languages } from '../EditorStore';
 import { ChildConstraints } from './constraints';
+import { Components } from './components';
 
 export type I18nField<T> = {
   [lang: string]: T;
@@ -136,4 +137,9 @@ export type Options = {
    * Leave this to false if you don't want to change plugins while editor is mounted.
    */
   pluginsWillChange?: boolean;
+
+  /**
+   * Internal component overrides.
+   */
+  components?: Components;
 } & SimplifiedModesProps;

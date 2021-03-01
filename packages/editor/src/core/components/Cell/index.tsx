@@ -97,7 +97,7 @@ const Cell: React.FC<Props> = ({ nodeId, measureRef }) => {
   useScrollToViewEffect(
     nodeId,
     () => {
-      if (ref.current) scrollIntoViewWithOffset(ref.current, 0);
+      if (ref.current) scrollIntoViewWithOffset(ref.current, 120); // 120 is just a sane default, we might make int configurable in the future
     },
     [ref.current]
   );

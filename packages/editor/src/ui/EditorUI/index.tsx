@@ -1,8 +1,8 @@
 import React from 'react';
-import DisplayModeToggle, { StickyNess } from '../DisplayModeToggle/index';
-import ThemeProvider from '../ThemeProvider';
-import PluginDrawer from '../PluginDrawer/index';
-import Trash from '../Trash/index';
+import { StickyNess, DisplayModeToggle } from '../DisplayModeToggle';
+import { ThemeProvider } from '../ThemeProvider';
+import { PluginDrawer } from '../PluginDrawer';
+import { Trash } from '../Trash';
 
 export default React.memo(
   ({

@@ -1,12 +1,11 @@
 import React from 'react';
 
-import { CellPluginComponentProps } from '../../types/plugins';
+import { CellPluginMissingProps } from '../../types/plugins';
 
-const PluginMissing: React.FC<CellPluginComponentProps<unknown>> = ({
+const PluginMissing: React.FC<CellPluginMissingProps> = ({
   children,
   ...props
-}: // eslint-disable-next-line @typescript-eslint/no-explicit-any
-CellPluginComponentProps<unknown> & { children: any }) => (
+}) => (
   <div>
     <div
       style={{
@@ -17,7 +16,7 @@ CellPluginComponentProps<unknown> & { children: any }) => (
         overflowX: 'scroll',
       }}
     >
-      The requested plugin could not be found.
+      The requested plugin `{props.pluginId}` could not be found.
       <button onClick={props.remove}>Delete Plugin</button>
       <pre>{JSON.stringify(props, null, 2)}</pre>
     </div>

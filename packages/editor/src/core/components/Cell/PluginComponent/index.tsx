@@ -1,6 +1,5 @@
 import React from 'react';
-import AutoformControls from '../../../../ui/AutoformControls';
-import BottomToolbar from '../../../../ui/BottomToolbar';
+import { BottomToolbar, AutoformControls } from '../../../../ui';
 import { CellPluginComponentProps } from '../../../types';
 import {
   usePluginOfCell,
@@ -10,6 +9,8 @@ import {
   useIsPreviewMode,
   useLang,
   useRemoveCell,
+  useOptions,
+  useCellProps,
 } from '../../hooks';
 import PluginMissing from '../PluginMissing';
 
@@ -20,17 +21,21 @@ const PluginComponent: React.FC<{ nodeId: string; hasChildren: boolean }> = ({
   hasChildren,
 }) => {
   const lang = useLang();
+  const CustomPluginMissing = useOptions()?.components?.CellPluginMissing;
   const isPreviewMode = useIsPreviewMode();
   const isEditMode = useIsEditMode();
 
   const [data, onChange] = useDebouncedCellData(nodeId);
-
+  const pluginId = useCellProps(nodeId, (c) => c.plugin?.id);
   const plugin = usePluginOfCell(nodeId);
   const focused = useIsFocused(nodeId);
 
-  const Component = plugin?.Renderer ?? PluginMissing;
+  const Renderer = plugin?.Renderer;
+  const Missing = CustomPluginMissing ?? PluginMissing;
   const Provider = plugin?.Provider ?? DefaultProvider;
   const remove = useRemoveCell(nodeId);
+
+  const Toolbar = useOptions().components?.BottomToolbar ?? BottomToolbar;
 
   const componentProps: CellPluginComponentProps<unknown> = {
     nodeId,
@@ -45,13 +50,13 @@ const PluginComponent: React.FC<{ nodeId: string; hasChildren: boolean }> = ({
     remove,
   };
 
-  let controlsElement = null;
+  let pluginControls = null;
   if (plugin?.controls?.type === 'custom') {
     const { Component } = plugin.controls;
-    controlsElement = <Component {...componentProps} />;
+    pluginControls = <Component {...componentProps} />;
   }
   if (plugin?.controls?.type === 'autoform') {
-    controlsElement = (
+    pluginControls = (
       <AutoformControls {...componentProps} {...plugin.controls} />
     );
   }
@@ -67,19 +72,24 @@ const PluginComponent: React.FC<{ nodeId: string; hasChildren: boolean }> = ({
                 : undefined,
           }}
         >
-          <Component {...componentProps}>{children}</Component>
+          {Renderer ? (
+            <Renderer {...componentProps}>{children}</Renderer>
+          ) : (
+            <Missing {...componentProps} pluginId={pluginId} />
+          )}
         </div>
-        <BottomToolbar
+        <Toolbar
           nodeId={nodeId}
           open={focused && isEditMode}
           dark={plugin?.controls?.dark}
-        >
-          <div
-            style={{ marginBottom: 24, maxHeight: '50vh', overflow: 'auto' }}
-          >
-            {controlsElement}
-          </div>
-        </BottomToolbar>
+          pluginControls={
+            <div
+              style={{ marginBottom: 12, maxHeight: '50vh', overflow: 'auto' }}
+            >
+              {pluginControls}
+            </div>
+          }
+        />
       </>
     </Provider>
   );
