@@ -8,6 +8,7 @@ import {
   useIsResizeMode,
   useOptions,
   useResizeCell,
+  useCellSpacing,
 } from '../hooks';
 
 type Props = {
@@ -35,6 +36,7 @@ const ResizableRowCell: React.FC<Props> = ({
   const isPreviewMode = useIsPreviewMode();
   const resize = useResizeCell(nodeId);
   const [ref, { height: cellHeight }] = useMeasure();
+  const cellSpacing = useCellSpacing();
 
   const showResizeHandle =
     !isPreviewMode &&
@@ -76,6 +78,7 @@ const ResizableRowCell: React.FC<Props> = ({
             style={{
               // fix floating style
               height: rowHasInlineChildrenPosition ? cellHeight : 'auto',
+              marginBottom: `${cellSpacing}px`,
             }}
           ></div>
         </Draggable>

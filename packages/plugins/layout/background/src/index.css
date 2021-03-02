@@ -5,6 +5,8 @@
   color: white;
   padding: 12px;
   position: relative;
+  height: 100%;
+  box-sizing: border-box;
 }
 
 .react-page-plugins-layout-background > .react-page-row {

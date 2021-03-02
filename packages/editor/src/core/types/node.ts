@@ -142,4 +142,9 @@ export type Options = {
    * Internal component overrides.
    */
   components?: Components;
+
+  /**
+   * Sets the size of the cell grid gutters in pixels.
+   */
+  cellSpacing?: number;
 } & SimplifiedModesProps;

@@ -39,6 +39,7 @@ const EditableEditor: React.FC<EditableEditorProps> = ({
   editModeResizeHandle,
   childConstraints,
   components,
+  cellSpacing,
 }) => {
   const theValue = value || createEmptyState();
   return (
@@ -58,6 +59,7 @@ const EditableEditor: React.FC<EditableEditorProps> = ({
       blurGateDefaultMode={defaultDisplayMode}
       childConstraints={childConstraints}
       components={components}
+      cellSpacing={cellSpacing}
     >
       <StickyWrapper>
         {(stickyNess) => (

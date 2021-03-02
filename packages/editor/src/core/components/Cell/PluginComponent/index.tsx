@@ -11,19 +11,22 @@ import {
   useRemoveCell,
   useOptions,
   useCellProps,
+  useCellSpacing,
 } from '../../hooks';
 import PluginMissing from '../PluginMissing';
+import InsertNew from '../InsertNew';
 
 const DefaultProvider: React.FC = ({ children }) => <>{children}</>;
-const PluginComponent: React.FC<{ nodeId: string; hasChildren: boolean }> = ({
-  nodeId,
-  children,
-  hasChildren,
-}) => {
+const PluginComponent: React.FC<{
+  nodeId: string;
+  hasChildren: boolean;
+  insertAllowed: boolean;
+}> = ({ nodeId, children, hasChildren, insertAllowed }) => {
   const lang = useLang();
   const CustomPluginMissing = useOptions()?.components?.CellPluginMissing;
   const isPreviewMode = useIsPreviewMode();
   const isEditMode = useIsEditMode();
+  const cellSpacing = useCellSpacing();
 
   const [data, onChange] = useDebouncedCellData(nodeId);
   const pluginId = useCellProps(nodeId, (c) => c.plugin?.id);
@@ -73,7 +76,16 @@ const PluginComponent: React.FC<{ nodeId: string; hasChildren: boolean }> = ({
           }}
         >
           {Renderer ? (
-            <Renderer {...componentProps}>{children}</Renderer>
+            <Renderer {...componentProps}>
+              {hasChildren ? (
+                <div style={{ marginBottom: `${-cellSpacing}px` }}>
+                  {children}
+                </div>
+              ) : (
+                children
+              )}
+              {insertAllowed ? <InsertNew parentCellId={nodeId} /> : null}
+            </Renderer>
           ) : (
             <Missing {...componentProps} pluginId={pluginId} />
           )}

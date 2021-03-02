@@ -2,7 +2,12 @@ import classNames from 'classnames';
 import React from 'react';
 import { useMeasure } from 'react-use';
 import { isRow, Node, Row } from '../../types/node';
-import { useBlurAllCells, useNodeHoverPosition, useNodeProps } from '../hooks';
+import {
+  useBlurAllCells,
+  useCellSpacing,
+  useNodeHoverPosition,
+  useNodeProps,
+} from '../hooks';
 import Droppable from './Droppable';
 import ResizableRowCell from './ResizableRowCell';
 
@@ -44,6 +49,8 @@ const Row: React.FC<{ nodeId: string }> = ({ nodeId }) => {
     (node) => isRow(node) && node.cells.length === 2 && node.cells[0]?.inline
   );
 
+  const cellSpacing = useCellSpacing();
+
   return (
     <Droppable nodeId={nodeId}>
       <div
@@ -57,7 +64,11 @@ const Row: React.FC<{ nodeId: string }> = ({ nodeId }) => {
             rowHasInlineChildrenPosition
           ),
         })}
-        style={{ position: 'relative', borderColor: 'red' }}
+        style={{
+          position: 'relative',
+          borderColor: 'red',
+          margin: `0 ${-cellSpacing / 2}px`,
+        }}
         onClick={blurAllCells}
       >
         {childrenWithOffsets.map(({ offset, id, size, maxSize }, index) => (

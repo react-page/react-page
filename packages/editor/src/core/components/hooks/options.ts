@@ -60,3 +60,10 @@ export const useConfiguredCellPlugin = (pluginId: string) => {
 export const useLang = () => {
   return useSelector(getLang);
 };
+
+/**
+ * @returns cell spacing for the current cell sub-tree
+ */
+export const useCellSpacing = () => {
+  return +useOptions().cellSpacing || 0;
+};
