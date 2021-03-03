@@ -1,53 +1,100 @@
-import React, { useState } from 'react';
-
-// The editor core
-import Editor, { Value } from '@react-page/editor';
-
-// import the main css, uncomment this: (this is commented in the example because of https://github.com/vercel/next.js/issues/19717)
-// import '@react-page/editor/lib/index.css';
-
-// The rich text area plugin
+import React from 'react';
+import Editor, {
+  Value,
+  AutoForm,
+  AutoFields,
+  makeUniformsSchema,
+} from '@react-page/editor';
 import slate from '@react-page/plugins-slate';
-// image
 import image from '@react-page/plugins-image';
-// background
 import background from '@react-page/plugins-background';
 import PageLayout from '../../components/PageLayout';
-
-// Stylesheets for the rich text area plugin
-// uncomment this
-//import '@react-page/plugins-slate/lib/index.css';
-
-// Stylesheets for the imagea plugin
-//import '@react-page/plugins-image/lib/index.css';
 
 // Define which plugins we want to use.
 const cellPlugins = [slate(), image, background({})];
 
-// Remove samples stylesheet cell padding, highlight cell and editor boundaries to demonstrate the cell spacing.
-const styles = `
-.react-page-cell-inner-leaf {
-  padding: 0;
+interface CellSpacingState {
+  value?: Value;
+  outlineEditor?: boolean;
+  outlineCells?: boolean;
+  cellSpacingX?: string;
+  cellSpacingY?: string;
 }
-.react-page-cell-inner > div {
-  outline: 1px solid red;
-}
-.react-page-editable {
-  outline: 1px solid green;
-}
-`;
 
-export default function SimpleExample() {
-  const [value, setValue] = useState<Value>(null);
+// Remove samples stylesheet cell padding and optionally outline cell and editor boundaries.
+function styles(state: CellSpacingState) {
+  let styles = '.react-page-cell-inner-leaf { padding: 0; }';
+
+  if (state.outlineCells) {
+    styles += '.react-page-cell-inner > div { outline: 1px solid red; }';
+  }
+
+  if (state.outlineEditor) {
+    styles += '.react-page-editable { outline: 1px solid green; }';
+  }
+
+  return styles;
+}
+
+export default function CellSpacing() {
+  const [state, setState] = React.useState<CellSpacingState>({
+    cellSpacingX: '10',
+    cellSpacingY: '10',
+  });
+
+  const style = React.useMemo(
+    () => <style dangerouslySetInnerHTML={{ __html: styles(state) }} />,
+    [state.outlineCells, state.outlineEditor]
+  );
+
+  const schema = makeUniformsSchema({
+    type: 'object',
+    properties: {
+      outlineEditor: { type: 'boolean', title: 'Outline the Editor in Green' },
+      outlineCells: { type: 'boolean', title: 'Outline Cells in Red' },
+      cellSpacingX: { type: 'string', title: 'Horizontal Cell Spacing' },
+      cellSpacingY: { type: 'string', title: 'Vertical Cell Spacing' },
+    },
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } as any);
 
   return (
     <PageLayout>
-      <style dangerouslySetInnerHTML={{ __html: styles }} />
+      {style}
+
+      <div
+        style={{
+          padding: '20px',
+          marginBottom: '20px',
+          outline: '1px solid #E0E0E0',
+        }}
+      >
+        <AutoForm
+          model={state}
+          autosave={true}
+          schema={schema}
+          onSubmit={(val: Partial<CellSpacingState>) =>
+            setState((s) => ({ ...s, ...val }))
+          }
+        >
+          <div
+            style={{
+              columnCount: 3,
+              columnGap: 48,
+            }}
+          >
+            <AutoFields />
+          </div>
+        </AutoForm>
+      </div>
+
       <Editor
         cellPlugins={cellPlugins}
-        value={value}
-        onChange={setValue}
-        cellSpacing={20}
+        value={state.value}
+        onChange={(value) => setState((s) => ({ ...s, value }))}
+        // let's also test our ability to survive non-numbers
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        cellSpacing={[state.cellSpacingX as any, state.cellSpacingY as any]}
       />
     </PageLayout>
   );

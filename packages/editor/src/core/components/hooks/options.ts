@@ -64,6 +64,11 @@ export const useLang = () => {
 /**
  * @returns cell spacing for the current cell sub-tree
  */
-export const useCellSpacing = () => {
-  return +useOptions().cellSpacing || 0;
+export const useCellSpacing: () => [number, number] = () => {
+  const spacing = useOptions().cellSpacing;
+  if (!Array.isArray(spacing)) {
+    return [+spacing || 0, +spacing || 0];
+  } else {
+    return [+spacing[0] || 0, +spacing[1] || 0];
+  }
 };

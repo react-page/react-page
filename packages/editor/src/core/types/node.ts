@@ -146,5 +146,5 @@ export type Options = {
   /**
    * Sets the size of the cell grid gutters in pixels.
    */
-  cellSpacing?: number;
+  cellSpacing?: number | [number, number];
 } & SimplifiedModesProps;

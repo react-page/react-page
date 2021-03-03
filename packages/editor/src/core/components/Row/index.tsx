@@ -49,28 +49,39 @@ const Row: React.FC<{ nodeId: string }> = ({ nodeId }) => {
     (node) => isRow(node) && node.cells.length === 2 && node.cells[0]?.inline
   );
 
-  const cellSpacing = useCellSpacing();
+  const [cellSpacingX, cellSpacingY] = useCellSpacing();
 
   return (
     <Droppable nodeId={nodeId}>
       <div
         ref={ref}
         className={classNames('react-page-row', {
-          'react-page-row-is-hovering-this': Boolean(hoverPosition),
-          [`react-page-row-is-hovering-${hoverPosition || ''}`]: Boolean(
-            hoverPosition
-          ),
           'react-page-row-has-floating-children': Boolean(
             rowHasInlineChildrenPosition
           ),
         })}
         style={{
           position: 'relative',
-          borderColor: 'red',
-          margin: `0 ${-cellSpacing / 2}px`,
+          margin: `0 ${-cellSpacingX / 2}px`,
         }}
         onClick={blurAllCells}
       >
+        <div
+          style={{
+            position: 'absolute',
+            pointerEvents: 'none',
+            top: `${cellSpacingY / 2}px`,
+            left: `${cellSpacingX / 2}px`,
+            bottom: `${cellSpacingY / 2}px`,
+            right: `${cellSpacingX / 2}px`,
+          }}
+          className={classNames({
+            'react-page-row-is-hovering-this': Boolean(hoverPosition),
+            [`react-page-row-is-hovering-${hoverPosition || ''}`]: Boolean(
+              hoverPosition
+            ),
+          })}
+        />
         {childrenWithOffsets.map(({ offset, id, size, maxSize }, index) => (
           <ResizableRowCell
             key={id}

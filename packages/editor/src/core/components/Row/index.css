@@ -64,7 +64,7 @@
   width: 4px;
   top: 0;
   bottom: 0;
-  left: -4px;
+  left: -2px;
   cursor: e-resize;
   background-color: var(--lightBlack);
   mix-blend-mode: difference;

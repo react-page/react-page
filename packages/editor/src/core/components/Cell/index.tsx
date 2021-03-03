@@ -92,7 +92,8 @@ const Cell: React.FC<Props> = ({ nodeId, measureRef }) => {
   const isLayoutMode = useIsLayoutMode();
   const hasChildren = useNodeHasChildren(nodeId);
   const hasPlugin = useCellHasPlugin(nodeId);
-  const cellSpacing = useCellSpacing();
+  const [cellSpacingX, cellSpacingY] = useCellSpacing();
+  const needVerticalPadding = !hasChildren || hasPlugin;
 
   const isDraftInLang = isDraftI18n?.[lang] ?? isDraft;
   const ref = React.useRef<HTMLDivElement>();
@@ -110,9 +111,9 @@ const Cell: React.FC<Props> = ({ nodeId, measureRef }) => {
   return (
     <div
       style={{
-        padding: `0 ${cellSpacing / 2}px`,
-        paddingBottom:
-          (!hasChildren || hasPlugin) && !inline ? `${cellSpacing}px` : null,
+        padding: `${needVerticalPadding ? cellSpacingY / 2 : 0}px ${
+          cellSpacingX / 2
+        }px`,
       }}
       className={classNames(
         gridClass({

@@ -14,6 +14,7 @@ import {
 import Row from '../../Row';
 import Draggable from '../Draggable';
 import Droppable from '../Droppable';
+import InsertNew from '../InsertNew';
 import PluginComponent from '../PluginComponent';
 
 const Inner: React.FC<{ nodeId: string }> = ({ nodeId }) => {
@@ -25,7 +26,7 @@ const Inner: React.FC<{ nodeId: string }> = ({ nodeId }) => {
   const focus = useFocusCell(nodeId);
   const focused = useIsFocused(nodeId);
   const childrenIds = useNodeChildrenIds(nodeId);
-  const cellSpacing = useCellSpacing();
+  const [, cellSpacingY] = useCellSpacing();
   const ref = React.useRef<HTMLDivElement>();
 
   const hasChildren = childrenIds.length > 0;
@@ -82,12 +83,15 @@ const Inner: React.FC<{ nodeId: string }> = ({ nodeId }) => {
           }
           ref={ref}
         >
-          <PluginComponent
-            nodeId={nodeId}
-            hasChildren={hasChildren}
-            insertAllowed={insertAllowed}
-          >
-            {children}
+          <PluginComponent nodeId={nodeId} hasChildren={hasChildren}>
+            {hasChildren ? (
+              <div style={{ margin: `${-cellSpacingY / 2}px 0` }}>
+                {children}
+              </div>
+            ) : (
+              children
+            )}
+            {insertAllowed ? <InsertNew parentCellId={nodeId} /> : null}
           </PluginComponent>
         </div>
       </Draggable>

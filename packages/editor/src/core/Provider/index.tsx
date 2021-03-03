@@ -163,7 +163,7 @@ const Provider: React.FC<ProviderProps> = ({
     JSON.stringify(childConstraints ?? {}), // its an object, we prevent unnecessary rerenders by stringify it
     ...Object.keys(components ?? {}),
     ...Object.values(components ?? {}), // minimize unnecessary rerenders by forcing shallow comparison of "components" object
-    cellSpacing,
+    JSON.stringify(cellSpacing ?? []),
   ]);
 
   return (
