@@ -178,6 +178,14 @@ export type CellPlugin<DataT = unknown, DataSerializedT = DataT> = {
   cellStyle?: React.CSSProperties | (() => React.CSSProperties);
 
   /**
+   * cell spacing setting for the internal layout (nested cells) if any
+   */
+  cellSpacing?:
+    | number
+    | [number, number]
+    | ((data: DataT) => number | [number, number]);
+
+  /**
    * defines constraint about the children that can be added to this Cell.
    * Only useful if you render children in your Component
    *

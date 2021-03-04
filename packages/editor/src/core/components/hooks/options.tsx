@@ -1,9 +1,9 @@
-import { createContext, useContext } from 'react';
+import React, { createContext, useContext } from 'react';
 import EditorStore, { EditorContext } from '../../EditorStore';
 import { useSelector } from '../../reduxConnect';
 import { getLang } from '../../selector/setting';
-
 import { Options } from '../../types/node';
+import { normalizeCellSpacing } from '../../utils/getCellSpacing';
 
 /**
  * @returns the store object of the current editor. Contains the redux store.
@@ -65,10 +65,22 @@ export const useLang = () => {
  * @returns cell spacing for the current cell sub-tree
  */
 export const useCellSpacing: () => [number, number] = () => {
-  const spacing = useOptions().cellSpacing;
-  if (!Array.isArray(spacing)) {
-    return [+spacing || 0, +spacing || 0];
-  } else {
-    return [+spacing[0] || 0, +spacing[1] || 0];
-  }
+  return normalizeCellSpacing(useOptions().cellSpacing);
+};
+
+/**
+ * @returns a Provider component that can be used to override cell spacing for a subtree of cells
+ */
+export const useCellSpacingProvider = (
+  cellSpacingX: number,
+  cellSpacingY: number
+) => {
+  const options = useOptions();
+  return (({ children }) => (
+    <OptionsContext.Provider
+      value={{ ...options, cellSpacing: [cellSpacingX, cellSpacingY] }}
+    >
+      {children}
+    </OptionsContext.Provider>
+  )) as React.FC<unknown>;
 };

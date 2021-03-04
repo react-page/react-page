@@ -65,6 +65,8 @@ const PluginComponent: React.FC<{ nodeId: string; hasChildren: boolean }> = ({
       <>
         <div
           style={{
+            display: 'flex', // need to cancel margin collapsing (cell spacing support)
+            flexDirection: 'column',
             height: '100%',
             pointerEvents:
               !isPreviewMode && !plugin?.allowClickInside && !hasChildren
