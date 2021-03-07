@@ -80,9 +80,9 @@ export const useCellSpacingProvider = (
     () => ({ ...options, cellSpacing: normalizeCellSpacing(cellSpacing) }),
     [options, JSON.stringify(cellSpacing)]
   );
-  if (cellSpacing) {
-    return [OptionsContext.Provider, value];
-  } else {
+  if (typeof cellSpacing === 'undefined' || cellSpacing == null) {
     return [NoopProvider, undefined];
+  } else {
+    return [OptionsContext.Provider, value];
   }
 };
