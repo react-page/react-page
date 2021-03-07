@@ -74,7 +74,7 @@ const Inner: React.FC = () => {
     }
   }, [firstElementInViewPortref.current]);
   const mode = useDisplayMode();
-  const [, cellSpacingY] = useCellSpacing();
+  const { y: cellSpacingY } = useCellSpacing();
   const insertAllowed = options.childConstraints?.maxChildren
     ? options.childConstraints?.maxChildren > rowIds.length
     : true;

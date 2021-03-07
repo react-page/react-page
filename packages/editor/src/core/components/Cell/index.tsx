@@ -92,7 +92,7 @@ const Cell: React.FC<Props> = ({ nodeId, measureRef }) => {
   const isLayoutMode = useIsLayoutMode();
   const hasChildren = useNodeHasChildren(nodeId);
   const hasPlugin = useCellHasPlugin(nodeId);
-  const [cellSpacingX, cellSpacingY] = useCellSpacing();
+  const { x: cellSpacingX, y: cellSpacingY } = useCellSpacing();
   const needVerticalPadding = !hasChildren || hasPlugin;
 
   const isDraftInLang = isDraftI18n?.[lang] ?? isDraft;

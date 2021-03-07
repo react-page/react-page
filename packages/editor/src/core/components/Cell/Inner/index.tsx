@@ -32,21 +32,16 @@ const Inner: React.FC<{ nodeId: string }> = ({ nodeId }) => {
   const focus = useFocusCell(nodeId);
   const focused = useIsFocused(nodeId);
   const childrenIds = useNodeChildrenIds(nodeId);
-  const [, cellSpacingY] = useCellSpacing();
+  let { y: cellSpacingY } = useCellSpacing();
   const ref = React.useRef<HTMLDivElement>();
 
   const hasChildren = childrenIds.length > 0;
 
   const data = useCellData(nodeId);
   const pluginCellSpacing = getPluginCellSpacing(plugin, data);
-  // eslint-disable-next-line prefer-const
-  let [pluginCellSpacingX, pluginCellSpacingY] = normalizeCellSpacing(
-    pluginCellSpacing
-  );
-  let Provider = useCellSpacingProvider(pluginCellSpacingX, pluginCellSpacingY);
-  if (typeof pluginCellSpacing === 'undefined' || pluginCellSpacing == null) {
-    Provider = (({ children }) => children) as React.FC<unknown>;
-    pluginCellSpacingY = cellSpacingY;
+  const [Provider, providerValue] = useCellSpacingProvider(pluginCellSpacing);
+  if (typeof pluginCellSpacing !== 'undefined' && pluginCellSpacing != null) {
+    cellSpacingY = normalizeCellSpacing(pluginCellSpacing).y;
   }
 
   const onClick = React.useCallback(
@@ -103,8 +98,8 @@ const Inner: React.FC<{ nodeId: string }> = ({ nodeId }) => {
         >
           <PluginComponent nodeId={nodeId} hasChildren={hasChildren}>
             {hasChildren ? (
-              <Provider>
-                <div style={{ margin: `${-pluginCellSpacingY / 2}px 0` }}>
+              <Provider value={providerValue}>
+                <div style={{ margin: `${-cellSpacingY / 2}px 0` }}>
                   {children}
                 </div>
               </Provider>

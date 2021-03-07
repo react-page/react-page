@@ -19,8 +19,8 @@ interface CellSpacingState {
   readOnly?: boolean;
   outlineEditor?: boolean;
   outlineCells?: boolean;
-  cellSpacingX?: string;
-  cellSpacingY?: string;
+  cellSpacingX?: number;
+  cellSpacingY?: number;
 }
 
 // Remove samples stylesheet cell padding and optionally outline cell and editor boundaries.
@@ -44,8 +44,8 @@ export default function CellSpacing() {
     value: cellSpacingDemo,
     outlineEditor: true,
     outlineCells: true,
-    cellSpacingX: '10',
-    cellSpacingY: '10',
+    cellSpacingX: 10,
+    cellSpacingY: 10,
   });
 
   const style = React.useMemo(
@@ -59,8 +59,8 @@ export default function CellSpacing() {
       outlineEditor: { type: 'boolean', title: 'Outline the Editor in Green' },
       outlineCells: { type: 'boolean', title: 'Outline Cells in Red' },
       readOnly: { type: 'boolean', title: 'Read Only' },
-      cellSpacingX: { type: 'string', title: 'Horizontal Cell Spacing' },
-      cellSpacingY: { type: 'string', title: 'Vertical Cell Spacing' },
+      cellSpacingX: { type: 'number', title: 'Horizontal Cell Spacing' },
+      cellSpacingY: { type: 'number', title: 'Vertical Cell Spacing' },
     },
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } as any);
@@ -107,9 +107,7 @@ export default function CellSpacing() {
           cellPlugins={cellPlugins}
           value={state.value}
           onChange={(value) => setState((s) => ({ ...s, value }))}
-          // let's also test our ability to survive non-numbers
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          cellSpacing={[state.cellSpacingX as any, state.cellSpacingY as any]}
+          cellSpacing={{ x: state.cellSpacingX, y: state.cellSpacingY }}
         />
       </div>
     </PageLayout>

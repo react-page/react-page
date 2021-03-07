@@ -93,7 +93,7 @@ const Droppable: React.FC<{ nodeId: string; isLeaf?: boolean }> = (props) => {
   const hoverPosition = useNodeHoverPosition(props.nodeId);
   const options = useOptions();
   const hasPlugin = useCellHasPlugin(props.nodeId);
-  const [, cellSpacingY] = useCellSpacing();
+  const { y: cellSpacingY } = useCellSpacing();
   const needVerticalMargin = !props.isLeaf && !hasPlugin;
 
   if (!(isLayoutMode || isInsertMode) && !options.allowMoveInEditMode) {

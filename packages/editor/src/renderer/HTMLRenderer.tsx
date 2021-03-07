@@ -3,13 +3,20 @@ import React from 'react';
 import { migrateValue } from '../core/migrations/migrate';
 import { setAllSizesAndOptimize } from '../core/reducer/value/helper/setAllSizesAndOptimize';
 import { optimizeRows } from '../core/reducer/value/helper/optimize';
-import type { Cell, CellPlugin, Row, ValueWithLegacy } from '../core/types';
+import type {
+  Cell,
+  CellPlugin,
+  Row,
+  ValueWithLegacy,
+  CellSpacing,
+} from '../core/types';
 import { getCellData } from '../core/utils/getCellData';
 import { getCellStyle } from '../core/utils/getCellStyle';
 import {
   getPluginCellSpacing,
   normalizeCellSpacing,
 } from '../core/utils/getCellSpacing';
+import NoopProvider from '../core/components/Cell/NoopProvider';
 
 const gridClass = (size = 12): string =>
   `react-page-cell-sm-${size} react-page-cell-xs-12`;
@@ -23,56 +30,41 @@ const HTMLRow: React.FC<
       lang: string;
       className?: string;
       cellPlugins: CellPlugin[];
-      cellSpacing: [number, number];
+      cellSpacing: CellSpacing;
     }
   >
-> = React.memo(
-  ({
-    cells = [],
-    className,
-    lang,
-    cellPlugins,
-    cellSpacing: [cellSpacingX, cellSpacingY],
-  }) => (
-    <div
-      className={classNames('react-page-row', className, {
-        'react-page-row-has-floating-children': rowHasInlineChildren({ cells }),
-      })}
-      style={{ margin: `0 ${-cellSpacingX / 2}px` }}
-    >
-      {cells.map((c, index) => (
-        <HTMLCell
-          key={c.id}
-          {...c}
-          lang={lang}
-          cellPlugins={cellPlugins}
-          cellSpacing={[cellSpacingX, cellSpacingY]}
-        />
-      ))}
-    </div>
-  )
-);
+> = React.memo(({ cells = [], className, lang, cellPlugins, cellSpacing }) => (
+  <div
+    className={classNames('react-page-row', className, {
+      'react-page-row-has-floating-children': rowHasInlineChildren({ cells }),
+    })}
+    style={{ margin: `0 ${-cellSpacing.x / 2}px` }}
+  >
+    {cells.map((c, index) => (
+      <HTMLCell
+        key={c.id}
+        {...c}
+        lang={lang}
+        cellPlugins={cellPlugins}
+        cellSpacing={cellSpacing}
+      />
+    ))}
+  </div>
+));
 
 // eslint-disable-next-line no-empty-function
 const noop = () => {
   return;
 };
 
-const DefaultProvider: React.FC = ({ children }) => <>{children}</>;
-
 const HTMLCell: React.FC<
   Cell & {
     lang: string;
     cellPlugins: CellPlugin[];
-    cellSpacing: [number, number];
+    cellSpacing: CellSpacing;
   }
 > = React.memo((props) => {
-  const {
-    lang,
-    cellPlugins,
-    cellSpacing: [cellSpacingX, cellSpacingY],
-    ...cell
-  } = props;
+  const { lang, cellPlugins, cellSpacing, ...cell } = props;
   const { size, hasInlineNeighbour, inline, isDraftI18n, isDraft } = cell;
   const hasChildren = cell.rows?.length > 0;
   const cnOuter = classNames(gridClass(size), {
@@ -93,12 +85,16 @@ const HTMLCell: React.FC<
   if (plugin) {
     const { Renderer } = plugin;
     const cellStyle = getCellStyle(plugin);
-    const Provider = plugin.Provider ?? DefaultProvider;
+    const Provider = plugin.Provider ?? NoopProvider;
     const data = getCellData(cell, lang);
-    const pluginCellSpacing = getPluginCellSpacing(plugin, data);
-    const [pluginCellSpacingX, pluginCellSpacingY] = pluginCellSpacing
-      ? normalizeCellSpacing(pluginCellSpacing)
-      : [cellSpacingX, cellSpacingY];
+
+    let pluginCellSpacing = getPluginCellSpacing(plugin, data);
+    if (typeof pluginCellSpacing === 'undefined' || pluginCellSpacing == null) {
+      pluginCellSpacing = cellSpacing;
+    } else {
+      pluginCellSpacing = normalizeCellSpacing(pluginCellSpacing);
+    }
+
     const props = {
       readOnly: true,
       lang: lang,
@@ -114,7 +110,7 @@ const HTMLCell: React.FC<
       <Provider {...props}>
         <div
           className={cnOuter}
-          style={{ padding: `${cellSpacingY / 2}px ${cellSpacingX / 2}px` }}
+          style={{ padding: `${cellSpacing.y / 2}px ${cellSpacing.x / 2}px` }}
         >
           <div className={cnInner}>
             <div
@@ -132,13 +128,13 @@ const HTMLCell: React.FC<
               >
                 <Renderer {...props}>
                   {cell.rows?.length ? (
-                    <div style={{ margin: `${-pluginCellSpacingY / 2}px 0` }}>
+                    <div style={{ margin: `${-pluginCellSpacing.y / 2}px 0` }}>
                       {cell.rows?.map((r: Row) => (
                         <HTMLRow
                           key={r.id}
                           {...r}
                           cellPlugins={cellPlugins}
-                          cellSpacing={[pluginCellSpacingX, pluginCellSpacingY]}
+                          cellSpacing={pluginCellSpacing as CellSpacing}
                           lang={lang}
                           className="react-page-cell-inner"
                         />
@@ -154,7 +150,7 @@ const HTMLCell: React.FC<
     );
   } else if (cell.rows?.length > 0) {
     return (
-      <div className={cnOuter} style={{ padding: `0 ${cellSpacingX / 2}px` }}>
+      <div className={cnOuter} style={{ padding: `0 ${cellSpacing.x / 2}px` }}>
         <div className={cnInner}>
           {cell.rows.map((r: Row) => (
             <HTMLRow
@@ -163,7 +159,7 @@ const HTMLCell: React.FC<
               lang={lang}
               className="react-page-cell-inner"
               cellPlugins={cellPlugins}
-              cellSpacing={[cellSpacingX, cellSpacingY]}
+              cellSpacing={cellSpacing}
             />
           ))}
         </div>
@@ -184,13 +180,13 @@ export interface HTMLRendererProps {
   value: ValueWithLegacy;
   cellPlugins?: CellPlugin[];
   lang?: string;
-  cellSpacing?: number | [number, number];
+  cellSpacing?: number | CellSpacing;
 }
 
 export const HTMLRenderer: React.FC<HTMLRendererProps> = React.memo(
   ({ value, cellPlugins, cellSpacing, lang = 'default' }) => {
     const data = migrateValue(value, { cellPlugins, lang });
-    const [cellSpacingX, cellSpacingY] = normalizeCellSpacing(cellSpacing);
+    const normCellSpacing = normalizeCellSpacing(cellSpacing);
 
     if (!data) {
       return null;
@@ -199,14 +195,16 @@ export const HTMLRenderer: React.FC<HTMLRendererProps> = React.memo(
     const optRows = optimizeRows(rows);
     return (
       <div
-        style={{ margin: optRows?.length ? `${-cellSpacingY / 2}px 0` : null }}
+        style={{
+          margin: optRows?.length ? `${-normCellSpacing.y / 2}px 0` : null,
+        }}
       >
         {setAllSizesAndOptimize(optRows).map((row) => (
           <HTMLRow
             key={row.id}
             cellPlugins={cellPlugins}
             lang={lang}
-            cellSpacing={[cellSpacingX, cellSpacingY]}
+            cellSpacing={normCellSpacing}
             {...row}
           />
         ))}

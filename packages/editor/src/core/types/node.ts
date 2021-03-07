@@ -104,6 +104,11 @@ export type SimplifiedModesProps = {
   allowMoveInEditMode?: boolean;
 };
 
+export type CellSpacing = {
+  x: number;
+  y: number;
+};
+
 // DND
 
 export type CellDrag = {
@@ -146,5 +151,5 @@ export type Options = {
   /**
    * Sets the size of the cell grid gutters in pixels.
    */
-  cellSpacing?: number | [number, number];
+  cellSpacing?: number | CellSpacing;
 } & SimplifiedModesProps;

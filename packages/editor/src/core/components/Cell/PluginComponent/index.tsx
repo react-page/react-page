@@ -13,8 +13,8 @@ import {
   useCellProps,
 } from '../../hooks';
 import PluginMissing from '../PluginMissing';
+import NoopProvider from '../NoopProvider';
 
-const DefaultProvider: React.FC = ({ children }) => <>{children}</>;
 const PluginComponent: React.FC<{ nodeId: string; hasChildren: boolean }> = ({
   nodeId,
   children,
@@ -32,7 +32,7 @@ const PluginComponent: React.FC<{ nodeId: string; hasChildren: boolean }> = ({
 
   const Renderer = plugin?.Renderer;
   const Missing = CustomPluginMissing ?? PluginMissing;
-  const Provider = plugin?.Provider ?? DefaultProvider;
+  const Provider = plugin?.Provider ?? NoopProvider;
   const remove = useRemoveCell(nodeId);
 
   const Toolbar = useOptions().components?.BottomToolbar ?? BottomToolbar;

@@ -36,7 +36,7 @@ const ResizableRowCell: React.FC<Props> = ({
   const isPreviewMode = useIsPreviewMode();
   const resize = useResizeCell(nodeId);
   const [ref, { height: cellHeight }] = useMeasure();
-  const [, cellSpacingY] = useCellSpacing();
+  const { y: cellSpacingY } = useCellSpacing();
 
   const showResizeHandle =
     !isPreviewMode &&

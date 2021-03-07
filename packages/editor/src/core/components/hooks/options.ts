@@ -2,8 +2,9 @@ import React, { createContext, useContext } from 'react';
 import EditorStore, { EditorContext } from '../../EditorStore';
 import { useSelector } from '../../reduxConnect';
 import { getLang } from '../../selector/setting';
-import { Options } from '../../types/node';
+import { Options, CellSpacing } from '../../types/node';
 import { normalizeCellSpacing } from '../../utils/getCellSpacing';
+import NoopProvider from '../Cell/NoopProvider';
 
 /**
  * @returns the store object of the current editor. Contains the redux store.
@@ -64,23 +65,24 @@ export const useLang = () => {
 /**
  * @returns cell spacing for the current cell sub-tree
  */
-export const useCellSpacing: () => [number, number] = () => {
+export const useCellSpacing: () => CellSpacing = () => {
   return normalizeCellSpacing(useOptions().cellSpacing);
 };
 
 /**
- * @returns a Provider component that can be used to override cell spacing for a subtree of cells
+ * @returns a Provider/value tuple that can be used to override cell spacing for a subtree of cells
  */
 export const useCellSpacingProvider = (
-  cellSpacingX: number,
-  cellSpacingY: number
-) => {
+  cellSpacing?: number | CellSpacing
+): [React.FC<{ value: unknown }>, unknown] => {
   const options = useOptions();
-  return (({ children }) => (
-    <OptionsContext.Provider
-      value={{ ...options, cellSpacing: [cellSpacingX, cellSpacingY] }}
-    >
-      {children}
-    </OptionsContext.Provider>
-  )) as React.FC<unknown>;
+  const value = React.useMemo(
+    () => ({ ...options, cellSpacing: normalizeCellSpacing(cellSpacing) }),
+    [options, JSON.stringify(cellSpacing)]
+  );
+  if (cellSpacing) {
+    return [OptionsContext.Provider, value];
+  } else {
+    return [NoopProvider, undefined];
+  }
 };

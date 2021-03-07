@@ -23,7 +23,9 @@ const customLayoutPlugin: CellPlugin<{
   ),
 
   cellSpacing: (data) =>
-    data.cellSpacingOverride ? [data.cellSpacingX, data.cellSpacingY] : null,
+    data.cellSpacingOverride
+      ? { x: data.cellSpacingX, y: data.cellSpacingY }
+      : null,
 
   createInitialData: () => ({
     backgroundColor: '#ffeeaa',

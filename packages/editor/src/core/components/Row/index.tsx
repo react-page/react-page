@@ -49,7 +49,7 @@ const Row: React.FC<{ nodeId: string }> = ({ nodeId }) => {
     (node) => isRow(node) && node.cells.length === 2 && node.cells[0]?.inline
   );
 
-  const [cellSpacingX, cellSpacingY] = useCellSpacing();
+  const { x: cellSpacingX, y: cellSpacingY } = useCellSpacing();
 
   return (
     <Droppable nodeId={nodeId}>
