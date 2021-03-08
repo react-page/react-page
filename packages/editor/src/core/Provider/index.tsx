@@ -52,6 +52,7 @@ const Provider: React.FC<ProviderProps> = ({
   languages,
   pluginsWillChange,
   components,
+  cellSpacing,
   store: passedStore,
   middleware = [],
 }) => {
@@ -151,6 +152,7 @@ const Provider: React.FC<ProviderProps> = ({
       languages,
       childConstraints,
       components,
+      cellSpacing,
     };
   }, [
     pluginsWillChange && cellPlugins,
@@ -161,6 +163,7 @@ const Provider: React.FC<ProviderProps> = ({
     JSON.stringify(childConstraints ?? {}), // its an object, we prevent unnecessary rerenders by stringify it
     ...Object.keys(components ?? {}),
     ...Object.values(components ?? {}), // minimize unnecessary rerenders by forcing shallow comparison of "components" object
+    JSON.stringify(cellSpacing ?? []),
   ]);
 
   return (

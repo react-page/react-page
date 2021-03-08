@@ -8,6 +8,7 @@ import {
   useIsResizeMode,
   useOptions,
   useResizeCell,
+  useCellSpacing,
 } from '../hooks';
 
 type Props = {
@@ -28,13 +29,14 @@ const ResizableRowCell: React.FC<Props> = ({
   size,
   maxSize,
 }) => {
-  const stepWidth = Math.round(rowWidth / 12);
+  const stepWidth = rowWidth / 12; // we're going to keep it a real number to preserve some precision
   const { allowResizeInEditMode } = useOptions();
   const isResizeMode = useIsResizeMode();
   const isEditMode = useIsEditMode();
   const isPreviewMode = useIsPreviewMode();
   const resize = useResizeCell(nodeId);
   const [ref, { height: cellHeight }] = useMeasure();
+  const { y: cellSpacingY } = useCellSpacing();
 
   const showResizeHandle =
     !isPreviewMode &&
@@ -50,14 +52,14 @@ const ResizableRowCell: React.FC<Props> = ({
           bounds={{
             top: 0,
             bottom: 0,
-            left: stepWidth,
-            right: rowWidth - stepWidth,
+            left: Math.round(stepWidth),
+            right: Math.round(rowWidth - stepWidth),
           }}
           position={{
             x:
               rowHasInlineChildrenPosition === 'right'
-                ? stepWidth * (12 - offset)
-                : stepWidth * offset,
+                ? Math.round(stepWidth * (12 - offset))
+                : Math.round(stepWidth * offset),
             y: 0,
           }}
           axis="x"
@@ -69,13 +71,14 @@ const ResizableRowCell: React.FC<Props> = ({
                 : size + diff;
             if (newSize > 0 && newSize <= maxSize) resize(newSize);
           }}
-          grid={[stepWidth, 0]}
+          grid={[Math.round(stepWidth), 0]}
         >
           <div
             className="resize-handle"
             style={{
               // fix floating style
               height: rowHasInlineChildrenPosition ? cellHeight : 'auto',
+              margin: `${cellSpacingY / 2}px 0`,
             }}
           ></div>
         </Draggable>

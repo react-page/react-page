@@ -1,9 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-types */
 
-import { AnyAction } from 'redux';
-
 import type { Migration } from '../migrations/Migration';
-import { Cell, PartialCell, PartialRow } from './node';
+import { Cell, CellSpacing, PartialCell, PartialRow } from './node';
 import { JsonSchema } from './jsonSchema';
 import { ChildConstraints } from './constraints';
 
@@ -176,6 +174,11 @@ export type CellPlugin<DataT = unknown, DataSerializedT = DataT> = {
    * additional style for the wrapping cell
    */
   cellStyle?: React.CSSProperties | (() => React.CSSProperties);
+
+  /**
+   * cell spacing setting for the internal layout (nested cells) if any
+   */
+  cellSpacing?: number | CellSpacing | ((data: DataT) => number | CellSpacing);
 
   /**
    * defines constraint about the children that can be added to this Cell.

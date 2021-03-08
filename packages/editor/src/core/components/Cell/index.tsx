@@ -11,6 +11,7 @@ import {
   useLang,
   useNodeHasChildren,
   useScrollToViewEffect,
+  useCellSpacing,
 } from '../hooks';
 import ErrorCell from './ErrorCell';
 import Inner from './Inner';
@@ -91,6 +92,8 @@ const Cell: React.FC<Props> = ({ nodeId, measureRef }) => {
   const isLayoutMode = useIsLayoutMode();
   const hasChildren = useNodeHasChildren(nodeId);
   const hasPlugin = useCellHasPlugin(nodeId);
+  const { x: cellSpacingX, y: cellSpacingY } = useCellSpacing();
+  const needVerticalPadding = !hasChildren || hasPlugin;
 
   const isDraftInLang = isDraftI18n?.[lang] ?? isDraft;
   const ref = React.useRef<HTMLDivElement>();
@@ -107,10 +110,12 @@ const Cell: React.FC<Props> = ({ nodeId, measureRef }) => {
 
   return (
     <div
-      ref={ref}
+      style={{
+        padding: `${needVerticalPadding ? cellSpacingY / 2 : 0}px ${
+          cellSpacingX / 2
+        }px`,
+      }}
       className={classNames(
-        'react-page-cell',
-
         gridClass({
           isEditMode,
           isPreviewMode,
@@ -118,28 +123,38 @@ const Cell: React.FC<Props> = ({ nodeId, measureRef }) => {
         }),
         {
           'react-page-cell-has-inline-neighbour': hasInlineNeighbour,
+          [`react-page-cell-inline-${inline || ''}`]: inline,
+        }
+      )}
+    >
+      <div
+        ref={ref}
+        className={classNames('react-page-cell', {
           'react-page-cell-has-plugin': hasPlugin,
           'react-page-cell-leaf': !hasChildren,
-          [`react-page-cell-inline-${inline || ''}`]: inline,
           'react-page-cell-focused': focused,
           'react-page-cell-is-draft': isDraftInLang,
           'react-page-cell-bring-to-front':
             !isResizeMode && !isLayoutMode && inline, // inline must not be active for resize/layout
-        }
-      )}
-      onClick={stopClick(isEditMode)}
-    >
-      <Handle nodeId={nodeId} />
-      <div
-        ref={measureRef}
+        })}
+        onClick={stopClick(isEditMode)}
         style={{
           height: '100%',
           boxSizing: 'border-box',
         }}
       >
-        <CellErrorGate nodeId={nodeId}>
-          <Inner nodeId={nodeId} />
-        </CellErrorGate>
+        <Handle nodeId={nodeId} />
+        <div
+          ref={measureRef}
+          style={{
+            height: '100%',
+            boxSizing: 'border-box',
+          }}
+        >
+          <CellErrorGate nodeId={nodeId}>
+            <Inner nodeId={nodeId} />
+          </CellErrorGate>
+        </div>
       </div>
     </div>
   );

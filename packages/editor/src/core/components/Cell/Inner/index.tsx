@@ -1,4 +1,8 @@
 import React from 'react';
+import {
+  getPluginCellSpacing,
+  normalizeCellSpacing,
+} from '../../../utils/getCellSpacing';
 import { getCellStyle } from '../../../utils/getCellStyle';
 import {
   useCellHasPlugin,
@@ -9,6 +13,9 @@ import {
   useNodeChildrenIds,
   usePluginOfCell,
   useSetEditMode,
+  useCellSpacing,
+  useCellData,
+  useCellSpacingProvider,
 } from '../../hooks';
 import Row from '../../Row';
 import Draggable from '../Draggable';
@@ -25,9 +32,17 @@ const Inner: React.FC<{ nodeId: string }> = ({ nodeId }) => {
   const focus = useFocusCell(nodeId);
   const focused = useIsFocused(nodeId);
   const childrenIds = useNodeChildrenIds(nodeId);
+  let { y: cellSpacingY } = useCellSpacing();
   const ref = React.useRef<HTMLDivElement>();
 
   const hasChildren = childrenIds.length > 0;
+
+  const data = useCellData(nodeId);
+  const pluginCellSpacing = getPluginCellSpacing(plugin, data);
+  const [Provider, providerValue] = useCellSpacingProvider(pluginCellSpacing);
+  if (typeof pluginCellSpacing !== 'undefined' && pluginCellSpacing != null) {
+    cellSpacingY = normalizeCellSpacing(pluginCellSpacing).y;
+  }
 
   const onClick = React.useCallback(
     (e: React.MouseEvent<HTMLDivElement>) => {
@@ -82,7 +97,15 @@ const Inner: React.FC<{ nodeId: string }> = ({ nodeId }) => {
           ref={ref}
         >
           <PluginComponent nodeId={nodeId} hasChildren={hasChildren}>
-            {children}
+            {hasChildren ? (
+              <Provider value={providerValue}>
+                <div style={{ margin: `${-cellSpacingY / 2}px 0` }}>
+                  {children}
+                </div>
+              </Provider>
+            ) : (
+              children
+            )}
             {insertAllowed ? <InsertNew parentCellId={nodeId} /> : null}
           </PluginComponent>
         </div>

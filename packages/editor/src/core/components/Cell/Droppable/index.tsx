@@ -16,6 +16,8 @@ import {
   useIsLayoutMode,
   useNodeHoverPosition,
   useOptions,
+  useCellHasPlugin,
+  useCellSpacing,
 } from '../../hooks';
 import { onDrop, onHover } from './helper/dnd';
 
@@ -90,6 +92,10 @@ const Droppable: React.FC<{ nodeId: string; isLeaf?: boolean }> = (props) => {
   const attach = useCellDrop(props.nodeId);
   const hoverPosition = useNodeHoverPosition(props.nodeId);
   const options = useOptions();
+  const hasPlugin = useCellHasPlugin(props.nodeId);
+  const { y: cellSpacingY } = useCellSpacing();
+  const needVerticalMargin = !props.isLeaf && !hasPlugin;
+
   if (!(isLayoutMode || isInsertMode) && !options.allowMoveInEditMode) {
     return (
       <div className={'react-page-cell-droppable-container'}>
@@ -104,12 +110,23 @@ const Droppable: React.FC<{ nodeId: string; isLeaf?: boolean }> = (props) => {
       style={{
         height: '100%',
       }}
-      className={classNames('react-page-cell-droppable', {
-        'react-page-cell-droppable-is-over-current': hoverPosition,
-        [`react-page-cell-droppable-is-over-${hoverPosition}`]: hoverPosition,
-        'react-page-cell-droppable-leaf': props.isLeaf,
-      })}
+      className="react-page-cell-droppable"
     >
+      <div
+        style={{
+          position: 'absolute',
+          pointerEvents: 'none',
+          top: needVerticalMargin ? `${cellSpacingY / 2}px` : 0,
+          left: 0,
+          bottom: needVerticalMargin ? `${cellSpacingY / 2}px` : 0,
+          right: 0,
+        }}
+        className={classNames({
+          'react-page-cell-droppable-is-over-current': hoverPosition,
+          [`react-page-cell-droppable-is-over-${hoverPosition}`]: hoverPosition,
+          'react-page-cell-droppable-leaf': props.isLeaf,
+        })}
+      />
       {props.children}
     </div>
   );
