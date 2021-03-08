@@ -94,15 +94,113 @@ in some cases you might require additional information:
 
 one of two types:
 
-- `{ type: 'autoform' }`: \
-  this type automagically generates the controls for your defined by the `schema` you provide. It uses [uniforms](https://github.com/vazco/uniforms) under the hood. \
-  It takes these additional properties:
-  - `schema`: a `JsonSchema` that defines the `data` that you expect.
-    If you are using typescript, the expected type is derived from the `Data` type of your plugin, so you can autocomplete your way to get the right schema in your IDE!
-  - columnCount: the number of columns that the generated form will use
-- `{ type 'custom'}`: \
-  this type allows you to provide a custom component that is used to edit your cell plugin. It will get shown in the `BottomToolbar` and takes these options:
-  - `Component`: the custom component you want to use for editing. It receives the same props as `Renderer`. in particular `onChange` is importent here. You should call it with new `data` whenever the user wants to save the changes.
+- `{ type: 'autoform' }`,
+- `{ type: 'custom' }`:
+
+See the following chapter.
+
+## Autoform controls
+
+`controls: { type: 'autoform' }` automagically generates the controls for your defined by the `schema` you provide. It uses [uniforms](https://github.com/vazco/uniforms) under the hood. \
+ It takes these additional properties:
+
+- `schema`: a `JsonSchema` that defines the `data` that you expect.
+  If you are using typescript, the expected type is derived from the `Data` type of your plugin, so you can autocomplete your way to get the right schema in your IDE!
+- columnCount: the number of columns that the generated form will use
+
+It supports strings, date and ints, nested objects and arrays. You can also use custom components, for example for an image field that uploads the image to an S3 bucket and return the url, a select field that uses a graphql query to fetch the options, etc.
+
+### Custom field components example
+
+Consider a plugin that has a title and an image.
+You want the plugin to render a file input where the user can upload a file to a S3 bucket or similar:
+
+```tsx
+const myPlugin: CellPlugin<{
+  title: string;
+  imageUrl: string;
+  description: string;
+}> = {
+  Renderer: (props) => (
+    <div>
+      <h1>{props.data.title}</h1>
+      <img style={{ width: 300 }} src={props.data.imageUrl} />
+      <p>{props.data.description}</p>
+    </div>
+  ),
+  id: '',
+  version: 1,
+
+  title: 'Something with a title and an image',
+  controls: {
+    type: 'autoform',
+    schema: {
+      properties: {
+        title: {
+          type: 'string',
+        },
+        imageUrl: {
+          type: 'string',
+          uniforms: {
+            // you can pass additional props to uniforms, e.g. the component to use to render the field
+            component: ImageUploadField,
+          },
+        },
+        description: {
+          type: 'string',
+          uniforms: {
+            // you can also pass other props.
+            // refer to the official uniforms documentation
+            multiline: true,
+            rows: 4,
+          },
+        },
+      },
+    },
+  },
+};
+```
+
+The `ImageUploadField` might be something like this:
+
+```tsx
+import { connectField } from 'uniforms';
+
+const ImageUploadField = connectField(({ value, onChange }) => {
+  return (
+    <div>
+      {value ? (
+        /* show preview*/ <img style={{ width: 150 }} src={value} />
+      ) : null}
+
+      <input
+        type="file"
+        onChange={async (e) => {
+          // imagine you have a function that takes a file and returns a url once it is uploaded, e.g. to s3
+          const url = await uploadFile(e.target.files[0]);
+
+          onChange(url);
+        }}
+      />
+    </div>
+  );
+});
+```
+
+See the official [uniforms documentation](https://uniforms.tools/) for more information.
+
+Also checkout the [nice playground](https://uniforms.tools/playground#?N4IgDgTgpgzlAuIBcICCATd0YwAQAoApAZQHkA5YgYwAsoBbAQwEoQAacCAezBmVEYBXeFxiMAblGQAzRgBs4HISLGSAIlDmMAnsgCMABgMd0ASzEAjOVHQz5ikFoubk8CIKgcwWqlBpc5dCgIOwVPEGhGdFIAOzldJFkwjhhaBkZkEHx8ZlwAXgA-XGAAHRjcXCouGJh4XEYAK3F83BioAHdcVCb8YHq5OQBRCG4IGCRcNw82XEE4DVlBOXhxyfdPXABrKG12rgh0VYBtEpBBGNNpffoYU4BdXABfZgBuMoqqmrrUuiYW0vKFUmpng1gmAHIMFhYDBwWx3kD4NowFAIVwLA0oFR4HCERVIDxgvBTLAJgCgUCqCDtGTJsjUbhwbUIKYYgBzcFPeGAim1RjwBl9JEoiHM1kcrl4oHMqAIWnChlMtzizmPbkUioAL1MYHl9NFyvZcNwYH5AogMQhRwMAFoAJx3YAAVkeqvVQLVUugAEdBKZoOgJkcldAEMbwdqwOG-QLwXd3Y83jEEdJztjTNVKpEBQA1eSmdD8_b4H7pXLkynVWq4cT5wsiCAtRriAB0VXoYFM1hLaSYrzKXoQggtBHoXCCclyhWKUoqtbkBaLEHwY4n_eTPKBlwI88XDZbwVGeAAZMea3WlweRvsYC3rOz4DRy7OgdB4MPyn0gvBGF3Vrv632K8jyeJMNSeKVEwRR4B0BT5q1LJg8wXQDGzyLMoH5KBkL3YtEJYJMETfD9Wg6XASAoahfkYAAhFl0DZKAe2omZ8Jw1D12eHJ2BAGB_HaABJOJWSgYZRlCBxGBgbQYioWJiEECx6BBCTwikmS5JidisNUtUQEfBgpBQJhzVMeQQEeIA) to see whats possble
+
+## Custom Controls
+
+`controls: { type: 'custom' }` enables you to provide a completly custom component that is used to edit your cell plugin. This component will be shown in the `BottomToolbar` when a cell with this plugin is selected.
+
+Use this if `type: "autoform"` is not suitable, e.g. if you either already have good form components or if you have very special requirements.
+Feel free to open an issue with your usecase as we want to make `type: "autoform"` as powerful as possible.
+
+`controls: { type: 'custom' }` takes these options:
+
+- `Component`: the custom component you want to use for editing. It receives the same props as `Renderer` and an `onChange` property. Call this function to pass new data to the plugin. The current data is passed in as `data`.
 
 ## Advanced props
 
@@ -154,10 +252,12 @@ E.g. the default rich text editor plugin ("slate") uses a provider to highlight 
 
 Takes an object:
 
-```
+```ts
+
 childConstraints: {
   maxChildren: number,
 }
+
 ```
 
 it will only show the (+) button to add new cells/rows when it has less than `maxChildren` rows in the current cell.
