@@ -1,3 +1,4 @@
+import { ColorPickerField } from '@react-page/editor';
 import { pluginFactories } from '@react-page/plugins-slate';
 import React from 'react';
 
@@ -19,9 +20,11 @@ export default pluginFactories.createComponentPlugin<{
       required: ['color'],
       properties: {
         color: {
-          default: 'blue',
+          uniforms: {
+            component: ColorPickerField,
+          },
+          default: 'rgba(0,0,255,1)',
           type: 'string',
-          enum: ['red', 'blue', 'green', 'orange'],
         },
       },
     },
