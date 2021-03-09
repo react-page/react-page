@@ -29,6 +29,7 @@ const PluginComponent: React.FC<{ nodeId: string; hasChildren: boolean }> = ({
   const pluginId = useCellProps(nodeId, (c) => c.plugin?.id);
   const plugin = usePluginOfCell(nodeId);
   const focused = useIsFocused(nodeId);
+  const hasInlineNeighbour = useCellProps(nodeId, (c) => c.hasInlineNeighbour);
 
   const Renderer = plugin?.Renderer;
   const Missing = CustomPluginMissing ?? PluginMissing;
@@ -60,13 +61,25 @@ const PluginComponent: React.FC<{ nodeId: string; hasChildren: boolean }> = ({
       <AutoformControls {...componentProps} {...plugin.controls} />
     );
   }
+
+  // In case of non-zero cell spacing, nested layouts (layout plugins with children) should have their
+  // margin collapsing functionality off. The simplest solution is to use display:flex for the below wrapping <div>.
+  // This however is not compatible with inline elements flotation, so if a cell has inline neighbors, we are going
+  // to have to keep display:block style. Layout plugins with inline cell support will have to take care of
+  // margin collapsing internally on their own.
+  const display = hasInlineNeighbour
+    ? {}
+    : {
+        display: 'flex' as const,
+        flexDirection: 'column' as const,
+      };
+
   return (
     <Provider {...componentProps}>
       <>
         <div
           style={{
-            display: 'flex', // need to cancel margin collapsing (cell spacing support)
-            flexDirection: 'column',
+            ...display,
             height: '100%',
             pointerEvents:
               !isPreviewMode && !plugin?.allowClickInside && !hasChildren
