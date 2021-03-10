@@ -121,10 +121,14 @@ const HTMLCell: React.FC<
               }
             >
               <div
-                style={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                }}
+                style={
+                  hasInlineNeighbour
+                    ? null
+                    : {
+                        display: 'flex',
+                        flexDirection: 'column',
+                      }
+                }
               >
                 <Renderer {...props}>
                   {cell.rows?.length ? (
