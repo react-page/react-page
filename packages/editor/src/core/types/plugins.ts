@@ -57,6 +57,13 @@ export type CellPluginComponentProps<DataT> = {
   isEditMode: boolean;
 };
 
+export type CellPluginMissingProps = Omit<
+  CellPluginComponentProps<unknown>,
+  'pluginConfig'
+> & {
+  pluginId: string;
+};
+
 export type CellPluginRenderer<DataT> = React.ComponentType<
   CellPluginComponentProps<DataT> & {
     children?: React.ReactNode;
@@ -188,8 +195,6 @@ export type CellPlugin<DataT = unknown, DataSerializedT = DataT> = {
    * is always true if not defined
    */
   allowNeighbour?: (item: PartialCell) => boolean;
-
-  reducer?: (data: DataT, action: AnyAction) => DataT;
 
   /**
    * called when a cell with this plugin is added

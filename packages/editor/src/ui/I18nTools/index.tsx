@@ -6,9 +6,9 @@ import SelectLang from './SelectLang';
 import I18nDialog from './I18nDialog';
 import { useOptions } from '../../core/components/hooks';
 
-const I18nTools: React.FC<{
+export const I18nTools: React.FC<{
   nodeId: string;
-}> = ({ nodeId }) => {
+}> = React.memo(({ nodeId }) => {
   const options = useOptions();
 
   const [showI18nDialog, setShowI18nDialog] = useState(false);
@@ -37,6 +37,4 @@ const I18nTools: React.FC<{
       </div>
     </>
   );
-};
-
-export default React.memo(I18nTools);
+});

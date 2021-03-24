@@ -129,7 +129,7 @@ export const HTMLRenderer: React.FC<HTMLRendererProps> = React.memo(
     if (!data) {
       return null;
     }
-    const { rows, ...props } = data;
+    const { rows } = data;
     return (
       <>
         {setAllSizesAndOptimize(rows).map((row) => (
@@ -137,8 +137,7 @@ export const HTMLRenderer: React.FC<HTMLRendererProps> = React.memo(
             key={row.id}
             cellPlugins={cellPlugins}
             lang={lang}
-            cells={row.cells}
-            {...props}
+            {...row}
           />
         ))}
       </>

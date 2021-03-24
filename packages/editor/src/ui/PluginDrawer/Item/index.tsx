@@ -3,7 +3,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 
 import React from 'react';
-import { Translations } from '..';
+import type { PluginDrawerTranslations } from '..';
 import {
   useDisplayModeReferenceNodeId,
   useInsertNew,
@@ -15,7 +15,7 @@ type ItemProps = {
   plugin: CellPlugin;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   insert: InsertNewCell;
-  translations: Translations;
+  translations: PluginDrawerTranslations;
 };
 
 const Item: React.FC<ItemProps> = ({ plugin, insert }) => {

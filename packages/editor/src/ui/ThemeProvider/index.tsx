@@ -17,20 +17,16 @@ const generateClassName = createGenerateClassName({
 });
 const theme = createMuiTheme(themeOptions);
 
-export interface ThemeProviderProps {
+export type ThemeProviderProps = {
   theme?: Theme;
-}
+};
 
-class ThemeProvider extends React.Component<ThemeProviderProps> {
-  render() {
-    return (
-      <StylesProvider injectFirst={true} generateClassName={generateClassName}>
-        <MaterialUiThemeProvider theme={this.props.theme || theme}>
-          {this.props.children}
-        </MaterialUiThemeProvider>
-      </StylesProvider>
-    );
-  }
-}
-
-export default ThemeProvider;
+export const ThemeProvider: React.FC<ThemeProviderProps> = (props) => {
+  return (
+    <StylesProvider injectFirst={true} generateClassName={generateClassName}>
+      <MaterialUiThemeProvider theme={props.theme || theme}>
+        {props.children}
+      </MaterialUiThemeProvider>
+    </StylesProvider>
+  );
+};

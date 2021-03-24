@@ -38,7 +38,7 @@ export type StickyNess = {
   rightOffset: number;
   stickyElRef?: React.Ref<HTMLDivElement>;
 };
-const Inner: React.SFC<{
+export const DisplayModeToggle: React.SFC<{
   translations?: typeof defaultTranslations;
   stickyNess?: StickyNess;
 }> = ({ stickyNess, translations = defaultTranslations }) => {
@@ -92,5 +92,3 @@ const Inner: React.SFC<{
     </div>
   );
 };
-
-export default Inner;

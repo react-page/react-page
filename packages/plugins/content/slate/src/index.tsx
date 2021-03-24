@@ -1,7 +1,6 @@
 import { CellPlugin, lazyLoad } from '@react-page/editor';
 import React from 'react';
-import type { AnyAction } from 'redux';
-import { ActionTypes } from 'redux-undo';
+
 import SlateEditor from './components/SlateEditor';
 import SlateProvider from './components/SlateProvider';
 import { defaultTranslations } from './default/settings';
@@ -144,25 +143,7 @@ function plugin<TPlugins extends SlatePluginCollection = DefaultPlugins>(
     hideInMenu: settings.hideInMenu,
     allowInlineNeighbours: settings.allowInlineNeighbours,
     allowClickInside: true,
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    reducer: (state: any, action: AnyAction) => {
-      if (
-        (action.type === ActionTypes.UNDO ||
-          action.type === ActionTypes.REDO) &&
-        (state?.content?.state?.slate ?? false)
-      ) {
-        return {
-          ...state,
-          content: {
-            ...state.content,
-            state: {
-              ...state.content.state,
-            },
-          },
-        };
-      }
-      return state;
-    },
+
     // disable default hotkeys
     handleRemoveHotKey: () => Promise.reject(),
     handleFocusPreviousHotKey: () => Promise.reject(),

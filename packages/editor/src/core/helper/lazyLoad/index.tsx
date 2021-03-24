@@ -1,3 +1,3 @@
-import loadable from '@loadable/component';
+import lazyLoad from '@loadable/component';
 
-export default loadable;
+export default lazyLoad;
