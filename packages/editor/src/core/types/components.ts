@@ -1,5 +1,5 @@
 import { BottomToolbarProps } from '../../ui/BottomToolbar/types';
-import { CellPluginComponentProps, CellPluginMissingProps } from './plugins';
+import { CellPluginMissingProps } from './plugins';
 
 /**
  * Internal component overrides for the editor.

@@ -16,6 +16,7 @@ import { Middleware, Store } from 'redux';
 import { migrateValue } from '../migrations/migrate';
 import { updateValue } from '../actions/value';
 import { RootState } from '../types';
+import { useOptionsMemoized } from './useOptionsMemoized';
 
 type ProviderProps = {
   lang?: string;
@@ -142,29 +143,17 @@ const Provider: React.FC<ProviderProps> = ({
   }, [editorStore, lang]);
 
   // prevent options from recreating all the time
-  const optionsMemoized: Options = useMemo(() => {
-    return {
-      cellPlugins,
-      pluginsWillChange,
-      allowMoveInEditMode,
-      allowResizeInEditMode,
-      editModeResizeHandle,
-      languages,
-      childConstraints,
-      components,
-      cellSpacing,
-    };
-  }, [
-    pluginsWillChange && cellPlugins,
+  const optionsMemoized = useOptionsMemoized({
+    pluginsWillChange,
+    cellPlugins,
     allowMoveInEditMode,
     allowResizeInEditMode,
     editModeResizeHandle,
     languages,
-    JSON.stringify(childConstraints ?? {}), // its an object, we prevent unnecessary rerenders by stringify it
-    ...Object.keys(components ?? {}),
-    ...Object.values(components ?? {}), // minimize unnecessary rerenders by forcing shallow comparison of "components" object
-    JSON.stringify(cellSpacing ?? []),
-  ]);
+    childConstraints,
+    components,
+    cellSpacing,
+  });
 
   return (
     <DndProvider backend={dndBackend}>
