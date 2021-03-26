@@ -1,8 +1,8 @@
 import { CellPlugin } from '../types';
 
-export const getCellStyle = (plugin: CellPlugin) =>
+export const getCellStyle = (plugin: CellPlugin, data: unknown) =>
   plugin?.cellStyle
     ? typeof plugin?.cellStyle === 'function'
-      ? plugin?.cellStyle()
+      ? plugin?.cellStyle(data)
       : plugin?.cellStyle
     : undefined;

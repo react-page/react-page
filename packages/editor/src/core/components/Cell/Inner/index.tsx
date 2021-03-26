@@ -6,6 +6,7 @@ import {
 import { getCellStyle } from '../../../utils/getCellStyle';
 import {
   useCellHasPlugin,
+  useCellStyle,
   useFocusCell,
   useIsEditMode,
   useIsFocused,
@@ -72,8 +73,8 @@ const Inner: React.FC<{ nodeId: string }> = ({ nodeId }) => {
   const insertAllowed = plugin?.childConstraints?.maxChildren
     ? plugin?.childConstraints?.maxChildren > childrenIds.length
     : true;
+  const cellStyle = useCellStyle(nodeId);
 
-  const cellStyle = getCellStyle(plugin);
   const children = childrenIds.map((id) => <Row nodeId={id} key={id} />);
   if (!cellShouldHavePlugin) {
     return <Droppable nodeId={nodeId}>{children}</Droppable>;

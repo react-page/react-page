@@ -1,7 +1,8 @@
 import React from 'react';
 import Fab from '@material-ui/core/Fab';
 
-import { useTheme, useMediaQuery, PropTypes } from '@material-ui/core';
+import { PropTypes } from '@material-ui/core';
+import { useIsSmallScreen } from '../../../core/components/hooks';
 
 const DisplayModeToggle = ({
   description,
@@ -20,14 +21,13 @@ const DisplayModeToggle = ({
   onClick: React.MouseEventHandler<HTMLElement>;
   style?: React.CSSProperties;
 }) => {
-  const theme = useTheme();
-  const isLarge = useMediaQuery(theme.breakpoints.up('sm'));
+  const isSmall = useIsSmallScreen();
   return (
     <div className="react-page-controls-mode-toggle-button" style={style}>
       <div className="react-page-controls-mode-toggle-button-inner">
         <Fab
           color={active ? activeColor : 'default'}
-          size={isLarge ? 'large' : 'small'}
+          size={isSmall ? 'small' : 'large'}
           onClick={onClick}
           disabled={disabled}
         >
