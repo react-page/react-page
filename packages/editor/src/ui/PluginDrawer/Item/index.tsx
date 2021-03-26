@@ -3,10 +3,10 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 
 import React from 'react';
-import type { PluginDrawerTranslations } from '..';
+import type { PluginDrawerLabels } from '..';
 import {
   useDisplayModeReferenceNodeId,
-  useInsertNew,
+  useInsertNew, useUiTranslator,
 } from '../../../core/components/hooks';
 import { CellPlugin, InsertNewCell } from '../../../core/types';
 import Draggable from '../Draggable/index';
@@ -15,11 +15,12 @@ type ItemProps = {
   plugin: CellPlugin;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   insert: InsertNewCell;
-  translations: PluginDrawerTranslations;
+  translations: PluginDrawerLabels;
 };
 
 const Item: React.FC<ItemProps> = ({ plugin, insert }) => {
   const title = plugin.title ?? plugin.text;
+  const { t } = useUiTranslator();
   if (!plugin.icon && !title) {
     return null;
   }
@@ -34,7 +35,7 @@ const Item: React.FC<ItemProps> = ({ plugin, insert }) => {
   return (
     <Draggable insert={insert}>
       <ListItem
-        title="Click to add or drag and drop it somwhere on your page!"
+        title={t('Click to add or drag and drop it somewhere on your page!')}
         className="react-page-plugin-drawer-item"
         onClick={insertIt}
       >
@@ -44,7 +45,7 @@ const Item: React.FC<ItemProps> = ({ plugin, insert }) => {
             marginRight: 16,
           }}
         />
-        <ListItemText primary={title} secondary={plugin.description} />
+        <ListItemText primary={t(title)} secondary={t(plugin.description)} />
       </ListItem>
     </Draggable>
   );

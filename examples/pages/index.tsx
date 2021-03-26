@@ -27,10 +27,10 @@ export default function Home() {
   const [value, setValue] = useState<Value>(demo);
   const reset = () => setValue(demo);
   const uiTranslator = useCallback((label?: string) => {
-    if (TRANSLATIONS[label] !== undefined) {      
+    if (TRANSLATIONS[label] !== undefined) {
       return TRANSLATIONS[label];
-    }    
-    return label;
+    }
+    return `${label}*`;
   }, []);
 
   return (
