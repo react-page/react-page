@@ -1,5 +1,5 @@
 import { CellPlugin, Value } from '../../../types';
-import { createEditable } from '../../../utils/createEditable';
+import { createValue } from '../../../utils/createValue';
 import { simulateDispatch } from '../testUtils';
 //type State = { foo?: number; bar?: number };
 
@@ -18,7 +18,7 @@ const options = {
 
 describe('initial reduce (without actions)', () => {
   it('remove cells that have no rows and no plugin', () => {
-    const initialState = createEditable(
+    const initialState = createValue(
       {
         id: 'editableId',
         rows: [
@@ -67,7 +67,7 @@ describe('initial reduce (without actions)', () => {
     expect(actualState).toEqual(expectedState);
   });
   it('remove cells that have rows, but they are mepty and simplifies rows', () => {
-    const initialState = createEditable(
+    const initialState = createValue(
       {
         id: 'editableId',
         rows: [
@@ -174,7 +174,7 @@ describe('initial reduce (without actions)', () => {
 TODO: readd this tests
 
 test('insert cell right of, clean up tree afterwards', () => {
-  const initialState = createEditable('editable', [
+  const initialState = createValue('editable', [
     createCell('0', [
       createRow('00', [
         createCell('000', [
@@ -204,7 +204,7 @@ test('insert cell right of, clean up tree afterwards', () => {
     }
   );
 
-  const expectedState = createEditable(
+  const expectedState = createValue(
     'editable',
     _cells([
       createCell('0', [
@@ -221,7 +221,7 @@ test('insert cell right of, clean up tree afterwards', () => {
 });
 
 test('anti-recursion test: cell insert below of two level', () => {
-  const initialState = createEditable('editable', [
+  const initialState = createValue('editable', [
     createCell('0', [
       createRow('00', [
         createCell('000', [
@@ -251,7 +251,7 @@ test('anti-recursion test: cell insert below of two level', () => {
     }
   );
 
-  const expectedState = createEditable(
+  const expectedState = createValue(
     'editable',
     _cells([
       createCell(
@@ -274,7 +274,7 @@ test('anti-recursion test: cell insert below of two level', () => {
 });
 
 test('cell insert right of cell', () => {
-  const initialState = createEditable('editable', [
+  const initialState = createValue('editable', [
     createCell('0', [
       createRow('00', [createContentCell('000', 'foo')]),
       createRow('01', [createContentCell('010', 'bar')]),
@@ -292,7 +292,7 @@ test('cell insert right of cell', () => {
     }
   );
 
-  const expectedState = createEditable(
+  const expectedState = createValue(
     'editable',
     _cells([
       createCell('0', [
@@ -309,7 +309,7 @@ test('cell insert right of cell', () => {
 });
 
 test('cell insert below of cell - one level deep (row)', () => {
-  const initialState = createEditable('editable', [
+  const initialState = createValue('editable', [
     createCell('0', [
       createRow('00', [createContentCell('000', 'foo')]),
       createRow('01', [createContentCell('010', 'bar')]),
@@ -327,7 +327,7 @@ test('cell insert below of cell - one level deep (row)', () => {
     }
   );
 
-  const expectedState = createEditable(
+  const expectedState = createValue(
     'editable',
     _cells([
       createCell('0', [
@@ -346,7 +346,7 @@ test('cell insert below of cell - one level deep (row)', () => {
 });
 
 test('cell insert left of cell - one level deep (row)', () => {
-  const initialState = createEditable('editable', [
+  const initialState = createValue('editable', [
     createCell('0', [
       createRow('00', [createContentCell('000', 'foo')]),
       createRow('01', [createContentCell('010', 'bar')]),
@@ -364,7 +364,7 @@ test('cell insert left of cell - one level deep (row)', () => {
     }
   );
 
-  const expectedState = createEditable(
+  const expectedState = createValue(
     'editable',
     _cells([
       createCell('0', [
@@ -381,7 +381,7 @@ test('cell insert left of cell - one level deep (row)', () => {
 });
 
 test('cell insert left of cell', () => {
-  const initialState = createEditable('editable', [
+  const initialState = createValue('editable', [
     createCell('0', [
       createRow('00', [createContentCell('000', 'foo')]),
       createRow('01', [createContentCell('010', 'bar')]),
@@ -399,7 +399,7 @@ test('cell insert left of cell', () => {
     }
   );
 
-  const expectedState = createEditable(
+  const expectedState = createValue(
     'editable',
     _cells([
       createCell('0', [
@@ -416,7 +416,7 @@ test('cell insert left of cell', () => {
 });
 
 test('cell insert above cell', () => {
-  const initialState = createEditable('editable', [
+  const initialState = createValue('editable', [
     createCell('0', [
       createRow('00', [createContentCell('000', 'foo')]),
       createRow('01', [createContentCell('010', 'bar')]),
@@ -434,7 +434,7 @@ test('cell insert above cell', () => {
     }
   );
 
-  const expectedState = createEditable(
+  const expectedState = createValue(
     'editable',
     _cells([
       createCell('0', [
@@ -453,7 +453,7 @@ test('cell insert above cell', () => {
 });
 
 test('cell insert below cell', () => {
-  const initialState = createEditable('editable', [
+  const initialState = createValue('editable', [
     createCell('0', [
       createRow('00', [createContentCell('000', 'foo')]),
       createRow('01', [createContentCell('010', 'bar')]),
@@ -471,7 +471,7 @@ test('cell insert below cell', () => {
     }
   );
 
-  const expectedState = createEditable(
+  const expectedState = createValue(
     'editable',
     _cells([
       createCell('0', [
@@ -490,7 +490,7 @@ test('cell insert below cell', () => {
 });
 
 test('cell move below another cell', () => {
-  const initialState = createEditable('editable', [
+  const initialState = createValue('editable', [
     createCell('0', [
       createRow('00', [createContentCell('000', 'foo')]),
       createRow('01', [createContentCell('010', 'bar')]),
@@ -508,7 +508,7 @@ test('cell move below another cell', () => {
     }
   );
 
-  const expectedState = createEditable(
+  const expectedState = createValue(
     'editable',
     _cells([
       createCell('0', [
@@ -522,7 +522,7 @@ test('cell move below another cell', () => {
 });
 
 test('cell insert inline cell left of', () => {
-  const initialState = createEditable('editable', [
+  const initialState = createValue('editable', [
     createCell('0', [
       createRow('00', [
         createContentCell('000', 'foo'),
@@ -542,7 +542,7 @@ test('cell insert inline cell left of', () => {
     }
   );
 
-  const expectedState = createEditable(
+  const expectedState = createValue(
     'editable',
     _cells([
       createCell('0', [
@@ -572,7 +572,7 @@ test('cell insert inline cell left of', () => {
 });
 
 test('move inline cell from left to right', () => {
-  const initialState = createEditable('editable', [
+  const initialState = createValue('editable', [
     createCell('0', [
       createRow('00', [
         createContentCell('000', 'foo', null, { inline: 'left' }),
@@ -592,7 +592,7 @@ test('move inline cell from left to right', () => {
     }
   );
 
-  const expectedState = createEditable(
+  const expectedState = createValue(
     'editable',
     _cells([
       createCell('0', [
@@ -608,7 +608,7 @@ test('move inline cell from left to right', () => {
 });
 
 test('cell insert cell left of inline row', () => {
-  const initialState = createEditable('editable', [
+  const initialState = createValue('editable', [
     createCell('0', [
       createRow('00', [
         createContentCell('000', 'foo', null, { inline: 'left' }),
@@ -628,7 +628,7 @@ test('cell insert cell left of inline row', () => {
     }
   );
 
-  const expectedState = createEditable(
+  const expectedState = createValue(
     'editable',
     _cells([
       createContentCell('id-item', 'myPlugin', null, { size: 6 }),
@@ -645,7 +645,7 @@ test('cell insert cell left of inline row', () => {
 });
 
 test('cell insert below inline row', () => {
-  const initialState = createEditable('editable', [
+  const initialState = createValue('editable', [
     createCell('0', [
       createRow('00', [
         createContentCell('000', 'foo', null, { inline: 'left' }),
@@ -665,7 +665,7 @@ test('cell insert below inline row', () => {
     }
   );
 
-  const expectedState = createEditable(
+  const expectedState = createValue(
     'editable',
     _cells([
       createCell('0', [
@@ -684,7 +684,7 @@ test('cell insert below inline row', () => {
 });
 
 test('cell insert below inline row - 2 level', () => {
-  const initialState = createEditable('editable', [
+  const initialState = createValue('editable', [
     createCell('0', [
       createRow('00', [
         createContentCell('000', 'foo', null, { inline: 'left' }),
@@ -704,7 +704,7 @@ test('cell insert below inline row - 2 level', () => {
     }
   );
 
-  const expectedState = createEditable(
+  const expectedState = createValue(
     'editable',
     _cells([
       createCell(

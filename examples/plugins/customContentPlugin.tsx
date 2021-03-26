@@ -28,7 +28,7 @@ const customContentPlugin: CellPlugin<{
   ),
   id: 'custom-content-plugin',
   title: 'Custom content plugin',
-  description: 'Some custom content plugin',
+  description: 'Some custom content plugin with multiple controls',
   version: 1,
   controls: [
     {
@@ -39,7 +39,8 @@ const customContentPlugin: CellPlugin<{
           properties: {
             title: {
               type: 'string',
-              default: 'I am a custom plugin, this is my configuration',
+              default:
+                'I am a custom plugin with multiple controls, this is my configuration',
             },
             firstName: { type: 'string' },
             lastName: { type: 'string' },

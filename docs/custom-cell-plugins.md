@@ -90,12 +90,21 @@ in some cases you might require additional information:
 - `readOnly` (boolean): true means the editor just shows the content.
 - `onChange`: (function): You can call `onChange` to update the cell with new data
 
+### `cellStyle`
+
+`cellStyle` can be a style object (`CSSProperties`) or a function that returns a style object. This function receives the `data` of the plugin as argument.
+
+This style will be applied to the outermost div of the cell, not to the Component specified in `Renderer`.
+
+This is useful to customize paddings of a cell or similar.
+
 ### `controls`
 
-one of two types:
+one of three types:
 
 - `{ type: 'autoform' }`,
 - `{ type: 'custom' }`:
+- an Array of `{ title: string, controls: {...} }`:
 
 See the following chapter.
 
@@ -201,6 +210,60 @@ Feel free to open an issue with your usecase as we want to make `type: "autoform
 `controls: { type: 'custom' }` takes these options:
 
 - `Component`: the custom component you want to use for editing. It receives the same props as `Renderer` and an `onChange` property. Call this function to pass new data to the plugin. The current data is passed in as `data`.
+
+## Multiple Controls
+
+You can specify multiple controls each with a title. Plugin with multiple controls will show additional Tabs in the Toolbar
+to switch between the controls:
+
+```tsx
+const customContentPlugin: CellPlugin<{
+  title: string;
+  advancedProperty: string;
+}> = {
+  id: 'my-plugin',
+  controls: [
+    {
+      title: 'Basse config',
+      controls: {
+        type: 'autoform',
+        schema: {
+          properties: {
+            title: {
+              type: 'string',
+            },
+          },
+          required: [],
+        },
+      },
+    },
+    {
+      title: 'Advanced',
+      controls: {
+        type: 'autoform',
+        schema: {
+          type: 'object',
+          required: [],
+          properties: {
+            advancedProperty: {
+              type: 'string',
+            },
+          },
+        },
+      },
+    },
+  ],
+};
+```
+
+[See working example here](//demo/examples/multicontrols)
+
+<details>
+  <summary>Show example (click to expand)</summary>
+
+[customContentPlugin.tsx](examples/plugins/customContentPlugin.tsx ':include :type=code typescript')
+
+</details>
 
 ## Advanced props
 

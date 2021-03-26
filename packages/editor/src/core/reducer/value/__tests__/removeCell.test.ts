@@ -1,6 +1,6 @@
 import { CellPlugin, Value } from '../../../types';
 import { removeCell } from '../../../actions/cell';
-import { createEditable } from '../../../utils/createEditable';
+import { createValue } from '../../../utils/createValue';
 import { simulateDispatch } from '../testUtils';
 
 const cellPlugins: CellPlugin[] = [
@@ -17,7 +17,7 @@ const options = {
 };
 describe('remove cell', () => {
   it('removes cell by id', () => {
-    const initialState = createEditable(
+    const initialState = createValue(
       {
         id: 'editableId',
         rows: [

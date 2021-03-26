@@ -39,7 +39,7 @@ To get off the ground as soon as possible, simply create a component like so:
 
 That's it, congratulations!
 
-[You should see something like this now (click for the demo)](//demo/simple)
+[You should see something like this now (click for the demo)](//demo/examples/simple)
 
 ## Readonly
 
@@ -51,4 +51,4 @@ We won't load any UI related code unless readOnly changes to `false`. In this ca
 
 [simple.tsx](examples/pages/examples/readonly.tsx ':include :type=code typescript')
 
-(see demo here)](//demo/readonly)
+(see demo here)](//demo/examples/readonly)
