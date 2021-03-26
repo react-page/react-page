@@ -90,6 +90,19 @@ That way an editing user can select the language at any time. Any cell will allw
 
 Additionaly cells can be hidden _per language_.
 
+### `cellSpacing`
+
+Takes a number or an object `{x: number, y: number}:
+
+```tsx
+cellSpacing = {
+  x: 15, // horizontal cell spacing
+  y: 20, // vertical cell spacing
+};
+```
+
+[Look at this example to see how cellSpacing affects the layout](//demo/examples/cellSpacing)
+
 ### `childConstraints` (experimental)
 
 Takes an object:
