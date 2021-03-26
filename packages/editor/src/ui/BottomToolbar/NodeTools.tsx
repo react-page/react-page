@@ -1,6 +1,6 @@
 import { Avatar, Grid, Typography } from '@material-ui/core';
 import React from 'react';
-import { usePluginOfCell } from '../../core/components/hooks';
+import { usePluginOfCell, useUiTranslator } from '../../core/components/hooks';
 import { BottomToolbarTools } from './Tools';
 
 export type BottomToolbarMainBarProps = {
@@ -10,14 +10,14 @@ export type BottomToolbarMainBarProps = {
 export const BottomToolbarMainBar: React.FC<BottomToolbarMainBarProps> = React.memo(
   ({ nodeId, actionsLeft }) => {
     const { title, icon } = usePluginOfCell(nodeId) ?? {};
-
+    const { t } = useUiTranslator();
     return (
       <div>
         <Grid container={true} direction="row" alignItems="center">
           {icon || title ? (
             <Grid item={true}>
               <Avatar
-                children={icon || (title ? title[0] : '')}
+                children={icon || t(title ? title[0] : '')}
                 style={{
                   marginRight: 16,
                 }}
@@ -25,7 +25,7 @@ export const BottomToolbarMainBar: React.FC<BottomToolbarMainBarProps> = React.m
             </Grid>
           ) : null}
           <Grid item={true}>
-            <Typography variant="subtitle1">{title}</Typography>
+            <Typography variant="subtitle1">{t(title)}</Typography>
           </Grid>
           {React.Children.map(actionsLeft, (action, index) => (
             <Grid item={true} key={index}>
