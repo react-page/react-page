@@ -20,6 +20,7 @@ export type EditableEditorProps = {
   lang?: string;
   onChangeLang?: (l: string) => void;
   hideEditorSidebar?: boolean;
+  uiTranslator: (label?: string) => string | undefined;
 } & Options;
 
 const EditableEditor: React.FC<EditableEditorProps> = ({
@@ -40,6 +41,7 @@ const EditableEditor: React.FC<EditableEditorProps> = ({
   childConstraints,
   components,
   cellSpacing,
+  uiTranslator,
 }) => {
   const theValue = value || createEmptyState();
   return (
@@ -60,6 +62,7 @@ const EditableEditor: React.FC<EditableEditorProps> = ({
       childConstraints={childConstraints}
       components={components}
       cellSpacing={cellSpacing}
+      uiTranslator={uiTranslator}
     >
       <StickyWrapper>
         {(stickyNess) => (

@@ -6,7 +6,7 @@ import BlurGate from '../components/BlurGate';
 import EditorStore, { EditorContext } from '../EditorStore';
 import { ReduxProvider } from '../reduxConnect';
 import { DisplayModes } from '../actions/display';
-import { OptionsContext } from '../components/hooks';
+import { OptionsContext, UiTranslatorContext } from '../components/hooks';
 import { Value, Options } from '../types/node';
 
 import { serialzeValue } from '../migrations/serialzeValue';
@@ -34,6 +34,7 @@ type ProviderProps = {
    * pass custom redux middleware:. Might get deprecated in the future
    */
   middleware?: Middleware[];
+  uiTranslator: (label?: string) => string | undefined;
 } & Options;
 
 const Provider: React.FC<ProviderProps> = ({
@@ -54,6 +55,7 @@ const Provider: React.FC<ProviderProps> = ({
   pluginsWillChange,
   components,
   cellSpacing,
+  uiTranslator,
   store: passedStore,
   middleware = [],
 }) => {
@@ -155,19 +157,28 @@ const Provider: React.FC<ProviderProps> = ({
     cellSpacing,
   });
 
+  const uiTranslatorMemorized = useMemo(
+    () => ({
+      t: uiTranslator,
+    }),
+    [uiTranslator]
+  );
+
   return (
     <DndProvider backend={dndBackend}>
       <ReduxProvider store={editorStore.store}>
-        <OptionsContext.Provider value={optionsMemoized}>
-          <EditorContext.Provider value={editorStore}>
-            <BlurGate
-              disabled={blurGateDisabled}
-              defaultMode={blurGateDefaultMode}
-            >
-              {children}
-            </BlurGate>
-          </EditorContext.Provider>
-        </OptionsContext.Provider>
+        <UiTranslatorContext.Provider value={uiTranslatorMemorized}>
+          <OptionsContext.Provider value={optionsMemoized}>
+            <EditorContext.Provider value={editorStore}>
+              <BlurGate
+                disabled={blurGateDisabled}
+                defaultMode={blurGateDefaultMode}
+              >
+                {children}
+              </BlurGate>
+            </EditorContext.Provider>
+          </OptionsContext.Provider>
+        </UiTranslatorContext.Provider>
       </ReduxProvider>
     </DndProvider>
   );

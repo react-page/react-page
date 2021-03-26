@@ -1,4 +1,5 @@
 import React from 'react';
+import { useUiTranslator } from '../../core/components/hooks';
 import ToggleEdit from './ToggleEdit/index';
 import ToggleInsert from './ToggleInsert/index';
 import ToggleLayout from './ToggleLayout/index';
@@ -42,14 +43,15 @@ export const DisplayModeToggle: React.SFC<{
   translations?: typeof defaultTranslations;
   stickyNess?: StickyNess;
 }> = ({ stickyNess, translations = defaultTranslations }) => {
+  const { t } = useUiTranslator();
   const actions = [
     // eslint-disable-next-line react/jsx-key
     { action: <UndoRedo labelRedo="redo" labelUndo="undo" /> },
-    { action: <ToggleEdit label={translations.edit} /> },
-    { action: <ToggleInsert label={translations.insert} /> },
-    { action: <ToggleLayout label={translations.layout} /> },
-    { action: <ToggleResize label={translations.resize} /> },
-    { action: <TogglePreview label={translations.preview} /> },
+    { action: <ToggleEdit label={t(translations.edit)} /> },
+    { action: <ToggleInsert label={t(translations.insert)} /> },
+    { action: <ToggleLayout label={t(translations.layout)} /> },
+    { action: <ToggleResize label={t(translations.resize)} /> },
+    { action: <TogglePreview label={t(translations.preview)} /> },
   ];
   return (
     <div

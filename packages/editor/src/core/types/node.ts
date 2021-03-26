@@ -153,3 +153,10 @@ export type Options = {
    */
   cellSpacing?: number | CellSpacing;
 } & SimplifiedModesProps;
+
+/**
+ * This is the ui-translator.
+ */
+export type UiTranslator = {
+  t: (label?: string) => string | undefined;
+};
