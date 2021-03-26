@@ -6,7 +6,7 @@ import {
   useCellDataI18nRaw,
   useLang,
   useOptions,
-  useSetLang,
+  useSetLang, useUiTranslator,
   useUpdateCellData,
 } from '../../core/components/hooks';
 import DraftSwitch from '../DraftSwitch';
@@ -21,7 +21,7 @@ const I18nDialog = ({
 }) => {
   const currentLang = useLang();
   const options = useOptions();
-
+  const { t } = useUiTranslator();
   const setLang = useSetLang();
   const dataI18n = useCellDataI18nRaw(nodeId);
 
@@ -57,7 +57,7 @@ const I18nDialog = ({
                   }}
                 >
                   <Button onClick={() => setLang(l.lang)}>
-                    {l.label} {index === 0 ? '(default)' : null}
+                    {l.label} {index === 0 ? (t('(default)') || '(default)') : null}
                   </Button>
                 </th>
 
@@ -73,7 +73,7 @@ const I18nDialog = ({
                         reset(l.lang);
                       }}
                     >
-                      Reset to {defaultLangLabel} ⚠️
+                      {t(`Reset to ${defaultLangLabel} ⚠️`) || `Reset to ${defaultLangLabel} ⚠️`}
                     </Button>
                   ) : null}
                 </td>
@@ -82,7 +82,7 @@ const I18nDialog = ({
           })}
         </tbody>
       </Table>
-      <Button onClick={() => onClose()}>Close</Button>
+      <Button onClick={() => onClose()}>{t('Close')}</Button>
     </DialogContent>
   );
 };

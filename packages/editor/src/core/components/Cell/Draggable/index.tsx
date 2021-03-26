@@ -46,6 +46,8 @@ const Draggable: React.FC<Props> = ({ isLeaf, children, nodeId }) => {
       </div>
     );
   }
+  const ResizeHandle =
+    options.components?.EditModeResizeHandle ?? DefaultSmallHandle;
 
   if (options.allowMoveInEditMode && !isLayoutMode) {
     return (
@@ -64,9 +66,7 @@ const Draggable: React.FC<Props> = ({ isLeaf, children, nodeId }) => {
           onMouseDown={(e) => e.stopPropagation()}
         >
           <div ref={dragRef}>
-            {options.editModeResizeHandle ?? (
-              <DefaultSmallHandle onClick={focus} />
-            )}
+            <ResizeHandle onClick={focus} />
           </div>
 
           {children}

@@ -78,7 +78,8 @@ const ResizableRowCell: React.FC<Props> = ({
             style={{
               // fix floating style
               height: rowHasInlineChildrenPosition ? cellHeight : 'auto',
-              margin: `${cellSpacingY / 2}px 0`,
+              margin:
+                cellSpacingY !== 0 ? `${cellSpacingY / 2}px 0` : undefined,
             }}
           ></div>
         </Draggable>

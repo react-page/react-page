@@ -1,18 +1,11 @@
 import React from 'react';
+import { useUiTranslator } from '../../core/components/hooks';
 import ToggleEdit from './ToggleEdit/index';
 import ToggleInsert from './ToggleInsert/index';
 import ToggleLayout from './ToggleLayout/index';
 import TogglePreview from './TogglePreview/index';
 import ToggleResize from './ToggleResize/index';
 import UndoRedo from './UndoRedo';
-
-const defaultTranslations = {
-  edit: 'Edit things',
-  insert: 'Add things',
-  layout: 'Move things',
-  resize: 'Resize things',
-  preview: 'Preview result',
-};
 
 const getStickyNessstyle = (stickyness?: StickyNess): React.CSSProperties => {
   if (
@@ -39,17 +32,24 @@ export type StickyNess = {
   stickyElRef?: React.Ref<HTMLDivElement>;
 };
 export const DisplayModeToggle: React.SFC<{
-  translations?: typeof defaultTranslations;
   stickyNess?: StickyNess;
-}> = ({ stickyNess, translations = defaultTranslations }) => {
+}> = ({ stickyNess }) => {
+  const { t } = useUiTranslator();
+  const defaultLabels = {
+    edit: 'Edit things',
+    insert: 'Add things',
+    layout: 'Move things',
+    resize: 'Resize things',
+    preview: 'Preview result',
+  };
   const actions = [
     // eslint-disable-next-line react/jsx-key
     { action: <UndoRedo labelRedo="redo" labelUndo="undo" /> },
-    { action: <ToggleEdit label={translations.edit} /> },
-    { action: <ToggleInsert label={translations.insert} /> },
-    { action: <ToggleLayout label={translations.layout} /> },
-    { action: <ToggleResize label={translations.resize} /> },
-    { action: <TogglePreview label={translations.preview} /> },
+    { action: <ToggleEdit label={t(defaultLabels.edit) || defaultLabels.edit} /> },
+    { action: <ToggleInsert label={t(defaultLabels.insert) || defaultLabels.insert} /> },
+    { action: <ToggleLayout label={t(defaultLabels.layout) || defaultLabels.layout} /> },
+    { action: <ToggleResize label={t(defaultLabels.resize) || defaultLabels.resize} /> },
+    { action: <TogglePreview label={t(defaultLabels.preview || defaultLabels.preview)} /> },
   ];
   return (
     <div

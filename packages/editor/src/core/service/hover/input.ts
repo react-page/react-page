@@ -1,6 +1,6 @@
 import type { DropTargetMonitor } from 'react-dnd';
 
-import type { Options, PartialCell } from '../../types/node';
+import type { Options, PartialCell } from '../../types';
 import { HoverInsertActions, Room, Vector } from '../../types/hover';
 import { computeHover, HoverTarget } from './computeHover';
 

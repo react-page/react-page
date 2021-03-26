@@ -5,6 +5,8 @@ import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import ErrorIcon from '@material-ui/icons/Error';
 import { ImageLoaded, ImageUploadProps, ImageUploadState } from './types';
 import { defaultTranslations } from './defaultTranslations';
+import { UiTranslatorContext } from '../../core/components/hooks';
+import { UiTranslator } from '../../core/types';
 
 const NO_FILE_ERROR_CODE = 1;
 const BAD_EXTENSION_ERROR_CODE = 2;
@@ -12,6 +14,7 @@ const TOO_BIG_ERROR_CODE = 3;
 const UPLOADING_ERROR_CODE = 4;
 
 class ImageUpload extends React.Component<ImageUploadProps, ImageUploadState> {
+  static contextType = UiTranslatorContext;
   static defaultProps = {
     icon: <CloudUploadIcon style={{ marginLeft: '8px' }} />,
     allowedExtensions: ['jpg', 'jpeg', 'png'],
@@ -38,21 +41,22 @@ class ImageUpload extends React.Component<ImageUploadProps, ImageUploadState> {
 
   handleError = (errorCode: number) => {
     let errorText = '';
+    const { t } = this.context as UiTranslator;
     switch (errorCode) {
       case NO_FILE_ERROR_CODE:
-        errorText = this.props.translations.noFileError;
+        errorText = t(this.props.translations.noFileError);
         break;
       case BAD_EXTENSION_ERROR_CODE:
-        errorText = this.props.translations.badExtensionError;
+        errorText = t(this.props.translations.badExtensionError);
         break;
       case TOO_BIG_ERROR_CODE:
-        errorText = this.props.translations.tooBigError;
+        errorText = t(this.props.translations.tooBigError);
         break;
       case UPLOADING_ERROR_CODE:
-        errorText = this.props.translations.uploadingError;
+        errorText = t(this.props.translations.uploadingError);
         break;
       default:
-        errorText = this.props.translations.unknownError;
+        errorText = t(this.props.translations.unknownError);
         break;
     }
     // Need to flick "isUploading" because otherwise the handler doesn't fire properly

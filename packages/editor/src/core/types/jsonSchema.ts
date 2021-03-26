@@ -118,5 +118,5 @@ export type JsonSchema<T extends Record<string, unknown> | unknown> = {
   /**
    * required fields
    */
-  required: Array<keyof T>;
+  required?: Array<keyof T>;
 };

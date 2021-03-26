@@ -1,5 +1,5 @@
 import React from 'react';
-import { useIsEditMode, useRemoveCell } from '../../hooks';
+import { useIsEditMode, useRemoveCell, useUiTranslator } from '../../hooks';
 
 const ErrorCell: React.FC<{ nodeId: string; error: Error }> = ({
   nodeId,
@@ -7,18 +7,21 @@ const ErrorCell: React.FC<{ nodeId: string; error: Error }> = ({
 }) => {
   const isEditMode = useIsEditMode();
   const removeCell = useRemoveCell(nodeId);
+  const { t } = useUiTranslator();
   return (
     <div className="react-page-cell-error">
-      <strong>An error occurred!</strong>
+      <strong>{t('An error occurred!') || 'An error occurred!'}</strong>
       <small>
         <dl>
-          <dt>Cause:</dt>
+          <dt>{t('Cause:') || 'Cause:'}</dt>
           <dd>{error.message}</dd>
-          <dt>Cell:</dt>
+          <dt>{t('Cell:') || 'Cell:'}</dt>
           <dd>{nodeId}</dd>
         </dl>
       </small>
-      {isEditMode ? <button onClick={() => removeCell()}>Remove</button> : null}
+      {isEditMode ? (
+        <button onClick={() => removeCell()}>{t('Remove') || 'Remove'}</button>
+      ) : null}
     </div>
   );
 };
