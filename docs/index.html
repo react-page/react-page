@@ -36,7 +36,7 @@
         function (hook, vm) {
           hook.beforeEach((markdown) => {
 
-            const result = markdown.replace(/]\(\/\/demo\//g, `](${document.location.origin}/`)
+            const result = markdown.replace(/]\(\/\/demo\//g, `](${document.location.href.split("#")[0]}/../`)
             return result
           })
         }
