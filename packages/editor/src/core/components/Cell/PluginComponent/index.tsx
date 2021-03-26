@@ -1,5 +1,5 @@
-import React from 'react';
-import { BottomToolbar, AutoformControls } from '../../../../ui';
+import React, { useMemo } from 'react';
+import { BottomToolbar } from '../../../../ui';
 import { CellPluginComponentProps } from '../../../types';
 import {
   usePluginOfCell,
@@ -12,6 +12,7 @@ import {
   useOptions,
   useCellProps,
 } from '../../hooks';
+import PluginControls from '../PluginControls';
 import PluginMissing from '../PluginMissing';
 import NoopProvider from '../NoopProvider';
 
@@ -38,29 +39,32 @@ const PluginComponent: React.FC<{ nodeId: string; hasChildren: boolean }> = ({
 
   const Toolbar = useOptions().components?.BottomToolbar ?? BottomToolbar;
 
-  const componentProps: CellPluginComponentProps<unknown> = {
-    nodeId,
-    lang,
-    data,
-    pluginConfig: plugin,
-    focused: isEditMode && focused,
-    readOnly: !isEditMode,
-    onChange: onChange,
-    isEditMode,
-    isPreviewMode,
-    remove,
-  };
-
-  let pluginControls = null;
-  if (plugin?.controls?.type === 'custom') {
-    const { Component } = plugin.controls;
-    pluginControls = <Component {...componentProps} />;
-  }
-  if (plugin?.controls?.type === 'autoform') {
-    pluginControls = (
-      <AutoformControls {...componentProps} {...plugin.controls} />
-    );
-  }
+  const componentProps = useMemo<CellPluginComponentProps<unknown>>(
+    () => ({
+      nodeId,
+      lang,
+      data,
+      pluginConfig: plugin,
+      focused: isEditMode && focused,
+      readOnly: !isEditMode,
+      onChange: onChange,
+      isEditMode,
+      isPreviewMode,
+      remove,
+    }),
+    [
+      nodeId,
+      lang,
+      data,
+      plugin,
+      isEditMode,
+      focused,
+      onChange,
+      isEditMode,
+      isPreviewMode,
+      remove,
+    ]
+  );
 
   // In case of non-zero cell spacing, nested layouts (layout plugins with children) should have their
   // margin collapsing functionality off. The simplest solution is to use display:flex for the below wrapping <div>.
@@ -96,13 +100,14 @@ const PluginComponent: React.FC<{ nodeId: string; hasChildren: boolean }> = ({
         <Toolbar
           nodeId={nodeId}
           open={focused && isEditMode}
-          dark={plugin?.controls?.dark}
+          dark={plugin?.bottomToolbar?.dark}
           pluginControls={
-            <div
-              style={{ marginBottom: 12, maxHeight: '50vh', overflow: 'auto' }}
-            >
-              {pluginControls}
-            </div>
+            plugin?.controls ? (
+              <PluginControls
+                componentProps={componentProps}
+                controls={plugin?.controls}
+              />
+            ) : null
           }
         />
       </>

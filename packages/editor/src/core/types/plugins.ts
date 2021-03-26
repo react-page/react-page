@@ -5,7 +5,7 @@ import { Cell, CellSpacing, PartialCell, PartialRow } from './node';
 import { JsonSchema } from './jsonSchema';
 import { ChildConstraints } from './constraints';
 
-export type CellPluginComponentProps<DataT> = {
+export type CellPluginComponentProps<DataT = unknown> = {
   /**
    * the cells nodeId
    */
@@ -97,13 +97,20 @@ export type AutoformControlsDef<DataT> = {
   type: 'autoform';
 };
 
+export type SubControlsDef<T> = {
+  title: string;
+  controls: ControlsDef<T>;
+};
+
+export type ControlsDefList<DataT> = Array<SubControlsDef<Partial<DataT>>>;
+
 /**
  * All available type of controls
  */
-export type ControlsDef<DataT> = { dark?: boolean } & (
+export type ControlsDef<DataT> =
   | AutoformControlsDef<DataT>
   | CustomControlsDef<DataT>
-);
+  | ControlsDefList<DataT>;
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type CellPlugin<DataT = unknown, DataSerializedT = DataT> = {
   /**
@@ -145,6 +152,15 @@ export type CellPlugin<DataT = unknown, DataSerializedT = DataT> = {
   migrations?: Migration[];
 
   /**
+   * customize the bottom toolbar
+   */
+  bottomToolbar?: {
+    /**
+     * whether to display the bottom toolbar in dark theme
+     */
+    dark?: boolean;
+  };
+  /**
    * controls define how the user can interact with this cell. @see ControlsDef
    */
   controls?: ControlsDef<DataT>;
@@ -173,7 +189,7 @@ export type CellPlugin<DataT = unknown, DataSerializedT = DataT> = {
   /**
    * additional style for the wrapping cell
    */
-  cellStyle?: React.CSSProperties | (() => React.CSSProperties);
+  cellStyle?: React.CSSProperties | ((data: DataT) => React.CSSProperties);
 
   /**
    * cell spacing setting for the internal layout (nested cells) if any

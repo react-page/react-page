@@ -8,6 +8,7 @@ import {
   useCanUndo,
   useCanRedo,
   useUndo,
+  useIsSmallScreen,
 } from '../../../core/components/hooks';
 import Button from '../Button/index';
 
@@ -20,10 +21,11 @@ const UndoRedo: React.FC<Props> = ({ labelUndo, labelRedo }) => {
   const canUndo = useCanUndo();
   const canRedo = useCanRedo();
   const redo = useRedo();
+  const isSmall = useIsSmallScreen();
   return (
     <div
       style={{
-        height: 80,
+        height: isSmall ? 56 : 80,
         float: 'right',
         display: 'flex',
         direction: 'ltr',
@@ -32,18 +34,22 @@ const UndoRedo: React.FC<Props> = ({ labelUndo, labelRedo }) => {
     >
       <div
         style={{
-          width: 36,
+          width: isSmall ? 29 : 36,
           overflow: 'hidden',
-          marginRight: 2,
+          marginRight: isSmall ? 1 : 2,
         }}
       >
         <Button
           active
           disabled={!canUndo}
           style={{
-            transform: 'translateX(35px)',
+            transform: `translateX(${isSmall ? 27 : 35}px)`,
           }}
-          icon={<IconUndo style={{ transform: 'translateX(-12px)' }} />}
+          icon={
+            <IconUndo
+              style={{ transform: `translateX(-${isSmall ? 6 : 12}px)` }}
+            />
+          }
           description={labelUndo}
           onClick={undo}
           activeColor="primary"
@@ -51,7 +57,7 @@ const UndoRedo: React.FC<Props> = ({ labelUndo, labelRedo }) => {
       </div>
       <div
         style={{
-          width: 36,
+          width: isSmall ? 28 : 36,
           overflow: 'hidden',
           marginLeft: 1,
         }}
@@ -63,7 +69,11 @@ const UndoRedo: React.FC<Props> = ({ labelUndo, labelRedo }) => {
           }}
           active
           disabled={!canRedo}
-          icon={<IconRedo style={{ transform: 'translateX(12px)' }} />}
+          icon={
+            <IconRedo
+              style={{ transform: `translateX(${isSmall ? 6 : 12}px)` }}
+            />
+          }
           description={labelRedo}
           onClick={redo}
           activeColor="primary"

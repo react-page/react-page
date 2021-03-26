@@ -26,7 +26,7 @@
     window.$docsify = {
       search: 'auto', // default
       name: 'React-page',
-      repo: 'https://github.com/react-page/react-page',
+      repo: 'https://github.com/react-page/eitor',
       loadSidebar: '_sidebar.md',
       subMaxLevel: 3,
 
@@ -36,7 +36,7 @@
         function (hook, vm) {
           hook.beforeEach((markdown) => {
 
-            const result = markdown.replace(/]\(\/\/demo\//g, `](${"https://react-page.github.io/beta"/*"http://localhost:3000"*/}/examples/`)
+            const result = markdown.replace(/]\(\/\/demo\//g, `](${document.location.origin}/`)
             return result
           })
         }

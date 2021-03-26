@@ -3,12 +3,12 @@ import { CURRENT_EDITABLE_VERSION } from '../migrations/EDITABLE_MIGRATIONS';
 import { Value, PartialRow } from '../types/node';
 import { createId } from './createId';
 
-type PartialEditable = {
+type PartialValue = {
   id?: string;
   rows?: PartialRow[];
 };
-export const createEditable = (
-  partial: PartialEditable,
+export const createValue = (
+  partial: PartialValue,
   options: PluginsAndLang
 ): Value => {
   return {

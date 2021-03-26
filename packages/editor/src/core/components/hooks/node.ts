@@ -7,6 +7,7 @@ import { findNodeInState } from '../../selector/editable';
 import { Cell, isRow, Node, Row } from '../../types/node';
 import deepEquals from '../../utils/deepEquals';
 import { getCellData } from '../../utils/getCellData';
+import { getCellStyle } from '../../utils/getCellStyle';
 import { getDropLevels } from '../../utils/getDropLevels';
 import { useUpdateCellData } from './nodeActions';
 import { useAllCellPlugins, useLang } from './options';
@@ -213,6 +214,24 @@ export const useCellData = (nodeId: string, lang?: string) => {
   const theLang = lang ?? currentLang;
 
   return useCellProps(nodeId, (c) => getCellData(c, theLang) ?? {});
+};
+
+/**
+ *returns the style of a cell if the plugin of th cell configures a custom style function
+ * @param nodeId a cell id
+ * @param lang a language key (optionally)
+ * @returns the data object in the given language of the given cell
+ */
+export const useCellStyle = (nodeId: string, lang?: string) => {
+  const plugin = usePluginOfCell(nodeId);
+
+  const currentLang = useLang();
+  const theLang = lang ?? currentLang;
+
+  return useCellProps(
+    nodeId,
+    (c) => getCellStyle(plugin, getCellData(c, theLang)) ?? {}
+  );
 };
 
 /**

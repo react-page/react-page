@@ -122,9 +122,11 @@ function plugin<TPlugins extends SlatePluginCollection = DefaultPlugins>(
         defaultPluginType={settings.defaultPluginType}
       />
     ),
+    bottomToolbar: {
+      dark: true,
+    },
     controls: {
       type: 'custom',
-      dark: true,
       Component: (props) => (
         <Controls
           {...props}

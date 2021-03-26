@@ -112,7 +112,7 @@ export type JsonSchema<T extends Record<string, unknown> | unknown> = {
   /**
    * child properties of this object
    */
-  properties: { [K in keyof T]-?: JsonSchemaProperty<T[K]> };
+  properties: { [K in keyof T]?: JsonSchemaProperty<T[K]> };
   // required: string[];
   /* union to tuple conversion is expensive, we do a poor mans version here */
   /**

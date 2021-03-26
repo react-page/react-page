@@ -84,9 +84,9 @@ const HTMLCell: React.FC<
     : null;
   if (plugin) {
     const { Renderer } = plugin;
-    const cellStyle = getCellStyle(plugin);
+    const data = getCellData(cell, lang) ?? {};
+    const cellStyle = getCellStyle(plugin, data);
     const Provider = plugin.Provider ?? NoopProvider;
-    const data = getCellData(cell, lang);
 
     let pluginCellSpacing = getPluginCellSpacing(plugin, data);
     if (typeof pluginCellSpacing === 'undefined' || pluginCellSpacing == null) {

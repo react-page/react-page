@@ -1,6 +1,6 @@
-import { Portal, Drawer, DrawerProps, Divider } from '@material-ui/core';
-
+import { Divider, Drawer, DrawerProps, Portal } from '@material-ui/core';
 import React, { Fragment } from 'react';
+import { useIsSmallScreen } from '../../core/components/hooks';
 
 const darkBlack = 'rgba(0, 0, 0, 0.87)';
 const bright = 'rgba(255,255,255, 0.98)';
@@ -14,6 +14,7 @@ export type BottomToolbarDrawerProps = {
   dark?: boolean;
   scale?: number;
 };
+
 export const BottomToolbarDrawer: React.FC<BottomToolbarDrawerProps> = ({
   className,
   anchor,
@@ -35,7 +36,7 @@ export const BottomToolbarDrawer: React.FC<BottomToolbarDrawerProps> = ({
   );
 
   const theChildren = React.Children.toArray(children).filter(Boolean);
-
+  const isSmall = useIsSmallScreen();
   return (
     <Portal>
       <Drawer
@@ -65,14 +66,23 @@ export const BottomToolbarDrawer: React.FC<BottomToolbarDrawerProps> = ({
             backgroundColor: dark ? darkBlack : bright,
             padding: '12px 24px',
 
-            margin: 'auto',
+            ...(isSmall
+              ? {
+                  marginLeft: 20,
+                  marginRight: 80,
+                }
+              : {
+                  marginLeft: 'auto',
+                  marginRight: 'auto',
+                  minWidth: '50vw',
+                  maxWidth: 'min(1280px, calc(100vw - 250px))',
+                }),
             boxShadow: '0px 1px 8px -1px rgba(0,0,0,0.4)',
             position: 'relative',
-            minWidth: '50vw',
-            maxWidth: 'calc(100vw - 220px)',
+
             transformOrigin: 'bottom',
             transform: `scale(${scale})`,
-            transition: '0.3s',
+            transition: 'scale 0.3s',
             ...style,
           }}
         >
