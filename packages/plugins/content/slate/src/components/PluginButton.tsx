@@ -16,6 +16,7 @@ import {
 import { useSetDialogIsVisible } from './DialogVisibleProvider';
 
 import ToolbarButton from './ToolbarButton';
+import { useUiTranslator } from '@react-page/editor';
 
 type Props<T extends {}> = {
   plugin: SlatePluginDefinition<T>;
@@ -23,7 +24,7 @@ type Props<T extends {}> = {
 
 function PluginButton<T>(props: Props<T>) {
   const { plugin } = props;
-
+  const { t } = useUiTranslator();
   const hasControls = Boolean(plugin.controls);
 
   const [showControls, setShowControls] = useState(false);
@@ -90,7 +91,7 @@ function PluginButton<T>(props: Props<T>) {
           plugin.icon ||
           (plugin.pluginType === 'component' && plugin.deserialize.tagName)
         }
-        toolTip={plugin.label}
+        toolTip={t(plugin.label)}
       />
 
       {hasControls || shouldInsertWithText ? (

@@ -41,7 +41,7 @@ class ImageUpload extends React.Component<ImageUploadProps, ImageUploadState> {
 
   handleError = (errorCode: number) => {
     let errorText = '';
-    const {t} = this.context as UiTranslator;
+    const { t } = this.context as UiTranslator;
     switch (errorCode) {
       case NO_FILE_ERROR_CODE:
         errorText = t(this.props.translations.noFileError);
