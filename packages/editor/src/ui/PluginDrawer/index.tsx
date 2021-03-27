@@ -97,7 +97,7 @@ export const PluginDrawer: React.FC = React.memo(
         >
           <List
             subheader={
-              <ListSubheader>t({defaultLabels.insertPlugin})</ListSubheader>
+              <ListSubheader>{t(defaultLabels.insertPlugin)}</ListSubheader>
             }
           >
             <ListItem>
