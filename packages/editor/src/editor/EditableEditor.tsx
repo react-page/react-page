@@ -42,6 +42,7 @@ const EditableEditor: React.FC<EditableEditorProps> = ({
   components,
   cellSpacing,
   uiTranslator,
+  children,
 }) => {
   const theValue = value || createEmptyState();
   return (
@@ -64,6 +65,7 @@ const EditableEditor: React.FC<EditableEditorProps> = ({
       cellSpacing={cellSpacing}
       uiTranslator={uiTranslator}
     >
+      {children}
       <StickyWrapper>
         {(stickyNess) => (
           <>
