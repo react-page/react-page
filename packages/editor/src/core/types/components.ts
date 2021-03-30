@@ -10,4 +10,5 @@ export type Components = {
    */
   BottomToolbar?: React.ComponentType<BottomToolbarProps>;
   CellPluginMissing?: React.ComponentType<CellPluginMissingProps>;
+  EditModeResizeHandle?: React.ComponentType<{ onClick: () => void }>;
 };

@@ -6,8 +6,7 @@ import BlurGate from '../components/BlurGate';
 import EditorStore, { EditorContext } from '../EditorStore';
 import { ReduxProvider } from '../reduxConnect';
 import { DisplayModes } from '../actions/display';
-import { OptionsContext } from '../components/hooks';
-import { Value, Options } from '../types/node';
+import { Value } from '../types/node';
 
 import { serialzeValue } from '../migrations/serialzeValue';
 import deepEquals from '../utils/deepEquals';
@@ -15,8 +14,8 @@ import deepEquals from '../utils/deepEquals';
 import { Middleware, Store } from 'redux';
 import { migrateValue } from '../migrations/migrate';
 import { updateValue } from '../actions/value';
-import { RootState } from '../types';
-import { useOptionsMemoized } from './useOptionsMemoized';
+import { Options, RootState } from '../types';
+import OptionsProvider from './OptionsProvider';
 
 type ProviderProps = {
   lang?: string;
@@ -46,16 +45,10 @@ const Provider: React.FC<ProviderProps> = ({
   blurGateDisabled = false,
   blurGateDefaultMode,
   cellPlugins,
-  allowMoveInEditMode,
-  childConstraints,
-  allowResizeInEditMode,
-  editModeResizeHandle,
-  languages,
-  pluginsWillChange,
-  components,
-  cellSpacing,
   store: passedStore,
   middleware = [],
+  pluginsWillChange,
+  ...options
 }) => {
   const editorStore = useMemo(() => {
     const store = new EditorStore({
@@ -143,22 +136,15 @@ const Provider: React.FC<ProviderProps> = ({
   }, [editorStore, lang]);
 
   // prevent options from recreating all the time
-  const optionsMemoized = useOptionsMemoized({
-    pluginsWillChange,
-    cellPlugins,
-    allowMoveInEditMode,
-    allowResizeInEditMode,
-    editModeResizeHandle,
-    languages,
-    childConstraints,
-    components,
-    cellSpacing,
-  });
 
   return (
     <DndProvider backend={dndBackend}>
       <ReduxProvider store={editorStore.store}>
-        <OptionsContext.Provider value={optionsMemoized}>
+        <OptionsProvider
+          {...options}
+          pluginsWillChange={pluginsWillChange}
+          cellPlugins={cellPlugins}
+        >
           <EditorContext.Provider value={editorStore}>
             <BlurGate
               disabled={blurGateDisabled}
@@ -167,7 +153,7 @@ const Provider: React.FC<ProviderProps> = ({
               {children}
             </BlurGate>
           </EditorContext.Provider>
-        </OptionsContext.Provider>
+        </OptionsProvider>
       </ReduxProvider>
     </DndProvider>
   );

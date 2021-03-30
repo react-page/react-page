@@ -2,7 +2,8 @@ import React, { createContext, useContext } from 'react';
 import EditorStore, { EditorContext } from '../../EditorStore';
 import { useSelector } from '../../reduxConnect';
 import { getLang } from '../../selector/setting';
-import { Options, CellSpacing } from '../../types/node';
+import { CellSpacing, Options } from '../../types';
+
 import { normalizeCellSpacing } from '../../utils/getCellSpacing';
 import NoopProvider from '../Cell/NoopProvider';
 

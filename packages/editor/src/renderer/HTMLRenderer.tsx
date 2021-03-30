@@ -9,6 +9,7 @@ import type {
   Row,
   ValueWithLegacy,
   CellSpacing,
+  Options,
 } from '../core/types';
 import { getCellData } from '../core/utils/getCellData';
 import { getCellStyle } from '../core/utils/getCellStyle';
@@ -17,9 +18,7 @@ import {
   normalizeCellSpacing,
 } from '../core/utils/getCellSpacing';
 import NoopProvider from '../core/components/Cell/NoopProvider';
-
-const gridClass = (size = 12): string =>
-  `react-page-cell-sm-${size} react-page-cell-xs-12`;
+import { gridClass } from '../core/components/Cell/utils/gridClass';
 
 const rowHasInlineChildren = ({ cells }) =>
   Boolean(cells.length === 2 && Boolean(cells[0].inline));
@@ -40,7 +39,7 @@ const HTMLRow: React.FC<
     })}
     style={{ margin: `0 ${-cellSpacing.x / 2}px` }}
   >
-    {cells.map((c, index) => (
+    {cells.map((c) => (
       <HTMLCell
         key={c.id}
         {...c}
@@ -67,6 +66,7 @@ const HTMLCell: React.FC<
   const { lang, cellPlugins, cellSpacing, ...cell } = props;
   const { size, hasInlineNeighbour, inline, isDraftI18n, isDraft } = cell;
   const hasChildren = cell.rows?.length > 0;
+
   const cnOuter = classNames(gridClass(size), {
     'react-page-cell-has-inline-neighbour': hasInlineNeighbour,
     [`react-page-cell-inline-${inline || ''}`]: inline,
@@ -184,7 +184,7 @@ export interface HTMLRendererProps {
   value: ValueWithLegacy;
   cellPlugins?: CellPlugin[];
   lang?: string;
-  cellSpacing?: number | CellSpacing;
+  cellSpacing?: Options['cellSpacing'];
 }
 
 export const HTMLRenderer: React.FC<HTMLRendererProps> = React.memo(
