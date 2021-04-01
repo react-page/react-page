@@ -7,8 +7,7 @@ import {
   computeAndDispatchInsert,
 } from '../../../../service/hover/input';
 import logger from '../../../../service/logger';
-import { CellDrag, Options } from '../../../../types/node';
-import { HoverInsertActions } from '../../../../types/hover';
+import { CellDrag, Options, HoverInsertActions } from '../../../../types';
 
 let last: { hoverId: string; dragId: string } = { hoverId: '', dragId: '' };
 

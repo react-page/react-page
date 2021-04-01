@@ -1,9 +1,3 @@
-import { CellPlugin } from './plugins';
-
-import { Languages } from '../EditorStore';
-import { ChildConstraints } from './constraints';
-import { Components } from './components';
-
 export type I18nField<T> = {
   [lang: string]: T;
 };
@@ -98,58 +92,9 @@ export type NewIds = {
   others: [string, string, string];
 };
 
-export type SimplifiedModesProps = {
-  allowResizeInEditMode?: boolean;
-  editModeResizeHandle?: JSX.Element;
-  allowMoveInEditMode?: boolean;
-};
-
-export type CellSpacing = {
-  x: number;
-  y: number;
-};
-
 // DND
 
 export type CellDrag = {
   type: 'cell';
   cell: PartialCell;
 };
-
-/**
- * This are the options of the editor. Basically anything that isn't the value or a callback.
- */
-export type Options = {
-  /**
-   * an array of cell plugins. These plugins can be added as cells and usually render a component and a control.
-   * @see CellPlugin
-   */
-  cellPlugins: CellPlugin[];
-  /**
-   * all languages that can be selected for the content
-   */
-  languages?: Languages;
-
-  /**
-   * defines constraints about the nodes that the editor can have
-   */
-  childConstraints?: ChildConstraints;
-
-  /**
-   * Experimental.
-   * indicates whether the plugins might change while the Editor is mounted. Make sure that you only change the references to the plugins,
-   * when you actually want to change a plugin.
-   * Leave this to false if you don't want to change plugins while editor is mounted.
-   */
-  pluginsWillChange?: boolean;
-
-  /**
-   * Internal component overrides.
-   */
-  components?: Components;
-
-  /**
-   * Sets the size of the cell grid gutters in pixels.
-   */
-  cellSpacing?: number | CellSpacing;
-} & SimplifiedModesProps;
