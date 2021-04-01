@@ -53,17 +53,21 @@ export default function CellSpacing() {
     [state.outlineCells, state.outlineEditor]
   );
 
-  const schema = makeUniformsSchema({
-    type: 'object',
+  const schema = makeUniformsSchema<{
+    outlineEditor: boolean;
+    outlineCells: boolean;
+    readOnly: boolean;
+    cellSpacingX: number;
+    cellSpacingY: number;
+  }>({
     properties: {
       outlineEditor: { type: 'boolean', title: 'Outline the Editor in Green' },
       outlineCells: { type: 'boolean', title: 'Outline Cells in Red' },
       readOnly: { type: 'boolean', title: 'Read Only' },
-      cellSpacingX: { type: 'number', title: 'Horizontal Cell Spacing' },
-      cellSpacingY: { type: 'number', title: 'Vertical Cell Spacing' },
+      cellSpacingX: { type: 'integer', title: 'Horizontal Cell Spacing' },
+      cellSpacingY: { type: 'integer', title: 'Vertical Cell Spacing' },
     },
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  } as any);
+  });
 
   return (
     <PageLayout>

@@ -86,7 +86,13 @@ const Inner: React.FC = () => {
       className={'react-page-editable react-page-editable-mode-' + mode}
     >
       {rowIds.length > 0 ? (
-        <div style={{ margin: `${-cellSpacingY / 2}px 0` }}>
+        <div
+          style={
+            cellSpacingY !== 0
+              ? { margin: `${-cellSpacingY / 2}px 0` }
+              : undefined
+          }
+        >
           {rowIds.map((id) => (
             <Row nodeId={id} key={id} />
           ))}
