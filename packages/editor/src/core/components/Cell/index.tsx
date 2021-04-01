@@ -94,11 +94,15 @@ const Cell: React.FC<Props> = ({ nodeId, measureRef }) => {
 
   return (
     <div
-      style={{
-        padding: `${needVerticalPadding ? cellSpacingY / 2 : 0}px ${
-          cellSpacingX / 2
-        }px`,
-      }}
+      style={
+        cellSpacingY !== 0 || cellSpacingX !== 0
+          ? {
+              padding: `${needVerticalPadding ? cellSpacingY / 2 : 0}px ${
+                cellSpacingX / 2
+              }px`,
+            }
+          : undefined
+      }
       className={classNames(
         gridClass(size, isEditMode || isPreviewMode ? 'sm' : 'xs'),
         {

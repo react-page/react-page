@@ -62,7 +62,7 @@ const Row: React.FC<{ nodeId: string }> = ({ nodeId }) => {
         })}
         style={{
           position: 'relative',
-          margin: `0 ${-cellSpacingX / 2}px`,
+          margin: cellSpacingX !== 0 ? `0 ${-cellSpacingX / 2}px` : undefined,
         }}
         onClick={blurAllCells}
       >
