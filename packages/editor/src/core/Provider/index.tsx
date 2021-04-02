@@ -34,7 +34,11 @@ type ProviderProps = {
    * pass custom redux middleware:. Might get deprecated in the future
    */
   middleware?: Middleware[];
-  uiTranslator: (label?: string) => string | undefined;
+  /**
+   * Labels are passed with this function. Use this function to replace labels for i18n support.
+   * @param label
+   */
+  uiTranslator?: (label?: string) => string | undefined;
 } & Options;
 
 const Provider: React.FC<ProviderProps> = ({
@@ -49,7 +53,8 @@ const Provider: React.FC<ProviderProps> = ({
   cellPlugins,
   store: passedStore,
   middleware = [],
-  pluginsWillChange, uiTranslator,
+  pluginsWillChange,
+  uiTranslator = (label) => label,
   ...options
 }) => {
   const editorStore = useMemo(() => {

@@ -20,7 +20,7 @@ export const BottomToolbarTools: React.FC<BottomToolbarToolsProps> = React.memo(
         <DuplicateButton nodeId={nodeId} />
         <SelectParentButton nodeId={nodeId} />
 
-        <Tooltip title={t('Remove Plugin')}>
+        <Tooltip title={t('Remove Plugin') || 'Remove Plugin'}>
           <IconButton
             onClick={() => removeCell()}
             aria-label="delete"

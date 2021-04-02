@@ -17,7 +17,7 @@ export const BottomToolbarMainBar: React.FC<BottomToolbarMainBarProps> = React.m
           {icon || title ? (
             <Grid item={true}>
               <Avatar
-                children={icon || t(title ? title[0] : '')}
+                children={icon || title ? title[0] : ''}
                 style={{
                   marginRight: 16,
                 }}

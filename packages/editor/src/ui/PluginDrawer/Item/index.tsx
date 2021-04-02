@@ -35,7 +35,8 @@ const Item: React.FC<ItemProps> = ({ plugin, insert }) => {
   return (
     <Draggable insert={insert}>
       <ListItem
-        title={t('Click to add or drag and drop it somewhere on your page!')}
+        title={t('Click to add or drag and drop it somewhere on your page!')
+        || 'Click to add or drag and drop it somewhere on your page!'}
         className="react-page-plugin-drawer-item"
         onClick={insertIt}
       >
