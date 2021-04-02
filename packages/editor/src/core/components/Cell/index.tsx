@@ -12,29 +12,13 @@ import {
   useNodeHasChildren,
   useScrollToViewEffect,
   useCellSpacing,
+  useOptions,
 } from '../hooks';
 import ErrorCell from './ErrorCell';
 import Inner from './Inner';
 import scrollIntoViewWithOffset from './utils/scrollIntoViewWithOffset';
 import Handle from './Handle';
-
-const gridClass = ({
-  isPreviewMode,
-  isEditMode,
-  size,
-}: {
-  isPreviewMode: boolean;
-  isEditMode: boolean;
-  size: number;
-}): string => {
-  if (isPreviewMode || isEditMode) {
-    return `react-page-cell-${isPreviewMode || isEditMode ? 'sm' : 'xs'}-${
-      size || 12
-    } react-page-cell-xs-12`;
-  }
-
-  return `react-page-cell-xs-${size || 12}`;
-};
+import { gridClass } from './utils/gridClass';
 
 const stopClick = (_isEditMode: boolean) => (
   e: React.MouseEvent<HTMLDivElement>
@@ -110,17 +94,17 @@ const Cell: React.FC<Props> = ({ nodeId, measureRef }) => {
 
   return (
     <div
-      style={{
-        padding: `${needVerticalPadding ? cellSpacingY / 2 : 0}px ${
-          cellSpacingX / 2
-        }px`,
-      }}
+      style={
+        cellSpacingY !== 0 || cellSpacingX !== 0
+          ? {
+              padding: `${needVerticalPadding ? cellSpacingY / 2 : 0}px ${
+                cellSpacingX / 2
+              }px`,
+            }
+          : undefined
+      }
       className={classNames(
-        gridClass({
-          isEditMode,
-          isPreviewMode,
-          size,
-        }),
+        gridClass(size, isEditMode || isPreviewMode ? 'sm' : 'xs'),
         {
           'react-page-cell-has-inline-neighbour': hasInlineNeighbour,
           [`react-page-cell-inline-${inline || ''}`]: inline,

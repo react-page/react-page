@@ -24,8 +24,6 @@ export type EditableEditorProps = {
 } & Options;
 
 const EditableEditor: React.FC<EditableEditorProps> = ({
-  cellPlugins,
-  pluginsWillChange,
   value,
   onChange,
   dndBackend,
@@ -35,14 +33,8 @@ const EditableEditor: React.FC<EditableEditorProps> = ({
   languages,
   onChangeLang,
   hideEditorSidebar,
-  allowMoveInEditMode = true,
-  allowResizeInEditMode = true,
-  editModeResizeHandle,
-  childConstraints,
-  components,
-  cellSpacing,
   uiTranslator,
-  children,
+  ...options
 }) => {
   const theValue = value || createEmptyState();
   return (
@@ -50,22 +42,14 @@ const EditableEditor: React.FC<EditableEditorProps> = ({
       lang={lang}
       onChangeLang={onChangeLang}
       value={theValue}
-      cellPlugins={cellPlugins}
-      allowMoveInEditMode={allowMoveInEditMode}
-      allowResizeInEditMode={allowResizeInEditMode}
-      editModeResizeHandle={editModeResizeHandle}
       onChange={onChange}
-      pluginsWillChange={pluginsWillChange}
       languages={languages}
       dndBackend={dndBackend}
       blurGateDisabled={blurGateDisabled}
       blurGateDefaultMode={defaultDisplayMode}
-      childConstraints={childConstraints}
-      components={components}
-      cellSpacing={cellSpacing}
       uiTranslator={uiTranslator}
+      {...options}
     >
-      {children}
       <StickyWrapper>
         {(stickyNess) => (
           <>

@@ -1,4 +1,4 @@
-import { isRow, Options, Levels, PartialCell } from '../../types/node';
+import { isRow, Options, Levels, PartialCell } from '../../types';
 import {
   HoverInsertActions,
   Matrix,

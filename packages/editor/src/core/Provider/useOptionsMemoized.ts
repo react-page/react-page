@@ -1,15 +1,11 @@
 import { useMemo } from 'react';
 import { Options } from '../types';
-type Required<T> = {
-  [P in keyof T]-?: T[P];
-};
 
 export const useOptionsMemoized = ({
-  pluginsWillChange,
-  cellPlugins,
-  allowMoveInEditMode,
-  allowResizeInEditMode,
-  editModeResizeHandle,
+  pluginsWillChange = false,
+  cellPlugins = [],
+  allowMoveInEditMode = true,
+  allowResizeInEditMode = true,
   languages,
   childConstraints,
   components,
@@ -20,19 +16,19 @@ export const useOptionsMemoized = ({
   const componentWithNulls: Required<Options['components']> = {
     BottomToolbar: null,
     CellPluginMissing: null,
+    EditModeResizeHandle: null,
     ...(components ?? {}),
   };
   const componentDeps = [
     ...Object.keys(componentWithNulls),
     ...Object.values(componentWithNulls),
   ];
-  return useMemo<Options>(() => {
+  return useMemo<Required<Options>>(() => {
     return {
       cellPlugins,
       pluginsWillChange,
       allowMoveInEditMode,
       allowResizeInEditMode,
-      editModeResizeHandle,
       languages,
       childConstraints,
       components,
@@ -42,10 +38,10 @@ export const useOptionsMemoized = ({
     pluginsWillChange && cellPlugins,
     allowMoveInEditMode,
     allowResizeInEditMode,
-    editModeResizeHandle,
     languages,
     JSON.stringify(childConstraints ?? {}), // its an object, we prevent unnecessary rerenders by stringify it
     JSON.stringify(cellSpacing ?? []),
+
     ...componentDeps,
   ]);
 };

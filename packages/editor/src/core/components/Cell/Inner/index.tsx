@@ -100,7 +100,13 @@ const Inner: React.FC<{ nodeId: string }> = ({ nodeId }) => {
           <PluginComponent nodeId={nodeId} hasChildren={hasChildren}>
             {hasChildren ? (
               <Provider value={providerValue}>
-                <div style={{ margin: `${-cellSpacingY / 2}px 0` }}>
+                <div
+                  style={
+                    cellSpacingY !== 0
+                      ? { margin: `${-cellSpacingY / 2}px 0` }
+                      : undefined
+                  }
+                >
                   {children}
                 </div>
               </Provider>
