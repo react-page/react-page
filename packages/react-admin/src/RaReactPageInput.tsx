@@ -4,13 +4,17 @@ import React from 'react';
 
 import { Labeled, useInput } from 'react-admin';
 
-const RaReactPageInput: React.FC<
-  {
-    label?: string;
-    source: string;
-    style?: React.CSSProperties;
-  } & EditorProps
-> = ({ label = 'Content', source, style, ...editorProps }) => {
+export type RaReactPageInputProps = {
+  label?: string;
+  source: string;
+  style?: React.CSSProperties;
+} & EditorProps;
+const RaReactPageInput: React.FC<RaReactPageInputProps> = ({
+  label = 'Content',
+  source,
+  style,
+  ...editorProps
+}) => {
   const {
     input: { value, onChange },
   } = useInput({ source });

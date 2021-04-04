@@ -18,6 +18,7 @@
     "@semantic-release/exec": "semantic-release/exec",
     "@testing-library/react-hooks": "^3.4.2",
     "@types/jest": "^26.0.19",
+    "@types/loadable__component": "^5.13.3",
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
     "@types/react-redux": "^7.1.15",

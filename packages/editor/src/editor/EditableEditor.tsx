@@ -5,14 +5,14 @@ import type { DisplayModes } from '../core/actions/display';
 import Editable from '../core/components/Editable';
 import { createEmptyState, Languages } from '../core/EditorStore';
 import Provider from '../core/Provider';
-import type { Value, Options } from '../core/types';
+import type { Value, Options, ValueWithLegacy } from '../core/types';
 import EditorUI from '../ui/EditorUI';
 import StickyWrapper from './StickyWrapper';
 
 export type DndBackend = BackendFactory;
 export type EditableEditorProps = {
   dndBackend?: DndBackend;
-  value?: Value;
+  value?: ValueWithLegacy;
   onChange?: (v: Value) => void;
   defaultDisplayMode?: DisplayModes;
   blurGateDisabled?: boolean;
