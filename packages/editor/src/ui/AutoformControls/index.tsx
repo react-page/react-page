@@ -13,7 +13,9 @@ export const AutoForm = lazyLoad(() =>
   import('uniforms-material').then((c) => c.AutoForm)
 );
 export const AutoFields = lazyLoad(() =>
-  import('uniforms-material').then((c) => c.AutoFields)
+  import('uniforms-material').then(
+    (c) => c.AutoFields as React.FC<{ element?: React.ReactNode }>
+  )
 );
 const getDefaultValue = function (
   bridge: JSONSchemaBridge

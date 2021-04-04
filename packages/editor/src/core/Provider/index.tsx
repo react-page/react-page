@@ -15,12 +15,12 @@ import deepEquals from '../utils/deepEquals';
 import { Middleware, Store } from 'redux';
 import { migrateValue } from '../migrations/migrate';
 import { updateValue } from '../actions/value';
-import { RootState } from '../types';
+import { RootState, ValueWithLegacy } from '../types';
 
 type ProviderProps = {
   lang?: string;
   onChangeLang?: (lang: string) => void;
-  value: Value;
+  value: ValueWithLegacy;
   onChange?: (v: Value) => void;
   dndBackend?: BackendFactory;
   blurGateDisabled?: boolean;
@@ -83,7 +83,7 @@ const Provider: React.FC<ProviderProps> = ({
     });
     return store;
   }, [passedStore, ...middleware]);
-  const lastValueRef = useRef<Value>(value);
+  const lastValueRef = useRef<ValueWithLegacy>(value);
   useEffect(() => {
     let oldLang = lang;
     const handleChanges = () => {
