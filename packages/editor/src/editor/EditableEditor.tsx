@@ -20,7 +20,6 @@ export type EditableEditorProps = {
   lang?: string;
   onChangeLang?: (l: string) => void;
   hideEditorSidebar?: boolean;
-  uiTranslator: (label: string) => string;
 } & Options;
 
 const EditableEditor: React.FC<EditableEditorProps> = ({
@@ -33,7 +32,6 @@ const EditableEditor: React.FC<EditableEditorProps> = ({
   languages,
   onChangeLang,
   hideEditorSidebar,
-  uiTranslator,
   ...options
 }) => {
   const theValue = value || createEmptyState();
@@ -47,7 +45,6 @@ const EditableEditor: React.FC<EditableEditorProps> = ({
       dndBackend={dndBackend}
       blurGateDisabled={blurGateDisabled}
       blurGateDefaultMode={defaultDisplayMode}
-      uiTranslator={uiTranslator}
       {...options}
     >
       <StickyWrapper>

@@ -10,6 +10,7 @@ export const useOptionsMemoized = ({
   childConstraints,
   components,
   cellSpacing,
+  uiTranslator,
 }: Options) => {
   // see https://github.com/react-page/react-page/issues/918#issuecomment-801457987
   // minimize unnecessary rerenders by forcing shallow comparison of "components" object
@@ -33,12 +34,14 @@ export const useOptionsMemoized = ({
       childConstraints,
       components,
       cellSpacing,
+      uiTranslator,
     };
   }, [
     pluginsWillChange && cellPlugins,
     allowMoveInEditMode,
     allowResizeInEditMode,
     languages,
+    uiTranslator,
     JSON.stringify(childConstraints ?? {}), // its an object, we prevent unnecessary rerenders by stringify it
     JSON.stringify(cellSpacing ?? []),
 

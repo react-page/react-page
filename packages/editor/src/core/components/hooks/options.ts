@@ -2,7 +2,7 @@ import React, { createContext, useContext } from 'react';
 import EditorStore, { EditorContext } from '../../EditorStore';
 import { useSelector } from '../../reduxConnect';
 import { getLang } from '../../selector/setting';
-import { CellSpacing, Options, UiTranslator } from '../../types';
+import { CellSpacing, Options } from '../../types';
 
 import { normalizeCellSpacing } from '../../utils/getCellSpacing';
 import NoopProvider from '../Cell/NoopProvider';
@@ -26,22 +26,17 @@ export const OptionsContext = createContext<Options>({
  */
 export const useOptions = () => useContext(OptionsContext);
 
-export const UiTranslatorContext = createContext<UiTranslator>({
-  t: (label) => label,
-});
-
+export type TranslatorFunction = (key: string) => string;
 /**
  * @returns the an object with a single `t` function for ui translations
  */
-export const useUiTranslator = () => {
-  const userTranslatorFunction = useContext(UiTranslatorContext);
+export const useUiTranslator = (): {
+  t: TranslatorFunction;
+} => {
+  const { uiTranslator } = useOptions();
   return {
     t: (key: string) => {
-      const translation = userTranslatorFunction.t(key);
-      if (translation === undefined || translation === null) {
-        return key;
-      }
-      return translation;
+      return uiTranslator?.(key) ?? key;
     },
   };
 };

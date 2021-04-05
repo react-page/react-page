@@ -54,11 +54,10 @@ export type Options = {
    * whether its possible to drag cells around in edit mode
    */
   allowMoveInEditMode?: boolean;
-};
 
-/**
- * This is the ui-translator.
- */
-export type UiTranslator = {
-  t: (label: string) => string;
+  /**
+   * Use this function to replace labels for i18n support.
+   * @param key the key of the translation (currently the english translation)
+   */
+  uiTranslator?: (key: string) => string | null;
 };
