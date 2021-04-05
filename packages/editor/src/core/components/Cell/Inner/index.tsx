@@ -3,7 +3,6 @@ import {
   getPluginCellSpacing,
   normalizeCellSpacing,
 } from '../../../utils/getCellSpacing';
-import { getCellStyle } from '../../../utils/getCellStyle';
 import {
   useCellHasPlugin,
   useCellStyle,

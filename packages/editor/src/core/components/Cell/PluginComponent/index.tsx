@@ -93,8 +93,10 @@ const PluginComponent: React.FC<{ nodeId: string; hasChildren: boolean }> = ({
         >
           {Renderer ? (
             <Renderer {...componentProps}>{children}</Renderer>
-          ) : (
+          ) : pluginId ? (
             <Missing {...componentProps} pluginId={pluginId} />
+          ) : (
+            children
           )}
         </div>
         <Toolbar

@@ -202,7 +202,7 @@ export const insertCellNewAsNewRow = insert(CELL_INSERT_AS_NEW_ROW);
 const newIds = ({ id, ...item }: Cell): Cell => {
   return {
     ...item,
-    dataI18n: JSON.parse(JSON.stringify(item.dataI18n)),
+    dataI18n: item.dataI18n ? JSON.parse(JSON.stringify(item.dataI18n)) : {},
     id: createId(),
     rows: item.rows
       ? item.rows.map((row) => ({
@@ -220,7 +220,7 @@ export const duplicateCell = (options: PluginsAndLang) => (item: Cell) =>
     hasInlineNeighbour: item.hasInlineNeighbour,
     inline: item.inline,
     levels: null,
-    pluginId: item.plugin.id,
+    pluginId: item.plugin?.id,
   });
 
 export const insertActions = {
