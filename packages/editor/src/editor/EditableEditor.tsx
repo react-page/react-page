@@ -32,6 +32,7 @@ const EditableEditor: React.FC<EditableEditorProps> = ({
   languages,
   onChangeLang,
   hideEditorSidebar,
+  children,
   ...options
 }) => {
   const theValue = value || createEmptyState();
@@ -47,6 +48,7 @@ const EditableEditor: React.FC<EditableEditorProps> = ({
       blurGateDefaultMode={defaultDisplayMode}
       {...options}
     >
+      {children}
       <StickyWrapper>
         {(stickyNess) => (
           <>
