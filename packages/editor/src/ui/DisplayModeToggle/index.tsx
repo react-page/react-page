@@ -45,11 +45,11 @@ export const DisplayModeToggle: React.SFC<{
   const actions = [
     // eslint-disable-next-line react/jsx-key
     { action: <UndoRedo labelRedo="redo" labelUndo="undo" /> },
-    { action: <ToggleEdit label={t(defaultLabels.edit) || defaultLabels.edit} /> },
-    { action: <ToggleInsert label={t(defaultLabels.insert) || defaultLabels.insert} /> },
-    { action: <ToggleLayout label={t(defaultLabels.layout) || defaultLabels.layout} /> },
-    { action: <ToggleResize label={t(defaultLabels.resize) || defaultLabels.resize} /> },
-    { action: <TogglePreview label={t(defaultLabels.preview || defaultLabels.preview)} /> },
+    { action: <ToggleEdit label={t(defaultLabels.edit)} /> },
+    { action: <ToggleInsert label={t(defaultLabels.insert)} /> },
+    { action: <ToggleLayout label={t(defaultLabels.layout)} /> },
+    { action: <ToggleResize label={t(defaultLabels.resize)} /> },
+    { action: <TogglePreview label={t(defaultLabels.preview)} /> },
   ];
   return (
     <div

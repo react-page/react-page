@@ -57,7 +57,7 @@ const I18nDialog = ({
                   }}
                 >
                   <Button onClick={() => setLang(l.lang)}>
-                    {l.label} {index === 0 ? (t('(default)') || '(default)') : null}
+                    {l.label} {index === 0 ? t('(default)') : null}
                   </Button>
                 </th>
 
@@ -73,7 +73,7 @@ const I18nDialog = ({
                         reset(l.lang);
                       }}
                     >
-                      {t(`Reset to ${defaultLangLabel} ⚠️`) || `Reset to ${defaultLangLabel} ⚠️`}
+                      {t(`Reset to ${defaultLangLabel} ⚠️`) }
                     </Button>
                   ) : null}
                 </td>

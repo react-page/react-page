@@ -55,3 +55,10 @@ export type Options = {
    */
   allowMoveInEditMode?: boolean;
 };
+
+/**
+ * This is the ui-translator.
+ */
+export type UiTranslator = {
+  t: (label?: string) => string | undefined;
+};

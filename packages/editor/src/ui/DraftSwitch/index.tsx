@@ -22,8 +22,7 @@ const DraftSwitch = ({ nodeId, lang }: { nodeId: string; lang?: string }) => {
   const theLang = lang ?? currentLang;
   const hasI18n = Boolean(cell.isDraftI18n);
   const isDraft = cell?.isDraftI18n?.[theLang] ?? cell?.isDraft; // fallback to legacy
-  const originalTitle = isDraft ? 'Content is hidden' : 'Content is visible';
-  const title = t(originalTitle) || originalTitle;
+  const title = t(isDraft ? 'Content is hidden' : 'Content is visible');
   return cell ? (
     <Tooltip title={title + (hasI18n ? ' in ' + theLang : '')}>
       <FormControlLabel

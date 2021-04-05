@@ -99,9 +99,3 @@ export type CellDrag = {
   cell: PartialCell;
 };
 
-/**
- * This is the ui-translator.
- */
-export type UiTranslator = {
-  t: (label?: string) => string | undefined;
-};
