@@ -12,7 +12,6 @@ import {
   useNodeHasChildren,
   useScrollToViewEffect,
   useCellSpacing,
-  useOptions,
 } from '../hooks';
 import ErrorCell from './ErrorCell';
 import Inner from './Inner';
@@ -103,13 +102,10 @@ const Cell: React.FC<Props> = ({ nodeId, measureRef }) => {
             }
           : undefined
       }
-      className={classNames(
-        gridClass(size, isEditMode || isPreviewMode ? 'sm' : 'xs'),
-        {
-          'react-page-cell-has-inline-neighbour': hasInlineNeighbour,
-          [`react-page-cell-inline-${inline || ''}`]: inline,
-        }
-      )}
+      className={classNames(gridClass(size), {
+        'react-page-cell-has-inline-neighbour': hasInlineNeighbour,
+        [`react-page-cell-inline-${inline || ''}`]: inline,
+      })}
     >
       <div
         ref={ref}
