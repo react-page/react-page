@@ -95,6 +95,5 @@ export type NewIds = {
 // DND
 
 export type CellDrag = {
-  type: 'cell';
   cell: PartialCell;
 };

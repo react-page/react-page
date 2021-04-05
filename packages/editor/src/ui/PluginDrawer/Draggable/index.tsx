@@ -18,16 +18,16 @@ const Draggable: React.FC<{
       isDragging: boolean;
     }
   >({
-    item: {
-      type: 'cell',
-      cell: insert,
+    type: 'cell',
+    item: () => {
+      setLayoutMode();
+      return {
+        cell: insert,
+      };
     },
     collect: (monitor) => ({
       isDragging: monitor.isDragging(),
     }),
-    begin() {
-      setLayoutMode();
-    },
   });
   const classes = classNames(
     { 'react-page-toolbar-draggable-is-dragged': isDragging },
