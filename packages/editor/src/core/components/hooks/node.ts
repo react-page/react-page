@@ -102,11 +102,13 @@ export const useNodeAncestorIds = (nodeId: string) => {
 /**
  *
  * @param nodeId the id of a row or cell
- * @returns the nearest ancestor cell of the cell or row
+ * @returns the nearest ancestor cell of the cell or row that has a plugin
  */
 export const useParentCellId = (nodeId: string) => {
   return useNodeProps(nodeId, (node, ancestors) =>
-    node && ancestors ? ancestors.find((node) => !isRow(node))?.id : null
+    node && ancestors
+      ? ancestors.find((node) => !isRow(node) && node.plugin)?.id
+      : null
   );
 };
 
