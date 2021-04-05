@@ -33,7 +33,18 @@ export const UiTranslatorContext = createContext<UiTranslator>({
 /**
  * @returns the an object with a single `t` function for ui translations
  */
-export const useUiTranslator = () => useContext(UiTranslatorContext);
+export const useUiTranslator = () => {
+  const userTranslatorFunction = useContext(UiTranslatorContext);
+  return {
+    t: (key: string) => {
+      const translation = userTranslatorFunction.t(key);
+      if (translation === undefined || translation === null) {
+        return key;
+      }
+      return translation;
+    },
+  };
+};
 
 /**
  * @returns the options (@see useOptions) and the current selected language.
