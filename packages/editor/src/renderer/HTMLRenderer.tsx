@@ -140,7 +140,6 @@ const HTMLCell: React.FC<
                           cellPlugins={cellPlugins}
                           cellSpacing={pluginCellSpacing as CellSpacing}
                           lang={lang}
-                          className="react-page-cell-inner"
                         />
                       ))}
                     </div>
@@ -161,7 +160,6 @@ const HTMLCell: React.FC<
               key={r.id}
               {...r}
               lang={lang}
-              className="react-page-cell-inner"
               cellPlugins={cellPlugins}
               cellSpacing={cellSpacing}
             />

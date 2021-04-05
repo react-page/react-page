@@ -28,12 +28,11 @@ function styles(state: CellSpacingState) {
   let styles = '.react-page-cell-inner-leaf { padding: 0; }';
 
   if (state.outlineCells) {
-    styles +=
-      '.react-page-cell-inner:not(.react-page-row) > div { outline: 1px solid red; }';
+    styles += '.react-page-cell-inner { outline: 1px solid red !important; }';
   }
 
   if (state.outlineEditor) {
-    styles += '.editor { outline: 1px solid green; }';
+    styles += '.editor { outline: 2px solid green; }';
   }
 
   return styles;
