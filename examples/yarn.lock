@@ -533,7 +533,7 @@ babel-plugin-syntax-jsx@6.18.0, babel-plugin-syntax-jsx@^6.18.0:
   resolved "https://registry.yarnpkg.com/babel-plugin-syntax-jsx/-/babel-plugin-syntax-jsx-6.18.0.tgz#0af32a9a6e13ca7a3fd5069e62d7b0f58d0d8946"
   integrity sha1-CvMqmm4Tyno/1QaeYtew9Y0NiUY=
 
-babel-runtime@^6.26.0:
+babel-runtime@^6.22.0:
   version "6.26.0"
   resolved "https://registry.yarnpkg.com/babel-runtime/-/babel-runtime-6.26.0.tgz#965c7058668e82b55d7bfe04ff2337bc8b5647fe"
   integrity sha1-llxwWGaOgrVde/4E/yM3vItWR/4=
@@ -1205,13 +1205,12 @@ evp_bytestokey@^1.0.0, evp_bytestokey@^1.0.3:
     md5.js "^1.3.4"
     safe-buffer "^5.1.1"
 
-fakerest@^3.0.0:
-  version "3.3.0"
-  resolved "https://registry.yarnpkg.com/fakerest/-/fakerest-3.3.0.tgz#81f41d096fd7145825b058ee3d4b9d518f4ed92b"
-  integrity sha512-D1y6a13dh34n738YMztecCX36JRKI5kxPaNVQukXUXvUyK7eANWyB5zczy0SMoMUDXC/ceKfjkgwbc1AYqYYOQ==
+fakerest@^2.2.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/fakerest/-/fakerest-2.2.0.tgz#68fc7663baee9243d998dcdb20c9f555ae7b6065"
+  integrity sha512-6ByPB2f7NfK7UJ7W4xt2oz6Cq/gefYCV5NJTCkDmZS+hh2scheLl7eLqOCmdx/yw67JinTvG8TgOufjhkM0UOg==
   dependencies:
-    babel-runtime "^6.26.0"
-    lodash "^4.17.21"
+    babel-runtime "^6.22.0"
 
 fast-deep-equal@^3.1.1:
   version "3.1.3"
@@ -1853,7 +1852,7 @@ lodash.sortby@^4.7.0:
   resolved "https://registry.yarnpkg.com/lodash.sortby/-/lodash.sortby-4.7.0.tgz#edd14c824e2cc9c1e0b0a1b42bb5210516a42438"
   integrity sha1-7dFMgk4sycHgsKG0K7UhBRakJDg=
 
-lodash@^4.17.11, lodash@^4.17.13, lodash@^4.17.19, lodash@^4.17.20, lodash@^4.17.21, lodash@~4.17.5:
+lodash@^4.17.11, lodash@^4.17.13, lodash@^4.17.19, lodash@^4.17.20, lodash@~4.17.5:
   version "4.17.21"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.21.tgz#679591c564c3bffaae8454cf0b3df370c3d6911c"
   integrity sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==
@@ -2355,12 +2354,12 @@ ra-core@^3.14.2:
     query-string "^5.1.1"
     reselect "~3.0.0"
 
-ra-data-fakerest@^3.13.5:
-  version "3.13.5"
-  resolved "https://registry.yarnpkg.com/ra-data-fakerest/-/ra-data-fakerest-3.13.5.tgz#def50280977532d2d6bb4029ae114402d419745f"
-  integrity sha512-LmxjPt8wl3hZYjB4lQViYSiel00i8pF1kXy/6oC1HSja4tz9QLGQ4ywGUPV4jyTvSQgaQc7/PTIuBnsp5rlDCw==
+ra-data-fakerest@3.9.3:
+  version "3.9.3"
+  resolved "https://registry.yarnpkg.com/ra-data-fakerest/-/ra-data-fakerest-3.9.3.tgz#5c00b8b890feaa441fd971c8444b44d6ea188cee"
+  integrity sha512-yIZx38mcUqtmczU1Ws2PRnqhN+1AMuBa+4Cp96N9K/A0Z0wAEBvsnYun/14wIJYntshFeJ1PhiJL56EQy86aXw==
   dependencies:
-    fakerest "^3.0.0"
+    fakerest "^2.2.0"
 
 ra-i18n-polyglot@^3.14.2:
   version "3.14.2"

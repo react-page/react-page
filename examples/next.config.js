@@ -22,6 +22,9 @@ module.exports = withBundleAnalyzer({
     // Important: return the modified config
     return config;
   },
+  future: {
+    webpack5: true,
+  },
 
   basePath: process.env.RELEASE_CHANNEL
     ? !process.env.RELEASE_CHANNEL || process.env.RELEASE_CHANNEL === 'latest'
