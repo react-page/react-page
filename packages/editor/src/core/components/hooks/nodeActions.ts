@@ -202,7 +202,9 @@ export const useBlurAllCells = () => {
 };
 
 /**
- * @returns function to insert a new cell
+ * @returns function to insert a cell at the end of the document or the end of the parent cell
+ *
+ * if the id already exists, it will move that cell
  */
 export const useInsertNew = () => {
   const dispatch = useDispatch();
