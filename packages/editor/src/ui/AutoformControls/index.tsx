@@ -14,11 +14,13 @@ export const AutoForm = lazyLoad(() =>
   import('uniforms-material').then((c) => c.AutoForm)
 );
 export const AutoFields = lazyLoad(() =>
-  import('uniforms-material').then(
-    (c) =>
-      c.AutoFields as React.FC<{ element?: React.ReactNode; fields?: string[] }>
-  )
-);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  import('uniforms-material').then((c) => c.AutoFields as any)
+) as React.FC<{
+  element?: React.ReactNode;
+  fields?: string[];
+  omitFields?: string[];
+}>;
 const getDefaultValue = function (
   bridge: JSONSchemaBridge
 ): { [key: string]: unknown } {
