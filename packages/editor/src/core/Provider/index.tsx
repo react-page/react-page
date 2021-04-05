@@ -38,7 +38,7 @@ type ProviderProps = {
    * Labels are passed with this function. Use this function to replace labels for i18n support.
    * @param label
    */
-  uiTranslator?: (label?: string) => string | undefined;
+  uiTranslator?: (label: string) => string;
 } & Options;
 
 const Provider: React.FC<ProviderProps> = ({

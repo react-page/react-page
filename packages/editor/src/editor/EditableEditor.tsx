@@ -20,7 +20,7 @@ export type EditableEditorProps = {
   lang?: string;
   onChangeLang?: (l: string) => void;
   hideEditorSidebar?: boolean;
-  uiTranslator: (label?: string) => string | undefined;
+  uiTranslator: (label: string) => string;
 } & Options;
 
 const EditableEditor: React.FC<EditableEditorProps> = ({

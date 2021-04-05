@@ -60,5 +60,5 @@ export type Options = {
  * This is the ui-translator.
  */
 export type UiTranslator = {
-  t: (label?: string) => string | undefined;
+  t: (label: string) => string;
 };

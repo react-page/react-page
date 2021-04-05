@@ -105,7 +105,7 @@ cellSpacing = {
 
 ### `uiTranslator`
 
-Takes a function `(label?:string) => string | undefined`.  
+Takes a function `(label:string) => string`.  
 
 This prop enables i18n support. All interface labels are wrapped with this function.
 

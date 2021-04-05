@@ -41,7 +41,7 @@ export type EditorProps = {
   defaultDisplayMode?: DisplayModes;
   blurGateDisabled?: boolean;
   hideEditorSidebar?: boolean;
-  uiTranslator?: (label?: string) => string | undefined;
+  uiTranslator?: (label: string) => string;
 } & Options;
 
 const Editor: React.FC<EditorProps> = ({
@@ -94,7 +94,7 @@ const Editor: React.FC<EditorProps> = ({
         cellSpacing={cellSpacing}
         uiTranslator={uiTranslator}
         {...rest}
-      />  
+      />
   );
 };
 
