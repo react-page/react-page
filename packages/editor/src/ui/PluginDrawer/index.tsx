@@ -7,38 +7,32 @@ import React from 'react';
 import { Portal } from 'react-portal';
 import {
   useIsInsertMode,
-  useAllCellPlugins,
+  useAllCellPlugins, useUiTranslator,
 } from '../../core/components/hooks';
 import { CellPlugin } from '../../core/types';
 import Item from './Item/index';
 
-export interface PluginDrawerTranslations {
-  noPluginFoundContent: string | JSX.Element;
+export interface PluginDrawerLabels {
+  noPluginFoundContent: string;
   searchPlaceholder: string;
-
-  insertPlugin: string | JSX.Element;
+  insertPlugin: string;
   dragMe: string;
 }
-
-const defaultTranslations: PluginDrawerTranslations = {
-  noPluginFoundContent: 'No plugins found',
-  searchPlaceholder: 'Search cell plugins',
-
-  insertPlugin: 'Add cells to content',
-  dragMe: 'Drag me!',
-};
-
-type PluginDrawerProps = {
-  translations?: PluginDrawerTranslations;
-};
 
 const getPluginTitle = (plugin: CellPlugin) =>
   (plugin.title || plugin.text) ?? '';
 
-export const PluginDrawer: React.FC<PluginDrawerProps> = React.memo(
-  ({ translations = defaultTranslations }) => {
-    const plugins = useAllCellPlugins();
+export const PluginDrawer: React.FC = React.memo(
+  () => {
+    const defaultLabels: PluginDrawerLabels = {
+      noPluginFoundContent: 'No plugins found',
+      searchPlaceholder: 'Search cell plugins',
+      insertPlugin: 'Add cells to content',
+      dragMe: 'Drag me!',
+    };
 
+    const plugins = useAllCellPlugins();
+    const { t } = useUiTranslator();
     const [searchText, setSearchText] = React.useState<string>('');
     const searchFilter = React.useCallback(
       (plugin: CellPlugin) => {
@@ -103,19 +97,19 @@ export const PluginDrawer: React.FC<PluginDrawerProps> = React.memo(
         >
           <List
             subheader={
-              <ListSubheader>{translations.insertPlugin}</ListSubheader>
+              <ListSubheader>{t(defaultLabels.insertPlugin)}</ListSubheader>
             }
           >
             <ListItem>
               <TextField
                 inputRef={inputRef}
-                placeholder={translations.searchPlaceholder}
+                placeholder={t(defaultLabels.searchPlaceholder)}
                 fullWidth={true}
                 onChange={onSearch}
               />
             </ListItem>
             {filteredPlugins.length === 0 && (
-              <ListSubheader>{translations.noPluginFoundContent}</ListSubheader>
+              <ListSubheader>{t(defaultLabels.noPluginFoundContent)}</ListSubheader>
             )}
           </List>
           {filteredPlugins.length > 0 && (
@@ -123,7 +117,7 @@ export const PluginDrawer: React.FC<PluginDrawerProps> = React.memo(
               {filteredPlugins.map((plugin: CellPlugin, k: number) => {
                 return (
                   <Item
-                    translations={translations}
+                    translations={defaultLabels}
                     plugin={plugin}
                     key={k.toString()}
                     insert={{

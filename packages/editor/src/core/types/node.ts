@@ -98,3 +98,4 @@ export type CellDrag = {
   type: 'cell';
   cell: PartialCell;
 };
+

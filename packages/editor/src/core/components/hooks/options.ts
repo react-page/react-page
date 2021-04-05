@@ -2,7 +2,7 @@ import React, { createContext, useContext } from 'react';
 import EditorStore, { EditorContext } from '../../EditorStore';
 import { useSelector } from '../../reduxConnect';
 import { getLang } from '../../selector/setting';
-import { CellSpacing, Options } from '../../types';
+import { CellSpacing, Options, UiTranslator } from '../../types';
 
 import { normalizeCellSpacing } from '../../utils/getCellSpacing';
 import NoopProvider from '../Cell/NoopProvider';
@@ -25,6 +25,26 @@ export const OptionsContext = createContext<Options>({
  * @returns the options object of the current Editor. @see Options type for more information
  */
 export const useOptions = () => useContext(OptionsContext);
+
+export const UiTranslatorContext = createContext<UiTranslator>({
+  t: (label) => label,
+});
+
+/**
+ * @returns the an object with a single `t` function for ui translations
+ */
+export const useUiTranslator = () => {
+  const userTranslatorFunction = useContext(UiTranslatorContext);
+  return {
+    t: (key: string) => {
+      const translation = userTranslatorFunction.t(key);
+      if (translation === undefined || translation === null) {
+        return key;
+      }
+      return translation;
+    },
+  };
+};
 
 /**
  * @returns the options (@see useOptions) and the current selected language.

@@ -41,6 +41,7 @@ export type EditorProps = {
   defaultDisplayMode?: DisplayModes;
   blurGateDisabled?: boolean;
   hideEditorSidebar?: boolean;
+  uiTranslator?: (label: string) => string;
 } & Options;
 
 const Editor: React.FC<EditorProps> = ({
@@ -55,6 +56,7 @@ const Editor: React.FC<EditorProps> = ({
   lang = languages?.[0].lang ?? 'default',
   pluginsWillChange,
   cellSpacing,
+  uiTranslator = (label) => label,
   ...rest
 }) => {
   // mount the component always in readonly, to avoid problems with SSR
@@ -72,26 +74,27 @@ const Editor: React.FC<EditorProps> = ({
     />
   ) : (
     <EditableEditor
-      fallback={
-        <HTMLRenderer
-          value={value}
-          cellPlugins={cellPlugins}
-          lang={lang}
-          cellSpacing={cellSpacing}
-        />
-      }
-      pluginsWillChange={pluginsWillChange}
-      cellPlugins={cellPlugins}
-      value={value}
-      onChange={onChange}
-      dndBackend={dndBackend}
-      blurGateDisabled={blurGateDisabled}
-      defaultDisplayMode={defaultDisplayMode}
-      lang={lang}
-      languages={languages}
-      cellSpacing={cellSpacing}
-      {...rest}
-    />
+        fallback={
+          <HTMLRenderer
+            value={value}
+            cellPlugins={cellPlugins}
+            lang={lang}
+            cellSpacing={cellSpacing}
+          />
+        }
+        pluginsWillChange={pluginsWillChange}
+        cellPlugins={cellPlugins}
+        value={value}
+        onChange={onChange}
+        dndBackend={dndBackend}
+        blurGateDisabled={blurGateDisabled}
+        defaultDisplayMode={defaultDisplayMode}
+        lang={lang}
+        languages={languages}
+        cellSpacing={cellSpacing}
+        uiTranslator={uiTranslator}
+        {...rest}
+      />
   );
 };
 

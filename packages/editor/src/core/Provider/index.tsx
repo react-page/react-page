@@ -7,6 +7,7 @@ import EditorStore, { EditorContext } from '../EditorStore';
 import { ReduxProvider } from '../reduxConnect';
 import { DisplayModes } from '../actions/display';
 import { Value } from '../types/node';
+import { UiTranslatorContext } from '../components/hooks';
 
 import { serialzeValue } from '../migrations/serialzeValue';
 import deepEquals from '../utils/deepEquals';
@@ -33,6 +34,11 @@ type ProviderProps = {
    * pass custom redux middleware:. Might get deprecated in the future
    */
   middleware?: Middleware[];
+  /**
+   * Labels are passed with this function. Use this function to replace labels for i18n support.
+   * @param label
+   */
+  uiTranslator?: (label: string) => string;
 } & Options;
 
 const Provider: React.FC<ProviderProps> = ({
@@ -48,6 +54,7 @@ const Provider: React.FC<ProviderProps> = ({
   store: passedStore,
   middleware = [],
   pluginsWillChange,
+  uiTranslator = (label) => label,
   ...options
 }) => {
   const editorStore = useMemo(() => {
@@ -137,23 +144,32 @@ const Provider: React.FC<ProviderProps> = ({
 
   // prevent options from recreating all the time
 
+  const uiTranslatorMemorized = useMemo(
+    () => ({
+      t: uiTranslator,
+    }),
+    [uiTranslator]
+  );
+
   return (
     <DndProvider backend={dndBackend}>
       <ReduxProvider store={editorStore.store}>
-        <OptionsProvider
-          {...options}
-          pluginsWillChange={pluginsWillChange}
-          cellPlugins={cellPlugins}
-        >
-          <EditorContext.Provider value={editorStore}>
-            <BlurGate
-              disabled={blurGateDisabled}
-              defaultMode={blurGateDefaultMode}
-            >
-              {children}
-            </BlurGate>
-          </EditorContext.Provider>
-        </OptionsProvider>
+        <UiTranslatorContext.Provider value={uiTranslatorMemorized}>
+          <OptionsProvider
+            {...options}
+            pluginsWillChange={pluginsWillChange}
+            cellPlugins={cellPlugins}
+          >
+            <EditorContext.Provider value={editorStore}>
+              <BlurGate
+                disabled={blurGateDisabled}
+                defaultMode={blurGateDefaultMode}
+              >
+                {children}
+              </BlurGate>
+            </EditorContext.Provider>
+          </OptionsProvider>
+        </UiTranslatorContext.Provider>
       </ReduxProvider>
     </DndProvider>
   );

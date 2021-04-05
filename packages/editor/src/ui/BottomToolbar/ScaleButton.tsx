@@ -1,6 +1,7 @@
 import { IconButton, Tooltip } from '@material-ui/core';
 import FormatSize from '@material-ui/icons/FormatSize';
 import React from 'react';
+import { useUiTranslator } from '../../core/components/hooks';
 const SCALING_FACTORS = [1, 0.8, 0.6, 1.2];
 let lastScale = SCALING_FACTORS[0]; // poor mans redux
 
@@ -8,6 +9,7 @@ export const ScaleButton: React.FC<{
   scale: number;
   setScale: (s: number) => void;
 }> = ({ scale, setScale }) => {
+  const { t } = useUiTranslator();
   const toggleScale = React.useCallback(() => {
     const newScalingFactor =
       SCALING_FACTORS[
@@ -19,7 +21,7 @@ export const ScaleButton: React.FC<{
     lastScale = newScalingFactor;
   }, [scale, lastScale, setScale]);
   return (
-    <Tooltip title="Toggle Scale">
+    <Tooltip title={t('Toggle Scale')}>
       <IconButton
         onClick={toggleScale}
         aria-label="toggle scale"
