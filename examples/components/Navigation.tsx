@@ -45,11 +45,7 @@ const Navigation: React.FC = () => {
           <ListItemText primary={'Empty editor'} />
         </ListItem>
       </Link>
-      <Link passHref href="/i18n">
-        <ListItem component="a">
-          <ListItemText primary={'i18n'} />
-        </ListItem>
-      </Link>
+
       <Link passHref href="/examples/reactadmin">
         <ListItem component="a">
           <ListItemText primary={'React Admin example'} />
