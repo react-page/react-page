@@ -2,7 +2,11 @@ import IconButton from '@material-ui/core/IconButton';
 import VerticalAlignTopIcon from '@material-ui/icons/VerticalAlignTop';
 
 import React from 'react';
-import { useFocusCell, useParentCellId, useUiTranslator } from '../../core/components/hooks';
+import {
+  useFocusCell,
+  useParentCellId,
+  useUiTranslator,
+} from '../../core/components/hooks';
 
 export const SelectParentButton: React.FC<{
   nodeId: string;

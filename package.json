@@ -73,7 +73,7 @@
     "clean:lerna": "lerna clean --yes",
     "lint": "eslint -c .eslintrc.js '*/**/*.{js,ts,tsx}'",
     "lint:watch": "npm-run-all watch:ts -- -c \"npm-run-all lint\"",
-    "prettier": " prettier-tslint fix \"packages/**/src/**/*.(ts|tsx)\"",
+    "lint:fix": "yarn lint --fix",
     "dev": "cross-env TSC_WATCHFILE=UseFsEventsWithFallbackDynamicPolling npm-run-all -p build:watch dev:examples",
     "dev:examples": "cross-env NODE_ENV=development lerna run dev --stream",
     "test": "cross-env NODE_ENV=test jest --coverage",

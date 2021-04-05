@@ -6,7 +6,8 @@ import {
   useCellDataI18nRaw,
   useLang,
   useOptions,
-  useSetLang, useUiTranslator,
+  useSetLang,
+  useUiTranslator,
   useUpdateCellData,
 } from '../../core/components/hooks';
 import DraftSwitch from '../DraftSwitch';
@@ -73,7 +74,7 @@ const I18nDialog = ({
                         reset(l.lang);
                       }}
                     >
-                      {t(`Reset to ${defaultLangLabel} ⚠️`) }
+                      {t(`Reset to ${defaultLangLabel} ⚠️`)}
                     </Button>
                   ) : null}
                 </td>

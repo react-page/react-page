@@ -6,7 +6,8 @@ import React from 'react';
 import type { PluginDrawerLabels } from '..';
 import {
   useDisplayModeReferenceNodeId,
-  useInsertNew, useUiTranslator,
+  useInsertNew,
+  useUiTranslator,
 } from '../../../core/components/hooks';
 import { CellPlugin, InsertNewCell } from '../../../core/types';
 import Draggable from '../Draggable/index';

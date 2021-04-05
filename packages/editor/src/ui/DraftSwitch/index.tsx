@@ -5,7 +5,8 @@ import React from 'react';
 import {
   useCellProps,
   useLang,
-  useSetDraft, useUiTranslator,
+  useSetDraft,
+  useUiTranslator,
 } from '../../core/components/hooks';
 
 const DraftSwitch = ({ nodeId, lang }: { nodeId: string; lang?: string }) => {
