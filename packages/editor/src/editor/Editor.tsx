@@ -83,4 +83,4 @@ const Editor: React.FC<EditorProps> = ({
   );
 };
 
-export default React.memo(Editor);
+export default Editor;

@@ -39,6 +39,7 @@ const EditableEditor: React.FC<EditableEditorProps> = ({
   editModeResizeHandle,
   childConstraints,
   components,
+  children,
 }) => {
   const theValue = value || createEmptyState();
   return (
@@ -59,6 +60,7 @@ const EditableEditor: React.FC<EditableEditorProps> = ({
       childConstraints={childConstraints}
       components={components}
     >
+      {children}
       <StickyWrapper>
         {(stickyNess) => (
           <>
