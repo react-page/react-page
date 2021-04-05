@@ -85,9 +85,6 @@ const Inner: React.FC<{ nodeId: string }> = ({ nodeId }) => {
           onClick={!isPreviewMode ? onClick : undefined}
           tabIndex={-1}
           style={{
-            outline: 'none',
-            boxSizing: 'border-box',
-            height: '100%',
             ...(cellStyle ?? {}),
           }}
           className={

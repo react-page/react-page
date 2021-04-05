@@ -118,10 +118,6 @@ const Cell: React.FC<Props> = ({ nodeId, measureRef }) => {
             !isResizeMode && !isLayoutMode && inline, // inline must not be active for resize/layout
         })}
         onClick={stopClick(isEditMode)}
-        style={{
-          height: '100%',
-          boxSizing: 'border-box',
-        }}
       >
         <Handle nodeId={nodeId} />
         <div

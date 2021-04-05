@@ -6,6 +6,8 @@
 /* general rules for read only and edit */
 
 .react-page-cell {
+  height: 100%;
+  box-sizing: border-box;
   &-inline-left {
     float: left;
   }
@@ -17,6 +19,12 @@
   &-has-inline-neighbour {
     float: none;
     width: 100%;
+  }
+
+  & &-inner {
+    height: 100%;
+    box-sizing: border-box;
+    outline: none;
   }
 }
 
