@@ -127,6 +127,7 @@ const HTMLCell: React.FC<
                     : {
                         display: 'flex',
                         flexDirection: 'column',
+                        height: '100%',
                       }
                 }
               >
