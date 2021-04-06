@@ -37,6 +37,8 @@ const ResizableRowCell: React.FC<Props> = ({
   const resize = useResizeCell(nodeId);
   const [ref, { height: cellHeight }] = useMeasure();
   const { y: cellSpacingY } = useCellSpacing();
+  const options = useOptions();
+  const CellComponent = options.components?.Cell ?? Cell;
 
   const showResizeHandle =
     !isPreviewMode &&
@@ -45,7 +47,7 @@ const ResizableRowCell: React.FC<Props> = ({
 
   return (
     <>
-      <Cell nodeId={nodeId} measureRef={ref} />
+      <CellComponent nodeId={nodeId} measureRef={ref} />
 
       {showResizeHandle ? (
         <Draggable

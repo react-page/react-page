@@ -28,7 +28,13 @@ const reduceToIdAndSizeArray = (
     },
   ];
 };
-const Row: React.FC<{ nodeId: string }> = ({ nodeId }) => {
+
+export interface RowProps {
+  nodeId: string;
+  className?: string;
+}
+
+const Row: React.FC<RowProps> = ({ nodeId, className }) => {
   const [ref, { width: rowWidth }] = useMeasure();
 
   const hoverPosition = useNodeHoverPosition(nodeId);
@@ -47,7 +53,7 @@ const Row: React.FC<{ nodeId: string }> = ({ nodeId }) => {
   const { x: cellSpacingX, y: cellSpacingY } = useCellSpacing();
 
   return (
-    <Droppable nodeId={nodeId}>
+    <Droppable nodeId={nodeId} className={className}>
       <div
         ref={ref}
         className={classNames('react-page-row', {

@@ -35,6 +35,7 @@ const Inner: React.FC = () => {
 
   const ref = useRef<HTMLDivElement>();
   const options = useOptions();
+  const RowComponent = options.components?.Row ?? Row;
 
   const firstElementInViewPortref = React.useRef<{
     el: HTMLDivElement;
@@ -94,7 +95,7 @@ const Inner: React.FC = () => {
           }
         >
           {rowIds.map((id) => (
-            <Row nodeId={id} key={id} />
+            <RowComponent nodeId={id} key={id} />
           ))}
         </div>
       ) : null}

@@ -16,6 +16,7 @@ import {
   useCellSpacing,
   useCellData,
   useCellSpacingProvider,
+  useOptions,
 } from '../../hooks';
 import Row from '../../Row';
 import Draggable from '../Draggable';
@@ -34,6 +35,9 @@ const Inner: React.FC<{ nodeId: string }> = ({ nodeId }) => {
   const childrenIds = useNodeChildrenIds(nodeId);
   let { y: cellSpacingY } = useCellSpacing();
   const ref = React.useRef<HTMLDivElement>();
+
+  const options = useOptions();
+  const RowComponent = options.components?.Row ?? Row;
 
   const hasChildren = childrenIds.length > 0;
 
@@ -70,7 +74,9 @@ const Inner: React.FC<{ nodeId: string }> = ({ nodeId }) => {
     : true;
   const cellStyle = useCellStyle(nodeId);
 
-  const children = childrenIds.map((id) => <Row nodeId={id} key={id} />);
+  const children = childrenIds.map((id) => (
+    <RowComponent nodeId={id} key={id} />
+  ));
   if (!cellShouldHavePlugin) {
     return <Droppable nodeId={nodeId}>{children}</Droppable>;
   }

@@ -55,6 +55,7 @@ const Editor: React.FC<EditorProps> = ({
   lang = languages?.[0].lang ?? 'default',
   pluginsWillChange,
   cellSpacing,
+  components,
   ...rest
 }) => {
   // mount the component always in readonly, to avoid problems with SSR
@@ -69,6 +70,7 @@ const Editor: React.FC<EditorProps> = ({
       cellPlugins={cellPlugins}
       lang={lang}
       cellSpacing={cellSpacing}
+      components={components}
     />
   ) : (
     <EditableEditor
@@ -78,6 +80,7 @@ const Editor: React.FC<EditorProps> = ({
           cellPlugins={cellPlugins}
           lang={lang}
           cellSpacing={cellSpacing}
+          components={components}
         />
       }
       pluginsWillChange={pluginsWillChange}
@@ -90,6 +93,7 @@ const Editor: React.FC<EditorProps> = ({
       lang={lang}
       languages={languages}
       cellSpacing={cellSpacing}
+      components={components}
       {...rest}
     />
   );

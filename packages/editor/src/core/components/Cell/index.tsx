@@ -43,11 +43,13 @@ const CellErrorGate = class extends React.Component<
   }
 };
 
-type Props = {
+export type CellProps = {
   nodeId: string;
   measureRef?: React.Ref<HTMLDivElement>;
+  className?: string;
 };
-const Cell: React.FC<Props> = ({ nodeId, measureRef }) => {
+
+const Cell: React.FC<CellProps> = ({ nodeId, measureRef, className }) => {
   const focused = useIsFocused(nodeId);
 
   const {
@@ -116,7 +118,7 @@ const Cell: React.FC<Props> = ({ nodeId, measureRef }) => {
             }
           : undefined
       }
-      className={classNames(gridClass(size), {
+      className={classNames(gridClass(size), className, {
         'react-page-cell-has-inline-neighbour': hasInlineNeighbour,
         [`react-page-cell-inline-${inline || ''}`]: inline,
       })}
