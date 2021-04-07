@@ -16,6 +16,7 @@ import { Middleware, Store } from 'redux';
 import { migrateValue } from '../migrations/migrate';
 import { updateValue } from '../actions/value';
 import { RootState, ValueWithLegacy } from '../types';
+import { initialState } from '../reducer';
 
 type ProviderProps = {
   lang?: string;
@@ -57,27 +58,13 @@ const Provider: React.FC<ProviderProps> = ({
 }) => {
   const editorStore = useMemo(() => {
     const store = new EditorStore({
-      initialState: {
-        reactPage: {
-          __nodeCache: {},
-          hover: null,
-          focus: null,
-          display: {
-            mode: 'edit',
-          },
-          settings: {
-            lang,
-          },
-          values: {
-            past: [],
-            present: migrateValue(value, {
-              cellPlugins,
-              lang,
-            }),
-            future: [],
-          },
-        },
-      },
+      initialState: initialState(
+        migrateValue(value, {
+          cellPlugins,
+          lang,
+        }),
+        lang
+      ),
       store: passedStore,
       middleware,
     });

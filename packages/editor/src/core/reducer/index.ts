@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux';
+import { Value, RootState } from '../types';
 
 import { values } from './values';
 import { display } from './display';
@@ -19,3 +20,24 @@ const reducer = combineReducers({
 export { reducer };
 
 export default combineReducers({ reactPage: reducer });
+
+export function initialState(value: Value, lang: string): RootState {
+  return {
+    reactPage: {
+      __nodeCache: {},
+      hover: null,
+      focus: null,
+      display: {
+        mode: 'edit',
+      },
+      settings: {
+        lang,
+      },
+      values: {
+        past: [],
+        present: value,
+        future: [],
+      },
+    },
+  };
+}
