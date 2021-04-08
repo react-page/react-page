@@ -117,7 +117,7 @@ const Cell: React.FC<Props> = ({ nodeId, measureRef }) => {
           'react-page-cell-bring-to-front':
             !isResizeMode && !isLayoutMode && inline, // inline must not be active for resize/layout
         })}
-        onClick={stopClick(isEditMode)}
+        onClick={stopClick(hasPlugin && isEditMode)}
       >
         <Handle nodeId={nodeId} />
         <div

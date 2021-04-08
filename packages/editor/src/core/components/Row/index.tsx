@@ -2,12 +2,7 @@ import classNames from 'classnames';
 import React from 'react';
 import { useMeasure } from 'react-use';
 import { isRow, Node, Row } from '../../types/node';
-import {
-  useBlurAllCells,
-  useCellSpacing,
-  useNodeHoverPosition,
-  useNodeProps,
-} from '../hooks';
+import { useCellSpacing, useNodeHoverPosition, useNodeProps } from '../hooks';
 import Droppable from './Droppable';
 import ResizableRowCell from './ResizableRowCell';
 
@@ -35,7 +30,6 @@ const reduceToIdAndSizeArray = (
 const Row: React.FC<{ nodeId: string }> = ({ nodeId }) => {
   const [ref, { width: rowWidth }] = useMeasure();
 
-  const blurAllCells = useBlurAllCells();
   const hoverPosition = useNodeHoverPosition(nodeId);
 
   const childrenWithOffsets = useNodeProps(nodeId, (node) =>
@@ -64,7 +58,6 @@ const Row: React.FC<{ nodeId: string }> = ({ nodeId }) => {
           position: 'relative',
           margin: cellSpacingX !== 0 ? `0 ${-cellSpacingX / 2}px` : undefined,
         }}
-        onClick={blurAllCells}
       >
         <div
           style={{

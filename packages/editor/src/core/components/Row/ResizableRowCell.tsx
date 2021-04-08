@@ -81,6 +81,7 @@ const ResizableRowCell: React.FC<Props> = ({
               margin:
                 cellSpacingY !== 0 ? `${cellSpacingY / 2}px 0` : undefined,
             }}
+            onClick={(e) => e.stopPropagation()}
           ></div>
         </Draggable>
       ) : null}
