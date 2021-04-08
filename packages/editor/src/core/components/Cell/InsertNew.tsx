@@ -45,6 +45,7 @@ const InsertNew: React.FC<{ parentCellId?: string }> = ({ parentCellId }) => {
         margin: 'auto',
       }}
       onClick={(e) => {
+        e.stopPropagation();
         setReferenceNodeId(parentCellId);
         setInsertMode();
       }}

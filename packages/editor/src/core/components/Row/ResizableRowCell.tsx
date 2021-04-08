@@ -77,6 +77,7 @@ const ResizableRowCell: React.FC<Props> = ({
               // fix floating style
               height: rowHasInlineChildrenPosition ? cellHeight : 'auto',
             }}
+            onClick={(e) => e.stopPropagation()}
           ></div>
         </Draggable>
       ) : null}

@@ -34,23 +34,19 @@ const Inner: React.FC<{ nodeId: string }> = ({ nodeId }) => {
       const target = e.target as HTMLDivElement;
 
       // check whether the click was inside cell-inner, but not inside a nested cell
-      // also check whether it was not somehwere in a inner row (e.g. the resize handle)
       if (
+        !focused &&
+        isEditMode &&
+        // this arrives when they stop resizing
+        !target.classList.contains('react-page-row') &&
         target?.closest &&
         target.closest('.react-page-cell-inner') === ref.current &&
-        target.closest('.react-page-cell') ===
-          ref.current.closest('.react-page-cell') &&
-        target.closest('.react-page-row') ===
-          ref.current.closest('.react-page-row') &&
-        // also prevent click on insert new
-        !target.classList.contains('react-page-cell-insert-new')
+        target.closest('.react-page-cell.react-page-cell-has-plugin') ===
+          ref.current.closest('.react-page-cell')
       ) {
-        if (!focused && isEditMode) {
-          focus(false, 'onClick');
-          setEditMode();
-        }
+        focus(false, 'onClick');
+        setEditMode();
       }
-      return true;
     },
     [focus, focused, isEditMode, setEditMode]
   );
