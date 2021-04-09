@@ -35,6 +35,7 @@
   flex: 0 1 auto;
   flex-direction: row;
   flex-wrap: wrap;
+  height: 100%;
   margin-right: var(--gutter-compensation, -0.5rem);
   margin-left: var(--gutter-compensation, -0.5rem);
   position: relative;
