@@ -196,8 +196,6 @@ export type CellPlugin<DataT = unknown, DataSerializedT = DataT> = {
    */
   allowNeighbour?: (item: PartialCell) => boolean;
 
-  reducer?: (data: DataT, action: AnyAction) => DataT;
-
   /**
    * called when a cell with this plugin is added
    */

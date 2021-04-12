@@ -3,7 +3,7 @@
 The `<Editor />` component is the 1st component to be instantiated. It is used both for editing and displaying content (with `readOnly` set to true). At its simplest it needs a rich text editor - react-page comes preconfigured with Slate as a 'cellPlugin' to be used as the rich text editor. Optionally an image plugin can be added for uploading images or loading images from an existing source (URL).
 
 ```tsx
-import Editor, { Value } from '@react-page/editor';
+import Editor from '@react-page/editor';
 import '@react-page/editor/lib/index.css';
 
 // The rich text area plugin (Slate)
@@ -17,9 +17,7 @@ import '@react-page/plugins-image/lib/index.css';
 // Define which plugins we want to use.
 const cellPlugins = [slate(), image];
 
-export default function SimpleExample() {
-  const [value, setValue] = useState<Value>(null);
-
+const App = () => {
   // ....
 
   // for editing
@@ -31,16 +29,6 @@ export default function SimpleExample() {
   // ....
 };
 ```
-
-### Editing
-[Link to editing example](examples/pages/examples/simple.tsx)
-
-[Live demo of the editing example](//demo/simple)
-
-### Viewing
-[Link to viewing example](examples/pages/examples/readonly.tsx)
-
-[Live demo of the viewing example](//demo/readonly)
 
 ## Props
 
@@ -56,7 +44,7 @@ A callback function whenever the editor has new data. This is not required when 
 
 ### `readOnly: boolean`
 
-If set to `true`, the content cannot be edited. Set this when using the editor to display the content. The code that is used for editing isn't loaded in this case, and hence there is a reduction in the bundle size if using webpack or similar bundlers.
+If set to `true`, the content cannot be edited. Set this when using the editor to display the content. The code that is used for editing isn't loaded in this case, and hence there is a reduction in the budle size if using webpack or similar bundlers.
 
 If set to `false` during runtime, the editing UI is loaded and displays. This allows editing of the content.
 
@@ -116,7 +104,6 @@ it will only show the (+) button to add new cells when it has less than `maxChil
 
 It currently just controls whether the button is shown, but its still possible to add new cells by dragging.
 it will be revisited in the future and is therefore considered experimental.
-
 
 ## Internal JSON details
 
@@ -179,9 +166,7 @@ Some examples of the internal JSON representation for understanding:
               ]
             }
           },
-          "rows": [
-            
-          ],
+          "rows": [],
           "inline": null
         }
       ]
@@ -235,9 +220,7 @@ Some examples of the internal JSON representation for understanding:
               ]
             }
           },
-          "rows": [
-            
-          ],
+          "rows": [],
           "inline": null
         }
       ]
@@ -257,16 +240,14 @@ Some examples of the internal JSON representation for understanding:
               "src": "https://www.nasa.gov/sites/default/files/styles/full_width/public/thumbnails/image/mars2020-sample-tubes.jpg?itok=SiZDKmmG"
             }
           },
-          "rows": [
-            
-          ],
+          "rows": [],
           "inline": null
         }
       ]
     }
   ]
 }
-
+```
 
 ### Custom Editor UI: `components` (experimental)
 
@@ -281,4 +262,3 @@ Currently you can replace these Components:
 - BottomToolbar: The Component that renders the Toolbar on the bottom that reveals the plugin controls and some cell actions
 
 (please file also an issue or Pull Request if you want to add more components to replace)
-
