@@ -180,7 +180,8 @@ function plugin<TPlugins extends SlatePluginCollection = DefaultPlugins>(
       }
       if (s?.slate) {
         return {
-          slate: s.slate,
+          ...s,
+          selection: null,
         };
       }
 
