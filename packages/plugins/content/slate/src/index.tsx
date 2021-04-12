@@ -163,7 +163,10 @@ function plugin<TPlugins extends SlatePluginCollection = DefaultPlugins>(
     createData: createData,
     createDataFromHtml: htmlToSlate,
     // remove selection
-    serialize: (s) => (s ? { slate: s.slate } : null),
+    serialize: ({ slate, selection, ...rest } = { slate: [] }) => ({
+      slate,
+      ...rest,
+    }),
     unserialize: (s) => {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       if ((s as any)?.importFromHtml) {
