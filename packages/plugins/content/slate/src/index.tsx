@@ -18,7 +18,13 @@ import transformInitialSlateState from './utils/transformInitialSlateState';
 
 const slatePlugins = defaultPlugins;
 
-export { defaultPlugins, slatePlugins, pluginFactories, HtmlToSlate };
+export {
+  defaultPlugins,
+  slatePlugins,
+  pluginFactories,
+  HtmlToSlate,
+  SlateState,
+};
 const Subject = lazyLoad(() => import('@material-ui/icons/Subject'));
 const Controls = lazyLoad(() => import('./components/Controls'));
 
