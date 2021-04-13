@@ -1,3 +1,5 @@
+// This file is deprecated and no longer used.
+
 export const defaultTranslations = {
   buttonContent: 'Upload image',
   noFileError: 'No file selected',

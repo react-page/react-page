@@ -51,27 +51,35 @@ class ImageComponent extends React.Component<
           {this.props.imageUpload && (
             <React.Fragment>
               <ImageUpload
+                translations={this.props.translations}
                 imageUpload={this.props.imageUpload}
                 imageLoaded={this.handleImageLoaded}
                 imageUploaded={this.handleImageUploaded}
               />
               <Typography
                 variant="body1"
-                style={{ marginLeft: '20px', marginRight: '20px' }}
+                style={{ margin: '20px 16px 0 16px' }}
               >
-                OR
+                {this.props.translations.or}
               </Typography>
             </React.Fragment>
           )}
           <TextField
-            placeholder="http://example.com/image.png"
-            label={this.props.imageUpload ? 'I have a URL' : 'Image URL'}
-            style={{ width: '256px' }}
+            placeholder={this.props.translations.srcPlaceholder}
+            label={
+              this.props.imageUpload
+                ? this.props.translations.haveUrl
+                : this.props.translations.imageUrl
+            }
+
+            style={{ width: '400px' }}
             value={background}
             onChange={this.handleChangeBackground}
           />
         </div>
+
         <br />
+
         <div style={{ display: 'flex' }}>
           <FormControlLabel
             control={
