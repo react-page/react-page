@@ -3,7 +3,7 @@ import { SpacerSettings } from '../types/settings';
 
 export const defaultTranslations = {
   pluginName: 'Spacer',
-  pluginDescription: 'Resizeable, empty space.',
+  pluginDescription: 'Resizeable, horizontal and vertical empty space.',
   elementHeightLabel: 'Element height (px)',
 };
 

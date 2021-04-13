@@ -7,11 +7,11 @@ import ToggleResize from './ToggleResize/index';
 import UndoRedo from './UndoRedo';
 
 const defaultTranslations = {
-  edit: 'Edit things',
-  insert: 'Add things',
-  layout: 'Move things',
-  resize: 'Resize things',
-  preview: 'Preview result',
+  edit: 'Edit blocks',
+  insert: 'Add blocks',
+  layout: 'Move blocks',
+  resize: 'Resize blocks',
+  preview: 'Preview page',
 };
 
 const getStickyNessstyle = (stickyness?: StickyNess): React.CSSProperties => {
