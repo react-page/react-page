@@ -1,5 +1,5 @@
 import debounce from 'lodash.debounce';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState, useMemo } from 'react';
 import { PositionEnum } from '../../const';
 import { useSelector } from '../../reduxConnect';
 
@@ -244,10 +244,9 @@ export const useCellStyle = (nodeId: string, lang?: string) => {
  */
 export const useDebouncedCellData = (nodeId: string) => {
   const cellData = useCellData(nodeId);
-  const [data, setData] = useState(cellData);
-  const dataRef = useRef(data);
-  dataRef.current = data;
-  const cellDataRef = useRef<Record<string, unknown>>(cellData);
+  const [, setData] = useState(cellData);
+  const dataRef = useRef(cellData);
+  const cellDataRef = useRef(cellData);
 
   const updateCellData = useUpdateCellData(nodeId);
   const updateCellDataDebounced = useCallback(
@@ -258,27 +257,30 @@ export const useDebouncedCellData = (nodeId: string) => {
     [updateCellData]
   );
 
-  const changed = !deepEquals(cellData, cellDataRef.current);
+  const changed = useMemo(() => !deepEquals(cellData, cellDataRef.current), [
+    cellData,
+  ]);
 
   useEffect(() => {
-    // changed from "outside"
+    // changed from "outside" overwrite whatever is pending
     if (changed) {
       cellDataRef.current = cellData;
+      dataRef.current = cellData;
       setData(cellData);
     }
   }, [changed, cellData]);
 
   const onChange = useCallback(
     (partialData, options) => {
-      const fullData = {
-        ...data,
+      dataRef.current = {
+        ...dataRef.current,
         ...partialData,
       };
-      setData(fullData);
+      setData(dataRef.current);
 
       updateCellDataDebounced(options);
     },
-    [updateCellDataDebounced, setData, data]
+    [updateCellDataDebounced, setData]
   );
-  return [data, onChange] as const;
+  return [dataRef.current, onChange] as const;
 };

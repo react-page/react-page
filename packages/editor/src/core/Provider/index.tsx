@@ -17,6 +17,8 @@ import { updateValue } from '../actions/value';
 import { Options, RootState, ValueWithLegacy } from '../types';
 import OptionsProvider from './OptionsProvider';
 
+import { initialState } from '../reducer';
+
 type ProviderProps = {
   lang?: string;
   onChangeLang?: (lang: string) => void;
@@ -52,27 +54,13 @@ const Provider: React.FC<ProviderProps> = ({
 }) => {
   const editorStore = useMemo(() => {
     const store = new EditorStore({
-      initialState: {
-        reactPage: {
-          __nodeCache: {},
-          hover: null,
-          focus: null,
-          display: {
-            mode: 'edit',
-          },
-          settings: {
-            lang,
-          },
-          values: {
-            past: [],
-            present: migrateValue(value, {
-              cellPlugins,
-              lang,
-            }),
-            future: [],
-          },
-        },
-      },
+      initialState: initialState(
+        migrateValue(value, {
+          cellPlugins,
+          lang,
+        }),
+        lang
+      ),
       store: passedStore,
       middleware,
     });
