@@ -1,9 +1,8 @@
 <!-- docs/_sidebar.md -->
 
-- [README](/)
-- <a href="..">> Demo</a>
+- [Readme](/)
 - [Getting started](/quick-start.md)
-- [`<Editor />`](/editor.md)
+- [Editor component](/editor.md)
 - [Rich text editing](/slate.md)
 - [Custom Cell plugins](/custom-cell-plugins.md)
 - [Builtin Cell Plugins](/builtin_plugins.md)

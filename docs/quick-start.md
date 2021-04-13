@@ -1,6 +1,6 @@
 ## Installation
 
-To install the editor, use:
+To install the react-page editor, use:
 
 ```bash
 $ yarn add @react-page/editor
@@ -8,7 +8,7 @@ $ yarn add @react-page/editor
 $ npm i --save @react-page/editor
 ```
 
-usually you'll also want to have the default rich text editor:
+usually you'll also want to have the default rich text editor (slate):
 
 ```bash
 $ yarn add @react-page/plugins-slate
@@ -16,8 +16,14 @@ $ yarn add @react-page/plugins-slate
 $ npm i --save @react-page/plugins-slate
 ```
 
-Due to technical reasons, you additionaly need to have `@material-ui/core`, `@material-ui/styles` and `@material-ui/icons` installed,
-if you already haven't. Don't worry about incresed bundle size: we only load it if its really needed.
+## Dependencies
+
+React-page uses [Material UI](https://material-ui.com/) under the hood. The following packages need to be installed, if they are not already installed:
+1. `@material-ui/core`
+2. `@material-ui/styles`
+3. `@material-ui/icons`
+
+These packages are lazy loaded and do not directly increase your bundle size.
 
 ```bash
 $ yarn add @material-ui/core @material-ui/styles @material-ui/icons
@@ -25,30 +31,11 @@ $ yarn add @material-ui/core @material-ui/styles @material-ui/icons
 $ npm i --save @material-ui/core @material-ui/styles @material-ui/icons
 ```
 
-Make sure to import the css file as well somewhere in your app:
+## Modes of operation
+### Editing
 
-```
-import '@react-page/editor/lib/index.css';
-```
+React-page editor together with various plugins can be used to create and subsequently edit pages in a “WYSIWYG” mode. The editing UI code is lazy loaded in this case.
 
-## Simple example
+### Viewing
 
-To get off the ground as soon as possible, simply create a component like so:
-
-[simple.tsx](examples/pages/examples/simple.tsx ':include :type=code typescript')
-
-That's it, congratulations!
-
-[You should see something like this now (click for the demo)](//demo/simple)
-
-## Readonly
-
-Readonly mode can be used for displaying the content to your users.
-
-Simply provide a `readOnly={true}` prop to your editor.
-
-We won't load any UI related code unless readOnly changes to `false`. In this case, the ui will be lazy loaded if your bundler supports that (e.g. webpack)
-
-[simple.tsx](examples/pages/examples/readonly.tsx ':include :type=code typescript')
-
-(see demo here)](//demo/readonly)
+The React-page editor can seamlessly be used to view the pages created by it in a "readonly" mode. The bundle size is reduced in this mode.
