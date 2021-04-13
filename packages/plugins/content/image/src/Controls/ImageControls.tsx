@@ -8,10 +8,11 @@ import { ImageControlType } from '../types/controls';
 
 const ImageControls: ImageControlType = (props) => {
   return (
-    <div>
+    <>
+      {/* Button and existing image text box */}
       <div style={{ display: 'flex' }}>
         {props.imageUpload && (
-          <React.Fragment>
+          <>
             <ImageUpload
               translations={props.translations}
               imageUpload={props.imageUpload}
@@ -23,11 +24,11 @@ const ImageControls: ImageControlType = (props) => {
             />
             <Typography
               variant="body1"
-              style={{ marginLeft: '20px', marginRight: '20px' }}
+              style={{ margin: '20px 16px 0 16px' }}
             >
               {props.translations.or}
             </Typography>
-          </React.Fragment>
+          </>
         )}
         <TextField
           placeholder={props.translations.srcPlaceholder}
@@ -46,11 +47,15 @@ const ImageControls: ImageControlType = (props) => {
           }
         />
       </div>
+
+      <br />
+
+      {/* Image link textbox and checkbox */}
       <TextField
         placeholder={props.translations.hrefPlaceholder}
         label={props.translations.hrefLabel}
         name="href"
-        style={{ width: '512px' }}
+        style={{ width: '400px' }}
         value={props.data.href ?? ''}
         onChange={(e) =>
           props.onChange({
@@ -58,8 +63,6 @@ const ImageControls: ImageControlType = (props) => {
           })
         }
       />
-      <br />
-      <br />
       <FormControlLabel
         control={
           <Checkbox
@@ -73,7 +76,7 @@ const ImageControls: ImageControlType = (props) => {
         }
         label={props.translations.openNewWindow}
       />
-    </div>
+    </>
   );
 };
 

@@ -4,7 +4,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import ErrorIcon from '@material-ui/icons/Error';
 import { ImageLoaded, ImageUploadProps, ImageUploadState } from './types';
-import { defaultTranslations } from './defaultTranslations';
+// import { defaultTranslations } from './defaultTranslations';
 
 const NO_FILE_ERROR_CODE = 1;
 const BAD_EXTENSION_ERROR_CODE = 2;
@@ -16,7 +16,7 @@ class ImageUpload extends React.Component<ImageUploadProps, ImageUploadState> {
     icon: <CloudUploadIcon style={{ marginLeft: '8px' }} />,
     allowedExtensions: ['jpg', 'jpeg', 'png'],
     maxFileSize: 5242880,
-    translations: defaultTranslations,
+    // translations: defaultTranslations,
   };
   fileInput: HTMLInputElement;
 
@@ -145,6 +145,7 @@ class ImageUpload extends React.Component<ImageUploadProps, ImageUploadState> {
           color={this.state.hasError ? 'secondary' : 'primary'}
           onClick={this.handleFileUploadClick}
           style={this.props.style}
+          size="small"
         >
           {this.renderChildren()}
         </Button>
