@@ -1,5 +1,7 @@
 import type { ValueWithLegacy } from '../..';
 import type { Cell, Value, Row } from '../types/node';
+import { getChildCellPlugins } from '../utils/getAvailablePlugins';
+import { getCellData } from '../utils/getCellData';
 import { removeUndefinedProps } from '../utils/removeUndefinedProps';
 
 import EDITABLE_MIGRATIONS from './EDITABLE_MIGRATIONS';
@@ -43,56 +45,74 @@ export const migrate = <TOut>(
   return data;
 };
 
+const migratePluginDataForRow = (r: Row, context: MigrationContext): Row => {
+  return {
+    ...r,
+    cells: r.cells.map((c) => migratePluginDataForCell(c, context)),
+  };
+};
+const migratePluginDataForCell = (
+  c: Cell,
+  { lang, cellPlugins }: MigrationContext
+): Cell => {
+  const pluginDef = c.plugin;
+  const pluginFound = pluginDef
+    ? cellPlugins.find((p) => p.id === pluginDef.id)
+    : null;
+
+  const versionMismatch =
+    pluginDef && pluginFound && pluginDef.version !== pluginFound.version;
+
+  const transformData = (dataIn: unknown) => {
+    const data = versionMismatch
+      ? migrate(dataIn, pluginFound.migrations, pluginDef.version, {
+          lang,
+          cellPlugins,
+        })
+      : dataIn;
+
+    return pluginFound?.unserialize ? pluginFound.unserialize(data) : data;
+  };
+  const dataI18n = c.dataI18n
+    ? Object.keys(c.dataI18n).reduce(
+        (acc, l) => ({
+          ...acc,
+          [l]: transformData(c.dataI18n?.[l]),
+        }),
+        {}
+      )
+    : undefined;
+
+  const plugin = pluginFound
+    ? {
+        id: pluginFound.id,
+        version: pluginFound.version,
+      }
+    : c.plugin; // keep c.plugin in case of not found, that will show an error
+
+  // because plugins can define different child plugins,
+  // we have to use these for proper migration
+  const childCellPlugins = getChildCellPlugins(cellPlugins, {
+    data: getCellData({ ...c, dataI18n }, lang),
+    pluginId: plugin?.id,
+  });
+  return removeUndefinedProps({
+    ...c,
+    plugin,
+    dataI18n,
+    rows: c.rows?.map((r) =>
+      migratePluginDataForRow(r, {
+        lang,
+        cellPlugins: childCellPlugins,
+      })
+    ),
+  });
+};
+
 const migratePluginData = (editable: Value, context: MigrationContext) => {
-  const migrateRowData = (r: Row): Row => {
-    return {
-      ...r,
-      cells: r.cells.map(migrateCellData),
-    };
-  };
-  const migrateCellData = (c: Cell): Cell => {
-    const pluginDef = c.plugin;
-    const pluginFound = pluginDef
-      ? context.cellPlugins.find((p) => p.id === pluginDef.id)
-      : null;
-
-    const versionMismatch =
-      pluginDef && pluginFound && pluginDef.version !== pluginFound.version;
-
-    const transformData = (dataIn: unknown) => {
-      const data = versionMismatch
-        ? migrate(dataIn, pluginFound.migrations, pluginDef.version, context)
-        : dataIn;
-
-      return pluginFound?.unserialize ? pluginFound.unserialize(data) : data;
-    };
-    const dataI18n = c.dataI18n
-      ? Object.keys(c.dataI18n).reduce(
-          (acc, lang) => ({
-            ...acc,
-            [lang]: transformData(c.dataI18n?.[lang]),
-          }),
-          {}
-        )
-      : undefined;
-
-    const plugin = pluginFound
-      ? {
-          id: pluginFound.id,
-          version: pluginFound.version,
-        }
-      : c.plugin; // keep c.plugin in case of not found, that will show an error
-    return removeUndefinedProps({
-      ...c,
-      plugin,
-      dataI18n,
-      rows: c.rows?.map(migrateRowData),
-    });
-  };
-
   return {
     ...editable,
-    rows: editable.rows.map(migrateRowData),
+    rows: editable.rows.map((r) => migratePluginDataForRow(r, context)),
   };
 };
 

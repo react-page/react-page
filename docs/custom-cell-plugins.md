@@ -269,6 +269,11 @@ const customContentPlugin: CellPlugin<{
 
 For advanced use cases, there are some additional properties:
 
+### cellPlugins
+
+Define the plugins that are allowed inside this cell. Is either an array of `CellPlugin` or a function that receives
+the parent's `CellPlugin`s and the current cell's data
+
 ### `createInitialData`
 
 this function is called when a new cell is added to the document your plugin. It should return an object with the `Data` type.

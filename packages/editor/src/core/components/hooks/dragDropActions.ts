@@ -20,7 +20,8 @@ import {
 } from '../../actions/cell/insert';
 import { useDispatch } from '../../reduxConnect';
 import type { HoverInsertActions } from '../../types/hover';
-import { useOptionsWithLang } from './options';
+import { useAllCellPluginsForNode } from './node';
+import { useLang } from './options';
 
 /**
  * @returns object of actions for hovering
@@ -50,31 +51,33 @@ export const useHoverActions = () => {
 };
 
 /**
+ * @param nodeId the parent reference node id
  * @returns object of actions for dropping a cell
  */
-export const useDropActions = () => {
+export const useDropActions = (parentNodeId: string) => {
   const dispatch = useDispatch();
 
-  const options = useOptionsWithLang();
+  const lang = useLang();
+  const cellPlugins = useAllCellPluginsForNode(parentNodeId);
 
   return useMemo(
     (): HoverInsertActions => ({
       above: (drag, hover, level) =>
-        dispatch(insertCellAbove(options)(drag, hover, level)),
+        dispatch(insertCellAbove({ cellPlugins, lang })(drag, hover, level)),
       below: (drag, hover, level) =>
-        dispatch(insertCellBelow(options)(drag, hover, level)),
+        dispatch(insertCellBelow({ cellPlugins, lang })(drag, hover, level)),
       leftOf: (drag, hover, level) =>
-        dispatch(insertCellLeftOf(options)(drag, hover, level)),
+        dispatch(insertCellLeftOf({ cellPlugins, lang })(drag, hover, level)),
       rightOf: (drag, hover, level) =>
-        dispatch(insertCellRightOf(options)(drag, hover, level)),
+        dispatch(insertCellRightOf({ cellPlugins, lang })(drag, hover, level)),
       inlineLeft: (drag, hover) =>
-        dispatch(insertCellLeftInline(options)(drag, hover)),
+        dispatch(insertCellLeftInline({ cellPlugins, lang })(drag, hover)),
       inlineRight: (drag, hover) =>
-        dispatch(insertCellRightInline(options)(drag, hover)),
+        dispatch(insertCellRightInline({ cellPlugins, lang })(drag, hover)),
       dragCell: (id: string) => dispatch(dragCell(id)),
       clear: () => dispatch(clearHover()),
       cancelCellDrag: () => dispatch(cancelCellDrag()),
     }),
-    [dispatch]
+    [dispatch, lang, cellPlugins]
   );
 };

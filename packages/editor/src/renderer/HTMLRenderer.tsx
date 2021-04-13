@@ -19,6 +19,7 @@ import {
 } from '../core/utils/getCellSpacing';
 import NoopProvider from '../core/components/Cell/NoopProvider';
 import { gridClass } from '../core/components/Cell/utils/gridClass';
+import { getChildCellPlugins } from '../core/utils/getAvailablePlugins';
 
 const rowHasInlineChildren = ({ cells }) =>
   Boolean(cells.length === 2 && Boolean(cells[0].inline));
@@ -78,13 +79,13 @@ const HTMLCell: React.FC<
   if (isDraftI18n?.[lang] ?? isDraft) {
     return null;
   }
-
+  const data = getCellData(cell, lang) ?? {};
   const plugin = cell.plugin
     ? cellPlugins.find((p) => p.id === cell.plugin.id)
     : null;
   if (plugin) {
     const { Renderer } = plugin;
-    const data = getCellData(cell, lang) ?? {};
+
     const cellStyle = getCellStyle(plugin, data);
     const Provider = plugin.Provider ?? NoopProvider;
 
@@ -106,6 +107,10 @@ const HTMLCell: React.FC<
       isPreviewMode: false,
       isEditMode: false,
     };
+    const childCellPlugins = getChildCellPlugins(cellPlugins, {
+      data,
+      pluginId: plugin?.id,
+    });
     return (
       <Provider {...props}>
         <div
@@ -138,7 +143,7 @@ const HTMLCell: React.FC<
                         <HTMLRow
                           key={r.id}
                           {...r}
-                          cellPlugins={cellPlugins}
+                          cellPlugins={childCellPlugins}
                           cellSpacing={pluginCellSpacing as CellSpacing}
                           lang={lang}
                         />

@@ -17,9 +17,10 @@ import { setDisplayReferenceNodeId } from '../../actions/display';
 import { setLang } from '../../actions/setting';
 import { useDispatch } from '../../reduxConnect';
 import type { CellDrag, PartialCell } from '../../types/node';
-import { Cell, isRow } from '../../types/node';
-import { useEditorStore, useLang, useOptionsWithLang } from './options';
+import { isRow } from '../../types/node';
+import { useEditorStore, useLang } from './options';
 import { useDrop } from 'react-dnd';
+import { useAllCellPluginsForNode, useParentCellId } from './node';
 /**
  * @param id id of a node
  * @returns function, that sets a cell in draft mode (will be invisible in readonly / preview)
@@ -107,26 +108,20 @@ export const useRemoveCell = (id: string) => {
 };
 
 /**
- * @returns a function that duplicates a cell by id
- */
-export const useDuplicateCellById = () => {
-  const dispatch = useDispatch();
-  const editor = useEditorStore();
-  const options = useOptionsWithLang();
-
-  return useCallback(
-    (id: string) => dispatch(duplicateCell(options)(editor.getNode(id))),
-    [dispatch]
-  );
-};
-
-/**
  * @param a cell id
  * @returns a function that duplicates the given cell
  */
 export const useDuplicateCell = (id: string) => {
-  const duplicateCellById = useDuplicateCellById();
-  return useCallback(() => duplicateCellById(id), [duplicateCellById]);
+  const dispatch = useDispatch();
+  const editor = useEditorStore();
+  const parentCellId = useParentCellId(id);
+  const lang = useLang();
+  const cellPlugins = useAllCellPluginsForNode(parentCellId);
+
+  return useCallback(
+    () => dispatch(duplicateCell({ cellPlugins, lang })(editor.getNode(id))),
+    [dispatch, cellPlugins, lang, id]
+  );
 };
 
 /**
@@ -156,7 +151,6 @@ export const useFocusCellById = () => {
       const parentCellId = editor
         .getNodeWithAncestors(id)
         ?.ancestors?.find((node) => !isRow(node))?.id;
-      // FIXME: that is a bit hacky, we set the parentId so that insert mode "knows" where to insert when just clicking
 
       dispatch(setDisplayReferenceNodeId(parentCellId));
       dispatch(focusCell(id, scrollToCell, source));
@@ -207,17 +201,23 @@ export const useBlurAllCells = () => {
  *
  * if the id already exists, it will move that cell
  */
-export const useInsertNew = () => {
+export const useInsertNew = (parentCellId?: string) => {
   const dispatch = useDispatch();
-  const options = useOptionsWithLang();
+  const cellPlugins = useAllCellPluginsForNode(parentCellId);
   const editor = useEditorStore();
-
+  const lang = useLang();
   return useCallback(
-    (partialCell: PartialCell, parentCellId?: string) => {
+    (partialCell: PartialCell) => {
       const action = parentCellId ? insertCellNewAsNewRow : insertCellAtTheEnd;
-      dispatch(action(options)(partialCell, { id: parentCellId }));
+
+      dispatch(
+        action({
+          cellPlugins,
+          lang,
+        })(partialCell, { id: parentCellId })
+      );
     },
-    [dispatch, editor]
+    [dispatch, editor, cellPlugins]
   );
 };
 

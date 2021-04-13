@@ -12,16 +12,15 @@ import {
   useNodeHasChildren,
   useScrollToViewEffect,
   useCellSpacing,
+  useSetDisplayReferenceNodeId,
+  useIsInsertMode,
 } from '../hooks';
 import ErrorCell from './ErrorCell';
 import Inner from './Inner';
 import scrollIntoViewWithOffset from './utils/scrollIntoViewWithOffset';
 import Handle from './Handle';
 import { gridClass } from './utils/gridClass';
-
-const stopClick = (_isEditMode: boolean) => (
-  e: React.MouseEvent<HTMLDivElement>
-) => (_isEditMode ? e.stopPropagation() : null);
+import { useCallback } from 'react';
 
 const CellErrorGate = class extends React.Component<
   {
@@ -73,6 +72,7 @@ const Cell: React.FC<Props> = ({ nodeId, measureRef }) => {
   const isResizeMode = useIsResizeMode();
   const isEditMode = useIsEditMode();
   const isLayoutMode = useIsLayoutMode();
+  const isInsertMode = useIsInsertMode();
   const hasChildren = useNodeHasChildren(nodeId);
   const hasPlugin = useCellHasPlugin(nodeId);
   const { x: cellSpacingX, y: cellSpacingY } = useCellSpacing();
@@ -80,6 +80,20 @@ const Cell: React.FC<Props> = ({ nodeId, measureRef }) => {
 
   const isDraftInLang = isDraftI18n?.[lang] ?? isDraft;
   const ref = React.useRef<HTMLDivElement>();
+
+  const setReferenceNodeId = useSetDisplayReferenceNodeId();
+  const onClick = useCallback(
+    (e) => {
+      if (hasPlugin && isEditMode) {
+        e.stopPropagation();
+      }
+      if (isInsertMode) {
+        e.stopPropagation();
+        setReferenceNodeId(nodeId);
+      }
+    },
+    [nodeId, hasPlugin, isInsertMode, isEditMode, setReferenceNodeId]
+  );
   useScrollToViewEffect(
     nodeId,
     () => {
@@ -117,7 +131,7 @@ const Cell: React.FC<Props> = ({ nodeId, measureRef }) => {
           'react-page-cell-bring-to-front':
             !isResizeMode && !isLayoutMode && inline, // inline must not be active for resize/layout
         })}
-        onClick={stopClick(hasPlugin && isEditMode)}
+        onClick={onClick}
       >
         <Handle nodeId={nodeId} />
         <div

@@ -1,3 +1,4 @@
+import { CELL_BLUR_ALL } from '../../actions/cell';
 import {
   DEFAULT_DISPLAY_MODE,
   SET_DISPLAY_MODE,
@@ -17,6 +18,12 @@ export const display = (
         ...state,
         referenceNodeId: action.referenceNodeId,
       };
+    case CELL_BLUR_ALL: {
+      return {
+        mode: state.mode,
+        referenceNodeId: null,
+      };
+    }
     case SET_DISPLAY_MODE:
       return {
         mode: action.mode,

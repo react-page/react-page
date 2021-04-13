@@ -88,3 +88,7 @@
 .react-page-cell-droppable-is-over-inline-right:before {
   right: 0;
 }
+
+.react-page-cell-droppable-not-allowed {
+  cursor: not-allowed;
+}

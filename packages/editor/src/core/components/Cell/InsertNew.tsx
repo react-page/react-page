@@ -2,6 +2,7 @@ import React from 'react';
 import { useDrop } from 'react-dnd';
 import type { CellDrag } from '../../types';
 import {
+  useCellIsAllowedHere,
   useInsertNew,
   useIsLayoutMode,
   useIsPreviewMode,
@@ -12,21 +13,31 @@ import {
 const InsertNew: React.FC<{ parentCellId?: string }> = ({ parentCellId }) => {
   const setInsertMode = useSetInsertMode();
 
-  const insertNew = useInsertNew();
+  const insertNew = useInsertNew(parentCellId);
 
   const isPreviewMode = useIsPreviewMode();
   const isLayoutMode = useIsLayoutMode();
 
   const setReferenceNodeId = useSetDisplayReferenceNodeId();
+  const checkIfAllowed = useCellIsAllowedHere(parentCellId);
 
-  const [{ isOver }, dropRef] = useDrop<CellDrag, void, { isOver: boolean }>({
+  const [{ isOver, isAllowed }, dropRef] = useDrop<
+    CellDrag,
+    void,
+    { isOver: boolean; isAllowed: boolean }
+  >({
     accept: 'cell',
-
-    collect: (monitor) => ({ isOver: monitor.isOver() }),
+    canDrop: (item) => {
+      return checkIfAllowed(item);
+    },
+    collect: (monitor) => ({
+      isOver: monitor.isOver(),
+      isAllowed: checkIfAllowed(monitor.getItem()),
+    }),
     drop: (item, monitor) => {
       // fallback drop
       if (!monitor.didDrop()) {
-        insertNew(item.cell, parentCellId);
+        insertNew(item.cell);
       }
     },
   });
@@ -35,7 +46,9 @@ const InsertNew: React.FC<{ parentCellId?: string }> = ({ parentCellId }) => {
   return (
     <div
       ref={dropRef}
-      className={'react-page-cell-insert-new' + (isOver ? ' hover' : '')}
+      className={
+        'react-page-cell-insert-new' + (isOver && isAllowed ? ' hover' : '')
+      }
       style={{
         pointerEvents: 'all',
         zIndex: isLayoutMode ? 10 : 1,
@@ -43,6 +56,7 @@ const InsertNew: React.FC<{ parentCellId?: string }> = ({ parentCellId }) => {
         width: '50%', // just so that it leaves some room to click on the parent element
         minWidth: 120,
         margin: 'auto',
+        cursor: isAllowed ? 'auto' : 'not-allowed',
       }}
       onClick={(e) => {
         e.stopPropagation();

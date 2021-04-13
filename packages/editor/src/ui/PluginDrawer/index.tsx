@@ -7,8 +7,9 @@ import React from 'react';
 import { Portal } from 'react-portal';
 import {
   useIsInsertMode,
-  useAllCellPlugins,
   useUiTranslator,
+  useDisplayModeReferenceNodeId,
+  useAllCellPluginsForNode,
 } from '../../core/components/hooks';
 import type { CellPlugin } from '../../core/types';
 import Item from './Item/index';
@@ -30,8 +31,9 @@ export const PluginDrawer: React.FC = React.memo(() => {
     insertPlugin: 'Add cells to content',
     dragMe: 'Drag me!',
   };
+  const nodeId = useDisplayModeReferenceNodeId();
+  const plugins = useAllCellPluginsForNode(nodeId);
 
-  const plugins = useAllCellPlugins();
   const { t } = useUiTranslator();
   const [searchText, setSearchText] = React.useState<string>('');
   const searchFilter = React.useCallback(

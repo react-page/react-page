@@ -43,36 +43,6 @@ export const useUiTranslator = (): {
 };
 
 /**
- * @returns the options (@see useOptions) and the current selected language.
- *
- */
-export const useOptionsWithLang = () => {
-  const lang = useLang();
-  return {
-    ...useOptions(),
-    lang,
-  };
-};
-
-/**
- * @returns all configured CellPlugin
- */
-export const useAllCellPlugins = () => {
-  return useOptions().cellPlugins;
-};
-
-/**
- *
- * @param pluginId the id of the plugin
- * @eturns the plugin definition of the given plugin id.
- *
- */
-export const useConfiguredCellPlugin = (pluginId: string) => {
-  const plugins = useAllCellPlugins();
-  return pluginId ? plugins.find((p) => p.id === pluginId) : null;
-};
-
-/**
  * @returns the current language
  */
 export const useLang = () => {

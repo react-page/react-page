@@ -35,7 +35,8 @@ type SlateDefinition<TPlugins extends SlatePluginCollection> = {
   plugins: TPlugins;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   defaultPluginType: string;
-
+  title?: string;
+  description?: string;
   id: string;
   version: number;
   translations: typeof defaultTranslations;
@@ -147,8 +148,9 @@ function plugin<TPlugins extends SlatePluginCollection = DefaultPlugins>(
     id: settings.id || (settings as any).name,
     version: settings.version,
     icon: settings.icon,
-    title: settings.translations.pluginName,
-    description: settings.translations.pluginDescription,
+    title: settings.title || settings.translations.pluginName,
+    description:
+      settings.description || settings.translations.pluginDescription,
     hideInMenu: settings.hideInMenu,
     allowInlineNeighbours: settings.allowInlineNeighbours,
     allowClickInside: true,

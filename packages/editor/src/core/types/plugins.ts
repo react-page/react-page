@@ -231,6 +231,10 @@ export type CellPlugin<DataT = unknown, DataSerializedT = DataT> = {
    */
   createInitialChildren?: () => PartialRow[];
 
+  cellPlugins?:
+    | CellPlugin[]
+    | ((cellPlugins: CellPlugin[], data: DataT) => CellPlugin[]);
+
   serialize?: (data: DataT) => DataSerializedT;
   unserialize?: (raw: DataSerializedT) => DataT;
   handleRemoveHotKey?: (e: Event, node: Cell) => Promise<void>;

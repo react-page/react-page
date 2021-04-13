@@ -13,7 +13,8 @@ import {
   useRemoveCellById,
   useUndo,
   useFocusedNodeId,
-  useAllCellPlugins,
+  useAllCellPluginsForNode,
+  useParentCellId,
 } from '../hooks';
 
 const getLeave = (node: Node, last: boolean) => {
@@ -69,8 +70,10 @@ const Decorator: React.FC = ({ children }) => {
 
   const undo = useUndo();
   const redo = useRedo();
-  const plugins = useAllCellPlugins();
+
   const focusedNodeId = useFocusedNodeId();
+  const focusParentId = useParentCellId(focusedNodeId);
+  const plugins = useAllCellPluginsForNode(focusParentId);
   const focusCell = useFocusCellById();
   const removeCell = useRemoveCellById();
   const delegateToFoundPlugin = useCallback(

@@ -4,14 +4,16 @@ import type { PositionEnum } from '../../const';
 import { useSelector } from '../../reduxConnect';
 
 import { findNodeInState } from '../../selector/editable';
-import type { Cell, Node, Row } from '../../types/node';
+
+import type { Cell, CellDrag, Node, Row } from '../../types/node';
 import { isRow } from '../../types/node';
 import deepEquals from '../../utils/deepEquals';
 import { getCellData } from '../../utils/getCellData';
 import { getCellStyle } from '../../utils/getCellStyle';
 import { getDropLevels } from '../../utils/getDropLevels';
 import { useUpdateCellData } from './nodeActions';
-import { useAllCellPlugins, useLang } from './options';
+import { useLang, useOptions } from './options';
+import { getAvailablePlugins } from '../../utils/getAvailablePlugins';
 
 type NodeSelector<T> = (node: Node, ancestors: Node[]) => T;
 
@@ -29,12 +31,25 @@ export const useNodeProps = <T>(
     const result = findNodeInState(state, nodeId);
 
     if (!result) {
-      return null;
+      return selector(null, []);
     }
     return selector(result.node, result.ancestors);
   }, deepEquals);
 
   return node;
+};
+
+/**
+ *
+ * @param nodeId id of a node
+ * @param selector receives the ancestors array and returns T
+ * @returns T
+ */
+export const useNodeAncestorProps = <T>(
+  nodeId: string,
+  selector: (ancestors: Node[]) => T
+) => {
+  return useNodeProps(nodeId, (__, ancestors) => selector(ancestors));
 };
 
 type CellSelector<T> = (node: Cell, ancestors: Node[]) => T;
@@ -50,7 +65,7 @@ export const useCellProps = <T>(
   selector: CellSelector<T>
 ): T => {
   return useNodeProps(nodeId, (node, ancestors) =>
-    !isRow(node) ? selector(node, ancestors) : null
+    !isRow(node) ? selector(node, ancestors) : selector(null, ancestors)
   );
 };
 
@@ -97,7 +112,9 @@ export const useNodeHoverPosition = (nodeId: string): PositionEnum => {
  * @returns an array of ids that are ancestors of the given node
  */
 export const useNodeAncestorIds = (nodeId: string) => {
-  return useNodeProps(nodeId, (node, ancestors) => ancestors.map((a) => a.id));
+  return useNodeAncestorProps(nodeId, (ancestors) =>
+    ancestors.map((a) => a.id)
+  );
 };
 
 /**
@@ -184,6 +201,49 @@ export const useNodeHasChildren = (nodeId: string) => {
 export const useCellHasPlugin = (nodeId: string) => {
   return useCellProps(nodeId, (c) => Boolean(c.plugin));
 };
+
+/**
+ * @param parentNodeId the parent node id, or null if its the root
+ * @returns all configured CellPlugin that are allowed in the given parentCellId
+ */
+export const useAllCellPluginsForNode = (parentNodeId?: string) => {
+  const currentLang = useLang();
+
+  const ancestors = useNodeProps(parentNodeId, (node, ancestors) => {
+    return [...ancestors, node].reverse().map((a) => {
+      return {
+        pluginId: !a || isRow(a) ? null : a.plugin?.id,
+        data: !a || isRow(a) ? null : getCellData(a, currentLang),
+      };
+    });
+  });
+
+  // pluginIdsOfAncestors is an array of ids, the last one is the
+  const rootCellPlugins = useOptions().cellPlugins;
+  return useMemo(() => {
+    return getAvailablePlugins(rootCellPlugins, ancestors);
+  }, [rootCellPlugins, ancestors]);
+};
+
+export const useCellIsAllowedHere = (nodeId?: string) => {
+  const availablePlugins = useAllCellPluginsForNode(nodeId);
+  return useCallback(
+    (item: CellDrag) => {
+      if (!item) return false;
+      const itemPluginId =
+        typeof item.cell.plugin === 'string'
+          ? item.cell.plugin
+          : item.cell.plugin.id;
+      const allowed =
+        !item.cell?.plugin ||
+        availablePlugins.some((p) => p.id === itemPluginId);
+
+      return allowed;
+    },
+    [availablePlugins]
+  );
+};
+
 /**
  * Use this function to get the plugin of a cell.
  * @param nodeId an id of a cell
@@ -191,10 +251,12 @@ export const useCellHasPlugin = (nodeId: string) => {
  *
  */
 export const usePluginOfCell = (nodeId: string) => {
-  const plugins = useAllCellPlugins();
-  return useCellProps(nodeId, (c) =>
-    c.plugin ? plugins.find((p) => p.id === c.plugin?.id) : null
-  );
+  const { pluginId, parentNodeId } = useCellProps(nodeId, (c, ancestors) => ({
+    pluginId: c?.plugin?.id,
+    parentNodeId: ancestors?.[0]?.id,
+  }));
+  const plugins = useAllCellPluginsForNode(parentNodeId);
+  return plugins.find((p) => p.id === pluginId);
 };
 
 /**
