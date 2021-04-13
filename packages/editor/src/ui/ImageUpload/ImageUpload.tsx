@@ -14,7 +14,7 @@ const UPLOADING_ERROR_CODE = 4;
 class ImageUpload extends React.Component<ImageUploadProps, ImageUploadState> {
   static defaultProps = {
     icon: <CloudUploadIcon style={{ marginLeft: '8px' }} />,
-    allowedExtensions: ['jpg', 'jpeg', 'png'],
+    allowedExtensions: ['jpg', 'jpeg', 'png', 'webp', 'gif'],
     maxFileSize: 5242880,
     // translations: defaultTranslations,
   };
