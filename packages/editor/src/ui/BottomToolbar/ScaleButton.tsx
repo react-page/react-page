@@ -1,5 +1,5 @@
 import { IconButton, Tooltip } from '@material-ui/core';
-import FormatSize from '@material-ui/icons/FormatSize';
+import ScaleIcon from '@material-ui/icons/AspectRatio';
 import React from 'react';
 const SCALING_FACTORS = [1, 0.8, 0.6, 1.2];
 let lastScale = SCALING_FACTORS[0]; // poor mans redux
@@ -19,13 +19,13 @@ export const ScaleButton: React.FC<{
     lastScale = newScalingFactor;
   }, [scale, lastScale, setScale]);
   return (
-    <Tooltip title="Toggle Scale">
+    <Tooltip title="Change size of this window">
       <IconButton
         onClick={toggleScale}
         aria-label="toggle scale"
         color="primary"
       >
-        <FormatSize />
+        <ScaleIcon />
       </IconButton>
     </Tooltip>
   );
