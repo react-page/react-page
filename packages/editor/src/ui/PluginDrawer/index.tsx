@@ -21,10 +21,10 @@ export interface PluginDrawerTranslations {
 }
 
 const defaultTranslations: PluginDrawerTranslations = {
-  noPluginFoundContent: 'No plugins found',
-  searchPlaceholder: 'Search cell plugins',
+  noPluginFoundContent: 'No blocks found',
+  searchPlaceholder: 'Search blocks',
 
-  insertPlugin: 'Add cells to content',
+  insertPlugin: 'Add blocks to page',
   dragMe: 'Drag me!',
 };
 
