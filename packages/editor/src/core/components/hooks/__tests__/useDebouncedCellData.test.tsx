@@ -7,7 +7,7 @@ import type { CellPlugin } from '../../../types';
 import createStore from '../../../store';
 import { initialState } from '../../../reducer';
 import { ReduxProvider } from '../../../reduxConnect';
-import { createEditable } from '../../../utils/createEditable';
+import { createValue } from '../../../utils/createValue';
 import { useDebouncedCellData } from '../node';
 import { updateCellData } from '../../../actions/cell';
 
@@ -25,7 +25,7 @@ const options = {
 };
 
 const theState = initialState(
-  createEditable(
+  createValue(
     {
       id: 'editableId',
       rows: [
