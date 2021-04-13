@@ -6,7 +6,7 @@ import {
   DISPLAY_MODE_RESIZING,
 } from '../../actions/display';
 
-import { RootState } from '../../types/state';
+import type { RootState } from '../../types/state';
 
 export const isPreviewMode = ({
   reactPage: {

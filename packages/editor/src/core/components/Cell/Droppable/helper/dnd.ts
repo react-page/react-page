@@ -1,13 +1,13 @@
 import throttle from 'lodash.throttle';
 import type { DropTargetMonitor } from 'react-dnd';
 import { delay } from '../../../../helper/throttle';
-import { HoverTarget } from '../../../../service/hover/computeHover';
+import type { HoverTarget } from '../../../../service/hover/computeHover';
 import {
   computeAndDispatchHover,
   computeAndDispatchInsert,
 } from '../../../../service/hover/input';
 import logger from '../../../../service/logger';
-import { CellDrag, Options, HoverInsertActions } from '../../../../types';
+import type { CellDrag, Options, HoverInsertActions } from '../../../../types';
 
 let last: { hoverId: string; dragId: string } = { hoverId: '', dragId: '' };
 

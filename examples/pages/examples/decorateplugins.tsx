@@ -1,6 +1,7 @@
 // The editor core
-import { CSSProperties } from '@material-ui/styles';
-import Editor, { CellPlugin, Value } from '@react-page/editor';
+import type { CSSProperties } from '@material-ui/styles';
+import type { CellPlugin, Value } from '@react-page/editor';
+import Editor from '@react-page/editor';
 
 import React, { useState } from 'react';
 import PageLayout from '../../components/PageLayout';

@@ -1,4 +1,4 @@
-import { SlatePlugin } from '../types/SlatePlugin';
+import type { SlatePlugin } from '../types/SlatePlugin';
 import {
   decreaseListIndention,
   getActiveListType,

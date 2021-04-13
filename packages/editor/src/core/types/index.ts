@@ -1,5 +1,5 @@
-import { Value } from '../..';
-import { Value_v0 } from '../migrations/EDITABLE_MIGRATIONS/from0to1';
+import type { Value } from '../..';
+import type { Value_v0 } from '../migrations/EDITABLE_MIGRATIONS/from0to1';
 
 export * from './display';
 export * from './node';

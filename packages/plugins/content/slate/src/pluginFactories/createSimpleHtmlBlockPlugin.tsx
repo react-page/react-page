@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-types */
 
 import { getAlignmentFromElement } from '../plugins/paragraphs';
-import { SlateComponentPluginDefinition } from '../types/slatePluginDefinitions';
+import type { SlateComponentPluginDefinition } from '../types/slatePluginDefinitions';
 import createComponentPlugin from './createComponentPlugin';
 
 type Def<T extends Record<string, unknown>> = Pick<

@@ -10,7 +10,7 @@ import {
   useAllCellPlugins,
   useUiTranslator,
 } from '../../core/components/hooks';
-import { CellPlugin } from '../../core/types';
+import type { CellPlugin } from '../../core/types';
 import Item from './Item/index';
 
 export interface PluginDrawerLabels {

@@ -1,8 +1,8 @@
-import { CellPlugin } from './plugins';
+import type { CellPlugin } from './plugins';
 
-import { Languages } from '../EditorStore';
-import { ChildConstraints } from './constraints';
-import { Components } from './components';
+import type { Languages } from '../EditorStore';
+import type { ChildConstraints } from './constraints';
+import type { Components } from './components';
 
 export type CellSpacing = {
   x: number;

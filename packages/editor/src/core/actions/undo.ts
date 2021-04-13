@@ -1,4 +1,4 @@
-import { Action } from 'redux';
+import type { Action } from 'redux';
 import { ActionTypes } from 'redux-undo';
 
 export const undo = (): Action => ({

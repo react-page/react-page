@@ -1,6 +1,6 @@
-import { Action } from 'redux';
+import type { Action } from 'redux';
 
-import { NewIds } from '../../types/node';
+import type { NewIds } from '../../types/node';
 
 import { generateIds } from '../helpers';
 

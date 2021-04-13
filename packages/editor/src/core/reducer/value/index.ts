@@ -1,5 +1,5 @@
-import { AnyAction } from 'redux';
-import { Value } from '../../types/node';
+import type { AnyAction } from 'redux';
+import type { Value } from '../../types/node';
 
 import { setAllSizesAndOptimize } from './helper/setAllSizesAndOptimize';
 import { rows } from './tree';

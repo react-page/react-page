@@ -3,7 +3,8 @@ import React from 'react';
 
 import type { DisplayModes } from '../core/actions/display';
 import Editable from '../core/components/Editable';
-import { createEmptyState, Languages } from '../core/EditorStore';
+import type { Languages } from '../core/EditorStore';
+import { createEmptyState } from '../core/EditorStore';
 import Provider from '../core/Provider';
 import type { Value, Options, ValueWithLegacy } from '../core/types';
 import EditorUI from '../ui/EditorUI';

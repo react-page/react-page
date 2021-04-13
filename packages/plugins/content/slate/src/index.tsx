@@ -1,4 +1,5 @@
-import { CellPlugin, lazyLoad } from '@react-page/editor';
+import type { CellPlugin } from '@react-page/editor';
+import { lazyLoad } from '@react-page/editor';
 import React from 'react';
 
 import SlateEditor from './components/SlateEditor';

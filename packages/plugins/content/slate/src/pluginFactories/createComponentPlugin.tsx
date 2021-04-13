@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-types */
-import { SlatePlugin } from '../types/SlatePlugin';
-import { SlateComponentPluginDefinition } from '../types/slatePluginDefinitions';
+import type { SlatePlugin } from '../types/SlatePlugin';
+import type { SlateComponentPluginDefinition } from '../types/slatePluginDefinitions';
 
 function createComponentPlugin<T = {}>(def: SlateComponentPluginDefinition<T>) {
   const customizablePlugin = function <CT = T>(

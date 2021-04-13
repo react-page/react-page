@@ -1,4 +1,5 @@
-import { Divider, Drawer, DrawerProps, Portal } from '@material-ui/core';
+import type { DrawerProps } from '@material-ui/core';
+import { Divider, Drawer, Portal } from '@material-ui/core';
 import React, { Fragment } from 'react';
 import { useIsSmallScreen } from '../../core/components/hooks';
 

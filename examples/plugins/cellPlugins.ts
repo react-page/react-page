@@ -1,4 +1,4 @@
-import { CellPlugin } from '@react-page/editor';
+import type { CellPlugin } from '@react-page/editor';
 
 // The background plugin
 import background, { ModeEnum } from '@react-page/plugins-background';
@@ -14,7 +14,8 @@ import html5video from '@react-page/plugins-html5-video';
 // import '@react-page/plugins-html5-video/lib/index.css';
 
 // The image plugin
-import { imagePlugin, ImageUploadType } from '@react-page/plugins-image';
+import type { ImageUploadType } from '@react-page/plugins-image';
+import { imagePlugin } from '@react-page/plugins-image';
 // import '@react-page/plugins-image/lib/index.css';
 
 // The spacer plugin

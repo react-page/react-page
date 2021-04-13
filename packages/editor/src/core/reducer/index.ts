@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import { Value, RootState } from '../types';
+import type { Value, RootState } from '../types';
 
 import { values } from './values';
 import { display } from './display';

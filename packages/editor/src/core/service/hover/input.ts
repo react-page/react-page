@@ -1,8 +1,9 @@
 import type { DropTargetMonitor } from 'react-dnd';
 
 import type { Options, PartialCell } from '../../types';
-import { HoverInsertActions, Room, Vector } from '../../types/hover';
-import { computeHover, HoverTarget } from './computeHover';
+import type { HoverInsertActions, Room, Vector } from '../../types/hover';
+import type { HoverTarget } from './computeHover';
+import { computeHover } from './computeHover';
 
 const computeCurrentDropPosition = (
   actions: HoverInsertActions,

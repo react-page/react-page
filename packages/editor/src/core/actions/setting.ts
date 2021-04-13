@@ -1,4 +1,4 @@
-import { Action } from 'redux';
+import type { Action } from 'redux';
 
 export const SET_LANG = 'SET_LANG';
 

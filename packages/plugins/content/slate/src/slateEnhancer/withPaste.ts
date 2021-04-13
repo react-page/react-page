@@ -1,7 +1,7 @@
 import { Transforms } from 'slate';
-import { ReactEditor } from 'slate-react';
+import type { ReactEditor } from 'slate-react';
 import { HtmlToSlate } from '../htmlToSlate';
-import { SlatePlugin } from '../types/SlatePlugin';
+import type { SlatePlugin } from '../types/SlatePlugin';
 
 const withPaste = (plugins: SlatePlugin[], defaultPluginType: string) => (
   editor: ReactEditor

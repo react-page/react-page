@@ -1,9 +1,9 @@
 import React, { Fragment, useEffect, useMemo } from 'react';
-import JSONSchemaBridge from 'uniforms-bridge-json-schema';
+import type JSONSchemaBridge from 'uniforms-bridge-json-schema';
 import { useIsSmallScreen } from '../../core/components/hooks';
 import lazyLoad from '../../core/helper/lazyLoad';
 
-import {
+import type {
   AutoformControlsDef,
   CellPluginComponentProps,
   JsonSchema,

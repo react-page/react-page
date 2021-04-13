@@ -1,6 +1,6 @@
 import { computeSizes, computeInlines } from './sizing';
 import { optimizeRow, optimizeRows, optimizeCells } from './optimize';
-import { Row } from '../../../types/node';
+import type { Row } from '../../../types/node';
 
 export const setAllSizesAndOptimize = (rows: Array<Row> = []): Array<Row> =>
   optimizeRows(rows).map(

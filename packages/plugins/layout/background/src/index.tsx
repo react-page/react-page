@@ -1,8 +1,8 @@
-import { BackgroundSettings } from './types/settings';
+import type { BackgroundSettings } from './types/settings';
 import createPlugin from './createPlugin';
 
 import BackgroundHtmlRenderer from './Renderer/BackgroundHtmlRenderer';
-import { MakeOptional } from './types/makeOptional';
+import type { MakeOptional } from './types/makeOptional';
 import { ModeEnum } from './types/ModeEnum';
 
 export { ModeEnum };

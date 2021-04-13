@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/ban-types */
 
 import type { Migration } from '../migrations/Migration';
-import { Cell, PartialCell, PartialRow } from './node';
-import { JsonSchema } from './jsonSchema';
-import { ChildConstraints } from './constraints';
-import { CellSpacing } from './options';
+import type { Cell, PartialCell, PartialRow } from './node';
+import type { JsonSchema } from './jsonSchema';
+import type { ChildConstraints } from './constraints';
+import type { CellSpacing } from './options';
 
 export type CellPluginComponentProps<DataT = unknown> = {
   /**

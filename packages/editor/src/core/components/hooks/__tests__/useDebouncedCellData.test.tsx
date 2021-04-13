@@ -3,7 +3,7 @@ import React from 'react';
 
 import { findNodeInState } from '../../../selector/editable';
 import { getCellData } from '../../../utils/getCellData';
-import { CellPlugin } from '../../../types';
+import type { CellPlugin } from '../../../types';
 import createStore from '../../../store';
 import { initialState } from '../../../reducer';
 import { ReduxProvider } from '../../../reduxConnect';

@@ -1,9 +1,10 @@
-import { CellPlugin, lazyLoad } from '@react-page/editor';
+import type { CellPlugin } from '@react-page/editor';
+import { lazyLoad } from '@react-page/editor';
 import React from 'react';
 import { defaultSettings } from './default/settings';
 import DividerHtmlRenderer from './Renderer/DividerHtmlRenderer';
 
-import { DividerSettings } from './types/settings';
+import type { DividerSettings } from './types/settings';
 
 const Remove = lazyLoad(() => import('@material-ui/icons/Remove'));
 

@@ -1,8 +1,8 @@
-import { CellPlugin } from '@react-page/editor';
+import type { CellPlugin } from '@react-page/editor';
 import React from 'react';
 import { defaultSettings } from './default/settings';
-import { ImageSettings } from './types/settings';
-import { ImageState } from './types/state';
+import type { ImageSettings } from './types/settings';
+import type { ImageState } from './types/state';
 
 const createPlugin = (settings?: ImageSettings): CellPlugin<ImageState> => {
   const mergedSettings = { ...defaultSettings, ...settings };

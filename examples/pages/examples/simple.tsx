@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 
 // The editor core
-import Editor, { Value } from '@react-page/editor';
+import type { Value } from '@react-page/editor';
+import Editor from '@react-page/editor';
 
 // import the main css, uncomment this: (this is commented in the example because of https://github.com/vercel/next.js/issues/19717)
 // import '@react-page/editor/lib/index.css';

@@ -1,4 +1,5 @@
-import { ChoicesProps, ReferenceInput, SelectInput } from 'react-admin';
+import type { ChoicesProps } from 'react-admin';
+import { ReferenceInput, SelectInput } from 'react-admin';
 import { connectField } from 'uniforms';
 import React from 'react';
 

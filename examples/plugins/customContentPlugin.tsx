@@ -1,4 +1,5 @@
-import { CellPlugin, ColorPickerField } from '@react-page/editor';
+import type { CellPlugin } from '@react-page/editor';
+import { ColorPickerField } from '@react-page/editor';
 import React from 'react';
 
 const customContentPlugin: CellPlugin<{

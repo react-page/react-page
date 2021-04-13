@@ -1,5 +1,6 @@
 import { Paper } from '@material-ui/core';
-import Editor, { EditorProps } from '@react-page/editor';
+import type { EditorProps } from '@react-page/editor';
+import Editor from '@react-page/editor';
 import React from 'react';
 
 import { Labeled, useInput } from 'react-admin';

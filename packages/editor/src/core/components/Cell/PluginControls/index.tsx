@@ -1,9 +1,10 @@
-import { Tab, Tabs, Theme } from '@material-ui/core';
+import type { Theme } from '@material-ui/core';
+import { Tab, Tabs } from '@material-ui/core';
 import { withStyles } from '@material-ui/styles';
 import React, { useState } from 'react';
 import { useMeasure } from 'react-use';
 import { AutoformControls } from '../../../../ui';
-import {
+import type {
   CellPluginComponentProps,
   ControlsDef,
   ControlsDefList,

@@ -1,6 +1,6 @@
 import { render } from 'enzyme';
 import React from 'react';
-import { CellPlugin } from '../../core/types';
+import type { CellPlugin } from '../../core/types';
 import { HTMLRenderer } from '../HTMLRenderer';
 
 jest.mock('react', () => {

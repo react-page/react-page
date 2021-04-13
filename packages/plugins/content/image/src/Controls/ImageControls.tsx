@@ -4,7 +4,7 @@ import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import { ImageUpload, useUiTranslator } from '@react-page/editor';
 import React from 'react';
-import { ImageControlType } from '../types/controls';
+import type { ImageControlType } from '../types/controls';
 
 const ImageControls: ImageControlType = (props) => {
   const { t } = useUiTranslator();

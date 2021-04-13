@@ -5,7 +5,7 @@ import { DragPreviewImage, useDrag } from 'react-dnd';
 import { dragIcon } from '../../../core/components/Cell/Draggable/useDragHandle';
 import { useSetLayoutMode } from '../../../core/components/hooks/displayMode';
 
-import { CellDrag, InsertNewCell } from '../../../core/types';
+import type { CellDrag, InsertNewCell } from '../../../core/types';
 
 const Draggable: React.FC<{
   insert: InsertNewCell;

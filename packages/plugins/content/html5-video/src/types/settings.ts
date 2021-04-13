@@ -1,7 +1,7 @@
-import { CellPluginComponentProps } from '@react-page/editor';
+import type { CellPluginComponentProps } from '@react-page/editor';
 
-import { Html5VideoState } from './state';
-import { Translations } from './translations';
+import type { Html5VideoState } from './state';
+import type { Translations } from './translations';
 
 export interface Html5VideoSettings {
   Renderer: React.ComponentType<CellPluginComponentProps<Html5VideoState>>;

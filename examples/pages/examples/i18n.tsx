@@ -1,4 +1,5 @@
-import Editor, { Options, Value } from '@react-page/editor';
+import type { Options, Value } from '@react-page/editor';
+import Editor from '@react-page/editor';
 import { demo } from '../../sampleContents/demo';
 import React, { useState, useCallback } from 'react';
 import { cellPlugins } from '../../plugins/cellPlugins';

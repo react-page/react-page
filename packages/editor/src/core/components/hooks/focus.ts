@@ -1,4 +1,5 @@
-import { useEffect, EffectCallback, DependencyList } from 'react';
+import type { EffectCallback, DependencyList } from 'react';
+import { useEffect } from 'react';
 import { useSelector } from '../../reduxConnect';
 
 import { focus } from '../../selector/focus';

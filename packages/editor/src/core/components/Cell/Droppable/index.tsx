@@ -3,9 +3,9 @@ import React, { useEffect, useCallback } from 'react';
 import { useDrop } from 'react-dnd';
 import { useSelector } from '../../../reduxConnect';
 
-import { HoverTarget } from '../../../service/hover/computeHover';
-import { RootState } from '../../../types';
-import { CellDrag } from '../../../types/node';
+import type { HoverTarget } from '../../../service/hover/computeHover';
+import type { RootState } from '../../../types';
+import type { CellDrag } from '../../../types/node';
 import { getDropLevels } from '../../../utils/getDropLevels';
 import {
   usePluginOfCell,

@@ -1,10 +1,11 @@
 import debounce from 'lodash.debounce';
 import { useCallback, useEffect, useRef, useState, useMemo } from 'react';
-import { PositionEnum } from '../../const';
+import type { PositionEnum } from '../../const';
 import { useSelector } from '../../reduxConnect';
 
 import { findNodeInState } from '../../selector/editable';
-import { Cell, isRow, Node, Row } from '../../types/node';
+import type { Cell, Node, Row } from '../../types/node';
+import { isRow } from '../../types/node';
 import deepEquals from '../../utils/deepEquals';
 import { getCellData } from '../../utils/getCellData';
 import { getCellStyle } from '../../utils/getCellStyle';

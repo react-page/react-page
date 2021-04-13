@@ -3,7 +3,7 @@ import { renderHook } from '@testing-library/react-hooks';
 import { useNodeDropLevels } from '..';
 import Provider from '../../../Provider';
 import React from 'react';
-import { Value } from '../../../types';
+import type { Value } from '../../../types';
 
 const SAMPLE_STATE: Value = {
   version: 1,

@@ -1,6 +1,6 @@
-import { BackgroundProps } from './component';
+import type { BackgroundProps } from './component';
 
-import { BackgroundRendererExtraProps } from './renderer';
+import type { BackgroundRendererExtraProps } from './renderer';
 
 export type BackgroundControlsProps = BackgroundProps &
   BackgroundRendererExtraProps;

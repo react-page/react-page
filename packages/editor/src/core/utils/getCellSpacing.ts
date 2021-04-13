@@ -1,4 +1,4 @@
-import { CellPlugin, CellSpacing } from '../types';
+import type { CellPlugin, CellSpacing } from '../types';
 
 export const getPluginCellSpacing = <DataT>(
   plugin: CellPlugin<DataT>,

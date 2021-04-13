@@ -3,7 +3,8 @@ import isHotkey from 'is-hotkey';
 import React, { useCallback, useEffect, useMemo } from 'react';
 
 import { blurAllCells } from '../../actions/cell';
-import { Cell, isRow, Node } from '../../types/node';
+import type { Cell, Node } from '../../types/node';
+import { isRow } from '../../types/node';
 import {
   useEditorStore,
   useFocusCellById,

@@ -1,5 +1,5 @@
 import React from 'react';
-import { ImageSettings } from '../types/settings';
+import type { ImageSettings } from '../types/settings';
 import { lazyLoad } from '@react-page/editor';
 const Panorama = lazyLoad(() => import('@material-ui/icons/Panorama'));
 

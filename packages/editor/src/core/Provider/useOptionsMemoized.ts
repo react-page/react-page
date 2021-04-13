@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { Options } from '../types';
+import type { Options } from '../types';
 
 export const useOptionsMemoized = ({
   pluginsWillChange = false,

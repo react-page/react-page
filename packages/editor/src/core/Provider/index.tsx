@@ -1,20 +1,20 @@
-import { BackendFactory } from 'dnd-core';
+import type { BackendFactory } from 'dnd-core';
 import React, { useEffect, useMemo, useRef } from 'react';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import BlurGate from '../components/BlurGate';
 import EditorStore, { EditorContext } from '../EditorStore';
 import { ReduxProvider } from '../reduxConnect';
-import { DisplayModes } from '../actions/display';
-import { Value } from '../types/node';
+import type { DisplayModes } from '../actions/display';
+import type { Value } from '../types/node';
 
 import { serialzeValue } from '../migrations/serialzeValue';
 import deepEquals from '../utils/deepEquals';
 
-import { Middleware, Store } from 'redux';
+import type { Middleware, Store } from 'redux';
 import { migrateValue } from '../migrations/migrate';
 import { updateValue } from '../actions/value';
-import { Options, RootState, ValueWithLegacy } from '../types';
+import type { Options, RootState, ValueWithLegacy } from '../types';
 import OptionsProvider from './OptionsProvider';
 
 import { initialState } from '../reducer';

@@ -1,7 +1,7 @@
-import { Action } from 'redux';
+import type { Action } from 'redux';
 
-import { HoverTarget } from '../../service/hover/computeHover';
-import {
+import type { HoverTarget } from '../../service/hover/computeHover';
+import type {
   Cell,
   I18nField,
   NewIds,

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDrop } from 'react-dnd';
-import { CellDrag } from '../../types';
+import type { CellDrag } from '../../types';
 import {
   useInsertNew,
   useIsLayoutMode,

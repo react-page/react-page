@@ -1,6 +1,6 @@
 import React from 'react';
+import type { Value } from '@react-page/editor';
 import Editor, {
-  Value,
   AutoForm,
   AutoFields,
   makeUniformsSchema,

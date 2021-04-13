@@ -1,6 +1,5 @@
+import type { Value, Options } from '@react-page/editor';
 import Editor, {
-  Value,
-  Options,
   useInsertNew,
   useSetPreviewMode,
   useSetEditMode,

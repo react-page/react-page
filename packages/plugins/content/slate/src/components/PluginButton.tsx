@@ -9,7 +9,7 @@ import usePluginIsDisabled from '../hooks/usePluginIsDisabled';
 import useRemovePlugin from '../hooks/useRemovePlugin';
 
 import UniformsControls from '../pluginFactories/components/UniformsControls';
-import {
+import type {
   PluginButtonProps,
   SlatePluginDefinition,
 } from '../types/slatePluginDefinitions';

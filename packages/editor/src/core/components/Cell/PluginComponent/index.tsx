@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import { BottomToolbar } from '../../../../ui';
-import { CellPluginComponentProps } from '../../../types';
+import type { CellPluginComponentProps } from '../../../types';
 import {
   usePluginOfCell,
   useDebouncedCellData,

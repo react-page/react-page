@@ -1,5 +1,5 @@
 import React from 'react';
-import { SpacerSettings } from '../types/settings';
+import type { SpacerSettings } from '../types/settings';
 
 export const defaultTranslations = {
   pluginName: 'Spacer',

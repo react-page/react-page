@@ -1,7 +1,8 @@
 import classNames from 'classnames';
 import React from 'react';
 import { useMeasure } from 'react-use';
-import { isRow, Node, Row } from '../../types/node';
+import type { Node } from '../../types/node';
+import { isRow, Row } from '../../types/node';
 import { useCellSpacing, useNodeHoverPosition, useNodeProps } from '../hooks';
 import Droppable from './Droppable';
 import ResizableRowCell from './ResizableRowCell';

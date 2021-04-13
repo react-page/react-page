@@ -1,5 +1,5 @@
-import { CellPlugin } from '../types/plugins';
-import { Cell, Value, Row } from '../types/node';
+import type { CellPlugin } from '../types/plugins';
+import type { Cell, Value, Row } from '../types/node';
 
 const serializeRow = (r: Row, cellPlugins: CellPlugin[]): Row => {
   return {

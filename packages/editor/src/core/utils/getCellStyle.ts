@@ -1,4 +1,4 @@
-import { CellPlugin } from '../types';
+import type { CellPlugin } from '../types';
 
 export const getCellStyle = (plugin: CellPlugin, data: unknown) =>
   plugin?.cellStyle

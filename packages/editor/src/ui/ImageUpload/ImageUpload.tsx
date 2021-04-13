@@ -3,12 +3,10 @@ import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import ErrorIcon from '@material-ui/icons/Error';
-import { ImageLoaded, ImageUploadProps, ImageUploadState } from './types';
+import type { ImageLoaded, ImageUploadProps, ImageUploadState } from './types';
 import { defaultTranslations } from './defaultTranslations';
-import {
-  TranslatorFunction,
-  useUiTranslator,
-} from '../../core/components/hooks';
+import type { TranslatorFunction } from '../../core/components/hooks';
+import { useUiTranslator } from '../../core/components/hooks';
 
 const NO_FILE_ERROR_CODE = 1;
 const BAD_EXTENSION_ERROR_CODE = 2;

@@ -1,4 +1,5 @@
-import { Node, isRow } from '../../../types/node';
+import type { Node } from '../../../types/node';
+import { isRow } from '../../../types/node';
 
 export const isEmpty = (node: Node): boolean => {
   if (!node) {

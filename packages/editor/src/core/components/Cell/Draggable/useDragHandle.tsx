@@ -1,5 +1,5 @@
 import { useDrag, DragPreviewImage } from 'react-dnd';
-import { CellDrag } from '../../../types';
+import type { CellDrag } from '../../../types';
 import { useCell, useHoverActions } from '../../hooks';
 import React from 'react';
 export const dragIcon =

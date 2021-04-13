@@ -1,5 +1,5 @@
 import { useSlate } from 'slate-react';
-import { SlatePluginDefinition } from '../types/slatePluginDefinitions';
+import type { SlatePluginDefinition } from '../types/slatePluginDefinitions';
 
 export default <T>(plugin: SlatePluginDefinition<T>): boolean => {
   try {

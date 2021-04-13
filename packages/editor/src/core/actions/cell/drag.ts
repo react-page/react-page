@@ -3,9 +3,9 @@
  */
 
 import { PositionEnum } from '../../const';
-import { Action } from 'redux';
-import { PartialCell } from '../../types/node';
-import { HoverTarget } from '../../service/hover/computeHover';
+import type { Action } from 'redux';
+import type { PartialCell } from '../../types/node';
+import type { HoverTarget } from '../../service/hover/computeHover';
 
 export const CELL_DRAG_HOVER = 'CELL_DRAG_HOVER';
 export const CELL_DRAG = 'CELL_DRAG';

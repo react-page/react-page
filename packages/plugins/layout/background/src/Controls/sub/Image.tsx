@@ -2,10 +2,11 @@ import React from 'react';
 import Switch from '@material-ui/core/Switch';
 import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import { ImageUpload, ImageLoaded, ImageUploaded } from '@react-page/editor';
+import type { ImageLoaded, ImageUploaded } from '@react-page/editor';
+import { ImageUpload } from '@react-page/editor';
 import Typography from '@material-ui/core/Typography';
 
-import { BackgroundProps } from '../../types/component';
+import type { BackgroundProps } from '../../types/component';
 
 export interface ImageComponentProps {
   ensureModeOn: () => void;

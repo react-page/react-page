@@ -1,5 +1,5 @@
 import React from 'react';
-import { VideoSettings } from '../types/settings';
+import type { VideoSettings } from '../types/settings';
 import { lazyLoad } from '@react-page/editor';
 
 const PlayArrow = lazyLoad(() => import('@material-ui/icons/PlayArrow'));

@@ -1,6 +1,6 @@
 import React from 'react';
 import { OptionsContext } from '../components/hooks';
-import { Options } from '../types';
+import type { Options } from '../types';
 import { useOptionsMemoized } from './useOptionsMemoized';
 
 const OptionsProvider: React.FC<Options> = ({ children, ...options }) => {

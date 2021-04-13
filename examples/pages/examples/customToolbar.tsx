@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import Editor, { Options, Value } from '@react-page/editor';
+import type { Options, Value } from '@react-page/editor';
+import Editor from '@react-page/editor';
 import slate from '@react-page/plugins-slate';
 import image from '@react-page/plugins-image';
 import { ExampleCustomBottomToolbar } from '../../components/ExampleCustomBottomToolbar';
