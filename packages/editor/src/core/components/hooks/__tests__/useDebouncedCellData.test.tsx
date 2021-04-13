@@ -3,7 +3,7 @@ import React from 'react';
 
 import { findNodeInState } from '../../../selector/editable';
 import { getCellData } from '../../../utils/getCellData';
-import type { CellPlugin } from '../../../types';
+import type { Cell, CellPlugin } from '../../../types';
 import createStore from '../../../store';
 import { initialState } from '../../../reducer';
 import { ReduxProvider } from '../../../reduxConnect';
@@ -65,7 +65,7 @@ describe('useDebouncedCellData', () => {
 
     setTimeout(() => {
       const data = getCellData(
-        findNodeInState(store.getState(), 'cell0').node,
+        findNodeInState(store.getState(), 'cell0').node as Cell,
         options.lang
       );
       expect(data).toMatchObject({ a: 1, b: 1 });
@@ -96,7 +96,7 @@ describe('useDebouncedCellData', () => {
 
     setTimeout(() => {
       const data = getCellData(
-        findNodeInState(store.getState(), 'cell0').node,
+        findNodeInState(store.getState(), 'cell0').node as Cell,
         options.lang
       );
       expect(data).toMatchObject({ c: 1 });
@@ -127,7 +127,7 @@ describe('useDebouncedCellData', () => {
 
     setTimeout(() => {
       const data = getCellData(
-        findNodeInState(store.getState(), 'cell0').node,
+        findNodeInState(store.getState(), 'cell0').node as Cell,
         options.lang
       );
       expect(data).toMatchObject({ a: 1 });

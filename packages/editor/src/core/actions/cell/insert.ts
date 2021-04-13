@@ -11,6 +11,8 @@ import type {
   Row,
 } from '../../types';
 import { createId } from '../../utils/createId';
+import { getChildCellPlugins } from '../../utils/getAvailablePlugins';
+import { getCellData } from '../../utils/getCellData';
 import { removeUndefinedProps } from '../../utils/removeUndefinedProps';
 import { editMode } from '../display';
 import { generateIds } from '../helpers';
@@ -103,7 +105,20 @@ export const createCell = (
           version: plugin.version,
         }
       : undefined,
-    rows: partialRows?.map((r) => createRow(r, options)),
+    rows: partialRows?.map((r) =>
+      createRow(r, {
+        lang,
+        cellPlugins: getChildCellPlugins(cellPlugins, {
+          pluginId,
+          data: getCellData(
+            {
+              dataI18n,
+            },
+            lang
+          ),
+        }),
+      })
+    ),
     dataI18n: dataI18n,
   });
 };

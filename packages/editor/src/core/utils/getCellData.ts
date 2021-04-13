@@ -1,6 +1,6 @@
 import type { Cell } from '../types';
 
-export const getCellData = (cell: Cell, lang: string) => {
+export const getCellData = (cell: Pick<Cell, 'dataI18n'>, lang: string) => {
   const dataI18n = cell.dataI18n;
 
   return (
