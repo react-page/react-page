@@ -2,9 +2,10 @@ import Button from '@material-ui/core/Button';
 import Popover from '@material-ui/core/Popover';
 import ColorizeIcon from '@material-ui/icons/Colorize';
 import React from 'react';
-import { ChromePicker, ColorChangeHandler } from 'react-color';
+import type { ColorChangeHandler } from 'react-color';
+import { ChromePicker } from 'react-color';
 import { colorToString } from './colorToString';
-import { ColorPickerProps, ColorPickerState } from './types';
+import type { ColorPickerProps, ColorPickerState } from './types';
 
 class ColorPicker extends React.Component<ColorPickerProps> {
   static defaultProps: Partial<ColorPickerProps> = {

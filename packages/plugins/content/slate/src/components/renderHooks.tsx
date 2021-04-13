@@ -1,5 +1,6 @@
 import isObject from 'lodash.isobject';
-import React, { DependencyList, useCallback } from 'react';
+import type { DependencyList } from 'react';
+import React, { useCallback } from 'react';
 import type { RenderElementProps, RenderLeafProps } from 'slate-react';
 import type { SlatePlugin } from '../types/SlatePlugin';
 import {

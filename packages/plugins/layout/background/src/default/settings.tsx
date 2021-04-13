@@ -1,5 +1,5 @@
 import React from 'react';
-import { BackgroundSettings } from '../types/settings';
+import type { BackgroundSettings } from '../types/settings';
 import {
   IMAGE_MODE_FLAG,
   COLOR_MODE_FLAG,

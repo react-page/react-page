@@ -6,9 +6,11 @@ import {
   useCellProps,
   useLang,
   useSetDraft,
+  useUiTranslator,
 } from '../../core/components/hooks';
 
 const DraftSwitch = ({ nodeId, lang }: { nodeId: string; lang?: string }) => {
+  const { t } = useUiTranslator();
   const cell = useCellProps(nodeId, (c) => ({
     isDraft: c.isDraft,
     isDraftI18n: c.isDraftI18n,
@@ -21,7 +23,7 @@ const DraftSwitch = ({ nodeId, lang }: { nodeId: string; lang?: string }) => {
   const theLang = lang ?? currentLang;
   const hasI18n = Boolean(cell.isDraftI18n);
   const isDraft = cell?.isDraftI18n?.[theLang] ?? cell?.isDraft; // fallback to legacy
-  const title = isDraft ? 'Content is hidden' : 'Content is visible';
+  const title = t(isDraft ? 'Content is hidden' : 'Content is visible');
   return cell ? (
     <Tooltip title={title + (hasI18n ? ' in ' + theLang : '')}>
       <FormControlLabel

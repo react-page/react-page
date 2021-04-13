@@ -1,4 +1,4 @@
-import { SlatePluginDefinition } from './slatePluginDefinitions';
+import type { SlatePluginDefinition } from './slatePluginDefinitions';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type SlatePlugin = SlatePluginDefinition<any>;

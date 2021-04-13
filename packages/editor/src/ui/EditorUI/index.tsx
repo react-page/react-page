@@ -1,5 +1,6 @@
 import React from 'react';
-import { StickyNess, DisplayModeToggle } from '../DisplayModeToggle';
+import type { StickyNess } from '../DisplayModeToggle';
+import { DisplayModeToggle } from '../DisplayModeToggle';
 import { ThemeProvider } from '../ThemeProvider';
 import { PluginDrawer } from '../PluginDrawer';
 import { Trash } from '../Trash';

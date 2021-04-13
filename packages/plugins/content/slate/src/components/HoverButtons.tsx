@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import { Portal } from 'react-portal';
 import { useSlate } from 'slate-react';
 import useTextIsSelected from '../hooks/useTextIsSelected';
-import { SlateProps } from '../types/component';
+import type { SlateProps } from '../types/component';
 import PluginButton from './PluginButton';
 
 const HoverButtons = ({

@@ -1,6 +1,6 @@
-import { RGBColor } from '@react-page/editor';
-import { Gradient } from './gradient';
-import { ModeEnum } from './ModeEnum';
+import type { RGBColor } from '@react-page/editor';
+import type { Gradient } from './gradient';
+import type { ModeEnum } from './ModeEnum';
 
 export interface BackgroundState {
   background: string;

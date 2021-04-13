@@ -3,7 +3,7 @@ import { darkTheme, ThemeProvider } from '../ThemeProvider';
 import { BottomToolbarDrawer } from './Drawer';
 import { BottomToolbarMainBar } from './NodeTools';
 import { ScaleButton } from './ScaleButton';
-import { BottomToolbarProps } from './types';
+import type { BottomToolbarProps } from './types';
 export * from './types';
 export * from './Drawer';
 export * from './NodeTools';

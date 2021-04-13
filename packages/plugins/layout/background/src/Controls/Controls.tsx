@@ -1,9 +1,9 @@
 import React from 'react';
 
-import { BackgroundProps } from '../types/component';
+import type { BackgroundProps } from '../types/component';
 
-import { ImageLoaded, RGBColor } from '@react-page/editor';
-import { ModeEnum } from '../types/ModeEnum';
+import type { ImageLoaded, RGBColor } from '@react-page/editor';
+import type { ModeEnum } from '../types/ModeEnum';
 
 import Inner from './Inner';
 

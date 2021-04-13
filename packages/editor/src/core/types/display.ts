@@ -1,4 +1,4 @@
-import { DisplayModes } from '../actions/display';
+import type { DisplayModes } from '../actions/display';
 
 export type Display = {
   mode: DisplayModes;

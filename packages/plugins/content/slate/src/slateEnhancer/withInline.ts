@@ -1,5 +1,5 @@
-import { Editor } from 'slate';
-import { SlatePlugin } from '../types/SlatePlugin';
+import type { Editor } from 'slate';
+import type { SlatePlugin } from '../types/SlatePlugin';
 
 const withInline = (plugins: SlatePlugin[]) => (editor: Editor) => {
   const { isInline } = editor;

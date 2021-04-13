@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-types */
 
+import type { CellAction } from '../../actions/cell';
 import {
   CELL_INSERT_ABOVE,
   CELL_INSERT_BELOW,
@@ -12,10 +13,9 @@ import {
   CELL_UPDATE_DATA,
   CELL_UPDATE_IS_DRAFT,
   CELL_INSERT_AT_END,
-  CellAction,
   CELL_INSERT_AS_NEW_ROW,
 } from '../../actions/cell';
-import { Cell, Row } from '../../types/node';
+import type { Cell, Row } from '../../types/node';
 import { createId } from '../../utils/createId';
 import { removeUndefinedProps } from '../../utils/removeUndefinedProps';
 

@@ -1,4 +1,5 @@
-import Editor, { Value, Options } from '@react-page/editor';
+import type { Value, Options } from '@react-page/editor';
+import Editor from '@react-page/editor';
 
 import React, { useState } from 'react';
 import PageLayout from '../components/PageLayout';

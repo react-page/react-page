@@ -1,7 +1,7 @@
 import { useSelector } from '../../reduxConnect';
 
 import { currentValue } from '../../selector/editable';
-import { Value } from '../../types/node';
+import type { Value } from '../../types/node';
 import deepEquals from '../../utils/deepEquals';
 
 type ValueSelector<T> = (node: Value) => T;

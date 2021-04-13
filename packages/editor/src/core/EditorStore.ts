@@ -1,8 +1,8 @@
-import { Middleware, Store } from 'redux';
+import type { Middleware, Store } from 'redux';
 
 import createStore from './store';
-import { Value } from './types/node';
-import { RootState } from './types/state';
+import type { Value } from './types/node';
+import type { RootState } from './types/state';
 import { setLang } from './actions/setting';
 import { findNodeInState } from './selector/editable';
 import { createContext } from 'react';

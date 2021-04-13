@@ -1,5 +1,5 @@
 import React from 'react';
-import { SlateProps } from '../types/component';
+import type { SlateProps } from '../types/component';
 import PluginButton from './PluginButton';
 
 const Controls = (props: Pick<SlateProps, 'translations' | 'plugins'>) => {

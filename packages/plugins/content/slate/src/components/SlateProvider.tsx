@@ -7,7 +7,8 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import { createEditor, Node, Transforms } from 'slate';
+import type { Node } from 'slate';
+import { createEditor, Transforms } from 'slate';
 import { Slate, withReact } from 'slate-react';
 import withInline from '../slateEnhancer/withInline';
 import withPaste from '../slateEnhancer/withPaste';
@@ -42,7 +43,7 @@ const SlateProvider: React.FC<SlateProps> = (props) => {
         }
       );
     }, 200),
-    [props.onChange, editor]
+    [props.onChange, editor, data.slate]
   );
 
   useEffect(() => {

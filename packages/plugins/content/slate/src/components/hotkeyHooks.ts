@@ -1,10 +1,11 @@
 import isHotkey from 'is-hotkey';
-import React, { DependencyList } from 'react';
+import type { DependencyList } from 'react';
+import React from 'react';
 import { useSlate } from 'slate-react';
 import { addPlugin } from '../hooks/useAddPlugin';
 import { getCurrentNodeWithPlugin } from '../hooks/useCurrentNodeWithPlugin';
 import { removePlugin } from '../hooks/useRemovePlugin';
-import { SlatePlugin } from '../types/SlatePlugin';
+import type { SlatePlugin } from '../types/SlatePlugin';
 
 export const useOnKeyDown = (
   {

@@ -1,4 +1,4 @@
-import { Node, Range } from 'slate';
+import type { Node, Range } from 'slate';
 
 export type SlateState = {
   slate: Node[];

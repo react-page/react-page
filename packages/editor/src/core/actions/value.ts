@@ -1,5 +1,5 @@
-import { Action } from 'redux';
-import { Value, NewIds } from '../types/node';
+import type { Action } from 'redux';
+import type { Value, NewIds } from '../types/node';
 import { generateIds } from './helpers';
 
 export const UPDATE_VALUE = 'UPDATE_VALUE';

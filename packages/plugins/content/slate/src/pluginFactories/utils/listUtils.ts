@@ -1,5 +1,5 @@
 import { Editor, Path, Text, Transforms } from 'slate';
-import { ReactEditor } from 'slate-react';
+import type { ReactEditor } from 'slate-react';
 
 type ListBaseDef = {
   allListTypes: string[];

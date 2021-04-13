@@ -2,7 +2,6 @@ import type { Cell } from '../../../types/node';
 import deepEquals from '../../../utils/deepEquals';
 
 const MAX_CELLS_PER_ROW = 12;
-
 /**
  * Sum up cell sizes: Σ(cell[size]).
  */

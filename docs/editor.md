@@ -102,6 +102,44 @@ That way an editing user can select the language at any time. Any cell will allw
 
 Additionaly cells can be hidden _per language_.
 
+### `cellSpacing`
+
+Takes a number or an object `{x: number, y: number}:
+
+```tsx
+cellSpacing = {
+  x: 15, // horizontal cell spacing
+  y: 20, // vertical cell spacing
+};
+```
+
+[Look at this example to see how cellSpacing affects the layout](//demo/examples/cellSpacing)
+
+### `uiTranslator`
+
+Takes a function `(label:string) => string`.  
+
+This prop enables i18n support. All interface labels are wrapped with this function.
+
+Below is the `uiTranslator` function provided in [the i18n demo](//demo/i18n).
+
+```typescript
+const TRANSLATIONS: { [key: string]: string } = {
+  'Edit things': '编辑',
+  'Add things': '添加',
+  'Move things': '移动',
+  'Resize things': '调整大小',
+  'Preview result': '预览模式',
+};
+
+ const uiTranslator = useCallback((label?: string) => {
+    if (TRANSLATIONS[label] !== undefined) {
+      return TRANSLATIONS[label];
+    }
+    return `${label}(to translate)`;
+  }, []);
+```
+
 ### `childConstraints` (experimental)
 
 Takes an object:

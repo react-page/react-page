@@ -1,14 +1,15 @@
-import { createRow, PluginsAndLang } from '../actions/cell/insert';
+import type { PluginsAndLang } from '../actions/cell/insert';
+import { createRow } from '../actions/cell/insert';
 import { CURRENT_EDITABLE_VERSION } from '../migrations/EDITABLE_MIGRATIONS';
-import { Value, PartialRow } from '../types/node';
+import type { Value, PartialRow } from '../types/node';
 import { createId } from './createId';
 
-type PartialEditable = {
+type PartialValue = {
   id?: string;
   rows?: PartialRow[];
 };
-export const createEditable = (
-  partial: PartialEditable,
+export const createValue = (
+  partial: PartialValue,
   options: PluginsAndLang
 ): Value => {
   return {

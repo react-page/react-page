@@ -2,7 +2,8 @@ import Divider from '@material-ui/core/Divider';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+import type { Theme } from '@material-ui/core/styles';
+import { createStyles, makeStyles } from '@material-ui/core/styles';
 import Link from 'next/link';
 import React from 'react';
 import DescriptionIcon from '@material-ui/icons/Description';
@@ -45,6 +46,7 @@ const Navigation: React.FC = () => {
           <ListItemText primary={'Empty editor'} />
         </ListItem>
       </Link>
+
       <Link passHref href="/examples/reactadmin">
         <ListItem component="a">
           <ListItemText primary={'React Admin example'} />

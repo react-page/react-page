@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
-import { DisplayModes, DISPLAY_MODE_EDIT } from '../actions/display';
+import type { DisplayModes } from '../actions/display';
+import { DISPLAY_MODE_EDIT } from '../actions/display';
 import { useBlurAllCells, useIsInsertMode, useSetMode } from './hooks';
 
 // this might break in future, but its better than nothing

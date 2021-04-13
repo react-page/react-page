@@ -1,7 +1,8 @@
-import { CellPluginComponentProps, lazyLoad } from '@react-page/editor';
+import type { CellPluginComponentProps } from '@react-page/editor';
+import { lazyLoad } from '@react-page/editor';
 import classNames from 'classnames';
 import React from 'react';
-import { SpacerState } from '../types/state';
+import type { SpacerState } from '../types/state';
 
 const SpacerResizable = lazyLoad(() => import('./SpacerResizable'));
 const SpacerHtmlRenderer: React.FC<CellPluginComponentProps<SpacerState>> = (

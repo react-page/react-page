@@ -1,6 +1,9 @@
-import { CellHoverAction, dragActions } from './drag';
-import { InsertAction, insertActions } from './insert';
-import { CellCoreAction, coreActions } from './core';
+import type { CellHoverAction } from './drag';
+import { dragActions } from './drag';
+import type { InsertAction } from './insert';
+import { insertActions } from './insert';
+import type { CellCoreAction } from './core';
+import { coreActions } from './core';
 export const cellActions = { ...dragActions, ...insertActions, ...coreActions };
 export * from './insert';
 export * from './core';

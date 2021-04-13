@@ -4,7 +4,7 @@ import { iconStyle } from '../common/styles';
 
 import { lazyLoad } from '@react-page/editor';
 
-import { VideoHtmlRendererProps } from '../types/renderer';
+import type { VideoHtmlRendererProps } from '../types/renderer';
 
 // react player is big, better lazy load it.
 const ReactPlayer = lazyLoad(() => import('react-player'));

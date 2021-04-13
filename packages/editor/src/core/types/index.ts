@@ -1,5 +1,5 @@
-import { Value } from '../..';
-import { Value_v0 } from '../migrations/EDITABLE_MIGRATIONS/from0to1';
+import type { Value } from '../..';
+import type { Value_v0 } from '../migrations/EDITABLE_MIGRATIONS/from0to1';
 
 export * from './display';
 export * from './node';
@@ -8,6 +8,7 @@ export * from './jsonSchema';
 export * from './plugins';
 export * from './state';
 export * from './constraints';
+export * from './options';
 
 export type ValueWithLegacy = Value | Value_v0;
 export type { Value_v0 };

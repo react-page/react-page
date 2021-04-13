@@ -5,7 +5,7 @@ import { DragPreviewImage, useDrag } from 'react-dnd';
 import { dragIcon } from '../../../core/components/Cell/Draggable/useDragHandle';
 import { useSetLayoutMode } from '../../../core/components/hooks/displayMode';
 
-import { CellDrag, InsertNewCell } from '../../../core/types';
+import type { CellDrag, InsertNewCell } from '../../../core/types';
 
 const Draggable: React.FC<{
   insert: InsertNewCell;
@@ -18,16 +18,16 @@ const Draggable: React.FC<{
       isDragging: boolean;
     }
   >({
-    item: {
-      type: 'cell',
-      cell: insert,
+    type: 'cell',
+    item: () => {
+      setLayoutMode();
+      return {
+        cell: insert,
+      };
     },
     collect: (monitor) => ({
       isDragging: monitor.isDragging(),
     }),
-    begin() {
-      setLayoutMode();
-    },
   });
   const classes = classNames(
     { 'react-page-toolbar-draggable-is-dragged': isDragging },

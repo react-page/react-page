@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/ban-types */
-import { ReactEditor } from 'slate-react';
+import type { ReactEditor } from 'slate-react';
 
-import { Translations } from './translations';
-import { Node } from 'slate';
-import { JsonSchema } from '@react-page/editor';
+import type { Translations } from './translations';
+import type { Node } from 'slate';
+import type { JsonSchema } from '@react-page/editor';
 
 export interface PluginButtonProps {
   translations?: Partial<Translations>;

@@ -1,12 +1,7 @@
-import Editor, {
-  Cell,
-  migrateValue,
-  Options,
-  Value,
-  Value_v0,
-} from '@react-page/editor';
-import { SlatePlugin } from '@react-page/plugins-slate';
-import { GetStaticProps } from 'next';
+import type { Cell, Options, Value, Value_v0 } from '@react-page/editor';
+import Editor, { migrateValue } from '@react-page/editor';
+import type { SlatePlugin } from '@react-page/plugins-slate';
+import type { GetStaticProps } from 'next';
 
 import React, { useState } from 'react';
 import PageLayout from '../../components/PageLayout';

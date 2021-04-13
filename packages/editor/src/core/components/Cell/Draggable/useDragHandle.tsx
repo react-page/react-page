@@ -1,5 +1,5 @@
 import { useDrag, DragPreviewImage } from 'react-dnd';
-import { CellDrag } from '../../../types';
+import type { CellDrag } from '../../../types';
 import { useCell, useHoverActions } from '../../hooks';
 import React from 'react';
 export const dragIcon =
@@ -16,16 +16,15 @@ export const useDragHandle = (nodeId: string) => {
       isDragging: boolean;
     }
   >({
-    item: {
-      type: 'cell',
-      cell,
+    item: () => {
+      actions.dragCell(nodeId);
+      return { cell };
     },
+    type: 'cell',
     collect: (monitor) => ({
       isDragging: monitor.isDragging(),
     }),
-    begin(monitor) {
-      actions.dragCell(nodeId);
-    },
+
     end(item, monitor) {
       if (monitor.didDrop()) {
         // If the item drop occurred deeper down the tree, don't do anything

@@ -1,6 +1,6 @@
 import { Migration } from '@react-page/editor';
 import isEmpty from 'lodash.isempty';
-import { Element, Node, Text } from 'slate';
+import type { Element, Node, Text } from 'slate';
 // this is for slate 0.50.0
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 

@@ -1,9 +1,9 @@
-import { CellPlugin, ImageUploadType, RGBColor } from '@react-page/editor';
+import type { CellPlugin, ImageUploadType, RGBColor } from '@react-page/editor';
 
-import { BackgroundControlsProps } from './controls';
-import { ModeEnum } from './ModeEnum';
-import { BackgroundRendererProps } from './renderer';
-import { Translations } from './translations';
+import type { BackgroundControlsProps } from './controls';
+import type { ModeEnum } from './ModeEnum';
+import type { BackgroundRendererProps } from './renderer';
+import type { Translations } from './translations';
 
 export type BackgroundSettings = {
   Renderer: React.ComponentType<BackgroundRendererProps>;

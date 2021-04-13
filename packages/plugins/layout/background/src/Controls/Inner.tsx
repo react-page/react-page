@@ -9,8 +9,8 @@ import GradientIcon from '@material-ui/icons/Gradient';
 import ImageIcon from '@material-ui/icons/Landscape';
 
 import React from 'react';
-import { BackgroundApi } from '../types/api';
-import { BackgroundControlsProps } from '../types/controls';
+import type { BackgroundApi } from '../types/api';
+import type { BackgroundControlsProps } from '../types/controls';
 import { ModeEnum } from '../types/ModeEnum';
 import ColorComponent from './sub/Color';
 import ImageComponent from './sub/Image';

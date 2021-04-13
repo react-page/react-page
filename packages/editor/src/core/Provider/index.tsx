@@ -1,26 +1,28 @@
-import { BackendFactory } from 'dnd-core';
+import type { BackendFactory } from 'dnd-core';
 import React, { useEffect, useMemo, useRef } from 'react';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import BlurGate from '../components/BlurGate';
 import EditorStore, { EditorContext } from '../EditorStore';
 import { ReduxProvider } from '../reduxConnect';
-import { DisplayModes } from '../actions/display';
-import { OptionsContext } from '../components/hooks';
-import { Value, Options } from '../types/node';
+import type { DisplayModes } from '../actions/display';
+import type { Value } from '../types/node';
 
 import { serialzeValue } from '../migrations/serialzeValue';
 import deepEquals from '../utils/deepEquals';
 
-import { Middleware, Store } from 'redux';
+import type { Middleware, Store } from 'redux';
 import { migrateValue } from '../migrations/migrate';
 import { updateValue } from '../actions/value';
-import { RootState } from '../types';
+import type { Options, RootState, ValueWithLegacy } from '../types';
+import OptionsProvider from './OptionsProvider';
+
+import { initialState } from '../reducer';
 
 type ProviderProps = {
   lang?: string;
   onChangeLang?: (lang: string) => void;
-  value: Value;
+  value: ValueWithLegacy;
   onChange?: (v: Value) => void;
   dndBackend?: BackendFactory;
   blurGateDisabled?: boolean;
@@ -45,45 +47,26 @@ const Provider: React.FC<ProviderProps> = ({
   blurGateDisabled = false,
   blurGateDefaultMode,
   cellPlugins,
-  allowMoveInEditMode,
-  childConstraints,
-  allowResizeInEditMode,
-  editModeResizeHandle,
-  languages,
-  pluginsWillChange,
-  components,
   store: passedStore,
   middleware = [],
+  pluginsWillChange,
+  ...options
 }) => {
   const editorStore = useMemo(() => {
     const store = new EditorStore({
-      initialState: {
-        reactPage: {
-          __nodeCache: {},
-          hover: null,
-          focus: null,
-          display: {
-            mode: 'edit',
-          },
-          settings: {
-            lang,
-          },
-          values: {
-            past: [],
-            present: migrateValue(value, {
-              cellPlugins,
-              lang,
-            }),
-            future: [],
-          },
-        },
-      },
+      initialState: initialState(
+        migrateValue(value, {
+          cellPlugins,
+          lang,
+        }),
+        lang
+      ),
       store: passedStore,
       middleware,
     });
     return store;
   }, [passedStore, ...middleware]);
-  const lastValueRef = useRef<Value>(value);
+  const lastValueRef = useRef<ValueWithLegacy>(value);
   useEffect(() => {
     let oldLang = lang;
     const handleChanges = () => {
@@ -140,33 +123,14 @@ const Provider: React.FC<ProviderProps> = ({
     editorStore.setLang(lang);
   }, [editorStore, lang]);
 
-  // prevent options from recreating all the time
-  const optionsMemoized: Options = useMemo(() => {
-    return {
-      cellPlugins,
-      pluginsWillChange,
-      allowMoveInEditMode,
-      allowResizeInEditMode,
-      editModeResizeHandle,
-      languages,
-      childConstraints,
-      components,
-    };
-  }, [
-    pluginsWillChange && cellPlugins,
-    allowMoveInEditMode,
-    allowResizeInEditMode,
-    editModeResizeHandle,
-    languages,
-    JSON.stringify(childConstraints ?? {}), // its an object, we prevent unnecessary rerenders by stringify it
-    ...Object.keys(components ?? {}),
-    ...Object.values(components ?? {}), // minimize unnecessary rerenders by forcing shallow comparison of "components" object
-  ]);
-
   return (
     <DndProvider backend={dndBackend}>
       <ReduxProvider store={editorStore.store}>
-        <OptionsContext.Provider value={optionsMemoized}>
+        <OptionsProvider
+          {...options}
+          pluginsWillChange={pluginsWillChange}
+          cellPlugins={cellPlugins}
+        >
           <EditorContext.Provider value={editorStore}>
             <BlurGate
               disabled={blurGateDisabled}
@@ -175,7 +139,7 @@ const Provider: React.FC<ProviderProps> = ({
               {children}
             </BlurGate>
           </EditorContext.Provider>
-        </OptionsContext.Provider>
+        </OptionsProvider>
       </ReduxProvider>
     </DndProvider>
   );
