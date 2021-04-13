@@ -42,7 +42,7 @@ const SlateProvider: React.FC<SlateProps> = (props) => {
         }
       );
     }, 200),
-    [props.onChange, editor]
+    [props.onChange, editor, data.slate]
   );
 
   useEffect(() => {
