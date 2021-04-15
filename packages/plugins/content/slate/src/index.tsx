@@ -1,4 +1,5 @@
-import { CellPlugin, lazyLoad } from '@react-page/editor';
+import type { CellPlugin } from '@react-page/editor';
+import { lazyLoad } from '@react-page/editor';
 import React from 'react';
 
 import SlateEditor from './components/SlateEditor';
@@ -18,7 +19,13 @@ import transformInitialSlateState from './utils/transformInitialSlateState';
 
 const slatePlugins = defaultPlugins;
 
-export { defaultPlugins, slatePlugins, pluginFactories, HtmlToSlate };
+export {
+  defaultPlugins,
+  slatePlugins,
+  pluginFactories,
+  HtmlToSlate,
+  SlateState,
+};
 const Subject = lazyLoad(() => import('@material-ui/icons/Subject'));
 const Controls = lazyLoad(() => import('./components/Controls'));
 
@@ -122,9 +129,11 @@ function plugin<TPlugins extends SlatePluginCollection = DefaultPlugins>(
         defaultPluginType={settings.defaultPluginType}
       />
     ),
+    bottomToolbar: {
+      dark: true,
+    },
     controls: {
       type: 'custom',
-      dark: true,
       Component: (props) => (
         <Controls
           {...props}
@@ -155,7 +164,10 @@ function plugin<TPlugins extends SlatePluginCollection = DefaultPlugins>(
     createData: createData,
     createDataFromHtml: htmlToSlate,
     // remove selection
-    serialize: (s) => (s ? { slate: s.slate } : null),
+    serialize: ({ slate, selection, ...rest } = { slate: [] }) => ({
+      slate,
+      ...rest,
+    }),
     unserialize: (s) => {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       if ((s as any)?.importFromHtml) {
@@ -169,7 +181,8 @@ function plugin<TPlugins extends SlatePluginCollection = DefaultPlugins>(
       }
       if (s?.slate) {
         return {
-          slate: s.slate,
+          ...s,
+          selection: null,
         };
       }
 

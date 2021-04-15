@@ -1,4 +1,4 @@
-import { VideoProps } from './component';
-import { VideoApi } from './api';
+import type { VideoProps } from './component';
+import type { VideoApi } from './api';
 
 export type VideoControlsProps = VideoProps & VideoApi;

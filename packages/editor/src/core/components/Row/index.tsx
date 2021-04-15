@@ -1,8 +1,9 @@
 import classNames from 'classnames';
 import React from 'react';
 import { useMeasure } from 'react-use';
-import { isRow, Node, Row } from '../../types/node';
-import { useBlurAllCells, useNodeHoverPosition, useNodeProps } from '../hooks';
+import type { Node } from '../../types/node';
+import { isRow, Row } from '../../types/node';
+import { useCellSpacing, useNodeHoverPosition, useNodeProps } from '../hooks';
 import Droppable from './Droppable';
 import ResizableRowCell from './ResizableRowCell';
 
@@ -30,7 +31,6 @@ const reduceToIdAndSizeArray = (
 const Row: React.FC<{ nodeId: string }> = ({ nodeId }) => {
   const [ref, { width: rowWidth }] = useMeasure();
 
-  const blurAllCells = useBlurAllCells();
   const hoverPosition = useNodeHoverPosition(nodeId);
 
   const childrenWithOffsets = useNodeProps(nodeId, (node) =>
@@ -44,22 +44,38 @@ const Row: React.FC<{ nodeId: string }> = ({ nodeId }) => {
     (node) => isRow(node) && node.cells.length === 2 && node.cells[0]?.inline
   );
 
+  const { x: cellSpacingX, y: cellSpacingY } = useCellSpacing();
+
   return (
     <Droppable nodeId={nodeId}>
       <div
         ref={ref}
         className={classNames('react-page-row', {
-          'react-page-row-is-hovering-this': Boolean(hoverPosition),
-          [`react-page-row-is-hovering-${hoverPosition || ''}`]: Boolean(
-            hoverPosition
-          ),
           'react-page-row-has-floating-children': Boolean(
             rowHasInlineChildrenPosition
           ),
         })}
-        style={{ position: 'relative', borderColor: 'red' }}
-        onClick={blurAllCells}
+        style={{
+          position: 'relative',
+          margin: cellSpacingX !== 0 ? `0 ${-cellSpacingX / 2}px` : undefined,
+        }}
       >
+        <div
+          style={{
+            position: 'absolute',
+            pointerEvents: 'none',
+            top: `${cellSpacingY / 2}px`,
+            left: `${cellSpacingX / 2}px`,
+            bottom: `${cellSpacingY / 2}px`,
+            right: `${cellSpacingX / 2}px`,
+          }}
+          className={classNames({
+            'react-page-row-is-hovering-this': Boolean(hoverPosition),
+            [`react-page-row-is-hovering-${hoverPosition || ''}`]: Boolean(
+              hoverPosition
+            ),
+          })}
+        />
         {childrenWithOffsets.map(({ offset, id, size, maxSize }, index) => (
           <ResizableRowCell
             key={id}

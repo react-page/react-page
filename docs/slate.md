@@ -1,8 +1,8 @@
-## slate CellPlugin
+## Slate as the RTE
 
-We provide an advanced rich text editor as a `CellPlugin` based on [slate](http://slatejs.org).
+An advanced rich text editor (RTE) based on [slate](http://slatejs.org) is used as a `CellPlugin`.
 
-It has to be installed separatly:
+It has to be installed separately:
 
 ```bash
 $ yarn add @react-page/plugins-slate
@@ -19,37 +19,30 @@ $ npm i --save @react-page/plugins-slate
 
 ## Usage
 
-simply add `@react-page/plugins-slate` as a `cellPlugin` to the editor:
+See [Editor component](/editor.md) for basic usage.
 
-[simple.tsx](examples/pages/examples/simple.tsx ':include :type=code typescript')
+The **slate CellPlugin** itself is highly customizable and has its own plugin sytem!
 
-By default we provide the following plugins:
+The inbuilt Slate plugins can be selectively enabled / disabled, or extended to control how any paragraph, headline or other markup is rendered. Further, one can add custom plugins as required.
+
+## Inbuilt Slate plugins
 
 - `paragraph`: default paragraph
-- `headings`: place headings h1 - h6
-- `emphasize`: place em, strong and underline
+- `headings`: headings h1 - h6
+- `emphasize`: em, strong and underline
 - `alignment`: allows to align left, right center and justify,
-- `lists`: place ordered and unordered lists
-- `blockquote`: place a blockquote
-- `code`: place code
-- `link`: place links
+- `lists`: ordered and unordered lists
+- `blockquote`: blockquote
+- `code`: code
+- `link`: links
 
-[See the full list here](/packages/plugins/content/slate/plugins/index.tsx)
+## Customizing the Slate plugin
 
-## Customization
+### Example 1: Selectively enable some slate inbuilt plugins
 
-The **slate CellPlugin** itself is highly customizable and has even itself its own plugin sytem!
-Not only can you perfectly control how any paragraph, headline or other markup is rendereed,
-you can also add custom plugins with their own control.
+To customize the **slate CellPlugin**, call it with a function that changes its default configuration.
 
-A common example is to create internal links, where the pages are stored in a database. Instead of asking for the full url,
-the user will see a select field of all pages. When the user makes a selection, ReactPage will only store the id of that page.
-That way the links will still be valid when the page is moved or renamed.
-
-Another example: if you create a landing page for an ecomerce project, you can enable the webmasters
-that will edit this landing page to create links to products from your shop.
-
-To customize the **slate CellPlugin**, call it with a function that changes its default configuration:
+In this example, only some of the inbuilt Slate plugins are being enabled:
 
 ```tsx
 import Editor from '@react-page/editor';
@@ -58,10 +51,10 @@ import slate from '@react-page/plugins-slate';
 
 const myCustomSlatePlugin = slate(def => ({
   ...def, // this is the default configuration
-  id: "my-custom-slate-plugin" // if you use multiple different slate plugins at the same time, give each another id
+  id: "my-custom-slate-plugin" // Each slate plugin should get its own ID
   title: "custom slate plugin",
-  description: "it only provides title and text`
-  // only select some slate plugins  like headings and paragraphs and default bold/italic/underline
+  description: "it only provides title and text"
+  // Selectively enable some slate inbuilt plugins
   plugins: {
     headings: def.plugins.headings,
     emphasize: def.plugins.emphasize,
@@ -71,13 +64,23 @@ const myCustomSlatePlugin = slate(def => ({
 })
 ```
 
-Now you can pass `myCustomSlatePlugin` as a member of `cellPlugins` to the editor.
+Instead of passing slate() to the editor
 
-Notice: the default export of `@react-page/plugins-slate` is a function that returns a `CellPlugin`. When called without any argument, it will use the default configuration. if you pass a callback function, it will use the configuration you return from that function. This callback function will receive the default configuration. This way you can return the default configuration and alter it as in the example above (using object spread).
+```
+const cellPlugins = [slate(), image];
+```
 
-### Customize built-in slate plugins
+one can now do:
 
-You can customize the provided slate plugins (paragraphs, headings, alignment, etc.) by providing a customize function. It will take the plugin's default config and you can return a new config. Most obvious usecase is to change the component that renders the plugin's content:
+```
+const cellPlugins = [myCustomSlatePlugin(), image];
+```
+
+Note: the default export of `@react-page/plugins-slate` is a function that returns a `CellPlugin`. When called without any argument, it will use the default configuration. if you pass a callback function, it will use the configuration you return from that function. This callback function will receive the default configuration. This way you can return the default configuration and alter it as in the example above (using object spread).
+
+### Example 2: Customize the inbuilt slate plugins
+
+The inbuilt slate plugins can be individually customized by providing a customize function. It will take the plugin's default config and return a new config. Most obvious usecase is to change the component that renders the plugin's content:
 
 ```tsx
 // any custom component
@@ -101,17 +104,21 @@ const slatePlugin = slate(slateDef => ({
   }
 })
 ```
-
 If you use typescript (and you should!), you will get nice typechecking in the customize function.
 
-### Adding a custom plugin
+## Adding custom plugins
 
-If you want to add an additional plugin you can add it as well:
+Enhancing the inbuilt slate plugins may not be enough in some cases. Eg: 
+
+1. Say one wants to create internal links, where the pages are stored in a database. Instead of asking for the full url, the user will see a select field of all pages. When the user makes a selection, ReactPage will only store the id of that page. That way the links will still be valid when the page is moved or renamed.
+2. Say one wants to create a landing page for an eCommerce project with links to products from the shop.
+
+### Method 1
+
+Add a custom plugin as follows:
 
 ```tsx
 import slate from '@react-page/plugins-slate';
-
-
 
 const slatePlugin = slate(def => ({
   ...def,
@@ -126,9 +133,9 @@ const slatePlugin = slate(def => ({
 
 Notice: `yourCustomNamespace` and `myCustomPlugin` can be named arbitrary. Typescript users will find the existing type definition on def.plugins usefull to see which plugins do exist.
 
-### Create your own custom plugin
+### Method 2
 
-If you want to create your own slate plugin, we provide a bunch of factory functions to help you with that:
+Use the factory functions:
 
 - `createComponentPlugin`: allows to create a plugin which has a component (most built-in plugins use this factory).
 - `createSimpleHtmlBlockPlugin`: a more convenient variant of `createComponentPlugin`. It renders a simple component with a html-tag and has built-in serialization. used by plugins like `headings` or `blockquote`
@@ -140,13 +147,13 @@ If you want to create your own slate plugin, we provide a bunch of factory funct
 import { pluginFactories } from '@react-page/plugins-slate';
 ```
 
-### Slate-Plugins with custom data
+## Slate plugins with custom data
 
-Some plugins require custom data that the user has to provide. E.g. the `link` plugin needs a `href: string`. Easiest way is to define a jsonSchema for your slate plugin. This will auto-generate a form that can update your plugin.
+Some plugins require custom data that the user has to provide. E.g. the `link` plugin needs a `href: string`. Easiest way is to define a jsonSchema for the slate plugin. This will auto-generate a form that can update the plugin.
 
 See the built in link plugin as an example:
 
-[simple.tsx](examples/slate-plugin-src/plugins/links/link.tsx ':include :type=code typescript')
+[link.tsx](examples/slate-plugin-src/plugins/links/link.tsx ':include :type=code typescript')
 
 #### For **typescript**-users
 
@@ -179,7 +186,7 @@ const linkWithMyOverrriddenComponent = yourLinkPlugin((def) => ({
 }));
 ```
 
-the consumer could even change the add more properties to the data type, altough its up to him/her to adjust the controls and serialization so that the new DataType is satisfied:
+the consumer could even change the add more properties to the data type, altough its up to them to adjust the controls and serialization so that the new DataType is satisfied:
 
 ```tsx
 const linkWithTracking = yourLinkPlugin<{ campaignTrackingId?: string }>(
@@ -224,9 +231,9 @@ const linkWithTracking = yourLinkPlugin<{ campaignTrackingId?: string }>(
 );
 ```
 
-### Prefilled layouts
+## Prefilled layouts
 
-You might want to restrict slate in certain layout plugins. E.g. you have a info-box where you only want to allow: h3, bold, emphasize and underline:
+This allow one to restrict slate to certain layout plugins. E.g. you have a info-box where you only want to allow: h3, bold, emphasize and underline:
 
 ```tsx
 // this is the default slate configuration with all plugins

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { ColorPicker, RGBColor } from '@react-page/editor';
-import { BackgroundProps } from '../../types/component';
+import type { RGBColor } from '@react-page/editor';
+import { ColorPicker } from '@react-page/editor';
+import type { BackgroundProps } from '../../types/component';
 
 export interface ColorComponentProps {
   onChangeBackgroundColorPreview: (color?: RGBColor) => void;

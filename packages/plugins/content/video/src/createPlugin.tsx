@@ -1,9 +1,9 @@
-import { CellPlugin } from '@react-page/editor';
+import type { CellPlugin } from '@react-page/editor';
 
 import { defaultSettings } from './default/settings';
 import { VideoProps } from './types/component';
-import { VideoSettings } from './types/settings';
-import { VideoState } from './types/state';
+import type { VideoSettings } from './types/settings';
+import type { VideoState } from './types/state';
 
 const createPlugin: (settings: VideoSettings) => CellPlugin<VideoState> = (
   settings

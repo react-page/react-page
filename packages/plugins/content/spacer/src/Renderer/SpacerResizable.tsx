@@ -1,10 +1,10 @@
-import { CellPluginComponentProps } from '@react-page/editor';
+import type { CellPluginComponentProps } from '@react-page/editor';
 
 import React from 'react';
 import { useEffect, useState } from 'react';
 import { Resizable } from 'react-resizable';
 
-import { SpacerState } from '../types/state';
+import type { SpacerState } from '../types/state';
 
 const faintBlack = 'rgba(0, 0, 0, 0.12)';
 

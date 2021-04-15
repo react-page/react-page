@@ -11,29 +11,13 @@ import {
   useLang,
   useNodeHasChildren,
   useScrollToViewEffect,
+  useCellSpacing,
 } from '../hooks';
 import ErrorCell from './ErrorCell';
 import Inner from './Inner';
 import scrollIntoViewWithOffset from './utils/scrollIntoViewWithOffset';
 import Handle from './Handle';
-
-const gridClass = ({
-  isPreviewMode,
-  isEditMode,
-  size,
-}: {
-  isPreviewMode: boolean;
-  isEditMode: boolean;
-  size: number;
-}): string => {
-  if (isPreviewMode || isEditMode) {
-    return `react-page-cell-${isPreviewMode || isEditMode ? 'sm' : 'xs'}-${
-      size || 12
-    } react-page-cell-xs-12`;
-  }
-
-  return `react-page-cell-xs-${size || 12}`;
-};
+import { gridClass } from './utils/gridClass';
 
 const stopClick = (_isEditMode: boolean) => (
   e: React.MouseEvent<HTMLDivElement>
@@ -91,6 +75,8 @@ const Cell: React.FC<Props> = ({ nodeId, measureRef }) => {
   const isLayoutMode = useIsLayoutMode();
   const hasChildren = useNodeHasChildren(nodeId);
   const hasPlugin = useCellHasPlugin(nodeId);
+  const { x: cellSpacingX, y: cellSpacingY } = useCellSpacing();
+  const needVerticalPadding = !hasChildren || hasPlugin;
 
   const isDraftInLang = isDraftI18n?.[lang] ?? isDraft;
   const ref = React.useRef<HTMLDivElement>();
@@ -107,39 +93,44 @@ const Cell: React.FC<Props> = ({ nodeId, measureRef }) => {
 
   return (
     <div
-      ref={ref}
-      className={classNames(
-        'react-page-cell',
-
-        gridClass({
-          isEditMode,
-          isPreviewMode,
-          size,
-        }),
-        {
-          'react-page-cell-has-inline-neighbour': hasInlineNeighbour,
+      style={
+        cellSpacingY !== 0 || cellSpacingX !== 0
+          ? {
+              padding: `${needVerticalPadding ? cellSpacingY / 2 : 0}px ${
+                cellSpacingX / 2
+              }px`,
+            }
+          : undefined
+      }
+      className={classNames(gridClass(size), {
+        'react-page-cell-has-inline-neighbour': hasInlineNeighbour,
+        [`react-page-cell-inline-${inline || ''}`]: inline,
+      })}
+    >
+      <div
+        ref={ref}
+        className={classNames('react-page-cell', {
           'react-page-cell-has-plugin': hasPlugin,
           'react-page-cell-leaf': !hasChildren,
-          [`react-page-cell-inline-${inline || ''}`]: inline,
           'react-page-cell-focused': focused,
           'react-page-cell-is-draft': isDraftInLang,
           'react-page-cell-bring-to-front':
             !isResizeMode && !isLayoutMode && inline, // inline must not be active for resize/layout
-        }
-      )}
-      onClick={stopClick(isEditMode)}
-    >
-      <Handle nodeId={nodeId} />
-      <div
-        ref={measureRef}
-        style={{
-          height: '100%',
-          boxSizing: 'border-box',
-        }}
+        })}
+        onClick={stopClick(hasPlugin && isEditMode)}
       >
-        <CellErrorGate nodeId={nodeId}>
-          <Inner nodeId={nodeId} />
-        </CellErrorGate>
+        <Handle nodeId={nodeId} />
+        <div
+          ref={measureRef}
+          style={{
+            height: '100%',
+            boxSizing: 'border-box',
+          }}
+        >
+          <CellErrorGate nodeId={nodeId}>
+            <Inner nodeId={nodeId} />
+          </CellErrorGate>
+        </div>
       </div>
     </div>
   );

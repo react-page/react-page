@@ -43,7 +43,8 @@
     border-radius: 50%;
   }
 
-  .react-page-cell-insert-new:hover {
+  .react-page-cell-insert-new:hover,
+  .react-page-cell-insert-new.hover {
     background: var(--minBlack);
     border: 1px solid var(--lightWhite);
   }

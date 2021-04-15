@@ -3,7 +3,8 @@ import type { Cell, Value, Row } from '../types/node';
 import { removeUndefinedProps } from '../utils/removeUndefinedProps';
 
 import EDITABLE_MIGRATIONS from './EDITABLE_MIGRATIONS';
-import { Migration, MigrationContext, sanitizeVersion } from './Migration';
+import type { Migration, MigrationContext } from './Migration';
+import { sanitizeVersion } from './Migration';
 
 export type MigrationVersion = number | string;
 export const migrate = <TOut>(

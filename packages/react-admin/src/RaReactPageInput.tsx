@@ -1,16 +1,21 @@
 import { Paper } from '@material-ui/core';
-import Editor, { EditorProps } from '@react-page/editor';
+import type { EditorProps } from '@react-page/editor';
+import Editor from '@react-page/editor';
 import React from 'react';
 
 import { Labeled, useInput } from 'react-admin';
 
-const RaReactPageInput: React.FC<
-  {
-    label?: string;
-    source: string;
-    style?: React.CSSProperties;
-  } & EditorProps
-> = ({ label = 'Content', source, style, ...editorProps }) => {
+export type RaReactPageInputProps = {
+  label?: string;
+  source: string;
+  style?: React.CSSProperties;
+} & EditorProps;
+const RaReactPageInput: React.FC<RaReactPageInputProps> = ({
+  label = 'Content',
+  source,
+  style,
+  ...editorProps
+}) => {
   const {
     input: { value, onChange },
   } = useInput({ source });

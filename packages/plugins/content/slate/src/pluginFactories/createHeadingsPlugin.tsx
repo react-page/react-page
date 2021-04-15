@@ -1,7 +1,6 @@
-import { SlateComponentPluginDefinition } from '../types/slatePluginDefinitions';
-import createSimpleHtmlBlockPlugin, {
-  HtmlBlockData,
-} from './createSimpleHtmlBlockPlugin';
+import type { SlateComponentPluginDefinition } from '../types/slatePluginDefinitions';
+import type { HtmlBlockData } from './createSimpleHtmlBlockPlugin';
+import createSimpleHtmlBlockPlugin from './createSimpleHtmlBlockPlugin';
 
 export type HeadingsDef<T> = {
   level: 1 | 2 | 3 | 4 | 5 | 6;

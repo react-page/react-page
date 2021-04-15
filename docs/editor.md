@@ -3,7 +3,7 @@
 The `<Editor />` component is the 1st component to be instantiated. It is used both for editing and displaying content (with `readOnly` set to true). At its simplest it needs a rich text editor - react-page comes preconfigured with Slate as a 'cellPlugin' to be used as the rich text editor. Optionally an image plugin can be added for uploading images or loading images from an existing source (URL).
 
 ```tsx
-import Editor from '@react-page/editor';
+import Editor, { Value } from '@react-page/editor';
 import '@react-page/editor/lib/index.css';
 
 // The rich text area plugin (Slate)
@@ -17,7 +17,9 @@ import '@react-page/plugins-image/lib/index.css';
 // Define which plugins we want to use.
 const cellPlugins = [slate(), image];
 
-const App = () => {
+export default function SimpleExample() {
+  const [value, setValue] = useState<Value>(null);
+
   // ....
 
   // for editing
@@ -29,6 +31,16 @@ const App = () => {
   // ....
 };
 ```
+
+### Editing
+[Link to editing example](examples/pages/examples/simple.tsx)
+
+[Live demo of the editing example](//demo/simple)
+
+### Viewing
+[Link to viewing example](examples/pages/examples/readonly.tsx)
+
+[Live demo of the viewing example](//demo/readonly)
 
 ## Props
 
@@ -44,7 +56,7 @@ A callback function whenever the editor has new data. This is not required when 
 
 ### `readOnly: boolean`
 
-If set to `true`, the content cannot be edited. Set this when using the editor to display the content. The code that is used for editing isn't loaded in this case, and hence there is a reduction in the budle size if using webpack or similar bundlers.
+If set to `true`, the content cannot be edited. Set this when using the editor to display the content. The code that is used for editing isn't loaded in this case, and hence there is a reduction in the bundle size if using webpack or similar bundlers.
 
 If set to `false` during runtime, the editing UI is loaded and displays. This allows editing of the content.
 
@@ -89,6 +101,44 @@ const LANGUAGES = [
 That way an editing user can select the language at any time. Any cell will allways show the default language content unless another version in that language has been made. This is per cell so users can avoid the "copy everything to another language" problem that many CMS have! Users can just translate what needs to be translated.
 
 Additionaly cells can be hidden _per language_.
+
+### `cellSpacing`
+
+Takes a number or an object `{x: number, y: number}:
+
+```tsx
+cellSpacing = {
+  x: 15, // horizontal cell spacing
+  y: 20, // vertical cell spacing
+};
+```
+
+[Look at this example to see how cellSpacing affects the layout](//demo/examples/cellSpacing)
+
+### `uiTranslator`
+
+Takes a function `(label:string) => string`.  
+
+This prop enables i18n support. All interface labels are wrapped with this function.
+
+Below is the `uiTranslator` function provided in [the i18n demo](//demo/i18n).
+
+```typescript
+const TRANSLATIONS: { [key: string]: string } = {
+  'Edit things': '编辑',
+  'Add things': '添加',
+  'Move things': '移动',
+  'Resize things': '调整大小',
+  'Preview result': '预览模式',
+};
+
+ const uiTranslator = useCallback((label?: string) => {
+    if (TRANSLATIONS[label] !== undefined) {
+      return TRANSLATIONS[label];
+    }
+    return `${label}(to translate)`;
+  }, []);
+```
 
 ### `childConstraints` (experimental)
 

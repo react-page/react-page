@@ -1,4 +1,4 @@
-import { SlatePluginOrFactory } from './SlatePlugin';
+import type { SlatePluginOrFactory } from './SlatePlugin';
 
 export type SlatePluginNode = {
   plugin: SlatePluginOrFactory;

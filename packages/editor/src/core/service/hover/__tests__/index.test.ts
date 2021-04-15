@@ -1,5 +1,5 @@
 import expect from 'unexpected';
-import { HoverInsertActions, Room, Vector } from '../../../types/hover';
+import type { HoverInsertActions, Room, Vector } from '../../../types/hover';
 import {
   computeHover,
   classes as _c,

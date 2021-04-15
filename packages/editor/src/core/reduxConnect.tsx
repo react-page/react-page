@@ -1,12 +1,13 @@
 /* eslint-disable @typescript-eslint/ban-types */
-import React, { Dispatch } from 'react';
+import type { Dispatch } from 'react';
+import React from 'react';
 import {
   createDispatchHook,
   createSelectorHook,
   createStoreHook,
   Provider,
 } from 'react-redux';
-import { RootState } from './types';
+import type { RootState } from './types';
 export const ReduxContext = React.createContext(null);
 
 export const ReduxProvider = ({ store, ...props }) => (

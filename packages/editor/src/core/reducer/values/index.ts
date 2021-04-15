@@ -7,6 +7,7 @@ import {
 } from '../../actions/cell/core';
 import {
   CELL_INSERT_ABOVE,
+  CELL_INSERT_AS_NEW_ROW,
   CELL_INSERT_AT_END,
   CELL_INSERT_BELOW,
   CELL_INSERT_INLINE_LEFT,
@@ -41,6 +42,7 @@ export const values = undoable(value, {
         CELL_INSERT_INLINE_LEFT,
         CELL_INSERT_INLINE_RIGHT,
         CELL_INSERT_AT_END,
+        CELL_INSERT_AS_NEW_ROW,
       ].indexOf(action.type) >= 0;
     return undoable;
   },

@@ -1,4 +1,4 @@
-import { ReactEditor } from 'slate-react';
+import type { ReactEditor } from 'slate-react';
 import { Editor } from 'slate';
 
 const getCurrentData = (editor: ReactEditor) => {

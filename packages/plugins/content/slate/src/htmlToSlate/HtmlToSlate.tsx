@@ -1,7 +1,7 @@
 import flatten from 'lodash.flatten';
 import { jsx } from 'slate-hyperscript';
-import { SlatePlugin } from '../types/SlatePlugin';
-import { SlateState } from '../types/state';
+import type { SlatePlugin } from '../types/SlatePlugin';
+import type { SlateState } from '../types/state';
 import parseHtml from './parseHtml';
 
 const HtmlToSlate = ({ plugins }: { plugins: SlatePlugin[] }) => {

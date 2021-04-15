@@ -1,8 +1,9 @@
 import React, { Fragment, useEffect, useMemo } from 'react';
-import JSONSchemaBridge from 'uniforms-bridge-json-schema';
+import type JSONSchemaBridge from 'uniforms-bridge-json-schema';
+import { useIsSmallScreen } from '../../core/components/hooks';
 import lazyLoad from '../../core/helper/lazyLoad';
 
-import {
+import type {
   AutoformControlsDef,
   CellPluginComponentProps,
   JsonSchema,
@@ -13,8 +14,13 @@ export const AutoForm = lazyLoad(() =>
   import('uniforms-material').then((c) => c.AutoForm)
 );
 export const AutoFields = lazyLoad(() =>
-  import('uniforms-material').then((c) => c.AutoFields)
-);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  import('uniforms-material').then((c) => c.AutoFields as any)
+) as React.FC<{
+  element?: React.ReactNode;
+  fields?: string[];
+  omitFields?: string[];
+}>;
 const getDefaultValue = function (
   bridge: JSONSchemaBridge
 ): { [key: string]: unknown } {
@@ -44,11 +50,12 @@ export function AutoformControls<T extends Record<string, unknown> | unknown>({
     };
     onChange(newDefaultData);
   }, [bridge]);
+  const isSmall = useIsSmallScreen();
   return (
     <AutoForm model={data} autosave={true} schema={bridge} onSubmit={onChange}>
       <div
         style={{
-          columnCount: columnCount,
+          columnCount: isSmall ? 1 : columnCount,
           columnRule: '1px solid #E0E0E0',
           columnGap: 48,
         }}

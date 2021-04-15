@@ -1,10 +1,5 @@
-import React, {
-  Dispatch,
-  SetStateAction,
-  useContext,
-  useMemo,
-  useState,
-} from 'react';
+import type { Dispatch, SetStateAction } from 'react';
+import React, { useContext, useMemo, useState } from 'react';
 
 const DialogContext = React.createContext<{
   visible?: boolean;

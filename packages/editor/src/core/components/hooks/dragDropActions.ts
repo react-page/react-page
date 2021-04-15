@@ -19,7 +19,7 @@ import {
   insertCellRightOf,
 } from '../../actions/cell/insert';
 import { useDispatch } from '../../reduxConnect';
-import { HoverInsertActions } from '../../types/hover';
+import type { HoverInsertActions } from '../../types/hover';
 import { useOptionsWithLang } from './options';
 
 /**

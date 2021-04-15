@@ -1,4 +1,4 @@
-import { Cell } from '../types';
+import type { Cell } from '../types';
 
 export const getCellData = (cell: Cell, lang: string) => {
   const dataI18n = cell.dataI18n;

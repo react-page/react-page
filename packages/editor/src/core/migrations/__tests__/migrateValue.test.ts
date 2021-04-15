@@ -1,7 +1,7 @@
-import { Value } from '../../types';
+import type { Value } from '../../types';
 import { createId } from '../../utils/createId';
 import { CURRENT_EDITABLE_VERSION } from '../EDITABLE_MIGRATIONS';
-import { Value_v0 } from '../EDITABLE_MIGRATIONS/from0to1';
+import type { Value_v0 } from '../EDITABLE_MIGRATIONS/from0to1';
 import { migrateValue } from '../migrate';
 
 jest.mock('../../utils/createId', () => {

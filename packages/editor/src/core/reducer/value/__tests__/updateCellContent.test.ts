@@ -1,6 +1,6 @@
-import { CellPlugin, Value } from '../../../types';
+import type { CellPlugin, Value } from '../../../types';
 import { updateCellData } from '../../../actions/cell';
-import { createEditable } from '../../../utils/createEditable';
+import { createValue } from '../../../utils/createValue';
 import { simulateDispatch } from '../testUtils';
 
 const cellPlugins: CellPlugin[] = [
@@ -18,7 +18,7 @@ const options = {
 
 describe('updateCellData', () => {
   it('updates cell data in the given language', () => {
-    const initialState = createEditable(
+    const initialState = createValue(
       {
         id: 'editableId',
         rows: [
@@ -79,7 +79,7 @@ describe('updateCellData', () => {
   });
 
   it('adds a new language field', () => {
-    const initialState = createEditable(
+    const initialState = createValue(
       {
         id: 'editableId',
         rows: [

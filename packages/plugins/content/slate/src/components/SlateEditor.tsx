@@ -1,4 +1,4 @@
-import { lazyLoad } from '@react-page/editor';
+import { lazyLoad, useUiTranslator } from '@react-page/editor';
 import React from 'react';
 import { Editable, useFocused, useSelected } from 'slate-react';
 import type { SlateProps } from '../types/component';
@@ -43,7 +43,7 @@ const SlateEditable = React.memo(
 
 const SlateEditor = (props: SlateProps) => {
   const { plugins, focused, readOnly } = props;
-
+  const { t } = useUiTranslator();
   return (
     <>
       {!readOnly && focused && (
@@ -53,7 +53,7 @@ const SlateEditor = (props: SlateProps) => {
         />
       )}
       <SlateEditable
-        placeholder={props.translations.placeholder}
+        placeholder={t(props.translations.placeholder)}
         readOnly={readOnly}
         plugins={plugins}
         defaultPluginType={props.defaultPluginType}

@@ -1,3 +1,4 @@
+import type { EffectCallback, DependencyList } from 'react';
 import { useEffect } from 'react';
 import { useSelector } from '../../reduxConnect';
 
@@ -27,8 +28,8 @@ export const useIsFocused = (id: string) => {
  */
 export const useScrollToViewEffect = (
   id: string,
-  effect: React.EffectCallback,
-  deps: React.DependencyList
+  effect: EffectCallback,
+  deps: DependencyList
 ) => {
   const scrollToCell = useSelector((state) => {
     const f = focus(state);

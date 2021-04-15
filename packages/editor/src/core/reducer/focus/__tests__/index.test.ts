@@ -1,8 +1,9 @@
 import { combineReducers, createStore } from 'redux';
 import expect from 'unexpected';
 import { blurAllCells, blurCell, focusCell } from '../../../actions/cell/index';
-import { RootState } from '../../../types/state';
-import { Focus, focus } from '../index';
+import type { RootState } from '../../../types/state';
+import type { Focus } from '../index';
+import { focus } from '../index';
 const identity = <T>(arg: T) => arg;
 
 const makeStore = (initialFocus: Focus) => {

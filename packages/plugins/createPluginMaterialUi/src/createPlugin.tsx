@@ -1,5 +1,5 @@
-import { CellPlugin } from '@react-page/editor';
-import { PluginWithSchemaDefinition } from './types';
+import type { CellPlugin } from '@react-page/editor';
+import type { PluginWithSchemaDefinition } from './types';
 
 type CustomizeFunction<T, CT> = (
   def: PluginWithSchemaDefinition<T>

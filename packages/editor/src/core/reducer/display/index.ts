@@ -3,7 +3,7 @@ import {
   SET_DISPLAY_MODE,
   SET_DISPLAY_REFERENCE_NODE_ID,
 } from '../../actions/display';
-import { Display, DisplayAction } from '../../types/display';
+import type { Display, DisplayAction } from '../../types/display';
 
 export const display = (
   state: Display = {

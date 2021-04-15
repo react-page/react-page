@@ -1,4 +1,5 @@
-import { Value, Node, NodeWithAncestors, isRow } from '../../types/node';
+import type { Value, Node, NodeWithAncestors } from '../../types/node';
+import { isRow } from '../../types/node';
 import type { RootState } from '../../types/state';
 
 /** */

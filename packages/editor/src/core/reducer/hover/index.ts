@@ -1,3 +1,4 @@
+import type { CellHoverAction, ClearHoverAction } from '../../actions/cell';
 import {
   CELL_FOCUS,
   CELL_BLUR,
@@ -6,11 +7,9 @@ import {
   BlurAllCellsAction,
   FocusCellAction,
   CELL_DRAG_HOVER,
-  CellHoverAction,
-  ClearHoverAction,
   CLEAR_CLEAR_HOVER,
 } from '../../actions/cell';
-import { PositionEnum } from '../../const';
+import type { PositionEnum } from '../../const';
 import { HoverInsertActions } from '../../types/hover';
 
 export type Hover = {

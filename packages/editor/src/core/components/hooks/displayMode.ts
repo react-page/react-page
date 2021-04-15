@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
+import type { DisplayModes } from '../../actions/display';
 import {
-  DisplayModes,
   DISPLAY_MODE_EDIT,
   DISPLAY_MODE_INSERT,
   DISPLAY_MODE_LAYOUT,

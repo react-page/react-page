@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { CellPluginMissingProps } from '../../types/plugins';
+import type { CellPluginMissingProps } from '../../types/plugins';
 
 const PluginMissing: React.FC<CellPluginMissingProps> = ({
   children,

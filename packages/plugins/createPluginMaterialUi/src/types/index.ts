@@ -1,9 +1,9 @@
-import {
+import type {
   CellPluginComponentProps,
   CellPlugin,
   JsonSchema,
 } from '@react-page/editor';
-import React from 'react';
+import type React from 'react';
 
 export type ControlsType<T> = React.ComponentType<ControlProps<T>>;
 

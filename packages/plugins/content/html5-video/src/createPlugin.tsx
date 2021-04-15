@@ -1,10 +1,10 @@
-import { CellPlugin } from '@react-page/editor';
+import type { CellPlugin } from '@react-page/editor';
 
 import { defaultSettings } from './default/settings';
 import Html5VideoHtmlRenderer from './Renderer/Html5VideoHtmlRenderer';
 
-import { Html5VideoSettings } from './types/settings';
-import { Html5VideoState } from './types/state';
+import type { Html5VideoSettings } from './types/settings';
+import type { Html5VideoState } from './types/state';
 
 const createPlugin: (
   settings: Html5VideoSettings

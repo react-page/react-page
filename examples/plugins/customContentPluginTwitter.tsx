@@ -1,4 +1,4 @@
-import { CellPlugin } from '@react-page/editor';
+import type { CellPlugin } from '@react-page/editor';
 import React from 'react';
 import { Timeline } from 'react-twitter-widgets';
 

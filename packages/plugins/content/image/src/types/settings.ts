@@ -1,8 +1,8 @@
-import { CellPluginRenderer, ImageUploadType } from '@react-page/editor';
-import { ImageControlType } from './controls';
-import { ImageState } from './state';
+import type { CellPluginRenderer, ImageUploadType } from '@react-page/editor';
+import type { ImageControlType } from './controls';
+import type { ImageState } from './state';
 
-import { Translations } from './translations';
+import type { Translations } from './translations';
 
 export type ImageSettings = {
   imageUpload?: ImageUploadType;

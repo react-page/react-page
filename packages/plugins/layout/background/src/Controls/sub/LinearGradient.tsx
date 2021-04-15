@@ -3,9 +3,10 @@ import IconButton from '@material-ui/core/IconButton';
 import Slider from '@material-ui/core/Slider';
 import Typography from '@material-ui/core/Typography';
 import DeleteIcon from '@material-ui/icons/Delete';
-import { ColorPicker, RGBColor } from '@react-page/editor';
+import type { RGBColor } from '@react-page/editor';
+import { ColorPicker } from '@react-page/editor';
 import React from 'react';
-import { BackgroundProps } from '../../types/component';
+import type { BackgroundProps } from '../../types/component';
 
 export interface LinearGradientComponentProps {
   ensureModeOn: () => void;

@@ -1,11 +1,9 @@
-import {
-  CELL_FOCUS,
-  CELL_BLUR,
-  CELL_BLUR_ALL,
+import type {
   BlurCellAction,
   BlurAllCellsAction,
   FocusCellAction,
 } from '../../actions/cell';
+import { CELL_FOCUS, CELL_BLUR, CELL_BLUR_ALL } from '../../actions/cell';
 
 export type Focus = {
   nodeId: string;

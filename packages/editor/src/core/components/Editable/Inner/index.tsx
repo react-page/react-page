@@ -8,9 +8,9 @@ import InsertNew from '../../Cell/InsertNew';
 import Row from '../../Row';
 import {
   useDisplayMode,
-  useIsPreviewMode,
   useOptions,
   useValueNode,
+  useCellSpacing,
 } from '../../hooks';
 
 function isElementInViewport(el: HTMLDivElement) {
@@ -74,6 +74,7 @@ const Inner: React.FC = () => {
     }
   }, [firstElementInViewPortref.current]);
   const mode = useDisplayMode();
+  const { y: cellSpacingY } = useCellSpacing();
   const insertAllowed = options.childConstraints?.maxChildren
     ? options.childConstraints?.maxChildren > rowIds.length
     : true;
@@ -84,9 +85,19 @@ const Inner: React.FC = () => {
       style={{ minHeight: 480 }}
       className={'react-page-editable react-page-editable-mode-' + mode}
     >
-      {rowIds.length > 0
-        ? rowIds.map((id) => <Row nodeId={id} key={id} />)
-        : null}
+      {rowIds.length > 0 ? (
+        <div
+          style={
+            cellSpacingY !== 0
+              ? { margin: `${-cellSpacingY / 2}px 0` }
+              : undefined
+          }
+        >
+          {rowIds.map((id) => (
+            <Row nodeId={id} key={id} />
+          ))}
+        </div>
+      ) : null}
       {insertAllowed ? <InsertNew /> : null}
     </div>
   );

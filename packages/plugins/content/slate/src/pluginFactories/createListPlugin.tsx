@@ -1,10 +1,9 @@
 import { Transforms } from 'slate';
-import { SlatePlugin } from '../types/SlatePlugin';
-import { SlateComponentPluginDefinition } from '../types/slatePluginDefinitions';
+import type { SlatePlugin } from '../types/SlatePlugin';
+import type { SlateComponentPluginDefinition } from '../types/slatePluginDefinitions';
 import createListItemPlugin from './createListItemPlugin';
-import createSimpleHtmlBlockPlugin, {
-  HtmlBlockData,
-} from './createSimpleHtmlBlockPlugin';
+import type { HtmlBlockData } from './createSimpleHtmlBlockPlugin';
+import createSimpleHtmlBlockPlugin from './createSimpleHtmlBlockPlugin';
 import {
   decreaseListIndention,
   getActiveList,

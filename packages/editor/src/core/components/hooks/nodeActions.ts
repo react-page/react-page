@@ -16,7 +16,8 @@ import {
 import { setDisplayReferenceNodeId } from '../../actions/display';
 import { setLang } from '../../actions/setting';
 import { useDispatch } from '../../reduxConnect';
-import { Cell, CellDrag, isRow, PartialCell } from '../../types/node';
+import type { CellDrag, PartialCell } from '../../types/node';
+import { Cell, isRow } from '../../types/node';
 import { useEditorStore, useLang, useOptionsWithLang } from './options';
 import { useDrop } from 'react-dnd';
 /**
@@ -202,7 +203,9 @@ export const useBlurAllCells = () => {
 };
 
 /**
- * @returns function to insert a new cell
+ * @returns function to insert a cell at the end of the document or the end of the parent cell
+ *
+ * if the id already exists, it will move that cell
  */
 export const useInsertNew = () => {
   const dispatch = useDispatch();

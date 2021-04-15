@@ -1,10 +1,11 @@
 import React from 'react';
 
-import { BackgroundSettings } from './types/settings';
-import { BackgroundState } from './types/state';
+import type { BackgroundSettings } from './types/settings';
+import type { BackgroundState } from './types/state';
 
 import { defaultSettings } from './default/settings';
-import { CellPlugin, lazyLoad } from '@react-page/editor';
+import type { CellPlugin } from '@react-page/editor';
+import { lazyLoad } from '@react-page/editor';
 
 const Icon = lazyLoad(() => import('@material-ui/icons/CropLandscape'));
 

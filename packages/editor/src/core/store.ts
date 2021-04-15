@@ -1,13 +1,8 @@
-import {
-  createStore,
-  applyMiddleware,
-  compose,
-  Store,
-  Middleware,
-} from 'redux';
+import type { Store, Middleware } from 'redux';
+import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import rootReducer from './reducer';
-import { RootState } from './types/state';
+import type { RootState } from './types/state';
 import { isProduction } from './const';
 
 declare global {
