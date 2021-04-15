@@ -13,6 +13,14 @@ export const defaultTranslations = {
   hrefLabel: 'Link to open upon image click',
   openNewWindow: 'Open link in new window',
   srcPlaceholder: 'http://example.com/image.png',
+
+  // Strings used in ImageUpload
+  buttonContent: 'Choose for upload',
+  noFileError: 'No file selected',
+  badExtensionError: 'Wrong file type',
+  tooBigError: 'Image file > 5MB',
+  uploadingError: 'Error while uploading',
+  unknownError: 'Unknown error',
 };
 
 export const defaultSettings: ImageSettings = {
