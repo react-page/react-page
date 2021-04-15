@@ -10,7 +10,6 @@ const ImageControls: ImageControlType = (props) => {
   const { t } = useUiTranslator();
   return (
     <>
-
       {/* Button and existing image text box */}
       <div style={{ display: 'flex' }}>
         {props.imageUpload && (
@@ -24,10 +23,7 @@ const ImageControls: ImageControlType = (props) => {
                 })
               }
             />
-            <Typography
-              variant="body1"
-              style={{ margin: '20px 16px 0 16px' }}
-            >
+            <Typography variant="body1" style={{ margin: '20px 16px 0 16px' }}>
               {t(props.translations.or)}
             </Typography>
           </>
