@@ -65,6 +65,7 @@ class ImageComponent extends React.Component<
               </Typography>
             </React.Fragment>
           )}
+
           <TextField
             placeholder={this.props.translations.srcPlaceholder}
             label={
@@ -72,15 +73,11 @@ class ImageComponent extends React.Component<
                 ? this.props.translations.haveUrl
                 : this.props.translations.imageUrl
             }
-            style={{ width: '400px' }}
+            style={{ width: '256px' }}
             value={background}
             onChange={this.handleChangeBackground}
           />
-        </div>
 
-        <br />
-
-        <div style={{ display: 'flex' }}>
           <FormControlLabel
             control={
               <Switch

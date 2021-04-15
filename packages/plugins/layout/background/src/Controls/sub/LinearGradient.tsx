@@ -180,105 +180,110 @@ class LinearGradientComponent extends React.Component<
               ? gradientOpacityPreview
               : gradient.opacity;
           return (
-            <div
-              key={i}
-              style={{
-                marginBottom: '8px',
-                borderLeft: '2px',
-                borderLeftStyle: 'solid',
-                paddingLeft: '8px',
-              }}
-            >
-              <div>
-                <Typography variant="body1" id="linear-gradient-degree-label">
-                  {this.props.translations.gradientRotation} ({deg}
-                  {this.props.translations.degrees})
-                </Typography>
-                <Slider
-                  aria-labelledby="linear-gradient-degree-label"
-                  value={deg}
-                  onChange={this.handleChangeDegPreview(i)}
-                  onChangeCommitted={this.handleChangeDeg(i, deg)}
-                  step={5}
-                  min={0}
-                  max={360}
-                />
+            <div key={i}>
+              {/* Render the gradient sliders */}
+              {/* Must use this maxWidth else when the gradient opacity slider is 100%, it goes beyond 100% and an ugly scrollbar shows */}
+              <div style={{ display: 'flex', maxWidth: '96%' }}>
+                <div style={{ flex: 1 }}>
+                  <Typography variant="body1" id="linear-gradient-degree-label">
+                    {this.props.translations.gradientRotation} ({deg}
+                    {this.props.translations.degrees})
+                  </Typography>
+                  <Slider
+                    aria-labelledby="linear-gradient-degree-label"
+                    value={deg}
+                    onChange={this.handleChangeDegPreview(i)}
+                    onChangeCommitted={this.handleChangeDeg(i, deg)}
+                    step={5}
+                    min={0}
+                    max={360}
+                  />
+                </div>
+
+                <div style={{ flex: 1, marginLeft: 16 }}>
+                  <Typography
+                    variant="body1"
+                    id="linear-gradient-opacity-label"
+                  >
+                    {this.props.translations.gradientOpacity} (
+                    {(opacity * 100).toFixed(0)}
+                    %)
+                  </Typography>
+                  <Slider
+                    aria-labelledby="linear-gradient-opacity-label"
+                    value={opacity}
+                    onChange={this.handleChangeOpacityPreview(i)}
+                    onChangeCommitted={this.handleChangeOpacity(i, opacity)}
+                    step={0.01}
+                    min={0}
+                    max={1}
+                  />
+                </div>
               </div>
 
-              <div>
-                <Typography variant="body1" id="linear-gradient-opacity-label">
-                  {this.props.translations.gradientOpacity} (
-                  {(opacity * 100).toFixed(0)}
-                  %)
-                </Typography>
-                <Slider
-                  aria-labelledby="linear-gradient-opacity-label"
-                  value={opacity}
-                  onChange={this.handleChangeOpacityPreview(i)}
-                  onChangeCommitted={this.handleChangeOpacity(i, opacity)}
-                  step={0.01}
-                  min={0}
-                  max={1}
-                />
-              </div>
+              {/* Render the color pickers */}
+              <div style={{ marginBottom: 32 }}>
+                {colors.map((c, cpIndex) => {
+                  const color =
+                    i === gradientColorPreviewIndex &&
+                    cpIndex === gradientColorPreviewColorIndex &&
+                    gradientColorPreview !== undefined
+                      ? gradientColorPreview
+                      : c.color;
+                  return (
+                    <React.Fragment key={cpIndex}>
+                      <ColorPicker
+                        buttonContent={'Select color ' + cpIndex}
+                        style={{ marginLeft: '8px' }}
+                        color={color}
+                        onChange={this.handleChangeGradientColorPreview(
+                          i,
+                          cpIndex
+                        )}
+                        onChangeComplete={this.handleChangeGradientColor(
+                          i,
+                          cpIndex
+                        )}
+                      />
+                      <IconButton
+                        aria-label="Delete"
+                        onClick={this.removeColor(i, cpIndex)}
+                      >
+                        <DeleteIcon />
+                      </IconButton>
+                    </React.Fragment>
+                  );
+                })}
 
-              {colors.map((c, cpIndex) => {
-                const color =
-                  i === gradientColorPreviewIndex &&
-                  cpIndex === gradientColorPreviewColorIndex &&
-                  gradientColorPreview !== undefined
-                    ? gradientColorPreview
-                    : c.color;
-                return (
-                  <React.Fragment key={cpIndex}>
-                    <ColorPicker
-                      buttonContent={'Select color ' + cpIndex}
-                      style={{ marginLeft: '8px' }}
-                      color={color}
-                      onChange={this.handleChangeGradientColorPreview(
-                        i,
-                        cpIndex
-                      )}
-                      onChangeComplete={this.handleChangeGradientColor(
-                        i,
-                        cpIndex
-                      )}
-                    />
-                    <IconButton
-                      aria-label="Delete"
-                      onClick={this.removeColor(i, cpIndex)}
-                    >
-                      <DeleteIcon />
-                    </IconButton>
-                  </React.Fragment>
-                );
-              })}
-              <Button
-                variant="contained"
-                onClick={this.addColor(i)}
-                style={{ marginLeft: '8px' }}
-              >
-                {this.props.translations.addColor}
-              </Button>
-              <IconButton aria-label="Delete" onClick={this.removeGradient(i)}>
-                <DeleteIcon />
-              </IconButton>
+                {/* Render the add new gradient button */}
+                <Button
+                  variant="contained"
+                  onClick={this.addColor(i)}
+                  style={{ marginLeft: '8px' }}
+                >
+                  {this.props.translations.addColor}
+                </Button>
+                <IconButton
+                  aria-label="Delete"
+                  onClick={this.removeGradient(i)}
+                >
+                  <DeleteIcon />
+                </IconButton>
+              </div>
             </div>
           );
         })}
 
-        <div style={{ display: 'flex', marginTop: 32 }}>
-          <Button
-            style={{
-              margin: 'auto',
-            }}
-            variant="contained"
-            onClick={this.addGradient}
-            disabled={gradients.length > 5}
-          >
-            {this.props.translations.addGradient}
-          </Button>
-        </div>
+        <Button
+          style={{
+            margin: 'auto',
+          }}
+          variant="outlined"
+          onClick={this.addGradient}
+          disabled={gradients.length > 5}
+        >
+          {this.props.translations.addGradient}
+        </Button>
       </div>
     );
   }

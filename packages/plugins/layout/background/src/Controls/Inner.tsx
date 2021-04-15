@@ -110,7 +110,7 @@ class Inner extends React.Component<
 
         {/* Render the common UI here for each tab - darken / lighten / padding */}
         <div style={{ display: 'flex' }}>
-          <div style={{ flex: '1', marginRight: '8px' }}>
+          <div style={{ flex: 1 }}>
             <Typography variant="body1" id="linear-gradient-darken-label">
               {this.props.translations.darken} ({(darkenFinal * 100).toFixed(0)}
               %)
@@ -129,7 +129,8 @@ class Inner extends React.Component<
               max={1}
             />
           </div>
-          <div style={{ flex: '1', marginLeft: '8px' }}>
+
+          <div style={{ flex: 1, marginLeft: 16 }}>
             <Typography variant="body1" id="linear-gradient-lighten-label">
               {this.props.translations.lighten} (
               {(lightenFinal * 100).toFixed(0)}
@@ -149,17 +150,18 @@ class Inner extends React.Component<
               max={1}
             />
           </div>
-        </div>
-        <div style={{ display: 'flex' }}>
-          <FormControlLabel
-            control={
-              <Switch
-                onChange={this.props.handleChangeHasPadding}
-                checked={hasPadding}
-              />
-            }
-            label={this.props.translations.usePadding}
-          />
+
+          <div style={{ flex: 1, marginLeft: 16 }}>
+            <FormControlLabel
+              control={
+                <Switch
+                  onChange={this.props.handleChangeHasPadding}
+                  checked={hasPadding}
+                />
+              }
+              label={this.props.translations.usePadding}
+            />
+          </div>
         </div>
       </div>
     );
@@ -171,7 +173,7 @@ class Inner extends React.Component<
     } = this.props;
     return (
       <FormControlLabel
-        style={{marginBottom: 16}}
+        style={{ marginBottom: 16 }}
         control={
           <Switch
             onChange={this.props.handleChangeModeSwitch(
