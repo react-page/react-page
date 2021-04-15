@@ -58,7 +58,7 @@ class ImageComponent extends React.Component<
               />
               <Typography
                 variant="body1"
-                style={{ marginLeft: '20px', marginRight: '20px' }}
+                style={{ margin: '20px 16px 0 16px' }}
               >
                 OR
               </Typography>
@@ -66,8 +66,8 @@ class ImageComponent extends React.Component<
           )}
           <TextField
             placeholder="http://example.com/image.png"
-            label={this.props.imageUpload ? 'I have a URL' : 'Image URL'}
-            style={{ width: '256px' }}
+            label={this.props.imageUpload ? 'Existing image URL' : 'Image URL'}
+            style={{ width: '400px' }}
             value={background}
             onChange={this.handleChangeBackground}
           />

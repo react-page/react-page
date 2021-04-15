@@ -125,11 +125,11 @@ Below is the `uiTranslator` function provided in [the i18n demo](//demo/i18n).
 
 ```typescript
 const TRANSLATIONS: { [key: string]: string } = {
-  'Edit things': '编辑',
-  'Add things': '添加',
-  'Move things': '移动',
-  'Resize things': '调整大小',
-  'Preview result': '预览模式',
+  'Edit blocks': '编辑',
+  'Add blocks': '添加',
+  'Move blocks': '移动',
+  'Resize blocks': '调整大小',
+  'Preview blocks': '预览模式',
 };
 
  const uiTranslator = useCallback((label?: string) => {
