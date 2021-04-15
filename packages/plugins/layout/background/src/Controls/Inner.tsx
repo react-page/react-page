@@ -51,6 +51,7 @@ class Inner extends React.Component<
     return (
       <div>
         <Tabs
+          style={{ marginBottom: 16 }}
           value={this.state.mode}
           onChange={this.handleChangeMode}
           centered={true}
@@ -101,8 +102,13 @@ class Inner extends React.Component<
             />
           )}
         </Tabs>
+
+        {/* Render one of the panels here - image / mono color / gradient */}
         {this.renderUI()}
+
         <br />
+
+        {/* Render the common UI here for each tab - darken / lighten / padding */}
         <div style={{ display: 'flex' }}>
           <div style={{ flex: '1', marginRight: '8px' }}>
             <Typography variant="body1" id="linear-gradient-darken-label">
@@ -163,23 +169,9 @@ class Inner extends React.Component<
     const {
       data: { modeFlag = this.props.defaultModeFlag },
     } = this.props;
-    let label = this.props.translations.onOff;
-    switch (this.state.mode) {
-      case ModeEnum.COLOR_MODE_FLAG:
-        // label = 'Use color'
-        break;
-      case ModeEnum.IMAGE_MODE_FLAG:
-        // label = 'Use image'
-        break;
-      case ModeEnum.GRADIENT_MODE_FLAG:
-        // label = 'Use gradient'
-        break;
-      default:
-        label = 'Unknown mode';
-        break;
-    }
     return (
       <FormControlLabel
+        style={{marginBottom: 16}}
         control={
           <Switch
             onChange={this.props.handleChangeModeSwitch(
@@ -189,7 +181,7 @@ class Inner extends React.Component<
             checked={Boolean(modeFlag & this.state.mode)}
           />
         }
-        label={label}
+        label={this.props.translations.onOff}
       />
     );
   };
@@ -198,8 +190,11 @@ class Inner extends React.Component<
     switch (this.state.mode) {
       case ModeEnum.COLOR_MODE_FLAG:
         return (
-          <React.Fragment>
+          <>
+            {/* Render the on/off switch for the panel */}
             {this.renderModeSwitch()}
+
+            {/* Render the Background mono color controls */}
             <ColorComponent
               {...this.props}
               ensureModeOn={this.ensureModeOn(ModeEnum.COLOR_MODE_FLAG)}
@@ -208,12 +203,16 @@ class Inner extends React.Component<
               }
               backgroundColorPreview={this.props.backgroundColorPreview}
             />
-          </React.Fragment>
+          </>
         );
+
       case ModeEnum.GRADIENT_MODE_FLAG:
         return (
           <React.Fragment>
+            {/* Render the on/off switch for the panel */}
             {this.renderModeSwitch()}
+
+            {/* Render the Background gradient color controls */}
             <LinearGradientComponent
               {...this.props}
               ensureModeOn={this.ensureModeOn(ModeEnum.GRADIENT_MODE_FLAG)}
@@ -240,11 +239,15 @@ class Inner extends React.Component<
             />
           </React.Fragment>
         );
+
       case ModeEnum.IMAGE_MODE_FLAG:
       default:
         return (
           <React.Fragment>
+            {/* Render the on/off switch for the panel */}
             {this.renderModeSwitch()}
+
+            {/* Render the Background image controls */}
             <ImageComponent
               {...this.props}
               onImageLoaded={this.props.handleImageLoaded}

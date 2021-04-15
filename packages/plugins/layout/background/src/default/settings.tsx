@@ -17,23 +17,24 @@ export const defaultTranslations = {
   unknownError: 'Unknown error',
 
   imageMode: 'Image',
-  colorMode: 'Color',
-  gradientMode: 'Gradient2',
+  colorMode: 'Single color',
+  gradientMode: 'Gradient color',
   lighten: 'Lighten',
   darken: 'Darken',
-  usePadding: 'Use Padding',
-  onOff: 'ON/OFF',
+  usePadding: 'Use inner padding',
+  onOff: 'Enable this panel',
   gradientRotation: 'Gradient rotation',
   degrees: 'deg',
   gradientOpacity: 'Gradient opacity',
   addColor: 'Add color',
-  addGradient: 'Add gradient',
+  addGradient: 'Add another gradient',
   pluginName: 'Background',
   pluginDescription: 'Add background color, image or gradient',
   or: 'OR',
   haveUrl: 'Existing image URL',
   srcPlaceholder: 'http://example.com/image.png',
   imageUrl: 'Image URL',
+  isParallax: 'Use parallax effect'
 };
 
 export const defaultSettings: Partial<BackgroundSettings> = {

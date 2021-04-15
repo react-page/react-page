@@ -204,6 +204,7 @@ class LinearGradientComponent extends React.Component<
                   max={360}
                 />
               </div>
+
               <div>
                 <Typography variant="body1" id="linear-gradient-opacity-label">
                   {this.props.translations.gradientOpacity} (
@@ -220,6 +221,7 @@ class LinearGradientComponent extends React.Component<
                   max={1}
                 />
               </div>
+
               {colors.map((c, cpIndex) => {
                 const color =
                   i === gradientColorPreviewIndex &&
@@ -230,6 +232,7 @@ class LinearGradientComponent extends React.Component<
                 return (
                   <React.Fragment key={cpIndex}>
                     <ColorPicker
+                      buttonContent={'Select color ' + cpIndex}
                       style={{ marginLeft: '8px' }}
                       color={color}
                       onChange={this.handleChangeGradientColorPreview(
@@ -263,7 +266,8 @@ class LinearGradientComponent extends React.Component<
             </div>
           );
         })}
-        <div style={{ display: 'flex' }}>
+
+        <div style={{ display: 'flex', marginTop: 32 }}>
           <Button
             style={{
               margin: 'auto',

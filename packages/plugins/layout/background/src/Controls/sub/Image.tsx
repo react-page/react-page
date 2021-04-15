@@ -88,7 +88,7 @@ class ImageComponent extends React.Component<
                 checked={isParallax}
               />
             }
-            label="Is parallax"
+            label={this.props.translations.isParallax}
           />
         </div>
       </div>
