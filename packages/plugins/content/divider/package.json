@@ -19,8 +19,8 @@
     "clean": "rimraf \"lib\" && rimraf \"lib-es\" && rm -f *.tsbuildinfo"
   },
   "peerDependencies": {
-    "react": "^16.8.6 || ^17.0.0",
-    "react-dom": "^16.8.6"
+    "react": ">= 16.14",
+    "react-dom": ">= 16.14"
   },
   "dependencies": {
     "@material-ui/icons": "^4.2.1",
