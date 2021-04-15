@@ -34,7 +34,7 @@ export const defaultTranslations = {
   haveUrl: 'Existing image URL',
   srcPlaceholder: 'http://example.com/image.png',
   imageUrl: 'Image URL',
-  isParallax: 'Use parallax effect'
+  isParallax: 'Use parallax effect',
 };
 
 export const defaultSettings: Partial<BackgroundSettings> = {
