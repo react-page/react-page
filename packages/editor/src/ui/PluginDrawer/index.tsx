@@ -25,9 +25,9 @@ const getPluginTitle = (plugin: CellPlugin) =>
 
 export const PluginDrawer: React.FC = React.memo(() => {
   const defaultLabels: PluginDrawerLabels = {
-    noPluginFoundContent: 'No plugins found',
-    searchPlaceholder: 'Search cell plugins',
-    insertPlugin: 'Add cells to content',
+    noPluginFoundContent: 'No blocks found',
+    searchPlaceholder: 'Search for blocks',
+    insertPlugin: 'Add blocks to page',
     dragMe: 'Drag me!',
   };
 

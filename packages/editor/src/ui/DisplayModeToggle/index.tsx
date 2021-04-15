@@ -36,11 +36,11 @@ export const DisplayModeToggle: React.SFC<{
 }> = ({ stickyNess }) => {
   const { t } = useUiTranslator();
   const defaultLabels = {
-    edit: 'Edit things',
-    insert: 'Add things',
-    layout: 'Move things',
-    resize: 'Resize things',
-    preview: 'Preview result',
+    edit: 'Edit blocks',
+    insert: 'Add blocks',
+    layout: 'Move blocks',
+    resize: 'Resize blocks',
+    preview: 'Preview page',
   };
   const actions = [
     // eslint-disable-next-line react/jsx-key

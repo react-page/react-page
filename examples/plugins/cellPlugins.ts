@@ -45,11 +45,11 @@ const fakeImageUploadService: (url: string) => ImageUploadType = (
       if (counter > 9) {
         clearInterval(interval);
         alert(
-          'This is a fake image upload service, please provide actual implementation via plugin properties'
+          'Image has not actually been uploaded to a server. Check documentation for information on how to provide your own upload function.'
         );
-        resolve({ url: defaultUrl });
+        resolve({ url: URL.createObjectURL(file) });
       }
-    }, 500);
+    }, 100);
   });
 };
 

@@ -158,6 +158,7 @@ class ImageUpload extends React.Component<
           color={this.state.hasError ? 'secondary' : 'primary'}
           onClick={this.handleFileUploadClick}
           style={this.props.style}
+          size="small"
         >
           {this.renderChildren()}
         </Button>
