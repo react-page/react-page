@@ -5,13 +5,20 @@ import {
   COLOR_MODE_FLAG,
   GRADIENT_MODE_FLAG,
 } from './../const/mode';
-import { defaultTranslations as defaultImageUploadTranslations } from '@react-page/editor/lib/ui/ImageUpload/defaultTranslations';
+// import { defaultTranslations as defaultImageUploadTranslations } from '@react-page/editor/lib/ui/ImageUpload/defaultTranslations';
 
 export const defaultTranslations = {
-  ...defaultImageUploadTranslations,
+  // Strings used in ImageUpload module
+  buttonContent: 'Choose for upload',
+  noFileError: 'No file selected',
+  badExtensionError: 'Wrong file type',
+  tooBigError: 'Image file > 5MB',
+  uploadingError: 'Error while uploading',
+  unknownError: 'Unknown error',
+
   imageMode: 'Image',
   colorMode: 'Color',
-  gradientMode: 'Gradient',
+  gradientMode: 'Gradient2',
   lighten: 'Lighten',
   darken: 'Darken',
   usePadding: 'Use Padding',
@@ -23,6 +30,10 @@ export const defaultTranslations = {
   addGradient: 'Add gradient',
   pluginName: 'Background',
   pluginDescription: 'Add background color, image or gradient',
+  or: 'OR',
+  haveUrl: 'Existing image URL',
+  srcPlaceholder: 'http://example.com/image.png',
+  imageUrl: 'Image URL',
 };
 
 export const defaultSettings: Partial<BackgroundSettings> = {
