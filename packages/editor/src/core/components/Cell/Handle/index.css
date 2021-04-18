@@ -27,9 +27,13 @@
       font-size: 14px;
       line-height: 1.4;
       letter-spacing: 0.15em;
-      cursor: move;
+
       box-shadow: 0 -5px 5px rgb(0 0 0 / 22%);
       pointer-events: none;
+    }
+
+    .react-page-cell-handle-drag-enabled {
+      cursor: move;
     }
 
     .react-page-cell:hover > .react-page-cell-handle,
