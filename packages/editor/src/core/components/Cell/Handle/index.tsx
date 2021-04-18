@@ -1,8 +1,22 @@
+import classNames from 'classnames';
 import React from 'react';
-import { useFocusCell, usePluginOfCell, useUiTranslator } from '../../hooks';
+import {
+  useFocusCell,
+  useIsLayoutMode,
+  useOptions,
+  usePluginOfCell,
+  useUiTranslator,
+} from '../../hooks';
 import { useDragHandle } from '../Draggable/useDragHandle';
 const Handle: React.FC<{ nodeId: string }> = ({ nodeId }) => {
-  const [isDragging, dragRef, previewElement] = useDragHandle(nodeId);
+  const options = useOptions();
+  const isLayoutMode = useIsLayoutMode();
+  const dragEnabled = options.allowMoveInEditMode || isLayoutMode;
+
+  const [isDragging, dragRef, previewElement] = useDragHandle(
+    nodeId,
+    dragEnabled
+  );
   const focus = useFocusCell(nodeId);
   const plugin = usePluginOfCell(nodeId);
   const { t } = useUiTranslator();
@@ -13,7 +27,9 @@ const Handle: React.FC<{ nodeId: string }> = ({ nodeId }) => {
     <>
       {previewElement}
       <div
-        className="react-page-cell-handle"
+        className={classNames('react-page-cell-handle', {
+          'react-page-cell-handle-drag-enabled': dragEnabled,
+        })}
         ref={dragRef}
         onClick={() => {
           focus(false);
