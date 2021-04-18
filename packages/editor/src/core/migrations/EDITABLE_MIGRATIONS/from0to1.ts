@@ -89,11 +89,12 @@ export default new Migration<Value_v0, Value>({
     }: CellOld): Cell => {
       const contentOrLayout = layout ?? content;
       const dataI18n =
-        contentOrLayout?.stateI18n ?? contentOrLayout?.state
+        contentOrLayout?.stateI18n ??
+        (contentOrLayout?.state
           ? {
               [lang]: contentOrLayout.state ?? null,
             }
-          : undefined;
+          : undefined);
 
       const plugin = contentOrLayout
         ? {
