@@ -269,10 +269,37 @@ const customContentPlugin: CellPlugin<{
 
 For advanced use cases, there are some additional properties:
 
-### cellPlugins
+### `cellPlugins`
 
 Define the plugins that are allowed inside this cell. Is either an array of `CellPlugin` or a function that receives
-the parent's `CellPlugin`s and the current cell's data
+the parent's `CellPlugin`s and the current cell's data.
+
+Example:
+
+```tsx
+const yourPlugin: CellPlugin = {
+  id: 'some-plugin',
+  title: 'Some plugin with different cellPlugins',
+  Renderer: (props) => (
+    <div style={{ border: '5px solid black' }}>{props.children}</div>
+  ),
+  cellPlugins: [slate, image], // as array
+  version: 1,
+};
+
+const anotherPlugin: CellPlugin = {
+  id: 'some-plugin-2',
+  title: 'Some plugin that takes the parent plugins',
+  Renderer: (props) => (
+    <div style={{ border: '5px solid black' }}>{props.children}</div>
+  ),
+  cellPlugins: (plugins) => [
+    slate,
+    ...plugins.filter((p) => p.id !== 'some-plugin-1'), // e.g. remove a plugin
+  ],
+  version: 1,
+};
+```
 
 ### `createInitialData`
 
