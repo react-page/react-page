@@ -29,6 +29,7 @@ const Handle: React.FC<{ nodeId: string }> = ({ nodeId }) => {
       <div
         className={classNames('react-page-cell-handle', {
           'react-page-cell-handle-drag-enabled': dragEnabled,
+          'react-page-cell-handle-is-dragging': isDragging,
         })}
         ref={dragRef}
         onClick={() => {
