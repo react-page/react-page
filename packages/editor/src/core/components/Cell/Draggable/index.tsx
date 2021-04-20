@@ -34,20 +34,20 @@ const Draggable: React.FC<Props> = ({ isLeaf, children, nodeId }) => {
     <>
       {previewElement}
       <div
+        ref={isLayoutMode ? dragRef : undefined}
         style={{
           height: '100%',
         }}
         className={classNames({
-          'react-page-cell-draggable-in-edit': options.allowMoveInEditMode,
-          'react-page-cell-draggable':
-            isLayoutMode && !options.allowMoveInEditMode,
+          'react-page-cell-draggable-in-edit':
+            !isLayoutMode && options.allowMoveInEditMode,
+          'react-page-cell-draggable': isLayoutMode,
           'react-page-cell-draggable-is-dragging': isDragging,
         })}
         onMouseDown={(e) => e.stopPropagation()}
       >
         {isLayoutMode ? (
           <div
-            ref={dragRef}
             className={classNames({
               'react-page-cell-draggable-overlay': isLayoutMode,
               [`react-page-cell-draggable-inline-${cell.inline}`]: cell.inline,

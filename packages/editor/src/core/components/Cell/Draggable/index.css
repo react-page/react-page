@@ -110,7 +110,9 @@
       z-index: 4;
     }
 
-    .react-page-cell-draggable-is-dragging {
+    .react-page-cell-draggable-is-dragging,
+    .react-page-cell-handle-is-dragging + div > .react-page-cell-droppable > .react-page-cell-draggable,
+    .react-page-cell-handle-is-dragging + div > .react-page-cell-droppable > .react-page-cell-draggable-in-edit {
       opacity: 0.4;
       outline: none;
     }
