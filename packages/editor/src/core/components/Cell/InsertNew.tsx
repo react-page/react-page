@@ -56,7 +56,7 @@ const InsertNew: React.FC<{ parentCellId?: string }> = ({ parentCellId }) => {
         width: '50%', // just so that it leaves some room to click on the parent element
         minWidth: 120,
         margin: 'auto',
-        cursor: isAllowed ? 'auto' : 'not-allowed',
+        cursor: isOver && !isAllowed ? 'not-allowed' : 'auto',
       }}
       onClick={(e) => {
         e.stopPropagation();
