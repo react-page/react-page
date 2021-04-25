@@ -217,7 +217,7 @@ export const useInsertNew = (parentCellId?: string) => {
         })(partialCell, { id: parentCellId })
       );
     },
-    [dispatch, editor, cellPlugins]
+    [dispatch, editor, cellPlugins, parentCellId]
   );
 };
 
