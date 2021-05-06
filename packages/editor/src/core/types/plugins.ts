@@ -72,6 +72,12 @@ export type CellPluginRenderer<DataT> = React.ComponentType<
 export type CellPluginCustomControlsComonent<DataT> = React.ComponentType<
   CellPluginComponentProps<DataT>
 >;
+
+export type CellPluginAutoformControlsContent<DataT> = React.ComponentType<{
+  data: DataT;
+  columnCount?: number;
+}>;
+
 /**
  * controls where you can provide a custom component to render the controls.
  */
@@ -96,6 +102,12 @@ export type AutoformControlsDef<DataT> = {
    * autoform type automatically generates a form for you.
    */
   type: 'autoform';
+
+  /**
+   * You can customize the form content by passing a custom component. It will be rendered inside the Autoform.
+   * This can be used to adjust the layout of the form using `<Autofield />`
+   */
+  Content?: CellPluginAutoformControlsContent<DataT>;
 };
 
 export type SubControlsDef<T> = {
