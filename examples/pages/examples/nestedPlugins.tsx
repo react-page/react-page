@@ -67,7 +67,55 @@ const anotherPlugin: CellPlugin = {
   },
 };
 
-const cellPlugins = [fullSlate, image, aPlugin, anotherPlugin];
+const deeplyNestedC: CellPlugin = {
+  id: 'some-plugin-c',
+  title: 'Some plugin C with nested child plugins',
+  Renderer: (props) => (
+    <div style={{ border: '5px solid orange' }}>
+      <p>{props.nodeId}</p>
+      {props.children}
+    </div>
+  ),
+  cellPlugins: [simpleSlate],
+  version: 1,
+  cellStyle: {
+    padding: 0,
+  },
+};
+
+const deeplyNestedB: CellPlugin = {
+  id: 'some-plugin-b',
+  title: 'Some plugin B with nested child plugins',
+  Renderer: (props) => (
+    <div style={{ border: '5px solid red' }}>
+      <p>{props.nodeId}</p>
+      {props.children}
+    </div>
+  ),
+  cellPlugins: [simpleSlate, deeplyNestedC],
+  version: 1,
+  cellStyle: {
+    padding: 0,
+  },
+};
+
+const deeplyNestedA: CellPlugin = {
+  id: 'some-plugin-a',
+  title: 'Some plugin A with needply nested child plugins',
+  Renderer: (props) => (
+    <div style={{ border: '5px solid blue' }}>
+      <p>{props.nodeId}</p>
+      {props.children}
+    </div>
+  ),
+  cellPlugins: [simpleSlate, deeplyNestedB],
+  version: 1,
+  cellStyle: {
+    padding: 0,
+  },
+};
+
+const cellPlugins = [fullSlate, image, aPlugin, anotherPlugin, deeplyNestedA];
 
 export default function NestedPluginsExample() {
   const [value, setValue] = useState<Value>(null);

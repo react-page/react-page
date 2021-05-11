@@ -210,14 +210,13 @@ export const useAllCellPluginsForNode = (parentNodeId?: string) => {
   const currentLang = useLang();
 
   const ancestors = useNodeProps(parentNodeId, (node, ancestors) => {
-    return [...ancestors, node].reverse().map((a) => {
+    return [node, ...ancestors].reverse().map((a) => {
       return {
         pluginId: !a || isRow(a) ? null : a.plugin?.id,
         data: !a || isRow(a) ? null : getCellData(a, currentLang),
       };
     });
   });
-
   // pluginIdsOfAncestors is an array of ids, the last one is the
   const rootCellPlugins = useOptions().cellPlugins;
   return useMemo(() => {
