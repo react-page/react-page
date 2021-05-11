@@ -1,5 +1,6 @@
 import React, { Fragment, useEffect, useMemo } from 'react';
 import type JSONSchemaBridge from 'uniforms-bridge-json-schema';
+import type { AutoFieldProps, AutoFieldsProps } from 'uniforms-material';
 import { useIsSmallScreen } from '../../core/components/hooks';
 import lazyLoad from '../../core/helper/lazyLoad';
 
@@ -13,14 +14,15 @@ import makeUniformsSchema from './makeUniformsSchema';
 export const AutoForm = lazyLoad(() =>
   import('uniforms-material').then((c) => c.AutoForm)
 );
+export const AutoField = lazyLoad(() =>
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  import('uniforms-material').then((c) => c.AutoField as any)
+) as React.FC<AutoFieldProps>;
+
 export const AutoFields = lazyLoad(() =>
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   import('uniforms-material').then((c) => c.AutoFields as any)
-) as React.FC<{
-  element?: React.ReactNode;
-  fields?: string[];
-  omitFields?: string[];
-}>;
+) as React.FC<AutoFieldsProps>;
 const getDefaultValue = function (
   bridge: JSONSchemaBridge
 ): { [key: string]: unknown } {
@@ -39,6 +41,7 @@ export function AutoformControls<T extends Record<string, unknown> | unknown>({
   data,
   schema,
   columnCount = 2,
+  Content,
 }: Props<T>) {
   const bridge = useMemo(() => makeUniformsSchema<T>(schema as JsonSchema<T>), [
     schema,
@@ -53,15 +56,19 @@ export function AutoformControls<T extends Record<string, unknown> | unknown>({
   const isSmall = useIsSmallScreen();
   return (
     <AutoForm model={data} autosave={true} schema={bridge} onSubmit={onChange}>
-      <div
-        style={{
-          columnCount: isSmall ? 1 : columnCount,
-          columnRule: '1px solid #E0E0E0',
-          columnGap: 48,
-        }}
-      >
-        <AutoFields element={Fragment} />
-      </div>
+      {Content ? (
+        <Content data={data} columnCount={columnCount} />
+      ) : (
+        <div
+          style={{
+            columnCount: isSmall ? 1 : columnCount,
+            columnRule: '1px solid #E0E0E0',
+            columnGap: 48,
+          }}
+        >
+          <AutoFields element={Fragment} />
+        </div>
+      )}
     </AutoForm>
   );
 }
