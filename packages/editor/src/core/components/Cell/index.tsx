@@ -85,8 +85,7 @@ const Cell: React.FC<Props> = ({ nodeId, measureRef }) => {
   const onClick = useCallback(
     (e) => {
       if (hasPlugin && isEditMode) {
-        // Code bellow was causing the BottomToolbar to be unclickable with regards to document.addEventListener('click', ...)
-        // e.stopPropagation();
+        e.stopPropagation();
       }
       if (isInsertMode) {
         e.stopPropagation();
