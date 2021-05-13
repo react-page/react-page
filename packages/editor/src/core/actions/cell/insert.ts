@@ -48,6 +48,7 @@ export interface InsertAction extends Action {
 
 export type PluginsAndLang = {
   lang: string;
+  focusAfter?: boolean;
 } & Pick<Options, 'cellPlugins'>;
 
 export const createRow = (
@@ -167,10 +168,10 @@ const insert = <T extends InsertType>(type: T) => (options: PluginsAndLang) => (
   return (dispatch) => {
     dispatch(insertAction);
     // FIXME: checking if an item is new or just moved around is a bit awkward
-
+    // FIXME: this doesn't work when duplicating, I've added an option to focus after insert
     const isNew = !partialCell.id;
 
-    if (isNew) {
+    if (options.focusAfter) {
       dispatch(editMode());
       setTimeout(() => {
         dispatch(focusCell(insertAction.ids.item, true));

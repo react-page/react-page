@@ -119,7 +119,12 @@ export const useDuplicateCell = (id: string) => {
   const cellPlugins = useAllCellPluginsForNode(parentCellId);
 
   return useCallback(
-    () => dispatch(duplicateCell({ cellPlugins, lang })(editor.getNode(id))),
+    () =>
+      dispatch(
+        duplicateCell({ cellPlugins, lang, focusAfter: true })(
+          editor.getNode(id)
+        )
+      ),
     [dispatch, cellPlugins, lang, id]
   );
 };
