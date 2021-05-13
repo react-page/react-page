@@ -44,7 +44,8 @@ const Draggable: React.FC<Props> = ({ isLeaf, children, nodeId }) => {
           'react-page-cell-draggable': isLayoutMode,
           'react-page-cell-draggable-is-dragging': isDragging,
         })}
-        onMouseDown={(e) => e.stopPropagation()}
+        // This caused issues with clicks being stopped in BottomToolbar
+        // onMouseDown={(e) => e.stopPropagation()}
       >
         {isLayoutMode ? (
           <div
