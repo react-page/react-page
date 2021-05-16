@@ -18,6 +18,7 @@ export const useOptionsMemoized = ({
     BottomToolbar: null,
     CellPluginMissing: null,
     EditModeResizeHandle: null,
+    InsertNew: null,
     ...(components ?? {}),
   };
   const componentDeps = [
