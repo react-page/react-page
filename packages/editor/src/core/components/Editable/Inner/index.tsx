@@ -79,6 +79,8 @@ const Inner: React.FC = () => {
     ? options.childConstraints?.maxChildren > rowIds.length
     : true;
 
+  const InsertNewWithDefault = options.components?.InsertNew ?? InsertNew;
+
   return (
     <div
       ref={ref}
@@ -98,7 +100,7 @@ const Inner: React.FC = () => {
           ))}
         </div>
       ) : null}
-      {insertAllowed ? <InsertNew /> : null}
+      {insertAllowed ? <InsertNewWithDefault childrenIds={rowIds} /> : null}
     </div>
   );
 };
