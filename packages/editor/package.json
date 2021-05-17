@@ -27,9 +27,9 @@
   "dependencies": {
     "ajv": "^7.1.1",
     "color-parse": "^1.4.2",
-    "uniforms-bridge-json-schema": "^2.6.0 || ^3.0.0",
-    "uniforms": "^2.6.0 || ^3.0.0",
-    "uniforms-material": "^2.6.0 || ^3.0.0",
+    "uniforms": "^2.6.0 || 3.0.x",
+    "uniforms-bridge-json-schema": "^2.6.0 || 3.0.x",
+    "uniforms-material": "^2.6.0 || 3.0.x",
     "lodash.debounce": "^4.0.8",
     "@loadable/component": "^5.14.1",
     "classnames": "^2.3.1",
