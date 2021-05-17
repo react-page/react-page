@@ -228,7 +228,9 @@ export const useCellIsAllowedHere = (nodeId?: string) => {
   const availablePlugins = useAllCellPluginsForNode(nodeId);
   return useCallback(
     (item: CellDrag) => {
-      if (!item) return false;
+      if (!item?.cell) {
+        return false;
+      }
       const itemPluginId =
         typeof item.cell.plugin === 'string'
           ? item.cell.plugin

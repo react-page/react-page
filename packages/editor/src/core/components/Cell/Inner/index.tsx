@@ -16,6 +16,7 @@ import {
   useCellSpacing,
   useCellData,
   useCellSpacingProvider,
+  useOptions,
 } from '../../hooks';
 import Row from '../../Row';
 import Draggable from '../Draggable';
@@ -71,6 +72,11 @@ const Inner: React.FC<{ nodeId: string }> = ({ nodeId }) => {
   const cellStyle = useCellStyle(nodeId);
 
   const children = childrenIds.map((id) => <Row nodeId={id} key={id} />);
+
+  const options = useOptions();
+
+  const InsertNewWithDefault = options.components?.InsertNew ?? InsertNew;
+
   if (!cellShouldHavePlugin) {
     return <Droppable nodeId={nodeId}>{children}</Droppable>;
   }
@@ -105,7 +111,12 @@ const Inner: React.FC<{ nodeId: string }> = ({ nodeId }) => {
             ) : (
               children
             )}
-            {insertAllowed ? <InsertNew parentCellId={nodeId} /> : null}
+            {insertAllowed ? (
+              <InsertNewWithDefault
+                parentCellId={nodeId}
+                childrenIds={childrenIds}
+              />
+            ) : null}
           </PluginComponent>
         </div>
       </Draggable>

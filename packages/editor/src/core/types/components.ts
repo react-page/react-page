@@ -1,4 +1,5 @@
 import type { BottomToolbarProps } from '../../ui/BottomToolbar/types';
+import type { InsertNewProps } from '../components/Cell/InsertNew';
 import type { CellPluginMissingProps } from './plugins';
 
 /**
@@ -11,4 +12,5 @@ export type Components = {
   BottomToolbar?: React.ComponentType<BottomToolbarProps>;
   CellPluginMissing?: React.ComponentType<CellPluginMissingProps>;
   EditModeResizeHandle?: React.ComponentType<{ onClick: () => void }>;
+  InsertNew?: React.ComponentType<InsertNewProps>;
 };
