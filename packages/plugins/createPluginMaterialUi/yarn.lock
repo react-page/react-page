@@ -49,17 +49,36 @@ lodash@^4.0.0:
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.21.tgz#679591c564c3bffaae8454cf0b3df370c3d6911c"
   integrity sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==
 
-loose-envify@^1.0.0:
+loose-envify@^1.0.0, loose-envify@^1.4.0:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/loose-envify/-/loose-envify-1.4.0.tgz#71ee51fa7be4caec1a63839f7e682d8132d30caf"
   integrity sha512-lyuxPGr/Wfhrlem2CL/UcnUc1zcqKAImBDzukY7Y5F/yQiNdko6+fRLevlw1HgMySw7f611UIY408EtxRSoK3Q==
   dependencies:
     js-tokens "^3.0.0 || ^4.0.0"
 
+object-assign@^4.1.1:
+  version "4.1.1"
+  resolved "https://registry.yarnpkg.com/object-assign/-/object-assign-4.1.1.tgz#2109adc7965887cfc05cbbd442cac8bfbb360863"
+  integrity sha1-IQmtx5ZYh8/AXLvUQsrIv7s2CGM=
+
+prop-types@^15.5.7:
+  version "15.7.2"
+  resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.7.2.tgz#52c41e75b8c87e72b9d9360e0206b99dcbffa6c5"
+  integrity sha512-8QQikdH7//R2vurIJSutZ1smHYTcLpRWEOlHnzcWHmBYrOGUysKwSsrC89BCiFj3CbrfJ/nXFdJepOVrY1GCHQ==
+  dependencies:
+    loose-envify "^1.4.0"
+    object-assign "^4.1.1"
+    react-is "^16.8.1"
+
 punycode@^2.1.0:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/punycode/-/punycode-2.1.1.tgz#b58b010ac40c22c5657616c8d2c2c02c7bf479ec"
   integrity sha512-XRsRjdf+j5ml+y/6GKHPZbrF/8p2Yga0JPtdqTIY2Xe5ohJPD9saDJJLPvp9+NSBprVvevdXZybnj2cv8OEd0A==
+
+react-is@^16.8.1:
+  version "16.13.1"
+  resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.13.1.tgz#789729a4dc36de2999dc156dd6c1d9c18cea56a4"
+  integrity sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==
 
 require-from-string@^2.0.2:
   version "2.0.2"
@@ -71,48 +90,36 @@ tslib@^1.10.0:
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-1.14.1.tgz#cf2d38bdc34a134bcaf1091c41f6619e2f672d00"
   integrity sha512-Xni35NKzjgMrwevysHTCArtLDpPvye8zV/0E4EyYn43P7/7qvQwPh9BGkHewbMulVntbigmcT7rdX3BNo9wRJg==
 
-tslib@^2.2.0:
-  version "2.2.0"
-  resolved "https://registry.yarnpkg.com/tslib/-/tslib-2.2.0.tgz#fb2c475977e35e241311ede2693cee1ec6698f5c"
-  integrity sha512-gS9GVHRU+RGn5KQM2rllAlR3dU6m7AcpJKdtH8gFvQiC4Otgk98XnmMU+nZenHt/+VhnBPWwgrJsyrdcw6i23w==
-
-"uniforms-bridge-json-schema@^2.6.0 || 3.0.x":
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/uniforms-bridge-json-schema/-/uniforms-bridge-json-schema-3.0.1.tgz#5ae5c3c97afb2bcac78f1467068c3862ede05822"
-  integrity sha512-ofdQdMHwV7rB9F4dVCU4iKQogFIWCYLi6G0FUJsFJwv++iN0jCYbRVXA7mRTs++W0OGpw6GCaJ7D9LQHObwPPg==
+"uniforms-bridge-json-schema@^2.6.0 <=3.4.0":
+  version "2.6.9"
+  resolved "https://registry.yarnpkg.com/uniforms-bridge-json-schema/-/uniforms-bridge-json-schema-2.6.9.tgz#504a7a121d310795036a24967426750895d4bae6"
+  integrity sha512-cZL2EBrhzRRsZ4M7gUvpTLaKc+PYCJ4r1awxQyI7j18V0m21Ir0kDh1zoTDVqvi+S2uIHDjoy4ey9ukki4zeYA==
   dependencies:
     invariant "^2.0.0"
     lodash "^4.0.0"
     tslib "^1.10.0"
-    uniforms "^3.0.1"
+    uniforms "^2.6.9"
 
-"uniforms-material@^2.6.0 || 3.0.x":
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/uniforms-material/-/uniforms-material-3.0.1.tgz#aac5ef3851b0ece1bbb39ca2052e367e64195a54"
-  integrity sha512-7J1Cf7cskc4s0pAbQgpwU3VZliX5fTLki61GAFrFW+rN6Rky5mNtJB28adFQXFAHK5Eg34hqPe+VDKG0OxCCJw==
+"uniforms-material@^2.6.0 <=3.4.0":
+  version "2.6.9"
+  resolved "https://registry.yarnpkg.com/uniforms-material/-/uniforms-material-2.6.9.tgz#525fc77c0132bc11a30d67769b16d808149aae63"
+  integrity sha512-WSLc8L7CjVkbEAtgohLzwtRomyFEn0JbJxqE+7OANt1UoIUWu01kxNcU9KSCcmEz/LdTUZ8zB5GUGGnUzBMsNg==
   dependencies:
     invariant "^2.0.0"
     lodash "^4.0.0"
+    prop-types "^15.5.7"
     tslib "^1.10.0"
-    uniforms "^3.0.1"
+    uniforms "^2.6.9"
 
-"uniforms@^2.6.0 || 3.0.x":
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/uniforms/-/uniforms-3.0.1.tgz#501516bec1e556d815275e4bf8ea5b18b1f38078"
-  integrity sha512-ULYBRs0GUc1HGKY+TpOIeYQnCFdy25CDUFkPqrlYlNU45YnommuadFtl3o6TyeOytY4z7M6Hy0SgDSeWYYZoLQ==
+"uniforms@^2.6.0 <=3.4.0", uniforms@^2.6.9:
+  version "2.6.9"
+  resolved "https://registry.yarnpkg.com/uniforms/-/uniforms-2.6.9.tgz#0741532cf82331d5e432f0fb5547ac24713965ba"
+  integrity sha512-RnKx276c4xS5yoo8MxH2EtZbmzpsb5vFWP+VYCMC8tH/VSK4jlVBgCbCTADbMlcojwnAOGjUrA+m3s4tacdLbg==
   dependencies:
     invariant "^2.0.0"
     lodash "^4.0.0"
+    prop-types "^15.5.7"
     tslib "^1.10.0"
-
-uniforms@^3.0.1:
-  version "3.5.1"
-  resolved "https://registry.yarnpkg.com/uniforms/-/uniforms-3.5.1.tgz#7ae798518cc280c60e22cd1077aaa9440e2c6a84"
-  integrity sha512-1N8Y/QB2YSiMJMkwh1iAAzEd2jVDDa5qzL0VynzD8bsaHBB2UhUPUavAitLXK1s+nL76Y472+iMG0p5onQl4hg==
-  dependencies:
-    invariant "^2.0.0"
-    lodash "^4.0.0"
-    tslib "^2.2.0"
 
 uri-js@^4.2.2:
   version "4.4.1"

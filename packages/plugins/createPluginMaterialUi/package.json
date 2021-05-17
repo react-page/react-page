@@ -24,9 +24,9 @@
   "dependencies": {
     "@react-page/editor": "0.0.0",
     "lodash.debounce": "^4.0.8",
-    "uniforms-bridge-json-schema": "^2.6.0 || ^3.0.0",
-    "uniforms": "^2.6.0 || ^3.0.0",
-    "uniforms-material": "^2.6.0 || ^3.0.0",
+    "uniforms-bridge-json-schema": "^2.6.0 || ^3.0.0 < 3.5.0",
+    "uniforms": "^2.6.0 || ^3.0.0 < 3.5.0",
+    "uniforms-material": "^2.6.0 || ^3.0.0 < 3.5.0",
     "ajv": "^7.1.1"
   },
   "publishConfig": {
