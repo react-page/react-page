@@ -38,11 +38,14 @@ export const useCellDrop = (nodeId: string) => {
         }
       : null
   );
-  const checkIfAllowed = useCellIsAllowedHere(nodeId);
+
+  const targetParentNodeId = hoverTarget?.ancestorIds?.[0];
+
+  const checkIfAllowed = useCellIsAllowedHere(targetParentNodeId);
   const plugin = usePluginOfCell(nodeId);
   const options = useOptions();
   const hoverActions = useHoverActions();
-  const dropActions = useDropActions(nodeId);
+  const dropActions = useDropActions(targetParentNodeId);
   const isHoveringOverThis = useSelector(
     (state: RootState) => state.reactPage.hover?.nodeId === nodeId
   );
