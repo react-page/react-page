@@ -219,6 +219,7 @@ export const useInsertNew = (parentCellId?: string) => {
         action({
           cellPlugins,
           lang,
+          focusAfter: true,
         })(partialCell, { id: parentCellId })
       );
     },
