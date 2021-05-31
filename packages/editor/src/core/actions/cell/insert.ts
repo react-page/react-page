@@ -171,7 +171,7 @@ const insert = <T extends InsertType>(type: T) => (options: PluginsAndLang) => (
     // FIXME: this doesn't work when duplicating, I've added an option to focus after insert
     const isNew = !partialCell.id;
 
-    if (options.focusAfter) {
+    if (isNew || options.focusAfter) {
       dispatch(editMode());
       setTimeout(() => {
         dispatch(focusCell(insertAction.ids.item, true));
