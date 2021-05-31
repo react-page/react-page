@@ -5,7 +5,6 @@
     "packages/editor",
     "packages/plugins/content/*",
     "packages/plugins/layout/*",
-    "packages/plugins/createPluginMaterialUi",
     "packages/react-admin",
     "examples"
   ],
