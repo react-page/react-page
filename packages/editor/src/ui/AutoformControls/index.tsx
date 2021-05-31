@@ -23,10 +23,11 @@ export const AutoFields = lazyLoad(() =>
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   import('uniforms-material').then((c) => c.AutoFields as any)
 ) as React.FC<AutoFieldsProps>;
+
 const getDefaultValue = function (
   bridge: JSONSchemaBridge
 ): { [key: string]: unknown } {
-  return bridge.getSubfields(null).reduce(
+  return bridge.getSubfields().reduce(
     (acc, fieldName) => ({
       ...acc,
       [fieldName]: bridge.getInitialValue(fieldName),
@@ -54,6 +55,7 @@ export function AutoformControls<T extends Record<string, unknown> | unknown>({
     onChange(newDefaultData);
   }, [bridge]);
   const isSmall = useIsSmallScreen();
+
   return (
     <AutoForm model={data} autosave={true} schema={bridge} onSubmit={onChange}>
       {Content ? (
