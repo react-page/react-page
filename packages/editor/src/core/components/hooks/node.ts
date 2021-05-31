@@ -232,9 +232,9 @@ export const useCellIsAllowedHere = (nodeId?: string) => {
         return false;
       }
       const itemPluginId =
-        typeof item.cell.plugin === 'string'
+        typeof item.cell?.plugin === 'string'
           ? item.cell.plugin
-          : item.cell.plugin.id;
+          : item.cell?.plugin.id;
       const allowed =
         !item.cell?.plugin ||
         availablePlugins.some((p) => p.id === itemPluginId);
