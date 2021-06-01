@@ -1,10 +1,11 @@
+import type { Editor } from 'slate';
 import { Transforms } from 'slate';
-import type { ReactEditor } from 'slate-react';
+
 import { HtmlToSlate } from '../htmlToSlate';
 import type { SlatePlugin } from '../types/SlatePlugin';
 
 const withPaste = (plugins: SlatePlugin[], defaultPluginType: string) => (
-  editor: ReactEditor
+  editor: Editor
 ) => {
   const { insertData } = editor;
   const htmlToSlate = HtmlToSlate({ plugins });
@@ -42,7 +43,7 @@ const withPaste = (plugins: SlatePlugin[], defaultPluginType: string) => (
           Transforms.insertNodes(editor, {
             type: defaultPluginType,
             children: [{ text: thisLineText }],
-          });
+          } as any);
           nextWillbeParagraph = false;
         } else {
           Transforms.insertText(editor, thisLineText);

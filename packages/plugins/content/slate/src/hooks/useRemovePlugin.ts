@@ -1,12 +1,13 @@
 import { useCallback } from 'react';
+import type { Editor } from 'slate';
 import { Transforms } from 'slate';
-import type { ReactEditor } from 'slate-react';
+
 import { useSlate } from 'slate-react';
 import type { SlatePluginDefinition } from '../types/slatePluginDefinitions';
 import getCurrentData from '../utils/getCurrentData';
 
 export const removePlugin = <T>(
-  editor: ReactEditor,
+  editor: Editor,
   plugin: SlatePluginDefinition<T>
 ) => {
   if (plugin.customRemove) {
@@ -23,7 +24,7 @@ export const removePlugin = <T>(
       if (plugin.replaceWithDefaultOnRemove) {
         Transforms.setNodes(editor, {
           type: null,
-        });
+        } as unknown);
       } else {
         Transforms.unwrapNodes(editor, {
           match: (elem) => elem.type === plugin.type,
@@ -48,7 +49,7 @@ export const removePlugin = <T>(
       }, {});
       Transforms.setNodes(editor, {
         data: dataWithout,
-      });
+      } as unknown);
     }
   }
 };
