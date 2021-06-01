@@ -1,15 +1,13 @@
-/* eslint-disable @typescript-eslint/ban-types */
-import type { ReactEditor } from 'slate-react';
-
 import type { Translations } from './translations';
-import type { Node } from 'slate';
+import type { Node, Editor } from 'slate';
 import type { JsonSchema } from '@react-page/editor';
+import type { Data } from '../slateTypes';
 
 export interface PluginButtonProps {
   translations?: Partial<Translations>;
 }
 
-export type SlatePluginControls<T extends {}> = {
+export type SlatePluginControls<T extends Data> = {
   pluginConfig: SlateBasePluginDefinition<T>;
   open: boolean;
   close: () => void;
@@ -29,7 +27,7 @@ export type SlatePluginControls<T extends {}> = {
 /**
  * controls where you can provide a custom component to render the controls.
  */
-export type CustomControlsDef<DataT> = {
+export type CustomControlsDef<DataT extends Data> = {
   Component: React.ComponentType<SlatePluginControls<DataT>>;
   type: 'custom';
 };
@@ -41,7 +39,7 @@ export type AutoformControlsDef<DataT> = {
   /**
    * a JSONSchema. this will auto-generate a form for the plugin
    */
-  schema?: DataT extends Record<string, unknown> ? JsonSchema<DataT> : unknown;
+  schema?: DataT extends Data ? JsonSchema<DataT> : unknown;
 
   /**
    * autoform type automatically generates a form for you.
@@ -52,11 +50,11 @@ export type AutoformControlsDef<DataT> = {
 /**
  * All available type of controls
  */
-export type ControlsDef<DataT> =
+export type ControlsDef<DataT extends Data> =
   | AutoformControlsDef<DataT>
   | CustomControlsDef<DataT>;
 
-export type SlateBasePluginDefinition<T extends {}> = {
+export type SlateBasePluginDefinition<T extends Data> = {
   /** define a hotkey to toggle this plugin **/
   hotKey?: string;
 
@@ -87,22 +85,22 @@ export type SlateBasePluginDefinition<T extends {}> = {
    */
   getInitialData?: () => T;
 
-  isDisabled?: (editor: ReactEditor) => boolean;
+  isDisabled?: (editor: Editor) => boolean;
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  onKeyDown?: (e: React.KeyboardEvent, editor: ReactEditor, next: any) => void;
+  onKeyDown?: (e: React.KeyboardEvent, editor: Editor, next: any) => void;
 
-  customAdd?: (editor: ReactEditor) => void;
-  customRemove?: (editor: ReactEditor) => void;
+  customAdd?: (editor: Editor) => void;
+  customRemove?: (editor: Editor) => void;
 };
 
-export type SlateNodeBasePluginDefinition<T extends {}> = {
+export type SlateNodeBasePluginDefinition<T extends Data> = {
   object: SlateNodeObjectType;
 } & SlateBasePluginDefinition<T>;
 export type SlateNodeObjectType = 'inline' | 'block' | 'mark';
 
 export type SlateDataPluginDefinition<
-  T extends {}
+  T extends Data
 > = SlateNodeBasePluginDefinition<T> & {
   dataMatches: (data: T) => boolean;
   /**
@@ -112,10 +110,10 @@ export type SlateDataPluginDefinition<
 };
 
 export type SlateCustomPluginDefinition<
-  T extends {}
-> = SlateBasePluginDefinition<T> & {};
+  T extends Data
+> = SlateBasePluginDefinition<T> & Record<string, unknown>;
 
-export type MapLike<T extends {}> = {
+export type MapLike<T extends Data> = {
   get<K extends keyof T>(key: K): T[K];
 };
 
@@ -136,7 +134,7 @@ type MarkProps = {
 type NoInfer<T> = [T][T extends any ? 0 : never];
 
 export type SlateComponentPluginDefinition<
-  T extends {}
+  T extends Data
 > = SlateNodeBasePluginDefinition<T> & {
   /**
    * a unique type (id) for the this component
@@ -172,7 +170,7 @@ export type SlateComponentPluginDefinition<
             /**
              * the attributes should be passed directly to the rendered html element
              */
-            attributes?: object;
+            attributes?: Record<string, unknown>;
             /**
              * the style that can be passed directly to the rendered html element
              */

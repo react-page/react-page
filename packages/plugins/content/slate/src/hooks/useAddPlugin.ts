@@ -1,14 +1,17 @@
 import { useCallback } from 'react';
+import type { BaseElement, Editor } from 'slate';
 import { Transforms } from 'slate';
-import type { ReactEditor } from 'slate-react';
+
 import { useSlate } from 'slate-react';
 import type { SlatePluginDefinition } from '../types/slatePluginDefinitions';
+
 import { getCurrentNodeWithPlugin } from './useCurrentNodeWithPlugin';
 import { removePlugin } from './useRemovePlugin';
 import getCurrentData from '../utils/getCurrentData';
+import type { Data } from '../slateTypes';
 
-export const addPlugin = <T>(
-  editor: ReactEditor,
+export const addPlugin = <T extends Data>(
+  editor: Editor,
   plugin: SlatePluginDefinition<T>,
   props?: { data?: T; text?: string }
 ) => {
@@ -52,7 +55,6 @@ export const addPlugin = <T>(
           editor,
           {
             type: plugin.type,
-
             children: [],
             data,
           },
@@ -74,17 +76,17 @@ export const addPlugin = <T>(
       }
     }
   } else if (plugin.pluginType === 'data') {
-    const existingData = getCurrentData(editor);
+    const existingData = getCurrentData(editor) ?? {};
     Transforms.setNodes(editor, {
       data: {
         ...existingData,
-        ...data,
+        ...((data ?? {}) as Record<string, unknown>),
       },
-    });
+    } as unknown);
   }
 };
 
-export default <T>(plugin: SlatePluginDefinition<T>) => {
+export default <T extends Data>(plugin: SlatePluginDefinition<T>) => {
   const editor = useSlate();
   return useCallback(
     (props?: { data?: T; text?: string }) => addPlugin(editor, plugin, props),

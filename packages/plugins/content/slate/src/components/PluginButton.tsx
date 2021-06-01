@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-types */
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { Range, Transforms } from 'slate';
 import { useSlate } from 'slate-react';
@@ -17,12 +16,13 @@ import { useSetDialogIsVisible } from './DialogVisibleProvider';
 
 import ToolbarButton from './ToolbarButton';
 import { useUiTranslator } from '@react-page/editor';
+import type { Data } from '../slateTypes';
 
-type Props<T extends {}> = {
+type Props<T extends Data> = {
   plugin: SlatePluginDefinition<T>;
 } & PluginButtonProps;
 
-function PluginButton<T>(props: Props<T>) {
+function PluginButton<T extends Data = unknown>(props: Props<T>) {
   const { plugin } = props;
   const { t } = useUiTranslator();
   const hasControls = Boolean(plugin.controls);

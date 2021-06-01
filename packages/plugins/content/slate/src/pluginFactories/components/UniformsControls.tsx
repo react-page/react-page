@@ -6,10 +6,11 @@ import DoneIcon from '@material-ui/icons/Done';
 import type { JsonSchema } from '@react-page/editor';
 import { makeUniformsSchema, AutoForm, AutoFields } from '@react-page/editor';
 import React, { useCallback, useRef, useState } from 'react';
+import type { Data } from '../../slateTypes';
 
 import type { SlatePluginControls } from '../../types/slatePluginDefinitions';
 
-function Controls<T>(
+function Controls<T extends Data>(
   props: SlatePluginControls<T> & {
     schema?: JsonSchema<T>;
   }
