@@ -46,7 +46,7 @@ const transformChildren = (defNodes: SlateDefNode[]): Node[] =>
           children: defPluginNode.children
             ? transformChildren(defPluginNode.children)
             : [],
-        };
+        } as any;
       } else {
         return null;
       }

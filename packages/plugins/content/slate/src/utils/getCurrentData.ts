@@ -1,7 +1,6 @@
-import type { ReactEditor } from 'slate-react';
 import { Editor } from 'slate';
 
-const getCurrentData = (editor: ReactEditor) => {
+const getCurrentData = (editor: Editor): Record<string, unknown> => {
   const [existingNodeWithData] = Editor.nodes(editor, {
     mode: 'all',
     match: (node) => {
@@ -9,7 +8,7 @@ const getCurrentData = (editor: ReactEditor) => {
     },
   });
   const existingData = existingNodeWithData
-    ? (existingNodeWithData[0]?.data as { [key: string]: unknown })
+    ? (existingNodeWithData[0]?.data as Record<string, unknown>)
     : {};
 
   return existingData;

@@ -2,8 +2,10 @@
 import type { SlatePlugin } from '../types/SlatePlugin';
 import type { SlateComponentPluginDefinition } from '../types/slatePluginDefinitions';
 
-function createComponentPlugin<T = {}>(def: SlateComponentPluginDefinition<T>) {
-  const customizablePlugin = function <CT = T>(
+function createComponentPlugin<T extends Record<string, unknown>>(
+  def: SlateComponentPluginDefinition<T>
+) {
+  const customizablePlugin = function <CT extends Record<string, unknown> = T>(
     customize: (
       t: SlateComponentPluginDefinition<T>
     ) => SlateComponentPluginDefinition<CT> = (d) =>

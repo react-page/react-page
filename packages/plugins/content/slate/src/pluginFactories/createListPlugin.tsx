@@ -62,7 +62,7 @@ function createSlatePlugins<T, CT>(
             editor,
             {
               type: def.type,
-            },
+            } as any,
             {
               at: currentList[1],
             }
