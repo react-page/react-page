@@ -16,7 +16,14 @@ const ReadOnlySlate = (props: SlateProps) => {
   const renderLeaf = useRenderLeave({ plugins }, []);
   // the div around is required to be consistent in styling with the default editor
   return (
-    <div>
+    <div
+      style={{
+        position: 'relative',
+        outline: 'none',
+        whiteSpace: 'pre-wrap',
+        overflowWrap: 'break-word',
+      }}
+    >
       <SlateReactPresentation
         renderElement={renderElement}
         renderLeaf={renderLeaf}
