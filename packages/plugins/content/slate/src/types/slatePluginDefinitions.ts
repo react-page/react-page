@@ -85,13 +85,13 @@ export type SlateBasePluginDefinition<T extends Data> = {
    */
   getInitialData?: () => T;
 
-  isDisabled?: (editor: Editor) => boolean;
+  isDisabled?: (editor: Editor) => Promise<boolean>;
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onKeyDown?: (e: React.KeyboardEvent, editor: Editor, next: any) => void;
 
-  customAdd?: (editor: Editor) => void;
-  customRemove?: (editor: Editor) => void;
+  customAdd?: (editor: Editor) => void | Promise<void>;
+  customRemove?: (editor: Editor) => void | Promise<void>;
 };
 
 export type SlateNodeBasePluginDefinition<T extends Data> = {
