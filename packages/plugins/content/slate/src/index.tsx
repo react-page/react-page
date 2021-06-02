@@ -1,9 +1,8 @@
 import type { CellPlugin } from '@react-page/editor';
 import { lazyLoad } from '@react-page/editor';
-import React from 'react';
+import React, { Fragment, useState } from 'react';
+import ReadOnlySlate from './components/ReadOnlySlate';
 
-import SlateEditor from './components/SlateEditor';
-import SlateProvider from './components/SlateProvider';
 import { defaultTranslations } from './default/settings';
 import { HtmlToSlate } from './htmlToSlate';
 import v002 from './migrations/v002';
@@ -26,8 +25,11 @@ export {
   HtmlToSlate,
   SlateState,
 };
+
+const SlateEditor = lazyLoad(() => import('./components/SlateEditor'));
 const Subject = lazyLoad(() => import('@material-ui/icons/Subject'));
 const Controls = lazyLoad(() => import('./components/Controls'));
+const SlateProvider = lazyLoad(() => import('./components/SlateProvider'));
 
 const migrations = [v002, v003, v004];
 type SlateDefinition<TPlugins extends SlatePluginCollection> = {
@@ -114,22 +116,41 @@ function plugin<TPlugins extends SlatePluginCollection = DefaultPlugins>(
   const htmlToSlate = HtmlToSlate({ plugins });
 
   return {
+    Renderer: (props) => {
+      const allProps = {
+        ...props,
+        plugins,
+        translations: settings.translations,
+        defaultPluginType: settings.defaultPluginType,
+      };
+      /* we need a small fix to avoid flashing when SSR in edit mode:
+      we code split the Provider AND the editor version, but we have to make sure to not render the editor without the provider:
+      */
+      const [providerLoaded, setProviderLoaded] = useState(false);
+      if (!props.readOnly) {
+        SlateProvider.load().then((l) => setProviderLoaded(true));
+      }
+
+      if (props.readOnly || !providerLoaded) {
+        return <ReadOnlySlate {...allProps} />;
+      }
+      return (
+        <SlateEditor {...allProps} fallback={<ReadOnlySlate {...allProps} />} />
+      );
+    },
+
     Provider: (props) => (
       <SlateProvider
         {...props}
         plugins={plugins}
         translations={settings.translations}
         defaultPluginType={settings.defaultPluginType}
+        fallback={<>{props.children}</>}
       />
     ),
-    Renderer: (props) => (
-      <SlateEditor
-        {...props}
-        plugins={plugins}
-        translations={settings.translations}
-        defaultPluginType={settings.defaultPluginType}
-      />
-    ),
+    // we no longer require the provider in read only mode thanks to the static renderer:
+    disableProviderInReadOnly: true,
+
     bottomToolbar: {
       dark: true,
     },

@@ -31,15 +31,19 @@ type Injections = {
   useSelected: () => boolean;
   useFocused: () => boolean;
 };
+const STATIC_INJECTIONS = {
+  useFocused: () => false,
+  useSelected: () => false,
+};
 export const useRenderElement = (
   {
     plugins,
     defaultPluginType,
-    injections,
+    injections = STATIC_INJECTIONS,
   }: {
     plugins: SlatePlugin[];
     defaultPluginType: string;
-    injections: Injections;
+    injections?: Injections;
   },
   deps: DependencyList
 ) => {
@@ -96,7 +100,10 @@ export const useRenderElement = (
 };
 
 export const useRenderLeave = (
-  { plugins, injections }: { plugins: SlatePlugin[]; injections: Injections },
+  {
+    plugins,
+    injections = STATIC_INJECTIONS,
+  }: { plugins: SlatePlugin[]; injections?: Injections },
   deps: DependencyList
 ) => {
   const markPlugins = useComponentMarkPlugins({ plugins }, deps);

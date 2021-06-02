@@ -190,6 +190,12 @@ export type CellPlugin<DataT = unknown, DataSerializedT = DataT> = {
   Provider?: React.ComponentType<CellPluginComponentProps<DataT>>;
 
   /**
+   * by default, Provider is also rendered in readOnly. You can disable that by setting disableProviderInReadOnly to true
+   *
+   */
+  disableProviderInReadOnly?: boolean;
+
+  /**
    * the icon to show for this plugin
    */
   icon?: React.ReactNode;

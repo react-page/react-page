@@ -87,7 +87,10 @@ const HTMLCell: React.FC<
     const { Renderer } = plugin;
 
     const cellStyle = getCellStyle(plugin, data);
-    const Provider = plugin.Provider ?? NoopProvider;
+    const Provider =
+      plugin.Provider && !plugin.disableProviderInReadOnly
+        ? plugin.Provider
+        : NoopProvider;
 
     let pluginCellSpacing = getPluginCellSpacing(plugin, data);
     if (typeof pluginCellSpacing === 'undefined' || pluginCellSpacing == null) {

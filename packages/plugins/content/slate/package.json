@@ -43,7 +43,8 @@
     "slate": "^0.63.0",
     "slate-react": "^0.65.0",
     "slate-hyperscript": "^0.62.0",
-    "@emotion/is-prop-valid": "^0.8.8"
+    "@emotion/is-prop-valid": "^0.8.8",
+    "slate-react-presentation": "^0.1.0"
   },
   "publishConfig": {
     "access": "public"
