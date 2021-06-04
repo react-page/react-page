@@ -54,7 +54,7 @@ const Inner: React.FC<{ nodeId: string }> = ({ nodeId }) => {
         !focused &&
         isEditMode &&
         // this arrives when they stop resizing
-        !target.classList.contains('react-page-row') &&
+        !target.classList?.contains('react-page-row') &&
         target?.closest &&
         target.closest('.react-page-cell-inner') === ref.current &&
         target.closest('.react-page-cell.react-page-cell-has-plugin') ===
