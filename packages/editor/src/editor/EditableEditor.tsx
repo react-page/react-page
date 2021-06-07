@@ -8,6 +8,8 @@ import Provider from '../core/Provider';
 import type { Value, Options, ValueWithLegacy } from '../core/types';
 import EditorUI from '../ui/EditorUI';
 import StickyWrapper from './StickyWrapper';
+import GlobalHotKeys from '../core/components/HotKey/GlobalHotKeys';
+
 
 export type DndBackend = BackendFactory;
 export type EditableEditorProps = {
@@ -64,6 +66,7 @@ const EditableEditor: React.FC<EditableEditorProps> = ({
       <StickyWrapper>
         {(stickyNess) => (
           <>
+            <GlobalHotKeys />
             <Editable />
             <EditorUI
               stickyNess={stickyNess}
