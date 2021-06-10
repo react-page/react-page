@@ -15,7 +15,7 @@ const somePlugin: CellPlugin<{ text: string }> = {
   Renderer: (props) => <p>{props.data.text}</p>,
 };
 
-const cellPlugins: CellPlugin[] = [somePlugin];
+const cellPlugins: CellPlugin[] = [somePlugin as CellPlugin<unknown>];
 
 describe('HTMLRenderer', () => {
   describe('rendering html content from slate', () => {

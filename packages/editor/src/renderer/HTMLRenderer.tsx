@@ -127,8 +127,7 @@ const HTMLCell: React.FC<
               className={
                 'react-page-cell-inner' +
                 (cell.rows?.length > 0 ? '' : ' react-page-cell-inner-leaf') +
-                ' ' +
-                cellAdditionalClassName
+                (cellAdditionalClassName ? ' ' + cellAdditionalClassName : '')
               }
             >
               <div
