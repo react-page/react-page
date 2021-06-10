@@ -71,7 +71,7 @@ const defaultConfig: DefaultSlateDefinition = {
 type CreateSlateData<TPlugins> = (
   custom?: CreateDataCustomizer<TPlugins>
 ) => SlateState;
-export type SlatePlugin<TPlugins> = CellPlugin<
+export type SlateCellPlugin<TPlugins> = CellPlugin<
   SlateState,
   Omit<SlateState, 'selection'>
 > & {
@@ -88,7 +88,7 @@ export type SlateCustomizeFunction<TPlugins extends SlatePluginCollection> = (
 
 function plugin<TPlugins extends SlatePluginCollection = DefaultPlugins>(
   customize?: SlateCustomizeFunction<TPlugins>
-): SlatePlugin<TPlugins> {
+): SlateCellPlugin<TPlugins> {
   const settings = (customize
     ? customize(defaultConfig)
     : defaultConfig) as SlateDefinition<TPlugins>;
