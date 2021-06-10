@@ -31,25 +31,6 @@ const InsertNew: React.FC<{ parentCellId?: string }> = ({ parentCellId }) => {
     },
   });
 
-  React.useEffect(() => {
-    window?.addEventListener('keydown', handleKeyDown);
-    return () => {
-      window?.removeEventListener('keydown', handleKeyDown);
-    };
-  }, []);
-
-  const handleKeyDown = (e: KeyboardEvent) => {
-    if (e?.key === '/') {
-      handleInsertMode(e);
-    }
-  };
-
-  const handleInsertMode = (e) => {
-    e.stopPropagation();
-    setReferenceNodeId(parentCellId);
-    setInsertMode();
-  };
-
   if (isPreviewMode) return null;
   return (
     <div
@@ -63,7 +44,11 @@ const InsertNew: React.FC<{ parentCellId?: string }> = ({ parentCellId }) => {
         minWidth: 120,
         margin: 'auto',
       }}
-      onClick={handleInsertMode}
+      onClick={(e) => {
+        e.stopPropagation();
+        setReferenceNodeId(parentCellId);
+        setInsertMode();
+      }}
     />
   );
 };
