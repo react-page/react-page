@@ -206,9 +206,14 @@ export type CellPlugin<DataT = unknown, DataSerializedT = DataT> = {
   allowInlineNeighbours?: boolean;
 
   /**
-   * additional style for the wrapping cell
+   * additional style for the inner cell
    */
   cellStyle?: React.CSSProperties | ((data: DataT) => React.CSSProperties);
+
+  /**
+   * additional classname(s) for the inner cell
+   */
+  cellClassName?: string | ((data: DataT) => string);
 
   /**
    * cell spacing setting for the internal layout (nested cells) if any

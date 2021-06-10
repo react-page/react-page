@@ -5,7 +5,6 @@ import {
 } from '../../../utils/getCellSpacing';
 import {
   useCellHasPlugin,
-  useCellStyle,
   useFocusCell,
   useIsEditMode,
   useIsFocused,
@@ -17,6 +16,7 @@ import {
   useCellData,
   useCellSpacingProvider,
   useOptions,
+  useCellStyleAndClassName,
 } from '../../hooks';
 import Row from '../../Row';
 import Draggable from '../Draggable';
@@ -69,7 +69,7 @@ const Inner: React.FC<{ nodeId: string }> = ({ nodeId }) => {
   const insertAllowed = plugin?.childConstraints?.maxChildren
     ? plugin?.childConstraints?.maxChildren > childrenIds.length
     : true;
-  const cellStyle = useCellStyle(nodeId);
+  const { cellStyle, cellClassName } = useCellStyleAndClassName(nodeId);
 
   const children = childrenIds.map((id) => <Row nodeId={id} key={id} />);
 
@@ -91,7 +91,9 @@ const Inner: React.FC<{ nodeId: string }> = ({ nodeId }) => {
           }}
           className={
             'react-page-cell-inner' +
-            (hasChildren ? '' : ' react-page-cell-inner-leaf')
+            (hasChildren ? '' : ' react-page-cell-inner-leaf') +
+            ' ' +
+            cellClassName
           }
           ref={ref}
         >

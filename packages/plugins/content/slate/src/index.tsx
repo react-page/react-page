@@ -191,6 +191,7 @@ function plugin<TPlugins extends SlatePluginCollection = DefaultPlugins>(
       slate,
       ...rest,
     }),
+    cellClassName: 'slate',
     unserialize: (s) => {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       if ((s as any)?.importFromHtml) {

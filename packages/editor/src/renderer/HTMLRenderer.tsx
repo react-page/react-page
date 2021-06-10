@@ -12,7 +12,7 @@ import type {
   Options,
 } from '../core/types';
 import { getCellData } from '../core/utils/getCellData';
-import { getCellStyle } from '../core/utils/getCellStyle';
+import { getCellClassName, getCellStyle } from '../core/utils/getCellStyle';
 import {
   getPluginCellSpacing,
   normalizeCellSpacing,
@@ -87,6 +87,7 @@ const HTMLCell: React.FC<
     const { Renderer } = plugin;
 
     const cellStyle = getCellStyle(plugin, data);
+    const cellAdditionalClassName = getCellClassName(plugin, data);
     const Provider =
       plugin.Provider && !plugin.disableProviderInReadOnly
         ? plugin.Provider
@@ -125,7 +126,9 @@ const HTMLCell: React.FC<
               style={cellStyle}
               className={
                 'react-page-cell-inner' +
-                (cell.rows?.length > 0 ? '' : ' react-page-cell-inner-leaf')
+                (cell.rows?.length > 0 ? '' : ' react-page-cell-inner-leaf') +
+                ' ' +
+                cellAdditionalClassName
               }
             >
               <div

@@ -9,7 +9,7 @@ import type { Cell, CellDrag, Node, Row } from '../../types/node';
 import { isRow } from '../../types/node';
 import deepEquals from '../../utils/deepEquals';
 import { getCellData } from '../../utils/getCellData';
-import { getCellStyle } from '../../utils/getCellStyle';
+import { getCellClassName, getCellStyle } from '../../utils/getCellStyle';
 import { getDropLevels } from '../../utils/getDropLevels';
 import { useUpdateCellData } from './nodeActions';
 import { useLang, useOptions } from './options';
@@ -283,21 +283,24 @@ export const useCellData = (nodeId: string, lang?: string) => {
 };
 
 /**
- *returns the style of a cell if the plugin of th cell configures a custom style function
+ *returns additional style and classname of a cell if the plugin of th cell configures custom style and/or classname
  * @param nodeId a cell id
  * @param lang a language key (optionally)
  * @returns the data object in the given language of the given cell
  */
-export const useCellStyle = (nodeId: string, lang?: string) => {
+export const useCellStyleAndClassName = (nodeId: string, lang?: string) => {
   const plugin = usePluginOfCell(nodeId);
 
   const currentLang = useLang();
   const theLang = lang ?? currentLang;
 
-  return useCellProps(
-    nodeId,
-    (c) => getCellStyle(plugin, getCellData(c, theLang)) ?? {}
-  );
+  return useCellProps(nodeId, (c) => {
+    const data = getCellData(c, theLang);
+    return {
+      cellStyle: getCellStyle(plugin, data) ?? {},
+      cellClassName: getCellClassName(plugin, data) ?? '',
+    };
+  });
 };
 
 /**

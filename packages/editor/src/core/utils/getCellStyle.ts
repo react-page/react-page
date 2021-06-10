@@ -6,3 +6,10 @@ export const getCellStyle = (plugin: CellPlugin, data: unknown) =>
       ? plugin?.cellStyle(data)
       : plugin?.cellStyle
     : undefined;
+
+export const getCellClassName = (plugin: CellPlugin, data: unknown) =>
+  plugin?.cellClassName
+    ? typeof plugin?.cellClassName === 'function'
+      ? plugin?.cellClassName(data)
+      : plugin?.cellClassName
+    : undefined;
