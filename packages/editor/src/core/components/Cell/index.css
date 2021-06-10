@@ -6,8 +6,6 @@
 /* general rules for read only and edit */
 
 .react-page-cell {
-  height: 100%;
-  flex: 1;
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
@@ -22,9 +20,6 @@
   &-has-inline-neighbour {
     float: none;
     width: 100%;
-  }
-
-  &-has-inline-neighbour > .react-page-cell {
     display: block;
   }
 

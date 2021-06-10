@@ -16,7 +16,7 @@ import {
   useCellData,
   useCellSpacingProvider,
   useOptions,
-  useCellStyleAndClassName,
+  useCellInnerDivStylingProps,
 } from '../../hooks';
 import Row from '../../Row';
 import Draggable from '../Draggable';
@@ -69,7 +69,7 @@ const Inner: React.FC<{ nodeId: string }> = ({ nodeId }) => {
   const insertAllowed = plugin?.childConstraints?.maxChildren
     ? plugin?.childConstraints?.maxChildren > childrenIds.length
     : true;
-  const { cellStyle, cellClassName } = useCellStyleAndClassName(nodeId);
+  const innerDivProps = useCellInnerDivStylingProps(nodeId);
 
   const children = childrenIds.map((id) => <Row nodeId={id} key={id} />);
 
@@ -80,22 +80,15 @@ const Inner: React.FC<{ nodeId: string }> = ({ nodeId }) => {
   if (!cellShouldHavePlugin) {
     return <Droppable nodeId={nodeId}>{children}</Droppable>;
   }
+
   return (
     <Droppable nodeId={nodeId} isLeaf={!hasChildren}>
       <Draggable nodeId={nodeId} isLeaf={!hasChildren}>
         <div
           onClick={!isPreviewMode ? onClick : undefined}
           tabIndex={-1}
-          style={{
-            ...(cellStyle ?? {}),
-          }}
-          className={
-            'react-page-cell-inner' +
-            (hasChildren ? '' : ' react-page-cell-inner-leaf') +
-            ' ' +
-            cellClassName
-          }
           ref={ref}
+          {...innerDivProps}
         >
           <PluginComponent nodeId={nodeId} hasChildren={hasChildren}>
             {hasChildren ? (
