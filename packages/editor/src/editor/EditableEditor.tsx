@@ -11,7 +11,6 @@ import EditorUI from '../ui/EditorUI';
 import StickyWrapper from './StickyWrapper';
 import GlobalHotKeys from '../core/components/HotKey/GlobalHotKeys';
 
-
 export type DndBackend = BackendFactory;
 export type EditableEditorProps = {
   dndBackend?: DndBackend;
