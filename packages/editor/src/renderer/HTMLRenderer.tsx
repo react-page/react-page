@@ -12,13 +12,15 @@ import type {
   Options,
 } from '../core/types';
 import { getCellData } from '../core/utils/getCellData';
-import { getCellClassName, getCellStyle } from '../core/utils/getCellStyle';
+import {
+  getCellInnerDivStylingProps,
+  getCellOuterDivClassName,
+} from '../core/utils/getCellStylingProps';
 import {
   getPluginCellSpacing,
   normalizeCellSpacing,
 } from '../core/utils/getCellSpacing';
 import NoopProvider from '../core/components/Cell/NoopProvider';
-import { gridClass } from '../core/components/Cell/utils/gridClass';
 import { getChildCellPlugins } from '../core/utils/getAvailablePlugins';
 
 const rowHasInlineChildren = ({ cells }) =>
@@ -68,14 +70,6 @@ const HTMLCell: React.FC<
   const { size, hasInlineNeighbour, inline, isDraftI18n, isDraft } = cell;
   const hasChildren = cell.rows?.length > 0;
 
-  const cnOuter = classNames(gridClass(size), {
-    'react-page-cell-has-inline-neighbour': hasInlineNeighbour,
-    [`react-page-cell-inline-${inline || ''}`]: inline,
-  });
-  const cnInner = classNames('react-page-cell', {
-    'react-page-cell-leaf': !hasChildren,
-  });
-
   if (isDraftI18n?.[lang] ?? isDraft) {
     return null;
   }
@@ -83,11 +77,16 @@ const HTMLCell: React.FC<
   const plugin = cell.plugin
     ? cellPlugins.find((p) => p.id === cell.plugin.id)
     : null;
+  const outerClasses = getCellOuterDivClassName({
+    hasChildren,
+    size,
+    hasInlineNeighbour,
+    inline,
+  });
+
   if (plugin) {
     const { Renderer } = plugin;
 
-    const cellStyle = getCellStyle(plugin, data);
-    const cellAdditionalClassName = getCellClassName(plugin, data);
     const Provider =
       plugin.Provider && !plugin.disableProviderInReadOnly
         ? plugin.Provider
@@ -115,48 +114,45 @@ const HTMLCell: React.FC<
       data,
       pluginId: plugin?.id,
     });
+
+    const cellOuterStyle =
+      cellSpacing.y !== 0 || cellSpacing.x !== 0
+        ? {
+            padding: `${cellSpacing.y / 2}px ${cellSpacing.x / 2}px`,
+          }
+        : undefined;
+    const innerStylingProps = getCellInnerDivStylingProps(cell, plugin, data);
+
     return (
       <Provider {...props}>
-        <div
-          className={cnOuter}
-          style={{ padding: `${cellSpacing.y / 2}px ${cellSpacing.x / 2}px` }}
-        >
-          <div className={cnInner}>
+        <div className={outerClasses} style={cellOuterStyle}>
+          <div {...innerStylingProps}>
             <div
-              style={cellStyle}
-              className={
-                'react-page-cell-inner' +
-                (cell.rows?.length > 0 ? '' : ' react-page-cell-inner-leaf') +
-                (cellAdditionalClassName ? ' ' + cellAdditionalClassName : '')
+              style={
+                hasInlineNeighbour
+                  ? null
+                  : {
+                      display: 'flex',
+                      flexDirection: 'column',
+                      height: '100%',
+                    }
               }
             >
-              <div
-                style={
-                  hasInlineNeighbour
-                    ? null
-                    : {
-                        display: 'flex',
-                        flexDirection: 'column',
-                        height: '100%',
-                      }
-                }
-              >
-                <Renderer {...props}>
-                  {cell.rows?.length ? (
-                    <div style={{ margin: `${-pluginCellSpacing.y / 2}px 0` }}>
-                      {cell.rows?.map((r: Row) => (
-                        <HTMLRow
-                          key={r.id}
-                          {...r}
-                          cellPlugins={childCellPlugins}
-                          cellSpacing={pluginCellSpacing as CellSpacing}
-                          lang={lang}
-                        />
-                      ))}
-                    </div>
-                  ) : null}
-                </Renderer>
-              </div>
+              <Renderer {...props}>
+                {cell.rows?.length ? (
+                  <div style={{ margin: `${-pluginCellSpacing.y / 2}px 0` }}>
+                    {cell.rows?.map((r: Row) => (
+                      <HTMLRow
+                        key={r.id}
+                        {...r}
+                        cellPlugins={childCellPlugins}
+                        cellSpacing={pluginCellSpacing as CellSpacing}
+                        lang={lang}
+                      />
+                    ))}
+                  </div>
+                ) : null}
+              </Renderer>
             </div>
           </div>
         </div>
@@ -164,27 +160,26 @@ const HTMLCell: React.FC<
     );
   } else if (cell.rows?.length > 0) {
     return (
-      <div className={cnOuter} style={{ padding: `0 ${cellSpacing.x / 2}px` }}>
-        <div className={cnInner}>
-          {cell.rows.map((r: Row) => (
-            <HTMLRow
-              key={r.id}
-              {...r}
-              lang={lang}
-              cellPlugins={cellPlugins}
-              cellSpacing={cellSpacing}
-            />
-          ))}
-        </div>
+      <div
+        className={outerClasses}
+        style={{ padding: `0 ${cellSpacing.x / 2}px` }}
+      >
+        {cell.rows.map((r: Row) => (
+          <HTMLRow
+            key={r.id}
+            {...r}
+            lang={lang}
+            cellPlugins={cellPlugins}
+            cellSpacing={cellSpacing}
+          />
+        ))}
       </div>
     );
   }
 
   return (
-    <div className={cnOuter}>
-      <div className={cnInner}>
-        <div className="react-page-cell-inner" />
-      </div>
+    <div className={outerClasses}>
+      <div className="react-page-cell-inner" />
     </div>
   );
 });
