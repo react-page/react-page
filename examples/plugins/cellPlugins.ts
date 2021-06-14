@@ -33,6 +33,7 @@ import customLayoutPluginWithInitialState from './customLayoutPluginWithInitialS
 import { defaultSlate, customizedSlate } from './slate';
 import customContentPluginTwitter from './customContentPluginTwitter';
 import codeSnippet from './codeSnippet';
+import contactForm from './contactForm';
 
 const fakeImageUploadService: (url: string) => ImageUploadType = (
   defaultUrl
@@ -67,6 +68,7 @@ export const cellPlugins: CellPlugin[] = [
   customContentPluginWithListField,
   customContentPluginTwitter,
   codeSnippet,
+  contactForm,
 
   background({
     imageUpload: fakeImageUploadService('/images/sea-bg.jpg'),
