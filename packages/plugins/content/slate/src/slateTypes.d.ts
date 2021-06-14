@@ -1,12 +1,6 @@
 import type { BaseEditor, Descendant } from 'slate';
 import type { ReactEditor } from 'slate-react';
-
-export type Data = Record<string, unknown> | unknown;
-type CustomText = {
-  text: string;
-  data?: Data;
-  type?: string;
-};
+import type { Data, CustomText } from './types';
 
 declare module 'slate' {
   interface CustomTypes {

@@ -6,7 +6,7 @@ import DoneIcon from '@material-ui/icons/Done';
 import type { JsonSchema } from '@react-page/editor';
 import { makeUniformsSchema, AutoForm, AutoFields } from '@react-page/editor';
 import React, { useCallback, useRef, useState } from 'react';
-import type { Data } from '../../slateTypes';
+import type { Data } from '../../types';
 
 import type { SlatePluginControls } from '../../types/slatePluginDefinitions';
 

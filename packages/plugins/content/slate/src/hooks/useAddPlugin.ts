@@ -8,7 +8,7 @@ import type { SlatePluginDefinition } from '../types/slatePluginDefinitions';
 import { getCurrentNodeWithPlugin } from './useCurrentNodeWithPlugin';
 import { removePlugin } from './useRemovePlugin';
 import getCurrentData from '../utils/getCurrentData';
-import type { Data } from '../slateTypes';
+import type { Data } from '../types';
 
 export const addPlugin = <T extends Data>(
   editor: Editor,

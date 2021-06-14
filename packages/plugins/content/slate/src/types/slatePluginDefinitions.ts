@@ -1,7 +1,7 @@
 import type { Translations } from './translations';
 import type { Node, Editor } from 'slate';
 import type { JsonSchema } from '@react-page/editor';
-import type { Data } from '../slateTypes';
+import type { Data } from '../types';
 
 export interface PluginButtonProps {
   translations?: Partial<Translations>;
