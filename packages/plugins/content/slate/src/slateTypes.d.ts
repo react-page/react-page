@@ -17,3 +17,5 @@ declare module 'slate' {
     Text: CustomText;
   }
 }
+
+export {};
