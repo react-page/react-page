@@ -16,7 +16,7 @@ import { useSetDialogIsVisible } from './DialogVisibleProvider';
 
 import ToolbarButton from './ToolbarButton';
 import { useUiTranslator } from '@react-page/editor';
-import type { Data } from '../slateTypes';
+import type { Data } from '../types';
 
 type Props<T extends Data> = {
   plugin: SlatePluginDefinition<T>;
