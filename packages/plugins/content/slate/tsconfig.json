@@ -5,11 +5,13 @@
     "rootDir": "src",
     "outDir": "lib",
     "baseUrl": ".",
+
     "paths": {
       "react": ["../../../../node_modules/@types/react/index"]
     }
   },
   "include": ["src"],
+
   "exclude": ["lib", "node_modules", "src/**/__tests__/**/*.*"],
   "references": [{ "path": "../../../editor" }]
 }

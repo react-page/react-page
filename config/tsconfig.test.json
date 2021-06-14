@@ -19,7 +19,11 @@
     "declarationMap": true,
     "composite": true,
     "lib": ["es7", "dom"],
-    "types": ["node", "jest"],
+    "types": [
+      "node",
+      "jest",
+      "../packages/plugins/content/slate/src/slateTypes"
+    ],
     "paths": {
       "react": ["./node_modules/@types/react/index"],
       "slate": ["./node_modules/@types/slate/index"]
