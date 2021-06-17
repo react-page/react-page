@@ -1,14 +1,9 @@
-import { Transforms } from 'slate';
 import type { SlatePlugin } from '../types/SlatePlugin';
 import type { SlateComponentPluginDefinition } from '../types/slatePluginDefinitions';
 import createListItemPlugin from './createListItemPlugin';
 import type { HtmlBlockData } from './createSimpleHtmlBlockPlugin';
 import createSimpleHtmlBlockPlugin from './createSimpleHtmlBlockPlugin';
-import {
-  decreaseListIndention,
-  getActiveList,
-  increaseListIndention,
-} from './utils/listUtils';
+
 type ListDef = {
   type: string;
   icon?: JSX.Element;
@@ -44,7 +39,10 @@ function createSlatePlugins<T, CT>(
       noButton: def.noButton,
       tagName: def.tagName,
 
-      customAdd: (editor) => {
+      customAdd: async (editor) => {
+        const { getActiveList, increaseListIndention } = await import(
+          './utils/listUtils'
+        );
         const currentList = getActiveList(editor, def.allListTypes);
 
         if (!currentList) {
@@ -58,18 +56,20 @@ function createSlatePlugins<T, CT>(
           );
         } else {
           // change type
+          const { Transforms } = await import('slate');
           Transforms.setNodes(
             editor,
             {
               type: def.type,
-            } as any,
+            },
             {
               at: currentList[1],
             }
           );
         }
       },
-      customRemove: (editor) => {
+      customRemove: async (editor) => {
+        const { decreaseListIndention } = await import('./utils/listUtils');
         decreaseListIndention(editor, {
           allListTypes: def.allListTypes,
           listItemType: def.listItem.type,

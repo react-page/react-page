@@ -9,11 +9,12 @@ import type { Cell, CellDrag, Node, Row } from '../../types/node';
 import { isRow } from '../../types/node';
 import deepEquals from '../../utils/deepEquals';
 import { getCellData } from '../../utils/getCellData';
-import { getCellStyle } from '../../utils/getCellStyle';
+import { getCellInnerDivStylingProps } from '../../utils/getCellStylingProps';
 import { getDropLevels } from '../../utils/getDropLevels';
 import { useUpdateCellData } from './nodeActions';
 import { useLang, useOptions } from './options';
 import { getAvailablePlugins } from '../../utils/getAvailablePlugins';
+import type { CSSProperties } from 'react';
 
 type NodeSelector<T> = (node: Node, ancestors: Node[]) => T;
 
@@ -283,21 +284,27 @@ export const useCellData = (nodeId: string, lang?: string) => {
 };
 
 /**
- *returns the style of a cell if the plugin of th cell configures a custom style function
+ *returns style and classname of a cell's inner div
  * @param nodeId a cell id
  * @param lang a language key (optionally)
  * @returns the data object in the given language of the given cell
  */
-export const useCellStyle = (nodeId: string, lang?: string) => {
+export const useCellInnerDivStylingProps = (
+  nodeId: string,
+  lang?: string
+): {
+  className: string;
+  style: CSSProperties;
+} => {
   const plugin = usePluginOfCell(nodeId);
 
   const currentLang = useLang();
   const theLang = lang ?? currentLang;
 
-  return useCellProps(
-    nodeId,
-    (c) => getCellStyle(plugin, getCellData(c, theLang)) ?? {}
-  );
+  return useCellProps(nodeId, (c) => {
+    const data = getCellData(c, theLang);
+    return getCellInnerDivStylingProps(c, plugin, data);
+  });
 };
 
 /**

@@ -1,5 +1,8 @@
 import { Editor, Path, Text, Transforms } from 'slate';
 
+/*
+please load this file lazily, as it imports slate to avoid bloating read only mode
+*/
 type ListBaseDef = {
   allListTypes: string[];
   listItemType: string;
