@@ -27,24 +27,24 @@
     "@material-ui/icons": "*"
   },
   "dependencies": {
+    "@emotion/is-prop-valid": "^0.8.8",
     "@react-page/editor": "0.0.0",
+    "cssstyle": "^2.3.0",
     "deep-rename-keys": "^0.2.1",
     "is-hotkey": "^0.1.6",
-    "xmldom": "^0.5.0",
-    "cssstyle": "^2.3.0",
+    "lodash.clonedeep": "^4.5.0",
     "lodash.debounce": "^4.0.8",
-    "lodash.throttle": "^4.1.1",
+    "lodash.flatten": "^4.4.0",
     "lodash.isempty": "^4.4.0",
     "lodash.isobject": "^3.0.2",
-    "lodash.flatten": "^4.4.0",
-    "lodash.clonedeep": "^4.5.0",
+    "lodash.throttle": "^4.1.1",
     "react-portal": "^4.2.1",
     "redux-undo": "^1.0.0",
     "slate": "^0.63.0",
-    "slate-react": "^0.65.2",
     "slate-hyperscript": "^0.62.0",
-    "@emotion/is-prop-valid": "^0.8.8",
-    "slate-react-presentation": "^0.1.0"
+    "slate-react": "^0.65.2",
+    "@react-page/slate-react-presentation": "^0.1.0",
+    "xmldom": "^0.5.0"
   },
   "publishConfig": {
     "access": "public"
