@@ -4,13 +4,10 @@
 - [Getting started](/quick-start.md)
 - [Editor component](/editor.md)
 - [Rich text editing](/slate.md)
+- [Inbuilt Cell Plugins](/builtin_plugins.md)
 - [Custom Cell plugins](/custom-cell-plugins.md)
-- [Builtin Cell Plugins](/builtin_plugins.md)
-- [Recipes & Tips](/recipes.md)
 - Integrations
-
   - [React Admin](/integration-react-admin.md)
-
 - FAQ
   - [SSR](/server-side-rendering.md)
   - [Bundle size](/bundle-size.md)
