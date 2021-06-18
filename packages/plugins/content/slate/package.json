@@ -43,7 +43,7 @@
     "slate": "^0.63.0",
     "slate-hyperscript": "^0.62.0",
     "slate-react": "^0.65.2",
-    "@react-page/slate-react-presentation": "^0.1.0",
+    "@react-page/slate-react-presentation": "^0.1.1",
     "xmldom": "^0.5.0"
   },
   "publishConfig": {

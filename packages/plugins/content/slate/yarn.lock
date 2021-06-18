@@ -14,10 +14,10 @@
   resolved "https://registry.yarnpkg.com/@emotion/memoize/-/memoize-0.7.4.tgz#19bf0f5af19149111c40d98bb0cf82119f5d9eeb"
   integrity sha512-Ja/Vfqe3HpuzRsG1oBtWTHk2PGZ7GR+2Vz5iYGelAw8dx32K0y7PjVuxK6z1nMpZOqAFsRUPCkK1YjJ56qJlgw==
 
-"@react-page/slate-react-presentation@^0.1.0":
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/@react-page/slate-react-presentation/-/slate-react-presentation-0.1.0.tgz#fde38b54d4b4ccefaa47b97054f9cb86fd432b4f"
-  integrity sha512-ir2pMC+RxczdXt2oX/6x46iHPM6gE6r2n8t4oT8NCtUBZoPnszxlYdIEUyTO32f4MnIPj7Oj+GCQtmP9MxFj2Q==
+"@react-page/slate-react-presentation@^0.1.1":
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/@react-page/slate-react-presentation/-/slate-react-presentation-0.1.1.tgz#80821e4445b6efac735e8c78fc2f1d9105b64723"
+  integrity sha512-q4ubyqjA1ETsGljvCQJFIn97q+19ZHegvHQJg+HVxcSvBWm77j74lf0mC1JvlOrEgPN+0qw+B9qEKM7c/mH+6Q==
 
 "@types/esrever@^0.2.0":
   version "0.2.0"
