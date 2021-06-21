@@ -1,19 +1,38 @@
 import { useCallback } from 'react';
 import { useEffect } from 'react';
-import { useFocusedNodeId, useSetInsertMode } from '../hooks';
+import {
+  useBlurAllCells,
+  useFocusedNodeId,
+  useIsInsertMode,
+  useSetEditMode,
+  useSetInsertMode,
+} from '../hooks';
 
 //For handling the slash key to open cell plugins globally
 const GlobalHotKeys = () => {
   const setInsertMode = useSetInsertMode();
+  const setEditMode = useSetEditMode();
+  const isInsertMode = useIsInsertMode();
+  const blurAll = useBlurAllCells();
   const someCellIsFocused = Boolean(useFocusedNodeId());
 
   const handleKeyDown = useCallback(
     (e: KeyboardEvent) => {
-      if (!someCellIsFocused && e?.key === '/') {
+      if (e.key === 'Escape') {
+        if (someCellIsFocused) {
+          blurAll();
+        }
+        if (isInsertMode) {
+          setEditMode();
+        }
+      }
+      if (someCellIsFocused && e.key === 'Escape') {
+        blurAll();
+      } else if (!someCellIsFocused && e?.key === '/') {
         setInsertMode();
       }
     },
-    [setInsertMode, someCellIsFocused]
+    [isInsertMode, setEditMode, setInsertMode, someCellIsFocused, blurAll]
   );
   useEffect(() => {
     window?.addEventListener('keydown', handleKeyDown);
