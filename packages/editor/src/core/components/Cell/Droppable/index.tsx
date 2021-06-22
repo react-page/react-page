@@ -14,7 +14,6 @@ import {
   useIsInsertMode,
   useIsLayoutMode,
   useNodeHoverPosition,
-  useOptions,
   usePluginOfCell,
   useOption,
   useAllCellPluginsForNode,

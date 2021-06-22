@@ -31,347 +31,187 @@ export const demo: Value = {
         },
       ],
     },
+
     {
-      id: '31d7bd',
+      id: 'loa2uC',
       cells: [
         {
-          id: '0sACer',
+          id: '2YMvkH',
           size: 12,
+          plugin: { id: 'ory/editor/core/content/slate', version: 1 },
+          dataI18n: {
+            en: {
+              slate: [
+                {
+                  type: 'PARAGRAPH/PARAGRAPH',
+                  children: [
+                    { text: 'ReactPage', 'EMPHASIZE/STRONG': true },
+                    {
+                      text: ' is a next level content editor for react.',
+                    },
+                  ],
+                },
+                {
+                  type: 'PARAGRAPH/PARAGRAPH',
+                  children: [
+                    { text: 'It enables ' },
+                    {
+                      text: 'webmasters and content editors ',
+                      'EMPHASIZE/EM': true,
+                      'EMPHASIZE/STRONG': true,
+                    },
+                    {
+                      text: 'to create the content they want with the ',
+                    },
+                    { text: '<Components />', 'CODE/CODE': true },
+                    { text: ' you provide as a developer.' },
+                  ],
+                },
+              ],
+            },
+          },
+          rows: [],
+          inline: null,
+        },
+      ],
+    },
+    {
+      id: '2WaR9W',
+      cells: [
+        {
+          id: 'tLyVTz',
+          size: 12,
+          plugin: {
+            id: 'ory/editor/core/layout/background',
+            version: 1,
+          },
+          dataI18n: {
+            en: {
+              modeFlag: 5,
+              backgroundColor: { r: 0, g: 0, b: 0, a: 1 },
+              gradients: [
+                {
+                  deg: 180,
+                  opacity: 0.75,
+                  colors: [
+                    { color: { r: 72, g: 39, b: 39, a: 1 } },
+                    { color: { r: 0, g: 0, b: 0, a: 0.83 } },
+                  ],
+                },
+              ],
+            },
+          },
           rows: [
             {
-              id: 'loa2uC',
+              id: 'lF37AJ',
               cells: [
                 {
-                  id: '2YMvkH',
-                  size: 12,
-                  plugin: { id: 'ory/editor/core/content/slate', version: 1 },
-                  dataI18n: {
-                    en: {
-                      slate: [
-                        {
-                          type: 'PARAGRAPH/PARAGRAPH',
-                          children: [
-                            { text: 'ReactPage', 'EMPHASIZE/STRONG': true },
-                            {
-                              text:
-                                ' is a next level content editor for react.',
-                            },
-                          ],
-                        },
-                        {
-                          type: 'PARAGRAPH/PARAGRAPH',
-                          children: [
-                            { text: 'It enables ' },
-                            {
-                              text: 'webmasters and content editors ',
-                              'EMPHASIZE/EM': true,
-                              'EMPHASIZE/STRONG': true,
-                            },
-                            {
-                              text: 'to create the content they want with the ',
-                            },
-                            { text: '<Components />', 'CODE/CODE': true },
-                            { text: ' you provide as a developer.' },
-                          ],
-                        },
-                      ],
-                    },
+                  id: '6oj6UO',
+                  size: 6,
+                  plugin: {
+                    id: 'ory/editor/core/content/image',
+                    version: 1,
                   },
+                  dataI18n: { en: null },
                   rows: [],
                   inline: null,
                 },
-              ],
-            },
-            {
-              id: '2WaR9W',
-              cells: [
                 {
-                  id: 'tLyVTz',
-                  size: 12,
+                  id: '1KvW1q',
+                  size: 6,
                   plugin: {
-                    id: 'ory/editor/core/layout/background',
+                    id: 'ory/editor/core/content/slate',
                     version: 1,
                   },
-                  dataI18n: {
-                    en: {
-                      modeFlag: 5,
-                      backgroundColor: { r: 0, g: 0, b: 0, a: 1 },
-                      gradients: [
-                        {
-                          deg: 180,
-                          opacity: 0.75,
-                          colors: [
-                            { color: { r: 72, g: 39, b: 39, a: 1 } },
-                            { color: { r: 0, g: 0, b: 0, a: 0.83 } },
-                          ],
-                        },
-                      ],
-                    },
-                  },
-                  rows: [
-                    {
-                      id: 'lF37AJ',
-                      cells: [
-                        {
-                          id: '6oj6UO',
-                          size: 6,
-                          plugin: {
-                            id: 'ory/editor/core/content/image',
-                            version: 1,
-                          },
-                          dataI18n: { en: null },
-                          rows: [],
-                          inline: null,
-                        },
-                        {
-                          id: '1KvW1q',
-                          size: 6,
-                          plugin: {
-                            id: 'ory/editor/core/content/slate',
-                            version: 1,
-                          },
-                          dataI18n: {
-                            en: {
-                              slate: [
-                                {
-                                  type: 'HEADINGS/HEADING-TWO',
-                                  children: [
-                                    {
-                                      text: 'Batteries included - Key features',
-                                    },
-                                  ],
-                                },
-                                {
-                                  type: 'LISTS/UNORDERED-LIST',
-                                  children: [
-                                    {
-                                      children: [
-                                        {
-                                          text: 'powerful and customizable ',
-                                        },
-                                        {
-                                          text: 'RichText Editor (',
-                                          'EMPHASIZE/STRONG': true,
-                                        },
-                                        {
-                                          text: 'powered by ',
-                                          'EMPHASIZE/EM': true,
-                                        },
-                                        {
-                                          type: 'LINK/LINK',
-                                          children: [
-                                            { text: '', 'EMPHASIZE/EM': true },
-                                          ],
-                                          data: {
-                                            href:
-                                              'https://github.com/vazco/uniforms',
-                                          },
-                                        },
-                                        { text: '', 'EMPHASIZE/EM': true },
-                                        {
-                                          type: 'LINK/LINK',
-                                          children: [
-                                            {
-                                              text: 'Slate',
-                                              'EMPHASIZE/EM': true,
-                                            },
-                                          ],
-                                          data: {
-                                            href:
-                                              'https://github.com/ianstormtaylor/slate/',
-                                          },
-                                        },
-                                        { text: ')' },
-                                      ],
-                                      type: 'LISTS/LIST-ITEM',
-                                    },
-                                    {
-                                      children: [
-                                        {
-                                          text:
-                                            '12-column grid responsive grid layout',
-                                        },
-                                      ],
-                                      type: 'LISTS/LIST-ITEM',
-                                    },
-                                    {
-                                      children: [{ text: 'Drag & Drop cells' }],
-                                      type: 'LISTS/LIST-ITEM',
-                                    },
-                                    {
-                                      children: [
-                                        {
-                                          text:
-                                            'Undo & Redo, copy and hotkey support',
-                                        },
-                                      ],
-                                      type: 'LISTS/LIST-ITEM',
-                                    },
-                                    {
-                                      children: [
-                                        { text: 'Multi-Language support' },
-                                      ],
-                                      type: 'LISTS/LIST-ITEM',
-                                    },
-                                    {
-                                      children: [
-                                        {
-                                          text:
-                                            'Add any custom Components you like',
-                                        },
-                                      ],
-                                      type: 'LISTS/LIST-ITEM',
-                                    },
-                                  ],
-                                },
-                              ],
-                            },
-                          },
-                          rows: [],
-                          inline: null,
-                        },
-                      ],
-                    },
-                  ],
-                  inline: null,
-                },
-              ],
-            },
-            {
-              id: 'mmzpyU',
-              cells: [
-                {
-                  id: 'NXAV7x',
-                  size: 12,
-                  plugin: { id: 'ory/editor/core/content/slate', version: 1 },
                   dataI18n: {
                     en: {
                       slate: [
                         {
                           type: 'HEADINGS/HEADING-TWO',
-                          children: [{ text: "It's just a react component!" }],
-                        },
-                      ],
-                    },
-                  },
-                  rows: [],
-                  inline: null,
-                },
-              ],
-            },
-            {
-              id: 'Xr2ZzV',
-              cells: [
-                {
-                  id: '3024eg',
-                  size: 6,
-                  rows: [
-                    {
-                      id: 'ifqqC0',
-                      cells: [
-                        {
-                          id: 'Vo5LK1',
-                          inline: 'right',
-                          size: 4,
-                          plugin: {
-                            id: 'ory/editor/core/content/image',
-                            version: 1,
-                          },
-                          dataI18n: {
-                            en: {
-                              src:
-                                'https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg',
+                          children: [
+                            {
+                              text: 'Batteries included - Key features',
                             },
-                          },
-                          rows: [],
+                          ],
                         },
                         {
-                          id: 'cFiB02',
-                          size: 12,
-                          plugin: {
-                            id: 'ory/editor/core/content/slate',
-                            version: 1,
-                          },
-                          dataI18n: {
-                            en: {
-                              slate: [
+                          type: 'LISTS/UNORDERED-LIST',
+                          children: [
+                            {
+                              children: [
                                 {
-                                  children: [
-                                    {
-                                      text: 'ReactPage',
-                                      'EMPHASIZE/STRONG': true,
-                                    },
-                                    {
-                                      text:
-                                        " has a simple API - it's basically just like a form field and can be included in any project. ",
-                                    },
-                                  ],
+                                  text: 'powerful and customizable ',
                                 },
                                 {
-                                  type: 'PARAGRAPH/PARAGRAPH',
-                                  children: [
-                                    { text: "Pass it's current " },
-                                    { text: 'value', 'CODE/CODE': true },
-                                    {
-                                      text:
-                                        ' that you might read from your datastore and update the value when ',
-                                    },
-                                    { text: 'onChange', 'CODE/CODE': true },
-                                    { text: ' is called. ' },
-                                    {
-                                      text: "It's that simple.",
-                                      'EMPHASIZE/STRONG': true,
-                                    },
-                                  ],
+                                  text: 'RichText Editor (',
+                                  'EMPHASIZE/STRONG': true,
                                 },
                                 {
-                                  type: 'PARAGRAPH/PARAGRAPH',
+                                  text: 'powered by ',
+                                  'EMPHASIZE/EM': true,
+                                },
+                                {
+                                  type: 'LINK/LINK',
                                   children: [
-                                    { text: 'Set ' },
-                                    {
-                                      text: 'readOnly={true}',
-                                      'CODE/CODE': true,
-                                    },
-                                    {
-                                      text:
-                                        ' whenever you want to display content without editing capabilities. ',
-                                    },
-                                    {
-                                      text: 'ReactPage',
-                                      'EMPHASIZE/STRONG': true,
-                                    },
-                                    {
-                                      text:
-                                        ' will only load what is really required for displaying thanks to code splitting. This results in a ',
-                                    },
-                                    {
-                                      text: 'small bundle size.',
-                                      'EMPHASIZE/STRONG': true,
-                                    },
-                                    { text: ' ' },
+                                    { text: '', 'EMPHASIZE/EM': true },
                                   ],
+                                  data: {
+                                    href: 'https://github.com/vazco/uniforms',
+                                  },
+                                },
+                                { text: '', 'EMPHASIZE/EM': true },
+                                {
+                                  type: 'LINK/LINK',
+                                  children: [
+                                    {
+                                      text: 'Slate',
+                                      'EMPHASIZE/EM': true,
+                                    },
+                                  ],
+                                  data: {
+                                    href:
+                                      'https://github.com/ianstormtaylor/slate/',
+                                  },
+                                },
+                                { text: ')' },
+                              ],
+                              type: 'LISTS/LIST-ITEM',
+                            },
+                            {
+                              children: [
+                                {
+                                  text: '12-column grid responsive grid layout',
                                 },
                               ],
+                              type: 'LISTS/LIST-ITEM',
                             },
-                          },
-                          hasInlineNeighbour: 'Vo5LK1',
-                          rows: [],
+                            {
+                              children: [{ text: 'Drag & Drop cells' }],
+                              type: 'LISTS/LIST-ITEM',
+                            },
+                            {
+                              children: [
+                                {
+                                  text: 'Undo & Redo, copy and hotkey support',
+                                },
+                              ],
+                              type: 'LISTS/LIST-ITEM',
+                            },
+                            {
+                              children: [{ text: 'Multi-Language support' }],
+                              type: 'LISTS/LIST-ITEM',
+                            },
+                            {
+                              children: [
+                                {
+                                  text: 'Add any custom Components you like',
+                                },
+                              ],
+                              type: 'LISTS/LIST-ITEM',
+                            },
+                          ],
                         },
                       ],
-                    },
-                  ],
-                  inline: null,
-                  dataI18n: null,
-                },
-                {
-                  id: 'pSz3cW',
-                  size: 6,
-                  plugin: { id: 'code-snippet', version: 1 },
-                  dataI18n: {
-                    en: {
-                      language: 'tsx',
-                      code:
-                        "\nimport Editor from '@react-page/editor'\n\n// use ReactPage for editing Content\n<Editor\n    cellPlugins={yourCellPlugins}\n    value={theCurrentValue}\n    onChange={newValue => saveTheValue(newValue)}\n/>\n\n// or just for displaying content\n<Editor\n    cellPlugins={yourCellPlugins}\n    value={theCurrentValue}\n    readOnly={true}\n/>\n",
                     },
                   },
                   rows: [],
@@ -381,10 +221,152 @@ export const demo: Value = {
             },
           ],
           inline: null,
-          dataI18n: null,
         },
       ],
     },
+    {
+      id: 'mmzpyU',
+      cells: [
+        {
+          id: 'NXAV7x',
+          size: 12,
+          plugin: { id: 'ory/editor/core/content/slate', version: 1 },
+          dataI18n: {
+            en: {
+              slate: [
+                {
+                  type: 'HEADINGS/HEADING-TWO',
+                  children: [{ text: "It's just a react component!" }],
+                },
+              ],
+            },
+          },
+          rows: [],
+          inline: null,
+        },
+      ],
+    },
+    {
+      id: 'Xr2ZzV',
+      cells: [
+        {
+          id: '3024eg',
+          size: 6,
+          rows: [
+            {
+              id: 'ifqqC0',
+              cells: [
+                {
+                  id: 'Vo5LK1',
+                  inline: 'right',
+                  size: 4,
+                  plugin: {
+                    id: 'ory/editor/core/content/image',
+                    version: 1,
+                  },
+                  dataI18n: {
+                    en: {
+                      src:
+                        'https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg',
+                    },
+                  },
+                  rows: [],
+                },
+                {
+                  id: 'cFiB02',
+                  size: 12,
+                  plugin: {
+                    id: 'ory/editor/core/content/slate',
+                    version: 1,
+                  },
+                  dataI18n: {
+                    en: {
+                      slate: [
+                        {
+                          children: [
+                            {
+                              text: 'ReactPage',
+                              'EMPHASIZE/STRONG': true,
+                            },
+                            {
+                              text:
+                                " has a simple API - it's basically just like a form field and can be included in any project. ",
+                            },
+                          ],
+                        },
+                        {
+                          type: 'PARAGRAPH/PARAGRAPH',
+                          children: [
+                            { text: "Pass it's current " },
+                            { text: 'value', 'CODE/CODE': true },
+                            {
+                              text:
+                                ' that you might read from your datastore and update the value when ',
+                            },
+                            { text: 'onChange', 'CODE/CODE': true },
+                            { text: ' is called. ' },
+                            {
+                              text: "It's that simple.",
+                              'EMPHASIZE/STRONG': true,
+                            },
+                          ],
+                        },
+                        {
+                          type: 'PARAGRAPH/PARAGRAPH',
+                          children: [
+                            { text: 'Set ' },
+                            {
+                              text: 'readOnly={true}',
+                              'CODE/CODE': true,
+                            },
+                            {
+                              text:
+                                ' whenever you want to display content without editing capabilities. ',
+                            },
+                            {
+                              text: 'ReactPage',
+                              'EMPHASIZE/STRONG': true,
+                            },
+                            {
+                              text:
+                                ' will only load what is really required for displaying thanks to code splitting. This results in a ',
+                            },
+                            {
+                              text: 'small bundle size.',
+                              'EMPHASIZE/STRONG': true,
+                            },
+                            { text: ' ' },
+                          ],
+                        },
+                      ],
+                    },
+                  },
+                  hasInlineNeighbour: 'Vo5LK1',
+                  rows: [],
+                },
+              ],
+            },
+          ],
+          inline: null,
+          dataI18n: null,
+        },
+        {
+          id: 'pSz3cW',
+          size: 6,
+          plugin: { id: 'code-snippet', version: 1 },
+          dataI18n: {
+            en: {
+              language: 'tsx',
+              code:
+                "\nimport Editor from '@react-page/editor'\n\n// use ReactPage for editing Content\n<Editor\n    cellPlugins={yourCellPlugins}\n    value={theCurrentValue}\n    onChange={newValue => saveTheValue(newValue)}\n/>\n\n// or just for displaying content\n<Editor\n    cellPlugins={yourCellPlugins}\n    value={theCurrentValue}\n    readOnly={true}\n/>\n",
+            },
+          },
+          rows: [],
+          inline: null,
+        },
+      ],
+    },
+
     {
       id: 'LmbnJt',
       cells: [

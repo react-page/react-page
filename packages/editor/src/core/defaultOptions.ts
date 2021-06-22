@@ -20,6 +20,8 @@ export const DEFAULT_OPTIONS: Required<Options> = {
   middleware: [],
   store: null,
   hideEditorSidebar: false,
+  showMoveButtonsInBottomToolbar: true,
+  showMoveButtonsInLayoutMode: true,
 };
 
 export const DEFAULT_RENDER_OPTIONS: Required<RenderOptions> = {

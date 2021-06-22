@@ -27,7 +27,7 @@
       width: 2rem;
       height: 2rem;
       cursor: move;
-      background: var(--minBlack);
+      background: var(--faintBlack);
       content: '';
       z-index: 500;
     }
@@ -95,7 +95,7 @@
       > div
       > div
       > .react-page-cell-draggable-overlay {
-      background: var(--minBlack);
+      background: var(--faintBlack);
       border: 1px solid var(--lightWhite);
       background-blend-mode: screen;
     }
@@ -111,10 +111,29 @@
     }
 
     .react-page-cell-draggable-is-dragging,
-    .react-page-cell-handle-is-dragging + div > .react-page-cell-droppable > .react-page-cell-draggable,
-    .react-page-cell-handle-is-dragging + div > .react-page-cell-droppable > .react-page-cell-draggable-in-edit {
+    .react-page-cell-handle-is-dragging
+      + div
+      > .react-page-cell-droppable
+      > .react-page-cell-draggable,
+    .react-page-cell-handle-is-dragging
+      + div
+      > .react-page-cell-droppable
+      > .react-page-cell-draggable-in-edit {
       opacity: 0.4;
       outline: none;
+    }
+  }
+
+  &&-mode-layout {
+    .react-page-cell-draggable-overlay {
+      border: 1px solid rgba(0, 0, 0, 0.2);
+    }
+    .react-page-cell-move-actions {
+      opacity: 0.4;
+      transition: 0.6s;
+    }
+    .react-page-cell:hover > .react-page-cell-move-actions {
+      opacity: 0.8;
     }
   }
 }

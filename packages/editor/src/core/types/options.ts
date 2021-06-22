@@ -45,6 +45,16 @@ export type Options = {
   zoomFactors?: number[];
 
   /**
+   * whether to show move buttons in layout mode
+   */
+  showMoveButtonsInLayoutMode?: boolean;
+
+  /**
+   * whether to show move buttons in bottom toolbar
+   */
+  showMoveButtonsInBottomToolbar?: boolean;
+
+  /**
    * Use this function to replace labels for i18n support.
    * @param key the key of the translation (currently the english translation)
    */
