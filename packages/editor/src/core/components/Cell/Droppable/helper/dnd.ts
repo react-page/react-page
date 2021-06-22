@@ -54,9 +54,6 @@ export const onHover = throttle(
     }
 
     last = { hoverId: target.id, dragId: drag.cell.id };
-    const allowInlineNeighbours =
-      options.cellPlugins.find((p) => p.id === target.pluginId)
-        ?.allowInlineNeighbours ?? false;
 
     computeAndDispatchHover(
       target,
@@ -64,8 +61,7 @@ export const onHover = throttle(
       monitor,
       element,
       actions,
-      options,
-      `10x10${allowInlineNeighbours ? '' : '-no-inline'}`
+      options
     );
   },
   delay,
@@ -96,16 +92,12 @@ export const onDrop = (
 
   last = { hoverId: target.id, dragId: drag.cell.id };
 
-  const allowInlineNeighbours =
-    options.cellPlugins.find((p) => p.id === target.pluginId)
-      ?.allowInlineNeighbours ?? false;
   computeAndDispatchInsert(
     target,
     drag.cell,
     monitor,
     element,
     actions,
-    options,
-    `10x10${allowInlineNeighbours ? '' : '-no-inline'}`
+    options
   );
 };

@@ -10,6 +10,11 @@ import type {
 import deepEquals from '../../utils/deepEquals';
 import logger from '../logger';
 
+/**
+ *
+ * FIXME: this logic needs an overhowl, because it is not really understandable
+ *
+ */
 export type HoverTarget = {
   id: string;
   inline?: string;
@@ -97,17 +102,9 @@ const c = classes;
 /**
  * A list of matrices that are used to define the callback function.
  *
- * @type {{6x6: *[], 10x10: *[], 10x10-no-inline: *[]}}
+ * @type {{10x10: *[], 10x10-no-inline: *[]}}
  */
 const MATRIX_LIST: MatrixList = {
-  '6x6': [
-    [c.C1, c.AA, c.AA, c.AA, c.AA, c.C2],
-    [c.LA, c.IL, c.AH, c.AH, c.IR, c.RA],
-    [c.LA, c.LH, c.NO, c.NO, c.RH, c.RA],
-    [c.LA, c.LH, c.NO, c.NO, c.RH, c.RA],
-    [c.LA, c.C4, c.BH, c.BH, c.C3, c.RA],
-    [c.C4, c.BA, c.BA, c.BA, c.BA, c.C3],
-  ],
   '10x10': [
     [c.C1, c.AA, c.AA, c.AA, c.AA, c.AA, c.AA, c.AA, c.AA, c.C2],
     [c.LA, c.IL, c.IL, c.IL, c.AH, c.AH, c.IR, c.IR, c.IR, c.RA],
@@ -189,15 +186,19 @@ export const computeHover = (
   {
     room,
     mouse,
-    matrixName = '10x10',
     options,
   }: {
     room: Room;
     mouse: Vector;
-    matrixName: string;
     options: Options;
   }
 ) => {
+  const allowInlineNeighbours =
+    options.cellPlugins.find((p) => p.id === hover.pluginId)
+      ?.allowInlineNeighbours ?? false;
+
+  const matrixName = `10x10${allowInlineNeighbours ? '' : '-no-inline'}`;
+
   const matrix = MATRIX_LIST[matrixName];
   const scale = getRoomScale({ room, matrix });
   const hoverCell = getMouseHoverCell({ mouse, scale });

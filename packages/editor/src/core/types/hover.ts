@@ -1,6 +1,5 @@
 import type { HoverTarget } from '../service/hover/computeHover';
 import type { PartialCell } from './node';
-import { Cell } from './node';
 
 export type Room = {
   height: number;

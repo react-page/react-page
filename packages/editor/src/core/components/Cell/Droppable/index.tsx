@@ -18,7 +18,6 @@ import {
   useOptions,
   useCellHasPlugin,
   useCellSpacing,
-  useAllCellPluginsForNode,
   useCellIsAllowedHere,
 } from '../../hooks';
 import { onDrop, onHover } from './helper/dnd';

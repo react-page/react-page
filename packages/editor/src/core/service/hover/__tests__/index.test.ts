@@ -129,7 +129,6 @@ describe('computeHover', () => {
         {
           room: c.in.room,
           mouse: c.in.mouse,
-          matrixName: '10x10',
           options: {
             cellPlugins: [],
           },
