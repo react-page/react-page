@@ -1,42 +1,28 @@
 import classNames from 'classnames';
-import React, { useEffect, useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { useDrop } from 'react-dnd';
 import { useSelector } from '../../../reduxConnect';
-
-import type { HoverTarget } from '../../../service/hover/computeHover';
 import type { RootState } from '../../../types';
 import type { CellDrag } from '../../../types/node';
-import { getDropLevels } from '../../../utils/getDropLevels';
 import {
-  usePluginOfCell,
-  useCellProps,
+  useNodeAsHoverTarget,
+  useCellHasPlugin,
+  useCellIsAllowedHere,
+  useCellSpacing,
   useDropActions,
   useHoverActions,
   useIsInsertMode,
   useIsLayoutMode,
   useNodeHoverPosition,
   useOptions,
-  useCellHasPlugin,
-  useCellSpacing,
-  useCellIsAllowedHere,
+  usePluginOfCell,
 } from '../../hooks';
 import { onDrop, onHover } from './helper/dnd';
 
 export const useCellDrop = (nodeId: string) => {
   const ref = React.useRef<HTMLDivElement>(null);
 
-  const hoverTarget: HoverTarget = useCellProps(nodeId, (node, ancestors) =>
-    node
-      ? {
-          id: node.id,
-          ancestorIds: ancestors.map((a) => a.id),
-          hasInlineNeighbour: node.hasInlineNeighbour,
-          inline: node.inline,
-          levels: getDropLevels(node, ancestors),
-          pluginId: node.plugin?.id,
-        }
-      : null
-  );
+  const hoverTarget = useNodeAsHoverTarget(nodeId);
 
   const targetParentNodeId = hoverTarget?.ancestorIds?.[0];
 
