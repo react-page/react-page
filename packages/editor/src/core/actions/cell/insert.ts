@@ -5,9 +5,9 @@ import type {
   Cell,
   I18nField,
   NewIds,
-  Options,
   PartialCell,
   PartialRow,
+  RenderOptions,
   Row,
 } from '../../types';
 import { createId } from '../../utils/createId';
@@ -49,7 +49,7 @@ export interface InsertAction extends Action {
 export type PluginsAndLang = {
   lang: string;
   focusAfter?: boolean;
-} & Pick<Options, 'cellPlugins'>;
+} & Pick<RenderOptions, 'cellPlugins'>;
 
 export const createRow = (
   partialRow: PartialRow,

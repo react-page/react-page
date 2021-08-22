@@ -1,4 +1,6 @@
-import React, { createContext, useContext } from 'react';
+import React, { createContext, useContext, useMemo, useRef } from 'react';
+import deepEquals from '../../utils/deepEquals';
+import { DEFAULT_OPTIONS } from '../../defaultOptions';
 import type EditorStore from '../../EditorStore';
 import { EditorContext } from '../../EditorStore';
 import { useSelector } from '../../reduxConnect';
@@ -7,6 +9,11 @@ import type { CellSpacing, Options } from '../../types';
 
 import { normalizeCellSpacing } from '../../utils/getCellSpacing';
 import NoopProvider from '../Cell/NoopProvider';
+import {
+  RenderOptionsContext,
+  useRenderOption,
+  useRenderOptions,
+} from './renderOptions';
 
 /**
  * @returns the store object of the current editor. Contains the redux store.
@@ -14,18 +21,29 @@ import NoopProvider from '../Cell/NoopProvider';
 
 export const useEditorStore = () => useContext<EditorStore>(EditorContext);
 
-export const OptionsContext = createContext<Options>({
-  allowMoveInEditMode: true,
-  allowResizeInEditMode: true,
-  cellPlugins: [],
-  languages: [],
-  pluginsWillChange: false,
-});
+export const OptionsContext = createContext<Options>(DEFAULT_OPTIONS);
 
 /**
- * @returns the options object of the current Editor. @see Options type for more information
+ * @returns the options object of the current Editor.
+ *
+ * this object is memoized, alltough its better to use `useOption` instead if you want to use a single option
  */
 export const useOptions = () => useContext(OptionsContext);
+
+/**
+ * get a single (memoized) option value
+ * @param key the option key
+ * @returns the option value
+ */
+export const useOption = <K extends keyof Options>(key: K) => {
+  const options = useOptions();
+  const option = options[key];
+  const lastOption = useRef(option);
+  if (!deepEquals(lastOption.current, option)) {
+    lastOption.current = option;
+  }
+  return lastOption.current;
+};
 
 export type TranslatorFunction = (key: string) => string;
 /**
@@ -34,7 +52,7 @@ export type TranslatorFunction = (key: string) => string;
 export const useUiTranslator = (): {
   t: TranslatorFunction;
 } => {
-  const { uiTranslator } = useOptions();
+  const uiTranslator = useOption('uiTranslator');
   return {
     t: (key: string) => {
       return uiTranslator?.(key) ?? key;
@@ -53,7 +71,7 @@ export const useLang = () => {
  * @returns cell spacing for the current cell sub-tree
  */
 export const useCellSpacing: () => CellSpacing = () => {
-  return normalizeCellSpacing(useOptions().cellSpacing);
+  return normalizeCellSpacing(useRenderOption('cellSpacing'));
 };
 
 /**
@@ -62,14 +80,17 @@ export const useCellSpacing: () => CellSpacing = () => {
 export const useCellSpacingProvider = (
   cellSpacing?: number | CellSpacing
 ): [React.FC<{ value: unknown }>, unknown] => {
-  const options = useOptions();
+  const renderOptions = useRenderOptions();
   const value = React.useMemo(
-    () => ({ ...options, cellSpacing: normalizeCellSpacing(cellSpacing) }),
-    [options, JSON.stringify(cellSpacing)]
+    () => ({
+      ...renderOptions,
+      cellSpacing: normalizeCellSpacing(cellSpacing),
+    }),
+    [renderOptions, JSON.stringify(cellSpacing)]
   );
   if (typeof cellSpacing === 'undefined' || cellSpacing == null) {
     return [NoopProvider, undefined];
   } else {
-    return [OptionsContext.Provider, value];
+    return [RenderOptionsContext.Provider, value];
   }
 };

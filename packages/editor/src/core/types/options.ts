@@ -1,23 +1,15 @@
-import type { CellPlugin } from './plugins';
-
+import type { BackendFactory } from 'dnd-core';
+import type { Middleware, Store } from 'redux';
+import type { DisplayModes } from '../actions/display';
 import type { Languages } from '../EditorStore';
-import type { ChildConstraints } from './constraints';
+import type { RootState } from '../types';
 import type { Components } from './components';
-
-export type CellSpacing = {
-  x: number;
-  y: number;
-};
+import type { ChildConstraints } from './constraints';
 
 /**
- * This are the options of the editor. Basically anything that isn't the value or a callback.
+ * This are the options of the editor
  */
 export type Options = {
-  /**
-   * an array of cell plugins. These plugins can be added as cells and usually render a component and a control.
-   * @see CellPlugin
-   */
-  cellPlugins: CellPlugin[];
   /**
    * all languages that can be selected for the content
    */
@@ -29,22 +21,9 @@ export type Options = {
   childConstraints?: ChildConstraints;
 
   /**
-   * Experimental.
-   * indicates whether the plugins might change while the Editor is mounted. Make sure that you only change the references to the plugins,
-   * when you actually want to change a plugin.
-   * Leave this to false if you don't want to change plugins while editor is mounted.
-   */
-  pluginsWillChange?: boolean;
-
-  /**
    * Internal component overrides.
    */
   components?: Components;
-
-  /**
-   * Sets the size of the cell grid gutters in pixels.
-   */
-  cellSpacing?: number | CellSpacing;
 
   /**
    * whether its possible to resize in edit mode
@@ -56,8 +35,44 @@ export type Options = {
   allowMoveInEditMode?: boolean;
 
   /**
+   * enable zoom function
+   */
+  zoomEnabled?: boolean;
+
+  /**
+   * set the zoom factors. Defaults to [1, 0.75, 0.5, 0.25]
+   */
+  zoomFactors?: number[];
+
+  /**
    * Use this function to replace labels for i18n support.
    * @param key the key of the translation (currently the english translation)
    */
   uiTranslator?: (key: string) => string | null;
+
+  /**
+   * Use this to override the default html backend for react-dnd
+   */
+  dndBackend?: BackendFactory;
+  /**
+   * disable blur all
+   */
+  blurGateDisabled?: boolean;
+  /**
+   * when blur all, change to this mode
+   */
+  blurGateDefaultMode?: DisplayModes;
+  /**
+   * pass custom redux store:. Might get deprecated in the future
+   */
+  store?: Store<RootState>;
+  /**
+   * pass custom redux middleware:. Might get deprecated in the future
+   */
+  middleware?: Middleware[];
+
+  /**
+   *
+   */
+  hideEditorSidebar?: boolean;
 };

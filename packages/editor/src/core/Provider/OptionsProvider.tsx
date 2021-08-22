@@ -1,13 +1,28 @@
-import React from 'react';
+import React, { useRef } from 'react';
+import deepEquals from '../utils/deepEquals';
 import { OptionsContext } from '../components/hooks';
+import { DEFAULT_OPTIONS } from '../defaultOptions';
 import type { Options } from '../types';
-import { useOptionsMemoized } from './useOptionsMemoized';
+/*
+we memoize the options, so that if you access them, you won't get a fresh object every time.
+*/
 
 const OptionsProvider: React.FC<Options> = ({ children, ...options }) => {
-  const optionsMemoized = useOptionsMemoized(options);
+  const lastOptions = useRef<Required<Options>>();
+  const fullOptions = {
+    ...DEFAULT_OPTIONS,
+    ...options,
+  };
+
+  const isEqual = lastOptions.current
+    ? deepEquals(lastOptions.current, fullOptions)
+    : false;
+  if (!isEqual) {
+    lastOptions.current = fullOptions;
+  }
 
   return (
-    <OptionsContext.Provider value={optionsMemoized}>
+    <OptionsContext.Provider value={lastOptions.current}>
       {children}
     </OptionsContext.Provider>
   );

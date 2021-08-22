@@ -11,4 +11,4 @@ export * from './SelectParentButton';
 export * from './PluginDrawer';
 export * from './ThemeProvider';
 export * from './ColorPicker';
-export * from './DisplayModeToggle';
+export * from './Sidebar';

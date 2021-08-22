@@ -1,4 +1,4 @@
-import type { Options, Levels, PartialCell } from '../../types';
+import type { Options, Levels, PartialCell, CellPlugin } from '../../types';
 import { isRow } from '../../types';
 import type {
   HoverInsertActions,
@@ -32,7 +32,7 @@ type Context = {
     cells: number;
   };
   scale: Vector;
-  options: Options;
+  cellPlugins: CellPlugin[];
 };
 type MatrixList = { [key: string]: Matrix };
 type CallbackList = {
@@ -186,16 +186,16 @@ export const computeHover = (
   {
     room,
     mouse,
-    options,
+    cellPlugins,
   }: {
     room: Room;
     mouse: Vector;
-    options: Options;
+    cellPlugins: CellPlugin[];
   }
 ) => {
   const allowInlineNeighbours =
-    options.cellPlugins.find((p) => p.id === hover.pluginId)
-      ?.allowInlineNeighbours ?? false;
+    cellPlugins.find((p) => p.id === hover.pluginId)?.allowInlineNeighbours ??
+    false;
 
   const matrixName = `10x10${allowInlineNeighbours ? '' : '-no-inline'}`;
 
@@ -253,7 +253,7 @@ export const computeHover = (
     mouse,
     position: hoverCell,
     size: { rows, cells },
-    options,
+    cellPlugins,
     scale,
   });
 };
@@ -575,13 +575,13 @@ export const CALLBACK_LIST: CallbackList = {
     item: PartialCell,
     hover: HoverTarget,
     { inlineLeft, leftOf }: HoverInsertActions,
-    { options }
+    { cellPlugins }
   ) => {
     if (isRow(item) || isRow(hover)) {
       return;
     }
     const { inline, hasInlineNeighbour } = hover;
-    const plugin = options.cellPlugins.find(
+    const plugin = cellPlugins.find(
       (p) =>
         p.id ===
         (typeof item.plugin === 'string' ? item.plugin : item.plugin?.id)
@@ -608,13 +608,13 @@ export const CALLBACK_LIST: CallbackList = {
     item: PartialCell,
     hover: HoverTarget,
     { inlineRight, rightOf }: HoverInsertActions,
-    { options }
+    { cellPlugins }
   ) => {
     if (isRow(item) || isRow(hover)) {
       return;
     }
     const { inline, hasInlineNeighbour } = hover;
-    const plugin = options.cellPlugins.find(
+    const plugin = cellPlugins.find(
       (p) =>
         p.id ===
         (typeof item.plugin === 'string' ? item.plugin : item.plugin?.id)

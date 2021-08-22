@@ -1,54 +1,37 @@
 import type { BackendFactory } from 'dnd-core';
 import React from 'react';
-
-import type { DisplayModes } from '../core/actions/display';
 import Editable from '../core/components/Editable';
-import type { Languages } from '../core/EditorStore';
+import GlobalHotKeys from '../core/components/HotKey/GlobalHotKeys';
 import { createEmptyState } from '../core/EditorStore';
+import type { ProviderProps } from '../core/Provider';
 import Provider from '../core/Provider';
-import type { Value, Options, ValueWithLegacy } from '../core/types';
+import type { ValueWithLegacy } from '../core/types';
 import EditorUI from '../ui/EditorUI';
 import StickyWrapper from './StickyWrapper';
-import GlobalHotKeys from '../core/components/HotKey/GlobalHotKeys';
 
 export type DndBackend = BackendFactory;
 export type EditableEditorProps = {
-  dndBackend?: DndBackend;
   value?: ValueWithLegacy;
-  onChange?: (v: Value) => void;
-  defaultDisplayMode?: DisplayModes;
-  blurGateDisabled?: boolean;
-  languages?: Languages;
+
   lang?: string;
-  onChangeLang?: (l: string) => void;
-  hideEditorSidebar?: boolean;
-} & Options;
+} & ProviderProps;
 
 const EditableEditor: React.FC<EditableEditorProps> = ({
   value,
-  onChange,
-  dndBackend,
-  defaultDisplayMode,
-  blurGateDisabled,
   lang,
-  languages,
-  onChangeLang,
-  hideEditorSidebar,
   children,
-  ...options
+  options,
+  renderOptions,
+  callbacks,
 }) => {
   const theValue = value || createEmptyState();
   return (
     <Provider
       lang={lang}
-      onChangeLang={onChangeLang}
+      callbacks={callbacks}
       value={theValue}
-      onChange={onChange}
-      languages={languages}
-      dndBackend={dndBackend}
-      blurGateDisabled={blurGateDisabled}
-      blurGateDefaultMode={defaultDisplayMode}
-      {...options}
+      renderOptions={renderOptions}
+      options={options}
     >
       {children}
       <StickyWrapper>
@@ -56,10 +39,7 @@ const EditableEditor: React.FC<EditableEditorProps> = ({
           <>
             <GlobalHotKeys />
             <Editable />
-            <EditorUI
-              stickyNess={stickyNess}
-              hideEditorSidebar={hideEditorSidebar}
-            />
+            <EditorUI stickyNess={stickyNess} />
           </>
         )}
       </StickyWrapper>
