@@ -1,7 +1,12 @@
 import React, { useEffect } from 'react';
 import type { DisplayModes } from '../actions/display';
 import { DISPLAY_MODE_EDIT } from '../actions/display';
-import { useBlurAllCells, useIsInsertMode, useSetMode } from './hooks';
+import {
+  useBlurAllCells,
+  useIsInsertMode,
+  useOption,
+  useSetMode,
+} from './hooks';
 
 // this might break in future, but its better than nothing
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -72,16 +77,9 @@ const useBlurAll = ({
   return ref;
 };
 
-export interface BlurGateProps {
-  disabled?: boolean;
-  defaultMode?: DisplayModes;
-}
-
-const BlurGate: React.FC<BlurGateProps> = ({
-  defaultMode,
-  disabled,
-  children,
-}) => {
+const BlurGate: React.FC = ({ children }) => {
+  const defaultMode = useOption('blurGateDefaultMode');
+  const disabled = useOption('blurGateDisabled');
   const ref = useBlurAll({ defaultMode, disabled });
 
   return <div ref={ref}>{children}</div>;

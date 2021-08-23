@@ -1,11 +1,12 @@
 import React from 'react';
-import { useUiTranslator } from '../../core/components/hooks';
+import { useOption, useUiTranslator } from '../../core/components/hooks';
 import ToggleEdit from './ToggleEdit/index';
 import ToggleInsert from './ToggleInsert/index';
 import ToggleLayout from './ToggleLayout/index';
 import TogglePreview from './TogglePreview/index';
 import ToggleResize from './ToggleResize/index';
 import UndoRedo from './UndoRedo';
+import Zoom from './Zoom';
 
 const getStickyNessstyle = (stickyness?: StickyNess): React.CSSProperties => {
   if (
@@ -31,10 +32,11 @@ export type StickyNess = {
   rightOffset: number;
   stickyElRef?: React.Ref<HTMLDivElement>;
 };
-export const DisplayModeToggle: React.SFC<{
+export const Sidebar: React.SFC<{
   stickyNess?: StickyNess;
 }> = ({ stickyNess }) => {
   const { t } = useUiTranslator();
+  const zoomEnabled = useOption('zoomEnabled');
   const defaultLabels = {
     edit: 'Edit blocks',
     insert: 'Add blocks',
@@ -45,12 +47,15 @@ export const DisplayModeToggle: React.SFC<{
   const actions = [
     // eslint-disable-next-line react/jsx-key
     { action: <UndoRedo labelRedo="redo" labelUndo="undo" /> },
+    zoomEnabled
+      ? { action: <Zoom labelZoomIn="zoom in" labelZoomOut="zoom out" /> }
+      : null,
     { action: <ToggleEdit label={t(defaultLabels.edit)} /> },
     { action: <ToggleInsert label={t(defaultLabels.insert)} /> },
     { action: <ToggleLayout label={t(defaultLabels.layout)} /> },
     { action: <ToggleResize label={t(defaultLabels.resize)} /> },
     { action: <TogglePreview label={t(defaultLabels.preview)} /> },
-  ];
+  ].filter(Boolean);
   return (
     <div
       className="react-page-controls-mode-toggle-control-group"

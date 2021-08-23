@@ -4,7 +4,7 @@ import type { Migration } from '../migrations/Migration';
 import type { Cell, PartialCell, PartialRow } from './node';
 import type { JsonSchema } from './jsonSchema';
 import type { ChildConstraints } from './constraints';
-import type { CellSpacing } from './options';
+import type { CellSpacing } from './renderOptions';
 
 export type CellPluginComponentProps<DataT = unknown> = {
   /**

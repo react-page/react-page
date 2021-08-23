@@ -129,9 +129,7 @@ describe('computeHover', () => {
         {
           room: c.in.room,
           mouse: c.in.mouse,
-          options: {
-            cellPlugins: [],
-          },
+          cellPlugins: [],
         }
       );
     });

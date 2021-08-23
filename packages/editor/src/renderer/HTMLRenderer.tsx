@@ -1,27 +1,27 @@
 import classNames from 'classnames';
 import React from 'react';
+import NoopProvider from '../core/components/Cell/NoopProvider';
 import { migrateValue } from '../core/migrations/migrate';
-import { setAllSizesAndOptimize } from '../core/reducer/value/helper/setAllSizesAndOptimize';
 import { optimizeRows } from '../core/reducer/value/helper/optimize';
+import { setAllSizesAndOptimize } from '../core/reducer/value/helper/setAllSizesAndOptimize';
 import type {
   Cell,
   CellPlugin,
+  CellSpacing,
+  RenderOptions,
   Row,
   ValueWithLegacy,
-  CellSpacing,
-  Options,
 } from '../core/types';
+import { getChildCellPlugins } from '../core/utils/getAvailablePlugins';
 import { getCellData } from '../core/utils/getCellData';
-import {
-  getCellInnerDivStylingProps,
-  getCellOuterDivClassName,
-} from '../core/utils/getCellStylingProps';
 import {
   getPluginCellSpacing,
   normalizeCellSpacing,
 } from '../core/utils/getCellSpacing';
-import NoopProvider from '../core/components/Cell/NoopProvider';
-import { getChildCellPlugins } from '../core/utils/getAvailablePlugins';
+import {
+  getCellInnerDivStylingProps,
+  getCellOuterDivClassName,
+} from '../core/utils/getCellStylingProps';
 
 const rowHasInlineChildren = ({ cells }) =>
   Boolean(cells.length === 2 && Boolean(cells[0].inline));
@@ -184,12 +184,11 @@ const HTMLCell: React.FC<
   );
 });
 
-export interface HTMLRendererProps {
+export type HTMLRendererProps = {
   value: ValueWithLegacy;
-  cellPlugins?: CellPlugin[];
+
   lang?: string;
-  cellSpacing?: Options['cellSpacing'];
-}
+} & RenderOptions;
 
 export const HTMLRenderer: React.FC<HTMLRendererProps> = React.memo(
   ({ value, cellPlugins, cellSpacing, lang = 'default' }) => {

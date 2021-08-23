@@ -6,9 +6,9 @@ import {
   useIsEditMode,
   useIsPreviewMode,
   useIsResizeMode,
-  useOptions,
   useResizeCell,
   useCellSpacing,
+  useOption,
 } from '../hooks';
 
 type Props = {
@@ -30,7 +30,7 @@ const ResizableRowCell: React.FC<Props> = ({
   maxSize,
 }) => {
   const stepWidth = rowWidth / 12; // we're going to keep it a real number to preserve some precision
-  const { allowResizeInEditMode } = useOptions();
+  const allowResizeInEditMode = useOption('allowResizeInEditMode');
   const isResizeMode = useIsResizeMode();
   const isEditMode = useIsEditMode();
   const isPreviewMode = useIsPreviewMode();

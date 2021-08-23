@@ -26,6 +26,7 @@ const makeStore = (initialFocus: Focus) => {
         focus: initialFocus,
         display: {
           mode: 'edit',
+          zoom: 1,
         },
         values: {
           future: [],

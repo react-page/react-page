@@ -1,7 +1,7 @@
 import debounce from 'lodash.debounce';
 import type { CSSProperties } from 'react';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import type { HoverTarget } from 'src/core/service/hover/computeHover';
+import type { HoverTarget } from '../../service/hover/computeHover';
 import type { PositionEnum } from '../../const';
 import { useSelector } from '../../reduxConnect';
 import { findNodeInState } from '../../selector/editable';
@@ -13,7 +13,8 @@ import { getCellData } from '../../utils/getCellData';
 import { getCellInnerDivStylingProps } from '../../utils/getCellStylingProps';
 import { getDropLevels } from '../../utils/getDropLevels';
 import { useUpdateCellData } from './nodeActions';
-import { useLang, useOptions } from './options';
+import { useLang } from './options';
+import { useRenderOption } from './renderOptions';
 
 type NodeSelector<T> = (node: Node, ancestors: Node[]) => T;
 
@@ -232,7 +233,7 @@ export const useAllCellPluginsForNode = (parentNodeId?: string) => {
     });
   });
   // pluginIdsOfAncestors is an array of ids, the last one is the
-  const rootCellPlugins = useOptions().cellPlugins;
+  const rootCellPlugins = useRenderOption('cellPlugins');
   return useMemo(() => {
     return getAvailablePlugins(rootCellPlugins, ancestors);
   }, [rootCellPlugins, ancestors]);

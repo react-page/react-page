@@ -12,6 +12,7 @@ const DisplayModeToggle = ({
   disabled,
   activeColor = 'secondary',
   style,
+  ...rest
 }: {
   description: string;
   icon: JSX.Element;
@@ -20,7 +21,7 @@ const DisplayModeToggle = ({
   activeColor?: PropTypes.Color;
   onClick: React.MouseEventHandler<HTMLElement>;
   style?: React.CSSProperties;
-}) => {
+} & unknown) => {
   const isSmall = useIsSmallScreen();
   return (
     <div className="react-page-controls-mode-toggle-button" style={style}>
@@ -30,6 +31,7 @@ const DisplayModeToggle = ({
           size={isSmall ? 'small' : 'large'}
           onClick={onClick}
           disabled={disabled}
+          {...rest}
         >
           {icon}
         </Fab>

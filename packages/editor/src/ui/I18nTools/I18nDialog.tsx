@@ -5,7 +5,7 @@ import React, { useCallback } from 'react';
 import {
   useCellDataI18nRaw,
   useLang,
-  useOptions,
+  useOption,
   useSetLang,
   useUiTranslator,
   useUpdateCellData,
@@ -21,7 +21,7 @@ const I18nDialog = ({
   onClose: () => void;
 }) => {
   const currentLang = useLang();
-  const options = useOptions();
+  const languages = useOption('languages');
   const { t } = useUiTranslator();
   const setLang = useSetLang();
   const dataI18n = useCellDataI18nRaw(nodeId);
@@ -35,7 +35,7 @@ const I18nDialog = ({
     },
     [updateCellData]
   );
-  const defaultLangLabel = options.languages?.[0]?.label;
+  const defaultLangLabel = languages?.[0]?.label;
   return (
     <DialogContent>
       <div style={{ display: 'flex', alignItems: 'center' }}>
@@ -44,7 +44,7 @@ const I18nDialog = ({
       <hr />
       <Table>
         <tbody>
-          {options.languages.map((l, index) => {
+          {languages.map((l, index) => {
             const data = dataI18n?.[l.lang];
             const isCurrent = currentLang === l.lang;
             const hasData = Boolean(data);

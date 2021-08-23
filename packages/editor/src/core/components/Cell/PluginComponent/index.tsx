@@ -9,8 +9,8 @@ import {
   useIsPreviewMode,
   useLang,
   useRemoveCell,
-  useOptions,
   useCellProps,
+  useOption,
 } from '../../hooks';
 import PluginControls from '../PluginControls';
 import PluginMissing from '../PluginMissing';
@@ -22,7 +22,8 @@ const PluginComponent: React.FC<{ nodeId: string; hasChildren: boolean }> = ({
   hasChildren,
 }) => {
   const lang = useLang();
-  const CustomPluginMissing = useOptions()?.components?.CellPluginMissing;
+  const components = useOption('components');
+  const CustomPluginMissing = components?.CellPluginMissing;
   const isPreviewMode = useIsPreviewMode();
   const isEditMode = useIsEditMode();
 
@@ -37,7 +38,7 @@ const PluginComponent: React.FC<{ nodeId: string; hasChildren: boolean }> = ({
   const Provider = plugin?.Provider ?? NoopProvider;
   const remove = useRemoveCell(nodeId);
 
-  const Toolbar = useOptions().components?.BottomToolbar ?? BottomToolbar;
+  const Toolbar = components?.BottomToolbar ?? BottomToolbar;
 
   const componentProps = useMemo<CellPluginComponentProps<unknown>>(
     () => ({
