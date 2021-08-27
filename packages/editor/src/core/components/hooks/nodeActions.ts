@@ -119,12 +119,7 @@ export const useDuplicateCell = (id: string) => {
   const cellPlugins = useAllCellPluginsForNode(parentCellId);
 
   return useCallback(
-    () =>
-      dispatch(
-        duplicateCell({ cellPlugins, lang, focusAfter: true })(
-          editor.getNode(id)
-        )
-      ),
+    () => dispatch(duplicateCell({ cellPlugins, lang })(editor.getNode(id))),
     [dispatch, cellPlugins, lang, id]
   );
 };
@@ -219,8 +214,7 @@ export const useInsertNew = (parentCellId?: string) => {
         action({
           cellPlugins,
           lang,
-          focusAfter: true,
-        })(partialCell, { id: parentCellId })
+        })(partialCell, { id: parentCellId }, { focusAfter: true })
       );
     },
     [dispatch, editor, cellPlugins, parentCellId]

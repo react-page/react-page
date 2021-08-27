@@ -37,7 +37,6 @@
   width: 4px;
 }
 
-
 @keyframes reactPageCellResizeableAnimate {
   0% {
     background-color: var(--minWhite);
@@ -56,8 +55,6 @@
   }
 }
 
-
-
 .react-page-row .resize-handle {
   position: absolute;
   z-index: 6;
@@ -68,10 +65,7 @@
   cursor: e-resize;
   background-color: var(--lightBlack);
   mix-blend-mode: difference;
-
-} 
-
-
+}
 
 .react-page-row .resize-handle:after {
   content: ' ';

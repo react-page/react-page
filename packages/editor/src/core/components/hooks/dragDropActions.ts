@@ -35,14 +35,14 @@ export const useHoverActions = () => {
       clear: () => dispatch(clearHover()),
       cancelCellDrag: () => dispatch(cancelCellDrag()),
 
-      above: (drag, hover, level) =>
-        dispatch(cellHoverAbove(drag, hover, level)),
-      below: (drag, hover, level) =>
-        dispatch(cellHoverBelow(drag, hover, level)),
-      leftOf: (drag, hover, level) =>
-        dispatch(cellHoverLeftOf(drag, hover, level)),
-      rightOf: (drag, hover, level) =>
-        dispatch(cellHoverRightOf(drag, hover, level)),
+      above: (drag, hover, options) =>
+        dispatch(cellHoverAbove(drag, hover, options?.level)),
+      below: (drag, hover, options) =>
+        dispatch(cellHoverBelow(drag, hover, options?.level)),
+      leftOf: (drag, hover, options) =>
+        dispatch(cellHoverLeftOf(drag, hover, options?.level)),
+      rightOf: (drag, hover, options) =>
+        dispatch(cellHoverRightOf(drag, hover, options?.level)),
       inlineLeft: (drag, hover) => dispatch(cellHoverInlineLeft(drag, hover)),
       inlineRight: (drag, hover) => dispatch(cellHoverInlineRight(drag, hover)),
     }),

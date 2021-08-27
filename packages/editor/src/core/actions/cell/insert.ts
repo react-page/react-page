@@ -41,14 +41,18 @@ export interface InsertAction extends Action {
   ts: Date;
   item: Cell;
   hoverId: string;
-  level: number;
+  options: InsertOptions;
   ids: NewIds;
   type: InsertType;
 }
 
+export type InsertOptions = {
+  level?: number;
+  focusAfter?: boolean;
+};
+
 export type PluginsAndLang = {
   lang: string;
-  focusAfter?: boolean;
 } & Pick<RenderOptions, 'cellPlugins'>;
 
 export const createRow = (
@@ -127,9 +131,10 @@ export const createCell = (
 const insert = <T extends InsertType>(type: T) => (options: PluginsAndLang) => (
   partialCell: PartialCell,
   { id: hoverId, inline, hasInlineNeighbour, ancestorIds }: HoverTarget,
-  level = 0,
+  insertOptions?: InsertOptions,
   ids: NewIds = null
 ) => {
+  const level = insertOptions?.level ?? 0;
   let l = level;
 
   const cell = createCell(partialCell, options);
@@ -171,11 +176,11 @@ const insert = <T extends InsertType>(type: T) => (options: PluginsAndLang) => (
     // FIXME: this doesn't work when duplicating, I've added an option to focus after insert
     const isNew = !partialCell.id;
 
-    if (isNew || options.focusAfter) {
+    if (isNew || insertOptions?.focusAfter) {
       dispatch(editMode());
       setTimeout(() => {
         dispatch(focusCell(insertAction.ids.item, true));
-      }, 300);
+      }, 0);
     }
   };
 };
@@ -230,14 +235,21 @@ const newIds = ({ id, ...item }: Cell): Cell => {
   };
 };
 export const duplicateCell = (options: PluginsAndLang) => (item: Cell) =>
-  insertCellBelow(options)(newIds(item), {
-    ancestorIds: [],
-    id: item.id,
-    hasInlineNeighbour: item.hasInlineNeighbour,
-    inline: item.inline,
-    levels: null,
-    pluginId: item.plugin?.id,
-  });
+  insertCellBelow(options)(
+    newIds(item),
+    {
+      ancestorIds: [],
+      id: item.id,
+      hasInlineNeighbour: item.hasInlineNeighbour,
+      inline: item.inline,
+      levels: null,
+      pluginId: item.plugin?.id,
+    },
+    {
+      level: 0,
+      focusAfter: true,
+    }
+  );
 
 export const insertActions = {
   insertCellRightInline,
