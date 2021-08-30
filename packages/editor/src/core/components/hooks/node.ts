@@ -16,10 +16,16 @@ import { useUpdateCellData } from './nodeActions';
 import { useLang } from './options';
 import { useRenderOption } from './renderOptions';
 
+/**
+ *
+ */
 type NodeSelector<T> = (node: Node, ancestors: Node[]) => T;
 
 /**
  * Use this function to get derived properties of a node. It prevents unnessesary rerenders when only the nessesary properties are returned by the selector
+ *
+ * you can also select props from the ancestors of the node. Be aware that the last ancestor is the root document id
+ *
  * @param nodeId an id of a node (cell or row)
  * @param selector receives the node object or null (if no node with this id exists) and returns T
  * @returns the selection T
@@ -145,7 +151,8 @@ export const useNodeAsHoverTarget = (nodeId: string): HoverTarget => {
     node
       ? {
           id: node.id,
-          ancestorIds: ancestors.map((a) => a.id),
+          // the last element is the root element, we can't currenly use that as hover target
+          ancestorIds: ancestors.slice(0, -1).map((a) => a.id),
           hasInlineNeighbour: !isRow(node) ? node.hasInlineNeighbour : null,
           inline: !isRow(node) ? node.inline : null,
           levels: getDropLevels(node, ancestors),
