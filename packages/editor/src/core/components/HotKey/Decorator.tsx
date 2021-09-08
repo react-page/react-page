@@ -111,6 +111,21 @@ const Decorator: React.FC = ({ children }) => {
           undo();
         },
       },
+      {
+        hotkeys: ['ctrl+c', 'command+c'],
+        handler: () => {
+          // copy cell, unless text is selected
+          if (window.getSelection()?.type !== 'Range' && focusedNodeId) {
+            const node = editor.getNode(focusedNodeId);
+
+            const type = 'text/plain'; // json is not supported
+            const blob = new Blob([JSON.stringify(node)], { type });
+            const data = [new ClipboardItem({ [type]: blob })];
+
+            navigator.clipboard.write(data);
+          }
+        },
+      },
 
       {
         hotkeys: ['ctrl+shift+z', 'ctrl+y', 'command+shift+z', 'command+y'],

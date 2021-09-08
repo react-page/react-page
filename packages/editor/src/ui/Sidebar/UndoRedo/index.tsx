@@ -1,14 +1,12 @@
-import IconUndo from '@material-ui/icons/Undo';
 import IconRedo from '@material-ui/icons/Redo';
+import IconUndo from '@material-ui/icons/Undo';
 import React from 'react';
 import {
-  useIsInsertMode,
-  useRedo,
-  useSetInsertMode,
-  useCanUndo,
   useCanRedo,
-  useUndo,
+  useCanUndo,
   useIsSmallScreen,
+  useRedo,
+  useUndo,
 } from '../../../core/components/hooks';
 import Button from '../Button/index';
 
