@@ -2,7 +2,11 @@ import type { EffectCallback, DependencyList } from 'react';
 import { useEffect } from 'react';
 import { useSelector } from '../../reduxConnect';
 
-import { focus, singleFocusedNode } from '../../selector/focus';
+import {
+  allFocusedNodeIds,
+  focus,
+  singleFocusedNode,
+} from '../../selector/focus';
 
 /**
  * @returns the current focused nodeId if just one or null
@@ -12,7 +16,7 @@ export const useFocusedNodeId = () => {
 };
 
 export const useAllFocusedNodeIds = () => {
-  return useSelector((s) => focus(s)?.nodeIds ?? []);
+  return useSelector(allFocusedNodeIds);
 };
 
 /**
@@ -21,7 +25,7 @@ export const useAllFocusedNodeIds = () => {
  * @returns true if the given node id is focused
  */
 export const useIsFocused = (id: string) => {
-  return useSelector((state) => focus(state)?.nodeIds.includes(id));
+  return useSelector((state) => allFocusedNodeIds(state).includes(id));
 };
 
 /**

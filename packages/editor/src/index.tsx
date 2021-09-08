@@ -13,6 +13,8 @@ import { migrateValue } from './core/migrations/migrate';
 import deepEquals from './core/utils/deepEquals';
 
 import { createValue } from './core/utils/createValue';
+import { objIsNode } from './core/utils/objIsNode';
+export { objIsNode };
 export { lazyLoad };
 export { EditorProps };
 export { Migration };

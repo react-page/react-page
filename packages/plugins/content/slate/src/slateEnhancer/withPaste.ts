@@ -1,3 +1,4 @@
+import { objIsNode } from '@react-page/editor';
 import type { Editor } from 'slate';
 import { Transforms } from 'slate';
 
@@ -26,6 +27,15 @@ const withPaste = (plugins: SlatePlugin[], defaultPluginType: string) => (
 
     const text = data.getData('text/plain');
     if (text) {
+      // check if its a react-page data
+      try {
+        const node = JSON.parse(text);
+        if (objIsNode(node)) {
+          return;
+        }
+      } catch (e) {
+        //ignore
+      }
       // if there are two subsequent line breks, insert paragraph, otherway insert soft line break
       const lines = text.split('\n');
       let nextWillbeParagraph = false;

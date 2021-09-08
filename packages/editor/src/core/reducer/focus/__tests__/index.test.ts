@@ -57,7 +57,7 @@ describe('editor/reducer/focus', () => {
     const store = makeStore({ nodeIds: undefined });
     store.dispatch(focusCell('1234', true));
 
-    expect(store.getState().reactPage.focus.nodeId, 'to equal', '1234');
+    expect(store.getState().reactPage.focus.nodeIds, 'to equal', ['1234']);
     expect(
       store.getState().reactPage.focus.scrollToCell,
       'to be greater than',

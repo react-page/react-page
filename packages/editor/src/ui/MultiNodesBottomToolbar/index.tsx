@@ -30,10 +30,10 @@ export const MultiNodesBottomToolbar: React.FC = React.memo(() => {
           </Typography>
         </Grid>
         <Grid item style={{ marginLeft: 'auto' }}>
-          <DeleteAll />
+          <DuplicateAll />
         </Grid>
         <Grid item>
-          <DuplicateAll />
+          <DeleteAll />
         </Grid>
       </Grid>
     </BottomToolbarDrawer>

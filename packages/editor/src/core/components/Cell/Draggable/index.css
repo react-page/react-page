@@ -129,7 +129,7 @@
       border: 1px solid rgba(0, 0, 0, 0.2);
     }
     .react-page-cell-move-actions {
-      opacity: 0.4;
+      opacity: 0;
       transition: 0.6s;
     }
     .react-page-cell:hover > .react-page-cell-move-actions {

@@ -1,7 +1,6 @@
 import { useCallback } from 'react';
 import { useDrop } from 'react-dnd';
-import { createId } from '../../../core/utils/createId';
-import { mapNode } from '../../../core/utils/mapNode';
+import { getCommonAncestorTree } from '../../utils/ancestorTree';
 import { blurAllCells } from '../../actions/cell';
 import type { FocusMode } from '../../actions/cell/core';
 import {
@@ -14,16 +13,18 @@ import {
 } from '../../actions/cell/core';
 import {
   duplicateCell,
+  duplicateNode,
   insertCellAtTheEnd,
   insertCellNewAsNewRow,
 } from '../../actions/cell/insert';
 import { setDisplayReferenceNodeId } from '../../actions/display';
 import { setLang } from '../../actions/setting';
 import { useDispatch } from '../../reduxConnect';
-import type { CellDrag, Node, PartialCell } from '../../types/node';
+import type { CellDrag, PartialCell, Node } from '../../types/node';
 import { isRow } from '../../types/node';
 import { useAllCellPluginsForNode } from './node';
 import { useEditorStore, useLang } from './options';
+import { cloneWithNewIds } from '../../../core/utils/cloneWithNewIds';
 
 /**
  * @param id id of a node
@@ -138,99 +139,45 @@ export const useDuplicateCellById = () => {
   );
 };
 
+export const useInsertAfter = () => {
+  const dispatch = useDispatch();
+  const insertNew = useInsertNew();
+
+  return useCallback(
+    (node: Node, insertAfterNodeId: string) => {
+      if (insertAfterNodeId) {
+        dispatch(
+          duplicateNode(node, {
+            insertAfterNodeId,
+          })
+        );
+      } else {
+        // insert at the end
+        insertNew(cloneWithNewIds(node));
+      }
+    },
+    [dispatch, insertNew]
+  );
+};
+
 /**
  * @returns a function that duplicates multiple cell
  */
 export const useDuplicateMultipleCells = () => {
-  const dispatch = useDispatch();
   const editor = useEditorStore();
+  const insertAfter = useInsertAfter();
 
   return useCallback(
-    (nodeIds: string[]) => {
-      const nodesWithAncestors = nodeIds.map((nodeId) => {
-        const { node, ancestors } = editor.getNodeWithAncestors(nodeId) ?? {};
-        return { node, ancestors: [...ancestors].reverse() };
-      });
+    (cellIds: string[]) => {
+      const node = getCommonAncestorTree(editor, cellIds);
 
-      // find common ancestors
-      let nearestCommonAncestor: Node;
-      let depth = 0;
-      let search = true;
-      while (search) {
-        // check if every node has the same ancestor
-        if (
-          nodesWithAncestors.every(
-            (n) =>
-              n.ancestors[depth] &&
-              n.ancestors[depth]?.id ===
-                nodesWithAncestors[0].ancestors[depth]?.id
-          )
-        ) {
-          nearestCommonAncestor = nodesWithAncestors[0].ancestors[depth];
-          depth++;
-        } else {
-          search = false;
-        }
-      }
+      const insertAfterNodeId = isRow(node)
+        ? node.id
+        : node.rows[node.rows.length - 1].id;
 
-      // remove nodes that we don't want to duplicate unless they have children
-      const cleaned = mapNode(nearestCommonAncestor, {
-        skipMapCell: (c) => {
-          return nodeIds.includes(c.id);
-        },
-        // remove cells without rows
-        mapCell: (c) => {
-          if (c.rows?.length > 0) {
-            return c;
-          } else {
-            return null;
-          }
-        },
-        // remove empty cells from rows and remove row completly if its empty
-        mapRowDown: (r) => {
-          if (!r) return null;
-          const row = {
-            ...r,
-            cells: r.cells.filter(Boolean) ?? [],
-          };
-          if (row.cells.length === 0) {
-            return null;
-          }
-          return row;
-        },
-        // remove empty rows of cells
-        mapCellDown: (c) => {
-          if (!c) return null;
-          const cell = {
-            ...c,
-            rows: c.rows.filter(Boolean) ?? [],
-          };
-          if (cell.rows?.length > 0 || nodeIds.includes(cell.id)) {
-            return cell;
-          } else {
-            return null;
-          }
-        },
-      });
-
-      const cleanedCell = isRow(cleaned)
-        ? {
-            id: createId(),
-            rows: [cleaned],
-          }
-        : cleaned;
-
-      const insertAfterNodeId = isRow(cleaned)
-        ? cleaned.id
-        : cleaned.rows[cleaned.rows.length - 1].id;
-
-      dispatch(
-        duplicateCell(cleanedCell, {
-          insertAfterNodeId,
-        })
-      );
+      insertAfter(node, insertAfterNodeId);
     },
-    [dispatch]
+    [editor, insertAfter]
   );
 };
 

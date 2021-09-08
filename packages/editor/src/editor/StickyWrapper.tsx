@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 type StickyProps = {
   rightOffset: number;
   stickyElRef: React.RefObject<HTMLDivElement>;
+  focusRef: React.RefObject<HTMLDivElement>;
   shouldStickToTop: boolean;
   shouldStickToBottom: boolean;
 };
@@ -59,6 +60,7 @@ const StickyWrapper: React.FC<{
       {children({
         rightOffset,
         stickyElRef,
+        focusRef: ref,
         shouldStickToTop,
         shouldStickToBottom,
       })}

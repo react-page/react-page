@@ -1,10 +1,4 @@
-import type {
-  Value,
-  Node,
-  NodeWithAncestors,
-  Cell,
-  Ancestors,
-} from '../../types/node';
+import type { Value, Node, NodeWithAncestors } from '../../types/node';
 import { isRow } from '../../types/node';
 import type { RootState } from '../../types/state';
 
@@ -12,7 +6,7 @@ import type { RootState } from '../../types/state';
 const findNode = (
   nodes: Node[],
   nodeId: string,
-  ancestors: Ancestors = []
+  ancestors: Node[] = []
 ): NodeWithAncestors => {
   for (const node of nodes) {
     if (node.id === nodeId) {

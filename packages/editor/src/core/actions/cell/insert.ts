@@ -5,11 +5,13 @@ import type {
   Cell,
   I18nField,
   NewIds,
+  Node,
   PartialCell,
   PartialRow,
   RenderOptions,
   Row,
 } from '../../types';
+import { isRow } from '../../types';
 import { createId } from '../../utils/createId';
 import { getChildCellPlugins } from '../../utils/getAvailablePlugins';
 import { getCellData } from '../../utils/getCellData';
@@ -142,7 +144,7 @@ const insert = <T extends InsertType>(type: T) => (options: PluginsAndLang) => (
     target,
     {
       ...insertOptions,
-      focusAfter: insertOptions.focusAfter || isNew,
+      focusAfter: insertOptions?.focusAfter || isNew,
     },
     ids
   );
@@ -195,7 +197,13 @@ const insertFullCell = <T extends InsertType>(type: T) => (
     if (insertOptions?.focusAfter) {
       dispatch(editMode());
       setTimeout(() => {
-        dispatch(focusCell(insertAction.ids.item, true));
+        dispatch(
+          focusCell(
+            // first condition is for pasted cells. I know its a bit weird
+            cell.rows?.[0]?.cells?.[0]?.id ?? insertAction.ids.item,
+            true
+          )
+        );
       }, 0);
     }
   };
@@ -235,13 +243,19 @@ export const insertCellAtTheEnd = insert(CELL_INSERT_AT_END);
 
 export const insertCellNewAsNewRow = insert(CELL_INSERT_AS_NEW_ROW);
 
-export const duplicateCell = (
-  item: Cell,
-  options?: {
-    notUndoable?: boolean;
-    insertAfterNodeId?: string;
-  }
-) => {
+export type DuplicateNodeOptions = {
+  insertAfterNodeId?: string;
+};
+export const duplicateNode = (node: Node, options?: DuplicateNodeOptions) => {
+  const cell = isRow(node)
+    ? {
+        id: createId(),
+        rows: [node],
+      }
+    : node;
+  return duplicateCell(cell, options);
+};
+export const duplicateCell = (item: Cell, options?: DuplicateNodeOptions) => {
   const cellWithNewIds = cloneWithNewIds(item);
 
   const action = insertFullCell(CELL_INSERT_BELOW)(
@@ -257,7 +271,6 @@ export const duplicateCell = (
     {
       level: 0,
       focusAfter: true,
-      notUndoable: options?.notUndoable,
     }
   );
 
