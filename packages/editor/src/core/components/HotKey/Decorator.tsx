@@ -106,13 +106,13 @@ const Decorator: React.FC = ({ children }) => {
   const handlers = useMemo(
     () => [
       {
-        hotkeys: ['ctrl+z', 'command+z'],
+        hotkeys: ['mod+z'],
         handler: () => {
           undo();
         },
       },
       {
-        hotkeys: ['ctrl+c', 'command+c'],
+        hotkeys: ['mod+c'],
         handler: () => {
           // copy cell, unless text is selected
           if (window.getSelection()?.type !== 'Range' && focusedNodeId) {
@@ -120,7 +120,8 @@ const Decorator: React.FC = ({ children }) => {
 
             const type = 'text/plain'; // json is not supported
             const blob = new Blob([JSON.stringify(node)], { type });
-            const data = [new ClipboardItem({ [type]: blob })];
+
+            const data = [new ClipboardItem({ [type]: blob as any })];
 
             navigator.clipboard.write(data);
           }

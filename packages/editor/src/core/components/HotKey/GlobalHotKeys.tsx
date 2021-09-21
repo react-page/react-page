@@ -1,5 +1,6 @@
 import { useCallback } from 'react';
 import { useEffect } from 'react';
+import isHotkey from 'is-hotkey';
 import {
   useBlurAllCells,
   useFocusedNodeId,
@@ -18,6 +19,9 @@ const GlobalHotKeys = () => {
 
   const handleKeyDown = useCallback(
     (e: KeyboardEvent) => {
+      if (isHotkey('mod+v', e)) {
+        console.log('paste', navigator.clipboard.read());
+      }
       if (e.key === 'Escape') {
         if (someCellIsFocused) {
           blurAll();
