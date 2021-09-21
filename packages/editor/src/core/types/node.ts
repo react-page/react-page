@@ -48,7 +48,7 @@ export type PartialCell = Omit<Partial<Cell>, 'rows' | 'plugin'> & {
 };
 
 export const isRow = (node: Partial<Node>): node is Row => {
-  return Object.prototype.hasOwnProperty.call(node, 'cells');
+  return node ? Object.prototype.hasOwnProperty.call(node, 'cells') : false;
 };
 
 export type NodeWithAncestors = {

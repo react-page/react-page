@@ -11,6 +11,7 @@ import {
   useRemoveCell,
   useCellProps,
   useOption,
+  useIsExclusivlyFocused,
 } from '../../hooks';
 import PluginControls from '../PluginControls';
 import PluginMissing from '../PluginMissing';
@@ -30,7 +31,7 @@ const PluginComponent: React.FC<{ nodeId: string; hasChildren: boolean }> = ({
   const [data, onChange] = useDebouncedCellData(nodeId);
   const pluginId = useCellProps(nodeId, (c) => c.plugin?.id);
   const plugin = usePluginOfCell(nodeId);
-  const focused = useIsFocused(nodeId);
+  const focused = useIsExclusivlyFocused(nodeId);
   const hasInlineNeighbour = useCellProps(nodeId, (c) => c.hasInlineNeighbour);
 
   const Renderer = plugin?.Renderer;

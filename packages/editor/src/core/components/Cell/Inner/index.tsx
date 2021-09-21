@@ -60,7 +60,9 @@ const Inner: React.FC<{ nodeId: string }> = ({ nodeId }) => {
         target.closest('.react-page-cell.react-page-cell-has-plugin') ===
           ref.current.closest('.react-page-cell')
       ) {
-        focus(false, 'onClick');
+        const mode = e.metaKey || e.ctrlKey ? 'add' : 'replace';
+
+        focus(false, mode);
         setEditMode();
       }
     },

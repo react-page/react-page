@@ -1,9 +1,10 @@
 import { useCallback } from 'react';
 import { blurAllCells } from '../../actions/cell';
+import type { FocusMode } from '../../actions/cell/core';
 import {
   blurCell,
   focusCell,
-  removeCell,
+  removeCells,
   resizeCell,
   updateCellData,
   updateCellIsDraft,
@@ -21,6 +22,7 @@ import { isRow } from '../../types/node';
 import { useEditorStore, useLang } from './options';
 import { useDrop } from 'react-dnd';
 import { useAllCellPluginsForNode, useParentCellId } from './node';
+import { useAllFocusedNodeIds } from './focus';
 /**
  * @param id id of a node
  * @returns function, that sets a cell in draft mode (will be invisible in readonly / preview)
@@ -96,7 +98,7 @@ export const useUpdateCellData = (id: string) => {
  */
 export const useRemoveCellById = () => {
   const dispatch = useDispatch();
-  return useCallback((id: string) => dispatch(removeCell(id)), [dispatch]);
+  return useCallback((id: string) => dispatch(removeCells([id])), [dispatch]);
 };
 /**
  * @param id a cell id
@@ -105,6 +107,20 @@ export const useRemoveCellById = () => {
 export const useRemoveCell = (id: string) => {
   const removeById = useRemoveCellById();
   return useCallback(() => removeById(id), [removeById, id]);
+};
+
+/**
+ *
+ * @returns a function to remove muliple nodeids
+ */
+export const useRemoveMultipleNodeIds = () => {
+  const dispatch = useDispatch();
+  return useCallback(
+    (nodeIds: string[]) => {
+      dispatch(removeCells(nodeIds));
+    },
+    [dispatch]
+  );
 };
 
 /**
@@ -147,13 +163,13 @@ export const useFocusCellById = () => {
   const editor = useEditorStore();
 
   return useCallback(
-    (id: string, scrollToCell?: boolean, source?: string) => {
+    (id: string, scrollToCell?: boolean, mode?: FocusMode) => {
       const parentCellId = editor
         .getNodeWithAncestors(id)
         ?.ancestors?.find((node) => !isRow(node))?.id;
 
       dispatch(setDisplayReferenceNodeId(parentCellId));
-      dispatch(focusCell(id, scrollToCell, source));
+      dispatch(focusCell(id, scrollToCell, mode));
     },
     [dispatch, editor]
   );
@@ -166,8 +182,8 @@ export const useFocusCell = (id: string) => {
   const focusCellById = useFocusCellById();
 
   return useCallback(
-    (scrollToCell?: boolean, source?: string) =>
-      focusCellById(id, scrollToCell, source),
+    (scrollToCell?: boolean, mode?: FocusMode) =>
+      focusCellById(id, scrollToCell, mode),
     [focusCellById]
   );
 };

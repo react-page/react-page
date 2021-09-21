@@ -75,7 +75,7 @@ export const useCellProps = <T>(
     return null;
   }
   return useNodeProps(nodeId, (node, ancestors) =>
-    !isRow(node) ? selector(node, ancestors) : selector(null, ancestors)
+    node && !isRow(node) ? selector(node, ancestors) : selector(null, ancestors)
   );
 };
 
