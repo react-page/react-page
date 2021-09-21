@@ -25,6 +25,7 @@ export type Cell = NodeBase & {
   isDraftI18n?: I18nField<boolean>;
 
   hasInlineNeighbour?: string;
+  isRoot?: boolean;
 };
 
 /**

@@ -1,6 +1,7 @@
 import { useCallback } from 'react';
 import { useEffect } from 'react';
 import {
+  useAllFocusedNodeIds,
   useBlurAllCells,
   useFocusedNodeId,
   useIsInsertMode,
@@ -14,7 +15,7 @@ const GlobalHotKeys = () => {
   const setEditMode = useSetEditMode();
   const isInsertMode = useIsInsertMode();
   const blurAll = useBlurAllCells();
-  const someCellIsFocused = Boolean(useFocusedNodeId());
+  const someCellIsFocused = Boolean(useAllFocusedNodeIds().length > 0);
 
   const handleKeyDown = useCallback(
     (e: KeyboardEvent) => {

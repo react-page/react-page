@@ -2,6 +2,7 @@ import classNames from 'classnames';
 import React, { useCallback } from 'react';
 import { getCellOuterDivClassName } from '../../utils/getCellStylingProps';
 import {
+  useAllFocusedNodeIds,
   useCellHasPlugin,
   useCellProps,
   useCellSpacing,
@@ -73,6 +74,7 @@ const Cell: React.FC<Props> = ({ nodeId, measureRef }) => {
 
   const isLayoutMode = useIsLayoutMode();
   const isInsertMode = useIsInsertMode();
+  const multiNodesSelected = useAllFocusedNodeIds().length > 1;
   const hasChildren = useNodeHasChildren(nodeId);
   const showMoveButtons = useOption('showMoveButtonsInLayoutMode');
   const hasPlugin = useCellHasPlugin(nodeId);
@@ -135,7 +137,10 @@ const Cell: React.FC<Props> = ({ nodeId, measureRef }) => {
       onClick={onClick}
     >
       <Handle nodeId={nodeId} />
-      {showMoveButtons && isLayoutMode && !hasChildren ? (
+      {showMoveButtons &&
+      isLayoutMode &&
+      !hasChildren &&
+      !multiNodesSelected ? (
         <MoveActions nodeId={nodeId} />
       ) : null}
       <div

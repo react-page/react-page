@@ -1,4 +1,10 @@
-import type { Value, Node, NodeWithAncestors, Cell } from '../../types/node';
+import type {
+  Value,
+  Node,
+  NodeWithAncestors,
+  Cell,
+  Ancestors,
+} from '../../types/node';
 import { isRow } from '../../types/node';
 import type { RootState } from '../../types/state';
 
@@ -6,7 +12,7 @@ import type { RootState } from '../../types/state';
 const findNode = (
   nodes: Node[],
   nodeId: string,
-  ancestors: Node[] = []
+  ancestors: Ancestors = []
 ): NodeWithAncestors => {
   for (const node of nodes) {
     if (node.id === nodeId) {
@@ -53,7 +59,15 @@ export const findNodeInState = (state: RootState, nodeId: string) => {
     //end(now, true);
     return state.reactPage.__nodeCache[nodeId];
   }
-  const result = findNode([state.reactPage.values?.present as Cell], nodeId);
+  const result = findNode(
+    [
+      {
+        ...state.reactPage.values?.present,
+        isRoot: true,
+      },
+    ],
+    nodeId
+  );
   state.reactPage.__nodeCache[nodeId] = result;
   //end(now, false);
   return result;

@@ -1,4 +1,7 @@
 import { useCallback } from 'react';
+import { useDrop } from 'react-dnd';
+import { createId } from '../../../core/utils/createId';
+import { mapNode } from '../../../core/utils/mapNode';
 import { blurAllCells } from '../../actions/cell';
 import type { FocusMode } from '../../actions/cell/core';
 import {
@@ -17,12 +20,11 @@ import {
 import { setDisplayReferenceNodeId } from '../../actions/display';
 import { setLang } from '../../actions/setting';
 import { useDispatch } from '../../reduxConnect';
-import type { CellDrag, PartialCell } from '../../types/node';
+import type { CellDrag, Node, PartialCell } from '../../types/node';
 import { isRow } from '../../types/node';
+import { useAllCellPluginsForNode } from './node';
 import { useEditorStore, useLang } from './options';
-import { useDrop } from 'react-dnd';
-import { useAllCellPluginsForNode, useParentCellId } from './node';
-import { useAllFocusedNodeIds } from './focus';
+
 /**
  * @param id id of a node
  * @returns function, that sets a cell in draft mode (will be invisible in readonly / preview)
@@ -124,20 +126,122 @@ export const useRemoveMultipleNodeIds = () => {
 };
 
 /**
+ * @returns a function that duplicates a cell
+ */
+export const useDuplicateCellById = () => {
+  const dispatch = useDispatch();
+  const editor = useEditorStore();
+
+  return useCallback(
+    (id: string) => dispatch(duplicateCell(editor.getNode(id))),
+    [dispatch]
+  );
+};
+
+/**
+ * @returns a function that duplicates multiple cell
+ */
+export const useDuplicateMultipleCells = () => {
+  const dispatch = useDispatch();
+  const editor = useEditorStore();
+
+  return useCallback(
+    (nodeIds: string[]) => {
+      const nodesWithAncestors = nodeIds.map((nodeId) => {
+        const { node, ancestors } = editor.getNodeWithAncestors(nodeId) ?? {};
+        return { node, ancestors: [...ancestors].reverse() };
+      });
+
+      // find common ancestors
+      let nearestCommonAncestor: Node;
+      let depth = 0;
+      let search = true;
+      while (search) {
+        // check if every node has the same ancestor
+        if (
+          nodesWithAncestors.every(
+            (n) =>
+              n.ancestors[depth] &&
+              n.ancestors[depth]?.id ===
+                nodesWithAncestors[0].ancestors[depth]?.id
+          )
+        ) {
+          nearestCommonAncestor = nodesWithAncestors[0].ancestors[depth];
+          depth++;
+        } else {
+          search = false;
+        }
+      }
+
+      // remove nodes that we don't want to duplicate unless they have children
+      const cleaned = mapNode(nearestCommonAncestor, {
+        skipMapCell: (c) => {
+          return nodeIds.includes(c.id);
+        },
+        // remove cells without rows
+        mapCell: (c) => {
+          if (c.rows?.length > 0) {
+            return c;
+          } else {
+            return null;
+          }
+        },
+        // remove empty cells from rows and remove row completly if its empty
+        mapRowDown: (r) => {
+          if (!r) return null;
+          const row = {
+            ...r,
+            cells: r.cells.filter(Boolean) ?? [],
+          };
+          if (row.cells.length === 0) {
+            return null;
+          }
+          return row;
+        },
+        // remove empty rows of cells
+        mapCellDown: (c) => {
+          if (!c) return null;
+          const cell = {
+            ...c,
+            rows: c.rows.filter(Boolean) ?? [],
+          };
+          if (cell.rows?.length > 0 || nodeIds.includes(cell.id)) {
+            return cell;
+          } else {
+            return null;
+          }
+        },
+      });
+
+      const cleanedCell = isRow(cleaned)
+        ? {
+            id: createId(),
+            rows: [cleaned],
+          }
+        : cleaned;
+
+      const insertAfterNodeId = isRow(cleaned)
+        ? cleaned.id
+        : cleaned.rows[cleaned.rows.length - 1].id;
+
+      dispatch(
+        duplicateCell(cleanedCell, {
+          insertAfterNodeId,
+        })
+      );
+    },
+    [dispatch]
+  );
+};
+
+/**
  * @param a cell id
  * @returns a function that duplicates the given cell
  */
 export const useDuplicateCell = (id: string) => {
-  const dispatch = useDispatch();
-  const editor = useEditorStore();
-  const parentCellId = useParentCellId(id);
-  const lang = useLang();
-  const cellPlugins = useAllCellPluginsForNode(parentCellId);
+  const duplicate = useDuplicateCellById();
 
-  return useCallback(
-    () => dispatch(duplicateCell({ cellPlugins, lang })(editor.getNode(id))),
-    [dispatch, cellPlugins, lang, id]
-  );
+  return useCallback(() => duplicate(id), [duplicate, id]);
 };
 
 /**

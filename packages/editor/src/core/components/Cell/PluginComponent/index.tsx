@@ -106,10 +106,10 @@ const PluginComponent: React.FC<{ nodeId: string; hasChildren: boolean }> = ({
         </div>
         <Toolbar
           nodeId={nodeId}
-          open={focused && isEditMode}
+          open={focused}
           dark={plugin?.bottomToolbar?.dark}
           pluginControls={
-            plugin?.controls ? (
+            isEditMode && plugin?.controls ? (
               <PluginControls
                 componentProps={componentProps}
                 controls={plugin?.controls}
