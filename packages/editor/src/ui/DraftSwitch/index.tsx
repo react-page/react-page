@@ -12,8 +12,8 @@ import {
 const DraftSwitch = ({ nodeId, lang }: { nodeId: string; lang?: string }) => {
   const { t } = useUiTranslator();
   const cell = useCellProps(nodeId, (c) => ({
-    isDraft: c.isDraft,
-    isDraftI18n: c.isDraftI18n,
+    isDraft: c?.isDraft,
+    isDraftI18n: c?.isDraftI18n,
   }));
   const setDraft = useSetDraft(nodeId);
   const currentLang = useLang();

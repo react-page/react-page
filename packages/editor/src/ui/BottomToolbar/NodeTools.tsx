@@ -11,7 +11,7 @@ import { BottomToolbarTools } from './Tools';
 
 export type BottomToolbarMainBarProps = {
   nodeId: string;
-  actionsLeft: React.ReactNode;
+  actionsLeft?: React.ReactNode;
 };
 export const BottomToolbarMainBar: React.FC<BottomToolbarMainBarProps> = React.memo(
   ({ nodeId, actionsLeft }) => {
@@ -37,11 +37,12 @@ export const BottomToolbarMainBar: React.FC<BottomToolbarMainBarProps> = React.m
           <Grid item={true}>
             <Typography variant="subtitle1">{t(title)}</Typography>
           </Grid>
-          {React.Children.map(actionsLeft, (action, index) => (
-            <Grid item={true} key={index}>
-              {action}
-            </Grid>
-          ))}
+          {actionsLeft &&
+            React.Children.map(actionsLeft, (action, index) => (
+              <Grid item={true} key={index}>
+                {action}
+              </Grid>
+            ))}
           {showMoveButtons ? (
             <Grid item={true} style={{ marginLeft: 'auto' }}>
               <MoveActions nodeId={nodeId} />

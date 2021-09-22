@@ -32,8 +32,9 @@ const Handle: React.FC<{ nodeId: string }> = ({ nodeId }) => {
           'react-page-cell-handle-is-dragging': isDragging,
         })}
         ref={dragRef}
-        onClick={() => {
-          focus(false);
+        onClick={(e) => {
+          const mode = e.metaKey || e.ctrlKey ? 'add' : 'replace';
+          focus(false, mode);
         }}
       >
         {t(plugin?.title || plugin?.text)}

@@ -6,6 +6,7 @@ import { Trash } from '../Trash';
 import type { StickyNess } from '../Sidebar';
 import { Sidebar } from '../Sidebar';
 import { useOption } from '../../core/components/hooks';
+import { MultiNodesBottomToolbar } from '../MultiNodesBottomToolbar';
 
 export default React.memo(
   ({
@@ -23,6 +24,7 @@ export default React.memo(
         <Trash />
         {!hideEditorSidebar && <Sidebar stickyNess={stickyNess} />}
         <PluginDrawer />
+        <MultiNodesBottomToolbar />
       </ThemeProvider>
     );
   }

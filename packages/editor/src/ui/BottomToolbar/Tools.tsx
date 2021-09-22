@@ -18,8 +18,8 @@ export const BottomToolbarTools: React.FC<BottomToolbarToolsProps> = React.memo(
       <div style={{ display: 'flex', alignItems: 'center' }}>
         <I18nTools nodeId={nodeId} />
         <DraftSwitch nodeId={nodeId} />
-        <DuplicateButton nodeId={nodeId} />
         <SelectParentButton nodeId={nodeId} />
+        <DuplicateButton nodeId={nodeId} />
 
         <Tooltip title={t('Remove Plugin')}>
           <IconButton

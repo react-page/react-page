@@ -75,7 +75,7 @@ export const useCellProps = <T>(
     return null;
   }
   return useNodeProps(nodeId, (node, ancestors) =>
-    !isRow(node) ? selector(node, ancestors) : selector(null, ancestors)
+    node && !isRow(node) ? selector(node, ancestors) : selector(null, ancestors)
   );
 };
 
@@ -111,7 +111,7 @@ export const useRowProps = <T>(nodeId: string, selector: RowSelector<T>): T => {
 export const useNodeHoverPosition = (nodeId: string): PositionEnum => {
   return useSelector((state) =>
     state.reactPage.hover?.nodeId === nodeId
-      ? state.reactPage.hover.position
+      ? state.reactPage.hover?.position
       : null
   );
 };

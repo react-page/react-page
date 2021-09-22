@@ -1,15 +1,17 @@
 import type { Action } from 'redux';
-
+import { cloneWithNewIds } from '../../../core/utils/cloneWithNewIds';
 import type { HoverTarget } from '../../service/hover/computeHover';
 import type {
   Cell,
   I18nField,
   NewIds,
+  Node,
   PartialCell,
   PartialRow,
   RenderOptions,
   Row,
 } from '../../types';
+import { isRow } from '../../types';
 import { createId } from '../../utils/createId';
 import { getChildCellPlugins } from '../../utils/getAvailablePlugins';
 import { getCellData } from '../../utils/getCellData';
@@ -49,6 +51,7 @@ export interface InsertAction extends Action {
 export type InsertOptions = {
   level?: number;
   focusAfter?: boolean;
+  notUndoable?: boolean;
 };
 
 export type PluginsAndLang = {
@@ -130,14 +133,31 @@ export const createCell = (
 
 const insert = <T extends InsertType>(type: T) => (options: PluginsAndLang) => (
   partialCell: PartialCell,
+  target: HoverTarget,
+  insertOptions?: InsertOptions,
+  ids: NewIds = generateIds()
+) => {
+  const cell = createCell(partialCell, options);
+  const isNew = !partialCell.id;
+  return insertFullCell(type)(
+    cell,
+    target,
+    {
+      ...insertOptions,
+      focusAfter: insertOptions?.focusAfter || isNew,
+    },
+    ids
+  );
+};
+
+const insertFullCell = <T extends InsertType>(type: T) => (
+  cell: Cell,
   { id: hoverId, inline, hasInlineNeighbour, ancestorIds }: HoverTarget,
   insertOptions?: InsertOptions,
-  ids: NewIds = null
+  ids: NewIds = generateIds()
 ) => {
   const level = insertOptions?.level ?? 0;
   let l = level;
-
-  const cell = createCell(partialCell, options);
   switch (type) {
     case CELL_INSERT_ABOVE:
     case CELL_INSERT_BELOW: {
@@ -167,19 +187,23 @@ const insert = <T extends InsertType>(type: T) => (options: PluginsAndLang) => (
     // FIXME: item handling is a bit confusing,
     // we now give some of them a name like "cell" or "item",
     // but the purpose of the others is unclear
-    ids: ids ? ids : generateIds(),
+    ids,
+    notUndoable: insertOptions.notUndoable,
   };
 
   return (dispatch) => {
     dispatch(insertAction);
-    // FIXME: checking if an item is new or just moved around is a bit awkward
-    // FIXME: this doesn't work when duplicating, I've added an option to focus after insert
-    const isNew = !partialCell.id;
 
-    if (isNew || insertOptions?.focusAfter) {
+    if (insertOptions?.focusAfter) {
       dispatch(editMode());
       setTimeout(() => {
-        dispatch(focusCell(insertAction.ids.item, true));
+        dispatch(
+          focusCell(
+            // first condition is for pasted cells. I know its a bit weird
+            cell.rows?.[0]?.cells?.[0]?.id ?? insertAction.ids.item,
+            true
+          )
+        );
       }, 0);
     }
   };
@@ -219,27 +243,26 @@ export const insertCellAtTheEnd = insert(CELL_INSERT_AT_END);
 
 export const insertCellNewAsNewRow = insert(CELL_INSERT_AS_NEW_ROW);
 
-// set new ids recursivly
-const newIds = ({ id, ...item }: Cell): Cell => {
-  return {
-    ...item,
-    dataI18n: item.dataI18n ? JSON.parse(JSON.stringify(item.dataI18n)) : {},
-    id: createId(),
-    rows: item.rows
-      ? item.rows.map((row) => ({
-          ...row,
-          id: createId(),
-          cells: row.cells ? row.cells.map(newIds) : undefined,
-        }))
-      : undefined,
-  };
+export type DuplicateNodeOptions = {
+  insertAfterNodeId?: string;
 };
-export const duplicateCell = (options: PluginsAndLang) => (item: Cell) =>
-  insertCellBelow(options)(
-    newIds(item),
+export const duplicateNode = (node: Node, options?: DuplicateNodeOptions) => {
+  const cell = isRow(node)
+    ? {
+        id: createId(),
+        rows: [node],
+      }
+    : node;
+  return duplicateCell(cell, options);
+};
+export const duplicateCell = (item: Cell, options?: DuplicateNodeOptions) => {
+  const cellWithNewIds = cloneWithNewIds(item);
+
+  const action = insertFullCell(CELL_INSERT_BELOW)(
+    cellWithNewIds,
     {
       ancestorIds: [],
-      id: item.id,
+      id: options?.insertAfterNodeId ?? item.id,
       hasInlineNeighbour: item.hasInlineNeighbour,
       inline: item.inline,
       levels: null,
@@ -250,6 +273,9 @@ export const duplicateCell = (options: PluginsAndLang) => (item: Cell) =>
       focusAfter: true,
     }
   );
+
+  return action;
+};
 
 export const insertActions = {
   insertCellRightInline,

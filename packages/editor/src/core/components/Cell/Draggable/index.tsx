@@ -44,6 +44,10 @@ const Draggable: React.FC<Props> = ({ isLeaf, children, nodeId }) => {
       >
         {isLayoutMode ? (
           <div
+            onClick={(e) => {
+              const mode = e.metaKey || e.ctrlKey ? 'add' : 'replace';
+              focus(false, mode);
+            }}
             className={classNames({
               'react-page-cell-draggable-overlay': isLayoutMode,
               [`react-page-cell-draggable-inline-${cell.inline}`]: cell.inline,

@@ -1,6 +1,8 @@
 import isHotkey from 'is-hotkey';
 import type { DependencyList } from 'react';
 import React from 'react';
+import { Transforms } from 'slate';
+import { ReactEditor } from 'slate-react';
 import { useSlate } from 'slate-react';
 import { addPlugin } from '../hooks/useAddPlugin';
 import { getCurrentNodeWithPlugin } from '../hooks/useCurrentNodeWithPlugin';
@@ -35,6 +37,12 @@ export const useOnKeyDown = (
     // we need to prevent slate from handling undo and redo
     if (isHotkey(['mod+z', 'mod+y'], event)) {
       event.preventDefault();
+      return true;
+    }
+
+    if (isHotkey(['esc'], event)) {
+      ReactEditor.blur(editor);
+
       return true;
     }
 

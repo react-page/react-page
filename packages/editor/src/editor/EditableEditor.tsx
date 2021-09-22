@@ -25,6 +25,7 @@ const EditableEditor: React.FC<EditableEditorProps> = ({
   callbacks,
 }) => {
   const theValue = value || createEmptyState();
+
   return (
     <Provider
       lang={lang}
@@ -37,7 +38,7 @@ const EditableEditor: React.FC<EditableEditorProps> = ({
       <StickyWrapper>
         {(stickyNess) => (
           <>
-            <GlobalHotKeys />
+            <GlobalHotKeys focusRef={stickyNess.focusRef} />
             <Editable />
             <EditorUI stickyNess={stickyNess} />
           </>
