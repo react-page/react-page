@@ -3,6 +3,13 @@
   "author": "ORY GmbH",
   "name": "react-page",
   "license": "MIT",
+  "workspaces": [
+    "packages/editor",
+    "packages/plugins/content/*",
+    "packages/plugins/layout/*",
+    "packages/react-admin",
+    "examples"
+  ],
   "devDependencies": {
     "@babel/cli": "7.2.0",
     "@babel/core": "7.2.0",

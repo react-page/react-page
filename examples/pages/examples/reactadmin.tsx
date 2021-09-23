@@ -37,7 +37,7 @@ import { demo } from '../../sampleContents/demo';
 import { raAboutUs } from '../../sampleContents/raAboutUs';
 
 // see https://github.com/marmelab/react-admin/issues/5896
-const Admin = dynamic(() => import('react-admin').then((c) => c.Admin), {
+const Admin = dynamic(async () => (await import('react-admin')).Admin, {
   ssr: false,
 });
 

@@ -193,7 +193,7 @@ const GlobalHotKeys: React.FC<{ focusRef: RefObject<HTMLDivElement> }> = ({
     // we do a little trick with a global variable (instead of requiring a wrapping context)
 
     lastFocused = focusRef.current;
-    const keyHandler = (event: Event) => {
+    const keyHandler = (event: KeyboardEvent) => {
       if (lastFocused !== focusRef.current) return;
       const matchingHandler = handlers.find((handler) =>
         handler.hotkeys.some((hotkey) => isHotkey(hotkey, event))
