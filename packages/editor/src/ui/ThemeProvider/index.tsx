@@ -1,7 +1,7 @@
 import React from 'react';
 
 import type { Theme } from '@material-ui/core/styles';
-import { createMuiTheme } from '@material-ui/core/styles';
+import { createTheme } from '@material-ui/core/styles';
 import {
   ThemeProvider as MaterialUiThemeProvider,
   StylesProvider,
@@ -16,7 +16,7 @@ const generateClassName = createGenerateClassName({
   seed: 'reactPage',
   productionPrefix: 'reactPage',
 });
-const theme = createMuiTheme(themeOptions);
+const theme = createTheme(themeOptions);
 
 export type ThemeProviderProps = {
   theme?: Theme;
