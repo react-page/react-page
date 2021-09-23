@@ -19,8 +19,8 @@
     "@testing-library/react-hooks": "^3.4.2",
     "@types/jest": "^26.0.19",
     "@types/loadable__component": "^5.13.3",
-    "@types/react": "^17.0.0",
-    "@types/react-dom": "^17.0.0",
+    "@types/react": "^17.0.24",
+    "@types/react-dom": "^17.0.9",
     "@types/react-redux": "^7.1.15",
     "@typescript-eslint/eslint-plugin": "^4.4.1",
     "@typescript-eslint/parser": "^4.4.1",
@@ -179,5 +179,6 @@
       ],
       "@semantic-release/github"
     ]
-  }
+  },
+  "dependencies": {}
 }
