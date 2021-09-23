@@ -51,22 +51,17 @@ type Props = {
 const Cell: React.FC<Props> = ({ nodeId, measureRef }) => {
   const focused = useIsFocused(nodeId);
 
-  const {
-    inline,
-    hasInlineNeighbour,
-    isDraft,
-    isDraftI18n,
-    size,
-  } = useCellProps(
-    nodeId,
-    ({ inline, hasInlineNeighbour, isDraft, isDraftI18n, size }) => ({
-      inline,
-      hasInlineNeighbour,
-      isDraft,
-      isDraftI18n,
-      size,
-    })
-  );
+  const { inline, hasInlineNeighbour, isDraft, isDraftI18n, size } =
+    useCellProps(
+      nodeId,
+      ({ inline, hasInlineNeighbour, isDraft, isDraftI18n, size }) => ({
+        inline,
+        hasInlineNeighbour,
+        isDraft,
+        isDraftI18n,
+        size,
+      })
+    );
 
   const lang = useLang();
   const isPreviewMode = useIsPreviewMode();

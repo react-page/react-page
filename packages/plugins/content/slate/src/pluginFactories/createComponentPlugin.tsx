@@ -9,7 +9,7 @@ function createComponentPlugin<T extends Record<string, unknown>>(
     customize: (
       t: SlateComponentPluginDefinition<T>
     ) => SlateComponentPluginDefinition<CT> = (d) =>
-      (d as unknown) as SlateComponentPluginDefinition<CT>
+      d as unknown as SlateComponentPluginDefinition<CT>
   ) {
     return createComponentPlugin(customize(def));
   };

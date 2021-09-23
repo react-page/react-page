@@ -96,10 +96,9 @@ const moveToParent = (
   if (!parentIsList) {
     const targetNode = Editor.node(editor, targetPath);
     // see https://github.com/ianstormtaylor/slate/issues/3769
-    const onlyTextChildren = ((targetNode?.[0] as any)
-      .children as Node[])?.every(
-      (child) => Text.isText(child) || Editor.isInline(editor, child)
-    );
+    const onlyTextChildren = (
+      (targetNode?.[0] as any).children as Node[]
+    )?.every((child) => Text.isText(child) || Editor.isInline(editor, child));
     if (onlyTextChildren) {
       Transforms.setNodes(
         editor,

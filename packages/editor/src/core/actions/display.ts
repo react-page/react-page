@@ -38,15 +38,14 @@ export type DisplayAction =
   | SetDisplayModeAction
   | SetZoomAction
   | SetDisplayReferenceNodeIdAction;
-const setDisplayMode = (
-  mode: DisplayModes,
-  referenceNodeId?: string
-) => (): SetDisplayModeAction => ({
-  type: SET_DISPLAY_MODE,
-  ts: new Date(),
-  mode,
-  referenceNodeId,
-});
+const setDisplayMode =
+  (mode: DisplayModes, referenceNodeId?: string) =>
+  (): SetDisplayModeAction => ({
+    type: SET_DISPLAY_MODE,
+    ts: new Date(),
+    mode,
+    referenceNodeId,
+  });
 
 export const setDisplayReferenceNodeId = (
   referenceNodeId?: string

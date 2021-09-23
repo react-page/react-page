@@ -349,9 +349,10 @@ export const useDebouncedCellData = (nodeId: string) => {
     [updateCellData]
   );
 
-  const changed = useMemo(() => !deepEquals(cellData, cellDataRef.current), [
-    cellData,
-  ]);
+  const changed = useMemo(
+    () => !deepEquals(cellData, cellDataRef.current),
+    [cellData]
+  );
 
   useEffect(() => {
     // changed from "outside" overwrite whatever is pending

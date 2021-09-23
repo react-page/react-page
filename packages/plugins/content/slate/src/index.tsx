@@ -89,9 +89,9 @@ export type SlateCustomizeFunction<TPlugins extends SlatePluginCollection> = (
 function plugin<TPlugins extends SlatePluginCollection = DefaultPlugins>(
   customize?: SlateCustomizeFunction<TPlugins>
 ): SlateCellPlugin<TPlugins> {
-  const settings = (customize
-    ? customize(defaultConfig)
-    : defaultConfig) as SlateDefinition<TPlugins>;
+  const settings = (
+    customize ? customize(defaultConfig) : defaultConfig
+  ) as SlateDefinition<TPlugins>;
 
   const createData = (customizer: CreateDataCustomizer<TPlugins>) => {
     return transformInitialSlateState(

@@ -50,8 +50,8 @@ const EditorStoreProvider: React.FC<{
         return;
       }
       //console.time('calculate notifiy on change');
-      const currentValue = editorStore.store.getState().reactPage.values
-        .present;
+      const currentValue =
+        editorStore.store.getState().reactPage.values.present;
 
       if (!currentValue) {
         // console.timeEnd('calculate notifiy on change');

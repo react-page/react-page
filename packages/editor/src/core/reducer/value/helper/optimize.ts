@@ -17,20 +17,18 @@ export const optimizeCell = (cell: Cell): Cell => {
   const optimized = {
     ...rest,
     rows: rows
-      ?.map(
-        (r: Row): Array<Row> => {
-          const { cells = [] } = r;
-          if (cells.length !== 1) {
-            return [r];
-          }
-
-          const { rows: cellRows, plugin }: Cell = cells[0];
-          if (cellRows?.length > 0 && !plugin) {
-            return cellRows;
-          }
+      ?.map((r: Row): Array<Row> => {
+        const { cells = [] } = r;
+        if (cells.length !== 1) {
           return [r];
         }
-      )
+
+        const { rows: cellRows, plugin }: Cell = cells[0];
+        if (cellRows?.length > 0 && !plugin) {
+          return cellRows;
+        }
+        return [r];
+      })
       .reduce(flatten, []),
   };
 

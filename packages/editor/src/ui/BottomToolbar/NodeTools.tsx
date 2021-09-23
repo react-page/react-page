@@ -13,8 +13,8 @@ export type BottomToolbarMainBarProps = {
   nodeId: string;
   actionsLeft?: React.ReactNode;
 };
-export const BottomToolbarMainBar: React.FC<BottomToolbarMainBarProps> = React.memo(
-  ({ nodeId, actionsLeft }) => {
+export const BottomToolbarMainBar: React.FC<BottomToolbarMainBarProps> =
+  React.memo(({ nodeId, actionsLeft }) => {
     const { title, icon } = usePluginOfCell(nodeId) ?? {};
     const { t } = useUiTranslator();
     const focus = useFocusCell(nodeId);
@@ -55,5 +55,4 @@ export const BottomToolbarMainBar: React.FC<BottomToolbarMainBarProps> = React.m
         </Grid>
       </div>
     );
-  }
-);
+  });

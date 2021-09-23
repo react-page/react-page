@@ -169,8 +169,7 @@ export const demo: Value = {
                                     },
                                   ],
                                   data: {
-                                    href:
-                                      'https://github.com/ianstormtaylor/slate/',
+                                    href: 'https://github.com/ianstormtaylor/slate/',
                                   },
                                 },
                                 { text: ')' },
@@ -266,8 +265,7 @@ export const demo: Value = {
                   },
                   dataI18n: {
                     en: {
-                      src:
-                        'https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg',
+                      src: 'https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg',
                     },
                   },
                   rows: [],
@@ -289,8 +287,7 @@ export const demo: Value = {
                               'EMPHASIZE/STRONG': true,
                             },
                             {
-                              text:
-                                " has a simple API - it's basically just like a form field and can be included in any project. ",
+                              text: " has a simple API - it's basically just like a form field and can be included in any project. ",
                             },
                           ],
                         },
@@ -300,8 +297,7 @@ export const demo: Value = {
                             { text: "Pass it's current " },
                             { text: 'value', 'CODE/CODE': true },
                             {
-                              text:
-                                ' that you might read from your datastore and update the value when ',
+                              text: ' that you might read from your datastore and update the value when ',
                             },
                             { text: 'onChange', 'CODE/CODE': true },
                             { text: ' is called. ' },
@@ -320,16 +316,14 @@ export const demo: Value = {
                               'CODE/CODE': true,
                             },
                             {
-                              text:
-                                ' whenever you want to display content without editing capabilities. ',
+                              text: ' whenever you want to display content without editing capabilities. ',
                             },
                             {
                               text: 'ReactPage',
                               'EMPHASIZE/STRONG': true,
                             },
                             {
-                              text:
-                                ' will only load what is really required for displaying thanks to code splitting. This results in a ',
+                              text: ' will only load what is really required for displaying thanks to code splitting. This results in a ',
                             },
                             {
                               text: 'small bundle size.',
@@ -357,8 +351,7 @@ export const demo: Value = {
           dataI18n: {
             en: {
               language: 'tsx',
-              code:
-                "\nimport Editor from '@react-page/editor'\n\n// use ReactPage for editing Content\n<Editor\n    cellPlugins={yourCellPlugins}\n    value={theCurrentValue}\n    onChange={newValue => saveTheValue(newValue)}\n/>\n\n// or just for displaying content\n<Editor\n    cellPlugins={yourCellPlugins}\n    value={theCurrentValue}\n    readOnly={true}\n/>\n",
+              code: "\nimport Editor from '@react-page/editor'\n\n// use ReactPage for editing Content\n<Editor\n    cellPlugins={yourCellPlugins}\n    value={theCurrentValue}\n    onChange={newValue => saveTheValue(newValue)}\n/>\n\n// or just for displaying content\n<Editor\n    cellPlugins={yourCellPlugins}\n    value={theCurrentValue}\n    readOnly={true}\n/>\n",
             },
           },
           rows: [],
@@ -400,8 +393,7 @@ export const demo: Value = {
                           type: 'PARAGRAPH/PARAGRAPH',
                           children: [
                             {
-                              text:
-                                'Anything can displayed inside a cell of this editor! You can add text, images, videos and any custom Component you want by creating custom ',
+                              text: 'Anything can displayed inside a cell of this editor! You can add text, images, videos and any custom Component you want by creating custom ',
                             },
                             { text: 'CellPlugins.', 'CODE/CODE': true },
                           ],
@@ -410,8 +402,7 @@ export const demo: Value = {
                           type: 'PARAGRAPH/PARAGRAPH',
                           children: [
                             {
-                              text:
-                                'Provide your webmasters a "recommended products" section for your E-Commerce blog.\nShow a contact form directly inside your content.\nEmbed Tweets and newest posts from Social media.',
+                              text: 'Provide your webmasters a "recommended products" section for your E-Commerce blog.\nShow a contact form directly inside your content.\nEmbed Tweets and newest posts from Social media.',
                             },
                           ],
                         },
@@ -419,8 +410,7 @@ export const demo: Value = {
                           type: 'PARAGRAPH/PARAGRAPH',
                           children: [
                             {
-                              text:
-                                'Anything is possible with a simple, yet powerful API. ',
+                              text: 'Anything is possible with a simple, yet powerful API. ',
                             },
                           ],
                         },
@@ -428,13 +418,11 @@ export const demo: Value = {
                           type: 'PARAGRAPH/PARAGRAPH',
                           children: [
                             {
-                              text:
-                                'You provide a Component and some metadata about your new ',
+                              text: 'You provide a Component and some metadata about your new ',
                             },
                             { text: 'CellPlugin ', 'CODE/CODE': true },
                             {
-                              text:
-                                'and you are done. If you additionaly provide a schema of the data of this ',
+                              text: 'and you are done. If you additionaly provide a schema of the data of this ',
                             },
                             { text: 'CellPlugin, ', 'CODE/CODE': true },
                             { text: 'we will ' },
@@ -481,8 +469,7 @@ export const demo: Value = {
                         {
                           children: [
                             {
-                              text:
-                                'We provide a powerful richtext plugin built upon ',
+                              text: 'We provide a powerful richtext plugin built upon ',
                             },
                             {
                               type: 'LINK/LINK',
@@ -496,18 +483,15 @@ export const demo: Value = {
                               type: 'LINK/LINK',
                               children: [{ text: 'Slate' }],
                               data: {
-                                href:
-                                  'https://github.com/ianstormtaylor/slate/',
+                                href: 'https://github.com/ianstormtaylor/slate/',
                               },
                             },
                             {
-                              text:
-                                '. It works out-of-the-box, but is fully customizable. You can customize how everything is rendered by providing custom component for headlines, paragraphs, links and so-on and you can add create your own custom plugins to bring in ',
+                              text: '. It works out-of-the-box, but is fully customizable. You can customize how everything is rendered by providing custom component for headlines, paragraphs, links and so-on and you can add create your own custom plugins to bring in ',
                             },
                             { text: 'color', SetColor: { color: 'green' } },
                             {
-                              text:
-                                ', add custom links or custom paragraph styles.',
+                              text: ', add custom links or custom paragraph styles.',
                             },
                           ],
                         },
@@ -536,8 +520,7 @@ export const demo: Value = {
                           type: 'PARAGRAPH/PARAGRAPH',
                           children: [
                             {
-                              text:
-                                'You can customize the rich text editor anyway you like.\nYou can even add formula editing capabilities:',
+                              text: 'You can customize the rich text editor anyway you like.\nYou can even add formula editing capabilities:',
                               'EMPHASIZE/EM': true,
                             },
                           ],
@@ -601,8 +584,7 @@ export const demo: Value = {
                             {
                               children: [
                                 {
-                                  text:
-                                    'ReactPage is written in modern typescript and enables developer that include ReactPage into their project with typesafety and peace of mind. Thanks to generics, you can give any CellPlugin the data type that you need.',
+                                  text: 'ReactPage is written in modern typescript and enables developer that include ReactPage into their project with typesafety and peace of mind. Thanks to generics, you can give any CellPlugin the data type that you need.',
                                 },
                               ],
                               type: 'LISTS/LIST-ITEM',
@@ -675,16 +657,14 @@ export const demo: Value = {
                   children: [
                     { text: 'ReactPage ', 'EMPHASIZE/STRONG': true },
                     {
-                      text:
-                        'is built with performance in mind. It can be used for ',
+                      text: 'is built with performance in mind. It can be used for ',
                     },
                     {
                       text: 'server side rendering (SSR)',
                       'EMPHASIZE/STRONG': true,
                     },
                     {
-                      text:
-                        ", which makes it not only a great tool for editing, but also for displaying. It's battle tested in nextjs, this example itself is created using nextjs and static page generation.",
+                      text: ", which makes it not only a great tool for editing, but also for displaying. It's battle tested in nextjs, this example itself is created using nextjs and static page generation.",
                     },
                   ],
                 },
@@ -694,8 +674,7 @@ export const demo: Value = {
                     { text: 'We try ' },
                     { text: 'minimize bundle size', 'EMPHASIZE/STRONG': true },
                     {
-                      text:
-                        ' as much as possible. Any UI solely used for editing is not loaded when in readOnly mode. ',
+                      text: ' as much as possible. Any UI solely used for editing is not loaded when in readOnly mode. ',
                     },
                   ],
                 },
@@ -728,8 +707,7 @@ export const demo: Value = {
                           type: 'PARAGRAPH/PARAGRAPH',
                           children: [
                             {
-                              text:
-                                'ReactPage works in any SSR setup like \nNext.js or Gatsby',
+                              text: 'ReactPage works in any SSR setup like \nNext.js or Gatsby',
                               'EMPHASIZE/EM': true,
                             },
                           ],
@@ -752,8 +730,7 @@ export const demo: Value = {
                   dataI18n: {
                     en: {
                       href: '',
-                      src:
-                        'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Nextjs-logo.svg/800px-Nextjs-logo.svg.png',
+                      src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Nextjs-logo.svg/800px-Nextjs-logo.svg.png',
                     },
                   },
                   rows: [],

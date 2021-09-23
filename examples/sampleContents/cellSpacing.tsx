@@ -21,8 +21,7 @@ export const cellSpacingDemo: Value = {
                   type: 'PARAGRAPH/PARAGRAPH',
                   children: [
                     {
-                      text:
-                        'Top level layout that uses global cell spacing settings',
+                      text: 'Top level layout that uses global cell spacing settings',
                     },
                   ],
                 },
@@ -184,8 +183,7 @@ export const cellSpacingDemo: Value = {
                           type: 'PARAGRAPH/PARAGRAPH',
                           children: [
                             {
-                              text:
-                                'Layout plugin with custom padding and cell spacing overrides',
+                              text: 'Layout plugin with custom padding and cell spacing overrides',
                             },
                           ],
                         },
@@ -347,8 +345,7 @@ export const cellSpacingDemo: Value = {
                                   type: 'PARAGRAPH/PARAGRAPH',
                                   children: [
                                     {
-                                      text:
-                                        'Nested layout plugin with no padding and its own cell spacing overrides',
+                                      text: 'Nested layout plugin with no padding and its own cell spacing overrides',
                                     },
                                   ],
                                 },

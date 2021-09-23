@@ -71,9 +71,8 @@ const Row: React.FC<{ nodeId: string }> = ({ nodeId }) => {
           }}
           className={classNames({
             'react-page-row-is-hovering-this': Boolean(hoverPosition),
-            [`react-page-row-is-hovering-${hoverPosition || ''}`]: Boolean(
-              hoverPosition
-            ),
+            [`react-page-row-is-hovering-${hoverPosition || ''}`]:
+              Boolean(hoverPosition),
           })}
         />
         {childrenWithOffsets.map(({ offset, id, size, maxSize }, index) => (

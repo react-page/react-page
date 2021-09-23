@@ -57,8 +57,7 @@ const contents: Value_v0[] = [
                             ],
                           },
                           {
-                            text:
-                              ' is a company building and maintaining developer tools for a safer, more accessible web. You might also like our other ',
+                            text: ' is a company building and maintaining developer tools for a safer, more accessible web. You might also like our other ',
                           },
                           {
                             data: {
@@ -72,8 +71,7 @@ const contents: Value_v0[] = [
                             ],
                           },
                           {
-                            text:
-                              ' tools! ReactPage is a smart, extensible and modern editor ("WYSIWYG") for the web written in React.',
+                            text: ' tools! ReactPage is a smart, extensible and modern editor ("WYSIWYG") for the web written in React.',
                           },
                         ],
                       },
@@ -84,8 +82,7 @@ const contents: Value_v0[] = [
                         type: 'PARAGRAPH/PARAGRAPH',
                         children: [
                           {
-                            text:
-                              'ReactPage was written because we urgently needed a robust and modern content editing solution for our open education platform ',
+                            text: 'ReactPage was written because we urgently needed a robust and modern content editing solution for our open education platform ',
                           },
                           {
                             data: {
@@ -99,8 +96,7 @@ const contents: Value_v0[] = [
                             ],
                           },
                           {
-                            text:
-                              '. Serlo is the largest open education platform in Germany, works like the Wikipedia and is used by millions every year.',
+                            text: '. Serlo is the largest open education platform in Germany, works like the Wikipedia and is used by millions every year.',
                           },
                         ],
                       },
@@ -154,8 +150,7 @@ const contents: Value_v0[] = [
                             'EMPHASIZE/STRONG': true,
                           },
                           {
-                            text:
-                              ' based on ReactPage. Create stunning websites, write your own designs and plugins, and be done with databases, application servers, and security updates.',
+                            text: ' based on ReactPage. Create stunning websites, write your own designs and plugins, and be done with databases, application servers, and security updates.',
                           },
                         ],
                       },
@@ -170,8 +165,7 @@ const contents: Value_v0[] = [
                           },
                           {
                             data: {
-                              href:
-                                'https://www.ory.sh/sites?utm_source=github&utm_medium=link&utm_campaign=editor_demo',
+                              href: 'https://www.ory.sh/sites?utm_source=github&utm_medium=link&utm_campaign=editor_demo',
                             },
                             type: 'LINK/LINK',
                             children: [
@@ -278,8 +272,7 @@ const contents: Value_v0[] = [
                         type: 'PARAGRAPH/PARAGRAPH',
                         children: [
                           {
-                            text:
-                              'We had to realize that existing open source content editing solutions had one of the three flaws:\r',
+                            text: 'We had to realize that existing open source content editing solutions had one of the three flaws:\r',
                           },
                         ],
                       },
@@ -292,8 +285,7 @@ const contents: Value_v0[] = [
                             type: 'LISTS/LIST-ITEM',
                             children: [
                               {
-                                text:
-                                  'The produced markup was horrific, a lot of sanitation had to take place and XSS is always a threat.\r',
+                                text: 'The produced markup was horrific, a lot of sanitation had to take place and XSS is always a threat.\r',
                               },
                             ],
                           },
@@ -302,8 +294,7 @@ const contents: Value_v0[] = [
                             type: 'LISTS/LIST-ITEM',
                             children: [
                               {
-                                text:
-                                  'The author must learn special mark up, like markdown, before being able to produce content. These text-based solutions are usually unable to specify a layout and complex data structures like tables are annoying to edit.\r',
+                                text: 'The author must learn special mark up, like markdown, before being able to produce content. These text-based solutions are usually unable to specify a layout and complex data structures like tables are annoying to edit.\r',
                               },
                             ],
                           },
@@ -312,8 +303,7 @@ const contents: Value_v0[] = [
                             type: 'LISTS/LIST-ITEM',
                             children: [
                               {
-                                text:
-                                  'Promising libraries potentially solving the above where abandoned by their maintainers, because it started as a special use case, or a free-time project.\r',
+                                text: 'Promising libraries potentially solving the above where abandoned by their maintainers, because it started as a special use case, or a free-time project.\r',
                               },
                             ],
                           },
@@ -389,8 +379,7 @@ const contents: Value_v0[] = [
                         type: 'PARAGRAPH/PARAGRAPH',
                         children: [
                           {
-                            text:
-                              'We concluded that a solution must meet the following principles:\r',
+                            text: 'We concluded that a solution must meet the following principles:\r',
                           },
                         ],
                       },
@@ -403,8 +392,7 @@ const contents: Value_v0[] = [
                             type: 'LISTS/LIST-ITEM',
                             children: [
                               {
-                                text:
-                                  'The state is a normalized JSON object, no HTML involved.\r',
+                                text: 'The state is a normalized JSON object, no HTML involved.\r',
                               },
                             ],
                           },
@@ -413,8 +401,7 @@ const contents: Value_v0[] = [
                             type: 'LISTS/LIST-ITEM',
                             children: [
                               {
-                                text:
-                                  'It is a visual editor that does not require programming experience or special training.\r',
+                                text: 'It is a visual editor that does not require programming experience or special training.\r',
                               },
                             ],
                           },
@@ -423,8 +410,7 @@ const contents: Value_v0[] = [
                             type: 'LISTS/LIST-ITEM',
                             children: [
                               {
-                                text:
-                                  'It is built by a company, reducing the likelihood of abandonment.\r',
+                                text: 'It is built by a company, reducing the likelihood of abandonment.\r',
                               },
                             ],
                           },
@@ -433,8 +419,7 @@ const contents: Value_v0[] = [
                             type: 'LISTS/LIST-ITEM',
                             children: [
                               {
-                                text:
-                                  'Based on reusable React Components, it gives developers, authors and designers new ways of working together and creating better and richer experiences more easily.\r',
+                                text: 'Based on reusable React Components, it gives developers, authors and designers new ways of working together and creating better and richer experiences more easily.\r',
                               },
                             ],
                           },
@@ -454,8 +439,7 @@ const contents: Value_v0[] = [
                         type: 'PARAGRAPH/PARAGRAPH',
                         children: [
                           {
-                            text:
-                              'With these principles in mind, we went out and implemented ReactPage, which you are looking at right now.',
+                            text: 'With these principles in mind, we went out and implemented ReactPage, which you are looking at right now.',
                           },
                         ],
                       },
@@ -560,8 +544,7 @@ const contents: Value_v0[] = [
                         type: 'PARAGRAPH/PARAGRAPH',
                         children: [
                           {
-                            text:
-                              'Presentation and modification happen in the same canvas, at the same time. Now you always know what your content looks like on desktop, tablet and mobile, in real-time!',
+                            text: 'Presentation and modification happen in the same canvas, at the same time. Now you always know what your content looks like on desktop, tablet and mobile, in real-time!',
                           },
                         ],
                       },
@@ -627,8 +610,7 @@ const contents: Value_v0[] = [
                         type: 'PARAGRAPH/PARAGRAPH',
                         children: [
                           {
-                            text:
-                              "Today's content is more than a monolithic blob of text. ReactPage allows you to define your own layout blocks, and create content that looks good on all devices.",
+                            text: "Today's content is more than a monolithic blob of text. ReactPage allows you to define your own layout blocks, and create content that looks good on all devices.",
                           },
                         ],
                       },
@@ -666,8 +648,7 @@ const contents: Value_v0[] = [
                         type: 'PARAGRAPH/PARAGRAPH',
                         children: [
                           {
-                            text:
-                              "Most web editors work on top of the DOM. This is dangerous (XSS), hard to maintain and difficult to parse. ReactPage uses JSON only - everywhere! It's sane, tested, clean and minimal.",
+                            text: "Most web editors work on top of the DOM. This is dangerous (XSS), hard to maintain and difficult to parse. ReactPage uses JSON only - everywhere! It's sane, tested, clean and minimal.",
                           },
                         ],
                       },
@@ -750,8 +731,7 @@ const contents: Value_v0[] = [
                                 type: 'PARAGRAPH/PARAGRAPH',
                                 children: [
                                   {
-                                    text:
-                                      "You don't like our rich text solution, require custom layout components, need a twitter feed, want to contribute or even sell plugins? No problem with our easy-to-use React Plugin API!",
+                                    text: "You don't like our rich text solution, require custom layout components, need a twitter feed, want to contribute or even sell plugins? No problem with our easy-to-use React Plugin API!",
                                   },
                                 ],
                               },
@@ -760,8 +740,7 @@ const contents: Value_v0[] = [
                                 type: 'PARAGRAPH/PARAGRAPH',
                                 children: [
                                   {
-                                    text:
-                                      'In fact, this section is rendered on top of an exemplary layout plugin!',
+                                    text: 'In fact, this section is rendered on top of an exemplary layout plugin!',
                                   },
                                 ],
                               },
@@ -800,8 +779,7 @@ const contents: Value_v0[] = [
                       {
                         children: [
                           {
-                            text:
-                              'The built in rich text editor is extendable as well! ',
+                            text: 'The built in rich text editor is extendable as well! ',
                           },
                         ],
                       },
@@ -843,8 +821,7 @@ const contents: Value_v0[] = [
                               },
                             ],
                             data: {
-                              href:
-                                'https://github.com/talyssonoc/react-katex/',
+                              href: 'https://github.com/talyssonoc/react-katex/',
                               openInNewWindow: true,
                             },
                           },
@@ -873,8 +850,7 @@ const contents: Value_v0[] = [
                           {
                             type: 'LINK/LINK',
                             data: {
-                              href:
-                                'https://github.com/talyssonoc/react-katex/',
+                              href: 'https://github.com/talyssonoc/react-katex/',
                               openInNewWindow: false,
                             },
                             children: [
@@ -899,8 +875,7 @@ const contents: Value_v0[] = [
                           {
                             type: 'LINK/LINK',
                             data: {
-                              href:
-                                'https://github.com/talyssonoc/react-katex/',
+                              href: 'https://github.com/talyssonoc/react-katex/',
                               openInNewWindow: false,
                             },
                             children: [
@@ -926,8 +901,7 @@ const contents: Value_v0[] = [
                             type: 'Katex',
                             children: [
                               {
-                                text:
-                                  'f(x) = \\int_{-\\infty}^\\infty\\hat f(\\xi)\\,e^{2 \\pi i \\xi x}\\,d\\xi ',
+                                text: 'f(x) = \\int_{-\\infty}^\\infty\\hat f(\\xi)\\,e^{2 \\pi i \\xi x}\\,d\\xi ',
                               },
                             ],
                             data: null,
@@ -953,8 +927,7 @@ const contents: Value_v0[] = [
                       {
                         children: [
                           {
-                            text:
-                              'These plugins are not shipped, but the example project shows you how you can create these plugins.',
+                            text: 'These plugins are not shipped, but the example project shows you how you can create these plugins.',
                           },
                         ],
                         data: {
@@ -1017,8 +990,7 @@ const contents: Value_v0[] = [
                         type: 'PARAGRAPH/PARAGRAPH',
                         children: [
                           {
-                            text:
-                              'No, of course not! We are very proud of these ones as well:',
+                            text: 'No, of course not! We are very proud of these ones as well:',
                           },
                         ],
                       },

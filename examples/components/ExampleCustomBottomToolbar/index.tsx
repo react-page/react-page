@@ -9,8 +9,8 @@ import CollapseButton from './CollapseButton';
  * We provide most of the default components as exports, so you can also create a custom one
  * and use the existing pieces that you need. Check the source code for BottomToolbar
  */
-export const ExampleCustomBottomToolbar: React.FC<BottomToolbarProps> = React.memo(
-  ({ pluginControls, ...props }) => {
+export const ExampleCustomBottomToolbar: React.FC<BottomToolbarProps> =
+  React.memo(({ pluginControls, ...props }) => {
     const [collapsed, setCollapsed] = React.useState(false);
     const plugin = usePluginOfCell(props.nodeId);
 
@@ -33,5 +33,4 @@ export const ExampleCustomBottomToolbar: React.FC<BottomToolbarProps> = React.me
         <Typography>Custom Toolbar for {plugin?.title}</Typography>
       </BottomToolbar>
     );
-  }
-);
+  });

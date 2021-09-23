@@ -37,19 +37,21 @@ export interface UpdateCellDataAction extends Action {
   notUndoable?: boolean;
 }
 
-export const updateCellData = (id: string) => (
-  data: void | { [key: string]: unknown },
-  options: {
-    lang: string;
-    notUndoable?: boolean;
-  }
-): UpdateCellDataAction => ({
-  type: CELL_UPDATE_DATA,
-  ts: new Date(),
-  id,
-  data,
-  ...options,
-});
+export const updateCellData =
+  (id: string) =>
+  (
+    data: void | { [key: string]: unknown },
+    options: {
+      lang: string;
+      notUndoable?: boolean;
+    }
+  ): UpdateCellDataAction => ({
+    type: CELL_UPDATE_DATA,
+    ts: new Date(),
+    id,
+    data,
+    ...options,
+  });
 
 export interface RemoveCellAction extends Action {
   ts: Date;
@@ -70,12 +72,14 @@ export interface ResizeCellAction extends Action {
   type: typeof CELL_RESIZE;
 }
 
-export const resizeCell = (id: string) => (size = 1): ResizeCellAction => ({
-  type: CELL_RESIZE,
-  ts: new Date(),
-  id,
-  size,
-});
+export const resizeCell =
+  (id: string) =>
+  (size = 1): ResizeCellAction => ({
+    type: CELL_RESIZE,
+    ts: new Date(),
+    id,
+    size,
+  });
 
 export type FocusMode = 'replace' | 'add';
 

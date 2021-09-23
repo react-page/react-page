@@ -131,83 +131,88 @@ export const createCell = (
   });
 };
 
-const insert = <T extends InsertType>(type: T) => (options: PluginsAndLang) => (
-  partialCell: PartialCell,
-  target: HoverTarget,
-  insertOptions?: InsertOptions,
-  ids: NewIds = generateIds()
-) => {
-  const cell = createCell(partialCell, options);
-  const isNew = !partialCell.id;
-  return insertFullCell(type)(
-    cell,
-    target,
-    {
-      ...insertOptions,
-      focusAfter: insertOptions?.focusAfter || isNew,
-    },
-    ids
-  );
-};
-
-const insertFullCell = <T extends InsertType>(type: T) => (
-  cell: Cell,
-  { id: hoverId, inline, hasInlineNeighbour, ancestorIds }: HoverTarget,
-  insertOptions?: InsertOptions,
-  ids: NewIds = generateIds()
-) => {
-  const level = insertOptions?.level ?? 0;
-  let l = level;
-  switch (type) {
-    case CELL_INSERT_ABOVE:
-    case CELL_INSERT_BELOW: {
-      if ((inline || hasInlineNeighbour) && level < 1) {
-        l = 1;
-      }
-      break;
-    }
-
-    case CELL_INSERT_LEFT_OF:
-    case CELL_INSERT_RIGHT_OF: {
-      if ((inline || hasInlineNeighbour) && level < 1) {
-        l = 1;
-      }
-      break;
-    }
-    default:
-  }
-
-  const insertAction = {
-    type,
-    ts: new Date(),
-    item: cell,
-    hoverId:
-      level === 0 ? hoverId : ancestorIds[Math.max(level - 1)] ?? hoverId,
-    level: l,
-    // FIXME: item handling is a bit confusing,
-    // we now give some of them a name like "cell" or "item",
-    // but the purpose of the others is unclear
-    ids,
-    notUndoable: insertOptions.notUndoable,
+const insert =
+  <T extends InsertType>(type: T) =>
+  (options: PluginsAndLang) =>
+  (
+    partialCell: PartialCell,
+    target: HoverTarget,
+    insertOptions?: InsertOptions,
+    ids: NewIds = generateIds()
+  ) => {
+    const cell = createCell(partialCell, options);
+    const isNew = !partialCell.id;
+    return insertFullCell(type)(
+      cell,
+      target,
+      {
+        ...insertOptions,
+        focusAfter: insertOptions?.focusAfter || isNew,
+      },
+      ids
+    );
   };
 
-  return (dispatch) => {
-    dispatch(insertAction);
+const insertFullCell =
+  <T extends InsertType>(type: T) =>
+  (
+    cell: Cell,
+    { id: hoverId, inline, hasInlineNeighbour, ancestorIds }: HoverTarget,
+    insertOptions?: InsertOptions,
+    ids: NewIds = generateIds()
+  ) => {
+    const level = insertOptions?.level ?? 0;
+    let l = level;
+    switch (type) {
+      case CELL_INSERT_ABOVE:
+      case CELL_INSERT_BELOW: {
+        if ((inline || hasInlineNeighbour) && level < 1) {
+          l = 1;
+        }
+        break;
+      }
 
-    if (insertOptions?.focusAfter) {
-      dispatch(editMode());
-      setTimeout(() => {
-        dispatch(
-          focusCell(
-            // first condition is for pasted cells. I know its a bit weird
-            cell.rows?.[0]?.cells?.[0]?.id ?? insertAction.ids.item,
-            true
-          )
-        );
-      }, 0);
+      case CELL_INSERT_LEFT_OF:
+      case CELL_INSERT_RIGHT_OF: {
+        if ((inline || hasInlineNeighbour) && level < 1) {
+          l = 1;
+        }
+        break;
+      }
+      default:
     }
+
+    const insertAction = {
+      type,
+      ts: new Date(),
+      item: cell,
+      hoverId:
+        level === 0 ? hoverId : ancestorIds[Math.max(level - 1)] ?? hoverId,
+      level: l,
+      // FIXME: item handling is a bit confusing,
+      // we now give some of them a name like "cell" or "item",
+      // but the purpose of the others is unclear
+      ids,
+      notUndoable: insertOptions.notUndoable,
+    };
+
+    return (dispatch) => {
+      dispatch(insertAction);
+
+      if (insertOptions?.focusAfter) {
+        dispatch(editMode());
+        setTimeout(() => {
+          dispatch(
+            focusCell(
+              // first condition is for pasted cells. I know its a bit weird
+              cell.rows?.[0]?.cells?.[0]?.id ?? insertAction.ids.item,
+              true
+            )
+          );
+        }, 0);
+      }
+    };
   };
-};
 
 /**
  * Insert a cell below of the hovering cell.

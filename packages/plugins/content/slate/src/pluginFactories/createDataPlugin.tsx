@@ -9,7 +9,7 @@ function createDataPlugin<T extends Record<string, unknown>>(
     customize: (
       t: SlateDataPluginDefinition<T>
     ) => SlateDataPluginDefinition<T & CT> = (d) =>
-      (d as unknown) as SlateDataPluginDefinition<T & CT>
+      d as unknown as SlateDataPluginDefinition<T & CT>
   ) {
     return createDataPlugin(customize(def));
   };
