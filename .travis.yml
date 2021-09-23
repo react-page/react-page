@@ -5,7 +5,7 @@ cache:
     - node_modules
     - examples/node_modules
     - examples/.next/cache
-    
+
 node_js:
   - '12'
 
@@ -13,10 +13,9 @@ install:
   - yarn --frozen-lockfile
 
 script:
-  - yarn build:lib
+  - yarn build:lib || yarn build:lib # workaround for https://github.com/react-page/react-page/issues/1072
   - yarn run lint
   - yarn run test
-
 
 after_success:
   - yarn run coveralls
