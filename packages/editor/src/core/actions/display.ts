@@ -1,5 +1,3 @@
-import type { Action } from 'redux';
-
 export const SET_DISPLAY_REFERENCE_NODE_ID = 'SET_DISPLAY_REFERENCE_NODE_ID';
 export const SET_DISPLAY_MODE = 'SET_DISPLAY_MODE';
 export const SET_PREVIOUS_DISPLAY_MODE = 'SET_PREVIOUS_DISPLAY_MODE';

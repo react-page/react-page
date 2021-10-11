@@ -25,6 +25,7 @@ import { isRow } from '../../types/node';
 import { useAllCellPluginsForNode } from './node';
 import { useEditorStore, useLang } from './options';
 import { cloneWithNewIds } from '../../../core/utils/cloneWithNewIds';
+import { useDisplayModeReferenceNodeId } from './displayMode';
 
 /**
  * @param id id of a node
@@ -197,12 +198,13 @@ export const useDuplicateCell = (id: string) => {
  */
 export const useSetDisplayReferenceNodeId = () => {
   const dispatch = useDispatch();
+  const referenceId = useDisplayModeReferenceNodeId();
 
   return useCallback(
     (nodeId: string) => {
-      dispatch(setDisplayReferenceNodeId(nodeId));
+      if (nodeId !== referenceId) dispatch(setDisplayReferenceNodeId(nodeId));
     },
-    [dispatch]
+    [dispatch, referenceId]
   );
 };
 
