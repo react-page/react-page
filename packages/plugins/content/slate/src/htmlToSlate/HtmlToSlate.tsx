@@ -66,10 +66,10 @@ const HtmlToSlate = ({ plugins }: { plugins: SlatePlugin[] }) => {
   return (htmlString: string): SlateState => {
     const parsed = parseHtml('<body>' + htmlString + '</body>');
 
-    const fragment = (deserializeElement(
+    const fragment = deserializeElement(
       parsed.documentElement
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    ) as unknown) as any[];
+    ) as unknown as any[];
 
     return {
       slate: Array.isArray(fragment) ? fragment : [fragment],

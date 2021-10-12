@@ -1,9 +1,5 @@
 import type { Action } from 'redux';
 
-import type { NewIds } from '../../types/node';
-
-import { generateIds } from '../helpers';
-
 export const CELL_UPDATE_IS_DRAFT = 'CELL_UPDATE_IS_DRAFT';
 export const CELL_UPDATE_DATA = 'CELL_UPDATE_DATA';
 export const CELL_REMOVE = 'CELL_REMOVE';
@@ -41,35 +37,32 @@ export interface UpdateCellDataAction extends Action {
   notUndoable?: boolean;
 }
 
-export const updateCellData = (id: string) => (
-  data: void | { [key: string]: unknown },
-  options: {
-    lang: string;
-    notUndoable?: boolean;
-  }
-): UpdateCellDataAction => ({
-  type: CELL_UPDATE_DATA,
-  ts: new Date(),
-  id,
-  data,
-  ...options,
-});
+export const updateCellData =
+  (id: string) =>
+  (
+    data: void | { [key: string]: unknown },
+    options: {
+      lang: string;
+      notUndoable?: boolean;
+    }
+  ): UpdateCellDataAction => ({
+    type: CELL_UPDATE_DATA,
+    ts: new Date(),
+    id,
+    data,
+    ...options,
+  });
 
 export interface RemoveCellAction extends Action {
   ts: Date;
-  id: string;
-  ids: NewIds;
+  ids: string[];
   type: typeof CELL_REMOVE;
 }
 
-export const removeCell = (
-  id: string,
-  ids: NewIds = null
-): RemoveCellAction => ({
+export const removeCells = (ids: string[]): RemoveCellAction => ({
   type: CELL_REMOVE,
   ts: new Date(),
-  id,
-  ids: ids ? ids : generateIds(),
+  ids,
 });
 
 export interface ResizeCellAction extends Action {
@@ -79,19 +72,23 @@ export interface ResizeCellAction extends Action {
   type: typeof CELL_RESIZE;
 }
 
-export const resizeCell = (id: string) => (size = 1): ResizeCellAction => ({
-  type: CELL_RESIZE,
-  ts: new Date(),
-  id,
-  size,
-});
+export const resizeCell =
+  (id: string) =>
+  (size = 1): ResizeCellAction => ({
+    type: CELL_RESIZE,
+    ts: new Date(),
+    id,
+    size,
+  });
+
+export type FocusMode = 'replace' | 'add';
 
 export interface FocusCellAction extends Action {
   ts: Date;
   id: string;
-  source: string;
   scrollToCell?: boolean;
   type: typeof CELL_FOCUS;
+  mode: FocusMode;
 }
 /**
  * Dispatch to focus a cell.
@@ -99,13 +96,13 @@ export interface FocusCellAction extends Action {
 export const focusCell = (
   id: string,
   scrollToCell = false,
-  source: string = undefined
+  mode: FocusMode = 'replace'
 ): FocusCellAction => ({
   type: CELL_FOCUS,
   ts: new Date(),
   id,
   scrollToCell,
-  source,
+  mode,
 });
 
 export interface BlurCellAction extends Action {
@@ -147,7 +144,7 @@ export const coreActions = {
 
   focusCell,
   resizeCell,
-  removeCell,
+  removeCells,
   updateCellData,
   updateCellIsDraft,
 };

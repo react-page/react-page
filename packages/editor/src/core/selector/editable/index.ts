@@ -53,7 +53,15 @@ export const findNodeInState = (state: RootState, nodeId: string) => {
     //end(now, true);
     return state.reactPage.__nodeCache[nodeId];
   }
-  const result = findNode(state.reactPage.values?.present?.rows, nodeId);
+  const result = findNode(
+    [
+      {
+        ...state.reactPage.values?.present,
+        isRoot: true,
+      },
+    ],
+    nodeId
+  );
   state.reactPage.__nodeCache[nodeId] = result;
   //end(now, false);
   return result;

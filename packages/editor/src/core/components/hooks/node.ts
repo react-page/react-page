@@ -1,7 +1,7 @@
 import debounce from 'lodash.debounce';
 import type { CSSProperties } from 'react';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import type { HoverTarget } from 'src/core/service/hover/computeHover';
+import type { HoverTarget } from '../../service/hover/computeHover';
 import type { PositionEnum } from '../../const';
 import { useSelector } from '../../reduxConnect';
 import { findNodeInState } from '../../selector/editable';
@@ -13,12 +13,19 @@ import { getCellData } from '../../utils/getCellData';
 import { getCellInnerDivStylingProps } from '../../utils/getCellStylingProps';
 import { getDropLevels } from '../../utils/getDropLevels';
 import { useUpdateCellData } from './nodeActions';
-import { useLang, useOptions } from './options';
+import { useLang } from './options';
+import { useRenderOption } from './renderOptions';
 
+/**
+ *
+ */
 type NodeSelector<T> = (node: Node, ancestors: Node[]) => T;
 
 /**
  * Use this function to get derived properties of a node. It prevents unnessesary rerenders when only the nessesary properties are returned by the selector
+ *
+ * you can also select props from the ancestors of the node. Be aware that the last ancestor is the root document id
+ *
  * @param nodeId an id of a node (cell or row)
  * @param selector receives the node object or null (if no node with this id exists) and returns T
  * @returns the selection T
@@ -68,7 +75,7 @@ export const useCellProps = <T>(
     return null;
   }
   return useNodeProps(nodeId, (node, ancestors) =>
-    !isRow(node) ? selector(node, ancestors) : selector(null, ancestors)
+    node && !isRow(node) ? selector(node, ancestors) : selector(null, ancestors)
   );
 };
 
@@ -104,7 +111,7 @@ export const useRowProps = <T>(nodeId: string, selector: RowSelector<T>): T => {
 export const useNodeHoverPosition = (nodeId: string): PositionEnum => {
   return useSelector((state) =>
     state.reactPage.hover?.nodeId === nodeId
-      ? state.reactPage.hover.position
+      ? state.reactPage.hover?.position
       : null
   );
 };
@@ -144,7 +151,8 @@ export const useNodeAsHoverTarget = (nodeId: string): HoverTarget => {
     node
       ? {
           id: node.id,
-          ancestorIds: ancestors.map((a) => a.id),
+          // the last element is the root element, we can't currenly use that as hover target
+          ancestorIds: ancestors.slice(0, -1).map((a) => a.id),
           hasInlineNeighbour: !isRow(node) ? node.hasInlineNeighbour : null,
           inline: !isRow(node) ? node.inline : null,
           levels: getDropLevels(node, ancestors),
@@ -232,7 +240,7 @@ export const useAllCellPluginsForNode = (parentNodeId?: string) => {
     });
   });
   // pluginIdsOfAncestors is an array of ids, the last one is the
-  const rootCellPlugins = useOptions().cellPlugins;
+  const rootCellPlugins = useRenderOption('cellPlugins');
   return useMemo(() => {
     return getAvailablePlugins(rootCellPlugins, ancestors);
   }, [rootCellPlugins, ancestors]);
@@ -341,9 +349,10 @@ export const useDebouncedCellData = (nodeId: string) => {
     [updateCellData]
   );
 
-  const changed = useMemo(() => !deepEquals(cellData, cellDataRef.current), [
-    cellData,
-  ]);
+  const changed = useMemo(
+    () => !deepEquals(cellData, cellDataRef.current),
+    [cellData]
+  );
 
   useEffect(() => {
     // changed from "outside" overwrite whatever is pending

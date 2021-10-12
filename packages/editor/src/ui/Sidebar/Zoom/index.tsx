@@ -1,27 +1,29 @@
-import IconUndo from '@material-ui/icons/Undo';
-import IconRedo from '@material-ui/icons/Redo';
+import IconZoomOut from '@material-ui/icons/ZoomOut';
+import IconZoomIn from '@material-ui/icons/ZoomIn';
 import React from 'react';
 import {
-  useIsInsertMode,
-  useRedo,
-  useSetInsertMode,
-  useCanUndo,
-  useCanRedo,
-  useUndo,
+  useCanZoomIn,
+  useCanZoomOut,
   useIsSmallScreen,
+  useZoomIn,
+  useZoomOut,
 } from '../../../core/components/hooks';
 import Button from '../Button/index';
 
 type Props = {
-  labelUndo: string;
-  labelRedo: string;
+  labelZoomIn: string;
+  labelZoomOut: string;
 };
-const UndoRedo: React.FC<Props> = ({ labelUndo, labelRedo }) => {
-  const undo = useUndo();
-  const canUndo = useCanUndo();
-  const canRedo = useCanRedo();
-  const redo = useRedo();
+
+const Zoom: React.FC<Props> = ({ labelZoomIn, labelZoomOut }) => {
+  const canZoomIn = useCanZoomIn();
+  const canZoomOut = useCanZoomOut();
+
+  const zoomOut = useZoomOut();
+  const zoomIn = useZoomIn();
+
   const isSmall = useIsSmallScreen();
+
   return (
     <div
       style={{
@@ -41,18 +43,18 @@ const UndoRedo: React.FC<Props> = ({ labelUndo, labelRedo }) => {
       >
         <Button
           active
-          disabled={!canUndo}
+          disabled={!canZoomIn}
           style={{
             transform: `translateX(${isSmall ? 27 : 35}px)`,
           }}
           icon={
-            <IconUndo
+            <IconZoomIn
               style={{ transform: `translateX(-${isSmall ? 6 : 12}px)` }}
             />
           }
-          description={labelUndo}
-          onClick={undo}
-          activeColor="primary"
+          description={labelZoomIn}
+          onClick={zoomIn}
+          activeColor="default"
         />
       </div>
       <div
@@ -68,19 +70,19 @@ const UndoRedo: React.FC<Props> = ({ labelUndo, labelRedo }) => {
             transform: 'translateX(1px)',
           }}
           active
-          disabled={!canRedo}
+          disabled={!canZoomOut}
           icon={
-            <IconRedo
+            <IconZoomOut
               style={{ transform: `translateX(${isSmall ? 6 : 12}px)` }}
             />
           }
-          description={labelRedo}
-          onClick={redo}
-          activeColor="primary"
+          description={labelZoomOut}
+          onClick={zoomOut}
+          activeColor="default"
         />
       </div>
     </div>
   );
 };
 
-export default React.memo(UndoRedo);
+export default React.memo(Zoom);

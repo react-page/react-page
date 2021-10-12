@@ -25,7 +25,14 @@ const FallbackDropArea: React.FC = ({ children }) => {
   });
 
   const setReference = useSetDisplayReferenceNodeId();
-  const clearReference = useCallback(() => setReference(null), [setReference]);
+  const clearReference = useCallback(
+    (e) => {
+      // if click was on the root, clear reference
+      if (e.target.classList?.contains('react-page-editable'))
+        setReference(null);
+    },
+    [setReference]
+  );
 
   return (
     <div ref={dropRef} onClick={clearReference}>

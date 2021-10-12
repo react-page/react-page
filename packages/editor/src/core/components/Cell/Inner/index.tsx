@@ -4,19 +4,19 @@ import {
   normalizeCellSpacing,
 } from '../../../utils/getCellSpacing';
 import {
+  useCellData,
   useCellHasPlugin,
+  useCellInnerDivStylingProps,
+  useCellSpacing,
+  useCellSpacingProvider,
   useFocusCell,
   useIsEditMode,
   useIsFocused,
   useIsPreviewMode,
   useNodeChildrenIds,
+  useOption,
   usePluginOfCell,
   useSetEditMode,
-  useCellSpacing,
-  useCellData,
-  useCellSpacingProvider,
-  useOptions,
-  useCellInnerDivStylingProps,
 } from '../../hooks';
 import Row from '../../Row';
 import Draggable from '../Draggable';
@@ -60,7 +60,9 @@ const Inner: React.FC<{ nodeId: string }> = ({ nodeId }) => {
         target.closest('.react-page-cell.react-page-cell-has-plugin') ===
           ref.current.closest('.react-page-cell')
       ) {
-        focus(false, 'onClick');
+        const mode = e.metaKey || e.ctrlKey ? 'add' : 'replace';
+
+        focus(false, mode);
         setEditMode();
       }
     },
@@ -73,9 +75,9 @@ const Inner: React.FC<{ nodeId: string }> = ({ nodeId }) => {
 
   const children = childrenIds.map((id) => <Row nodeId={id} key={id} />);
 
-  const options = useOptions();
+  const components = useOption('components');
 
-  const InsertNewWithDefault = options.components?.InsertNew ?? InsertNew;
+  const InsertNewWithDefault = components?.InsertNew ?? InsertNew;
 
   if (!cellShouldHavePlugin) {
     return <Droppable nodeId={nodeId}>{children}</Droppable>;

@@ -9,8 +9,9 @@ import {
   useIsPreviewMode,
   useLang,
   useRemoveCell,
-  useOptions,
   useCellProps,
+  useOption,
+  useIsExclusivlyFocused,
 } from '../../hooks';
 import PluginControls from '../PluginControls';
 import PluginMissing from '../PluginMissing';
@@ -22,14 +23,15 @@ const PluginComponent: React.FC<{ nodeId: string; hasChildren: boolean }> = ({
   hasChildren,
 }) => {
   const lang = useLang();
-  const CustomPluginMissing = useOptions()?.components?.CellPluginMissing;
+  const components = useOption('components');
+  const CustomPluginMissing = components?.CellPluginMissing;
   const isPreviewMode = useIsPreviewMode();
   const isEditMode = useIsEditMode();
 
   const [data, onChange] = useDebouncedCellData(nodeId);
   const pluginId = useCellProps(nodeId, (c) => c.plugin?.id);
   const plugin = usePluginOfCell(nodeId);
-  const focused = useIsFocused(nodeId);
+  const focused = useIsExclusivlyFocused(nodeId);
   const hasInlineNeighbour = useCellProps(nodeId, (c) => c.hasInlineNeighbour);
 
   const Renderer = plugin?.Renderer;
@@ -37,7 +39,7 @@ const PluginComponent: React.FC<{ nodeId: string; hasChildren: boolean }> = ({
   const Provider = plugin?.Provider ?? NoopProvider;
   const remove = useRemoveCell(nodeId);
 
-  const Toolbar = useOptions().components?.BottomToolbar ?? BottomToolbar;
+  const Toolbar = components?.BottomToolbar ?? BottomToolbar;
 
   const componentProps = useMemo<CellPluginComponentProps<unknown>>(
     () => ({
@@ -104,10 +106,10 @@ const PluginComponent: React.FC<{ nodeId: string; hasChildren: boolean }> = ({
         </div>
         <Toolbar
           nodeId={nodeId}
-          open={focused && isEditMode}
+          open={focused}
           dark={plugin?.bottomToolbar?.dark}
           pluginControls={
-            plugin?.controls ? (
+            isEditMode && plugin?.controls ? (
               <PluginControls
                 componentProps={componentProps}
                 controls={plugin?.controls}

@@ -53,13 +53,11 @@ class LinearGradientComponent extends React.Component<
     });
   };
 
-  handleChangeDegPreview = (index: number) => (
-    e: React.ChangeEvent,
-    value: number
-  ) => {
-    this.props.onChangeGradientDegPreview &&
-      this.props.onChangeGradientDegPreview(value, index);
-  };
+  handleChangeDegPreview =
+    (index: number) => (e: React.ChangeEvent, value: number) => {
+      this.props.onChangeGradientDegPreview &&
+        this.props.onChangeGradientDegPreview(value, index);
+    };
 
   handleChangeOpacity = (index: number, value: number) => () => {
     this.props.onChangeGradientOpacityPreview &&
@@ -72,41 +70,41 @@ class LinearGradientComponent extends React.Component<
     });
   };
 
-  handleChangeOpacityPreview = (index: number) => (
-    e: React.ChangeEvent,
-    value: number
-  ) => {
-    this.props.onChangeGradientOpacityPreview &&
-      this.props.onChangeGradientOpacityPreview(value, index);
-  };
+  handleChangeOpacityPreview =
+    (index: number) => (e: React.ChangeEvent, value: number) => {
+      this.props.onChangeGradientOpacityPreview &&
+        this.props.onChangeGradientOpacityPreview(value, index);
+    };
 
-  handleChangeGradientColor = (index: number, cpIndex: number) => (
-    e: RGBColor
-  ) => {
-    this.props.onChangeGradientColorPreview &&
-      this.props.onChangeGradientColorPreview(undefined, undefined, undefined);
-    this.props.onChange({
-      gradients: []
-        .concat(this.props.data.gradients ? this.props.data.gradients : [])
-        .map((g, i) =>
-          i === index
-            ? {
-                ...g,
-                colors: (g.colors ? g.colors : []).map((c, cpI) =>
-                  cpI === cpIndex ? { ...c, color: e } : c
-                ),
-              }
-            : g
-        ),
-    });
-  };
+  handleChangeGradientColor =
+    (index: number, cpIndex: number) => (e: RGBColor) => {
+      this.props.onChangeGradientColorPreview &&
+        this.props.onChangeGradientColorPreview(
+          undefined,
+          undefined,
+          undefined
+        );
+      this.props.onChange({
+        gradients: []
+          .concat(this.props.data.gradients ? this.props.data.gradients : [])
+          .map((g, i) =>
+            i === index
+              ? {
+                  ...g,
+                  colors: (g.colors ? g.colors : []).map((c, cpI) =>
+                    cpI === cpIndex ? { ...c, color: e } : c
+                  ),
+                }
+              : g
+          ),
+      });
+    };
 
-  handleChangeGradientColorPreview = (index: number, cpIndex: number) => (
-    e: RGBColor
-  ) => {
-    this.props.onChangeGradientColorPreview &&
-      this.props.onChangeGradientColorPreview(e, index, cpIndex);
-  };
+  handleChangeGradientColorPreview =
+    (index: number, cpIndex: number) => (e: RGBColor) => {
+      this.props.onChangeGradientColorPreview &&
+        this.props.onChangeGradientColorPreview(e, index, cpIndex);
+    };
 
   addColor = (index: number) => () => {
     this.props.ensureModeOn();

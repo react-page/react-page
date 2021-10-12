@@ -1,5 +1,5 @@
 import type { CellPlugin, Value } from '../../../types';
-import { removeCell } from '../../../actions/cell';
+import { removeCells } from '../../../actions/cell';
 import { createValue } from '../../../utils/createValue';
 import { simulateDispatch } from '../testUtils';
 
@@ -46,7 +46,7 @@ describe('remove cell', () => {
       rows: [],
     };
 
-    const actualState = simulateDispatch(initialState, removeCell('cell1'));
+    const actualState = simulateDispatch(initialState, removeCells(['cell1']));
     expect(actualState).toEqual(expectedState);
   });
 });

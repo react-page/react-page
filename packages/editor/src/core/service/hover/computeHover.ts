@@ -1,4 +1,4 @@
-import type { Options, Levels, PartialCell } from '../../types';
+import type { Options, Levels, PartialCell, CellPlugin } from '../../types';
 import { isRow } from '../../types';
 import type {
   HoverInsertActions,
@@ -32,7 +32,7 @@ type Context = {
     cells: number;
   };
   scale: Vector;
-  options: Options;
+  cellPlugins: CellPlugin[];
 };
 type MatrixList = { [key: string]: Matrix };
 type CallbackList = {
@@ -186,16 +186,16 @@ export const computeHover = (
   {
     room,
     mouse,
-    options,
+    cellPlugins,
   }: {
     room: Room;
     mouse: Vector;
-    options: Options;
+    cellPlugins: CellPlugin[];
   }
 ) => {
   const allowInlineNeighbours =
-    options.cellPlugins.find((p) => p.id === hover.pluginId)
-      ?.allowInlineNeighbours ?? false;
+    cellPlugins.find((p) => p.id === hover.pluginId)?.allowInlineNeighbours ??
+    false;
 
   const matrixName = `10x10${allowInlineNeighbours ? '' : '-no-inline'}`;
 
@@ -253,7 +253,7 @@ export const computeHover = (
     mouse,
     position: hoverCell,
     size: { rows, cells },
-    options,
+    cellPlugins,
     scale,
   });
 };
@@ -411,10 +411,10 @@ export const CALLBACK_LIST: CallbackList = {
     const level = getDropLevel(hover);
 
     if (mouse.x < mouse.y) {
-      return leftOf(item, hover, level);
+      return leftOf(item, hover, { level });
     }
 
-    above(item, hover, level);
+    above(item, hover, { level });
   },
 
   [c.C2]: (
@@ -428,10 +428,10 @@ export const CALLBACK_LIST: CallbackList = {
     const level = getDropLevel(hover);
 
     if (mouse.x > mouse.y) {
-      return rightOf(item, hover, level);
+      return rightOf(item, hover, { level });
     }
 
-    above(item, hover, level);
+    above(item, hover, { level });
   },
 
   [c.C3]: (
@@ -445,9 +445,9 @@ export const CALLBACK_LIST: CallbackList = {
     const level = getDropLevel(hover);
 
     if (mouse.x > mouse.y) {
-      return rightOf(item, hover, level);
+      return rightOf(item, hover, { level });
     }
-    below(item, hover, level);
+    below(item, hover, { level });
   },
 
   [c.C4]: (
@@ -461,9 +461,9 @@ export const CALLBACK_LIST: CallbackList = {
     const level = getDropLevel(hover);
 
     if (mouse.x < mouse.y) {
-      return leftOf(item, hover, level);
+      return leftOf(item, hover, { level });
     }
-    below(item, hover, level);
+    below(item, hover, { level });
   },
 
   /* heres */
@@ -473,7 +473,7 @@ export const CALLBACK_LIST: CallbackList = {
     { above }: HoverInsertActions
   ) => {
     const level = getDropLevel(hover);
-    above(item, hover, level);
+    above(item, hover, { level });
   },
   [c.BH]: (
     item: PartialCell,
@@ -481,7 +481,7 @@ export const CALLBACK_LIST: CallbackList = {
     { below }: HoverInsertActions
   ) => {
     const level = getDropLevel(hover);
-    below(item, hover, level);
+    below(item, hover, { level });
   },
 
   [c.LH]: (
@@ -490,7 +490,7 @@ export const CALLBACK_LIST: CallbackList = {
     { leftOf }: HoverInsertActions
   ) => {
     const level = getDropLevel(hover);
-    leftOf(item, hover, level);
+    leftOf(item, hover, { level });
   },
   [c.RH]: (
     item: PartialCell,
@@ -498,7 +498,7 @@ export const CALLBACK_LIST: CallbackList = {
     { rightOf }: HoverInsertActions
   ) => {
     const level = getDropLevel(hover);
-    rightOf(item, hover, level);
+    rightOf(item, hover, { level });
   },
 
   /* ancestors */
@@ -508,33 +508,29 @@ export const CALLBACK_LIST: CallbackList = {
     { above }: HoverInsertActions,
     ctx: Context
   ) =>
-    above(
-      item,
-      hover,
-      computeVertical(
+    above(item, hover, {
+      level: computeVertical(
         {
           ...ctx,
           hover: hover,
           level: hover.levels.above,
         },
         true
-      )
-    ),
+      ),
+    }),
   [c.BA]: (
     item: PartialCell,
     hover: HoverTarget,
     { below }: HoverInsertActions,
     ctx: Context
   ) =>
-    below(
-      item,
-      hover,
-      computeVertical({
+    below(item, hover, {
+      level: computeVertical({
         ...ctx,
         hover,
         level: hover.levels.below,
-      })
-    ),
+      }),
+    }),
 
   [c.LA]: (
     item: PartialCell,
@@ -542,63 +538,59 @@ export const CALLBACK_LIST: CallbackList = {
     { leftOf }: HoverInsertActions,
     ctx: Context
   ) =>
-    leftOf(
-      item,
-      hover,
-      computeHorizontal(
+    leftOf(item, hover, {
+      level: computeHorizontal(
         {
           ...ctx,
           hover,
           level: hover.levels.left,
         },
         true
-      )
-    ),
+      ),
+    }),
   [c.RA]: (
     item: PartialCell,
     hover: HoverTarget,
     { rightOf }: HoverInsertActions,
     ctx: Context
   ) =>
-    rightOf(
-      item,
-      hover,
-      computeHorizontal({
+    rightOf(item, hover, {
+      level: computeHorizontal({
         ...ctx,
         hover,
         level: hover.levels.right,
-      })
-    ),
+      }),
+    }),
 
   /* inline */
   [c.IL]: (
     item: PartialCell,
     hover: HoverTarget,
     { inlineLeft, leftOf }: HoverInsertActions,
-    { options }
+    { cellPlugins }
   ) => {
     if (isRow(item) || isRow(hover)) {
       return;
     }
     const { inline, hasInlineNeighbour } = hover;
-    const plugin = options.cellPlugins.find(
+    const plugin = cellPlugins.find(
       (p) =>
         p.id ===
         (typeof item.plugin === 'string' ? item.plugin : item.plugin?.id)
     );
     const isInlineable = plugin?.isInlineable ?? false;
     if (inline || !isInlineable) {
-      return leftOf(item, hover, 2);
+      return leftOf(item, hover, { level: 2 });
     }
     if (hasInlineNeighbour && hasInlineNeighbour !== item.id) {
-      return leftOf(item, hover, 2);
+      return leftOf(item, hover, { level: 2 });
     }
     if (
       hasInlineNeighbour &&
       hasInlineNeighbour === item.id &&
       item.inline === 'left'
     ) {
-      return leftOf(item, hover, 2);
+      return leftOf(item, hover, { level: 2 });
     }
 
     inlineLeft(item, hover);
@@ -608,13 +600,13 @@ export const CALLBACK_LIST: CallbackList = {
     item: PartialCell,
     hover: HoverTarget,
     { inlineRight, rightOf }: HoverInsertActions,
-    { options }
+    { cellPlugins }
   ) => {
     if (isRow(item) || isRow(hover)) {
       return;
     }
     const { inline, hasInlineNeighbour } = hover;
-    const plugin = options.cellPlugins.find(
+    const plugin = cellPlugins.find(
       (p) =>
         p.id ===
         (typeof item.plugin === 'string' ? item.plugin : item.plugin?.id)
@@ -622,17 +614,17 @@ export const CALLBACK_LIST: CallbackList = {
     const isInlineable = plugin?.isInlineable ?? false;
 
     if (inline || !isInlineable) {
-      return rightOf(item, hover, 2);
+      return rightOf(item, hover, { level: 2 });
     }
     if (hasInlineNeighbour && hasInlineNeighbour !== item.id) {
-      return rightOf(item, hover, 2);
+      return rightOf(item, hover, { level: 2 });
     }
     if (
       hasInlineNeighbour &&
       hasInlineNeighbour === item.id &&
       item.inline === 'right'
     ) {
-      return rightOf(item, hover, 2);
+      return rightOf(item, hover, { level: 2 });
     }
 
     inlineRight(item, hover);

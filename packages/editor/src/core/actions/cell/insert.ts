@@ -1,15 +1,17 @@
 import type { Action } from 'redux';
-
+import { cloneWithNewIds } from '../../../core/utils/cloneWithNewIds';
 import type { HoverTarget } from '../../service/hover/computeHover';
 import type {
   Cell,
   I18nField,
   NewIds,
-  Options,
+  Node,
   PartialCell,
   PartialRow,
+  RenderOptions,
   Row,
 } from '../../types';
+import { isRow } from '../../types';
 import { createId } from '../../utils/createId';
 import { getChildCellPlugins } from '../../utils/getAvailablePlugins';
 import { getCellData } from '../../utils/getCellData';
@@ -41,15 +43,20 @@ export interface InsertAction extends Action {
   ts: Date;
   item: Cell;
   hoverId: string;
-  level: number;
+  options: InsertOptions;
   ids: NewIds;
   type: InsertType;
 }
 
+export type InsertOptions = {
+  level?: number;
+  focusAfter?: boolean;
+  notUndoable?: boolean;
+};
+
 export type PluginsAndLang = {
   lang: string;
-  focusAfter?: boolean;
-} & Pick<Options, 'cellPlugins'>;
+} & Pick<RenderOptions, 'cellPlugins'>;
 
 export const createRow = (
   partialRow: PartialRow,
@@ -124,61 +131,88 @@ export const createCell = (
   });
 };
 
-const insert = <T extends InsertType>(type: T) => (options: PluginsAndLang) => (
-  partialCell: PartialCell,
-  { id: hoverId, inline, hasInlineNeighbour, ancestorIds }: HoverTarget,
-  level = 0,
-  ids: NewIds = null
-) => {
-  let l = level;
-
-  const cell = createCell(partialCell, options);
-  switch (type) {
-    case CELL_INSERT_ABOVE:
-    case CELL_INSERT_BELOW: {
-      if ((inline || hasInlineNeighbour) && level < 1) {
-        l = 1;
-      }
-      break;
-    }
-
-    case CELL_INSERT_LEFT_OF:
-    case CELL_INSERT_RIGHT_OF: {
-      if ((inline || hasInlineNeighbour) && level < 1) {
-        l = 1;
-      }
-      break;
-    }
-    default:
-  }
-
-  const insertAction = {
-    type,
-    ts: new Date(),
-    item: cell,
-    hoverId:
-      level === 0 ? hoverId : ancestorIds[Math.max(level - 1)] ?? hoverId,
-    level: l,
-    // FIXME: item handling is a bit confusing,
-    // we now give some of them a name like "cell" or "item",
-    // but the purpose of the others is unclear
-    ids: ids ? ids : generateIds(),
-  };
-
-  return (dispatch) => {
-    dispatch(insertAction);
-    // FIXME: checking if an item is new or just moved around is a bit awkward
-    // FIXME: this doesn't work when duplicating, I've added an option to focus after insert
+const insert =
+  <T extends InsertType>(type: T) =>
+  (options: PluginsAndLang) =>
+  (
+    partialCell: PartialCell,
+    target: HoverTarget,
+    insertOptions?: InsertOptions,
+    ids: NewIds = generateIds()
+  ) => {
+    const cell = createCell(partialCell, options);
     const isNew = !partialCell.id;
-
-    if (isNew || options.focusAfter) {
-      dispatch(editMode());
-      setTimeout(() => {
-        dispatch(focusCell(insertAction.ids.item, true));
-      }, 300);
-    }
+    return insertFullCell(type)(
+      cell,
+      target,
+      {
+        ...insertOptions,
+        focusAfter: insertOptions?.focusAfter || isNew,
+      },
+      ids
+    );
   };
-};
+
+const insertFullCell =
+  <T extends InsertType>(type: T) =>
+  (
+    cell: Cell,
+    { id: hoverId, inline, hasInlineNeighbour, ancestorIds }: HoverTarget,
+    insertOptions?: InsertOptions,
+    ids: NewIds = generateIds()
+  ) => {
+    const level = insertOptions?.level ?? 0;
+    let l = level;
+    switch (type) {
+      case CELL_INSERT_ABOVE:
+      case CELL_INSERT_BELOW: {
+        if ((inline || hasInlineNeighbour) && level < 1) {
+          l = 1;
+        }
+        break;
+      }
+
+      case CELL_INSERT_LEFT_OF:
+      case CELL_INSERT_RIGHT_OF: {
+        if ((inline || hasInlineNeighbour) && level < 1) {
+          l = 1;
+        }
+        break;
+      }
+      default:
+    }
+
+    const insertAction = {
+      type,
+      ts: new Date(),
+      item: cell,
+      hoverId:
+        level === 0 ? hoverId : ancestorIds[Math.max(level - 1)] ?? hoverId,
+      level: l,
+      // FIXME: item handling is a bit confusing,
+      // we now give some of them a name like "cell" or "item",
+      // but the purpose of the others is unclear
+      ids,
+      notUndoable: insertOptions.notUndoable,
+    };
+
+    return (dispatch) => {
+      dispatch(insertAction);
+
+      if (insertOptions?.focusAfter) {
+        dispatch(editMode());
+        setTimeout(() => {
+          dispatch(
+            focusCell(
+              // first condition is for pasted cells. I know its a bit weird
+              cell.rows?.[0]?.cells?.[0]?.id ?? insertAction.ids.item,
+              true
+            )
+          );
+        }, 0);
+      }
+    };
+  };
 
 /**
  * Insert a cell below of the hovering cell.
@@ -214,30 +248,39 @@ export const insertCellAtTheEnd = insert(CELL_INSERT_AT_END);
 
 export const insertCellNewAsNewRow = insert(CELL_INSERT_AS_NEW_ROW);
 
-// set new ids recursivly
-const newIds = ({ id, ...item }: Cell): Cell => {
-  return {
-    ...item,
-    dataI18n: item.dataI18n ? JSON.parse(JSON.stringify(item.dataI18n)) : {},
-    id: createId(),
-    rows: item.rows
-      ? item.rows.map((row) => ({
-          ...row,
-          id: createId(),
-          cells: row.cells ? row.cells.map(newIds) : undefined,
-        }))
-      : undefined,
-  };
+export type DuplicateNodeOptions = {
+  insertAfterNodeId?: string;
 };
-export const duplicateCell = (options: PluginsAndLang) => (item: Cell) =>
-  insertCellBelow(options)(newIds(item), {
-    ancestorIds: [],
-    id: item.id,
-    hasInlineNeighbour: item.hasInlineNeighbour,
-    inline: item.inline,
-    levels: null,
-    pluginId: item.plugin?.id,
-  });
+export const duplicateNode = (node: Node, options?: DuplicateNodeOptions) => {
+  const cell = isRow(node)
+    ? {
+        id: createId(),
+        rows: [node],
+      }
+    : node;
+  return duplicateCell(cell, options);
+};
+export const duplicateCell = (item: Cell, options?: DuplicateNodeOptions) => {
+  const cellWithNewIds = cloneWithNewIds(item);
+
+  const action = insertFullCell(CELL_INSERT_BELOW)(
+    cellWithNewIds,
+    {
+      ancestorIds: [],
+      id: options?.insertAfterNodeId ?? item.id,
+      hasInlineNeighbour: item.hasInlineNeighbour,
+      inline: item.inline,
+      levels: null,
+      pluginId: item.plugin?.id,
+    },
+    {
+      level: 0,
+      focusAfter: true,
+    }
+  );
+
+  return action;
+};
 
 export const insertActions = {
   insertCellRightInline,

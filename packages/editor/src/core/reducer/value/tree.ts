@@ -245,7 +245,7 @@ export const cells = (state: Cell[] = [], action, depth = 0): Cell[] => {
       break;
 
     case CELL_REMOVE:
-      newCells = newCells.filter(({ id }: Cell) => id !== action.id);
+      newCells = newCells.filter(({ id }: Cell) => !action.ids.includes(id));
       break;
   }
 

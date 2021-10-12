@@ -29,6 +29,7 @@ export function initialState(value: Value, lang: string): RootState {
       focus: null,
       display: {
         mode: 'edit',
+        zoom: 1,
       },
       settings: {
         lang,

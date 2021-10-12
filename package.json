@@ -3,6 +3,13 @@
   "author": "ORY GmbH",
   "name": "react-page",
   "license": "MIT",
+  "workspaces": [
+    "packages/editor",
+    "packages/plugins/content/*",
+    "packages/plugins/layout/*",
+    "packages/react-admin",
+    "examples"
+  ],
   "devDependencies": {
     "@babel/cli": "7.2.0",
     "@babel/core": "7.2.0",
@@ -19,8 +26,8 @@
     "@testing-library/react-hooks": "^3.4.2",
     "@types/jest": "^26.0.19",
     "@types/loadable__component": "^5.13.3",
-    "@types/react": "^17.0.0",
-    "@types/react-dom": "^17.0.0",
+    "@types/react": "^17.0.24",
+    "@types/react-dom": "^17.0.9",
     "@types/react-redux": "^7.1.15",
     "@typescript-eslint/eslint-plugin": "^4.4.1",
     "@typescript-eslint/parser": "^4.4.1",
@@ -58,7 +65,7 @@
     "rimraf": "2.6.2",
     "semantic-release": "^17.1.2",
     "ts-jest": "^26.4.4",
-    "typescript": "~4.0.3",
+    "typescript": "^4.4.3",
     "unexpected": "^11.14.0"
   },
   "scripts": {
@@ -179,5 +186,6 @@
       ],
       "@semantic-release/github"
     ]
-  }
+  },
+  "dependencies": {}
 }

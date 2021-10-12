@@ -23,8 +23,8 @@ const cases: Case[] = [
       mouse: { x: 0, y: 50 },
     },
     actions: (done: () => void) => ({
-      leftOf: (item, hover, level) => {
-        expect(level, 'to be', 10);
+      leftOf: (item, hover, options) => {
+        expect(options.level, 'to be', 10);
         expect(item.id, 'to be', 'foo');
         done();
       },
@@ -37,8 +37,8 @@ const cases: Case[] = [
       mouse: { x: 99, y: 50 },
     },
     actions: (done) => ({
-      rightOf: (item, hover, level) => {
-        expect(level, 'to be', 9);
+      rightOf: (item, hover, options) => {
+        expect(options.level, 'to be', 9);
         expect(item.id, 'to be', 'foo');
         done();
       },
@@ -51,8 +51,8 @@ const cases: Case[] = [
       mouse: { x: 95, y: 50 },
     },
     actions: (done) => ({
-      rightOf: (item, hover, level) => {
-        expect(level, 'to be', 5);
+      rightOf: (item, hover, options) => {
+        expect(options.level, 'to be', 5);
         done();
       },
     }),
@@ -64,8 +64,8 @@ const cases: Case[] = [
       mouse: { x: 92, y: 50 },
     },
     actions: (done) => ({
-      rightOf: (item, hover, level) => {
-        expect(level, 'to be', 2);
+      rightOf: (item, hover, options) => {
+        expect(options.level, 'to be', 2);
         done();
       },
     }),
@@ -77,8 +77,8 @@ const cases: Case[] = [
       mouse: { x: 89, y: 50 },
     },
     actions: (done) => ({
-      rightOf: (item, hover, level) => {
-        expect(level, 'to be', 0);
+      rightOf: (item, hover, options) => {
+        expect(options.level, 'to be', 0);
         done();
       },
     }),
@@ -90,8 +90,8 @@ const cases: Case[] = [
       mouse: { x: 98, y: 95 },
     },
     actions: (done) => ({
-      rightOf: (item, hover, level) => {
-        expect(level, 'to be', 0);
+      rightOf: (item, hover, options) => {
+        expect(options.level, 'to be', 0);
         done();
       },
     }),
@@ -129,9 +129,7 @@ describe('computeHover', () => {
         {
           room: c.in.room,
           mouse: c.in.mouse,
-          options: {
-            cellPlugins: [],
-          },
+          cellPlugins: [],
         }
       );
     });

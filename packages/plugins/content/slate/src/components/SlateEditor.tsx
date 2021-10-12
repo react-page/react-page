@@ -1,4 +1,8 @@
-import { lazyLoad, useUiTranslator } from '@react-page/editor';
+import {
+  lazyLoad,
+  useAllFocusedNodeIds,
+  useUiTranslator,
+} from '@react-page/editor';
 import React from 'react';
 import { Editable, useFocused, useSelected } from 'slate-react';
 import type { SlateProps } from '../types/component';
@@ -29,10 +33,11 @@ const SlateEditable = React.memo(
     const onKeyDown = useOnKeyDown({ plugins }, []);
     // this is required so that dialogs & controls don't mess with slate's selection
     const dialogVisible = useDialogIsVisible();
+    const multipleNodesSelected = useAllFocusedNodeIds().length > 1;
     return (
       <Editable
         placeholder={readOnly ? undefined : placeholder}
-        readOnly={dialogVisible || readOnly}
+        readOnly={dialogVisible || readOnly || multipleNodesSelected}
         renderElement={renderElement}
         renderLeaf={renderLeaf}
         onKeyDown={readOnly ? undefined : onKeyDown}

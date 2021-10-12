@@ -1,11 +1,6 @@
 import classNames from 'classnames';
 import React from 'react';
-import {
-  useCell,
-  useFocusCell,
-  useIsLayoutMode,
-  useOptions,
-} from '../../hooks';
+import { useCell, useFocusCell, useIsLayoutMode, useOption } from '../../hooks';
 import { useDragHandle } from './useDragHandle';
 
 const DefaultSmallHandle = ({ onClick }) => (
@@ -25,10 +20,10 @@ const Draggable: React.FC<Props> = ({ isLeaf, children, nodeId }) => {
 
   const focus = useFocusCell(nodeId);
   const isLayoutMode = useIsLayoutMode();
-  const options = useOptions();
+  const allowMoveInEditMode = useOption('allowMoveInEditMode');
+  const components = useOption('components');
 
-  const ResizeHandle =
-    options.components?.EditModeResizeHandle ?? DefaultSmallHandle;
+  const ResizeHandle = components?.EditModeResizeHandle ?? DefaultSmallHandle;
 
   return (
     <>
@@ -40,7 +35,7 @@ const Draggable: React.FC<Props> = ({ isLeaf, children, nodeId }) => {
         }}
         className={classNames({
           'react-page-cell-draggable-in-edit':
-            !isLayoutMode && options.allowMoveInEditMode,
+            !isLayoutMode && allowMoveInEditMode,
           'react-page-cell-draggable': isLayoutMode,
           'react-page-cell-draggable-is-dragging': isDragging,
         })}
@@ -49,13 +44,17 @@ const Draggable: React.FC<Props> = ({ isLeaf, children, nodeId }) => {
       >
         {isLayoutMode ? (
           <div
+            onClick={(e) => {
+              const mode = e.metaKey || e.ctrlKey ? 'add' : 'replace';
+              focus(false, mode);
+            }}
             className={classNames({
               'react-page-cell-draggable-overlay': isLayoutMode,
               [`react-page-cell-draggable-inline-${cell.inline}`]: cell.inline,
               'react-page-cell-draggable-leaf': isLeaf,
             })}
           ></div>
-        ) : options.allowMoveInEditMode ? (
+        ) : allowMoveInEditMode ? (
           <div ref={dragRef}>
             <ResizeHandle onClick={focus} />
           </div>

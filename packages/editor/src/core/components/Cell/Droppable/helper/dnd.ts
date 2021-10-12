@@ -7,7 +7,12 @@ import {
   computeAndDispatchInsert,
 } from '../../../../service/hover/input';
 import logger from '../../../../service/logger';
-import type { CellDrag, Options, HoverInsertActions } from '../../../../types';
+import type {
+  CellDrag,
+  Options,
+  HoverInsertActions,
+  CellPlugin,
+} from '../../../../types';
 
 let last: { hoverId: string; dragId: string } = { hoverId: '', dragId: '' };
 
@@ -25,7 +30,7 @@ export const onHover = throttle(
     monitor: DropTargetMonitor,
     element: HTMLElement,
     actions: HoverInsertActions,
-    options: Options
+    cellPlugins: CellPlugin[]
   ) => {
     const drag: CellDrag = monitor.getItem();
     if (!drag || !target) {
@@ -61,7 +66,7 @@ export const onHover = throttle(
       monitor,
       element,
       actions,
-      options
+      cellPlugins
     );
   },
   delay,
@@ -73,7 +78,7 @@ export const onDrop = (
   monitor: DropTargetMonitor,
   element: HTMLElement,
   actions: HoverInsertActions,
-  options: Options
+  cellPlugins: CellPlugin[]
 ) => {
   const drag: CellDrag = monitor.getItem();
 
@@ -98,6 +103,6 @@ export const onDrop = (
     monitor,
     element,
     actions,
-    options
+    cellPlugins
   );
 };

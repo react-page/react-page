@@ -1,26 +1,27 @@
-import React from 'react';
 import classNames from 'classnames';
+import React, { useCallback } from 'react';
+import { getCellOuterDivClassName } from '../../utils/getCellStylingProps';
 import {
+  useAllFocusedNodeIds,
   useCellHasPlugin,
   useCellProps,
-  useIsEditMode,
+  useCellSpacing,
   useIsFocused,
+  useIsInsertMode,
   useIsLayoutMode,
   useIsPreviewMode,
   useIsResizeMode,
   useLang,
   useNodeHasChildren,
+  useOption,
   useScrollToViewEffect,
-  useCellSpacing,
   useSetDisplayReferenceNodeId,
-  useIsInsertMode,
 } from '../hooks';
 import ErrorCell from './ErrorCell';
-import Inner from './Inner';
-import scrollIntoViewWithOffset from './utils/scrollIntoViewWithOffset';
 import Handle from './Handle';
-import { useCallback } from 'react';
-import { getCellOuterDivClassName } from '../../utils/getCellStylingProps';
+import Inner from './Inner';
+import MoveActions from './MoveActions';
+import scrollIntoViewWithOffset from './utils/scrollIntoViewWithOffset';
 
 const CellErrorGate = class extends React.Component<
   {
@@ -50,30 +51,27 @@ type Props = {
 const Cell: React.FC<Props> = ({ nodeId, measureRef }) => {
   const focused = useIsFocused(nodeId);
 
-  const {
-    inline,
-    hasInlineNeighbour,
-    isDraft,
-    isDraftI18n,
-    size,
-  } = useCellProps(
-    nodeId,
-    ({ inline, hasInlineNeighbour, isDraft, isDraftI18n, size }) => ({
-      inline,
-      hasInlineNeighbour,
-      isDraft,
-      isDraftI18n,
-      size,
-    })
-  );
+  const { inline, hasInlineNeighbour, isDraft, isDraftI18n, size } =
+    useCellProps(
+      nodeId,
+      ({ inline, hasInlineNeighbour, isDraft, isDraftI18n, size }) => ({
+        inline,
+        hasInlineNeighbour,
+        isDraft,
+        isDraftI18n,
+        size,
+      })
+    );
 
   const lang = useLang();
   const isPreviewMode = useIsPreviewMode();
   const isResizeMode = useIsResizeMode();
-  const isEditMode = useIsEditMode();
+
   const isLayoutMode = useIsLayoutMode();
   const isInsertMode = useIsInsertMode();
+  const multiNodesSelected = useAllFocusedNodeIds().length > 1;
   const hasChildren = useNodeHasChildren(nodeId);
+  const showMoveButtons = useOption('showMoveButtonsInLayoutMode');
   const hasPlugin = useCellHasPlugin(nodeId);
   const { x: cellSpacingX, y: cellSpacingY } = useCellSpacing();
   const needVerticalPadding = !hasChildren || hasPlugin;
@@ -84,16 +82,12 @@ const Cell: React.FC<Props> = ({ nodeId, measureRef }) => {
   const setReferenceNodeId = useSetDisplayReferenceNodeId();
   const onClick = useCallback(
     (e) => {
-      if (hasPlugin && isEditMode) {
-        // Code bellow was causing the BottomToolbar to be unclickable with regards to document.addEventListener('click', ...)
-        // e.stopPropagation();
-      }
       if (isInsertMode) {
         e.stopPropagation();
         setReferenceNodeId(nodeId);
       }
     },
-    [nodeId, hasPlugin, isInsertMode, isEditMode, setReferenceNodeId]
+    [nodeId, isInsertMode, setReferenceNodeId]
   );
   useScrollToViewEffect(
     nodeId,
@@ -138,6 +132,12 @@ const Cell: React.FC<Props> = ({ nodeId, measureRef }) => {
       onClick={onClick}
     >
       <Handle nodeId={nodeId} />
+      {showMoveButtons &&
+      isLayoutMode &&
+      !hasChildren &&
+      !multiNodesSelected ? (
+        <MoveActions nodeId={nodeId} />
+      ) : null}
       <div
         ref={measureRef}
         style={{

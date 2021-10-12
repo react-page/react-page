@@ -1,9 +1,12 @@
 import React from 'react';
-import type { StickyNess } from '../DisplayModeToggle';
-import { DisplayModeToggle } from '../DisplayModeToggle';
+
 import { ThemeProvider } from '../ThemeProvider';
 import { PluginDrawer } from '../PluginDrawer';
 import { Trash } from '../Trash';
+import type { StickyNess } from '../Sidebar';
+import { Sidebar } from '../Sidebar';
+import { useOption } from '../../core/components/hooks';
+import { MultiNodesBottomToolbar } from '../MultiNodesBottomToolbar';
 
 export default React.memo(
   ({
@@ -12,15 +15,17 @@ export default React.memo(
       shouldStickToBottom: false,
       rightOffset: 0,
     },
-    hideEditorSidebar = false,
   }: {
     stickyNess?: StickyNess;
-    hideEditorSidebar?: boolean;
-  }) => (
-    <ThemeProvider>
-      <Trash />
-      {!hideEditorSidebar && <DisplayModeToggle stickyNess={stickyNess} />}
-      <PluginDrawer />
-    </ThemeProvider>
-  )
+  }) => {
+    const hideEditorSidebar = useOption('hideEditorSidebar');
+    return (
+      <ThemeProvider>
+        <Trash />
+        {!hideEditorSidebar && <Sidebar stickyNess={stickyNess} />}
+        <PluginDrawer />
+        <MultiNodesBottomToolbar />
+      </ThemeProvider>
+    );
+  }
 );

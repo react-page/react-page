@@ -1,26 +1,32 @@
 import { useCallback } from 'react';
+import { useDrop } from 'react-dnd';
+import { getCommonAncestorTree } from '../../utils/ancestorTree';
 import { blurAllCells } from '../../actions/cell';
+import type { FocusMode } from '../../actions/cell/core';
 import {
   blurCell,
   focusCell,
-  removeCell,
+  removeCells,
   resizeCell,
   updateCellData,
   updateCellIsDraft,
 } from '../../actions/cell/core';
 import {
   duplicateCell,
+  duplicateNode,
   insertCellAtTheEnd,
   insertCellNewAsNewRow,
 } from '../../actions/cell/insert';
 import { setDisplayReferenceNodeId } from '../../actions/display';
 import { setLang } from '../../actions/setting';
 import { useDispatch } from '../../reduxConnect';
-import type { CellDrag, PartialCell } from '../../types/node';
+import type { CellDrag, PartialCell, Node } from '../../types/node';
 import { isRow } from '../../types/node';
+import { useAllCellPluginsForNode } from './node';
 import { useEditorStore, useLang } from './options';
-import { useDrop } from 'react-dnd';
-import { useAllCellPluginsForNode, useParentCellId } from './node';
+import { cloneWithNewIds } from '../../../core/utils/cloneWithNewIds';
+import { useDisplayModeReferenceNodeId } from './displayMode';
+
 /**
  * @param id id of a node
  * @returns function, that sets a cell in draft mode (will be invisible in readonly / preview)
@@ -96,7 +102,7 @@ export const useUpdateCellData = (id: string) => {
  */
 export const useRemoveCellById = () => {
   const dispatch = useDispatch();
-  return useCallback((id: string) => dispatch(removeCell(id)), [dispatch]);
+  return useCallback((id: string) => dispatch(removeCells([id])), [dispatch]);
 };
 /**
  * @param id a cell id
@@ -108,25 +114,82 @@ export const useRemoveCell = (id: string) => {
 };
 
 /**
+ *
+ * @returns a function to remove muliple nodeids
+ */
+export const useRemoveMultipleNodeIds = () => {
+  const dispatch = useDispatch();
+  return useCallback(
+    (nodeIds: string[]) => {
+      dispatch(removeCells(nodeIds));
+    },
+    [dispatch]
+  );
+};
+
+/**
+ * @returns a function that duplicates a cell
+ */
+export const useDuplicateCellById = () => {
+  const dispatch = useDispatch();
+  const editor = useEditorStore();
+
+  return useCallback(
+    (id: string) => dispatch(duplicateCell(editor.getNode(id))),
+    [dispatch]
+  );
+};
+
+export const useInsertAfter = () => {
+  const dispatch = useDispatch();
+  const insertNew = useInsertNew();
+
+  return useCallback(
+    (node: Node, insertAfterNodeId: string) => {
+      if (insertAfterNodeId) {
+        dispatch(
+          duplicateNode(node, {
+            insertAfterNodeId,
+          })
+        );
+      } else {
+        // insert at the end
+        insertNew(cloneWithNewIds(node));
+      }
+    },
+    [dispatch, insertNew]
+  );
+};
+
+/**
+ * @returns a function that duplicates multiple cell
+ */
+export const useDuplicateMultipleCells = () => {
+  const editor = useEditorStore();
+  const insertAfter = useInsertAfter();
+
+  return useCallback(
+    (cellIds: string[]) => {
+      const node = getCommonAncestorTree(editor, cellIds);
+
+      const insertAfterNodeId = isRow(node)
+        ? node.id
+        : node.rows[node.rows.length - 1].id;
+
+      insertAfter(node, insertAfterNodeId);
+    },
+    [editor, insertAfter]
+  );
+};
+
+/**
  * @param a cell id
  * @returns a function that duplicates the given cell
  */
 export const useDuplicateCell = (id: string) => {
-  const dispatch = useDispatch();
-  const editor = useEditorStore();
-  const parentCellId = useParentCellId(id);
-  const lang = useLang();
-  const cellPlugins = useAllCellPluginsForNode(parentCellId);
+  const duplicate = useDuplicateCellById();
 
-  return useCallback(
-    () =>
-      dispatch(
-        duplicateCell({ cellPlugins, lang, focusAfter: true })(
-          editor.getNode(id)
-        )
-      ),
-    [dispatch, cellPlugins, lang, id]
-  );
+  return useCallback(() => duplicate(id), [duplicate, id]);
 };
 
 /**
@@ -135,12 +198,13 @@ export const useDuplicateCell = (id: string) => {
  */
 export const useSetDisplayReferenceNodeId = () => {
   const dispatch = useDispatch();
+  const referenceId = useDisplayModeReferenceNodeId();
 
   return useCallback(
     (nodeId: string) => {
-      dispatch(setDisplayReferenceNodeId(nodeId));
+      if (nodeId !== referenceId) dispatch(setDisplayReferenceNodeId(nodeId));
     },
-    [dispatch]
+    [dispatch, referenceId]
   );
 };
 
@@ -152,13 +216,13 @@ export const useFocusCellById = () => {
   const editor = useEditorStore();
 
   return useCallback(
-    (id: string, scrollToCell?: boolean, source?: string) => {
+    (id: string, scrollToCell?: boolean, mode?: FocusMode) => {
       const parentCellId = editor
         .getNodeWithAncestors(id)
         ?.ancestors?.find((node) => !isRow(node))?.id;
 
       dispatch(setDisplayReferenceNodeId(parentCellId));
-      dispatch(focusCell(id, scrollToCell, source));
+      dispatch(focusCell(id, scrollToCell, mode));
     },
     [dispatch, editor]
   );
@@ -171,8 +235,8 @@ export const useFocusCell = (id: string) => {
   const focusCellById = useFocusCellById();
 
   return useCallback(
-    (scrollToCell?: boolean, source?: string) =>
-      focusCellById(id, scrollToCell, source),
+    (scrollToCell?: boolean, mode?: FocusMode) =>
+      focusCellById(id, scrollToCell, mode),
     [focusCellById]
   );
 };
@@ -219,8 +283,7 @@ export const useInsertNew = (parentCellId?: string) => {
         action({
           cellPlugins,
           lang,
-          focusAfter: true,
-        })(partialCell, { id: parentCellId })
+        })(partialCell, { id: parentCellId }, { focusAfter: true })
       );
     },
     [dispatch, editor, cellPlugins, parentCellId]

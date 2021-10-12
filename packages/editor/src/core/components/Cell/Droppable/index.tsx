@@ -14,8 +14,9 @@ import {
   useIsInsertMode,
   useIsLayoutMode,
   useNodeHoverPosition,
-  useOptions,
   usePluginOfCell,
+  useOption,
+  useAllCellPluginsForNode,
 } from '../../hooks';
 import { onDrop, onHover } from './helper/dnd';
 
@@ -28,7 +29,8 @@ export const useCellDrop = (nodeId: string) => {
 
   const checkIfAllowed = useCellIsAllowedHere(targetParentNodeId);
   const plugin = usePluginOfCell(nodeId);
-  const options = useOptions();
+
+  const cellPlugins = useAllCellPluginsForNode(targetParentNodeId);
   const hoverActions = useHoverActions();
   const dropActions = useDropActions(targetParentNodeId);
   const isHoveringOverThis = useSelector(
@@ -66,10 +68,10 @@ export const useCellDrop = (nodeId: string) => {
           return false;
         }
       }
-      onHover(hoverTarget, monitor, ref.current, hoverActions, options);
+      onHover(hoverTarget, monitor, ref.current, hoverActions, cellPlugins);
     },
     drop: (item, monitor) => {
-      onDrop(hoverTarget, monitor, ref.current, dropActions, options);
+      onDrop(hoverTarget, monitor, ref.current, dropActions, cellPlugins);
     },
   });
 
@@ -95,12 +97,12 @@ const Droppable: React.FC<{ nodeId: string; isLeaf?: boolean }> = (props) => {
   const isInsertMode = useIsInsertMode();
   const [attach, isAllowed] = useCellDrop(props.nodeId);
   const hoverPosition = useNodeHoverPosition(props.nodeId);
-  const options = useOptions();
+  const allowMoveInEditMode = useOption('allowMoveInEditMode');
   const hasPlugin = useCellHasPlugin(props.nodeId);
   const { y: cellSpacingY } = useCellSpacing();
   const needVerticalMargin = !props.isLeaf && !hasPlugin;
 
-  if (!(isLayoutMode || isInsertMode) && !options.allowMoveInEditMode) {
+  if (!(isLayoutMode || isInsertMode) && !allowMoveInEditMode) {
     return (
       <div className={'react-page-cell-droppable-container'}>
         {props.children}

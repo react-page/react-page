@@ -1,106 +1,56 @@
-import throttle from 'lodash.throttle';
-import React from 'react';
-import { useEffect, useRef } from 'react';
-
-import scrollIntoViewWithOffset from '../../Cell/utils/scrollIntoViewWithOffset';
-
-import InsertNew from '../../Cell/InsertNew';
-import Row from '../../Row';
-import {
-  useDisplayMode,
-  useOptions,
-  useValueNode,
-  useCellSpacing,
-} from '../../hooks';
-
-function isElementInViewport(el: HTMLDivElement) {
-  const rect = el.getBoundingClientRect();
-
-  return (
-    rect.top >= 0 &&
-    rect.left >= 0 &&
-    rect.bottom <=
-      (window.innerHeight ||
-        document.documentElement.clientHeight) /*or $(window).height() */ &&
-    rect.right <=
-      (window.innerWidth ||
-        document.documentElement.clientWidth) /*or $(window).width() */
-  );
-}
+import React, { useRef } from 'react';
+import { useDisplayMode, useZoom } from '../../hooks';
+import { useKeepScrollPosition } from '../hooks/useKeepScrollPosition';
+import Rows from './Rows';
 
 const Inner: React.FC = () => {
-  const { rowIds } = useValueNode((editable) => ({
-    rowIds: editable?.rows?.map((c) => c.id) ?? [],
-  }));
-
-  const ref = useRef<HTMLDivElement>();
-  const options = useOptions();
-
-  const firstElementInViewPortref = React.useRef<{
-    el: HTMLDivElement;
-    topOffset: number;
-  }>();
-  useEffect(() => {
-    const onScroll = throttle(() => {
-      if (ref.current) {
-        const firstInViewport: HTMLDivElement = Array.prototype.find.call(
-          ref.current.getElementsByClassName('react-page-cell'),
-          (cell: HTMLDivElement) => isElementInViewport(cell)
-        );
-        if (firstInViewport) {
-          firstElementInViewPortref.current = {
-            el: firstInViewport,
-            topOffset: firstInViewport.getBoundingClientRect().top,
-          };
-        } else {
-          firstElementInViewPortref.current = null;
-        }
-      }
-    }, 600);
-
-    window.addEventListener('scroll', onScroll);
-
-    return () => {
-      window.removeEventListener('scroll', onScroll);
-    };
-  });
-
-  useEffect(() => {
-    if (firstElementInViewPortref.current) {
-      const { el, topOffset } = firstElementInViewPortref.current;
-      setTimeout(() => {
-        scrollIntoViewWithOffset(el, topOffset, 'auto');
-      }, 0);
-    }
-  }, [firstElementInViewPortref.current]);
   const mode = useDisplayMode();
-  const { y: cellSpacingY } = useCellSpacing();
-  const insertAllowed = options.childConstraints?.maxChildren
-    ? options.childConstraints?.maxChildren > rowIds.length
-    : true;
+  const ref = useRef<HTMLDivElement>();
+  const zoom = useZoom();
+  useKeepScrollPosition(ref);
 
-  const InsertNewWithDefault = options.components?.InsertNew ?? InsertNew;
+  const rect = ref.current?.getBoundingClientRect();
 
+  const zoomTransformOriginY = window.innerHeight / 2 - rect?.top;
+  const offsetPercent = zoomTransformOriginY / rect?.height;
+
+  const backdropPercent = 50 * (1 - zoom);
+  const left = backdropPercent + '%';
+  const right = 100 - backdropPercent + '%';
+  const top = backdropPercent * offsetPercent * 2 + '%';
+  const bottom = 100 - backdropPercent * (1 - offsetPercent) * 2 + '%';
   return (
     <div
       ref={ref}
-      style={{ minHeight: 480 }}
-      className={'react-page-editable react-page-editable-mode-' + mode}
+      style={{
+        position: 'relative',
+      }}
     >
-      {rowIds.length > 0 ? (
-        <div
-          style={
-            cellSpacingY !== 0
-              ? { margin: `${-cellSpacingY / 2}px 0` }
-              : undefined
-          }
-        >
-          {rowIds.map((id) => (
-            <Row nodeId={id} key={id} />
-          ))}
-        </div>
-      ) : null}
-      {insertAllowed ? <InsertNewWithDefault childrenIds={rowIds} /> : null}
+      <div
+        style={{
+          opacity: zoom < 1 ? 1 : 0,
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          transition: '0.6s',
+          clipPath: `polygon(0% 0%, 0% 100%, ${left} 100%, ${left} ${top}, ${right} ${top}, ${right} ${bottom}, ${left} ${bottom}, ${left} 100%, 100% 100%, 100% 0%)`,
+
+          background: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16  ' viewBox='0 0 8 8'%3E%3Cg fill='%23c5c5c5' fill-opacity='0.4'%3E%3Cpath fill-rule='evenodd' d='M0 0h4v4H0V0zm4 4h4v4H4V4z'/%3E%3C/g%3E%3C/svg%3E")`,
+        }}
+      ></div>
+
+      <div
+        style={{
+          transformOrigin: `center ${zoomTransformOriginY}px`,
+          transform: `scale(${zoom})`,
+          transition: '0.6s',
+        }}
+        className={'react-page-editable react-page-editable-mode-' + mode}
+      >
+        <Rows />
+      </div>
     </div>
   );
 };

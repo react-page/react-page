@@ -4,7 +4,7 @@ import type { Migration } from '../migrations/Migration';
 import type { Cell, PartialCell, PartialRow } from './node';
 import type { JsonSchema } from './jsonSchema';
 import type { ChildConstraints } from './constraints';
-import type { CellSpacing } from './options';
+import type { CellSpacing } from './renderOptions';
 
 export type CellPluginComponentProps<DataT = unknown> = {
   /**
@@ -124,6 +124,8 @@ export type ControlsDef<DataT> =
   | AutoformControlsDef<DataT>
   | CustomControlsDef<DataT>
   | ControlsDefList<DataT>;
+
+export type PluginHandler = (e: Event, node: Cell) => void | Promise<void>;
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type CellPlugin<DataT = unknown, DataSerializedT = DataT> = {
   /**
@@ -260,7 +262,7 @@ export type CellPlugin<DataT = unknown, DataSerializedT = DataT> = {
 
   serialize?: (data: DataT) => DataSerializedT;
   unserialize?: (raw: DataSerializedT) => DataT;
-  handleRemoveHotKey?: (e: Event, node: Cell) => Promise<void>;
-  handleFocusNextHotKey?: (e: Event, node: Cell) => Promise<void>;
-  handleFocusPreviousHotKey?: (e: Event, node: Cell) => Promise<void>;
+  handleRemoveHotKey?: PluginHandler;
+  handleFocusNextHotKey?: PluginHandler;
+  handleFocusPreviousHotKey?: PluginHandler;
 };
