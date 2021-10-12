@@ -7,7 +7,7 @@ cache:
     - examples/.next/cache
 
 node_js:
-  - '12'
+  - '14'
 
 install:
   - yarn --frozen-lockfile
