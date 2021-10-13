@@ -85,8 +85,30 @@ const GlobalHotKeys: React.FC<{ focusRef: RefObject<HTMLDivElement> }> = ({
     [editor, isEditMode]
   );
 
-  const handlers = useMemo<HotkeyHandlers>(
-    () => [
+  const handlers = useMemo<HotkeyHandlers>(() => {
+    const handleCopy = (deleteAfter = false) => {
+      // copy cell, unless text is selected
+      if (
+        window.getSelection()?.type !== 'Range' &&
+        focusedNodeIds?.length > 0
+      ) {
+        const node = getCommonAncestorTree(editor, focusedNodeIds);
+        const cell = cloneAsCell(node);
+
+        const type = 'text/plain'; // json is not supported
+        const blob = new Blob([JSON.stringify(cell)], { type });
+
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const data = [new ClipboardItem({ [type]: blob as any })];
+
+        navigator.clipboard.write(data);
+        if (deleteAfter) {
+          removeCells(focusedNodeIds);
+        }
+      }
+    };
+
+    return [
       {
         hotkeys: ['Escape'],
         handler: () => {
@@ -107,22 +129,14 @@ const GlobalHotKeys: React.FC<{ focusRef: RefObject<HTMLDivElement> }> = ({
       {
         hotkeys: ['mod+c'],
         handler: () => {
-          // copy cell, unless text is selected
-          if (
-            window.getSelection()?.type !== 'Range' &&
-            focusedNodeIds?.length > 0
-          ) {
-            const node = getCommonAncestorTree(editor, focusedNodeIds);
-            const cell = cloneAsCell(node);
+          handleCopy(false);
+        },
+      },
 
-            const type = 'text/plain'; // json is not supported
-            const blob = new Blob([JSON.stringify(cell)], { type });
-
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            const data = [new ClipboardItem({ [type]: blob as any })];
-
-            navigator.clipboard.write(data);
-          }
+      {
+        hotkeys: ['mod+x'],
+        handler: () => {
+          handleCopy(true);
         },
       },
       {
@@ -175,18 +189,17 @@ const GlobalHotKeys: React.FC<{ focusRef: RefObject<HTMLDivElement> }> = ({
           );
         },
       },
-    ],
-    [
-      focusedNodeId,
-      focusedNodeIds,
-      someCellIsFocused,
-      blurAllCells,
-      focusCell,
-      removeCells,
-      setEditMode,
-      setInsertMode,
-    ]
-  );
+    ];
+  }, [
+    focusedNodeId,
+    focusedNodeIds,
+    someCellIsFocused,
+    blurAllCells,
+    focusCell,
+    removeCells,
+    setEditMode,
+    setInsertMode,
+  ]);
 
   useEffect(() => {
     // when we have multiple instances, we try to send the event only to the right one
