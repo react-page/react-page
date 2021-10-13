@@ -1,6 +1,6 @@
 # ReactPage
 
-[![Build Status](https://travis-ci.com/react-page/react-page.svg)](https://travis-ci.com/react-page/react-page)
+[![Build Status](https://app.travis-ci.com/react-page/react-page.svg?branch=master)](https://app.travis-ci.com/react-page/react-page)
 [![Coverage Status](https://coveralls.io/repos/github/ory-am/editor/badge.svg?branch=master)](https://coveralls.io/github/ory/editor?branch=master)
 [![Docs](https://img.shields.io/badge/docs-guide-blue.svg)](https://react-page.github.io/docs)
 
