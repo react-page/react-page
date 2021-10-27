@@ -86,7 +86,7 @@ type ArrayProperty<T> = {
    * shape of one array item
    */
   items: JsonSchemaProperty<T>;
-};
+} & CommonPropertyProps;
 export type JsonSchemaProperty<T> = T extends (infer U)[]
   ? ArrayProperty<U>
   : T extends Record<string, unknown>
