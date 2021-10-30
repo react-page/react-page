@@ -4,7 +4,6 @@
     "downlevelIteration": true,
     "rootDir": "src",
     "outDir": "lib",
-    "baseUrl": ".",
 
     "paths": {
       "react": ["../../../../node_modules/@types/react/index"]

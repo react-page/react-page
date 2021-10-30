@@ -262,6 +262,10 @@ export type CellPlugin<DataT = unknown, DataSerializedT = DataT> = {
 
   serialize?: (data: DataT) => DataSerializedT;
   unserialize?: (raw: DataSerializedT) => DataT;
+  /**
+   * how to extract raw text from this plugin (e.g. for search indexing)
+   */
+  getTextContents?: (data: DataT) => string[];
   handleRemoveHotKey?: PluginHandler;
   handleFocusNextHotKey?: PluginHandler;
   handleFocusPreviousHotKey?: PluginHandler;

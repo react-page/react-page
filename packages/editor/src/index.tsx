@@ -14,12 +14,13 @@ import deepEquals from './core/utils/deepEquals';
 
 import { createValue } from './core/utils/createValue';
 import { objIsNode } from './core/utils/objIsNode';
+import { getTextContents } from './core/utils/getTextContents';
 export { objIsNode };
 export { lazyLoad };
 export { EditorProps };
 export { Migration };
 export { makeUniformsSchema };
-export { createValue };
+export { createValue, getTextContents };
 export { migrateValue };
 
 export { deepEquals };

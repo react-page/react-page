@@ -13,6 +13,7 @@ import defaultPlugins from './plugins/index';
 import type { InitialSlateStateDef } from './types/initialSlateState';
 import type { SlatePluginCollection } from './types/SlatePlugin';
 import type { SlateState } from './types/state';
+import { getTextContents } from './utils/getTextContent';
 import makeSlatePluginsFromDef from './utils/makeSlatePluginsFromDef';
 import transformInitialSlateState from './utils/transformInitialSlateState';
 
@@ -186,6 +187,8 @@ function plugin<TPlugins extends SlatePluginCollection = DefaultPlugins>(
     createInitialSlateState: createData,
     createData: createData,
     createDataFromHtml: htmlToSlate,
+    getTextContents: (data) =>
+      getTextContents(data.slate, { slatePlugins: plugins }),
     // remove selection
     serialize: ({ slate, selection, ...rest } = { slate: [] }) => ({
       slate,

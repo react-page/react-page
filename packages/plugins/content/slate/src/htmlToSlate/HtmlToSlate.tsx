@@ -70,9 +70,10 @@ const HtmlToSlate = ({ plugins }: { plugins: SlatePlugin[] }) => {
       parsed.documentElement
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     ) as unknown as any[];
-
+    const nodes = Array.isArray(fragment) ? fragment : [fragment];
+    // filter empty nodes (that contain only text)
     return {
-      slate: Array.isArray(fragment) ? fragment : [fragment],
+      slate: nodes.filter((n) => n.text?.trim() !== '' ?? true),
     };
   };
 };
