@@ -1,5 +1,3 @@
-# Recipes
-
 ## Add additional controls to all cell plugins
 
 Consider you want to add custom styling to all plugins. Because a `CellPlugin` is just an object, its easy to customize it.

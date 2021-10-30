@@ -27,20 +27,22 @@ describe('HtmlToSlate', () => {
     });
   });
   it('parses a list of tags to an array', async () => {
-    expect(await htmlToSlate('<h1>Hello World</h1><p>Lorem ipsum</p>')).toEqual(
-      {
-        slate: [
-          {
-            type: 'HEADINGS/HEADING-ONE',
-            children: [{ text: 'Hello World' }],
-          },
-          {
-            type: 'PARAGRAPH/PARAGRAPH',
-            children: [{ text: 'Lorem ipsum' }],
-          },
-        ],
-      }
-    );
+    expect(
+      await htmlToSlate(`
+      <h1>Hello World</h1>
+    <p>Lorem ipsum</p>`)
+    ).toEqual({
+      slate: [
+        {
+          type: 'HEADINGS/HEADING-ONE',
+          children: [{ text: 'Hello World' }],
+        },
+        {
+          type: 'PARAGRAPH/PARAGRAPH',
+          children: [{ text: 'Lorem ipsum' }],
+        },
+      ],
+    });
   });
   it('parses nested tags with headin', async () => {
     expect(

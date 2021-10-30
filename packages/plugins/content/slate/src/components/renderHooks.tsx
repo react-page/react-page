@@ -80,7 +80,10 @@ export const useRenderElement = (
         // usefull in certain cases
         const additionalProps = {
           childNodes,
-          getTextContents: () => getTextContents(childNodes),
+          getTextContents: () =>
+            getTextContents(childNodes, {
+              slatePlugins: plugins,
+            }),
           ...injections,
         };
         return (

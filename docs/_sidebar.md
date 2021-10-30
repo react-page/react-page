@@ -6,6 +6,8 @@
 - [Rich text editing](/slate.md)
 - [Inbuilt Cell Plugins](/builtin_plugins.md)
 - [Custom Cell plugins](/custom-cell-plugins.md)
+- [Utils](/utils.md)
+- [Recipes](/recipes.md)
 - Integrations
   - [React Admin](/integration-react-admin.md)
 - FAQ

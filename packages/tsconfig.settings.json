@@ -4,7 +4,7 @@
     "downlevelIteration": true,
     "rootDirs": ["src"],
     "outDir": "lib",
-    "baseUrl": ".",
+
     "moduleResolution": "node",
     "target": "es5",
     "module": "commonjs",
@@ -19,7 +19,6 @@
     "declarationMap": true,
     "composite": true,
     "lib": ["es7", "dom"],
-    "types": ["node", "jest"],
-   
+    "types": ["node", "jest"]
   }
 }
