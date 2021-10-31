@@ -35,7 +35,7 @@ const getTextContentsFromRow = (row: Row, options: Options) => {
 };
 
 export const getTextContents = (value: Value, options: Options) => {
-  return value.rows.reduce(
+  return value.rows.reduce<string[]>(
     (arr, row) => [...arr, ...getTextContentsFromRow(row, options)],
     []
   );
