@@ -5,7 +5,6 @@ import {
   usePluginOfCell,
   useDebouncedCellData,
   useIsEditMode,
-  useIsFocused,
   useIsPreviewMode,
   useLang,
   useRemoveCell,

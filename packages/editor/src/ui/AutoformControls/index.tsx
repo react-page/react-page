@@ -1,7 +1,5 @@
 import React, { Fragment, useEffect, useMemo } from 'react';
-import type { AutoFormProps } from 'uniforms';
 import type JSONSchemaBridge from 'uniforms-bridge-json-schema';
-import type { AutoFieldProps, AutoFieldsProps } from 'uniforms-material';
 import { useIsSmallScreen } from '../../core/components/hooks';
 import lazyLoad from '../../core/helper/lazyLoad';
 
@@ -12,21 +10,9 @@ import type {
 } from '../../core/types';
 import makeUniformsSchema from './makeUniformsSchema';
 
-export const AutoForm = lazyLoad(
-  () =>
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    import('uniforms-material').then((c) => c.AutoForm as any)
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-) as React.FC<Partial<AutoFormProps<any>> & { ref?: any }>;
-export const AutoField = lazyLoad(() =>
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  import('uniforms-material').then((c) => c.AutoField as any)
-) as React.FC<AutoFieldProps>;
-
-export const AutoFields = lazyLoad(() =>
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  import('uniforms-material').then((c) => c.AutoFields as any)
-) as React.FC<AutoFieldsProps>;
+export const AutoForm = lazyLoad(() => import('./AutoForm'));
+export const AutoField = lazyLoad(() => import('./AutoField'));
+export const AutoFields = lazyLoad(() => import('./AutoFields'));
 
 const getDefaultValue = function (bridge: JSONSchemaBridge): {
   [key: string]: unknown;

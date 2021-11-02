@@ -1,5 +1,16 @@
-/* eslint-disable @typescript-eslint/ban-types */
-type CommonPropertyProps = {
+import type React from 'react';
+
+type UniformsProps<Data> = Record<string, unknown> & {
+  label?: string;
+  placeholder?: string;
+  multiline?: boolean;
+  component?: React.ComponentType;
+  /**
+   * whether to show the field
+   */
+  showIf?: (data: Data) => boolean;
+};
+type CommonPropertyProps<Data> = {
   /**
    * title to display
    */
@@ -7,14 +18,14 @@ type CommonPropertyProps = {
   /**
    * uniforms properties, passed to the form field
    */
-  uniforms?: Record<string, unknown>;
+  uniforms?: UniformsProps<Data>;
   /**
    * additionl props
    */
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [key: string]: any;
 };
-type BooleanType = {
+type BooleanType<Data> = {
   /**
    * boolean type is for checkboxes
    */
@@ -23,9 +34,9 @@ type BooleanType = {
    * default value
    */
   default?: boolean;
-} & CommonPropertyProps;
+} & CommonPropertyProps<Data>;
 
-type StringProperty = {
+type StringProperty<Data> = {
   /**
    * string type is for strings and render an input field
    */
@@ -46,9 +57,9 @@ type StringProperty = {
    * regex pattern to validate, e.g. for email adresses
    */
   pattern?: string;
-} & CommonPropertyProps;
+} & CommonPropertyProps<Data>;
 
-type NumberProperty = {
+type NumberProperty<Data> = {
   /**
    * type number is for float numbers, integer is for integers only
    */
@@ -73,11 +84,11 @@ type NumberProperty = {
    * maximum but value has to be strictly smaller than this maximum
    */
   exclusiveMaximum?: boolean;
-} & CommonPropertyProps;
+} & CommonPropertyProps<Data>;
 
-type ObjectProperty<T extends Record<string, unknown>> = JsonSchema<T> &
-  CommonPropertyProps;
-type ArrayProperty<T> = {
+type ObjectProperty<T extends Record<string, unknown>, Data> = JsonSchema<T> &
+  CommonPropertyProps<Data>;
+type ArrayProperty<Field, Data> = {
   /**
    * array type is for array objects
    */
@@ -85,21 +96,21 @@ type ArrayProperty<T> = {
   /**
    * shape of one array item
    */
-  items: JsonSchemaProperty<T>;
-} & CommonPropertyProps;
-export type JsonSchemaProperty<T> = T extends (infer U)[]
-  ? ArrayProperty<U>
-  : T extends Record<string, unknown>
-  ? ObjectProperty<T>
-  : T extends string
-  ? StringProperty
-  : T extends number
-  ? NumberProperty
-  : T extends boolean
-  ? BooleanType
+  items: JsonSchemaProperty<Field, Data>;
+} & CommonPropertyProps<Data>;
+export type JsonSchemaProperty<Field, Data> = Field extends (infer U)[]
+  ? ArrayProperty<U, Data>
+  : Field extends Record<string, unknown>
+  ? ObjectProperty<Field, Data>
+  : Field extends string
+  ? StringProperty<Data>
+  : Field extends number
+  ? NumberProperty<Data>
+  : Field extends boolean
+  ? BooleanType<Data>
   : never;
 
-export type JsonSchema<T extends Record<string, unknown> | unknown> = {
+export type JsonSchema<Data extends Record<string, unknown> | unknown> = {
   title?: string;
   /**
    * type object is for a nested object
@@ -108,15 +119,15 @@ export type JsonSchema<T extends Record<string, unknown> | unknown> = {
   /**
    * the default value
    */
-  default?: T;
+  default?: Data;
   /**
    * child properties of this object
    */
-  properties: { [K in keyof T]?: JsonSchemaProperty<T[K]> };
+  properties: { [Field in keyof Data]?: JsonSchemaProperty<Data[Field], Data> };
   // required: string[];
   /* union to tuple conversion is expensive, we do a poor mans version here */
   /**
    * required fields
    */
-  required?: Array<keyof T>;
+  required?: Array<keyof Data>;
 };
