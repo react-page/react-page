@@ -119,6 +119,31 @@ See the following chapter.
 
 It supports strings, date and ints, nested objects and arrays. You can also use custom components, for example for an image field that uploads the image to an S3 bucket and return the url, a select field that uses a graphql query to fetch the options, etc.
 
+### Passing props to fields
+
+You can pass props to the `uniforms` field by adding a `uniforms` property to the schema field:
+
+```ts
+
+controls: {
+    type: 'autoform',
+    schema: {
+      properties: {
+        description: {
+          type: 'string',
+          uniforms: {
+            label: "My field", // custom label
+            placeholder: "fill me", // custom placeholder
+            component: MyCustomComponent, // override the component
+            showIf: (data) => data.myOtherField === "something", // show the field conditionally
+            multiline: true, // wether to show multiline (for text fields)
+            rows: 4, // show multiple lines
+          },
+        },
+      },
+    },
+```
+
 ### Custom field components example
 
 Consider a plugin that has a title and an image.
