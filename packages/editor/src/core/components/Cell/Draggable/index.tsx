@@ -3,7 +3,7 @@ import React from 'react';
 import { useCell, useFocusCell, useIsLayoutMode, useOption } from '../../hooks';
 import { useDragHandle } from './useDragHandle';
 
-const DefaultSmallHandle = ({ onClick }) => (
+const DefaultSmallHandle = ({ onClick }: { onClick: () => void }) => (
   <div className="react-page-cell-draggable-overlay-handle" onClick={onClick}>
     <div className="react-page-cell-draggable-overlay-handle-icon" />
   </div>
@@ -50,7 +50,8 @@ const Draggable: React.FC<Props> = ({ isLeaf, children, nodeId }) => {
             }}
             className={classNames({
               'react-page-cell-draggable-overlay': isLayoutMode,
-              [`react-page-cell-draggable-inline-${cell.inline}`]: cell.inline,
+              [`react-page-cell-draggable-inline-${cell?.inline}`]:
+                cell?.inline,
               'react-page-cell-draggable-leaf': isLeaf,
             })}
           ></div>

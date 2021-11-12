@@ -20,9 +20,7 @@ type Def<T extends Record<string, unknown>> = Pick<
 > & {
   replaceWithDefaultOnRemove?: boolean;
   tagName: keyof JSX.IntrinsicElements;
-  getData?: SlateComponentPluginDefinition<
-    HtmlBlockData<T>
-  >['deserialize']['getData'];
+  getData?: (el: HTMLElement) => T | void;
   noButton?: boolean;
 };
 

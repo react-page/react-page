@@ -20,7 +20,7 @@ export type SetDisplayModeAction = {
   type: typeof SET_DISPLAY_MODE;
   ts: Date;
   mode: DisplayModes;
-  referenceNodeId?: string;
+  referenceNodeId?: string | null;
 };
 export type SetZoomAction = {
   type: typeof DISPLAY_SET_ZOOM;
@@ -29,7 +29,7 @@ export type SetZoomAction = {
 export type SetDisplayReferenceNodeIdAction = {
   type: typeof SET_DISPLAY_REFERENCE_NODE_ID;
   ts: Date;
-  referenceNodeId: string;
+  referenceNodeId?: string | null;
 };
 
 export type DisplayAction =
@@ -46,7 +46,7 @@ const setDisplayMode =
   });
 
 export const setDisplayReferenceNodeId = (
-  referenceNodeId?: string
+  referenceNodeId?: string | null
 ): SetDisplayReferenceNodeIdAction => ({
   type: SET_DISPLAY_REFERENCE_NODE_ID,
   ts: new Date(),

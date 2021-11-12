@@ -41,7 +41,7 @@ const InsertNew: React.FC<InsertNewProps> = ({ parentCellId }) => {
     }),
     drop: (item, monitor) => {
       // fallback drop
-      if (!monitor.didDrop()) {
+      if (!monitor.didDrop() && item.cell) {
         insertNew(item.cell);
       }
     },

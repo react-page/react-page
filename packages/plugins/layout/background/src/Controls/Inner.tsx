@@ -17,7 +17,7 @@ import ImageComponent from './sub/Image';
 import LinearGradientComponent from './sub/LinearGradient';
 
 interface BackgroundDefaultControlsState {
-  mode: ModeEnum;
+  mode?: ModeEnum;
 }
 
 class Inner extends React.Component<
@@ -43,11 +43,11 @@ class Inner extends React.Component<
     const darkenFinal =
       this.props.darkenPreview !== undefined
         ? this.props.darkenPreview
-        : darken;
+        : darken ?? 0;
     const lightenFinal =
       this.props.lightenPreview !== undefined
         ? this.props.lightenPreview
-        : lighten;
+        : lighten ?? 0;
     return (
       <div>
         <Tabs
@@ -56,51 +56,55 @@ class Inner extends React.Component<
           onChange={this.handleChangeMode}
           centered={true}
         >
-          {(this.props.enabledModes & ModeEnum.IMAGE_MODE_FLAG) > 0 && (
-            <Tab
-              icon={
-                <ImageIcon
-                  color={
-                    (modeFlag & ModeEnum.IMAGE_MODE_FLAG) > 0
-                      ? 'secondary'
-                      : undefined
+          {this.props.enabledModes ? (
+            <>
+              {(this.props.enabledModes & ModeEnum.IMAGE_MODE_FLAG) > 0 && (
+                <Tab
+                  icon={
+                    <ImageIcon
+                      color={
+                        modeFlag && (modeFlag & ModeEnum.IMAGE_MODE_FLAG) > 0
+                          ? 'secondary'
+                          : undefined
+                      }
+                    />
                   }
+                  label={this.props.translations?.imageMode}
+                  value={ModeEnum.IMAGE_MODE_FLAG}
                 />
-              }
-              label={this.props.translations.imageMode}
-              value={ModeEnum.IMAGE_MODE_FLAG}
-            />
-          )}
-          {(this.props.enabledModes & ModeEnum.COLOR_MODE_FLAG) > 0 && (
-            <Tab
-              icon={
-                <ColorIcon
-                  color={
-                    (modeFlag & ModeEnum.COLOR_MODE_FLAG) > 0
-                      ? 'secondary'
-                      : undefined
+              )}
+              {(this.props.enabledModes & ModeEnum.COLOR_MODE_FLAG) > 0 && (
+                <Tab
+                  icon={
+                    <ColorIcon
+                      color={
+                        modeFlag && (modeFlag & ModeEnum.COLOR_MODE_FLAG) > 0
+                          ? 'secondary'
+                          : undefined
+                      }
+                    />
                   }
+                  label={this.props.translations?.colorMode}
+                  value={ModeEnum.COLOR_MODE_FLAG}
                 />
-              }
-              label={this.props.translations.colorMode}
-              value={ModeEnum.COLOR_MODE_FLAG}
-            />
-          )}
-          {(this.props.enabledModes & ModeEnum.GRADIENT_MODE_FLAG) > 0 && (
-            <Tab
-              icon={
-                <GradientIcon
-                  color={
-                    (modeFlag & ModeEnum.GRADIENT_MODE_FLAG) > 0
-                      ? 'secondary'
-                      : undefined
+              )}
+              {(this.props.enabledModes & ModeEnum.GRADIENT_MODE_FLAG) > 0 && (
+                <Tab
+                  icon={
+                    <GradientIcon
+                      color={
+                        modeFlag && (modeFlag & ModeEnum.GRADIENT_MODE_FLAG) > 0
+                          ? 'secondary'
+                          : undefined
+                      }
+                    />
                   }
+                  label={this.props.translations?.gradientMode}
+                  value={ModeEnum.GRADIENT_MODE_FLAG}
                 />
-              }
-              label={this.props.translations.gradientMode}
-              value={ModeEnum.GRADIENT_MODE_FLAG}
-            />
-          )}
+              )}
+            </>
+          ) : null}
         </Tabs>
 
         {/* Render one of the panels here - image / mono color / gradient */}
@@ -112,7 +116,8 @@ class Inner extends React.Component<
         <div style={{ display: 'flex' }}>
           <div style={{ flex: 1 }}>
             <Typography variant="body1" id="linear-gradient-darken-label">
-              {this.props.translations.darken} ({(darkenFinal * 100).toFixed(0)}
+              {this.props.translations?.darken} (
+              {(darkenFinal * 100).toFixed(0)}
               %)
             </Typography>
             <Slider
@@ -132,7 +137,7 @@ class Inner extends React.Component<
 
           <div style={{ flex: 1, marginLeft: 16 }}>
             <Typography variant="body1" id="linear-gradient-lighten-label">
-              {this.props.translations.lighten} (
+              {this.props.translations?.lighten} (
               {(lightenFinal * 100).toFixed(0)}
               %)
             </Typography>
@@ -159,7 +164,7 @@ class Inner extends React.Component<
                   checked={hasPadding}
                 />
               }
-              label={this.props.translations.usePadding}
+              label={this.props.translations?.usePadding}
             />
           </div>
         </div>
@@ -180,10 +185,12 @@ class Inner extends React.Component<
               this.state.mode,
               modeFlag
             )}
-            checked={Boolean(modeFlag & this.state.mode)}
+            checked={Boolean(
+              modeFlag && this.state.mode && modeFlag & this.state.mode
+            )}
           />
         }
-        label={this.props.translations.onOff}
+        label={this.props.translations?.onOff}
       />
     );
   };
@@ -265,12 +272,13 @@ class Inner extends React.Component<
     const {
       data: { modeFlag = this.props.defaultModeFlag },
     } = this.props;
-    if ((modeFlag & mode) === 0) {
+    if (modeFlag && (modeFlag & mode) === 0) {
       this.props.handleChangeModeSwitch(mode, modeFlag)();
     }
   };
 
-  handleChangeMode = (e: React.ChangeEvent, mode: number) =>
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  handleChangeMode = (e: React.ChangeEvent<any>, mode: number) =>
     this.setState({ mode });
 }
 

@@ -1,7 +1,7 @@
 import type { RGBColor } from './types';
 import parse from 'color-parse';
-export const colorToString = (c: RGBColor) =>
-  c && 'rgba(' + c.r + ', ' + c.g + ', ' + c.b + ', ' + c.a + ')';
+export const colorToString = (c?: RGBColor | null) =>
+  c ? 'rgba(' + c.r + ', ' + c.g + ', ' + c.b + ', ' + c.a + ')' : undefined;
 
 export const stringToColor = (c: string) => {
   const match = parse(c);

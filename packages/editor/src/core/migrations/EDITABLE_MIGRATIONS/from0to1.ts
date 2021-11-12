@@ -32,7 +32,7 @@ type NodeBase = {
 };
 
 type CellOld = NodeBase & {
-  rows?: Row[];
+  rows?: Row[] | null;
 
   content?: Content;
   layout?: Layout;
@@ -115,7 +115,7 @@ export default new Migration<Value_v0, Value>({
     // check if is the only one cell with only rows, then we cann omit that
     const rootRows =
       migratedCells.length === 1 && !migratedCells[0].plugin
-        ? migratedCells[0].rows
+        ? migratedCells[0].rows ?? []
         : [
             {
               id: createId(),

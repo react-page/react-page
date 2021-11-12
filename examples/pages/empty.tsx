@@ -5,7 +5,7 @@ import React, { useState } from 'react';
 import PageLayout from '../components/PageLayout';
 import { cellPlugins } from '../plugins/cellPlugins';
 
-const LANGUAGES: Options['languages'] = [
+const LANGUAGES = [
   {
     lang: 'en',
     label: 'English',
@@ -17,7 +17,7 @@ const LANGUAGES: Options['languages'] = [
 ];
 
 export default function Empty() {
-  const [value, setValue] = useState<Value>(null);
+  const [value, setValue] = useState<Value | null>(null);
 
   return (
     <PageLayout>

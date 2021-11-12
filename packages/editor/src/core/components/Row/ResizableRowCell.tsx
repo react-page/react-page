@@ -14,7 +14,7 @@ import {
 type Props = {
   nodeId: string;
   rowWidth: number;
-  rowHasInlineChildrenPosition: string;
+  rowHasInlineChildrenPosition?: string | null;
   isLast: boolean;
   offset: number;
   size: number;
@@ -36,7 +36,7 @@ const ResizableRowCell: React.FC<Props> = ({
   const isPreviewMode = useIsPreviewMode();
   const resize = useResizeCell(nodeId);
   const [ref, { height: cellHeight }] = useMeasure();
-  const { y: cellSpacingY } = useCellSpacing();
+  const { y: cellSpacingY } = useCellSpacing() ?? { y: 0 };
 
   const showResizeHandle =
     !isPreviewMode &&

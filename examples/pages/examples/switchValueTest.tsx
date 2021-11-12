@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { cellPlugins } from '../../plugins/cellPlugins';
 import PageLayout from '../../components/PageLayout';
 import { Button } from '@material-ui/core';
-const LANGUAGES: Options['languages'] = [
+const LANGUAGES = [
   {
     lang: 'en',
     label: 'English',

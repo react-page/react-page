@@ -44,7 +44,7 @@ export const increaseListIndention = (
 
   Transforms.setNodes(editor, {
     type: def.listItemType,
-  } as unknown);
+  });
 
   if (previous) {
     // first make the previous node a paragraph
@@ -52,7 +52,7 @@ export const increaseListIndention = (
       editor,
       {
         type: null,
-      } as unknown,
+      },
       {
         at: previous[1],
       }
@@ -100,15 +100,17 @@ const moveToParent = (
   if (!parentIsList) {
     const targetNode = Editor.node(editor, targetPath);
     // see https://github.com/ianstormtaylor/slate/issues/3769
-    const onlyTextChildren = (
-      (targetNode?.[0] as any).children as Node[]
-    )?.every((child) => Text.isText(child) || Editor.isInline(editor, child));
+    const onlyTextChildren =
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      ((targetNode?.[0] as any).children as Node[])?.every(
+        (child) => Text.isText(child) || Editor.isInline(editor, child)
+      );
     if (onlyTextChildren) {
       Transforms.setNodes(
         editor,
         {
           type: null,
-        } as unknown,
+        },
         {
           at: targetPath,
         }

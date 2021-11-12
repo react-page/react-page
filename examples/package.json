@@ -39,6 +39,7 @@
     "@types/react-syntax-highlighter": "^13.5.0",
     "babel-plugin-styled-components": "^1.11.1",
     "raw-loader": "4.0.1",
-    "react-admin": "^3.14.2"
+    "react-admin": "^3.14.2",
+    "@types/styled-components": "^5.1.15"
   }
 }

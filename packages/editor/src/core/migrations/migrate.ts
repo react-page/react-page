@@ -12,7 +12,7 @@ export type MigrationVersion = number | string;
 export const migrate = <TOut>(
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   dataIn: any,
-  migrations: Migration[],
+  migrations: Migration[] | undefined,
   versionIn: MigrationVersion = 0,
   context: MigrationContext
 ): TOut => {
@@ -118,9 +118,9 @@ const migratePluginData = (editable: Value, context: MigrationContext) => {
 
 export const migrateValue = (
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  dataIn: { version?: number } & ValueWithLegacy,
+  dataIn: null | ({ version?: number } & ValueWithLegacy),
   context: MigrationContext
-): Value => {
+): Value | null => {
   if (!dataIn) {
     return null;
   }

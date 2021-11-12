@@ -4,7 +4,7 @@
     "downlevelIteration": true,
     "rootDirs": ["src"],
     "outDir": "lib",
-
+    "strict": true,
     "moduleResolution": "node",
     "target": "es5",
     "module": "commonjs",

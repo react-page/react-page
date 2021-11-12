@@ -21,7 +21,7 @@ export { reducer };
 
 export default combineReducers({ reactPage: reducer });
 
-export function initialState(value: Value, lang: string): RootState {
+export function initialState(value: Value | null, lang: string): RootState {
   return {
     reactPage: {
       __nodeCache: {},

@@ -24,8 +24,8 @@ const createPlugin = (settings: BackgroundSettings) => {
     id: 'ory/editor/core/layout/background',
     version: 1,
 
-    title: mergedSettings.translations.pluginName,
-    description: mergedSettings.translations.pluginDescription,
+    title: mergedSettings.translations?.pluginName,
+    description: mergedSettings.translations?.pluginDescription,
     icon: <Icon />,
 
     createInitialChildren: settings.getInitialChildren,

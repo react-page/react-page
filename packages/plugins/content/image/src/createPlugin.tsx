@@ -22,9 +22,9 @@ const createPlugin = (settings?: ImageSettings): CellPlugin<ImageState> => {
     id: 'ory/editor/core/content/image',
     version: 1,
     icon: mergedSettings.icon,
-    title: mergedSettings.translations.pluginName,
+    title: mergedSettings.translations?.pluginName,
     isInlineable: true,
-    description: mergedSettings.translations.pluginDescription,
+    description: mergedSettings.translations?.pluginDescription,
   };
 };
 export default createPlugin;

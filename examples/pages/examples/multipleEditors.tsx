@@ -24,8 +24,8 @@ import PageLayout from '../../components/PageLayout';
 const cellPlugins = [slate(), image];
 
 export default function SimpleExample() {
-  const [value, setValue] = useState<Value>(null);
-  const [value2, setValue2] = useState<Value>(null);
+  const [value, setValue] = useState<Value | null>(null);
+  const [value2, setValue2] = useState<Value | null>(null);
 
   return (
     <PageLayout>

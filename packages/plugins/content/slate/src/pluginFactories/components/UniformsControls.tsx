@@ -24,7 +24,7 @@ function Controls<T extends Data>(
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const formRef = useRef<any>();
 
-  const [text, setText] = useState(null);
+  const [text, setText] = useState<string | null>(null);
 
   const onCancel = () => {
     props.close();
@@ -80,10 +80,10 @@ function Controls<T extends Data>(
           </div>
         )}
 
-        {hasSchema ? (
+        {hasSchema && uniformsSchema ? (
           <AutoForm
             ref={formRef}
-            model={props.data}
+            model={props.data as any}
             schema={uniformsSchema}
             onSubmit={saveAndCloseWithData}
           >

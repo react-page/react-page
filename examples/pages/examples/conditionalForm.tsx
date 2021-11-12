@@ -45,7 +45,7 @@ const customPlugin: CellPlugin<{
 const cellPlugins = [customPlugin];
 
 export default function SimpleExample() {
-  const [value, setValue] = useState<Value>(null);
+  const [value, setValue] = useState<Value | null>(null);
 
   return (
     <PageLayout>

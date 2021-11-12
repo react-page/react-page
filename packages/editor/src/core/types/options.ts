@@ -88,7 +88,7 @@ export type Options = {
    * Use this function to replace labels for i18n support.
    * @param key the key of the translation (currently the english translation)
    */
-  uiTranslator?: (key: string) => string | null;
+  uiTranslator?: ((key?: string | null) => string | null) | null;
 
   /**
    * Use this to override the default html backend for react-dnd
@@ -105,7 +105,7 @@ export type Options = {
   /**
    * pass custom redux store:. Might get deprecated in the future
    */
-  store?: Store<RootState>;
+  store?: Store<RootState> | null;
   /**
    * pass custom redux middleware:. Might get deprecated in the future
    */

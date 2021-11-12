@@ -18,7 +18,7 @@ const FallbackDropArea: React.FC = ({ children }) => {
     canDrop: (item) => isAllowed(item),
     drop: (item, monitor) => {
       // fallback drop
-      if (!monitor.didDrop()) {
+      if (!monitor.didDrop() && item.cell) {
         insertNew(item.cell);
       }
     },

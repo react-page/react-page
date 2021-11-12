@@ -9,14 +9,16 @@ import {
 import logger from '../../../../service/logger';
 import type {
   CellDrag,
-  Options,
   HoverInsertActions,
-  CellPlugin,
+  CellPluginList,
 } from '../../../../types';
 
-let last: { hoverId: string; dragId: string } = { hoverId: '', dragId: '' };
+let last: { hoverId?: string; dragId?: string } = { hoverId: '', dragId: '' };
 
-const shouldClear = (hoverId: string, dragId: string) => {
+const shouldClear = (
+  hoverId: string | undefined,
+  dragId: string | undefined
+) => {
   if (hoverId === last.hoverId && dragId === last.dragId) {
     return false;
   }
@@ -30,10 +32,10 @@ export const onHover = throttle(
     monitor: DropTargetMonitor,
     element: HTMLElement,
     actions: HoverInsertActions,
-    cellPlugins: CellPlugin[]
+    cellPlugins: CellPluginList
   ) => {
     const drag: CellDrag = monitor.getItem();
-    if (!drag || !target) {
+    if (!drag?.cell || !target) {
       // item undefined, happens when throttle triggers after drop
       return;
     }
@@ -47,7 +49,7 @@ export const onHover = throttle(
     } else if (!monitor.isOver({ shallow: true })) {
       // If hovering over ancestor cell, do nothing (we are going to propagate later in the tree anyways)
       return;
-    } else if (target.ancestorIds.includes(drag.cell.id)) {
+    } else if (drag.cell.id && target.ancestorIds?.includes(drag.cell.id)) {
       if (shouldClear(target.id, drag.cell.id)) {
         actions.clear();
       }
@@ -78,10 +80,10 @@ export const onDrop = (
   monitor: DropTargetMonitor,
   element: HTMLElement,
   actions: HoverInsertActions,
-  cellPlugins: CellPlugin[]
+  cellPlugins: CellPluginList
 ) => {
   const drag: CellDrag = monitor.getItem();
-
+  if (!drag.cell) return;
   if (monitor.didDrop() || !monitor.isOver({ shallow: true }) || !target) {
     // If the item drop occurred deeper down the tree, don't do anything
     return;
@@ -89,7 +91,11 @@ export const onDrop = (
     // If the item being dropped on itself do nothing
     actions.cancelCellDrag();
     return;
-  } else if (target.ancestorIds.includes(drag.cell.id)) {
+  } else if (
+    target &&
+    drag.cell.id &&
+    target.ancestorIds?.includes(drag.cell.id)
+  ) {
     // If hovering over a child of itself, don't propagate further
     actions.cancelCellDrag();
     return;

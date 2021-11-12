@@ -11,14 +11,16 @@ import { mapNode } from './mapNode';
 export const getCommonAncestorTree = (
   editor: EditorStore,
   cellIds: string[]
-): Node => {
+): Node | null => {
   const nodesWithAncestors = cellIds.map((nodeId) => {
-    const { node, ancestors } = editor.getNodeWithAncestors(nodeId) ?? {};
+    const { node, ancestors } = editor.getNodeWithAncestors(nodeId) ?? {
+      ancestors: [],
+    };
     return { node, ancestors: [...ancestors].reverse() };
   });
 
   // find common ancestors
-  let nearestCommonAncestor: Node;
+  let nearestCommonAncestor: Node | null = null;
   let depth = 0;
   let search = true;
   while (search) {
@@ -38,13 +40,13 @@ export const getCommonAncestorTree = (
   }
 
   // remove nodes that we don't want to duplicate unless they have children
-  const cleaned = mapNode(nearestCommonAncestor, {
+  const cleaned = mapNode(nearestCommonAncestor as Node, {
     skipMapCell: (c) => {
       return cellIds.includes(c.id);
     },
     // remove cells without rows
     mapCell: (c) => {
-      if (c.rows?.length > 0) {
+      if (c.rows?.length) {
         return c;
       } else {
         return null;
@@ -67,7 +69,7 @@ export const getCommonAncestorTree = (
       if (!c) return null;
       const cell = {
         ...c,
-        rows: c.rows.filter(Boolean) ?? [],
+        rows: c?.rows?.filter(Boolean) ?? [],
       };
       if (cell.rows?.length > 0 || cellIds.includes(cell.id)) {
         return cell;

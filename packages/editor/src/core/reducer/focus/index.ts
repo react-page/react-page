@@ -8,8 +8,8 @@ import { CELL_FOCUS, CELL_BLUR, CELL_BLUR_ALL } from '../../actions/cell';
 
 export type Focus = {
   nodeIds: string[];
-  scrollToCell?: number; // a timestamp,
-};
+  scrollToCell?: number | null; // a timestamp,
+} | null;
 
 const stateWithout = (state: Focus, idsToRemove: string[]) => {
   const nodeIds = state?.nodeIds?.filter((n) => !idsToRemove.includes(n)) ?? [];
@@ -37,7 +37,7 @@ export const focus = (
       const nodeIds =
         action.mode === 'add'
           ? state?.nodeIds?.includes(action.id)
-            ? stateWithout(state, [action.id]).nodeIds
+            ? stateWithout(state, [action.id])?.nodeIds ?? []
             : [...(state?.nodeIds ?? []), action.id]
           : [action.id];
 

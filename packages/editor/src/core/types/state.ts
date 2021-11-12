@@ -7,11 +7,11 @@ export type RootState = {
   reactPage: {
     values: ValueWithHistory;
     display: Display;
-    focus: Focus;
-    hover: Hover;
+    focus: Focus | null;
+    hover: Hover | null;
     settings: {
       lang?: string;
     };
-    __nodeCache?: Record<string, NodeWithAncestors>;
+    __nodeCache?: Record<string, NodeWithAncestors | null>;
   };
 };

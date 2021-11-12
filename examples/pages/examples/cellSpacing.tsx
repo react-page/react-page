@@ -110,7 +110,10 @@ export default function CellSpacing() {
           cellPlugins={cellPlugins}
           value={state.value}
           onChange={(value) => setState((s) => ({ ...s, value }))}
-          cellSpacing={{ x: state.cellSpacingX, y: state.cellSpacingY }}
+          cellSpacing={{
+            x: state.cellSpacingX ?? 0,
+            y: state.cellSpacingY ?? 0,
+          }}
         />
       </div>
     </PageLayout>

@@ -21,7 +21,7 @@ export const useZoomOut = () => {
   const zoomFactors = useOption('zoomFactors');
   const setZoom = useSetZoom();
   return useCallback(() => {
-    const newZoom = zoomFactors.find((z) => z < zoom);
+    const newZoom = zoomFactors?.find((z) => z < zoom);
     if (newZoom) setZoom(newZoom);
   }, [zoom, setZoom, zoomFactors]);
 };
@@ -31,7 +31,7 @@ export const useZoomIn = () => {
   const setZoom = useSetZoom();
   const zoomFactors = useOption('zoomFactors');
   return useCallback(() => {
-    const newZoom = [...zoomFactors].reverse().find((z) => z > zoom);
+    const newZoom = [...(zoomFactors ?? [])].reverse().find((z) => z > zoom);
     if (newZoom) setZoom(newZoom);
   }, [zoom, setZoom, zoomFactors]);
 };
@@ -40,11 +40,11 @@ export const useCanZoomOut = () => {
   const zoom = useZoom();
   const zoomFactors = useOption('zoomFactors');
 
-  return zoomFactors.some((z) => z < zoom);
+  return zoomFactors?.some((z) => z < zoom) ?? false;
 };
 
 export const useCanZoomIn = () => {
   const zoom = useZoom();
   const zoomFactors = useOption('zoomFactors');
-  return zoomFactors.some((z) => z > zoom);
+  return zoomFactors?.some((z) => z > zoom) ?? false;
 };

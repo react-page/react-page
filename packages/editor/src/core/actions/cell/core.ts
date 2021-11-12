@@ -12,14 +12,14 @@ export interface UpdateCellIsDraftAction extends Action {
   ts: Date;
   id: string;
   isDraft: boolean;
-  lang?: string;
+  lang?: string | null;
   type: typeof CELL_UPDATE_IS_DRAFT;
 }
 
 export const updateCellIsDraft = (
   id: string,
   isDraft = false,
-  lang: string = null
+  lang: string | null = null
 ): UpdateCellIsDraftAction => ({
   type: CELL_UPDATE_IS_DRAFT,
   ts: new Date(),
@@ -31,7 +31,7 @@ export const updateCellIsDraft = (
 export interface UpdateCellDataAction extends Action {
   ts: Date;
   id: string;
-  data: void | { [key: string]: unknown };
+  data: null | { [key: string]: unknown };
   lang: string;
   type: typeof CELL_UPDATE_DATA;
   notUndoable?: boolean;
@@ -40,7 +40,7 @@ export interface UpdateCellDataAction extends Action {
 export const updateCellData =
   (id: string) =>
   (
-    data: void | { [key: string]: unknown },
+    data: null | { [key: string]: unknown },
     options: {
       lang: string;
       notUndoable?: boolean;

@@ -33,16 +33,19 @@ const Inner: React.FC<{ nodeId: string }> = ({ nodeId }) => {
   const focus = useFocusCell(nodeId);
   const focused = useIsFocused(nodeId);
   const childrenIds = useNodeChildrenIds(nodeId);
-  let { y: cellSpacingY } = useCellSpacing();
-  const ref = React.useRef<HTMLDivElement>();
+  const cellSpacing = useCellSpacing();
+  const ref = React.useRef<HTMLDivElement>(null);
 
   const hasChildren = childrenIds.length > 0;
 
   const data = useCellData(nodeId);
   const pluginCellSpacing = getPluginCellSpacing(plugin, data);
   const [Provider, providerValue] = useCellSpacingProvider(pluginCellSpacing);
+  let cellSpacingY = 0;
   if (typeof pluginCellSpacing !== 'undefined' && pluginCellSpacing != null) {
-    cellSpacingY = normalizeCellSpacing(pluginCellSpacing).y;
+    cellSpacingY = normalizeCellSpacing(pluginCellSpacing)?.y ?? 0;
+  } else {
+    cellSpacingY = cellSpacing?.y ?? 0;
   }
 
   const onClick = React.useCallback(
@@ -58,7 +61,7 @@ const Inner: React.FC<{ nodeId: string }> = ({ nodeId }) => {
         target?.closest &&
         target.closest('.react-page-cell-inner') === ref.current &&
         target.closest('.react-page-cell.react-page-cell-has-plugin') ===
-          ref.current.closest('.react-page-cell')
+          ref.current?.closest('.react-page-cell')
       ) {
         const mode = e.metaKey || e.ctrlKey ? 'add' : 'replace';
 

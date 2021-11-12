@@ -6,11 +6,11 @@ export const UPDATE_VALUE = 'UPDATE_VALUE';
 
 export interface UpdateEditableAction extends Action {
   ts: Date;
-  value: Value;
+  value: Value | null;
   ids: NewIds;
 }
 
-export const updateValue = (value: Value): UpdateEditableAction => ({
+export const updateValue = (value: Value | null): UpdateEditableAction => ({
   type: UPDATE_VALUE,
   ts: new Date(),
   value,

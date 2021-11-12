@@ -5,7 +5,7 @@ import type EditorStore from '../../EditorStore';
 import { EditorContext } from '../../EditorStore';
 import { useSelector } from '../../reduxConnect';
 import { getLang } from '../../selector/setting';
-import type { CellSpacing, Options } from '../../types';
+import type { CellSpacing, Options, RenderOptions } from '../../types';
 
 import { normalizeCellSpacing } from '../../utils/getCellSpacing';
 import NoopProvider from '../Cell/NoopProvider';
@@ -19,7 +19,8 @@ import {
  * @returns the store object of the current editor. Contains the redux store.
  */
 
-export const useEditorStore = () => useContext<EditorStore>(EditorContext);
+export const useEditorStore = () =>
+  useContext<EditorStore | null>(EditorContext);
 
 export const OptionsContext = createContext<Options>(DEFAULT_OPTIONS);
 
@@ -45,7 +46,7 @@ export const useOption = <K extends keyof Options>(key: K) => {
   return lastOption.current;
 };
 
-export type TranslatorFunction = (key: string) => string;
+export type TranslatorFunction = (key?: string | null) => string | null;
 /**
  * @returns the an object with a single `t` function for ui translations
  */
@@ -54,8 +55,8 @@ export const useUiTranslator = (): {
 } => {
   const uiTranslator = useOption('uiTranslator');
   return {
-    t: (key: string) => {
-      return uiTranslator?.(key) ?? key;
+    t: (key?: string | null) => {
+      return uiTranslator?.(key) ?? key ?? null;
     },
   };
 };
@@ -78,8 +79,8 @@ export const useCellSpacing: () => CellSpacing = () => {
  * @returns a Provider/value tuple that can be used to override cell spacing for a subtree of cells
  */
 export const useCellSpacingProvider = (
-  cellSpacing?: number | CellSpacing
-): [React.FC<{ value: unknown }>, unknown] => {
+  cellSpacing?: number | CellSpacing | null
+): [React.FC<{ value: RenderOptions }>, RenderOptions] => {
   const renderOptions = useRenderOptions();
   const value = React.useMemo(
     () => ({
@@ -89,7 +90,7 @@ export const useCellSpacingProvider = (
     [renderOptions, JSON.stringify(cellSpacing)]
   );
   if (typeof cellSpacing === 'undefined' || cellSpacing == null) {
-    return [NoopProvider, undefined];
+    return [NoopProvider, value];
   } else {
     return [RenderOptionsContext.Provider, value];
   }

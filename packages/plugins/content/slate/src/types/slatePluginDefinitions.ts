@@ -1,6 +1,6 @@
 import type { Translations } from './translations';
 import type { Node, Editor } from 'slate';
-import type { JsonSchema } from '@react-page/editor';
+import type { DataTAny, DataTType, JsonSchema } from '@react-page/editor';
 import type { Data } from '../types';
 
 export interface PluginButtonProps {
@@ -16,8 +16,8 @@ export type SlatePluginControls<T extends Data> = {
   cancelLabel?: string;
   submitLabel?: string;
   removeLabel?: string;
-  data: T;
-  add: (p: { data?: T; text?: string }) => void;
+  data: T | undefined;
+  add: (p: { data?: T; text?: string | null }) => void;
 
   remove: () => void;
   shouldInsertWithText: boolean;
@@ -35,11 +35,11 @@ export type CustomControlsDef<DataT extends Data> = {
 /**
  * autoform control type automatically generates a form for you.
  */
-export type AutoformControlsDef<DataT> = {
+export type AutoformControlsDef<DataT extends Data> = {
   /**
    * a JSONSchema. this will auto-generate a form for the plugin
    */
-  schema?: DataT extends Data ? JsonSchema<DataT> : unknown;
+  schema?: DataT extends DataTType ? JsonSchema<DataT> : unknown;
 
   /**
    * autoform type automatically generates a form for you.
@@ -105,7 +105,9 @@ export type SlateDataPluginDefinition<T extends Data> =
     /**
      * if defined these properties will be removed from data when plugin gets disabled
      */
-    properties?: Array<keyof T>;
+    properties?: T extends Record<string, unknown>
+      ? Array<keyof T>
+      : Array<DataTAny>;
   };
 
 export type SlateCustomPluginDefinition<T extends Data> =
@@ -154,7 +156,7 @@ export type SlateComponentPluginDefinition<T extends Data> =
       /**
        * pass a function that receives the html element and returns data found in that element
        */
-      getData?: (el: HTMLElement) => T;
+      getData?: (el: HTMLElement) => T | void;
     };
 
     /**
@@ -203,7 +205,7 @@ export type SlateComponentPluginDefinition<T extends Data> =
   } & (ObjectProps | InlineProps | MarkProps);
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type SlatePluginDefinition<T extends { [key: string]: any }> =
+export type SlatePluginDefinition<T extends DataTType = DataTAny> =
   | (SlateComponentPluginDefinition<T> & { pluginType: 'component' })
   | (SlateDataPluginDefinition<T> & { pluginType: 'data' })
   | (SlateCustomPluginDefinition<T> & { pluginType: 'custom' });

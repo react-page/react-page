@@ -7,8 +7,9 @@ import { setLang } from './actions/setting';
 import { findNodeInState } from './selector/editable';
 import { createContext } from 'react';
 import { createId } from './utils/createId';
+import { CURRENT_EDITABLE_VERSION } from './migrations/EDITABLE_MIGRATIONS';
 
-export const EditorContext = createContext<EditorStore>(null);
+export const EditorContext = createContext<EditorStore | null>(null);
 
 export type Languages = Array<{
   lang: string;
@@ -19,7 +20,7 @@ export interface CoreEditorProps<T extends RootState = RootState> {
 
   middleware?: Middleware[];
 
-  store?: Store<T>;
+  store?: Store<T> | null;
   initialState: RootState;
 }
 
@@ -46,6 +47,6 @@ class EditorStore<T extends RootState = RootState> {
 }
 
 export const createEmptyState: () => Value = () =>
-  ({ id: createId(), rows: [] } as Value);
+  ({ id: createId(), rows: [], version: CURRENT_EDITABLE_VERSION } as Value);
 
 export default EditorStore;

@@ -12,7 +12,7 @@ export const I18nTools: React.FC<{
   const languages = useOption('languages');
 
   const [showI18nDialog, setShowI18nDialog] = useState(false);
-  const hasI18n = languages?.length > 0;
+  const hasI18n = languages && languages?.length > 0;
   const onClose = () => setShowI18nDialog(false);
   if (!hasI18n) {
     return null;

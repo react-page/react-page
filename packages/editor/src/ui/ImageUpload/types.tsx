@@ -26,6 +26,6 @@ export type ImageUploadProps = {
 export type ImageUploadState = {
   isUploading: boolean;
   hasError: boolean;
-  errorText: string;
-  progress: number;
+  errorText: string | null;
+  progress?: number;
 };

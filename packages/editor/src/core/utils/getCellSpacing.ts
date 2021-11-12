@@ -1,19 +1,22 @@
-import type { CellPlugin, CellSpacing } from '../types';
+import type { CellPlugin, CellSpacing, DataTType } from '../types';
 
-export const getPluginCellSpacing = <DataT>(
-  plugin: CellPlugin<DataT>,
+export const getPluginCellSpacing = <DataT extends DataTType>(
+  plugin: CellPlugin<DataT> | null,
   data: DataT
-): number | CellSpacing | undefined =>
+): number | CellSpacing | null =>
   plugin?.cellSpacing
     ? typeof plugin?.cellSpacing === 'function'
       ? plugin?.cellSpacing(data)
       : plugin?.cellSpacing
-    : undefined;
+    : null;
 
 export const normalizeCellSpacing = (
-  cellSpacing?: number | CellSpacing
+  cellSpacing: null | number | CellSpacing = 0
 ): CellSpacing => {
-  if (!cellSpacing || ['number', 'string'].indexOf(typeof cellSpacing) !== -1) {
+  if (!cellSpacing) {
+    return { x: 0, y: 0 };
+  }
+  if (['number', 'string'].indexOf(typeof cellSpacing) !== -1) {
     return { x: +cellSpacing || 0, y: +cellSpacing || 0 };
   } else {
     return {

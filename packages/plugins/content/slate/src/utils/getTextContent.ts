@@ -8,7 +8,7 @@ export const getTextContents = (
   nodes: Node[],
   options: { slatePlugins: SlatePlugin[] }
 ): string[] => {
-  return nodes.reduce((acc, node) => {
+  return nodes.reduce<string[]>((acc, node) => {
     if (isText(node)) {
       return [...acc, node.text];
     } else if (node.children) {

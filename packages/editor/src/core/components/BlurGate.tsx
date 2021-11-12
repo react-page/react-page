@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect } from 'react';
 import type { DisplayModes } from '../actions/display';
 import { DISPLAY_MODE_EDIT } from '../actions/display';
@@ -23,7 +24,10 @@ function findReactElement(node: any) {
 }
 
 // we go up the reac-tree. This works even through portals, which would not be possible with traversing the dom tree!
-const isInSameTree = (parent, child) => {
+const isInSameTree = (
+  parent: Element | null | undefined,
+  child: Element | null | undefined
+) => {
   if (!parent) {
     return false;
   }
@@ -42,8 +46,8 @@ const useBlurAll = ({
   defaultMode = DISPLAY_MODE_EDIT,
   disabled,
 }: {
-  defaultMode: DisplayModes;
-  disabled: boolean;
+  defaultMode?: DisplayModes;
+  disabled?: boolean;
 }) => {
   const ref = React.useRef<HTMLDivElement>();
   const blurAllCells = useBlurAllCells();
@@ -56,12 +60,12 @@ const useBlurAll = ({
     if (!ref.current) {
       return;
     }
-    if (!document && !document.body) {
+    if (!document && !(document as any).body) {
       return;
     }
 
     const onMouseDown = (e: MouseEvent) => {
-      if (!isInSameTree(ref.current, e.target)) {
+      if (!isInSameTree(ref.current, e.target as any)) {
         blurAllCells();
         // set us in default mode if current mode is "insert"
         if (isInsertMode) {
@@ -82,7 +86,7 @@ const BlurGate: React.FC = ({ children }) => {
   const disabled = useOption('blurGateDisabled');
   const ref = useBlurAll({ defaultMode, disabled });
 
-  return <div ref={ref}>{children}</div>;
+  return <div ref={ref as any}>{children}</div>;
 };
 
 export default BlurGate;

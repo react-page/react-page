@@ -45,10 +45,10 @@ const StickyWrapper: React.FC<{
             left -
             ref.current.clientWidth;
 
-          const rightOffsetRelative = stickyElRef.current?.clientWidth;
+          const rightOffsetRelative = stickyElRef.current?.clientWidth ?? 0;
 
           const overlapsScreenRight =
-            right + stickyElRef.current?.clientWidth >
+            right + (stickyElRef.current?.clientWidth ?? 0) >
             document.documentElement.clientWidth;
 
           setRightOffset(
@@ -59,7 +59,7 @@ const StickyWrapper: React.FC<{
               ? 0
               : document.documentElement.clientWidth -
                   right -
-                  stickyElRef.current?.clientWidth
+                  (stickyElRef.current?.clientWidth ?? 0)
           );
         } else if (sidebarPosition === 'leftRelative') {
           const rightOffsetForRelativeLeft = -ref.current.clientWidth;
@@ -70,7 +70,7 @@ const StickyWrapper: React.FC<{
 
           const overlapsScreenLeft =
             right + rightOffsetForRelativeLeft <
-            stickyElRef.current.clientWidth;
+            (stickyElRef.current?.clientWidth ?? 0);
 
           setRightOffset(
             overlapsScreenLeft
@@ -88,7 +88,7 @@ const StickyWrapper: React.FC<{
           setRightOffset(rightOffsetForAbsoluteLeft);
           setRightOffsetFixed(
             document.documentElement.clientWidth -
-              stickyElRef.current?.clientWidth
+              (stickyElRef.current?.clientWidth ?? 0)
           );
         }
 
@@ -102,7 +102,7 @@ const StickyWrapper: React.FC<{
     };
     document.addEventListener('scroll', calc);
     window.addEventListener('resize', calc);
-    let observer: IntersectionObserver = null;
+    let observer: IntersectionObserver | null = null;
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     if ((global as any).IntersectionObserver) {

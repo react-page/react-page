@@ -8,7 +8,7 @@ const cellPlugins = [slate(), image];
 
 // Bare without page layout for bundle size debugging
 const Bare = () => {
-  const [value] = useState<Value>(null);
+  const [value] = useState<Value | null>(null);
 
   return (
     <>

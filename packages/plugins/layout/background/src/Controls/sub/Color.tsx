@@ -5,16 +5,16 @@ import type { BackgroundProps } from '../../types/component';
 
 export interface ColorComponentProps {
   onChangeBackgroundColorPreview: (color?: RGBColor) => void;
-  backgroundColorPreview: RGBColor;
+  backgroundColorPreview?: RGBColor;
   ensureModeOn: () => void;
 }
 
 class ColorComponent extends Component<BackgroundProps & ColorComponentProps> {
-  handleChangePickerBackgroundColor = (e: RGBColor) =>
+  handleChangePickerBackgroundColor = (e?: RGBColor) =>
     this.props.onChangeBackgroundColorPreview &&
     this.props.onChangeBackgroundColorPreview(e);
 
-  handleChangePickerBackgroundColorComplete = (e: RGBColor) => {
+  handleChangePickerBackgroundColorComplete = (e?: RGBColor) => {
     if (this.props.onChangeBackgroundColorPreview) {
       this.props.onChangeBackgroundColorPreview(undefined);
     }

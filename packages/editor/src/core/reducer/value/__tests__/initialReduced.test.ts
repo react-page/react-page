@@ -1,9 +1,9 @@
-import type { CellPlugin, Value } from '../../../types';
+import type { CellPluginList, Value } from '../../../types';
 import { createValue } from '../../../utils/createValue';
 import { simulateDispatch } from '../testUtils';
 //type State = { foo?: number; bar?: number };
 
-const cellPlugins: CellPlugin[] = [
+const cellPlugins: CellPluginList = [
   {
     id: 'foo',
     version: 1,

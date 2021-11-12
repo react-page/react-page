@@ -28,16 +28,13 @@ class ImageUpload extends React.Component<
     maxFileSize: 5242880,
     translations: defaultTranslations,
   };
-  fileInput: HTMLInputElement;
+  fileInput?: HTMLInputElement | null;
 
   state: ImageUploadState = {
     isUploading: false,
     hasError: false,
     errorText: '',
     progress: 0,
-  };
-  props: ImageUploadProps & {
-    t: TranslatorFunction;
   };
 
   hasExtension = (fileName: string) => {
@@ -49,23 +46,23 @@ class ImageUpload extends React.Component<
   };
 
   handleError = (errorCode: number) => {
-    let errorText = '';
+    let errorText: string | null;
 
     switch (errorCode) {
       case NO_FILE_ERROR_CODE:
-        errorText = this.props.t(this.props.translations.noFileError);
+        errorText = this.props.t(this.props.translations?.noFileError);
         break;
       case BAD_EXTENSION_ERROR_CODE:
-        errorText = this.props.t(this.props.translations.badExtensionError);
+        errorText = this.props.t(this.props.translations?.badExtensionError);
         break;
       case TOO_BIG_ERROR_CODE:
-        errorText = this.props.t(this.props.translations.tooBigError);
+        errorText = this.props.t(this.props.translations?.tooBigError);
         break;
       case UPLOADING_ERROR_CODE:
-        errorText = this.props.t(this.props.translations.uploadingError);
+        errorText = this.props.t(this.props.translations?.uploadingError);
         break;
       default:
-        errorText = this.props.t(this.props.translations.unknownError);
+        errorText = this.props.t(this.props.translations?.unknownError);
         break;
     }
     // Need to flick "isUploading" because otherwise the handler doesn't fire properly
@@ -85,12 +82,12 @@ class ImageUpload extends React.Component<
       this.handleError(BAD_EXTENSION_ERROR_CODE);
       return;
     }
-    if (file.size > this.props.maxFileSize) {
+    if (this.props.maxFileSize && file.size > this.props.maxFileSize) {
       this.handleError(TOO_BIG_ERROR_CODE);
       return;
     }
     if (this.props.imageLoaded) {
-      this.readFile(file).then((data) => this.props.imageLoaded(data));
+      this.readFile(file).then((data) => this.props.imageLoaded?.(data));
     }
     if (this.props.imageUpload) {
       this.setState({ isUploading: true });
@@ -125,7 +122,7 @@ class ImageUpload extends React.Component<
   }
 
   handleFileUploadClick: React.MouseEventHandler<HTMLElement> = () =>
-    this.fileInput.click();
+    this.fileInput?.click();
 
   handleReportProgress = (progress: number) => this.setState({ progress });
 
@@ -143,7 +140,7 @@ class ImageUpload extends React.Component<
     }
     return (
       <React.Fragment>
-        {this.props.translations.buttonContent}
+        {this.props.translations?.buttonContent}
         {this.props.icon}
       </React.Fragment>
     );

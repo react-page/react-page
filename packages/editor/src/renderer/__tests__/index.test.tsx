@@ -16,7 +16,7 @@ const somePlugin: CellPlugin<{ text: string }> = {
   Renderer: (props) => <p>{props.data.text}</p>,
 };
 
-const cellPlugins: CellPlugin[] = [somePlugin as CellPlugin<unknown>];
+const cellPlugins = [somePlugin];
 
 describe('HTMLRenderer', () => {
   describe('rendering html content from slate', () => {
@@ -54,7 +54,7 @@ describe('HTMLRenderer', () => {
         it('should pass', () => {
           expect(wrapper.html()).toEqual(
             // tslint:disable-next-line:max-line-length
-            '<div class="react-page-row" style="margin:0 0px"><div class="react-page-cell react-page-cell-sm-12 react-page-cell-xs-12 react-page-cell-leaf"><div class="react-page-cell-inner react-page-cell-inner-leaf some-class"><div style="display:flex;flex-direction:column;height:100%"><p>Hello world</p></div></div></div></div>'
+            '<div class="react-page-row"><div class="react-page-cell react-page-cell-sm-12 react-page-cell-xs-12 react-page-cell-leaf"><div class="react-page-cell-inner react-page-cell-inner-leaf some-class"><div style="display:flex;flex-direction:column;height:100%"><p>Hello world</p></div></div></div></div>'
           );
         });
       });

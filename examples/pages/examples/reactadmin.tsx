@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 // The editor core
 import {
   Card,
@@ -6,6 +7,7 @@ import {
   CardContent,
   Typography,
 } from '@material-ui/core';
+import type { Record as RecordType } from 'ra-core';
 import type { CellPlugin } from '@react-page/editor';
 import slate, {
   DEFAULT_SLATE_PLUGIN_ID,
@@ -76,7 +78,7 @@ const dataProvider = fakeDataProvider({
 /**
  * This is an example of a slate link plugin that uses react admin to select the target
  */
-const PostIdSelector = (props) => (
+const PostIdSelector = (props: any) => (
   // pass the props
   <RaSelectReferenceInputField
     optionText="title"
@@ -113,7 +115,7 @@ const postLinkPlugin = pluginFactories.createComponentPlugin<{
   // this code here lives primarly in your frontend, you would create the link however you like
   // and you would probably read more data from your datasource
   // this is just a simple example. The link dofes actually not work in our example, but you should get the idea
-  Component: (props) => (
+  Component: (props: any) => (
     <Link href={'/posts/' + props.postId}>
       <a>{props.children}</a>
     </Link>
@@ -132,7 +134,7 @@ const customSlate = slate((def) => ({
   },
 }));
 
-const ProductIdSelector = (props) => (
+const ProductIdSelector = (props: any) => (
   // pass the props
   <RaSelectReferenceInputField
     {...props}
@@ -146,7 +148,7 @@ const ProductTeaser: React.FC<{ productId: string }> = ({ productId }) => {
   // this component would live in your frontend
   // you won't load data from admin here, but from the public frontend api
   // for this example, we use the dataprovider, but in real-live-applications, that would not be the case
-  const [product, setProduct] = useState(null);
+  const [product, setProduct] = useState<RecordType | null>(null);
   useEffect(() => {
     dataProvider
       .getOne('products', { id: productId })
@@ -174,7 +176,7 @@ const recommendedProducts: CellPlugin<{
 }> = {
   id: 'recommendedProducts',
   title: 'Recommended Products',
-  Renderer: (props) => (
+  Renderer: (props: any) => (
     <div>
       <h3>{props.data.title}</h3>
       <div
@@ -184,7 +186,7 @@ const recommendedProducts: CellPlugin<{
           gap: 10,
         }}
       >
-        {props.data.productIds?.map((id) => (
+        {props.data.productIds?.map((id: string) => (
           <ProductTeaser productId={id} key={id} />
         ))}
       </div>
@@ -220,7 +222,7 @@ const ourCellPlugins = [
   ...cellPlugins.filter((p) => p.id !== DEFAULT_SLATE_PLUGIN_ID),
 ];
 
-const PostList = (props) => {
+const PostList = (props: any) => {
   return (
     <List {...props}>
       <Datagrid>
@@ -233,7 +235,7 @@ const PostList = (props) => {
   );
 };
 
-export const PostEdit = (props) => (
+export const PostEdit = (props: any) => (
   <Edit title="Edit a Post" {...props}>
     <SimpleForm label="summary">
       <TextInput disabled source="id" />
@@ -247,7 +249,7 @@ export const PostEdit = (props) => (
   </Edit>
 );
 
-export const PostCreate = (props) => (
+export const PostCreate = (props: any) => (
   <Create title="Create a Post" {...props}>
     <SimpleForm label="summary">
       <TextInput source="id" />
@@ -262,7 +264,7 @@ const posts = {
   edit: PostEdit,
 };
 
-const ProductList = (props) => {
+const ProductList = (props: any) => {
   return (
     <List {...props}>
       <Datagrid>
@@ -276,7 +278,7 @@ const ProductList = (props) => {
   );
 };
 
-export const ProductEdit = (props) => (
+export const ProductEdit = (props: any) => (
   <Edit title="Edit a Product" {...props}>
     <SimpleForm label="summary">
       <TextInput disabled source="id" />
@@ -287,7 +289,7 @@ export const ProductEdit = (props) => (
   </Edit>
 );
 
-export const ProductCreate = (props) => (
+export const ProductCreate = (props: any) => (
   <Create title="Create a Product" {...props}>
     <SimpleForm label="summary">
       <TextInput source="id" />

@@ -38,7 +38,7 @@ export const useKeepScrollPosition = (ref: RefObject<HTMLDivElement>) => {
             topOffset: firstInViewport.getBoundingClientRect().top,
           };
         } else {
-          firstElementInViewPortref.current = null;
+          firstElementInViewPortref.current = undefined;
         }
       }
     }, 600);

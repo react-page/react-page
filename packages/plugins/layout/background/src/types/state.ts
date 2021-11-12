@@ -2,7 +2,7 @@ import type { RGBColor } from '@react-page/editor';
 import type { Gradient } from './gradient';
 import type { ModeEnum } from './ModeEnum';
 
-export interface BackgroundState {
+export type BackgroundState = {
   background: string;
   backgroundColor: RGBColor;
   isParallax: boolean;
@@ -12,4 +12,4 @@ export interface BackgroundState {
   darken: number;
   hasPadding: boolean;
   gradients: Gradient[];
-}
+};

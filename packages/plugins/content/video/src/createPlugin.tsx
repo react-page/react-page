@@ -21,8 +21,8 @@ const createPlugin: (settings: VideoSettings) => CellPlugin<VideoState> = (
           src: {
             type: 'string',
             uniforms: {
-              placeholder: mergedSettings.translations.placeholder,
-              label: mergedSettings.translations.label,
+              placeholder: mergedSettings.translations?.placeholder,
+              label: mergedSettings.translations?.label,
             },
           },
         },
@@ -32,8 +32,8 @@ const createPlugin: (settings: VideoSettings) => CellPlugin<VideoState> = (
     id: 'ory/editor/core/content/video',
     version: 1,
     icon: mergedSettings.icon,
-    title: mergedSettings.translations.pluginName,
-    description: mergedSettings.translations.pluginDescription,
+    title: mergedSettings.translations?.pluginName,
+    description: mergedSettings.translations?.pluginDescription,
     isInlineable: true,
   };
 };

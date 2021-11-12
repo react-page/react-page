@@ -20,7 +20,7 @@ export const SelectParentButton: React.FC<{
       className="bottomToolbar__selectParentButton"
       onClick={() => focusParent()}
       color="default"
-      title={t('Select parent')}
+      title={t('Select parent') ?? ''}
     >
       <VerticalAlignTopIcon />
     </IconButton>

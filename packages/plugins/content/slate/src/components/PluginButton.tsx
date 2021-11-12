@@ -14,7 +14,7 @@ import PluginControls from './PluginControls';
 import ToolbarButton from './ToolbarButton';
 
 type Props = {
-  plugin: SlatePluginDefinition<unknown>;
+  plugin: SlatePluginDefinition;
 } & PluginButtonProps;
 
 function PluginButton(props: Props) {
@@ -61,19 +61,16 @@ function PluginButton(props: Props) {
         disabled={isDisabled}
         isActive={isActive}
         icon={
-          plugin.icon ||
-          (plugin.pluginType === 'component' && plugin.deserialize.tagName)
+          plugin.icon ??
+          (plugin.pluginType === 'component'
+            ? plugin.deserialize?.tagName ?? ''
+            : '')
         }
-        toolTip={t(plugin.label)}
+        toolTip={t(plugin.label) ?? ''}
       />
 
       {(hasControls || shouldInsertWithText) && showControls ? (
-        <PluginControls
-          plugin={plugin}
-          {...props}
-          open={showControls}
-          close={close}
-        />
+        <PluginControls {...props} open={showControls} close={close} />
       ) : null}
     </>
   );

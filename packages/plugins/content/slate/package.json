@@ -54,7 +54,11 @@
     "@types/is-hotkey": "0.1.1",
     "@types/lodash.debounce": "4.0.4",
     "@types/react": "^17.0.24",
-    "@types/react-dom": "^17.0.9"
+    "@types/react-dom": "^17.0.9",
+    "@types/xmldom": "^0.1.31",
+    "@types/lodash.flatten": "^4.4.6",
+    "@types/lodash.isobject": "^3.0.6",
+    "@types/lodash.isempty": "^4.4.6"
   },
   "browser": {
     "./lib/HtmlToSlate/parseHtml.js": "./lib/HtmlToSlate/parseHtml.browser.js",

@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-types */
 
-import type { CellAction } from '../../actions/cell';
+import type { AnyAction } from 'redux';
+import type { CellAction, ResizeCellAction } from '../../actions/cell';
 import {
   CELL_INSERT_ABOVE,
   CELL_INSERT_BELOW,
@@ -34,7 +35,7 @@ const cell = (s: Cell, a: CellAction, depth: number): Cell =>
       const reduce = (): Cell => {
         return removeUndefinedProps({
           ...state,
-          rows: rows(state.rows, action, depth + 1),
+          rows: rows(state.rows ?? [], action, depth + 1),
         });
       };
 
@@ -160,14 +161,18 @@ const createEmptyCell = (): Cell => ({
     },
   ],
 });
-export const cells = (state: Cell[] = [], action, depth = 0): Cell[] => {
+export const cells = (
+  state: Cell[] = [],
+  action: AnyAction,
+  depth = 0
+): Cell[] => {
   let newCells =
     depth === 0 && state.length === 0 ? [createEmptyCell()] : state;
 
   switch (action.type) {
     case CELL_RESIZE:
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      newCells = resizeCells(newCells, action);
+      newCells = resizeCells(newCells, action as ResizeCellAction);
       break;
     case CELL_INSERT_AT_END:
     case CELL_INSERT_AS_NEW_ROW:
@@ -249,11 +254,12 @@ export const cells = (state: Cell[] = [], action, depth = 0): Cell[] => {
       break;
   }
 
-  const reducedCells = newCells.map((c) => cell(c, action, depth));
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const reducedCells = newCells.map((c) => cell(c, action as any, depth));
   return optimizeCells(reducedCells);
 };
 
-const row = (s: Row, a, depth: number): Row =>
+const row = (s: Row, a: AnyAction, depth: number): Row =>
   optimizeRow(
     ((state: Row, action): Row => {
       const reduce = () => ({
@@ -307,7 +313,7 @@ const row = (s: Row, a, depth: number): Row =>
     })(s, a)
   );
 
-export const rows = (s: Row[] = [], a, depth = 0): Row[] =>
+export const rows = (s: Row[] = [], a: AnyAction, depth = 0): Row[] =>
   optimizeRows(
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
 

@@ -14,8 +14,8 @@ import {
 } from '../../core/components/hooks';
 
 const Base: React.FC<{
-  onClick: () => void;
-  icon: React.ReactNode;
+  onClick: null | (() => void);
+  icon: NonNullable<React.ReactNode>;
   style?: CSSProperties;
 }> = ({ onClick, icon, style }) => {
   // don't show at all
@@ -25,7 +25,7 @@ const Base: React.FC<{
       disabled={!onClick}
       style={{ margin: 10, pointerEvents: 'all', ...style }}
       size="small"
-      onClick={onClick}
+      onClick={onClick ?? undefined}
       color="primary"
     >
       {icon}
