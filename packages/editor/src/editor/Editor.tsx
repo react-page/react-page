@@ -38,6 +38,7 @@ const Editor: React.FC<EditorProps> = ({
   lang: passedLang,
   cellPlugins,
   cellSpacing,
+  children,
   ...options
 }) => {
   // mount the component always in readonly, to avoid problems with SSR
@@ -82,6 +83,7 @@ const Editor: React.FC<EditorProps> = ({
       options={options}
       renderOptions={renderOptions}
       callbacks={callbacks}
+      children={children}
     />
   );
 };
