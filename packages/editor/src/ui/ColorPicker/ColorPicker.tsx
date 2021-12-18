@@ -37,7 +37,7 @@ class ColorPicker extends React.Component<ColorPickerProps> {
     return (
       <React.Fragment>
         <Button
-          buttonRef={(node: HTMLElement) => {
+          ref={(node: HTMLElement) => {
             this.anchorEl = node;
           }}
           variant="contained"

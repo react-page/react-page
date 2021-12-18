@@ -1,14 +1,16 @@
+import propisValid from '@emotion/is-prop-valid';
 import isObject from 'lodash.isobject';
 import type { DependencyList } from 'react';
 import React, { useCallback } from 'react';
 import type { RenderElementProps, RenderLeafProps } from 'slate-react';
 import type { SlatePlugin } from '../types/SlatePlugin';
+import type { SlatePluginDefinition } from '../types/slatePluginDefinitions';
+import { getTextContents } from '../utils/getTextContent';
 import {
   useComponentMarkPlugins,
   useComponentNodePlugins,
 } from './pluginHooks';
-import { getTextContents } from '../utils/getTextContent';
-import propisValid from '@emotion/is-prop-valid';
+import VoidElement from './VoidElement';
 
 type Data = {
   [key: string]: unknown;
@@ -30,11 +32,14 @@ const pickNativeProps = (data?: Data): Data => {
 type Injections = {
   useSelected: () => boolean;
   useFocused: () => boolean;
+  readOnly: boolean;
 };
 const STATIC_INJECTIONS = {
   useFocused: () => false,
   useSelected: () => false,
+  readOnly: true,
 };
+
 export const useRenderElement = (
   {
     plugins,
@@ -50,11 +55,8 @@ export const useRenderElement = (
   const componentPlugins = useComponentNodePlugins({ plugins }, deps);
 
   return useCallback(
-    ({
-      element: { type, data = {}, children: childNodes },
-      children,
-      attributes,
-    }: RenderElementProps) => {
+    ({ element, children, attributes }: RenderElementProps) => {
+      const { type, data = {}, children: childNodes } = element;
       const matchingPlugin =
         componentPlugins.find((plugin) => plugin.type === type) ??
         componentPlugins.find((plugin) => plugin.type === defaultPluginType);
@@ -86,7 +88,7 @@ export const useRenderElement = (
             }),
           ...injections,
         };
-        return (
+        const component = (
           <Component
             {...baseProps}
             {...data}
@@ -95,6 +97,25 @@ export const useRenderElement = (
             {...additionalProps}
           />
         );
+        const isVoid =
+          (matchingPlugin.object === 'inline' ||
+            matchingPlugin.object === 'block') &&
+          matchingPlugin.isVoid;
+
+        // if block is void, we still need to render children due to some quirks of slate
+        if (isVoid && !injections.readOnly) {
+          return (
+            <VoidElement
+              component={component}
+              element={element}
+              plugin={matchingPlugin as SlatePluginDefinition<unknown>}
+            >
+              {children}
+            </VoidElement>
+          );
+        }
+
+        return component;
       }
       return <p>unknown component {type}</p>;
     },

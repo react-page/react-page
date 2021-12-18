@@ -1,66 +1,45 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { Range, Transforms } from 'slate';
-import { useSlate } from 'slate-react';
+import { useUiTranslator } from '@react-page/editor';
+import React, { useCallback, useRef, useState } from 'react';
+import { Range } from 'slate';
 import useAddPlugin from '../hooks/useAddPlugin';
-import { getCurrentNodeDataWithPlugin } from '../hooks/useCurrentNodeDataWithPlugin';
 import usePluginIsActive from '../hooks/usePluginIsActive';
 import usePluginIsDisabled from '../hooks/usePluginIsDisabled';
 import useRemovePlugin from '../hooks/useRemovePlugin';
-
-import UniformsControls from '../pluginFactories/components/UniformsControls';
+import { useSlate } from 'slate-react';
 import type {
   PluginButtonProps,
   SlatePluginDefinition,
 } from '../types/slatePluginDefinitions';
-import { useSetDialogIsVisible } from './DialogVisibleProvider';
-
+import PluginControls from './PluginControls';
 import ToolbarButton from './ToolbarButton';
-import { useUiTranslator } from '@react-page/editor';
-import type { Data } from '../types';
 
-type Props<T extends Data> = {
-  plugin: SlatePluginDefinition<T>;
+type Props = {
+  plugin: SlatePluginDefinition<unknown>;
 } & PluginButtonProps;
 
-function PluginButton<T extends Data = unknown>(props: Props<T>) {
+function PluginButton(props: Props) {
   const { plugin } = props;
   const { t } = useUiTranslator();
   const hasControls = Boolean(plugin.controls);
 
   const [showControls, setShowControls] = useState(false);
-  const storedPropsRef = useRef<{
-    selection: Range;
-    isActive: boolean;
-    data: T;
-  }>();
 
+  const editor = useSlate();
+
+  const isActive = usePluginIsActive(plugin);
   const shouldInsertWithText =
     plugin.pluginType === 'component' &&
-    plugin.object === 'inline' &&
-    (!storedPropsRef?.current?.selection ||
-      Range.isCollapsed(storedPropsRef?.current?.selection)) &&
-    !storedPropsRef?.current?.isActive;
+    (plugin.object === 'inline' || plugin.object === 'mark') &&
+    (!editor.selection || Range.isCollapsed(editor.selection)) &&
+    !isActive;
 
-  const close = useCallback(() => setShowControls(false), []);
-  const isActive = usePluginIsActive(plugin);
   const add = useAddPlugin(plugin);
   const remove = useRemovePlugin(plugin);
-  const editor = useSlate();
-  const setIsVisible = useSetDialogIsVisible();
-  useEffect(() => setIsVisible(showControls), [showControls, setIsVisible]);
+  const close = useCallback(() => setShowControls(false), [setShowControls]);
   const onClick = React.useCallback(
     (e: React.MouseEvent<HTMLElement>) => {
       e.preventDefault();
       if (hasControls || shouldInsertWithText) {
-        if (!showControls) {
-          // store props
-          storedPropsRef.current = {
-            selection: editor.selection,
-            isActive,
-            data: getCurrentNodeDataWithPlugin(editor, plugin),
-          };
-        }
-
         setShowControls(!showControls);
       } else {
         if (isActive) {
@@ -73,12 +52,6 @@ function PluginButton<T extends Data = unknown>(props: Props<T>) {
     [isActive, hasControls, showControls, shouldInsertWithText]
   );
 
-  const { controls } = plugin;
-  const Controls = controls
-    ? controls.type === 'autoform'
-      ? (props) => <UniformsControls {...props} schema={controls?.schema} />
-      : controls.Component
-    : UniformsControls;
   const isDisabled = usePluginIsDisabled(plugin);
 
   return (
@@ -94,29 +67,12 @@ function PluginButton<T extends Data = unknown>(props: Props<T>) {
         toolTip={t(plugin.label)}
       />
 
-      {hasControls || shouldInsertWithText ? (
-        <Controls
-          pluginConfig={plugin}
-          close={close}
-          open={showControls}
-          add={(p) => {
-            if (storedPropsRef?.current?.selection) {
-              // restore selection before adding
-              Transforms.select(editor, storedPropsRef?.current.selection);
-            }
-            add(p);
-          }}
-          remove={() => {
-            if (storedPropsRef?.current?.selection) {
-              // restore selection before removing
-              Transforms.select(editor, storedPropsRef?.current.selection);
-            }
-            remove();
-          }}
-          isActive={storedPropsRef?.current?.isActive}
-          shouldInsertWithText={shouldInsertWithText}
-          data={storedPropsRef?.current?.data}
+      {(hasControls || shouldInsertWithText) && showControls ? (
+        <PluginControls
+          plugin={plugin}
           {...props}
+          open={showControls}
+          close={close}
         />
       ) : null}
     </>

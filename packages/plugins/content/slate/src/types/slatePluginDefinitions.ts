@@ -118,11 +118,13 @@ export type MapLike<T extends Data> = {
 type ObjectProps = {
   object: 'block';
   replaceWithDefaultOnRemove?: boolean;
+  isVoid?: boolean;
 };
 
 type InlineProps = {
   object: 'inline';
   addExtraSpace?: boolean;
+  isVoid?: boolean;
 };
 
 type MarkProps = {
@@ -154,6 +156,7 @@ export type SlateComponentPluginDefinition<T extends Data> =
        */
       getData?: (el: HTMLElement) => T;
     };
+
     /**
      * the Component that renders this element. Can be a primitiv component like "div", "p", etc.
      * or a complex Component. If its a complex component, you should render the children passed in it
