@@ -24,6 +24,7 @@ const SlateEditable = React.memo(
     const injections = {
       useSelected,
       useFocused,
+      readOnly,
     };
     const renderElement = useRenderElement(
       { plugins, defaultPluginType, injections },

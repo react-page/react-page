@@ -104,16 +104,17 @@ const slatePlugin = slate(slateDef => ({
   }
 })
 ```
+
 If you use typescript (and you should!), you will get nice typechecking in the customize function.
 
-## Adding custom plugins
+## Custom slate plugins
 
-Enhancing the inbuilt slate plugins may not be enough in some cases. Eg: 
+Enhancing the inbuilt slate plugins may not be enough in some cases. Eg:
 
 1. Say one wants to create internal links, where the pages are stored in a database. Instead of asking for the full url, the user will see a select field of all pages. When the user makes a selection, ReactPage will only store the id of that page. That way the links will still be valid when the page is moved or renamed.
 2. Say one wants to create a landing page for an eCommerce project with links to products from the shop.
 
-### Method 1
+### Adding a custom plugin
 
 Add a custom plugin as follows:
 
@@ -133,7 +134,7 @@ const slatePlugin = slate(def => ({
 
 Notice: `yourCustomNamespace` and `myCustomPlugin` can be named arbitrary. Typescript users will find the existing type definition on def.plugins usefull to see which plugins do exist.
 
-### Method 2
+### Create a custom plugin
 
 Use the factory functions:
 
@@ -146,6 +147,22 @@ Use the factory functions:
 ```tsx
 import { pluginFactories } from '@react-page/plugins-slate';
 ```
+
+### component plugins
+
+The most common plugin type is a component plugin.
+
+As an example take a look at this plugin which colors the selected text:
+
+[customSlatePlugin.tsx](examples/plugins/customSlatePlugin.tsx ':include :type=code typescript')
+
+#### void plugins
+
+A void plugin does not wrap text but is just an element. This could be an image or something like a form field.
+
+See this example of a form field plugin
+
+[formFieldInText.tsx](examples/pages/examples/formFieldInText.tsx ':include :type=code typescript')
 
 ## Slate plugins with custom data
 
