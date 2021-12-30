@@ -47,6 +47,12 @@ export const addPlugin = <T extends Data>(
   } else if (plugin.pluginType === 'component') {
     if (plugin.object === 'mark') {
       editor.addMark(plugin.type, data || true);
+    } else if (plugin.isVoid) {
+      Transforms.insertNodes(editor, {
+        type: plugin.type,
+        data,
+        children: [{ text: '' }],
+      });
     } else {
       if (plugin.object === 'block' && plugin.replaceWithDefaultOnRemove) {
         Transforms.setNodes(editor, { type: plugin.type, data });
