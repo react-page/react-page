@@ -24,9 +24,8 @@
 
 ## Closing issues
 
-<!-- Put `closes #XXXX` in your comment to auto-close the issue that your PR fixes (if such). -->
-Fixes #
+<!-- Put `Closes #XXXX` in your comment to auto-close the issue that your PR fixes (if such). -->
 
 ## Further comments
 
-If this is a relatively large or complex change, kick off the discussion by explaining why you chose the solution you did and what alternatives you considered, etc...
+<!-- If this is a relatively large or complex change, kick off the discussion by explaining why you chose the solution you did and what alternatives you considered, etc... -->
