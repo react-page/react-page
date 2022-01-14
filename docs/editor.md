@@ -121,7 +121,7 @@ Takes a function `(label:string) => string`.
 
 This prop enables i18n support. All interface labels are wrapped with this function.
 
-Below is the `uiTranslator` function provided in [the i18n demo](//demo/i18n).
+Below is an example `uiTranslator` function:
 
 ```typescript
 const TRANSLATIONS: { [key: string]: string } = {
