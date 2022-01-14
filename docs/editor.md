@@ -35,12 +35,12 @@ export default function SimpleExample() {
 ### Editing
 [Link to editing example](examples/pages/examples/simple.tsx)
 
-[Live demo of the editing example](//demo/simple)
+[Live demo of the editing example](//demo/examples/simple)
 
 ### Viewing
 [Link to viewing example](examples/pages/examples/readonly.tsx)
 
-[Live demo of the viewing example](//demo/readonly)
+[Live demo of the viewing example](//demo/examples/readonly)
 
 ## Props
 
@@ -121,7 +121,7 @@ Takes a function `(label:string) => string`.
 
 This prop enables i18n support. All interface labels are wrapped with this function.
 
-Below is the `uiTranslator` function provided in [the i18n demo](//demo/i18n).
+Below is the `uiTranslator` function provided in [the i18n demo](//demo/examples/i18n).
 
 ```typescript
 const TRANSLATIONS: { [key: string]: string } = {
