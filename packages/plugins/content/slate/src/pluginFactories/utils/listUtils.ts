@@ -1,23 +1,27 @@
 import { Editor, Path, Text, Transforms } from 'slate';
+import { LI, LISTS_TYPE_PREFIX } from '../../plugins/lists/constants';
 
 /*
 please load this file lazily, as it imports slate to avoid bloating read only mode
 */
 type ListBaseDef = {
-  allListTypes: string[];
   listItemType: string;
 };
 
-export const getActiveList = (editor: Editor, allListTypes: string[]) => {
+export const getActiveList = (editor: Editor) => {
   const [matchingNode] = Editor.nodes(editor, {
-    match: (elem) => allListTypes.includes(elem.type as string),
-    mode: 'lowest', // FIXME: whats the best value?
+    match: (elem) => {
+      const type = elem.type as string;
+
+      return type?.startsWith(LISTS_TYPE_PREFIX) && type !== LI;
+    },
+    mode: 'lowest',
   });
   return matchingNode;
 };
 
-export const getActiveListType = (editor: Editor, allListTypes: string[]) => {
-  return getActiveList(editor, allListTypes)?.[0]?.type;
+export const getActiveListType = (editor: Editor) => {
+  return getActiveList(editor)?.[0]?.type;
 };
 
 export const getPreviousListItem = (editor: Editor, listItemType: string) => {
@@ -34,7 +38,7 @@ export const increaseListIndention = (
   def: ListBaseDef,
   listType?: string
 ) => {
-  const currentActiveType = getActiveListType(editor, def.allListTypes);
+  const currentActiveType = getActiveListType(editor);
 
   const previous = getPreviousListItem(editor, def.listItemType);
 

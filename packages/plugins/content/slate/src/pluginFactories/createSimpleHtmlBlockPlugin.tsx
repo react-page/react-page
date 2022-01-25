@@ -16,6 +16,7 @@ type Def<T extends Record<string, unknown>> = Pick<
   | 'onKeyDown'
   | 'getInitialData'
   | 'controls'
+  | 'getStyle'
 > & {
   replaceWithDefaultOnRemove?: boolean;
   tagName: keyof JSX.IntrinsicElements;
@@ -50,7 +51,10 @@ function createSimpleHtmlBlockPlugin<T = {}>(def: Def<HtmlBlockData<T>>) {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       getData: def.getData || (getAlignmentFromElement as any),
     },
-    getStyle: ({ align }) => ({ textAlign: align }),
+    getStyle: (data) => ({
+      textAlign: data.align,
+      ...(def.getStyle?.(data) ?? {}),
+    }),
 
     Component: def.tagName,
   });

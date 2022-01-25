@@ -1,3 +1,5 @@
+import type { CSSProperties } from 'react';
+import { LI, LISTS_TYPE_PREFIX } from '../plugins/lists/constants';
 import type { SlatePlugin } from '../types/SlatePlugin';
 import type { SlateComponentPluginDefinition } from '../types/slatePluginDefinitions';
 import createListItemPlugin from './createListItemPlugin';
@@ -11,8 +13,9 @@ type ListDef = {
   hotKey?: string;
   tagName: keyof JSX.IntrinsicElements;
   noButton?: boolean; // for Li, this is automatically
-  allListTypes: string[];
-  listItem: {
+
+  getStyle?: () => CSSProperties;
+  listItem?: {
     type: string;
     tagName: keyof JSX.IntrinsicElements;
   };
@@ -38,18 +41,18 @@ function createSlatePlugins<T, CT>(
       label: def.label,
       noButton: def.noButton,
       tagName: def.tagName,
+      getStyle: def.getStyle,
 
       customAdd: async (editor) => {
         const { getActiveList, increaseListIndention } = await import(
           './utils/listUtils'
         );
-        const currentList = getActiveList(editor, def.allListTypes);
+        const currentList = getActiveList(editor);
 
         if (!currentList) {
           increaseListIndention(
             editor,
             {
-              allListTypes: def.allListTypes,
               listItemType: def.listItem.type,
             },
             def.type
@@ -71,7 +74,6 @@ function createSlatePlugins<T, CT>(
       customRemove: async (editor) => {
         const { decreaseListIndention } = await import('./utils/listUtils');
         decreaseListIndention(editor, {
-          allListTypes: def.allListTypes,
           listItemType: def.listItem.type,
         });
       },
@@ -96,7 +98,15 @@ function mergeCustomizer(c1: any, c2: any): any {
   };
 }
 // eslint-disable-next-line @typescript-eslint/ban-types
-function createListPlugin<T = {}>(def: ListDef) {
+function createListPlugin<T = {}>(defRaw: ListDef) {
+  const def: ListDef = {
+    ...defRaw,
+    type: LISTS_TYPE_PREFIX + defRaw.type,
+    listItem: defRaw.listItem ?? {
+      tagName: 'li',
+      type: LI,
+    },
+  };
   const inner = function <TIn, TOut>(
     innerdef: ListDef,
     customizersIn?: ListCustomizers<TIn, TOut>
