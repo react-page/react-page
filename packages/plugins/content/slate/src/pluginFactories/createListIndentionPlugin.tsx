@@ -4,7 +4,6 @@ type Definition = {
   iconIncrease: JSX.Element;
   iconDecrease: JSX.Element;
   listItemType: string;
-  allListTypes: string[];
   labelIncrease?: string;
   labelDecrease?: string;
 };
@@ -20,14 +19,12 @@ const ceateSlatePlugin = (def: Definition): SlatePlugin[] => {
       customAdd: async (editor) => {
         const { increaseListIndention } = await import('./utils/listUtils');
         increaseListIndention(editor, {
-          allListTypes: def.allListTypes,
           listItemType: def.listItemType,
         });
       },
       customRemove: async (editor) => {
         const { decreaseListIndention } = await import('./utils/listUtils');
         decreaseListIndention(editor, {
-          allListTypes: def.allListTypes,
           listItemType: def.listItemType,
         });
       },
@@ -46,20 +43,18 @@ const ceateSlatePlugin = (def: Definition): SlatePlugin[] => {
       customAdd: async (editor) => {
         const { decreaseListIndention } = await import('./utils/listUtils');
         decreaseListIndention(editor, {
-          allListTypes: def.allListTypes,
           listItemType: def.listItemType,
         });
       },
       customRemove: async (editor) => {
         const { increaseListIndention } = await import('./utils/listUtils');
         increaseListIndention(editor, {
-          allListTypes: def.allListTypes,
           listItemType: def.listItemType,
         });
       },
       isDisabled: async (editor) => {
         const { getActiveListType } = await import('./utils/listUtils');
-        return !getActiveListType(editor, def.allListTypes);
+        return !getActiveListType(editor);
       },
     },
   ];
