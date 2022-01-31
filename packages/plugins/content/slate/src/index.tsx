@@ -1,8 +1,7 @@
 import type { CellPlugin } from '@react-page/editor';
 import { lazyLoad } from '@react-page/editor';
-import React, { useState } from 'react';
+import React from 'react';
 import ReadOnlySlate from './components/ReadOnlySlate';
-
 import { defaultTranslations } from './default/settings';
 import { HtmlToSlate } from './htmlToSlate';
 import v002 from './migrations/v002';
