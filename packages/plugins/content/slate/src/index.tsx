@@ -16,6 +16,7 @@ import type { SlateState } from './types/state';
 import { getTextContents } from './utils/getTextContent';
 import makeSlatePluginsFromDef from './utils/makeSlatePluginsFromDef';
 import transformInitialSlateState from './utils/transformInitialSlateState';
+import { useSafeSetState } from './utils/useSafeSetState';
 
 const slatePlugins = defaultPlugins;
 
@@ -127,7 +128,7 @@ function plugin<TPlugins extends SlatePluginCollection = DefaultPlugins>(
       /* we need a small fix to avoid flashing when SSR in edit mode:
       we code split the Provider AND the editor version, but we have to make sure to not render the editor without the provider:
       */
-      const [providerLoaded, setProviderLoaded] = useState(false);
+      const [providerLoaded, setProviderLoaded] = useSafeSetState(false);
       if (!props.readOnly) {
         SlateProvider.load().then((l) => setProviderLoaded(true));
       }
