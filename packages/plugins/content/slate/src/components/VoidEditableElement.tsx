@@ -6,9 +6,9 @@ import { ReactEditor, useSlateStatic } from 'slate-react';
 import type { SlatePluginDefinition } from '../types/slatePluginDefinitions';
 import PluginControls from './PluginControls';
 
-import { Editable, useFocused, useSelected } from 'slate-react';
+import { useSelected } from 'slate-react';
 
-const VoidElement: React.FC<{
+const VoidEditableElement: React.FC<{
   plugin: SlatePluginDefinition<unknown>;
   element: Element;
   component: React.ReactNode;
@@ -55,4 +55,4 @@ const VoidElement: React.FC<{
   );
 };
 
-export default VoidElement;
+export default VoidEditableElement;

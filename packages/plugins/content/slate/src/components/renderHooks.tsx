@@ -1,4 +1,5 @@
 import propisValid from '@emotion/is-prop-valid';
+import { lazyLoad } from '@react-page/editor';
 import isObject from 'lodash.isobject';
 import type { DependencyList } from 'react';
 import React, { useCallback } from 'react';
@@ -10,7 +11,9 @@ import {
   useComponentMarkPlugins,
   useComponentNodePlugins,
 } from './pluginHooks';
-import VoidElement from './VoidElement';
+
+// lazy load as it uses slate library. We don't want to bundle that in readonly mode
+const VoidEditableElement = lazyLoad(() => import('./VoidEditableElement'));
 
 type Data = {
   [key: string]: unknown;
@@ -103,15 +106,16 @@ export const useRenderElement = (
           matchingPlugin.isVoid;
 
         // if block is void, we still need to render children due to some quirks of slate
+
         if (isVoid && !injections.readOnly) {
           return (
-            <VoidElement
+            <VoidEditableElement
               component={component}
               element={element}
               plugin={matchingPlugin as SlatePluginDefinition<unknown>}
             >
               {children}
-            </VoidElement>
+            </VoidEditableElement>
           );
         }
 
