@@ -45,7 +45,7 @@ export const Sidebar: React.SFC<{
     preview: 'Preview page',
   };
 
-  const customOptions = useOption('customOptions') ?? [];
+  const customOptions = useOption('customOptions');
 
   const actions = [
     // eslint-disable-next-line react/jsx-key

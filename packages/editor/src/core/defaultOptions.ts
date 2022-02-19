@@ -22,6 +22,8 @@ export const DEFAULT_OPTIONS: Required<Options> = {
   hideEditorSidebar: false,
   showMoveButtonsInBottomToolbar: true,
   showMoveButtonsInLayoutMode: true,
+
+  customOptions: [],
 };
 
 export const DEFAULT_RENDER_OPTIONS: Required<RenderOptions> = {
