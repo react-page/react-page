@@ -44,6 +44,9 @@ export const Sidebar: React.SFC<{
     resize: 'Resize blocks',
     preview: 'Preview page',
   };
+
+  const customOptions = useOption('customOptions') ?? [];
+
   const actions = [
     // eslint-disable-next-line react/jsx-key
     { action: <UndoRedo labelRedo="redo" labelUndo="undo" /> },
@@ -55,6 +58,7 @@ export const Sidebar: React.SFC<{
     { action: <ToggleLayout label={t(defaultLabels.layout)} /> },
     { action: <ToggleResize label={t(defaultLabels.resize)} /> },
     { action: <TogglePreview label={t(defaultLabels.preview)} /> },
+    ...customOptions.map((customOption) => ({ action: customOption })),
   ].filter(Boolean);
   return (
     <div

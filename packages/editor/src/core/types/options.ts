@@ -85,4 +85,6 @@ export type Options = {
    *
    */
   hideEditorSidebar?: boolean;
+
+  customOptions?: React.ComponentType[];
 };
