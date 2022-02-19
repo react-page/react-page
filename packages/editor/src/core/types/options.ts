@@ -40,6 +40,36 @@ export type Options = {
   zoomEnabled?: boolean;
 
   /**
+   * enable undo redo option
+   */
+  undoRedoEnabled?: boolean;
+
+  /**
+   * enable edit option
+   */
+  editEnabled?: boolean;
+
+  /**
+   * enable insert option
+   */
+  insertEnabled?: boolean;
+
+  /**
+   * enable layout option
+   */
+  layoutEnabled?: boolean;
+
+  /**
+   * enable resize option
+   */
+  resizeEnabled?: boolean;
+
+  /**
+   * enable preview option
+   */
+  previewEnabled?: boolean;
+
+  /**
    * set the zoom factors. Defaults to [1, 0.75, 0.5, 0.25]
    */
   zoomFactors?: number[];

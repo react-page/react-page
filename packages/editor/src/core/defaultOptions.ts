@@ -13,6 +13,12 @@ export const DEFAULT_OPTIONS: Required<Options> = {
   uiTranslator: null,
   zoomEnabled: true,
   zoomFactors: [1, 0.75, 0.5, 0.25],
+  undoRedoEnabled: true,
+  editEnabled: true,
+  insertEnabled: true,
+  layoutEnabled: true,
+  resizeEnabled: true,
+  previewEnabled: true,
 
   dndBackend: HTML5Backend,
   blurGateDefaultMode: DISPLAY_MODE_EDIT,
