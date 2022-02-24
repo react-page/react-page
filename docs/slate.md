@@ -10,6 +10,12 @@ $ yarn add @react-page/plugins-slate
 $ npm i --save @react-page/plugins-slate
 ```
 
+You additionally need to import the css file:
+
+```typescript
+import '@react-page/plugins-slate/lib/index.css';
+```
+
 <p>
   <figure align="center">
     <img alt="Text editing plugin" src="../docs-images/text-editing-plugin.gif"><br>
@@ -47,7 +53,7 @@ In this example, only some of the inbuilt Slate plugins are being enabled:
 ```tsx
 import Editor from '@react-page/editor';
 import slate from '@react-page/plugins-slate';
-
+import '@react-page/plugins-slate/lib/index.css';
 
 const myCustomSlatePlugin = slate(def => ({
   ...def, // this is the default configuration
