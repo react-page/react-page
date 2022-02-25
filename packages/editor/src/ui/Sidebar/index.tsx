@@ -37,6 +37,12 @@ export const Sidebar: React.SFC<{
 }> = ({ stickyNess }) => {
   const { t } = useUiTranslator();
   const zoomEnabled = useOption('zoomEnabled');
+  const undoRedoEnabled = useOption('undoRedoEnabled');
+  const editEnabled = useOption('editEnabled');
+  const insertEnabled = useOption('insertEnabled');
+  const layoutEnabled = useOption('layoutEnabled');
+  const resizeEnabled = useOption('resizeEnabled');
+  const previewEnabled = useOption('previewEnabled');
   const defaultLabels = {
     edit: 'Edit blocks',
     insert: 'Add blocks',
@@ -44,17 +50,33 @@ export const Sidebar: React.SFC<{
     resize: 'Resize blocks',
     preview: 'Preview page',
   };
+
+  const customOptions = useOption('customOptions');
+
   const actions = [
     // eslint-disable-next-line react/jsx-key
-    { action: <UndoRedo labelRedo="redo" labelUndo="undo" /> },
+    undoRedoEnabled
+      ? { action: <UndoRedo labelRedo="redo" labelUndo="undo" /> }
+      : null,
     zoomEnabled
       ? { action: <Zoom labelZoomIn="zoom in" labelZoomOut="zoom out" /> }
       : null,
-    { action: <ToggleEdit label={t(defaultLabels.edit)} /> },
-    { action: <ToggleInsert label={t(defaultLabels.insert)} /> },
-    { action: <ToggleLayout label={t(defaultLabels.layout)} /> },
-    { action: <ToggleResize label={t(defaultLabels.resize)} /> },
-    { action: <TogglePreview label={t(defaultLabels.preview)} /> },
+    editEnabled
+      ? { action: <ToggleEdit label={t(defaultLabels.edit)} /> }
+      : null,
+    insertEnabled
+      ? { action: <ToggleInsert label={t(defaultLabels.insert)} /> }
+      : null,
+    layoutEnabled
+      ? { action: <ToggleLayout label={t(defaultLabels.layout)} /> }
+      : null,
+    resizeEnabled
+      ? { action: <ToggleResize label={t(defaultLabels.resize)} /> }
+      : null,
+    previewEnabled
+      ? { action: <TogglePreview label={t(defaultLabels.preview)} /> }
+      : null,
+    ...customOptions.map((customOption) => ({ action: customOption })),
   ].filter(Boolean);
   return (
     <div
