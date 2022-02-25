@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
+import { useOption } from '..';
 
 type StickyProps = {
   rightOffset: number;
+  rightOffsetFixed: number;
   stickyElRef: React.RefObject<HTMLDivElement>;
   focusRef: React.RefObject<HTMLDivElement>;
   shouldStickToTop: boolean;
@@ -11,25 +13,89 @@ const StickyWrapper: React.FC<{
   children: (s: StickyProps) => React.ReactNode;
 }> = ({ children }) => {
   const ref = React.createRef<HTMLDivElement>();
+  const sidebarPosition = useOption('sidebarPosition');
 
   const stickyElRef = React.createRef<HTMLDivElement>();
   const [shouldStickToTop, setShouldStickToTop] = useState(false);
   const [shouldStickToBottom, setShouldStickToBottom] = useState(true);
 
   const [rightOffset, setRightOffset] = useState(0);
+  const [rightOffsetFixed, setRightOffsetFixed] = useState(0);
   React.useEffect(() => {
     const calc = () => {
       if (ref.current) {
-        const { top, left } = ref.current.getBoundingClientRect();
+        /**
+         * TODO: works, but needs refactor, could calculate style for sidebar directly
+         */
+        const { top, left, right } = ref.current.getBoundingClientRect();
         const bottom = top + ref.current.clientHeight;
         // document.documentElement.clientWidth is without scrollbars, so better for us
-        const right =
-          document.documentElement.clientWidth - left - ref.current.clientWidth;
+
+        if (sidebarPosition === 'rightAbsolute') {
+          const rightOffsetAbsolute =
+            document.documentElement.clientWidth -
+            left -
+            ref.current.clientWidth;
+
+          setRightOffset(rightOffsetAbsolute);
+          setRightOffsetFixed(0);
+        } else if (sidebarPosition === 'rightRelative') {
+          const rightOffsetAbsolute =
+            document.documentElement.clientWidth -
+            left -
+            ref.current.clientWidth;
+
+          const rightOffsetRelative = stickyElRef.current?.clientWidth;
+
+          const overlapsScreenRight =
+            right + stickyElRef.current?.clientWidth >
+            document.documentElement.clientWidth;
+
+          setRightOffset(
+            overlapsScreenRight ? rightOffsetAbsolute : rightOffsetRelative
+          );
+          setRightOffsetFixed(
+            overlapsScreenRight
+              ? 0
+              : document.documentElement.clientWidth -
+                  right -
+                  stickyElRef.current?.clientWidth
+          );
+        } else if (sidebarPosition === 'leftRelative') {
+          const rightOffsetForRelativeLeft = -ref.current.clientWidth;
+          const rightOffsetForAbsoluteLeft =
+            -ref.current.clientWidth -
+            left +
+            (stickyElRef.current?.clientWidth ?? 100);
+
+          const overlapsScreenLeft =
+            right + rightOffsetForRelativeLeft <
+            stickyElRef.current.clientWidth;
+
+          setRightOffset(
+            overlapsScreenLeft
+              ? rightOffsetForAbsoluteLeft
+              : rightOffsetForRelativeLeft
+          );
+          setRightOffsetFixed(document.documentElement.clientWidth - left);
+        } else if (sidebarPosition === 'leftAbsolute') {
+          console.warn('sidebarPosition leftAbsolute is currently buggy');
+          const rightOffsetForAbsoluteLeft =
+            -ref.current.clientWidth -
+            left +
+            (stickyElRef.current?.clientWidth ?? 100);
+
+          setRightOffset(rightOffsetForAbsoluteLeft);
+          setRightOffsetFixed(
+            document.documentElement.clientWidth -
+              stickyElRef.current?.clientWidth
+          );
+        }
 
         const uiHeight = stickyElRef.current
           ? stickyElRef.current.clientHeight
           : 400;
-        setRightOffset(right);
+
         setShouldStickToTop(top > window.innerHeight - uiHeight);
         setShouldStickToBottom(bottom < window.innerHeight);
       }
@@ -63,6 +129,7 @@ const StickyWrapper: React.FC<{
         focusRef: ref,
         shouldStickToTop,
         shouldStickToBottom,
+        rightOffsetFixed,
       })}
     </div>
   );

@@ -112,7 +112,21 @@ export type Options = {
   middleware?: Middleware[];
 
   /**
+   * set the position of the sidebar. Possible values:
+   * - rightAbsolute (default): position it right on the screen absolutly
+   * - rightRelative: immediatly right of the content
+   * - leftRelative: immediatly left of the content
    *
+   * Possible, but does not yet work proplery:
+   * - leftAbsolute: left absolute on the screen
+   */
+  sidebarPosition?:
+    | 'rightAbsolute'
+    | 'rightRelative'
+    | 'leftAbsolute'
+    | 'leftRelative';
+  /**
+   * hide the editor sidebar
    */
   hideEditorSidebar?: boolean;
 

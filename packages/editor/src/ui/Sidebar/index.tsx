@@ -15,6 +15,7 @@ const getStickyNessstyle = (stickyness?: StickyNess): React.CSSProperties => {
   ) {
     return {
       position: 'fixed',
+      right: stickyness.rightOffsetFixed || 0,
     };
   }
 
@@ -30,6 +31,7 @@ export type StickyNess = {
   shouldStickToTop: boolean;
   shouldStickToBottom: boolean;
   rightOffset: number;
+  rightOffsetFixed: number;
   stickyElRef?: React.Ref<HTMLDivElement>;
 };
 export const Sidebar: React.SFC<{
