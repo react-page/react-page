@@ -65,7 +65,7 @@ const ImageControls: ImageControlType = (props) => {
       <FormControlLabel
         control={
           <Checkbox
-            value={props.data.openInNewWindow ?? false}
+            checked={props.data.openInNewWindow ?? false}
             onChange={(e) =>
               props.onChange({
                 openInNewWindow: e.target.checked,
