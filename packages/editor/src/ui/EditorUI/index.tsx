@@ -14,6 +14,7 @@ export default React.memo(
       shouldStickToTop: false,
       shouldStickToBottom: false,
       rightOffset: 0,
+      rightOffsetFixed: 0,
     },
   }: {
     stickyNess?: StickyNess;
