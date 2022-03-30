@@ -2971,6 +2971,11 @@
   dependencies:
     lodash "^4"
 
+"@xmldom/xmldom@^0.8.1":
+  version "0.8.1"
+  resolved "https://registry.npmjs.org/@xmldom/xmldom/-/xmldom-0.8.1.tgz#70c239275fc6d6a84e41b9a8d623a93c0d59b6b4"
+  integrity sha512-4wOae+5N2RZ+CZXd9ZKwkaDi55IxrSTOjHpxTvQQ4fomtOJmqVxbmICA9jE1jvnqNhpfgz8cnfFagG86wV/xLQ==
+
 "@xobotyi/scrollbar-width@^1.9.5":
   version "1.9.5"
   resolved "https://registry.npmjs.org/@xobotyi/scrollbar-width/-/scrollbar-width-1.9.5.tgz#80224a6919272f405b87913ca13b92929bdf3c4d"
@@ -14147,11 +14152,6 @@ xmlchars@^2.2.0:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/xmlchars/-/xmlchars-2.2.0.tgz#060fe1bcb7f9c76fe2a17db86a9bc3ab894210cb"
   integrity sha512-JZnDKK8B0RCDw84FNdDAIpZK+JuJw+s7Lz8nksI7SIuU3UXJJslUthsi+uWBUYOwPFwW7W7PRLRfUKpxjtjFCw==
-
-xmldom@^0.5.0:
-  version "0.5.0"
-  resolved "https://registry.yarnpkg.com/xmldom/-/xmldom-0.5.0.tgz#193cb96b84aa3486127ea6272c4596354cb4962e"
-  integrity sha512-Foaj5FXVzgn7xFzsKeNIde9g6aFBxTPi37iwsno8QvApmtg7KYrr+OPyRHcJF7dud2a5nGRBXK3n0dL62Gf7PA==
 
 xtend@^4.0.0, xtend@~4.0.1:
   version "4.0.2"
