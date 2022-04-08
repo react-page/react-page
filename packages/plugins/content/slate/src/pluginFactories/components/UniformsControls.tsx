@@ -91,6 +91,7 @@ function Controls<T extends Data>(
           </AutoForm>
         ) : null}
       </DialogContent>
+       {hasSchema ? (
       <DialogActions>
         <Button
           variant="text"
@@ -111,6 +112,7 @@ function Controls<T extends Data>(
           <DoneIcon style={{ marginLeft: 10 }} />
         </Button>
       </DialogActions>
+        ) : null}
     </Dialog>
   );
 }
