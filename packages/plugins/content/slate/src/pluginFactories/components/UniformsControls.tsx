@@ -91,28 +91,28 @@ function Controls<T extends Data>(
           </AutoForm>
         ) : null}
       </DialogContent>
-       {hasSchema ? (
-      <DialogActions>
-        <Button
-          variant="text"
-          onClick={onCancel}
-          style={{ marginRight: 'auto' }}
-        >
-          {props.cancelLabel || 'Cancel'}
-        </Button>
-        {props.isActive ? (
-          <Button variant="contained" color="secondary" onClick={onRemove}>
-            {props.removeLabel || 'Remove'}
-            <DeleteIcon style={{ marginLeft: 10 }} />
+      {hasSchema ? (
+        <DialogActions>
+          <Button
+            variant="text"
+            onClick={onCancel}
+            style={{ marginRight: 'auto' }}
+          >
+            {props.cancelLabel || 'Cancel'}
           </Button>
-        ) : null}
+          {props.isActive ? (
+            <Button variant="contained" color="secondary" onClick={onRemove}>
+              {props.removeLabel || 'Remove'}
+              <DeleteIcon style={{ marginLeft: 10 }} />
+            </Button>
+          ) : null}
 
-        <Button variant="contained" color="primary" onClick={onOkClick}>
-          {props.submitLabel || 'Ok'}
-          <DoneIcon style={{ marginLeft: 10 }} />
-        </Button>
-      </DialogActions>
-        ) : null}
+          <Button variant="contained" color="primary" onClick={onOkClick}>
+            {props.submitLabel || 'Ok'}
+            <DoneIcon style={{ marginLeft: 10 }} />
+          </Button>
+        </DialogActions>
+      ) : null}
     </Dialog>
   );
 }
