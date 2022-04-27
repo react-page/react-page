@@ -1,11 +1,11 @@
 {
-  "name": "@react-page/plugins-image",
-  "version": "0.0.0",
+  "name": "@kienmatu/react-page-plugins-image",
+  "version": "0.0.4",
   "main": "./lib/index.js",
   "module": "./lib-es/index.js",
   "sideEffects": false,
   "typings": "./lib/index.d.ts",
-  "author": "ORY GmbH",
+  "author": "KIEN DINH",
   "license": "MIT",
   "scripts": {
     "build": "npm-run-all --parallel build:lib build:css",
@@ -18,14 +18,14 @@
     "clean": "rimraf \"lib\" && rimraf \"lib-es\" && rm -f *.tsbuildinfo"
   },
   "peerDependencies": {
-    "react": ">= 16.14",
-    "react-dom": ">= 16.14",
     "@material-ui/core": "*",
     "@material-ui/icons": "*",
-    "@material-ui/styles": "*"
+    "@material-ui/styles": "*",
+    "react": ">= 16.14",
+    "react-dom": ">= 16.14"
   },
   "dependencies": {
-    "@react-page/editor": "0.0.0"
+    "@react-page/editor": "2.2.13"
   },
   "publishConfig": {
     "access": "public"
