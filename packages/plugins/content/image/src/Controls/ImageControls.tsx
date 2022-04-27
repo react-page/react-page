@@ -75,6 +75,21 @@ const ImageControls: ImageControlType = (props) => {
         }
         label={t(props.translations.openNewWindow)}
       />
+
+      <br />
+      {/* Image's meta like alt... */}
+      <TextField
+        placeholder={t(props.translations.altPlaceholder)}
+        label={t(props.translations.altLabel)}
+        name="alt"
+        style={{ width: '400px' }}
+        value={props.data.alt ?? ''}
+        onChange={(e) =>
+          props.onChange({
+            href: e.target.value,
+          })
+        }
+      />
     </>
   );
 };

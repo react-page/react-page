@@ -13,9 +13,10 @@ const ImageHtmlRenderer: React.FC<CellPluginComponentProps<ImageState>> = (
   const { data } = props;
 
   const src = data?.src;
+  const alt = data?.alt;
   const openInNewWindow = data?.openInNewWindow;
   const image = (
-    <img className="react-page-plugins-content-image" alt="" src={src} />
+    <img className="react-page-plugins-content-image" alt={alt} src={src} />
   );
 
   return src ? (

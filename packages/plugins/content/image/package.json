@@ -1,6 +1,6 @@
 {
   "name": "@kienmatu/react-page-plugins-image",
-  "version": "0.0.4",
+  "version": "0.0.6",
   "main": "./lib/index.js",
   "module": "./lib-es/index.js",
   "sideEffects": false,
