@@ -19,7 +19,7 @@ const createPlugin = (settings?: ImageSettings): CellPlugin<ImageState> => {
       ),
     },
     Renderer: mergedSettings.Renderer,
-    id: 'kienmatu/ory/editor/core/content/image',
+    id: 'ory/editor/core/content/image',
     version: 1,
     icon: mergedSettings.icon,
     title: mergedSettings.translations.pluginName,
