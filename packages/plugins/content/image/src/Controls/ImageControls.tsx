@@ -86,7 +86,7 @@ const ImageControls: ImageControlType = (props) => {
         value={props.data.alt ?? ''}
         onChange={(e) =>
           props.onChange({
-            href: e.target.value,
+            alt: e.target.value,
           })
         }
       />
