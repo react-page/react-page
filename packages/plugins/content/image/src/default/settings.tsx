@@ -11,6 +11,8 @@ export const defaultTranslations = {
   imageUrl: 'Image URL',
   hrefPlaceholder: 'http://example.com',
   hrefLabel: 'Link to open upon image click',
+  altPlaceholder: "Image's description",
+  altLabel: "Image's alternative description",
   openNewWindow: 'Open link in new window',
   srcPlaceholder: 'http://example.com/image.png',
 
