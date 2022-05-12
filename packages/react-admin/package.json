@@ -18,7 +18,7 @@
     "@material-ui/core": "*",
     "@material-ui/icons": "*",
     "react": ">= 16.14",
-    "react-admin": "^3.0.0",
+    "react-admin": "^4.0.3",
     "react-dom": ">= 16.14",
     "react-final-form": "*",
     "uniforms": "*"
@@ -27,7 +27,7 @@
     "@react-page/editor": "0.0.0"
   },
   "devDependencies": {
-    "react-admin": "^3.12.2",
+    "react-admin": "^4.0.3",
     "uniforms": "^3.2.0"
   },
   "publishConfig": {
