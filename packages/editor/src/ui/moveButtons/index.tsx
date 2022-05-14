@@ -26,7 +26,7 @@ const Base: React.FC<{
       style={{ margin: 10, pointerEvents: 'all', ...style }}
       size="small"
       onClick={onClick}
-      color="primary"
+      color="default"
     >
       {icon}
     </Fab>
