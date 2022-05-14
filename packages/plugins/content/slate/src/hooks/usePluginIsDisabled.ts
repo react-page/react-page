@@ -1,8 +1,11 @@
+import type { DataTType } from '@react-page/editor';
 import { useState } from 'react';
 import { useSlate } from 'slate-react';
 import type { SlatePluginDefinition } from '../types/slatePluginDefinitions';
 
-export default <T>(plugin: SlatePluginDefinition<T>): boolean => {
+export default <T extends DataTType>(
+  plugin: SlatePluginDefinition<T>
+): boolean => {
   try {
     const editor = useSlate();
     const [disabled, setDisabled] = useState(true);

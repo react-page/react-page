@@ -11,7 +11,7 @@ import { cellPlugins } from '../../plugins/cellPlugins';
 import { Button } from '@material-ui/core';
 import { Add } from '@material-ui/icons';
 
-const LANGUAGES: Options['languages'] = [
+const LANGUAGES = [
   {
     lang: 'en',
     label: 'English',
@@ -71,7 +71,7 @@ function Toolbar() {
 }
 
 export default function Example() {
-  const [value, setValue] = useState<Value>(null);
+  const [value, setValue] = useState<Value | null>(null);
 
   return (
     <PageLayout>

@@ -34,6 +34,10 @@ function createSlatePlugins<T, CT>(
   def: ListDef,
   customizers: ListCustomizers<T, CT> = {}
 ) {
+  const listItem = def.listItem ?? {
+    tagName: 'li',
+    type: LI,
+  };
   return [
     createSimpleHtmlBlockPlugin<T>({
       type: def.type,
@@ -53,7 +57,7 @@ function createSlatePlugins<T, CT>(
           increaseListIndention(
             editor,
             {
-              listItemType: def.listItem.type,
+              listItemType: listItem.type,
             },
             def.type
           );
@@ -74,11 +78,11 @@ function createSlatePlugins<T, CT>(
       customRemove: async (editor) => {
         const { decreaseListIndention } = await import('./utils/listUtils');
         decreaseListIndention(editor, {
-          listItemType: def.listItem.type,
+          listItemType: listItem.type,
         });
       },
     })(customizers.customizeList),
-    createListItemPlugin<T>(def.listItem)(customizers.customizeListItem),
+    createListItemPlugin<T>(listItem)(customizers.customizeListItem),
   ];
 }
 

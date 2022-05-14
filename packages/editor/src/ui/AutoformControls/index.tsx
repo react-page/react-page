@@ -6,6 +6,7 @@ import lazyLoad from '../../core/helper/lazyLoad';
 import type {
   AutoformControlsDef,
   CellPluginComponentProps,
+  DataTType,
   JsonSchema,
 } from '../../core/types';
 import makeUniformsSchema from './makeUniformsSchema';
@@ -26,8 +27,9 @@ const getDefaultValue = function (bridge: JSONSchemaBridge): {
   );
 };
 
-type Props<T> = CellPluginComponentProps<T> & AutoformControlsDef<T>;
-export function AutoformControls<T extends Record<string, unknown> | unknown>({
+type Props<T extends DataTType> = CellPluginComponentProps<T> &
+  AutoformControlsDef<T>;
+export function AutoformControls<T extends DataTType>({
   onChange,
   data,
   schema,
@@ -42,13 +44,19 @@ export function AutoformControls<T extends Record<string, unknown> | unknown>({
     const newDefaultData = {
       ...getDefaultValue(bridge),
       ...(data ?? {}),
-    };
+    } as Partial<T>;
     onChange(newDefaultData);
   }, [bridge]);
   const isSmall = useIsSmallScreen();
 
   return (
-    <AutoForm model={data} autosave={true} schema={bridge} onSubmit={onChange}>
+    <AutoForm
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      model={data as any}
+      autosave={true}
+      schema={bridge}
+      onSubmit={onChange}
+    >
       {Content ? (
         <Content data={data} columnCount={columnCount} />
       ) : (

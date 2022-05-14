@@ -1,5 +1,4 @@
 import undoable from 'redux-undo';
-import { set } from 'redux-undo/lib/debug';
 import {
   CELL_REMOVE,
   CELL_RESIZE,
@@ -16,12 +15,8 @@ import {
   CELL_INSERT_RIGHT_OF,
 } from '../../actions/cell/insert';
 import { UPDATE_VALUE } from '../../actions/value';
-import { isProduction } from '../../const';
-import { value } from '../value';
 
-if (!isProduction) {
-  set(true);
-}
+import { value } from '../value';
 
 export const values = undoable(value, {
   filter: function filterState(action, currentState, previousHistory) {
@@ -49,4 +44,5 @@ export const values = undoable(value, {
 
   neverSkipReducer: true,
   syncFilter: true,
+  //debug: !isProduction,
 });

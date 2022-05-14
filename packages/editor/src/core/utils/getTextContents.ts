@@ -1,12 +1,12 @@
-import type { Cell, CellPlugin, Row, Value } from '../types';
+import type { Cell, CellPluginList, Row, Value } from '../types';
 import { getChildCellPlugins } from './getAvailablePlugins';
 import { getCellData } from './getCellData';
 
 type Options = {
   lang: string;
-  cellPlugins: CellPlugin[];
+  cellPlugins: CellPluginList;
 };
-const getTextContentsFromCell = (cell: Cell, options: Options) => {
+const getTextContentsFromCell = (cell: Cell, options: Options): string[] => {
   const data = getCellData(cell, options.lang);
   const childOptions = {
     ...options,
@@ -22,19 +22,19 @@ const getTextContentsFromCell = (cell: Cell, options: Options) => {
   return [
     ...(cell.rows?.reduce(
       (arr, row) => [...arr, ...getTextContentsFromRow(row, childOptions)],
-      []
+      [] as string[]
     ) ?? []),
     ...(currentPlugin?.getTextContents?.(data) ?? []),
   ];
 };
-const getTextContentsFromRow = (row: Row, options: Options) => {
+const getTextContentsFromRow = (row: Row, options: Options): string[] => {
   return row.cells.reduce(
     (arr, cell) => [...arr, ...getTextContentsFromCell(cell, options)],
-    []
+    [] as string[]
   );
 };
 
-export const getTextContents = (value: Value, options: Options) => {
+export const getTextContents = (value: Value, options: Options): string[] => {
   return value.rows.reduce<string[]>(
     (arr, row) => [...arr, ...getTextContentsFromRow(row, options)],
     []

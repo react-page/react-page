@@ -71,7 +71,7 @@ export const createRow = (
   return removeUndefinedProps({
     id: createId(),
     ...partialRow,
-    cells: partialRow.cells?.map((c) => createCell(c, options)),
+    cells: partialRow.cells?.map((c) => createCell(c, options)) ?? [],
   });
 };
 
@@ -85,12 +85,11 @@ export const createCell = (
     (typeof partialCell.plugin == 'string'
       ? partialCell.plugin
       : partialCell.plugin.id);
-  const plugin = pluginId && cellPlugins.find((p) => p.id === pluginId);
+  const plugin = pluginId ? cellPlugins.find((p) => p.id === pluginId) : null;
 
-  const partialRows =
-    partialCell.rows?.length > 0
-      ? partialCell.rows
-      : plugin?.createInitialChildren?.() ?? [];
+  const partialRows = partialCell.rows?.length
+    ? partialCell.rows
+    : plugin?.createInitialChildren?.() ?? [];
   const dataI18n = {
     [lang]:
       partialCell?.data ??
@@ -157,7 +156,7 @@ const insertFullCell =
   <T extends InsertType>(type: T) =>
   (
     cell: Cell,
-    { id: hoverId, inline, hasInlineNeighbour, ancestorIds }: HoverTarget,
+    { id: hoverId, inline, hasInlineNeighbour, ancestorIds = [] }: HoverTarget,
     insertOptions?: InsertOptions,
     ids: NewIds = generateIds()
   ) => {
@@ -193,10 +192,11 @@ const insertFullCell =
       // we now give some of them a name like "cell" or "item",
       // but the purpose of the others is unclear
       ids,
-      notUndoable: insertOptions.notUndoable,
+      notUndoable: insertOptions?.notUndoable,
     };
 
-    return (dispatch) => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    return (dispatch: any) => {
       dispatch(insertAction);
 
       if (insertOptions?.focusAfter) {

@@ -12,16 +12,14 @@ class ColorPicker extends React.Component<ColorPickerProps> {
     buttonContent: 'Change color',
     icon: <ColorizeIcon style={{ marginLeft: '4px', fontSize: '19px' }} />,
   };
-  anchorEl: HTMLElement;
+  anchorEl: HTMLElement | null = null;
 
   state: ColorPickerState = {
     isColorPickerVisible: false,
   };
 
-  props: ColorPickerProps;
-
   handleClickShowColorPicker = (e: React.MouseEvent<HTMLElement>) => {
-    if (this.props.onDialogOpen) {
+    if (this.props?.onDialogOpen) {
       this.props.onDialogOpen();
     }
     this.setState({ isColorPickerVisible: !this.state.isColorPickerVisible });
@@ -37,7 +35,7 @@ class ColorPicker extends React.Component<ColorPickerProps> {
     return (
       <React.Fragment>
         <Button
-          ref={(node: HTMLElement) => {
+          ref={(node) => {
             this.anchorEl = node;
           }}
           variant="contained"
@@ -70,7 +68,7 @@ class ColorPicker extends React.Component<ColorPickerProps> {
         >
           <div>
             <ChromePicker
-              color={this.props.color}
+              color={this.props.color ?? undefined}
               onChange={this.onChange}
               onChangeComplete={this.handleChangeComplete}
             />

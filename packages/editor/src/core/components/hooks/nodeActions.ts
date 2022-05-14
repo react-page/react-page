@@ -79,7 +79,7 @@ export const useUpdateCellData = (id: string) => {
   const currentLang = useLang();
   return useCallback(
     (
-      data: void | { [key: string]: unknown },
+      data: null | { [key: string]: unknown },
       options: {
         lang?: string;
         notUndoable?: boolean;
@@ -102,7 +102,10 @@ export const useUpdateCellData = (id: string) => {
  */
 export const useRemoveCellById = () => {
   const dispatch = useDispatch();
-  return useCallback((id: string) => dispatch(removeCells([id])), [dispatch]);
+  return useCallback(
+    (id?: string) => dispatch(removeCells(id ? [id] : [])),
+    [dispatch]
+  );
 };
 /**
  * @param id a cell id
@@ -135,8 +138,11 @@ export const useDuplicateCellById = () => {
   const editor = useEditorStore();
 
   return useCallback(
-    (id: string) => dispatch(duplicateCell(editor.getNode(id))),
-    [dispatch]
+    (id: string) => {
+      const node = editor && editor.getNode(id);
+      if (node) dispatch(duplicateCell(node));
+    },
+    [editor, dispatch]
   );
 };
 
@@ -145,7 +151,7 @@ export const useInsertAfter = () => {
   const insertNew = useInsertNew();
 
   return useCallback(
-    (node: Node, insertAfterNodeId: string) => {
+    (node: Node, insertAfterNodeId?: string | null) => {
       if (insertAfterNodeId) {
         dispatch(
           duplicateNode(node, {
@@ -170,11 +176,13 @@ export const useDuplicateMultipleCells = () => {
 
   return useCallback(
     (cellIds: string[]) => {
-      const node = getCommonAncestorTree(editor, cellIds);
-
+      const node = editor && getCommonAncestorTree(editor, cellIds);
+      if (!node) {
+        return;
+      }
       const insertAfterNodeId = isRow(node)
         ? node.id
-        : node.rows[node.rows.length - 1].id;
+        : node?.rows?.[node?.rows?.length ?? 0 - 1]?.id;
 
       insertAfter(node, insertAfterNodeId);
     },
@@ -201,7 +209,7 @@ export const useSetDisplayReferenceNodeId = () => {
   const referenceId = useDisplayModeReferenceNodeId();
 
   return useCallback(
-    (nodeId: string) => {
+    (nodeId?: string | null) => {
       if (nodeId !== referenceId) dispatch(setDisplayReferenceNodeId(nodeId));
     },
     [dispatch, referenceId]
@@ -217,6 +225,9 @@ export const useFocusCellById = () => {
 
   return useCallback(
     (id: string, scrollToCell?: boolean, mode?: FocusMode) => {
+      if (!editor) {
+        return;
+      }
       const parentCellId = editor
         .getNodeWithAncestors(id)
         ?.ancestors?.find((node) => !isRow(node))?.id;
@@ -231,13 +242,16 @@ export const useFocusCellById = () => {
 /**
  * @returns a function to focus a cell by id
  */
-export const useFocusCell = (id: string) => {
+export const useFocusCell = (id?: string | null) => {
   const focusCellById = useFocusCellById();
 
   return useCallback(
-    (scrollToCell?: boolean, mode?: FocusMode) =>
-      focusCellById(id, scrollToCell, mode),
-    [focusCellById]
+    (scrollToCell?: boolean, mode?: FocusMode) => {
+      if (id) {
+        focusCellById(id, scrollToCell, mode);
+      }
+    },
+    [focusCellById, id]
   );
 };
 /**
@@ -306,6 +320,10 @@ export const useTrashDrop = () => {
     collect: (monitor) => ({
       isHovering: monitor.isOver({ shallow: true }),
     }),
-    drop: (item, monitor) => removeCell(item.cell.id),
+    drop: (item, monitor) => {
+      if (item.cell) {
+        removeCell(item.cell.id);
+      }
+    },
   });
 };

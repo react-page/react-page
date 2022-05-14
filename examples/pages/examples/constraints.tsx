@@ -35,7 +35,7 @@ const aPlugin: CellPlugin = {
 const cellPlugins = [slate(), image, aPlugin];
 
 export default function SimpleExample() {
-  const [value, setValue] = useState<Value>(null);
+  const [value, setValue] = useState<Value | null>(null);
 
   return (
     <PageLayout>

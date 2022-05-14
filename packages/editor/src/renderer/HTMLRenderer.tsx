@@ -6,7 +6,7 @@ import { optimizeRows } from '../core/reducer/value/helper/optimize';
 import { setAllSizesAndOptimize } from '../core/reducer/value/helper/setAllSizesAndOptimize';
 import type {
   Cell,
-  CellPlugin,
+  CellPluginList,
   CellSpacing,
   RenderOptions,
   Row,
@@ -23,31 +23,31 @@ import {
   getCellOuterDivClassName,
 } from '../core/utils/getCellStylingProps';
 
-const rowHasInlineChildren = ({ cells }) =>
+const rowHasInlineChildren = ({ cells }: { cells: Cell[] }) =>
   Boolean(cells.length === 2 && Boolean(cells[0].inline));
 
 const HTMLRow: React.FC<
-  Partial<
-    Row & {
-      lang: string;
-      className?: string;
-      cellPlugins: CellPlugin[];
-      cellSpacing: CellSpacing;
-    }
-  >
+  Partial<Row> & {
+    lang: string;
+    className?: string;
+    cellPlugins: CellPluginList;
+    cellSpacing: CellSpacing;
+  }
 > = React.memo(({ cells = [], className, lang, cellPlugins, cellSpacing }) => (
   <div
     className={classNames('react-page-row', className, {
       'react-page-row-has-floating-children': rowHasInlineChildren({ cells }),
     })}
-    style={{ margin: `0 ${-cellSpacing.x / 2}px` }}
+    style={{
+      margin: cellSpacing.x > 0 ? `0 ${-cellSpacing.x / 2}px` : undefined,
+    }}
   >
     {cells.map((c) => (
       <HTMLCell
         key={c.id}
         {...c}
         lang={lang}
-        cellPlugins={cellPlugins}
+        cellPlugins={cellPlugins ?? []}
         cellSpacing={cellSpacing}
       />
     ))}
@@ -61,21 +61,21 @@ const noop = () => {
 
 const HTMLCell: React.FC<
   Cell & {
-    lang: string;
-    cellPlugins: CellPlugin[];
+    lang?: string;
+    cellPlugins: CellPluginList;
     cellSpacing: CellSpacing;
   }
 > = React.memo((props) => {
-  const { lang, cellPlugins, cellSpacing, ...cell } = props;
+  const { lang = 'default', cellPlugins, cellSpacing, ...cell } = props;
   const { size, hasInlineNeighbour, inline, isDraftI18n, isDraft } = cell;
-  const hasChildren = cell.rows?.length > 0;
+  const hasChildren = (cell.rows?.length ?? 0) > 0;
 
   if (isDraftI18n?.[lang] ?? isDraft) {
     return null;
   }
   const data = getCellData(cell, lang) ?? {};
   const plugin = cell.plugin
-    ? cellPlugins.find((p) => p.id === cell.plugin.id)
+    ? cellPlugins.find((p) => p.id === cell.plugin?.id)
     : null;
   const outerClasses = getCellOuterDivClassName({
     hasChildren,
@@ -92,12 +92,11 @@ const HTMLCell: React.FC<
         ? plugin.Provider
         : NoopProvider;
 
-    let pluginCellSpacing = getPluginCellSpacing(plugin, data);
-    if (typeof pluginCellSpacing === 'undefined' || pluginCellSpacing == null) {
-      pluginCellSpacing = cellSpacing;
-    } else {
-      pluginCellSpacing = normalizeCellSpacing(pluginCellSpacing);
-    }
+    const pluginCellSpacing = getPluginCellSpacing(plugin, data);
+
+    const normCellSpacing = pluginCellSpacing
+      ? normalizeCellSpacing(pluginCellSpacing)
+      : cellSpacing;
 
     const props = {
       readOnly: true,
@@ -130,7 +129,7 @@ const HTMLCell: React.FC<
             <div
               style={
                 hasInlineNeighbour
-                  ? null
+                  ? undefined
                   : {
                       display: 'flex',
                       flexDirection: 'column',
@@ -140,13 +139,20 @@ const HTMLCell: React.FC<
             >
               <Renderer {...props}>
                 {cell.rows?.length ? (
-                  <div style={{ margin: `${-pluginCellSpacing.y / 2}px 0` }}>
+                  <div
+                    style={{
+                      margin:
+                        normCellSpacing.y > 0
+                          ? `${-normCellSpacing.y / 2}px 0`
+                          : undefined,
+                    }}
+                  >
                     {cell.rows?.map((r: Row) => (
                       <HTMLRow
                         key={r.id}
                         {...r}
                         cellPlugins={childCellPlugins}
-                        cellSpacing={pluginCellSpacing as CellSpacing}
+                        cellSpacing={normCellSpacing}
                         lang={lang}
                       />
                     ))}
@@ -158,13 +164,15 @@ const HTMLCell: React.FC<
         </div>
       </Provider>
     );
-  } else if (cell.rows?.length > 0) {
+  } else if ((cell.rows?.length ?? 0) > 0) {
     return (
       <div
         className={outerClasses}
-        style={{ padding: `0 ${cellSpacing.x / 2}px` }}
+        style={{
+          padding: cellSpacing.x > 0 ? `0 ${cellSpacing.x / 2}px` : undefined,
+        }}
       >
-        {cell.rows.map((r: Row) => (
+        {cell.rows?.map((r: Row) => (
           <HTMLRow
             key={r.id}
             {...r}
@@ -185,7 +193,7 @@ const HTMLCell: React.FC<
 });
 
 export type HTMLRendererProps = {
-  value: ValueWithLegacy;
+  value: ValueWithLegacy | null;
 
   lang?: string;
 } & RenderOptions;
@@ -203,7 +211,10 @@ export const HTMLRenderer: React.FC<HTMLRendererProps> = React.memo(
     return (
       <div
         style={{
-          margin: optRows?.length ? `${-normCellSpacing.y / 2}px 0` : null,
+          margin:
+            optRows?.length && normCellSpacing.x > 0
+              ? `${-normCellSpacing.y / 2}px 0`
+              : undefined,
         }}
       >
         {setAllSizesAndOptimize(optRows).map((row) => (

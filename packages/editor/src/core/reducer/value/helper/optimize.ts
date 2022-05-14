@@ -24,7 +24,7 @@ export const optimizeCell = (cell: Cell): Cell => {
         }
 
         const { rows: cellRows, plugin }: Cell = cells[0];
-        if (cellRows?.length > 0 && !plugin) {
+        if (cellRows && cellRows?.length > 0 && !plugin) {
           return cellRows;
         }
         return [r];
@@ -40,8 +40,8 @@ export const optimizeRow = ({ cells, ...other }: Row): Row =>
     ...other,
     cells: cells
       ?.map((c: Cell) => {
-        const { rows = [], size } = c;
-        if (rows.length !== 1 || c.plugin) {
+        const { rows, size } = c;
+        if (!rows || rows.length !== 1 || c.plugin) {
           return [c];
         }
 

@@ -1,8 +1,8 @@
-import type { CellPlugin } from '../types/plugins';
+import type { CellPluginList } from '../types/plugins';
 import type { MigrationVersion } from './migrate';
 
 export type MigrationContext = {
-  cellPlugins: CellPlugin[];
+  cellPlugins: CellPluginList;
   lang: string;
 };
 interface MigrationConfig<TIn, TOut> {
@@ -15,7 +15,8 @@ interface MigrationConfig<TIn, TOut> {
   migrate: (state: TIn, context: MigrationContext) => TOut;
 }
 
-export const sanitizeVersion = (version: MigrationVersion) => {
+export const sanitizeVersion = (version?: MigrationVersion) => {
+  if (!version) return 0;
   // string versions are deprecated
   if (typeof version === 'string') {
     const [major, minor, patch] = version

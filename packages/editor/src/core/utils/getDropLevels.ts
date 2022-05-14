@@ -7,7 +7,7 @@ const getMyPositionInParent = (node: Node, parent: Node): [number, number] => {
   return [index, siblings.length];
 };
 
-const left = (node: Node, ancestors: Node[]) => {
+const left = (node: Node, ancestors: Node[]): number => {
   const [parent, ...greatParents] = ancestors;
   if (!parent) return 0;
   if (isRow(node)) {
@@ -22,7 +22,7 @@ const left = (node: Node, ancestors: Node[]) => {
   }
 };
 
-const right = (node: Node, ancestors: Node[]) => {
+const right = (node: Node, ancestors: Node[]): number => {
   const [parent, ...greatParents] = ancestors;
   if (!parent) return 0;
   if (isRow(node)) {
@@ -37,7 +37,7 @@ const right = (node: Node, ancestors: Node[]) => {
   }
 };
 
-const above = (node: Node, ancestors: Node[]) => {
+const above = (node: Node, ancestors: Node[]): number => {
   const [parent, ...greatParents] = ancestors;
   if (!parent) return 0;
   if (!isRow(node)) {
@@ -52,7 +52,7 @@ const above = (node: Node, ancestors: Node[]) => {
   }
 };
 
-const below = (node: Node, ancestors: Node[]) => {
+const below = (node: Node, ancestors: Node[]): number => {
   const [parent, ...greatParents] = ancestors;
   if (!parent) return 0;
   if (!isRow(node)) {

@@ -30,8 +30,8 @@ const createPlugin: (settings: SpacerSettings) => CellPlugin<SpacerState> = (
     id: 'ory/editor/core/content/spacer',
     version: 1,
     icon: <AspectRatio />,
-    title: mergedSettings.translations.pluginName,
-    description: mergedSettings.translations.pluginDescription,
+    title: mergedSettings.translations?.pluginName,
+    description: mergedSettings.translations?.pluginDescription,
     allowClickInside: true,
     createInitialData: () => ({
       height: 24,

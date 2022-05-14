@@ -1,21 +1,21 @@
-import type { Cell, CellPlugin } from '../types';
+import type { Cell, CellPlugin, DataTType } from '../types';
 
 import classNames from 'classnames';
 
 export const getCellInnerDivStyle = (
-  cell: Cell,
-  plugin: CellPlugin,
-  data: unknown
+  cell: Cell | null,
+  plugin: CellPlugin | null,
+  data: DataTType
 ) =>
-  plugin?.cellStyle
+  cell && plugin?.cellStyle
     ? typeof plugin?.cellStyle === 'function'
       ? plugin?.cellStyle(data)
       : plugin?.cellStyle
     : undefined;
 
 export const getCellInnerDivClassName = (
-  cell: Cell,
-  plugin: CellPlugin,
+  cell: Cell | null,
+  plugin: CellPlugin | null,
   data: unknown
 ) => {
   const additionalClass = plugin?.cellClassName
@@ -26,15 +26,15 @@ export const getCellInnerDivClassName = (
 
   return (
     'react-page-cell-inner' +
-    (cell.rows?.length > 0 ? '' : ' react-page-cell-inner-leaf') +
+    ((cell?.rows?.length ?? 0) > 0 ? '' : ' react-page-cell-inner-leaf') +
     (additionalClass ? ' ' + additionalClass : '')
   );
 };
 
 export const getCellInnerDivStylingProps = (
-  cell: Cell,
-  plugin: CellPlugin,
-  data: unknown
+  cell: Cell | null,
+  plugin: CellPlugin | null,
+  data: DataTType
 ) => {
   return {
     style: getCellInnerDivStyle(cell, plugin, data),
@@ -42,7 +42,7 @@ export const getCellInnerDivStylingProps = (
   };
 };
 
-export const gridClass = (size: number): string => {
+export const gridClass = (size?: number): string => {
   return `react-page-cell-sm-${size || 12} react-page-cell-xs-12`;
 };
 
@@ -52,10 +52,10 @@ export const getCellOuterDivClassName = ({
   inline,
   hasChildren,
 }: {
-  size: number;
+  size?: number;
   hasChildren: boolean;
-  hasInlineNeighbour: string;
-  inline?: string;
+  hasInlineNeighbour?: string;
+  inline?: string | null;
 }) => {
   return classNames('react-page-cell', gridClass(size), {
     'react-page-cell-has-inline-neighbour': hasInlineNeighbour,

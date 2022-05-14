@@ -36,12 +36,14 @@ const Item: React.FC<ItemProps> = ({ plugin, insert }) => {
   return (
     <Draggable insert={insert}>
       <ListItem
-        title={t('Click to add or drag and drop it somewhere on your page!')}
+        title={
+          t('Click to add or drag and drop it somewhere on your page!') ?? ''
+        }
         className="react-page-plugin-drawer-item"
         onClick={insertIt}
       >
         <Avatar
-          children={plugin.icon || title[0]}
+          children={plugin.icon || title?.[0]}
           style={{
             marginRight: 16,
           }}

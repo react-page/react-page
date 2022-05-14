@@ -1,5 +1,3 @@
-import type { CellPlugin } from '@react-page/editor';
-
 // The background plugin
 import background, { ModeEnum } from '@react-page/plugins-background';
 // import css as well. currently, we caannot do this here in the demo project and have moved that to _app.tsx
@@ -55,7 +53,7 @@ const fakeImageUploadService: (url: string) => ImageUploadType =
 
 // Define which plugins we want to use.
 
-export const cellPlugins: CellPlugin[] = [
+export const cellPlugins = [
   defaultSlate,
   customizedSlate,
   spacer,

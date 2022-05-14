@@ -1,10 +1,11 @@
 import type React from 'react';
+import type { DataTType } from '.';
 
 type UniformsProps<Data> = Record<string, unknown> & {
   label?: string;
   placeholder?: string;
   multiline?: boolean;
-  component?: React.ComponentType;
+  component?: React.ComponentType<{ name: string }>;
   /**
    * whether to show the field
    */
@@ -110,7 +111,7 @@ export type JsonSchemaProperty<Field, Data> = Field extends (infer U)[]
   ? BooleanType<Data>
   : never;
 
-export type JsonSchema<Data extends Record<string, unknown> | unknown> = {
+export type JsonSchema<Data extends DataTType> = {
   title?: string;
   /**
    * type object is for a nested object

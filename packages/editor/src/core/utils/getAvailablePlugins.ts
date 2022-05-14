@@ -1,9 +1,9 @@
-import type { CellPlugin } from '../types';
+import type { CellPluginList, DataTType } from '../types';
 export const getChildCellPlugins = (
-  currentCellPlugins: CellPlugin[],
+  currentCellPlugins: CellPluginList,
   cell: {
-    pluginId: string;
-    data: unknown;
+    pluginId?: string | null;
+    data: DataTType | null;
   }
 ) => {
   if (!cell?.pluginId) {
@@ -25,14 +25,14 @@ export const getChildCellPlugins = (
       return filtered;
     }
     return [p, ...filtered];
-  }, [] as CellPlugin[]);
+  }, [] as CellPluginList);
 };
 
 export const getAvailablePlugins = (
-  rootCellPlugins: CellPlugin[],
+  rootCellPlugins: CellPluginList,
   ancestors: {
-    pluginId: string;
-    data: unknown;
+    pluginId?: string | null;
+    data: DataTType | null;
   }[]
 ) => {
   let currentPlugins = rootCellPlugins;

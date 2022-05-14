@@ -8,20 +8,20 @@ import { useNodeAsHoverTarget, useNodeProps } from './node';
 import { findSiblingRow } from './utils/findSiblingRow';
 
 type ActionDef = {
-  node: Node;
+  node: Node | null;
   action: keyof Pick<
     HoverInsertActions,
     'above' | 'below' | 'leftOf' | 'rightOf'
   >;
-  targetNodeId: string;
+  targetNodeId?: string | null;
 };
 
-type Selector = (node: Node, ancestors: Node[]) => ActionDef;
+type Selector = (node: Node | null, ancestors: Node[]) => ActionDef;
 
 export const getTargetIndexForUpAndDownMove = (
   currentRowLength: number,
   targetRowLength: number,
-  myIndex: number
+  myIndex = 0
 ): {
   index: number;
   action: 'leftOf' | 'rightOf';
@@ -40,10 +40,11 @@ export const getTargetIndexForUpAndDownMove = (
 };
 const useMoveCellAction = (nodeId: string, selector: Selector) => {
   const actions = useDropActions(nodeId);
-  const { node, targetNodeId, action } = useNodeProps<ActionDef>(
-    nodeId,
-    selector
-  );
+  const {
+    node,
+    targetNodeId = null,
+    action,
+  } = useNodeProps<ActionDef>(nodeId, selector);
 
   const isEditMode = useIsEditMode();
 
@@ -51,7 +52,7 @@ const useMoveCellAction = (nodeId: string, selector: Selector) => {
 
   return useMemo(() => {
     // skip if no target
-    if (!hoverTarget) {
+    if (!hoverTarget || !node) {
       return null;
     }
     return () => {
@@ -75,8 +76,10 @@ export const useMoveNodeUp = (nodeId: string) => {
       // break if a parent row is not the first row of a cell, because then we would "jump" a parent
       (row, parentOfRow) => {
         return (
-          parentOfRow &&
-          parentOfRow?.rows?.findIndex((r) => r.id === row.id) !== 0
+          (row &&
+            parentOfRow &&
+            parentOfRow?.rows?.findIndex((r) => r.id === row.id) !== 0) ??
+          false
         );
       }
     );
@@ -96,7 +99,7 @@ export const useMoveNodeUp = (nodeId: string) => {
     const previousRowCells = previousRow?.cells;
     const { index, action } = getTargetIndexForUpAndDownMove(
       parent?.cells?.length ?? 0,
-      previousRowCells?.length,
+      previousRowCells?.length ?? 0,
       myIndexInParent
     );
     return {
@@ -122,9 +125,11 @@ export const useMoveNodeDown = (nodeId: string) => {
       // break if a parent row is not the last row of a cell, because then we would "jump" a parent
       (row, parentOfRow) => {
         return (
-          parentOfRow &&
-          parentOfRow?.rows?.findIndex((r) => r.id === row.id) !==
-            parentOfRow.rows.length - 1
+          (row &&
+            parentOfRow &&
+            parentOfRow?.rows?.findIndex((r) => r.id === row.id) !==
+              (parentOfRow.rows?.length ?? 0) - 1) ??
+          false
         );
       }
     );
@@ -139,12 +144,13 @@ export const useMoveNodeDown = (nodeId: string) => {
     // else move it into next row as sibling
     const parent = isRow(ancestors?.[0]) ? ancestors?.[0] : null;
     const nextRow = findSiblingRow(nodeId, ancestors, 'next');
-    const myIndexInParent = parent?.cells.findIndex((c) => c.id === nodeId);
+    const myIndexInParent =
+      parent?.cells.findIndex((c) => c.id === nodeId) ?? 0;
     const nextRowCells = nextRow?.cells;
 
     const { index, action } = getTargetIndexForUpAndDownMove(
       parent?.cells?.length ?? 0,
-      nextRowCells?.length,
+      nextRowCells?.length ?? 0,
       myIndexInParent
     );
     return {
@@ -157,9 +163,9 @@ export const useMoveNodeDown = (nodeId: string) => {
 
 const searchAncestorRows = (
   ancestors: Node[],
-  find: (row: Row, parentOfRow: Cell) => Node | null,
-  breakIf?: (row: Row, parentOfRow: Cell) => boolean
-): Node => {
+  find: (row: Row, parentOfRow: Cell | null) => Node | null,
+  breakIf?: (row: Row | null, parentOfRow: Cell | null) => boolean
+): Node | null => {
   for (let i = 0; i < ancestors.length; i++) {
     const parent = ancestors[i];
     const greatParent = ancestors[i + 1];

@@ -72,10 +72,9 @@ const defaultConfig: DefaultSlateDefinition = {
 type CreateSlateData<TPlugins> = (
   custom?: CreateDataCustomizer<TPlugins>
 ) => SlateState;
-export type SlateCellPlugin<TPlugins> = CellPlugin<
-  SlateState,
-  Omit<SlateState, 'selection'>
-> & {
+export type SlateCellPlugin<
+  TPlugins extends SlatePluginCollection = DefaultPlugins
+> = CellPlugin<SlateState, Omit<SlateState, 'selection'>> & {
   createData: CreateSlateData<TPlugins>;
   createDataFromHtml: (html: string) => Promise<SlateState>;
   /**
@@ -83,6 +82,7 @@ export type SlateCellPlugin<TPlugins> = CellPlugin<
    */
   createInitialSlateState: CreateSlateData<TPlugins>;
 };
+
 export type SlateCustomizeFunction<TPlugins extends SlatePluginCollection> = (
   def: DefaultSlateDefinition
 ) => SlateDefinition<TPlugins>;
@@ -94,7 +94,10 @@ function plugin<TPlugins extends SlatePluginCollection = DefaultPlugins>(
     customize ? customize(defaultConfig) : defaultConfig
   ) as SlateDefinition<TPlugins>;
 
-  const createData = (customizer: CreateDataCustomizer<TPlugins>) => {
+  const createData = (customizer?: CreateDataCustomizer<TPlugins>) => {
+    if (!customizer) {
+      return { slate: [] };
+    }
     return transformInitialSlateState(
       customizer({ plugins: settings.plugins })
     );

@@ -3,7 +3,7 @@ import React from 'react';
 
 import { findNodeInState } from '../../../selector/editable';
 import { getCellData } from '../../../utils/getCellData';
-import type { Cell, CellPlugin } from '../../../types';
+import type { Cell, CellPluginList } from '../../../types';
 import createStore from '../../../store';
 import { initialState } from '../../../reducer';
 import { ReduxProvider } from '../../../reduxConnect';
@@ -11,7 +11,7 @@ import { createValue } from '../../../utils/createValue';
 import { useDebouncedCellData } from '../node';
 import { updateCellData } from '../../../actions/cell';
 
-const cellPlugins: CellPlugin[] = [
+const cellPlugins: CellPluginList = [
   {
     id: 'foo',
     version: 1,

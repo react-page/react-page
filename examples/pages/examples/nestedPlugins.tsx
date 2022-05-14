@@ -118,7 +118,7 @@ const deeplyNestedA: CellPlugin = {
 const cellPlugins = [fullSlate, image, aPlugin, anotherPlugin, deeplyNestedA];
 
 export default function NestedPluginsExample() {
-  const [value, setValue] = useState<Value>(null);
+  const [value, setValue] = useState<Value | null>(null);
   const [readOnly, setReadOnly] = useState(false);
 
   return (

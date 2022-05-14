@@ -24,11 +24,11 @@ const RenderOptionsProvider: React.FC<RenderOptions> = ({
     lastRenderOptions.current = fullRenderOptions;
   }
 
-  return (
+  return lastRenderOptions.current ? (
     <RenderOptionsContext.Provider value={lastRenderOptions.current}>
       {children}
     </RenderOptionsContext.Provider>
-  );
+  ) : null;
 };
 
 export default RenderOptionsProvider;

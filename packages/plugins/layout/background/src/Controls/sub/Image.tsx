@@ -61,17 +61,17 @@ class ImageComponent extends React.Component<
                 variant="body1"
                 style={{ margin: '20px 16px 0 16px' }}
               >
-                {this.props.translations.or}
+                {this.props.translations?.or}
               </Typography>
             </React.Fragment>
           )}
 
           <TextField
-            placeholder={this.props.translations.srcPlaceholder}
+            placeholder={this.props.translations?.srcPlaceholder}
             label={
               this.props.imageUpload
-                ? this.props.translations.haveUrl
-                : this.props.translations.imageUrl
+                ? this.props.translations?.haveUrl
+                : this.props.translations?.imageUrl
             }
             style={{ width: '256px' }}
             value={background}
@@ -85,7 +85,7 @@ class ImageComponent extends React.Component<
                 checked={isParallax}
               />
             }
-            label={this.props.translations.isParallax}
+            label={this.props.translations?.isParallax}
           />
         </div>
       </div>

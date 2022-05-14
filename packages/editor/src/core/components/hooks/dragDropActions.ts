@@ -54,7 +54,7 @@ export const useHoverActions = () => {
  * @param nodeId the parent reference node id
  * @returns object of actions for dropping a cell
  */
-export const useDropActions = (parentNodeId: string) => {
+export const useDropActions = (parentNodeId?: string | null) => {
   const dispatch = useDispatch();
 
   const lang = useLang();

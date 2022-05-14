@@ -138,7 +138,7 @@ export const raAboutUs: Value = {
             },
           ],
           inline: null,
-          dataI18n: null,
+          dataI18n: undefined,
         },
       ],
     },

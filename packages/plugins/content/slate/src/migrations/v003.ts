@@ -1,7 +1,8 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Migration } from '@react-page/editor';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const removeLeaves = (nodes: Array<any>) => {
+const removeLeaves = (nodes: Array<any>): Array<any> => {
   if (!nodes) {
     return [];
   }
@@ -10,7 +11,7 @@ const removeLeaves = (nodes: Array<any>) => {
       // we don't need the node itself, as we exepct it to be a text node
       return [
         ...acc,
-        ...node.leaves.map((leave) => ({
+        ...node.leaves.map((leave: any) => ({
           ...leave,
           object: 'text',
         })),

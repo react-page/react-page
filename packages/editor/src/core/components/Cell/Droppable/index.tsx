@@ -21,7 +21,7 @@ import {
 import { onDrop, onHover } from './helper/dnd';
 
 export const useCellDrop = (nodeId: string) => {
-  const ref = React.useRef<HTMLDivElement>(null);
+  const ref = React.useRef<HTMLDivElement>();
 
   const hoverTarget = useNodeAsHoverTarget(nodeId);
 
@@ -44,6 +44,9 @@ export const useCellDrop = (nodeId: string) => {
   >({
     accept: 'cell',
     canDrop: (item) => {
+      if (!item.cell) {
+        return false;
+      }
       // check if plugin is allowed here
       if (!checkIfAllowed(item)) {
         return false;
@@ -55,7 +58,7 @@ export const useCellDrop = (nodeId: string) => {
       }
       return (
         item.cell.id !== nodeId &&
-        !hoverTarget?.ancestorIds.includes(item.cell.id)
+        !(item.cell.id && hoverTarget?.ancestorIds?.includes(item.cell.id))
       );
     },
     collect: (monitor) => ({
@@ -63,6 +66,9 @@ export const useCellDrop = (nodeId: string) => {
       isAllowed: checkIfAllowed(monitor.getItem()),
     }),
     hover(item, monitor) {
+      if (!item.cell || !hoverTarget || !ref.current) {
+        return false;
+      }
       if (plugin?.allowNeighbour) {
         if (!plugin.allowNeighbour(item.cell)) {
           return false;
@@ -71,6 +77,9 @@ export const useCellDrop = (nodeId: string) => {
       onHover(hoverTarget, monitor, ref.current, hoverActions, cellPlugins);
     },
     drop: (item, monitor) => {
+      if (!hoverTarget || !ref.current) {
+        return;
+      }
       onDrop(hoverTarget, monitor, ref.current, dropActions, cellPlugins);
     },
   });
@@ -99,7 +108,7 @@ const Droppable: React.FC<{ nodeId: string; isLeaf?: boolean }> = (props) => {
   const hoverPosition = useNodeHoverPosition(props.nodeId);
   const allowMoveInEditMode = useOption('allowMoveInEditMode');
   const hasPlugin = useCellHasPlugin(props.nodeId);
-  const { y: cellSpacingY } = useCellSpacing();
+  const { y: cellSpacingY } = useCellSpacing() ?? { y: 0 };
   const needVerticalMargin = !props.isLeaf && !hasPlugin;
 
   if (!(isLayoutMode || isInsertMode) && !allowMoveInEditMode) {

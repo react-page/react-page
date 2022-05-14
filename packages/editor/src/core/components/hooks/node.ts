@@ -19,7 +19,7 @@ import { useRenderOption } from './renderOptions';
 /**
  *
  */
-type NodeSelector<T> = (node: Node, ancestors: Node[]) => T;
+type NodeSelector<T> = (node: Node | null, ancestors: Node[]) => T;
 
 /**
  * Use this function to get derived properties of a node. It prevents unnessesary rerenders when only the nessesary properties are returned by the selector
@@ -31,11 +31,11 @@ type NodeSelector<T> = (node: Node, ancestors: Node[]) => T;
  * @returns the selection T
  */
 export const useNodeProps = <T>(
-  nodeId: string,
+  nodeId: string | null,
   selector: NodeSelector<T>
 ): T => {
   const node = useSelector((state) => {
-    const result = findNodeInState(state, nodeId);
+    const result = nodeId ? findNodeInState(state, nodeId) : null;
 
     if (!result) {
       return selector(null, []);
@@ -59,7 +59,7 @@ export const useNodeAncestorProps = <T>(
   return useNodeProps(nodeId, (__, ancestors) => selector(ancestors));
 };
 
-type CellSelector<T> = (node: Cell, ancestors: Node[]) => T;
+type CellSelector<T> = (node: Cell | null, ancestors: Node[]) => T;
 
 /**
  * This is the same as @see useNodeProps, but only for cells. selector will receive null if the given nodeId is not a cell
@@ -71,9 +71,6 @@ export const useCellProps = <T>(
   nodeId: string,
   selector: CellSelector<T>
 ): T => {
-  if (!nodeId) {
-    return null;
-  }
   return useNodeProps(nodeId, (node, ancestors) =>
     node && !isRow(node) ? selector(node, ancestors) : selector(null, ancestors)
   );
@@ -97,7 +94,10 @@ type RowSelector<T> = (node: Row, ancestors: Node[]) => T;
  * @param selector receives the row or null (if no row with this id exists) object and returns T
  * @returns the selection T
  */
-export const useRowProps = <T>(nodeId: string, selector: RowSelector<T>): T => {
+export const useRowProps = <T>(
+  nodeId: string,
+  selector: RowSelector<T>
+): T | null => {
   return useNodeProps(nodeId, (node, ancestors) =>
     isRow(node) ? selector(node, ancestors) : null
   );
@@ -108,7 +108,7 @@ export const useRowProps = <T>(nodeId: string, selector: RowSelector<T>): T => {
  * @param nodeId id of a node
  * @returns the relative hover position over the given node, or null if this node is not hovered over
  */
-export const useNodeHoverPosition = (nodeId: string): PositionEnum => {
+export const useNodeHoverPosition = (nodeId: string): PositionEnum | null => {
   return useSelector((state) =>
     state.reactPage.hover?.nodeId === nodeId
       ? state.reactPage.hover?.position
@@ -132,7 +132,7 @@ export const useNodeAncestorIds = (nodeId: string) => {
  * @param nodeId the id of a row or cell
  * @returns the nearest ancestor cell of the cell or row that has a plugin
  */
-export const useParentCellId = (nodeId: string) => {
+export const useParentCellId = (nodeId: string | null) => {
   return useNodeProps(nodeId, (node, ancestors) =>
     node && ancestors
       ? ancestors.find((node) => !isRow(node) && node.plugin)?.id
@@ -146,17 +146,21 @@ export const useParentCellId = (nodeId: string) => {
  * @param nodeId a nodeId
  * @returns a HoverTarget
  */
-export const useNodeAsHoverTarget = (nodeId: string): HoverTarget => {
+export const useNodeAsHoverTarget = (
+  nodeId: string | null
+): HoverTarget | null => {
   return useNodeProps(nodeId, (node, ancestors) =>
     node
       ? {
           id: node.id,
           // the last element is the root element, we can't currenly use that as hover target
           ancestorIds: ancestors.slice(0, -1).map((a) => a.id),
-          hasInlineNeighbour: !isRow(node) ? node.hasInlineNeighbour : null,
+          hasInlineNeighbour: !isRow(node)
+            ? node.hasInlineNeighbour
+            : undefined,
           inline: !isRow(node) ? node.inline : null,
           levels: getDropLevels(node, ancestors),
-          pluginId: !isRow(node) ? node.plugin?.id : null,
+          pluginId: !isRow(node) ? node.plugin?.id : undefined,
         }
       : null
   );
@@ -169,9 +173,12 @@ export const useNodeAsHoverTarget = (nodeId: string): HoverTarget => {
 export const useCellBounds = (nodeId: string) => {
   return useNodeProps(nodeId, (node, ancestors) => {
     const parent = isRow(ancestors[0]) ? ancestors[0] : null;
+    if (!node) {
+      return null;
+    }
     const myIndex = parent?.cells.findIndex((c) => c.id === node.id) ?? -1;
     const cell = !isRow(node) ? node : null;
-    if (!cell || myIndex < 0) {
+    if (!parent || !cell || myIndex < 0) {
       return null;
     }
     if (cell.inline) {
@@ -181,11 +188,14 @@ export const useCellBounds = (nodeId: string) => {
       };
     }
     return {
-      left: myIndex > 0 ? parent.cells[myIndex - 1].size + cell.size - 1 : 0,
+      left:
+        myIndex > 0
+          ? (parent.cells[myIndex - 1]?.size ?? 0) + (cell.size ?? 0) - 1
+          : 0,
       right:
         myIndex === parent.cells.length - 1
           ? 0
-          : cell.size - 1 + parent.cells[myIndex + 1].size,
+          : (cell.size ?? 0) - 1 + (parent.cells[myIndex + 1]?.size ?? 0),
     };
   });
 };
@@ -198,8 +208,8 @@ export const useCellBounds = (nodeId: string) => {
 export const useNodeChildrenIds = (nodeId: string) => {
   return useNodeProps(nodeId, (node) =>
     isRow(node)
-      ? node.cells?.map((c) => c.id) ?? []
-      : node.rows?.map((r) => r.id) ?? []
+      ? node?.cells?.map((c) => c.id) ?? []
+      : node?.rows?.map((r) => r.id) ?? []
   );
 };
 
@@ -212,7 +222,7 @@ export const useNodeHasChildren = (nodeId: string) => {
   return useNodeProps(nodeId, (node) =>
     isRow(node)
       ? node.cells?.length > 0 ?? false
-      : node.rows?.length > 0 ?? false
+      : (node?.rows?.length ?? 0) > 0 ?? false
   );
 };
 /**
@@ -221,14 +231,16 @@ export const useNodeHasChildren = (nodeId: string) => {
  * @returns true if this cell has a configured plugin. It does not check if this plugin exists (in @see Options)
  */
 export const useCellHasPlugin = (nodeId: string) => {
-  return useCellProps(nodeId, (c) => Boolean(c.plugin));
+  return useCellProps(nodeId, (c) => Boolean(c?.plugin));
 };
 
 /**
  * @param parentNodeId the parent node id, or null if its the root
  * @returns all configured CellPlugin that are allowed in the given parentCellId
  */
-export const useAllCellPluginsForNode = (parentNodeId?: string) => {
+export const useAllCellPluginsForNode = (
+  parentNodeId: string | null = null
+) => {
   const currentLang = useLang();
 
   const ancestors = useNodeProps(parentNodeId, (node, ancestors) => {
@@ -256,7 +268,7 @@ export const useCellIsAllowedHere = (nodeId?: string) => {
       const itemPluginId =
         typeof item.cell?.plugin === 'string'
           ? item.cell.plugin
-          : item.cell?.plugin.id;
+          : item.cell?.plugin?.id;
       const allowed =
         !item.cell?.plugin ||
         availablePlugins.some((p) => p.id === itemPluginId);
@@ -274,12 +286,13 @@ export const useCellIsAllowedHere = (nodeId?: string) => {
  *
  */
 export const usePluginOfCell = (nodeId: string) => {
-  const { pluginId, parentNodeId } = useCellProps(nodeId, (c, ancestors) => ({
-    pluginId: c?.plugin?.id,
-    parentNodeId: ancestors?.[0]?.id,
-  }));
+  const { pluginId, parentNodeId } =
+    useCellProps(nodeId, (c, ancestors) => ({
+      pluginId: c?.plugin?.id,
+      parentNodeId: ancestors?.[0]?.id,
+    })) ?? {};
   const plugins = useAllCellPluginsForNode(parentNodeId);
-  return plugins.find((p) => p.id === pluginId);
+  return plugins.find((p) => p.id === pluginId) ?? null;
 };
 
 /**
@@ -314,18 +327,20 @@ export const useCellInnerDivStylingProps = (
   nodeId: string,
   lang?: string
 ): {
-  className: string;
-  style: CSSProperties;
+  className?: string;
+  style?: CSSProperties;
 } => {
   const plugin = usePluginOfCell(nodeId);
 
   const currentLang = useLang();
   const theLang = lang ?? currentLang;
 
-  return useCellProps(nodeId, (c) => {
-    const data = getCellData(c, theLang);
-    return getCellInnerDivStylingProps(c, plugin, data);
-  });
+  return (
+    useCellProps(nodeId, (c) => {
+      const data = getCellData(c, theLang);
+      return getCellInnerDivStylingProps(c, plugin, data);
+    }) ?? {}
+  );
 };
 
 /**

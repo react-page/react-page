@@ -11,7 +11,7 @@ export const getAlignmentFromElement = (el: HTMLElement) => {
 };
 export default {
   paragraph: createComponentPlugin<{
-    align: Align;
+    align?: Align;
   }>({
     type: 'PARAGRAPH/PARAGRAPH',
     label: 'Paragraph',
@@ -28,7 +28,7 @@ export default {
   }),
   // currently only for deserialize
   pre: createComponentPlugin<{
-    align: Align;
+    align?: Align;
   }>({
     type: 'PARAGRAPH/PRE',
     label: 'Pre',

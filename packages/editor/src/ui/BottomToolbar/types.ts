@@ -4,7 +4,7 @@ export type BottomToolbarProps = {
   style?: React.CSSProperties;
   children?: React.ReactNode;
   className?: string;
-  dark: boolean;
+  dark?: boolean;
   anchor?: 'top' | 'bottom' | 'left' | 'right';
   pluginControls?: ReactNode;
   actionsLeft?: ReactNode;

@@ -1,11 +1,5 @@
 import type { DropTargetMonitor } from 'react-dnd';
-
-import type {
-  CellPlugin,
-  Options,
-  PartialCell,
-  RenderOptions,
-} from '../../types';
+import type { CellPluginList, PartialCell } from '../../types';
 import type { HoverInsertActions, Room, Vector } from '../../types/hover';
 import type { HoverTarget } from './computeHover';
 import { computeHover } from './computeHover';
@@ -16,7 +10,7 @@ const computeCurrentDropPosition = (
   drag: PartialCell,
   monitor: DropTargetMonitor,
   element: HTMLElement,
-  cellPlugins: CellPlugin[]
+  cellPlugins: CellPluginList
 ) => {
   const mousePosition = monitor.getClientOffset();
 
@@ -25,6 +19,9 @@ const computeCurrentDropPosition = (
     height: componentPosition.bottom - componentPosition.top,
     width: componentPosition.right - componentPosition.left,
   };
+  if (!mousePosition) {
+    return;
+  }
 
   const mouse: Vector = {
     y: mousePosition.y - componentPosition.top,
@@ -44,7 +41,7 @@ export const computeAndDispatchInsert = (
   monitor: DropTargetMonitor,
   element: HTMLElement,
   actions: HoverInsertActions,
-  cellPlugins: CellPlugin[]
+  cellPlugins: CellPluginList
 ) => {
   return computeCurrentDropPosition(
     actions,
@@ -62,7 +59,7 @@ export const computeAndDispatchHover = (
   monitor: DropTargetMonitor,
   element: HTMLElement,
   actions: HoverInsertActions,
-  cellPlugins: CellPlugin[]
+  cellPlugins: CellPluginList
 ) =>
   computeCurrentDropPosition(
     actions,

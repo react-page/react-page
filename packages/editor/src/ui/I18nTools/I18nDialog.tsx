@@ -44,7 +44,7 @@ const I18nDialog = ({
       <hr />
       <Table>
         <tbody>
-          {languages.map((l, index) => {
+          {languages?.map((l, index) => {
             const data = dataI18n?.[l.lang];
             const isCurrent = currentLang === l.lang;
             const hasData = Boolean(data);

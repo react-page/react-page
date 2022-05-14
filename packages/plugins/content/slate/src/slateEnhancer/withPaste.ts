@@ -52,7 +52,7 @@ const withPaste =
             Transforms.insertNodes(editor, {
               type: defaultPluginType,
               children: [{ text: thisLineText }],
-            } as any);
+            });
             nextWillbeParagraph = false;
           } else {
             Transforms.insertText(editor, thisLineText);

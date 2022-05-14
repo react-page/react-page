@@ -15,8 +15,8 @@ const createPlugin: (settings: DividerSettings) => CellPlugin = (settings) => {
     id: 'ory/editor/core/content/divider',
     version: 1,
     icon: <Remove />,
-    title: mergedSettings.translations.pluginName,
-    description: mergedSettings.translations.pluginDescription,
+    title: mergedSettings.translations?.pluginName,
+    description: mergedSettings.translations?.pluginDescription,
   };
 };
 

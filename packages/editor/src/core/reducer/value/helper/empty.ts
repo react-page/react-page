@@ -8,7 +8,7 @@ export const isEmpty = (node: Node): boolean => {
   if (isRow(node)) {
     return node.cells.length === 0;
   }
-  if (node.rows?.length > 0) {
+  if (node.rows && node.rows?.length > 0) {
     return false;
   }
   return !node.plugin;

@@ -57,21 +57,21 @@ class BackgroundDefaultControls extends React.Component<
     });
   };
 
-  handleChangeBackgroundColorPreview = (e: RGBColor) =>
+  handleChangeBackgroundColorPreview = (e?: RGBColor) =>
     this.setState({ backgroundColorPreview: e });
 
   handleChangeGradientDegPreview = (
-    gradientDegPreview: number,
+    gradientDegPreview: number | undefined,
     gradientDegPreviewIndex?: number
   ) => this.setState({ gradientDegPreview, gradientDegPreviewIndex });
 
   handleChangeGradientOpacityPreview = (
-    gradientOpacityPreview: number,
+    gradientOpacityPreview: number | undefined,
     gradientOpacityPreviewIndex?: number
   ) => this.setState({ gradientOpacityPreview, gradientOpacityPreviewIndex });
 
   handleChangeGradientColorPreview = (
-    gradientColorPreview: RGBColor,
+    gradientColorPreview: RGBColor | undefined,
     gradientColorPreviewIndex?: number,
     gradientColorPreviewColorIndex?: number
   ) =>
@@ -86,10 +86,15 @@ class BackgroundDefaultControls extends React.Component<
 
   handleImageUploaded = () => this.setState({ imagePreview: undefined });
 
-  handleChangeModeSwitch = (mode: ModeEnum, modeFlag: ModeEnum) => () => {
-    modeFlag ^= mode;
-    this.props.onChange({ modeFlag });
-  };
+  handleChangeModeSwitch =
+    (mode: ModeEnum | undefined, modeFlag: ModeEnum | undefined) => () => {
+      if (mode && modeFlag) {
+        modeFlag ^= mode;
+        this.props.onChange({ modeFlag });
+      } else {
+        this.props.onChange({ modeFlag });
+      }
+    };
 
   render() {
     return (

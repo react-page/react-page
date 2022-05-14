@@ -7,9 +7,9 @@ export const DEFAULT_OPTIONS: Required<Options> = {
   allowMoveInEditMode: true,
   allowResizeInEditMode: true,
 
-  childConstraints: null,
+  childConstraints: {},
   components: {},
-  languages: null,
+  languages: [],
   uiTranslator: null,
   zoomEnabled: true,
   zoomFactors: [1, 0.75, 0.5, 0.25],

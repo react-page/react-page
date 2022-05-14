@@ -1,7 +1,6 @@
 import isHotkey from 'is-hotkey';
 import type { DependencyList } from 'react';
 import React from 'react';
-import { Transforms } from 'slate';
 import { ReactEditor } from 'slate-react';
 import { useSlate } from 'slate-react';
 import { addPlugin } from '../hooks/useAddPlugin';
@@ -23,7 +22,7 @@ export const useOnKeyDown = (
     plugins
       .filter((plugin) => plugin.hotKey)
       .forEach((plugin) => {
-        if (isHotkey(plugin.hotKey, event)) {
+        if (plugin.hotKey && isHotkey(plugin.hotKey, event)) {
           event.preventDefault();
           const node = getCurrentNodeWithPlugin(editor, plugin);
           if (node) {

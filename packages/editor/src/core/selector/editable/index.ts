@@ -7,7 +7,7 @@ const findNode = (
   nodes: Node[],
   nodeId: string,
   ancestors: Node[] = []
-): NodeWithAncestors => {
+): NodeWithAncestors | null => {
   for (const node of nodes) {
     if (node.id === nodeId) {
       return {
@@ -53,6 +53,9 @@ export const findNodeInState = (state: RootState, nodeId: string) => {
     //end(now, true);
     return state.reactPage.__nodeCache[nodeId];
   }
+  if (!state.reactPage.values?.present) {
+    return null;
+  }
   const result = findNode(
     [
       {
@@ -67,7 +70,7 @@ export const findNodeInState = (state: RootState, nodeId: string) => {
   return result;
 };
 
-export const currentValue = (state: RootState): Value =>
+export const currentValue = (state: RootState): Value | null =>
   state?.reactPage?.values?.present;
 
 export type NodeProps = { id: string; editable: string };
@@ -75,7 +78,7 @@ export type NodeProps = { id: string; editable: string };
 export const selectNode = (
   state: RootState,
   nodeId: string
-): NodeWithAncestors => {
+): NodeWithAncestors | null => {
   const found = findNodeInState(state, nodeId);
 
   return found;

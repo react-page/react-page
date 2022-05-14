@@ -59,7 +59,7 @@ const SlateEditor = (props: SlateProps) => {
         />
       )}
       <SlateEditable
-        placeholder={t(props.translations.placeholder)}
+        placeholder={t(props.translations?.placeholder) ?? ''}
         readOnly={readOnly}
         plugins={plugins}
         defaultPluginType={props.defaultPluginType}

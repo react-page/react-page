@@ -1,7 +1,8 @@
+import type { DataTType } from '@react-page/editor';
 import type { SlatePluginDefinition } from '../types/slatePluginDefinitions';
 import useCurrentNodeWithPlugin from './useCurrentNodeWithPlugin';
 
-export default <T>(plugin: SlatePluginDefinition<T>) => {
+export default <T extends DataTType>(plugin: SlatePluginDefinition<T>) => {
   const nodeEntry = useCurrentNodeWithPlugin<T>(plugin);
   return Boolean(nodeEntry);
 };

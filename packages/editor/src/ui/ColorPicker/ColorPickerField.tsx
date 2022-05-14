@@ -7,14 +7,14 @@ import { useUiTranslator } from '../../core/components/hooks';
 const ColorPickerField = connectField<{
   value: string;
   label: string;
-  onChange: (v: string) => void;
+  onChange: (v: string | void) => void;
 }>((props) => {
   const { t } = useUiTranslator();
   return (
     <ColorPicker
       style={{ marginBottom: 8 }}
       color={stringToColor(props.value)}
-      buttonContent={t(props.label)}
+      buttonContent={t(props.label) ?? ''}
       onChange={(v) => {
         props.onChange(colorToString(v));
       }}
