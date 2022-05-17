@@ -24,16 +24,16 @@ const ImageControls: ImageControlType = (props) => {
               }
             />
             <Typography variant="body1" style={{ margin: '20px 16px 0 16px' }}>
-              {t(props.translations.or)}
+              {t(props.translations?.or)}
             </Typography>
           </>
         )}
         <TextField
-          placeholder={t(props.translations.srcPlaceholder)}
+          placeholder={t(props.translations?.srcPlaceholder) ?? ''}
           label={t(
             props.imageUpload
-              ? props.translations.haveUrl
-              : props.translations.imageUrl
+              ? props.translations?.haveUrl
+              : props.translations?.imageUrl
           )}
           name="src"
           // style={{ flex: 1 }}
@@ -50,8 +50,8 @@ const ImageControls: ImageControlType = (props) => {
 
       {/* Image link textbox and checkbox */}
       <TextField
-        placeholder={t(props.translations.hrefPlaceholder)}
-        label={t(props.translations.hrefLabel)}
+        placeholder={t(props.translations?.hrefPlaceholder) ?? ''}
+        label={t(props.translations?.hrefLabel) ?? ''}
         name="href"
         style={{ width: '400px' }}
         value={props.data.href ?? ''}
@@ -73,14 +73,14 @@ const ImageControls: ImageControlType = (props) => {
             }
           />
         }
-        label={t(props.translations.openNewWindow)}
+        label={t(props.translations?.openNewWindow)}
       />
 
       <br />
       {/* Image's meta like alt... */}
       <TextField
-        placeholder={t(props.translations.altPlaceholder)}
-        label={t(props.translations.altLabel)}
+        placeholder={t(props.translations?.altPlaceholder) ?? ''}
+        label={t(props.translations?.altLabel) ?? ''}
         name="alt"
         style={{ width: '400px' }}
         value={props.data.alt ?? ''}

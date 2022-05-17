@@ -14,8 +14,8 @@ export const CLEAR_CLEAR_HOVER = 'CLEAR_CLEAR_HOVER';
 
 export interface CellHoverAction extends Action {
   ts: Date;
-  dragId: string;
-  hoverId: string;
+  dragId?: string;
+  hoverId?: string;
   level: number;
   position: PositionEnum;
   type: typeof CELL_DRAG_HOVER;
@@ -42,7 +42,7 @@ export const cellHover = (
   const hoverId =
     level === 0
       ? hover.id
-      : hover.ancestorIds[Math.max(0, level - 1)] ?? hover.id;
+      : hover.ancestorIds?.[Math.max(0, level - 1)] ?? hover.id;
   return {
     type: CELL_DRAG_HOVER,
     ts: new Date(),
@@ -68,7 +68,7 @@ export const cellHover = (
 export const cellHoverLeftOf = (
   drag: PartialCell,
   hover: HoverTarget,
-  level: number
+  level?: number
 ) => cellHover(drag, hover, level, PositionEnum.LEFT_OF);
 
 /**
@@ -86,7 +86,7 @@ export const cellHoverLeftOf = (
 export const cellHoverRightOf = (
   drag: PartialCell,
   hover: HoverTarget,
-  level: number
+  level?: number
 ) => cellHover(drag, hover, level, PositionEnum.RIGHT_OF);
 
 /**
@@ -104,7 +104,7 @@ export const cellHoverRightOf = (
 export const cellHoverAbove = (
   drag: PartialCell,
   hover: HoverTarget,
-  level: number
+  level?: number
 ) => cellHover(drag, hover, level, PositionEnum.ABOVE);
 
 /**
@@ -122,7 +122,7 @@ export const cellHoverAbove = (
 export const cellHoverBelow = (
   drag: PartialCell,
   hover: HoverTarget,
-  level: number
+  level?: number
 ) => cellHover(drag, hover, level, PositionEnum.BELOW);
 
 /**

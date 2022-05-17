@@ -21,7 +21,7 @@ export const ScaleButton: React.FC<{
     lastScale = newScalingFactor;
   }, [scale, lastScale, setScale]);
   return (
-    <Tooltip title={t('Change size of this window')}>
+    <Tooltip title={t('Change size of this window') ?? ''}>
       <IconButton
         onClick={toggleScale}
         aria-label="Change size of this window"

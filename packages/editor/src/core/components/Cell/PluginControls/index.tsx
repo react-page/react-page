@@ -8,6 +8,7 @@ import type {
   CellPluginComponentProps,
   ControlsDef,
   ControlsDefList,
+  DataTType,
 } from '../../../types';
 
 const StyledTab = withStyles(() => ({
@@ -26,8 +27,8 @@ const StyledTabs = withStyles((theme: Theme) => ({
   },
 }))(Tabs);
 const ControlsList: React.FC<{
-  controls: ControlsDefList<unknown>;
-  componentProps: CellPluginComponentProps<unknown>;
+  controls: ControlsDefList;
+  componentProps: CellPluginComponentProps<DataTType>;
 }> = React.memo(({ controls, componentProps }) => {
   const [tab, setTab] = useState(0);
 
@@ -66,8 +67,8 @@ const ControlsList: React.FC<{
 });
 
 const Controls: React.FC<{
-  controls: ControlsDef<unknown>;
-  componentProps: CellPluginComponentProps<unknown>;
+  controls: ControlsDef;
+  componentProps: CellPluginComponentProps;
 }> = React.memo(({ controls, componentProps }) => {
   let pluginControls = null;
   if (Array.isArray(controls)) {
@@ -84,8 +85,8 @@ const Controls: React.FC<{
 });
 
 const PluginControls: React.FC<{
-  controls: ControlsDef<unknown>;
-  componentProps: CellPluginComponentProps<unknown>;
+  controls: ControlsDef;
+  componentProps: CellPluginComponentProps;
 }> = ({ controls, componentProps }) => {
   return (
     <div

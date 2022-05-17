@@ -1,3 +1,3 @@
-export interface SpacerState {
+export type SpacerState = {
   height: number;
-}
+};

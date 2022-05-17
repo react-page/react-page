@@ -41,9 +41,9 @@
     "lodash.throttle": "^4.1.1",
     "react-portal": "^4.2.1",
     "redux-undo": "^1.0.0",
-    "slate": "^0.66.5",
-    "slate-hyperscript": "^0.66.0",
-    "slate-react": "^0.65.3",
+    "slate": "^0.78.0",
+    "slate-hyperscript": "^0.77.0",
+    "slate-react": "^0.79.0",
     "slate-react-presentation": "^0.1.1",
     "@xmldom/xmldom": "^0.8.1"
   },
@@ -54,7 +54,11 @@
     "@types/is-hotkey": "0.1.1",
     "@types/lodash.debounce": "4.0.4",
     "@types/react": "^17.0.24",
-    "@types/react-dom": "^17.0.9"
+    "@types/react-dom": "^17.0.9",
+    "@types/xmldom": "^0.1.31",
+    "@types/lodash.flatten": "^4.4.6",
+    "@types/lodash.isobject": "^3.0.6",
+    "@types/lodash.isempty": "^4.4.6"
   },
   "browser": {
     "./lib/HtmlToSlate/parseHtml.js": "./lib/HtmlToSlate/parseHtml.browser.js",

@@ -15,14 +15,14 @@ import deepEquals from '../utils/deepEquals';
 
 const EditorStoreProvider: React.FC<{
   lang: string;
-  value: ValueWithLegacy;
+  value: ValueWithLegacy | null;
 }> = ({ children, lang, value }) => {
   const cellPlugins = useRenderOption('cellPlugins');
-  const middleware = useOption('middleware');
+  const middleware = useOption('middleware') ?? [];
   const onChangeLang = useCallbackOption('onChangeLang');
   const onChange = useCallbackOption('onChange');
   const storeFromOptions = useOption('store');
-  const editorStore = useMemo(() => {
+  const editorStore = useMemo<EditorStore>(() => {
     const store = new EditorStore({
       initialState: initialState(
         migrateValue(value, {
@@ -36,13 +36,13 @@ const EditorStoreProvider: React.FC<{
     });
     return store;
   }, [storeFromOptions, ...middleware]);
-  const lastValueRef = useRef<ValueWithLegacy>(value);
+  const lastValueRef = useRef<ValueWithLegacy | null>(value);
   useEffect(() => {
-    let oldLang = lang;
+    let oldLang: string | undefined = lang;
     const handleChanges = () => {
       // notify outsiders to new language, when chagned in ui
       const newLang = editorStore.store.getState().reactPage.settings.lang;
-      if (newLang !== oldLang || newLang !== lang) {
+      if (newLang && (newLang !== oldLang || newLang !== lang)) {
         oldLang = newLang;
         onChangeLang?.(newLang);
       }

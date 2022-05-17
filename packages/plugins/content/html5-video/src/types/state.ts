@@ -1,3 +1,3 @@
-export interface Html5VideoState {
+export type Html5VideoState = {
   url: string;
-}
+};

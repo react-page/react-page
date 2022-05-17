@@ -23,8 +23,8 @@ const createPlugin: (
           url: {
             type: 'string',
             uniforms: {
-              placeholder: mergedSettings.translations.urlPlaceholder,
-              label: mergedSettings.translations.urlLabel,
+              placeholder: mergedSettings.translations?.urlPlaceholder,
+              label: mergedSettings.translations?.urlLabel,
             },
           },
         },
@@ -32,8 +32,8 @@ const createPlugin: (
     },
     id: 'ory/sites/plugin/content/html5-video',
     version: 1,
-    title: mergedSettings.translations.pluginName,
-    description: mergedSettings.translations.pluginDescription,
+    title: mergedSettings.translations?.pluginName,
+    description: mergedSettings.translations?.pluginDescription,
     icon: mergedSettings.icon,
     isInlineable: mergedSettings.isInlineable,
     createInitialData: () => ({

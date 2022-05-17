@@ -24,7 +24,7 @@ import PageLayout from '../../components/PageLayout';
 const cellPlugins = [slate(), image];
 
 export default function SimpleExample() {
-  const [value, setValue] = useState<Value>(null);
+  const [value, setValue] = useState<Value | null>(null);
 
   const [sidebarPosition, setSidebarPosition] =
     useState<Options['sidebarPosition']>('rightAbsolute');

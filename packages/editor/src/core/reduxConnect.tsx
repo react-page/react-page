@@ -8,9 +8,11 @@ import {
   Provider,
 } from 'react-redux';
 import type { RootState } from './types';
-export const ReduxContext = React.createContext(null);
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const ReduxContext = React.createContext<any>(null);
 
-export const ReduxProvider = ({ store, ...props }) => (
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const ReduxProvider = ({ store, ...props }: any) => (
   <Provider store={store} context={ReduxContext} {...props} />
 );
 

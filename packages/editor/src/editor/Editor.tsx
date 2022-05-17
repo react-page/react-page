@@ -30,15 +30,15 @@ export type EditorProps = {
   RenderOptions;
 
 const Editor: React.FC<EditorProps> = ({
-  readOnly,
-  value,
-  onChange,
-  onChangeLang,
+  readOnly = false,
+  value = null,
+  onChange = null,
+  onChangeLang = null,
 
   lang: passedLang,
   cellPlugins,
-  cellSpacing,
   children,
+  cellSpacing = null,
   ...options
 }) => {
   // mount the component always in readonly, to avoid problems with SSR

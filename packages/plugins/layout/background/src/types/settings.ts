@@ -3,13 +3,14 @@ import type { CellPlugin, ImageUploadType, RGBColor } from '@react-page/editor';
 import type { BackgroundControlsProps } from './controls';
 import type { ModeEnum } from './ModeEnum';
 import type { BackgroundRendererProps } from './renderer';
+import type { BackgroundState } from './state';
 import type { Translations } from './translations';
 
 export type BackgroundSettings = {
   Renderer: React.ComponentType<BackgroundRendererProps>;
   Controls: React.ComponentType<BackgroundControlsProps>;
   enabledModes?: ModeEnum;
-  getInitialChildren?: CellPlugin['createInitialChildren'];
+  getInitialChildren?: CellPlugin<BackgroundState>['createInitialChildren'];
   defaultBackgroundColor?: RGBColor;
   defaultGradientColor?: RGBColor;
   defaultGradientSecondaryColor?: RGBColor;
@@ -21,5 +22,5 @@ export type BackgroundSettings = {
   defaultIsParallax?: boolean;
   imageUpload?: ImageUploadType;
   translations?: Translations;
-  cellStyle?: CellPlugin['cellStyle'];
+  cellStyle?: CellPlugin<BackgroundState>['cellStyle'];
 };

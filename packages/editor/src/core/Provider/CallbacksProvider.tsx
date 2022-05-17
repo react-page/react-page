@@ -14,11 +14,11 @@ const CallbacksProvider: React.FC<Callbacks> = ({ children, ...callbacks }) => {
     lastCallbacks.current = callbacks;
   }
 
-  return (
+  return lastCallbacks.current ? (
     <CallbacksContext.Provider value={lastCallbacks.current}>
       {children}
     </CallbacksContext.Provider>
-  );
+  ) : null;
 };
 
 export default CallbacksProvider;

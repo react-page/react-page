@@ -54,17 +54,17 @@ export const computeInlines = (cells: Array<Cell> = []): Array<Cell> => {
  */
 export const resizeCells = (
   cells: Array<Cell> = [],
-  { id, size }: Cell
+  { id, size }: Pick<Cell, 'id' | 'size'>
 ): Array<Cell> => {
   let prev = 0;
   return cells.map((c: Cell) => {
     if (prev > 0) {
-      const ret = { ...c, size: c.size + prev - size };
+      const ret = { ...c, size: (c.size ?? 0) + prev - (size ?? 0) };
       prev = 0;
       return ret;
     } else if (id === c.id) {
       if (!c.inline) {
-        prev = c.size;
+        prev = c.size ?? 0;
       }
       return { ...c, size };
     }

@@ -1,12 +1,14 @@
-/* eslint-disable @typescript-eslint/ban-types */
-
 import type { Migration } from '../migrations/Migration';
 import type { Cell, PartialCell, PartialRow } from './node';
 import type { JsonSchema } from './jsonSchema';
 import type { ChildConstraints } from './constraints';
 import type { CellSpacing } from './renderOptions';
 
-export type CellPluginComponentProps<DataT = unknown> = {
+export type DataTType = Record<string, unknown>;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type DataTAny = any;
+
+export type CellPluginComponentProps<DataT extends DataTType = DataTAny> = {
   /**
    * the cells nodeId
    */
@@ -18,9 +20,7 @@ export type CellPluginComponentProps<DataT = unknown> = {
   /**
    * Should be called with the new data if the plugin's data changes.
    */
-  onChange: DataT extends Record<string, unknown>
-    ? (data: Partial<DataT>, options?: { notUndoable: boolean }) => void
-    : (data: unknown, options?: { notUndoable: boolean }) => void;
+  onChange: (data: Partial<DataT>, options?: { notUndoable: boolean }) => void;
 
   /**
    * call this to remove the cell
@@ -29,7 +29,7 @@ export type CellPluginComponentProps<DataT = unknown> = {
   /**
    * the configuration of the plugins
    */
-  pluginConfig: CellPlugin<DataT>;
+  pluginConfig?: CellPlugin<DataT> | null;
 
   /**
    * if the cell is currently in readOnly mode.
@@ -57,31 +57,32 @@ export type CellPluginComponentProps<DataT = unknown> = {
 };
 
 export type CellPluginMissingProps = Omit<
-  CellPluginComponentProps<unknown>,
+  CellPluginComponentProps,
   'pluginConfig'
 > & {
   pluginId: string;
 };
 
-export type CellPluginRenderer<DataT> = React.ComponentType<
-  CellPluginComponentProps<DataT> & {
-    children?: React.ReactNode;
-  }
->;
+export type CellPluginRenderer<DataT extends DataTType = DataTAny> =
+  React.ComponentType<
+    CellPluginComponentProps<DataT> & {
+      children?: React.ReactNode;
+    }
+  >;
 
-export type CellPluginCustomControlsComonent<DataT> = React.ComponentType<
-  CellPluginComponentProps<DataT>
->;
+export type CellPluginCustomControlsComonent<DataT extends DataTType> =
+  React.ComponentType<CellPluginComponentProps<DataT>>;
 
-export type CellPluginAutoformControlsContent<DataT> = React.ComponentType<{
-  data: DataT;
-  columnCount?: number;
-}>;
+export type CellPluginAutoformControlsContent<DataT extends DataTType> =
+  React.ComponentType<{
+    data: DataT;
+    columnCount?: number;
+  }>;
 
 /**
  * controls where you can provide a custom component to render the controls.
  */
-export type CustomControlsDef<DataT> = {
+export type CustomControlsDef<DataT extends DataTType> = {
   Component: CellPluginCustomControlsComonent<DataT>;
   type: 'custom';
 };
@@ -89,11 +90,11 @@ export type CustomControlsDef<DataT> = {
 /**
  * autoform control type automatically generates a form for you.
  */
-export type AutoformControlsDef<DataT> = {
+export type AutoformControlsDef<DataT extends DataTType> = {
   /**
    * a JSONSchema. this will auto-generate a form for the plugin
    */
-  schema?: DataT extends Record<string, unknown> ? JsonSchema<DataT> : unknown;
+  schema?: JsonSchema<DataT>;
   /**
    * how many columns should be used for the form
    */
@@ -110,24 +111,32 @@ export type AutoformControlsDef<DataT> = {
   Content?: CellPluginAutoformControlsContent<DataT>;
 };
 
-export type SubControlsDef<T> = {
+export type SubControlsDef<T extends DataTType = DataTAny> = {
   title: string;
   controls: ControlsDef<T>;
 };
 
-export type ControlsDefList<DataT> = Array<SubControlsDef<Partial<DataT>>>;
+export type ControlsDefList<DataT extends DataTType = DataTAny> = Array<
+  SubControlsDef<Partial<DataT>>
+>;
 
 /**
  * All available type of controls
  */
-export type ControlsDef<DataT> =
+export type ControlsDef<DataT extends DataTType = DataTAny> =
   | AutoformControlsDef<DataT>
   | CustomControlsDef<DataT>
   | ControlsDefList<DataT>;
 
-export type PluginHandler = (e: Event, node: Cell) => void | Promise<void>;
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type CellPlugin<DataT = unknown, DataSerializedT = DataT> = {
+export type PluginHandler = (
+  e: Event,
+  node?: Cell | null
+) => void | Promise<void>;
+
+export type CellPlugin<
+  DataT extends DataTType = DataTAny,
+  DataSerializedT = DataT
+> = {
   /**
    * the plugins unique id. Only one plugin with the same id may be used
    */
@@ -175,10 +184,6 @@ export type CellPlugin<DataT = unknown, DataSerializedT = DataT> = {
      */
     dark?: boolean;
   };
-  /**
-   * controls define how the user can interact with this cell. @see ControlsDef
-   */
-  controls?: ControlsDef<DataT>;
 
   /**
    * The Component to render both in readOnly and in edit mode. It will receive the current data to display among other props (@see CellPluginRenderer)
@@ -220,7 +225,10 @@ export type CellPlugin<DataT = unknown, DataSerializedT = DataT> = {
   /**
    * cell spacing setting for the internal layout (nested cells) if any
    */
-  cellSpacing?: number | CellSpacing | ((data: DataT) => number | CellSpacing);
+  cellSpacing?:
+    | number
+    | CellSpacing
+    | ((data: DataT) => number | CellSpacing | null);
 
   /**
    * defines constraint about the children that can be added to this Cell.
@@ -228,6 +236,13 @@ export type CellPlugin<DataT = unknown, DataSerializedT = DataT> = {
    *
    */
   childConstraints?: ChildConstraints;
+
+  /**
+   * define or constrain the plugins that can be added as children to this plugin
+   */
+  cellPlugins?:
+    | CellPluginList
+    | ((cellPlugins: CellPluginList, data: DataT) => CellPluginList);
 
   /**
    * allowClickInside defines whether it accepts clicks in edit mode.
@@ -242,6 +257,21 @@ export type CellPlugin<DataT = unknown, DataSerializedT = DataT> = {
   allowNeighbour?: (item: PartialCell) => boolean;
 
   /**
+   * if your cell has an internal layout (--> child rows), you can define initial rows to add, when a cell with this plugin is added
+   */
+  createInitialChildren?: () => PartialRow[];
+
+  handleRemoveHotKey?: PluginHandler;
+  handleFocusNextHotKey?: PluginHandler;
+  handleFocusPreviousHotKey?: PluginHandler;
+
+  // all data related properties
+  /**
+   * controls define how the user can interact with this cell. @see ControlsDef
+   */
+  controls?: ControlsDef<DataT>;
+
+  /**
    * called when a cell with this plugin is added
    */
   createInitialData?: (cell: PartialCell) => DataT;
@@ -251,22 +281,12 @@ export type CellPlugin<DataT = unknown, DataSerializedT = DataT> = {
    */
   createInitialState?: (cell: PartialCell) => DataT;
 
-  /**
-   * if your cell has an internal layout (--> child rows), you can define initial rows to add, when a cell with this plugin is added
-   */
-  createInitialChildren?: () => PartialRow[];
-
-  cellPlugins?:
-    | CellPlugin[]
-    | ((cellPlugins: CellPlugin[], data: DataT) => CellPlugin[]);
-
   serialize?: (data: DataT) => DataSerializedT;
   unserialize?: (raw: DataSerializedT) => DataT;
   /**
    * how to extract raw text from this plugin (e.g. for search indexing)
    */
   getTextContents?: (data: DataT) => string[];
-  handleRemoveHotKey?: PluginHandler;
-  handleFocusNextHotKey?: PluginHandler;
-  handleFocusPreviousHotKey?: PluginHandler;
 };
+
+export type CellPluginList = CellPlugin[];

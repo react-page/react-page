@@ -14,14 +14,14 @@ import RenderOptionsProvider from './RenderOptionsProvider';
 
 export type ProviderProps = {
   lang?: string;
-  value: ValueWithLegacy;
+  value: ValueWithLegacy | null;
   options: Options;
   callbacks: Callbacks;
   renderOptions: RenderOptions;
 };
 
 const Provider: React.FC<ProviderProps> = ({
-  lang,
+  lang = 'default',
   value,
   children = [],
   renderOptions,

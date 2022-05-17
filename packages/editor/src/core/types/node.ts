@@ -6,7 +6,7 @@ type NodeBase = {
   id: string;
 };
 export type Cell = NodeBase & {
-  rows?: Row[];
+  rows?: Row[] | null;
   plugin?: {
     id: string;
     version: number;
@@ -42,13 +42,13 @@ export type PartialRow =
  * simpler definition for Cell, used to create a new row
  */
 export type PartialCell = Omit<Partial<Cell>, 'rows' | 'plugin'> & {
-  rows?: PartialRow[];
+  rows?: PartialRow[] | null;
   plugin?: Cell['plugin'] | string;
   /**set data in default lang */
   data?: Record<string, unknown>;
 };
 
-export const isRow = (node: Partial<Node>): node is Row => {
+export const isRow = (node: Partial<Node> | null): node is Row => {
   return node ? Object.prototype.hasOwnProperty.call(node, 'cells') : false;
 };
 
@@ -83,7 +83,7 @@ export type Value = {
 
 export type ValueWithHistory = {
   past: Value[];
-  present: Value;
+  present: Value | null;
   future: Value[];
 };
 
@@ -96,5 +96,5 @@ export type NewIds = {
 // DND
 
 export type CellDrag = {
-  cell: PartialCell;
+  cell: PartialCell | null;
 };

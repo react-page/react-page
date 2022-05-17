@@ -1,3 +1,4 @@
+import type { DataTType } from '@react-page/editor';
 import { useCallback } from 'react';
 import type { Editor } from 'slate';
 import { Transforms } from 'slate';
@@ -6,7 +7,7 @@ import { useSlate } from 'slate-react';
 import type { SlatePluginDefinition } from '../types/slatePluginDefinitions';
 import getCurrentData from '../utils/getCurrentData';
 
-export const removePlugin = <T>(
+export const removePlugin = <T extends DataTType>(
   editor: Editor,
   plugin: SlatePluginDefinition<T>
 ) => {
@@ -34,7 +35,7 @@ export const removePlugin = <T>(
       } else if (plugin.replaceWithDefaultOnRemove) {
         Transforms.setNodes(editor, {
           type: null,
-        } as unknown);
+        });
       } else {
         Transforms.unwrapNodes(editor, {
           match: (elem) => elem.type === plugin.type,
@@ -49,7 +50,7 @@ export const removePlugin = <T>(
       const existingData = getCurrentData(editor);
 
       const dataWithout = Object.keys(existingData).reduce((acc, key) => {
-        if (plugin.properties.includes(key as keyof T)) {
+        if (plugin.properties?.includes(key)) {
           return acc;
         }
         return {
@@ -59,11 +60,11 @@ export const removePlugin = <T>(
       }, {});
       Transforms.setNodes(editor, {
         data: dataWithout,
-      } as unknown);
+      });
     }
   }
 };
-export default <T>(plugin: SlatePluginDefinition<T>) => {
+export default <T extends DataTType>(plugin: SlatePluginDefinition<T>) => {
   const editor = useSlate();
   return useCallback(() => removePlugin(editor, plugin), []);
 };

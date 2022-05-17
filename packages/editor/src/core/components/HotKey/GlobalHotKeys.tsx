@@ -36,7 +36,7 @@ type PluginHandlerName =
   | 'handleFocusNextHotKey'
   | 'handleFocusPreviousHotKey';
 
-let lastFocused: HTMLDivElement = null;
+let lastFocused: HTMLDivElement | null = null;
 const GlobalHotKeys: React.FC<{ focusRef: RefObject<HTMLDivElement> }> = ({
   focusRef,
 }) => {
@@ -61,16 +61,16 @@ const GlobalHotKeys: React.FC<{ focusRef: RefObject<HTMLDivElement> }> = ({
   const delegateToFoundPlugin = useCallback(
     async (
       event: Event,
-      nodeId: string,
+      nodeId: string | null,
       handlerName: PluginHandlerName,
       defaultHandler: PluginHandler
     ) => {
-      const node = editor.getNode(nodeId);
+      const node = nodeId ? editor?.getNode(nodeId) : null;
       const plugin = plugins.find((p) => p.id === (node as Cell)?.plugin?.id);
 
       try {
-        if (isEditMode && node && plugin[handlerName]) {
-          await plugin[handlerName](event, node);
+        if (isEditMode && node && plugin?.[handlerName]) {
+          await plugin[handlerName]?.(event, node);
         }
 
         // if the plugin handler resolve or there is no, they do not handle it, so do the default
@@ -92,7 +92,13 @@ const GlobalHotKeys: React.FC<{ focusRef: RefObject<HTMLDivElement> }> = ({
         window.getSelection()?.type !== 'Range' &&
         focusedNodeIds?.length > 0
       ) {
+        if (!editor) {
+          return;
+        }
         const node = getCommonAncestorTree(editor, focusedNodeIds);
+        if (!node) {
+          return;
+        }
         const cell = cloneAsCell(node);
 
         const type = 'text/plain'; // json is not supported
@@ -145,7 +151,9 @@ const GlobalHotKeys: React.FC<{ focusRef: RefObject<HTMLDivElement> }> = ({
           // is this something we can use?
           try {
             const node = JSON.parse(await navigator.clipboard.readText());
-
+            if (!editor) {
+              return;
+            }
             if (objIsNode(node)) {
               // insert after common ancestors of selected nodes
               const commonAncestorNode =
@@ -158,8 +166,9 @@ const GlobalHotKeys: React.FC<{ focusRef: RefObject<HTMLDivElement> }> = ({
                   ? commonAncestorNode.cells.length === 1 // if it has just one cell, add below this cell. if it has multiple, add below this row
                     ? commonAncestorNode.cells[0].id
                     : commonAncestorNode.id
-                  : commonAncestorNode.rows[commonAncestorNode.rows.length - 1] // if common ancestor is a cell (usually the root cell, add below last row)
-                      .id
+                  : commonAncestorNode.rows?.[
+                      commonAncestorNode.rows.length - 1
+                    ].id // if common ancestor is a cell (usually the root cell, add below last row)
                 : null;
               insertAfter(node, insertAfterNodeId);
             }
@@ -191,6 +200,7 @@ const GlobalHotKeys: React.FC<{ focusRef: RefObject<HTMLDivElement> }> = ({
       },
     ];
   }, [
+    editor,
     focusedNodeId,
     focusedNodeIds,
     someCellIsFocused,
@@ -218,8 +228,8 @@ const GlobalHotKeys: React.FC<{ focusRef: RefObject<HTMLDivElement> }> = ({
     const focusHandler = () => {
       lastFocused = focusRef.current;
     };
-    focusRef.current.addEventListener('click', focusHandler);
-    focusRef.current.addEventListener('mouseenter', focusHandler);
+    focusRef.current?.addEventListener('click', focusHandler);
+    focusRef.current?.addEventListener('mouseenter', focusHandler);
     return () => {
       document.removeEventListener('keydown', keyHandler);
       focusRef.current?.removeEventListener('mouseenter', focusHandler);

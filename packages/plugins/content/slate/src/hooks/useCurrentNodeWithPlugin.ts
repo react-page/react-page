@@ -1,13 +1,14 @@
+import type { DataTType } from '@react-page/editor';
 import type { NodeEntry } from 'slate';
 import { Editor } from 'slate';
 
 import { useSlate } from 'slate-react';
 import type { SlatePluginDefinition } from '../types/slatePluginDefinitions';
 
-export const getCurrentNodeWithPlugin = <T>(
+export const getCurrentNodeWithPlugin = <T extends DataTType>(
   editor: Editor,
   plugin: SlatePluginDefinition<T>
-): NodeEntry => {
+): NodeEntry | null => {
   if (plugin.pluginType === 'custom') {
     return null;
   }
@@ -15,17 +16,19 @@ export const getCurrentNodeWithPlugin = <T>(
   const match =
     plugin.pluginType === 'component'
       ? plugin.object === 'mark'
-        ? (elem) => Boolean(elem[plugin.type])
-        : (elem) => elem.type === plugin.type
+        ? (elem: any) => Boolean(elem[plugin.type])
+        : (elem: any) => elem.type === plugin.type
       : plugin.pluginType === 'data'
       ? // search for data
-        ({ data }) => {
+        ({ data }: any) => {
           const matches = plugin.dataMatches(data as T);
 
           return matches;
         }
       : null;
-
+  if (!match) {
+    return null;
+  }
   try {
     const [matchingNode] = Editor.nodes(editor, {
       match: match,
@@ -38,7 +41,7 @@ export const getCurrentNodeWithPlugin = <T>(
     return null;
   }
 };
-export default <T>(plugin: SlatePluginDefinition<T>) => {
+export default <T extends DataTType>(plugin: SlatePluginDefinition<T>) => {
   const editor = useSlate();
   return getCurrentNodeWithPlugin(editor, plugin);
 };

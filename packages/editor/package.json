@@ -50,7 +50,9 @@
     "uniforms-material": "^2.6.0 || ^3.0.0"
   },
   "devDependencies": {
-    "@types/react-color": "^3.0.4"
+    "@types/react-color": "^3.0.4",
+    "@types/lodash.throttle": "^4.1.6",
+    "@types/react-portal": "^4.0.4"
   },
   "publishConfig": {
     "access": "public"

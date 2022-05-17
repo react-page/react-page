@@ -1,16 +1,25 @@
 import type React from 'react';
+import type { DataTType } from '.';
 
-type UniformsProps<Data> = Record<string, unknown> & {
+type UniformsProps<FullData> = Record<string, unknown> & {
   label?: string;
   placeholder?: string;
   multiline?: boolean;
-  component?: React.ComponentType;
+  component?: React.ComponentType<{ name: string }>;
   /**
    * whether to show the field
    */
-  showIf?: (data: Data) => boolean;
+  showIf?: (data: FullData) => boolean;
 };
-type CommonPropertyProps<Data> = {
+
+type WithEnum<FieldT> = {
+  /**
+   * If you want to show a list of possible values, specify the enum prop.
+   * The values will be shown in a select field
+   */
+  enum?: FieldT[];
+};
+type CommonPropertyProps<FullData> = {
   /**
    * title to display
    */
@@ -18,14 +27,15 @@ type CommonPropertyProps<Data> = {
   /**
    * uniforms properties, passed to the form field
    */
-  uniforms?: UniformsProps<Data>;
+  uniforms?: UniformsProps<FullData>;
+
   /**
    * additionl props
    */
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [key: string]: any;
 };
-type BooleanType<Data> = {
+type BooleanType<FullData> = {
   /**
    * boolean type is for checkboxes
    */
@@ -34,9 +44,9 @@ type BooleanType<Data> = {
    * default value
    */
   default?: boolean;
-} & CommonPropertyProps<Data>;
+} & CommonPropertyProps<FullData>;
 
-type StringProperty<Data> = {
+type StringProperty<FullData> = {
   /**
    * string type is for strings and render an input field
    */
@@ -57,9 +67,10 @@ type StringProperty<Data> = {
    * regex pattern to validate, e.g. for email adresses
    */
   pattern?: string;
-} & CommonPropertyProps<Data>;
+} & CommonPropertyProps<FullData> &
+  WithEnum<string>;
 
-type NumberProperty<Data> = {
+type NumberProperty<FullData> = {
   /**
    * type number is for float numbers, integer is for integers only
    */
@@ -84,10 +95,37 @@ type NumberProperty<Data> = {
    * maximum but value has to be strictly smaller than this maximum
    */
   exclusiveMaximum?: boolean;
-} & CommonPropertyProps<Data>;
+} & CommonPropertyProps<FullData> &
+  WithEnum<number>;
 
-type ObjectProperty<T extends Record<string, unknown>, Data> = JsonSchema<T> &
-  CommonPropertyProps<Data>;
+type BaseObjectProps<FieldData extends Record<string, unknown>, FullData> = {
+  title?: string;
+  /**
+   * type object is for a nested object
+   */
+  type?: 'object';
+  /**
+   * the default value
+   */
+  default?: FieldData;
+  /**
+   * child properties of this object
+   */
+  properties: {
+    [Field in keyof FieldData]?: JsonSchemaProperty<FieldData[Field], FullData>;
+  };
+  // required: string[];
+  /* union to tuple conversion is expensive, we do a poor mans version here */
+  /**
+   * required fields
+   */
+  required?: Array<keyof FieldData>;
+};
+
+type ObjectProperty<
+  FieldData extends Record<string, unknown>,
+  FullData
+> = BaseObjectProps<FieldData, FullData> & CommonPropertyProps<FullData>;
 type ArrayProperty<Field, Data> = {
   /**
    * array type is for array objects
@@ -110,24 +148,4 @@ export type JsonSchemaProperty<Field, Data> = Field extends (infer U)[]
   ? BooleanType<Data>
   : never;
 
-export type JsonSchema<Data extends Record<string, unknown> | unknown> = {
-  title?: string;
-  /**
-   * type object is for a nested object
-   */
-  type?: 'object';
-  /**
-   * the default value
-   */
-  default?: Data;
-  /**
-   * child properties of this object
-   */
-  properties: { [Field in keyof Data]?: JsonSchemaProperty<Data[Field], Data> };
-  // required: string[];
-  /* union to tuple conversion is expensive, we do a poor mans version here */
-  /**
-   * required fields
-   */
-  required?: Array<keyof Data>;
-};
+export type JsonSchema<Data extends DataTType> = BaseObjectProps<Data, Data>;

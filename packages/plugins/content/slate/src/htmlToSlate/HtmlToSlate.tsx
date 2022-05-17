@@ -41,7 +41,8 @@ const HtmlToSlate = ({ plugins }: { plugins: SlatePlugin[] }) => {
         // we monkey patch it in for easier style parsing
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         (elHtml as any).style = new (require('cssstyle').CSSStyleDeclaration)();
-        elHtml.style.cssText = elHtml.getAttribute('style');
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        (elHtml.style as any).cssText = elHtml.getAttribute('style');
       }
       if (matchingPlugin.object === 'mark') {
         const attrs = {

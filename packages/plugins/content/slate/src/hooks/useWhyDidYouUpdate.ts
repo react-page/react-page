@@ -12,7 +12,7 @@ function useWhyDidYouUpdate(name: string, props: any) {
       // Get all keys from previous and current props
       const allKeys = Object.keys({ ...previousProps.current, ...props });
       // Use this object to keep track of changed props
-      const changesObj = {};
+      const changesObj: Record<string, unknown> = {};
       // Iterate through keys
       allKeys.forEach((key) => {
         // If previous is different from current

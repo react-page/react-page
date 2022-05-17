@@ -15,48 +15,54 @@ type Styling = {
   paddingTop?: number;
   border?: CSSProperties['border'];
 };
-const pluginsWithMargin = cellPlugins.map<CellPlugin<Styling>>((p) => ({
-  ...p,
-  cellStyle: (data) => ({
-    paddingLeft: data.paddingLeft,
-    paddingRight: data.paddingRight,
-    paddingTop: data.paddingTop,
-    paddingBottom: data.paddingBottom,
-    border: data.border,
-  }),
-  controls: [
-    {
-      title: 'Main',
-      controls: p.controls,
-    },
-    {
-      title: 'Styling',
-      controls: {
-        type: 'autoform',
-        columnCount: 3,
-        schema: {
-          properties: {
-            paddingLeft: {
-              type: 'number',
+const pluginsWithMargin = cellPlugins.map<CellPlugin<Styling>>(
+  (p: CellPlugin) => ({
+    ...p,
+    cellStyle: (data) => ({
+      paddingLeft: data.paddingLeft,
+      paddingRight: data.paddingRight,
+      paddingTop: data.paddingTop,
+      paddingBottom: data.paddingBottom,
+      border: data.border,
+    }),
+    controls: [
+      ...(p.controls
+        ? [
+            {
+              title: 'Main',
+              controls: p.controls,
             },
-            paddingRight: {
-              type: 'number',
-            },
-            paddingBottom: {
-              type: 'number',
-            },
-            paddingTop: {
-              type: 'number',
-            },
-            border: {
-              type: 'string',
+          ]
+        : []),
+      {
+        title: 'Styling',
+        controls: {
+          type: 'autoform',
+          columnCount: 3,
+          schema: {
+            properties: {
+              paddingLeft: {
+                type: 'number',
+              },
+              paddingRight: {
+                type: 'number',
+              },
+              paddingBottom: {
+                type: 'number',
+              },
+              paddingTop: {
+                type: 'number',
+              },
+              border: {
+                type: 'string',
+              },
             },
           },
         },
       },
-    },
-  ],
-}));
+    ],
+  })
+);
 export default function DecoratedPlugins() {
   const [value, setValue] = useState<Value>(demo);
 

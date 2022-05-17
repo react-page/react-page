@@ -9,7 +9,7 @@ import PluginControls from './PluginControls';
 import { useSelected } from 'slate-react';
 
 const VoidEditableElement: React.FC<{
-  plugin: SlatePluginDefinition<unknown>;
+  plugin: SlatePluginDefinition;
   element: Element;
   component: React.ReactNode;
 }> = ({ plugin, element, children, component }) => {

@@ -12,7 +12,7 @@ const DuplicateAll: React.FC = () => {
   const { t } = useUiTranslator();
   const nodeIds = useAllFocusedNodeIds();
   return (
-    <Tooltip title={t('Duplicate al')}>
+    <Tooltip title={t('Duplicate al') ?? ''}>
       <IconButton
         onClick={() => duplicate(nodeIds)}
         aria-label="delete"

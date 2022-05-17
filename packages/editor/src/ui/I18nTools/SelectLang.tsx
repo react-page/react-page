@@ -6,7 +6,7 @@ const SelectLang = () => {
   const languages = useOption('languages');
   const lang = useLang();
   const setLang = useSetLang();
-  if (languages?.length > 0) {
+  if (languages && languages?.length > 0) {
     return (
       <Select
         value={lang || ''}

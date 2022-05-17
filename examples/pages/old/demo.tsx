@@ -5,7 +5,7 @@ import React, { useState } from 'react';
 import PageLayout from '../../components/PageLayout';
 import { cellPlugins } from '../../plugins/cellPlugins';
 import contents from '../../sampleContents/v0';
-const LANGUAGES: Options['languages'] = [
+const LANGUAGES = [
   {
     lang: 'en',
     label: 'English',

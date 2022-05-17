@@ -15,7 +15,7 @@ const getStickyNessstyle = (stickyness?: StickyNess): React.CSSProperties => {
   ) {
     return {
       position: 'fixed',
-      right: stickyness.rightOffsetFixed || 0,
+      right: stickyness?.rightOffsetFixed || 0,
     };
   }
 
@@ -26,6 +26,10 @@ const getStickyNessstyle = (stickyness?: StickyNess): React.CSSProperties => {
     right: -stickyness.rightOffset || 0,
   };
 };
+
+function notEmpty<TValue>(value: TValue | null | undefined): value is TValue {
+  return value !== null && value !== undefined;
+}
 
 export type StickyNess = {
   shouldStickToTop: boolean;
@@ -64,22 +68,22 @@ export const Sidebar: React.SFC<{
       ? { action: <Zoom labelZoomIn="zoom in" labelZoomOut="zoom out" /> }
       : null,
     editEnabled
-      ? { action: <ToggleEdit label={t(defaultLabels.edit)} /> }
+      ? { action: <ToggleEdit label={t(defaultLabels.edit) ?? ''} /> }
       : null,
     insertEnabled
-      ? { action: <ToggleInsert label={t(defaultLabels.insert)} /> }
+      ? { action: <ToggleInsert label={t(defaultLabels.insert) ?? ''} /> }
       : null,
     layoutEnabled
-      ? { action: <ToggleLayout label={t(defaultLabels.layout)} /> }
+      ? { action: <ToggleLayout label={t(defaultLabels.layout) ?? ''} /> }
       : null,
     resizeEnabled
-      ? { action: <ToggleResize label={t(defaultLabels.resize)} /> }
+      ? { action: <ToggleResize label={t(defaultLabels.resize) ?? ''} /> }
       : null,
     previewEnabled
-      ? { action: <TogglePreview label={t(defaultLabels.preview)} /> }
+      ? { action: <TogglePreview label={t(defaultLabels.preview) ?? ''} /> }
       : null,
-    ...customOptions.map((customOption) => ({ action: customOption })),
-  ].filter(Boolean);
+    ...(customOptions?.map((customOption) => ({ action: customOption })) ?? []),
+  ].filter(notEmpty);
   return (
     <div
       className="react-page-controls-mode-toggle-control-group"
@@ -94,7 +98,7 @@ export const Sidebar: React.SFC<{
       }}
     >
       <div
-        ref={stickyNess.stickyElRef}
+        ref={stickyNess?.stickyElRef}
         style={{
           padding: 16,
           position: 'relative',

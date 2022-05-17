@@ -1,9 +1,9 @@
-import type { Cell, Node, PartialCell } from '../types';
+import type { Cell, Node } from '../types';
 import { isRow } from '../types';
 import { createId } from './createId';
 import { mapNode } from './mapNode';
 
-export const cloneWithNewIds = (node: Node) => {
+export const cloneWithNewIds = (node: Node): Node => {
   return mapNode(node, {
     mapCell: (n) => ({
       ...n,
@@ -15,7 +15,7 @@ export const cloneWithNewIds = (node: Node) => {
       ...n,
       id: createId(),
     }),
-  });
+  }) as Node;
 };
 
 export const cloneAsCell = (node: Node): Cell => {
@@ -25,5 +25,5 @@ export const cloneAsCell = (node: Node): Cell => {
         rows: [node],
       }
     : node;
-  return cloneWithNewIds(cell);
+  return cloneWithNewIds(cell) as Cell;
 };

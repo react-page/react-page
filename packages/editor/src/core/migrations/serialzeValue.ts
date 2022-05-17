@@ -1,13 +1,13 @@
-import type { CellPlugin } from '../types/plugins';
+import type { CellPluginList } from '../types/plugins';
 import type { Cell, Value, Row } from '../types/node';
 
-const serializeRow = (r: Row, cellPlugins: CellPlugin[]): Row => {
+const serializeRow = (r: Row, cellPlugins: CellPluginList): Row => {
   return {
     ...r,
     cells: r.cells.map((c) => serializeCell(c, cellPlugins)),
   };
 };
-const serializeCell = (c: Cell, cellPlugins: CellPlugin[]): Cell => {
+const serializeCell = (c: Cell, cellPlugins: CellPluginList): Cell => {
   const pluginDef = c.plugin;
   const pluginFound = pluginDef
     ? cellPlugins.find((p) => p.id === pluginDef.id)
@@ -29,13 +29,13 @@ const serializeCell = (c: Cell, cellPlugins: CellPlugin[]): Cell => {
   return {
     ...c,
     rows: c.rows?.map((r) => serializeRow(r, cellPlugins)),
-    dataI18n,
+    dataI18n: dataI18n ?? {},
   };
 };
 
 export const serialzeValue = (
   { rows, ...rest }: Value,
-  plugins: CellPlugin[]
+  plugins: CellPluginList
 ) => {
   return {
     ...rest,

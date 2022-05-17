@@ -45,7 +45,8 @@ const migrateElementNode = (node: OldElementNode): Element => {
     data: node.data ?? {},
     type: node.type,
     children: node.nodes?.map(migrateNode) ?? [],
-  };
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } as any;
 };
 const migrateNode = (oldNode: OldNode): Node => {
   if (oldNode.object === 'text') {

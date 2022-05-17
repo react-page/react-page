@@ -139,81 +139,81 @@ describe('computeHover', () => {
 describe('computeLevel', () => {
   [
     {
-      i: { size: 10, position: 0, levels: 10 },
+      i: { size: 10, position: 0, level: 10 },
       e: 0,
     },
     {
-      i: { size: 10, position: 10, levels: 10 },
+      i: { size: 10, position: 10, level: 10 },
       e: 10,
     },
     {
-      i: { size: 10, position: 5, levels: 10 },
+      i: { size: 10, position: 5, level: 10 },
       e: 5,
     },
     {
-      i: { size: 20, position: 10, levels: 10 },
+      i: { size: 20, position: 10, level: 10 },
       e: 5,
     },
   ].forEach((c) => {
-    it('should compute the right levels when not enough space is available', () => {
+    it('should compute the right level when not enough space is available', () => {
       expect(computeLevel(c.i), 'to equal', c.e);
     });
   });
   [
     {
-      i: { size: 121, position: 50, levels: 10 },
+      i: { size: 121, position: 50, level: 10 },
       e: 0,
     },
     {
-      i: { size: 121, position: 51, levels: 10 },
+      i: { size: 121, position: 51, level: 10 },
       e: 0,
     },
     {
-      i: { size: 121, position: 120, levels: 10 },
+      i: { size: 121, position: 120, level: 10 },
       e: 10,
     },
     {
-      i: { size: 121, position: 52, levels: 10 },
+      i: { size: 121, position: 52, level: 10 },
       e: 1,
     },
     {
-      i: { size: 121, position: 79, levels: 10 },
+      i: { size: 121, position: 79, level: 10 },
       e: 2,
     },
     {
-      i: { size: 121, position: 94, levels: 10 },
+      i: { size: 121, position: 94, level: 10 },
       e: 3,
     },
     {
-      i: { size: 121, position: 102, levels: 10 },
+      i: { size: 121, position: 102, level: 10 },
       e: 4,
     },
     {
-      i: { size: 121, position: 107, levels: 10 },
+      i: { size: 121, position: 107, level: 10 },
       e: 5,
     },
     {
-      i: { size: 121, position: 111, levels: 10 },
+      i: { size: 121, position: 111, level: 10 },
       e: 6,
     },
     {
-      i: { size: 121, position: 114, levels: 10 },
+      i: { size: 121, position: 114, level: 10 },
       e: 7,
     },
     {
-      i: { size: 121, position: 116, levels: 10 },
+      i: { size: 121, position: 116, level: 10 },
       e: 8,
     },
     {
-      i: { size: 121, position: 118, levels: 10 },
+      i: { size: 121, position: 118, level: 10 },
       e: 9,
     },
     {
-      i: { size: 121, position: 119, levels: 10 },
+      i: { size: 121, position: 119, level: 10 },
       e: 10,
     },
   ].forEach((c) => {
-    it('should compute the right levels when in a large cell', () => {
+    it('should compute the right level when in a large cell', () => {
       expect(computeLevel(c.i), 'to equal', c.e);
     });
   });

@@ -67,10 +67,10 @@ export const PluginDrawer: React.FC = React.memo(() => {
   const isInsertMode = useIsInsertMode();
   const inputRef = React.useRef<HTMLInputElement>();
   React.useEffect(() => {
-    let handle;
+    let handle: NodeJS.Timeout;
     if (inputRef.current && isInsertMode) {
       handle = setTimeout(() => {
-        const e = inputRef.current.querySelector('input');
+        const e = inputRef?.current?.querySelector('input');
         if (e) {
           e.focus();
         }
@@ -104,7 +104,7 @@ export const PluginDrawer: React.FC = React.memo(() => {
           <ListItem>
             <TextField
               inputRef={inputRef}
-              placeholder={t(defaultLabels.searchPlaceholder)}
+              placeholder={t(defaultLabels.searchPlaceholder) ?? ''}
               fullWidth={true}
               onChange={onSearch}
             />
@@ -117,7 +117,7 @@ export const PluginDrawer: React.FC = React.memo(() => {
         </List>
         {filteredPlugins.length > 0 && (
           <List>
-            {filteredPlugins.map((plugin: CellPlugin, k: number) => {
+            {filteredPlugins.map((plugin, k: number) => {
               return (
                 <Item
                   translations={defaultLabels}

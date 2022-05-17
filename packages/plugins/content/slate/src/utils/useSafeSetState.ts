@@ -2,7 +2,7 @@ import * as React from 'react';
 
 export function useSafeSetState<T>(
   initialState?: T | (() => T)
-): [T, React.Dispatch<React.SetStateAction<T>>] {
+): [T | undefined, React.Dispatch<React.SetStateAction<T>>] {
   const [state, setState] = React.useState(initialState);
 
   const mountedRef = React.useRef(false);

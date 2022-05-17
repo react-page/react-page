@@ -5,10 +5,14 @@ const AutofieldContextProvider: React.FC = ({ children }) => (
   <AutoField.componentDetectorContext.Provider
     value={(props, uniforms) => {
       const show = props.showIf?.(uniforms.model) ?? true;
+      if (!show) return () => null;
 
-      return show
-        ? AutoField.defaultComponentDetector(props, uniforms)
-        : () => null;
+      // see https://github.com/react-page/react-page/issues/1187
+      // we remap props.component to props._customComponent to avoid the underlying issue in uniforms
+      if (props._customComponent) {
+        return props._customComponent;
+      }
+      return AutoField.defaultComponentDetector(props, uniforms);
     }}
   >
     {children}

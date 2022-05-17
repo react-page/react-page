@@ -1,4 +1,4 @@
-import type { Options, Levels, PartialCell, CellPlugin } from '../../types';
+import type { CellPluginList, Levels, PartialCell } from '../../types';
 import { isRow } from '../../types';
 import type {
   HoverInsertActions,
@@ -16,9 +16,9 @@ import logger from '../logger';
  *
  */
 export type HoverTarget = {
-  id: string;
-  inline?: string;
-  levels?: Levels;
+  id?: string;
+  inline?: string | null;
+  levels?: Levels | null;
   hasInlineNeighbour?: string;
   ancestorIds?: string[];
   pluginId?: string;
@@ -32,7 +32,7 @@ type Context = {
     cells: number;
   };
   scale: Vector;
-  cellPlugins: CellPlugin[];
+  cellPlugins: CellPluginList;
 };
 type MatrixList = { [key: string]: Matrix };
 type CallbackList = {
@@ -190,14 +190,14 @@ export const computeHover = (
   }: {
     room: Room;
     mouse: Vector;
-    cellPlugins: CellPlugin[];
+    cellPlugins: CellPluginList;
   }
 ) => {
   const allowInlineNeighbours =
     cellPlugins.find((p) => p.id === hover.pluginId)?.allowInlineNeighbours ??
     false;
 
-  const matrixName = `10x10${allowInlineNeighbours ? '' : '-no-inline'}`;
+  const matrixName = allowInlineNeighbours ? '10x10' : '10x10-no-inline';
 
   const matrix = MATRIX_LIST[matrixName];
   const scale = getRoomScale({ room, matrix });
@@ -246,7 +246,8 @@ export const computeHover = (
   if (deepEquals(all, last[matrixName])) {
     return;
   }
-  last[matrixName] = all;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  last[matrixName] = all as any;
 
   return CALLBACK_LIST[cell](drag, hover, actions, {
     room,
@@ -279,21 +280,21 @@ const relativeMousePosition = ({
  */
 export const computeLevel = ({
   size,
-  levels,
+  level = 0,
   position,
 }: {
   size: number;
-  levels: number;
+  level?: number;
   position: number;
 }) => {
-  if (size <= (levels + 1) * 2) {
-    return Math.round(position / (size / levels));
+  if (size <= (level + 1) * 2) {
+    return Math.round(position / (size / level));
   }
 
-  const spare = size - (levels + 1) * 2;
+  const spare = size - (level + 1) * 2;
   const steps = [0];
   let current = spare;
-  for (let i = 0; i <= levels; i++) {
+  for (let i = 0; i <= level; i++) {
     steps.push(steps[i] + current / 2);
     current /= 2;
     if (position >= steps[i] + i * 2 && position < steps[i + 1] + (i + 1) * 2) {
@@ -301,7 +302,7 @@ export const computeLevel = ({
     }
   }
 
-  return levels;
+  return level;
 };
 
 /**
@@ -321,18 +322,18 @@ const computeHorizontal = (
     position,
     hover,
     scale,
-    level,
+    level = 0,
   }: {
     mouse: Vector;
     position: MatrixIndex;
     scale: Vector;
-    level: number;
+    level?: number;
     hover: HoverTarget;
   },
   inv = false
 ) => {
   const x = relativeMousePosition({ mouse, position, scale }).x;
-  let at = computeLevel({ size: scale.x, position: x, levels: level });
+  let at = computeLevel({ size: scale.x, position: x, level });
 
   if (isRow(hover)) {
     // Is row, always opt for lowest level
@@ -355,13 +356,13 @@ const computeHorizontal = (
  */
 const computeVertical = (
   {
-    level,
+    level = 0,
     mouse,
     hover,
     position,
     scale,
   }: {
-    level: number;
+    level?: number;
     mouse: Vector;
     hover: HoverTarget;
     position: MatrixIndex;
@@ -370,7 +371,7 @@ const computeVertical = (
   inv = false
 ) => {
   const y = relativeMousePosition({ mouse, position, scale }).y;
-  let at = computeLevel({ size: scale.y, position: y, levels: level });
+  let at = computeLevel({ size: scale.y, position: y, level });
 
   if (isRow(hover)) {
     // Is row, always opt for lowest level
@@ -513,7 +514,7 @@ export const CALLBACK_LIST: CallbackList = {
         {
           ...ctx,
           hover: hover,
-          level: hover.levels.above,
+          level: hover.levels?.above,
         },
         true
       ),
@@ -528,7 +529,7 @@ export const CALLBACK_LIST: CallbackList = {
       level: computeVertical({
         ...ctx,
         hover,
-        level: hover.levels.below,
+        level: hover.levels?.below,
       }),
     }),
 
@@ -543,7 +544,7 @@ export const CALLBACK_LIST: CallbackList = {
         {
           ...ctx,
           hover,
-          level: hover.levels.left,
+          level: hover.levels?.left,
         },
         true
       ),
@@ -558,7 +559,7 @@ export const CALLBACK_LIST: CallbackList = {
       level: computeHorizontal({
         ...ctx,
         hover,
-        level: hover.levels.right,
+        level: hover.levels?.right,
       }),
     }),
 

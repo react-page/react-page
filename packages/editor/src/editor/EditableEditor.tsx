@@ -11,7 +11,7 @@ import StickyWrapper from './StickyWrapper';
 
 export type DndBackend = BackendFactory;
 export type EditableEditorProps = {
-  value?: ValueWithLegacy;
+  value?: ValueWithLegacy | null;
 
   lang?: string;
 } & ProviderProps;

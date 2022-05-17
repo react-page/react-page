@@ -1,4 +1,4 @@
-import type { Cell, Options, Value, Value_v0 } from '@react-page/editor';
+import type { Cell, Value, Value_v0 } from '@react-page/editor';
 import Editor, { migrateValue } from '@react-page/editor';
 import type { SlateCellPlugin } from '@react-page/plugins-slate';
 import type { GetStaticProps } from 'next';
@@ -7,7 +7,7 @@ import React, { useState } from 'react';
 import PageLayout from '../../components/PageLayout';
 import { cellPlugins } from '../../plugins/cellPlugins';
 import contents from '../../sampleContents/v0';
-const LANGUAGES: Options['languages'] = [
+const LANGUAGES = [
   {
     lang: 'en',
     label: 'English',
@@ -30,7 +30,7 @@ its just an async function instead of a sync function, because it lazy loads stu
 const transformCell = async (cell: Cell): Promise<Cell> => {
   const plugin = cellPlugins.find(
     (c) => c.id === cell.plugin?.id
-  ) as SlateCellPlugin<unknown>;
+  ) as SlateCellPlugin;
 
   const transformedData = Object.fromEntries(
     await Promise.all(
@@ -63,22 +63,24 @@ const transformRows = async (rows: Value['rows']) => {
   );
 };
 export const getStaticProps: GetStaticProps<{
-  content: Value;
+  content: Value | null;
 }> = async () => {
   const contentRaw = migrateValue(contents[1], { cellPlugins, lang: 'en' });
 
   return {
     props: {
-      content: {
-        ...contentRaw,
-        rows: await transformRows(contentRaw.rows),
-      },
+      content: contentRaw
+        ? {
+            ...contentRaw,
+            rows: await transformRows(contentRaw.rows),
+          }
+        : null,
     },
   };
 };
 
-export default function Home({ content }) {
-  const [value, setValue] = useState<Value_v0 | Value>(content);
+export default function Home({ content }: { content: Value | null }) {
+  const [value, setValue] = useState<Value_v0 | Value | null>(content);
 
   return (
     <PageLayout>

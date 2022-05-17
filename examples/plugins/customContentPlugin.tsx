@@ -2,22 +2,45 @@ import type { CellPlugin } from '@react-page/editor';
 import { ColorPickerField } from '@react-page/editor';
 import React from 'react';
 
+type Palette = {
+  variant: 'default' | 'highlight' | 'custom';
+  customTextColor: string;
+  customBackgroundColor: string;
+};
+
+const getTextColor = (palette: Palette) => {
+  if (palette?.variant === 'custom') {
+    return palette.customTextColor;
+  }
+  if (palette?.variant === 'highlight') {
+    return 'white';
+  }
+  return 'black';
+};
+const getBackgroundColor = (palette: Palette) => {
+  if (palette?.variant === 'custom') {
+    return palette.customBackgroundColor;
+  }
+  if (palette?.variant === 'highlight') {
+    return '#3f51b5';
+  }
+  return 'white';
+};
 const customContentPlugin: CellPlugin<{
   title: string;
   firstName: string;
   lastName: string;
   age: number;
   style: {
-    backgroundColor: string;
-    textColor: string;
+    pallete: Palette;
     padding: number;
   };
 }> = {
   Renderer: ({ data }) => (
     <div
       style={{
-        backgroundColor: data.style?.backgroundColor,
-        color: data?.style?.textColor,
+        backgroundColor: getBackgroundColor(data?.style?.pallete),
+        color: getTextColor(data?.style?.pallete),
         padding: data?.style?.padding,
       }}
     >
@@ -66,19 +89,33 @@ const customContentPlugin: CellPlugin<{
             style: {
               type: 'object',
               required: [],
+
               properties: {
-                backgroundColor: {
-                  type: 'string',
-                  default: 'white',
-                  uniforms: {
-                    component: ColorPickerField,
-                  },
-                },
-                textColor: {
-                  type: 'string',
-                  default: 'black',
-                  uniforms: {
-                    component: ColorPickerField,
+                pallete: {
+                  type: 'object',
+                  properties: {
+                    variant: {
+                      type: 'string',
+                      enum: ['default', 'highlight', 'custom'],
+                    },
+                    customBackgroundColor: {
+                      type: 'string',
+                      default: 'white',
+                      uniforms: {
+                        component: ColorPickerField,
+                        showIf: (data) =>
+                          data.style?.pallete?.variant === 'custom',
+                      },
+                    },
+                    customTextColor: {
+                      type: 'string',
+                      default: 'black',
+                      uniforms: {
+                        component: ColorPickerField,
+                        showIf: (data) =>
+                          data.style?.pallete?.variant === 'custom',
+                      },
+                    },
                   },
                 },
 

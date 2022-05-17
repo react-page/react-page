@@ -8,18 +8,21 @@ export interface BackgroundApi {
   handleChangeLighten: () => void;
   handleChangeLightenPreview: (lighten: number) => void;
   handleChangeHasPadding: () => void;
-  handleChangeModeSwitch: (mode: ModeEnum, modeFlag: ModeEnum) => () => void;
-  handleChangeBackgroundColorPreview: (color: RGBColor) => void;
+  handleChangeModeSwitch: (
+    mode: ModeEnum | undefined,
+    modeFlag: ModeEnum | undefined
+  ) => () => void;
+  handleChangeBackgroundColorPreview: (color?: RGBColor) => void;
   handleChangeGradientDegPreview: (
-    gradientDegPreview: number,
+    gradientDegPreview: number | undefined,
     gradientDegPreviewIndex?: number
   ) => void;
   handleChangeGradientOpacityPreview: (
-    gradientOpacityPreview: number,
+    gradientOpacityPreview: number | undefined,
     gradientOpacityPreviewIndex?: number
   ) => void;
   handleChangeGradientColorPreview: (
-    gradientColorPreview: RGBColor,
+    gradientColorPreview: RGBColor | undefined,
     gradientColorPreviewIndex?: number,
     gradientColorPreviewColorIndex?: number
   ) => void;

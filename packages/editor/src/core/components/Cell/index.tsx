@@ -1,5 +1,6 @@
 import classNames from 'classnames';
 import React, { useCallback } from 'react';
+import type { UseMeasureRef } from 'react-use/lib/useMeasure';
 import { getCellOuterDivClassName } from '../../utils/getCellStylingProps';
 import {
   useAllFocusedNodeIds,
@@ -27,7 +28,7 @@ const CellErrorGate = class extends React.Component<
   {
     nodeId: string;
   },
-  { error: Error }
+  { error: Error | null }
 > {
   state = {
     error: null,
@@ -46,22 +47,21 @@ const CellErrorGate = class extends React.Component<
 
 type Props = {
   nodeId: string;
-  measureRef?: React.Ref<HTMLDivElement>;
+  measureRef?: UseMeasureRef;
 };
 const Cell: React.FC<Props> = ({ nodeId, measureRef }) => {
   const focused = useIsFocused(nodeId);
 
   const { inline, hasInlineNeighbour, isDraft, isDraftI18n, size } =
-    useCellProps(
-      nodeId,
-      ({ inline, hasInlineNeighbour, isDraft, isDraftI18n, size }) => ({
-        inline,
-        hasInlineNeighbour,
-        isDraft,
-        isDraftI18n,
-        size,
-      })
-    );
+    useCellProps(nodeId, (node) => {
+      return {
+        inline: node?.inline,
+        hasInlineNeighbour: node?.hasInlineNeighbour,
+        isDraft: node?.isDraft,
+        isDraftI18n: node?.isDraftI18n,
+        size: node?.size ?? 12,
+      };
+    });
 
   const lang = useLang();
   const isPreviewMode = useIsPreviewMode();
@@ -73,11 +73,11 @@ const Cell: React.FC<Props> = ({ nodeId, measureRef }) => {
   const hasChildren = useNodeHasChildren(nodeId);
   const showMoveButtons = useOption('showMoveButtonsInLayoutMode');
   const hasPlugin = useCellHasPlugin(nodeId);
-  const { x: cellSpacingX, y: cellSpacingY } = useCellSpacing();
+  const cellSpacing = useCellSpacing();
   const needVerticalPadding = !hasChildren || hasPlugin;
 
   const isDraftInLang = isDraftI18n?.[lang] ?? isDraft;
-  const ref = React.useRef<HTMLDivElement>();
+  const ref = React.useRef<HTMLDivElement>(null);
 
   const setReferenceNodeId = useSetDisplayReferenceNodeId();
   const onClick = useCallback(
@@ -101,10 +101,10 @@ const Cell: React.FC<Props> = ({ nodeId, measureRef }) => {
   }
 
   const cellOuterStlye =
-    cellSpacingY !== 0 || cellSpacingX !== 0
+    cellSpacing && (cellSpacing.y !== 0 || cellSpacing.x !== 0)
       ? {
-          padding: `${needVerticalPadding ? cellSpacingY / 2 : 0}px ${
-            cellSpacingX / 2
+          padding: `${needVerticalPadding ? cellSpacing.y / 2 : 0}px ${
+            cellSpacing.x / 2
           }px`,
         }
       : undefined;
@@ -139,7 +139,8 @@ const Cell: React.FC<Props> = ({ nodeId, measureRef }) => {
         <MoveActions nodeId={nodeId} />
       ) : null}
       <div
-        ref={measureRef}
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        ref={measureRef as any}
         style={{
           height: '100%',
           boxSizing: 'border-box',

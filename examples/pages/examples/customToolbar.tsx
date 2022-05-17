@@ -11,7 +11,7 @@ const cellPlugins = [slate(), image, customContentPlugin];
 
 // Custom bottom toolbar example with collapse/restore functionality.
 const customToolbarExample = () => {
-  const [value, setValue] = React.useState<Value>(null);
+  const [value, setValue] = React.useState<Value | null>(null);
 
   const [useCustom, setUseCustom] = useState(true);
   // make sure that you memoize custom components property to avoid unnesseary rerenders

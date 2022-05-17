@@ -9,6 +9,6 @@ import type { Translations } from './translations';
 export type ImageControlType = React.ComponentType<
   CellPluginComponentProps<ImageState> & {
     imageUpload?: ImageUploadType;
-    translations: Translations;
+    translations?: Translations;
   }
 >;

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import type { ChoicesProps } from 'react-admin';
 import { ReferenceInput, SelectInput } from 'react-admin';
 import { connectField } from 'uniforms';
@@ -8,9 +9,10 @@ type InputProps = {
   className?: string;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   filterToQuery?: (filter: string) => any;
-  label?: string | boolean;
+  label?: string | boolean | null;
   perPage?: number;
   reference: string;
+  name: string;
 };
 type Props = InputProps & Pick<ChoicesProps, 'optionText' | 'optionValue'>;
 
@@ -21,7 +23,7 @@ const RaSelectReferenceInputField: React.FC<Omit<Props, 'children'>> =
   connectField(
     ({
       allowEmpty = true,
-      value = null,
+      value = null as any,
       onChange,
       optionText,
       optionValue,
@@ -38,13 +40,12 @@ const RaSelectReferenceInputField: React.FC<Omit<Props, 'children'>> =
           input={
             {
               value,
-              onChange: (e) => {
+              onChange: (e: any) => {
                 onChange(e.target.value);
               },
-              // eslint-disable-next-line @typescript-eslint/no-explicit-any
             } as any
           }
-          source={null}
+          source={null as any}
         >
           <SelectInput
             optionText={optionText || 'id'}

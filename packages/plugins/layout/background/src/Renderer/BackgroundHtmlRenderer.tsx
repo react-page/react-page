@@ -14,11 +14,11 @@ const getStyles = (props: BackgroundRendererProps) => {
     } = {},
   } = props;
   let styles: React.CSSProperties = {};
-  if (modeFlag & ModeEnum.GRADIENT_MODE_FLAG) {
+  if (modeFlag && modeFlag & ModeEnum.GRADIENT_MODE_FLAG) {
     const usedGradients = gradients.filter((g) => g.colors && g.colors.length);
     const usedGradientsString = usedGradients
       .map((g, i) => {
-        const firstColor = g.colors[0].color;
+        const firstColor = g.colors?.[0].color;
         const firstColorStr = colorToString(firstColor);
         const deg =
           i === props.gradientDegPreviewIndex &&
@@ -34,15 +34,18 @@ const getStyles = (props: BackgroundRendererProps) => {
           'linear-gradient(' +
           deg +
           'deg, ' +
-          (g.colors.length !== 1
-            ? g.colors
-                .map((c, cpIndex) => {
+          (g?.colors?.length !== 1
+            ? g?.colors
+                ?.map((c, cpIndex) => {
                   const color =
                     i === props.gradientColorPreviewIndex &&
                     cpIndex === props.gradientColorPreviewColorIndex &&
                     props.gradientColorPreview !== undefined
                       ? props.gradientColorPreview
                       : c.color;
+                  if (!color) {
+                    return 'transparent';
+                  }
                   const colorWithOpacity = {
                     ...color,
                     a: color.a !== undefined ? color.a * opacity : opacity,
@@ -59,7 +62,7 @@ const getStyles = (props: BackgroundRendererProps) => {
       styles = { ...styles, background: usedGradientsString };
     }
   }
-  if (modeFlag & ModeEnum.COLOR_MODE_FLAG) {
+  if (modeFlag && modeFlag & ModeEnum.COLOR_MODE_FLAG) {
     const colorStr = colorToString(
       props.backgroundColorPreview
         ? props.backgroundColorPreview
@@ -73,7 +76,7 @@ const getStyles = (props: BackgroundRendererProps) => {
         : modeStr,
     };
   }
-  if (modeFlag & ModeEnum.IMAGE_MODE_FLAG) {
+  if (modeFlag && modeFlag & ModeEnum.IMAGE_MODE_FLAG) {
     const backgroundFinal = props.imagePreview
       ? props.imagePreview.dataUrl
       : background;

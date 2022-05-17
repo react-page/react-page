@@ -5,7 +5,7 @@ import React, { useState, useCallback } from 'react';
 import { cellPlugins } from '../../plugins/cellPlugins';
 import PageLayout from '../../components/PageLayout';
 import { Button } from '@material-ui/core';
-const LANGUAGES: Options['languages'] = [
+const LANGUAGES = [
   {
     lang: 'en',
     label: 'English',
@@ -27,8 +27,8 @@ const TRANSLATIONS: { [key: string]: string } = {
 export default function Home() {
   const [value, setValue] = useState<Value>(demo);
   const reset = () => setValue(demo);
-  const uiTranslator = useCallback((label?: string) => {
-    if (TRANSLATIONS[label] !== undefined) {
+  const uiTranslator = useCallback((label?: string | null) => {
+    if (label && TRANSLATIONS[label] !== undefined) {
       return TRANSLATIONS[label];
     }
     return `${label}(to translate)`;

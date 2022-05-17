@@ -5,14 +5,14 @@ import Rows from './Rows';
 
 const Inner: React.FC = () => {
   const mode = useDisplayMode();
-  const ref = useRef<HTMLDivElement>();
+  const ref = useRef<HTMLDivElement>(null);
   const zoom = useZoom();
   useKeepScrollPosition(ref);
 
   const rect = ref.current?.getBoundingClientRect();
 
-  const zoomTransformOriginY = window.innerHeight / 2 - rect?.top;
-  const offsetPercent = zoomTransformOriginY / rect?.height;
+  const zoomTransformOriginY = window.innerHeight / 2 - (rect?.top ?? 0);
+  const offsetPercent = zoomTransformOriginY / (rect?.height ?? 0);
 
   const backdropPercent = 50 * (1 - zoom);
   const left = backdropPercent + '%';

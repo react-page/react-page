@@ -1,21 +1,11 @@
 import type { CellHoverAction, ClearHoverAction } from '../../actions/cell';
-import {
-  CELL_FOCUS,
-  CELL_BLUR,
-  CELL_BLUR_ALL,
-  BlurCellAction,
-  BlurAllCellsAction,
-  FocusCellAction,
-  CELL_DRAG_HOVER,
-  CLEAR_CLEAR_HOVER,
-} from '../../actions/cell';
+import { CELL_DRAG_HOVER, CLEAR_CLEAR_HOVER } from '../../actions/cell';
 import type { PositionEnum } from '../../const';
-import { HoverInsertActions } from '../../types/hover';
 
 export type Hover = {
-  nodeId: string;
+  nodeId?: string;
   position: PositionEnum;
-};
+} | null;
 
 export const hover = (
   state: Hover = null,

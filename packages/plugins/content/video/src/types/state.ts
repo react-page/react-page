@@ -1,3 +1,3 @@
-export interface VideoState {
+export type VideoState = {
   src: string;
-}
+};

@@ -12,7 +12,7 @@ const DeleteAll: React.FC = () => {
   const focused = useAllFocusedNodeIds();
   const { t } = useUiTranslator();
   return (
-    <Tooltip title={t('Remove all selected')}>
+    <Tooltip title={t('Remove all selected') ?? ''}>
       <IconButton
         onClick={() => remove(focused)}
         aria-label="delete"

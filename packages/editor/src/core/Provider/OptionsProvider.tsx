@@ -21,11 +21,11 @@ const OptionsProvider: React.FC<Options> = ({ children, ...options }) => {
     lastOptions.current = fullOptions;
   }
 
-  return (
+  return lastOptions.current ? (
     <OptionsContext.Provider value={lastOptions.current}>
       {children}
     </OptionsContext.Provider>
-  );
+  ) : null;
 };
 
 export default OptionsProvider;
