@@ -1,7 +1,7 @@
 import React from 'react';
-import { IconButton, Tooltip } from '@material-ui/core';
-import IconCollapse from '@material-ui/icons/KeyboardArrowDown';
-import IconRestore from '@material-ui/icons/KeyboardArrowUp';
+import { IconButton, Tooltip } from '@mui/material';
+import IconCollapse from '@mui/icons-material/KeyboardArrowDown';
+import IconRestore from '@mui/icons-material/KeyboardArrowUp';
 
 interface CollapseButtonProps {
   collapsed: boolean;

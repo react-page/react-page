@@ -6,7 +6,7 @@ import {
   CardMedia,
   CardContent,
   Typography,
-} from '@material-ui/core';
+} from '@mui/material';
 import type { Record as RecordType } from 'ra-core';
 import type { CellPlugin } from '@react-page/editor';
 import slate, {

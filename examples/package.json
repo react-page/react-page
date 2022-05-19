@@ -13,9 +13,14 @@
     "react-dom": ">= 16.14"
   },
   "dependencies": {
-    "@material-ui/core": "^4.11.2",
-    "@material-ui/icons": "^4.11.2",
-    "@material-ui/styles": "^4.11.2",
+    "@emotion/cache": "^11.7.1",
+    "@emotion/react": "^11.9.0",
+    "@emotion/server": "^11.4.0",
+    "@emotion/styled": "^11.8.1",
+    "@mui/icons-material": "^5.8.0",
+    "@mui/material": "^5.8.1",
+    "@mui/styled-engine-sc": "^5.8.0",
+    "@mui/styles": "^5.8.0",
     "@react-page/editor": "0.0.0",
     "@react-page/plugins-background": "0.0.0",
     "@react-page/plugins-divider": "0.0.0",
@@ -32,14 +37,14 @@
     "react-katex": "^2.0.2",
     "react-syntax-highlighter": "^15.3.1",
     "react-twitter-widgets": "^1.9.5",
-    "styled-components": "^5.2.1"
+    "styled-components": "^5.3.5"
   },
   "devDependencies": {
     "@next/bundle-analyzer": "^10.0.3",
     "@types/react-syntax-highlighter": "^13.5.0",
+    "@types/styled-components": "^5.1.15",
     "babel-plugin-styled-components": "^1.11.1",
     "raw-loader": "4.0.1",
-    "react-admin": "^3.14.2",
-    "@types/styled-components": "^5.1.15"
+    "react-admin": "^3.14.2"
   }
 }

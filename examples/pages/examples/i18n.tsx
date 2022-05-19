@@ -4,7 +4,7 @@ import { demo } from '../../sampleContents/demo';
 import React, { useState, useCallback } from 'react';
 import { cellPlugins } from '../../plugins/cellPlugins';
 import PageLayout from '../../components/PageLayout';
-import { Button } from '@material-ui/core';
+import { Button } from '@mui/material';
 const LANGUAGES = [
   {
     lang: 'en',

@@ -1,24 +1,17 @@
-import Divider from '@material-ui/core/Divider';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import type { Theme } from '@material-ui/core/styles';
-import { createStyles, makeStyles } from '@material-ui/core/styles';
+import Divider from '@mui/material/Divider';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemText from '@mui/material/ListItemText';
+
 import Link from 'next/link';
 import React from 'react';
-import DescriptionIcon from '@material-ui/icons/Description';
-import { ListItemIcon } from '@material-ui/core';
+import DescriptionIcon from '@mui/icons-material/Description';
+import { ListItemIcon } from '@mui/material';
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    toolbar: theme.mixins.toolbar,
-  })
-);
 const Navigation: React.FC = () => {
-  const classes = useStyles();
   return (
     <div>
-      <div className={classes.toolbar} />
+      <div />
       <Divider />
       <Link passHref href="/docs">
         <ListItem component="a">
