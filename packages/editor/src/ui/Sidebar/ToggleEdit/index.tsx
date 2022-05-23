@@ -1,4 +1,4 @@
-import Create from '@material-ui/icons/Create';
+import Create from '@mui/icons-material/Create';
 
 import React from 'react';
 import { useIsEditMode, useSetEditMode } from '../../../core/components/hooks';

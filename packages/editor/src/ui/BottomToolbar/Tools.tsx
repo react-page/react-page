@@ -1,5 +1,5 @@
-import { IconButton, Tooltip } from '@material-ui/core';
-import Delete from '@material-ui/icons/Delete';
+import { IconButton, Tooltip } from '@mui/material';
+import Delete from '@mui/icons-material/Delete';
 import React from 'react';
 import { useRemoveCell, useUiTranslator } from '../../core/components/hooks';
 import DraftSwitch from '../DraftSwitch';

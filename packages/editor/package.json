@@ -25,6 +25,8 @@
     "react-dom": ">= 16.14"
   },
   "dependencies": {
+    "@mui/material": "^5.8.1",
+    "@mui/icons-material": "^5.8.0",
     "@loadable/component": "^5.15.0",
     "@welldone-software/why-did-you-render": "^6.0.5",
     "ajv": "^7.1.1",
@@ -47,12 +49,14 @@
     "redux-undo": "^1.0.1",
     "uniforms": "^2.6.0 || ^3.0.0",
     "uniforms-bridge-json-schema": "^2.6.0 || ^3.0.0",
-    "uniforms-material": "^2.6.0 || ^3.0.0"
+    "invariant": "^2.0.0",
+    "tslib": "^2.2.0"
   },
   "devDependencies": {
     "@types/react-color": "^3.0.4",
     "@types/lodash.throttle": "^4.1.6",
-    "@types/react-portal": "^4.0.4"
+    "@types/react-portal": "^4.0.4",
+    "@types/invariant": "^2.2.35"
   },
   "publishConfig": {
     "access": "public"

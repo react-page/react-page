@@ -6,17 +6,17 @@ import createListPlugin from '../../pluginFactories/createListPlugin';
 import { LI, OL, UL } from './constants';
 
 const ListIcon = lazyLoad(
-  () => import('@material-ui/icons/FormatListBulleted')
+  () => import('@mui/icons-material/FormatListBulleted')
 );
 const OrderedListIcon = lazyLoad(
-  () => import('@material-ui/icons/FormatListNumbered')
+  () => import('@mui/icons-material/FormatListNumbered')
 );
 
 const IncreaseIndentIcon = lazyLoad(
-  () => import('@material-ui/icons/FormatIndentIncrease')
+  () => import('@mui/icons-material/FormatIndentIncrease')
 );
 const DecreaseIndentIcon = lazyLoad(
-  () => import('@material-ui/icons/FormatIndentDecrease')
+  () => import('@mui/icons-material/FormatIndentDecrease')
 );
 
 const ol = createListPlugin({

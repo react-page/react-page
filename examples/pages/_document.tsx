@@ -34,7 +34,6 @@ export default class MyDocument extends Document {
         />
       ));
 
-      console.log(emotionStyleTags);
       return {
         ...initialProps,
 

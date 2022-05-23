@@ -1,4 +1,5 @@
 import MenuIcon from '@mui/icons-material/Menu';
+import GitHubIcon from '@mui/icons-material/GitHub';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -52,6 +53,15 @@ const PageLayout: FC = ({ children }) => {
           <Typography variant="h6" noWrap component="div">
             React Page {VERSION}
           </Typography>
+          <IconButton
+            href="https://github.com/react-page/react-page"
+            target="_blank"
+            color="inherit"
+            aria-label="open drawer"
+            sx={{ marginLeft: 'auto' }}
+          >
+            <GitHubIcon />
+          </IconButton>
         </Toolbar>
       </AppBar>
       <Box
@@ -98,10 +108,21 @@ const PageLayout: FC = ({ children }) => {
           flexGrow: 1,
           p: 3,
           width: { sm: `calc(100% - ${drawerWidth}px)` },
+          background: (theme) => theme.palette.grey[100],
         }}
       >
         <Toolbar />
-        {children}
+        <Box
+          sx={{
+            flexGrow: 1,
+            p: 4,
+            backgroundColor: 'white',
+            maxWidth: 1280,
+            margin: 'auto',
+          }}
+        >
+          {children}
+        </Box>
       </Box>
     </Box>
   );

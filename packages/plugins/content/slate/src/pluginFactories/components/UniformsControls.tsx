@@ -1,8 +1,8 @@
-import { Dialog, DialogActions, DialogContent } from '@material-ui/core';
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
-import DeleteIcon from '@material-ui/icons/Delete';
-import DoneIcon from '@material-ui/icons/Done';
+import { Dialog, DialogActions, DialogContent } from '@mui/material';
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
+import DeleteIcon from '@mui/icons-material/Delete';
+import DoneIcon from '@mui/icons-material/Done';
 import type { JsonSchema } from '@react-page/editor';
 import { makeUniformsSchema, AutoForm, AutoFields } from '@react-page/editor';
 import React, { useCallback, useRef, useState } from 'react';

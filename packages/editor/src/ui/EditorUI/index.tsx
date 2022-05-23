@@ -1,6 +1,5 @@
 import React from 'react';
 
-import { ThemeProvider } from '../ThemeProvider';
 import { PluginDrawer } from '../PluginDrawer';
 import { Trash } from '../Trash';
 import type { StickyNess } from '../Sidebar';
@@ -21,12 +20,12 @@ export default React.memo(
   }) => {
     const hideEditorSidebar = useOption('hideEditorSidebar');
     return (
-      <ThemeProvider>
+      <>
         <Trash />
         {!hideEditorSidebar && <Sidebar stickyNess={stickyNess} />}
         <PluginDrawer />
         <MultiNodesBottomToolbar />
-      </ThemeProvider>
+      </>
     );
   }
 );

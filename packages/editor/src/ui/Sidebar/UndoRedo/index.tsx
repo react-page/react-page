@@ -1,5 +1,5 @@
-import IconRedo from '@material-ui/icons/Redo';
-import IconUndo from '@material-ui/icons/Undo';
+import IconRedo from '@mui/icons-material/Redo';
+import IconUndo from '@mui/icons-material/Undo';
 import React from 'react';
 import {
   useCanRedo,

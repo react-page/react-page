@@ -33,7 +33,6 @@
     "next": "^12.1.2",
     "ra-data-fakerest": "3.9.3",
     "react-admin": "^3.14.2",
-    "react-github-fork-ribbon": "^0.6.0",
     "react-katex": "^2.0.2",
     "react-syntax-highlighter": "^15.3.1",
     "react-twitter-widgets": "^1.9.5",

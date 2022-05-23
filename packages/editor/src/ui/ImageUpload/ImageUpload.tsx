@@ -1,8 +1,8 @@
 import React from 'react';
-import Button from '@material-ui/core/Button';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import CloudUploadIcon from '@material-ui/icons/CloudUpload';
-import ErrorIcon from '@material-ui/icons/Error';
+import Button from '@mui/material/Button';
+import CircularProgress from '@mui/material/CircularProgress';
+import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+import ErrorIcon from '@mui/icons-material/Error';
 import type { ImageLoaded, ImageUploadProps, ImageUploadState } from './types';
 import { defaultTranslations } from './defaultTranslations';
 import type { TranslatorFunction } from '../../core/components/hooks';

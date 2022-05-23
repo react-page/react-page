@@ -9,6 +9,8 @@ export * from './Trash';
 export * from './ImageUpload';
 export * from './SelectParentButton';
 export * from './PluginDrawer';
-export * from './ThemeProvider';
+
 export * from './ColorPicker';
 export * from './Sidebar';
+
+export * from './defaultTheme';

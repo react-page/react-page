@@ -11,6 +11,9 @@ import CallbacksProvider from './CallbacksProvider';
 import EditorStoreProvider from './EditorStoreProvider';
 import OptionsProvider from './OptionsProvider';
 import RenderOptionsProvider from './RenderOptionsProvider';
+import { ThemeProvider } from '@mui/material';
+
+import { DEFAULT_OPTIONS } from '../defaultOptions';
 
 export type ProviderProps = {
   lang?: string;
@@ -34,7 +37,9 @@ const Provider: React.FC<ProviderProps> = ({
         <CallbacksProvider {...callbacks}>
           <DndProvider>
             <EditorStoreProvider lang={lang} value={value}>
-              <BlurGate>{children}</BlurGate>
+              <ThemeProvider theme={options.uiTheme || DEFAULT_OPTIONS.uiTheme}>
+                <BlurGate>{children}</BlurGate>
+              </ThemeProvider>
             </EditorStoreProvider>
           </DndProvider>
         </CallbacksProvider>

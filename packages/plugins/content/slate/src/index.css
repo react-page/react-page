@@ -1,20 +1,18 @@
 @import 'plugins/paragraphs/node.css';
 
 .react-page-plugins-content-slate-inline-toolbar {
-    position: absolute;
-    z-index: 10;
-    top: -10000px;
-    left: -10000px;
-    margin-top: -6px;
-    opacity: 0;
-    background-color: var(--grey900);
-    border-radius: 4px;
-    transition: opacity 0.75s;
-  }
-  
-  .react-page-plugins-content-slate-inline-toolbar--hidden {
-    opacity: 0 !important;
-    pointer-events: none;
-  }
+  position: absolute;
+  z-index: 10;
+  top: -10000px;
+  left: -10000px;
+  margin-top: -6px;
+  opacity: 0;
+  background-color: var(--grey900);
+  border-radius: 4px;
+  transition: opacity 0.75s;
+}
 
-  
+.react-page-plugins-content-slate-inline-toolbar--hidden {
+  opacity: 0 !important;
+  pointer-events: none;
+}

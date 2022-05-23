@@ -7,6 +7,7 @@ import Link from 'next/link';
 import React from 'react';
 import DescriptionIcon from '@mui/icons-material/Description';
 import { ListItemIcon } from '@mui/material';
+import { GitHub } from '@mui/icons-material';
 
 const Navigation: React.FC = () => {
   return (
@@ -20,6 +21,14 @@ const Navigation: React.FC = () => {
           </ListItemIcon>
 
           <ListItemText primary={'Docs'} />
+        </ListItem>
+      </Link>
+      <Link passHref href="https://github.com/react-page/react-page">
+        <ListItem component="a">
+          <ListItemIcon>
+            <GitHub />
+          </ListItemIcon>
+          <ListItemText primary={'Github'} />
         </ListItem>
       </Link>
       <Divider />
