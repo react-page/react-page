@@ -1,6 +1,4 @@
-import type { Theme } from '@material-ui/core';
-import { Tab, Tabs } from '@material-ui/core';
-import { withStyles } from '@material-ui/styles';
+import { Tab, Tabs } from '@mui/material';
 import React, { useState } from 'react';
 
 import { AutoformControls } from '../../../../ui';
@@ -11,21 +9,6 @@ import type {
   DataTType,
 } from '../../../types';
 
-const StyledTab = withStyles(() => ({
-  wrapper: {
-    alignItems: 'flex-start',
-  },
-}))(Tab);
-
-const StyledTabs = withStyles((theme: Theme) => ({
-  root: {
-    marginTop: -12,
-    marginBottom: -12,
-    marginLeft: -24,
-    alignItems: 'flex-start',
-    backgroundColor: theme.palette.background.default,
-  },
-}))(Tabs);
 const ControlsList: React.FC<{
   controls: ControlsDefList;
   componentProps: CellPluginComponentProps<DataTType>;
@@ -40,16 +23,29 @@ const ControlsList: React.FC<{
         flexDirection: 'row',
       }}
     >
-      <StyledTabs
+      <Tabs
+        sx={{
+          marginTop: '-12px',
+          marginBottom: '-12px',
+          marginLeft: '-24px',
+          alignItems: 'flex-start',
+          backgroundColor: (theme) => theme.palette.background.default,
+        }}
         value={tab}
         onChange={(e, v) => setTab(v)}
         orientation="vertical"
         variant="scrollable"
       >
         {controls.map((t, index) => (
-          <StyledTab label={t.title} key={index} />
+          <Tab
+            sx={{
+              alignItems: 'flex-start',
+            }}
+            label={t.title}
+            key={index}
+          />
         ))}
-      </StyledTabs>
+      </Tabs>
 
       {activeControls ? (
         <div

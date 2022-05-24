@@ -7,7 +7,7 @@ import { defaultSettings } from './default/settings';
 import type { CellPlugin } from '@react-page/editor';
 import { lazyLoad } from '@react-page/editor';
 
-const Icon = lazyLoad(() => import('@material-ui/icons/CropLandscape'));
+const Icon = lazyLoad(() => import('@mui/icons-material/CropLandscape'));
 
 const createPlugin = (settings: BackgroundSettings) => {
   const mergedSettings = { ...defaultSettings, ...settings };

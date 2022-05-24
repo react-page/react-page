@@ -1,6 +1,6 @@
-import { FormControlLabel, Switch, Tooltip } from '@material-ui/core';
-import VisibleIcon from '@material-ui/icons/Visibility';
-import NonVisibleIcon from '@material-ui/icons/VisibilityOff';
+import { FormControlLabel, Switch, Tooltip } from '@mui/material';
+import VisibleIcon from '@mui/icons-material/Visibility';
+import NonVisibleIcon from '@mui/icons-material/VisibilityOff';
 import React from 'react';
 import {
   useCellProps,

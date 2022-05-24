@@ -1,5 +1,5 @@
 import React from 'react';
-import { SlateReactPresentation } from 'slate-react-presentation'; // use a fork until https://github.com/rockettomatooo/slate-react-presentation/pull/7 is merged
+import { SlateReactPresentation } from 'slate-react-presentation';
 import type { SlateProps } from '../types/component';
 import { useRenderElement, useRenderLeave } from './renderHooks';
 

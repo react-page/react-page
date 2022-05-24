@@ -1,5 +1,5 @@
-import IconZoomOut from '@material-ui/icons/ZoomOut';
-import IconZoomIn from '@material-ui/icons/ZoomIn';
+import IconZoomOut from '@mui/icons-material/ZoomOut';
+import IconZoomIn from '@mui/icons-material/ZoomIn';
 import React from 'react';
 import {
   useCanZoomIn,

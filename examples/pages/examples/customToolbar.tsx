@@ -4,7 +4,7 @@ import Editor from '@react-page/editor';
 import slate from '@react-page/plugins-slate';
 import image from '@react-page/plugins-image';
 import { ExampleCustomBottomToolbar } from '../../components/ExampleCustomBottomToolbar';
-import { Button } from '@material-ui/core';
+import { Button } from '@mui/material';
 import customContentPlugin from '../../plugins/customContentPlugin';
 
 const cellPlugins = [slate(), image, customContentPlugin];

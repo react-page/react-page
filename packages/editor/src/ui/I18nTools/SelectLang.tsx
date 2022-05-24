@@ -1,4 +1,4 @@
-import { Select } from '@material-ui/core';
+import { Select } from '@mui/material';
 import React, { memo } from 'react';
 import { useLang, useOption, useSetLang } from '../../core/components/hooks';
 
@@ -9,6 +9,7 @@ const SelectLang = () => {
   if (languages && languages?.length > 0) {
     return (
       <Select
+        variant="standard"
         value={lang || ''}
         onChange={(e) => setLang(e.target.value as string)}
       >

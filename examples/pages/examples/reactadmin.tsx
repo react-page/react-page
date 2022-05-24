@@ -6,7 +6,7 @@ import {
   CardMedia,
   CardContent,
   Typography,
-} from '@material-ui/core';
+} from '@mui/material';
 import type { Record as RecordType } from 'ra-core';
 import type { CellPlugin } from '@react-page/editor';
 import slate, {
@@ -37,6 +37,19 @@ import {
 import { cellPlugins } from '../../plugins/cellPlugins';
 import { demo } from '../../sampleContents/demo';
 import { raAboutUs } from '../../sampleContents/raAboutUs';
+import {
+  createGenerateClassName,
+  StylesProvider,
+} from '@material-ui/core/styles';
+
+const generateClassName = createGenerateClassName({
+  // By enabling this option, if you have non-MUI elements (e.g. `<div />`)
+  // using MUI classes (e.g. `.MuiButton`) they will lose styles.
+  // Make sure to convert them to use `styled()` or `<Box />` first.
+  disableGlobal: true,
+  // Class names will receive this seed to avoid name collisions.
+  seed: 'mui-ra',
+});
 
 // see https://github.com/marmelab/react-admin/issues/5896
 const Admin = dynamic(async () => (await import('react-admin')).Admin, {
@@ -308,9 +321,11 @@ const products = {
 
 export default function ReactAdminExample() {
   return (
-    <Admin dataProvider={dataProvider} title="Example Admin">
-      <Resource name="posts" {...posts} />
-      <Resource name="products" {...products} />
-    </Admin>
+    <StylesProvider generateClassName={generateClassName}>
+      <Admin dataProvider={dataProvider} title="Example Admin">
+        <Resource name="posts" {...posts} />
+        <Resource name="products" {...products} />
+      </Admin>
+    </StylesProvider>
   );
 }

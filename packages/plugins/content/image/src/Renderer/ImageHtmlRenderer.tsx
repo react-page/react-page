@@ -5,7 +5,7 @@ import type { CellPluginComponentProps } from '@react-page/editor';
 import { lazyLoad } from '@react-page/editor';
 import type { ImageState } from '../types/state';
 
-const ImageIcon = lazyLoad(() => import('@material-ui/icons/Landscape'));
+const ImageIcon = lazyLoad(() => import('@mui/icons-material/Landscape'));
 
 const ImageHtmlRenderer: React.FC<CellPluginComponentProps<ImageState>> = (
   props

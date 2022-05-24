@@ -1,5 +1,5 @@
-import { Button, DialogContent, Table } from '@material-ui/core';
-import Translate from '@material-ui/icons/Translate';
+import { Button, DialogContent, Table } from '@mui/material';
+import Translate from '@mui/icons-material/Translate';
 
 import React, { useCallback } from 'react';
 import {

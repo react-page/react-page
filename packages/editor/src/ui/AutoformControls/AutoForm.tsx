@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { forwardRef } from 'react';
-import type { AutoFieldProps, AutoFormProps } from 'uniforms';
-import { AutoForm } from 'uniforms-material';
+import type { AutoFormProps } from 'uniforms';
+import { AutoForm } from 'uniforms';
 import AutofieldContextProvider from './AutoFieldContext';
 
 type OptionalFields =

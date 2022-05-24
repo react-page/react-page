@@ -9,7 +9,7 @@ import slate from '@react-page/plugins-slate';
 // image
 import image from '@react-page/plugins-image';
 import PageLayout from '../../components/PageLayout';
-import { Button } from '@material-ui/core';
+import { Button } from '@mui/material';
 
 const fullSlate = slate();
 const simpleSlate = slate((def) => ({

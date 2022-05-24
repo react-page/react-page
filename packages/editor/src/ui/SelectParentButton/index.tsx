@@ -1,5 +1,5 @@
-import IconButton from '@material-ui/core/IconButton';
-import VerticalAlignTopIcon from '@material-ui/icons/VerticalAlignTop';
+import IconButton from '@mui/material/IconButton';
+import VerticalAlignTopIcon from '@mui/icons-material/VerticalAlignTop';
 
 import React from 'react';
 import {

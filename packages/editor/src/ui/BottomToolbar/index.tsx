@@ -1,5 +1,4 @@
 import React from 'react';
-import { darkTheme, ThemeProvider } from '../ThemeProvider';
 import { BottomToolbarDrawer } from './Drawer';
 import { BottomToolbarMainBar } from './NodeTools';
 import { ScaleButton } from './ScaleButton';
@@ -13,8 +12,7 @@ export const BottomToolbar: React.FC<BottomToolbarProps> = React.memo(
   ({
     open = false,
     className,
-    dark = false,
-    theme,
+
     anchor = 'bottom',
     pluginControls,
     nodeId,
@@ -25,30 +23,23 @@ export const BottomToolbar: React.FC<BottomToolbarProps> = React.memo(
     const [scale, setScale] = React.useState(1);
 
     return (
-      <ThemeProvider theme={theme ? theme : dark ? darkTheme : null}>
-        <BottomToolbarDrawer
-          className={className}
-          open={open}
-          anchor={anchor}
-          scale={scale}
-          dark={dark}
-          style={style}
-        >
-          {children}
-          {pluginControls}
-          <BottomToolbarMainBar
-            nodeId={nodeId}
-            actionsLeft={[
-              <ScaleButton
-                key="scalebutton"
-                scale={scale}
-                setScale={setScale}
-              />,
-              ...React.Children.toArray(actionsLeft),
-            ]}
-          />
-        </BottomToolbarDrawer>
-      </ThemeProvider>
+      <BottomToolbarDrawer
+        className={className}
+        open={open}
+        anchor={anchor}
+        scale={scale}
+        style={style}
+      >
+        {children}
+        {pluginControls}
+        <BottomToolbarMainBar
+          nodeId={nodeId}
+          actionsLeft={[
+            <ScaleButton key="scalebutton" scale={scale} setScale={setScale} />,
+            ...React.Children.toArray(actionsLeft),
+          ]}
+        />
+      </BottomToolbarDrawer>
     );
   }
 );

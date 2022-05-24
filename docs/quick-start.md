@@ -16,22 +16,6 @@ $ yarn add @react-page/plugins-slate
 $ npm i --save @react-page/plugins-slate
 ```
 
-## Dependencies
-
-React-page uses [Material UI](https://material-ui.com/) under the hood. The following packages need to be installed, if they are not already installed:
-
-1. `@material-ui/core`
-2. `@material-ui/styles`
-3. `@material-ui/icons`
-
-These packages are lazy loaded and do not directly increase your bundle size.
-
-```bash
-$ yarn add @material-ui/core @material-ui/styles @material-ui/icons
-# OR
-$ npm i --save @material-ui/core @material-ui/styles @material-ui/icons
-```
-
 Make sure to import the css file as well somewhere in your app:
 
 ```

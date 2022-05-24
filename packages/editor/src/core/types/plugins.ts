@@ -176,16 +176,6 @@ export type CellPlugin<
   migrations?: Migration[];
 
   /**
-   * customize the bottom toolbar
-   */
-  bottomToolbar?: {
-    /**
-     * whether to display the bottom toolbar in dark theme
-     */
-    dark?: boolean;
-  };
-
-  /**
    * The Component to render both in readOnly and in edit mode. It will receive the current data to display among other props (@see CellPluginRenderer)
    * Don't use any internal hooks that we provide in the Renderer, as these hooks don't work in readOnly mode.
    */

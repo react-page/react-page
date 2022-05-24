@@ -1,7 +1,7 @@
 import React from 'react';
-import Fab from '@material-ui/core/Fab';
+import Fab from '@mui/material/Fab';
 
-import type { PropTypes } from '@material-ui/core';
+import type { PropTypes } from '@mui/material';
 import { useIsSmallScreen } from '../../../core/components/hooks';
 
 const DisplayModeToggle = ({

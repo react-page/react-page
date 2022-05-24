@@ -1,11 +1,11 @@
-import { IconButton, Tooltip } from '@material-ui/core';
+import { IconButton, Tooltip } from '@mui/material';
 import React from 'react';
 import {
   useAllFocusedNodeIds,
   useDuplicateMultipleCells,
   useUiTranslator,
 } from '../../core/components/hooks';
-import Icon from '@material-ui/icons/FileCopy';
+import Icon from '@mui/icons-material/FileCopy';
 
 const DuplicateAll: React.FC = () => {
   const duplicate = useDuplicateMultipleCells();

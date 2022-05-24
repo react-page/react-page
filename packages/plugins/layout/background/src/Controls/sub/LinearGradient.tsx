@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import Button from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/IconButton';
-import Slider from '@material-ui/core/Slider';
-import Typography from '@material-ui/core/Typography';
-import DeleteIcon from '@material-ui/icons/Delete';
+import Button from '@mui/material/Button';
+import IconButton from '@mui/material/IconButton';
+import Slider from '@mui/material/Slider';
+import Typography from '@mui/material/Typography';
+import DeleteIcon from '@mui/icons-material/Delete';
 import type { RGBColor } from '@react-page/editor';
 import { ColorPicker } from '@react-page/editor';
 import React from 'react';
