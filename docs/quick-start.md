@@ -18,6 +18,9 @@ $ npm i --save @react-page/plugins-slate
 
 ## Dependencies
 
+**IMPORTANT**: use react 17 at the moment, react 18 is not yet supported. Follow this milestone: https://github.com/react-page/react-page/milestone/14
+
+
 React-page uses [Material UI](https://material-ui.com/) under the hood. The following packages need to be installed, if they are not already installed:
 
 1. `@material-ui/core`
