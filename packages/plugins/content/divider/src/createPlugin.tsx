@@ -6,7 +6,7 @@ import DividerHtmlRenderer from './Renderer/DividerHtmlRenderer';
 
 import type { DividerSettings } from './types/settings';
 
-const Remove = lazyLoad(() => import('@material-ui/icons/Remove'));
+const Remove = lazyLoad(() => import('@mui/icons-material/Remove'));
 
 const createPlugin: (settings: DividerSettings) => CellPlugin = (settings) => {
   const mergedSettings = { ...defaultSettings, ...settings };

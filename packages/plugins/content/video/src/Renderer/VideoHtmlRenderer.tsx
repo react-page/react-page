@@ -1,5 +1,5 @@
 import React from 'react';
-import PlayArrow from '@material-ui/icons/PlayArrow';
+import PlayArrow from '@mui/icons-material/PlayArrow';
 import { iconStyle } from '../common/styles';
 
 import { lazyLoad } from '@react-page/editor';

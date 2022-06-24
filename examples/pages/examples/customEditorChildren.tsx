@@ -8,8 +8,8 @@ import Editor, {
 import React, { useState } from 'react';
 import PageLayout from '../../components/PageLayout';
 import { cellPlugins } from '../../plugins/cellPlugins';
-import { Button } from '@material-ui/core';
-import { Add } from '@material-ui/icons';
+import { Button } from '@mui/material';
+import { Add } from '@mui/icons-material';
 
 const LANGUAGES = [
   {

@@ -1,4 +1,4 @@
-import { Typography } from '@material-ui/core';
+import { Typography } from '@mui/material';
 import type { BottomToolbarProps } from '@react-page/editor';
 import { BottomToolbar, usePluginOfCell } from '@react-page/editor';
 import React from 'react';

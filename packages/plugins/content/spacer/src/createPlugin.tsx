@@ -6,7 +6,7 @@ import { defaultSettings } from './default/settings';
 import type { SpacerSettings } from './types/settings';
 import type { SpacerState } from './types/state';
 
-const AspectRatio = lazyLoad(() => import('@material-ui/icons/AspectRatio'));
+const AspectRatio = lazyLoad(() => import('@mui/icons-material/AspectRatio'));
 const createPlugin: (settings: SpacerSettings) => CellPlugin<SpacerState> = (
   settings
 ) => {

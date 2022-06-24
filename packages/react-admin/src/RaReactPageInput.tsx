@@ -1,4 +1,4 @@
-import { Paper } from '@material-ui/core';
+import { Paper } from '@mui/material';
 import type { EditorProps } from '@react-page/editor';
 import Editor from '@react-page/editor';
 import React from 'react';

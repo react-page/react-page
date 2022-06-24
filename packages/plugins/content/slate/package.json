@@ -21,13 +21,13 @@
     "clean": "rimraf \"lib\" && rimraf \"lib-es\" && rm -f *.tsbuildinfo"
   },
   "peerDependencies": {
-    "@material-ui/core": "*",
-    "@material-ui/icons": "*",
     "@types/react": "*",
     "react": ">= 16.14",
-    "react-dom": ">= 16.14"
+    "react-dom": ">= 16.14",
+    "@mui/material": "*"
   },
   "dependencies": {
+    "@mui/icons-material": "^5.8.0",
     "@emotion/is-prop-valid": "^0.8.8",
     "@react-page/editor": "0.0.0",
     "cssstyle": "^2.3.0",

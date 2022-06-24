@@ -53,6 +53,7 @@ const HoverButtons = ({
           plugins.map((plugin, i: number) =>
             plugin.addHoverButton ? (
               <PluginButton
+                dark
                 translations={translations}
                 key={i}
                 plugin={plugin}

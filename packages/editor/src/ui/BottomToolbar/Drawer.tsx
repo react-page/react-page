@@ -1,5 +1,6 @@
-import type { DrawerProps } from '@material-ui/core';
-import { Divider, Drawer, Portal } from '@material-ui/core';
+import { useTheme } from '@mui/material';
+import type { DrawerProps } from '@mui/material';
+import { Divider, Drawer, Portal } from '@mui/material';
 import React, { Fragment } from 'react';
 import { useIsSmallScreen } from '../../core/components/hooks';
 
@@ -20,7 +21,6 @@ export const BottomToolbarDrawer: React.FC<BottomToolbarDrawerProps> = ({
   className,
   anchor,
   open,
-  dark,
   scale = 1,
   children,
   style = {},
@@ -38,6 +38,8 @@ export const BottomToolbarDrawer: React.FC<BottomToolbarDrawerProps> = ({
 
   const theChildren = React.Children.toArray(children).filter(Boolean);
   const isSmall = useIsSmallScreen();
+  const theme = useTheme();
+  const dark = theme.palette.mode === 'dark';
   return (
     <Portal>
       <Drawer

@@ -28,7 +28,7 @@ export {
 };
 
 const SlateEditor = lazyLoad(() => import('./components/SlateEditor'));
-const Subject = lazyLoad(() => import('@material-ui/icons/Subject'));
+const Subject = lazyLoad(() => import('@mui/icons-material/Subject'));
 const Controls = lazyLoad(() => import('./components/Controls'));
 const SlateProvider = lazyLoad(() => import('./components/SlateProvider'));
 
@@ -155,9 +155,6 @@ function plugin<TPlugins extends SlatePluginCollection = DefaultPlugins>(
     // we no longer require the provider in read only mode thanks to the static renderer:
     disableProviderInReadOnly: true,
 
-    bottomToolbar: {
-      dark: true,
-    },
     controls: {
       type: 'custom',
       Component: (props) => (

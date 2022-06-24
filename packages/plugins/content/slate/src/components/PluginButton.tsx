@@ -15,10 +15,11 @@ import ToolbarButton from './ToolbarButton';
 
 type Props = {
   plugin: SlatePluginDefinition;
+  dark?: boolean;
 } & PluginButtonProps;
 
 function PluginButton(props: Props) {
-  const { plugin } = props;
+  const { plugin, dark } = props;
   const { t } = useUiTranslator();
   const hasControls = Boolean(plugin.controls);
 
@@ -60,6 +61,7 @@ function PluginButton(props: Props) {
         onClick={onClick}
         disabled={isDisabled}
         isActive={isActive}
+        dark={dark}
         icon={
           plugin.icon ??
           (plugin.pluginType === 'component'

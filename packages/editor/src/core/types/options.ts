@@ -1,3 +1,4 @@
+import type { Theme } from '@mui/material';
 import type { BackendFactory } from 'dnd-core';
 import type { Middleware, Store } from 'redux';
 import type { DisplayModes } from '../actions/display';
@@ -131,4 +132,8 @@ export type Options = {
   hideEditorSidebar?: boolean;
 
   customOptions?: React.ComponentType[];
+  /**
+   * pass a custom theme to the ui (mui)
+   */
+  uiTheme?: Theme;
 };

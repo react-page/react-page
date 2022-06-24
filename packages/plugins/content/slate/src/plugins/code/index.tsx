@@ -2,7 +2,7 @@ import { lazyLoad } from '@react-page/editor';
 import React from 'react';
 import createComponentPlugin from '../../pluginFactories/createComponentPlugin';
 
-const Icon = lazyLoad(() => import('@material-ui/icons/Code'));
+const Icon = lazyLoad(() => import('@mui/icons-material/Code'));
 
 const block = createComponentPlugin({
   type: 'CODE/CODE',

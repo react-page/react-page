@@ -4,7 +4,7 @@ import Editor from '@react-page/editor';
 import slate from '@react-page/plugins-slate';
 import image from '@react-page/plugins-image';
 import { demo } from '../../sampleContents/demo';
-import { Button } from '@material-ui/core';
+import { Button } from '@mui/material';
 
 const cellPlugins = [slate(), image];
 

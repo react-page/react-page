@@ -2,7 +2,9 @@ import React from 'react';
 import { lazyLoad } from '@react-page/editor';
 import createSimpleHtmlBlockPlugin from '../pluginFactories/createSimpleHtmlBlockPlugin';
 
-const BlockquoteIcon = lazyLoad(() => import('@material-ui/icons/FormatQuote'));
+const BlockquoteIcon = lazyLoad(
+  () => import('@mui/icons-material/FormatQuote')
+);
 
 export default {
   blockQuote: createSimpleHtmlBlockPlugin({

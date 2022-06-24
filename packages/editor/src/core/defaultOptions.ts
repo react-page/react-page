@@ -2,6 +2,7 @@ import type { Options, RenderOptions } from './types';
 
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { DISPLAY_MODE_EDIT } from './actions/display';
+import { defaultTheme } from '../ui';
 
 export const DEFAULT_OPTIONS: Required<Options> = {
   allowMoveInEditMode: true,
@@ -31,6 +32,7 @@ export const DEFAULT_OPTIONS: Required<Options> = {
   sidebarPosition: 'rightAbsolute',
 
   customOptions: [],
+  uiTheme: defaultTheme,
 };
 
 export const DEFAULT_RENDER_OPTIONS: Required<RenderOptions> = {

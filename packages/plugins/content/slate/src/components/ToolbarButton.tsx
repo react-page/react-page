@@ -1,9 +1,9 @@
 import { lazyLoad } from '@react-page/editor';
 import React from 'react';
 import { ConditionalWrapper } from './ConditionalWrapper';
-
-const IconButton = lazyLoad(() => import('@material-ui/core/IconButton'));
-const Tooltip = lazyLoad(() => import('@material-ui/core/Tooltip'));
+import { useTheme } from '@mui/material';
+const IconButton = lazyLoad(() => import('@mui/material/IconButton'));
+const Tooltip = lazyLoad(() => import('@mui/material/Tooltip'));
 
 const ToolbarButton: React.SFC<{
   icon: JSX.Element | string;
@@ -11,25 +11,37 @@ const ToolbarButton: React.SFC<{
   disabled?: boolean;
   onClick: React.MouseEventHandler;
   toolTip?: string;
-}> = ({ icon, isActive, onClick, disabled = false, toolTip = '' }) => (
-  <ConditionalWrapper
-    condition={!disabled}
-    wrapper={(children) => <Tooltip title={toolTip}>{children}</Tooltip>}
-  >
-    <IconButton
-      onMouseDown={onClick}
-      style={
-        isActive
-          ? { color: 'rgb(0, 188, 212)' }
-          : disabled
-          ? { color: 'gray' }
-          : { color: 'white' }
-      }
-      disabled={disabled}
+  dark?: boolean;
+}> = ({ dark, icon, isActive, onClick, disabled = false, toolTip = '' }) => {
+  const theme = useTheme();
+  return (
+    <ConditionalWrapper
+      condition={!disabled}
+      wrapper={(children) => <Tooltip title={toolTip}>{children}</Tooltip>}
     >
-      {icon}
-    </IconButton>
-  </ConditionalWrapper>
-);
+      <IconButton
+        onMouseDown={onClick}
+        style={{
+          transition: '0.3s',
+          ...(isActive
+            ? {
+                transform: 'scale(1.15)',
+                color: theme.palette.primary.main,
+              }
+            : disabled
+            ? { color: theme.palette.action.disabled }
+            : {
+                color: dark
+                  ? theme.palette.common.white
+                  : theme.palette.common.black,
+              }),
+        }}
+        disabled={disabled}
+      >
+        {icon}
+      </IconButton>
+    </ConditionalWrapper>
+  );
+};
 
 export default React.memo(ToolbarButton);

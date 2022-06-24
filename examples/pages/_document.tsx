@@ -1,35 +1,47 @@
 import React from 'react';
 import type { DocumentContext } from 'next/document';
 import Document, { Html, Head, Main, NextScript } from 'next/document';
-
+import createEmotionServer from '@emotion/server/create-instance';
 import { ServerStyleSheet } from 'styled-components';
-import { ServerStyleSheets } from '@material-ui/core/styles';
 
+import createEmotionCache from '../utils/createEmotionCache';
 export default class MyDocument extends Document {
   static async getInitialProps(ctx: DocumentContext) {
     const styledComponentsSheet = new ServerStyleSheet();
-    const materialUiSheets = new ServerStyleSheets();
+
     const originalRenderPage = ctx.renderPage;
+
+    const cache = createEmotionCache();
+    const { extractCriticalToChunks } = createEmotionServer(cache);
 
     try {
       ctx.renderPage = () =>
         originalRenderPage({
-          enhanceApp: (App) => (props) =>
-            materialUiSheets.collect(
-              styledComponentsSheet.collectStyles(<App {...props} />)
+          enhanceApp: (App: any) => (props) =>
+            styledComponentsSheet.collectStyles(
+              <App emotionCache={cache} {...props} />
             ),
         });
 
       const initialProps = await Document.getInitialProps(ctx);
+      const emotionStyles = extractCriticalToChunks(initialProps.html);
+      const emotionStyleTags = emotionStyles.styles.map((style) => (
+        <style
+          data-emotion={`${style.key} ${style.ids.join(' ')}`}
+          key={style.key}
+          // eslint-disable-next-line react/no-danger
+          dangerouslySetInnerHTML={{ __html: style.css }}
+        />
+      ));
+
       return {
         ...initialProps,
-        styles: (
-          <>
-            {initialProps.styles}
-            {styledComponentsSheet.getStyleElement()}
-            {materialUiSheets.getStyleElement()}
-          </>
-        ),
+
+        styles: [
+          ...React.Children.toArray(initialProps.styles),
+          styledComponentsSheet.getStyleElement(),
+          ...emotionStyleTags,
+        ],
       };
     } finally {
       styledComponentsSheet.seal();
