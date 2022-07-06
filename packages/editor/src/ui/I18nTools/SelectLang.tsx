@@ -1,4 +1,4 @@
-import { Select } from '@mui/material';
+import { Select, MenuItem } from '@mui/material';
 import React, { memo } from 'react';
 import { useLang, useOption, useSetLang } from '../../core/components/hooks';
 
@@ -14,9 +14,9 @@ const SelectLang = () => {
         onChange={(e) => setLang(e.target.value as string)}
       >
         {languages.map((l) => (
-          <option key={l.lang} value={l.lang}>
+          <MenuItem key={l.lang} value={l.lang}>
             {l.label}
-          </option>
+          </MenuItem>
         ))}
       </Select>
     );
