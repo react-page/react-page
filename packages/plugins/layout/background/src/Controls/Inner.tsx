@@ -50,62 +50,60 @@ class Inner extends React.Component<
         : lighten ?? 0;
     return (
       <div>
-        <Tabs
-          style={{ marginBottom: 16 }}
-          value={this.state.mode}
-          onChange={this.handleChangeMode}
-          centered={true}
-        >
-          {this.props.enabledModes ? (
-            <>
-              {(this.props.enabledModes & ModeEnum.IMAGE_MODE_FLAG) > 0 && (
-                <Tab
-                  icon={
-                    <ImageIcon
-                      color={
-                        modeFlag && (modeFlag & ModeEnum.IMAGE_MODE_FLAG) > 0
-                          ? 'secondary'
-                          : undefined
-                      }
-                    />
-                  }
-                  label={this.props.translations?.imageMode}
-                  value={ModeEnum.IMAGE_MODE_FLAG}
-                />
-              )}
-              {(this.props.enabledModes & ModeEnum.COLOR_MODE_FLAG) > 0 && (
-                <Tab
-                  icon={
-                    <ColorIcon
-                      color={
-                        modeFlag && (modeFlag & ModeEnum.COLOR_MODE_FLAG) > 0
-                          ? 'secondary'
-                          : undefined
-                      }
-                    />
-                  }
-                  label={this.props.translations?.colorMode}
-                  value={ModeEnum.COLOR_MODE_FLAG}
-                />
-              )}
-              {(this.props.enabledModes & ModeEnum.GRADIENT_MODE_FLAG) > 0 && (
-                <Tab
-                  icon={
-                    <GradientIcon
-                      color={
-                        modeFlag && (modeFlag & ModeEnum.GRADIENT_MODE_FLAG) > 0
-                          ? 'secondary'
-                          : undefined
-                      }
-                    />
-                  }
-                  label={this.props.translations?.gradientMode}
-                  value={ModeEnum.GRADIENT_MODE_FLAG}
-                />
-              )}
-            </>
-          ) : null}
-        </Tabs>
+        {this.props.enabledModes && (
+          <Tabs
+            style={{ marginBottom: 16 }}
+            value={this.state.mode}
+            onChange={this.handleChangeMode}
+            centered={true}
+          >
+            {(this.props.enabledModes & ModeEnum.IMAGE_MODE_FLAG) > 0 && (
+              <Tab
+                icon={
+                  <ImageIcon
+                    color={
+                      modeFlag && (modeFlag & ModeEnum.IMAGE_MODE_FLAG) > 0
+                        ? 'secondary'
+                        : undefined
+                    }
+                  />
+                }
+                label={this.props.translations?.imageMode}
+                value={ModeEnum.IMAGE_MODE_FLAG}
+              />
+            )}
+            {(this.props.enabledModes & ModeEnum.COLOR_MODE_FLAG) > 0 && (
+              <Tab
+                icon={
+                  <ColorIcon
+                    color={
+                      modeFlag && (modeFlag & ModeEnum.COLOR_MODE_FLAG) > 0
+                        ? 'secondary'
+                        : undefined
+                    }
+                  />
+                }
+                label={this.props.translations?.colorMode}
+                value={ModeEnum.COLOR_MODE_FLAG}
+              />
+            )}
+            {(this.props.enabledModes & ModeEnum.GRADIENT_MODE_FLAG) > 0 && (
+              <Tab
+                icon={
+                  <GradientIcon
+                    color={
+                      modeFlag && (modeFlag & ModeEnum.GRADIENT_MODE_FLAG) > 0
+                        ? 'secondary'
+                        : undefined
+                    }
+                  />
+                }
+                label={this.props.translations?.gradientMode}
+                value={ModeEnum.GRADIENT_MODE_FLAG}
+              />
+            )}
+          </Tabs>
+        )}
 
         {/* Render one of the panels here - image / mono color / gradient */}
         {this.renderUI()}
