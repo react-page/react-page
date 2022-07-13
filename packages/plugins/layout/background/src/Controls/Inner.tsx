@@ -48,17 +48,11 @@ class Inner extends React.Component<
       this.props.lightenPreview !== undefined
         ? this.props.lightenPreview
         : lighten ?? 0;
-    return (
-      <div>
-        <Tabs
-          style={{ marginBottom: 16 }}
-          value={this.state.mode}
-          onChange={this.handleChangeMode}
-          centered={true}
-        >
-          {this.props.enabledModes ? (
-            <>
-              {(this.props.enabledModes & ModeEnum.IMAGE_MODE_FLAG) > 0 && (
+
+    const tabs = this.props.enabledModes
+      ? [
+          ...((this.props.enabledModes & ModeEnum.IMAGE_MODE_FLAG) > 0
+            ? [
                 <Tab
                   icon={
                     <ImageIcon
@@ -71,9 +65,12 @@ class Inner extends React.Component<
                   }
                   label={this.props.translations?.imageMode}
                   value={ModeEnum.IMAGE_MODE_FLAG}
-                />
-              )}
-              {(this.props.enabledModes & ModeEnum.COLOR_MODE_FLAG) > 0 && (
+                  key={ModeEnum.IMAGE_MODE_FLAG}
+                />,
+              ]
+            : []),
+          ...((this.props.enabledModes & ModeEnum.COLOR_MODE_FLAG) > 0
+            ? [
                 <Tab
                   icon={
                     <ColorIcon
@@ -86,9 +83,12 @@ class Inner extends React.Component<
                   }
                   label={this.props.translations?.colorMode}
                   value={ModeEnum.COLOR_MODE_FLAG}
-                />
-              )}
-              {(this.props.enabledModes & ModeEnum.GRADIENT_MODE_FLAG) > 0 && (
+                  key={ModeEnum.COLOR_MODE_FLAG}
+                />,
+              ]
+            : []),
+          (this.props.enabledModes & ModeEnum.GRADIENT_MODE_FLAG) > 0
+            ? [
                 <Tab
                   icon={
                     <GradientIcon
@@ -101,11 +101,24 @@ class Inner extends React.Component<
                   }
                   label={this.props.translations?.gradientMode}
                   value={ModeEnum.GRADIENT_MODE_FLAG}
-                />
-              )}
-            </>
-          ) : null}
-        </Tabs>
+                  key={ModeEnum.GRADIENT_MODE_FLAG}
+                />,
+              ]
+            : [],
+        ]
+      : [];
+    return (
+      <div>
+        {this.props.enabledModes ? (
+          <Tabs
+            style={{ marginBottom: 16 }}
+            value={this.state.mode}
+            onChange={this.handleChangeMode}
+            centered={true}
+          >
+            {tabs}
+          </Tabs>
+        ) : null}
 
         {/* Render one of the panels here - image / mono color / gradient */}
         {this.renderUI()}
@@ -278,8 +291,9 @@ class Inner extends React.Component<
   };
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  handleChangeMode = (e: React.ChangeEvent<any>, mode: number) =>
+  handleChangeMode = (e: React.ChangeEvent<any>, mode: number) => {
     this.setState({ mode });
+  };
 }
 
 export default Inner;
