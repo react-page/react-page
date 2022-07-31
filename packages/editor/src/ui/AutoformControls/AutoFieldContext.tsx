@@ -1,7 +1,9 @@
 import React from 'react';
 import { AutoField } from '../uniform-mui';
 
-const AutofieldContextProvider: React.FC = ({ children }) => (
+const AutofieldContextProvider: React.FC<React.PropsWithChildren> = ({
+  children,
+}) => (
   <AutoField.componentDetectorContext.Provider
     value={(props, uniforms) => {
       const show = props.showIf?.(uniforms.model) ?? true;

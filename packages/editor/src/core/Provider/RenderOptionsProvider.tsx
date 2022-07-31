@@ -7,10 +7,9 @@ import { DEFAULT_RENDER_OPTIONS } from '../defaultOptions';
 we memoize the RenderOptions, so that if you access them, you won't get a fresh object every time.
 
 */
-const RenderOptionsProvider: React.FC<RenderOptions> = ({
-  children,
-  ...renderOptions
-}) => {
+const RenderOptionsProvider: React.FC<
+  React.PropsWithChildren<RenderOptions>
+> = ({ children, ...renderOptions }) => {
   const lastRenderOptions = useRef<Required<RenderOptions>>();
   const fullRenderOptions = {
     ...DEFAULT_RENDER_OPTIONS,

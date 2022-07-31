@@ -27,10 +27,13 @@ export {
   SlateState,
 };
 
+// import SlateEditor from './components/SlateEditor';
+// import { Subject } from '@mui/icons-material';
+// import Controls from './components/Controls';
 const SlateEditor = lazyLoad(() => import('./components/SlateEditor'));
 const Subject = lazyLoad(() => import('@mui/icons-material/Subject'));
 const Controls = lazyLoad(() => import('./components/Controls'));
-const SlateProvider = lazyLoad(() => import('./components/SlateProvider'));
+import SlateProvider from './components/SlateProvider'; // TODO: mitigate slate editor lock in lazy way.
 
 const migrations = [v002, v003, v004];
 type SlateDefinition<TPlugins extends SlatePluginCollection> = {
@@ -127,12 +130,14 @@ function plugin<TPlugins extends SlatePluginCollection = DefaultPlugins>(
         translations: settings.translations,
         defaultPluginType: settings.defaultPluginType,
       };
+
       /* we need a small fix to avoid flashing when SSR in edit mode:
       we code split the Provider AND the editor version, but we have to make sure to not render the editor without the provider:
       */
       const [providerLoaded, setProviderLoaded] = useSafeSetState(false);
-      if (!props.readOnly) {
-        SlateProvider.load().then((l) => setProviderLoaded(true));
+      if (!props.readOnly && !providerLoaded) {
+        // SlateProvider.load().then((l: any) => setProviderLoaded(true));
+        setProviderLoaded(true);
       }
 
       if (props.readOnly || !providerLoaded) {

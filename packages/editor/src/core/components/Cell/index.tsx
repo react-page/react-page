@@ -26,6 +26,7 @@ import scrollIntoViewWithOffset from './utils/scrollIntoViewWithOffset';
 
 const CellErrorGate = class extends React.Component<
   {
+    children: React.ReactElement;
     nodeId: string;
   },
   { error: Error | null }
@@ -81,7 +82,7 @@ const Cell: React.FC<Props> = ({ nodeId, measureRef }) => {
 
   const setReferenceNodeId = useSetDisplayReferenceNodeId();
   const onClick = useCallback(
-    (e) => {
+    (e: any) => {
       if (isInsertMode) {
         e.stopPropagation();
         setReferenceNodeId(nodeId);

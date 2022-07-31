@@ -7,4 +7,5 @@ export type SlateProps = CellPluginComponentProps<SlateState> & {
   plugins: SlatePluginDefinition[];
   defaultPluginType: string;
   translations?: Translations;
+  fallback?: any; //TODO: to define a type
 };

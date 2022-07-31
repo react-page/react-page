@@ -80,7 +80,10 @@ export const useCellSpacing: () => CellSpacing = () => {
  */
 export const useCellSpacingProvider = (
   cellSpacing?: number | CellSpacing | null
-): [React.FC<{ value: RenderOptions }>, RenderOptions] => {
+): [
+  React.FC<React.PropsWithChildren<{ value: RenderOptions }>>,
+  RenderOptions
+] => {
   const renderOptions = useRenderOptions();
   const value = React.useMemo(
     () => ({

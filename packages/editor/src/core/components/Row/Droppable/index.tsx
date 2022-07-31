@@ -2,7 +2,10 @@ import React from 'react';
 import { useCellDrop } from '../../Cell/Droppable';
 import { useIsInsertMode, useIsLayoutMode } from '../../hooks';
 
-const Droppable: React.FC<{ nodeId: string }> = ({ children, nodeId }) => {
+const Droppable: React.FC<React.PropsWithChildren<{ nodeId: string }>> = ({
+  children,
+  nodeId,
+}) => {
   const isLayoutMode = useIsLayoutMode();
   const isInsertMode = useIsInsertMode();
 

@@ -2,6 +2,7 @@ import type { Translations } from './translations';
 import type { Node, Editor } from 'slate';
 import type { DataTAny, DataTType, JsonSchema } from '@react-page/editor';
 import type { Data } from '../types';
+import type { ReactNode } from 'react';
 
 export interface PluginButtonProps {
   translations?: Partial<Translations>;
@@ -181,6 +182,7 @@ export type SlateComponentPluginDefinition<T extends Data> =
                * className to pass to the renderd html element
                */
               className?: string;
+              children?: ReactNode | undefined; //TODO: add comment later
               /**
                * raw child nodes. Usefull in certain niche cases
                */

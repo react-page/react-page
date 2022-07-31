@@ -29,7 +29,7 @@ export type EditorProps = {
   Callbacks &
   RenderOptions;
 
-const Editor: React.FC<EditorProps> = ({
+const Editor: React.FC<React.PropsWithChildren<EditorProps>> = ({
   readOnly = false,
   value = null,
   onChange = null,

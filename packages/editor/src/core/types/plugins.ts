@@ -54,6 +54,8 @@ export type CellPluginComponentProps<DataT extends DataTType = DataTAny> = {
    * whether the editor is in edit mode
    */
   isEditMode: boolean;
+
+  children?: React.ReactNode; // TODO: to check if needed
 };
 
 export type CellPluginMissingProps = Omit<

@@ -13,13 +13,15 @@ export default <T extends DataTType>(
       return true;
     }
     if (plugin.isDisabled) {
-      plugin.isDisabled(editor).then((d) => setDisabled(d));
+      // plugin.isDisabled(editor).then((d) => setDisabled(d)); // TODO: Recover this feature.
       return disabled;
     } else {
       return false;
     }
+
   } catch (e) {
     // slate sometimes throws when dom node cant be found in undo
+    console.error('usePluginIsDisabled', e);
     return false;
   }
 };

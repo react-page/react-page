@@ -18,13 +18,13 @@
     "clean": "rimraf \"lib\" && rimraf \"lib-es\" && rm -f *.tsbuildinfo"
   },
   "peerDependencies": {
-    "react": ">= 16.14",
-    "react-dom": ">= 16.14",
+    "react": ">= 18.2",
+    "react-dom": ">= 18.2",
     "@mui/material": "*"
   },
   "dependencies": {
     "@react-page/editor": "0.0.0",
-    "react-player": "^1.13.0",
+    "react-player": "^2.10.1",
     "@mui/icons-material": "^5.8.0"
   },
   "devDependencies": {},

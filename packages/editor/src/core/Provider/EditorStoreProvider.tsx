@@ -13,10 +13,12 @@ import { ReduxProvider } from '../reduxConnect';
 import type { ValueWithLegacy } from '../types';
 import deepEquals from '../utils/deepEquals';
 
-const EditorStoreProvider: React.FC<{
-  lang: string;
-  value: ValueWithLegacy | null;
-}> = ({ children, lang, value }) => {
+const EditorStoreProvider: React.FC<
+  React.PropsWithChildren<{
+    lang: string;
+    value: ValueWithLegacy | null;
+  }>
+> = ({ children, lang, value }) => {
   const cellPlugins = useRenderOption('cellPlugins');
   const middleware = useOption('middleware') ?? [];
   const onChangeLang = useCallbackOption('onChangeLang');

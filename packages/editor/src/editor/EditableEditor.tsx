@@ -16,14 +16,9 @@ export type EditableEditorProps = {
   lang?: string;
 } & ProviderProps;
 
-const EditableEditor: React.FC<EditableEditorProps> = ({
-  value,
-  lang,
-  children,
-  options,
-  renderOptions,
-  callbacks,
-}) => {
+const EditableEditor: React.FC<
+  React.PropsWithChildren<EditableEditorProps>
+> = ({ value, lang, children, options, renderOptions, callbacks }) => {
   const theValue = value || createEmptyState();
 
   return (

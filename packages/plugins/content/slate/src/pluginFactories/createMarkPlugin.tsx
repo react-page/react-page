@@ -22,7 +22,8 @@ export default (markDef: MarkPluginDefinition) => {
       tagName: markDef.tagName,
     },
     Component: ({ children, attributes }) => {
-      const Tag = markDef.tagName as unknown as React.ComponentType;
+      const Tag =
+        markDef.tagName as unknown as React.ComponentType<React.PropsWithChildren>;
       return <Tag {...attributes}>{children}</Tag>;
     },
   });

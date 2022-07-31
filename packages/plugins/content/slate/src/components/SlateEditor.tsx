@@ -20,6 +20,7 @@ const SlateEditable = React.memo(
     readOnly: boolean;
     placeholder: string;
   }) => {
+    console.debug('SlateEditable', { props });
     const { plugins, defaultPluginType, readOnly, placeholder } = props;
     const injections = {
       useSelected,
@@ -50,6 +51,11 @@ const SlateEditable = React.memo(
 const SlateEditor = (props: SlateProps) => {
   const { plugins, focused, readOnly } = props;
   const { t } = useUiTranslator();
+  console.debug('SlateEditor', { props });
+  
+  // eslint-disable-next-line no-debugger
+  debugger;
+  
   return (
     <>
       {!readOnly && focused && (

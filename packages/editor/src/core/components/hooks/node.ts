@@ -379,7 +379,7 @@ export const useDebouncedCellData = (nodeId: string) => {
   }, [changed, cellData]);
 
   const onChange = useCallback(
-    (partialData, options) => {
+    (partialData: any, options: any) => {
       dataRef.current = {
         ...dataRef.current,
         ...partialData,
