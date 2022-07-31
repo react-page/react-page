@@ -17,14 +17,9 @@ export type BottomToolbarDrawerProps = {
   scale?: number;
 };
 
-export const BottomToolbarDrawer: React.FC<BottomToolbarDrawerProps> = ({
-  className,
-  anchor,
-  open,
-  scale = 1,
-  children,
-  style = {},
-}) => {
+export const BottomToolbarDrawer: React.FC<
+  React.PropsWithChildren<BottomToolbarDrawerProps>
+> = ({ className, anchor, open, scale = 1, children, style = {} }) => {
   const divider = (
     <Divider
       style={{

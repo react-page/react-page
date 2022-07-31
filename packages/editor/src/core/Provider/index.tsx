@@ -23,7 +23,7 @@ export type ProviderProps = {
   renderOptions: RenderOptions;
 };
 
-const Provider: React.FC<ProviderProps> = ({
+const Provider: React.FC<React.PropsWithChildren<ProviderProps>> = ({
   lang = 'default',
   value,
   children = [],

@@ -1,8 +1,9 @@
-import type { Value, Options } from '@react-page/editor';
+import type { Value } from '@react-page/editor';
 import Editor, {
   useInsertNew,
   useSetPreviewMode,
   useSetEditMode,
+  useUndo,
 } from '@react-page/editor';
 
 import React, { useState } from 'react';
@@ -26,6 +27,7 @@ function Toolbar() {
   const insert = useInsertNew();
   const setIsPreviewMode = useSetPreviewMode();
   const setEditMode = useSetEditMode();
+  const setUndo = useUndo();
 
   function addSlate() {
     insert({ plugin: 'ory/editor/core/content/slate' });
@@ -37,6 +39,10 @@ function Toolbar() {
 
   function editMode() {
     setEditMode();
+  }
+
+  function callUndo() {
+    setUndo();
   }
 
   return (
@@ -65,6 +71,14 @@ function Toolbar() {
         style={{ marginRight: '10px' }}
       >
         Edit Mode
+      </Button>
+      <Button
+        onClick={callUndo}
+        color={'primary'}
+        variant={'contained'}
+        style={{ marginRight: '10px' }}
+      >
+        Undo
       </Button>
     </div>
   );

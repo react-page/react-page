@@ -7,7 +7,9 @@ import withPaste from '../slateEnhancer/withPaste';
 import type { SlateProps } from '../types/component';
 import DialogVisibleProvider from './DialogVisibleProvider';
 
-const SlateProvider: React.FC<SlateProps> = (props) => {
+const SlateProvider: React.FC<React.PropsWithChildren<SlateProps>> = (
+  props
+) => {
   const { data, plugins, children, defaultPluginType } = props;
   const editor = useMemo(
     () =>
@@ -37,7 +39,7 @@ const SlateProvider: React.FC<SlateProps> = (props) => {
   }, [data?.slate, data?.selection]);
 
   const onChange = useCallback(
-    (v) => {
+    (v: any) => {
       if (
         !deepEquals(editor.children, data?.slate) ||
         !deepEquals(editor.selection, data?.selection)

@@ -4,7 +4,10 @@ import { CallbacksContext } from '../components/hooks';
 
 import type { Callbacks } from '../types';
 
-const CallbacksProvider: React.FC<Callbacks> = ({ children, ...callbacks }) => {
+const CallbacksProvider: React.FC<React.PropsWithChildren<Callbacks>> = ({
+  children,
+  ...callbacks
+}) => {
   const lastCallbacks = useRef<Callbacks>();
 
   const isEqual = lastCallbacks.current

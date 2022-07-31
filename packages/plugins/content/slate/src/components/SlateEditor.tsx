@@ -50,6 +50,7 @@ const SlateEditable = React.memo(
 const SlateEditor = (props: SlateProps) => {
   const { plugins, focused, readOnly } = props;
   const { t } = useUiTranslator();
+
   return (
     <>
       {!readOnly && focused && (

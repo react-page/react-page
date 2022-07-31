@@ -38,7 +38,7 @@ export type StickyNess = {
   rightOffsetFixed: number;
   stickyElRef?: React.Ref<HTMLDivElement>;
 };
-export const Sidebar: React.SFC<{
+export const Sidebar: React.FC<{
   stickyNess?: StickyNess;
 }> = ({ stickyNess }) => {
   const { t } = useUiTranslator();
@@ -117,8 +117,10 @@ export const Sidebar: React.SFC<{
               animationDelay: (actions.length - index) * 150 + 'ms',
             }}
           >
-            {action}
-            <div className="react-page-controls-mode-toggle-clearfix" />
+            <>
+              {action}
+              <div className="react-page-controls-mode-toggle-clearfix" />
+            </>
           </div>
         ))}
       </div>

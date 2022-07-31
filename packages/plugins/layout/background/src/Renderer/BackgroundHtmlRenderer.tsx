@@ -93,7 +93,9 @@ const getStyles = (props: BackgroundRendererProps) => {
   return styles;
 };
 
-const BackgroundHtmlRenderer: React.SFC<BackgroundRendererProps> = (props) => {
+const BackgroundHtmlRenderer: React.FC<
+  React.PropsWithChildren<BackgroundRendererProps>
+> = (props) => {
   const {
     children,
     data: {

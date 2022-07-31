@@ -20,6 +20,7 @@ export default <T extends DataTType>(
     }
   } catch (e) {
     // slate sometimes throws when dom node cant be found in undo
+
     return false;
   }
 };

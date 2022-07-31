@@ -16,11 +16,9 @@ import PluginControls from '../PluginControls';
 import PluginMissing from '../PluginMissing';
 import NoopProvider from '../NoopProvider';
 
-const PluginComponent: React.FC<{ nodeId: string; hasChildren: boolean }> = ({
-  nodeId,
-  children,
-  hasChildren,
-}) => {
+const PluginComponent: React.FC<
+  React.PropsWithChildren<{ nodeId: string; hasChildren: boolean }>
+> = ({ nodeId, children, hasChildren }) => {
   const lang = useLang();
   const components = useOption('components');
   const CustomPluginMissing = components?.CellPluginMissing;

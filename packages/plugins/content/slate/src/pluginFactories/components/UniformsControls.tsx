@@ -31,7 +31,7 @@ function Controls<T extends Data>(
   };
 
   const saveAndCloseWithData = useCallback(
-    (data) => {
+    (data: any) => {
       props.close();
       if (props.shouldInsertWithText) {
         props.add({ text, data });

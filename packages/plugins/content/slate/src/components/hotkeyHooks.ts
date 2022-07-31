@@ -18,7 +18,7 @@ export const useOnKeyDown = (
 ) => {
   const editor = useSlate();
 
-  return React.useCallback((event) => {
+  return React.useCallback((event: any) => {
     plugins
       .filter((plugin) => plugin.hotKey)
       .forEach((plugin) => {
