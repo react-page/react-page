@@ -19,7 +19,9 @@ const LANGUAGES = [
 export default function Home() {
   const [value, setValue] = useState<Value>(demo);
   const reset = () => setValue(demo);
-  useEffect(() => {console.info('value', JSON.stringify(value, null, 2) );}, [value]);
+  useEffect(() => {
+    console.info('value', JSON.stringify(value, null, 2));
+  }, [value]);
 
   console.info('Home: cellPlugins', cellPlugins);
 
