@@ -4,7 +4,8 @@
     "downlevelIteration": true,
     "rootDir": "src",
     "outDir": "lib",
-
+    "sourceMap": true,
+    "inlineSources": true,
     "paths": {
       "react": ["../../../../node_modules/@types/react/index"]
     }
