@@ -19,7 +19,7 @@ const dateParse = (timestamp: number, onChange: DateFieldProps['onChange']) => {
 export type DateFieldProps = FieldProps<
   Date,
   TextFieldProps,
-  { labelProps?: Record<string, any> }
+  { labelProps?: Record<string, string> }
 >;
 
 function Date({
