@@ -18,7 +18,6 @@ export default <T extends DataTType>(
     } else {
       return false;
     }
-
   } catch (e) {
     // slate sometimes throws when dom node cant be found in undo
     console.error('usePluginIsDisabled', e);

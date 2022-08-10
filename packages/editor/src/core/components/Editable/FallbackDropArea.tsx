@@ -1,4 +1,5 @@
 import React from 'react';
+import type { BaseSyntheticEvent } from 'react';
 import { useCallback } from 'react';
 import { useDrop } from 'react-dnd';
 import type { CellDrag } from '../../types/node';
@@ -26,7 +27,7 @@ const FallbackDropArea: React.FC<React.PropsWithChildren> = ({ children }) => {
 
   const setReference = useSetDisplayReferenceNodeId();
   const clearReference = useCallback(
-    (e: any) => {
+    (e: BaseSyntheticEvent) => {
       // if click was on the root, clear reference
       if (e.target.classList?.contains('react-page-editable'))
         setReference(null);

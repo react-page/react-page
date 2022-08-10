@@ -83,7 +83,7 @@ function PluginControls(
     : UniformsControls;
 
   const add = useCallback(
-    (p : any) => {
+    (p: any) => {
       if (storedPropsRef?.current?.selection) {
         // restore selection before adding
         Transforms.select(editor, storedPropsRef?.current?.selection);

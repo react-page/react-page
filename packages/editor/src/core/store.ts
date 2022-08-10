@@ -24,7 +24,10 @@ export default (
     !isProduction &&
     typeof window === 'object' &&
     window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
-      ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({trace: true, traceLimit: 25})
+      ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
+          trace: true,
+          traceLimit: 25,
+        })
       : compose;
 
   return createStore(

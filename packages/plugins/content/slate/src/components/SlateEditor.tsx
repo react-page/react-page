@@ -52,10 +52,7 @@ const SlateEditor = (props: SlateProps) => {
   const { plugins, focused, readOnly } = props;
   const { t } = useUiTranslator();
   console.debug('SlateEditor', { props });
-  
-  // eslint-disable-next-line no-debugger
-  debugger;
-  
+
   return (
     <>
       {!readOnly && focused && (
