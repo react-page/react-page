@@ -9,8 +9,8 @@
     "start": "next start"
   },
   "peerDependencies": {
-    "react": ">= 18.2",
-    "react-dom": ">= 18.2"
+    "react": ">= 16.14",
+    "react-dom": ">= 16.14"
   },
   "dependencies": {
     "@emotion/cache": "^11.7.1",
