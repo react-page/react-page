@@ -1,9 +1,8 @@
 import {
-  lazyLoad,
   useAllFocusedNodeIds,
   useUiTranslator,
 } from '@react-page/editor';
-import React from 'react';
+import React, { lazy, Suspense } from 'react';
 import { Editable, useFocused, useSelected } from 'slate-react';
 import type { SlateProps } from '../types/component';
 import type { SlatePlugin } from '../types/SlatePlugin';
@@ -11,7 +10,7 @@ import { useDialogIsVisible } from './DialogVisibleProvider';
 import { useOnKeyDown } from './hotkeyHooks';
 import { useRenderElement, useRenderLeave } from './renderHooks';
 
-const HoverButtons = lazyLoad(() => import('./HoverButtons'));
+const HoverButtons = lazy(() => import('./HoverButtons'));
 
 const SlateEditable = React.memo(
   (props: {
@@ -53,10 +52,12 @@ const SlateEditor = (props: SlateProps) => {
   return (
     <>
       {!readOnly && focused && (
-        <HoverButtons
-          plugins={props.plugins}
-          translations={props.translations}
-        />
+        <Suspense fallback={<div>Loading...</div>}>
+          <HoverButtons
+            plugins={props.plugins}
+            translations={props.translations}
+          />
+        </Suspense>
       )}
       <SlateEditable
         placeholder={t(props.translations?.placeholder) ?? ''}

@@ -6,9 +6,9 @@ import type { MakeOptional } from './types/makeOptional';
 import { ModeEnum } from './types/ModeEnum';
 
 export { ModeEnum };
-import { lazyLoad } from '@react-page/editor';
+import { lazy } from 'react';
 
-const BackgroundDefaultControls = lazyLoad(() => import('./Controls/Controls'));
+const BackgroundDefaultControls = lazy(() => import('./Controls/Controls'));
 
 export default (
   settings: MakeOptional<BackgroundSettings, 'Renderer' | 'Controls'>

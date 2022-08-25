@@ -1,8 +1,7 @@
-import React from 'react';
+import React, { lazy } from 'react';
 import type { Html5VideoSettings } from '../types/settings';
-import { lazyLoad } from '@react-page/editor';
 
-const PlayArrow = lazyLoad(() => import('@mui/icons-material/PlayArrow'));
+const PlayArrow = lazy(() => import('@mui/icons-material/PlayArrow'));
 
 export const defaultTranslations = {
   pluginName: 'HTML 5 Video',

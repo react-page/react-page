@@ -1,5 +1,5 @@
-import lazyLoad from '../../core/helper/lazyLoad';
+import { lazy } from 'react';
 
 export * from './types';
 
-export const ImageUpload = lazyLoad(() => import('./ImageUpload'));
+export const ImageUpload = lazy(() => import('./ImageUpload'));

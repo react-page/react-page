@@ -1,8 +1,8 @@
-import React from 'react';
-import { lazyLoad } from '@react-page/editor';
+import React, { lazy } from 'react';
+
 import createSimpleHtmlBlockPlugin from '../pluginFactories/createSimpleHtmlBlockPlugin';
 
-const BlockquoteIcon = lazyLoad(
+const BlockquoteIcon = lazy(
   () => import('@mui/icons-material/FormatQuote')
 );
 

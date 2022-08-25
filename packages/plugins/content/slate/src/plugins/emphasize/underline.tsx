@@ -1,9 +1,8 @@
-import React from 'react';
+import React, { lazy } from 'react';
 
-import { lazyLoad } from '@react-page/editor';
 import createMarkPlugin from '../../pluginFactories/createMarkPlugin';
 
-const UnderlinedIcon = lazyLoad(
+const UnderlinedIcon = lazy(
   () => import('@mui/icons-material/FormatUnderlined')
 );
 

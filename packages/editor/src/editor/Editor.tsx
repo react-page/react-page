@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from 'react';
-import lazyLoad from '../core/helper/lazyLoad';
+import React, { lazy, Suspense, useEffect, useState } from 'react';
 import type {
   Callbacks,
   Options,
@@ -8,7 +7,7 @@ import type {
 } from '../core/types';
 import { HTMLRenderer } from '../renderer/HTMLRenderer';
 
-const EditableEditor = lazyLoad(() => import('./EditableEditor'));
+const EditableEditor = lazy(() => import('./EditableEditor'));
 
 export type EditorProps = {
   /**
@@ -69,7 +68,7 @@ const Editor: React.FC<EditorProps> = ({
       cellSpacing={cellSpacing}
     />
   ) : (
-    <EditableEditor
+    <Suspense
       fallback={
         <HTMLRenderer
           value={value}
@@ -77,14 +76,16 @@ const Editor: React.FC<EditorProps> = ({
           lang={lang}
           cellSpacing={cellSpacing}
         />
-      }
-      value={value}
-      lang={lang}
-      options={options}
-      renderOptions={renderOptions}
-      callbacks={callbacks}
-      children={children}
-    />
+      }>
+      <EditableEditor
+        value={value}
+        lang={lang}
+        options={options}
+        renderOptions={renderOptions}
+        callbacks={callbacks}
+        children={children}
+      />
+    </Suspense>
   );
 };
 

@@ -1,8 +1,7 @@
 import propisValid from '@emotion/is-prop-valid';
-import { lazyLoad } from '@react-page/editor';
 import isObject from 'lodash.isobject';
 import type { DependencyList } from 'react';
-import React, { useCallback } from 'react';
+import React, { lazy, Suspense, useCallback } from 'react';
 import type { RenderElementProps, RenderLeafProps } from 'slate-react';
 import type { SlatePlugin } from '../types/SlatePlugin';
 import type { SlatePluginDefinition } from '../types/slatePluginDefinitions';
@@ -13,7 +12,7 @@ import {
 } from './pluginHooks';
 
 // lazy load as it uses slate library. We don't want to bundle that in readonly mode
-const VoidEditableElement = lazyLoad(() => import('./VoidEditableElement'));
+const VoidEditableElement = lazy(() => import('./VoidEditableElement'));
 
 type Data = {
   [key: string]: unknown;
@@ -109,13 +108,15 @@ export const useRenderElement = (
 
         if (isVoid && !injections.readOnly) {
           return (
-            <VoidEditableElement
-              component={component}
-              element={element}
-              plugin={matchingPlugin as SlatePluginDefinition}
-            >
-              {children}
-            </VoidEditableElement>
+            <Suspense fallback={<div>Loading...</div>}>
+              <VoidEditableElement
+                component={component}
+                element={element}
+                plugin={matchingPlugin as SlatePluginDefinition}
+              >
+                {children}
+              </VoidEditableElement>
+            </Suspense>
           );
         }
 
@@ -132,7 +133,7 @@ export const useRenderLeave = (
     plugins,
     injections = STATIC_INJECTIONS,
     readOnly = false,
-  }: { plugins: SlatePlugin[]; injections?: Injections; readOnly?: boolean },
+  }: { plugins: SlatePlugin[]; injections?: Injections; readOnly?: boolean; },
 
   deps: DependencyList
 ) => {

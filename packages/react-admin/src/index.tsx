@@ -1,7 +1,7 @@
-import { lazyLoad } from '@react-page/editor';
+import { lazy } from 'react';
 
-// lazyload everything to avoid accidental bundle size increase
-export const RaReactPageInput = lazyLoad(() => import('./RaReactPageInput'));
-export const RaSelectReferenceInputField = lazyLoad(
+// lazy load everything to avoid accidental bundle size increase
+export const RaReactPageInput = lazy(() => import('./RaReactPageInput'));
+export const RaSelectReferenceInputField = lazy(
   () => import('./RaSelectReferenceInputField')
 );

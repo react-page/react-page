@@ -1,7 +1,6 @@
-import React, { Fragment, useEffect, useMemo } from 'react';
+import React, { Fragment, lazy, Suspense, useEffect, useMemo } from 'react';
 import type JSONSchemaBridge from 'uniforms-bridge-json-schema';
 import { useIsSmallScreen } from '../../core/components/hooks';
-import lazyLoad from '../../core/helper/lazyLoad';
 
 import type {
   AutoformControlsDef,
@@ -11,9 +10,9 @@ import type {
 } from '../../core/types';
 import makeUniformsSchema from './makeUniformsSchema';
 
-export const AutoForm = lazyLoad(() => import('./AutoForm'));
-export const AutoField = lazyLoad(() => import('./AutoField'));
-export const AutoFields = lazyLoad(() => import('./AutoFields'));
+export const AutoForm = lazy(() => import('./AutoForm'));
+export const AutoField = lazy(() => import('./AutoField'));
+export const AutoFields = lazy(() => import('./AutoFields'));
 
 const getDefaultValue = function (bridge: JSONSchemaBridge): {
   [key: string]: unknown;

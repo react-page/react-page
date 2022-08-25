@@ -1,21 +1,20 @@
-import { lazyLoad } from '@react-page/editor';
-import React from 'react';
+import React, { lazy } from 'react';
 import { createListItemPlugin } from '../../pluginFactories';
 import createIndentionPlugin from '../../pluginFactories/createListIndentionPlugin';
 import createListPlugin from '../../pluginFactories/createListPlugin';
 import { LI, OL, UL } from './constants';
 
-const ListIcon = lazyLoad(
+const ListIcon = lazy(
   () => import('@mui/icons-material/FormatListBulleted')
 );
-const OrderedListIcon = lazyLoad(
+const OrderedListIcon = lazy(
   () => import('@mui/icons-material/FormatListNumbered')
 );
 
-const IncreaseIndentIcon = lazyLoad(
+const IncreaseIndentIcon = lazy(
   () => import('@mui/icons-material/FormatIndentIncrease')
 );
-const DecreaseIndentIcon = lazyLoad(
+const DecreaseIndentIcon = lazy(
   () => import('@mui/icons-material/FormatIndentDecrease')
 );
 

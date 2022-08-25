@@ -1,21 +1,21 @@
-import { lazyLoad } from '@react-page/editor';
-import React from 'react';
+import React, { lazy } from 'react';
+
 import createDataPlugin from '../pluginFactories/createDataPlugin';
 
-const AlignLeftIcon = lazyLoad(
+const AlignLeftIcon = lazy(
   () => import('@mui/icons-material/FormatAlignLeft')
 );
-const AlignCenterIcon = lazyLoad(
+const AlignCenterIcon = lazy(
   () => import('@mui/icons-material/FormatAlignCenter')
 );
-const AlignRightIcon = lazyLoad(
+const AlignRightIcon = lazy(
   () => import('@mui/icons-material/FormatAlignRight')
 );
-const AlignJustifyIcon = lazyLoad(
+const AlignJustifyIcon = lazy(
   () => import('@mui/icons-material/FormatAlignJustify')
 );
 
-const left = createDataPlugin<{ align: 'left' }>({
+const left = createDataPlugin<{ align: 'left'; }>({
   icon: <AlignLeftIcon />,
   label: 'Align Left',
   object: 'block',
@@ -25,7 +25,7 @@ const left = createDataPlugin<{ align: 'left' }>({
   getInitialData: () => ({ align: 'left' }),
 });
 
-const center = createDataPlugin<{ align: 'center' }>({
+const center = createDataPlugin<{ align: 'center'; }>({
   icon: <AlignCenterIcon />,
   label: 'Align Center',
   object: 'block',
@@ -35,7 +35,7 @@ const center = createDataPlugin<{ align: 'center' }>({
   getInitialData: () => ({ align: 'center' }),
 });
 
-const right = createDataPlugin<{ align: 'right' }>({
+const right = createDataPlugin<{ align: 'right'; }>({
   icon: <AlignRightIcon />,
   label: 'Align Right',
   object: 'block',
@@ -45,7 +45,7 @@ const right = createDataPlugin<{ align: 'right' }>({
   getInitialData: () => ({ align: 'right' }),
 });
 
-const justify = createDataPlugin<{ align: 'justify' }>({
+const justify = createDataPlugin<{ align: 'justify'; }>({
   icon: <AlignJustifyIcon />,
   label: 'Align Justify',
   object: 'block',

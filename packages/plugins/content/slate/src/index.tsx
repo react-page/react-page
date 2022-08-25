@@ -1,6 +1,5 @@
 import type { CellPlugin } from '@react-page/editor';
-import { lazyLoad } from '@react-page/editor';
-import React from 'react';
+import React, { lazy, Suspense } from 'react';
 import ReadOnlySlate from './components/ReadOnlySlate';
 import { defaultTranslations } from './default/settings';
 import { HtmlToSlate } from './htmlToSlate';
@@ -27,10 +26,10 @@ export {
   SlateState,
 };
 
-const SlateEditor = lazyLoad(() => import('./components/SlateEditor'));
-const Subject = lazyLoad(() => import('@mui/icons-material/Subject'));
-const Controls = lazyLoad(() => import('./components/Controls'));
-const SlateProvider = lazyLoad(() => import('./components/SlateProvider'));
+const SlateEditor = lazy(() => import('./components/SlateEditor'));
+const Subject = lazy(() => import('@mui/icons-material/Subject'));
+const Controls = lazy(() => import('./components/Controls'));
+const SlateProvider = lazy(() => import('./components/SlateProvider'));
 
 const migrations = [v002, v003, v004];
 type SlateDefinition<TPlugins extends SlatePluginCollection> = {
@@ -74,14 +73,14 @@ type CreateSlateData<TPlugins> = (
 ) => SlateState;
 export type SlateCellPlugin<
   TPlugins extends SlatePluginCollection = DefaultPlugins
-> = CellPlugin<SlateState, Omit<SlateState, 'selection'>> & {
-  createData: CreateSlateData<TPlugins>;
-  createDataFromHtml: (html: string) => Promise<SlateState>;
-  /**
-   * @deprecated, use createData
-   */
-  createInitialSlateState: CreateSlateData<TPlugins>;
-};
+  > = CellPlugin<SlateState, Omit<SlateState, 'selection'>> & {
+    createData: CreateSlateData<TPlugins>;
+    createDataFromHtml: (html: string) => Promise<SlateState>;
+    /**
+     * @deprecated, use createData
+     */
+    createInitialSlateState: CreateSlateData<TPlugins>;
+  };
 
 export type SlateCustomizeFunction<TPlugins extends SlatePluginCollection> = (
   def: DefaultSlateDefinition
@@ -132,25 +131,29 @@ function plugin<TPlugins extends SlatePluginCollection = DefaultPlugins>(
       */
       const [providerLoaded, setProviderLoaded] = useSafeSetState(false);
       if (!props.readOnly) {
-        SlateProvider.load().then((l) => setProviderLoaded(true));
+        SlateProvider;
+        setProviderLoaded(true);
       }
 
       if (props.readOnly || !providerLoaded) {
         return <ReadOnlySlate {...allProps} />;
       }
       return (
-        <SlateEditor {...allProps} fallback={<ReadOnlySlate {...allProps} />} />
+        <Suspense fallback={<ReadOnlySlate {...allProps} />}>
+          <SlateEditor {...allProps} />
+        </Suspense >
       );
     },
 
     Provider: (props) => (
-      <SlateProvider
-        {...props}
-        plugins={plugins}
-        translations={settings.translations}
-        defaultPluginType={settings.defaultPluginType}
-        fallback={<>{props.children}</>}
-      />
+      <Suspense fallback={<>{props.children}</>}>
+        <SlateProvider
+          {...props}
+          plugins={plugins}
+          translations={settings.translations}
+          defaultPluginType={settings.defaultPluginType}
+        />
+      </Suspense>
     ),
     // we no longer require the provider in read only mode thanks to the static renderer:
     disableProviderInReadOnly: true,

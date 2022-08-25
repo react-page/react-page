@@ -1,9 +1,8 @@
-import React from 'react';
+import React, { lazy } from 'react';
 
-import { lazyLoad } from '@react-page/editor';
 import createMarkPlugin from '../../pluginFactories/createMarkPlugin';
 
-const BoldIcon = lazyLoad(() => import('@mui/icons-material/FormatBold'));
+const BoldIcon = lazy(() => import('@mui/icons-material/FormatBold'));
 
 export default createMarkPlugin({
   type: 'EMPHASIZE/STRONG',

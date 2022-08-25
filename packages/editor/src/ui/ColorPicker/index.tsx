@@ -1,5 +1,6 @@
-import lazyLoad from '../../core/helper/lazyLoad';
-export const ColorPicker = lazyLoad(() => import('./ColorPicker'));
-export const ColorPickerField = lazyLoad(() => import('./ColorPickerField'));
+import { lazy } from 'react';
+
+export const ColorPicker = lazy(() => import('./ColorPicker'));
+export const ColorPickerField = lazy(() => import('./ColorPickerField'));
 export * from './colorToString';
 export * from './types';

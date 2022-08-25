@@ -1,13 +1,12 @@
-import React from 'react';
+import React, { lazy } from 'react';
 
 import type { BackgroundSettings } from './types/settings';
 import type { BackgroundState } from './types/state';
 
 import { defaultSettings } from './default/settings';
 import type { CellPlugin } from '@react-page/editor';
-import { lazyLoad } from '@react-page/editor';
 
-const Icon = lazyLoad(() => import('@mui/icons-material/CropLandscape'));
+const Icon = lazy(() => import('@mui/icons-material/CropLandscape'));
 
 const createPlugin = (settings: BackgroundSettings) => {
   const mergedSettings = { ...defaultSettings, ...settings };

@@ -13,7 +13,7 @@ type OptionalFields =
   | 'validate'
   | 'autosave';
 type Props = Omit<AutoFormProps<unknown>, OptionalFields> &
-  Partial<AutoFormProps<unknown>>;
+  Partial<AutoFormProps<unknown>> & { children: React.ReactNode; };
 export default forwardRef((props: Props, ref) => (
   <AutofieldContextProvider>
     <AutoForm {...props} ref={ref as any} />
