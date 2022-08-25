@@ -124,7 +124,7 @@
     ],
     "transformIgnorePatterns": [
       "/node_modules/react-dnd/(?!dist)"
-  ]
+    ]
   },
   "version": "0.0.0-development",
   "repository": {
@@ -186,5 +186,6 @@
       "@semantic-release/github"
     ]
   },
-  "dependencies": {}
+  "dependencies": {
+  }
 }

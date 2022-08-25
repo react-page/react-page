@@ -22,5 +22,6 @@ module.exports = withBundleAnalyzer({
     styledComponents: true,
   },
   experimental: { esmExternals: 'loose' },
+  staticPageGenerationTimeout: 600,
 });
 console.info('next.config example-end');
