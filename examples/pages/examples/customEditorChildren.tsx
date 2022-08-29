@@ -98,10 +98,9 @@ export default function Example() {
         onChange={setValue}
         languages={LANGUAGES}
       >
-      <Toolbar />
-        </Editor>
-
-      </>
+        <Toolbar />
+      </Editor>
+    </>
     // </PageLayout>
   );
 }
