@@ -10,7 +10,7 @@ import DialogVisibleProvider from './DialogVisibleProvider';
 const SlateProvider: React.FC<React.PropsWithChildren<SlateProps>> = (
   props
 ) => {
-  console.debug('SlateProvider', { props });
+  // console.debug('SlateProvider', { props });
   const { data, plugins, children, defaultPluginType } = props;
   const editor = useMemo(
     () =>
@@ -22,7 +22,7 @@ const SlateProvider: React.FC<React.PropsWithChildren<SlateProps>> = (
   );
 
   useEffect(() => {
-    console.debug('SlateProvider UE', [data?.slate, data?.selection]);
+    // console.debug('SlateProvider UE', [data?.slate, data?.selection]);
     // unfortunatly, slate broke the controlled input pattern. So we have to hack our way around it, see https://github.com/ianstormtaylor/slate/issues/4992
     editor.children = data?.slate;
 
@@ -42,7 +42,7 @@ const SlateProvider: React.FC<React.PropsWithChildren<SlateProps>> = (
 
   const onChange = useCallback(
     (v: any) => {
-      console.debug('SlateProvider onChange', { v });
+      // console.debug('SlateProvider onChange', { v });
       if (
         !deepEquals(editor.children, data?.slate) ||
         !deepEquals(editor.selection, data?.selection)

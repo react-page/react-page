@@ -200,7 +200,7 @@ export type HTMLRendererProps = {
 
 export const HTMLRenderer: React.FC<HTMLRendererProps> = React.memo(
   ({ value, cellPlugins, cellSpacing, lang = 'default' }) => {
-    console.debug('HTMLRenderer', { value });
+    // console.debug('HTMLRenderer', { value });
     const data = migrateValue(value, { cellPlugins, lang });
     const normCellSpacing = normalizeCellSpacing(cellSpacing);
 
