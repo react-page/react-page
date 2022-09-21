@@ -13,7 +13,6 @@ export default <T extends DataTType>(
     if (plugin.isDisabled) {
       try {
         plugin.isDisabled(editor).then((d) => {
-          console.log('is disabled', plugin, d);
           setDisabled(d);
         });
       } catch (e) {
