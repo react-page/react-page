@@ -1,8 +1,7 @@
 import type { ComponentProps, ComponentType, ReactElement } from 'react';
-import { useEffect, useState } from 'react';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
-import { lazy, Suspense } from 'react';
+import { Suspense } from 'react';
 import { lazyWithPreload } from 'react-lazy-with-preload';
 
 function useIsServer() {
@@ -21,8 +20,7 @@ function useIsServer() {
 const loadable = <T extends ComponentType<any>>(
   factory: () => Promise<{ default: T }>
 ) => {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const Component: any = lazyWithPreload(factory);
+  const Component = lazyWithPreload(factory);
 
   const LoadableComponent = ({
     fallback = null,
@@ -37,10 +35,12 @@ const loadable = <T extends ComponentType<any>>(
     if (isServer) {
       return fallback ?? null;
     }
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const Inner = Component as any;
 
     return (
       <Suspense fallback={fallback}>
-        <Component {...props} />
+        <Inner {...props} />
       </Suspense>
     );
   };

@@ -132,7 +132,7 @@ function plugin<TPlugins extends SlatePluginCollection = DefaultPlugins>(
       */
       const [providerLoaded, setProviderLoaded] = useSafeSetState(false);
       if (!props.readOnly) {
-        SlateProvider.load().then((l) => setProviderLoaded(true));
+        SlateProvider.load().then(() => setProviderLoaded(true));
       }
 
       if (props.readOnly || !providerLoaded) {
