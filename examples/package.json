@@ -35,7 +35,7 @@
     "react-admin": "^3.14.2",
     "react-katex": "^3.0.1",
     "react-syntax-highlighter": "^15.3.1",
-    "react-twitter-widgets": "^1.9.5",
+    "react-twitter-widgets": "^1.11.0",
     "styled-components": "^5.3.5"
   },
   "devDependencies": {

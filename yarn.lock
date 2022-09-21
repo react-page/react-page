@@ -11961,10 +11961,10 @@ react-transition-group@^4.4.0, react-transition-group@^4.4.1, react-transition-g
     loose-envify "^1.4.0"
     prop-types "^15.6.2"
 
-react-twitter-widgets@^1.9.5:
-  version "1.10.0"
-  resolved "https://registry.yarnpkg.com/react-twitter-widgets/-/react-twitter-widgets-1.10.0.tgz#f5395c25b954631b5a2532cdb48005f7db61d370"
-  integrity sha512-K7MAREhkKJxrhoiNWricKs1O++NyElnVpcplLzZ67gDrmeIsD3E4TUzlt0/nTZAHPOPPc86V4kEd4KIg4de7cQ==
+react-twitter-widgets@^1.11.0:
+  version "1.11.0"
+  resolved "https://registry.npmjs.org/react-twitter-widgets/-/react-twitter-widgets-1.11.0.tgz#77daa682e15a0839d9a4124dd0958995f3438a43"
+  integrity sha512-PMCLJQc30iqy01y1b2+HnMfCX+ZkOxWaPKJb4BhHgOgjSjoZb68K5T0nq3q+3YbX9K7OH0bhptgDihtBG/BqRQ==
   dependencies:
     loadjs "^4.2.0"
 
