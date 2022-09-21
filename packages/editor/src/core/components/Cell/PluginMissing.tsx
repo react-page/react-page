@@ -1,8 +1,9 @@
+import type { PropsWithChildren } from 'react';
 import React from 'react';
 
 import type { CellPluginMissingProps } from '../../types/plugins';
 
-const PluginMissing: React.FC<CellPluginMissingProps> = ({
+const PluginMissing: React.FC<PropsWithChildren<CellPluginMissingProps>> = ({
   children,
   ...props
 }) => (

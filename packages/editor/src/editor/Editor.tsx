@@ -1,3 +1,4 @@
+import type { FC, PropsWithChildren } from 'react';
 import React, { useEffect, useState } from 'react';
 import lazyLoad from '../core/helper/lazyLoad';
 import type {
@@ -29,7 +30,7 @@ export type EditorProps = {
   Callbacks &
   RenderOptions;
 
-const Editor: React.FC<React.PropsWithChildren<EditorProps>> = ({
+const Editor: FC<PropsWithChildren<EditorProps>> = ({
   readOnly = false,
   value = null,
   onChange = null,

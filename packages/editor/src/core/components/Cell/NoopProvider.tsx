@@ -1,7 +1,6 @@
+import type { FC, PropsWithChildren } from 'react';
 import React from 'react';
 
-const NoopProvider: React.FC<React.PropsWithChildren<unknown>> = ({
-  children,
-}) => <>{children}</>;
+const NoopProvider: FC<PropsWithChildren> = ({ children }) => <>{children}</>;
 
 export default NoopProvider;

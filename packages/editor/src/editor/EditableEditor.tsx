@@ -1,4 +1,5 @@
 import type { BackendFactory } from 'dnd-core';
+import type { FC, PropsWithChildren } from 'react';
 import React from 'react';
 import Editable from '../core/components/Editable';
 import GlobalHotKeys from '../core/components/HotKey/GlobalHotKeys';
@@ -16,9 +17,14 @@ export type EditableEditorProps = {
   lang?: string;
 } & ProviderProps;
 
-const EditableEditor: React.FC<
-  React.PropsWithChildren<EditableEditorProps>
-> = ({ value, lang, children, options, renderOptions, callbacks }) => {
+const EditableEditor: FC<PropsWithChildren<EditableEditorProps>> = ({
+  value,
+  lang,
+  children,
+  options,
+  renderOptions,
+  callbacks,
+}) => {
   const theValue = value || createEmptyState();
 
   return (

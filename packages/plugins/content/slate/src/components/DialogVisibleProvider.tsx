@@ -1,4 +1,4 @@
-import type { Dispatch, SetStateAction } from 'react';
+import type { Dispatch, FC, PropsWithChildren, SetStateAction } from 'react';
 import React, { useContext, useMemo, useState } from 'react';
 
 const DialogContext = React.createContext<{
@@ -6,9 +6,7 @@ const DialogContext = React.createContext<{
   setVisible?: Dispatch<SetStateAction<boolean>>;
 }>({});
 
-const DialogVisibleProvider: React.FC<React.PropsWithChildren<unknown>> = ({
-  children,
-}) => {
+const DialogVisibleProvider: FC<PropsWithChildren> = ({ children }) => {
   const [visible, setVisible] = useState(false);
   const value = useMemo(() => ({ visible, setVisible }), [visible, setVisible]);
   return (

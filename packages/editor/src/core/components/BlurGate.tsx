@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import type { FC, PropsWithChildren } from 'react';
 import React, { useEffect } from 'react';
 import type { DisplayModes } from '../actions/display';
 import { DISPLAY_MODE_EDIT } from '../actions/display';
@@ -81,7 +82,7 @@ const useBlurAll = ({
   return ref;
 };
 
-const BlurGate: React.FC<React.PropsWithChildren<unknown>> = ({ children }) => {
+const BlurGate: FC<PropsWithChildren> = ({ children }) => {
   const defaultMode = useOption('blurGateDefaultMode');
   const disabled = useOption('blurGateDisabled');
   const ref = useBlurAll({ defaultMode, disabled });

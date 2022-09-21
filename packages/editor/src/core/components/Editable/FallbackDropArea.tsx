@@ -1,5 +1,5 @@
 import React from 'react';
-import type { BaseSyntheticEvent } from 'react';
+import type { BaseSyntheticEvent, FC, PropsWithChildren } from 'react';
 import { useCallback } from 'react';
 import { useDrop } from 'react-dnd';
 import type { CellDrag } from '../../types/node';
@@ -10,9 +10,7 @@ import {
   useSetDisplayReferenceNodeId,
 } from '../hooks';
 
-const FallbackDropArea: React.FC<React.PropsWithChildren<unknown>> = ({
-  children,
-}) => {
+const FallbackDropArea: FC<PropsWithChildren> = ({ children }) => {
   const insertNew = useInsertNew();
 
   const isAllowed = useCellIsAllowedHere();

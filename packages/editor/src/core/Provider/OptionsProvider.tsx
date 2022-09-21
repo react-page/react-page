@@ -1,3 +1,4 @@
+import type { FC, PropsWithChildren } from 'react';
 import React, { useRef } from 'react';
 import deepEquals from '../utils/deepEquals';
 import { OptionsContext } from '../components/hooks';
@@ -7,7 +8,7 @@ import type { Options } from '../types';
 we memoize the options, so that if you access them, you won't get a fresh object every time.
 */
 
-const OptionsProvider: React.FC<React.PropsWithChildren<Options>> = ({
+const OptionsProvider: FC<PropsWithChildren<Options>> = ({
   children,
   ...options
 }) => {

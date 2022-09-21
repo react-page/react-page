@@ -1,4 +1,5 @@
-import React, { createContext, useContext, useMemo, useRef } from 'react';
+import type { FC, PropsWithChildren } from 'react';
+import React, { createContext, useContext, useRef } from 'react';
 import deepEquals from '../../utils/deepEquals';
 import { DEFAULT_OPTIONS } from '../../defaultOptions';
 import type EditorStore from '../../EditorStore';
@@ -80,10 +81,7 @@ export const useCellSpacing: () => CellSpacing = () => {
  */
 export const useCellSpacingProvider = (
   cellSpacing?: number | CellSpacing | null
-): [
-  React.FC<React.PropsWithChildren<{ value: RenderOptions }>>,
-  RenderOptions
-] => {
+): [FC<PropsWithChildren<{ value: RenderOptions }>>, RenderOptions] => {
   const renderOptions = useRenderOptions();
   const value = React.useMemo(
     () => ({

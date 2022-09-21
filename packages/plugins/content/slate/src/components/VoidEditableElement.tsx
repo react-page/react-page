@@ -1,3 +1,4 @@
+import type { FC, PropsWithChildren } from 'react';
 import React, { useCallback, useState } from 'react';
 
 import type { Element } from 'slate';
@@ -8,8 +9,8 @@ import PluginControls from './PluginControls';
 
 import { useSelected } from 'slate-react';
 
-const VoidEditableElement: React.FC<
-  React.PropsWithChildren<{
+const VoidEditableElement: FC<
+  PropsWithChildren<{
     plugin: SlatePluginDefinition;
     element: Element;
     component: React.ReactNode;

@@ -1,6 +1,7 @@
 import { useTheme } from '@mui/material';
 import type { DrawerProps } from '@mui/material';
 import { Divider, Drawer, Portal } from '@mui/material';
+import type { FC, PropsWithChildren } from 'react';
 import React, { Fragment } from 'react';
 import { useIsSmallScreen } from '../../core/components/hooks';
 
@@ -17,8 +18,8 @@ export type BottomToolbarDrawerProps = {
   scale?: number;
 };
 
-export const BottomToolbarDrawer: React.FC<
-  React.PropsWithChildren<BottomToolbarDrawerProps>
+export const BottomToolbarDrawer: FC<
+  PropsWithChildren<BottomToolbarDrawerProps>
 > = ({ className, anchor, open, scale = 1, children, style = {} }) => {
   const divider = (
     <Divider

@@ -3,6 +3,7 @@ import type { Cell, PartialCell, PartialRow } from './node';
 import type { JsonSchema } from './jsonSchema';
 import type { ChildConstraints } from './constraints';
 import type { CellSpacing } from './renderOptions';
+import type { PropsWithChildren } from 'react';
 
 export type DataTType = Record<string, unknown>;
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -184,7 +185,9 @@ export type CellPlugin<
   /**
    * pass a Reactcomponent as provider if you need to have some context that is shared between the controls and the renderer
    */
-  Provider?: React.ComponentType<CellPluginComponentProps<DataT>>;
+  Provider?: React.ComponentType<
+    PropsWithChildren<CellPluginComponentProps<DataT>>
+  >;
 
   /**
    * by default, Provider is also rendered in readOnly. You can disable that by setting disableProviderInReadOnly to true

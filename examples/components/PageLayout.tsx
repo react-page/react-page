@@ -9,13 +9,13 @@ import IconButton from '@mui/material/IconButton';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import { VERSION } from '@react-page/editor';
-import type { FC } from 'react';
+import type { FC, PropsWithChildren } from 'react';
 import * as React from 'react';
 import Navigation from './Navigation';
 
 const drawerWidth = 240;
 
-const PageLayout: FC<React.PropsWithChildren<unknown>> = ({ children }) => {
+const PageLayout: FC<PropsWithChildren> = ({ children }) => {
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
   const handleDrawerToggle = () => {

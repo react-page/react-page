@@ -1,8 +1,9 @@
+import type { FC, PropsWithChildren } from 'react';
 import React from 'react';
 import { useCellDrop } from '../../Cell/Droppable';
 import { useIsInsertMode, useIsLayoutMode } from '../../hooks';
 
-const Droppable: React.FC<React.PropsWithChildren<{ nodeId: string }>> = ({
+const Droppable: FC<PropsWithChildren<{ nodeId: string }>> = ({
   children,
   nodeId,
 }) => {

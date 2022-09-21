@@ -1,4 +1,5 @@
 import { colorToString } from '@react-page/editor';
+import type { FC, PropsWithChildren } from 'react';
 import React from 'react';
 import { ModeEnum } from '../types/ModeEnum';
 import type { BackgroundRendererProps } from '../types/renderer';
@@ -93,9 +94,9 @@ const getStyles = (props: BackgroundRendererProps) => {
   return styles;
 };
 
-const BackgroundHtmlRenderer: React.FC<
-  React.PropsWithChildren<BackgroundRendererProps>
-> = (props) => {
+const BackgroundHtmlRenderer: FC<PropsWithChildren<BackgroundRendererProps>> = (
+  props
+) => {
   const {
     children,
     data: {

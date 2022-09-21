@@ -1,4 +1,5 @@
 import classNames from 'classnames';
+import type { FC, PropsWithChildren } from 'react';
 import React from 'react';
 import { useCell, useFocusCell, useIsLayoutMode, useOption } from '../../hooks';
 import { useDragHandle } from './useDragHandle';
@@ -13,7 +14,7 @@ type Props = {
   isLeaf?: boolean;
   nodeId: string;
 };
-const Draggable: React.FC<React.PropsWithChildren<Props>> = ({
+const Draggable: FC<PropsWithChildren<Props>> = ({
   isLeaf,
   children,
   nodeId,

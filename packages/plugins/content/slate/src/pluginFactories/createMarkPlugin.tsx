@@ -1,3 +1,4 @@
+import type { ComponentType, PropsWithChildren } from 'react';
 import React from 'react';
 import createComponentPlugin from './createComponentPlugin';
 
@@ -22,9 +23,8 @@ export default (markDef: MarkPluginDefinition) => {
       tagName: markDef.tagName,
     },
     Component: ({ children, attributes }) => {
-      const Tag = markDef.tagName as unknown as React.ComponentType<
-        React.PropsWithChildren<unknown>
-      >;
+      const Tag =
+        markDef.tagName as unknown as ComponentType<PropsWithChildren>;
       return <Tag {...attributes}>{children}</Tag>;
     },
   });

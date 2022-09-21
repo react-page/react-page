@@ -1,6 +1,7 @@
+import type { FC, PropsWithChildren } from 'react';
 import React, { useMemo } from 'react';
 import { BottomToolbar } from '../../../../ui';
-import type { CellPluginComponentProps, DataTType } from '../../../types';
+import type { CellPluginComponentProps } from '../../../types';
 import {
   usePluginOfCell,
   useDebouncedCellData,
@@ -16,8 +17,8 @@ import PluginControls from '../PluginControls';
 import PluginMissing from '../PluginMissing';
 import NoopProvider from '../NoopProvider';
 
-const PluginComponent: React.FC<
-  React.PropsWithChildren<{ nodeId: string; hasChildren: boolean }>
+const PluginComponent: FC<
+  PropsWithChildren<{ nodeId: string; hasChildren: boolean }>
 > = ({ nodeId, children, hasChildren }) => {
   const lang = useLang();
   const components = useOption('components');

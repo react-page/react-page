@@ -1,3 +1,4 @@
+import type { FC, PropsWithChildren } from 'react';
 import React, { useRef } from 'react';
 import deepEquals from '../utils/deepEquals';
 import { RenderOptionsContext } from '../components/hooks';
@@ -7,9 +8,10 @@ import { DEFAULT_RENDER_OPTIONS } from '../defaultOptions';
 we memoize the RenderOptions, so that if you access them, you won't get a fresh object every time.
 
 */
-const RenderOptionsProvider: React.FC<
-  React.PropsWithChildren<RenderOptions>
-> = ({ children, ...renderOptions }) => {
+const RenderOptionsProvider: FC<PropsWithChildren<RenderOptions>> = ({
+  children,
+  ...renderOptions
+}) => {
   const lastRenderOptions = useRef<Required<RenderOptions>>();
   const fullRenderOptions = {
     ...DEFAULT_RENDER_OPTIONS,

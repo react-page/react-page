@@ -1,3 +1,4 @@
+import type { FC, PropsWithChildren } from 'react';
 import React, { useEffect, useMemo, useRef } from 'react';
 import { updateValue } from '../actions/value';
 import {
@@ -13,8 +14,8 @@ import { ReduxProvider } from '../reduxConnect';
 import type { ValueWithLegacy } from '../types';
 import deepEquals from '../utils/deepEquals';
 
-const EditorStoreProvider: React.FC<
-  React.PropsWithChildren<{
+const EditorStoreProvider: FC<
+  PropsWithChildren<{
     lang: string;
     value: ValueWithLegacy | null;
   }>

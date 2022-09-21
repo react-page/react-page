@@ -1,4 +1,5 @@
 import type { DataTAny, DataTType, JsonSchema } from '@react-page/editor';
+import type { ReactNode } from 'react';
 import type { Editor, Node } from 'slate';
 import type { Data } from '../types';
 import type { Translations } from './translations';
@@ -199,6 +200,8 @@ export type SlateComponentPluginDefinition<T extends Data> =
                * @returns the current text content as an array. Usefull in some advanced use cases
                */
               getTextContents: () => string[];
+
+              children: ReactNode;
             } & T
           >
         >;

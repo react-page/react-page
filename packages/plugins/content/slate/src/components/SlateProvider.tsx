@@ -1,4 +1,5 @@
 import { deepEquals } from '@react-page/editor';
+import type { FC, PropsWithChildren } from 'react';
 import React, { useCallback, useEffect, useMemo } from 'react';
 import { createEditor, Transforms } from 'slate';
 import { ReactEditor, Slate, withReact } from 'slate-react';
@@ -7,9 +8,7 @@ import withPaste from '../slateEnhancer/withPaste';
 import type { SlateProps } from '../types/component';
 import DialogVisibleProvider from './DialogVisibleProvider';
 
-const SlateProvider: React.FC<React.PropsWithChildren<SlateProps>> = (
-  props
-) => {
+const SlateProvider: FC<PropsWithChildren<SlateProps>> = (props) => {
   const { data, plugins, children, defaultPluginType } = props;
   const editor = useMemo(
     () =>

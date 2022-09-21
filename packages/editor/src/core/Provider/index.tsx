@@ -1,3 +1,4 @@
+import type { FC, PropsWithChildren } from 'react';
 import React from 'react';
 import DndProvider from './DndProvider';
 import BlurGate from '../components/BlurGate';
@@ -23,7 +24,7 @@ export type ProviderProps = {
   renderOptions: RenderOptions;
 };
 
-const Provider: React.FC<React.PropsWithChildren<ProviderProps>> = ({
+const Provider: FC<PropsWithChildren<ProviderProps>> = ({
   lang = 'default',
   value,
   children = [],

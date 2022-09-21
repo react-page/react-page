@@ -1,4 +1,5 @@
 import classNames from 'classnames';
+import type { FC, PropsWithChildren } from 'react';
 import React from 'react';
 import { DragPreviewImage, useDrag } from 'react-dnd';
 
@@ -7,8 +8,8 @@ import { useSetLayoutMode } from '../../../core/components/hooks/displayMode';
 
 import type { CellDrag, InsertNewCell } from '../../../core/types';
 
-const Draggable: React.FC<
-  React.PropsWithChildren<{
+const Draggable: FC<
+  PropsWithChildren<{
     insert: InsertNewCell;
   }>
 > = ({ insert, children }) => {
