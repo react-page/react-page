@@ -70,7 +70,6 @@
     "docs": "docsify serve -p 3100 ./docs",
     "analyze": "ANALYZE=true npm-run-all build",
     "coveralls": "cat ./coverage/lcov.info | coveralls",
-    "bootstrap": "lerna bootstrap",
     "build": "cross-env NODE_ENV=production lerna run build --stream",
     "build:lib": "cross-env NODE_ENV=production lerna run build --ignore @react-page/examples --stream",
     "build:examples": "yarn --cwd examples build",
@@ -84,7 +83,6 @@
     "dev:examples": "cross-env NODE_ENV=development lerna run dev --stream",
     "test": "cross-env NODE_ENV=test jest --coverage",
     "test:watch": "cross-env NODE_ENV=test jest --watch",
-    "postinstall": "npm-run-all bootstrap",
     "watch:ts": "chokidar \"+(packages)/*/src/**/*.(ts|tsx)\" \"+(packages)/plugins/*/src/**/*.(ts|tsx)\" --initial",
     "semantic-release": "semantic-release"
   },
