@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import React from 'react';
 
 import { lazy, Suspense } from 'react';
+import { lazyWithPreload } from 'react-lazy-with-preload';
 
 function useIsServer() {
   const [isServer, setIsServer] = useState(true);
@@ -20,6 +21,9 @@ function useIsServer() {
 const loadable = <T extends ComponentType<any>>(
   factory: () => Promise<{ default: T }>
 ) => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const Component: any = lazyWithPreload(factory);
+
   const LoadableComponent = ({
     fallback = null,
     ...props
@@ -29,9 +33,6 @@ const loadable = <T extends ComponentType<any>>(
      */
     fallback?: ReactElement;
   }) => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const Component: any = lazy(factory);
-
     const isServer = useIsServer();
     if (isServer) {
       return fallback ?? null;
@@ -44,7 +45,7 @@ const loadable = <T extends ComponentType<any>>(
     );
   };
 
-  LoadableComponent.load = factory;
+  LoadableComponent.load = Component.preload;
 
   return LoadableComponent;
 };

@@ -29,6 +29,7 @@
     "@mui/material": "^5.8.1",
     "@welldone-software/why-did-you-render": "^6.0.5",
     "ajv": "^7.1.1",
+    "react-lazy-with-preload": "^2.2.1",
     "classnames": "^2.3.1",
     "color-parse": "^1.4.2",
     "fast-deep-equal": "^3.1.3",
