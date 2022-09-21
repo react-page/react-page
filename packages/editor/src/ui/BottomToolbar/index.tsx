@@ -8,7 +8,9 @@ export * from './Drawer';
 export * from './NodeTools';
 export * from './Tools';
 
-export const BottomToolbar: React.FC<BottomToolbarProps> = React.memo(
+export const BottomToolbar: React.FC<
+  React.PropsWithChildren<BottomToolbarProps>
+> = React.memo(
   ({
     open = false,
     className,

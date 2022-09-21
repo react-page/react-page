@@ -15,7 +15,7 @@ import Navigation from './Navigation';
 
 const drawerWidth = 240;
 
-const PageLayout: FC = ({ children }) => {
+const PageLayout: FC<React.PropsWithChildren<unknown>> = ({ children }) => {
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
   const handleDrawerToggle = () => {

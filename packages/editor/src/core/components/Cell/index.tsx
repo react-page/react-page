@@ -1,4 +1,5 @@
 import classNames from 'classnames';
+import type { BaseSyntheticEvent } from 'react';
 import React, { useCallback } from 'react';
 import type { UseMeasureRef } from 'react-use/lib/useMeasure';
 import { getCellOuterDivClassName } from '../../utils/getCellStylingProps';
@@ -26,6 +27,7 @@ import scrollIntoViewWithOffset from './utils/scrollIntoViewWithOffset';
 
 const CellErrorGate = class extends React.Component<
   {
+    children: React.ReactElement;
     nodeId: string;
   },
   { error: Error | null }
@@ -81,7 +83,7 @@ const Cell: React.FC<Props> = ({ nodeId, measureRef }) => {
 
   const setReferenceNodeId = useSetDisplayReferenceNodeId();
   const onClick = useCallback(
-    (e) => {
+    (e: BaseSyntheticEvent) => {
       if (isInsertMode) {
         e.stopPropagation();
         setReferenceNodeId(nodeId);

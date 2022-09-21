@@ -13,7 +13,7 @@ export function useSafeSetState<T>(
     };
   }, []);
   const safeSetState = React.useCallback(
-    (args) => {
+    (args: any) => {
       if (mountedRef.current) {
         return setState(args);
       }

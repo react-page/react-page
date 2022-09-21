@@ -101,7 +101,9 @@ export const useCellDrop = (nodeId: string) => {
   );
   return [attach, isAllowed] as const;
 };
-const Droppable: React.FC<{ nodeId: string; isLeaf?: boolean }> = (props) => {
+const Droppable: React.FC<
+  React.PropsWithChildren<{ nodeId: string; isLeaf?: boolean }>
+> = (props) => {
   const isLayoutMode = useIsLayoutMode();
   const isInsertMode = useIsInsertMode();
   const [attach, isAllowed] = useCellDrop(props.nodeId);

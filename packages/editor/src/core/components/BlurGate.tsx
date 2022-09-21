@@ -81,7 +81,7 @@ const useBlurAll = ({
   return ref;
 };
 
-const BlurGate: React.FC = ({ children }) => {
+const BlurGate: React.FC<React.PropsWithChildren<unknown>> = ({ children }) => {
   const defaultMode = useOption('blurGateDefaultMode');
   const disabled = useOption('blurGateDisabled');
   const ref = useBlurAll({ defaultMode, disabled });

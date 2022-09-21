@@ -8,15 +8,17 @@ import PluginControls from './PluginControls';
 
 import { useSelected } from 'slate-react';
 
-const VoidEditableElement: React.FC<{
-  plugin: SlatePluginDefinition;
-  element: Element;
-  component: React.ReactNode;
-}> = ({ plugin, element, children, component }) => {
+const VoidEditableElement: React.FC<
+  React.PropsWithChildren<{
+    plugin: SlatePluginDefinition;
+    element: Element;
+    component: React.ReactNode;
+  }>
+> = ({ plugin, element, children, component }) => {
   const [showVoidDialog, setShowVoidDialog] = useState(false);
   const editor = useSlateStatic();
   const onVoidClick = useCallback(
-    (e) => {
+    (e: any) => {
       e.stopPropagation();
       const path = ReactEditor.findPath(editor, element);
 

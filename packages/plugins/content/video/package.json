@@ -24,7 +24,7 @@
   },
   "dependencies": {
     "@react-page/editor": "0.0.0",
-    "react-player": "^1.13.0",
+    "react-player": "^2.10.1",
     "@mui/icons-material": "^5.8.0"
   },
   "devDependencies": {},

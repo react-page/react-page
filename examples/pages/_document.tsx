@@ -5,6 +5,7 @@ import createEmotionServer from '@emotion/server/create-instance';
 import { ServerStyleSheet } from 'styled-components';
 
 import createEmotionCache from '../utils/createEmotionCache';
+
 export default class MyDocument extends Document {
   static async getInitialProps(ctx: DocumentContext) {
     const styledComponentsSheet = new ServerStyleSheet();
@@ -17,7 +18,8 @@ export default class MyDocument extends Document {
     try {
       ctx.renderPage = () =>
         originalRenderPage({
-          enhanceApp: (App: any) => (props) =>
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          enhanceApp: (App: any) => (props: any) =>
             styledComponentsSheet.collectStyles(
               <App emotionCache={cache} {...props} />
             ),

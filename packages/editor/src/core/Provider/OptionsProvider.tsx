@@ -7,7 +7,10 @@ import type { Options } from '../types';
 we memoize the options, so that if you access them, you won't get a fresh object every time.
 */
 
-const OptionsProvider: React.FC<Options> = ({ children, ...options }) => {
+const OptionsProvider: React.FC<React.PropsWithChildren<Options>> = ({
+  children,
+  ...options
+}) => {
   const lastOptions = useRef<Required<Options>>();
   const fullOptions = {
     ...DEFAULT_OPTIONS,

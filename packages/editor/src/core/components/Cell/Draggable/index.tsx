@@ -13,7 +13,11 @@ type Props = {
   isLeaf?: boolean;
   nodeId: string;
 };
-const Draggable: React.FC<Props> = ({ isLeaf, children, nodeId }) => {
+const Draggable: React.FC<React.PropsWithChildren<Props>> = ({
+  isLeaf,
+  children,
+  nodeId,
+}) => {
   const cell = useCell(nodeId);
 
   const [isDragging, dragRef, previewElement] = useDragHandle(nodeId);

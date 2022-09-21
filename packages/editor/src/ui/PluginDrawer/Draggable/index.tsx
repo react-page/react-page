@@ -7,9 +7,11 @@ import { useSetLayoutMode } from '../../../core/components/hooks/displayMode';
 
 import type { CellDrag, InsertNewCell } from '../../../core/types';
 
-const Draggable: React.FC<{
-  insert: InsertNewCell;
-}> = ({ insert, children }) => {
+const Draggable: React.FC<
+  React.PropsWithChildren<{
+    insert: InsertNewCell;
+  }>
+> = ({ insert, children }) => {
   const setLayoutMode = useSetLayoutMode();
   const [{ isDragging }, dragRef, preview] = useDrag<
     CellDrag,
