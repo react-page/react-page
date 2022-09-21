@@ -22,32 +22,41 @@ const loadable = <T extends ComponentType<any>>(
 ) => {
   const Component = lazyWithPreload(factory);
 
-  const LoadableComponent = ({
-    fallback = null,
-    ...props
-  }: ComponentProps<T> & {
-    /**
-     * render a fallback on server or if the component is not loaded
-     */
-    fallback?: ReactElement;
-  }) => {
-    const isServer = useIsServer();
-    if (isServer) {
-      return fallback ?? null;
+  const LoadableComponent = React.forwardRef(
+    (
+      {
+        fallback = null,
+        ...props
+      }: ComponentProps<T> & {
+        /**
+         * render a fallback on server or if the component is not loaded
+         */
+        fallback?: ReactElement;
+      },
+      ref
+    ) => {
+      const isServer = useIsServer();
+      if (isServer) {
+        return fallback ?? null;
+      }
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const Inner = Component as any;
+
+      return (
+        <Suspense fallback={fallback}>
+          <Inner ref={ref} {...props} />
+        </Suspense>
+      );
     }
+  );
+
+  const LoadableComponentWithPreload: typeof LoadableComponent & {
+    load: () => Promise<unknown>;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const Inner = Component as any;
+  } = LoadableComponent as any;
+  LoadableComponentWithPreload.load = Component.preload;
 
-    return (
-      <Suspense fallback={fallback}>
-        <Inner {...props} />
-      </Suspense>
-    );
-  };
-
-  LoadableComponent.load = Component.preload;
-
-  return LoadableComponent;
+  return LoadableComponentWithPreload;
 };
 
 export default loadable;
