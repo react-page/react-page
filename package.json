@@ -63,6 +63,9 @@
     "typescript": "^4.6.3",
     "unexpected": "^11.14.0"
   },
+  "resolutions": {
+    "@types/react": "^17"
+  },
   "scripts": {
     "docs": "docsify serve -p 3100 ./docs",
     "analyze": "ANALYZE=true npm-run-all build",
@@ -181,5 +184,5 @@
       "@semantic-release/github"
     ]
   },
-  "dependencies": {}
+  "packageManager": "yarn@3.2.3"
 }

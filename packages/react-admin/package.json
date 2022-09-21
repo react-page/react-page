@@ -11,7 +11,7 @@
     "build": "npm-run-all --parallel build:lib",
     "build:watch": "npm-run-all --parallel build:lib:watch",
     "build:lib": "tsc -p ./tsconfig.json && tsc -p ./tsconfig-es.json",
-    "build:lib:watch": "yarn build:lib -- --watch",
+    "build:lib:watch": "yarn build:lib --watch",
     "clean": "rimraf \"lib\" && rimraf \"lib-es\" && rm -f *.tsbuildinfo"
   },
   "peerDependencies": {

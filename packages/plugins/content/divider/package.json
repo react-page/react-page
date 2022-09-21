@@ -12,7 +12,7 @@
     "build": "npm-run-all --parallel build:lib build:css",
     "build:watch": "npm-run-all --parallel build:lib:watch build:css:watch",
     "build:lib": "tsc -p ./tsconfig.json && tsc -p ./tsconfig-es.json",
-    "build:lib:watch": "yarn build:lib -- --watch",
+    "build:lib:watch": "yarn build:lib --watch",
     "build:css": "postcss --config ../../../../config/postcss.config.js --dir lib/ src/index.css",
     "build:css:watch": "npm-run-all build:css -- -w",
     "docs": "documentation build ./lib/**/*.js --format md --github -o ../../../../docs/api/plugins/divider.md",
