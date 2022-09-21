@@ -27,13 +27,13 @@
     "react-dom": ">= 16.14"
   },
   "dependencies": {
-    "@emotion/is-prop-valid": "^0.8.8",
+    "@emotion/is-prop-valid": "^1.2.0",
     "@mui/icons-material": "^5.8.0",
     "@react-page/editor": "0.0.0",
     "@xmldom/xmldom": "^0.8.1",
     "cssstyle": "^2.3.0",
     "deep-rename-keys": "^0.2.1",
-    "is-hotkey": "^0.1.6",
+    "is-hotkey": "^0.2.0",
     "lodash.clonedeep": "^4.5.0",
     "lodash.debounce": "^4.0.8",
     "lodash.flatten": "^4.4.0",
@@ -53,10 +53,10 @@
   "devDependencies": {
     "@types/is-hotkey": "0.1.1",
     "@types/lodash.debounce": "4.0.4",
-    "@types/xmldom": "^0.1.31",
     "@types/lodash.flatten": "^4.4.6",
     "@types/lodash.isempty": "^4.4.6",
-    "@types/lodash.isobject": "^3.0.6"
+    "@types/lodash.isobject": "^3.0.6",
+    "@types/xmldom": "^0.1.31"
   },
   "browser": {
     "./lib/HtmlToSlate/parseHtml.js": "./lib/HtmlToSlate/parseHtml.browser.js",
