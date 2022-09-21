@@ -1,26 +1,28 @@
 import type { DataTType } from '@react-page/editor';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSlate } from 'slate-react';
 import type { SlatePluginDefinition } from '../types/slatePluginDefinitions';
 
 export default <T extends DataTType>(
   plugin: SlatePluginDefinition<T>
 ): boolean => {
-  try {
-    const editor = useSlate();
-    const [disabled, setDisabled] = useState(true);
-    if (!editor) {
-      return true;
-    }
-    if (plugin.isDisabled) {
-      plugin.isDisabled(editor).then((d) => setDisabled(d));
-      return disabled;
-    } else {
-      return false;
-    }
-  } catch (e) {
-    // slate sometimes throws when dom node cant be found in undo
+  const editor = useSlate();
+  const [disabled, setDisabled] = useState(false);
 
-    return false;
+  useEffect(() => {
+    if (plugin.isDisabled) {
+      try {
+        plugin.isDisabled(editor).then((d) => {
+          console.log('is disabled', plugin, d);
+          setDisabled(d);
+        });
+      } catch (e) {
+        // slate sometimes throws when dom node cant be found in undo
+      }
+    }
+  }, [editor.selection, plugin]);
+  if (!editor) {
+    return true;
   }
+  return disabled;
 };
