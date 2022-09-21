@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import type { PropsWithChildren, ReactNode } from 'react';
 import React, { forwardRef } from 'react';
 import type { AutoFormProps } from 'uniforms';
 import { AutoForm } from 'uniforms';
@@ -14,8 +15,11 @@ type OptionalFields =
   | 'autosave';
 type Props = Omit<AutoFormProps<unknown>, OptionalFields> &
   Partial<AutoFormProps<unknown>>;
-export default forwardRef((props: Props, ref) => (
-  <AutofieldContextProvider>
-    <AutoForm {...props} ref={ref as any} />
-  </AutofieldContextProvider>
-));
+
+export default forwardRef<any, PropsWithChildren<Props>>(
+  (props: Props, ref) => (
+    <AutofieldContextProvider>
+      <AutoForm {...props} ref={ref as any} />
+    </AutofieldContextProvider>
+  )
+);
