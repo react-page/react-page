@@ -43,7 +43,7 @@
     "react-draggable": "4.4.5",
     "react-lazy-with-preload": "^2.2.1",
     "react-portal": "^4.2.2",
-    "react-redux": "^7.2.3",
+    "react-redux": "^8.0.2",
     "react-use": "^17.4.0",
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0",

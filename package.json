@@ -24,7 +24,6 @@
     "@types/jest": "^26.0.19",
     "@types/react": "^18.0.20",
     "@types/react-dom": "^18.0.6",
-    "@types/react-redux": "^7.1.15",
     "@typescript-eslint/eslint-plugin": "^4.4.1",
     "@typescript-eslint/parser": "^4.4.1",
     "babel-core": "7.0.0-bridge.0",
