@@ -14099,19 +14099,19 @@ unicode-property-aliases-ecmascript@^2.0.0:
   integrity sha512-5Zfuy9q/DFr4tfO7ZPeVXb1aPoeQSdeFMLpYuFebehDAhbuevLs5yxSZmIFN1tP5F9Wl4IpJrYojg85/zgyZHQ==
 
 "uniforms-bridge-json-schema@^2.6.0 || ^3.0.0":
-  version "3.8.1"
-  resolved "https://registry.npmjs.org/uniforms-bridge-json-schema/-/uniforms-bridge-json-schema-3.8.1.tgz#eb5d1d4267f171a2bea10b52557a3bb7094bb948"
-  integrity sha512-w6wD8AxGh33e0Q581hlYjXvQFw51gtESbU5hIYz5xVPEsFm5RCwMvpkgGS0KIRymz/vNXJOio67LYBaoZu3AYg==
+  version "3.10.0"
+  resolved "https://registry.npmjs.org/uniforms-bridge-json-schema/-/uniforms-bridge-json-schema-3.10.0.tgz#2b08c7406557d15848773aec3aad1249c7959726"
+  integrity sha512-MGGV9w+Y9ZMNQq9KI58ll3Bb0wAJyQvilg2j4mLnmtJi/10zW2JNL+88QZjELlfHPO8UZxT2LZkKUQyG8SGDbQ==
   dependencies:
     invariant "^2.0.0"
     lodash "^4.0.0"
     tslib "^2.2.0"
-    uniforms "^3.8.1"
+    uniforms "^3.10.0"
 
-"uniforms@^2.6.0 || ^3.0.0", uniforms@^3.2.0, uniforms@^3.8.1:
-  version "3.9.1"
-  resolved "https://registry.npmjs.org/uniforms/-/uniforms-3.9.1.tgz#601e6d591dc6c47105e38be180af60821bccae5f"
-  integrity sha512-kZ3aclOh7ofAbX/xk+n1chmzrgWpmCYZuGp0YA5OUPG94yTCv6MEvubgj4VtRhRySCr27PRmcDtWTrfYELs7eg==
+"uniforms@^2.6.0 || ^3.0.0", uniforms@^3.10.0, uniforms@^3.2.0:
+  version "3.10.0"
+  resolved "https://registry.npmjs.org/uniforms/-/uniforms-3.10.0.tgz#c09d429904632b3952c7ba5e0f5f7509f8a30098"
+  integrity sha512-wp8mnm5DqRzGUQwbEIG6sfpnu5H+gCncL5g3Cmohax9E1bmn4PattsBRI88gSMLckZNZdpA79LX1f8QdQFub/g==
   dependencies:
     invariant "^2.0.0"
     lodash "^4.0.0"
