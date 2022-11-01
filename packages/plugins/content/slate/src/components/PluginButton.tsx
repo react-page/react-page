@@ -1,11 +1,11 @@
 import { useUiTranslator } from '@react-page/editor';
-import React, { useCallback, useRef, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { Range } from 'slate';
+import { useSlate } from 'slate-react';
 import useAddPlugin from '../hooks/useAddPlugin';
 import usePluginIsActive from '../hooks/usePluginIsActive';
 import usePluginIsDisabled from '../hooks/usePluginIsDisabled';
 import useRemovePlugin from '../hooks/useRemovePlugin';
-import { useSlate } from 'slate-react';
 import type {
   PluginButtonProps,
   SlatePluginDefinition,
@@ -28,11 +28,16 @@ function PluginButton(props: Props) {
   const editor = useSlate();
 
   const isActive = usePluginIsActive(plugin);
+  const isVoid =
+    plugin.pluginType === 'component' &&
+    (plugin.object === 'inline' || plugin.object === 'block') &&
+    plugin.isVoid;
   const shouldInsertWithText =
     plugin.pluginType === 'component' &&
     (plugin.object === 'inline' || plugin.object === 'mark') &&
     (!editor.selection || Range.isCollapsed(editor.selection)) &&
-    !isActive;
+    !isActive &&
+    !isVoid;
 
   const add = useAddPlugin(plugin);
   const remove = useRemovePlugin(plugin);

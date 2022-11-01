@@ -1,4 +1,4 @@
-import type { FC, PropsWithChildren } from 'react';
+import type { FC, MouseEvent } from 'react';
 import React, { useCallback, useState } from 'react';
 
 import type { Element } from 'slate';
@@ -9,18 +9,17 @@ import PluginControls from './PluginControls';
 
 import { useSelected } from 'slate-react';
 
-const VoidEditableElement: FC<
-  PropsWithChildren<{
-    plugin: SlatePluginDefinition;
-    element: Element;
-    component: React.ReactNode;
-  }>
-> = ({ plugin, element, children, component }) => {
+const VoidEditableElement: FC<{
+  plugin: SlatePluginDefinition;
+  element: Element;
+  component: React.ReactNode;
+}> = ({ plugin, element, component }) => {
   const [showVoidDialog, setShowVoidDialog] = useState(false);
   const editor = useSlateStatic();
   const onVoidClick = useCallback(
-    (e: any) => {
+    (e: MouseEvent) => {
       e.stopPropagation();
+
       const path = ReactEditor.findPath(editor, element);
 
       setShowVoidDialog(true);
@@ -31,6 +30,7 @@ const VoidEditableElement: FC<
   const closeVoidDialog = useCallback(() => setShowVoidDialog(false), []);
   const Element = plugin.object === 'inline' ? 'span' : 'div';
   const selected = useSelected();
+
   return (
     <>
       {showVoidDialog ? (
@@ -49,10 +49,7 @@ const VoidEditableElement: FC<
           outline: selected ? '1px dotted grey' : undefined,
         }}
       >
-        <Element style={{ pointerEvents: 'none' }}>
-          {children}
-          {component}
-        </Element>
+        <Element style={{ pointerEvents: 'none' }}>{component}</Element>
       </Element>
     </>
   );

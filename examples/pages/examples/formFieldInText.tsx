@@ -62,7 +62,7 @@ const customSlate = slate((config) => ({
 }));
 const cellPlugins = [customSlate];
 // prettier-ignore
-const SAMPLE_VALUE: Value = createValue( { rows: [ [ { plugin: customSlate, data: { slate: [ { type: 'PARAGRAPH/PARAGRAPH', children: [ { text: 'Hello, my Name is ', }, { type: 'FormField', data: { fieldName: 'firstname', placeholder: 'fill Firstname', }, children: [ { text: '', }, ], }, { text: ' ', }, { type: 'FormField', data: { fieldName: 'lastname', placeholder: 'fill Lastname', }, children: [ { text: '', }, ], }, { text: ' and i work as a ', }, { type: 'FormField', data: { fieldName: 'jobDescription', placeholder: 'Job Description', }, children: [ { text: '', }, ], }, ], }, ], }, }, ], ], }, { cellPlugins, lang: 'default' } );
+const SAMPLE_VALUE: Value = createValue( { rows: [ [ { plugin: customSlate, data: { slate: [ { type: 'PARAGRAPH/PARAGRAPH', children: [ { text: 'Hello, my Name is ', }, { type: 'FormField', data: { fieldName: 'firstname', placeholder: 'fill Firstname', }, children: [ { text: '', }, ], }, { text: ' ', }, { type: 'FormField', data: { fieldName: 'lastname', placeholder: 'fill Lastname', }, children: [ { text: '', }, ], }, { text: ' and i work as a ', }, { type: 'FormField', data: { fieldName: 'jobDescription', placeholder: 'Job Description', }, children: [ { text: '', }, ], },{ text: '.', } ], }, ], }, }, ], ], }, { cellPlugins, lang: 'default' } );
 
 export default function SimpleExample() {
   const [readOnly, setReadOnly] = useState(false);

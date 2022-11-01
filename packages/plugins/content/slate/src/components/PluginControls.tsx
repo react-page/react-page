@@ -1,6 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import type { DataTType, JsonSchema } from '@react-page/editor';
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import type { BaseRange } from 'slate';
 import { Range, Transforms } from 'slate';
 import { useSlate } from 'slate-react';
@@ -71,16 +77,18 @@ function PluginControls(
   }, [props.open, setIsVisible, _setOpen]);
 
   const { controls } = plugin;
-  const Controls = controls
-    ? controls.type === 'autoform'
-      ? (props: SlatePluginControls<any>) => (
-          <UniformsControls
-            {...props}
-            schema={controls?.schema as JsonSchema<any>}
-          />
-        )
-      : controls.Component
-    : UniformsControls;
+  const Controls = useMemo(() => {
+    return controls
+      ? controls.type === 'autoform'
+        ? (props: SlatePluginControls<any>) => (
+            <UniformsControls
+              {...props}
+              schema={controls?.schema as JsonSchema<any>}
+            />
+          )
+        : controls.Component
+      : UniformsControls;
+  }, [controls]);
 
   const add = useCallback(
     (p: any) => {

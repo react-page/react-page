@@ -9,6 +9,7 @@ import React, { useCallback, useRef, useState } from 'react';
 import type { Data } from '../../types';
 
 import type { SlatePluginControls } from '../../types/slatePluginDefinitions';
+import { useEffect } from 'react';
 
 function Controls<T extends Data>(
   props: SlatePluginControls<T> & {
@@ -31,6 +32,7 @@ function Controls<T extends Data>(
   };
 
   const saveAndCloseWithData = useCallback(
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (data: any) => {
       props.close();
       if (props.shouldInsertWithText) {
@@ -70,7 +72,7 @@ function Controls<T extends Data>(
     >
       <DialogContent>
         {!props.shouldInsertWithText ? null : (
-          <div>
+          <div style={{ marginBottom: '1em' }}>
             <TextField
               autoFocus={true}
               placeholder={'Text'}
@@ -83,6 +85,7 @@ function Controls<T extends Data>(
         {hasSchema && uniformsSchema ? (
           <AutoForm
             ref={formRef}
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             model={props.data as any}
             schema={uniformsSchema}
             onSubmit={saveAndCloseWithData}
@@ -91,28 +94,28 @@ function Controls<T extends Data>(
           </AutoForm>
         ) : null}
       </DialogContent>
-      {hasSchema ? (
-        <DialogActions>
-          <Button
-            variant="text"
-            onClick={onCancel}
-            style={{ marginRight: 'auto' }}
-          >
-            {props.cancelLabel || 'Cancel'}
-          </Button>
-          {props.isActive ? (
-            <Button variant="contained" color="secondary" onClick={onRemove}>
-              {props.removeLabel || 'Remove'}
-              <DeleteIcon style={{ marginLeft: 10 }} />
-            </Button>
-          ) : null}
 
+      <DialogActions>
+        <Button
+          variant="text"
+          onClick={onCancel}
+          style={{ marginRight: 'auto' }}
+        >
+          {props.cancelLabel || 'Cancel'}
+        </Button>
+        {props.isActive ? (
+          <Button variant="contained" color="secondary" onClick={onRemove}>
+            {props.removeLabel || 'Remove'}
+            <DeleteIcon style={{ marginLeft: 10 }} />
+          </Button>
+        ) : null}
+        {hasSchema ? (
           <Button variant="contained" color="primary" onClick={onOkClick}>
             {props.submitLabel || 'Ok'}
             <DoneIcon style={{ marginLeft: 10 }} />
           </Button>
-        </DialogActions>
-      ) : null}
+        ) : null}
+      </DialogActions>
     </Dialog>
   );
 }
