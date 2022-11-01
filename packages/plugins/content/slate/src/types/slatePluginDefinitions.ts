@@ -136,6 +136,49 @@ type MarkProps = {
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type NoInfer<T> = [T][T extends any ? 0 : never];
 
+type SlateComponentPluginComponent<T extends Data> =
+  | keyof JSX.IntrinsicElements
+  | React.ComponentType<
+      NoInfer<
+        {
+          /**
+           * the attributes should be passed directly to the rendered html element
+           */
+          attributes?: Record<string, unknown>;
+          /**
+           * the style that can be passed directly to the rendered html element
+           */
+          style?: React.CSSProperties;
+          /**
+           * className to pass to the renderd html element
+           */
+          className?: string;
+          /**
+           * raw child nodes. Usefull in certain niche cases
+           */
+          childNodes: Node[];
+
+          /**
+           * hook that returns true if the current element is focused
+           */
+          useFocused: () => boolean;
+          /**
+           * hook that returns true if the current element is selected
+           */
+          useSelected: () => boolean;
+
+          /**
+           * @returns the current text content as an array. Usefull in some advanced use cases
+           */
+          getTextContents: () => string[];
+
+          /**
+           * the childrens should be rendered in non-void plugins
+           */
+          children: ReactNode;
+        } & T
+      >
+    >;
 export type SlateComponentPluginDefinition<T extends Data> =
   SlateNodeBasePluginDefinition<T> & {
     /**
@@ -160,51 +203,13 @@ export type SlateComponentPluginDefinition<T extends Data> =
       getData?: (el: HTMLElement) => T | void;
     };
 
+    Component: SlateComponentPluginComponent<T>;
+
     /**
      * the Component that renders this element. Can be a primitiv component like "div", "p", etc.
      * or a complex Component. If its a complex component, you should render the children passed in it
      *
      */
-    Component:
-      | keyof JSX.IntrinsicElements
-      | React.ComponentType<
-          NoInfer<
-            {
-              /**
-               * the attributes should be passed directly to the rendered html element
-               */
-              attributes?: Record<string, unknown>;
-              /**
-               * the style that can be passed directly to the rendered html element
-               */
-              style?: React.CSSProperties;
-              /**
-               * className to pass to the renderd html element
-               */
-              className?: string;
-              /**
-               * raw child nodes. Usefull in certain niche cases
-               */
-              childNodes: Node[];
-
-              /**
-               * hook that returns true if the current element is focused
-               */
-              useFocused: () => boolean;
-              /**
-               * hook that returns true if the current element is selected
-               */
-              useSelected: () => boolean;
-
-              /**
-               * @returns the current text content as an array. Usefull in some advanced use cases
-               */
-              getTextContents: () => string[];
-
-              children: ReactNode;
-            } & T
-          >
-        >;
   } & (ObjectProps | InlineProps | MarkProps);
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

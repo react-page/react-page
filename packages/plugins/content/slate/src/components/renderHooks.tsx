@@ -108,14 +108,16 @@ export const useRenderElement = (
         // if block is void, we still need to render children due to some quirks of slate
 
         if (isVoid && !injections.readOnly) {
+          const Element = matchingPlugin.object === 'inline' ? 'span' : 'div';
           return (
-            <VoidEditableElement
-              component={component}
-              element={element}
-              plugin={matchingPlugin as SlatePluginDefinition}
-            >
+            <Element {...attributes} contentEditable={false}>
               {children}
-            </VoidEditableElement>
+              <VoidEditableElement
+                component={component}
+                element={element}
+                plugin={matchingPlugin as SlatePluginDefinition}
+              />
+            </Element>
           );
         }
 
