@@ -127,8 +127,8 @@ const postLinkPlugin = pluginFactories.createComponentPlugin<{
   },
   // this code here lives primarly in your frontend, you would create the link however you like
   // and you would probably read more data from your datasource
-  // this is just a simple example. The link dofes actually not work in our example, but you should get the idea
-  Component: (props: any) => (
+  // this is just a simple example. The link does actually not work in our example, but you should get the idea
+  Component: (props) => (
     <Link href={'/posts/' + props.postId}>
       <a>{props.children}</a>
     </Link>
