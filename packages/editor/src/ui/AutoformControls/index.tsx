@@ -29,13 +29,8 @@ const getDefaultValue = function (bridge: JSONSchemaBridge): {
 
 type Props<T extends DataTType> = CellPluginComponentProps<T> &
   AutoformControlsDef<T>;
-export function AutoformControls<T extends DataTType>({
-  onChange,
-  data,
-  schema,
-  columnCount = 2,
-  Content,
-}: Props<T>) {
+export function AutoformControls<T extends DataTType>(props: Props<T>) {
+  const { onChange, data, schema, columnCount = 2, Content } = props;
   const bridge = useMemo(
     () => makeUniformsSchema<T>(schema as JsonSchema<T>),
     [schema]
@@ -58,7 +53,7 @@ export function AutoformControls<T extends DataTType>({
       onSubmit={onChange}
     >
       {Content ? (
-        <Content data={data} columnCount={columnCount} />
+        <Content {...props} columnCount={columnCount} />
       ) : (
         <div
           style={{

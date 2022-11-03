@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { AutoFields, ColorPickerField } from '@react-page/editor';
+import { AutoFields } from '@react-page/editor';
 // The editor core
 import type { Value, CellPlugin } from '@react-page/editor';
 import Editor, { createValue } from '@react-page/editor';
@@ -24,13 +24,22 @@ const customContentPluginWithSpecialForm: CellPlugin<{
   Renderer: ({ data }) => (
     <div>
       <h3>Name</h3>
-      <p>Firstname: {data.firstName}</p>
-      <p>Lastname: {data.lastName}</p>
-      <p>Age: {data.age}</p>
+      <p>
+        Firstname: {data.firstName}
+        <br />
+        Lastname: {data.lastName}
+        <br />
+        Age: {data.age}
+        <br />
+      </p>
       <h3>Adress</h3>
-      <p>{data.street}</p>
-      <p>{data.lastName}</p>
-      <p>Age: {data.age}</p>
+      <p>
+        {data.street}
+        <br />
+        {data.zip} {data.city}
+        <br />
+        {data.country}
+      </p>
     </div>
   ),
   id: 'custom-content-plugin-with-custom-layout',

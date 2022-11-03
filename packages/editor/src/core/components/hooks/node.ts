@@ -15,6 +15,7 @@ import { getDropLevels } from '../../utils/getDropLevels';
 import { useUpdateCellData } from './nodeActions';
 import { useLang } from './options';
 import { useRenderOption } from './renderOptions';
+import type { CellPluginOnChangeOptions } from '../../types';
 
 /**
  *
@@ -353,15 +354,17 @@ export const useDebouncedCellData = (nodeId: string) => {
   const cellData = useCellData(nodeId);
   const [, setData] = useState(cellData);
   const dataRef = useRef(cellData);
+
+  const currentLang = useLang();
   const cellDataRef = useRef(cellData);
 
-  const updateCellData = useUpdateCellData(nodeId);
+  const updateCellDataImmediate = useUpdateCellData(nodeId);
   const updateCellDataDebounced = useCallback(
-    debounce((options) => {
+    debounce((options?: CellPluginOnChangeOptions) => {
       cellDataRef.current = dataRef.current;
-      updateCellData(dataRef.current, options);
+      updateCellDataImmediate(dataRef.current, options);
     }, 200),
-    [updateCellData]
+    [updateCellDataImmediate]
   );
 
   const changed = useMemo(
@@ -379,16 +382,29 @@ export const useDebouncedCellData = (nodeId: string) => {
   }, [changed, cellData]);
 
   const onChange = useCallback(
-    (partialData: Record<string, unknown>, options: unknown) => {
-      dataRef.current = {
-        ...dataRef.current,
-        ...partialData,
-      };
-      setData(dataRef.current);
+    (
+      partialData: Record<string, unknown>,
+      options?: CellPluginOnChangeOptions
+    ) => {
+      // special handling if non default language is changed (special custom code)
+      if (options?.lang && options.lang !== currentLang) {
+        // this hook is a bit hacky, because we keep around state of changes and debounce changes
+        // its probably not the cleanest solution
+        // however this handling is problematic, if you change any other language.
+        // this is rarely used and only in custom code
+        // however, we don't need the debouncing if other languages are changed, because they are not visible anyway and do not feed back into this component
+        updateCellDataImmediate(partialData, options);
+      } else {
+        dataRef.current = {
+          ...dataRef.current,
+          ...partialData,
+        };
+        setData(dataRef.current);
 
-      updateCellDataDebounced(options);
+        updateCellDataDebounced(options);
+      }
     },
-    [updateCellDataDebounced, setData]
+    [updateCellDataDebounced, updateCellDataImmediate, setData, currentLang]
   );
   return [dataRef.current, onChange] as const;
 };

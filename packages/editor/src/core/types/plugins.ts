@@ -9,6 +9,18 @@ export type DataTType = Record<string, unknown>;
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type DataTAny = any;
 
+export type CellPluginOnChangeOptions = {
+  /**
+   * force the language to update the data.
+   * If not set, will use the current language
+   */
+  lang?: string;
+  /**
+   * whether to push the change to the undo-queue
+   */
+  notUndoable?: boolean;
+};
+
 export type CellPluginComponentProps<DataT extends DataTType = DataTAny> = {
   /**
    * the cells nodeId
@@ -21,7 +33,7 @@ export type CellPluginComponentProps<DataT extends DataTType = DataTAny> = {
   /**
    * Should be called with the new data if the plugin's data changes.
    */
-  onChange: (data: Partial<DataT>, options?: { notUndoable: boolean }) => void;
+  onChange: (data: Partial<DataT>, options?: CellPluginOnChangeOptions) => void;
 
   /**
    * call this to remove the cell
@@ -75,10 +87,11 @@ export type CellPluginCustomControlsComonent<DataT extends DataTType> =
   React.ComponentType<CellPluginComponentProps<DataT>>;
 
 export type CellPluginAutoformControlsContent<DataT extends DataTType> =
-  React.ComponentType<{
-    data: DataT;
-    columnCount?: number;
-  }>;
+  React.ComponentType<
+    {
+      columnCount?: number;
+    } & CellPluginComponentProps<DataT>
+  >;
 
 /**
  * controls where you can provide a custom component to render the controls.
