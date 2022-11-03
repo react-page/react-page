@@ -26,6 +26,7 @@ import { useAllCellPluginsForNode } from './node';
 import { useEditorStore, useLang } from './options';
 import { cloneWithNewIds } from '../../../core/utils/cloneWithNewIds';
 import { useDisplayModeReferenceNodeId } from './displayMode';
+import type { CellPluginOnChangeOptions } from '../../types';
 
 /**
  * @param id id of a node
@@ -80,10 +81,7 @@ export const useUpdateCellData = (id: string) => {
   return useCallback(
     (
       data: null | { [key: string]: unknown },
-      options: {
-        lang?: string;
-        notUndoable?: boolean;
-      } = {}
+      options: CellPluginOnChangeOptions = {}
     ) => {
       dispatch(
         updateCellData(id)(data, {
