@@ -33,11 +33,13 @@ function makeUniformsSchema<T extends DataTType>(
   const getPropsOrg = bridge.getProps;
   bridge.getProps = function (name: string) {
     const { component, ...props } = getPropsOrg.call(this, name);
-
-    return {
-      _customComponent: component,
-      ...props,
-    };
+    if (component) {
+      return {
+        _customComponent: component,
+        ...props,
+      };
+    }
+    return props;
   };
   return bridge;
 }
