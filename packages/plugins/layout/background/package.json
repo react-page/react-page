@@ -1,8 +1,9 @@
 {
   "name": "@react-page/plugins-background",
   "version": "0.0.0",
-  "main": "./lib/index.js",
+  "main": "./lib-cs/index.js",
   "module": "./lib-es/index.js",
+  "type": "module",
   "sideEffects": false,
   "author": "ORY GmbH",
   "license": "MIT",

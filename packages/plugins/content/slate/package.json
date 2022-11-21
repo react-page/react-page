@@ -1,10 +1,11 @@
 {
   "name": "@react-page/plugins-slate",
   "version": "0.0.0",
-  "main": "./lib/index.js",
+  "main": "./lib-cs/index.js",
   "module": "./lib-es/index.js",
+  "type": "module",
   "sideEffects": false,
-  "typings": "./lib/index.d.ts",
+  "typings": "./lib-es/index.d.ts",
   "author": "ORY GmbH",
   "license": "MIT",
   "repository": {
@@ -59,7 +60,7 @@
     "@types/xmldom": "^0.1.31"
   },
   "browser": {
-    "./lib/HtmlToSlate/parseHtml.js": "./lib/HtmlToSlate/parseHtml.browser.js",
+    "./lib-cs/HtmlToSlate/parseHtml.js": "./lib-cs/HtmlToSlate/parseHtml.browser.js",
     "./lib-es/HtmlToSlate/parseHtml.js": "./lib-es/HtmlToSlate/parseHtml.browser.js"
   }
 }

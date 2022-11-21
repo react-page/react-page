@@ -5,9 +5,9 @@
   "license": "MIT",
   "main": "./lib-cs/index.js",
   "module": "./lib-es/index.js",
-  "sideEffects": false,
   "type": "module",
-  "typings": "./lib/index.d.ts",
+  "sideEffects": false,
+  "typings": "./lib-es/index.d.ts",
   "repository": {
     "url": "https://github.com/react-page/react-page"
   },

@@ -1,10 +1,10 @@
 {
   "name": "@react-page/plugins-video",
   "version": "0.0.0",
-  "main": "./lib/index.js",
+  "main": "./lib-cs/index.js",
   "module": "./lib-es/index.js",
   "sideEffects": false,
-  "typings": "./lib/index.d.ts",
+  "typings": "./lib-es/index.d.ts",
   "author": "ORY GmbH",
   "license": "MIT",
   "scripts": {
