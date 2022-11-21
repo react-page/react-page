@@ -8,6 +8,7 @@ doc/
 _book/
 coverage/
 lib/
+lib-cs/
 lib-es/
 dist/
 examples/build

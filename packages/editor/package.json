@@ -3,9 +3,10 @@
   "version": "0.0.0",
   "author": "Marco Wettstein",
   "license": "MIT",
-  "main": "./lib/index.js",
+  "main": "./lib-cs/index.js",
   "module": "./lib-es/index.js",
   "sideEffects": false,
+  "type": "module",
   "typings": "./lib/index.d.ts",
   "repository": {
     "url": "https://github.com/react-page/react-page"
@@ -13,12 +14,12 @@
   "scripts": {
     "build": "npm-run-all --parallel build:lib build:css",
     "build:watch": "npm-run-all --parallel build:lib:watch build:css:watch",
-    "build:lib": "tsc -p ./tsconfig.json && tsc -p ./tsconfig-es.json",
+    "build:lib": "tsc -p ./tsconfig.json && tsc -p ./tsconfig-cs.json",
     "build:lib:watch": "yarn build:lib -- --watch",
     "build:css": "postcss --config ../../config/postcss.config.js --dir lib/ src/index.css",
     "build:css:watch": "npm-run-all build:css -- -w",
     "docs": "documentation build ./lib/**/*.js --format md --github -o ../../docs/api/editor.md",
-    "clean": "rimraf \"lib\" && rimraf \"lib-es\" && rm -f *.tsbuildinfo"
+    "clean": "rimraf \"lib-cs\" && rimraf \"lib-es\" && rm -f *.tsbuildinfo"
   },
   "peerDependencies": {
     "react": ">= 16.14",
@@ -38,8 +39,8 @@
     "lodash.flatten": "^4.4.0",
     "lodash.throttle": "^4.1.1",
     "react-color": "^2.19.3",
-    "react-dnd": "^15.1.2",
-    "react-dnd-html5-backend": "^15.1.2",
+    "react-dnd": "^16.0.1",
+    "react-dnd-html5-backend": "^16.0.1",
     "react-draggable": "4.4.5",
     "react-lazy-with-preload": "^2.2.1",
     "react-portal": "^4.2.2",

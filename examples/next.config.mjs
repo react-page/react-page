@@ -1,8 +1,10 @@
-const withBundleAnalyzer = require('@next/bundle-analyzer')({
+import bundleAnalyzer from '@next/bundle-analyzer';
+
+const withBundleAnalyzer = bundleAnalyzer({
   enabled: process.env.ANALYZE === 'true',
 });
-const path = require('path');
-module.exports = withBundleAnalyzer({
+
+export default withBundleAnalyzer({
   basePath: process.env.RELEASE_CHANNEL
     ? !process.env.RELEASE_CHANNEL || process.env.RELEASE_CHANNEL === 'latest'
       ? '/'

@@ -7,7 +7,7 @@
     "strict": true,
     "moduleResolution": "node",
     "target": "es5",
-    "module": "commonjs",
+    "module": "ESNext",
     "jsx": "react",
     "experimentalDecorators": true,
     "esModuleInterop": true,

@@ -2,7 +2,7 @@
   "extends": "../../../tsconfig.settings.json",
   "compilerOptions": {
     "rootDir": "src",
-    "outDir": "lib"
+    "outDir": "lib-es"
   },
   "include": ["src"],
   "exclude": ["lib", "node_modules", "src/**/__tests__/**/*.*"],
