@@ -1,0 +1,1 @@
+{"version":3,"file":"objIsNode.js","sourceRoot":"","sources":["../../../src/core/utils/objIsNode.ts"],"names":[],"mappings":"AAEA,aAAa;AACb,MAAM,CAAC,IAAM,SAAS,GAAG,UAAC,GAA4B;IACpD,IAAI,CAAC,GAAG;QAAE,OAAO,KAAK,CAAC;IACvB,IAAI,CAAC,CAAC,IAAI,IAAI,GAAG,CAAC,EAAE;QAClB,OAAO,KAAK,CAAC;KACd;IACD,OAAO,IAAI,CAAC;AACd,CAAC,CAAC"}

@@ -1,0 +1,1 @@
+{"version":3,"file":"SpacerHtmlRenderer.d.ts","sourceRoot":"","sources":["../../src/Renderer/SpacerHtmlRenderer.tsx"],"names":[],"mappings":"AAAA,OAAO,KAAK,EAAE,wBAAwB,EAAE,MAAM,oBAAoB,CAAC;AAGnE,OAAO,KAAK,MAAM,OAAO,CAAC;AAC1B,OAAO,KAAK,EAAE,WAAW,EAAE,MAAM,gBAAgB,CAAC;AAGlD,QAAA,MAAM,kBAAkB,EAAE,KAAK,CAAC,EAAE,CAAC,wBAAwB,CAAC,WAAW,CAAC,CAYvE,CAAC;AAEF,eAAe,kBAAkB,CAAC"}

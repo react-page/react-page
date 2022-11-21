@@ -1,0 +1,1 @@
+{"version":3,"file":"useCurrentSelection.js","sourceRoot":"","sources":["../../src/hooks/useCurrentSelection.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,QAAQ,EAAE,MAAM,aAAa,CAAC;AAEvC,gBAAe;IACb,IAAM,MAAM,GAAG,QAAQ,EAAE,CAAC;IAC1B,OAAO,MAAM,CAAC,SAAS,CAAC;AAC1B,CAAC,EAAC"}

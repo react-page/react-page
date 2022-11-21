@@ -1,0 +1,1 @@
+{"version":3,"file":"screen.js","sourceRoot":"","sources":["../../../../src/core/components/hooks/screen.tsx"],"names":[],"mappings":"AAAA,OAAO,EAAE,aAAa,EAAE,QAAQ,EAAE,MAAM,eAAe,CAAC;AAExD,MAAM,CAAC,IAAM,gBAAgB,GAAG;IAC9B,IAAM,KAAK,GAAG,QAAQ,EAAE,CAAC;IACzB,OAAO,aAAa,CAAC,KAAK,CAAC,WAAW,CAAC,IAAI,CAAC,IAAI,CAAC,CAAC,CAAC;AACrD,CAAC,CAAC"}

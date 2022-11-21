@@ -1,0 +1,1 @@
+{"version":3,"file":"GlobalHotKeys.d.ts","sourceRoot":"","sources":["../../../../src/core/components/HotKey/GlobalHotKeys.tsx"],"names":[],"mappings":"AACA,OAAO,KAAK,KAAK,MAAM,OAAO,CAAC;AAC/B,OAAO,KAAK,EAAE,SAAS,EAAE,MAAM,OAAO,CAAC;AAqCvC,QAAA,MAAM,aAAa,EAAE,KAAK,CAAC,EAAE,CAAC;IAAE,QAAQ,EAAE,SAAS,CAAC,cAAc,CAAC,CAAA;CAAE,CA4MpE,CAAC;AAEF,eAAe,aAAa,CAAC"}

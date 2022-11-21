@@ -1,0 +1,1 @@
+{"version":3,"file":"createListItemPlugin.d.ts","sourceRoot":"","sources":["../../src/pluginFactories/createListItemPlugin.tsx"],"names":[],"mappings":";AAEA,KAAK,WAAW,GAAG;IACjB,IAAI,EAAE,MAAM,CAAC;IACb,OAAO,EAAE,MAAM,GAAG,CAAC,iBAAiB,CAAC;CACtC,CAAC;AAEF,MAAM,CAAC,OAAO,WAAW,CAAC,EAAE,GAAG,EAAE,WAAW;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;EAM3C"}

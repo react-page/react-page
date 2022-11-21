@@ -1,0 +1,1 @@
+{"version":3,"file":"settings.js","sourceRoot":"","sources":["../../src/default/settings.tsx"],"names":[],"mappings":"AAAA,OAAO,KAAK,MAAM,OAAO,CAAC;AAE1B,MAAM,CAAC,IAAM,mBAAmB,GAAG;IACjC,UAAU,EAAE,SAAS;IACrB,iBAAiB,EAAE,sBAAsB;CAC1C,CAAC;AAEF,MAAM,CAAC,IAAM,eAAe,GAAG;IAC7B,YAAY,EAAE,mBAAmB;IACjC,QAAQ,EAAE,cAAM,OAAA,sFAA8C,EAA9C,CAA8C;CAC/D,CAAC"}

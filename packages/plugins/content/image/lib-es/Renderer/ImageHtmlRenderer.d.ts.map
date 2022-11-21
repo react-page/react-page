@@ -1,0 +1,1 @@
+{"version":3,"file":"ImageHtmlRenderer.d.ts","sourceRoot":"","sources":["../../src/Renderer/ImageHtmlRenderer.tsx"],"names":[],"mappings":"AAAA,OAAO,KAAK,MAAM,OAAO,CAAC;AAG1B,OAAO,KAAK,EAAE,wBAAwB,EAAE,MAAM,oBAAoB,CAAC;AAEnE,OAAO,KAAK,EAAE,UAAU,EAAE,MAAM,gBAAgB,CAAC;AAIjD,QAAA,MAAM,iBAAiB,EAAE,KAAK,CAAC,EAAE,CAAC,wBAAwB,CAAC,UAAU,CAAC,CAkCrE,CAAC;AAEF,eAAe,iBAAiB,CAAC"}

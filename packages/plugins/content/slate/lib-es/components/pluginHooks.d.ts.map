@@ -1,0 +1,1 @@
+{"version":3,"file":"pluginHooks.d.ts","sourceRoot":"","sources":["../../src/components/pluginHooks.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,EAAE,cAAc,EAAE,MAAM,OAAO,CAAC;AAE5C,OAAO,KAAK,EAAE,WAAW,EAAE,MAAM,sBAAsB,CAAC;AACxD,OAAO,KAAK,EAAE,8BAA8B,EAAE,MAAM,iCAAiC,CAAC;AAEtF,eAAO,MAAM,uBAAuB;aACV,WAAW,EAAE;iEAWpC,CAAC;AAEJ,eAAO,MAAM,uBAAuB;aACV,WAAW,EAAE;iEAWpC,CAAC"}

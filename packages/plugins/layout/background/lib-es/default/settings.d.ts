@@ -1,0 +1,30 @@
+import type { BackgroundSettings } from '../types/settings';
+export declare const defaultTranslations: {
+    buttonContent: string;
+    noFileError: string;
+    badExtensionError: string;
+    tooBigError: string;
+    uploadingError: string;
+    unknownError: string;
+    imageMode: string;
+    colorMode: string;
+    gradientMode: string;
+    lighten: string;
+    darken: string;
+    usePadding: string;
+    onOff: string;
+    gradientRotation: string;
+    degrees: string;
+    gradientOpacity: string;
+    addColor: string;
+    addGradient: string;
+    pluginName: string;
+    pluginDescription: string;
+    or: string;
+    haveUrl: string;
+    srcPlaceholder: string;
+    imageUrl: string;
+    isParallax: string;
+};
+export declare const defaultSettings: Partial<BackgroundSettings>;
+//# sourceMappingURL=settings.d.ts.map

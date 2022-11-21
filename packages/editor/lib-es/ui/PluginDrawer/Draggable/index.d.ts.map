@@ -1,0 +1,1 @@
+{"version":3,"file":"index.d.ts","sourceRoot":"","sources":["../../../../src/ui/PluginDrawer/Draggable/index.tsx"],"names":[],"mappings":"AACA,OAAO,KAAK,EAAE,EAAE,EAAE,iBAAiB,EAAE,MAAM,OAAO,CAAC;AAOnD,OAAO,KAAK,EAAY,aAAa,EAAE,MAAM,qBAAqB,CAAC;AAEnE,QAAA,MAAM,SAAS,EAAE,EAAE,CACjB,iBAAiB,CAAC;IAChB,MAAM,EAAE,aAAa,CAAC;CACvB,CAAC,CAgCH,CAAC;AAEF,eAAe,SAAS,CAAC"}

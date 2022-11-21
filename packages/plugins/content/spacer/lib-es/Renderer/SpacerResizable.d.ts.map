@@ -1,0 +1,1 @@
+{"version":3,"file":"SpacerResizable.d.ts","sourceRoot":"","sources":["../../src/Renderer/SpacerResizable.tsx"],"names":[],"mappings":"AAAA,OAAO,KAAK,EAAE,wBAAwB,EAAE,MAAM,oBAAoB,CAAC;AAEnE,OAAO,KAAK,MAAM,OAAO,CAAC;AAI1B,OAAO,KAAK,EAAE,WAAW,EAAE,MAAM,gBAAgB,CAAC;AAIlD,QAAA,MAAM,eAAe,EAAE,KAAK,CAAC,EAAE,CAAC,wBAAwB,CAAC,WAAW,CAAC,CAyCpE,CAAC;AAEF,eAAe,eAAe,CAAC"}

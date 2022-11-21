@@ -1,0 +1,1 @@
+{"version":3,"file":"hotkeyHooks.d.ts","sourceRoot":"","sources":["../../src/components/hotkeyHooks.ts"],"names":[],"mappings":"AACA,OAAO,KAAK,EAAE,cAAc,EAAE,MAAM,OAAO,CAAC;AAO5C,OAAO,KAAK,EAAE,WAAW,EAAE,MAAM,sBAAsB,CAAC;AAExD,eAAO,MAAM,YAAY;aAIZ,WAAW,EAAE;oCAMS,GAAG,qBAiCrC,CAAC"}

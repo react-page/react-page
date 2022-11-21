@@ -1,0 +1,1 @@
+{"version":3,"file":"NoopProvider.d.ts","sourceRoot":"","sources":["../../../../src/core/components/Cell/NoopProvider.tsx"],"names":[],"mappings":"AAAA,OAAO,KAAK,EAAE,EAAE,EAAE,iBAAiB,EAAE,MAAM,OAAO,CAAC;AAGnD,QAAA,MAAM,YAAY,EAAE,EAAE,CAAC,iBAAiB,CAAqC,CAAC;AAE9E,eAAe,YAAY,CAAC"}

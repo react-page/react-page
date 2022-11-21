@@ -1,0 +1,1 @@
+{"version":3,"file":"usePluginIsActive.js","sourceRoot":"","sources":["../../src/hooks/usePluginIsActive.ts"],"names":[],"mappings":"AAEA,OAAO,wBAAwB,MAAM,4BAA4B,CAAC;AAElE,gBAAe,UAAsB,MAAgC;IACnE,IAAM,SAAS,GAAG,wBAAwB,CAAI,MAAM,CAAC,CAAC;IACtD,OAAO,OAAO,CAAC,SAAS,CAAC,CAAC;AAC5B,CAAC,EAAC"}

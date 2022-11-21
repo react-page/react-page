@@ -1,0 +1,1 @@
+{"version":3,"file":"wdyr.js","sourceRoot":"","sources":["../src/wdyr.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,MAAM,OAAO,CAAC;AAE1B,IAAI,OAAO,CAAC,GAAG,CAAC,QAAQ,KAAK,aAAa,EAAE;IAC1C,IAAM,eAAe,GAAG,OAAO,CAAC,uCAAuC,CAAC,CAAC;IACzE,eAAe,CAAC,KAAK,EAAE;QACrB,sBAAsB,EAAE,IAAI;KAC7B,CAAC,CAAC;CACJ"}

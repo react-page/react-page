@@ -1,0 +1,1 @@
+{"version":3,"file":"ConditionalWrapper.d.ts","sourceRoot":"","sources":["../../src/components/ConditionalWrapper.tsx"],"names":[],"mappings":"AAAA,OAAO,KAAK,MAAM,OAAO,CAAC;AAE1B,eAAO,MAAM,kBAAkB,EAAE,KAAK,CAAC,EAAE,CAAC;IACxC,SAAS,EAAE,OAAO,CAAC;IACnB,QAAQ,EAAE,KAAK,CAAC,YAAY,CAAC;IAC7B,OAAO,EAAE,CAAC,QAAQ,EAAE,KAAK,CAAC,YAAY,KAAK,KAAK,CAAC,YAAY,CAAC;CAC/D,CAEA,CAAC"}

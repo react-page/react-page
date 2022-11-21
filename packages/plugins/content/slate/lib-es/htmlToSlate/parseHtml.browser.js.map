@@ -1,0 +1,1 @@
+{"version":3,"file":"parseHtml.browser.js","sourceRoot":"","sources":["../../src/htmlToSlate/parseHtml.browser.ts"],"names":[],"mappings":"AAAA,gBAAe,UAAC,IAAY;IAC1B,IAAI,OAAO,SAAS,KAAK,WAAW,EAAE;QACpC,MAAM,IAAI,KAAK,CACb,yKAAyK,CAC1K,CAAC;KACH;IAED,OAAO,IAAI,SAAS,EAAE,CAAC,eAAe,CAAC,IAAI,EAAE,WAAW,CAAC,CAAC;AAC5D,CAAC,EAAC"}

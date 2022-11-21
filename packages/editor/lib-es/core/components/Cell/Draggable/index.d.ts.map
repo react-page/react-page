@@ -1,0 +1,1 @@
+{"version":3,"file":"index.d.ts","sourceRoot":"","sources":["../../../../../src/core/components/Cell/Draggable/index.tsx"],"names":[],"mappings":"AACA,OAAO,KAAK,EAAE,EAAE,EAAE,iBAAiB,EAAE,MAAM,OAAO,CAAC;AAWnD,KAAK,KAAK,GAAG;IACX,MAAM,CAAC,EAAE,OAAO,CAAC;IACjB,MAAM,EAAE,MAAM,CAAC;CAChB,CAAC;AACF,QAAA,MAAM,SAAS,EAAE,EAAE,CAAC,iBAAiB,CAAC,KAAK,CAAC,CAwD3C,CAAC;AAEF,eAAe,SAAS,CAAC"}
