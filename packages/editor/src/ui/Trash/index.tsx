@@ -4,6 +4,7 @@ import classNames from 'classnames';
 import React from 'react';
 import { useIsLayoutMode, useTrashDrop } from '../../core/components/hooks';
 
+console.log({ Fab, Delete });
 export const Trash: React.FC = React.memo(() => {
   const isLayoutMode = useIsLayoutMode();
   const [{ isHovering }, ref] = useTrashDrop();

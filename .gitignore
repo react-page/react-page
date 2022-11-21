@@ -9,7 +9,7 @@ _book/
 coverage/
 lib/
 lib-cs/
-lib-es/
+lib/
 dist/
 examples/build
 *.tsbuildinfo

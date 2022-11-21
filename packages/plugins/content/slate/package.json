@@ -2,10 +2,17 @@
   "name": "@react-page/plugins-slate",
   "version": "0.0.0",
   "main": "./lib-cs/index.js",
-  "module": "./lib-es/index.js",
+  "module": "./lib/index.js",
   "type": "module",
   "sideEffects": false,
-  "typings": "./lib-es/index.d.ts",
+  "typings": "./lib/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./lib/index.js",
+      "require": "./lib-cs/index.js"
+    },
+    "./lib/index.css": "./lib/index.css"
+  },
   "author": "ORY GmbH",
   "license": "MIT",
   "repository": {
@@ -19,7 +26,7 @@
     "build:css": "postcss --config ../../../../config/postcss.config.js --dir lib/ src/index.css",
     "build:css:watch": "npm-run-all build:css -- -w",
     "docs": "documentation build ./lib/**/*.js --format md --github -o ../../../../docs/api/plugins/slate.md",
-    "clean": "rimraf \"lib-cs\" && rimraf \"lib-es\" && rm -f *.tsbuildinfo"
+    "clean": "rimraf \"lib-cs\" && rimraf \"lib\" && rm -f *.tsbuildinfo"
   },
   "peerDependencies": {
     "@mui/material": "*",
@@ -61,6 +68,6 @@
   },
   "browser": {
     "./lib-cs/HtmlToSlate/parseHtml.js": "./lib-cs/HtmlToSlate/parseHtml.browser.js",
-    "./lib-es/HtmlToSlate/parseHtml.js": "./lib-es/HtmlToSlate/parseHtml.browser.js"
+    "./lib/HtmlToSlate/parseHtml.js": "./lib/HtmlToSlate/parseHtml.browser.js"
   }
 }

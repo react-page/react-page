@@ -4,10 +4,17 @@
   "author": "Marco Wettstein",
   "license": "MIT",
   "main": "./lib-cs/index.js",
-  "module": "./lib-es/index.js",
+  "exports": {
+    ".": {
+      "import": "./lib/index.js",
+      "require": "./lib-cs/index.js"
+    },
+    "./lib/index.css": "./lib/index.css"
+  },
+  "module": "./lib/index.js",
   "type": "module",
   "sideEffects": false,
-  "typings": "./lib-es/index.d.ts",
+  "typings": "./lib/index.d.ts",
   "repository": {
     "url": "https://github.com/react-page/react-page"
   },
@@ -19,17 +26,17 @@
     "build:css": "postcss --config ../../config/postcss.config.js --dir lib/ src/index.css",
     "build:css:watch": "npm-run-all build:css -- -w",
     "docs": "documentation build ./lib/**/*.js --format md --github -o ../../docs/api/editor.md",
-    "clean": "rimraf \"lib-cs\" && rimraf \"lib-es\" && rm -f *.tsbuildinfo"
+    "clean": "rimraf \"lib-cs\" && rimraf \"lib\" && rm -f *.tsbuildinfo"
   },
   "peerDependencies": {
     "react": ">= 16.14",
     "react-dom": ">= 16.14"
   },
   "dependencies": {
-    "@mui/icons-material": "^5.8.0",
-    "@mui/material": "^5.8.1",
+    "@mui/icons-material": "^5.10.14",
+    "@mui/material": "^5.10.14",
     "@welldone-software/why-did-you-render": "^7.0.1",
-    "ajv": "^7.1.1",
+    "ajv": "^8.11.2",
     "classnames": "^2.3.1",
     "color-parse": "^1.4.2",
     "fast-deep-equal": "^3.1.3",

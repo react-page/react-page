@@ -2,10 +2,17 @@
   "name": "@react-page/react-admin",
   "version": "0.0.0",
   "main": "./lib-cs/index.js",
-  "module": "./lib-es/index.js",
+  "module": "./lib/index.js",
   "type": "module",
+  "exports": {
+    ".": {
+      "import": "./lib/index.js",
+      "require": "./lib-cs/index.js"
+    },
+    "./lib/index.css": "./lib/index.css"
+  },
   "sideEffects": false,
-  "typings": "./lib-es/index.d.ts",
+  "typings": "./lib/index.d.ts",
   "author": "Panter AG",
   "license": "MIT",
   "scripts": {
@@ -13,7 +20,7 @@
     "build:watch": "npm-run-all --parallel build:lib:watch",
     "build:lib": "tsc -p ./tsconfig.json && tsc -p ./tsconfig-cs.json",
     "build:lib:watch": "yarn build:lib -- --watch",
-    "clean": "rimraf \"lib-cs\" && rimraf \"lib-es\" && rm -f *.tsbuildinfo"
+    "clean": "rimraf \"lib-cs\" && rimraf \"lib\" && rm -f *.tsbuildinfo"
   },
   "peerDependencies": {
     "@mui/material": "*",

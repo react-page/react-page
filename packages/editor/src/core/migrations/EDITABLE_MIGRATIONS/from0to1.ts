@@ -32,7 +32,7 @@ type NodeBase = {
 };
 
 type CellOld = NodeBase & {
-  rows?: Row[] | null;
+  rows?: RowOld[] | null;
 
   content?: Content;
   layout?: Layout;

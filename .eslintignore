@@ -4,5 +4,5 @@ coverage/**
 examples/build/**
 examples/src/contents.ts
 **/lib/**
-**/lib-es/**
+**/lib/**
 node_modules

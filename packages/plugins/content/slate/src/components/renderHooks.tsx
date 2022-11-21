@@ -1,4 +1,5 @@
-import propisValid from '@emotion/is-prop-valid';
+import _propisValid from '@emotion/is-prop-valid';
+
 import { lazyLoad } from '@react-page/editor';
 import isObject from 'lodash.isobject';
 import type { DependencyList } from 'react';
@@ -12,6 +13,9 @@ import {
   useComponentNodePlugins,
 } from './pluginHooks';
 
+const propisValid = ((_propisValid as any).default ??
+  _propisValid) as typeof _propisValid;
+console.log({ _propisValid, propisValid });
 // lazy load as it uses slate library. We don't want to bundle that in readonly mode
 const VoidEditableElement = lazyLoad(() => import('./VoidEditableElement'));
 

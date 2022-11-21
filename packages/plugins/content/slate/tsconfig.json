@@ -3,7 +3,7 @@
   "compilerOptions": {
     "downlevelIteration": true,
     "rootDir": "src",
-    "outDir": "lib-es",
+    "outDir": "lib",
     "paths": {
       "react": ["../../../../node_modules/@types/react/index"]
     }

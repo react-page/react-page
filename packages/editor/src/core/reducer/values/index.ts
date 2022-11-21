@@ -1,4 +1,5 @@
-import undoable from 'redux-undo';
+import reduxUndo from 'redux-undo';
+
 import {
   CELL_REMOVE,
   CELL_RESIZE,
@@ -18,7 +19,11 @@ import { UPDATE_VALUE } from '../../actions/value';
 
 import { value } from '../value';
 
-export const values = undoable(value, {
+type Undoable = typeof reduxUndo;
+
+const undoReducer: Undoable = (reduxUndo as any).default;
+
+export const values = undoReducer(value, {
   filter: function filterState(action, currentState, previousHistory) {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     if ((action as any)?.notUndoable) {

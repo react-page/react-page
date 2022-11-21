@@ -2,10 +2,17 @@
   "name": "@react-page/plugins-divider",
   "version": "0.0.0",
   "main": "./lib-cs/index.js",
-  "module": "./lib-es/index.js",
+  "module": "./lib/index.js",
   "type": "module",
+  "exports": {
+    ".": {
+      "import": "./lib/index.js",
+      "require": "./lib-cs/index.js"
+    },
+    "./lib/index.css": "./lib/index.css"
+  },
   "sideEffects": false,
-  "typings": "./lib-es/index.d.ts",
+  "typings": "./lib/index.d.ts",
   "author": "ORY GmbH",
   "license": "MIT",
   "scripts": {
@@ -17,7 +24,7 @@
     "build:css": "postcss --config ../../../../config/postcss.config.js --dir lib/ src/index.css",
     "build:css:watch": "npm-run-all build:css -- -w",
     "docs": "documentation build ./lib/**/*.js --format md --github -o ../../../../docs/api/plugins/divider.md",
-    "clean": "rimraf \"lib-cs\" && rimraf \"lib-es\" && rm -f *.tsbuildinfo"
+    "clean": "rimraf \"lib-cs\" && rimraf \"lib\" && rm -f *.tsbuildinfo"
   },
   "peerDependencies": {
     "react": ">= 16.14",
