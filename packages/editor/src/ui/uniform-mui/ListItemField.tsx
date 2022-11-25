@@ -6,6 +6,7 @@ import { connectField } from 'uniforms';
 
 import AutoField from './AutoField';
 import ListDelField from './ListDelField';
+import ListSortField from './ListSortField';
 
 export type ListItemFieldProps = {
   children?: ReactNode;
@@ -29,6 +30,7 @@ function ListItem({
       disableGutters={disableGutters}
       divider={divider}
     >
+      <ListSortField name="" />
       {children}
       <ListDelField name="" icon={removeIcon} />
     </ListItemMaterial>
