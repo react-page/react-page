@@ -23,6 +23,7 @@ function ListSort({
   const nameParts = joinName(null, name);
   const nameIndex = +nameParts[nameParts.length - 1];
   const parentName = joinName(nameParts.slice(0, -1));
+
   const parent = useField<{ minCount?: number }, unknown[]>(
     parentName,
     {},
@@ -34,35 +35,34 @@ function ListSort({
   const limitNotReachedDown =
     !disabled && nameIndex !== parent.value!.length - 1;
 
+  const handleMove = (moveWhere: 'up' | 'down') => {
+    if (!readOnly) {
+      const value = parent.value!.slice();
+      value.splice(nameIndex, 1);
+      value.splice(
+        moveWhere === 'up' ? nameIndex - 1 : nameIndex + 1,
+        0,
+        parent.value![nameIndex]
+      );
+      parent.onChange(value);
+    }
+  };
+
   return (
     <Stack>
       <IconButton
         {...filterDOMProps(props)}
         disabled={!limitNotReachedUp}
-        onClick={() => {
-          if (!readOnly) {
-            const value = parent.value!.slice();
-            value.splice(nameIndex, 1);
-            value.splice(nameIndex - 1, 0, parent.value![nameIndex]);
-            parent.onChange(value);
-          }
-        }}
-        size="small"
+        onClick={() => handleMove('up')}
+        size="large"
       >
         {iconUp}
       </IconButton>
       <IconButton
         {...filterDOMProps(props)}
         disabled={!limitNotReachedDown}
-        onClick={() => {
-          if (!readOnly) {
-            const value = parent.value!.slice();
-            value.splice(nameIndex, 1);
-            value.splice(nameIndex + 1, 0, parent.value![nameIndex]);
-            parent.onChange(value);
-          }
-        }}
-        size="small"
+        onClick={() => handleMove('down')}
+        size="large"
       >
         {iconDown}
       </IconButton>
