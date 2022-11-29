@@ -32,16 +32,19 @@
     position: relative;
   }
 
-  .react-page-cell-insert-new:after {
-    content: '+';
-    font-size: 52px;
-    font-family: monospace;
-    line-height: 52px;
+  .react-page-cell-insert-new-icon {
+    align-items: center;
     background-color: var(--minBlack);
-    color: white;
-    width: 52px;
-    text-align: center;
     border-radius: 50%;
+    display: flex;
+    height: 52px;
+    justify-content: center;
+    width: 52px;
+
+    svg {
+      height: 24px;
+      fill: #fff;
+    }
   }
 
   .react-page-cell-insert-new:hover,
