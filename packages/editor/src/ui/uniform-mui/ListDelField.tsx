@@ -4,6 +4,7 @@ import type { ReactNode } from 'react';
 import React from 'react';
 import type { FieldProps } from 'uniforms';
 import { connectField, filterDOMProps, joinName, useField } from 'uniforms';
+import DeleteForeverRoundedIcon from '@mui/icons-material/DeleteForeverRounded';
 
 export type ListDelFieldProps = FieldProps<
   unknown,
@@ -13,7 +14,7 @@ export type ListDelFieldProps = FieldProps<
 
 function ListDel({
   disabled,
-  icon = '-',
+  icon = <DeleteForeverRoundedIcon />,
   name,
   readOnly,
   ...props
@@ -28,15 +29,16 @@ function ListDel({
   )[0];
 
   const limitNotReached =
-    !disabled && !(parent.minCount! >= parent.value!.length);
+    !disabled && !(parent.minCount ?? 0 >= (parent.value ?? []).length);
 
   return (
     <IconButton
       {...filterDOMProps(props)}
       disabled={!limitNotReached}
+      sx={{ padding: 0 }}
       onClick={() => {
         if (!readOnly) {
-          const value = parent.value!.slice();
+          const value = (parent.value ?? []).slice();
           value.splice(nameIndex, 1);
           parent.onChange(value);
         }
