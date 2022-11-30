@@ -32,6 +32,7 @@ export type ListItemFieldProps = {
   dragIcon?: ReactNode;
   moveItemUpIcon?: ReactNode;
   moveItemDownIcon?: ReactNode;
+  disableSortable?: boolean;
   value?: unknown;
   name?: string;
 };
@@ -42,9 +43,10 @@ function ListItem({
   disableGutters,
   divider,
   removeIcon,
-  moveItemDownIcon,
   moveItemUpIcon,
+  moveItemDownIcon,
   dragIcon = <DragIndicatorIcon />,
+  disableSortable,
   value,
   name,
 }: ListItemFieldProps) {
@@ -52,32 +54,23 @@ function ListItem({
   const nameIndex = +nameParts[nameParts.length - 1];
   const parentName = joinName(nameParts.slice(0, -1));
 
-  const parent = useField<{}, unknown[]>(
+  const parent = useField<Record<string, unknown>, unknown[]>(
     parentName,
     {},
     { absoluteName: true }
   )[0];
 
   const moveItem = (fromIndex: number, toIndex: number) => {
-    const value = parent.value!.slice();
+    const value = (parent.value ?? []).slice();
     value.splice(fromIndex, 1);
-    value.splice(toIndex, 0, parent.value![fromIndex]);
+    value.splice(toIndex, 0, (parent.value ?? [])[fromIndex]);
     parent.onChange(value);
   };
 
-  const [{ isDragging }, drag] = useDrag<
-    DragItem,
-    unknown,
-    {
-      isDragging: boolean;
-    }
-  >(
+  const [, drag] = useDrag<DragItem, unknown>(
     () => ({
       type: DragItemType.ListItemField,
       item: { name, originalIndex: nameIndex } as DragItem,
-      collect: (monitor) => ({
-        isDragging: monitor.isDragging(),
-      }),
     }),
     [value, nameIndex, moveItem]
   );
@@ -100,16 +93,17 @@ function ListItem({
       disableGutters={disableGutters}
       divider={divider}
       ref={(node) => drag(drop(node))}
+      sx={{ gap: '0.5rem' }}
     >
-      <Stack>
-        <IconButton size="large">{dragIcon}</IconButton>
-        <ListSortField
-          name=""
-          iconDown={moveItemDownIcon}
-          iconUp={moveItemUpIcon}
-          handleMove={moveItem}
-        />
-      </Stack>
+      <ListSortField
+        name=""
+        iconUp={moveItemUpIcon}
+        iconDown={moveItemDownIcon}
+        handleMove={moveItem}
+        dragIcon={dragIcon}
+        disabled={disableSortable}
+      />
+
       {children}
       <ListDelField name="" icon={removeIcon} />
     </ListItemMaterial>

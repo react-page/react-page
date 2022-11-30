@@ -4,7 +4,7 @@ import ListSubheader from '@mui/material/ListSubheader';
 import type { ReactNode } from 'react';
 import React, { Children, cloneElement, isValidElement } from 'react';
 import { useDrop } from 'react-dnd';
-import { FieldProps } from 'uniforms';
+import type { FieldProps } from 'uniforms';
 import { connectField, filterDOMProps } from 'uniforms';
 
 import ListAddField from './ListAddField';
@@ -16,7 +16,7 @@ export type ListFieldProps = FieldProps<
   {
     addIcon?: ReactNode;
     initialCount?: number;
-    itemProps?: Record<string, any>;
+    itemProps?: Record<string, unknown>;
   }
 >;
 
