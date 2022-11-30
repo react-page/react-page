@@ -87,12 +87,14 @@ function ListItem({
     [moveItem]
   );
 
+  const disableSort = disableSortable ?? (parent.value ?? []).length < 2;
+
   return (
     <ListItemMaterial
       dense={dense}
       disableGutters={disableGutters}
       divider={divider}
-      ref={(node) => drag(drop(node))}
+      ref={(node) => (disableSort ? null : drag(drop(node)))}
       sx={{ gap: '0.5rem' }}
     >
       <ListSortField
@@ -101,7 +103,7 @@ function ListItem({
         iconDown={moveItemDownIcon}
         handleMove={moveItem}
         dragIcon={dragIcon}
-        disabled={disableSortable}
+        disabled={disableSort}
       />
 
       {children}
