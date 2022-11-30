@@ -9,13 +9,18 @@ import { connectField, filterDOMProps, joinName, useField } from 'uniforms';
 export type ListSortFieldProps = FieldProps<
   unknown,
   IconButtonProps,
-  { iconUp?: ReactNode; iconDown?: ReactNode }
+  {
+    iconUp?: ReactNode;
+    iconDown?: ReactNode;
+    handleMove: (fromIndex: number, toIndex: number) => void;
+  }
 >;
 
 function ListSort({
   disabled,
   iconUp = '↑',
   iconDown = '↓',
+  handleMove,
   name,
   readOnly,
   ...props
@@ -24,7 +29,7 @@ function ListSort({
   const nameIndex = +nameParts[nameParts.length - 1];
   const parentName = joinName(nameParts.slice(0, -1));
 
-  const parent = useField<{ minCount?: number }, unknown[]>(
+  const parent = useField<{}, unknown[]>(
     parentName,
     {},
     { absoluteName: true }
@@ -35,25 +40,12 @@ function ListSort({
   const limitNotReachedDown =
     !disabled && nameIndex !== parent.value!.length - 1;
 
-  const handleMove = (moveWhere: 'up' | 'down') => {
-    if (!readOnly) {
-      const value = parent.value!.slice();
-      value.splice(nameIndex, 1);
-      value.splice(
-        moveWhere === 'up' ? nameIndex - 1 : nameIndex + 1,
-        0,
-        parent.value![nameIndex]
-      );
-      parent.onChange(value);
-    }
-  };
-
   return (
     <Stack>
       <IconButton
         {...filterDOMProps(props)}
         disabled={!limitNotReachedUp}
-        onClick={() => handleMove('up')}
+        onClick={() => handleMove(nameIndex, nameIndex - 1)}
         size="large"
       >
         {iconUp}
@@ -61,7 +53,7 @@ function ListSort({
       <IconButton
         {...filterDOMProps(props)}
         disabled={!limitNotReachedDown}
-        onClick={() => handleMove('down')}
+        onClick={() => handleMove(nameIndex, nameIndex + 1)}
         size="large"
       >
         {iconDown}

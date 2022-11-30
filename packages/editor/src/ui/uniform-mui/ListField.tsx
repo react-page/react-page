@@ -3,11 +3,12 @@ import ListMaterial from '@mui/material/List';
 import ListSubheader from '@mui/material/ListSubheader';
 import type { ReactNode } from 'react';
 import React, { Children, cloneElement, isValidElement } from 'react';
-import type { FieldProps } from 'uniforms';
+import { useDrop } from 'react-dnd';
+import { FieldProps } from 'uniforms';
 import { connectField, filterDOMProps } from 'uniforms';
 
 import ListAddField from './ListAddField';
-import ListItemField from './ListItemField';
+import ListItemField, { DragItemType } from './ListItemField';
 
 export type ListFieldProps = FieldProps<
   unknown[],
@@ -28,9 +29,12 @@ function List({
   value,
   ...props
 }: ListFieldProps) {
+  const [, drop] = useDrop(() => ({ accept: DragItemType.ListItemField }));
+
   return (
     <>
       <ListMaterial
+        ref={drop}
         dense
         subheader={
           label ? (
