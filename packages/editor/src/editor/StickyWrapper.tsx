@@ -104,8 +104,7 @@ const StickyWrapper: React.FC<{
     window.addEventListener('resize', calc);
     let observer: IntersectionObserver | null = null;
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    if ((global as any).IntersectionObserver) {
+    if ('IntersectionObserver' in window) {
       observer = new IntersectionObserver(calc);
       if (ref.current) {
         observer.observe(ref.current);
