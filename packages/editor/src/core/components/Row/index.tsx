@@ -1,36 +1,20 @@
 import classNames from 'classnames';
 import React from 'react';
-import { useMeasure } from 'react-use';
 import type { Node } from '../../types/node';
 import { isRow, Row } from '../../types/node';
 import { useCellSpacing, useNodeHoverPosition, useNodeProps } from '../hooks';
 import Droppable from './Droppable';
 import ResizableRowCell from './ResizableRowCell';
 
-const reduceToIdAndSizeArray = (
-  acc: { offset: number; id: string; size: number; maxSize: number }[],
-  node: Node,
-  index: number,
-  array: Node[]
-) => {
-  const nextNode = array[index + 1];
-
-  const size = isRow(node) ? 12 : node.size ?? 12;
-  const nextSize = !nextNode || isRow(nextNode) ? 0 : nextNode.size ?? 12;
-  const offset = size + (acc[index - 1]?.offset ?? 0);
+const reduceToIdAndSizeArray = (acc: { id: string }[], node: Node) => {
   return [
     ...acc,
     {
       id: node.id,
-      size,
-      maxSize: size + nextSize - 1,
-      offset,
     },
   ];
 };
 const Row: React.FC<{ nodeId: string }> = ({ nodeId }) => {
-  const [ref, { width: rowWidth }] = useMeasure();
-
   const hoverPosition = useNodeHoverPosition(nodeId);
 
   const childrenWithOffsets = useNodeProps(nodeId, (node) =>
@@ -51,7 +35,6 @@ const Row: React.FC<{ nodeId: string }> = ({ nodeId }) => {
     <Droppable nodeId={nodeId}>
       <div
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        ref={ref as any}
         className={classNames('react-page-row', {
           'react-page-row-has-floating-children': Boolean(
             rowHasInlineChildrenPosition
@@ -84,16 +67,12 @@ const Row: React.FC<{ nodeId: string }> = ({ nodeId }) => {
               Boolean(hoverPosition),
           })}
         />
-        {childrenWithOffsets.map(({ offset, id, size, maxSize }, index) => (
+        {childrenWithOffsets.map(({ id }, index) => (
           <ResizableRowCell
             key={id}
             isLast={index === childrenWithOffsets.length - 1}
-            rowWidth={rowWidth}
             nodeId={id}
             rowHasInlineChildrenPosition={rowHasInlineChildrenPosition}
-            offset={offset}
-            size={size}
-            maxSize={maxSize}
           />
         ))}
       </div>

@@ -8,11 +8,11 @@ const Rows: React.FC<{
   const rowIds = useNodeChildrenIds(nodeId);
 
   return (
-    <div className="react-page-cell-rows">
+    <>
       {rowIds.map((id) => (
         <Row nodeId={id} key={id} />
       ))}
-    </div>
+    </>
   );
 };
 
