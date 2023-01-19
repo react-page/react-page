@@ -14,7 +14,7 @@ const Navigation: React.FC = () => {
     <div>
       <div />
       <Divider />
-      <Link passHref href="/docs">
+      <Link passHref legacyBehavior href="/docs">
         <ListItem component="a">
           <ListItemIcon>
             <DescriptionIcon />
@@ -23,7 +23,11 @@ const Navigation: React.FC = () => {
           <ListItemText primary={'Docs'} />
         </ListItem>
       </Link>
-      <Link passHref href="https://github.com/react-page/react-page">
+      <Link
+        passHref
+        legacyBehavior
+        href="https://github.com/react-page/react-page"
+      >
         <ListItem component="a">
           <ListItemIcon>
             <GitHub />
@@ -33,23 +37,23 @@ const Navigation: React.FC = () => {
       </Link>
       <Divider />
 
-      <Link passHref href="/">
+      <Link passHref legacyBehavior href="/">
         <ListItem component="a">
           <ListItemText primary={'Demo'} />
         </ListItem>
       </Link>
-      <Link passHref href="/readonly">
+      <Link passHref legacyBehavior href="/readonly">
         <ListItem component="a">
           <ListItemText primary={'Read only'} />
         </ListItem>
       </Link>
-      <Link passHref href="/empty">
+      <Link passHref legacyBehavior href="/empty">
         <ListItem component="a">
           <ListItemText primary={'Empty editor'} />
         </ListItem>
       </Link>
 
-      <Link passHref href="/examples/reactadmin">
+      <Link passHref legacyBehavior href="/examples/reactadmin">
         <ListItem component="a">
           <ListItemText primary={'React Admin example'} />
         </ListItem>
@@ -57,12 +61,12 @@ const Navigation: React.FC = () => {
 
       <Divider />
       <List>
-        <Link passHref href="/old/demo">
+        <Link passHref legacyBehavior href="/old/demo">
           <ListItem component="a">
             <ListItemText primary={'Old demo (v0)'} />
           </ListItem>
         </Link>
-        <Link passHref href="/old/fromhtml">
+        <Link passHref legacyBehavior href="/old/fromhtml">
           <ListItem component="a">
             <ListItemText primary={'Old import-from-html-Demo'} />
           </ListItem>

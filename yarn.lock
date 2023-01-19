@@ -2350,75 +2350,75 @@
   dependencies:
     webpack-bundle-analyzer "4.3.0"
 
-"@next/env@12.3.2":
-  version "12.3.2"
-  resolved "https://registry.npmjs.org/@next/env/-/env-12.3.2.tgz#fb819366771f5721e9438ca3a42ad18684f0949b"
-  integrity sha512-upwtMaHxlv/udAWGq0kE+rg8huwmcxQPsKZFhS1R5iVO323mvxEBe1YrSXe1awLbg9sTIuEHbgxjLLt7JbeuAQ==
+"@next/env@13.1.2":
+  version "13.1.2"
+  resolved "https://registry.npmjs.org/@next/env/-/env-13.1.2.tgz#4f13e3e9d44bb17fdc1d4543827459097035f10f"
+  integrity sha512-PpT4UZIX66VMTqXt4HKEJ+/PwbS+tWmmhZlazaws1a+dbUA5pPdjntQ46Jvj616i3ZKN9doS9LHx3y50RLjAWg==
 
-"@next/swc-android-arm-eabi@12.3.2":
-  version "12.3.2"
-  resolved "https://registry.npmjs.org/@next/swc-android-arm-eabi/-/swc-android-arm-eabi-12.3.2.tgz#806e3be9741bc14aafdfad0f0c4c6a8de5b77ee1"
-  integrity sha512-r2rrz+DZ8YYGqzVrbRrpP6GKzwozpOrnFbErc4k36vUTSFMag9yQahZfaBe06JYdqu/e5yhm/saIDEaSVPRP4g==
+"@next/swc-android-arm-eabi@13.1.2":
+  version "13.1.2"
+  resolved "https://registry.npmjs.org/@next/swc-android-arm-eabi/-/swc-android-arm-eabi-13.1.2.tgz#eacc7757b480a8150c1aea748bf7892a4fc62f64"
+  integrity sha512-7mRz1owoGsbfIcdOJA3kk7KEwPZ+OvVT1z9DkR/yru4QdVLF69h/1SHy0vlUNQMxDRllabhxCfkoZCB34GOGAg==
 
-"@next/swc-android-arm64@12.3.2":
-  version "12.3.2"
-  resolved "https://registry.npmjs.org/@next/swc-android-arm64/-/swc-android-arm64-12.3.2.tgz#f9ec6b7fc746832a217ad6bb5478624d1a9a9822"
-  integrity sha512-B+TINJhCf+CrY1+b3/JWQlkecv53rAGa/gA7gi5B1cnBa/2Uvoe+Ue0JeCefTjfiyl1ScsyNx+NcESY8Ye2Ngg==
+"@next/swc-android-arm64@13.1.2":
+  version "13.1.2"
+  resolved "https://registry.npmjs.org/@next/swc-android-arm64/-/swc-android-arm64-13.1.2.tgz#f3d41339b4f15852a589fe11820408572a512a27"
+  integrity sha512-mgjZ2eJSayovQm1LcE54BLSI4jjnnnLtq5GY5g+DdPuUiCT644gKtjZ/w2BQvuIecCqqBO+Ph9yzo/wUTq7NLg==
 
-"@next/swc-darwin-arm64@12.3.2":
-  version "12.3.2"
-  resolved "https://registry.npmjs.org/@next/swc-darwin-arm64/-/swc-darwin-arm64-12.3.2.tgz#97c532d35c66ce6b6941ae24b5b8b267b9b0d0d8"
-  integrity sha512-PTUfe1ZrwjsiuTmr3bOM9lsoy5DCmfYsLOUF9ZVhtbi5MNJVmUTy4VZ06GfrvnCO5hGCr48z3vpFE9QZ0qLcPw==
+"@next/swc-darwin-arm64@13.1.2":
+  version "13.1.2"
+  resolved "https://registry.npmjs.org/@next/swc-darwin-arm64/-/swc-darwin-arm64-13.1.2.tgz#1a20a2262aa7a250517c9a7f2efd6ac6273f8c63"
+  integrity sha512-RikoQqy109r2222UJlyGs4dZw2BibkfPqpeFdW5JEGv+L2PStlHID8DwyVYbmHfQ0VIBGvbf/NAUtFakAWlhwg==
 
-"@next/swc-darwin-x64@12.3.2":
-  version "12.3.2"
-  resolved "https://registry.npmjs.org/@next/swc-darwin-x64/-/swc-darwin-x64-12.3.2.tgz#e0cb4ff4b11faaff3a891bd1d18ed72f71e30ebe"
-  integrity sha512-1HkjmS9awwlaeEY8Y01nRSNkSv3y+qnC/mjMPe/W66hEh3QKa/LQHqHeS7NOdEs19B2mhZ7w+EgMRXdLQ0Su8w==
+"@next/swc-darwin-x64@13.1.2":
+  version "13.1.2"
+  resolved "https://registry.npmjs.org/@next/swc-darwin-x64/-/swc-darwin-x64-13.1.2.tgz#242bb321676bd88f4cffa7eae3283215cd1185ce"
+  integrity sha512-JbDZjaTvL8gyPC5TAH6OnD4jmXPkyUxRYPvu08ZmhT/XAFBb/Cso0BdXyDax/BPCG70mimP9d3hXNKNq+A0VtQ==
 
-"@next/swc-freebsd-x64@12.3.2":
-  version "12.3.2"
-  resolved "https://registry.npmjs.org/@next/swc-freebsd-x64/-/swc-freebsd-x64-12.3.2.tgz#d7b93dd344cb67d1969565d0796c7b7d0217fccf"
-  integrity sha512-h5Mx0BKDCJ5Vu/U8e07esF6PjPv1EJgmRbYWTUZMAflu13MQpCJkKEJir7+BeRfTXRfgFf+llc7uocrpd7mcrg==
+"@next/swc-freebsd-x64@13.1.2":
+  version "13.1.2"
+  resolved "https://registry.npmjs.org/@next/swc-freebsd-x64/-/swc-freebsd-x64-13.1.2.tgz#9589f7f2bebfa43a744c9e41654e743b38a318b1"
+  integrity sha512-ax4j8VrdFQ/xc3W7Om0u1vnDxVApQHKsChBbAMynCrnycZmpbqK4MZu4ZkycT+mx2eccCiqZROpbzDbEdPosEw==
 
-"@next/swc-linux-arm-gnueabihf@12.3.2":
-  version "12.3.2"
-  resolved "https://registry.npmjs.org/@next/swc-linux-arm-gnueabihf/-/swc-linux-arm-gnueabihf-12.3.2.tgz#c2170a89effe00fdd65798c99684fd93a02b197c"
-  integrity sha512-EuRZAamoxfe/WoWRaC0zsCAoE4gs/mEhilcloNM4J5Mnb3PLY8PZV394W7t5tjBjItMCF7l2Ebwjwtm46tq2RA==
+"@next/swc-linux-arm-gnueabihf@13.1.2":
+  version "13.1.2"
+  resolved "https://registry.npmjs.org/@next/swc-linux-arm-gnueabihf/-/swc-linux-arm-gnueabihf-13.1.2.tgz#8935b0c8f232e36c3d88cd1e1023afa8d51f7260"
+  integrity sha512-NcRHTesnCxnUvSJa637PQJffBBkmqi5XS/xVWGY7dI6nyJ+pC96Oj7kd+mcjnFUQI5lHKbg39qBWKtOzbezc4w==
 
-"@next/swc-linux-arm64-gnu@12.3.2":
-  version "12.3.2"
-  resolved "https://registry.npmjs.org/@next/swc-linux-arm64-gnu/-/swc-linux-arm64-gnu-12.3.2.tgz#26df7d7cdc18cf413f12a408179ee4ac315f383a"
-  integrity sha512-T9GCFyOIb4S3acA9LqflUYD+QZ94iZketHCqKdoO0Nx0OCHIgGJV5rotDe8TDXwh/goYpIfyHU4j1qqw4w4VnA==
+"@next/swc-linux-arm64-gnu@13.1.2":
+  version "13.1.2"
+  resolved "https://registry.npmjs.org/@next/swc-linux-arm64-gnu/-/swc-linux-arm64-gnu-13.1.2.tgz#3482f72e580cdfc4bbec2e55dd55d5a9bdf7038b"
+  integrity sha512-AxJdjocLtPrsBY4P2COSBIc3crT5bpjgGenNuINoensOlXhBkYM0aRDYZdydwXOhG+kN2ngUvfgitop9pa204w==
 
-"@next/swc-linux-arm64-musl@12.3.2":
-  version "12.3.2"
-  resolved "https://registry.npmjs.org/@next/swc-linux-arm64-musl/-/swc-linux-arm64-musl-12.3.2.tgz#fd42232a6b10d9f9a4f71433d59c280a4532d06f"
-  integrity sha512-hxNVZS6L3c2z3l9EH2GP0MGQ9exu6O8cohYNZyqC9WUl6C03sEn8xzDH1y+NgD3fVurvYkGU5F0PDddJJLfDIw==
+"@next/swc-linux-arm64-musl@13.1.2":
+  version "13.1.2"
+  resolved "https://registry.npmjs.org/@next/swc-linux-arm64-musl/-/swc-linux-arm64-musl-13.1.2.tgz#3b7ca70fd813c77f618ee34a150b977cc15af9a3"
+  integrity sha512-JmNimDkcCRq7P5zpkdqeaSZ69qKDntEPtyIaMNWqy5M0WUJxGim0Fs6Qzxayiyvuuh9Guxks4woQ/j/ZvX/c8Q==
 
-"@next/swc-linux-x64-gnu@12.3.2":
-  version "12.3.2"
-  resolved "https://registry.npmjs.org/@next/swc-linux-x64-gnu/-/swc-linux-x64-gnu-12.3.2.tgz#5307579e3d8fbdb03adbe6cfc915b51548e0a103"
-  integrity sha512-fCPkLuwDwY8/QeXxciJJjDHG09liZym/Bhb4A+RLFQ877wUkwFsNWDUTSdUx0YXlYK/1gf67BKauqKkOKp6CYw==
+"@next/swc-linux-x64-gnu@13.1.2":
+  version "13.1.2"
+  resolved "https://registry.npmjs.org/@next/swc-linux-x64-gnu/-/swc-linux-x64-gnu-13.1.2.tgz#51a7a889e88eb87a5ce9658842f9e8422e037ead"
+  integrity sha512-TsLsjZwUlgmvI42neTuIoD6K9RlXCUzqPtvIClgXxVO0um0DiZwK+M+0zX/uVXhMVphfPY2c5YeR1zFSIONY4A==
 
-"@next/swc-linux-x64-musl@12.3.2":
-  version "12.3.2"
-  resolved "https://registry.npmjs.org/@next/swc-linux-x64-musl/-/swc-linux-x64-musl-12.3.2.tgz#d5cb920a825a8dc80ffba8a6b797fb845af0b84c"
-  integrity sha512-o+GifBIQ2K+/MEFxHsxUZoU3bsuVFLXZYWd3idimFHiVdDCVYiKsY6mYMmKDlucX+9xRyOCkKL9Tjf+3tuXJpw==
+"@next/swc-linux-x64-musl@13.1.2":
+  version "13.1.2"
+  resolved "https://registry.npmjs.org/@next/swc-linux-x64-musl/-/swc-linux-x64-musl-13.1.2.tgz#4c0dd08a6f8a7e4881c3551de29259b3cfe86e27"
+  integrity sha512-eSkyXgCXydEFPTkcncQOGepafedPte6JT/OofB9uvruucrrMVBagCASOuPxodWEMrlfEKSXVnExMKIlfmQMD7A==
 
-"@next/swc-win32-arm64-msvc@12.3.2":
-  version "12.3.2"
-  resolved "https://registry.npmjs.org/@next/swc-win32-arm64-msvc/-/swc-win32-arm64-msvc-12.3.2.tgz#2a0d619e5bc0cec17ed093afd1ca6b1c37c2690c"
-  integrity sha512-crii66irzGGMSUR0L8r9+A06eTv7FTXqw4rgzJ33M79EwQJOdpY7RVKXLQMurUhniEeQEEOfamiEdPIi/qxisw==
+"@next/swc-win32-arm64-msvc@13.1.2":
+  version "13.1.2"
+  resolved "https://registry.npmjs.org/@next/swc-win32-arm64-msvc/-/swc-win32-arm64-msvc-13.1.2.tgz#589fcce82f9f7224d2399d8d7bcba9097bb50dad"
+  integrity sha512-DmXFaRTgt2KrV9dmRLifDJE+cYiutHVFIw5/C9BtnwXH39uf3YbPxeD98vNrtqqqZVVLXY/1ySaSIwzYnqeY9g==
 
-"@next/swc-win32-ia32-msvc@12.3.2":
-  version "12.3.2"
-  resolved "https://registry.npmjs.org/@next/swc-win32-ia32-msvc/-/swc-win32-ia32-msvc-12.3.2.tgz#769bef60d0d678c3d7606a4dc7fee018d6199227"
-  integrity sha512-5hRUSvn3MdQ4nVRu1rmKxq5YJzpTtZfaC/NyGw6wa4NSF1noUn/pdQGUr+I5Qz3CZkd1gZzzC0eaXQHlrk0E2g==
+"@next/swc-win32-ia32-msvc@13.1.2":
+  version "13.1.2"
+  resolved "https://registry.npmjs.org/@next/swc-win32-ia32-msvc/-/swc-win32-ia32-msvc-13.1.2.tgz#9be05202730530631b51d7753d447dfe86095c9f"
+  integrity sha512-3+nBkuFs/wT+lmRVQNH5SyDT7I4vUlNPntosEaEP63FuYQdPLaxz0GvcR66MdFSFh2fsvazpe4wciOwVS4FItQ==
 
-"@next/swc-win32-x64-msvc@12.3.2":
-  version "12.3.2"
-  resolved "https://registry.npmjs.org/@next/swc-win32-x64-msvc/-/swc-win32-x64-msvc-12.3.2.tgz#45beb4b9d28e6dd6abf63cab1c5b92dc84323a6b"
-  integrity sha512-tpQJYUH+TzPMIsdVl9fH8uDg47iwiNjKY+8e9da3dXqlkztKzjSw0OwSADoqh3KrifplXeKSta+BBGLdBqg3sg==
+"@next/swc-win32-x64-msvc@13.1.2":
+  version "13.1.2"
+  resolved "https://registry.npmjs.org/@next/swc-win32-x64-msvc/-/swc-win32-x64-msvc-13.1.2.tgz#c7e75033e8b8f497768c7b462ac642830141bb00"
+  integrity sha512-avsyveEvcvH42PvKjR4Pb8JlLttuGURr2H3ZhS2b85pHOiZ7yjH3rMUoGnNzuLMApyxYaCvd4MedPrLhnNhkog==
 
 "@nodelib/fs.scandir@2.1.5":
   version "2.1.5"
@@ -2850,6 +2850,121 @@
   resolved "https://registry.npmjs.org/@react-dnd/shallowequal/-/shallowequal-3.0.1.tgz#8056fe046a8d10a275e321ec0557ae652d7a4d06"
   integrity sha512-XjDVbs3ZU16CO1h5Q3Ew2RPJqmZBDE/EVf1LYp6ePEffs3V/MX9ZbL5bJr8qiK5SbGmUMuDoaFgyKacYz8prRA==
 
+"@react-page/editor@^5.3.0":
+  version "5.3.0"
+  resolved "https://registry.npmjs.org/@react-page/editor/-/editor-5.3.0.tgz#168ec05fa248d729cdc8af29465423555249de8b"
+  integrity sha512-4NEc8jXBW7R0ST6PCCqHhotee24yhPI0Hi7kdFb1YYFEpeqtQ6wcxjDBCT5y0y9pgThTUKQARjclUCqPLkxQHQ==
+  dependencies:
+    "@mui/icons-material" "^5.8.0"
+    "@mui/material" "^5.8.1"
+    "@welldone-software/why-did-you-render" "^7.0.1"
+    ajv "^7.1.1"
+    classnames "^2.3.1"
+    color-parse "^1.4.2"
+    fast-deep-equal "^3.1.3"
+    invariant "^2.0.0"
+    is-hotkey "~0.2.0"
+    lodash.debounce "^4.0.8"
+    lodash.flatten "^4.4.0"
+    lodash.throttle "^4.1.1"
+    react-color "^2.19.3"
+    react-dnd "^15.1.2"
+    react-dnd-html5-backend "^15.1.2"
+    react-draggable "4.4.5"
+    react-lazy-with-preload "^2.2.1"
+    react-portal "^4.2.2"
+    react-redux "^7.2.3"
+    react-use "^17.4.0"
+    redux "^4.0.5"
+    redux-thunk "^2.3.0"
+    redux-undo "^1.0.1"
+    tslib "^2.2.0"
+    uniforms "^2.6.0 || ^3.0.0"
+    uniforms-bridge-json-schema "^2.6.0 || ^3.0.0"
+
+"@react-page/plugins-background@^5.3.0":
+  version "5.3.0"
+  resolved "https://registry.npmjs.org/@react-page/plugins-background/-/plugins-background-5.3.0.tgz#b2922ed286c077f6731b5ef6e2ab5364332ac861"
+  integrity sha512-Eb77sKULKRhsF0T0U0SNSmaaXuXUlyj3cha8y2cM+XClBDmzcc5EVMznMmjF5QCIJ6+DvGcOxUop7DwQ3G0U2A==
+  dependencies:
+    "@mui/icons-material" "^5.8.0"
+    "@react-page/editor" "^5.3.0"
+
+"@react-page/plugins-divider@^5.3.0":
+  version "5.3.0"
+  resolved "https://registry.npmjs.org/@react-page/plugins-divider/-/plugins-divider-5.3.0.tgz#d67bfed96e500d24543e70536db3e862b615121a"
+  integrity sha512-x++6aus8KciJaZIs2FIEi2y5N/i9gGXqwr+45ep5ikx1xr17YOfcKnfqMzWu6haul3RxXs0ixB/ycseZpg2BeA==
+  dependencies:
+    "@mui/icons-material" "^5.8.0"
+    "@react-page/editor" "^5.3.0"
+
+"@react-page/plugins-html5-video@^5.3.0":
+  version "5.3.0"
+  resolved "https://registry.npmjs.org/@react-page/plugins-html5-video/-/plugins-html5-video-5.3.0.tgz#89481fd94ed000040fc256310f6b8119e69314e1"
+  integrity sha512-flLYoaxo5G+0d8OZQFXJDqpFh5LbFmDcc2hr4fS2rdImIJ/vWVjqifKoV6Tqr8rq7D6CRWfU3F66ft2Sp/pSsQ==
+  dependencies:
+    "@react-page/editor" "^5.3.0"
+
+"@react-page/plugins-image@^5.3.0":
+  version "5.3.0"
+  resolved "https://registry.npmjs.org/@react-page/plugins-image/-/plugins-image-5.3.0.tgz#e47da20f6c9a872ec55979fb05849c7aa1f8e07b"
+  integrity sha512-356ZYzxPQLHsS6zfW1km3r5q4jWOCtKl2H7FYHmaYZwPPmHYLRqIhxW424KunmvrL4YCDyJCbky3FN0ymm8J3w==
+  dependencies:
+    "@mui/icons-material" "^5.8.0"
+    "@react-page/editor" "^5.3.0"
+
+"@react-page/plugins-slate@^5.3.0":
+  version "5.3.0"
+  resolved "https://registry.npmjs.org/@react-page/plugins-slate/-/plugins-slate-5.3.0.tgz#c4db6144063021adc0305ca2106ca7fecc83fa6e"
+  integrity sha512-cbjwLyBQOy6+spAHALydSgCYutz9j4SSzgxAm0QPwRudmN9Nn9YrN/Q0vM2Cwia2ZpiIWG8/S4VjOvM3j3VlNA==
+  dependencies:
+    "@emotion/is-prop-valid" "^1.2.0"
+    "@mui/icons-material" "^5.8.0"
+    "@react-page/editor" "^5.3.0"
+    "@xmldom/xmldom" "^0.8.1"
+    cssstyle "^2.3.0"
+    deep-rename-keys "^0.2.1"
+    is-hotkey "^0.2.0"
+    lodash.clonedeep "^4.5.0"
+    lodash.debounce "^4.0.8"
+    lodash.flatten "^4.4.0"
+    lodash.isempty "^4.4.0"
+    lodash.isobject "^3.0.2"
+    lodash.throttle "^4.1.1"
+    react-portal "^4.2.2"
+    redux-undo "^1.0.0"
+    slate "^0.78.0"
+    slate-hyperscript "^0.77.0"
+    slate-react "^0.79.0"
+    slate-react-presentation "^0.1.1"
+
+"@react-page/plugins-spacer@^5.3.0":
+  version "5.3.0"
+  resolved "https://registry.npmjs.org/@react-page/plugins-spacer/-/plugins-spacer-5.3.0.tgz#d33072145e60fa4c662c8a804a60a83d540ea7c0"
+  integrity sha512-Ezz5taqePp/Pqaa1n5xqtdeD4SjjqNrI/ltIFGdvViHRIW1Zgn7tUlCZ9H7A7gs26cgS589cs/c7z/y81v/tvw==
+  dependencies:
+    "@mui/icons-material" "^5.8.0"
+    "@react-page/editor" "^5.3.0"
+    classnames "2.2.6"
+    react-resizable "^3.0.4"
+
+"@react-page/plugins-video@^5.3.0":
+  version "5.3.0"
+  resolved "https://registry.npmjs.org/@react-page/plugins-video/-/plugins-video-5.3.0.tgz#bb8076b2ec2c300f9acd3fd2e13b8478c182d5c5"
+  integrity sha512-exlU2on0AfY9mQJTnqfOVKhUC5AT83ijKO55S/iNBiB9QhEE+5M3VqMp0DSBG6t3kca0bj0yZxWKeh9q3pGqKQ==
+  dependencies:
+    "@mui/icons-material" "^5.8.0"
+    "@react-page/editor" "^5.3.0"
+    react-player "^2.10.1"
+
+"@react-page/react-admin@^5.3.0":
+  version "5.3.0"
+  resolved "https://registry.npmjs.org/@react-page/react-admin/-/react-admin-5.3.0.tgz#58ce813b5ffb70d7a11e5de882539e8a57fcf275"
+  integrity sha512-05fN9Q5iY0KMlhGzucgT3N+k67sXqQctupgtTdEd3HR9ZY44ePrRBQ8u4oOKRLJOU4eIml+kdJjrWKWFCPsBng==
+  dependencies:
+    "@mui/icons-material" "^5.8.0"
+    "@react-page/editor" "^5.3.0"
+
 "@redux-saga/core@^1.2.1":
   version "1.2.1"
   resolved "https://registry.npmjs.org/@redux-saga/core/-/core-1.2.1.tgz#3680989621517d075a2cc85e0d2744b682990ed8"
@@ -3014,10 +3129,10 @@
   dependencies:
     "@sinonjs/commons" "^1.7.0"
 
-"@swc/helpers@0.4.11":
-  version "0.4.11"
-  resolved "https://registry.npmjs.org/@swc/helpers/-/helpers-0.4.11.tgz#db23a376761b3d31c26502122f349a21b592c8de"
-  integrity sha512-rEUrBSGIoSFuYxwBYtlUFMlE2CwGhmW+w9355/5oduSw8e5h2+Tj4UrAGNNgP9915++wj5vkQo0UuOBqOAq4nw==
+"@swc/helpers@0.4.14":
+  version "0.4.14"
+  resolved "https://registry.npmjs.org/@swc/helpers/-/helpers-0.4.14.tgz#1352ac6d95e3617ccb7c1498ff019654f1e12a74"
+  integrity sha512-4C7nX/dvpzB7za4Ql9K81xK3HPxCpHMgwTZVyf+9JQ6VUbn9jjZVN7/Nkdz/Ugzs2CSjqnL/UPXroiVBVHUWUw==
   dependencies:
     tslib "^2.4.0"
 
@@ -4742,6 +4857,11 @@ cli-width@^2.0.0:
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/cli-width/-/cli-width-2.2.1.tgz#b0433d0b4e9c847ef18868a4ef16fd5fc8271c48"
   integrity sha512-GRMWDxpOB6Dgk2E5Uo+3eEBvtOOlimMmpbFiKuLFnQzYDavtLFY3K5ona41jgN/WdRZtG7utuVSVTL4HbZHGkw==
+
+client-only@0.0.1:
+  version "0.0.1"
+  resolved "https://registry.npmjs.org/client-only/-/client-only-0.0.1.tgz#38bba5d403c41ab150bff64a95c85013cf73bca1"
+  integrity sha512-IV3Ou0jSMzZrd3pZ48nLkT9DA7Ag1pnPzaiQhpW7c3RbcqqzvzzVu+L8gfqMp/8IM2MQtSiqaCxrrcfu8I8rMA==
 
 cliui@^5.0.0:
   version "5.0.0"
@@ -10018,31 +10138,30 @@ nested-error-stacks@^2.0.0:
   resolved "https://registry.npmjs.org/nested-error-stacks/-/nested-error-stacks-2.1.1.tgz#26c8a3cee6cc05fbcf1e333cd2fc3e003326c0b5"
   integrity sha512-9iN1ka/9zmX1ZvLV9ewJYEk9h7RyRRtqdK0woXcqohu8EWIerfPUjYJPg0ULy0UqP7cslmdGc8xKDJcojlKiaw==
 
-next@^12.3.1:
-  version "12.3.2"
-  resolved "https://registry.npmjs.org/next/-/next-12.3.2.tgz#3a3356a8d752726128825a8bdf17f2a3b3f861cf"
-  integrity sha512-orzvvebCwOqaz1eA5ZA0R5dbKxqtJyw7yeig7kDspu6p8OrplfyelzpvMHcDTKscv/l0nn/0l0v3mSsE8w4k7A==
+next@^13:
+  version "13.1.2"
+  resolved "https://registry.npmjs.org/next/-/next-13.1.2.tgz#4105b0cf238bb2f58d5e12dbded8cabb9785f2d9"
+  integrity sha512-Rdnnb2YH///w78FEOR/IQ6TXga+qpth4OqFSem48ng1PYYKr6XBsIk1XVaRcIGM3o6iiHnun0nJvkJHDf+ICyQ==
   dependencies:
-    "@next/env" "12.3.2"
-    "@swc/helpers" "0.4.11"
+    "@next/env" "13.1.2"
+    "@swc/helpers" "0.4.14"
     caniuse-lite "^1.0.30001406"
     postcss "8.4.14"
-    styled-jsx "5.0.7"
-    use-sync-external-store "1.2.0"
+    styled-jsx "5.1.1"
   optionalDependencies:
-    "@next/swc-android-arm-eabi" "12.3.2"
-    "@next/swc-android-arm64" "12.3.2"
-    "@next/swc-darwin-arm64" "12.3.2"
-    "@next/swc-darwin-x64" "12.3.2"
-    "@next/swc-freebsd-x64" "12.3.2"
-    "@next/swc-linux-arm-gnueabihf" "12.3.2"
-    "@next/swc-linux-arm64-gnu" "12.3.2"
-    "@next/swc-linux-arm64-musl" "12.3.2"
-    "@next/swc-linux-x64-gnu" "12.3.2"
-    "@next/swc-linux-x64-musl" "12.3.2"
-    "@next/swc-win32-arm64-msvc" "12.3.2"
-    "@next/swc-win32-ia32-msvc" "12.3.2"
-    "@next/swc-win32-x64-msvc" "12.3.2"
+    "@next/swc-android-arm-eabi" "13.1.2"
+    "@next/swc-android-arm64" "13.1.2"
+    "@next/swc-darwin-arm64" "13.1.2"
+    "@next/swc-darwin-x64" "13.1.2"
+    "@next/swc-freebsd-x64" "13.1.2"
+    "@next/swc-linux-arm-gnueabihf" "13.1.2"
+    "@next/swc-linux-arm64-gnu" "13.1.2"
+    "@next/swc-linux-arm64-musl" "13.1.2"
+    "@next/swc-linux-x64-gnu" "13.1.2"
+    "@next/swc-linux-x64-musl" "13.1.2"
+    "@next/swc-win32-arm64-msvc" "13.1.2"
+    "@next/swc-win32-ia32-msvc" "13.1.2"
+    "@next/swc-win32-x64-msvc" "13.1.2"
 
 nice-try@^1.0.4:
   version "1.0.5"
@@ -13625,10 +13744,12 @@ styled-components@^5.3.5:
     shallowequal "^1.1.0"
     supports-color "^5.5.0"
 
-styled-jsx@5.0.7:
-  version "5.0.7"
-  resolved "https://registry.npmjs.org/styled-jsx/-/styled-jsx-5.0.7.tgz#be44afc53771b983769ac654d355ca8d019dff48"
-  integrity sha512-b3sUzamS086YLRuvnaDigdAewz1/EFYlHpYBP5mZovKEdQQOIIYq8lApylub3HHZ6xFjV051kkGU7cudJmrXEA==
+styled-jsx@5.1.1:
+  version "5.1.1"
+  resolved "https://registry.npmjs.org/styled-jsx/-/styled-jsx-5.1.1.tgz#839a1c3aaacc4e735fed0781b8619ea5d0009d1f"
+  integrity sha512-pW7uC1l4mBZ8ugbiZrcIsiIvVx1UmTfw7UkC3Um2tmfUq9Bhk8IiyEIPl6F8agHgjzku6j0xQEZbfA5uSgSaCw==
+  dependencies:
+    client-only "0.0.1"
 
 stylis@4.1.3:
   version "4.1.3"
@@ -14391,11 +14512,6 @@ url-parse-lax@^3.0.0:
   integrity sha1-FrXK/Afb42dsGxmZF3gj1lA6yww=
   dependencies:
     prepend-http "^2.0.0"
-
-use-sync-external-store@1.2.0:
-  version "1.2.0"
-  resolved "https://registry.npmjs.org/use-sync-external-store/-/use-sync-external-store-1.2.0.tgz#7dbefd6ef3fe4e767a0cf5d7287aacfb5846928a"
-  integrity sha512-eEgnFxGQ1Ife9bzYs6VLi8/4X6CObHMw9Qr9tPY43iKwsPw8xE8+EFsf/2cFZ5S3esXgpWgtSCtLNS41F+sKPA==
 
 use@^3.1.0:
   version "3.1.1"
