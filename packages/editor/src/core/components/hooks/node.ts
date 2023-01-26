@@ -356,6 +356,7 @@ export const useDebouncedCellData = (nodeId: string) => {
   const dataRef = useRef(cellData);
 
   const currentLang = useLang();
+  const langRef = useRef(currentLang);
   const cellDataRef = useRef(cellData);
 
   const updateCellDataImmediate = useUpdateCellData(nodeId);
@@ -381,13 +382,20 @@ export const useDebouncedCellData = (nodeId: string) => {
     }
   }, [changed, cellData]);
 
+  useEffect(() => {
+    // this again is a bit hacky but due to debouncing
+    // it keeps the old currentLang in the first change when switching
+    // language and then it messes with the other languages values
+    langRef.current = currentLang;
+  }, [currentLang]);
+
   const onChange = useCallback(
     (
       partialData: Record<string, unknown>,
       options?: CellPluginOnChangeOptions
     ) => {
       // special handling if non default language is changed (special custom code)
-      if (options?.lang && options.lang !== currentLang) {
+      if (options?.lang && options.lang !== langRef.current) {
         // this hook is a bit hacky, because we keep around state of changes and debounce changes
         // its probably not the cleanest solution
         // however this handling is problematic, if you change any other language.
