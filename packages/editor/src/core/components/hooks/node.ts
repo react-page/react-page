@@ -355,9 +355,21 @@ export const useDebouncedCellData = (nodeId: string) => {
   const cellData = useCellData(nodeId);
 
   const currentLang = useLang();
+  const updateHandles = useRef<{
+    [lang: string]: {
+      timeoutHandle?: NodeJS.Timeout;
+      partialData?: Record<string, unknown>;
+    };
+  }>({});
+  // cancel timeouts if data changed in the meantime
 
-  const DEBOUNCE_TIME = 200;
-  const updateHandles = useRef<{ [lang: string]: NodeJS.Timeout }>({});
+  useEffect(() => {
+    if (updateHandles.current[currentLang]?.timeoutHandle) {
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      clearTimeout(updateHandles.current[currentLang].timeoutHandle!);
+      delete updateHandles.current[currentLang];
+    }
+  }, [cellData, currentLang]);
 
   const updateCellDataImmediate = useUpdateCellData(nodeId);
 
@@ -368,14 +380,25 @@ export const useDebouncedCellData = (nodeId: string) => {
     ) => {
       const lang = options?.lang ?? currentLang;
       // if one debounced callback exists for the same language, cancel it
-      if (updateHandles.current?.[lang])
-        clearTimeout(updateHandles.current?.[lang]);
-      updateHandles.current[lang] = setTimeout(() => {
-        updateCellDataImmediate(partialData, {
+      if (updateHandles.current?.[lang]?.timeoutHandle)
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        clearTimeout(updateHandles.current[lang].timeoutHandle!);
+      if (!updateHandles.current[lang]) {
+        updateHandles.current[lang] = {};
+      }
+      // merge partial data to not lose updates
+      updateHandles.current[lang].partialData = {
+        ...(updateHandles.current?.[lang]?.partialData ?? {}),
+        ...(partialData ?? {}),
+      };
+
+      updateHandles.current[lang].timeoutHandle = setTimeout(() => {
+        updateCellDataImmediate(updateHandles.current[lang].partialData ?? {}, {
           ...(options ?? {}),
           lang,
         });
-      }, DEBOUNCE_TIME);
+        delete updateHandles.current[lang];
+      }, 200);
     },
     [updateCellDataImmediate, currentLang]
   );

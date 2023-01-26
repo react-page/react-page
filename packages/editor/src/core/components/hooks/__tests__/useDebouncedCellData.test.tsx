@@ -1,4 +1,4 @@
-import { render } from 'enzyme';
+import { render, act } from '@testing-library/react';
 import React from 'react';
 
 import { findNodeInState } from '../../../selector/editable';
@@ -8,7 +8,7 @@ import createStore from '../../../store';
 import { initialState } from '../../../reducer';
 import { ReduxProvider } from '../../../reduxConnect';
 import { createValue } from '../../../utils/createValue';
-import { useDebouncedCellData } from '../node';
+import { useCell, useCellData, useDebouncedCellData } from '../node';
 import { updateCellData } from '../../../actions/cell';
 
 const cellPlugins: CellPluginList = [
@@ -65,7 +65,7 @@ describe('useDebouncedCellData', () => {
 
     setTimeout(() => {
       const data = getCellData(
-        findNodeInState(store.getState(), 'cell0').node as Cell,
+        findNodeInState(store.getState(), 'cell0')?.node as Cell,
         options.lang
       );
       expect(data).toMatchObject({ a: 1, b: 1 });
@@ -77,26 +77,33 @@ describe('useDebouncedCellData', () => {
     const store = createStore(theState);
     const Component: React.FC<unknown> = () => {
       const [, setData] = useDebouncedCellData('cell0');
+
+      // some weird redux bug: we need to call    useCellData('cell0');
+      // i have no idea why, but otherwise the component does not rerender, altough
+      // useDebouncedCellData already calls    useCellData('cell0');
+      // i assume its a redux bug
+      const cellData = useCellData('cell0');
+
       React.useEffect(() => {
         setData({ a: 1 }, {});
         setData({ b: 1 }, {});
-        // overwrite the changes
         store.dispatch(
           updateCellData('cell0')({ c: 1 }, { lang: options.lang })
         );
       }, []);
       return <div />;
     };
-
-    render(
-      <ReduxProvider store={store}>
-        <Component />
-      </ReduxProvider>
-    );
+    act(() => {
+      render(
+        <ReduxProvider store={store}>
+          <Component />
+        </ReduxProvider>
+      );
+    });
 
     setTimeout(() => {
       const data = getCellData(
-        findNodeInState(store.getState(), 'cell0').node as Cell,
+        findNodeInState(store.getState(), 'cell0')?.node as Cell,
         options.lang
       );
       expect(data).toMatchObject({ c: 1 });
@@ -127,7 +134,7 @@ describe('useDebouncedCellData', () => {
 
     setTimeout(() => {
       const data = getCellData(
-        findNodeInState(store.getState(), 'cell0').node as Cell,
+        findNodeInState(store.getState(), 'cell0')?.node as Cell,
         options.lang
       );
       expect(data).toMatchObject({ a: 1 });

@@ -20,7 +20,7 @@
     "@babel/preset-typescript": "^7.1.0",
     "@semantic-release/changelog": "^6.0.1",
     "@semantic-release/exec": "semantic-release/exec",
-    "@testing-library/react-hooks": "^3.4.2",
+    "@testing-library/react": "^13.4.0",
     "@types/jest": "^26.0.19",
     "@types/react": "^18.0.20",
     "@types/react-dom": "^18.0.6",
