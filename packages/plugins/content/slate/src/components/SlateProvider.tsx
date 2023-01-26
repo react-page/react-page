@@ -42,7 +42,7 @@ const SlateProvider: FC<PropsWithChildren<SlateProps>> = (props) => {
       if (
         !deepEquals(editor.children, data?.slate) ||
         !deepEquals(editor.selection, data?.selection)
-      )
+      ) {
         props.onChange(
           {
             slate: editor.children,
@@ -54,8 +54,9 @@ const SlateProvider: FC<PropsWithChildren<SlateProps>> = (props) => {
             notUndoable: deepEquals(editor.children, data?.slate),
           }
         );
+      }
     },
-    [data?.slate]
+    [data?.slate, props.onChange]
   );
 
   const initialValue = data?.slate;
