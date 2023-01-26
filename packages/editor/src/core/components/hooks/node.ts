@@ -346,65 +346,39 @@ export const useCellInnerDivStylingProps = (
 
 /**
  *
- * @returns [data, onChangeData] pair, with setData debouncing the propagation
- * also data is always partially updated
- * @param nodeId the id of a cell
+ * @returns [data, onChangeData] tuple. onChangeData is debouncing the propagation.
+ * Data is always partially updated.
+ *
+ * @param nodeId the id of the cell
  */
 export const useDebouncedCellData = (nodeId: string) => {
   const cellData = useCellData(nodeId);
-  const [, setData] = useState(cellData);
-  const dataRef = useRef(cellData);
 
   const currentLang = useLang();
-  const cellDataRef = useRef(cellData);
+
+  const DEBOUNCE_TIME = 200;
+  const updateHandles = useRef<{ [lang: string]: NodeJS.Timeout }>({});
 
   const updateCellDataImmediate = useUpdateCellData(nodeId);
-  const updateCellDataDebounced = useCallback(
-    debounce((options?: CellPluginOnChangeOptions) => {
-      cellDataRef.current = dataRef.current;
-      updateCellDataImmediate(dataRef.current, options);
-    }, 200),
-    [updateCellDataImmediate]
-  );
-
-  const changed = useMemo(
-    () => !deepEquals(cellData, cellDataRef.current),
-    [cellData]
-  );
-
-  useEffect(() => {
-    // changed from "outside" overwrite whatever is pending
-    if (changed) {
-      cellDataRef.current = cellData;
-      dataRef.current = cellData;
-      setData(cellData);
-    }
-  }, [changed, cellData]);
 
   const onChange = useCallback(
     (
       partialData: Record<string, unknown>,
       options?: CellPluginOnChangeOptions
     ) => {
-      // special handling if non default language is changed (special custom code)
-      if (options?.lang && options.lang !== currentLang) {
-        // this hook is a bit hacky, because we keep around state of changes and debounce changes
-        // its probably not the cleanest solution
-        // however this handling is problematic, if you change any other language.
-        // this is rarely used and only in custom code
-        // however, we don't need the debouncing if other languages are changed, because they are not visible anyway and do not feed back into this component
-        updateCellDataImmediate(partialData, options);
-      } else {
-        dataRef.current = {
-          ...dataRef.current,
-          ...partialData,
-        };
-        setData(dataRef.current);
-
-        updateCellDataDebounced(options);
-      }
+      const lang = options?.lang ?? currentLang;
+      // if one debounced callback exists for the same language, cancel it
+      if (updateHandles.current?.[lang])
+        clearTimeout(updateHandles.current?.[lang]);
+      updateHandles.current[lang] = setTimeout(() => {
+        updateCellDataImmediate(partialData, {
+          ...(options ?? {}),
+          lang,
+        });
+      }, DEBOUNCE_TIME);
     },
-    [updateCellDataDebounced, updateCellDataImmediate, setData, currentLang]
+    [updateCellDataImmediate, currentLang]
   );
-  return [dataRef.current, onChange] as const;
+
+  return [cellData, onChange] as const;
 };
