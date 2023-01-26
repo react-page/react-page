@@ -22,13 +22,13 @@ const SlateProvider: FC<PropsWithChildren<SlateProps>> = (props) => {
   useEffect(() => {
     // unfortunatly, slate broke the controlled input pattern. So we have to hack our way around it, see https://github.com/ianstormtaylor/slate/issues/4992
     editor.children = data?.slate;
-
+    try {
+      // focus
+      ReactEditor.focus(editor);
+    } catch (e) {
+      // ignore, can happen
+    }
     if (data.selection) {
-      try {
-        ReactEditor.focus(editor);
-      } catch (e) {
-        // ignore, can happen
-      }
       // update seleciton, if changed from outside (e.g. through undo)
       Transforms.select(editor, data.selection);
     } else {
