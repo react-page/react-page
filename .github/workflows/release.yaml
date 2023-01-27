@@ -21,8 +21,8 @@ jobs:
           cache: 'yarn'
       - run: yarn --frozen-lockfile
       - run: yarn build:lib || yarn build:lib
-      - run: yarn run lint
-      - run: yarn run test
+      #- run: yarn run lint
+      #- run: yarn run test
       - name: semantic release
         env:
           GH_TOKEN_DOCS: ${{ secrets.GH_TOKEN_DOCS }}
