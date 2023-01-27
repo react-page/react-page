@@ -26,5 +26,5 @@ jobs:
       - name: semantic release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: 'echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/.npmrc && yarn run semantic-release'
+ 
+        run: 'echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc && yarn run semantic-release'
