@@ -25,6 +25,6 @@ jobs:
       - run: yarn run test
       - name: semantic release
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN_DOCS: ${{ secrets.GH_TOKEN_DOCS }}
 
         run: 'echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc && yarn run semantic-release'
