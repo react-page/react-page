@@ -176,8 +176,8 @@
       [
         "@semantic-release/exec",
         {
-          "prepareCmd": "yarn replace-in-file '###VERSION###' ${nextRelease.version} packages/*/lib*/*.js examples/build/**/*.js",
-          "publishCmd": "RELEASE_CHANNEL=${nextRelease.channel} yarn build:examples && (yarn gh-pages -t true -d examples/build -b main -r https://$GH_TOKEN_DOCS@github.com/react-page/${nextRelease.channel || 'react-page.github.io'}.git || true ) && yarn lerna publish --no-git-tag-version --no-git-reset --no-push --yes --dist-tag=${nextRelease.channel} --force-publish=* ${nextRelease.version}",
+          "prepareCmd": "yarn replace-in-file '###VERSION###' ${nextRelease.version} packages/*/lib*/*.js examples/build/**/*.js && git remote set-url origin https://git:$GH_TOKEN_DOCS@github.com/react-page/${nextRelease.channel || 'react-page.github.io'}.git",
+          "publishCmd": "RELEASE_CHANNEL=${nextRelease.channel} yarn build:examples && (yarn gh-pages -t true -u 'github-actions-bot <support+actions@github.com>' -d examples/build -b main || true ) && yarn lerna publish --no-git-tag-version --no-git-reset --no-push --yes --dist-tag=${nextRelease.channel} --force-publish=* ${nextRelease.version}",
           "addChannel": "npm dist-tag add ${nextRelease.version}@${nextRelease.channel}"
         }
       ],
