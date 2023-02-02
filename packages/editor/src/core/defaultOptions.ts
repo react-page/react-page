@@ -30,9 +30,9 @@ export const DEFAULT_OPTIONS: Required<Options> = {
   showMoveButtonsInBottomToolbar: true,
   showMoveButtonsInLayoutMode: true,
   sidebarPosition: 'rightAbsolute',
-
   customOptions: [],
   uiTheme: defaultTheme,
+  shouldShowErrorInCells: false,
 };
 
 export const DEFAULT_RENDER_OPTIONS: Required<RenderOptions> = {

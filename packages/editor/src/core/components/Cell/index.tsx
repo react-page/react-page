@@ -19,33 +19,11 @@ import {
   useScrollToViewEffect,
   useSetDisplayReferenceNodeId,
 } from '../hooks';
-import ErrorCell from './ErrorCell';
+import { CellErrorGate } from './CellErrorGate';
 import Handle from './Handle';
 import Inner from './Inner';
 import MoveActions from './MoveActions';
 import scrollIntoViewWithOffset from './utils/scrollIntoViewWithOffset';
-
-const CellErrorGate = class extends React.Component<
-  {
-    children: React.ReactElement;
-    nodeId: string;
-  },
-  { error: Error | null }
-> {
-  state = {
-    error: null,
-  };
-  componentDidCatch(error: Error) {
-    this.setState({ error });
-  }
-
-  render() {
-    if (this.state.error) {
-      return <ErrorCell nodeId={this.props.nodeId} error={this.state.error} />;
-    }
-    return this.props.children;
-  }
-};
 
 type Props = {
   nodeId: string;
@@ -68,7 +46,7 @@ const Cell: React.FC<Props> = ({ nodeId, measureRef }) => {
   const lang = useLang();
   const isPreviewMode = useIsPreviewMode();
   const isResizeMode = useIsResizeMode();
-
+  const shouldShowErrorInCells = useOption('shouldShowErrorInCells');
   const isLayoutMode = useIsLayoutMode();
   const isInsertMode = useIsInsertMode();
   const multiNodesSelected = useAllFocusedNodeIds().length > 1;
@@ -148,7 +126,7 @@ const Cell: React.FC<Props> = ({ nodeId, measureRef }) => {
           boxSizing: 'border-box',
         }}
       >
-        <CellErrorGate nodeId={nodeId}>
+        <CellErrorGate nodeId={nodeId} shouldShowError={shouldShowErrorInCells}>
           <Inner nodeId={nodeId} />
         </CellErrorGate>
       </div>

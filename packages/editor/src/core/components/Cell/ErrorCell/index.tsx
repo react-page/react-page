@@ -1,10 +1,11 @@
 import React from 'react';
 import { useIsEditMode, useRemoveCell, useUiTranslator } from '../../hooks';
 
-const ErrorCell: React.FC<{ nodeId: string; error: Error }> = ({
-  nodeId,
-  error,
-}) => {
+const ErrorCell: React.FC<{
+  nodeId: string;
+  error: Error;
+  resetError?: () => void;
+}> = ({ nodeId, error, resetError }) => {
   const isEditMode = useIsEditMode();
   const removeCell = useRemoveCell(nodeId);
   const { t } = useUiTranslator();
@@ -20,7 +21,12 @@ const ErrorCell: React.FC<{ nodeId: string; error: Error }> = ({
         </dl>
       </small>
       {isEditMode ? (
-        <button onClick={() => removeCell()}>{t('Remove')}</button>
+        <>
+          {resetError ? (
+            <button onClick={() => resetError()}>{t('Reset')}</button>
+          ) : null}
+          <button onClick={() => removeCell()}>{t('Remove')}</button>
+        </>
       ) : null}
     </div>
   );

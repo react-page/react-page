@@ -136,4 +136,8 @@ export type Options = {
    * pass a custom theme to the ui (mui)
    */
   uiTheme?: Theme;
+  /**
+   * whether to show errors in cells or swallow them. It will log them to the console
+   */
+  shouldShowErrorInCells?: boolean;
 };
