@@ -354,24 +354,28 @@ export const useCellInnerDivStylingProps = (
 export const useDebouncedCellData = (nodeId: string) => {
   const cellData = useCellData(nodeId);
 
+  const [currentPartialData, setCurrentPartialData] = useState<{
+    [lang: string]: Record<string, unknown>;
+  }>({});
+  const currentPartialDataRef = useRef<{
+    [lang: string]: Record<string, unknown>;
+  }>();
   const currentLang = useLang();
+
+  const currentData = useMemo(() => {
+    return {
+      ...(cellData ?? {}),
+      ...(currentPartialData[currentLang] ?? {}),
+    };
+  }, [currentLang, currentPartialData, cellData]);
+
   const updateHandles = useRef<{
     [lang: string]: {
       timeoutHandle?: NodeJS.Timeout;
-      partialData?: Record<string, unknown>;
     };
   }>({});
-  // cancel timeouts if data changed in the meantime
 
-  useEffect(() => {
-    if (updateHandles.current[currentLang]?.timeoutHandle) {
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      clearTimeout(updateHandles.current[currentLang].timeoutHandle!);
-      delete updateHandles.current[currentLang];
-    }
-  }, [cellData, currentLang]);
-
-  const updateCellDataImmediate = useUpdateCellData(nodeId);
+  const updateCellDataImmediatly = useUpdateCellData(nodeId);
 
   const onChange = useCallback(
     (
@@ -386,22 +390,29 @@ export const useDebouncedCellData = (nodeId: string) => {
       if (!updateHandles.current[lang]) {
         updateHandles.current[lang] = {};
       }
-      // merge partial data to not lose updates
-      updateHandles.current[lang].partialData = {
-        ...(updateHandles.current?.[lang]?.partialData ?? {}),
-        ...(partialData ?? {}),
+      currentPartialDataRef.current = {
+        ...(currentPartialDataRef.current ?? {}),
+        [lang]: {
+          ...(currentPartialDataRef.current?.[lang] ?? {}),
+          ...(partialData ?? {}),
+        },
       };
 
+      setCurrentPartialData(currentPartialDataRef.current);
+
       updateHandles.current[lang].timeoutHandle = setTimeout(() => {
-        updateCellDataImmediate(updateHandles.current[lang].partialData ?? {}, {
+        updateCellDataImmediatly(currentPartialDataRef.current?.[lang] ?? {}, {
           ...(options ?? {}),
           lang,
         });
+        setCurrentPartialData({ [lang]: {} });
+        if (currentPartialDataRef.current?.[lang])
+          delete currentPartialDataRef.current?.[lang];
         delete updateHandles.current[lang];
       }, 200);
     },
-    [updateCellDataImmediate, currentLang]
+    [updateCellDataImmediatly, currentLang, currentPartialData]
   );
 
-  return [cellData, onChange] as const;
+  return [currentData, onChange] as const;
 };
