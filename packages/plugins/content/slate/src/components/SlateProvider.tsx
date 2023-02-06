@@ -19,11 +19,10 @@ const SlateProvider: FC<PropsWithChildren<SlateProps>> = (props) => {
       )(withReact(withInline(plugins)(createEditor()))),
     []
   );
-  // We abuse useMemo for a side effect
-  // don't try this at home!
+
   // unfortunatly, slate broke the controlled input pattern. So we have to hack our way around it, see https://github.com/ianstormtaylor/slate/issues/4992
-  // doing it in a `useEffect` works, but there are still timing issues where updates are lost and inconsistency arise
-  useMemo(() => {
+
+  useEffect(() => {
     editor.children = data?.slate;
     try {
       // focus
@@ -41,17 +40,21 @@ const SlateProvider: FC<PropsWithChildren<SlateProps>> = (props) => {
   }, [data?.slate, data?.selection]);
 
   const onChange = useCallback(() => {
-    props.onChange(
-      {
-        slate: editor.children,
-        selection: editor.selection,
-      },
-      {
-        // mark as not undoable when state is same
-        // that happens if only selection was changed
-        notUndoable: deepEquals(editor.children, data?.slate),
-      }
-    );
+    const dataEqual = deepEquals(editor.children, data?.slate);
+    const selectionEqual = deepEquals(editor.selection, data?.selection);
+
+    if (!dataEqual || !selectionEqual)
+      props.onChange(
+        {
+          slate: editor.children,
+          selection: editor.selection,
+        },
+        {
+          // mark as not undoable when state is same
+          // that happens if only selection was changed
+          notUndoable: dataEqual,
+        }
+      );
   }, [data?.slate, props.onChange]);
 
   const initialValue = data?.slate;
