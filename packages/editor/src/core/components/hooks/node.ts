@@ -393,6 +393,7 @@ export const useDebouncedCellData = (nodeId: string) => {
       currentPartialDataRef.current = {
         ...(currentPartialDataRef.current ?? {}),
         [lang]: {
+          ...(cellData ?? {}),
           ...(currentPartialDataRef.current?.[lang] ?? {}),
           ...(partialData ?? {}),
         },
@@ -411,7 +412,7 @@ export const useDebouncedCellData = (nodeId: string) => {
         delete updateHandles.current[lang];
       }, 200);
     },
-    [updateCellDataImmediatly, currentLang, currentPartialData]
+    [updateCellDataImmediatly, currentLang, cellData]
   );
 
   return [currentData, onChange] as const;
