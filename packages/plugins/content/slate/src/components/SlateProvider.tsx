@@ -21,9 +21,12 @@ const SlateProvider: FC<PropsWithChildren<SlateProps>> = (props) => {
   );
 
   // unfortunatly, slate broke the controlled input pattern. So we have to hack our way around it, see https://github.com/ianstormtaylor/slate/issues/4992
+  useMemo(() => {
+    // better do this in use effect to avoid certain timing edge cases
+    editor.children = data?.slate;
+  }, [data?.slate]);
 
   useEffect(() => {
-    editor.children = data?.slate;
     try {
       // focus
       ReactEditor.focus(editor);
