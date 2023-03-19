@@ -1,4 +1,4 @@
-import { useTheme } from '@mui/material';
+import { AppBar, useTheme } from '@mui/material';
 import type { DrawerProps } from '@mui/material';
 import { Divider, Drawer, Portal } from '@mui/material';
 import type { FC, PropsWithChildren } from 'react';
@@ -24,10 +24,10 @@ export const BottomToolbarDrawer: FC<
   const divider = (
     <Divider
       style={{
-        marginLeft: -24,
-        marginRight: -24,
-        marginTop: 12,
-        marginBottom: 12,
+        marginLeft: -16,
+        marginRight: -16,
+        marginTop: 16,
+        marginBottom: 16,
       }}
     />
   );
@@ -49,7 +49,7 @@ export const BottomToolbarDrawer: FC<
         anchor={anchor}
         PaperProps={{
           style: {
-            zIndex: 10,
+            zIndex: 101,
             backgroundColor: 'transparent',
             border: 'none',
             overflow: 'visible',
@@ -63,8 +63,7 @@ export const BottomToolbarDrawer: FC<
             border: `${dark ? darkBlack : brightBorder} 1px solid`,
             borderRadius: '4px 4px 0 0',
             backgroundColor: dark ? darkBlack : bright,
-            padding: '12px 24px',
-
+            padding: '16px',
             ...(isSmall
               ? {
                   marginLeft: 20,
@@ -73,13 +72,16 @@ export const BottomToolbarDrawer: FC<
               : {
                   marginLeft: 'auto',
                   marginRight: 'auto',
-                  minWidth: '50vw',
-                  maxWidth: 'min(1280px, calc(100vw - 250px))',
+                  // minWidth: '50vw',
+                  // maxWidth: 'min(1280px, calc(100vw - 250px))',
+                  maxWidth: '300px',
+                  width: '100%',
+                  height: 'calc(100vh - 64px)',
+                  top: 64,
                 }),
             boxShadow: '0px 1px 8px -1px rgba(0,0,0,0.4)',
             position: 'relative',
-
-            transformOrigin: 'bottom',
+            transformOrigin: 'right',
             transform: `scale(${scale})`,
             transition: 'scale 0.3s',
             ...style,

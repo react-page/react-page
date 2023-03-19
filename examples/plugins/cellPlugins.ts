@@ -32,6 +32,7 @@ import { defaultSlate, customizedSlate } from './slate';
 import customContentPluginTwitter from './customContentPluginTwitter';
 import codeSnippet from './codeSnippet';
 import contactForm from './contactForm';
+import labeledImageSwiper from './labeledImageSwiper';
 
 const fakeImageUploadService: (url: string) => ImageUploadType =
   (defaultUrl) => (file, reportProgress) => {
@@ -76,4 +77,5 @@ export const cellPlugins = [
   }),
   customLayoutPlugin,
   customLayoutPluginWithInitialState,
+  labeledImageSwiper,
 ];

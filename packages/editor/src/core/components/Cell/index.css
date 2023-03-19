@@ -48,12 +48,14 @@
       }
       &.react-page-cell-has-plugin:hover {
         z-index: 2;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+        outline: 1px solid #1976d2;
+        border-radius: 4px;
         opacity: 1;
       }
       &.react-page-cell-focused.react-page-cell-focused {
         z-index: 1;
-        box-shadow: 0 0 50px rgba(0, 0, 0, 0.4);
+        outline: 3px solid #1976d2;
+        border-radius: 4px;
         opacity: 1;
       }
     }

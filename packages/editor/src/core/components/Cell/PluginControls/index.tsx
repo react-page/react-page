@@ -87,7 +87,7 @@ const PluginControls: React.FC<{
   return (
     <div
       style={{
-        maxHeight: '50vh',
+        maxHeight: 'calc(100% - 180px)',
         // if it has tabs, stretch to avoid jumping tabs
         width: Array.isArray(controls) ? '100vw' : undefined,
         maxWidth: '100%',

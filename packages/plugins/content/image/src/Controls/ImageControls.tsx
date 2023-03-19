@@ -11,19 +11,22 @@ const ImageControls: ImageControlType = (props) => {
   return (
     <>
       {/* Button and existing image text box */}
-      <div style={{ display: 'flex' }}>
+      <div>
         {props.imageUpload && (
           <>
             <ImageUpload
               translations={props.translations}
               imageUpload={props.imageUpload}
+              style={{
+                width: '100%',
+              }}
               imageUploaded={(image) =>
                 props.onChange({
                   src: image.url,
                 })
               }
             />
-            <Typography variant="body1" style={{ margin: '20px 16px 0 16px' }}>
+            <Typography variant="body1" style={{ marginTop: '16px' }}>
               {t(props.translations?.or)}
             </Typography>
           </>
@@ -37,6 +40,7 @@ const ImageControls: ImageControlType = (props) => {
           )}
           name="src"
           // style={{ flex: 1 }}
+          fullWidth
           value={props.data.src ?? ''}
           onChange={(e) =>
             props.onChange({
@@ -53,7 +57,7 @@ const ImageControls: ImageControlType = (props) => {
         placeholder={t(props.translations?.hrefPlaceholder) ?? ''}
         label={t(props.translations?.hrefLabel) ?? ''}
         name="href"
-        style={{ width: '400px' }}
+        fullWidth
         value={props.data.href ?? ''}
         onChange={(e) =>
           props.onChange({
@@ -82,7 +86,7 @@ const ImageControls: ImageControlType = (props) => {
         placeholder={t(props.translations?.altPlaceholder) ?? ''}
         label={t(props.translations?.altLabel) ?? ''}
         name="alt"
-        style={{ width: '400px' }}
+        fullWidth
         value={props.data.alt ?? ''}
         onChange={(e) =>
           props.onChange({

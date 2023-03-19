@@ -41,7 +41,7 @@ const EditableEditor: FC<PropsWithChildren<EditableEditorProps>> = ({
           <>
             <GlobalHotKeys focusRef={stickyNess.focusRef} />
             <Editable />
-            <EditorUI stickyNess={stickyNess} />
+            <EditorUI stickyNess={stickyNess} value={theValue} />
           </>
         )}
       </StickyWrapper>

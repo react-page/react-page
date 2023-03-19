@@ -114,7 +114,7 @@ class Inner extends React.Component<
             style={{ marginBottom: 16 }}
             value={this.state.mode}
             onChange={this.handleChangeMode}
-            centered={true}
+            variant="fullWidth"
           >
             {tabs}
           </Tabs>
@@ -126,8 +126,8 @@ class Inner extends React.Component<
         <br />
 
         {/* Render the common UI here for each tab - darken / lighten / padding */}
-        <div style={{ display: 'flex' }}>
-          <div style={{ flex: 1 }}>
+        <div>
+          <div>
             <Typography variant="body1" id="linear-gradient-darken-label">
               {this.props.translations?.darken} (
               {(darkenFinal * 100).toFixed(0)}
@@ -148,7 +148,7 @@ class Inner extends React.Component<
             />
           </div>
 
-          <div style={{ flex: 1, marginLeft: 16 }}>
+          <div>
             <Typography variant="body1" id="linear-gradient-lighten-label">
               {this.props.translations?.lighten} (
               {(lightenFinal * 100).toFixed(0)}
@@ -169,7 +169,7 @@ class Inner extends React.Component<
             />
           </div>
 
-          <div style={{ flex: 1, marginLeft: 16 }}>
+          <div>
             <FormControlLabel
               control={
                 <Switch
