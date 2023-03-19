@@ -1,5 +1,5 @@
 {
-  "name": "@react-page/editor",
+  "name": "@hussam-001/react-page-editor",
   "version": "0.0.0",
   "author": "Marco Wettstein",
   "license": "MIT",
@@ -8,7 +8,7 @@
   "sideEffects": false,
   "typings": "./lib/index.d.ts",
   "repository": {
-    "url": "https://github.com/react-page/react-page"
+    "url": "https://github.com/hussam-001/react-page"
   },
   "scripts": {
     "build": "npm-run-all --parallel build:lib build:css",
