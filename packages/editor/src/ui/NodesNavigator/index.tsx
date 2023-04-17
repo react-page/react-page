@@ -105,6 +105,7 @@ export const NodesNavigator = ({
           position: 'relative',
         }}
         aria-label="mailbox folders"
+        className="react-page-editor-nodes-navigator"
       >
         <Drawer // The implementation can be swapped with js to avoid SEO duplication of links.
           variant="temporary"

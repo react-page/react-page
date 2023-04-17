@@ -24,14 +24,16 @@ const DisplayModeToggle = ({
 } & unknown) => {
   return (
     <Tooltip title={description}>
-      <IconButton
-        color={active ? activeColor : 'default'}
-        onClick={onClick}
-        disabled={disabled}
-        {...rest}
-      >
-        {icon}
-      </IconButton>
+      <span>
+        <IconButton
+          color={active ? activeColor : 'default'}
+          onClick={onClick}
+          disabled={disabled}
+          {...rest}
+        >
+          {icon}
+        </IconButton>
+      </span>
     </Tooltip>
   );
 };

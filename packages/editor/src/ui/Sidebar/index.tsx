@@ -89,7 +89,12 @@ export const Sidebar: React.FC<{
     ...(customOptions?.map((customOption) => ({ action: customOption })) ?? []),
   ].filter(notEmpty);
   return (
-    <AppBar color="default" position="fixed" elevation={1}>
+    <AppBar
+      color="default"
+      position="fixed"
+      elevation={1}
+      className="react-page-editor-toolbar"
+    >
       <Toolbar>
         <IconButton
           color="inherit"

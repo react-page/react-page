@@ -44,7 +44,7 @@ export const BottomToolbarDrawer: FC<
           unmountOnExit: true,
         }}
         variant="persistent"
-        className={className}
+        className={`${className} react-page-editor-node-settings`}
         open={open}
         anchor={anchor}
         PaperProps={{
