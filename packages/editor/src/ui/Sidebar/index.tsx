@@ -82,7 +82,7 @@ export const Sidebar: React.FC<{
     previewEnabled
       ? { action: <TogglePreview label={t(defaultLabels.preview) ?? ''} /> }
       : null,
-    ...(customOptions?.map((customOption) => ({ action: customOption })) ?? []),
+    ...(customOptions?.map((CustomOption) => ({ action: <CustomOption /> })) ?? []),
   ].filter(notEmpty);
   return (
     <div
