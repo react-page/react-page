@@ -108,26 +108,15 @@ export const NodesNavigator = ({
         className="react-page-editor-nodes-navigator"
       >
         <Drawer // The implementation can be swapped with js to avoid SEO duplication of links.
-          variant="temporary"
+          variant="persistent"
           open={mobileOpen}
           onClose={handleDrawerToggle}
           ModalProps={{
             keepMounted: true, // Better open performance on mobile.
           }}
           sx={{
-            display: { xs: 'block', sm: 'none' },
-            '& .MuiDrawer-paper': {
-              boxSizing: 'border-box',
-              width: drawerWidth,
-            },
-          }}
-        >
-          {drawer}
-        </Drawer>
-        <Drawer
-          variant="permanent"
-          sx={{
-            display: { xs: 'none', sm: 'block' },
+            // display: { xs: 'block', sm: 'none' },
+            display: 'block',
             '& .MuiDrawer-paper': {
               zIndex: 10,
               boxSizing: 'border-box',
@@ -136,7 +125,6 @@ export const NodesNavigator = ({
               top: 64,
             },
           }}
-          open
         >
           {drawer}
         </Drawer>

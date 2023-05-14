@@ -12,12 +12,9 @@ const PageLayout: FC<PropsWithChildren> = ({ children }) => {
         component="main"
         sx={{
           flexGrow: 1,
-          // p: 3,
-          marginLeft: 'auto',
           marginRight: 'auto',
           marginTop: '64px',
-          width: { sm: `calc(100% - ${2 * drawerWidth}px)` },
-          background: (theme) => theme.palette.grey[100],
+          width: { sm: `calc(100% - ${drawerWidth}px)` },
         }}
       >
         <Box
@@ -26,7 +23,7 @@ const PageLayout: FC<PropsWithChildren> = ({ children }) => {
             p: 4,
             backgroundColor: 'white',
             maxWidth: 1280,
-            margin: 'auto',
+            marginLeft: 'auto',
           }}
         >
           {children}
