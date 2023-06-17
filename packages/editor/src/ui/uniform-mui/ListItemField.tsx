@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react';
 import React from 'react';
 
-import { IconButton } from '@mui/material';
+import { Divider } from '@mui/material';
 import type { ListItemProps } from '@mui/material/ListItem';
 import ListItemMaterial from '@mui/material/ListItem';
 import Stack from '@mui/material/Stack';
@@ -90,25 +90,36 @@ function ListItem({
   const disableSort = disableSortable ?? (parent.value ?? []).length < 2;
 
   return (
-    <ListItemMaterial
-      dense={dense}
-      disableGutters={disableGutters}
-      divider={divider}
-      ref={(node) => (disableSort ? null : drag(drop(node)))}
-      sx={{ gap: '0.5rem' }}
-    >
-      <ListSortField
-        name=""
-        iconUp={moveItemUpIcon}
-        iconDown={moveItemDownIcon}
-        handleMove={moveItem}
-        dragIcon={dragIcon}
-        disabled={disableSort}
+    <>
+      <Divider
+        sx={{
+          margin: '20px 0',
+        }}
       />
-
-      {children}
-      <ListDelField name="" icon={removeIcon} />
-    </ListItemMaterial>
+      <Stack
+        direction="row"
+        justifyContent="space-between"
+        ref={(node: DragItem) => (disableSort ? null : drag(drop(node)))}
+      >
+        <ListSortField
+          name=""
+          iconUp={moveItemUpIcon}
+          iconDown={moveItemDownIcon}
+          handleMove={moveItem}
+          dragIcon={dragIcon}
+          disabled={disableSort}
+        />
+        <ListDelField name="" icon={removeIcon} />
+      </Stack>
+      <ListItemMaterial
+        dense={dense}
+        disableGutters={disableGutters}
+        divider={divider}
+        sx={{ gap: '0.5rem', p: 0, m: 0 }}
+      >
+        {children}
+      </ListItemMaterial>
+    </>
   );
 }
 

@@ -59,7 +59,7 @@ function ListSort({
         {dragIcon}
       </IconButton>
 
-      <ButtonGroup orientation="vertical" size="large">
+      <ButtonGroup orientation="horizontal" size="large">
         <IconButton
           {...filterDOMProps(props)}
           disabled={!limitNotReachedUp}
