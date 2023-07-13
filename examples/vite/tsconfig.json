@@ -1,0 +1,62 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "incremental": true,
+    "paths": {
+      "react": [
+        "./node_modules/@types/react"
+      ]
+    }
+  },
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx"
+  ],
+  "exclude": [
+    "node_modules",
+    "build",
+    "public"
+  ],
+  "references": [
+    {
+      "path": "../../packages/editor"
+    },
+    {
+      "path": "../../packages/plugins/content/divider"
+    },
+    {
+      "path": "../../packages/plugins/content/html5-video"
+    },
+    {
+      "path": "../../packages/plugins/content/image"
+    },
+    {
+      "path": "../../packages/plugins/content/slate"
+    },
+    {
+      "path": "../../packages/plugins/content/spacer"
+    },
+    {
+      "path": "../../packages/plugins/content/video"
+    },
+    {
+      "path": "../../packages/plugins/layout/background"
+    }
+  ]
+}

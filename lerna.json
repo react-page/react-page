@@ -6,7 +6,7 @@
     "packages/plugins/content/*",
     "packages/plugins/layout/*",
     "packages/react-admin",
-    "examples"
+    "examples/*"
   ],
   "useWorkspaces": true,
   "version": "0.0.0",

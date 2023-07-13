@@ -8,7 +8,7 @@
     "packages/plugins/content/*",
     "packages/plugins/layout/*",
     "packages/react-admin",
-    "examples"
+    "examples/*"
   ],
   "devDependencies": {
     "@babel/cli": "7.2.0",
@@ -70,7 +70,8 @@
     "bootstrap": "lerna bootstrap",
     "build": "cross-env NODE_ENV=production lerna run build --stream",
     "build:lib": "cross-env NODE_ENV=production lerna run build --ignore @react-page/examples --stream",
-    "build:examples": "yarn --cwd examples build",
+    "build:examples-nextjs": "yarn --cwd examples/nextjs build",
+    "build:examples-vite": "yarn --cwd examples/vite build",
     "build:watch": "cross-env NODE_ENV=development lerna run build:watch --parallel",
     "clean": "lerna run clean",
     "clean:lerna": "lerna clean --yes",

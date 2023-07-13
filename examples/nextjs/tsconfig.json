@@ -31,28 +31,28 @@
   ],
   "references": [
     {
-      "path": "../packages/editor"
+      "path": "../../packages/editor"
     },
     {
-      "path": "../packages/plugins/content/divider"
+      "path": "../../packages/plugins/content/divider"
     },
     {
-      "path": "../packages/plugins/content/html5-video"
+      "path": "../../packages/plugins/content/html5-video"
     },
     {
-      "path": "../packages/plugins/content/image"
+      "path": "../../packages/plugins/content/image"
     },
     {
-      "path": "../packages/plugins/content/slate"
+      "path": "../../packages/plugins/content/slate"
     },
     {
-      "path": "../packages/plugins/content/spacer"
+      "path": "../../packages/plugins/content/spacer"
     },
     {
-      "path": "../packages/plugins/content/video"
+      "path": "../../packages/plugins/content/video"
     },
     {
-      "path": "../packages/plugins/layout/background"
+      "path": "../../packages/plugins/layout/background"
     }
   ]
 }

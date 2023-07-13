@@ -1,0 +1,39 @@
+
+@import './typography.css';
+@import './elements.css';
+
+body {
+  margin: 0px;
+
+  color: #333333;
+  font-size: 18px;
+  line-height: 28px;
+
+  font-family: 'Open Sans', serif;
+}
+
+p {
+  margin: 0 0 28px;
+}
+
+pre {
+  overflow-x: auto;
+}
+
+a {
+  color: #c73036;
+  font-family: Georgia, serif;
+  text-decoration: underline;
+}
+
+a:hover {
+  color: #333333;
+  text-decoration: underline;
+}
+
+
+.react-page-cell-inner-leaf {
+  padding: 20px;
+}
+
+

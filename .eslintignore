@@ -1,8 +1,8 @@
 _book/**
 config/**
 coverage/**
-examples/build/**
-examples/src/contents.ts
+examples/**/build/**
+examples/**/src/contents.ts
 **/lib/**
 **/lib-es/**
 node_modules
