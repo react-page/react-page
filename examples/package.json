@@ -30,7 +30,7 @@
     "@react-page/plugins-spacer": "0.0.0",
     "@react-page/plugins-video": "0.0.0",
     "@react-page/react-admin": "0.0.0",
-    "next": "^13",
+    "next": "^14",
     "ra-data-fakerest": "3.9.3",
     "react-admin": "^3.14.2",
     "react-katex": "^3.0.1",
