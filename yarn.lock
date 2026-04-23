@@ -3467,9 +3467,9 @@
     lodash "^4"
 
 "@xmldom/xmldom@^0.8.1":
-  version "0.8.5"
-  resolved "https://registry.npmjs.org/@xmldom/xmldom/-/xmldom-0.8.5.tgz#7f4b797cfda39355b512b4cfcc66b49b5d93d5f3"
-  integrity sha512-0dpjDLeCXYThL2YhqZcd/spuwoH+dmnFoND9ZxZkAYxp1IJUB2GP16ow2MJRsjVxy8j1Qv8BJRmN5GKnbDKCmQ==
+  version "0.8.13"
+  resolved "https://registry.yarnpkg.com/@xmldom/xmldom/-/xmldom-0.8.13.tgz#00d1dd940b218dff2e49309d410d8bb212159225"
+  integrity sha512-KRYzxepc14G/CEpEGc3Yn+JKaAeT63smlDr+vjB8jRfgTBBI9wRj/nkQEO+ucV8p8I9bfKLWp37uHgFrbntPvw==
 
 "@xobotyi/scrollbar-width@^1.9.5":
   version "1.9.5"
