@@ -10,7 +10,6 @@ see https://github.com/react-page/react-page/issues/1329
 ---
 
 [![Build Status](https://app.travis-ci.com/react-page/react-page.svg?branch=master)](https://app.travis-ci.com/react-page/react-page)
-[![Coverage Status](https://coveralls.io/repos/github/ory-am/editor/badge.svg?branch=master)](https://coveralls.io/github/ory/editor?branch=master)
 [![Docs](https://img.shields.io/badge/docs-guide-blue.svg)](https://react-page.github.io/docs)
 
 ReactPage is a smart, extensible and modern editor ("WYSIWYG") for the web written in React. If you are fed up with the limitations of `contenteditable`, you are in the right place.
