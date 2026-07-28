@@ -14,12 +14,13 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+      - run: corepack enable
       - name: Use Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '14.x'
+          node-version: '24.x'
           cache: 'yarn'
-      - run: yarn --frozen-lockfile
+      - run: yarn install --immutable
       - run: yarn build:lib || yarn build:lib
       #- run: yarn run lint
       #- run: yarn run test

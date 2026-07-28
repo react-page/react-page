@@ -83,10 +83,9 @@ ReactPage is a [monorepo](https://github.com/babel/babel/blob/master/doc/design/
 
 ```bash
 $ yarn
-$ yarn bootstrap
 ```
 
-we use [yarn](https://yarnpkg.com/lang/en/), but npm should work as well.
+We use [yarn](https://yarnpkg.com/) (version 4, managed via the `packageManager` field and corepack). Yarn workspaces link the packages together, so no separate bootstrap step is needed.
 
 ### Run the example(s)
 

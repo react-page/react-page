@@ -47,7 +47,7 @@
     "husky": "^0.14.3",
     "jest": "^26.6.3",
     "jest-react-hooks-shallow": "^1.5.1",
-    "lerna": "^3.22.0",
+    "lerna": "^9.0.7",
     "npm-run-all2": "^6.2.6",
     "postcss": "^8.4.12",
     "postcss-cli": "^9.1.0",
@@ -69,13 +69,11 @@
   "scripts": {
     "docs": "docsify serve -p 3100 ./docs",
     "analyze": "ANALYZE=true npm-run-all build",
-    "bootstrap": "lerna bootstrap",
     "build": "cross-env NODE_ENV=production lerna run build --stream",
     "build:lib": "cross-env NODE_ENV=production lerna run build --ignore @react-page/examples --stream",
     "build:examples": "yarn --cwd examples build",
     "build:watch": "cross-env NODE_ENV=development lerna run build:watch --parallel",
     "clean": "lerna run clean",
-    "clean:lerna": "lerna clean --yes",
     "lint": "eslint -c .eslintrc.js '*/**/*.{js,ts,tsx}'",
     "lint:watch": "npm-run-all watch:ts -- -c \"npm-run-all lint\"",
     "lint:fix": "yarn lint --fix",
@@ -83,7 +81,6 @@
     "dev:examples": "cross-env NODE_ENV=development lerna run dev --stream",
     "test": "cross-env NODE_ENV=test jest --coverage",
     "test:watch": "cross-env NODE_ENV=test jest --watch",
-    "postinstall": "npm-run-all bootstrap",
     "watch:ts": "chokidar \"+(packages)/*/src/**/*.(ts|tsx)\" \"+(packages)/plugins/*/src/**/*.(ts|tsx)\" --initial",
     "semantic-release": "semantic-release"
   },
@@ -186,5 +183,5 @@
       "@semantic-release/github"
     ]
   },
-  "dependencies": {}
+  "packageManager": "yarn@4.17.1+sha512.ccbfabf7d7b6b32075088be9386fb9a2e00bb6887ef07fa56effabc890a56d53da1ccc4128d62db245fcbd3961b236d75335bdf7d5320ed6eafb7588b7ad4697"
 }
