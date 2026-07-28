@@ -27,7 +27,6 @@
     "@react-page/editor": "0.0.0",
     "react-player": "^2.10.1"
   },
-  "devDependencies": {},
   "publishConfig": {
     "access": "public"
   }

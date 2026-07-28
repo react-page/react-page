@@ -1,14 +1,5 @@
 {
-  "lerna": "3.6.0",
+  "$schema": "node_modules/lerna/schemas/lerna-schema.json",
   "npmClient": "yarn",
-  "packages": [
-    "packages/editor",
-    "packages/plugins/content/*",
-    "packages/plugins/layout/*",
-    "packages/react-admin",
-    "examples"
-  ],
-  "useWorkspaces": true,
-  "version": "0.0.0",
-  "verifyAccess": false
+  "version": "0.0.0"
 }
